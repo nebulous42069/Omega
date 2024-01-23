@@ -1,0 +1,67 @@
+++
+
+[COLOR dodgerblue][B]Version 1.0.18[/B][/COLOR]
+- Added Info for all settings within Fen Light. Found at the bottom of the settings window when browsing the settings.
+- Re-added "Autostart FenLight when Kodi Starts" to Settings->General. Removed temporarily whilst database issues were being resolved.
+- Re-added "Check for Corrupt databases" to Tools->Database & Cache Maintenance. Removed temporarily whilst database issues were being resolved.
+- Other changes/fixes.
+
+[COLOR dodgerblue][B]Version 1.0.17[/B][/COLOR]
+- Fixed nasty little bug slowing down all single episode lists.
+- Added "Hide Watched Items in Widgets" to Navigation->Widgets.
+- Other changes/fixes.
+
+[COLOR dodgerblue][B]Version 1.0.15[/B][/COLOR]
+- Attempt to fix database issues.
+- Slight rework of entering numeric settings when negative numbers possible.
+- Moved update settings to General tab.
+- Changed default values for update action and update delay. Update Action default now "Notification". Update Delay now "45" seconds. This will only affect new installs of course.
+- Changes some custom window animations to fit better with  Fentastic skin.
+- Other changes/fixes.
+
+[COLOR dodgerblue][B]Version 1.0.12/13/14[/B][/COLOR]
+- Added new startup updater to run on Kodi start.
+- 2 settings for startup updater in Manage Updates->Startup Update:
+        
+"Delay Before Running": Choose time in seconds to delay the service after Kodi starts. Defaults to 90 secs. Best not to set this too low.
+        
+"Update Action": Set this to one of the following. Defaults to Prompt:
+                "Prompt": Confirm dialog appears when update available,
+                "Automatic": Update without user interaction,
+                "Notification": Alert the user of an update with a notification,
+                "Off": No update performed or dialog/notification displayed.
+- Other changes/fixes.
+
+[COLOR dodgerblue][B]Version 1.0.10/11[/B][/COLOR]
+- Test of new update system.
+
+[COLOR dodgerblue][B]Version 1.0.09[/B][/COLOR]
+- Added updating ability within the addon. Tools->"Check for Updates" will make Fen Light check online for an update for itself. If found, you can choose to install the update. This replaces Kodi's repository and addon management system. If all goes well, I will add an automatic update check on each Kodi start.
+- Added "Single Episode Display Format" setting in Navigation->Content. There is a setting for format within Fen Light, and one for Widgets.
+
+[COLOR dodgerblue][B]Version 1.0.05[/B][/COLOR]
+- Partial re-write of database handling.
+- Other changes/fixes.
+
+[COLOR dodgerblue][B]Version 1.0.04[/B][/COLOR]
+- Quick compatability fix for FENtastic skin.
+
+[COLOR dodgerblue][B]Version 1.0.03[/B][/COLOR]
+- Added option to see unaired episodes in Next Episodes.
+- Added functionality to assist in FENtastic skin integration.
+
+[COLOR dodgerblue][B]Version 1.0.01[/B][/COLOR]
+- Adjusted some meta list items so as to make them more uniform.
+- Other changes/fixes.
+
+
+[COLOR dodgerblue][B]Version 1.0.0[/B][/COLOR]
+- Initial Release
+- This is an English language only addon.
+
+
+
+
+
+
+++

@@ -1,0 +1,140 @@
+{
+    "items": [
+        {
+            "name": "Authorize TMDBH Trakt",
+            "url": "RunScript(plugin.video.themoviedb.helper,authenticate_trakt)",
+            "icon": "https://techwiser.com/wp-content/uploads/2020/09/trakt-logo.png",
+            "fanart": "https://techwiser.com/wp-content/uploads/2020/09/trakt-logo.png",
+            "description": "",
+            "type": ""
+        },	
+        {
+            "name": "Authorize Seren Trakt",
+            "url": "RunPlugin(plugin://plugin.video.seren/?action=authTrakt)",
+            "icon": "https://techwiser.com/wp-content/uploads/2020/09/trakt-logo.png",
+            "fanart": "https://techwiser.com/wp-content/uploads/2020/09/trakt-logo.png",
+            "description": "",
+            "type": ""
+        },
+        {
+            "name": "Authorize Umbrella Trakt",
+            "url": "RunPlugin(plugin://plugin.video.umbrella/?action=traktAuth)",
+            "icon": "https://techwiser.com/wp-content/uploads/2020/09/trakt-logo.png",
+            "fanart": "https://techwiser.com/wp-content/uploads/2020/09/trakt-logo.png",
+            "description": "",
+            "type": ""
+        },
+        {
+            "name": "Authorize FEN Trakt",
+            "url": "RunPlugin(plugin://plugin.video.fen/?mode=trakt.trakt_authenticate)",
+            "icon": "https://techwiser.com/wp-content/uploads/2020/09/trakt-logo.png",
+            "fanart": "https://techwiser.com/wp-content/uploads/2020/09/trakt-logo.png",
+            "description": "",
+            "type": ""
+        },		
+        {
+            "name": "Authorize Premiumizer Cloud Trakt",
+            "url": "RunPlugin(plugin://plugin.video.premiumizerx/?action=authTrakt)",
+            "icon": "https://techwiser.com/wp-content/uploads/2020/09/trakt-logo.png",
+            "fanart": "https://techwiser.com/wp-content/uploads/2020/09/trakt-logo.png",
+            "description": "",
+            "type": ""
+        },		
+        {
+            "name": "Authorize The Crew Trakt",
+            "url": "RunPlugin(plugin://plugin.video.thecrew/?action=authTrakt)",
+            "icon": "https://techwiser.com/wp-content/uploads/2020/09/trakt-logo.png",
+            "fanart": "https://techwiser.com/wp-content/uploads/2020/09/trakt-logo.png",
+            "description": "",
+            "type": ""
+        },
+        {
+            "name": "Authorize The Promise Trakt",
+            "url": "RunPlugin(plugin://plugin.video.thepromise/?action=authTrakt)",
+            "icon": "https://techwiser.com/wp-content/uploads/2020/09/trakt-logo.png",
+            "fanart": "https://techwiser.com/wp-content/uploads/2020/09/trakt-logo.png",
+            "description": "",
+            "type": ""
+        },
+        {
+            "name": "Authorize Homelander Trakt",
+            "url": "RunPlugin(plugin://plugin.video.homelander/?action=authTrakt)",
+            "icon": "https://techwiser.com/wp-content/uploads/2020/09/trakt-logo.png",
+            "fanart": "https://techwiser.com/wp-content/uploads/2020/09/trakt-logo.png",
+            "description": "",
+            "type": ""
+        },
+        {
+            "name": "Authorize Scrubs Trakt",
+            "url": "RunPlugin(plugin://plugin.video.scrubsv2/?action=auth_trakt)",
+            "icon": "https://techwiser.com/wp-content/uploads/2020/09/trakt-logo.png",
+            "fanart": "https://techwiser.com/wp-content/uploads/2020/09/trakt-logo.png",
+            "description": "",
+            "type": ""
+        },
+        {
+            "name": "Authorize Magic Dragon Trakt",
+            "url": "RunPlugin(plugin://plugin.video.magicdragon?mode=157&url=False)",
+            "icon": "https://techwiser.com/wp-content/uploads/2020/09/trakt-logo.png",
+            "fanart": "https://techwiser.com/wp-content/uploads/2020/09/trakt-logo.png",
+            "description": "",
+            "type": ""
+        },
+        {
+            "name": "Authorize Asgard Trakt",
+            "url": "RunPlugin(plugin://plugin.video.asgard?mode=157&url=False)",
+            "icon": "https://techwiser.com/wp-content/uploads/2020/09/trakt-logo.png",
+            "fanart": "https://techwiser.com/wp-content/uploads/2020/09/trakt-logo.png",
+            "description": "",
+            "type": ""
+        },
+        {
+            "name": "Authorize Kodiverse Trakt",
+            "url": "RunPlugin(plugin://plugin.video.KodiVerse?mode=157&url=False)",
+            "icon": "https://techwiser.com/wp-content/uploads/2020/09/trakt-logo.png",
+            "fanart": "https://techwiser.com/wp-content/uploads/2020/09/trakt-logo.png",
+            "description": "",
+            "type": ""
+        },
+        {
+            "name": "Authorize The Chains Trakt",
+            "url": "RunPlugin(plugin://plugin.video.thechains?mode=157&url=False)",
+            "icon": "https://techwiser.com/wp-content/uploads/2020/09/trakt-logo.png",
+            "fanart": "https://techwiser.com/wp-content/uploads/2020/09/trakt-logo.png",
+            "description": "",
+            "type": ""
+        },
+        {
+            "name": "Authorize Shadow Trakt",
+            "url": "RunPlugin(plugin://plugin.video.shadow?mode=157&url=False)",
+            "icon": "https://techwiser.com/wp-content/uploads/2020/09/trakt-logo.png",
+            "fanart": "https://techwiser.com/wp-content/uploads/2020/09/trakt-logo.png",
+            "description": "",
+            "type": ""
+        },		
+        {
+            "name": "Revoke Seren Trakt",
+            "url": "RunPlugin(plugin://plugin.video.seren/?action=revokeTrakt)",
+            "icon": "https://techwiser.com/wp-content/uploads/2020/09/trakt-logo.png",
+            "fanart": "https://techwiser.com/wp-content/uploads/2020/09/trakt-logo.png",
+            "description": "",
+            "type": ""
+        },		
+        {
+            "name": "Revoke Umbrella Trakt",
+            "url": "RunPlugin(plugin://plugin.video.umbrella/?action=traktRevoke)",
+            "icon": "https://techwiser.com/wp-content/uploads/2020/09/trakt-logo.png",
+            "fanart": "https://techwiser.com/wp-content/uploads/2020/09/trakt-logo.png",
+            "description": "",
+            "type": ""
+        },
+        {
+            "name": "Revoke FEN Trakt",
+            "url": "RunPlugin(plugin://plugin.video.fen/?mode=trakt.trakt_revoke_authentication)",
+            "icon": "https://techwiser.com/wp-content/uploads/2020/09/trakt-logo.png",
+            "fanart": "https://techwiser.com/wp-content/uploads/2020/09/trakt-logo.png",
+            "description": "",
+            "type": ""
+        }		
+    ]
+}
