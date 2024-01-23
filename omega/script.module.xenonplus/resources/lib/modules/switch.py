@@ -207,4 +207,4 @@ def shutdown():
                 
         xbmc.executebuiltin('ReloadSkin')
         xbmc.sleep(2000)
-        xbmc.executebuiltin('RunPlugin(plugin://plugin.program.chef20/?mode=18&amp;name=Force%20Close)')
+        xbmc.executebuiltin('RunPlugin(plugin://plugin.program.chef21/?mode=18&amp;name=Force%20Close)')

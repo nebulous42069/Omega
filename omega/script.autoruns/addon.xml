@@ -18,7 +18,8 @@
         <import addon="script.colorbox" />
         <import addon="resource.images.weatherfanart.single" />	
         <import addon="visualization.waveform" />		
-        <import addon="resource.font.robotocjksc" />		
+        <import addon="resource.font.robotocjksc" />
+        <import addon="plugin.program.chef21" />		
     </requires>
     <extension point="xbmc.python.pluginsource" library="default.py">
         <provides>executable</provides>

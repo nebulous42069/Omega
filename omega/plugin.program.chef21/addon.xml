@@ -12,8 +12,8 @@
 	</extension>
 	<extension point="xbmc.service" library="service.py" />
 	<extension point="xbmc.addon.metadata">
-		<summary lang="en_GB">Simple Nexus Wizard is a lightweight template for installing builds on Kodi 20 Nexus. Has some code from Aftermath Wizard by Surfacingx. Skin Switch by OpenELEQ. Base code by BYB. Credits to them and all others who contributed. Please report any bugs to @slamious on Telegram/Twitter.</summary>
-		<description lang="en_GB">Kodi Nexus 20 Wizard</description>
+		<summary lang="en_GB">Simple Omega Wizard is a lightweight template for installing builds on Kodi 20 Nexus. Has some code from Aftermath Wizard by Surfacingx. Skin Switch by OpenELEQ. Base code by BYB. Credits to them and all others who contributed. Please report any bugs to @slamious on Telegram/Twitter.</summary>
+		<description lang="en_GB">Kodi Omega 21 Wizard</description>
 		<disclaimer lang="en_GB">This Addon contains no content</disclaimer>
 		<language>en</language>
 		<platform>all</platform>

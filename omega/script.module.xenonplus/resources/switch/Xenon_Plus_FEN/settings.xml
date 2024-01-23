@@ -335,7 +335,7 @@
     <setting id="AddonSetFifteen.6.Label" type="string"></setting>
     <setting id="AddonSetTwelve.12.Icon" type="string"></setting>
     <setting id="UserSubThree.3.List" type="string"></setting>
-    <setting id="addonsetone.6.path" type="string">ActivateWindow(programs,&quot;plugin://plugin.program.chef20/&quot;,return)</setting>
+    <setting id="addonsetone.6.path" type="string">ActivateWindow(programs,&quot;plugin://plugin.program.chef21/&quot;,return)</setting>
     <setting id="addonsetthree.19.path" type="string"></setting>
     <setting id="AddonSetThirteen.25.Label" type="string"></setting>
     <setting id="SubMusic.10.Label" type="string">Hidden</setting>
@@ -509,7 +509,7 @@
     <setting id="AddonSetFive.15.Label" type="string">Torque Lite</setting>
     <setting id="AddonSetThree.4.Label" type="string">Movies Collection</setting>
     <setting id="AddonSetEight.8.Icon" type="string"></setting>
-    <setting id="SubSettings.1.Icon" type="string">special://home\addons\plugin.program.chef20\resources\icon.png</setting>
+    <setting id="SubSettings.1.Icon" type="string">special://home\addons\plugin.program.chef21\resources\icon.png</setting>
     <setting id="HomeItem.7.PlaylistContent" type="string"></setting>
     <setting id="subconcerts.4.label" type="string">Hidden</setting>
     <setting id="AddonSetFive.36.Icon" type="string"></setting>
@@ -994,7 +994,7 @@
     <setting id="HomeItem.10.List" type="string">plugin://plugin.program.super.favourites/?content_type=video&amp;fanart=http%3a%2f%2fnarcacist.com%2fimages%2fasg%2ffanart.jpg&amp;image=special%3a%2f%2fhome%2faddons%2fresource.images.skinicons.wide%2fresources%2ficons%2fmusicaddons.png&amp;label=Music%20Addons&amp;mode=400&amp;path=special%3a%2f%2fhome%5cuserdata%5caddon_data%5cplugin.program.super.favourites%5cSuper%20Favourites%5cMusic%20Addons</setting>
     <setting id="addonsettwelve.40.path" type="string"></setting>
     <setting id="addonsetten.34.path" type="string">ActivateWindow(videos,&quot;plugin://plugin.video.plutotv/&quot;,return)</setting>
-    <setting id="AddonSetOne.3.List" type="string">plugin://plugin.program.chef20/?description=%5bB%5d%5bCOLOR%20snow%5dAuthorize%20Debrid%20and%20Trakt%5b%2fCOLOR%5d%5b%2fB%5d&amp;fanart=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.program.chef20%5cresources%5cfanart.jpg&amp;icon=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.program.chef20%5cresources%5cicon.png&amp;mode=10&amp;name=%5bB%5d%5bCOLOR%20snow%5dAuthorize%20Debrid%20and%20Trakt%5b%2fCOLOR%5d%5b%2fB%5d&amp;name2&amp;url&amp;version</setting>
+    <setting id="AddonSetOne.3.List" type="string">plugin://plugin.program.chef21/?description=%5bB%5d%5bCOLOR%20snow%5dAuthorize%20Debrid%20and%20Trakt%5b%2fCOLOR%5d%5b%2fB%5d&amp;fanart=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.program.chef21%5cresources%5cfanart.jpg&amp;icon=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.program.chef21%5cresources%5cicon.png&amp;mode=10&amp;name=%5bB%5d%5bCOLOR%20snow%5dAuthorize%20Debrid%20and%20Trakt%5b%2fCOLOR%5d%5b%2fB%5d&amp;name2&amp;url&amp;version</setting>
     <setting id="usersubfive.6.path" type="string">ActivateWindow(videos,&quot;plugin://plugin.video.themoviedb.helper/?info=watch_providers&amp;tmdb_type=movie&quot;,return)</setting>
     <setting id="addonsetfour.10.path" type="string">ActivateWindow(videos,&quot;plugin://plugin.video.themoviedb.helper/?info=trakt_collection&amp;list_name=TV%20shows%20Collection&amp;tmdb_type=tv&quot;,return)</setting>
     <setting id="AddonSetNine.14.Label" type="string"></setting>
@@ -1182,7 +1182,7 @@
     <setting id="AddonSetEleven.14.Icon" type="string"></setting>
     <setting id="addonsetfive.15.path" type="string">ActivateWindow(videos,&quot;plugin://plugin.video.torquelite/&quot;,return)</setting>
     <setting id="AddonSetFive.5.List" type="string">plugin://plugin.video.daddylive/?mode=menu&amp;serv_type=sched</setting>
-    <setting id="AddonSetOne.6.Label" type="string">Chef Nexus Wizard</setting>
+    <setting id="AddonSetOne.6.Label" type="string">Chef Omega Wizard</setting>
     <setting id="addonsetsix.24.path" type="string"></setting>
     <setting id="addonsettwelve.37.path" type="string"></setting>
     <setting id="UserSubThree.10.Icon" type="string"></setting>
@@ -1433,7 +1433,7 @@
     <setting id="usermoviessubmenu" type="string">Christmas</setting>
     <setting id="SubTVShows.2.Icon" type="string">https://magnetic.website/menu%20icons/wolfgirl%20mad%20titan%20sports%20icons/Picsart_22-05-12_06-53-49-228.png</setting>
     <setting id="AddonSetTwo.18.List" type="string">plugin://plugin.video.tvone111/</setting>
-    <setting id="AddonSetOne.8.List" type="string">plugin://plugin.program.chef20/?url=&amp;mode=8&amp;name=%5BB%5D%5BCOLOR+snow%5DAdvanced+Settings%5B%2FCOLOR%5D%5B%2FB%5D&amp;icon=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.chef20%5Cresources%5Cicon.png&amp;fanart=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.chef20%5Cresources%5Cfanart.jpg&amp;description=%5BB%5D%5BCOLOR+snow%5DA+list+of+presets+to+set+the+cache+size+based+on+your+device%27s+RAM+size.%5B%2FCOLOR%5D%5B%2FB%5D&amp;name2=&amp;version=</setting>
+    <setting id="AddonSetOne.8.List" type="string">plugin://plugin.program.chef21/?url=&amp;mode=8&amp;name=%5BB%5D%5BCOLOR+snow%5DAdvanced+Settings%5B%2FCOLOR%5D%5B%2FB%5D&amp;icon=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.chef21%5Cresources%5Cicon.png&amp;fanart=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.chef21%5Cresources%5Cfanart.jpg&amp;description=%5BB%5D%5BCOLOR+snow%5DA+list+of+presets+to+set+the+cache+size+based+on+your+device%27s+RAM+size.%5B%2FCOLOR%5D%5B%2FB%5D&amp;name2=&amp;version=</setting>
     <setting id="AddonSetEleven.4.Icon" type="string">special://home\addons\resource.images.skinicons.wide\resources\icons\Christmas\christmaskids.png</setting>
     <setting id="subtvshows.5.path" type="string">ActivateWindow(videos,&quot;plugin://plugin.program.super.favourites/?content_type=video&amp;fanart=https%3a%2f%2fimgur.com%2f82AVWuC.jpg&amp;image=special%3a%2f%2fhome%2faddons%2fresource.images.skinicons.wide%2fresources%2ficons%2fppvconverted.png&amp;label=24%20%7c%20Sports%20Live%20PPV&amp;mode=400&amp;path=special%3a%2f%2fhome%5cuserdata%5caddon_data%5cplugin.program.super.favourites%5cSuper%20Favourites%5cSports%20Live%20PPV&quot;,return)</setting>
     <setting id="homeitem.8.playlisttype" type="string"></setting>
@@ -1468,7 +1468,7 @@
     <setting id="addonsetthirteen.31.path" type="string"></setting>
     <setting id="AddonSetFourteen.14.Label" type="string">Shopping</setting>
     <setting id="SubLiveTV.6.List" type="string">plugin://plugin.program.iptv.merge/?_=merge</setting>
-    <setting id="AddonSetOne.6.List" type="string">plugin://plugin.program.chef20/</setting>
+    <setting id="AddonSetOne.6.List" type="string">plugin://plugin.program.chef21/</setting>
     <setting id="sublivetv.3.path" type="string">activatewindow(tvchannels)</setting>
     <setting id="AddonSetThree.7.List" type="string">plugin://plugin.video.themoviedb.helper/?info=trakt_inprogress&amp;list_name=Your%20In-Progress%20Movies&amp;tmdb_type=movie</setting>
     <setting id="AddonSetFourteen.31.Icon" type="string"></setting>
@@ -1699,7 +1699,7 @@
     <setting id="AddonSetSeven.13.List" type="string">plugin://plugin.program.iagl/game_list/list_all/SNES_Bestof_ZachMorris</setting>
     <setting id="AddonSetFour.8.Icon" type="string">special://home/addons/resource.images.skinicons.wide/resources/icons/trakt/watchlist.png</setting>
     <setting id="UserSubFive.6.List" type="string">plugin://plugin.video.themoviedb.helper/?info=watch_providers&amp;tmdb_type=movie</setting>
-    <setting id="AddonSetOne.9.List" type="string">plugin://plugin.program.chef20/?url=&amp;mode=27&amp;name=%5BB%5D%5BCOLOR+snow%5DSpeedtest%5B%2FCOLOR%5D%5B%2FB%5D&amp;icon=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.chef20%5Cresources%5Cicon.png&amp;fanart=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.chef20%5Cresources%5Cfanart.jpg&amp;description=%5BB%5D%5BCOLOR+snow%5DSpeedtest%5B%2FCOLOR%5D%5B%2FB%5D&amp;name2=&amp;version=</setting>
+    <setting id="AddonSetOne.9.List" type="string">plugin://plugin.program.chef21/?url=&amp;mode=27&amp;name=%5BB%5D%5BCOLOR+snow%5DSpeedtest%5B%2FCOLOR%5D%5B%2FB%5D&amp;icon=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.chef21%5Cresources%5Cicon.png&amp;fanart=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.chef21%5Cresources%5Cfanart.jpg&amp;description=%5BB%5D%5BCOLOR+snow%5DSpeedtest%5B%2FCOLOR%5D%5B%2FB%5D&amp;name2=&amp;version=</setting>
     <setting id="alternativebackgroundpath" type="string"></setting>
     <setting id="AddonSetTwo.19.List" type="string">plugin://plugin.video.tvone112/</setting>
     <setting id="addonsetnine.33.path" type="string"></setting>
@@ -2465,7 +2465,7 @@
     <setting id="AddonSetTwo.7.List" type="string">plugin://plugin.video.madtitansports/get_list/https://magnetic.website/MAD_TITAN_SPORTS/LIVETV/livetv.json</setting>
     <setting id="AddonSetEight.17.Icon" type="string"></setting>
     <setting id="AddonSetNine.30.Icon" type="string"></setting>
-    <setting id="SubSettings.1.List" type="string">plugin://plugin.program.chef20/?description=%5bB%5d%5bCOLOR%20snow%5dInstall%20a%20build.%5b%2fCOLOR%5d%5b%2fB%5d&amp;fanart=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.program.chef20%5cresources%5cfanart.jpg&amp;icon=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.program.chef20%5cresources%5cicon.png&amp;mode=1&amp;name=%5bB%5d%5bCOLOR%20snow%5dBuild%20Menu%5b%2fCOLOR%5d%5b%2fB%5d&amp;name2&amp;url&amp;version</setting>
+    <setting id="SubSettings.1.List" type="string">plugin://plugin.program.chef21/?description=%5bB%5d%5bCOLOR%20snow%5dInstall%20a%20build.%5b%2fCOLOR%5d%5b%2fB%5d&amp;fanart=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.program.chef21%5cresources%5cfanart.jpg&amp;icon=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.program.chef21%5cresources%5cicon.png&amp;mode=1&amp;name=%5bB%5d%5bCOLOR%20snow%5dBuild%20Menu%5b%2fCOLOR%5d%5b%2fB%5d&amp;name2&amp;url&amp;version</setting>
     <setting id="AddonSetFour.21.Icon" type="string"></setting>
     <setting id="addonsetfourteen.3.path" type="string">ActivateWindow(videos,&quot;plugin://plugin.program.super.favourites/?content_type=video&amp;fanart=special%3a%2f%2fhome%2faddons%2fresource.images.skinicons.wide%2fresources%2fga.jpg&amp;image=special%3a%2f%2fhome%2faddons%2fresource.images.skinicons.wide%2fresources%2fga.jpg&amp;label=02%20%7c%20Classics%20Zone&amp;mode=400&amp;path=special%3a%2f%2fhome%5cuserdata%5caddon_data%5cplugin.program.super.favourites%5cSuper%20Favourites%5cExplore%5cClassics%20Zone&quot;,return)</setting>
     <setting id="AddonSetThirteen.22.Label" type="string"></setting>
@@ -2619,7 +2619,7 @@
     <setting id="upnpserver" type="string"></setting>
     <setting id="SubPictures.1.Icon" type="string">https://techwiser.com/wp-content/uploads/2020/09/trakt-logo.png</setting>
     <setting id="TMDbHelper.Date.Format" type="string"></setting>
-    <setting id="SubSettings.5.List" type="string">plugin://plugin.program.chef20/?mode=viewbuild&amp;name=Diggz%20Xenon</setting>
+    <setting id="SubSettings.5.List" type="string">plugin://plugin.program.chef21/?mode=viewbuild&amp;name=Diggz%20Xenon</setting>
     <setting id="AddonSetTen.33.Label" type="string"></setting>
     <setting id="AddonSetOne.16.Label" type="string"></setting>
     <setting id="AddonSetFive.24.Label" type="string">Halsyon Sports</setting>
@@ -2647,7 +2647,7 @@
     <setting id="HomeItem.15.PlaylistContent" type="string"></setting>
     <setting id="AddonSetFour.9.Label" type="string"></setting>
     <setting id="AddonSetThree.18.Icon" type="string"></setting>
-    <setting id="addonsetone.3.path" type="string">ActivateWindow(programs,&quot;plugin://plugin.program.chef20/?description=%5bB%5d%5bCOLOR%20snow%5dAuthorize%20Debrid%20and%20Trakt%5b%2fCOLOR%5d%5b%2fB%5d&amp;fanart=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.program.chef20%5cresources%5cfanart.jpg&amp;icon=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.program.chef20%5cresources%5cicon.png&amp;mode=10&amp;name=%5bB%5d%5bCOLOR%20snow%5dAuthorize%20Debrid%20and%20Trakt%5b%2fCOLOR%5d%5b%2fB%5d&amp;name2&amp;url&amp;version&quot;,return)</setting>
+    <setting id="addonsetone.3.path" type="string">ActivateWindow(programs,&quot;plugin://plugin.program.chef21/?description=%5bB%5d%5bCOLOR%20snow%5dAuthorize%20Debrid%20and%20Trakt%5b%2fCOLOR%5d%5b%2fB%5d&amp;fanart=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.program.chef21%5cresources%5cfanart.jpg&amp;icon=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.program.chef21%5cresources%5cicon.png&amp;mode=10&amp;name=%5bB%5d%5bCOLOR%20snow%5dAuthorize%20Debrid%20and%20Trakt%5b%2fCOLOR%5d%5b%2fB%5d&amp;name2&amp;url&amp;version&quot;,return)</setting>
     <setting id="SubSettings.5.Icon" type="string">https://diggz1.me/Images/xenon.png</setting>
     <setting id="AddonSetFifteen.9.List" type="string">plugin://plugin.video.seren/?action=moviesHome</setting>
     <setting id="AddonSetTen.21.Label" type="string">Terror Shows</setting>
@@ -3113,7 +3113,7 @@
     <setting id="AddonSetFour.4.Label" type="string">Next Episodes</setting>
     <setting id="AddonSetFifteen.11.List" type="string">plugin://plugin.video.asgard/</setting>
     <setting id="addonsetsix.5.path" type="string">ActivateWindow(music,&quot;plugin://plugin.audio.mixcloud/&quot;,return)</setting>
-    <setting id="SubPictures.1.List" type="string">plugin://plugin.program.chef20/?url=RunScript%28script.module.accountmgr%2C+action%3DtraktAuth%29&amp;mode=24&amp;name=%5BB%5D%5BCOLOR+snow%5DAuthenticate+TRAKT%5B%2FCOLOR%5D%5B%2FB%5D&amp;icon=https%3A%2F%2Ftechwiser.com%2Fwp-content%2Fuploads%2F2020%2F09%2Ftrakt-logo.png&amp;fanart=https%3A%2F%2Ftechwiser.com%2Fwp-content%2Fuploads%2F2020%2F09%2Ftrakt-logo.png&amp;description=Authenticate+TRAKT&amp;name2=&amp;version=</setting>
+    <setting id="SubPictures.1.List" type="string">plugin://plugin.program.chef21/?url=RunScript%28script.module.accountmgr%2C+action%3DtraktAuth%29&amp;mode=24&amp;name=%5BB%5D%5BCOLOR+snow%5DAuthenticate+TRAKT%5B%2FCOLOR%5D%5B%2FB%5D&amp;icon=https%3A%2F%2Ftechwiser.com%2Fwp-content%2Fuploads%2F2020%2F09%2Ftrakt-logo.png&amp;fanart=https%3A%2F%2Ftechwiser.com%2Fwp-content%2Fuploads%2F2020%2F09%2Ftrakt-logo.png&amp;description=Authenticate+TRAKT&amp;name2=&amp;version=</setting>
     <setting id="SubSettings.6.Icon" type="string">DefaultAddonSkin.png</setting>
     <setting id="AddonSetNine.31.Label" type="string"></setting>
     <setting id="AddonSetThirteen.1.Icon" type="string">special://home/addons/resource.images.skinicons.wide/resources/icons/android.jpg</setting>
@@ -3155,7 +3155,7 @@
     <setting id="HomeItem.14.Label" type="string">YouTube</setting>
     <setting id="subtvshows.2.label" type="string">TODAYS EVENTS</setting>
     <setting id="AddonSetThirteen.17.Icon" type="string"></setting>
-    <setting id="subsettings.1.path" type="string">ActivateWindow(programs,&quot;plugin://plugin.program.chef20/?description=%5bB%5d%5bCOLOR%20snow%5dInstall%20a%20build.%5b%2fCOLOR%5d%5b%2fB%5d&amp;fanart=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.program.chef20%5cresources%5cfanart.jpg&amp;icon=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.program.chef20%5cresources%5cicon.png&amp;mode=1&amp;name=%5bB%5d%5bCOLOR%20snow%5dBuild%20Menu%5b%2fCOLOR%5d%5b%2fB%5d&amp;name2&amp;url&amp;version&quot;,return)</setting>
+    <setting id="subsettings.1.path" type="string">ActivateWindow(programs,&quot;plugin://plugin.program.chef21/?description=%5bB%5d%5bCOLOR%20snow%5dInstall%20a%20build.%5b%2fCOLOR%5d%5b%2fB%5d&amp;fanart=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.program.chef21%5cresources%5cfanart.jpg&amp;icon=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.program.chef21%5cresources%5cicon.png&amp;mode=1&amp;name=%5bB%5d%5bCOLOR%20snow%5dBuild%20Menu%5b%2fCOLOR%5d%5b%2fB%5d&amp;name2&amp;url&amp;version&quot;,return)</setting>
     <setting id="AddonSetOne.1.List" type="string">plugin://plugin.program.super.favourites/?cmd=ActivateWindow(%225000%22%2c%22ActivateWindow(5000)%22%2creturn)&amp;content_type=video&amp;image=special%3a%2f%2fhome%2faddons%2fresource.images.skinicons.wide%2fresources%2ficons%2fwallpaperpacks.png&amp;label=Xenon%20Flavors&amp;mode=650</setting>
     <setting id="addonsettwelve.24.path" type="string"></setting>
     <setting id="addonseteleven.27.path" type="string"></setting>
