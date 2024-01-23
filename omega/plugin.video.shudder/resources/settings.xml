@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+
+    <category label="Shudder.com">
+    
+        <setting label="Credentials:" type="lsep"/>
+        <setting id="username"  type="text" label="E-mail" default="" />
+        <setting id="password"  type="text" label="Password" option="hidden"  default="" />
+        
+    </category>
+
+</settings>

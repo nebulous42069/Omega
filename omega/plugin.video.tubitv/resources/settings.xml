@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+
+	<category label="30015">
+		<setting type="sep" />
+		<setting label="30021" type="lsep"/>
+		<setting id="did" type="text" label="30022" default=""/>
+		<setting id="sid" type="text" label="30023" default=""/>
+		<setting type="sep" />
+	</category>
+
+</settings>

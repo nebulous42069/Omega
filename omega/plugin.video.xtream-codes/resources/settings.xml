@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+	<category label="Connection Settings">
+		<setting label="Portal 1" type="sep"/>
+		<setting id="website0" type="text" label="Website" default="http://flix12.xyz"/>
+		<setting id="username0" type="text" label="Username" default="Eliarmlurdes"/>
+		<setting id="password0" type="text"  label="Password" default="ghen2ksbl"/>
+		<setting id="port0" type="text" label="Port" default="80"/>
+		<setting label="Portal 2" type="sep"/>
+		<setting id="website1" type="text"  label="Website" default="http://tv.xtream.itv.world"/>
+		<setting id="username1" type="text"  label="Username" default="ZIXlRyPviu"/>
+		<setting id="password1" type="text"  label="Password" default="xKYh1ht0ww"/>
+		<setting id="port1" type="text"  label="Port" default="80"/>
+		<setting label="Portal 3" type="sep" visible="!eq(-4,)"/>
+		<setting id="website2" type="text"  label="Website" visible="!eq(-5,)" default="http://ip.king-cobra.eu"/>
+		<setting id="username2" type="text"  label="Username" visible="!eq(-6,)" default="W6mDdxARKo"/>
+		<setting id="password2" type="text"  label="Password" visible="!eq(-7,)" default="p1W6ScpALa"/>
+		<setting id="port2" type="text"  label="Port" visible="!eq(-8,)" default="80"/>
+		<setting label="Portal 4" type="sep" visible="!eq(-4,)"/>
+		<setting id="website3" type="text"  label="Website" visible="!eq(-5,)" default="http://flix12.xyz"/>
+		<setting id="username3" type="text"  label="Username" visible="!eq(-6,)" default="slbz1cnuj"/>
+		<setting id="password3" type="text"  label="Password" visible="!eq(-7,)" default="4w7ixaqzpe"/>
+		<setting id="port3" type="text"  label="Port" visible="!eq(-8,)" default="80"/>
+		<setting label="Portal 5" type="sep" visible="!eq(-4,)"/>
+		<setting id="website4" type="text"  label="Website" visible="!eq(-5,)" default="http://tv.xtream.itv.world"/>
+		<setting id="username4" type="text"  label="Username" visible="!eq(-6,)" default="jzal10a8di"/>
+		<setting id="password4" type="text"  label="Password" visible="!eq(-7,)" default="bvty78520nm"/>
+		<setting id="port4" type="text"  label="Port" visible="!eq(-8,)" default="80"/>
+		<setting label="Portal 6" type="sep" visible="!eq(-4,)"/>
+		<setting id="website5" type="text"  label="Website" visible="!eq(-5,)" default="http://tv.xtream.itv.world"/>
+		<setting id="username5" type="text"  label="Username" visible="!eq(-6,)" default="9reyu9q5rs"/>
+		<setting id="password5" type="text"  label="Password" visible="!eq(-7,)" default="7ryjukn6q"/>
+		<setting id="port5" type="text"  label="Port" visible="!eq(-8,)" default="80"/>
+		<setting label="Portal 7" type="sep" visible="!eq(-4,)"/>
+		<setting id="website6" type="text"  label="Website" visible="!eq(-5,)" default="http://tv.xtream.itv.world"/>
+		<setting id="username6" type="text"  label="Username" visible="!eq(-6,)" default="9yohel36eo"/>
+		<setting id="password6" type="text"  label="Password" visible="!eq(-7,)" default="agimkas63425"/>
+		<setting id="port6" type="text"  label="Port" visible="!eq(-8,)" default="80"/>
+		<setting label="Portal 8" type="sep" visible="!eq(-4,)"/>
+		<setting id="website7" type="text"  label="Website" visible="!eq(-5,)" default="http://tv.xtream.itv.world"/>
+		<setting id="username7" type="text"  label="Username" visible="!eq(-6,)" default="dux238pf8"/>
+		<setting id="password7" type="text"  label="Password" visible="!eq(-7,)" default="wijaxkt31i"/>
+		<setting id="port7" type="text"  label="Port" visible="!eq(-8,)" default="80"/>
+		<setting label="Portal 9" type="sep" visible="!eq(-4,)"/>
+		<setting id="website8" type="text"  label="Website" visible="!eq(-5,)" default="http://tv.xtream.itv.world"/>
+		<setting id="username8" type="text"  label="Username" visible="!eq(-6,)" default="5x90b62i7c"/>
+		<setting id="password8" type="text"  label="Password" visible="!eq(-7,)" default="2i28k2dx7"/>
+		<setting id="port8" type="text"  label="Port" visible="!eq(-8,)" default="80"/>
+		<setting label="Portal 10" type="sep" visible="!eq(-4,)"/>
+		<setting id="website9" type="text"  label="Website" visible="!eq(-5,)" default="http://tv.xtream.itv.world"/>
+		<setting id="username9" type="text"  label="Username" visible="!eq(-6,)" default="carloscruz"/>
+		<setting id="password9" type="text"  label="Password" visible="!eq(-7,)" default="bx3182rl1t"/>
+		<setting id="port9" type="text"  label="Port" visible="!eq(-8,)" default="80"/>
+		<setting label="Portal 11" type="sep" visible="!eq(-4,)"/>
+		<setting id="website10" type="text"  label="Website" visible="!eq(-5,)"/>
+		<setting id="username10" type="text"  label="Username" visible="!eq(-6,)"/>
+		<setting id="password10" type="text"  label="Password" visible="!eq(-7,)"/>
+		<setting id="port10" type="text"  label="Port 11" visible="!eq(-8,)"/>
+		<setting label="Portal 12" type="sep" visible="!eq(-4,)"/>
+		<setting id="website11" type="text"  label="Website" visible="!eq(-5,)"/>
+		<setting id="username11" type="text"  label="Username" visible="!eq(-6,)"/>
+		<setting id="password11" type="text"  label="Password" visible="!eq(-7,)"/>
+		<setting id="port11" type="text"  label="Port" visible="!eq(-8,)"/>
+		<setting label="Portal 13" type="sep" visible="!eq(-4,)"/>
+		<setting id="website12" type="text"  label="Website" visible="!eq(-5,)"/>
+		<setting id="username12" type="text"  label="Username" visible="!eq(-6,)"/>
+		<setting id="password12" type="text"  label="Password" visible="!eq(-7,)"/>
+		<setting id="port12" type="text"  label="Port" visible="!eq(-8,)"/>
+	</category>
+	<category label="Other Settings">
+		<setting label="Gruppen löschen" type="action" action="RunPlugin(plugin://plugin.video.xtream-codes/?action=cleargroups)"/>
+		<setting id="inputstream" type="bool" label="Use Inputstream" default="true"/>
+		<setting default="1" id="auto" label="IPTV Autoplay" type="enum" values="Auto|Countdown|Manuell" />
+    	<setting default="5" id="count" label="Countdown Zeit" type="number" option="int" visible="eq(-1,1))" />
+	</category>
+</settings>

@@ -1,0 +1,14 @@
+0.5
+- watchprowrestling.live fix
+
+0.4
+- Watchwrestling.cam fix
+
+0.3
+- list links fix
+
+0.2
+- added watchprowrestling.live
+
+0.1
+- initial version 

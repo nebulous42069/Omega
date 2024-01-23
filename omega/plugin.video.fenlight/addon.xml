@@ -1,6 +1,6 @@
 <addon id="plugin.video.fenlight" name="Fen Light" provider-name="Tikipeter" version="1.0.18">
     <requires>
-        <import addon="xbmc.python" version="3.0.0"/>
+        <import addon="xbmc.python" version="3.0.1"/>
         <import addon="script.module.requests" version="2.19.1"/>
     </requires>
     <extension library="resources/lib/fenlight.py" point="xbmc.python.pluginsource">

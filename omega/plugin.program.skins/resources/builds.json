@@ -1,0 +1,20 @@
+{
+	"builds": [
+		{
+			"name": "Build 1",
+			"version": "1.0",
+			"url": "http://",
+			"icon": "http://",
+			"fanart": "http://",
+			"description": "The first build. You need a comma after the curly bracket if this is not the last build."
+		},
+		{
+			"name": "Build 2",
+			"version": "1.0",
+			"url": "http://",
+			"icon": "http://",
+			"fanart": "http://",
+			"description": "The second build. No comma after the curly bracket if this is the last build."
+		}
+	]
+}

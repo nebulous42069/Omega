@@ -1,0 +1,368 @@
+# Kodi language file
+# Addon Name: PVR artwork and metadata module
+# Addon id: script.module.pvr.artwork
+msgid ""
+msgstr ""
+"Project-Id-Version: XBMC-Addons\n"
+"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"POT-Creation-Date: 2014-10-26 17:05+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+msgctxt "#32000"
+msgid "PVR Artwork"
+msgstr ""
+
+msgctxt "#32001"
+msgid "PVR artwork scraper"
+msgstr ""
+
+msgctxt "#32002"
+msgid "Lookup for artwork/metadata only for TV recordings"
+msgstr ""
+
+msgctxt "#32003"
+msgid "Enable TMDB online scraper"
+msgstr ""
+
+msgctxt "#32004"
+msgid "Use '|' as delimiter to enter multiple values"
+msgstr ""
+
+msgctxt "#32005"
+msgid "Lookup for artwork in local databases/custom folders first"
+msgstr ""
+
+msgctxt "#32006"
+msgid "Path to download folder"
+msgstr ""
+
+msgctxt "#32007"
+msgid "Download artwork"
+msgstr ""
+
+msgctxt "#32008"
+msgid "Fine Tuning"
+msgstr ""
+
+msgctxt "#32009"
+msgid "Use ', ' as delimiter to enter multiple values"
+msgstr ""
+
+msgctxt "#32010"
+msgid "Channels to ignore"
+msgstr ""
+
+msgctxt "#32011"
+msgid "Titles to ignore"
+msgstr ""
+
+msgctxt "#32012"
+msgid "Split title on character"
+msgstr ""
+
+msgctxt "#32013"
+msgid "Characters to replace by space in title"
+msgstr ""
+
+msgctxt "#32014"
+msgid "Characters to strip from title"
+msgstr ""
+
+msgctxt "#32015"
+msgid "unknown"
+msgstr ""
+
+msgctxt "#32016"
+msgid "max. count of downloads (poster, fanart)"
+msgstr ""
+
+msgctxt "#32017"
+msgid "Get additional Fanart from fanart.tv"
+msgstr ""
+
+msgctxt "#32018"
+msgid "Enable online scraper"
+msgstr ""
+
+msgctxt "#32019"
+msgid "Lookup artwork in a custom folder"
+msgstr ""
+
+msgctxt "#32020"
+msgid "Path to custom folder"
+msgstr ""
+
+msgctxt "#32021"
+msgid "No metadata and/or artwork found"
+msgstr ""
+
+msgctxt "#32022"
+msgid "Define Content"
+msgstr ""
+
+msgctxt "#32023"
+msgid "Fanart.tv API Key"
+msgstr ""
+
+msgctxt "#32024"
+msgid "Prefer Fanart from fanart.tv"
+msgstr ""
+
+msgctxt "#32025"
+msgid "Ignore Genres"
+msgstr ""
+
+msgctxt "#32026"
+msgid "Skip news/weather/sports/commercials..."
+msgstr ""
+
+msgctxt "#32027"
+msgid "One or more filters are active for this item. Are you sure you want to proceed?"
+msgstr ""
+
+msgctxt "#32028"
+msgid "Refresh - auto lookup"
+msgstr ""
+
+msgctxt "#32029"
+msgid "Refresh - manual lookup"
+msgstr ""
+
+msgctxt "#32030"
+msgid "Remove channel from ignore list"
+msgstr ""
+
+msgctxt "#32031"
+msgid "Add channel to ignore list"
+msgstr ""
+
+msgctxt "#32032"
+msgid "Remove title from ignore list"
+msgstr ""
+
+msgctxt "#32033"
+msgid "Add title to ignore list"
+msgstr ""
+
+msgctxt "#32034"
+msgid "Module settings"
+msgstr ""
+
+msgctxt "#32035"
+msgid "Settings for PVR artwork"
+msgstr ""
+
+msgctxt "#32036"
+msgid "Change artwork"
+msgstr ""
+
+msgctxt "#32037"
+msgid "Continuing"
+msgstr ""
+
+msgctxt "#32038"
+msgid "Ended"
+msgstr ""
+
+msgctxt "#32039"
+msgid "Returning"
+msgstr ""
+
+msgctxt "#32040"
+msgid "Released"
+msgstr ""
+
+msgctxt "#32041"
+msgid "Is the selected PVR title '%s' a Movie or TV Show?"
+msgstr ""
+
+msgctxt "#32042"
+msgid "Movie"
+msgstr ""
+
+msgctxt "#32043"
+msgid "TV Show"
+msgstr ""
+
+msgctxt "#32044"
+msgid "Log lookup results in debug log"
+msgstr ""
+
+msgctxt "#32045"
+msgid "Canceled"
+msgstr ""
+
+msgctxt "#32046"
+msgid "Remove genre from ignore list"
+msgstr ""
+
+msgctxt "#32047"
+msgid "Add genre to ignore list"
+msgstr ""
+
+msgctxt "#32048"
+msgid "Maintenance"
+msgstr ""
+
+msgctxt "#32049"
+msgid "Delete Artwork Module Entries from Cache"
+msgstr ""
+
+msgctxt "#32050"
+msgid "Delete local Artwork"
+msgstr ""
+
+msgctxt "#32051"
+msgid "Entries of PVR Artwork Module removed"
+msgstr ""
+
+msgctxt "#32052"
+msgid "API Keys / Maintenance"
+msgstr ""
+
+msgctxt "#32053"
+msgid "Necessary API Keys"
+msgstr ""
+
+msgctxt "#32054"
+msgid "TMDB API Key"
+msgstr ""
+
+msgctxt "#32055"
+msgid "Store Items in Cache for"
+msgstr ""
+
+msgctxt "#32056"
+msgid "90 Days"
+msgstr ""
+
+msgctxt "#32057"
+msgid "180 Days"
+msgstr ""
+
+msgctxt "#32058"
+msgid "360 Days"
+msgstr ""
+
+msgctxt "#32059"
+msgid "This will remove all downloaded Artwork from '%s' Folder! Do you want to continue?"
+msgstr ""
+
+msgctxt "#32060"
+msgid "1"
+msgstr ""
+
+msgctxt "#32061"
+msgid "2"
+msgstr ""
+
+msgctxt "#32062"
+msgid "3"
+msgstr ""
+
+msgctxt "#32063"
+msgid "4"
+msgstr ""
+
+msgctxt "#32064"
+msgid "5"
+msgstr ""
+
+msgctxt "#32065"
+msgid "PVR Artwork Module..."
+msgstr ""
+
+msgctxt "#32070"
+msgid "%s Folders deleted"
+msgstr ""
+
+msgctxt "#32071"
+msgid "Delete Folders"
+msgstr ""
+
+msgctxt "#32102"
+msgid "Search for Artwork and/or Metadata only for TV recordings."
+msgstr ""
+
+msgctxt "#32103"
+msgid "Search online using the TMDB. This requires a valid TMDB API key otherwise the online search will be skipped."
+msgstr ""
+
+msgctxt "#32104"
+msgid "Split titles on this char(s) starts from right. Note that only the first part of the title will be used for searching. Separate multiple spilt chars with pipe '|'"
+msgstr ""
+
+msgctxt "#32105"
+msgid "Search at first in local movie and tv show databases and local folders. Previous downloaded files in the download folder are included."
+msgstr ""
+
+msgctxt "#32106"
+msgid "Define a path to the download folder. This can also be a network path that can be shared with other clients. The default path points to the addon_data folder."
+msgstr ""
+
+msgctxt "#32107"
+msgid "Saves online artwork in a special download folder."
+msgstr ""
+
+msgctxt "#32110"
+msgid "Define PVR channel names to ignored here (news channels, advertisement, home shopping etc.). Comma separated."
+msgstr ""
+
+msgctxt "#32111"
+msgid "Define broadcast titles to ignored here (news, advertisement, documentation etc.). Comma separated."
+msgstr ""
+
+msgctxt "#32113"
+msgid "Replace this char(s) by space. Separate multiple chars with pipe '|'"
+msgstr ""
+
+msgctxt "#32114"
+msgid "Remove this char(s) or string(s) from titles. Separate  multiple chars/strings with pipe '|'"
+msgstr ""
+
+msgctxt "#32116"
+msgid "Maximum downloads for Poster and fanarts."
+msgstr ""
+
+msgctxt "#32125"
+msgid "Define special genres to ignored here (sports, news, game shows etc.). Comma separated."
+msgstr ""
+
+msgctxt "#32117"
+msgid "Get additional Fanart using fanart.tv. This requires a valid API key from fanart.tv otherwise the online search will be skipped."
+msgstr ""
+
+msgctxt "#32123"
+msgid "Your personal API key. If you don't own a key, request one on the website of fanart.tv. Without a personal key it's not possible to download additional artwork from fanart.tv."
+msgstr ""
+
+msgctxt "#32126"
+msgid "Ignore common genres like news, weather, sports, advertisement, shopping etc. This needs a correct tagged EPG from your EPG provider."
+msgstr ""
+
+msgctxt "#32144"
+msgid "Log search results in debug log using formatted output. May significant increase the size of the log."
+msgstr ""
+
+msgctxt "#32149"
+msgid "Remove all entries of PVR Artwork Module with the current Module Index from SimpleCache Database."
+msgstr ""
+
+msgctxt "#32150"
+msgid "Remove all Artwork Folders from local Download Directory of PVR Artwork Module."
+msgstr ""
+
+msgctxt "#32154"
+msgid "Your personal API key. If you don't own a key, request one on the website of the TMDB (www.tmdb.org). Without a personal key a search using the TMDB option is not possible."
+msgstr ""
+
+msgctxt "#32155"
+msgid "Maximum lifetime for data stored (and used) within a cache. If you want to refresh data earlier, use 'update artwork manual' of the addon settings within the context menu."
+msgstr ""

@@ -1,0 +1,5 @@
+<settings>
+    <category label="General">
+        <setting id="quality" type="labelenum" lvalues="30201|30202|30203|30204|30205" label="Prefered Quality" default="Disabled"/> 
+    </category>
+</settings>                                                                                 

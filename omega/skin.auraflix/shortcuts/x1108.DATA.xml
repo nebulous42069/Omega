@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<shortcuts>
+	<shortcut>
+		<defaultID />
+		<label>$LOCALIZE[31842]</label> <!-- Action -->
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb></thumb>
+		<action></action>
+	</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>$LOCALIZE[31843]</label> <!-- Animation -->
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+                <thumb></thumb>
+                <action></action>
+	</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>$LOCALIZE[31844]</label> <!-- Anime -->
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+                <thumb></thumb>
+                <action></action>
+	</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>$LOCALIZE[31845]</label> <!-- Comedy -->
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+                <thumb></thumb>
+                <action></action>
+	</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>$LOCALIZE[31846]</label> <!-- Crime -->
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+                <thumb></thumb>
+                <action></action>
+	</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>$LOCALIZE[31847]</label> <!-- Documentary -->
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+                <thumb></thumb>
+                <action></action>
+	</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>$LOCALIZE[31848]</label> <!-- Drama -->
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+                <thumb></thumb>
+                <action></action>
+	</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>$LOCALIZE[31849]</label> <!-- Family -->
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+                <thumb></thumb>
+                <action></action>
+	</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>$LOCALIZE[31850]</label> <!-- History -->
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+                <thumb></thumb>
+                <action></action>
+	</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>$LOCALIZE[31851]</label> <!-- Horror -->
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+                <thumb></thumb>
+                <action></action>
+	</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>$LOCALIZE[31852]</label> <!-- Mystery -->
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+                <thumb></thumb>
+                <action></action>
+	</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>$LOCALIZE[31853]</label> <!-- Romance -->
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+                <thumb></thumb>
+                <action></action>
+	</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>$LOCALIZE[31854]</label> <!-- Science Fiction -->
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+                <thumb></thumb>
+                <action></action>
+	</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>$LOCALIZE[31855]</label> <!-- Superhero -->
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+                <thumb></thumb>
+                <action></action>
+	</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>$LOCALIZE[31856]</label> <!-- Thriller -->
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+                <thumb></thumb>
+                <action></action>
+	</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>$LOCALIZE[31857]</label> <!-- War -->
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+                <thumb></thumb>
+                <action></action>
+	</shortcut>
+</shortcuts>

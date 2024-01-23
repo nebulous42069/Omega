@@ -1,0 +1,985 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <allowoverlay>no</allowoverlay>
+    <controls>
+        <control type="group">
+            <animation effect="fade" time="250">WindowOpen</animation>
+            <animation effect="fade" time="250">WindowClose</animation>
+            <control type="image">
+                <posx>0</posx>
+                <posy>0</posy>
+                <width>1920</width>
+                <height>1080</height>
+                <aspectratio>scale</aspectratio>
+                <texture>TVGuide-Background.jpg</texture>
+            </control>
+            <control type="image">
+                <posx>0</posx>
+                <posy>0</posy>
+                <width>1920</width>
+                <height>1080</height>
+                <aspectratio>scale</aspectratio>
+                <texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+                <fadetime>600</fadetime>
+                <animation effect="fade" time="600">Visible</animation>
+                <animation effect="fade" time="600">Hidden</animation>
+                <visible>!String.IsEmpty(ListItem.Art(tvshow.fanart))</visible>
+            </control>
+            <control type="image">
+                <posx>0</posx>
+                <posy>0</posy>
+                <width>1920</width>
+                <height>1080</height>
+                <aspectratio>scale</aspectratio>
+                <texture>TVGuide-ContentPanel.png</texture>
+                <colordiffuse>FFC0C0C0</colordiffuse>
+                <animation effect="fade" end="85" condition="true">Conditional</animation>
+            </control>
+        </control>
+        <control type="grouplist" id="2000">
+            <posx>58</posx>
+            <posy>90</posy>
+            <width>1804</width>
+            <height>990</height>
+            <orientation>horizontal</orientation>
+            <align>center</align>
+            <itemgap>3</itemgap>
+            <control type="group">
+                <description>Monday</description>
+                <visible>!String.IsEqual(Window(Home).Property(NextAired.201.Wday),)</visible>
+                <width>255</width>
+                <height>982</height>
+                <control type="image">
+                    <description>Bg</description>
+                    <posx>0</posx>
+                    <posy>20</posy>
+                    <width>255</width>
+                    <height>30</height>
+                    <aspectratio>stretch</aspectratio>
+                    <texture background="true">TVGuide-TopDays.png</texture>
+                </control>
+                <control type="label">
+                    <posx>0</posx>
+                    <posy>20</posy>
+                    <width>255</width>
+                    <height>30</height>
+                    <label>$LOCALIZE[11]</label>
+                    <align>center</align>
+                    <aligny>center</aligny>
+                    <textcolor>FF000000</textcolor>
+                </control>
+                <control type="panel" id="201">
+                    <posx>0</posx>
+                    <posy>50</posy>
+                    <width>255</width>
+                    <height>450</height>
+                    <onup>201</onup>
+                    <ondown>201</ondown>
+                    <onleft>200</onleft>
+                    <onright>202</onright>
+                    <itemlayout height="150" width="255">
+                        <control type="image">
+                            <description>Bg</description>
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>255</width>
+                            <height>150</height>
+                            <texture background="true">TVGuide-CalDay.png</texture>
+                            <visible>!ListItem.Property(SecondWeek)</visible>
+                        </control>
+                        <control type="image">
+                            <description>Bg</description>
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>255</width>
+                            <height>150</height>
+                            <texture background="true">$INFO[ListItem.Icon]</texture>
+                        </control>
+                        <control type="image">
+                            <description>Bg</description>
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>255</width>
+                            <height>150</height>
+                            <texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+                            <visible>String.IsEmpty(ListItem.Icon)</visible>
+                        </control>
+                    </itemlayout>
+                    <focusedlayout height="150" width="255">
+                        <control type="image">
+                            <description>Bg</description>
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>255</width>
+                            <height>150</height>
+                            <texture background="true">$INFO[ListItem.Icon]</texture>
+                        </control>
+                        <control type="image">
+                            <description>Bg</description>
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>255</width>
+                            <height>150</height>
+                            <texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+                            <visible>String.IsEmpty(ListItem.Icon)</visible>
+                        </control>
+                        <control type="image">
+                            <description>Bg</description>
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>255</width>
+                            <height>150</height>
+                            <texture background="true">TVGuide-CalDay-Focus.png</texture>
+                            <animation type="Conditional" condition="true">
+                                <effect type="fade" delay="2000" start="0" end="50" time="1000" />
+                            </animation>
+                        </control>
+                    </focusedlayout>
+                </control>
+            </control>
+            <control type="group">
+                <description>Tuesday</description>
+                <visible>!String.IsEqual(Window(Home).Property(NextAired.202.Wday),)</visible>
+                <width>255</width>
+                <height>982</height>
+                <control type="image">
+                    <description>Bg</description>
+                    <posx>0</posx>
+                    <posy>20</posy>
+                    <width>255</width>
+                    <height>30</height>
+                    <aspectratio>stretch</aspectratio>
+                    <texture background="true">TVGuide-TopDays.png</texture>
+                </control>
+                <control type="label">
+                    <posx>0</posx>
+                    <posy>20</posy>
+                    <width>255</width>
+                    <height>30</height>
+                    <label>$LOCALIZE[12]</label>
+                    <align>center</align>
+                    <aligny>center</aligny>
+                    <textcolor>FF000000</textcolor>
+                </control>
+                <control type="panel" id="202">
+                    <posx>0</posx>
+                    <posy>50</posy>
+                    <width>255</width>
+                    <height>450</height>
+                    <scrolltime>200</scrolltime>
+                    <onup>202</onup>
+                    <ondown>202</ondown>
+                    <onleft>201</onleft>
+                    <onright>203</onright>
+                    <itemlayout height="150" width="255">
+                        <control type="image">
+                            <description>Bg</description>
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>255</width>
+                            <height>150</height>
+                            <texture background="true">TVGuide-CalDay.png</texture>
+                            <visible>!ListItem.Property(SecondWeek)</visible>
+                        </control>
+                        <control type="image">
+                            <description>Bg</description>
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>255</width>
+                            <height>150</height>
+                            <texture background="true">$INFO[ListItem.Icon]</texture>
+                        </control>
+                        <control type="image">
+                            <description>Bg</description>
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>255</width>
+                            <height>150</height>
+                            <texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+                            <visible>String.IsEmpty(ListItem.Icon)</visible>
+                        </control>
+                    </itemlayout>
+                    <focusedlayout height="150" width="255">
+                        <control type="image">
+                            <description>Bg</description>
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>255</width>
+                            <height>150</height>
+                            <texture background="true">$INFO[ListItem.Icon]</texture>
+                        </control>
+                        <control type="image">
+                            <description>Bg</description>
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>255</width>
+                            <height>150</height>
+                            <texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+                            <visible>String.IsEmpty(ListItem.Icon)</visible>
+                        </control>
+                        <control type="image">
+                            <description>Bg</description>
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>255</width>
+                            <height>150</height>
+                            <texture background="true">TVGuide-CalDay-Focus.png</texture>
+                            <animation type="Conditional" condition="true">
+                                <effect type="fade" delay="2000" start="0" end="50" time="1000" />
+                            </animation>
+                        </control>
+                    </focusedlayout>
+                </control>
+            </control>
+            <control type="group">
+                <description>wednesday</description>
+                <visible>!String.IsEqual(Window(Home).Property(NextAired.203.Wday),)</visible>
+                <width>255</width>
+                <height>982</height>
+                <control type="image">
+                    <description>Bg</description>
+                    <posx>0</posx>
+                    <posy>20</posy>
+                    <width>255</width>
+                    <height>30</height>
+                    <aspectratio>stretch</aspectratio>
+                    <texture background="true">TVGuide-TopDays.png</texture>
+                </control>
+                <control type="label">
+                    <posx>0</posx>
+                    <posy>20</posy>
+                    <width>255</width>
+                    <height>30</height>
+                    <label>$LOCALIZE[13]</label>
+                    <align>center</align>
+                    <aligny>center</aligny>
+                    <textcolor>FF000000</textcolor>
+                </control>
+                <control type="panel" id="203">
+                    <posx>0</posx>
+                    <posy>50</posy>
+                    <width>255</width>
+                    <height>450</height>
+                    <scrolltime>200</scrolltime>
+                    <onup>203</onup>
+                    <ondown>203</ondown>
+                    <onleft>202</onleft>
+                    <onright>204</onright>
+                    <itemlayout height="150" width="255">
+                        <control type="image">
+                            <description>Bg</description>
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>255</width>
+                            <height>150</height>
+                            <texture background="true">TVGuide-CalDay.png</texture>
+                            <visible>!ListItem.Property(SecondWeek)</visible>
+                        </control>
+                        <control type="image">
+                            <description>Bg</description>
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>255</width>
+                            <height>150</height>
+                            <texture background="true">$INFO[ListItem.Icon]</texture>
+                        </control>
+                        <control type="image">
+                            <description>Bg</description>
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>255</width>
+                            <height>150</height>
+                            <texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+                            <visible>String.IsEmpty(ListItem.Icon)</visible>
+                        </control>
+                    </itemlayout>
+                    <focusedlayout height="150" width="255">
+                        <control type="image">
+                            <description>Bg</description>
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>255</width>
+                            <height>150</height>
+                            <texture background="true">$INFO[ListItem.Icon]</texture>
+                        </control>
+                        <control type="image">
+                            <description>Bg</description>
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>255</width>
+                            <height>150</height>
+                            <texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+                            <visible>String.IsEmpty(ListItem.Icon)</visible>
+                        </control>
+                        <control type="image">
+                            <description>Bg</description>
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>255</width>
+                            <height>150</height>
+                            <texture background="true">TVGuide-CalDay-Focus.png</texture>
+                            <animation type="Conditional" condition="true">
+                                <effect type="fade" delay="2000" start="0" end="50" time="1000" />
+                            </animation>
+                        </control>
+                    </focusedlayout>
+                </control>
+            </control>
+            <control type="group">
+                <description>thursday</description>
+                <visible>!String.IsEqual(Window(Home).Property(NextAired.204.Wday),)</visible>
+                <width>255</width>
+                <height>982</height>
+                <control type="image">
+                    <description>Bg</description>
+                    <posx>0</posx>
+                    <posy>20</posy>
+                    <width>255</width>
+                    <height>30</height>
+                    <aspectratio>stretch</aspectratio>
+                    <texture background="true">TVGuide-TopDays.png</texture>
+                </control>
+                <control type="label">
+                    <posx>0</posx>
+                    <posy>20</posy>
+                    <width>255</width>
+                    <height>30</height>
+                    <label>$LOCALIZE[14]</label>
+                    <align>center</align>
+                    <aligny>center</aligny>
+                    <textcolor>FF000000</textcolor>
+                </control>
+                <control type="panel" id="204">
+                    <posx>0</posx>
+                    <posy>50</posy>
+                    <width>255</width>
+                    <height>450</height>
+                    <scrolltime>200</scrolltime>
+                    <onup>204</onup>
+                    <ondown>204</ondown>
+                    <onleft>203</onleft>
+                    <onright>205</onright>
+                    <itemlayout height="150" width="255">
+                        <control type="image">
+                            <description>Bg</description>
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>255</width>
+                            <height>150</height>
+                            <texture background="true">TVGuide-CalDay.png</texture>
+                            <visible>!ListItem.Property(SecondWeek)</visible>
+                        </control>
+                        <control type="image">
+                            <description>Bg</description>
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>255</width>
+                            <height>150</height>
+                            <texture background="true">$INFO[ListItem.Icon]</texture>
+                        </control>
+                        <control type="image">
+                            <description>Bg</description>
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>255</width>
+                            <height>150</height>
+                            <texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+                            <visible>String.IsEmpty(ListItem.Icon)</visible>
+                        </control>
+                    </itemlayout>
+                    <focusedlayout height="150" width="255">
+                        <control type="image">
+                            <description>Bg</description>
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>255</width>
+                            <height>150</height>
+                            <texture background="true">$INFO[ListItem.Icon]</texture>
+                        </control>
+                        <control type="image">
+                            <description>Bg</description>
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>255</width>
+                            <height>150</height>
+                            <texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+                            <visible>String.IsEmpty(ListItem.Icon)</visible>
+                        </control>
+                        <control type="image">
+                            <description>Bg</description>
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>255</width>
+                            <height>150</height>
+                            <texture background="true">TVGuide-CalDay-Focus.png</texture>
+                            <animation type="Conditional" condition="true">
+                                <effect type="fade" delay="2000" start="0" end="50" time="1000" />
+                            </animation>
+                        </control>
+                    </focusedlayout>
+                </control>
+            </control>
+            <control type="group">
+                <description>friday</description>
+                <visible>!String.IsEqual(Window(Home).Property(NextAired.205.Wday),)</visible>
+                <width>255</width>
+                <height>982</height>
+                <control type="image">
+                    <description>Bg</description>
+                    <posx>0</posx>
+                    <posy>20</posy>
+                    <width>255</width>
+                    <height>30</height>
+                    <aspectratio>stretch</aspectratio>
+                    <texture background="true">TVGuide-TopDays.png</texture>
+                </control>
+                <control type="label">
+                    <posx>0</posx>
+                    <posy>20</posy>
+                    <width>255</width>
+                    <height>30</height>
+                    <label>$LOCALIZE[15]</label>
+                    <align>center</align>
+                    <aligny>center</aligny>
+                    <textcolor>FF000000</textcolor>
+                </control>
+                <control type="panel" id="205">
+                    <posx>0</posx>
+                    <posy>50</posy>
+                    <width>255</width>
+                    <height>450</height>
+                    <scrolltime>200</scrolltime>
+                    <onup>205</onup>
+                    <ondown>205</ondown>
+                    <onleft>204</onleft>
+                    <onright>206</onright>
+                    <itemlayout height="150" width="255">
+                        <control type="image">
+                            <description>Bg</description>
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>255</width>
+                            <height>150</height>
+                            <texture background="true">TVGuide-CalDay.png</texture>
+                            <visible>!ListItem.Property(SecondWeek)</visible>
+                        </control>
+                        <control type="image">
+                            <description>Bg</description>
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>255</width>
+                            <height>150</height>
+                            <texture background="true">$INFO[ListItem.Icon]</texture>
+                        </control>
+                        <control type="image">
+                            <description>Bg</description>
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>255</width>
+                            <height>150</height>
+                            <texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+                            <visible>String.IsEmpty(ListItem.Icon)</visible>
+                        </control>
+                    </itemlayout>
+                    <focusedlayout height="150" width="255">
+                        <control type="image">
+                            <description>Bg</description>
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>255</width>
+                            <height>150</height>
+                            <texture background="true">$INFO[ListItem.Icon]</texture>
+                        </control>
+                        <control type="image">
+                            <description>Bg</description>
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>255</width>
+                            <height>150</height>
+                            <texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+                            <visible>String.IsEmpty(ListItem.Icon)</visible>
+                        </control>
+                        <control type="image">
+                            <description>Bg</description>
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>255</width>
+                            <height>150</height>
+                            <texture background="true">TVGuide-CalDay-Focus.png</texture>
+                            <animation type="Conditional" condition="true">
+                                <effect type="fade" delay="2000" start="0" end="50" time="1000" />
+                            </animation>
+                        </control>
+                    </focusedlayout>
+                </control>
+            </control>
+            <control type="group">
+                <description>saturday</description>
+                <visible>!String.IsEqual(Window(Home).Property(NextAired.206.Wday),)</visible>
+                <width>255</width>
+                <height>982</height>
+                <control type="image">
+                    <description>Bg</description>
+                    <posx>0</posx>
+                    <posy>20</posy>
+                    <width>255</width>
+                    <height>30</height>
+                    <aspectratio>stretch</aspectratio>
+                    <texture background="true">TVGuide-TopDays.png</texture>
+                </control>
+                <control type="label">
+                    <posx>0</posx>
+                    <posy>20</posy>
+                    <width>255</width>
+                    <height>30</height>
+                    <label>$LOCALIZE[16]</label>
+                    <align>center</align>
+                    <aligny>center</aligny>
+                    <textcolor>FF000000</textcolor>
+                </control>
+                <control type="panel" id="206">
+                    <posx>0</posx>
+                    <posy>50</posy>
+                    <width>255</width>
+                    <height>450</height>
+                    <scrolltime>200</scrolltime>
+                    <onup>206</onup>
+                    <ondown>206</ondown>
+                    <onleft>205</onleft>
+                    <onright>207</onright>
+                    <itemlayout height="150" width="255">
+                        <control type="image">
+                            <description>Bg</description>
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>255</width>
+                            <height>150</height>
+                            <texture background="true">TVGuide-CalDay.png</texture>
+                            <visible>!ListItem.Property(SecondWeek)</visible>
+                        </control>
+                        <control type="image">
+                            <description>Bg</description>
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>255</width>
+                            <height>150</height>
+                            <texture background="true">$INFO[ListItem.Icon]</texture>
+                        </control>
+                        <control type="image">
+                            <description>Bg</description>
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>255</width>
+                            <height>150</height>
+                            <texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+                            <visible>String.IsEmpty(ListItem.Icon)</visible>
+                        </control>
+                    </itemlayout>
+                    <focusedlayout height="150" width="255">
+                        <control type="image">
+                            <description>Bg</description>
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>255</width>
+                            <height>150</height>
+                            <texture background="true">$INFO[ListItem.Icon]</texture>
+                        </control>
+                        <control type="image">
+                            <description>Bg</description>
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>255</width>
+                            <height>150</height>
+                            <texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+                            <visible>String.IsEmpty(ListItem.Icon)</visible>
+                        </control>
+                        <control type="image">
+                            <description>Bg</description>
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>255</width>
+                            <height>150</height>
+                            <texture background="true">TVGuide-CalDay-Focus.png</texture>
+                            <animation type="Conditional" condition="true">
+                                <effect type="fade" delay="2000" start="0" end="50" time="1000" />
+                            </animation>
+                        </control>
+                    </focusedlayout>
+                </control>
+            </control>
+            <control type="group">
+                <description>sunday</description>
+                <visible>!String.IsEqual(Window(Home).Property(NextAired.200.Wday),)</visible>
+                <width>255</width>
+                <height>982</height>
+                <control type="image">
+                    <description>Bg</description>
+                    <posx>0</posx>
+                    <posy>20</posy>
+                    <width>255</width>
+                    <height>30</height>
+                    <aspectratio>stretch</aspectratio>
+                    <texture background="true">TVGuide-TopDays.png</texture>
+                </control>
+                <control type="label">
+                    <posx>0</posx>
+                    <posy>20</posy>
+                    <width>255</width>
+                    <height>30</height>
+                    <label>$LOCALIZE[17]</label>
+                    <align>center</align>
+                    <aligny>center</aligny>
+                    <textcolor>FF000000</textcolor>
+                </control>
+                <control type="panel" id="200">
+                    <posx>0</posx>
+                    <posy>50</posy>
+                    <width>255</width>
+                    <height>450</height>
+                    <scrolltime>200</scrolltime>
+                    <onup>200</onup>
+                    <ondown>200</ondown>
+                    <onleft>9000</onleft>
+                    <onright>201</onright>
+                    <itemlayout height="150" width="255">
+                        <control type="image">
+                            <description>Bg</description>
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>255</width>
+                            <height>150</height>
+                            <texture background="true">TVGuide-CalDay.png</texture>
+                            <visible>!ListItem.Property(SecondWeek)</visible>
+                        </control>
+                        <control type="image">
+                            <description>Bg</description>
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>255</width>
+                            <height>150</height>
+                            <texture background="true">$INFO[ListItem.Icon]</texture>
+                        </control>
+                        <control type="image">
+                            <description>Bg</description>
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>255</width>
+                            <height>150</height>
+                            <texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+                            <visible>String.IsEmpty(ListItem.Icon)</visible>
+                        </control>
+                    </itemlayout>
+                    <focusedlayout height="150" width="255">
+                        <control type="image">
+                            <description>Bg</description>
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>255</width>
+                            <height>150</height>
+                            <texture background="true">$INFO[ListItem.Icon]</texture>
+                        </control>
+                        <control type="image">
+                            <description>Bg</description>
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>255</width>
+                            <height>150</height>
+                            <texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+                            <visible>String.IsEmpty(ListItem.Icon)</visible>
+                        </control>
+                        <control type="image">
+                            <description>Bg</description>
+                            <posx>0</posx>
+                            <posy>0</posy>
+                            <width>255</width>
+                            <height>150</height>
+                            <texture background="true">TVGuide-CalDay-Focus.png</texture>
+                            <animation type="Conditional" condition="true">
+                                <effect type="fade" delay="2000" start="0" end="50" time="1000" />
+                            </animation>
+                        </control>
+                    </focusedlayout>
+                </control>
+            </control>
+        </control>
+        <control type="group">
+            <top>-300</top>
+            <posx>0</posx>
+            <posy>0</posy>
+            <width>1920</width>
+            <height>1080</height>
+            <animation effect="slide" time="400" start="0,0" end="-450,-900" easing="in" tween="cubic" condition="Control.HasFocus(2000)">Conditional</animation>
+            <control type="image">
+                <left>0</left>
+                <top>936</top>
+                <width>1920</width>
+                <height>435</height>
+                <texture>TVGuide-CalDay-Focus.png</texture>
+                <colordiffuse>FF004D00</colordiffuse>
+                <animation effect="fade" end="85" condition="true">Conditional</animation>
+            </control>
+            <control type="image">
+                <left>33</left>
+                <top>963</top>
+                <width>450</width>
+                <height>375</height>
+                <texture fallback="DefaultVideoCover.png" background="true">$INFO[ListItem.Art(tvshow.poster)]</texture>
+                <bordertexture border="-25">frame.png</bordertexture>
+                <fadetime>FanartCrossFadeTime</fadetime>
+                <aspectratio>keep</aspectratio>
+            </control>
+            <control type="image">
+                <left>630</left>
+                <top>963</top>
+                <height>207</height>
+                <texture>$INFO[ListItem.Art(tvshow.characterart)]</texture>
+                <aspectratio>keep</aspectratio>
+            </control>
+            <control type="image">
+                <left>502</left>
+                <top>963</top>
+                <height>195</height>
+                <texture>$INFO[ListItem.Art(tvshow.clearart)]</texture>
+                <aspectratio>keep</aspectratio>
+                <visible>String.IsEmpty(ListItem.Art(tvshow.characterart))</visible>
+            </control>
+            <control type="image">
+                <left>1350</left>
+                <top>963</top>
+                <height>282</height>
+                <texture background="true">$INFO[Container.ListItem.Art.Thumb]</texture>
+                <bordertexture border="-12">frame.png</bordertexture>
+                <fadetime>FanartCrossFadeTime</fadetime>
+                <aspectratio>keep</aspectratio>
+            </control>
+            <control type="image">
+                <left>1350</left>
+                <top>963</top>
+                <height>282</height>
+                <texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+                <bordertexture border="-12">frame.png</bordertexture>
+                <fadetime>FanartCrossFadeTime</fadetime>
+                <aspectratio>keep</aspectratio>
+                <visible>String.IsEmpty(Container.ListItem.Art.Thumb)</visible>
+            </control>
+            <control type="label">
+                <left>483</left>
+                <top>945</top>
+                <width>1407</width>
+                <height>45</height>
+                <textcolor>FF004D00</textcolor>
+                <shadowcolor>FFFFFFFF</shadowcolor>
+                <label>$INFO[Container.ListItem.TVShowTitle]</label>
+                <scroll>true</scroll>
+            </control>
+            <control type="label">
+                <left>483</left>
+                <top>982</top>
+                <width>1407</width>
+                <height>45</height>
+                <textcolor>FFFFFFFF</textcolor>
+                <shadowcolor>FFFFFFFF</shadowcolor>
+                <label>$INFO[Container.ListItem.Genre]</label>
+            </control>
+            <control type="image">
+                <left>483</left>
+                <top>1167</top>
+                <width>1050</width>
+                <height>4</height>
+                <align>center</align>
+                <texture flipx="true">divider.png</texture>
+            </control>
+            <control type="label">
+                <left>483</left>
+                <top>1050</top>
+                <width>1407</width>
+                <height>45</height>
+                <textcolor>FF004D00</textcolor>
+                <shadowcolor>FFFFFFFF</shadowcolor>
+                <label>$INFO[ListItem.Title]</label>
+            </control>
+            <control type="label">
+                <left>483</left>
+                <top>1088</top>
+                <width>1407</width>
+                <height>45</height>
+                <textcolor>white</textcolor>
+                <label>$INFO[Container.ListItem.Property(ShortTime)]$INFO[Container.ListItem.Property(NextDay), - ]</label>
+            </control>
+            <control type="label">
+                <left>483</left>
+                <top>1125</top>
+                <width>1407</width>
+                <height>45</height>
+                <textcolor>white</textcolor>
+                <label>$INFO[Container.ListItem.Property(Status),, - ]$INFO[Container.ListItem.Property(NextNumber)]</label>
+            </control>
+            <control type="textbox">
+                <left>483</left>
+                <top>1170</top>
+                <width>885</width>
+                <height>180</height>
+                <align>left</align>
+                <aligny>center</aligny>
+                <autoscroll delay="8000" time="4000" repeat="8000">true</autoscroll>
+                <textcolor>FF004D00</textcolor>
+                <shadowcolor>FFFFFFFF</shadowcolor>
+                <label>$INFO[ListItem.Plot]</label>
+            </control>
+            <control type="image">
+                <left>1350</left>
+                <top>1260</top>
+                <height>82</height>
+                <texture background="true">$INFO[ListItem.Art(tvshow.banner)]</texture>
+                <bordertexture border="1">frame.png</bordertexture>
+                <aspectratio>keep</aspectratio>
+            </control>
+        </control>
+        <control type="group">
+            <control type="group">
+                <posx>-375</posx>
+                <animation effect="slide" start="0,0" end="375,0" time="400" tween="quadratic" easing="out" condition="ControlGroup(9000).HasFocus | Control.HasFocus(9001) | Control.HasFocus(8999)">Conditional</animation>
+                <animation effect="slide" start="0,0" end="-450,0" time="400" tween="quadratic" easing="out" condition="ControlGroup(9000).HasFocus | Control.HasFocus(9001)">WindowClose</animation>
+                <animation effect="slide" start="0,0" end="-75,0" time="300" tween="quadratic" easing="out" condition="![ControlGroup(9000).HasFocus | Control.HasFocus(9001)]">WindowClose</animation>
+                <animation effect="slide" start="-75,0" end="0,0" time="300" tween="quadratic" easing="out">WindowOpen</animation>
+                <control type="button" id="8999">
+                    <description>Fake button for mouse control</description>
+                    <posx>0</posx>
+                    <posy>0</posy>
+                    <width>375</width>
+                    <height>1080</height>
+                    <visible>true</visible>
+                </control>
+                <control type="button" id="9001">
+                    <posx>375</posx>
+                    <posy>390</posy>
+                    <width>63</width>
+                    <height>192</height>
+                    <texturefocus>TVGuide-HasSub.png</texturefocus>
+                    <texturenofocus>TVGuide-HasSub.png</texturenofocus>
+                </control>
+                <control type="image">
+                    <posx>0</posx>
+                    <posy>0</posy>
+                    <width>390</width>
+                    <height>1080</height>
+                    <texture border="0,0,10,0">TVGuide-MediaBladeSub.png</texture>
+                    <aspectratio>stretch</aspectratio>
+                </control>
+                <control type="image">
+                    <description>LOGO</description>
+                    <posx>22</posx>
+                    <posy>75</posy>
+                    <width>330</width>
+                    <height>330</height>
+                    <aspectratio>keep</aspectratio>
+                    <texture>TVGuide-Icon.png</texture>
+                </control>
+                <control type="grouplist" id="9000">
+                    <posx>0</posx>
+                    <posy>412</posy>
+                    <width>375</width>
+                    <height>720</height>
+                    <onleft>215</onleft>
+                    <onright>200</onright>
+                    <onup>9000</onup>
+                    <ondown>9000</ondown>
+                    <itemgap>0</itemgap>
+                    <control type="label">
+                        <width>375</width>
+                        <height>52</height>
+                        <label>33063</label>
+                        <textcolor>white</textcolor>
+                        <align>center</align>
+                        <aligny>center</aligny>
+                    </control>
+                    <control type="button" id="8">
+                        <description>Settings</description>
+                        <textwidth>352</textwidth>
+                        <height>60</height>
+                        <width>375</width>
+                        <textoffsetx>15</textoffsetx>
+                        <textwidth>300</textwidth>
+                        <align>center</align>
+                        <aligny>center</aligny>
+                        <texturefocus border="5">TVGuide-CalDay-Week2.png</texturefocus>
+                        <texturenofocus>TVGuide-ContentPanel.png</texturenofocus>
+                        <pulseonselect>false</pulseonselect>
+                        <label>5</label>
+                    </control>
+                    <control type="button" id="78">
+                        <description>Settings</description>
+                        <textwidth>352</textwidth>
+                        <height>60</height>
+                        <width>375</width>
+                        <textoffsetx>15</textoffsetx>
+                        <textwidth>300</textwidth>
+                        <align>center</align>
+                        <aligny>center</aligny>
+                        <texturefocus border="5">TVGuide-CalDay-Week2.png</texturefocus>
+                        <texturenofocus>TVGuide-ContentPanel.png</texturenofocus>
+                        <pulseonselect>false</pulseonselect>
+                        <label>download</label>
+                        <onclick condition="System.HasAddon(script.artwork.downloader)">RunScript(script.artwork.downloader, mediatype=tvshow, dbid=$INFO[ListItem.DBID])</onclick>
+                    </control>
+                </control>
+            </control>
+        </control>
+        <control type="group">
+            <posx>0</posx>
+            <posy>0</posy>
+            <animation effect="slide" end="-405,0" time="400" tween="quadratic" easing="out" condition="Window.Next(Home)">WindowClose</animation>
+            <animation effect="slide" start="-405,0" time="400" tween="quadratic" easing="out" condition="Window.Previous(Home)">WindowOpen</animation>
+            <control type="image">
+                <posx>0</posx>
+                <posy>0</posy>
+                <width>120</width>
+                <height>52</height>
+                <texture border="0,0,32,0">TVGuide-Header.png</texture>
+                <aspectratio>stretch</aspectratio>
+            </control>
+            <control type="button">
+                <hitrect x="0" y="0" w="90" h="45" />
+                <posx>30</posx>
+                <posy>8</posy>
+                <width>38</width>
+                <height>30</height>
+                <texturenofocus>TVGuide-HomeIcon.png</texturenofocus>
+                <texturefocus>TVGuide-HomeIcon-Focus.png</texturefocus>
+                <label></label>
+                <onclick>ActivateWindow(Home)</onclick>
+            </control>
+            <control type="image">
+                <posx>0</posx>
+                <posy>15</posy>
+                <height>90</height>
+                <texture>$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
+                <aspectratio>keep</aspectratio>
+            </control>
+        </control>
+        <control type="group">
+            <posx>210r</posx>
+            <posy>0</posy>
+            <control type="image">
+                <description>time background</description>
+                <posx>0</posx>
+                <posy>0</posy>
+                <width>225</width>
+                <height>52</height>
+                <texture flipx="true" border="32,0,0,0">TVGuide-Header.png</texture>
+                <aspectratio>stretch</aspectratio>
+            </control>
+            <control type="label">
+                <description>time label</description>
+                <posx>45</posx>
+                <posy>0</posy>
+                <width>600</width>
+                <height>42</height>
+                <align>left</align>
+                <aligny>center</aligny>
+                <textcolor>white</textcolor>
+                <label>$INFO[System.Time]</label>
+            </control>
+        </control>
+    </controls>
+</window>

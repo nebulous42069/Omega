@@ -1,0 +1,74 @@
+# XBMC Media Center language file
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+msgctxt "#30001"
+msgid "Artist [#A-Z]"
+msgstr ""
+
+msgctxt "#30002"
+msgid "Title [#A-Z]"
+msgstr ""
+
+msgctxt "#30003"
+msgid "Most Listens"
+msgstr ""
+
+msgctxt "#30004"
+msgid "Most Download"
+msgstr ""
+
+msgctxt "#30005"
+msgid "Most Favorites"
+msgstr ""
+
+msgctxt "#30006"
+msgid "Highest Rating"
+msgstr ""
+
+msgctxt "#30007"
+msgid "Hot This Week"
+msgstr ""
+
+msgctxt "#30008"
+msgid "Newest"
+msgstr ""
+
+msgctxt "#30009"
+msgid "Celebrated: 2x Platinum"
+msgstr ""
+
+msgctxt "#30010"
+msgid "Celebrated: Platinum"
+msgstr ""
+
+msgctxt "#30011"
+msgid "Celebrated: Gold"
+msgstr ""
+
+msgctxt "#30012"
+msgid "Celebrated: Silver"
+msgstr ""
+
+msgctxt "#30013"
+msgid "Celebrated: Bronze"
+msgstr ""
+
+msgctxt "#30014"
+msgid "Search"
+msgstr ""
+
+msgctxt "#30015"
+msgid "#ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+msgstr ""

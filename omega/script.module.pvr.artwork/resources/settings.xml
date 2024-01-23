@@ -1,0 +1,223 @@
+<?xml version="1.0" ?>
+<settings version="1">
+	<section id="script.module.pvr.artwork">
+		<category id="pvr artwork" label="32000" help="">
+			<group id="1" label="32001">
+				<setting id="pvr_art_recordings_only" type="boolean" label="32002" help="32102">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="pvr_art_custom" type="boolean" label="32005" help="32105">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="use_tmdb" type="boolean" label="32003" help="32103">
+					<level>0</level>
+					<default>false</default>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="tmdb_apikey"></dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<setting id="use_fanart_tv" type="boolean" label="32017" help="32117">
+					<level>0</level>
+					<default>false</default>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="tmdb_apikey"></dependency>
+						<dependency type="enable" operator="!is" setting="fanart_apikey"></dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<setting id="prefer_fanart_tv" type="boolean" label="32024" help="">
+					<level>0</level>
+					<default>false</default>
+					<dependencies>
+						<dependency type="enable" operator="!is" setting="tmdb_apikey"></dependency>
+						<dependency type="enable" operator="!is" setting="fanart_apikey"></dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<setting id="pvr_art_download" type="boolean" label="32007" help="32107">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="enable">
+							<and>
+								<condition operator="!is" setting="tmdb_apikey"></condition>
+								<condition operator="is" setting="use_tmdb">true</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<setting id="pvr_art_custom_path" type="path" label="32006" help="32106">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<sources>
+							<source>auto</source>
+						</sources>
+						<writable>false</writable>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="enable">
+							<and>
+								<condition operator="!is" setting="tmdb_apikey"></condition>
+								<condition operator="is" setting="use_tmdb">true</condition>
+								<condition operator="is" setting="pvr_art_download">true</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="button" format="path">
+						<heading>32006</heading>
+					</control>
+				</setting>
+				<setting id="pvr_art_max_downloads" type="integer" label="32016" help="32116">
+					<level>0</level>
+					<default>3</default>
+					<constraints>
+						<options>
+							<option label="32060">1</option>
+							<option label="32061">2</option>
+							<option label="32062">3</option>
+							<option label="32063">4</option>
+							<option label="32064">5</option>
+						</options>
+					</constraints>
+					<dependencies>
+						<dependency type="enable">
+							<and>
+								<condition operator="!is" setting="tmdb_apikey"></condition>
+								<condition operator="is" setting="use_tmdb">true</condition>
+								<condition operator="is" setting="pvr_art_download">true</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="spinner" format="string"/>
+				</setting>
+				<setting id="cache_lifetime" type="string" label="32055" help="32155">
+					<level>0</level>
+					<default>180</default>
+					<constraints>
+						<options>
+							<option label="32056">90</option>
+							<option label="32057">180</option>
+							<option label="32058">360</option>
+						</options>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="spinner" format="string"/>
+				</setting>
+			</group>
+		</category>
+		<category id="detail_settings" label="32008" help="">
+			<group id="1" label="32009">
+				<setting id="pvr_art_ignore_channels" type="string" label="32010" help="32110">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="edit" format="string">
+						<heading>32010</heading>
+					</control>
+				</setting>
+				<setting id="pvr_art_ignore_titles" type="string" label="32011" help="32111">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="edit" format="string">
+						<heading>32011</heading>
+					</control>
+				</setting>
+				<setting id="pvr_art_ignore_genres" type="string" label="32025" help="32125">
+					<level>0</level>
+					<default>Sport, News</default>
+					<control type="edit" format="string">
+						<heading>32025</heading>
+					</control>
+				</setting>
+				<setting id="pvr_art_ignore_commongenre" type="boolean" label="32026" help="32126">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+			</group>
+			<group id="2" label="32004">
+				<setting id="pvr_art_splittitlechar" type="string" label="32012" help="32104">
+					<level>0</level>
+					<default>(|;</default>
+					<control type="edit" format="string">
+						<heading>32012</heading>
+					</control>
+				</setting>
+				<setting id="pvr_art_replace_by_space" type="string" label="32013" help="32113">
+					<level>0</level>
+					<default>_</default>
+					<control type="edit" format="string">
+						<heading>32013</heading>
+					</control>
+				</setting>
+				<setting id="pvr_art_stripchars" type="string" label="32014" help="32114">
+					<level>0</level>
+					<default>\*|,|(|)|;|`|_new|new_|.|\'</default>
+					<control type="edit" format="string">
+						<heading>32014</heading>
+					</control>
+				</setting>
+			</group>
+		</category>
+		<category id="tmdb_api_key" label="32052" help="">
+			<group id="1" label="32053">
+				<setting id="tmdb_apikey" type="string" label="32054" help="32153">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="edit" format="string">
+						<heading>32054</heading>
+					</control>
+				</setting>
+				<setting id="fanart_apikey" type="string" label="32023" help="32123">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="edit" format="string">
+						<heading>32023</heading>
+					</control>
+				</setting>
+			</group>
+			<group id="2" label="32048">
+				<setting id="log_results" type="boolean" label="32044" help="32144">
+					<level>1</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="del_simplecache" type="action" label="32049" help="32149">
+					<level>1</level>
+					<default/>
+					<control format="action" type="button">
+						<data>RunScript(script.module.pvr.artwork,clear_db)</data>
+						<close>true</close>
+					</control>
+				</setting>
+				<setting id="del_local_artwork" type="action" label="32050" help="32150">
+					<level>0</level>
+					<default/>
+					<control format="action" type="button">
+						<data>RunScript(script.module.pvr.artwork,clear_local_artwork)</data>
+						<close>true</close>
+					</control>
+				</setting>
+			</group>
+		</category>
+	</section>
+</settings>

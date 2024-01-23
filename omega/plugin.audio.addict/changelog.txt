@@ -1,0 +1,43 @@
+v0.6.1 (2018-July-11)
+  * fix Kodi 18 incompatibility
+
+v0.6.0 (2018-February-28)
+  - drop public stream support
+  * improve supported channel detection
+  * improve error handling
+  * simplify settings
+  + bypass network list if only one network is activated
+
+v0.5.1 (2017-November-08)
+  * better detection for disabled channels
+
+v0.5.0 (2017-August-10)
+  + add channel sorting by name
+  + add channel sorting by creation date
+  * fix issue with non-working channels (playlist verification)
+
+v0.4.1 (2017-July-30)
+  * show channel art if channel is started via Yatse
+  * cleanup some API issues
+
+v0.4.0 (2017-July-15)
+  + add optional authentication method with ListenKey
+  * cache authentication data
+  + automatically update authentication data if needed
+  * update welcome text
+  * send ListenKey via HTTPS to AudioAddict API
+
+v0.3.0 (2017-June-28)
+  + add welcome text for new user describing
+    how to create an account
+
+v0.2.0 (2017-June-25)
+  * description updated
+  * change logo design to final version
+    thanks to Rantanplan-1 who made it
+
+v0.1.1 (2017-June-23)
+  * code simplification, no functional changes
+
+v0.1.0 (2017-June-22)
+  * inital version

@@ -1,0 +1,255 @@
+<?xml version="1.0" ?>
+<settings version="1">
+	<section id="script.cu.lrclyrics">
+		<category id="32150" label="32150">
+			<group id="1">
+				<setting help="" id="search_embedded" label="32152" type="boolean">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+			</group>
+			<group id="2">
+				<setting help="" id="search_lrc_file" label="32153" type="boolean">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+				<setting help="" id="search_txt_file" label="32147" type="boolean">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+			</group>
+			<group id="3" label="32154">
+				<setting help="" id="musixmatchlrc" label="32902" type="boolean">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+				<setting help="" id="lrclib" label="32901" type="boolean">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+				<setting help="" id="music163" label="32904" type="boolean">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+				<setting help="" id="lyricsify" label="32905" type="boolean">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+				<setting help="" id="megalobiz" label="32903" type="boolean">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+			</group>
+			<group id="4" label="32155">
+				<setting help="" id="genius" label="32912" type="boolean">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+				<setting help="" id="musixmatch" label="32902" type="boolean">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+				<setting help="" id="lyricsmode" label="32913" type="boolean">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+				<setting help="" id="azlyrics" label="32914" type="boolean">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+				<setting help="" id="lyricscom" label="32915" type="boolean">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+				<setting help="" id="supermusic" label="32917" type="boolean">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+				<setting help="" id="darklyrics" label="32916" type="boolean">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+			</group>
+		</category>
+		<category id="32151" label="32151">
+			<group id="1" label="32115">
+				<setting help="" id="service" label="32156" type="boolean">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+				<setting help="" id="silent" label="32160" type="boolean">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting help="32168" id="hide_dialog" label="32148" type="boolean">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting help="" id="strip" label="32161" type="boolean">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+			</group>
+			<group id="2" label="32116">
+				<setting help="" id="read_filename" label="32106" type="boolean">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting help="" id="read_filename_format" label="32107" type="integer">
+					<level>0</level>
+					<default>0</default>
+					<control format="string" type="spinner"/>
+					<constraints>
+						<options>
+							<option label="32108">0</option>
+							<option label="32109">1</option>
+							<option label="32110">2</option>
+							<option label="32104">3</option>
+							<option label="32114">4</option>
+						</options>
+					</constraints>
+				</setting>
+				<setting help="" id="clean_title" label="32157" type="boolean">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+			</group>
+			<group id="3" label="32117">
+				<setting help="" id="save_lyrics1_lrc" label="32100" type="boolean">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+				<setting help="" id="save_lyrics1_txt" label="32101" type="boolean">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+				<setting help="" id="save_lyrics_path" label="32102" type="path">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+						<sources>
+							<source>files</source>
+						</sources>
+					</constraints>
+					<dependencies>
+						<dependency type="enable">
+							<or>
+								<condition operator="is" setting="save_lyrics1_lrc">true</condition>
+								<condition operator="is" setting="save_lyrics1_txt">true</condition>
+							</or>
+						</dependency>
+					</dependencies>
+					<control format="path" type="button">
+						<heading>32102</heading>
+					</control>
+				</setting>
+				<setting help="" id="save_filename_format" label="32103" type="integer">
+					<level>0</level>
+					<default>0</default>
+					<dependencies>
+						<dependency type="enable">
+							<or>
+								<condition operator="is" setting="save_lyrics1_lrc">true</condition>
+								<condition operator="is" setting="save_lyrics1_txt">true</condition>
+							</or>
+						</dependency>
+					</dependencies>
+					<control format="string" type="spinner"/>
+					<constraints>
+						<options>
+							<option label="32105">0</option>
+							<option label="32108">1</option>
+						</options>
+					</constraints>
+				</setting>
+				<setting help="" id="save_lyrics2_lrc" label="32113" type="boolean">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting help="" id="save_lyrics2_txt" label="32119" type="boolean">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting help="" id="save_subfolder" label="32111" type="boolean">
+					<level>0</level>
+					<default>false</default>
+					<dependencies>
+						<dependency type="enable">
+							<or>
+								<condition operator="is" setting="save_lyrics2_lrc">true</condition>
+								<condition operator="is" setting="save_lyrics2_txt">true</condition>
+							</or>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<setting help="" id="save_subfolder_path" label="32112" type="string">
+					<level>0</level>
+					<default>lyrics</default>
+					<dependencies>
+						<dependency type="enable">
+							<condition operator="is" setting="save_subfolder">true</condition>
+						</dependency>
+					</dependencies>
+					<control format="string" type="edit">
+						<heading>32112</heading>
+					</control>
+				</setting>
+			</group>
+		</category>
+		<category id="32149" label="32149">
+			<group id="1">
+				<setting help="" id="offset" label="32166" type="number">
+					<level>0</level>
+					<default>0.00</default>
+					<control format="number" type="slider">
+						<popup>false</popup>
+					</control>
+					<constraints>
+						<minimum>-20.00</minimum>
+						<step>0.10</step>
+						<maximum>20.00</maximum>
+					</constraints>
+				</setting>
+			</group>
+			<group id="2" label="32118">
+				<setting help="" id="log_enabled" label="32159" type="boolean">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting help="" id="scraper_test" label="32162" type="action">
+					<level>0</level>
+					<data>RunScript(script.cu.lrclyrics,test)</data>
+					<control format="action" type="button"/>
+				</setting>
+			</group>
+		</category>
+	</section>
+</settings>

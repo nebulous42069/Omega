@@ -1,0 +1,74 @@
+<?xml version="1.0" ?>
+<settings version="1">
+	<section id="script.skin.helper.backgrounds">
+		<category id="backgrounds" label="32000" help="">
+			<group id="1">
+				<setting id="pvr_bg_recordingsonly" type="boolean" label="32004" help="">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="enable_custom_images_path" type="boolean" label="32005" help="">
+					<level>0</level>
+					<default>false</default>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="toggle"/>
+				</setting>
+				<setting id="custom_images_path" type="path" label="32006" help="">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<writable>false</writable>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="enable_custom_images_path">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="button" format="path">
+						<heading>32006</heading>
+					</control>
+				</setting>
+			</group>
+		</category>
+		<category id="wall backgrounds" label="32001" help="">
+			<group id="1">
+				<setting id="wallimages_delay" type="integer" label="32003" help="">
+					<level>0</level>
+					<default>60</default>
+					<control type="edit" format="integer">
+						<heading>32003</heading>
+					</control>
+				</setting>
+				<setting id="max_wallimages" type="integer" label="32007" help="">
+					<level>0</level>
+					<default>10</default>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="gt" setting="wallimages_delay">0</condition>
+						</dependency>
+					</dependencies>
+					<control type="edit" format="integer">
+						<heading>32007</heading>
+					</control>
+				</setting>
+				<setting id="mnkxlwtkghwcytzxwcbrbeojwwojticu" type="action" label="32008" help="">
+					<level>0</level>
+					<data>RunScript(script.skin.helper.service,action=DELETEDIR,path=special://profile/addon_data/script.skin.helper.backgrounds/wall_backgrounds/)</data>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="gt" setting="wallimages_delay">0</condition>
+						</dependency>
+					</dependencies>
+					<control type="button" format="action"/>
+				</setting>
+			</group>
+		</category>
+	</section>
+</settings>

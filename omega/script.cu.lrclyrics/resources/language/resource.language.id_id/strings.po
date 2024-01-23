@@ -1,0 +1,319 @@
+# Kodi Media Center language file
+# Addon Name: CU LRC Lyrics
+# Addon id: script.cu.lrclyrics
+# Addon Provider: Taxigps|ronie
+msgid ""
+msgstr ""
+"Project-Id-Version: XBMC Addons\n"
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2022-09-04 03:14+0000\n"
+"Last-Translator: Nao3Line Prez <n.yazawa6932@gmail.com>\n"
+"Language-Team: Indonesian <https://kodi.weblate.cloud/projects/kodi-add-ons-scripts/script-cu-lrclyrics/id_id/>\n"
+"Language: id_id\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.14\n"
+
+msgctxt "Addon Summary"
+msgid "CU LRC Lyrics"
+msgstr "Lirik CU LRC"
+
+msgctxt "Addon Description"
+msgid "CU LRC Lyrics is a lyrics script for Kodi. It supports regular as well as LRC Lyrics. The script can search synchronized/unsynchronized lyrics embedded, from file or by scrapers. It can read .lrc/.txt lyrics file saved at the same path by same file name with .mp3(or other type of music)."
+msgstr "Lirik CU LRC adalah skrip lirik untuk Kodi. Ini mendukung Lirik biasa serta LRC. Script dapat mencari lirik yang disinkronkan / tidak disinkronkan yang disematkan, dari file atau dengan pencakar. Itu dapat membaca file lirik .lrc/.txt yang disimpan di jalur yang sama dengan nama file yang sama dengan .mp3 (atau jenis musik lainnya)."
+
+# Script labels
+msgctxt "#32000"
+msgid "File"
+msgstr "Berkas"
+
+msgctxt "#32001"
+msgid "No lyrics found!"
+msgstr "Lirik tidak ditemukan!"
+
+msgctxt "#32002"
+msgid "Embedded"
+msgstr "Tercantum"
+
+msgctxt "#32003"
+msgid "Lyrics offset"
+msgstr "Offset lirik"
+
+msgctxt "#32004"
+msgid "Searching lyrics..."
+msgstr "Mencari lirik..."
+
+msgctxt "#32005"
+msgid "Select lyrics:"
+msgstr "Pilih lirik:"
+
+msgctxt "#32006"
+msgid "Select different lyrics"
+msgstr "Pilih lirik yang lain"
+
+msgctxt "#32007"
+msgid "Manually sync lyrics"
+msgstr "Sinkronkan lirik manual"
+
+msgctxt "#32008"
+msgid "Delayed by: %ss"
+msgstr "Tunda sampai: %ss"
+
+msgctxt "#32009"
+msgid "Ahead by: %ss"
+msgstr "Majukan sampai: %ss"
+
+# empty strings from id 32010 to 32100
+# Settings labels
+msgctxt "#32100"
+msgid "Search for and save lrc lyrics in separate lyrics folder"
+msgstr "Cari dan simpan lirik lrc di folder terpisah"
+
+msgctxt "#32101"
+msgid "Search for and save txt lyrics in separate lyrics folder"
+msgstr "Cari dan simpan lirik txt di folder terpisah"
+
+msgctxt "#32102"
+msgid "- Lyrics folder"
+msgstr "- Folder lirik"
+
+msgctxt "#32103"
+msgid "- Filename format"
+msgstr "- Format penamaan"
+
+msgctxt "#32104"
+msgid "%N %A - %T"
+msgstr "%N %A - %J"
+
+msgctxt "#32105"
+msgid "%A\\%T"
+msgstr "%A\\%J"
+
+msgctxt "#32106"
+msgid "Use only filename for search"
+msgstr "Gunakan hanya nama berkas untuk pencarian"
+
+msgctxt "#32107"
+msgid "Filename format"
+msgstr "Format nama berkas"
+
+msgctxt "#32108"
+msgid "%A - %T"
+msgstr "%A - %J"
+
+msgctxt "#32109"
+msgid "%A\\%B\\%T"
+msgstr "%A\\%B\\%J"
+
+msgctxt "#32110"
+msgid "%A\\%B\\%N (-) %T"
+msgstr "%A\\%B\\%N (-) %J"
+
+msgctxt "#32111"
+msgid "- Lyrics are in a subfolder"
+msgstr "- Lirik ada dalam subfolder"
+
+msgctxt "#32112"
+msgid "-- Subfolder name"
+msgstr "-- Nama subfolder"
+
+msgctxt "#32113"
+msgid "Search for and save lrc lyrics in song folder"
+msgstr "Cari dan simpan lirik lrc di folder lagu"
+
+msgctxt "#32114"
+msgid "%N - %A - %T"
+msgstr "%N - %A - %J"
+
+msgctxt "#32115"
+msgid "Display options"
+msgstr "Opsi tampilan"
+
+msgctxt "#32116"
+msgid "Search options"
+msgstr "Opsi pencarian"
+
+msgctxt "#32117"
+msgid "Lyrics files"
+msgstr "Berkas lirik"
+
+msgctxt "#32118"
+msgid "Debugging"
+msgstr "Debuging"
+
+msgctxt "#32119"
+msgid "Search for and save txt lyrics in song folder"
+msgstr "Cari dan simpan lirik txt di folder lagu"
+
+# empty strings from id 32120 to 32146
+msgctxt "#32147"
+msgid "Search for local .txt lyrics files"
+msgstr "Cari berkas lirik .txt lokal"
+
+# empty strings from id 32120 to 32147
+msgctxt "#32148"
+msgid "Hide dialog background, show lyrics only"
+msgstr "Sembunyikan latar belakang dialog, tampilkan lirik saja"
+
+msgctxt "#32149"
+msgid "Expert"
+msgstr "Lanjutan"
+
+msgctxt "#32150"
+msgid "Scrapers"
+msgstr "Pencakar"
+
+msgctxt "#32151"
+msgid "Options"
+msgstr "Opsi"
+
+msgctxt "#32152"
+msgid "Search for embedded lyrics"
+msgstr "Cari lirik yang tercantum"
+
+msgctxt "#32153"
+msgid "Search for local .lrc lyrics files"
+msgstr "Cari file lirik .lrc lokal"
+
+msgctxt "#32154"
+msgid "Synchronised lyrics scrapers"
+msgstr "Lirik pencakar tersingkronisasi"
+
+msgctxt "#32155"
+msgid "Regular lyrics scrapers"
+msgstr "Lirik pencakar regular"
+
+msgctxt "#32156"
+msgid "Display lyrics automatically"
+msgstr "Tampilkan lirik secara otomatis"
+
+msgctxt "#32157"
+msgid "Clean song title (remove part in brackets)"
+msgstr "Bersihkan judul lagu (hapus bagian dalam tanda kurung)"
+
+msgctxt "#32158"
+msgid "Script is already running!"
+msgstr "Skrip sudah berjalan!"
+
+msgctxt "#32159"
+msgid "Enable debug logging"
+msgstr "Aktifkan pencatatan debug"
+
+msgctxt "#32160"
+msgid "Hide notifications"
+msgstr "Sembunyikan notifikasi"
+
+msgctxt "#32161"
+msgid "Remove Chinese/Korean text from lyrics"
+msgstr "Hapus aksara Cina/Korea dari lirik"
+
+msgctxt "#32162"
+msgid "Scraper test"
+msgstr "Tes pengikis"
+
+msgctxt "#32163"
+msgid "Testing: %s"
+msgstr "Tes: %s"
+
+msgctxt "#32164"
+msgid "All scrapers are working ok"
+msgstr "Semua scraper berfungsi dengan baik"
+
+msgctxt "#32165"
+msgid "Failed scrapers: %s"
+msgstr "Scrapers gagal: %s"
+
+msgctxt "#32166"
+msgid "Time offset for synchronised lyrics"
+msgstr "Offset waktu untuk lirik yang disinkronkan"
+
+msgctxt "#32167"
+msgid "Delete lyrics"
+msgstr "Hapus lirik"
+
+msgctxt "#32168"
+msgid "If you hide the Music OSD and the Now Playing info, the background of the lyrics dialog will be hidden as well."
+msgstr "Jika Anda menyembunyikan OSD Musik dan info Sedang Diputar, latar belakang dialog lirik juga akan disembunyikan."
+
+# Scrapers - do not translate!
+msgctxt "#32901"
+msgid "Lrclib"
+msgstr ""
+
+msgctxt "#32902"
+msgid "MusixMatch"
+msgstr "MusixMatch"
+
+msgctxt "#32903"
+msgid "Megalobiz"
+msgstr ""
+
+msgctxt "#32904"
+msgid "Music 163"
+msgstr "Music 163"
+
+msgctxt "#32905"
+msgid "Lyricsify"
+msgstr "Lyricsify"
+
+msgctxt "#32912"
+msgid "Genius"
+msgstr "Genius"
+
+msgctxt "#32913"
+msgid "Lyrics Mode"
+msgstr "Mode lirik"
+
+msgctxt "#32914"
+msgid "AZLyrics"
+msgstr "AZLyrics"
+
+msgctxt "#32915"
+msgid "Lyrics.com"
+msgstr "Lyrics.com"
+
+msgctxt "#32916"
+msgid "Dark Lyrics"
+msgstr "Lirik Gelap"
+
+msgctxt "#32917"
+msgid "Super Music"
+msgstr ""
+
+# Scrapers - do not translate!
+#~ msgctxt "#32901"
+#~ msgid "MiniLyrics"
+#~ msgstr "MiniLyrics"
+
+#~ msgctxt "#32903"
+#~ msgid "GomAudio"
+#~ msgstr "GomAudio"
+
+#~ msgctxt "#32905"
+#~ msgid "Syair"
+#~ msgstr "Syair"
+
+# empty strings from id 32010 to 32100
+# Settings labels
+#~ msgctxt "#32101"
+#~ msgid "Search for and save lyrics in separate lyrics folder"
+#~ msgstr "Simpan lirik ke folder lirik"
+
+#~ msgctxt "#32111"
+#~ msgid "Lyrics are in a subfolder"
+#~ msgstr "Lirik bernama sama disimpan di sub folder"
+
+#~ msgctxt "#32112"
+#~ msgid "- Subfolder name"
+#~ msgstr "- Nama sub folder"
+
+#~ msgctxt "#32113"
+#~ msgid "Search for and save lyrics in song folder"
+#~ msgstr "Simpan lirik ke folder lagu"
+
+#~ msgctxt "#32153"
+#~ msgid "Search for local lyrics files"
+#~ msgstr "Cari berkas lirik lokal"

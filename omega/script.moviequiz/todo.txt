@@ -1,0 +1,28 @@
+Jake's TODOs:
+    maybe be able to switch between randomly choosing next question type vs. iterating over each question type enabled, then repeat.
+        With the random system, it seems like "what movie is this" doesn't come up as often as I would like
+    maybe have new question that finds a random movie and grabs a single frame from that movie, and displays to the user.
+    make it so exiting is faster (get rid of background animation at exit)
+    where is cinema vision getting their quotes, trivia from?
+    have name the movie be full screen, and show all posters as choices
+    pause instead of stop movie at end of movie quiz, then have replay button show up
+    change hard-coded numbers to string constants
+    add 5th or maybe even 6th answer option
+    bug: changing from short to longer time in settings launched from in-game, does not work.
+    apparently fanart is required?
+    delete other branches
+    delete duplicate strings in strings.po
+    ask about onfocus for listitem
+    put random in util module along with logger
+
+
+twinther's TODOs:
+- Error message when we are unable to find additional questions
+- DVD ISO's plays menu instead of movie
+- Multiplayer support
+
+Movie Question suggestions:
+- What role does <actor> play in <movie>?
+- In what movie does <actor> play <role>?
+- What actor stars in these three movies?
+- What movie is these three actors starring?

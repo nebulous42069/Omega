@@ -1,0 +1,246 @@
+<?xml version="1.0" ?>
+<settings version="1">
+    <section id="script.moviequiz">
+        <category id="general" label="30500">
+            <group id="general">
+                <setting id="show.correct.answer" label="30514" type="boolean">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="only.watched.movies" label="30515" type="boolean">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+            </group>
+
+            <group id="movie.rating.limits" label="30501">
+                <setting id="movie.rating.limit.enabled" label="30512" type="boolean">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="movie.rating.limit" label="30513" type="string" parent="movie.rating.limit.enabled">
+                    <level>0</level>
+                    <default>R</default>
+                    <constraints>
+                        <options>
+                            <option label="G">G</option>
+                            <option label="PG">PG</option>
+                            <option label="PG-13">PG-13</option>
+                            <option label="R">R</option>
+                        </options>
+                    </constraints>
+                    <dependencies>
+                        <dependency type="enable" setting="movie.rating.limit.enabled">true</dependency>
+                    </dependencies>
+                    <control type="spinner" format="string"/>
+                </setting>
+            </group>
+
+            <group id="tvshow.rating.limits" label="30502">
+                <setting id="tvshow.rating.limit.enabled" label="30516" type="boolean">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="tvshow.rating.limit" label="30517" type="string" parent="tvshow.rating.limit.enabled">
+                    <level>0</level>
+                    <default>TV-MA</default>
+                    <constraints>
+                        <options>
+                            <option label="TV-Y">TV-Y</option>
+                            <option label="TV-Y7">TV-Y7</option>
+                            <option label="TV-Y7-FV">TV-Y7-FV</option>
+                            <option label="TV-G">TV-G</option>
+                            <option label="TV-PG">TV-PG</option>
+                            <option label="TV-14">TV-14</option>
+                            <option label="TV-MA">TV-MA</option>
+                        </options>
+                    </constraints>
+                    <dependencies>
+                        <dependency type="enable" setting="tvshow.rating.limit.enabled">true</dependency>
+                    </dependencies>
+                    <control type="spinner" format="string"/>
+                </setting>
+            </group>
+        </category>
+
+        <category id="questions" label="30505">
+            <group id="movie.options" label="30550">
+                <setting id="question.whatmovieisthis.enabled" label="30552" type="boolean">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+
+
+                <setting id="question.whatmovieisthis.min_percent" label="30803" type="integer" parent="question.whatmovieisthis.enabled">
+                    <level>0</level>
+                    <default>10</default>
+                    <constraints>
+                        <minimum>0</minimum>
+                        <step>1</step>
+                        <maximum>99</maximum>
+                    </constraints>
+                    <control type="slider" format="percentage"/>
+                    <dependencies>
+                        <dependency type="enable" setting="question.whatmovieisthis.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="question.whatmovieisthis.max_percent" label="30804" type="integer" parent="question.whatmovieisthis.enabled">
+                    <level>0</level>
+                    <default>80</default>
+                    <constraints>
+                        <minimum>0</minimum>
+                        <step>1</step>
+                        <maximum>99</maximum>
+                    </constraints>
+                    <control type="slider" format="percentage"/>
+                    <dependencies>
+                        <dependency type="enable" setting="question.whatmovieisthis.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+                <setting id="question.whatmovieisthis.duration" label="30805" type="integer" parent="question.whatmovieisthis.enabled">
+                    <level>0</level>
+                    <default>10</default>
+                    <constraints>
+                        <minimum>1</minimum>
+                        <maximum>10000</maximum>
+                    </constraints>
+                    <control type="edit" format="integer"/>
+                    <dependencies>
+                        <dependency type="enable" setting="question.whatmovieisthis.enabled">true</dependency>
+                    </dependencies>
+                </setting>
+
+
+
+                <setting id="question.actornotinmovie.enabled" label="30553" type="boolean">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="question.whatyearwasmoviereleased.enabled" label="30554" type="boolean">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="question.whattaglinebelongstomovie.enabled" label="30555" type="boolean">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="question.whodirectedthismovie.enabled" label="30556" type="boolean">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="question.whatstudioreleasedmovie.enabled" label="30557" type="boolean">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="question.whatactoristhis.enabled" label="30558" type="boolean">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="question.whoplayedroleinmovie.enabled" label="30559" type="boolean">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="question.whatmovieisthisquotefrom.enabled" label="30409" type="boolean">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="question.whatmovieisnewest.enabled" label="30561" type="boolean">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="question.whatmovieisnotdirectedby.enabled" label="30562" type="boolean">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="question.whatactorisinthesemovies.enabled" label="30563" type="boolean">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="question.whatactorisinmoviebesidesotheractor.enabled" label="30564" type="boolean">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="question.whatmoviehaslongestruntime.enabled" label="30565" type="boolean">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+            </group>
+
+            <group id="tvshow.options" label="30551">
+                <setting id="question.whattvshowisthis.enabled" label="30580" type="boolean">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="question.whatseasonisthis.enabled" label="30581" type="boolean">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="question.whatepisodeisthis.enabled" label="30582" type="boolean">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="question.whenwastvshowfirstaired.enabled" label="30583" type="boolean">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="question.whoplayedroleintvshow.enabled" label="30584" type="boolean">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="question.whattvshowisthisquotefrom.enabled" label="30457" type="boolean">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="question.whattvshowisthisthemefrom.enabled" label="30586" type="boolean">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+            </group>
+
+            <group id="music.options" label="30570">
+                <setting id="question.whatsongisthis.enabled" label="30571" type="boolean">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="question.whomadethissong.enabled" label="30572" type="boolean">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+                <setting id="question.whomadethisalbum.enabled" label="30573" type="boolean">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
+            </group>
+
+         </category>
+    </section>
+</settings>
+

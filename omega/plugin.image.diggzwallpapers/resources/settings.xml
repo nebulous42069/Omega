@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+	<category id="general" label="Backup">
+		<setting id="remote_path" type="folder" label="Download Path" default ="special://home\addons\resource.images.skinicons.wide\resources/customredbolt/" visible="True" />
+	</category>
+   	
+  </settings>

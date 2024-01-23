@@ -1,0 +1,4525 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<allowoverlay>no</allowoverlay>
+	<controls>
+		<control type="group">
+			<animation effect="fade" time="250">WindowOpen</animation>
+			<animation effect="fade" time="250">WindowClose</animation>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>1920</width>
+				<height>1080</height>
+				<aspectratio>scale</aspectratio>
+				<texture>TVGuide-ContentPanel.png</texture>
+			</control>
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>1920</width>
+				<height>1080</height>
+				<aspectratio>scale</aspectratio>
+				<texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+				<fadetime>600</fadetime>
+				<animation effect="fade" time="600">Visible</animation>
+				<animation effect="fade" time="600">Hidden</animation>
+				<visible>!String.IsEmpty(ListItem.Art(tvshow.fanart))</visible>
+			</control>
+            <control type="image">
+				<left>-10</left>
+				<top>-10</top>
+				<width>1940</width>
+				<height>1100</height>
+				<texture>TVGuide-ContentPanel.png</texture>
+				<colordiffuse>FFC0C0C0</colordiffuse>
+				<animation effect="fade" end="85" condition="true">Conditional</animation>
+			</control>
+		</control>		
+		<control type="group">
+			<top>20</top>
+			<control type="image">
+                <colordiffuse>FFFFFFFF</colordiffuse>
+				<left>60</left>
+				<top>60</top>
+				<width>412</width>
+				<height>980</height>
+				<texture border="45">TVGuide-CalDay-Week2.png</texture>
+				<colordiffuse>red</colordiffuse>
+			</control>
+			<control type="image">
+                <colordiffuse>dfcebe9e</colordiffuse>
+				<left>462</left>
+				<top>60</top>
+				<width>1419</width>
+				<height>980</height>
+				<texture border="45">TVGuide-CalDay-Week2.png</texture>
+				<colordiffuse>FF004D00</colordiffuse>
+			</control>
+			<control type="list" id="9000">
+				<left>105</left>
+				<top>120</top>
+				<width>322</width>
+				<height>780</height>
+				<onup>9000</onup>
+				<ondown>9000</ondown>
+				<onleft>8000</onleft>
+				<onright condition="[Container(9000).HasFocus(1) + !String.IsEmpty(Window(Home).Property(NextAired.200.Wday))]">200</onright>
+				<onright condition="[Container(9000).HasFocus(2) + !String.IsEmpty(Window(Home).Property(NextAired.201.Wday))]">201</onright>
+				<onright condition="[Container(9000).HasFocus(3) + !String.IsEmpty(Window(Home).Property(NextAired.202.Wday))]">202</onright>
+				<onright condition="[Container(9000).HasFocus(4) + !String.IsEmpty(Window(Home).Property(NextAired.203.Wday))]">203</onright>
+				<onright condition="[Container(9000).HasFocus(5) + !String.IsEmpty(Window(Home).Property(NextAired.204.Wday))]">204</onright>
+				<onright condition="[Container(9000).HasFocus(6) + !String.IsEmpty(Window(Home).Property(NextAired.205.Wday))]">205</onright>
+				<onright condition="[Container(9000).HasFocus(7) + !String.IsEmpty(Window(Home).Property(NextAired.206.Wday))]">206</onright>
+				<onright condition="[Container(9000).HasFocus(8) + !String.IsEmpty(Window(Home).Property(NextAired.207.Wday))]">207</onright>
+				<onright condition="[Container(9000).HasFocus(9) + !String.IsEmpty(Window(Home).Property(NextAired.208.Wday))]">208</onright>
+				<onright condition="[Container(9000).HasFocus(10) + !String.IsEmpty(Window(Home).Property(NextAired.209.Wday))]">209</onright>
+				<onright condition="[Container(9000).HasFocus(11) + !String.IsEmpty(Window(Home).Property(NextAired.210.Wday))]">210</onright>
+				<onright condition="[Container(9000).HasFocus(12) + !String.IsEmpty(Window(Home).Property(NextAired.211.Wday))]">211</onright>
+				<onright condition="[Container(9000).HasFocus(13) + !String.IsEmpty(Window(Home).Property(NextAired.212.Wday))]">212</onright>
+				<onright condition="[Container(9000).HasFocus(14) + !String.IsEmpty(Window(Home).Property(NextAired.213.Wday))]">213</onright>
+				<onright condition="[Container(9000).HasFocus(15) + !String.IsEmpty(Window(Home).Property(NextAired.214.Wday))]">214</onright>
+				<onright condition="[Container(9000).HasFocus(16) + !String.IsEmpty(Window(Home).Property(NextAired.215.Wday))]">215</onright>		
+				<scrolltime tween="quadratic">300</scrolltime>
+				<itemlayout width="322" height="60">
+					<control type="image">
+						<width>322</width>
+						<height>60</height>
+						<texture border="3">TVGuide-CalDay-Week2.png</texture>
+					</control>
+					<control type="group">
+					    <control type="label">
+						    <left>10</left>
+						    <width>301</width>
+						    <height>60</height>
+						    <label>[B]$INFO[ListItem.Label][/B]</label>
+					    </control>
+					    <control type="label">
+						    <left>10</left>
+						    <width>301</width>
+						    <height>60</height>
+						    <align>right</align>
+						    <label>$INFO[ListItem.Label2]</label>
+					    </control>
+					</control>					
+				</itemlayout>
+				<focusedlayout width="322" height="60">
+					<control type="image" description="fa overlay">
+						<animation effect="fade" start="100" end="40" time="100" condition="!Control.HasFocus(9000)">Conditional</animation>
+						<width>322</width>
+						<height>60</height>
+						<texture border="4" colordiffuse="FFFFFFFF">TVGuide-CalDay-Focus.png</texture>
+					</control>
+					<control type="group">
+					    <control type="label" description="Main Label">
+						    <left>10</left>
+						    <width>301</width>
+						    <height>60</height>
+						    <textcolor>FFFFFFFF</textcolor>
+						    <shadowcolor></shadowcolor>
+						    <label>[B]$INFO[ListItem.Label][/B]</label>
+					    </control>
+					    <control type="label">
+						    <left>10</left>
+						    <width>301</width>
+						    <height>60</height>
+						    <align>right</align>
+						    <textcolor>FFFFFFFF</textcolor>						
+						    <label>$INFO[ListItem.Label2]</label>
+					    </control>
+					</control>	
+				</focusedlayout>				
+				<content>
+					<item id="1">
+						<label>$INFO[Window(Home).Property(NextAired.YesterdayText)]</label>
+						<label2>$INFO[Container(200).NumItems, (,)]</label2>
+						<visible>!String.IsEqual(Window(Home).Property(NextAired.200.Wday),)</visible>
+					</item>
+					<item id="2">
+						<label>$INFO[Window(Home).Property(NextAired.TodayText)]</label>
+						<label2>$INFO[Container(201).NumItems, (,)]</label2>
+						<visible>!String.IsEqual(Window(Home).Property(NextAired.201.Wday),)</visible>
+					</item>
+					<item id="3">
+						<label>$INFO[Window(Home).Property(NextAired.TomorrowText)]</label>
+						<label2>$INFO[Container(202).NumItems, (,)]</label2>
+						<visible>!String.IsEqual(Window(Home).Property(NextAired.202.Wday),)</visible>
+					</item>
+					<item id="4">
+						<label>$INFO[Window(Home).Property(NextAired.203.Weekday)]</label>
+						<label2>$INFO[Container(203).NumItems, (,)]</label2>
+						<visible>!String.IsEqual(Window(Home).Property(NextAired.203.Wday),)</visible>
+					</item>
+					<item id="5">
+						<label>$INFO[Window(Home).Property(NextAired.204.Weekday)]</label>
+						<label2>$INFO[Container(204).NumItems, (,)]</label2>
+						<visible>!String.IsEqual(Window(Home).Property(NextAired.204.Wday),)</visible>
+					</item>
+					<item id="6">
+						<label>$INFO[Window(Home).Property(NextAired.205.Weekday)]</label>
+						<label2>$INFO[Container(205).NumItems, (,)]</label2>
+						<visible>!String.IsEqual(Window(Home).Property(NextAired.205.Wday),)</visible>
+					</item>
+					<item id="7">
+						<label>$INFO[Window(Home).Property(NextAired.206.Weekday)]</label>
+						<label2>$INFO[Container(206).NumItems, (,)]</label2>
+						<visible>!String.IsEqual(Window(Home).Property(NextAired.206.Wday),)</visible>
+					</item>
+					<item id="8">
+						<label>$INFO[Window(Home).Property(NextAired.207.Weekday)]</label>
+						<label2>$INFO[Container(207).NumItems, (,)]</label2>
+						<visible>!String.IsEqual(Window(Home).Property(NextAired.207.Wday),)</visible>
+					</item>
+					<item id="9">
+						<label>$INFO[Window(Home).Property(NextAired.208.Weekday)]</label>
+						<label2>$INFO[Container(208).NumItems, (,)]</label2>
+						<visible>!String.IsEqual(Window(Home).Property(NextAired.208.Wday),)</visible>
+					</item>
+					<item id="10">
+						<label>$INFO[Window(Home).Property(NextAired.209.Weekday)]</label>
+						<label2>$INFO[Container(209).NumItems, (,)]</label2>
+						<visible>!String.IsEqual(Window(Home).Property(NextAired.209.Wday),)</visible>
+					</item>
+					<item id="11">
+						<label>$INFO[Window(Home).Property(NextAired.210.Weekday)]</label>
+						<label2>$INFO[Container(210).NumItems, (,)]</label2>
+						<visible>!String.IsEqual(Window(Home).Property(NextAired.210.Wday),)</visible>
+					</item>
+					<item id="12">
+						<label>$INFO[Window(Home).Property(NextAired.211.Weekday)]</label>
+						<label2>$INFO[Container(211).NumItems, (,)]</label2>
+						<visible>!String.IsEqual(Window(Home).Property(NextAired.211.Wday),)</visible>
+					</item>
+					<item id="13">
+						<label>$INFO[Window(Home).Property(NextAired.212.Weekday)]</label>
+						<label2>$INFO[Container(212).NumItems, (,)]</label2>
+						<visible>!String.IsEqual(Window(Home).Property(NextAired.212.Wday),)</visible>
+					</item>
+					<item id="14">
+						<label>$INFO[Window(Home).Property(NextAired.213.Weekday)]</label>
+						<label2>$INFO[Container(213).NumItems, (,)]</label2>
+						<visible>!String.IsEqual(Window(Home).Property(NextAired.213.Wday),)</visible>
+					</item>
+					<item id="15">
+						<label>$INFO[Window(Home).Property(NextAired.214.Weekday)]</label>
+						<label2>$INFO[Container(214).NumItems, (,)]</label2>
+						<visible>!String.IsEqual(Window(Home).Property(NextAired.214.Wday),)</visible>
+					</item>
+					<item id="16">
+						<label>$INFO[Window(Home).Property(NextAired.215.Weekday)]</label>
+						<label2>$INFO[Container(215).NumItems, (,)]</label2>
+						<visible>!String.IsEqual(Window(Home).Property(NextAired.215.Wday),)</visible>
+					</item>
+				</content>
+			</control>
+            <control type="image">
+				<left>0</left>
+				<top>0</top>
+				<height>60</height>
+                <texture>$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
+                <aspectratio>keep</aspectratio>
+            </control>
+			<control type="group" id="9001">		
+				<control type="panel" id="200">
+					<visible allowhiddenfocus="true">[Control.HasFocus(9000) + Container(9000).HasFocus(1)] | Control.HasFocus(200) |  [Container(9000).HasFocus(1) + Control.HasFocus(60)]</visible>
+					<animation effect="fade" time="300" delay="100">Visible</animation>
+					<animation effect="fade" time="0">Hidden</animation>
+					<onright>200</onright>
+					<left>500</left>
+					<top>120</top>
+					<width>1341</width>
+					<height>910</height>
+					<onup>215</onup>
+					<ondown>201</ondown>
+					<onleft>SetFocus(9000,0)</onleft>
+					<orientation>horizontal</orientation>
+					<scrolltime tween="quadratic">300</scrolltime>
+					<pagecontrol>60</pagecontrol>		
+					<itemlayout height="840" width="447">
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)|String.IsEqual(Window(Home).Property(NextAired.ThumbType),1)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Icon]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<texture background="true">TVGuide-ContentPanel.png</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>	
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="center">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.landscape)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),3)</visible>
+						</control>
+						<control type="label">
+							<top>260</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Label]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>310</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Genre,- ]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFAF0</textcolor>
+						</control>
+						<control type="label">
+							<top>360</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$LOCALIZE[209]$LOCALIZE[20359]:</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>410</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[COLOR FFFFFFFF]$LOCALIZE[20373]:[/COLOR] [B][COLOR FFFFFFFF]$INFO[ListItem.Property(NextSeasonNumber)][/COLOR][/B]  [COLOR FFFFFFFF]$LOCALIZE[20359]:[/COLOR] [B][COLOR Grey2]$INFO[ListItem.Property(NextEpisodeNumber)][/COLOR][/B]</label>
+							<textoffsetx>15</textoffsetx>
+						</control>			
+						<control type="label">
+							<top>460</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[COLOR FFFFFFFF]$INFO[ListItem.Property(NextTitle)][/COLOR]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>505</top>
+							<width>445</width>
+							<height>45</height>
+							<label>Plot :</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="textbox">
+							<left>20</left>
+							<top>545</top>
+							<width>425</width>
+							<height>175</height>
+							<label>$INFO[ListItem.Plot]</label>
+							<autoscroll>true</autoscroll>
+							<shadowcolor />
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>720</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(Status)]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>755</top>
+							<width>445</width>
+							<height>35</height>
+							<label>Aired Time :</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>790</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(ShortTime)]$INFO[ListItem.Property(Network), @ ]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+					</itemlayout>
+					<focusedlayout height="840" width="447">
+						<control type="image" description="fa overlay">
+							<width>447</width>
+							<height>840</height>
+							<texture border="4" colordiffuse="FFFFFFFF">TVGuide-CalDay-Week2.png</texture>
+							<visible>ControlGroup(9001).HasFocus()</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)|String.IsEqual(Window(Home).Property(NextAired.ThumbType),1)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Icon]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<texture background="true">TVGuide-ContentPanel.png</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>	
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="center">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.landscape)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),3)</visible>
+						</control>
+						<control type="label">
+							<top>260</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$INFO[ListItem.Label][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>310</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$INFO[ListItem.Genre,- ][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFAF0</textcolor>
+						</control>
+						<control type="label">
+							<top>360</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$LOCALIZE[209]$LOCALIZE[20359]:[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>410</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$LOCALIZE[20373]: $INFO[ListItem.Property(NextSeasonNumber)]  $LOCALIZE[20359]: $INFO[ListItem.Property(NextEpisodeNumber)][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>460</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Property(NextTitle)]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>505</top>
+							<width>445</width>
+							<height>45</height>
+							<label>[B]Plot :[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="textbox">
+							<left>20</left>
+							<top>545</top>
+							<width>425</width>
+							<height>175</height>
+							<label>$INFO[ListItem.Plot]</label>
+							<autoscroll>true</autoscroll>
+							<shadowcolor />
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>720</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(Status)]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>755</top>
+							<width>445</width>
+							<height>35</height>
+							<label>[B]Aired Time :[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>790</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(ShortTime)]$INFO[ListItem.Property(Network), @ ]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+					</focusedlayout>
+				</control>
+				<control type="panel" id="201">
+					<visible allowhiddenfocus="true">[Control.HasFocus(9000) + Container(9000).HasFocus(2)] | Control.HasFocus(201) | [Container(9000).HasFocus(2) + Control.HasFocus(60)]</visible>
+					<animation effect="fade" time="300" delay="100">Visible</animation>
+					<animation effect="fade" time="0">Hidden</animation>
+					<onright>201</onright>
+					<left>500</left>
+					<top>120</top>
+					<width>1341</width>
+					<height>910</height>
+					<onup>200</onup>
+					<ondown>202</ondown>
+					<onleft>SetFocus(9000,1)</onleft>
+					<orientation>horizontal</orientation>
+					<scrolltime tween="quadratic">300</scrolltime>
+					<pagecontrol>60</pagecontrol>		
+					<itemlayout height="840" width="447">
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)|String.IsEqual(Window(Home).Property(NextAired.ThumbType),1)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Icon]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<texture background="true">TVGuide-ContentPanel.png</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>	
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="center">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.landscape)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),3)</visible>
+						</control>
+						<control type="label">
+							<top>260</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Label]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>310</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Genre,- ]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFAF0</textcolor>
+						</control>
+						<control type="label">
+							<top>360</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$LOCALIZE[209]$LOCALIZE[20359]:</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>410</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[COLOR FFFFFFFF]$LOCALIZE[20373]:[/COLOR] [B][COLOR FFFFFFFF]$INFO[ListItem.Property(NextSeasonNumber)][/COLOR][/B]  [COLOR FFFFFFFF]$LOCALIZE[20359]:[/COLOR] [B][COLOR Grey2]$INFO[ListItem.Property(NextEpisodeNumber)][/COLOR][/B]</label>
+							<textoffsetx>15</textoffsetx>
+						</control>			
+						<control type="label">
+							<top>460</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[COLOR FFFFFFFF]$INFO[ListItem.Property(NextTitle)][/COLOR]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>505</top>
+							<width>445</width>
+							<height>45</height>
+							<label>Plot :</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="textbox">
+							<left>20</left>
+							<top>545</top>
+							<width>425</width>
+							<height>175</height>
+							<label>$INFO[ListItem.Plot]</label>
+							<autoscroll>true</autoscroll>
+							<shadowcolor />
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>720</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(Status)]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>755</top>
+							<width>445</width>
+							<height>35</height>
+							<label>Aired Time :</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>790</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(ShortTime)]$INFO[ListItem.Property(Network), @ ]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+					</itemlayout>
+					<focusedlayout height="840" width="447">
+						<control type="image" description="fa overlay">
+							<width>447</width>
+							<height>840</height>
+							<texture border="4" colordiffuse="FFFFFFFF">TVGuide-CalDay-Week2.png</texture>
+							<visible>ControlGroup(9001).HasFocus()</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)|String.IsEqual(Window(Home).Property(NextAired.ThumbType),1)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Icon]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<texture background="true">TVGuide-ContentPanel.png</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>	
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="center">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.landscape)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),3)</visible>
+						</control>
+						<control type="label">
+							<top>260</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$INFO[ListItem.Label][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>310</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$INFO[ListItem.Genre,- ][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFAF0</textcolor>
+						</control>
+						<control type="label">
+							<top>360</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$LOCALIZE[209]$LOCALIZE[20359]:[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>410</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$LOCALIZE[20373]: $INFO[ListItem.Property(NextSeasonNumber)]  $LOCALIZE[20359]: $INFO[ListItem.Property(NextEpisodeNumber)][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>460</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Property(NextTitle)]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>505</top>
+							<width>445</width>
+							<height>45</height>
+							<label>[B]Plot :[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="textbox">
+							<left>20</left>
+							<top>545</top>
+							<width>425</width>
+							<height>175</height>
+							<label>$INFO[ListItem.Plot]</label>
+							<autoscroll>true</autoscroll>
+							<shadowcolor />
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>720</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(Status)]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>755</top>
+							<width>445</width>
+							<height>35</height>
+							<label>[B]Aired Time :[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>790</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(ShortTime)]$INFO[ListItem.Property(Network), @ ]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+					</focusedlayout>
+				</control>
+				<control type="panel" id="202">
+					<visible allowhiddenfocus="true">[Control.HasFocus(9000) + Container(9000).HasFocus(3)] | Control.HasFocus(202) | [Container(9000).HasFocus(3) + Control.HasFocus(60)]</visible>
+					<animation effect="fade" time="300" delay="100">Visible</animation>
+					<animation effect="fade" time="0">Hidden</animation>
+					<onright>202</onright>
+					<left>500</left>
+					<top>120</top>
+					<width>1341</width>
+					<height>910</height>
+					<onup>201</onup>
+					<ondown>203</ondown>
+					<onleft>SetFocus(9000,2)</onleft>
+					<orientation>horizontal</orientation>
+					<scrolltime tween="quadratic">300</scrolltime>
+					<pagecontrol>60</pagecontrol>		
+					<itemlayout height="840" width="447">
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)|String.IsEqual(Window(Home).Property(NextAired.ThumbType),1)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Icon]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<texture background="true">TVGuide-ContentPanel.png</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>	
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="center">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.landscape)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),3)</visible>
+						</control>
+						<control type="label">
+							<top>260</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Label]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>310</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Genre,- ]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFAF0</textcolor>
+						</control>
+						<control type="label">
+							<top>360</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$LOCALIZE[209]$LOCALIZE[20359]:</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>410</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[COLOR FFFFFFFF]$LOCALIZE[20373]:[/COLOR] [B][COLOR FFFFFFFF]$INFO[ListItem.Property(NextSeasonNumber)][/COLOR][/B]  [COLOR FFFFFFFF]$LOCALIZE[20359]:[/COLOR] [B][COLOR Grey2]$INFO[ListItem.Property(NextEpisodeNumber)][/COLOR][/B]</label>
+							<textoffsetx>15</textoffsetx>
+						</control>			
+						<control type="label">
+							<top>460</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[COLOR FFFFFFFF]$INFO[ListItem.Property(NextTitle)][/COLOR]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>505</top>
+							<width>445</width>
+							<height>45</height>
+							<label>Plot :</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="textbox">
+							<left>20</left>
+							<top>545</top>
+							<width>425</width>
+							<height>175</height>
+							<label>$INFO[ListItem.Plot]</label>
+							<autoscroll>true</autoscroll>
+							<shadowcolor />
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>720</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(Status)]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>755</top>
+							<width>445</width>
+							<height>35</height>
+							<label>Aired Time :</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>790</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(ShortTime)]$INFO[ListItem.Property(Network), @ ]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+					</itemlayout>
+					<focusedlayout height="840" width="447">
+						<control type="image" description="fa overlay">
+							<width>447</width>
+							<height>840</height>
+							<texture border="4" colordiffuse="FFFFFFFF">TVGuide-CalDay-Week2.png</texture>
+							<visible>ControlGroup(9001).HasFocus()</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)|String.IsEqual(Window(Home).Property(NextAired.ThumbType),1)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Icon]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<texture background="true">TVGuide-ContentPanel.png</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>	
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="center">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.landscape)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),3)</visible>
+						</control>
+						<control type="label">
+							<top>260</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$INFO[ListItem.Label][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>310</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$INFO[ListItem.Genre,- ][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFAF0</textcolor>
+						</control>
+						<control type="label">
+							<top>360</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$LOCALIZE[209]$LOCALIZE[20359]:[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>410</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$LOCALIZE[20373]: $INFO[ListItem.Property(NextSeasonNumber)]  $LOCALIZE[20359]: $INFO[ListItem.Property(NextEpisodeNumber)][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>460</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Property(NextTitle)]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>505</top>
+							<width>445</width>
+							<height>45</height>
+							<label>[B]Plot :[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="textbox">
+							<left>20</left>
+							<top>545</top>
+							<width>425</width>
+							<height>175</height>
+							<label>$INFO[ListItem.Plot]</label>
+							<autoscroll>true</autoscroll>
+							<shadowcolor />
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>720</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(Status)]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>755</top>
+							<width>445</width>
+							<height>35</height>
+							<label>[B]Aired Time :[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>790</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(ShortTime)]$INFO[ListItem.Property(Network), @ ]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+					</focusedlayout>
+				</control>
+				<control type="panel" id="203">
+					<visible allowhiddenfocus="true">[Control.HasFocus(9000) + Container(9000).HasFocus(4)] | Control.HasFocus(203) | [Container(9000).HasFocus(4) + Control.HasFocus(60)]</visible>
+					<animation effect="fade" time="300" delay="100">Visible</animation>
+					<animation effect="fade" time="0">Hidden</animation>
+					<onright>203</onright>
+					<left>500</left>
+					<top>120</top>
+					<width>1341</width>
+					<height>910</height>
+					<onup>202</onup>
+					<ondown>204</ondown>
+					<onleft>SetFocus(9000,3)</onleft>
+					<orientation>horizontal</orientation>
+					<scrolltime tween="quadratic">300</scrolltime>
+					<pagecontrol>60</pagecontrol>		
+					<itemlayout height="840" width="447">
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)|String.IsEqual(Window(Home).Property(NextAired.ThumbType),1)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Icon]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<texture background="true">TVGuide-ContentPanel.png</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>	
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="center">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.landscape)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),3)</visible>
+						</control>
+						<control type="label">
+							<top>260</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Label]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>310</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Genre,- ]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFAF0</textcolor>
+						</control>
+						<control type="label">
+							<top>360</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$LOCALIZE[209]$LOCALIZE[20359]:</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>410</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[COLOR FFFFFFFF]$LOCALIZE[20373]:[/COLOR] [B][COLOR FFFFFFFF]$INFO[ListItem.Property(NextSeasonNumber)][/COLOR][/B]  [COLOR FFFFFFFF]$LOCALIZE[20359]:[/COLOR] [B][COLOR Grey2]$INFO[ListItem.Property(NextEpisodeNumber)][/COLOR][/B]</label>
+							<textoffsetx>15</textoffsetx>
+						</control>			
+						<control type="label">
+							<top>460</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[COLOR FFFFFFFF]$INFO[ListItem.Property(NextTitle)][/COLOR]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>505</top>
+							<width>445</width>
+							<height>45</height>
+							<label>Plot :</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="textbox">
+							<left>20</left>
+							<top>545</top>
+							<width>425</width>
+							<height>175</height>
+							<label>$INFO[ListItem.Plot]</label>
+							<autoscroll>true</autoscroll>
+							<shadowcolor />
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>720</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(Status)]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>755</top>
+							<width>445</width>
+							<height>35</height>
+							<label>Aired Time :</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>790</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(ShortTime)]$INFO[ListItem.Property(Network), @ ]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+					</itemlayout>
+					<focusedlayout height="840" width="447">
+						<control type="image" description="fa overlay">
+							<width>447</width>
+							<height>840</height>
+							<texture border="4" colordiffuse="FFFFFFFF">TVGuide-CalDay-Week2.png</texture>
+							<visible>ControlGroup(9001).HasFocus()</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)|String.IsEqual(Window(Home).Property(NextAired.ThumbType),1)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Icon]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<texture background="true">TVGuide-ContentPanel.png</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>	
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="center">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.landscape)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),3)</visible>
+						</control>
+						<control type="label">
+							<top>260</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$INFO[ListItem.Label][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>310</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$INFO[ListItem.Genre,- ][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFAF0</textcolor>
+						</control>
+						<control type="label">
+							<top>360</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$LOCALIZE[209]$LOCALIZE[20359]:[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>410</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$LOCALIZE[20373]: $INFO[ListItem.Property(NextSeasonNumber)]  $LOCALIZE[20359]: $INFO[ListItem.Property(NextEpisodeNumber)][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>460</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Property(NextTitle)]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>505</top>
+							<width>445</width>
+							<height>45</height>
+							<label>[B]Plot :[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="textbox">
+							<left>20</left>
+							<top>545</top>
+							<width>425</width>
+							<height>175</height>
+							<label>$INFO[ListItem.Plot]</label>
+							<autoscroll>true</autoscroll>
+							<shadowcolor />
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>720</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(Status)]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>755</top>
+							<width>445</width>
+							<height>35</height>
+							<label>[B]Aired Time :[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>790</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(ShortTime)]$INFO[ListItem.Property(Network), @ ]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+					</focusedlayout>
+				</control>
+				<control type="panel" id="204">
+					<visible allowhiddenfocus="true">[Control.HasFocus(9000) + Container(9000).HasFocus(5)] | Control.HasFocus(204) | [Container(9000).HasFocus(5) + Control.HasFocus(60)]</visible>
+					<animation effect="fade" time="300" delay="100">Visible</animation>
+					<animation effect="fade" time="0">Hidden</animation>
+					<onright>204</onright>
+					<left>500</left>
+					<top>120</top>
+					<width>1341</width>
+					<height>910</height>
+					<onup>203</onup>
+					<ondown>205</ondown>
+					<onleft>SetFocus(9000,4)</onleft>
+					<orientation>horizontal</orientation>
+					<scrolltime tween="quadratic">300</scrolltime>
+					<pagecontrol>60</pagecontrol>		
+					<itemlayout height="840" width="447">
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)|String.IsEqual(Window(Home).Property(NextAired.ThumbType),1)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Icon]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<texture background="true">TVGuide-ContentPanel.png</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>	
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="center">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.landscape)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),3)</visible>
+						</control>
+						<control type="label">
+							<top>260</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Label]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>310</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Genre,- ]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFAF0</textcolor>
+						</control>
+						<control type="label">
+							<top>360</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$LOCALIZE[209]$LOCALIZE[20359]:</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>410</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[COLOR FFFFFFFF]$LOCALIZE[20373]:[/COLOR] [B][COLOR FFFFFFFF]$INFO[ListItem.Property(NextSeasonNumber)][/COLOR][/B]  [COLOR FFFFFFFF]$LOCALIZE[20359]:[/COLOR] [B][COLOR Grey2]$INFO[ListItem.Property(NextEpisodeNumber)][/COLOR][/B]</label>
+							<textoffsetx>15</textoffsetx>
+						</control>			
+						<control type="label">
+							<top>460</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[COLOR FFFFFFFF]$INFO[ListItem.Property(NextTitle)][/COLOR]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>505</top>
+							<width>445</width>
+							<height>45</height>
+							<label>Plot :</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="textbox">
+							<left>20</left>
+							<top>545</top>
+							<width>425</width>
+							<height>175</height>
+							<label>$INFO[ListItem.Plot]</label>
+							<autoscroll>true</autoscroll>
+							<shadowcolor />
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>720</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(Status)]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>755</top>
+							<width>445</width>
+							<height>35</height>
+							<label>Aired Time :</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>790</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(ShortTime)]$INFO[ListItem.Property(Network), @ ]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+					</itemlayout>
+					<focusedlayout height="840" width="447">
+						<control type="image" description="fa overlay">
+							<width>447</width>
+							<height>840</height>
+							<texture border="4" colordiffuse="FFFFFFFF">TVGuide-CalDay-Week2.png</texture>
+							<visible>ControlGroup(9001).HasFocus()</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)|String.IsEqual(Window(Home).Property(NextAired.ThumbType),1)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Icon]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<texture background="true">TVGuide-ContentPanel.png</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>	
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="center">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.landscape)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),3)</visible>
+						</control>
+						<control type="label">
+							<top>260</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$INFO[ListItem.Label][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>310</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$INFO[ListItem.Genre,- ][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFAF0</textcolor>
+						</control>
+						<control type="label">
+							<top>360</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$LOCALIZE[209]$LOCALIZE[20359]:[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>410</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$LOCALIZE[20373]: $INFO[ListItem.Property(NextSeasonNumber)]  $LOCALIZE[20359]: $INFO[ListItem.Property(NextEpisodeNumber)][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>460</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Property(NextTitle)]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>505</top>
+							<width>445</width>
+							<height>45</height>
+							<label>[B]Plot :[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="textbox">
+							<left>20</left>
+							<top>545</top>
+							<width>425</width>
+							<height>175</height>
+							<label>$INFO[ListItem.Plot]</label>
+							<autoscroll>true</autoscroll>
+							<shadowcolor />
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>720</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(Status)]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>755</top>
+							<width>445</width>
+							<height>35</height>
+							<label>[B]Aired Time :[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>790</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(ShortTime)]$INFO[ListItem.Property(Network), @ ]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+					</focusedlayout>
+				</control>
+				<control type="panel" id="205">
+					<visible allowhiddenfocus="true">[Control.HasFocus(9000) + Container(9000).HasFocus(6)] | Control.HasFocus(205) | [Container(9000).HasFocus(6) + Control.HasFocus(60)]</visible>
+					<animation effect="fade" time="300" delay="100">Visible</animation>
+					<animation effect="fade" time="0">Hidden</animation>
+					<onright>205</onright>
+					<left>500</left>
+					<top>120</top>
+					<width>1341</width>
+					<height>910</height>
+					<onup>204</onup>
+					<ondown>206</ondown>
+					<onleft>SetFocus(9000,5)</onleft>
+					<orientation>horizontal</orientation>
+					<scrolltime tween="quadratic">300</scrolltime>
+					<pagecontrol>60</pagecontrol>		
+					<itemlayout height="840" width="447">
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)|String.IsEqual(Window(Home).Property(NextAired.ThumbType),1)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Icon]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<texture background="true">TVGuide-ContentPanel.png</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>	
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="center">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.landscape)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),3)</visible>
+						</control>
+						<control type="label">
+							<top>260</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Label]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>310</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Genre,- ]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFAF0</textcolor>
+						</control>
+						<control type="label">
+							<top>360</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$LOCALIZE[209]$LOCALIZE[20359]:</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>410</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[COLOR FFFFFFFF]$LOCALIZE[20373]:[/COLOR] [B][COLOR FFFFFFFF]$INFO[ListItem.Property(NextSeasonNumber)][/COLOR][/B]  [COLOR FFFFFFFF]$LOCALIZE[20359]:[/COLOR] [B][COLOR Grey2]$INFO[ListItem.Property(NextEpisodeNumber)][/COLOR][/B]</label>
+							<textoffsetx>15</textoffsetx>
+						</control>			
+						<control type="label">
+							<top>460</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[COLOR FFFFFFFF]$INFO[ListItem.Property(NextTitle)][/COLOR]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>505</top>
+							<width>445</width>
+							<height>45</height>
+							<label>Plot :</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="textbox">
+							<left>20</left>
+							<top>545</top>
+							<width>425</width>
+							<height>175</height>
+							<label>$INFO[ListItem.Plot]</label>
+							<autoscroll>true</autoscroll>
+							<shadowcolor />
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>720</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(Status)]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>755</top>
+							<width>445</width>
+							<height>35</height>
+							<label>Aired Time :</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>790</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(ShortTime)]$INFO[ListItem.Property(Network), @ ]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+					</itemlayout>
+					<focusedlayout height="840" width="447">
+						<control type="image" description="fa overlay">
+							<width>447</width>
+							<height>840</height>
+							<texture border="4" colordiffuse="FFFFFFFF">TVGuide-CalDay-Week2.png</texture>
+							<visible>ControlGroup(9001).HasFocus()</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)|String.IsEqual(Window(Home).Property(NextAired.ThumbType),1)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Icon]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<texture background="true">TVGuide-ContentPanel.png</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>	
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="center">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.landscape)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),3)</visible>
+						</control>
+						<control type="label">
+							<top>260</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$INFO[ListItem.Label][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>310</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$INFO[ListItem.Genre,- ][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFAF0</textcolor>
+						</control>
+						<control type="label">
+							<top>360</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$LOCALIZE[209]$LOCALIZE[20359]:[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>410</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$LOCALIZE[20373]: $INFO[ListItem.Property(NextSeasonNumber)]  $LOCALIZE[20359]: $INFO[ListItem.Property(NextEpisodeNumber)][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>460</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Property(NextTitle)]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>505</top>
+							<width>445</width>
+							<height>45</height>
+							<label>[B]Plot :[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="textbox">
+							<left>20</left>
+							<top>545</top>
+							<width>425</width>
+							<height>175</height>
+							<label>$INFO[ListItem.Plot]</label>
+							<autoscroll>true</autoscroll>
+							<shadowcolor />
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>720</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(Status)]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>755</top>
+							<width>445</width>
+							<height>35</height>
+							<label>[B]Aired Time :[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>790</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(ShortTime)]$INFO[ListItem.Property(Network), @ ]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+					</focusedlayout>
+				</control>
+				<control type="panel" id="206">
+					<visible allowhiddenfocus="true">[Control.HasFocus(9000) + Container(9000).HasFocus(7)] | Control.HasFocus(206) | [Container(9000).HasFocus(7) + Control.HasFocus(60)]</visible>
+					<animation effect="fade" time="300" delay="100">Visible</animation>
+					<animation effect="fade" time="0">Hidden</animation>
+					<onright>206</onright>
+					<left>500</left>
+					<top>120</top>
+					<width>1341</width>
+					<height>910</height>
+					<onup>205</onup>
+					<ondown>207</ondown>
+					<onleft>SetFocus(9000,6)</onleft>
+					<orientation>horizontal</orientation>
+					<scrolltime tween="quadratic">300</scrolltime>
+					<pagecontrol>60</pagecontrol>		
+					<itemlayout height="840" width="447">
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)|String.IsEqual(Window(Home).Property(NextAired.ThumbType),1)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Icon]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<texture background="true">TVGuide-ContentPanel.png</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>	
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="center">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.landscape)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),3)</visible>
+						</control>
+						<control type="label">
+							<top>260</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Label]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>310</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Genre,- ]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFAF0</textcolor>
+						</control>
+						<control type="label">
+							<top>360</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$LOCALIZE[209]$LOCALIZE[20359]:</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>410</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[COLOR FFFFFFFF]$LOCALIZE[20373]:[/COLOR] [B][COLOR FFFFFFFF]$INFO[ListItem.Property(NextSeasonNumber)][/COLOR][/B]  [COLOR FFFFFFFF]$LOCALIZE[20359]:[/COLOR] [B][COLOR Grey2]$INFO[ListItem.Property(NextEpisodeNumber)][/COLOR][/B]</label>
+							<textoffsetx>15</textoffsetx>
+						</control>			
+						<control type="label">
+							<top>460</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[COLOR FFFFFFFF]$INFO[ListItem.Property(NextTitle)][/COLOR]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>505</top>
+							<width>445</width>
+							<height>45</height>
+							<label>Plot :</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="textbox">
+							<left>20</left>
+							<top>545</top>
+							<width>425</width>
+							<height>175</height>
+							<label>$INFO[ListItem.Plot]</label>
+							<autoscroll>true</autoscroll>
+							<shadowcolor />
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>720</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(Status)]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>755</top>
+							<width>445</width>
+							<height>35</height>
+							<label>Aired Time :</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>790</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(ShortTime)]$INFO[ListItem.Property(Network), @ ]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+					</itemlayout>
+					<focusedlayout height="840" width="447">
+						<control type="image" description="fa overlay">
+							<width>447</width>
+							<height>840</height>
+							<texture border="4" colordiffuse="FFFFFFFF">TVGuide-CalDay-Week2.png</texture>
+							<visible>ControlGroup(9001).HasFocus()</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)|String.IsEqual(Window(Home).Property(NextAired.ThumbType),1)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Icon]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<texture background="true">TVGuide-ContentPanel.png</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>	
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="center">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.landscape)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),3)</visible>
+						</control>
+						<control type="label">
+							<top>260</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$INFO[ListItem.Label][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>310</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$INFO[ListItem.Genre,- ][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFAF0</textcolor>
+						</control>
+						<control type="label">
+							<top>360</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$LOCALIZE[209]$LOCALIZE[20359]:[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>410</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$LOCALIZE[20373]: $INFO[ListItem.Property(NextSeasonNumber)]  $LOCALIZE[20359]: $INFO[ListItem.Property(NextEpisodeNumber)][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>460</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Property(NextTitle)]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>505</top>
+							<width>445</width>
+							<height>45</height>
+							<label>[B]Plot :[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="textbox">
+							<left>20</left>
+							<top>545</top>
+							<width>425</width>
+							<height>175</height>
+							<label>$INFO[ListItem.Plot]</label>
+							<autoscroll>true</autoscroll>
+							<shadowcolor />
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>720</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(Status)]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>755</top>
+							<width>445</width>
+							<height>35</height>
+							<label>[B]Aired Time :[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>790</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(ShortTime)]$INFO[ListItem.Property(Network), @ ]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+					</focusedlayout>
+				</control>
+				<control type="panel" id="207">
+					<visible allowhiddenfocus="true">[Control.HasFocus(9000) + Container(9000).HasFocus(8)] | Control.HasFocus(207) |  [Container(9000).HasFocus(8) + Control.HasFocus(60)]</visible>
+					<animation effect="fade" time="300" delay="100">Visible</animation>
+					<animation effect="fade" time="0">Hidden</animation>
+					<onright>207</onright>
+					<left>500</left>
+					<top>120</top>
+					<width>1341</width>
+					<height>910</height>
+					<onup>206</onup>
+					<ondown>208</ondown>
+					<onleft>SetFocus(9000,7)</onleft>
+					<orientation>horizontal</orientation>
+					<scrolltime tween="quadratic">300</scrolltime>
+					<pagecontrol>60</pagecontrol>		
+					<itemlayout height="840" width="447">
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)|String.IsEqual(Window(Home).Property(NextAired.ThumbType),1)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Icon]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<texture background="true">TVGuide-ContentPanel.png</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>	
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="center">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.landscape)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),3)</visible>
+						</control>
+						<control type="label">
+							<top>260</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Label]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>310</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Genre,- ]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFAF0</textcolor>
+						</control>
+						<control type="label">
+							<top>360</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$LOCALIZE[209]$LOCALIZE[20359]:</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>410</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[COLOR FFFFFFFF]$LOCALIZE[20373]:[/COLOR] [B][COLOR FFFFFFFF]$INFO[ListItem.Property(NextSeasonNumber)][/COLOR][/B]  [COLOR FFFFFFFF]$LOCALIZE[20359]:[/COLOR] [B][COLOR Grey2]$INFO[ListItem.Property(NextEpisodeNumber)][/COLOR][/B]</label>
+							<textoffsetx>15</textoffsetx>
+						</control>			
+						<control type="label">
+							<top>460</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[COLOR FFFFFFFF]$INFO[ListItem.Property(NextTitle)][/COLOR]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>505</top>
+							<width>445</width>
+							<height>45</height>
+							<label>Plot :</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="textbox">
+							<left>20</left>
+							<top>545</top>
+							<width>425</width>
+							<height>175</height>
+							<label>$INFO[ListItem.Plot]</label>
+							<autoscroll>true</autoscroll>
+							<shadowcolor />
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>720</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(Status)]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>755</top>
+							<width>445</width>
+							<height>35</height>
+							<label>Aired Time :</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>790</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(ShortTime)]$INFO[ListItem.Property(Network), @ ]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+					</itemlayout>
+					<focusedlayout height="840" width="447">
+						<control type="image" description="fa overlay">
+							<width>447</width>
+							<height>840</height>
+							<texture border="4" colordiffuse="FFFFFFFF">TVGuide-CalDay-Week2.png</texture>
+							<visible>ControlGroup(9001).HasFocus()</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)|String.IsEqual(Window(Home).Property(NextAired.ThumbType),1)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Icon]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<texture background="true">TVGuide-ContentPanel.png</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>	
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="center">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.landscape)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),3)</visible>
+						</control>
+						<control type="label">
+							<top>260</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$INFO[ListItem.Label][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>310</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$INFO[ListItem.Genre,- ][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFAF0</textcolor>
+						</control>
+						<control type="label">
+							<top>360</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$LOCALIZE[209]$LOCALIZE[20359]:[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>410</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$LOCALIZE[20373]: $INFO[ListItem.Property(NextSeasonNumber)]  $LOCALIZE[20359]: $INFO[ListItem.Property(NextEpisodeNumber)][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>460</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Property(NextTitle)]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>505</top>
+							<width>445</width>
+							<height>45</height>
+							<label>[B]Plot :[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="textbox">
+							<left>20</left>
+							<top>545</top>
+							<width>425</width>
+							<height>175</height>
+							<label>$INFO[ListItem.Plot]</label>
+							<autoscroll>true</autoscroll>
+							<shadowcolor />
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>720</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(Status)]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>755</top>
+							<width>445</width>
+							<height>35</height>
+							<label>[B]Aired Time :[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>790</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(ShortTime)]$INFO[ListItem.Property(Network), @ ]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+					</focusedlayout>
+				</control>
+				<control type="panel" id="208">
+					<visible allowhiddenfocus="true">[Control.HasFocus(9000) + Container(9000).HasFocus(9)] | Control.HasFocus(208) | [Container(9000).HasFocus(9) + Control.HasFocus(60)]</visible>
+					<animation effect="fade" time="300" delay="100">Visible</animation>
+					<animation effect="fade" time="0">Hidden</animation>
+					<onright>208</onright>
+					<left>500</left>
+					<top>120</top>
+					<width>1341</width>
+					<height>910</height>
+					<onup>207</onup>
+					<ondown>209</ondown>
+					<onleft>SetFocus(9000,8)</onleft>
+					<orientation>horizontal</orientation>
+					<scrolltime tween="quadratic">300</scrolltime>
+					<pagecontrol>60</pagecontrol>		
+					<itemlayout height="840" width="447">
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)|String.IsEqual(Window(Home).Property(NextAired.ThumbType),1)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Icon]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<texture background="true">TVGuide-ContentPanel.png</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>	
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="center">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.landscape)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),3)</visible>
+						</control>
+						<control type="label">
+							<top>260</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Label]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>310</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Genre,- ]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFAF0</textcolor>
+						</control>
+						<control type="label">
+							<top>360</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$LOCALIZE[209]$LOCALIZE[20359]:</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>410</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[COLOR FFFFFFFF]$LOCALIZE[20373]:[/COLOR] [B][COLOR FFFFFFFF]$INFO[ListItem.Property(NextSeasonNumber)][/COLOR][/B]  [COLOR FFFFFFFF]$LOCALIZE[20359]:[/COLOR] [B][COLOR Grey2]$INFO[ListItem.Property(NextEpisodeNumber)][/COLOR][/B]</label>
+							<textoffsetx>15</textoffsetx>
+						</control>			
+						<control type="label">
+							<top>460</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[COLOR FFFFFFFF]$INFO[ListItem.Property(NextTitle)][/COLOR]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>505</top>
+							<width>445</width>
+							<height>45</height>
+							<label>Plot :</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="textbox">
+							<left>20</left>
+							<top>545</top>
+							<width>425</width>
+							<height>175</height>
+							<label>$INFO[ListItem.Plot]</label>
+							<autoscroll>true</autoscroll>
+							<shadowcolor />
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>720</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(Status)]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>755</top>
+							<width>445</width>
+							<height>35</height>
+							<label>Aired Time :</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>790</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(ShortTime)]$INFO[ListItem.Property(Network), @ ]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+					</itemlayout>
+					<focusedlayout height="840" width="447">
+						<control type="image" description="fa overlay">
+							<width>447</width>
+							<height>840</height>
+							<texture border="4" colordiffuse="FFFFFFFF">TVGuide-CalDay-Week2.png</texture>
+							<visible>ControlGroup(9001).HasFocus()</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)|String.IsEqual(Window(Home).Property(NextAired.ThumbType),1)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Icon]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<texture background="true">TVGuide-ContentPanel.png</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>	
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="center">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.landscape)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),3)</visible>
+						</control>
+						<control type="label">
+							<top>260</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$INFO[ListItem.Label][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>310</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$INFO[ListItem.Genre,- ][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFAF0</textcolor>
+						</control>
+						<control type="label">
+							<top>360</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$LOCALIZE[209]$LOCALIZE[20359]:[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>410</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$LOCALIZE[20373]: $INFO[ListItem.Property(NextSeasonNumber)]  $LOCALIZE[20359]: $INFO[ListItem.Property(NextEpisodeNumber)][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>460</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Property(NextTitle)]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>505</top>
+							<width>445</width>
+							<height>45</height>
+							<label>[B]Plot :[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="textbox">
+							<left>20</left>
+							<top>545</top>
+							<width>425</width>
+							<height>175</height>
+							<label>$INFO[ListItem.Plot]</label>
+							<autoscroll>true</autoscroll>
+							<shadowcolor />
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>720</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(Status)]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>755</top>
+							<width>445</width>
+							<height>35</height>
+							<label>[B]Aired Time :[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>790</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(ShortTime)]$INFO[ListItem.Property(Network), @ ]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+					</focusedlayout>
+				</control>
+				<control type="panel" id="209">
+					<visible allowhiddenfocus="true">[Control.HasFocus(9000) + Container(9000).HasFocus(10)] | Control.HasFocus(209) | [Container(9000).HasFocus(10) + Control.HasFocus(60)]</visible>
+					<animation effect="fade" time="300" delay="100">Visible</animation>
+					<animation effect="fade" time="0">Hidden</animation>
+					<onright>209</onright>
+					<left>500</left>
+					<top>120</top>
+					<width>1341</width>
+					<height>910</height>
+					<onup>208</onup>
+					<ondown>210</ondown>
+					<onleft>SetFocus(9000,9)</onleft>
+					<orientation>horizontal</orientation>
+					<scrolltime tween="quadratic">300</scrolltime>
+					<pagecontrol>60</pagecontrol>		
+					<itemlayout height="840" width="447">
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)|String.IsEqual(Window(Home).Property(NextAired.ThumbType),1)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Icon]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<texture background="true">TVGuide-ContentPanel.png</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>	
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="center">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.landscape)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),3)</visible>
+						</control>
+						<control type="label">
+							<top>260</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Label]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>310</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Genre,- ]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFAF0</textcolor>
+						</control>
+						<control type="label">
+							<top>360</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$LOCALIZE[209]$LOCALIZE[20359]:</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>410</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[COLOR FFFFFFFF]$LOCALIZE[20373]:[/COLOR] [B][COLOR FFFFFFFF]$INFO[ListItem.Property(NextSeasonNumber)][/COLOR][/B]  [COLOR FFFFFFFF]$LOCALIZE[20359]:[/COLOR] [B][COLOR Grey2]$INFO[ListItem.Property(NextEpisodeNumber)][/COLOR][/B]</label>
+							<textoffsetx>15</textoffsetx>
+						</control>			
+						<control type="label">
+							<top>460</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[COLOR FFFFFFFF]$INFO[ListItem.Property(NextTitle)][/COLOR]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>505</top>
+							<width>445</width>
+							<height>45</height>
+							<label>Plot :</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="textbox">
+							<left>20</left>
+							<top>545</top>
+							<width>425</width>
+							<height>175</height>
+							<label>$INFO[ListItem.Plot]</label>
+							<autoscroll>true</autoscroll>
+							<shadowcolor />
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>720</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(Status)]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>755</top>
+							<width>445</width>
+							<height>35</height>
+							<label>Aired Time :</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>790</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(ShortTime)]$INFO[ListItem.Property(Network), @ ]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+					</itemlayout>
+					<focusedlayout height="840" width="447">
+						<control type="image" description="fa overlay">
+							<width>447</width>
+							<height>840</height>
+							<texture border="4" colordiffuse="FFFFFFFF">TVGuide-CalDay-Week2.png</texture>
+							<visible>ControlGroup(9001).HasFocus()</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)|String.IsEqual(Window(Home).Property(NextAired.ThumbType),1)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Icon]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<texture background="true">TVGuide-ContentPanel.png</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>	
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="center">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.landscape)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),3)</visible>
+						</control>
+						<control type="label">
+							<top>260</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$INFO[ListItem.Label][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>310</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$INFO[ListItem.Genre,- ][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFAF0</textcolor>
+						</control>
+						<control type="label">
+							<top>360</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$LOCALIZE[209]$LOCALIZE[20359]:[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>410</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$LOCALIZE[20373]: $INFO[ListItem.Property(NextSeasonNumber)]  $LOCALIZE[20359]: $INFO[ListItem.Property(NextEpisodeNumber)][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>460</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Property(NextTitle)]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>505</top>
+							<width>445</width>
+							<height>45</height>
+							<label>[B]Plot :[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="textbox">
+							<left>20</left>
+							<top>545</top>
+							<width>425</width>
+							<height>175</height>
+							<label>$INFO[ListItem.Plot]</label>
+							<autoscroll>true</autoscroll>
+							<shadowcolor />
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>720</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(Status)]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>755</top>
+							<width>445</width>
+							<height>35</height>
+							<label>[B]Aired Time :[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>790</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(ShortTime)]$INFO[ListItem.Property(Network), @ ]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+					</focusedlayout>
+				</control>
+				<control type="panel" id="210">
+					<visible allowhiddenfocus="true">[Control.HasFocus(9000) + Container(9000).HasFocus(11)] | Control.HasFocus(210) | [Container(9000).HasFocus(11) + Control.HasFocus(60)]</visible>
+					<animation effect="fade" time="300" delay="100">Visible</animation>
+					<animation effect="fade" time="0">Hidden</animation>
+					<onright>210</onright>
+					<left>500</left>
+					<top>120</top>
+					<width>1341</width>
+					<height>910</height>
+					<onup>209</onup>
+					<ondown>211</ondown>
+					<onleft>SetFocus(9000,10)</onleft>
+					<orientation>horizontal</orientation>
+					<scrolltime tween="quadratic">300</scrolltime>
+					<pagecontrol>60</pagecontrol>		
+					<itemlayout height="840" width="447">
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)|String.IsEqual(Window(Home).Property(NextAired.ThumbType),1)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Icon]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<texture background="true">TVGuide-ContentPanel.png</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>	
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="center">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.landscape)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),3)</visible>
+						</control>
+						<control type="label">
+							<top>260</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Label]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>310</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Genre,- ]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFAF0</textcolor>
+						</control>
+						<control type="label">
+							<top>360</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$LOCALIZE[209]$LOCALIZE[20359]:</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>410</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[COLOR FFFFFFFF]$LOCALIZE[20373]:[/COLOR] [B][COLOR FFFFFFFF]$INFO[ListItem.Property(NextSeasonNumber)][/COLOR][/B]  [COLOR FFFFFFFF]$LOCALIZE[20359]:[/COLOR] [B][COLOR Grey2]$INFO[ListItem.Property(NextEpisodeNumber)][/COLOR][/B]</label>
+							<textoffsetx>15</textoffsetx>
+						</control>			
+						<control type="label">
+							<top>460</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[COLOR FFFFFFFF]$INFO[ListItem.Property(NextTitle)][/COLOR]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>505</top>
+							<width>445</width>
+							<height>45</height>
+							<label>Plot :</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="textbox">
+							<left>20</left>
+							<top>545</top>
+							<width>425</width>
+							<height>175</height>
+							<label>$INFO[ListItem.Plot]</label>
+							<autoscroll>true</autoscroll>
+							<shadowcolor />
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>720</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(Status)]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>755</top>
+							<width>445</width>
+							<height>35</height>
+							<label>Aired Time :</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>790</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(ShortTime)]$INFO[ListItem.Property(Network), @ ]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+					</itemlayout>
+					<focusedlayout height="840" width="447">
+						<control type="image" description="fa overlay">
+							<width>447</width>
+							<height>840</height>
+							<texture border="4" colordiffuse="FFFFFFFF">TVGuide-CalDay-Week2.png</texture>
+							<visible>ControlGroup(9001).HasFocus()</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)|String.IsEqual(Window(Home).Property(NextAired.ThumbType),1)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Icon]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<texture background="true">TVGuide-ContentPanel.png</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>	
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="center">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.landscape)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),3)</visible>
+						</control>
+						<control type="label">
+							<top>260</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$INFO[ListItem.Label][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>310</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$INFO[ListItem.Genre,- ][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFAF0</textcolor>
+						</control>
+						<control type="label">
+							<top>360</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$LOCALIZE[209]$LOCALIZE[20359]:[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>410</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$LOCALIZE[20373]: $INFO[ListItem.Property(NextSeasonNumber)]  $LOCALIZE[20359]: $INFO[ListItem.Property(NextEpisodeNumber)][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>460</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Property(NextTitle)]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>505</top>
+							<width>445</width>
+							<height>45</height>
+							<label>[B]Plot :[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="textbox">
+							<left>20</left>
+							<top>545</top>
+							<width>425</width>
+							<height>175</height>
+							<label>$INFO[ListItem.Plot]</label>
+							<autoscroll>true</autoscroll>
+							<shadowcolor />
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>720</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(Status)]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>755</top>
+							<width>445</width>
+							<height>35</height>
+							<label>[B]Aired Time :[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>790</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(ShortTime)]$INFO[ListItem.Property(Network), @ ]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+					</focusedlayout>
+				</control>
+				<control type="panel" id="211">
+					<visible allowhiddenfocus="true">[Control.HasFocus(9000) + Container(9000).HasFocus(12)] | Control.HasFocus(211) | [Container(9000).HasFocus(12) + Control.HasFocus(60)]</visible>
+					<animation effect="fade" time="300" delay="100">Visible</animation>
+					<animation effect="fade" time="0">Hidden</animation>
+					<onright>211</onright>
+					<left>500</left>
+					<top>120</top>
+					<width>1341</width>
+					<height>910</height>
+					<onup>210</onup>
+					<ondown>212</ondown>
+					<onleft>SetFocus(9000,11)</onleft>
+					<orientation>horizontal</orientation>
+					<scrolltime tween="quadratic">300</scrolltime>
+					<pagecontrol>60</pagecontrol>		
+					<itemlayout height="840" width="447">
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)|String.IsEqual(Window(Home).Property(NextAired.ThumbType),1)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Icon]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<texture background="true">TVGuide-ContentPanel.png</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>	
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="center">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.landscape)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),3)</visible>
+						</control>
+						<control type="label">
+							<top>260</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Label]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>310</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Genre,- ]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFAF0</textcolor>
+						</control>
+						<control type="label">
+							<top>360</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$LOCALIZE[209]$LOCALIZE[20359]:</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>410</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[COLOR FFFFFFFF]$LOCALIZE[20373]:[/COLOR] [B][COLOR FFFFFFFF]$INFO[ListItem.Property(NextSeasonNumber)][/COLOR][/B]  [COLOR FFFFFFFF]$LOCALIZE[20359]:[/COLOR] [B][COLOR Grey2]$INFO[ListItem.Property(NextEpisodeNumber)][/COLOR][/B]</label>
+							<textoffsetx>15</textoffsetx>
+						</control>			
+						<control type="label">
+							<top>460</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[COLOR FFFFFFFF]$INFO[ListItem.Property(NextTitle)][/COLOR]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>505</top>
+							<width>445</width>
+							<height>45</height>
+							<label>Plot :</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="textbox">
+							<left>20</left>
+							<top>545</top>
+							<width>425</width>
+							<height>175</height>
+							<label>$INFO[ListItem.Plot]</label>
+							<autoscroll>true</autoscroll>
+							<shadowcolor />
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>720</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(Status)]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>755</top>
+							<width>445</width>
+							<height>35</height>
+							<label>Aired Time :</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>790</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(ShortTime)]$INFO[ListItem.Property(Network), @ ]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+					</itemlayout>
+					<focusedlayout height="840" width="447">
+						<control type="image" description="fa overlay">
+							<width>447</width>
+							<height>840</height>
+							<texture border="4" colordiffuse="FFFFFFFF">TVGuide-CalDay-Week2.png</texture>
+							<visible>ControlGroup(9001).HasFocus()</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)|String.IsEqual(Window(Home).Property(NextAired.ThumbType),1)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Icon]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<texture background="true">TVGuide-ContentPanel.png</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>	
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="center">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.landscape)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),3)</visible>
+						</control>
+						<control type="label">
+							<top>260</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$INFO[ListItem.Label][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>310</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$INFO[ListItem.Genre,- ][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFAF0</textcolor>
+						</control>
+						<control type="label">
+							<top>360</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$LOCALIZE[209]$LOCALIZE[20359]:[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>410</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$LOCALIZE[20373]: $INFO[ListItem.Property(NextSeasonNumber)]  $LOCALIZE[20359]: $INFO[ListItem.Property(NextEpisodeNumber)][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>460</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Property(NextTitle)]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>505</top>
+							<width>445</width>
+							<height>45</height>
+							<label>[B]Plot :[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="textbox">
+							<left>20</left>
+							<top>545</top>
+							<width>425</width>
+							<height>175</height>
+							<label>$INFO[ListItem.Plot]</label>
+							<autoscroll>true</autoscroll>
+							<shadowcolor />
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>720</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(Status)]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>755</top>
+							<width>445</width>
+							<height>35</height>
+							<label>[B]Aired Time :[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>790</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(ShortTime)]$INFO[ListItem.Property(Network), @ ]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+					</focusedlayout>
+				</control>
+				<control type="panel" id="212">
+					<visible allowhiddenfocus="true">[Control.HasFocus(9000) + Container(9000).HasFocus(13)] | Control.HasFocus(212) | [Container(9000).HasFocus(13) + Control.HasFocus(60)]</visible>
+					<animation effect="fade" time="300" delay="100">Visible</animation>
+					<animation effect="fade" time="0">Hidden</animation>
+					<onright>212</onright>
+					<left>500</left>
+					<top>120</top>
+					<width>1341</width>
+					<height>910</height>
+					<onup>211</onup>
+					<ondown>213</ondown>
+					<onleft>SetFocus(9000,12)</onleft>
+					<orientation>horizontal</orientation>
+					<scrolltime tween="quadratic">300</scrolltime>
+					<pagecontrol>60</pagecontrol>		
+					<itemlayout height="840" width="447">
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)|String.IsEqual(Window(Home).Property(NextAired.ThumbType),1)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Icon]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<texture background="true">TVGuide-ContentPanel.png</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>	
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="center">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.landscape)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),3)</visible>
+						</control>
+						<control type="label">
+							<top>260</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Label]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>310</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Genre,- ]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFAF0</textcolor>
+						</control>
+						<control type="label">
+							<top>360</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$LOCALIZE[209]$LOCALIZE[20359]:</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>410</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[COLOR FFFFFFFF]$LOCALIZE[20373]:[/COLOR] [B][COLOR FFFFFFFF]$INFO[ListItem.Property(NextSeasonNumber)][/COLOR][/B]  [COLOR FFFFFFFF]$LOCALIZE[20359]:[/COLOR] [B][COLOR Grey2]$INFO[ListItem.Property(NextEpisodeNumber)][/COLOR][/B]</label>
+							<textoffsetx>15</textoffsetx>
+						</control>			
+						<control type="label">
+							<top>460</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[COLOR FFFFFFFF]$INFO[ListItem.Property(NextTitle)][/COLOR]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>505</top>
+							<width>445</width>
+							<height>45</height>
+							<label>Plot :</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="textbox">
+							<left>20</left>
+							<top>545</top>
+							<width>425</width>
+							<height>175</height>
+							<label>$INFO[ListItem.Plot]</label>
+							<autoscroll>true</autoscroll>
+							<shadowcolor />
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>720</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(Status)]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>755</top>
+							<width>445</width>
+							<height>35</height>
+							<label>Aired Time :</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>790</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(ShortTime)]$INFO[ListItem.Property(Network), @ ]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+					</itemlayout>
+					<focusedlayout height="840" width="447">
+						<control type="image" description="fa overlay">
+							<width>447</width>
+							<height>840</height>
+							<texture border="4" colordiffuse="FFFFFFFF">TVGuide-CalDay-Week2.png</texture>
+							<visible>ControlGroup(9001).HasFocus()</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)|String.IsEqual(Window(Home).Property(NextAired.ThumbType),1)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Icon]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<texture background="true">TVGuide-ContentPanel.png</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>	
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="center">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.landscape)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),3)</visible>
+						</control>
+						<control type="label">
+							<top>260</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$INFO[ListItem.Label][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>310</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$INFO[ListItem.Genre,- ][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFAF0</textcolor>
+						</control>
+						<control type="label">
+							<top>360</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$LOCALIZE[209]$LOCALIZE[20359]:[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>410</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$LOCALIZE[20373]: $INFO[ListItem.Property(NextSeasonNumber)]  $LOCALIZE[20359]: $INFO[ListItem.Property(NextEpisodeNumber)][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>460</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Property(NextTitle)]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>505</top>
+							<width>445</width>
+							<height>45</height>
+							<label>[B]Plot :[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="textbox">
+							<left>20</left>
+							<top>545</top>
+							<width>425</width>
+							<height>175</height>
+							<label>$INFO[ListItem.Plot]</label>
+							<autoscroll>true</autoscroll>
+							<shadowcolor />
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>720</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(Status)]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>755</top>
+							<width>445</width>
+							<height>35</height>
+							<label>[B]Aired Time :[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>790</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(ShortTime)]$INFO[ListItem.Property(Network), @ ]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+					</focusedlayout>
+				</control>
+				<control type="panel" id="213">
+					<visible allowhiddenfocus="true">[Control.HasFocus(9000) + Container(9000).HasFocus(14)] | Control.HasFocus(213) | [Container(9000).HasFocus(14) + Control.HasFocus(60)]</visible>
+					<animation effect="fade" time="300" delay="100">Visible</animation>
+					<animation effect="fade" time="0">Hidden</animation>
+					<onright>213</onright>
+					<left>500</left>
+					<top>120</top>
+					<width>1341</width>
+					<height>910</height>
+					<onup>212</onup>
+					<ondown>214</ondown>
+					<onleft>SetFocus(9000,13)</onleft>
+					<orientation>horizontal</orientation>
+					<scrolltime tween="quadratic">300</scrolltime>
+					<pagecontrol>60</pagecontrol>		
+					<itemlayout height="840" width="447">
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)|String.IsEqual(Window(Home).Property(NextAired.ThumbType),1)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Icon]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<texture background="true">TVGuide-ContentPanel.png</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>	
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="center">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.landscape)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),3)</visible>
+						</control>
+						<control type="label">
+							<top>260</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Label]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>310</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Genre,- ]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFAF0</textcolor>
+						</control>
+						<control type="label">
+							<top>360</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$LOCALIZE[209]$LOCALIZE[20359]:</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>410</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[COLOR FFFFFFFF]$LOCALIZE[20373]:[/COLOR] [B][COLOR FFFFFFFF]$INFO[ListItem.Property(NextSeasonNumber)][/COLOR][/B]  [COLOR FFFFFFFF]$LOCALIZE[20359]:[/COLOR] [B][COLOR Grey2]$INFO[ListItem.Property(NextEpisodeNumber)][/COLOR][/B]</label>
+							<textoffsetx>15</textoffsetx>
+						</control>			
+						<control type="label">
+							<top>460</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[COLOR FFFFFFFF]$INFO[ListItem.Property(NextTitle)][/COLOR]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>505</top>
+							<width>445</width>
+							<height>45</height>
+							<label>Plot :</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="textbox">
+							<left>20</left>
+							<top>545</top>
+							<width>425</width>
+							<height>175</height>
+							<label>$INFO[ListItem.Plot]</label>
+							<autoscroll>true</autoscroll>
+							<shadowcolor />
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>720</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(Status)]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>755</top>
+							<width>445</width>
+							<height>35</height>
+							<label>Aired Time :</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>790</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(ShortTime)]$INFO[ListItem.Property(Network), @ ]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+					</itemlayout>
+					<focusedlayout height="840" width="447">
+						<control type="image" description="fa overlay">
+							<width>447</width>
+							<height>840</height>
+							<texture border="4" colordiffuse="FFFFFFFF">TVGuide-CalDay-Week2.png</texture>
+							<visible>ControlGroup(9001).HasFocus()</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)|String.IsEqual(Window(Home).Property(NextAired.ThumbType),1)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Icon]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<texture background="true">TVGuide-ContentPanel.png</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>	
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="center">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.landscape)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),3)</visible>
+						</control>
+						<control type="label">
+							<top>260</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$INFO[ListItem.Label][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>310</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$INFO[ListItem.Genre,- ][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFAF0</textcolor>
+						</control>
+						<control type="label">
+							<top>360</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$LOCALIZE[209]$LOCALIZE[20359]:[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>410</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$LOCALIZE[20373]: $INFO[ListItem.Property(NextSeasonNumber)]  $LOCALIZE[20359]: $INFO[ListItem.Property(NextEpisodeNumber)][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>460</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Property(NextTitle)]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>505</top>
+							<width>445</width>
+							<height>45</height>
+							<label>[B]Plot :[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="textbox">
+							<left>20</left>
+							<top>545</top>
+							<width>425</width>
+							<height>175</height>
+							<label>$INFO[ListItem.Plot]</label>
+							<autoscroll>true</autoscroll>
+							<shadowcolor />
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>720</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(Status)]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>755</top>
+							<width>445</width>
+							<height>35</height>
+							<label>[B]Aired Time :[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>790</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(ShortTime)]$INFO[ListItem.Property(Network), @ ]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+					</focusedlayout>
+				</control>
+				<control type="panel" id="214">
+					<visible allowhiddenfocus="true">[Control.HasFocus(9000) + Container(9000).HasFocus(15)] | Control.HasFocus(214) | [Container(9000).HasFocus(15) + Control.HasFocus(60)]</visible>
+					<animation effect="fade" time="300" delay="100">Visible</animation>
+					<animation effect="fade" time="0">Hidden</animation>
+					<onright>214</onright>
+					<left>500</left>
+					<top>120</top>
+					<width>1341</width>
+					<height>910</height>
+					<onup>213</onup>
+					<ondown>215</ondown>
+					<onleft>SetFocus(9000,14)</onleft>
+					<orientation>horizontal</orientation>
+					<scrolltime tween="quadratic">300</scrolltime>
+					<pagecontrol>60</pagecontrol>		
+					<itemlayout height="840" width="447">
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)|String.IsEqual(Window(Home).Property(NextAired.ThumbType),1)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Icon]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<texture background="true">TVGuide-ContentPanel.png</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>	
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="center">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.landscape)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),3)</visible>
+						</control>
+						<control type="label">
+							<top>260</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Label]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>310</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Genre,- ]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFAF0</textcolor>
+						</control>
+						<control type="label">
+							<top>360</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$LOCALIZE[209]$LOCALIZE[20359]:</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>410</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[COLOR FFFFFFFF]$LOCALIZE[20373]:[/COLOR] [B][COLOR FFFFFFFF]$INFO[ListItem.Property(NextSeasonNumber)][/COLOR][/B]  [COLOR FFFFFFFF]$LOCALIZE[20359]:[/COLOR] [B][COLOR Grey2]$INFO[ListItem.Property(NextEpisodeNumber)][/COLOR][/B]</label>
+							<textoffsetx>15</textoffsetx>
+						</control>			
+						<control type="label">
+							<top>460</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[COLOR FFFFFFFF]$INFO[ListItem.Property(NextTitle)][/COLOR]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>505</top>
+							<width>445</width>
+							<height>45</height>
+							<label>Plot :</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="textbox">
+							<left>20</left>
+							<top>545</top>
+							<width>425</width>
+							<height>175</height>
+							<label>$INFO[ListItem.Plot]</label>
+							<autoscroll>true</autoscroll>
+							<shadowcolor />
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>720</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(Status)]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>755</top>
+							<width>445</width>
+							<height>35</height>
+							<label>Aired Time :</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>790</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(ShortTime)]$INFO[ListItem.Property(Network), @ ]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+					</itemlayout>
+					<focusedlayout height="840" width="447">
+						<control type="image" description="fa overlay">
+							<width>447</width>
+							<height>840</height>
+							<texture border="4" colordiffuse="FFFFFFFF">TVGuide-CalDay-Week2.png</texture>
+							<visible>ControlGroup(9001).HasFocus()</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)|String.IsEqual(Window(Home).Property(NextAired.ThumbType),1)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Icon]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<texture background="true">TVGuide-ContentPanel.png</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>	
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="center">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.landscape)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),3)</visible>
+						</control>
+						<control type="label">
+							<top>260</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$INFO[ListItem.Label][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>310</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$INFO[ListItem.Genre,- ][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFAF0</textcolor>
+						</control>
+						<control type="label">
+							<top>360</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$LOCALIZE[209]$LOCALIZE[20359]:[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>410</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$LOCALIZE[20373]: $INFO[ListItem.Property(NextSeasonNumber)]  $LOCALIZE[20359]: $INFO[ListItem.Property(NextEpisodeNumber)][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>460</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Property(NextTitle)]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>505</top>
+							<width>445</width>
+							<height>45</height>
+							<label>[B]Plot :[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="textbox">
+							<left>20</left>
+							<top>545</top>
+							<width>425</width>
+							<height>175</height>
+							<label>$INFO[ListItem.Plot]</label>
+							<autoscroll>true</autoscroll>
+							<shadowcolor />
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>720</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(Status)]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>755</top>
+							<width>445</width>
+							<height>35</height>
+							<label>[B]Aired Time :[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>790</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(ShortTime)]$INFO[ListItem.Property(Network), @ ]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+					</focusedlayout>
+				</control>
+				<control type="panel" id="215">
+					<visible allowhiddenfocus="true">[Control.HasFocus(9000) + Container(9000).HasFocus(16)] | Control.HasFocus(215) | [Container(9000).HasFocus(16) + Control.HasFocus(60)]</visible>
+					<animation effect="fade" time="300" delay="100">Visible</animation>
+					<animation effect="fade" time="0">Hidden</animation>
+					<onright>215</onright>
+					<left>500</left>
+					<top>120</top>
+					<width>1341</width>
+					<height>910</height>
+					<onup>214</onup>
+					<ondown>200</ondown>
+					<onleft>SetFocus(9000,15)</onleft>
+					<orientation>horizontal</orientation>
+					<scrolltime tween="quadratic">300</scrolltime>
+					<pagecontrol>60</pagecontrol>		
+					<itemlayout height="840" width="447">
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)|String.IsEqual(Window(Home).Property(NextAired.ThumbType),1)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Icon]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<texture background="true">TVGuide-ContentPanel.png</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>	
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="center">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.landscape)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),3)</visible>
+						</control>
+						<control type="label">
+							<top>260</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Label]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>310</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Genre,- ]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFAF0</textcolor>
+						</control>
+						<control type="label">
+							<top>360</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$LOCALIZE[209]$LOCALIZE[20359]:</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>410</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[COLOR FFFFFFFF]$LOCALIZE[20373]:[/COLOR] [B][COLOR FFFFFFFF]$INFO[ListItem.Property(NextSeasonNumber)][/COLOR][/B]  [COLOR FFFFFFFF]$LOCALIZE[20359]:[/COLOR] [B][COLOR Grey2]$INFO[ListItem.Property(NextEpisodeNumber)][/COLOR][/B]</label>
+							<textoffsetx>15</textoffsetx>
+						</control>			
+						<control type="label">
+							<top>460</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[COLOR FFFFFFFF]$INFO[ListItem.Property(NextTitle)][/COLOR]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>505</top>
+							<width>445</width>
+							<height>45</height>
+							<label>Plot :</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="textbox">
+							<left>20</left>
+							<top>545</top>
+							<width>425</width>
+							<height>175</height>
+							<label>$INFO[ListItem.Plot]</label>
+							<autoscroll>true</autoscroll>
+							<shadowcolor />
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>720</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(Status)]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>755</top>
+							<width>445</width>
+							<height>35</height>
+							<label>Aired Time :</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>790</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(ShortTime)]$INFO[ListItem.Property(Network), @ ]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+					</itemlayout>
+					<focusedlayout height="840" width="447">
+						<control type="image" description="fa overlay">
+							<width>447</width>
+							<height>840</height>
+							<texture border="4" colordiffuse="FFFFFFFF">TVGuide-CalDay-Week2.png</texture>
+							<visible>ControlGroup(9001).HasFocus()</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.fanart)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)|String.IsEqual(Window(Home).Property(NextAired.ThumbType),1)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Icon]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),0)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<texture background="true">TVGuide-ContentPanel.png</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>	
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="center">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),2)</visible>
+						</control>
+						<control type="image">
+							<top>20</top>
+							<width>445</width>
+							<height>237</height>
+							<aspectratio aligny="top">keep</aspectratio>
+							<texture background="true">$INFO[ListItem.Art(tvshow.landscape)]</texture>
+							<visible>String.IsEqual(Window(Home).Property(NextAired.ThumbType),3)</visible>
+						</control>
+						<control type="label">
+							<top>260</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$INFO[ListItem.Label][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>310</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$INFO[ListItem.Genre,- ][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFAF0</textcolor>
+						</control>
+						<control type="label">
+							<top>360</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$LOCALIZE[209]$LOCALIZE[20359]:[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>410</top>
+							<width>425</width>
+							<height>45</height>
+							<label>[B]$LOCALIZE[20373]: $INFO[ListItem.Property(NextSeasonNumber)]  $LOCALIZE[20359]: $INFO[ListItem.Property(NextEpisodeNumber)][/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>460</top>
+							<width>425</width>
+							<height>45</height>
+							<label>$INFO[ListItem.Property(NextTitle)]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>505</top>
+							<width>445</width>
+							<height>45</height>
+							<label>[B]Plot :[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="textbox">
+							<left>20</left>
+							<top>545</top>
+							<width>425</width>
+							<height>175</height>
+							<label>$INFO[ListItem.Plot]</label>
+							<autoscroll>true</autoscroll>
+							<shadowcolor />
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>720</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(Status)]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+						<control type="label">
+							<top>755</top>
+							<width>445</width>
+							<height>35</height>
+							<label>[B]Aired Time :[/B]</label>
+							<textoffsetx>15</textoffsetx>
+							<textcolor>FFFFFFFF</textcolor>
+						</control>
+						<control type="label">
+							<top>790</top>
+							<width>445</width>
+							<height>35</height>
+							<label>$INFO[ListItem.Property(ShortTime)]$INFO[ListItem.Property(Network), @ ]</label>
+							<textcolor>FFFFFFFF</textcolor>
+							<textoffsetx>15</textoffsetx>
+						</control>
+					</focusedlayout>
+				</control>
+
+			</control>
+		</control>
+		<control type="group">
+			<top>40</top>
+			<control type="grouplist" id="8000">
+				<left>105</left>
+				<top>930</top>
+				<width>322</width>
+				<height>100</height>
+				<onright>9000</onright>
+				<onup>9000</onup>
+				<onleft>9000</onleft>
+				<ondown>8000</ondown>
+				<onback>9000</onback>
+				<scrolltime>200</scrolltime>
+				<orientation>vertical</orientation>
+				<control type="button" id="8">
+					<description>Settings</description>
+		            <height>54</height>
+		            <width>322</width>
+		            <textoffsetx>2</textoffsetx>
+					<focusedcolor>FFFFFFFF</focusedcolor>
+		            <disabledcolor>grey</disabledcolor>
+					<texturefocus colordiffuse="FFFFAAFF">TVGuide-CalDay-Focus.png</texturefocus>
+					<texturenofocus>TVGuide-CalDay-Week2.png</texturenofocus>
+					<label>  $LOCALIZE[5]</label>
+				</control>
+			</control>
+		</control>		
+	</controls>	
+</window>
