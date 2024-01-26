@@ -103,7 +103,28 @@ def ListMovies(url):
 		xbmcplugin.endOfDirectory(addon_handle) 
 	else:
 		xbmcgui.Dialog().notification('[B]Info[/B]', 'No streams found',xbmcgui.NOTIFICATION_INFO, 6000)
-		
+def getkey():
+	ascon =''
+	response = requests.get('https://raw.githubusercontent.com/matecky/bub/keys/keys.json', verify=False)
+	if 'Ascon-128' in response.text:
+		i=''
+		ascon =re.findall("decryptFromHex\s*\('([^']+)'.*?'([^']+)'",response.text,re.DOTALL+re.I)
+		#if ascon:
+		return i, ascon
+	xx = re.findall('\s+file\:\s*(\w*)\,',response.text,re.DOTALL+re.I)
+	ff = None
+	if xx:
+		ff=re.findall(xx[0]+'\s*\=\s*(\w*)\(',response.text,re.DOTALL+re.I)
+	
+	if ff:
+		key = re.findall('function\s*'+ff[0]+".*?'([^']+)'",response.text,re.DOTALL+re.I)
+		if key:
+			i=key[0]
+		else:
+			i =''#return ''
+	else:
+		i =''#return ''
+	return i, ascon
 def decr(e, i="Try9-Stubble9"):
 ### 	function Ul(e) {
 ### 	  const i = "Try9-Stubble9";
@@ -115,36 +136,49 @@ def decr(e, i="Try9-Stubble9"):
 ### 	  return o;
 ### 	}
 
-
+	#ascon = True
 	if i == "requests":
-		response = requests.get('https://raw.githubusercontent.com/matecky/bub/keys/keys.json', verify=False)
-		xx = re.findall('\s+file\:\s*(\w*)\,',response.text,re.DOTALL+re.I)
-		ff = None
-		if xx:
-			ff=re.findall(xx[0]+'\s*\=\s*(\w*)\(',response.text,re.DOTALL+re.I)
-
-		if ff:
-			key = re.findall('function\s*'+ff[0]+".*?'([^']+)'",response.text,re.DOTALL+re.I)
-			if key:
-				i=key[0]
-			else:
-				return ''
-		else:
-			return ''
+		i, ascon = getkey()
+#		#i = None
+#		response = requests.get('https://raw.githubusercontent.com/matecky/bub/keys/keys.json', verify=False)
+#		#if 'Ascon-128' in response.text:
+#		
+#		xx = re.findall('\s+file\:\s*(\w*)\,',response.text,re.DOTALL+re.I)
+#		ff = None
+#		if xx:
+#			ff=re.findall(xx[0]+'\s*\=\s*(\w*)\(',response.text,re.DOTALL+re.I)
+#
+#		if ff:
+#			key = re.findall('function\s*'+ff[0]+".*?'([^']+)'",response.text,re.DOTALL+re.I)
+#			if key:
+#				i=key[0]
+#			else:
+#				i =''#return ''
+#		else:
+#			i =''#return ''
+	if i and not ascon:
+		import base64
+		l = base64.b64decode(e).decode('utf-8')
+		o=''
+		for c in range(len(e)):
 		
-	import base64
-	l = base64.b64decode(e).decode('utf-8')
-	o=''
-	for c in range(len(e)):
-	
-		try:
-			a=ord(l[c])
-			b = ord(i[c%len(i)])
-			o+=chr(a^b)
-		except:
-			pass
-	
-	return o   
+			try:
+				a=ord(l[c])
+				b = ord(i[c%len(i)])
+				o+=chr(a^b)
+			except:
+				pass
+		
+		return o  
+	elif ascon:
+		from resources.lib import ascondecrypt
+		ciphertext = e
+		key = ascon[0][0]
+		associateddata = ascon[0][1]
+		o = ascondecrypt.tvapp(ciphertext, associateddata,key)
+		if o:
+			o = o.decode('utf-8').replace('\\/','/').replace('"','')
+		return o
 def PlayVideo(url):	
 
 	stream_url = ''
@@ -154,7 +188,6 @@ def PlayVideo(url):
 	encrypt = re.findall('encryption"\s*content="([^"]+)"',html,re.DOTALL)
 	encrypt2 = re.findall('const\s*|\w*encrypted\s*=\s*"([^"]+)"',html,re.DOTALL)
 	kolejny =re.findall('player.setup.*?file\:\s*"([^"]+)"',(html.replace("\'",'"')),re.DOTALL+re.I)
-
 	if ajax:
 		url = re.findall('url\:\s*"([^"]+)"',ajax[0],re.DOTALL)[0]
 		url = 'https://thetvapp.to'+url if url.startswith('/') else url

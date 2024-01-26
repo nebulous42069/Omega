@@ -1120,9 +1120,9 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.sc19
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="plugin.video.thetvapp" name="The_TV_app" version="420.7" provider-name="xxxxxx">
+</addon><addon id="plugin.video.thetvapp" name="The_TV_app" version="420.8" provider-name="xxxxxx">
     <requires>
-        <import addon="xbmc.python" version="3.0.1" />
+        <import addon="xbmc.python" version="3.0.0" />
         <import addon="script.module.requests" />
         <import addon="script.module.six" />
     </requires>
