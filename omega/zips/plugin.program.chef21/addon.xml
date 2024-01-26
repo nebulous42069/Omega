@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.program.chef21" name="[B][COLOR chartreuse]Chef Omega Wizard[/COLOR][/B]" version="21" provider-name="Diggz">
+<addon id="plugin.program.chef21" name="[B][COLOR chartreuse]Chef Omega Wizard[/COLOR][/B]" version="22" provider-name="Diggz">
 	<requires>
 		<import addon="xbmc.python" version="3.0.1"/>
 		<import addon="repository.xbmc.org" />		

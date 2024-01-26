@@ -100,11 +100,7 @@
                 "url": "RunScript(script.module.accountmgr, action=alldebridAuth)"
             },
             {
-                "name": "Authenticate SEREN TRAKT",
-                "url": "RunPlugin(plugin://plugin.video.seren/?action=authTrakt)"
-            },
-            {
-                "name": "Authenticate ALL TRAKT",
+                "name": "Authenticate TRAKT",
                 "url": "RunScript(script.module.accountmgr, action=traktAuth)"
             },
             {
@@ -134,7 +130,11 @@
             {
                 "name": "Open Account Manager",
                 "url": "addon.opensettings(script.module.accountmgr)"
-            }
+            },
+            {
+                "name": "Fix/Restore Broken Authorizations",
+                "url": "PlayMedia(plugin://script.module.acctview/?mode=wipeclean&name=all)"
+            }			
         ]
     }
 }
