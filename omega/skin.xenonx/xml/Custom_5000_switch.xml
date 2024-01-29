@@ -17,7 +17,7 @@
                 <left>0</left>
                 <top>0</top>
                 <width>1275</width>
-                <height>890</height>
+                <height>640</height>
                 <texture border="40">$VAR[SelectBack]</texture>
                 <visible>Integer.IsGreater(Container(450).NumItems,4)</visible>
             </control>
@@ -26,7 +26,7 @@
                 <left>0</left>
                 <top>0</top>
                 <width>1275</width>
-                <height>411</height>
+                <height>400</height>
                 <texture border="40">$VAR[SelectBack]</texture>
                 <visible>!Integer.IsGreater(Container(450).NumItems,4)</visible>
             </control>
@@ -126,67 +126,17 @@
                         <label>$INFO[ListItem.Label]</label>
                     </control>
                 </focusedlayout>
-                <content>
+                <content>			
 				<item>
-					<label>[B][COLOR chartreuse]Xenon Plus Default Home Screen- DEBRID ONLY[/COLOR][/B]</label>
-					<onclick>Dialog.Close(5000)</onclick>
-					<onclick>RunPlugin(plugin://script.module.xenonplus/?mode=1)</onclick>
-				</item>
-				<item>
-					<label>Xenon Plus With Only Movies, TV Shows, And Trakt- DEBRID ONLY</label>
-					<onclick>Dialog.Close(5000)</onclick>
-					<onclick>RunPlugin(plugin://script.module.xenonplus/?mode=11)</onclick>
-				</item>				
-				<item>
-					<label>Xenon Plus Without Trakt- DEBRID ONLY</label>
-					<onclick>Dialog.Close(5000)</onclick>
-					<onclick>RunPlugin(plugin://script.module.xenonplus/?mode=7)</onclick>
-				</item>
-				<item>
-					<label>Xenon Plus With Seren Widgets- DEBRID ONLY</label>
-					<onclick>Dialog.Close(5000)</onclick>
-					<onclick>RunPlugin(plugin://script.module.xenonplus/?mode=9)</onclick>
-				</item>	
-				<item>
-					<label>Xenon Plus With Coalition Widgets- DEBRID ONLY</label>
-					<onclick>Dialog.Close(5000)</onclick>
-					<onclick>RunPlugin(plugin://script.module.xenonplus/?mode=5)</onclick>
-				</item>
-				<item>
-					<label>Xenon Plus With FEN Widgets- DEBRID ONLY</label>
-					<onclick>Dialog.Close(5000)</onclick>
-					<onclick>RunPlugin(plugin://script.module.xenonplus/?mode=6)</onclick>
-				</item>
-				<item>
-					<label>Xenon Plus With POV Widgets- DEBRID ONLY</label>
-					<onclick>Dialog.Close(5000)</onclick>
-					<onclick>RunPlugin(plugin://script.module.xenonplus/?mode=8)</onclick>
-				</item>				
-				<item>
-					<label>Xenon Plus With Umbrella Widgets- DEBRID ONLY</label>
-					<onclick>Dialog.Close(5000)</onclick>
-					<onclick>RunPlugin(plugin://script.module.xenonplus/?mode=10)</onclick>
-				</item>
-				<item>
-					<label>Xenon Plus Light- DEBRID ONLY</label>
-					<onclick>Dialog.Close(5000)</onclick>
-					<onclick>RunPlugin(plugin://script.module.xenonplus/?mode=12)</onclick>
-				</item>				
-				<item>
-					<label>Xenon FREE</label>
+					<label>    [COLOR chartreuse]1-[/COLOR] Choose Your Home Screen Layout</label>
 					<onclick>Dialog.Close(5000)</onclick>
 					<onclick>RunPlugin(plugin://script.module.xenonplus/?mode=2)</onclick>
-				</item>	
-				<item>
-					<label>Xenon FREE Without Trakt</label>
-					<onclick>Dialog.Close(5000)</onclick>
-					<onclick>RunPlugin(plugin://script.module.xenonplus/?mode=4)</onclick>
 				</item>
 				<item>
-					<label>Xenon FREE Light</label>
+					<label>    [COLOR chartreuse]2-[/COLOR] Choose Your Home Menu Options</label>
 					<onclick>Dialog.Close(5000)</onclick>
-					<onclick>RunPlugin(plugin://script.module.xenonplus/?mode=3)</onclick>
-				</item>					
+					<onclick>RunPlugin(plugin://script.module.xenonplus/?mode=1)</onclick>
+				</item>								
                 </content>
             </control>
             <control type="scrollbar" id="61">

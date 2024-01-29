@@ -21,7 +21,7 @@ tmdb_main = ('tmdb_tv_popular', 'tmdb_tv_popular_today', 'tmdb_tv_premieres', 't
 tmdb_special = {'tmdb_tv_languages': 'language', 'tmdb_tv_networks': 'network_id', 'tmdb_tv_year': 'year', 'tmdb_tv_decade': 'decade', 'tmdb_tv_recommendations': 'tmdb_id',
 					'tmdb_tv_genres': 'genre_id', 'tmdb_tv_search': 'query'}
 trakt_main = ('trakt_tv_trending', 'trakt_tv_trending_recent', 'trakt_recommendations', 'trakt_tv_most_watched')
-trakt_personal = ('trakt_collection', 'trakt_watchlist', 'trakt_collection_lists')
+trakt_personal = ('trakt_collection', 'trakt_watchlist', 'trakt_collection_lists', 'trakt_favorites')
 imdb_all = ('imdb_watchlist', 'imdb_user_list_contents', 'imdb_keywords_list_contents')
 personal = {'in_progress_tvshows': ('modules.watched_status', 'get_in_progress_tvshows'), 'favorites_tvshows': ('modules.favorites', 'get_favorites'),
 				'watched_tvshows': ('modules.watched_status', 'get_watched_items')}
@@ -80,7 +80,7 @@ class TVShows:
 			elif self.action in trakt_personal:
 				self.id_type = 'trakt_dict'
 				data = function('shows', page_no)
-				if self.action == 'trakt_collection_lists': all_pages, total_pages = '', 1
+				if self.action in ('trakt_collection_lists', 'trakt_favorites'): all_pages, total_pages = '', 1
 				else: data, all_pages, total_pages = self.paginate_list(data, page_no)
 				self.list = [i['media_ids'] for i in data]
 				if total_pages > 2: self.total_pages = total_pages

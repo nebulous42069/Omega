@@ -171,8 +171,9 @@ def default_settings():
 #====================================GENERAL====================================#
 #===============================================================================#
 #==================== Manage Updates
-{'setting_id': 'update.action', 'setting_type': 'action', 'setting_default': '2', 'settings_options': {'0': 'Prompt', '1': 'Automatic', '2': 'Notification', '3': 'Off'}},
-{'setting_id': 'update.delay', 'setting_type': 'action', 'setting_default': '45', 'min_value': '10', 'max_value': '300'},
+{'setting_id': 'update.action', 'setting_type': 'action', 'setting_default': '0', 'settings_options': {'0': 'Prompt', '1': 'Automatic', '2': 'Notification', '3': 'Off'}},
+{'setting_id': 'update.delay', 'setting_type': 'action', 'setting_default': '30', 'min_value': '10', 'max_value': '300'},
+{'setting_id': 'update.use_test_repo', 'setting_type': 'boolean', 'setting_default': 'false'},
 #==================== General
 {'setting_id': 'auto_start_fenlight', 'setting_type': 'boolean', 'setting_default': 'false'},
 {'setting_id': 'addon_fanart', 'setting_type': 'path', 'setting_default': addon_fanart, 'browse_mode': '2'},
@@ -198,7 +199,7 @@ def default_settings():
 {'setting_id': 'extras.enable_extra_ratings', 'setting_type': 'boolean', 'setting_default': 'true'},
 {'setting_id': 'extras.enable_scrollbars', 'setting_type': 'boolean', 'setting_default': 'false'},
 #==================== Custom Actions
-{'setting_id': 'auto_custom_actions', 'setting_type': 'boolean', 'setting_default': 'true'},
+{'setting_id': 'auto_custom_actions', 'setting_type': 'boolean', 'setting_default': 'false'},
 
 
 #==================================================================================#
@@ -216,13 +217,13 @@ def default_settings():
 {'setting_id': 'default_all_episodes', 'setting_type': 'action', 'setting_default': '0', 'settings_options': {'0': 'Never', '1': 'If Only One Season', '2': 'Always'}},
 {'setting_id': 'single_ep_display', 'setting_type': 'action', 'setting_default': '0', 'settings_options': {'0': 'TITLE: SxE - EPISODE', '1': 'SxE - EPISODE', '2': 'EPISODE'}},
 {'setting_id': 'single_ep_display_widget', 'setting_type': 'action', 'setting_default': '1', 'settings_options': {'0': 'TITLE: SxE - EPISODE', '1': 'SxE - EPISODE', '2': 'EPISODE'}},
-{'setting_id': 'use_minimal_media_info', 'setting_type': 'boolean', 'setting_default': 'true'},
+{'setting_id': 'use_minimal_media_info', 'setting_type': 'boolean', 'setting_default': 'false'},
 #==================== Next Episodes
 {'setting_id': 'nextep.include_unwatched', 'setting_type': 'action', 'setting_default': '0', 'settings_options': {'0': 'None', '1': 'Watchlist', '2': 'Favorites', '3': 'Both'}},
 {'setting_id': 'nextep.include_unaired', 'setting_type': 'boolean', 'setting_default': 'false'},
 #==================== Widgets
 {'setting_id': 'widget_hide_watched', 'setting_type': 'boolean', 'setting_default': 'false'},
-{'setting_id': 'widget_hide_next_page', 'setting_type': 'boolean', 'setting_default': 'true'},
+{'setting_id': 'widget_hide_next_page', 'setting_type': 'boolean', 'setting_default': 'false'},
 
 
 #=====================================================================================#

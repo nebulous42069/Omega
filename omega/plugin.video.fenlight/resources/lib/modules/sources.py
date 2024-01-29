@@ -45,10 +45,10 @@ class Sources():
 		self.sources_total = self.sources_4k = self.sources_1080p = self.sources_720p = self.sources_sd = 0
 		self.prescrape, self.disabled_ext_ignored, self.default_ext_only = 'true', 'false', 'false'
 		self.ext_name, self.ext_folder, self.provider_defaults, self.ext_sources = '', '', [], None
-		self.progress_dialog = None
+		self.progress_dialog, self.progress_thread = None, None
 		self.playing_filename = ''
 		self.count_tuple = (('sources_4k', '4K', self._quality_length), ('sources_1080p', '1080p', self._quality_length), ('sources_720p', '720p', self._quality_length),
-							('sources_sd', '', self._quality_length_sd), ('sources_total', '', self.quality_length_final))
+							('sources_sd', '', self._quality_length_sd), ('sources_total', '', self._quality_length_final))
 
 	def playback_prep(self, params=None):
 		hide_busy_dialog()
@@ -90,7 +90,7 @@ class Sources():
 		self.hybrid_allowed = self.filter_hdr in (0, 2)
 		self.include_unknown_size = get_setting('fenlight.results.include.unknown.size', 'false') == 'true'
 		self.include_3D_results = get_setting('fenlight.include_3d_results', 'true') == 'true'
-		self.search_info()
+		self.make_search_info()
 		if self.autoscrape: self.autoscrape_nextep_handler()
 		else: return self.get_sources()
 
@@ -456,7 +456,7 @@ class Sources():
 			except: pass
 		self.meta.update({'media_type': self.media_type, 'background': self.background, 'custom_title': self.custom_title, 'custom_year': self.custom_year})
 
-	def search_info(self):
+	def make_search_info(self):
 		title, year, season, episode, ep_name = self.get_search_title(), self.get_search_year(), self.get_season(), self.get_episode(), self.get_ep_name()
 		aliases = make_alias_dict(self.meta, title)
 		expiry_times = get_cache_expiry(self.media_type, self.meta, self.season)
@@ -477,7 +477,8 @@ class Sources():
 
 	def _make_progress_dialog(self):
 		self.progress_dialog = create_window(('windows.sources', 'SourcesPlayback'), 'sources_playback.xml', meta=self.meta)
-		Thread(target=self.progress_dialog.run).start()
+		self.progress_thread = Thread(target=self.progress_dialog.run)
+		self.progress_thread.start()
 
 	def _make_resolve_dialog(self):
 		self.resolve_dialog_made = True
@@ -496,11 +497,19 @@ class Sources():
 		return action
 
 	def _kill_progress_dialog(self):
-		try: self.progress_dialog.close()
-		except: close_all_dialog()
-		try: del self.progress_dialog
+		success = 0
+		try:
+			self.progress_dialog.close()
+			success += 1
 		except: pass
-		self.progress_dialog = None
+		try:
+			self.progress_thread.join()
+			success += 1
+		except: pass
+		if not success == 2: close_all_dialog()
+		del self.progress_dialog
+		del self.progress_thread
+		self.progress_dialog, self.progress_thread = None, None
 
 	def debridPacks(self, debrid_provider, name, magnet_url, info_hash, download=False):
 		show_busy_dialog()
@@ -743,5 +752,5 @@ class Sources():
 	def _quality_length_sd(self, items, dummy):
 		return len([i for i in items if i['quality'] in sd_check])
 
-	def quality_length_final(self, items, dummy):
+	def _quality_length_final(self, items, dummy):
 		return len(items)

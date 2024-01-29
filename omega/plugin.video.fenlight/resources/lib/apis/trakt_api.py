@@ -20,6 +20,7 @@ clear_all_trakt_cache_data, cache_trakt_object, clear_trakt_calendar = trakt_cac
 trakt_watched_cache, reset_activity, clear_trakt_list_contents_data = trakt_cache.trakt_watched_cache, trakt_cache.reset_activity, trakt_cache.clear_trakt_list_contents_data
 clear_trakt_collection_watchlist_data, clear_trakt_hidden_data = trakt_cache.clear_trakt_collection_watchlist_data, trakt_cache.clear_trakt_hidden_data
 clear_trakt_recommendations, clear_trakt_list_data = trakt_cache.clear_trakt_recommendations, trakt_cache.clear_trakt_list_data
+clear_trakt_favorites = trakt_cache.clear_trakt_favorites
 standby_date = '2050-01-01T01:00:00.000Z'
 res_format = '%Y-%m-%dT%H:%M:%S.%fZ'
 API_ENDPOINT = 'https://api.trakt.tv/%s'
@@ -175,12 +176,18 @@ def trakt_movies_top10_boxoffice(page_no):
 
 def trakt_movies_most_watched(page_no):
 	string = 'trakt_movies_most_watched_%s' % page_no
-	params = {'path': 'movies/watched/weekly/%s', 'params': {'limit': 20}, 'page_no': page_no}
+	params = {'path': 'movies/watched/daily/%s', 'params': {'limit': 20}, 'page_no': page_no}
+	return lists_cache_object(get_trakt, string, params, False, 48)
+
+def trakt_movies_most_favorited(page_no):
+	string = 'trakt_movies_most_favorited%s' % page_no
+	params = {'path': 'movies/favorited/daily/%s', 'params': {'limit': 20}, 'page_no': page_no}
 	return lists_cache_object(get_trakt, string, params, False, 48)
 
 def trakt_recommendations(media_type):
 	string = 'trakt_recommendations_%s' % (media_type)
-	params = {'path': '/recommendations/%s', 'path_insert': media_type, 'with_auth': True, 'params': {'limit': 50}, 'pagination': False}
+	params = {'path': '/recommendations/%s', 'path_insert': media_type, 'with_auth': True,
+			'params': {'limit': 50, 'ignore_collected': 'true', 'ignore_watchlisted': 'true'}, 'pagination': False}
 	return cache_trakt_object(get_trakt, string, params)
 
 def trakt_tv_trending(page_no):
@@ -197,7 +204,12 @@ def trakt_tv_trending_recent(page_no):
 
 def trakt_tv_most_watched(page_no):
 	string = 'trakt_tv_most_watched_%s' % page_no
-	params = {'path': 'shows/watched/weekly/%s', 'params': {'limit': 20}, 'page_no': page_no}
+	params = {'path': 'shows/watched/daily/%s', 'params': {'limit': 20}, 'page_no': page_no}
+	return lists_cache_object(get_trakt, string, params, False, 48)
+
+def trakt_tv_most_favorited(page_no):
+	string = 'trakt_tv_most_favorited_%s' % page_no
+	params = {'path': 'shows/favorited/daily/%s', 'params': {'limit': 20}, 'page_no': page_no}
 	return lists_cache_object(get_trakt, string, params, False, 48)
 
 def trakt_tv_certifications(certification, page_no):
@@ -358,10 +370,19 @@ def trakt_search_lists(search_title, page_no):
 	string = 'trakt_search_lists_%s_%s' % (search_title, page_no)
 	return cache_object(_process, string, 'dummy_arg', False, 4)
 
+def trakt_favorites(media_type, dummy_arg):
+	def _process(params):
+		return [{'media_ids': {'tmdb': i[i['type']]['ids'].get('tmdb', ''), 'imdb': i[i['type']]['ids'].get('imdb', ''), 'tvdb': i[i['type']]['ids'].get('tvdb', '')}} \
+					for i in get_trakt(params)]
+	media_type = 'movies' if media_type in ('movie', 'movies') else 'shows'
+	string = 'trakt_favorites_%s' % media_type
+	params = {'path': 'users/me/favorites/%s/%s', 'path_insert': (media_type, 'title'), 'with_auth': True, 'pagination': False}
+	return cache_trakt_object(_process, string, params)
+
 def get_trakt_list_contents(list_type, user, slug, with_auth):
 	def _process(params):
 		return [{'media_ids': i[i['type']]['ids'], 'title': i[i['type']]['title'], 'type': i['type'], 'order': c} for c, i in enumerate(get_trakt(params))]	
-	string = 'trakt_list_contents_%s_%s_%s_TEST' % (list_type, user, slug)
+	string = 'trakt_list_contents_%s_%s_%s' % (list_type, user, slug)
 	if user == 'Trakt Official': params = {'path': 'lists/%s/items', 'path_insert': slug, 'params': {'extended':'full'}, 'method': 'sort_by_headers'}
 	else: params = {'path': 'users/%s/lists/%s/items', 'path_insert': (user, slug), 'params': {'extended':'full'}, 'with_auth': with_auth, 'method': 'sort_by_headers'}
 	return cache_trakt_object(_process, string, params)
@@ -689,13 +710,13 @@ def trakt_sync_activities(force_update=False):
 	cached_shows, latest_shows = cached['shows'], latest['shows']
 	cached_episodes, latest_episodes = cached['episodes'], latest['episodes']
 	cached_lists, latest_lists = cached['lists'], latest['lists']
+	if _compare(latest['recommendations'], cached['recommendations']): clear_trakt_recommendations()
+	if _compare(latest['favorites'], cached['favorites']): clear_trakt_favorites()
 	if _compare(latest_movies['collected_at'], cached_movies['collected_at']): clear_trakt_collection_watchlist_data('collection', 'movie')
 	if _compare(latest_episodes['collected_at'], cached_episodes['collected_at']): clear_trakt_collection_watchlist_data('collection', 'tvshow')
 	if _compare(latest_movies['watchlisted_at'], cached_movies['watchlisted_at']): clear_trakt_collection_watchlist_data('watchlist', 'movie')
 	if _compare(latest_shows['watchlisted_at'], cached_shows['watchlisted_at']): clear_trakt_collection_watchlist_data('watchlist', 'tvshow')
 	if _compare(latest_shows['hidden_at'], cached_shows['hidden_at']): clear_trakt_hidden_data('progress_watched')
-	if _compare(latest_movies['recommendations_at'], cached_movies['recommendations_at']): clear_trakt_recommendations('movies')
-	if _compare(latest_shows['recommendations_at'], cached_shows['recommendations_at']): clear_trakt_recommendations('shows')
 	if _compare(latest_movies['watched_at'], cached_movies['watched_at']): trakt_indicators_movies()
 	if _compare(latest_episodes['watched_at'], cached_episodes['watched_at']): trakt_indicators_tv()
 	if _compare(latest_movies['paused_at'], cached_movies['paused_at']): refresh_movies_progress = True

@@ -11,9 +11,6 @@ def routing(sys):
 	if 'navigator.' in mode:
 		from indexers.navigator import Navigator
 		return exec('Navigator(params).%s()' % mode.split('.')[1])
-	if mode == 'set_view':
-		from modules.kodi_utils import set_view
-		return kodi_utils.set_view(_get('view_type'))
 	if 'menu_editor.' in mode:
 		from modules.menu_editor import MenuEditor
 		return exec('MenuEditor(params).%s()' % mode.split('.')[1])
@@ -180,6 +177,9 @@ def routing(sys):
 		from modules import downloader
 		return exec('downloader.%s(params)' % mode.split('.')[1])
 	##EXTRA modes##
+	if mode == 'set_view':
+		from modules.kodi_utils import set_view
+		return kodi_utils.set_view(_get('view_type'))
 	if mode == 'sync_settings':
 		from caches.settings_cache import sync_settings
 		return sync_settings(params)

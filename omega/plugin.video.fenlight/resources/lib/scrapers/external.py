@@ -7,10 +7,9 @@ from modules.debrid import RD_check, PM_check, AD_check, query_local_cache
 from modules.utils import clean_file_name
 # logger = kodi_utils.logger
 
+normalize, get_file_info, pack_enable_check, int_window_prop = source_utils.normalize, source_utils.get_file_info, source_utils.pack_enable_check, kodi_utils.int_window_prop
 sleep, monitor, get_property, set_property, random = kodi_utils.sleep, kodi_utils.monitor, kodi_utils.get_property, kodi_utils.set_property, kodi_utils.random
 json, Thread, notification, hide_busy_dialog = kodi_utils.json, kodi_utils.Thread, kodi_utils.notification, kodi_utils.hide_busy_dialog
-normalize, get_file_info, pack_enable_check = source_utils.normalize, source_utils.get_file_info, source_utils.pack_enable_check
-close_all_dialog, int_window_prop = kodi_utils.close_all_dialog, kodi_utils.int_window_prop
 pack_display = '%s (%s)'
 pack_check = ('Season', 'Show')
 debrid_runners = {'Real-Debrid': ('Real-Debrid', RD_check), 'Premiumize.me': ('Premiumize.me', PM_check), 'AllDebrid': ('AllDebrid', AD_check)}
@@ -259,13 +258,6 @@ class source:
 			self.processed_internal_scrapers_append(i)
 			self.process_quality_count(internal_sources)
 		return [i for i in self.internal_scrapers if not i in self.processed_internal_scrapers]
-
-	def _kill_progress_dialog(self):
-		try: self.progress_dialog.close()
-		except: close_all_dialog()
-		try: del self.progress_dialog
-		except: pass
-		self.progress_dialog = None
 
 	def _quality_length(self, items, quality):
 		return len([i for i in items if i['quality'] == quality])

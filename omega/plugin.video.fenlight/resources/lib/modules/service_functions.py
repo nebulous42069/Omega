@@ -9,7 +9,7 @@ from modules.utils import jsondate_to_datetime, datetime_workaround
 
 get_infolabel, run_plugin, external, run_addon = kodi_utils.get_infolabel, kodi_utils.run_plugin, kodi_utils.external, kodi_utils.run_addon
 pause_services_prop, xbmc_monitor, xbmc_player, userdata_path = kodi_utils.pause_services_prop, kodi_utils.xbmc_monitor, kodi_utils.xbmc_player, kodi_utils.userdata_path
-get_window_id, make_directories = kodi_utils.get_window_id, kodi_utils.make_directories
+firstrun_update_prop, get_window_id, make_directories = kodi_utils.firstrun_update_prop, kodi_utils.get_window_id, kodi_utils.make_directories
 logger, close_dialog = kodi_utils.logger, kodi_utils.close_dialog
 get_property, set_property, clear_property, get_visibility = kodi_utils.get_property, kodi_utils.set_property, kodi_utils.clear_property, kodi_utils.get_visibility
 kodi_refresh, current_skin_prop, notification = kodi_utils.kodi_refresh, kodi_utils.current_skin_prop, kodi_utils.notification
@@ -17,7 +17,7 @@ trakt_sync_interval, auto_start, update_action, update_delay = settings.trakt_sy
 auto_start_fenlight = settings.auto_start_fenlight
 window_top_str, listitem_property_str = 'Window.IsTopMost(%s)', 'ListItem.Property(%s)'
 movieinformation_str, contextmenu_str = 'movieinformation', 'contextmenu'
-trakt_service_string = 'TraktSync Service Update %s - %s'
+trakt_service_string = 'TraktMonitor Service Update %s - %s'
 trakt_success_line_dict = {'success': 'Trakt Update Performed', 'no account': '(Unauthorized) Trakt Update Performed'}
 update_string = 'Next Update in %s minutes...'
 media_windows = (10000, 10025, 11121)
@@ -51,7 +51,6 @@ class CustomActions:
 					run_custom = True
 					self.wait_for_abort(0.25)
 				else:
-					run_custom = False
 					self.wait_for_abort(1); continue
 				context_visible, info_visible = get_visibility(window_top_str % contextmenu_str), get_visibility(window_top_str % movieinformation_str)
 			try:
@@ -113,7 +112,6 @@ class TraktMonitor:
 					else: logger('Fen Light', trakt_service_string % ('Success. No Changes Needed', next_update_string))# 'not needed'
 					if status == 'success' and get_setting('fenlight.trakt.refresh_widgets', 'false') == 'true': kodi_refresh()
 			except Exception as e: logger('Fen Light', trakt_service_string % ('Failed', 'The following Error Occured: %s' % str(e)))
-			logger('Fen Light', 'TraktSync Finished')
 			wait_for_abort(wait_time)
 		try: del monitor
 		except: pass
@@ -123,6 +121,7 @@ class TraktMonitor:
 
 class UpdateCheck:
 	def run(self):
+		if get_property(firstrun_update_prop) == 'true': return
 		logger('Fen Light', 'UpdateCheck Service Starting')
 		monitor, player = xbmc_monitor(), xbmc_player()
 		wait_for_abort, is_playing = monitor.waitForAbort, player.isPlayingVideo
@@ -131,6 +130,7 @@ class UpdateCheck:
 			while get_property(pause_services_prop) == 'true' or is_playing(): wait_for_abort(5)
 			update_check(update_action())
 			break
+		set_property(firstrun_update_prop, 'true')
 		try: del monitor
 		except: pass
 		try: del player

@@ -441,11 +441,20 @@
                     </item>
                     <item>
                         <visible>Container(2000).HasFocus(10)</visible>
-                        <label>Delay Before Running (secs)</label>
+                        <visible>!String.IsEqual(Window(10000).Property(fenlight.update.action),3)</visible>
+                        <label>    - Delay Before Running (secs)</label>
                         <property name="setting_type">numeric</property>
                         <property name="setting_value">$INFO[Window(10000).Property(fenlight.update.delay)]</property>
                         <property name="setting_description">Choose the delay time before Fen Light checks for updates after Kodi start</property>
                         <onclick>RunPlugin(plugin://plugin.video.fenlight/?mode=settings_manager.set_numeric&amp;setting_id=update.delay)</onclick>
+                    </item>
+                    <item>
+                        <visible>Container(2000).HasFocus(10)</visible>
+                        <label>Use Test Repository for Updates (Warning!!!)</label>
+                        <property name="setting_type">boolean</property>
+                        <property name="setting_value">$INFO[Window(10000).Property(fenlight.update.use_test_repo)]</property>
+                        <property name="setting_description">Enable this and Fen Light will update from the Tikipeter Test Repository. It is STRONGLY advised to NOT enable this setting, but if you like to live life on the edge....</property>
+                        <onclick>RunPlugin(plugin://plugin.video.fenlight/?mode=settings_manager.set_boolean&amp;setting_id=update.use_test_repo)</onclick>
                     </item>
             <!-- General -->
                     <item>
@@ -1337,7 +1346,7 @@
                     </item>
                     <item>
                         <visible>Container(2000).HasFocus(50)</visible>
-                        <label>Ignore All Filters When No Results Available</label>
+                        <label>Ignore All Filters When No Results</label>
                         <property name="setting_type">action</property>
                         <property name="setting_value">$INFO[Window(10000).Property(fenlight.results.ignore_filter_name)]</property>
                         <property name="setting_description">Choose the action performed when there are no results after an initial scrape for sources</property>

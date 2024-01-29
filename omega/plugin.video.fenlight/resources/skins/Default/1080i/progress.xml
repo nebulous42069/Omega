@@ -30,14 +30,14 @@
                 <texture colordiffuse="FF1F2020" border="30">fenlight_common/circle.png</texture>
             </control>
             <control type="image">
-                <left>2</left>
-                <top>2</top>
+                <left>7</left>
+                <top>7</top>
                 <width>45</width>
                 <height>45</height>
                 <align>right</align>
                 <aligny>top</aligny>
                 <aspectratio aligny="top">keep</aspectratio>
-                <texture colordiffuse="B3CCCCCC">fenlight_common/fenlight.png</texture>
+                <texture colordiffuse="FFCCCCCC">fenlight_common/fenlight.png</texture>
             </control>
             <control type="group">
                 <left>5</left>
@@ -54,8 +54,8 @@
                     <label>[UPPERCASE]Press [B]BACK[/B] to Cancel[/UPPERCASE]</label>
                 </control>
                 <control type="image" id="200">
-                    <left>640</left>
-                    <top>70</top>
+                    <left>610</left>
+                    <top>40</top>
                     <width>280</width>
                     <height>300</height>
                     <aspectratio aligny="bottom">keep</aspectratio>
@@ -81,9 +81,9 @@
                 </control>
                 <control type="progress" id="5000">
                     <description>Progressbar</description>
-                    <top>395</top>
-                    <left>0</left>
-                    <width>910</width>
+                    <top>385</top>
+                    <left>20</left>
+                    <width>870</width>
                     <height>25</height>
                     <reveal>true</reveal>
                 </control>

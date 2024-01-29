@@ -1,6 +1,6 @@
-<addon id="plugin.video.fen" name="Fen" provider-name="Tikipeter" version="3.2.18">
+<addon id="plugin.video.fen" name="Fen" provider-name="Tikipeter" version="3.2.21">
     <requires>
-        <import addon="xbmc.python" version="3.0.1"/>
+        <import addon="xbmc.python" version="3.0.0"/>
         <import addon="script.module.requests" version="2.19.1"/>
     </requires>
     <extension library="resources/lib/fen.py" point="xbmc.python.pluginsource">

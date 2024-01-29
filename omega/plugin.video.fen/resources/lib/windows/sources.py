@@ -12,8 +12,7 @@ resume_dict = {10: 'resume', 11: 'start_over', 12: 'cancel'}
 info_icons_dict = {'furk': get_icon('provider_furk'), 'easynews': get_icon('provider_easynews'), 'alldebrid': get_icon('provider_alldebrid'),
 				'real-debrid': get_icon('provider_realdebrid'), 'premiumize': get_icon('provider_premiumize'), 'ad_cloud': get_icon('provider_alldebrid'),
 				'rd_cloud': get_icon('provider_realdebrid'), 'pm_cloud': get_icon('provider_premiumize')}
-info_quality_dict = {'4k': get_icon('flag_4k'), '1080p': get_icon('flag_1080p'), '720p': get_icon('flag_720p'), 'sd': get_icon('flag_sd'),
-					'cam': get_icon('flag_sd'), 'tele': get_icon('flag_sd'), 'scr': get_icon('flag_sd')}
+info_quality_dict = {'4k': get_icon('flag_4k'), '1080p': get_icon('flag_1080p'), '720p': get_icon('flag_720p'), 'sd': get_icon('flag_sd')}
 extra_info_choices = (('PACK', 'PACK'), ('DOLBY VISION', 'D/VISION'), ('HIGH DYNAMIC RANGE (HDR)', 'HDR'), ('HYBRID', 'HYBRID'), ('AV1', 'AV1'),
 					('HEVC (X265)', 'HEVC'), ('REMUX', 'REMUX'), ('BLURAY', 'BLURAY'), ('SDR', 'SDR'), ('3D', '3D'), ('DOLBY ATMOS', 'ATMOS'), ('DOLBY TRUEHD', 'TRUEHD'),
 					('DOLBY DIGITAL EX', 'DD-EX'), ('DOLBY DIGITAL PLUS', 'DD+'), ('DOLBY DIGITAL', 'DD'), ('DTS-HD MASTER AUDIO', 'DTS-HD MA'), ('DTS-X', 'DTS-X'),
@@ -65,13 +64,12 @@ class SourcesResults(BaseDialog):
 		return self.selected
 
 	def get_provider_and_path(self, provider):
-		try: icon_path = info_icons_dict[provider]
-		except: provider, icon_path = 'folders', get_icon('provider_folder')
-		return provider, icon_path
+		try: return provider, info_icons_dict[provider]
+		except: return 'folders', get_icon('provider_folder')
 
 	def get_quality_and_path(self, quality):
-		icon_path = info_quality_dict[quality]
-		return quality, icon_path
+		try: return quality, info_quality_dict[quality]
+		except: return 'sd', get_icon('flag_sd')
 
 	def filter_action(self, action):
 		if action == self.right_action or action in self.closing_actions:
@@ -79,7 +77,7 @@ class SourcesResults(BaseDialog):
 			self.setFocusId(self.window_id)
 		if action in self.selection_actions:
 			chosen_listitem = self.get_listitem(self.filter_window_id)
-			filter_type, filter_value = chosen_listitem.getProperty('filter_info').split('_')
+			filter_type, filter_value = chosen_listitem.getProperty('filter_type'), chosen_listitem.getProperty('filter_value')
 			if filter_type in ('quality', 'provider'):
 				if filter_value == prerelease_key: filtered_list = [i for i in self.item_list if i.getProperty(filter_type) in filter_value.split('/')]
 				else: filtered_list = [i for i in self.item_list if i.getProperty(filter_type) == filter_value]
@@ -206,8 +204,7 @@ class SourcesResults(BaseDialog):
 		def builder(data):
 			for item in data:
 				listitem = self.make_listitem()
-				listitem.setProperty('label', item[0])
-				listitem.setProperty('filter_info', item[1])
+				listitem.setProperties({'label': item[0], 'filter_type': item[1], 'filter_value': item[2]})
 				yield listitem
 		duplicates = set()
 		qualities = [i.getProperty('quality') for i in self.item_list \
@@ -224,11 +221,11 @@ class SourcesResults(BaseDialog):
 		provider_choices = sorted(sort_ranks.keys(), key=sort_ranks.get)
 		provider_choices = [upper(i) for i in provider_choices]
 		providers.sort(key=provider_choices.index)
-		qualities = [('Show [B]%s[/B] Only' % i, 'quality_%s' % i) for i in qualities]
-		providers = [('Show [B]%s[/B] Only' % i, 'provider_%s' % i) for i in providers]
+		qualities = [('Show [B]%s[/B] Only' % i, 'quality', i) for i in qualities]
+		providers = [('Show [B]%s[/B] Only' % i, 'provider', i) for i in providers]
 		data = qualities + providers
-		if self.uncached_torrents: data.append(('Show [B]%s[/B] Only' % show_uncached_str, 'special_showuncached'))
-		data.extend([(filter_title, 'special_title'), (filter_extraInfo, 'special_extraInfo')])
+		if self.uncached_torrents: data.append(('Show [B]%s[/B] Only' % show_uncached_str, 'special', 'showuncached'))
+		data.extend([(filter_title, 'special', 'title'), (filter_extraInfo, 'special', 'extraInfo')])
 		self.filter_list = list(builder(data))
 
 	def set_properties(self):

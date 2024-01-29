@@ -581,7 +581,6 @@ class Extras(BaseDialog):
 		if set_starting_position: self.current_params['starting_position'] = [self.control_id, self.get_position(self.control_id)]
 
 	def set_starting_constants(self, kwargs):
-
 		self.meta = kwargs['meta']
 		self.meta_get = self.meta.get
 		self.media_type, self.options_media_type = self.meta_get('mediatype'), kwargs['options_media_type']

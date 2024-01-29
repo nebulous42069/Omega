@@ -332,9 +332,9 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.cb20
         <disclaimer lang="de_DE">(c) 2023 aitschti</disclaimer>
         <reuselanguageinvoker>false</reuselanguageinvoker>
     </extension>
-</addon><addon id="plugin.video.fen" name="Fen" provider-name="Tikipeter" version="3.2.18">
+</addon><addon id="plugin.video.fen" name="Fen" provider-name="Tikipeter" version="3.2.21">
     <requires>
-        <import addon="xbmc.python" version="3.0.1" />
+        <import addon="xbmc.python" version="3.0.0" />
         <import addon="script.module.requests" version="2.19.1" />
     </requires>
     <extension library="resources/lib/fen.py" point="xbmc.python.pluginsource">
@@ -355,9 +355,9 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.cb20
         </assets>
         <news>INFO: For latest changes see Changelog within Tools of add-on.</news>
     </extension>
-</addon><addon id="plugin.video.fenlight" name="Fen Light" provider-name="Tikipeter" version="1.0.18">
+</addon><addon id="plugin.video.fenlight" name="Fen Light" provider-name="Tikipeter" version="1.0.22">
     <requires>
-        <import addon="xbmc.python" version="3.0.1" />
+        <import addon="xbmc.python" version="3.0.0" />
         <import addon="script.module.requests" version="2.19.1" />
     </requires>
     <extension library="resources/lib/fenlight.py" point="xbmc.python.pluginsource">
@@ -1710,9 +1710,9 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.sc19
 			<fanart />
 		</assets>
     </extension>
-</addon><addon id="script.module.xenonplus" name="Xenon Plus Switcher" version="1.0.3" provider-name="Zaxxon709">
+</addon><addon id="script.module.xenonplus" name="Xenon Flavors" version="420" provider-name="Zaxxon709">
 	<requires>
-		<import addon="xbmc.python" version="3.0.1" />
+		<import addon="xbmc.python" version="3.0.0" />
 	</requires>
 	<extension point="xbmc.python.pluginsource" library="addon.py">
 	</extension>
@@ -3272,7 +3272,7 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
     </assets>
     <news>See changelog for latest changes</news>
   </extension>
-</addon><addon id="skin.xenonx" version="6.3" name="[B][COLOR gold]Xenon[/COLOR][/B]  (Mid Power)" provider-name="Helly,bsoriano">
+</addon><addon id="skin.xenonx" version="6.4" name="[B][COLOR gold]Xenon[/COLOR][/B]  (Mid Power)" provider-name="Helly,bsoriano">
   <requires>
     <import addon="xbmc.gui" version="5.17.0" />
 	<import addon="script.favourites" version="8.1.2" />

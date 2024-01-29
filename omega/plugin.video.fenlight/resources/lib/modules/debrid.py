@@ -4,11 +4,10 @@ from apis.real_debrid_api import RealDebridAPI
 from apis.premiumize_api import PremiumizeAPI
 from apis.alldebrid_api import AllDebridAPI
 from modules import kodi_utils
-from modules.utils import make_thread_list
 from modules.settings import enabled_debrids_check, authorized_debrid_check
 # logger = kodi_utils.logger
 
-Thread, show_busy_dialog, hide_busy_dialog, notification = kodi_utils.Thread, kodi_utils.show_busy_dialog, kodi_utils.hide_busy_dialog, kodi_utils.notification
+show_busy_dialog, hide_busy_dialog, notification = kodi_utils.show_busy_dialog, kodi_utils.hide_busy_dialog, kodi_utils.notification
 debrid_list = [('Real-Debrid', 'rd'), ('Premiumize.me', 'pm'), ('AllDebrid', 'ad')]
 debrid_list_modules = [('Real-Debrid', RealDebridAPI), ('Premiumize.me', PremiumizeAPI), ('AllDebrid', AllDebridAPI)]
 

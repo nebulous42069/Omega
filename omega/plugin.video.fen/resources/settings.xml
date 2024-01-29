@@ -7,7 +7,7 @@
 			<group id="1" label="33185">
 				<setting id="update.action" type="integer" label="33188" help="">
 					<level>0</level>
-					<default>2</default>
+					<default>0</default>
 					<constraints>
 						<options>
 							<option label="32521">0</option>

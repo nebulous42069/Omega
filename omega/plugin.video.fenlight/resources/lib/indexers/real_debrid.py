@@ -30,7 +30,7 @@ def rd_cloud():
 				listitem.addContextMenuItems(cm)
 				listitem.setArt({'icon': default_rd_icon, 'poster': default_rd_icon, 'thumb': default_rd_icon, 'fanart': fanart, 'banner': default_rd_icon})
 				info_tag = listitem.getVideoInfoTag()
-				info_tag.setMediaType('video')
+				# info_tag.setMediaType('video')
 				info_tag.setPlot(' ')
 				yield (url, listitem, True)
 			except: pass
@@ -62,7 +62,7 @@ def rd_downloads():
 				listitem.addContextMenuItems(cm)
 				listitem.setArt({'icon': default_rd_icon, 'poster': default_rd_icon, 'thumb': default_rd_icon, 'fanart': fanart, 'banner': default_rd_icon})
 				info_tag = listitem.getVideoInfoTag()
-				info_tag.setMediaType('video')
+				# info_tag.setMediaType('video')
 				info_tag.setPlot(' ')
 				yield (url, listitem, True)
 			except: pass
@@ -93,7 +93,7 @@ def browse_rd_cloud(folder_id):
 				listitem.addContextMenuItems(cm)
 				listitem.setArt({'icon': default_rd_icon, 'poster': default_rd_icon, 'thumb': default_rd_icon, 'fanart': fanart, 'banner': default_rd_icon})
 				info_tag = listitem.getVideoInfoTag()
-				info_tag.setMediaType('video')
+				# info_tag.setMediaType('video')
 				info_tag.setPlot(' ')
 				yield (url, listitem, False)
 			except: pass

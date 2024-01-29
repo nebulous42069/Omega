@@ -262,3 +262,6 @@ def update_delay():
 
 def update_action():
 	return int(get_setting('fenlight.update.action', '2'))
+
+def update_use_test_repo():
+	return get_setting('fenlight.update.use_test_repo', 'true') == 'true'

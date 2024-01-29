@@ -44,7 +44,7 @@ def get_recently_watched(media_type, short_list=1, dummy1=None):
 		data = sorted([{'media_id': i[0], 'title': i[1], 'last_played': i[2]} for i in get_watched_info_movie(watched_indicators)], key=lambda x: x['last_played'], reverse=True)
 	else:
 		if short_list:
-			data = sorted([{'media_ids': {'tmdb': int(i[0])}, 'season': int(i[1]), 'episode': int(i[2]), 'last_played': i[4], 'title': i[3]}
+			data = sorted([{'media_ids': {'tmdb': int(i[0])}, 'season': int(i[1]), 'episode': int(i[2]), 'title': i[3], 'last_played': i[4]}
 						for i in get_watched_info_tv(watched_indicators)], key=lambda x: (x['last_played'], x['media_ids']['tmdb'], x['season'], x['episode']), reverse=True)
 		else:
 			seen = set()

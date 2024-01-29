@@ -1,8 +1,30 @@
 ++
 
+[COLOR dodgerblue][B]Version 1.0.22[/B][/COLOR]
+- Added "Most Favorited" to Movies and TV Shows menu. Invoke context menu on Movie & TV Show menu item and select "Check for New Menu Items" and then place where desired. Alternately, select "Restore Menu" to reload the default menu items, which will now include the new menu item.
+- Quick fix for CAM, TELE, SCR results not showing when result highlights are based on quality.
+- Other changes/fixes.
+
+[COLOR dodgerblue][B]Version 1.0.21[/B][/COLOR]
+- Added detection of when user changes skin font, so custom xmls can be remade.
+- Other changes/fixes.
+
+[COLOR dodgerblue][B]Version 1.0.20[/B][/COLOR]
+- Added "Trakt Favorites" to My Lists. Trakt gives users the ability to mark media as a "favorite" on their website. Trakt claims that the media that has been marked as favorites from other Trakt users that you follow will determine the Recommendations they supply to you. So for Trakt Recommendations to work correctly you need to follow other Trakt users that have a similar taste in media to you, and have also set a decent amount of their own favorites.
+- Adjustments to Trakt sync values due to looking into the Trakt favorites lists.
+- Fixed some post-results filtering.
+
+[COLOR dodgerblue][B]Version 1.0.19[/B][/COLOR]
+- Added "Providers" menu items for Movies and TV Shows. For TV Shows, you will need to navigate into TV Shows and select "Check for New Menu Items" from the context menu. Then you can add the new "Providers" menu item to your TV Show list. If that does not work, you will need to instead select "Restore Menu". For Movies, the "Providers" menu item is replacing the "Networks" menu item. So you will need to either remove the "Networks" menu item and add the Providers menu item the same way as for TV Shows, or you can simply select "Restore Menu" and that will happen automatically.
+- Added "Discover" menu item to Main Menu. Here you can make your own custom lists using filters. Browse them from the Discover menu, or add them to any of Fen Light's main menus by using the menu editor. To see the new Discover menu item, follow the steps from above, except from the Main Menu.
+- Added Settings->General->Manage Addon Updates-> "Use Test Repository for Updates". There is now a test repository, and enablng this setting will allow Fen Light to update from the test repository. THIS IS NOT ADVISED, as the builds within the test repo may not be stable.
+- Improved resolving accuracy with RD sources.
+- Quick fix for rounding down of small TV Show progress floats.
+- Other changes/fixes.
+
 [COLOR dodgerblue][B]Version 1.0.18[/B][/COLOR]
 - Added Info for all settings within Fen Light. Found at the bottom of the settings window when browsing the settings.
-- Re-added "Autostart FenLight when Kodi Starts" to Settings->General. Removed temporarily whilst database issues were being resolved.
+- Re-added "Autostart Fen Light when Kodi Starts" to Settings->General. Removed temporarily whilst database issues were being resolved.
 - Re-added "Check for Corrupt databases" to Tools->Database & Cache Maintenance. Removed temporarily whilst database issues were being resolved.
 - Other changes/fixes.
 

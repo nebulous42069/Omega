@@ -85,6 +85,6 @@ class DownloadsManager(BaseDialog):
 		while not self.closed:
 			if not self.active_downloads and not self.active_queued_downloads: break
 			self.sleep(2500)
-			self.position = self.position = self.get_position(self.window_id)
+			self.position = self.get_position(self.window_id)
 			self.reset_window(self.window_id)
 			self.make_active_downloads()

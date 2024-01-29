@@ -133,11 +133,11 @@
 				</item>					
 				<item>
 					<label>Clear Packages</label>
-					<onclick>PlayMedia(&quot;plugin://plugin.program.chef21/?url=&amp;mode=6&amp;name=%5BB%5D%5BCOLOR+snow%5DClear+Packages%5B%2FCOLOR%5D%5B%2FB%5D&amp;icon=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.chef21%5Cresources%5Cicon.png&amp;fanart=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.chef21%5Cresources%5Cfanart.jpg&amp;description=%5BB%5D%5BCOLOR+deepskyblue%5DClear+the+packages+folder+to+free+up+space.%5B%2FCOLOR%5D%5B%2FB%5D&amp;name2=&amp;version=&quot;)</onclick>
+					<onclick>PlayMedia(&quot;plugin://plugin.program.chef20/?url=&amp;mode=6&amp;name=%5BB%5D%5BCOLOR+snow%5DClear+Packages%5B%2FCOLOR%5D%5B%2FB%5D&amp;icon=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.chef20%5Cresources%5Cicon.png&amp;fanart=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.chef20%5Cresources%5Cfanart.jpg&amp;description=%5BB%5D%5BCOLOR+deepskyblue%5DClear+the+packages+folder+to+free+up+space.%5B%2FCOLOR%5D%5B%2FB%5D&amp;name2=&amp;version=&quot;)</onclick>
 				</item>
 				<item>
 					<label>Clear Thumbnails</label>
-					<onclick>PlayMedia(&quot;plugin://plugin.program.chef21/?url=&amp;mode=7&amp;name=%5BB%5D%5BCOLOR+snow%5DClear+Thumbnails%5B%2FCOLOR%5D%5B%2FB%5D&amp;icon=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.chef21%5Cresources%5Cicon.png&amp;fanart=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.chef21%5Cresources%5Cfanart.jpg&amp;description=%5BB%5D%5BCOLOR+snow%5DDelete+the+Thumbnails+folder+and+Textures13+database+file.+You+should+only+delete+these+if+you+want+to+free+up+space.+Reboot+Kodi+for+thumbnails+to+repopulate.%5B%2FCOLOR%5D%5B%2FB%5D&amp;name2=&amp;version=&quot;)</onclick>
+					<onclick>PlayMedia(&quot;plugin://plugin.program.chef20/?url=&amp;mode=7&amp;name=%5BB%5D%5BCOLOR+snow%5DClear+Thumbnails%5B%2FCOLOR%5D%5B%2FB%5D&amp;icon=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.chef20%5Cresources%5Cicon.png&amp;fanart=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.chef20%5Cresources%5Cfanart.jpg&amp;description=%5BB%5D%5BCOLOR+snow%5DDelete+the+Thumbnails+folder+and+Textures13+database+file.+You+should+only+delete+these+if+you+want+to+free+up+space.+Reboot+Kodi+for+thumbnails+to+repopulate.%5B%2FCOLOR%5D%5B%2FB%5D&amp;name2=&amp;version=&quot;)</onclick>
 				</item>			
 				<item>
 					<label>Enable/Disable 4K, Dolby, and 3D Streams</label>
@@ -146,7 +146,7 @@
 				</item>
 				<item>
 					<label>Set Advanced Settings</label>
-					<onclick>PlayMedia(&quot;plugin://plugin.program.chef21/?url=&amp;mode=8&amp;name=%5BB%5D%5BCOLOR+snow%5DAdvanced+Settings%5B%2FCOLOR%5D%5B%2FB%5D&amp;icon=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.chef21%5Cresources%5Cicon.png&amp;fanart=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.chef21%5Cresources%5Cfanart.jpg&amp;description=%5BB%5D%5BCOLOR+snow%5DA+list+of+presets+to+set+the+cache+size+based+on+your+device%27s+RAM+size.%5B%2FCOLOR%5D%5B%2FB%5D&amp;name2=&amp;version=&quot;)</onclick>
+					<onclick>PlayMedia(&quot;plugin://plugin.program.chef20/?url=&amp;mode=8&amp;name=%5BB%5D%5BCOLOR+snow%5DAdvanced+Settings%5B%2FCOLOR%5D%5B%2FB%5D&amp;icon=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.chef20%5Cresources%5Cicon.png&amp;fanart=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.chef20%5Cresources%5Cfanart.jpg&amp;description=%5BB%5D%5BCOLOR+snow%5DA+list+of+presets+to+set+the+cache+size+based+on+your+device%27s+RAM+size.%5B%2FCOLOR%5D%5B%2FB%5D&amp;name2=&amp;version=&quot;)</onclick>
 				</item>
 				<item>
 					<label>Download Wallpapers</label>
@@ -160,17 +160,17 @@
 				</item>				
 				<item>
 					<label>Internet Speedtest</label>
-					<onclick>PlayMedia(&quot;plugin://plugin.program.chef21/?url=&amp;mode=27&amp;name=%5BB%5D%5BCOLOR+snow%5DSpeedtest%5B%2FCOLOR%5D%5B%2FB%5D&amp;icon=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.chef21%5Cresources%5Cicon.png&amp;fanart=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.chef21%5Cresources%5Cfanart.jpg&amp;description=%5BB%5D%5BCOLOR+snow%5DSpeedtest%5B%2FCOLOR%5D%5B%2FB%5D&amp;name2=&amp;version=&quot;)</onclick>
+					<onclick>PlayMedia(&quot;plugin://plugin.program.chef20/?url=&amp;mode=27&amp;name=%5BB%5D%5BCOLOR+snow%5DSpeedtest%5B%2FCOLOR%5D%5B%2FB%5D&amp;icon=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.chef20%5Cresources%5Cicon.png&amp;fanart=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.chef20%5Cresources%5Cfanart.jpg&amp;description=%5BB%5D%5BCOLOR+snow%5DSpeedtest%5B%2FCOLOR%5D%5B%2FB%5D&amp;name2=&amp;version=&quot;)</onclick>
 				</item>
 				<item>
 					<label>Backup/Restore Build</label>
 					<onclick>Dialog.Close(5002)</onclick>
-					<onclick>ActivateWindow(10001,&quot;plugin://plugin.program.chef21/?description=%5bB%5d%5bCOLOR%20snow%5dBackup%20and%20Restore%20Build%5b%2fCOLOR%5d%5b%2fB%5d&amp;fanart=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.program.chef21%5cresources%5cfanart.jpg&amp;icon=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.program.chef21%5cresources%5cicon.png&amp;mode=12&amp;name=%5bB%5d%5bCOLOR%20snow%5dBackup%2fRestore%20Build%5b%2fCOLOR%5d%5b%2fB%5d&amp;name2&amp;url&amp;version&quot;,return)</onclick>
+					<onclick>ActivateWindow(10001,&quot;plugin://plugin.program.chef20/?description=%5bB%5d%5bCOLOR%20snow%5dBackup%20and%20Restore%20Build%5b%2fCOLOR%5d%5b%2fB%5d&amp;fanart=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.program.chef20%5cresources%5cfanart.jpg&amp;icon=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.program.chef20%5cresources%5cicon.png&amp;mode=12&amp;name=%5bB%5d%5bCOLOR%20snow%5dBackup%2fRestore%20Build%5b%2fCOLOR%5d%5b%2fB%5d&amp;name2&amp;url&amp;version&quot;,return)</onclick>
 				</item>
 				<item>
 					<label>Edit Whitelist</label>
 					<onclick>Dialog.Close(5002)</onclick>
-					<onclick>PlayMedia(&quot;plugin://plugin.program.chef21/?url=&amp;mode=11&amp;name=%5BB%5D%5BCOLOR+snow%5DEdit+Whitelist%5B%2FCOLOR%5D%5B%2FB%5D&amp;icon=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.chef21%5Cresources%5Cicon.png&amp;fanart=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.chef21%5Cresources%5Cfanart.jpg&amp;description=%5BB%5D%5BCOLOR+snow%5DEdit+Whitelist%5B%2FCOLOR%5D%5B%2FB%5D&amp;name2=&amp;version=&quot;)</onclick>
+					<onclick>PlayMedia(&quot;plugin://plugin.program.chef20/?url=&amp;mode=11&amp;name=%5BB%5D%5BCOLOR+snow%5DEdit+Whitelist%5B%2FCOLOR%5D%5B%2FB%5D&amp;icon=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.chef20%5Cresources%5Cicon.png&amp;fanart=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.chef20%5Cresources%5Cfanart.jpg&amp;description=%5BB%5D%5BCOLOR+snow%5DEdit+Whitelist%5B%2FCOLOR%5D%5B%2FB%5D&amp;name2=&amp;version=&quot;)</onclick>
 				</item>
 				<item>
 					<label>Click Here For Available Fixes</label>

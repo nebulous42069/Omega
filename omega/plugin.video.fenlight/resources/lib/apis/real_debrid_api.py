@@ -218,11 +218,14 @@ class RealDebridAPI:
 			for item in torrent_files:
 				try:
 					if not season and not m2ts_check:
+						possible_files = 0
 						item_values = self.sort_cache_list([(i['filename'], i['filesize']) for i in item.values()])
 						for value in item_values:
 							filename = re.sub(r'[^A-Za-z0-9-]+', '.', value.replace('\'', '').replace('&', 'and').replace('%', '.percent')).lower()
 							filename_info = filename.replace(compare_title, '')
 							if any(x in filename_info for x in EXTRAS): continue
+							possible_files += 1
+						if not possible_files: continue
 					torrent_keys = item.keys()
 					if len(torrent_keys) == 0: continue
 					torrent_keys = ','.join(torrent_keys)
@@ -247,6 +250,7 @@ class RealDebridAPI:
 					elif m2ts_check: match, index = True, [i[0] for i in selected_files if i[1]['id'] == m2ts_key][0]; break
 					else:
 						match = False
+						selected_files = sorted(selected_files, key=lambda x: x[1]['bytes'], reverse=True)
 						for value in selected_files:
 							filename = re.sub(r'[^A-Za-z0-9-]+', '.', value[1]['path'].rsplit('/', 1)[1].replace('\'', '').replace('&', 'and').replace('%', '.percent')).lower()
 							filename_info = filename.replace(compare_title, '')

@@ -7,7 +7,7 @@ from modules.watched_status import get_next_episodes, get_watched_info_tv, get_h
 from modules.utils import adjust_premiered_date, get_datetime, make_thread_list, title_key
 # logger = kodi_utils.logger
 
-Thread, get_property, set_property, add_dir, add_items = kodi_utils.Thread, kodi_utils.get_property, kodi_utils.set_property, kodi_utils.add_dir, kodi_utils.add_items
+Thread, get_property, set_property, add_items = kodi_utils.Thread, kodi_utils.get_property, kodi_utils.set_property, kodi_utils.add_items
 make_listitem, set_content, end_directory, set_view_mode = kodi_utils.make_listitem, kodi_utils.set_content, kodi_utils.end_directory, kodi_utils.set_view_mode
 get_icon, addon_fanart, random = kodi_utils.get_icon, kodi_utils.get_addon_fanart(), kodi_utils.random
 sys, build_url, json, notification = kodi_utils.sys, kodi_utils.build_url, kodi_utils.json, kodi_utils.notification 
@@ -112,14 +112,14 @@ def build_next_episode_manager():
 		try:
 			listitem = make_listitem()
 			tmdb_id, title = item['media_ids']['tmdb'], item['title']
-			if tmdb_id in hidden_list: display, action = title + ' [COLOR=red][B][HIDDEN][/B][/COLOR]', 'unhide'
-			else: display, action = title, 'hide'
+			if tmdb_id in hidden_list: display, action = 'Unhide [B]%s[/B] [COLOR=red][HIDDEN][/COLOR]' % title, 'unhide'
+			else: display, action = 'Hide [B]%s[/B]' % title, 'hide'
 			url_params = {'mode': mode, 'action': action, 'media_type': 'shows', 'media_id': tmdb_id, 'section': 'progress_watched'}
 			url = build_url(url_params)
 			listitem.setLabel(display)
 			listitem.setArt({'poster': icon, 'fanart': addon_fanart, 'icon': icon})
 			info_tag = listitem.getVideoInfoTag()
-			info_tag.setMediaType('video')
+			# info_tag.setMediaType('video')
 			info_tag.setPlot(' ')
 			append({'listitem': (url, listitem, False), 'sort_title': title})
 		except: pass
@@ -135,7 +135,6 @@ def build_next_episode_manager():
 	[i.join() for i in threads]
 	item_list = sorted(list_items, key=lambda k: (title_key(k['sort_title'])), reverse=False)
 	item_list = [i['listitem'] for i in item_list]
-	add_dir({'mode': 'nill'}, '[I][COLOR=grey2]SELECT TV SHOW TO HIDE/UNHIDE FROM PROGRESS:[/COLOR][/I]', handle, iconImage='settings', fanartImage=addon_fanart, isFolder=False)
 	add_items(handle, item_list)
 	set_content(handle, '')
 	end_directory(handle, cacheToDisc=False)

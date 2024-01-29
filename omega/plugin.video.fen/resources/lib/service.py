@@ -18,7 +18,6 @@ class FenMonitor(xbmc_monitor):
 		except: pass
 		try: service_functions.FirstRunActions().run()
 		except: pass
-		service_functions.FirstRunActions().run()
 		try: service_functions.ReuseLanguageInvokerCheck().run()
 		except: pass
 		Thread(target=service_functions.TraktMonitor().run).start()

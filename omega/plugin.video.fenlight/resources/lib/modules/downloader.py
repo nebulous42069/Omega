@@ -7,7 +7,7 @@ from modules import kodi_utils
 from modules.sources import Sources
 from modules.settings import download_directory
 from modules.utils import clean_file_name, clean_title, safe_string, remove_accents, normalize
-logger = kodi_utils.logger
+# logger = kodi_utils.logger
 
 player, confirm_dialog, ok_dialog, get_addon_fanart, build_url = kodi_utils.player, kodi_utils.confirm_dialog, kodi_utils.ok_dialog, kodi_utils.get_addon_fanart, kodi_utils.build_url
 video_extensions, image_extensions, get_icon, dialog, unquote = kodi_utils.video_extensions, kodi_utils.image_extensions, kodi_utils.get_icon, kodi_utils.dialog, kodi_utils.unquote
@@ -58,7 +58,6 @@ def runner(params):
 					item['meta'] = json.dumps(meta)
 					item['default_foldername'] = default_foldername
 			multi_downloads_append((Thread(target=Downloader(item).run), clean_file_name(item['pack_files']['filename'])))
-		logger('ORIGINAL multi_downloads', multi_downloads)
 		download_threads_manager(multi_downloads, image)
 	else: Downloader(params).run()
 
@@ -379,7 +378,7 @@ def viewer(params):
 				listitem.setLabel(clean_file_name(normalize(path)))
 				listitem.setArt({'fanart': fanart})
 				info_tag = listitem.getVideoInfoTag()
-				info_tag.setMediaType('files')
+				# info_tag.setMediaType('files')
 				info_tag.setPlot(' ')
 				yield (url, listitem, info[1])
 			except: pass

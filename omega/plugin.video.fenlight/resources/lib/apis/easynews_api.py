@@ -156,14 +156,14 @@ class EasyNewsAPI:
 	def _get(self, url, params={}):
 		headers = {'Authorization': self.auth}
 		try: response = session.get(url, params=params, headers=headers, timeout=timeout).text
-		except: response = session.get(url, params=params, headers=headers, verify=False, timeout=timeout).text
+		except: return None
 		try: return json.loads(response)
 		except: return response
 
 	def _get_v3(self, url, params={}):
 		headers = {'Authorization': self.auth}
 		try: response = session.get(url, params=params, headers=headers, timeout=timeout).content
-		except: response = session.get(url, params=params, headers=headers, verify=False, timeout=timeout).content
+		except: return None
 		response = re.compile(self.regex, re.DOTALL).findall(response)
 		response = response + '}'
 		try: return json.loads(response)

@@ -1,5 +1,16 @@
 [B]Please utilize Fen Tips (Tools->Tips for Fen Use) to catch up on any important new features. New features will be highlighted with a [COLOR chartreuse]NEW!!![/COLOR] label.[/B]
 
+[COLOR dodgerblue][B]Version 3.2.21[/B][/COLOR]
+- Added detection of when user changes skin font, so custom xmls can be remade.
+- Quick fix for CAM, TELE, SCR results not showing when result highlights are based on quality.
+
+[COLOR dodgerblue][B]Version 3.2.20[/B][/COLOR]
+- Fixed some post-results filtering.
+- Added "Trakt Favorites" to My Lists.
+
+[COLOR dodgerblue][B]Version 3.2.19[/B][/COLOR]
+- Quick fix as "FirstRunActions" was running twice on startup.
+
 [COLOR dodgerblue][B]Version 3.2.18[/B][/COLOR]
 - Quick fix for incorrect rounding down of small TV Show progress floats.
 - Other changes/fixes.

@@ -18,15 +18,16 @@ jsondate_to_datetime_function = jsondate_to_datetime
 watched_indicators, use_minimal_media_info, widget_hide_next_page = settings.watched_indicators, settings.use_minimal_media_info, settings.widget_hide_next_page
 widget_hide_watched, extras_open_action, page_limit, paginate = settings.widget_hide_watched, settings.extras_open_action, settings.page_limit, settings.paginate
 run_plugin = 'RunPlugin(%s)'
-main = ('tmdb_movies_popular', 'tmdb_movies_popular_today','tmdb_movies_blockbusters','tmdb_movies_in_theaters',
-			'tmdb_movies_upcoming', 'tmdb_movies_latest_releases', 'tmdb_movies_premieres', 'tmdb_movies_oscar_winners')
-special = ('tmdb_movies_languages', 'tmdb_movies_networks', 'tmdb_movies_year', 'tmdb_movies_decade',
-			'tmdb_movies_certifications', 'tmdb_movies_recommendations', 'tmdb_movies_genres', 'tmdb_movies_search', 'tmdb_movie_keyword_results', 'tmdb_movie_keyword_results_direct')
-personal = {'favorites_movies': ('modules.favorites', 'get_favorites'), 'in_progress_movies': ('modules.watched_status', 'get_in_progress_movies'), 
-			'watched_movies': ('modules.watched_status', 'get_watched_items'), 'recent_watched_movies': ('modules.watched_status', 'get_recently_watched')}
-trakt_main = ('trakt_movies_trending', 'trakt_movies_trending_recent', 'trakt_movies_most_watched', 'trakt_movies_top10_boxoffice', 'trakt_recommendations')
-trakt_personal = ('trakt_collection', 'trakt_watchlist', 'trakt_collection_lists', 'trakt_watchlist_lists')
-meta_list_dict = {'tmdb_movies_languages': meta_lists.languages, 'tmdb_movies_networks': meta_lists.watch_providers, 'tmdb_movies_year': meta_lists.years_movies,
+main = ('tmdb_movies_popular', 'tmdb_movies_popular_today','tmdb_movies_blockbusters','tmdb_movies_in_theaters', 'tmdb_movies_upcoming', 'tmdb_movies_latest_releases',
+'tmdb_movies_premieres', 'tmdb_movies_oscar_winners')
+special = ('tmdb_movies_languages', 'tmdb_movies_providers', 'tmdb_movies_year', 'tmdb_movies_decade', 'tmdb_movies_certifications', 'tmdb_movies_recommendations',
+'tmdb_movies_genres', 'tmdb_movies_search', 'tmdb_movie_keyword_results', 'tmdb_movie_keyword_results_direct')
+personal = {'favorites_movies': ('modules.favorites', 'get_favorites'), 'in_progress_movies': ('modules.watched_status', 'get_in_progress_movies'),
+'watched_movies': ('modules.watched_status', 'get_watched_items'), 'recent_watched_movies': ('modules.watched_status', 'get_recently_watched')}
+trakt_main = ('trakt_movies_trending', 'trakt_movies_trending_recent', 'trakt_movies_most_watched', 'trakt_movies_most_favorited',
+'trakt_movies_top10_boxoffice', 'trakt_recommendations')
+trakt_personal = ('trakt_collection', 'trakt_watchlist', 'trakt_collection_lists', 'trakt_watchlist_lists', 'trakt_favorites')
+meta_list_dict = {'tmdb_movies_languages': meta_lists.languages, 'tmdb_movies_providers': meta_lists.watch_providers_movies, 'tmdb_movies_year': meta_lists.years_movies,
 			'tmdb_movies_decade': meta_lists.decades_movies, 'tmdb_movies_certifications': meta_lists.movie_certifications, 'tmdb_movies_genres': meta_lists.movie_genres}
 view_mode, content_type = 'view.movies', 'movies'
 
@@ -58,7 +59,7 @@ class Movies:
 				if is_random: data = self.random_worker(function)
 				else: data = function(page_no)
 				self.list = [i['id'] for i in data['results']]
-				if not is_random and  data['total_pages'] > page_no: self.new_page = {'new_page': string(data['page'] + 1)}
+				if not is_random and data['total_pages'] > page_no: self.new_page = {'new_page': string(data['page'] + 1)}
 			elif self.action in special:
 				if is_random: data, key_id = self.random_worker(function), None
 				else:
@@ -84,13 +85,18 @@ class Movies:
 			elif self.action in trakt_personal:
 				self.id_type = 'trakt_dict'
 				data = function('movies', page_no)
-				if self.action in ('trakt_collection_lists', 'trakt_watchlist_lists'): total_pages = 1
+				if self.action in ('trakt_collection_lists', 'trakt_watchlist_lists', 'trakt_favorites'): total_pages = 1
 				else: data, total_pages = self.paginate_list(data, page_no)
 				self.list = [i['media_ids'] for i in data]
 				if total_pages > 2: self.total_pages = total_pages
 				try:
 					if total_pages > page_no: self.new_page = {'new_page': string(page_no + 1), 'paginate_start': self.paginate_start}
 				except: pass
+			elif self.action == 'tmdb_movies_discover':
+				url = self.params_get('url')
+				data = function(url, page_no)
+				self.list = [i['id'] for i in data['results']]
+				if data['total_pages'] > page_no: self.new_page = {'url': url, 'new_page': string(data['page'] + 1)}
 			add_items(handle, self.worker())
 			if self.new_page and not self.widget_hide_next_page:
 					self.new_page.update({'mode': 'build_movie_list', 'action': self.action, 'category_name': self.category_name})
@@ -161,7 +167,7 @@ class Movies:
 			listitem.setLabel(title)
 			listitem.addContextMenuItems(cm)
 			listitem.setArt({'poster': poster, 'fanart': fanart, 'icon': poster, 'clearlogo': clearlogo})
-			set_properties({'fenlight.extras_params': extras_params, 'fenlight.options_params': options_params})
+			set_properties({'fenlight.extras_params': extras_params, 'fenlight.options_params': options_params, 'IsPlayable': 'false'})
 			self.append(((url_params, listitem, False), _position))
 		except: pass
 

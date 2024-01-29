@@ -28,7 +28,7 @@ tmdb_special = {'tmdb_movies_languages': 'language', 'tmdb_movies_networks': 'ne
 personal = {'favorites_movies': ('modules.favorites', 'get_favorites'), 'in_progress_movies': ('modules.watched_status', 'get_in_progress_movies'), 
 				'watched_movies': ('modules.watched_status', 'get_watched_items'), 'recent_watched_movies': ('modules.watched_status', 'get_recently_watched')}
 trakt_main = ('trakt_movies_trending', 'trakt_movies_trending_recent', 'trakt_movies_most_watched', 'trakt_movies_top10_boxoffice', 'trakt_recommendations')
-trakt_personal = ('trakt_collection', 'trakt_watchlist', 'trakt_collection_lists')
+trakt_personal = ('trakt_collection', 'trakt_watchlist', 'trakt_collection_lists', 'trakt_favorites')
 imdb_all  = ('imdb_watchlist', 'imdb_user_list_contents', 'imdb_keywords_list_contents', 'imdb_movies_oscar_winners')
 view_mode, content_type = 'view.movies', 'movies'
 
@@ -83,7 +83,7 @@ class Movies:
 			elif self.action in trakt_personal:
 				self.id_type = 'trakt_dict'
 				data = function('movies', page_no)
-				if self.action == 'trakt_collection_lists': all_pages, total_pages = '', 1
+				if self.action in ('trakt_collection_lists', 'trakt_favorites'): all_pages, total_pages = '', 1
 				else: data, all_pages, total_pages = self.paginate_list(data, page_no)
 				self.list = [i['media_ids'] for i in data]
 				if total_pages > 2: self.total_pages = total_pages
