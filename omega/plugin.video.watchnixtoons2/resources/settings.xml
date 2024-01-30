@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+    <category label="14206">
+        <setting type="lsep" label="14086"/>
+        <setting id="playbackMethod" label="30000" type="enum" default="0" values="Select Quality Via Dialog|Auto Play Highest Quality|Auto Play Lowest Quality"/>
+        <setting type="sep"/>
+        <setting type="lsep" label="30001"/>
+        <setting id="showCatalog" label="30002" type="bool" default="true"/>
+        <setting id="showCatalogThumbs" label="30003" subsetting="true" type="bool" default="false" enable="eq(-1,true)"/>
+        <setting id="useLatestDate" label="30004" type="bool" default="true"/>
+        <setting id="showLatestThumbs" label="30005" type="bool" default="true"/>
+        <setting id="showPopularThumbs" label="30006" type="bool" default="false"/>
+        <setting id="showSeriesThumbs" label="30007" type="bool" default="true"/>
+        <setting id="showVideoFanart" label="30021" type="bool" default="false"/>
+        <setting type="sep"/>
+        <setting type="lsep" label="20360"/>
+        <setting id="reverseEpisodes" label="30008" type="bool" default="false"/>
+        <setting id="cleanupEpisodes" label="30009" type="bool" default="false"/>
+        <setting id="chapterEpisodes" label="30010" type="bool" default="false"/>
+        <setting type="sep"/>
+        <setting type="lsep" label="582"/>
+        <setting id="useViewMode" label="30011" type="bool" default="false"/>
+        <setting id="viewModeID" label="30012" type="number" subsetting="true" enable="eq(-1,true)" default=""/>
+    </category>
+    <category label="30013">
+        <setting type="lsep" label="30014"/>
+        <setting id="restoreWatched" label="30015" type="action" action="RunPlugin(plugin://plugin.video.watchnixtoons2/?action=actionRestoreDatabase)"/>
+        <setting id="updateFavourites" label="30016" type="action" action="RunPlugin(plugin://plugin.video.watchnixtoons2/?action=actionUpdateFavourites)"/>
+    </category>
+    <category label="30017">
+        <setting type="lsep" label="30017"/>
+        <setting id="trakt.about" label="29943" type="action" action="RunPlugin(plugin://plugin.video.watchnixtoons2/?action=actionTraktAbout)"/>
+        <setting id="clearTrakt" label="30018" type="action" action="RunPlugin(plugin://plugin.video.watchnixtoons2/?action=actionClearTrakt)"/>
+    </category>
+    <category label="14260">
+        <setting type="lsep" label="30019"/>
+        <setting id="useHTTP" label="30020" type="bool" default="false"/>
+        <setting id="baseURL" label="Domain" type="enum" default="0" values="wcofun.net"/>
+    </category>
+</settings>
