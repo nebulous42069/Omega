@@ -9,7 +9,7 @@
         <setting id="showCatalogThumbs" label="30003" subsetting="true" type="bool" default="false" enable="eq(-1,true)"/>
         <setting id="useLatestDate" label="30004" type="bool" default="true"/>
         <setting id="showLatestThumbs" label="30005" type="bool" default="true"/>
-        <setting id="showPopularThumbs" label="30006" type="bool" default="false"/>
+        <setting id="showPopularThumbs" label="30006" type="bool" default="true"/>
         <setting id="showSeriesThumbs" label="30007" type="bool" default="true"/>
         <setting id="showVideoFanart" label="30021" type="bool" default="false"/>
         <setting type="sep"/>
@@ -35,6 +35,6 @@
     <category label="14260">
         <setting type="lsep" label="30019"/>
         <setting id="useHTTP" label="30020" type="bool" default="false"/>
-        <setting id="baseURL" label="Domain" type="enum" default="0" values="wcofun.net"/>
+        <setting id="baseURL" label="Domain" type="enum" default="0" values="wcostream.tv|wcofun.net"/>
     </category>
 </settings>

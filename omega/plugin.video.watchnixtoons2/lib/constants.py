@@ -11,24 +11,29 @@ PLUGIN_ID = int(sys.argv[1])
 PLUGIN_URL = sys.argv[0]
 PLUGIN_NAME = PLUGIN_URL.replace("plugin://","")
 PLUGIN_TITLE = 'WatchNixtoons2'
-PROPERTY_CATALOG_PATH = 'wnt2.catalogPath'
-PROPERTY_CATALOG = 'wnt2.catalog'
-PROPERTY_EPISODE_LIST_URL = 'wnt2.listURL'
-PROPERTY_EPISODE_LIST_DATA = 'wnt2.listData'
-PROPERTY_LATEST_MOVIES = 'wnt2.latestMovies'
-PROPERTY_INFO_ITEMS = 'wnt2.infoItems'
-PROPERTY_SESSION_COOKIE = 'wnt2.cookie'
 
 # Fake user-agent to get past some cloudflare checks :(
-WNT2_USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36'
+WNT2_USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
 
 ADDON = xbmcaddon.Addon()
 
+BASEURL_SETTING = int(ADDON.getSetting('baseURL'))
+
 DOMAINS = {
-    0:'www.wcofun.net',
+    0: 'www.wcostream.tv',
+    1: 'www.wcofun.net',
 }
 
-BASEURL = 'https://' + DOMAINS.get( int(ADDON.getSetting('baseURL')), DOMAINS[0] )
+BASEDOMAIN = DOMAINS.get( BASEURL_SETTING, DOMAINS[0] )
+BASEURL = 'https://' + BASEDOMAIN
+
+PROPERTY_CATALOG_PATH = 'wnt2.catalogPath.' + BASEDOMAIN
+PROPERTY_CATALOG = 'wnt2.catalog.' + BASEDOMAIN
+PROPERTY_EPISODE_LIST_URL = 'wnt2.listURL.' + BASEDOMAIN
+PROPERTY_EPISODE_LIST_DATA = 'wnt2.listData.' + BASEDOMAIN
+PROPERTY_LATEST_MOVIES = 'wnt2.latestMovies.' + BASEDOMAIN
+PROPERTY_INFO_ITEMS = 'wnt2.infoItems.' + BASEDOMAIN
+PROPERTY_SESSION_COOKIE = 'wnt2.cookie.' + BASEDOMAIN
 
 # Show catalog: whether to show the catalog categories or to go straight to the "ALL" section with all items visible.
 ADDON_SHOW_CATALOG = ADDON.getSetting('showCatalog') == 'true'

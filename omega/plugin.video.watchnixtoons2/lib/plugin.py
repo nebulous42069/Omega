@@ -4,7 +4,6 @@ import sys
 import six
 
 from itertools import chain
-from base64 import b64decode
 from six.moves import urllib_parse
 from string import ascii_uppercase
 
@@ -19,6 +18,11 @@ from lib.common import *
 from lib.network import rqs_get, request_helper
 from lib.simple_trakt import SimpleTrakt
 from lib.recently_watched import recently_watched_load, recently_watched_add, recently_watched_remove
+
+if BASEURL_SETTING == 1:
+    from lib.sites.wcofun import *
+else:
+    from lib.sites.wcostream import *
 
 #language
 __language__ = ADDON.getLocalizedString
@@ -175,7 +179,6 @@ def actionCatalogSection(params):
     def _sectionItemsGen():
 
         # init variables for deciding how list items are going to be displayed
-        remove_base = False
         show_thumbs = False
         show_fanart = False
         from_hash = False
@@ -190,38 +193,29 @@ def actionCatalogSection(params):
 
         elif ADDON_POPULAR_THUMBS and path == URL_PATHS['popular']:
 
-            remove_base = True
             show_thumbs = True
             from_hash = True
             hashes = {}
 
             # get all hash files and combine as could be in any of them
             for path_tmp in [ URL_PATHS['dubbed'], URL_PATHS['cartoons'], URL_PATHS['subbed'] ]:
-
-                f = open( translate_path( RESOURCE_URL + 'data/' + path_tmp.replace('/','') + '.json' ) )
-                hashes.update( json.load(f) )
+                hashes.update( thumbnail_hashes_get( path_tmp ) )
 
         elif ADDON_SERIES_THUMBS and path in [ URL_PATHS['dubbed'], URL_PATHS['cartoons'], URL_PATHS['subbed'] ]:
 
             show_thumbs = True
             from_hash = True
 
-            # get required hash file for thumbnails
-            f = open( translate_path( RESOURCE_URL + 'data/' + path.replace('/','') + '.json' ) )
-            hashes = json.load(f)
+            hashes = thumbnail_hashes_get( path )
 
         elif path in [ URL_PATHS['movies'], URL_PATHS['ova'] ]:
-
-            remove_base = True
 
             if ADDON_SERIES_THUMBS:
 
                 show_thumbs = True
                 from_hash = True
 
-                # get required hash file for thumbnails
-                f = open( translate_path( RESOURCE_URL + 'data/' + path.replace('/','') + '.json' ) )
-                hashes = json.load(f)
+                hashes = thumbnail_hashes_get( path )
 
             # we can also use the fanart for movies and OVAs
             if ADDON_VIDEO_FANART:
@@ -230,11 +224,8 @@ def actionCatalogSection(params):
         # loop through entries and decide what to show
         for entry in section_items:
 
-            entry_url = entry[0]
-
-            if remove_base:
-                # removes base so can be used in hash table
-                entry_url = entry_url.replace( BASEURL, '' )
+            # removes base so can be used in hash table
+            entry_url = base_url_remove( BASEURL, entry[0] )
 
             # If there's metadata for this entry (requested by the user with "Show Information"), use it.
             if entry_url in infoItems:
@@ -245,11 +236,17 @@ def actionCatalogSection(params):
 
                 # do this here so we only need to create a hash once per entry
                 if show_thumbs and from_hash:
-                    hash_url = generateMd5( entry_url )
+                    hash_url = generate_md5( entry_url )
 
                 # Decide what artwork to show
                 if show_thumbs and from_hash is False:
+
+                    # back up to get thumbnail from fanart
+                    if entry[2] == 'https:':
+                        entry[2] = IMAGES_URL + '/thumbs' + entry_url + '.jpg'
+
                     entry_art = {'icon':ADDON_ICON,'thumb':entry[2],'poster':entry[2]}
+
                 elif show_thumbs and from_hash and hashes.get( hash_url, False ):
                     thumb_from_hash = IMAGES_URL + '/catimg/' + hashes.get( hash_url, '' ) + '.jpg'
                     entry_art = {'icon': ADDON_ICON, 'thumb': thumb_from_hash, 'poster': thumb_from_hash}
@@ -285,13 +282,13 @@ def actionEpisodesMenu(params):
         listData = getWindowProperty(PROPERTY_EPISODE_LIST_DATA)
     else:
         # New domain safety replace, in case the user is coming in from an old Kodi favorite item.
-        url = params['url'].replace('wcofun.org', 'wcofun.tv', 1)
+        url = params['url'].replace('wcofun.tv', 'wcofun.net', 1)
         r = request_helper(url if url.startswith('http') else BASEURL + url)
         html = r.text
 
         plot, thumb = getPageMetadata(html)
 
-        data_start_index = html.find('"sidebar_right3"')
+        data_start_index = html.find( SITE_SETTINGS[ 'episode' ][ 'start' ] )
         if data_start_index == -1:
             raise Exception('Episode list scrape fail: ' + url)
 
@@ -302,7 +299,7 @@ def actionEpisodesMenu(params):
             tuple(
                 match.groups()
                 for match in re.finditer(
-                    '''<a href="([^"]+).*?>([^<]+)''', html[data_start_index : html.find('"sidebar-all"')]
+                    SITE_SETTINGS[ 'episode' ][ 'regex' ], html[data_start_index : html.find( SITE_SETTINGS[ 'episode' ][ 'end' ] )]
                 )
             )
         )
@@ -320,18 +317,20 @@ def actionEpisodesMenu(params):
 
         listItemFunc = makeListItemClean if ADDON.getSetting('cleanupEpisodes') == 'true' else makeListItem
 
-        itemParams = {'action': 'actionResolve', 'url': None}
+        item_params = {'action': 'actionResolve', 'url': None}
         listIter = iter(listData[2]) if ADDON.getSetting('reverseEpisodes') == 'true' else reversed(listData[2])
 
-        for URL, title in listIter:
+        for url, title in listIter:
 
             # add fanart if option is selected
             if ADDON_VIDEO_FANART:
-                art_dict['fanart'] = URL.replace( BASEURL, IMAGES_URL + '/thumbs' ) + '.jpg'
+                art_dict['fanart'] = url.replace( BASEURL, IMAGES_URL + '/thumbs' ) + '.jpg'
 
-            item = listItemFunc(title, URL, art_dict, plot, is_folder=False, is_special=False, oldParams=None)
-            itemParams['url'] = URL
-            item_url = build_url(itemParams)
+            url = base_url_remove( BASEURL, url )
+
+            item = listItemFunc(title, url, art_dict, plot, is_folder=False, is_special=False, oldParams=None)
+            item_params['url'] = url
+            item_url = build_url(item_params)
             playlist.add(item_url, item)
             yield (item_url, item, False)
 
@@ -351,7 +350,7 @@ def actionLatestMoviesMenu(params):
 
     # Similar scraping logic to 'actionEpisodesMenu()'.
 
-    data_start_index = html.find('"sidebar_right3"')
+    data_start_index = html.find( SITE_SETTINGS[ 'latest_movies' ][ 'start' ] )
     if data_start_index == -1:
         raise Exception('Latest movies scrape fail')
 
@@ -360,13 +359,12 @@ def actionLatestMoviesMenu(params):
 
     if ADDON_SERIES_THUMBS:
         # get required hash file for thumbnails
-        f = open( translate_path( RESOURCE_URL + 'data/movie-list.json' ) )
-        hashes = json.load(f)
+        hashes = thumbnail_hashes_get( 'movie-list' )
 
     def _movieItemsGen():
 
         reIter = re.finditer(
-            '''<a href="([^"]+).*?>([^<]+)''', html[data_start_index : html.find('"sidebar-all"')]
+            SITE_SETTINGS[ 'latest_movies' ][ 'regex' ], html[data_start_index : html.find( SITE_SETTINGS[ 'latest_movies' ][ 'end' ] )]
         )
 
         # The page has like 6000 items going back to 2010, so we limit to only the latest 200.
@@ -378,7 +376,7 @@ def actionLatestMoviesMenu(params):
             entry_url, entry_title = next(reIter).groups()
 
             if ADDON_SERIES_THUMBS:
-                entry_hash = generateMd5( entry_url.replace( BASEURL, '' ) )
+                entry_hash = generate_md5( entry_url.replace( BASEURL, '' ) )
                 if entry_hash in hashes.keys():
                     thumb_from_hash = IMAGES_URL + '/catimg/' + hashes[ entry_hash ] + '.jpg'
                     art_dict = {'icon': ADDON_ICON, 'thumb': thumb_from_hash, 'poster': thumb_from_hash}
@@ -425,9 +423,7 @@ def actionRecentlyWatchedMenu(params):
 
         # get all hash files and combine as could be in any of them
         for path_tmp in [ URL_PATHS['dubbed'], URL_PATHS['cartoons'], URL_PATHS['subbed'] ]:
-
-            f = open( translate_path( RESOURCE_URL + 'data/' + path_tmp.replace('/','') + '.json' ) )
-            hashes.update( json.load(f) )
+            hashes.update( thumbnail_hashes_get( path_tmp ) )
 
     def _recentlyWatchedItemsGen():
         for title_hash, title_data in reversed(data.items()):
@@ -602,7 +598,7 @@ def actionGenresMenu(params):
     r = request_helper(BASEURL + URL_PATHS['genre'])
     html = r.text
 
-    data_start_index = html.find(r'ddmcc">')
+    data_start_index = html.find( SITE_SETTINGS[ 'genre' ][ 'start' ] )
     if data_start_index == -1:
         raise Exception('Genres list scrape fail')
 
@@ -618,7 +614,7 @@ def actionGenresMenu(params):
                 xbmcgui.ListItem(match.group(2)),
                 True
             )
-            for match in re.finditer('''<a.*?"([^"]+).*?>(.*?)</''', html[data_start_index : html.find(r'</div></div>')])
+            for match in re.finditer( SITE_SETTINGS[ 'genre' ][ 'regex' ], html[data_start_index : html.find( SITE_SETTINGS[ 'genre' ][ 'end' ] )])
         )
     )
     xbmcplugin.endOfDirectory(PLUGIN_ID)
@@ -717,6 +713,9 @@ def actionRestoreDatabase(params):
     This will update all the WatchNixtoons2 'strFilename' columns of table 'files' of
     Kodi's MyVideos###.db with the new BASEURL used by the add-on so that episodes are
     still considered as watched (playcount >= 1).
+
+    Since the domain is now being removed when being passed to the params,
+    this hsould be the last time it needs to be ran
     """
 
     if not xbmcgui.Dialog().yesno(
@@ -750,16 +749,15 @@ def actionRestoreDatabase(params):
 
     # Update the database.
 
-    OLD_DOMAINS = get_old_domains()
-    # Make sure to strip the scheme from the current address.
-    NEW_DOMAIN = BASEURL.replace('https://', '', 1)
-    replaceDomainFunc = lambda original, oldDomain: original.replace(oldDomain, NEW_DOMAIN)
+    OLD_DOMAINS = domains_get()
+
+    replaceDomainFunc = lambda original, oldDomain: original.replace( 'https%3A%2F%2F' + oldDomain, '' )
     totalUpdates = 0
 
     try:
         connection = sqlite3.connect(path)
     except Exception as err_str:
-        xbmcDebug(err_str)
+        xbmc_debug(err_str)
         xbmcgui.Dialog().notification(
             PLUGIN_TITLE,
             'Unable to connect to MyVideos database', xbmcgui.NOTIFICATION_WARNING, 3000, True
@@ -823,16 +821,16 @@ def actionUpdateFavourites(params):
     file.close()
     originalText = favoritesText[:] # Get a backup copy of the content.
 
-    OLD_DOMAINS = get_old_domains()
-    NEW_DOMAIN = BASEURL.replace('https://', '', 1) # Make sure to strip the scheme.
-    replaceDomainFunc = lambda original, oldDomain: original.replace(oldDomain, NEW_DOMAIN)
+    OLD_DOMAINS = domains_get()
+
+    replaceDomainFunc = lambda original, oldDomain: original.replace( 'https%3A%2F%2F' + oldDomain, '' )
 
     if any(oldDomain in originalText for oldDomain in OLD_DOMAINS):
 
         if six.PY3:
             from functools import reduce
 
-        favoritesText = reduce(replaceDomainFunc, get_old_domains(), favoritesText)
+        favoritesText = reduce(replaceDomainFunc, domains_get(), favoritesText)
 
         try:
             file = xbmcvfs.File(FAVOURITES_PATH, 'w')
@@ -893,9 +891,9 @@ def getPageMetadata(html):
     see if there's a parent page with the actual metadata.
     """
 
-    string_start_index = html.find('"header-tag"')
+    string_start_index = html.find( SITE_SETTINGS[ 'page_meta' ][ 'start' ] )
     if string_start_index != -1:
-        parent_url = re.search('href="([^"]+)', html[string_start_index:]).group(1)
+        parent_url = re.search( SITE_SETTINGS[ 'page_meta' ][ 'regex' ], html[string_start_index:] ).group(1)
         if '/anime/movies' not in parent_url:
             r = request_helper(parent_url if parent_url.startswith('http') else BASEURL + parent_url)
             if r.ok:
@@ -903,7 +901,7 @@ def getPageMetadata(html):
 
     # Thumbnail scraping.
     thumb = ''
-    string_start_index = html.find('og:image" content="')
+    string_start_index = html.find( SITE_SETTINGS[ 'thumbnail' ][ 'start' ] )
     if string_start_index != -1:
         # 19 = len('og:image" content="')
         thumb_path = html[string_start_index+19 : html.find('"', string_start_index+19)]
@@ -920,14 +918,15 @@ def getPageMetadata(html):
 
     # (Show) plot scraping.
     plot = ''
-    string_start_index = html.find('Info:')
+    string_start_index = html.find( SITE_SETTINGS[ 'page_plot' ][ 'start' ] )
     if string_start_index != -1:
-        match = re.search(r'</h3>\s*<p>(.*?)</p>', html[string_start_index:], re.DOTALL)
+        match = re.search( SITE_SETTINGS[ 'page_plot' ][ 'regex' ], html[string_start_index:], re.DOTALL)
         plot = unescapeHTMLText(match.group(1).strip()) if match else ''
 
     return plot, thumb
 
 def actionShowInfo(params):
+
     xbmcgui.Dialog().notification(PLUGIN_TITLE, 'Requesting info...', ADDON_ICON, 2000, False)
 
     # Get the desktop page for the item, whatever it is.
@@ -1173,7 +1172,7 @@ def makeLatestCatalog(params):
     # Returns a list of links from the "Latest 50 Releases" area
     html = request_helper(BASEURL + '/last-50-recent-release').text
 
-    data_start_index = html.find('fourteen columns')
+    data_start_index = html.find( SITE_SETTINGS[ 'latest' ][ 'start' ] )
     if data_start_index == -1:
         raise Exception('Latest catalog scrape fail')
 
@@ -1188,7 +1187,7 @@ def makeLatestCatalog(params):
             'LATEST': tuple(
                 (match.group(1), match.group(3), "https:" + match.group(2))
                 for match in re.finditer(
-                    r'''<div class=\"img\">\s+?<a href=\"([^\"]+)\">\s+?<img class=\"hover-img1\" src=\"([^\"]+)\">\s+?</a>\s+?</div>\s+?<div class=\"recent-release-episodes\"><a href=\".*?\" rel=\"bookmark\">(.*?)</a''', html[data_start_index : html.find('</ul>', data_start_index)]
+                    SITE_SETTINGS[ 'latest' ][ 'regex' ], html[data_start_index : html.find( SITE_SETTINGS[ 'latest' ][ 'end' ], data_start_index )]
                 )
             )
         }
@@ -1197,7 +1196,7 @@ def makeLatestCatalog(params):
     return catalogFromIterable(
         (match.group(1), match.group(3), "https:" + match.group(2))
         for match in re.finditer(
-            r'''<div class=\"img\">\s+?<a href=\"([^\"]+)\">\s+?<img class=\"hover-img1\" src=\"([^\"]+)\">\s+?</a>\s+?</div>\s+?<div class=\"recent-release-episodes\"><a href=\".*?\" rel=\"bookmark\">(.*?)</a''', html[data_start_index : html.find('</ul>', data_start_index)]
+            SITE_SETTINGS[ 'latest' ][ 'regex' ], html[data_start_index : html.find( SITE_SETTINGS[ 'latest' ][ 'end' ], data_start_index )]
         )
     )
 
@@ -1207,14 +1206,14 @@ def makePopularCatalog(params):
 
     html = request_helper(BASEURL).text
 
-    data_start_index = html.find('"sidebar-titles"')
+    data_start_index = html.find( SITE_SETTINGS[ 'popular' ][ 'start' ] )
     if data_start_index == -1:
         raise Exception('Popular catalog scrape fail: ' + params['path'])
 
     return catalogFromIterable(
         match.groups()
         for match in re.finditer(
-            '''<a href="([^"]+).*?>([^<]+)''', html[data_start_index : html.find('</div>', data_start_index)]
+            SITE_SETTINGS[ 'popular' ][ 'regex' ], html[data_start_index : html.find( SITE_SETTINGS[ 'popular' ][ 'end' ], data_start_index )]
         )
     )
 
@@ -1226,15 +1225,15 @@ def makeSeriesSearchCatalog(params):
         extra_headers={'Referer': BASEURL+'/'}
     ).text
 
-    data_start_index = html.find('submit')
+    data_start_index = html.find( SITE_SETTINGS[ 'series_search' ][ 'start' ] )
     if data_start_index == -1:
         raise Exception('Series search scrape fail: ' + params['query'])
 
     return catalogFromIterable(
         match.groups()
         for match in re.finditer(
-            '''<a href="([^"]+)[^>]*>([^<]+)</a''',
-            html[data_start_index : html.find('cizgiyazisi', data_start_index)]
+            SITE_SETTINGS[ 'series_search' ][ 'regex' ],
+            html[data_start_index : html.find( SITE_SETTINGS[ 'series_search' ][ 'end' ] , data_start_index)]
         )
     )
 
@@ -1266,15 +1265,15 @@ def makeEpisodesSearchCatalog(params):
         extra_headers={'Referer': BASEURL+'/'}
     ).text
 
-    data_start_index = html.find('submit')
+    data_start_index = html.find( SITE_SETTINGS[ 'episode_search' ][ 'start' ] )
     if data_start_index == -1:
         raise Exception('Episode search scrape fail: ' + params['query'])
 
     return catalogFromIterable(
         match.groups()
         for match in re.finditer(
-            '''<a href="([^"]+)[^>]*>([^<]+)</a''',
-            html[data_start_index : html.find('cizgiyazisi', data_start_index)],
+            SITE_SETTINGS[ 'episode_search' ][ 'regex' ],
+            html[data_start_index : html.find( SITE_SETTINGS[ 'episode_search' ][ 'end' ] , data_start_index )],
             re.DOTALL
         )
     )
@@ -1289,18 +1288,24 @@ def makeSearchCatalog(params):
 
 def makeGenericCatalog(params):
 
-    # (full website) in here.
+    """ makes list for generic scrape, e.g. dubbed anime list """
+
     html = request_helper(BASEURL + params['path']).text
 
-    data_start_index = html.find('"ddmcc"')
+    data_start_index = html.find( SITE_SETTINGS[ 'catalog' ][ 'start' ] )
+
+    # have another attempt
+    if data_start_index == -1 and SITE_SETTINGS[ 'catalog' ][ 'start_alt' ] is not False:
+        data_start_index = html.find( SITE_SETTINGS[ 'catalog' ][ 'start_alt' ] )
+
     if data_start_index == -1:
         raise Exception('Generic catalog scrape fail: ' + params['path'])
 
     return catalogFromIterable(
         match.groups()
         for match in re.finditer(
-            r'''<li(?:\sdata\-id=\"[0-9]+\")?>\s*<a href="([^"]+).*?>([^<]+)''',
-            html[data_start_index : html.find('<script>', data_start_index)]
+            SITE_SETTINGS[ 'catalog' ][ 'regex' ],
+            html[data_start_index : html.find( SITE_SETTINGS[ 'catalog' ][ 'end' ], data_start_index )]
         )
     )
 
@@ -1311,6 +1316,7 @@ def getCatalogProperty(params):
     path = params['path']
 
     def _rebuildCatalog():
+
         func = CATALOG_FUNCS.get(path, makeGenericCatalog)
         catalog = func(params)
         setWindowProperty(PROPERTY_CATALOG, catalog)
@@ -1325,13 +1331,13 @@ def getCatalogProperty(params):
 
     # If these properties are empty (like when coming in from a favourites menu), or if
     # a different catalog (a different URL path) is stored in this property, then reload it.
-    currentPath = getRawWindowProperty(PROPERTY_CATALOG_PATH)
+    current_path = getRawWindowProperty(PROPERTY_CATALOG_PATH)
     if (
         # If we're coming in from a search and the search query and type are different,
         # or if we're not coming in from a search and the paths are simply different,
         # rebuild the catalog.
-        ('query' in params and (params['query'] not in currentPath or params['searchType'] not in currentPath))
-        or ('query' not in params and currentPath != path)
+        ('query' in params and (params['query'] not in current_path or params['searchType'] not in current_path))
+        or ('query' not in params and current_path != path)
     ):
         catalog = _rebuildCatalog()
     else:
@@ -1342,8 +1348,8 @@ def getCatalogProperty(params):
 
 def get_page_parent(html):
 
-    string_start_index = html.find('"header-tag"')
-    match = re.search(r'<h2><a href=\"([^\"]+)\"(?:[^\>]+)>([^/<]+)</a>', html[string_start_index:], re.DOTALL)
+    string_start_index = html.find( SITE_SETTINGS[ 'parent' ][ 'start' ] )
+    match = re.search( SITE_SETTINGS[ 'parent' ][ 'regex' ], html[string_start_index:], re.DOTALL )
     url = match.group(1).strip() if match else ''
     name = unescapeHTMLText(match.group(2).strip()) if match else ''
 
@@ -1355,9 +1361,22 @@ def actionResolve(params):
 
     # Needs to be the BASEURL domain to get multiple video qualities.
     url = params['url']
+
+    if url.startswith('http'):
+        if not url.startswith( BASEURL ):
+            # if the domain is not the current domain
+            # we llop through to find one that matches
+            for domain in domains_get():
+                if domain in url:
+                    url = url.replace( domain, BASEDOMAIN, 1 )
+                    break
+    else:
+        # now we add the baseurl
+        url = BASEURL + (url if url.startswith('/') else '/' + url)
+
     # Sanitize the URL since on some occasions it's a path instead of full address.
     url = url if url.startswith('http') else (BASEURL + (url if url.startswith('/') else '/' + url))
-    r = request_helper(url.replace('wcofun.org', 'wcofun.tv', 1)) # New domain safety replace.
+    r = request_helper( url )
     content = r.content
 
     if six.PY3:
@@ -1368,26 +1387,12 @@ def actionResolve(params):
     recently_watched_add( parent['name'], parent['url'] )
 
     def _decodeSource(subContent):
+
         if six.PY3:
             subContent = str(subContent)
 
         try:
-            chars = subContent[subContent.find('[') : subContent.find(']')]
-            spread = int(re.search(r' - (\d+)\)\; }', subContent[subContent.find(' - '):]).group(1))
-            xbmc.log( chars, level=xbmc.LOGINFO )
-            xbmc.log( str(spread), level=xbmc.LOGINFO )
-            iframe = ''.join(
-                chr(
-                    int(''.join(c for c in str(b64decode(char)) if c.isdigit())) - spread
-                )
-                for char in chars.replace('"', '').split(',')
-            )
-        except Exception:
-            # quick dirty fix
-            iframe = subContent
-
-        try:
-            return_url = re.search(r'src="([^"]+)', iframe).group(1)
+            return_url = re.search(r'src="([^"]+)', subContent).group(1)
             if not return_url.startswith('\\') and not return_url.startswith('http'):
                 return_url = BASEURL + return_url
             return return_url
@@ -1396,27 +1401,33 @@ def actionResolve(params):
             return None
 
     embed_url = None
+    stream_url = None
 
-    # Notify about premium only video
+    # check if is a premium only video
     if 'This Video is For the WCO Premium Users Only' in content:
-        xbmcgui.Dialog().ok(
-            PLUGIN_TITLE + ' Fail',
-            'The video has been marked as "only for premium users".'
-        )
-        return
+
+        xbmc_debug( 'Premium video detected, attempting to work around for domain: ' + BASEURL )
+        # check if there is a premium workaround in the site class
+        is_premium = premium_workaround_check( content )
+
+        if is_premium is False:
+            xbmc_debug( 'Premium video workaround failed' )
+            # Notify about premium only video
+            xbmcgui.Dialog().ok(
+                PLUGIN_TITLE + ' Fail',
+                'The video has been marked as "only for premium users".'
+            )
+            return
+
+        xbmc_debug( 'Premium video workaround success' )
+        stream_url = is_premium
+        html = content
 
     # On rare cases an episode might have several "chapters", which are video players on the page.
-    embed_url_pattern = r'onclick="myFunction'
-    embed_url_index = content.find(embed_url_pattern)
     if 'playChapters' in params or ADDON.getSetting('chapterEpisodes') == 'true':
-        # Multi-chapter episode found (that is, multiple embed_url_pattern statements found).
-        # Extract all chapters from the page.
-        embed_url_pattern_len = len(embed_url_pattern)
-        current_player_index = embed_url_index
-        data_indices = []
-        while current_player_index != -1:
-            data_indices.append(current_player_index)
-            current_player_index = content.find(embed_url_pattern, current_player_index + embed_url_pattern_len)
+
+        # try and get chapters from site class
+        data_indices = re.compile( SITE_SETTINGS[ 'chapter' ][ 'regex' ], re.MULTILINE ).findall(content)
 
         # If more than one "embed_url" statement found
         # make a selection dialog and call them "chapters".
@@ -1428,11 +1439,23 @@ def actionResolve(params):
             selected_index = 0
 
         if selected_index != -1:
-            embed_url = _decodeSource(content[data_indices[selected_index]:])
+            embed_url = data_indices[selected_index]
+            # check site class if required to be decoded
+            if DECODE_SOURCE_REQUIRED:
+                embed_url = _decodeSource(embed_url)
         else:
             # User cancelled the chapter selection.
             return
+
+    elif 'uploads0" src=' in content:
+
+        embed_url = re.search(r'<iframe id=\"(?:[a-zA-Z]+)uploads(?:[0-9]+)\" src=\"([^\"]+)\"', content, re.DOTALL).group(1)
+
     else:
+
+        embed_url_pattern = r'onclick="myFunction'
+        embed_url_index = content.find(embed_url_pattern)
+
         # back-up search index
         if embed_url_index <= 0:
             embed_url_pattern = r'class="episode-descp"'
@@ -1444,19 +1467,20 @@ def actionResolve(params):
             xbmcgui.Dialog().notification(PLUGIN_TITLE, 'Only 1 chapter found...', ADDON_ICON, 2000, False)
 
     # Notify a failure in solving the player obfuscation.
-    if not embed_url:
+    if not embed_url and not stream_url:
         xbmcgui.Dialog().ok(PLUGIN_TITLE, 'Unable to find a playable source')
         return
 
-    # Request the embedded player page.
-    r2 = request_helper(
-        unescapeHTMLText(embed_url), # Sometimes a '&#038;' symbol is present in this URL.
-            data = None,
-            extra_headers = {
-                'User-Agent': WNT2_USER_AGENT, 'Accept': '*/*', 'Referer': embed_url, 'X-Requested-With': 'XMLHttpRequest'
-            }
-    )
-    html = r2.text
+    if not stream_url:
+        # Request the embedded player page.
+        r2 = request_helper(
+            unescapeHTMLText(embed_url), # Sometimes a '&#038;' symbol is present in this URL.
+                data = None,
+                extra_headers = {
+                    'User-Agent': WNT2_USER_AGENT, 'Accept': '*/*', 'Referer': embed_url, 'X-Requested-With': 'XMLHttpRequest'
+                }
+        )
+        html = r2.text
 
     # Notify about temporary blocks / failures.
     if 'high volume of requests' in html:
@@ -1486,6 +1510,7 @@ def actionResolve(params):
         )
         if not r3.ok:
             raise Exception('Sources XMLHttpRequest request failed')
+
         json_data = r3.json()
 
         # Only two qualities are ever available: 480p ("SD") and 720p ("HD").
@@ -1500,6 +1525,9 @@ def actionResolve(params):
             source_urls.append(('720 (HD)', source_base_url + token_hd))
         # Use the same backup stream method as the source: cdn domain + SD stream.
         backup_url = json_data.get('cdn', '') + '/getvid?evid=' + (token_sd or token_hd)
+    elif stream_url:
+        source_urls = [ ]
+        source_urls.append(('480 (SD)', stream_url))
     else:
         # Alternative video player page, with plain stream links in the JWPlayer javascript.
         sources_block = re.search(r'sources:\s*?\[(.*?)\]', html, re.DOTALL).group(1)
@@ -1625,11 +1653,13 @@ def get_thumbnail_headers():
     return '|User-Agent=' + urllib_parse.quote_plus(WNT2_USER_AGENT) + \
         '&Accept=image%2Fwebp%2C%2A%2F%2A&Referer=' + urllib_parse.quote_plus(BASEURL+'/') + cookies
 
-def get_old_domains():
+def domains_get():
 
-    """ Returns old possible domains, in the order of likeliness. """
+    """ Returns possible domains, in the order of likeliness. """
 
     return (
+        'www.wcostream.tv',
+        'www.wcofun.tv',
         'www.wcofun.org',
         'www.wcofun.com',
         'www.wcofun.net',

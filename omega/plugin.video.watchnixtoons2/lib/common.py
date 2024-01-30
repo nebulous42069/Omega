@@ -16,7 +16,7 @@ try:
 except ImportError:
     from hashlib import md5
 
-from lib.constants import PLUGIN_URL
+from lib.constants import PLUGIN_URL, RESOURCE_URL
 
 ADDON = xbmcaddon.Addon()
 KODI_VERSION = float(xbmcaddon.Addon('xbmc.addon').getAddonInfo('version')[:4])
@@ -62,13 +62,21 @@ def unescapeHTMLText(text):
         # Strings found by regex-searching on all lists in the source website.
         # It's very likely to only be these.
         text = text.replace(r'&#8216;', '‘').replace(r'&#8221;', '”').replace(r'&#8211;', '–')\
-            .replace(r'&#038;', '&').replace(r'&#8217;', '’').replace(r'&#8220;', '“')\
-            .replace(r'&#8230;', '…').replace(r'&#160;', ' ')
+            .replace(r'&#038;', '&').replace(r'&#8217;', '’').replace(r'&#039;', '’')\
+            .replace(r'&#8220;', '“').replace(r'&#8230;', '…').replace(r'&#160;', ' ')
 
     return text.replace(r'&amp;', '&').replace(r'&quot;', '"').replace('\u2606', ' ')
 
+def base_url_remove( base_url, url ):
 
-def xbmcDebug(*args):
+    """ ensures the base URL is removed from a URL"""
+
+    if url.startswith( base_url ):
+        url = url.replace( base_url, '', 1 )
+
+    return url
+
+def xbmc_debug(*args):
 
     """ used for debugging """
 
@@ -125,8 +133,7 @@ def ensure_path_exists(path):
 
     return False
 
-
-def generateMd5(strToMd5):
+def generate_md5( str_to_md5 ):
 
     """ generates a MD5 hash """
 
@@ -134,9 +141,9 @@ def generateMd5(strToMd5):
         md5_instance = md5.new()
     else:
         md5_instance = md5()
-        strToMd5 = bytes(strToMd5, 'UTF-8')
+        str_to_md5 = bytes(str_to_md5, 'UTF-8')
 
-    md5_instance.update(strToMd5)
+    md5_instance.update(str_to_md5)
     return md5_instance.hexdigest()
 
 def build_url(query):
@@ -151,6 +158,41 @@ def build_url(query):
         urllib_parse.urlencode({k: v.encode('utf-8') if isinstance(v, six.text_type)
             else unicode(v, errors='ignore').encode('utf-8')
             for k, v in query.items()})
+
+def file_read( path ):
+
+    """ reads file's contents """
+
+    if six.PY2:
+        return open( path, 'r' )
+
+    return open( path, 'r', encoding='utf8'  )
+
+def file_write( path, content ):
+
+    """ writes file's contents """
+
+    if six.PY2:
+        file_str = open( path, 'w' )
+        file_str.write( content )
+        file_str.close()
+        return True
+
+    with open( path, 'w', encoding='utf8' ) as file_str:
+        file_str.write( content )
+        file_str.close()
+        return True
+
+def thumbnail_hashes_get( path ):
+
+    """ gets required hash file for thumbnails """
+
+    hashes = file_read( translate_path( RESOURCE_URL + 'data/' + path.replace('/','') + '.json' ) )
+
+    if hashes:
+        return json.load( hashes )
+
+    return {}
 
 if six.PY3:
     xrange = range
