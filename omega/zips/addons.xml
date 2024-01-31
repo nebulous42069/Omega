@@ -3318,7 +3318,7 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
     </assets>
     <news>See changelog for latest changes</news>
   </extension>
-</addon><addon id="skin.xenonx" version="6.4" name="[B][COLOR gold]Xenon[/COLOR][/B]  (Mid Power)" provider-name="Helly,bsoriano">
+</addon><addon id="skin.xenonx" version="6.5" name="[B][COLOR gold]Xenon[/COLOR][/B]  (Mid Power)" provider-name="Helly,bsoriano">
   <requires>
     <import addon="xbmc.gui" version="5.17.0" />
 	<import addon="script.favourites" version="8.1.2" />
