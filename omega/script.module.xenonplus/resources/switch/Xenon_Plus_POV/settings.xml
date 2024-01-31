@@ -2324,7 +2324,7 @@
     <setting id="AddonSetThree.26.Label" type="string"></setting>
     <setting id="AddonSetEight.8.Label" type="string"></setting>
     <setting id="subsettings.5.label" type="string">View Weather</setting>
-    <setting id="AddonSetOne.6.Label" type="string">Chef Nexus Wizard</setting>
+    <setting id="AddonSetOne.6.Label" type="string">Chef Omega Wizard</setting>
     <setting id="AddonSetTen.17.Label" type="string">Unleashed TV Shows</setting>
     <setting id="addonsettwo.30.path" type="string"></setting>
     <setting id="HomeItem.11.Playlist" type="string"></setting>

@@ -3106,7 +3106,7 @@
     <setting id="customsuspendarg" type="string"></setting>
     <setting id="addonsetone.2.path" type="string">ActivateWindow(videos,&quot;plugin://plugin.program.super.favourites/?cmd=ActivateWindow(%225002%22%2c%22ActivateWindow(5002)%22%2creturn)&amp;content_type=video&amp;image=special%3a%2f%2fhome%2faddons%2fresource.images.skinicons.wide%2fresources%2ficons%2fadvanced.png&amp;label=Xenon%20Tweaks&amp;mode=650&quot;,return)</setting>
     <setting id="AddonSetEight.35.Icon" type="string"></setting>
-    <setting id="AddonSetOne.6.Label" type="string">Chef Nexus Wizard</setting>
+    <setting id="AddonSetOne.6.Label" type="string">Chef Omega Wizard</setting>
     <setting id="addonsetfifteen.22.path" type="string"></setting>
     <setting id="AddonSetFour.12.Icon" type="string"></setting>
     <setting id="SubVideos.1.List" type="string">plugin://plugin.video.umbrella/?action=tools_traktToolsNavigator&amp;folderName=Trakt%20Management%20Tools</setting>

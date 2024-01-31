@@ -2653,7 +2653,7 @@
     <setting id="SubVideos.6.List" type="string">plugin://plugin.video.themoviedb.helper/?info=trakt_favorites&amp;list_name=Movies%20Favourites&amp;tmdb_type=movie</setting>
     <setting id="addonsetfour.9.path" type="string"></setting>
     <setting id="AddonSetFive.7.Icon" type="string">special://home/addons/resource.images.skinicons.wide/resources/icons/risingtides.jpg</setting>
-    <setting id="AddonSetOne.6.Label" type="string">Chef Nexus Wizard</setting>
+    <setting id="AddonSetOne.6.Label" type="string">Chef Omega Wizard</setting>
     <setting id="addonsetfifteen.39.path" type="string"></setting>
     <setting id="HomeItem.5.Widget" type="string">plugin://plugin.video.seren/?action=showsTrendingRecent</setting>
     <setting id="sublivetv.7.path" type="string">Hidden</setting>

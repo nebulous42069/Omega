@@ -917,7 +917,7 @@
     <setting id="AddonSetTwelve.4.Icon" type="string">special://home/addons/resource.images.skinicons.wide/resources/icons/kids.jpg</setting>
     <setting id="subvideos.1.label" type="string"></setting>
     <setting id="AddonSetThree.7.Label" type="string">In-Progress Movies</setting>
-    <setting id="AddonSetOne.6.Label" type="string">Chef Nexus Wizard</setting>
+    <setting id="AddonSetOne.6.Label" type="string">Chef Omega Wizard</setting>
     <setting id="AddonSetThirteen.5.List" type="string">addons://search/</setting>
     <setting id="AddonSetSix.4.Label" type="string"></setting>
     <setting id="addonsettwelve.33.path" type="string"></setting>

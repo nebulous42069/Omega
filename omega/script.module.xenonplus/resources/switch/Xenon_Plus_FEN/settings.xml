@@ -3152,7 +3152,7 @@
     <setting id="AddonSetOne.3.Label" type="string">Debrid/Trakt Login</setting>
     <setting id="HomeItem.11.Addon" type="string">AddonSetSix</setting>
     <setting id="AddonSetEight.35.Icon" type="string"></setting>
-    <setting id="AddonSetOne.6.Label" type="string">Chef Nexus Wizard</setting>
+    <setting id="AddonSetOne.6.Label" type="string">Chef Omega Wizard</setting>
     <setting id="addonsetfive.15.path" type="string">ActivateWindow(videos,&quot;plugin://plugin.video.torquelite/&quot;,return)</setting>
     <setting id="AddonSetFourteen.11.Label" type="string"></setting>
     <setting id="AddonSetNine.32.Label" type="string"></setting>

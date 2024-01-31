@@ -1756,7 +1756,7 @@ Random updates by lolage.
 			<fanart />
 		</assets>
     </extension>
-</addon><addon id="script.module.xenonplus" name="Xenon Flavors" version="421" provider-name="Zaxxon709">
+</addon><addon id="script.module.xenonplus" name="Xenon Flavors" version="422" provider-name="Zaxxon709">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0" />
 	</requires>

@@ -3144,7 +3144,7 @@
     <setting id="AddonSetFourteen.10.Icon" type="string">special://home/addons/resource.images.skinicons.wide/resources/icons/EXPLORE/MARTIALARTS.png</setting>
     <setting id="HomeItem.3.WidgetLayout" type="string">Small</setting>
     <setting id="usersettingssubmenu" type="string">Xenon</setting>
-    <setting id="AddonSetOne.6.Label" type="string">Chef Nexus Wizard</setting>
+    <setting id="AddonSetOne.6.Label" type="string">Chef Omega Wizard</setting>
     <setting id="AddonSetThree.27.Label" type="string"></setting>
     <setting id="addonsetfifteen.39.path" type="string"></setting>
     <setting id="AddonSetEleven.25.Icon" type="string"></setting>
