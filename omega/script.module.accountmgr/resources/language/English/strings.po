@@ -461,7 +461,7 @@ msgid "[COLOR FF696969]-- Enable to Auto-Sync newly installed add-ons at start-u
 msgstr ""
 
 msgctxt "#40097"
-msgid "[COLOR FF696969]-- WARNING! Use only to restore system to default settings --[/COLOR]"
+msgid "[COLOR FF696969]-- Restore default settings prior to using Account Manager --[/COLOR]"
 msgstr ""
 
 msgctxt "#40098"
@@ -493,5 +493,13 @@ msgid "[COLOR FFA0C12C]-- View Changelog --[/COLOR]"
 msgstr ""
 
 msgctxt "#40105"
-msgid "[COLOR FF696969]-- Backup Trakt & Debrid data during the authorization process --[/COLOR]"
+msgid "[COLOR FF696969]-- Auto Backup Trakt & Debrid data during authorization --[/COLOR]"
 msgstr ""
+
+msgctxt "#40106"
+msgid "[COLOR FF696969]-- Builders can add they own Custom Trakt keys here --[/COLOR]"
+msgstr """
+
+msgctxt "#40107"
+msgid "Enable Custom Trakt API Keys"
+msgstr """

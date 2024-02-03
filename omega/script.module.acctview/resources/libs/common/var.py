@@ -23,11 +23,15 @@ def traktID():
         traktId = '4a479b95c8224999eef8d418cfe6c7a4389e2837441672c48c9c8168ea42a407'
         if (setting('trakt.client.id') != '' or setting('trakt.client.id') is not None) and setting('traktuserkey.enabled') == 'true':
                 traktId = setting('trakt.client.id')
+        if (setting('dev.client.id') != '' or setting('dev.client.id') is not None) and setting('devuserkey.enabled') == 'true':
+                traktId = setting('dev.client.id')
         return traktId
 def traktSecret():
         traktSecret = '89d8f8f71b312985a9e1f91e9eb426e23050102734bb1fa36ec76cdc74452ab6'
         if (setting('trakt.client.secret') != '' or setting('trakt.client.secret') is not None) and setting('traktuserkey.enabled') == 'true':
                 traktSecret = setting('trakt.client.secret')
+        if (setting('dev.client.secret') != '' or setting('dev.client.secret') is not None) and setting('devuserkey.enabled') == 'true':
+                traktSecret = setting('dev.client.secret')
         return traktSecret
 
 def rm_traktcache():
@@ -330,8 +334,7 @@ path_scrubs = addons + translatePath('plugin.video.scrubsv2/resources/lib/module
 path_labjr = addons + translatePath('plugin.video.thelabjr/resources/lib/modules/trakt.py')
 path_allaccounts = addons + translatePath('script.module.allaccounts/lib/allaccounts/modules/trakt.py')
 path_myaccounts = addons + translatePath('script.module.myaccounts/lib/myaccounts/modules/trakt.py')
-path_tmdbh_old = xbmcvfs.translatePath('special://home/addons/plugin.video.themoviedb.helper/resources/tmdbhelper/lib/api/api_keys/trakt.py')
-path_tmdbh_new = addons + translatePath('plugin.video.themoviedb.helper/resources/lib/api/trakt/api.py')
+path_tmdbh = addons + translatePath('plugin.video.themoviedb.helper/resources/tmdbhelper/lib/api/api_keys/trakt.py')
 path_trakt = addons + translatePath('script.trakt/resources/lib/traktapi.py')
 
 #Trakt API Keys

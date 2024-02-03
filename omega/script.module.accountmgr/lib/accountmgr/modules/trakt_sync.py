@@ -18,20 +18,20 @@ class Auth:
     def trakt_auth(self):
     #Seren
         try:
-                if xbmcvfs.exists(var.chk_seren) and xbmcvfs.exists(var.chkset_seren) and accountmgr.getSetting('traktuserkey.enabled') == 'true': #Check that the addon is installed and settings.xml exists.
+                if xbmcvfs.exists(var.chk_seren) and xbmcvfs.exists(var.chkset_seren) and (var.setting('traktuserkey.enabled') == 'true' or var.setting('devuserkey.enabled') == 'true'): #Check that the addon is installed and settings.xml exists.
                         
                         #Get add-on setting to compare
                         chk_auth_seren = xbmcaddon.Addon('plugin.video.seren').getSetting("trakt.auth")
                         if not str(var.chk_accountmgr_tk) == str(chk_auth_seren) or str(chk_auth_seren) == '': #Compare Account Mananger token to Add-on token. If they match, authorization is skipped
                 
                                 #Insert Account Mananger API keys
-                                f = open(var.path_seren,'r')
-                                data = f.read()
-                                f.close()
+                                with open(var.path_seren,'r') as f:
+                                    data = f.read()
+
                                 client = data.replace(var.seren_client,var.client_am).replace(var.seren_secret,var.secret_am)
-                                f = open(var.path_seren,'w')
-                                f.write(client)
-                                f.close()
+
+                                with open(var.path_seren,'w') as f:
+                                    f.write(client)
 
                                 #Write data to settings.xml
                                 addon = xbmcaddon.Addon("plugin.video.seren")
@@ -53,13 +53,13 @@ class Auth:
                         chk_auth_fen = xbmcaddon.Addon('plugin.video.fen').getSetting("trakt.token")
                         if not str(var.chk_accountmgr_tk) == str(chk_auth_fen) or str(chk_auth_fen) == '':
                         
-                                    f = open(var.path_fen,'r')
-                                    data = f.read()
-                                    f.close()
+                                    with open(var.path_fen,'r') as f:
+                                        data = f.read()
+
                                     client = data.replace(var.fen_client,var.client_am).replace(var.fen_secret,var.secret_am)
-                                    f = open(var.path_fen,'w')
-                                    f.write(client)
-                                    f.close()
+
+                                    with open(var.path_fen,'w') as f:
+                                        f.write(client) 
 
                                     addon = xbmcaddon.Addon("plugin.video.fen")
                                     addon.setSetting("trakt.token", your_token)
@@ -75,10 +75,18 @@ class Auth:
     #Fen Light
         try:
                 if xbmcvfs.exists(var.chk_fenlt) and xbmcvfs.exists(var.chkset_fenlt): #Check that the addon is installed and settings.db exists
-                    
+                    #Insert Account Mananger API keys
+                    with open(var.path_fenlt,'r') as f:
+                        data = f.read()
+
+                    client = data.replace(var.fenlt_client,var.client_am).replace(var.fenlt_secret,var.secret_am)
+
+                    with open(var.path_fenlt,'w') as f:
+                        f.write(client)
+                        
                     #Create database connection
-                    from accountmgr.modules import debrid_db
-                    conn = debrid_db.create_conn(var.fenlt_settings_db)
+                    from accountmgr.modules import trakt_db
+                    conn = trakt_db.create_conn(var.fenlt_settings_db)
                     
                     #Get add-on settings to compare
                     with conn:
@@ -105,9 +113,16 @@ class Auth:
     #afFENity
         try:
                 if xbmcvfs.exists(var.chk_affen) and xbmcvfs.exists(var.chkset_affen):
+                    with open(var.path_affen,'r') as f:
+                        data = f.read()
 
-                    from accountmgr.modules import debrid_db
-                    conn = debrid_db.create_conn(var.affen_settings_db)
+                    client = data.replace(var.affen_client,var.client_am).replace(var.affen_secret,var.secret_am)
+
+                    with open(var.path_affen,'w') as f:
+                        f.write(client)
+
+                    from accountmgr.modules import trakt_db
+                    conn = trakt_db.create_conn(var.affen_settings_db)
 
                     with conn:
                         cursor = conn.cursor()
@@ -150,13 +165,13 @@ class Auth:
                         chk_auth_coal = xbmcaddon.Addon('plugin.video.coalition').getSetting("trakt.token")
                         if not str(var.chk_accountmgr_tk) == str(chk_auth_coal) or str(chk_auth_coal) == '':
                         
-                                    f = open(var.path_coal,'r')
-                                    data = f.read()
-                                    f.close()
+                                    with open(var.path_coal,'r') as f:
+                                        data = f.read()
+
                                     client = data.replace(var.coal_client,var.client_am).replace(var.coal_secret,var.secret_am)
-                                    f = open(var.path_coal,'w')
-                                    f.write(client)
-                                    f.close()
+
+                                    with open(var.path_coal,'w') as f:
+                                        f.write(client)
 
                                     addon = xbmcaddon.Addon("plugin.video.coalition")
                                     addon.setSetting("trakt.token", your_token)
@@ -175,13 +190,13 @@ class Auth:
                         chk_auth_pov = xbmcaddon.Addon('plugin.video.pov').getSetting("trakt.token")
                         if not str(var.chk_accountmgr_tk) == str(chk_auth_pov) or str(chk_auth_pov) == '':
 
-                                f = open(var.path_pov,'r')
-                                data = f.read()
-                                f.close()
-                                client = data.replace(var.pov_client,var.client_am).replace(var.pov_client,var.secret_am)
-                                f = open(var.path_pov,'w')
-                                f.write(client)
-                                f.close()
+                                with open(var.path_pov,'r') as f:
+                                    data = f.read()
+
+                                client = data.replace(var.pov_client,var.client_am).replace(var.pov_secret,var.secret_am)
+
+                                with open(var.path_pov,'w') as f:
+                                    f.write(client)
 
                                 addon = xbmcaddon.Addon("plugin.video.pov")
                                 addon.setSetting("trakt.token", your_token)
@@ -207,7 +222,7 @@ class Auth:
                                 addon.setSetting("trakt.token.expires", your_expires)
                                 addon.setSetting("traktuserkey.customenabled", 'true')
                                 addon.setSetting("trakt.clientid", var.client_am)
-                                addon.setSetting("trakt.clientsecret", var.secret_am)
+                                addon.setSetting("trakt.clientsecret", var.secret_am)                           
         except:
                 xbmc.log('%s: Umbrella Trakt Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
@@ -217,6 +232,14 @@ class Auth:
                 if xbmcvfs.exists(var.chk_dradis) and xbmcvfs.exists(var.chkset_dradis):
                         chk_auth_dradis = xbmcaddon.Addon('plugin.video.dradis').getSetting("trakt.token")
                         if not str(var.chk_accountmgr_tk) == str(chk_auth_dradis) or str(chk_auth_dradis) == '':
+
+                                with open(var.path_dradis,'r') as f:
+                                    data = f.read()
+
+                                client = data.replace(var.dradis_client,var.client_am).replace(var.dradis_secret,var.secret_am)
+
+                                with open(var.path_dradis,'w') as f:
+                                    f.write(client)
 
                                 addon = xbmcaddon.Addon("plugin.video.dradis")
                                 addon.setSetting("trakt.username", your_username)
@@ -235,13 +258,13 @@ class Auth:
                         chk_auth_taz = xbmcaddon.Addon('plugin.video.taz19').getSetting("trakt.token")
                         if not str(var.chk_accountmgr_tk) == str(chk_auth_taz) or str(chk_auth_taz) == '':
 
-                                f = open(var.path_taz,'r')
-                                data = f.read()
-                                f.close()
+                                with open(var.path_taz,'r') as f:
+                                    data = f.read()
+
                                 client = data.replace(var.taz_client,var.client_am)
-                                f = open(var.path_taz,'w')
-                                f.write(client)
-                                f.close()
+
+                                with open(var.path_taz,'w') as f:
+                                    f.write(client)
                                 
                                 addon = xbmcaddon.Addon("plugin.video.taz19")
                                 addon.setSetting("trakt_user", your_username)
@@ -266,13 +289,13 @@ class Auth:
                         chk_auth_shadow = xbmcaddon.Addon('plugin.video.shadow').getSetting("trakt_access_token")
                         if not str(var.chk_accountmgr_tk) == str(chk_auth_shadow) or str(chk_auth_shadow) == '':
                                 
-                                f = open(var.path_shadow,'r')
-                                data = f.read()
-                                f.close()
+                                with open(var.path_shadow,'r') as f:
+                                    data = f.read()
+
                                 client = data.replace(var.shadow_client,var.client_am).replace(var.shadow_secret,var.secret_am)
-                                f = open(var.path_shadow,'w')
-                                f.write(client)
-                                f.close()
+
+                                with open(var.path_shadow,'w') as f:
+                                    f.write(client)
 
                                 addon = xbmcaddon.Addon("plugin.video.shadow")
                                 addon.setSetting("trakt_access_token", your_token)
@@ -295,13 +318,13 @@ class Auth:
                         chk_auth_ghost = xbmcaddon.Addon('plugin.video.ghost').getSetting("trakt_access_token")
                         if not str(var.chk_accountmgr_tk) == str(chk_auth_ghost) or str(chk_auth_ghost) == '':
                                 
-                                f = open(var.path_ghost,'r')
-                                data = f.read()
-                                f.close()
+                                with open(var.path_ghost,'r') as f:
+                                    data = f.read()
+
                                 client = data.replace(var.ghost_client,var.client_am).replace(var.ghost_secret,var.secret_am)
-                                f = open(var.path_ghost,'w')
-                                f.write(client)
-                                f.close()
+
+                                with open(var.path_ghost,'w') as f:
+                                    f.write(client)
 
                                 addon = xbmcaddon.Addon("plugin.video.ghost")
                                 addon.setSetting("trakt_access_token", your_token)
@@ -324,13 +347,13 @@ class Auth:
                         chk_auth_base = xbmcaddon.Addon('plugin.video.base').getSetting("trakt_access_token")
                         if not str(var.chk_accountmgr_tk) == str(chk_auth_base) or str(chk_auth_base) == '':
                                 
-                                f = open(var.path_base,'r')
-                                data = f.read()
-                                f.close()
+                                with open(var.path_base,'r') as f:
+                                    data = f.read()
+
                                 client = data.replace(var.base_client,var.client_am).replace(var.base_secret,var.secret_am)
-                                f = open(var.path_base,'w')
-                                f.write(client)
-                                f.close()
+
+                                with open(var.path_base,'w') as f:
+                                    f.write(client)
 
                                 addon = xbmcaddon.Addon("plugin.video.base")
                                 addon.setSetting("trakt_access_token", your_token)
@@ -353,13 +376,13 @@ class Auth:
                         chk_auth_unleashed = xbmcaddon.Addon('plugin.video.unleashed').getSetting("trakt_access_token")
                         if not str(var.chk_accountmgr_tk) == str(chk_auth_unleashed) or str(chk_auth_unleashed) == '':
                                 
-                                f = open(var.path_unleashed,'r')
-                                data = f.read()
-                                f.close()
+                                with open(var.path_unleashed,'r') as f:
+                                    data = f.read()
+
                                 client = data.replace(var.unleashed_client,var.client_am).replace(var.unleashed_secret,var.secret_am)
-                                f = open(var.path_unleashed,'w')
-                                f.write(client)
-                                f.close()
+
+                                with open(var.path_unleashed,'w') as f:
+                                    f.write(client)
 
                                 addon = xbmcaddon.Addon("plugin.video.unleashed")
                                 addon.setSetting("trakt_access_token", your_token)
@@ -382,13 +405,13 @@ class Auth:
                         chk_auth_chains = xbmcaddon.Addon('plugin.video.thechains').getSetting("trakt_access_token")
                         if not str(var.chk_accountmgr_tk) == str(chk_auth_chains) or str(chk_auth_chains) == '':
                                 
-                                f = open(var.path_chains,'r')
-                                data = f.read()
-                                f.close()
+                                with open(var.path_chains,'r') as f:
+                                    data = f.read()
+
                                 client = data.replace(var.chains_client,var.client_am).replace(var.chains_secret,var.secret_am)
-                                f = open(var.path_chains,'w')
-                                f.write(client)
-                                f.close()
+
+                                with open(var.path_chains,'w') as f:
+                                    f.write(client)
 
                                 addon = xbmcaddon.Addon("plugin.video.thechains")
                                 addon.setSetting("trakt_access_token", your_token)
@@ -411,13 +434,13 @@ class Auth:
                         chk_auth_md = xbmcaddon.Addon('plugin.video.magicdragon').getSetting("trakt_access_token")
                         if not str(var.chk_accountmgr_tk) == str(chk_auth_md) or str(chk_auth_md) == '':
                                
-                                f = open(var.path_md,'r')
-                                data = f.read()
-                                f.close()
-                                client = data.replace(var.md_client,var.client_am).replace(var.md_client,var.secret_am)
-                                f = open(var.path_md,'w')
-                                f.write(client)
-                                f.close()
+                                with open(var.path_md,'r') as f:
+                                    data = f.read()
+
+                                client = data.replace(var.md_client,var.client_am).replace(var.md_secret,var.secret_am)
+
+                                with open(var.path_md,'w') as f:
+                                    f.write(client)
 
                                 addon = xbmcaddon.Addon("plugin.video.magicdragon")
                                 addon.setSetting("trakt_access_token", your_token)
@@ -440,13 +463,13 @@ class Auth:
                         chk_auth_asgard = xbmcaddon.Addon('plugin.video.asgard').getSetting("trakt_access_token")
                         if not str(var.chk_accountmgr_tk) == str(chk_auth_asgard) or str(chk_auth_asgard) == '':
                                 
-                                f = open(var.path_asgard,'r')
-                                data = f.read()
-                                f.close()
+                                with open(var.path_asgard,'r') as f:
+                                    data = f.read()
+
                                 client = data.replace(var.asgard_client,var.client_am).replace(var.asgard_secret,var.secret_am)
-                                f = open(var.path_asgard,'w')
-                                f.write(client)
-                                f.close()
+
+                                with open(var.path_asgard,'w') as f:
+                                    f.write(client)
 
                                 addon = xbmcaddon.Addon("plugin.video.asgard")
                                 addon.setSetting("trakt_access_token", your_token)
@@ -469,13 +492,13 @@ class Auth:
                         chk_auth_patriot = xbmcaddon.Addon('plugin.video.patriot').getSetting("trakt_access_token")
                         if not str(var.chk_accountmgr_tk) == str(chk_auth_patriot) or str(chk_auth_patriot) == '':
                                 
-                                f = open(var.path_patriot,'r')
-                                data = f.read()
-                                f.close()
+                                with open(var.path_patriot,'r') as f:
+                                    data = f.read()
+
                                 client = data.replace(var.patriot_client,var.client_am).replace(var.patriot_secret,var.secret_am)
-                                f = open(var.path_patriot,'w')
-                                f.write(client)
-                                f.close()
+
+                                with open(var.path_patriot,'w') as f:
+                                    f.write(client)
 
                                 addon = xbmcaddon.Addon("plugin.video.patriot")
                                 addon.setSetting("trakt_access_token", your_token)
@@ -498,13 +521,13 @@ class Auth:
                         chk_auth_blackl = xbmcaddon.Addon('plugin.video.blacklightning').getSetting("trakt_access_token")
                         if not str(var.chk_accountmgr_tk) == str(chk_auth_blackl) or str(chk_auth_blackl) == '':
                                 
-                                f = open(var.path_blackl,'r')
-                                data = f.read()
-                                f.close()
+                                with open(var.path_blackl,'r') as f:
+                                    data = f.read()
+
                                 client = data.replace(var.blackl_client,var.client_am).replace(var.blackl_secret,var.secret_am)
-                                f = open(var.path_blackl,'w')
-                                f.write(client)
-                                f.close()
+
+                                with open(var.path_blackl,'w') as f:
+                                    f.write(client)
 
                                 addon = xbmcaddon.Addon("plugin.video.blacklightning")
                                 addon.setSetting("trakt_access_token", your_token)
@@ -527,13 +550,13 @@ class Auth:
                         chk_auth_aliunde = xbmcaddon.Addon('plugin.video.aliundek19').getSetting("trakt_access_token")
                         if not str(var.chk_accountmgr_tk) == str(chk_auth_aliunde) or str(chk_auth_aliunde) == '':
                                 
-                                f = open(var.path_aliunde,'r')
-                                data = f.read()
-                                f.close()
+                                with open(var.path_aliunde,'r') as f:
+                                    data = f.read()
+
                                 client = data.replace(var.aliunde_client,var.client_am).replace(var.aliunde_secret,var.secret_am)
-                                f = open(var.path_aliunde,'w')
-                                f.write(client)
-                                f.close()
+
+                                with open(var.path_aliunde,'w') as f:
+                                    f.write(client)
 
                                 addon = xbmcaddon.Addon("plugin.video.aliundek19")
                                 addon.setSetting("trakt_access_token", your_token)
@@ -676,13 +699,13 @@ class Auth:
                         chk_auth_crew = xbmcaddon.Addon('plugin.video.thecrew').getSetting("trakt.token")
                         if not str(var.chk_accountmgr_tk) == str(chk_auth_crew) or str(chk_auth_crew) == '':
 
-                                f = open(var.path_crew,'r')
-                                data = f.read()
-                                f.close()
-                                client = data.replace(var.crew_client,var.client_am).replace(var.crew_client,var.secret_am)
-                                f = open(var.path_crew,'w')
-                                f.write(client)
-                                f.close()
+                                with open(var.path_crew,'r') as f:
+                                    data = f.read()
+
+                                client = data.replace(var.crew_client,var.client_am).replace(var.crew_secret,var.secret_am)
+
+                                with open(var.path_crew,'w') as f:
+                                    f.write(client)
 
                                 addon = xbmcaddon.Addon("plugin.video.thecrew")
                                 addon.setSetting("trakt.user", your_username)
@@ -825,13 +848,13 @@ class Auth:
                         chk_auth_scrubs = xbmcaddon.Addon('plugin.video.scrubsv2').getSetting("trakt.token")
                         if not str(var.chk_accountmgr_tk) == str(chk_auth_scrubs) or str(chk_auth_scrubs) == '':
 
-                                f = open(var.path_scrubs,'r')
-                                data = f.read()
-                                f.close()
+                                with open(var.path_scrubs,'r') as f:
+                                    data = f.read()
+
                                 client = data.replace(var.scrubs_client,var.client_am).replace(var.scrubs_secret,var.secret_am)
-                                f = open(var.path_scrubs,'w')
-                                f.write(client)
-                                f.close()
+
+                                with open(var.path_scrubs,'w') as f:
+                                    f.write(client)
 
                                 addon = xbmcaddon.Addon("plugin.video.scrubsv2")
                                 addon.setSetting("trakt.user", your_username)
@@ -855,13 +878,13 @@ class Auth:
                         chk_auth_labjr = xbmcaddon.Addon('plugin.video.thelabjr').getSetting("trakt.token")
                         if not str(var.chk_accountmgr_tk) == str(chk_auth_labjr) or str(chk_auth_labjr) == '':
 
-                                f = open(var.path_labjr,'r')
-                                data = f.read()
-                                f.close()
+                                with open(var.path_labjr,'r') as f:
+                                    data = f.read()
+
                                 client = data.replace(var.labjr_client,var.client_am).replace(var.labjr_secret,var.secret_am)
-                                f = open(var.path_labjr,'w')
-                                f.write(client)
-                                f.close()
+
+                                with open(var.path_labjr,'w') as f:
+                                    f.write(client)
 
                                 addon = xbmcaddon.Addon("plugin.video.thelabjr")
                                 addon.setSetting("trakt.user", your_username)
@@ -884,28 +907,18 @@ class Auth:
                 if xbmcvfs.exists(var.chk_tmdbh) and xbmcvfs.exists(var.chkset_tmdbh):
 
                         chk_auth_tmdbh = xbmcaddon.Addon('plugin.video.themoviedb.helper').getSetting("trakt_token")
+                        
                         if str(your_token) in str(chk_auth_tmdbh):
                             pass
                                 
-                        else:
-                            if xbmcvfs.exists(var.path_tmdbh_new):
-                            
-                                    f = open(var.path_tmdbh_new,'r')
-                                    data = f.read()
-                                    f.close()
-                                    client = data.replace(var.tmdbh_client,var.client_am).replace(var.tmdbh_secret,var.secret_am)
-                                    f = open(var.path_tmdbh_new,'w')
-                                    f.write(client)
-                                    f.close()
+                        else:                           
+                            with open(var.path_tmdbh,'r') as f:
+                                data = f.read()
 
-                            else:
-                                    f = open(var.path_tmdbh_old,'r')
-                                    data = f.read()
-                                    f.close()
-                                    client = data.replace(var.tmdbh_client,var.client_am).replace(var.tmdbh_secret,var.secret_am)
-                                    f = open(var.path_tmdbh_old,'w')
-                                    f.write(client)
-                                    f.close()
+                            client = data.replace(var.tmdbh_client,var.client_am).replace(var.tmdbh_secret,var.secret_am)
+
+                            with open(var.path_tmdbh,'w') as f:
+                                f.write(client)
                                     
                             addon = xbmcaddon.Addon("plugin.video.themoviedb.helper")
                             your_expires_float = float(your_expires)
@@ -937,13 +950,13 @@ class Auth:
                             pass
                                 
                         else:
-                            f = open(var.path_trakt,'r')
-                            data = f.read()
-                            f.close()
+                            with open(var.path_trakt,'r') as f:
+                                data = f.read()
+
                             client = data.replace(var.trakt_client,var.client_am).replace(var.trakt_secret,var.secret_am)
-                            f = open(var.path_trakt,'w')
-                            f.write(client)
-                            f.close()
+
+                            with open(var.path_trakt,'w') as f:
+                                f.write(client)
                             
                             addon = xbmcaddon.Addon("script.trakt")
                             addon.setSetting("user", your_username)
@@ -971,13 +984,13 @@ class Auth:
                         chk_auth_allaccounts = xbmcaddon.Addon('script.module.allaccounts').getSetting("trakt.token")
                         if not str(var.chk_accountmgr_tk) == str(chk_auth_allaccounts) or str(chk_auth_allaccounts) == '':
 
-                                f = open(var.path_allaccounts,'r')
-                                data = f.read()
-                                f.close()
+                                with open(var.path_allaccounts,'r') as f:
+                                    data = f.read()
+
                                 client = data.replace(var.allacts_client,var.client_am).replace(var.allacts_secret,var.secret_am)
-                                f = open(var.path_allaccounts,'w')
-                                f.write(client)
-                                f.close()
+
+                                with open(var.path_allaccounts,'w') as f:
+                                    f.write(client)
 
                                 addon = xbmcaddon.Addon("script.module.allaccounts")
                                 addon.setSetting("trakt.token", your_token)
@@ -1001,13 +1014,13 @@ class Auth:
                         chk_auth_myaccounts = xbmcaddon.Addon('script.module.myaccounts').getSetting("trakt.token")
                         if not str(var.chk_accountmgr_tk) == str(chk_auth_myaccounts) or str(chk_auth_myaccounts) == '':
 
-                                f = open(var.path_myaccounts,'r')
-                                data = f.read()
-                                f.close()
+                                with open(var.path_myaccounts,'r') as f:
+                                    data = f.read()
+
                                 client = data.replace(var.myacts_client,var.client_am).replace(var.myacts_secret,var.secret_am)
-                                f = open(var.path_myaccounts,'w')
-                                f.write(client)
-                                f.close()
+
+                                with open(var.path_myaccounts,'w') as f:
+                                    f.write(client)
 
                                 addon = xbmcaddon.Addon("script.module.myaccounts")
                                 addon.setSetting("trakt.token", your_token)

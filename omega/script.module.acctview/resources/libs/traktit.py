@@ -25,7 +25,7 @@ ORDER = ['seren',
          'taz',
          'shadow',
          'ghost',
-         'base19',
+         'base',
          'unleashed',
          'chains',
          'md',
@@ -197,18 +197,18 @@ TRAKTID = {
         'default'  : 'trakt_access_token',
         'data'     : ['trakt_expires_at', 'trakt_refresh_token', 'trakt_access_token'],
         'activate' : 'Addon.OpenSettings(plugin.video.ghost)'},
-    'base19': {
-        'name'     : 'Base 19',
-        'plugin'   : 'plugin.video.base19',
-        'saved'    : 'base19',
-        'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.base19'),
-        'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.base19', 'icon.png'),
-        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.base19', 'fanart.jpg'),
-        'file'     : os.path.join(CONFIG.TRAKTFOLD, 'base19_trakt'),
-        'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.base19', 'settings.xml'),
+    'base': {
+        'name'     : 'Base',
+        'plugin'   : 'plugin.video.base',
+        'saved'    : 'base',
+        'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.base'),
+        'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.base', 'icon.png'),
+        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.base', 'fanart.jpg'),
+        'file'     : os.path.join(CONFIG.TRAKTFOLD, 'base_trakt'),
+        'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.base', 'settings.xml'),
         'default'  : 'trakt_access_token',
         'data'     : ['trakt_expires_at', 'trakt_refresh_token', 'trakt_access_token'],
-        'activate' : 'Addon.OpenSettings(plugin.video.base19)'},
+        'activate' : 'Addon.OpenSettings(plugin.video.base)'},
     'unleashed': {
         'name'     : 'Unleashed',
         'plugin'   : 'plugin.video.unleashed',
@@ -442,8 +442,8 @@ TRAKTID = {
         'plugin'   : 'plugin.video.thelabjr',
         'saved'    : 'thelabjr',
         'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.thelabjr'),
-        'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.thelabjr/resources/images', 'icon.png'),
-        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.thelabjr/resources/images', 'fanart.jpg'),
+        'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.thelabjr', 'icon.png'),
+        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.thelabjr', 'fanart.jpg'),
         'file'     : os.path.join(CONFIG.TRAKTFOLD, 'thelabjr_trakt'),
         'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.thelabjr', 'settings.xml'),
         'default'  : 'trakt.user',
@@ -483,7 +483,7 @@ TRAKTID = {
         'file'     : os.path.join(CONFIG.TRAKTFOLD, 'acctmgr_trakt'),
         'settings' : os.path.join(CONFIG.ADDON_DATA, 'script.module.accountmgr', 'settings.xml'),
         'default'  : 'trakt.username',
-        'data'     : ['trakt.client.id','trakt.client.secret', 'traktuserkey.enabled', 'trakt.expires', 'trakt.refresh', 'trakt.token', 'trakt.username'],
+        'data'     : ['trakt.client.id', 'trakt.client.secret', 'traktuserkey.enabled', 'trakt.expires', 'trakt.refresh', 'trakt.token', 'trakt.username', 'devuserkey.enabled'],
         'activate' : 'Addon.OpenSettings(script.module.accountmgr)'},
    'allact': {
         'name'     : 'All Accounts',
@@ -590,7 +590,6 @@ def trakt_it(do, who):
                     pass
             else:
                 logging.log('[Trakt Data] {0}({1}) is not installed'.format(TRAKTID[log]['name'], TRAKTID[log]['plugin']), level=xbmc.LOGERROR)
-        CONFIG.set_setting('traktnextsave', tools.get_date(days=3, formatted=True))
     else:
         if TRAKTID[who]:
             if os.path.exists(TRAKTID[who]['path']):
@@ -610,13 +609,11 @@ def trakt_it_revoke(do, who):
                     addonid = tools.get_addon_by_id(TRAKTID[log]['plugin'])
                     default = TRAKTID[log]['default']
                     user = addonid.getSetting(default)
-
                     update_trakt(do, log)
                 except:
                     pass
             else:
                 logging.log('[Trakt Data] {0}({1}) is not installed'.format(TRAKTID[log]['name'], TRAKTID[log]['plugin']), level=xbmc.LOGERROR)
-        CONFIG.set_setting('traktnextsave', tools.get_date(days=3, formatted=True))
     else:
         if TRAKTID[who]:
             if os.path.exists(TRAKTID[who]['path']):
@@ -636,13 +633,11 @@ def trakt_it_restore(do, who):
                     addonid = tools.get_addon_by_id(TRAKTID[log]['plugin'])
                     default = TRAKTID[log]['default']
                     user = addonid.getSetting(default)
-
                     update_trakt(do, log)
                 except:
                     pass
             else:
                 logging.log('[Trakt Data] {0}({1}) is not installed'.format(TRAKTID[log]['name'], TRAKTID[log]['plugin']), level=xbmc.LOGERROR)
-        CONFIG.set_setting('traktnextsave', tools.get_date(days=3, formatted=True))
     else:
         if TRAKTID[who]:
             if os.path.exists(TRAKTID[who]['path']):
@@ -748,10 +743,11 @@ def update_trakt(do, who):
                     root = tree.getroot()
 
                     for setting in root.findall('setting'):
+                        if setting.attrib['id'] == 'devuserkey.enabled':
+                            continue 
                         if setting.attrib['id'] in data:
                             logging.log('Removing Setting: {0}'.format(setting.attrib))
                             root.remove(setting)
-
                     tree.write(settings)
 
                 except Exception as e:
@@ -820,7 +816,7 @@ def open_settings_trakt(who):
 
 def revoke_trakt(): #Restore default API keys for all add-ons
 
-        if xbmcvfs.exists(var.chk_seren) and var.setting('traktuserkey.enabled') == 'true': #Check if add-on is installed
+        if xbmcvfs.exists(var.chk_seren) and (var.setting('traktuserkey.enabled') == 'true' or var.setting('devuserkey.enabled') == 'true'): #Check if add-on is installed
             try:
                 #Remove Account Mananger API keys from add-on
                 with open(var.path_seren,'r') as f:
@@ -1088,7 +1084,7 @@ def revoke_trakt(): #Restore default API keys for all add-ons
 
                 client = data.replace(var.client_am,var.tmdbh_client).replace(var.secret_am,var.tmdbh_secret)
 
-                with open(var.path_tm,dbh,'w') as f:
+                with open(var.path_tmdbh,'w') as f:
                     f.write(client)
             except:
                 xbmc.log('%s: Traktit.py Revoke API TMDbH Failed!' % var.amgr, xbmc.LOGINFO)
@@ -1135,7 +1131,7 @@ def revoke_trakt(): #Restore default API keys for all add-ons
 
 def restore_trakt(): #Restore API Keys to all add-ons
 
-        if xbmcvfs.exists(var.chk_seren) and var.setting('traktuserkey.enabled') == 'true': #Check if add-on is installed
+        if xbmcvfs.exists(var.chk_seren) and (var.setting('traktuserkey.enabled') == 'true' or var.setting('devuserkey.enabled') == 'true'): #Check if add-on is installed
     
             try:
                 #Insert Account Mananger API keys into add-on

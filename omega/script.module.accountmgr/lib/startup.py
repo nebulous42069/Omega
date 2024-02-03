@@ -128,7 +128,7 @@ def api_check():
                 if time.time() > timeout_start + timeout: #Time out after 5min
                         break
 
-                if xbmcvfs.exists(var.chk_seren) and xbmcvfs.exists(var.chkset_seren) and str(var.chk_accountmgr_tk) != '' and var.setting('traktuserkey.enabled') == 'true': #Check that the addon is installed, settings.xml exists and Account Manager is authorized
+                if xbmcvfs.exists(var.chk_seren) and xbmcvfs.exists(var.chkset_seren) and str(var.chk_accountmgr_tk) != '' and (var.setting('traktuserkey.enabled') == 'true' or var.setting('devuserkey.enabled') == 'true'): #Check that the addon is installed, settings.xml exists and Account Manager is authorized
                         try:
                                 with open(var.path_seren) as f: #Check add-on for Account Manager API keys. If found, move on to next add-on
                                         if var.chk_api in f.read():
@@ -141,7 +141,6 @@ def api_check():
 
                                                 with open(var.path_seren,'w') as f:
                                                     f.write(client)
-                                                continue
                         except:
                                 xbmc.log('%s: Seren API Failed!' % var.amgr, xbmc.LOGINFO)
                                 pass
@@ -160,7 +159,6 @@ def api_check():
 
                                                 with open(var.path_fen,'w') as f:
                                                     f.write(client) 
-                                                continue
                         except:
                                 xbmc.log('%s: Fen API Failed!' % var.amgr, xbmc.LOGINFO)
                                 pass
@@ -178,7 +176,6 @@ def api_check():
 
                                                 with open(var.path_fenlt,'w') as f:
                                                     f.write(client)
-                                                continue
                         except:
                                 xbmc.log('%s: Fen Light API Failed!' % var.amgr, xbmc.LOGINFO)
                                 pass
@@ -196,7 +193,6 @@ def api_check():
 
                                                 with open(var.path_affen,'w') as f:
                                                     f.write(client)
-                                                continue
                         except:
                                 xbmc.log('%s: afFENity API Failed!' % var.amgr, xbmc.LOGINFO)
                                 pass
@@ -214,7 +210,6 @@ def api_check():
 
                                                 with open(var.path_coal,'w') as f:
                                                     f.write(client)
-                                                continue
                         except:
                                 xbmc.log('%s: Coalition API Failed!' % var.amgr, xbmc.LOGINFO)
                                 pass
@@ -232,7 +227,6 @@ def api_check():
 
                                                 with open(var.path_pov,'w') as f:
                                                     f.write(client)
-                                                continue
                         except:
                                 xbmc.log('%s: POV API Failed!' % var.amgr, xbmc.LOGINFO)
                                 pass
@@ -250,10 +244,19 @@ def api_check():
 
                                                 with open(var.path_dradis,'w') as f:
                                                     f.write(client)
-                                                continue
                         except:
                                 xbmc.log('%s: Dradis API Failed!' % var.amgr, xbmc.LOGINFO)
                                 pass
+                            
+                if xbmcvfs.exists(var.chk_umb) and xbmcvfs.exists(var.chkset_umb) and str(var.chk_accountmgr_tk) != '':
+                        chk_auth_umb = xbmcaddon.Addon('plugin.video.umbrella').getSetting("trakt.user.token")
+                        chk_client = xbmcaddon.Addon('plugin.video.umbrella').getSetting("trakt.clientid")
+                        
+                        if not str(chk_client) == str(var.chk_api) and str(var.chk_accountmgr_tk) == str(chk_auth_umb):
+                                addon = xbmcaddon.Addon("plugin.video.umbrella")
+                                addon.setSetting("traktuserkey.customenabled", 'true')
+                                addon.setSetting("trakt.clientid", var.client_am)
+                                addon.setSetting("trakt.clientsecret", var.secret_am)
                         
                 if xbmcvfs.exists(var.chk_taz) and xbmcvfs.exists(var.chkset_taz) and str(var.chk_accountmgr_tk) != '':
                         try:
@@ -268,7 +271,6 @@ def api_check():
 
                                                 with open(var.path_taz,'w') as f:
                                                     f.write(client)
-                                                continue
                         except:
                                 xbmc.log('%s: Taz API Failed!' % var.amgr, xbmc.LOGINFO)
                                 pass
@@ -286,7 +288,6 @@ def api_check():
 
                                                 with open(var.path_shadow,'w') as f:
                                                     f.write(client)
-                                                continue
                         except:
                                 xbmc.log('%s: Shadow API Failed!' % var.amgr, xbmc.LOGINFO)
                                 pass
@@ -304,7 +305,6 @@ def api_check():
 
                                                 with open(var.path_ghost,'w') as f:
                                                     f.write(client)
-                                                continue
                         except:
                                 xbmc.log('%s: Ghost API Failed!' % var.amgr, xbmc.LOGINFO)
                                 pass
@@ -322,7 +322,6 @@ def api_check():
 
                                                 with open(var.path_base,'w') as f:
                                                     f.write(client)
-                                                continue
                         except:
                                 xbmc.log('%s: Base API Failed!' % var.amgr, xbmc.LOGINFO)
                                 pass
@@ -340,7 +339,6 @@ def api_check():
 
                                                 with open(var.path_unleashed,'w') as f:
                                                     f.write(client)
-                                                continue
                         except:
                                 xbmc.log('%s: Unleashed API Failed!' % var.amgr, xbmc.LOGINFO)
                                 pass
@@ -358,7 +356,6 @@ def api_check():
 
                                                 with open(var.path_chains,'w') as f:
                                                     f.write(client)
-                                                continue
                         except:
                                 xbmc.log('%s: Chain Reaction API Failed!' % var.amgr, xbmc.LOGINFO)
                                 pass
@@ -376,7 +373,6 @@ def api_check():
 
                                                 with open(var.path_md,'w') as f:
                                                     f.write(client)
-                                                continue
                         except:
                                 xbmc.log('%s: Magic Dragon API Failed!' % var.amgr, xbmc.LOGINFO)
                                 pass
@@ -394,7 +390,6 @@ def api_check():
 
                                                 with open(var.path_asgard,'w') as f:
                                                     f.write(client)
-                                                continue
                         except:
                                 xbmc.log('%s: Asgard API Failed!' % var.amgr, xbmc.LOGINFO)
                                 pass
@@ -412,7 +407,6 @@ def api_check():
 
                                                 with open(var.path_patriot,'w') as f:
                                                     f.write(client)
-                                                continue
                         except:
                                 xbmc.log('%s: Patriot API Failed!' % var.amgr, xbmc.LOGINFO)
                                 pass
@@ -430,7 +424,6 @@ def api_check():
 
                                                 with open(var.path_blackl,'w') as f:
                                                     f.write(client)
-                                                continue
                         except:
                                 xbmc.log('%s: Black Lightning API Failed!' % var.amgr, xbmc.LOGINFO)
                                 pass
@@ -448,7 +441,6 @@ def api_check():
 
                                                 with open(var.path_aliunde,'w') as f:
                                                     f.write(client)
-                                                continue
                         except:
                                 xbmc.log('%s: Aliunde API Failed!' % var.amgr, xbmc.LOGINFO)
                                 pass
@@ -466,7 +458,6 @@ def api_check():
 
                                                 with open(var.path_crew,'w') as f:
                                                     f.write(client)
-                                                continue
                         except:
                                 xbmc.log('%s: The Crew API Failed!' % var.amgr, xbmc.LOGINFO)
                                 pass
@@ -484,7 +475,6 @@ def api_check():
 
                                                 with open(var.path_scrubs,'w') as f:
                                                     f.write(client)
-                                                continue
                         except:
                                 xbmc.log('%s: Scrubs V2 API Failed!' % var.amgr, xbmc.LOGINFO)
                                 pass
@@ -502,7 +492,6 @@ def api_check():
 
                                                 with open(var.path_labjr,'w') as f:
                                                     f.write(client)
-                                                continue
                         except:
                                 xbmc.log('%s: TheLabjr API Failed!' % var.amgr, xbmc.LOGINFO)
                                 pass
@@ -520,7 +509,6 @@ def api_check():
 
                                                 with open(var.path_tmdbh,'w') as f:
                                                     f.write(client)
-                                                continue
                         except:
                                 xbmc.log('%s: TMDbH API Failed!' % var.amgr, xbmc.LOGINFO)
                                 pass
@@ -538,7 +526,6 @@ def api_check():
 
                                                 with open(var.path_trakt,'w') as f:
                                                     f.write(client)
-                                                continue
                         except:
                                 xbmc.log('%s: Trakt Addon API Failed!' % var.amgr, xbmc.LOGINFO)
                                 pass
@@ -556,7 +543,6 @@ def api_check():
 
                                                 with open(var.path_allaccounts,'w') as f:
                                                     f.write(client)
-                                                continue
                         except:
                                 xbmc.log('%s: All Accounts API Failed!' % var.amgr, xbmc.LOGINFO)
                                 pass
@@ -574,7 +560,6 @@ def api_check():
 
                                                 with open(var.path_myaccounts,'w') as f:
                                                     f.write(client)
-                                                xbmc.log('%s: Startup Sync Failed!' % var.amgr, xbmc.LOGINFO)
                         except:
                                 xbmc.log('%s: My Accounts API Failed!' % var.amgr, xbmc.LOGINFO)
                                 pass

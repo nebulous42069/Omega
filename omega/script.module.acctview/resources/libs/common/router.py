@@ -654,7 +654,7 @@ class Router:
                  
         # REVOKE/WIPE CLEAN ALL ADD-ONS
         elif mode == 'wipeclean':  # Clear data and restore stock API Keys for all add-ons
-            yes = dialog.yesno('Account Manager', 'WARNING! This will completely wipe all data and restore add-ons to default settings. Click proceed to continue or cancel to quit.', 'Cancel', 'Proceed') # Ask user for permission
+            yes = dialog.yesno('Account Manager', 'WARNING! This will completely wipe all your saved data and remove all settings applied to add-ons via Account Manager. Click proceed to continue or cancel to quit.', 'Cancel', 'Proceed') # Ask user for permission
             if yes:
                 try:
                     from resources.libs import traktit, metait_all, non_debrid_all, debridit_rd, debridit_pm, debridit_ad, databit, jsonit
@@ -662,8 +662,7 @@ class Router:
                     traktit.trakt_it_revoke('wipeaddon', name)
                     databit.revoke_fenlt_trakt()
                     databit.revoke_affen_trakt()
-                    xbmcgui.Dialog().notification('Account Manager', 'Trakt Revoked!', amgr_icon, 3000)
-                    xbmc.sleep(3000)
+                    xbmcgui.Dialog().notification('Account Manager', 'Trakt Revoked!', amgr_icon, 1000)
 
                     #Revoke Debrid
                     debridit_rd.debrid_it('wipeaddon', name)
@@ -676,7 +675,7 @@ class Router:
                     databit.revoke_affen_pm()
                     databit.revoke_affen_ad()
                     jsonit.realizer_rvk()
-                    xbmcgui.Dialog().notification('Account Manager', 'Debrid Revoked!', amgr_icon, 3000)
+                    xbmcgui.Dialog().notification('Account Manager', 'Debrid Revoked!', amgr_icon, 1000)
 
                     #Revoke Metadata & Non-Debrid
                     metait_all.debrid_it('clearaddon', name)
@@ -685,8 +684,7 @@ class Router:
                     databit.revoke_fenlt_meta()
                     databit.revoke_affen_easy()
                     databit.revoke_affen_meta()
-                    xbmcgui.Dialog().notification('Account Manager', 'Metadata & Non-Debrid Revoked!', amgr_icon, 3000)
-                    xbmc.sleep(1000)
+                    xbmcgui.Dialog().notification('Account Manager', 'Metadata & Non-Debrid Revoked!', amgr_icon, 1000)
 
                     #Clear all saved data
                     traktit.clear_saved(name)
@@ -695,7 +693,6 @@ class Router:
                     debridit_rd.clear_saved(name)
                     debridit_pm.clear_saved(name)
                     debridit_ad.clear_saved(name)
-                    xbmc.sleep(1000)
                     databit.delete_fenlt_rd()
                     databit.delete_fenlt_pm()
                     databit.delete_fenlt_ad()
@@ -713,7 +710,7 @@ class Router:
                     xbmc.sleep(3000)
 
                     #Force close Kodi
-                    xbmcgui.Dialog().ok('Account Manager', 'To save changes, please close Kodi, Press OK to force close Kodi')
+                    xbmcgui.Dialog().ok('Account Manager', 'All settings restored to default, please close Kodi, Press OK to force close Kodi')
                     os._exit(1)
                 except:
                     xbmc.log('%s: Router.py Revoke/Wipe/Clean Account Manager Failed!' % var.amgr, xbmc.LOGINFO)
