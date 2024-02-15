@@ -49,7 +49,6 @@ class TraktAPI(RequestAPI, TraktMethods):
         # Check for saved credentials from previous login
         token = self.get_token()
 
-
         if not confirmation:
             return self.authorization
 
