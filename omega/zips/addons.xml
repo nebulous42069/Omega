@@ -228,6 +228,20 @@
     </assets>
     <platform>all</platform>
   </extension>
+</addon><addon id="plugin.program.livetv" name="Diggz Live TV Browser " version="420.1.1" provider-name="Diggz, JewBMX">
+    <requires>
+        <import addon="script.module.kodi-six" />
+    </requires>
+    <extension point="xbmc.python.script" library="addon.py">
+        <provides>executable</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <platform>all</platform>
+        <summary lang="en">Opens Live TV websites from Kodi</summary>
+        <assets>
+            <icon>resources/icon.png</icon>
+        </assets>
+    </extension>
 </addon><addon id="plugin.program.quickfix" name="Quick Fixes" version="4" provider-name="Diggz">
 	<requires>
 		<import addon="xbmc.python" version="3.0.1" />
