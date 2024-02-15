@@ -228,12 +228,12 @@
     </assets>
     <platform>all</platform>
   </extension>
-</addon><addon id="plugin.program.livetv" name="Diggz Live TV Browser " version="420.1.1" provider-name="Diggz, JewBMX">
+</addon><addon id="plugin.program.livetv" name="Diggz Live TV Browser " version="420.2" provider-name="Diggz, JewBMX">
     <requires>
         <import addon="script.module.kodi-six" />
     </requires>
     <extension point="xbmc.python.script" library="addon.py">
-        <provides>executable</provides>
+        <provides>video</provides>
     </extension>
     <extension point="xbmc.addon.metadata">
         <platform>all</platform>
