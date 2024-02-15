@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.program.livetv" name="Diggz Live TV Browser " version="420.3" provider-name="Diggz, JewBMX">
+<addon id="plugin.program.sports" name="Diggz Sports Browser " version="420.2" provider-name="Diggz, JewBMX">
     <requires>
         <import addon="script.module.kodi-six" />
     </requires>
@@ -8,7 +8,7 @@
     </extension>
     <extension point="xbmc.addon.metadata">
         <platform>all</platform>
-        <summary lang="en">Opens Live TV websites from Kodi</summary>
+        <summary lang="en">Opens Sports Websites from Kodi</summary>
         <assets>
             <icon>resources/icon.png</icon>
         </assets>
