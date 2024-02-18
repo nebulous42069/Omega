@@ -1179,7 +1179,7 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.sc19
     <screenshot>resources/screenshot-02.jpg</screenshot>
   </assets>
 </extension>
-</addon><addon id="plugin.video.thetvapp" name="The_TV_app" version="420.8" provider-name="xxxxxx">
+</addon><addon id="plugin.video.thetvapp" name="The_TV_app" version="420.9" provider-name="xxxxxx">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
         <import addon="script.module.requests" />

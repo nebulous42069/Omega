@@ -103,27 +103,47 @@ def ListMovies(url):
 		xbmcplugin.endOfDirectory(addon_handle) 
 	else:
 		xbmcgui.Dialog().notification('[B]Info[/B]', 'No streams found',xbmcgui.NOTIFICATION_INFO, 6000)
-def getkey():
+def getkey(pwd=False):
 	ascon =''
-	response = requests.get('https://raw.githubusercontent.com/matecky/bub/keys/keys.json', verify=False)
-	if 'Ascon-128' in response.text:
-		i=''
-		ascon =re.findall("decryptFromHex\s*\('([^']+)'.*?'([^']+)'",response.text,re.DOTALL+re.I)
-		#if ascon:
-		return i, ascon
-	xx = re.findall('\s+file\:\s*(\w*)\,',response.text,re.DOTALL+re.I)
-	ff = None
-	if xx:
-		ff=re.findall(xx[0]+'\s*\=\s*(\w*)\(',response.text,re.DOTALL+re.I)
-	
-	if ff:
-		key = re.findall('function\s*'+ff[0]+".*?'([^']+)'",response.text,re.DOTALL+re.I)
-		if key:
-			i=key[0]
+	if not pwd:
+		response = requests.get('https://raw.githubusercontent.com/matecky/bub/keys/keys.json', verify=False)
+		if 'Ascon-128' in response.text:
+			i=''
+			ascon =re.findall("decryptFromHex\s*\('([^']+)'.*?'([^']+)'",response.text,re.DOTALL+re.I)
+			#if ascon:
+			return i, ascon
+		xx = re.findall('\s+file\:\s*(\w*)\,',response.text,re.DOTALL+re.I)
+		ff = None
+		if xx:
+			ff=re.findall(xx[0]+'\s*\=\s*(\w*)\(',response.text,re.DOTALL+re.I)
+		
+		if ff:
+			key = re.findall('function\s*'+ff[0]+".*?'([^']+)'",response.text,re.DOTALL+re.I)
+			if key:
+				i=key[0]
+			else:
+				i =''#return ''
 		else:
 			i =''#return ''
 	else:
-		i =''#return ''
+		response = requests.get('https://raw.githubusercontent.com/matecky/bub/keys/keys.json', verify=False)
+
+		pwd_func =re.findall("password\s*\:\s*(\w+)\s*\}",response.text,re.DOTALL+re.I)
+		pwd = ''
+		if pwd_func:
+			pwd = re.findall('\s*'+pwd_func[0]+'\s*\=\s(.*?);',response.text,re.DOTALL+re.I)
+			if pwd:
+				pwd=pwd[0]
+				fun = re.findall('(\w+)\(.*?\)',pwd,re.DOTALL)
+				for x in fun:
+					s = re.findall( r"nction\s*"+x+r"\(\).*?return\s*'([^']+)';",response.text,re.DOTALL+re.I)
+					pwd = re.sub(x+r"\(\)", "'"+s[0]+"'", pwd)
+				pwd = pwd.replace("' + '",'').replace("'",'')
+		i = pwd
+		
+		
+		
+		
 	return i, ascon
 def decr(e, i="Try9-Stubble9"):
 ### 	function Ul(e) {
@@ -136,7 +156,7 @@ def decr(e, i="Try9-Stubble9"):
 ### 	  return o;
 ### 	}
 
-	#ascon = True
+	ascon = ''
 	if i == "requests":
 		i, ascon = getkey()
 #		#i = None
@@ -156,38 +176,45 @@ def decr(e, i="Try9-Stubble9"):
 #				i =''#return ''
 #		else:
 #			i =''#return ''
-	if i and not ascon:
-		import base64
-		l = base64.b64decode(e).decode('utf-8')
-		o=''
-		for c in range(len(e)):
-		
-			try:
-				a=ord(l[c])
-				b = ord(i[c%len(i)])
-				o+=chr(a^b)
-			except:
-				pass
-		
-		return o  
-	elif ascon:
-		from resources.lib import ascondecrypt
-		ciphertext = e
-		key = ascon[0][0]
-		associateddata = ascon[0][1]
-		o = ascondecrypt.tvapp(ciphertext, associateddata,key)
-		if o:
-			o = o.decode('utf-8').replace('\\/','/').replace('"','')
-		return o
+		if i and not ascon:
+			import base64
+			l = base64.b64decode(e).decode('utf-8')
+			o=''
+			for c in range(len(e)):
+			
+				try:
+					a=ord(l[c])
+					b = ord(i[c%len(i)])
+					o+=chr(a^b)
+				except:
+					pass
+			
+			return o  
+		elif ascon:
+			from resources.lib import ascondecrypt
+			ciphertext = e
+			key = ascon[0][0]
+			associateddata = ascon[0][1]
+			o = ascondecrypt.tvapp(ciphertext, associateddata,key)
+			if o:
+				o = o.decode('utf-8').replace('\\/','/').replace('"','')
+	elif i =='pwd':
+		try:
+			pwd, ascon = getkey(pwd=True)
+			o = pwd
+		except:
+			o=''
+	return o
 def PlayVideo(url):	
-
 	stream_url = ''
 	html = sess.get(url, headers = headers, verify=False).text
+	cuk = (sess.cookies.get_dict())
 	html = html.replace("\'",'"')
 	ajax = re.findall('ajaxSetup(.*?)\$\.ajax',html,re.DOTALL)
 	encrypt = re.findall('encryption"\s*content="([^"]+)"',html,re.DOTALL)
 	encrypt2 = re.findall('const\s*|\w*encrypted\s*=\s*"([^"]+)"',html,re.DOTALL)
 	kolejny =re.findall('player.setup.*?file\:\s*"([^"]+)"',(html.replace("\'",'"')),re.DOTALL+re.I)
+	streamtok = re.findall('stream\-name\s*=\s*"([^"]+)"',(html.replace("\'",'"')),re.DOTALL+re.I)
 	if ajax:
 		url = re.findall('url\:\s*"([^"]+)"',ajax[0],re.DOTALL)[0]
 		url = 'https://thetvapp.to'+url if url.startswith('/') else url
@@ -200,7 +227,31 @@ def PlayVideo(url):
 		stream_url = kolejny[0]
 	elif encrypt2:
 		stream_url = decr(encrypt2[0],"requests")
-	if stream_url:	
+		
+	else:
+		stream_url = decr(streamtok,"pwd")
+		tok = re.findall('csrf\-token"\s*content\s*=\s*"([^"]+)"',html,re.DOTALL)[0]
+		headers.update({"X-CSRF-TOKEN": tok,'content-type': 'application/json'}) ##,"X-Requested-With":"XMLHttpRequest"}) #
+		json_data = {
+			'password': stream_url,}
+		stream_url = sess.post('https://thetvapp.to/token/'+streamtok[0], headers=headers, json=json_data).text	
+
+	headersx = {
+		'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0',
+		'Accept': '*/*',
+		'Accept-Language': 'pl,en-US;q=0.7,en;q=0.3',
+		'Origin': 'https://thetvapp.to',
+		'DNT': '1',
+		'Referer': 'https://thetvapp.to/',
+		'Sec-Fetch-Dest': 'empty',
+		'Sec-Fetch-Mode': 'cors',
+		'Sec-Fetch-Site': 'same-site',
+		}
+	
+	hdrs = urllib_parse.urlencode(headersx)
+
+		
+	if stream_url.startswith('http'):	
 		play_item = xbmcgui.ListItem(path=stream_url)
 
 		play_item.setProperty("IsPlayable", "true")
@@ -209,7 +260,7 @@ def PlayVideo(url):
 			play_item.setProperty('inputstream.adaptive.manifest_type', 'hls')
 			play_item.setMimeType('application/vnd.apple.mpegurl')
 			play_item.setProperty('inputstream.adaptive.manifest_update_parameter', 'full')
-
+			play_item.setProperty('inputstream.adaptive.manifest_headers', hdrs)
 		xbmcplugin.setResolvedUrl(addon_handle, True, listitem=play_item)
 
 def router(paramstring):
