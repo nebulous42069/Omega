@@ -214,15 +214,15 @@ class Trakt():
 			return
 	def traktClientID(self):
 		traktId = '4a479b95c8224999eef8d418cfe6c7a4389e2837441672c48c9c8168ea42a407'
-		if (control.setting('trakt.client.id') != '' or control.setting('trakt.client.id') is not None) and control.setting('traktuserkey.enabled') == 'true':
+		if control.setting('trakt.client.id') != '' and control.setting('traktuserkey.enabled') == 'true':
 			traktId = control.setting('trakt.client.id')
-		if (control.setting('dev.client.id') != '' or control.setting('dev.client.id') is not None) and control.setting('devuserkey.enabled') == 'true':
+		if control.setting('dev.client.id') != '' and control.setting('devuserkey.enabled') == 'true':
 			traktId = control.setting('dev.client.id')
 		return traktId
 	def traktClientSecret(self):
 		traktSecret = '89d8f8f71b312985a9e1f91e9eb426e23050102734bb1fa36ec76cdc74452ab6'
-		if (control.setting('trakt.client.secret') != '' or control.setting('trakt.client.secret') is not None) and control.setting('traktuserkey.enabled') == 'true':
+		if control.setting('trakt.client.secret') != '' and control.setting('traktuserkey.enabled') == 'true':
 			traktSecret = control.setting('trakt.client.secret')
-		if (control.setting('dev.client.secret') != '' or control.setting('dev.client.secret') is not None) and control.setting('devuserkey.enabled') == 'true':
+		if control.setting('dev.client.secret') != '' and control.setting('devuserkey.enabled') == 'true':
 			traktSecret = control.setting('dev.client.secret')
 		return traktSecret

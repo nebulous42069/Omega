@@ -483,7 +483,7 @@ TRAKTID = {
         'file'     : os.path.join(CONFIG.TRAKTFOLD, 'acctmgr_trakt'),
         'settings' : os.path.join(CONFIG.ADDON_DATA, 'script.module.accountmgr', 'settings.xml'),
         'default'  : 'trakt.username',
-        'data'     : ['trakt.client.id', 'trakt.client.secret', 'traktuserkey.enabled', 'trakt.expires', 'trakt.refresh', 'trakt.token', 'trakt.username', 'devuserkey.enabled'],
+        'data'     : ['trakt.client.id', 'trakt.client.secret', 'traktuserkey.enabled', 'devuserkey.enabled', 'dev.client.id', 'dev.client.secret', 'trakt.expires', 'trakt.refresh', 'trakt.token', 'trakt.username'],
         'activate' : 'Addon.OpenSettings(script.module.accountmgr)'},
    'allact': {
         'name'     : 'All Accounts',
@@ -528,7 +528,7 @@ def trakt_user(who):
     user = None
     if TRAKTID[who]:
         name = TRAKTID[who]['name']
-        if os.path.exists(TRAKTID[who]['path']) and name == 'Fen Light':
+        if os.path.exists(TRAKTID[who]['path']) and name == 'Fen Light': #Skip Fen Light due to not having a settings.xml
             try:
                 # Create database connection
                 conn = create_conn(var.fenlt_settings_db)
@@ -546,7 +546,7 @@ def trakt_user(who):
             except:
                 xbmc.log('%s: Traktit Fen Light Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
-        elif os.path.exists(TRAKTID[who]['path']) and name == 'afFENity':
+        elif os.path.exists(TRAKTID[who]['path']) and name == 'afFENity': #Skip Fen Light due to not having a settings.xml
             try:
                 conn = create_conn(var.affen_settings_db)
                 with conn:
@@ -584,7 +584,6 @@ def trakt_it(do, who):
                     addonid = tools.get_addon_by_id(TRAKTID[log]['plugin'])
                     default = TRAKTID[log]['default']
                     user = addonid.getSetting(default)
-
                     update_trakt(do, log)
                 except:
                     pass
@@ -644,9 +643,7 @@ def trakt_it_restore(do, who):
                 update_trakt(do, who)
         else:
             logging.log('[Trakt Data] Invalid Entry: {0}'.format(who), level=xbmc.LOGERROR)
-    restore_trakt() #Restore API keys for all add-ons
-
-
+            
 def clear_saved(who, over=False):
     if who == 'all':
         for trakt in TRAKTID:
@@ -657,7 +654,6 @@ def clear_saved(who, over=False):
             os.remove(file)
     if not over:
         xbmc.executebuiltin('Container.Refresh()')
-
 
 def update_trakt(do, who):
     file = TRAKTID[who]['file']
@@ -670,7 +666,6 @@ def update_trakt(do, who):
     suser = CONFIG.get_setting(saved)
     name = TRAKTID[who]['name']
     icon = TRAKTID[who]['icon']
-
     if do == 'update':
         if not user == '':
             try:
@@ -685,19 +680,17 @@ def update_trakt(do, who):
 
                 tree = ElementTree.ElementTree(root)
                 tree.write(file)
-
                 user = addonid.getSetting(default)
                 CONFIG.set_setting(saved, user)
                 logging.log('Trakt Data Saved for {0}'.format(name), level=xbmc.LOGINFO)
             except Exception as e:
                 logging.log("[Trakt Data] Unable to Update {0} ({1})".format(who, str(e)), level=xbmc.LOGERROR)
         else:
-            logging.log('Trakt Data Not Registered for {0}'.format(name))
+            logging.log('Trakt Data Not Registered for {0}'.format(name))    
     elif do == 'restore':
         if os.path.exists(file):
             tree = ElementTree.parse(file)
             root = tree.getroot()
-
             try:
                 for setting in root.findall('trakt'):
                     id = setting.find('id').text
@@ -710,31 +703,10 @@ def update_trakt(do, who):
             except Exception as e:
                 logging.log("[Trakt Data] Unable to Restore {0} ({1})".format(who, str(e)), level=xbmc.LOGERROR)
         else:
-            logging.log('Trakt Data Not Found for {0}'.format(name))
+            logging.log('Trakt Data Not Found for {0}'.format(name))    
     elif do == 'clearaddon':
         logging.log('{0} SETTINGS: {1}'.format(name, settings))
-        if os.path.exists(settings):
-            try:
-                tree = ElementTree.parse(settings)
-                root = tree.getroot()
-
-                for setting in root.findall('setting'):
-                    if setting.attrib['id'] in data:
-                        logging.log('Removing Setting: {0}'.format(setting.attrib))
-                        root.remove(setting)
-
-                tree.write(settings)
-
-                logging.log_notify("[COLOR {0}]{1}[/COLOR]".format(CONFIG.COLOR1, name),
-                                   '[COLOR {0}]Addon Data: Cleared![/COLOR]'.format(CONFIG.COLOR2),
-                                   2000,
-                                   icon)
-            except Exception as e:
-                logging.log("[Trakt Data] Unable to Clear Addon {0} ({1})".format(who, str(e)), level=xbmc.LOGERROR)
-    elif do == 'wipeaddon':
-        logging.log('{0} SETTINGS: {1}'.format(name, settings))
-        revoke_trakt() #Restore default API keys for all add-ons
-        if name == 'Fen Light':
+        if name == 'Fen Light' or name == 'afFENity':
             pass
         else:
             if os.path.exists(settings):
@@ -743,8 +715,9 @@ def update_trakt(do, who):
                     root = tree.getroot()
 
                     for setting in root.findall('setting'):
-                        if setting.attrib['id'] == 'devuserkey.enabled':
-                            continue 
+                        #Skip revoking builders API keys 
+                        if setting.attrib['id'] == 'devuserkey.enabled' or setting.attrib['id'] == 'dev.client.id' or setting.attrib['id'] == 'dev.client.secret':
+                            continue
                         if setting.attrib['id'] in data:
                             logging.log('Removing Setting: {0}'.format(setting.attrib))
                             root.remove(setting)
@@ -753,7 +726,25 @@ def update_trakt(do, who):
                 except Exception as e:
                     logging.log("[Trakt Data] Unable to Clear Addon {0} ({1})".format(who, str(e)), level=xbmc.LOGERROR)
         xbmc.executebuiltin('Container.Refresh()')
+    elif do == 'wipeaddon':
+        logging.log('{0} SETTINGS: {1}'.format(name, settings))
+        if name == 'Fen Light' or name == 'afFENity':
+            pass
+        else:
+            if os.path.exists(settings):
+                try:
+                    tree = ElementTree.parse(settings)
+                    root = tree.getroot()
 
+                    for setting in root.findall('setting'):
+                        if setting.attrib['id'] in data:
+                            logging.log('Removing Setting: {0}'.format(setting.attrib))
+                            root.remove(setting)
+                    tree.write(settings)
+
+                except Exception as e:
+                    logging.log("[Trakt Data] Unable to Clear Addon {0} ({1})".format(who, str(e)), level=xbmc.LOGERROR)
+        xbmc.executebuiltin('Container.Refresh()')
 
 def auto_update(who):
     if who == 'all':
@@ -813,633 +804,3 @@ def import_list(who):
 def open_settings_trakt(who):
     addonid = tools.get_addon_by_id(TRAKTID[who]['plugin'])
     addonid.openSettings()
-
-def revoke_trakt(): #Restore default API keys for all add-ons
-
-        if xbmcvfs.exists(var.chk_seren) and (var.setting('traktuserkey.enabled') == 'true' or var.setting('devuserkey.enabled') == 'true'): #Check if add-on is installed
-            try:
-                #Remove Account Mananger API keys from add-on
-                with open(var.path_seren,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.client_am,var.seren_client).replace(var.secret_am,var.seren_secret)
-
-                with open(var.path_seren,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Revoke API Seren Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_fen):
-            try:
-                with open(var.path_fen,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.client_am,var.fen_client).replace(var.secret_am,var.fen_secret)
-
-                with open(var.path_fen,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Revoke API Fen Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_fenlt):
-            try:
-                with open(var.path_fenlt,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.client_am,var.fenlt_client).replace(var.secret_am,var.fenlt_secret)
-
-                with open(var.path_fenlt,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Revoke API Fen Light Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_coal):
-            try:
-                with open(var.path_coal,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.client_am,var.coal_client).replace(var.secret_am,var.coal_secret)
-
-                with open(var.path_coal,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Revoke API Coalition Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_pov):
-            try:
-                with open(var.path_pov,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.client_am,var.pov_client).replace(var.secret_am,var.pov_secret)
-
-                with open(var.path_pov,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Revoke API POV Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_dradis):
-            try:
-                with open(var.path_dradis,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.client_am,var.dradis_client).replace(var.secret_am,var.dradis_secret)
-
-                with open(var.path_dradis,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Revoke API Dradis Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_taz):
-            try:
-                with open(var.path_taz,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.client_am,var.taz_client)
-
-                with open(var.path_taz,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Revoke API Taz Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_shadow):
-            try:
-                with open(var.path_shadow,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.client_am,var.shadow_client).replace(var.secret_am,var.shadow_secret)
-
-                with open(var.path_shadow,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Revoke API Shadow Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_ghost):
-            try:
-                with open(var.path_ghost,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.client_am,var.ghost_client).replace(var.secret_am,var.ghost_secret)
-
-                with open(var.path_ghost,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Revoke API Ghost Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_base):
-            try:
-                with open(var.path_base,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.client_am,var.base_client).replace(var.secret_am,var.base_secret)
-
-                with open(var.path_base,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Revoke API Base Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_unleashed):
-            try:
-                with open(var.path_unleashed,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.client_am,var.unleashed_client).replace(var.secret_am,var.unleashed_secret)
-
-                with open(var.path_unleashed,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Revoke API Unleashed Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_chains):
-            try:
-                with open(var.path_chains,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.client_am,var.chains_client).replace(var.secret_am,var.chains_secret)
-
-                with open(var.path_chains,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Revoke API Chain Reaction Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_md):
-            try:
-                with open(var.path_md,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.client_am,var.md_client).replace(var.secret_am,var.md_secret)
-
-                with open(var.path_md,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Revoke API Magic Dragon Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_asgard):
-            try:
-                with open(var.path_asgard,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.client_am,var.asgard_client).replace(var.secret_am,var.asgard_secret)
-
-                with open(var.path_asgard,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Revoke API Asgard Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_patriot):
-            try:
-                with open(var.path_patriot,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.client_am,var.patriot_client).replace(var.secret_am,var.patriot_secret)
-
-                with open(var.path_patriot,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Revoke API Patriot Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_blackl):
-            try:
-                with open(var.path_blackl,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.client_am,var.blackl_client).replace(var.secret_am,var.blackl_secret)
-
-                with open(var.path_blackl,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Revoke API Black Lightning Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_aliunde):
-            try:
-                with open(var.path_aliunde,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.client_am,var.aliunde_client).replace(var.secret_am,var.aliunde_secret)
-
-                with open(var.path_aliunde,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Revoke API Aliunde Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_crew):
-            try:
-                with open(var.path_crew,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.client_am,var.crew_client).replace(var.secret_am,var.crew_secret)
-
-                with open(var.path_crew,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Revoke API The Crew Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_scrubs):
-            try:
-                with open(var.path_scrubs,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.client_am,var.scrubs_client).replace(var.secret_am,var.scrubs_secret)
-
-                with open(var.path_scrubs,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Revoke API Scrubs V2 Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_labjr):
-            try:
-                with open(var.path_labjr,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.client_am,var.labjr_client).replace(var.secret_am,var.labjr_secret)
-
-                with open(var.path_labjr,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Revoke API TheLabjr Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_tmdbh):
-            try:
-                with open(var.path_tmdbh,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.client_am,var.tmdbh_client).replace(var.secret_am,var.tmdbh_secret)
-
-                with open(var.path_tmdbh,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Revoke API TMDbH Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_trakt):
-            try:
-                with open(var.path_trakt,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.client_am,var.trakt_client).replace(var.secret_am,var.trakt_secret)
-
-                with open(var.path_trakt,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Revoke API Trakt Addon Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_allaccounts):
-            try:
-                with open(var.path_allaccounts,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.client_am,var.allacts_client).replace(var.secret_am,var.allacts_secret)
-
-                with open(var.path_allaccounts,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Revoke API All Accounts Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_myaccounts):
-            try:
-                with open(var.path_myaccounts,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.client_am,var.myacts_client).replace(var.secret_am,var.myacts_secret)
-
-                with open(var.path_myaccounts,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Revoke API My Accounts Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-def restore_trakt(): #Restore API Keys to all add-ons
-
-        if xbmcvfs.exists(var.chk_seren) and (var.setting('traktuserkey.enabled') == 'true' or var.setting('devuserkey.enabled') == 'true'): #Check if add-on is installed
-    
-            try:
-                #Insert Account Mananger API keys into add-on
-                with open(var.path_seren,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.seren_client,var.client_am).replace(var.seren_secret,var.secret_am)
-
-                with open(var.path_seren,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Restore API Seren Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_fen):
-            try:
-                with open(var.path_fen,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.fen_client,var.client_am).replace(var.fen_secret,var.secret_am)
-
-                with open(var.path_fen,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Restore API Fen Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_fenlt):
-            try:
-                with open(var.path_fenlt,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.fenlt_client,var.client_am).replace(var.fenlt_secret,var.secret_am)
-
-                with open(var.path_fenlt,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Restore API Fen Light Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_coal):
-            try:
-                with open(var.path_coal,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.coal_client,var.client_am).replace(var.coal_secret,var.secret_am)
-
-                with open(var.path_coal,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Restore API Coalition Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_pov):
-            try:
-                with open(var.path_pov,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.pov_client,var.client_am).replace(var.pov_secret,var.secret_am)
-
-                with open(var.path_pov,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Restore API POV Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_dradis):
-            try:
-                with open(var.path_dradis,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.dradis_client,var.client_am).replace(var.dradis_secret,var.secret_am)
-
-                with open(var.path_dradis,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Restore API Dradis Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_taz):
-            try:
-                with open(var.path_taz,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.taz_client,var.client_am)
-
-                with open(var.path_taz,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Restore API Taz Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_shadow):
-            try:
-                with open(var.path_shadow,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.shadow_client,var.client_am).replace(var.shadow_secret,var.secret_am)
-
-                with open(var.path_shadow,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Restore API Shadow Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_ghost):
-            try:
-                with open(var.path_ghost,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.ghost_client,var.client_am).replace(var.ghost_secret,var.secret_am)
-
-                with open(var.path_ghost,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Restore API Ghost Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_base):
-            try:
-                with open(var.path_base,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.base_client,var.client_am).replace(var.base_secret,var.secret_am)
-
-                with open(var.path_base,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Restore API Base Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_unleashed):
-            try:
-                with open(var.path_unleashed,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.unleashed_client,var.client_am).replace(var.unleashed_secret,var.secret_am)
-
-                with open(var.path_unleashed,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Restore API Unleashed Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_chains):
-            try:
-                with open(var.path_chains,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.chains_client,var.client_am).replace(var.chains_secret,var.secret_am)
-
-                with open(var.path_chains,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Restore API Chain Reaction Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_md):
-            try:
-                with open(var.path_md,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.md_client,var.client_am).replace(var.md_secret,var.secret_am)
-
-                with open(var.path_md,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Restore API Magic Dragon Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-        if xbmcvfs.exists(var.chk_asgard):
-            try:
-                with open(var.path_asgard,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.asgard_client,var.client_am).replace(var.asgard_secret,var.secret_am)
-
-                with open(var.path_asgard,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Restore API Asgard Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_patriot):
-            try:
-                with open(var.path_patriot,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.patriot_client,var.client_am).replace(var.patriot_secret,var.secret_am)
-
-                with open(var.path_patriot,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Restore API Patriot Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_blackl):
-            try:
-                with open(var.path_blackl,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.blackl_client,var.client_am).replace(var.blackl_secret,var.secret_am)
-
-                with open(var.path_blackl,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Restore API Black Lightning Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_aliunde):
-            try:
-                with open(var.path_aliunde,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.aliunde_client,var.client_am).replace(var.aliunde_secret,var.secret_am)
-
-                with open(var.path_aliunde,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Restore API Aliunde Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_crew):
-            try:
-                with open(var.path_crew,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.crew_client,var.client_am).replace(var.crew_secret,var.secret_am)
-
-                with open(var.path_crew,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Restore API The Crew Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_scrubs):
-            try:
-                with open(var.path_scrubs,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.scrubs_client,var.client_am).replace(var.scrubs_secret,var.secret_am)
-
-                with open(var.path_scrubs,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Restore API Scrubs V2 Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_labjr):
-            try:
-                with open(var.path_labjr,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.labjr_client,var.client_am).replace(var.labjr_secret,var.secret_am)
-
-                with open(var.path_labjr,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Restore API TheLabjr Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_tmdbh):
-            try:
-                with open(var.path_tmdbh,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.tmdbh_client,var.client_am).replace(var.tmdbh_secret,var.secret_am)
-
-                with open(var.path_tmdbh,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Restore API TMDbH Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_trakt):
-            try:
-                with open(var.path_trakt,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.trakt_client,var.client_am).replace(var.trakt_secret,var.secret_am)
-
-                with open(var.path_trakt,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Restore API Trakt Addon Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_allaccounts):
-            try:
-                with open(var.path_allaccounts,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.allacts_client,var.client_am).replace(var.allacts_secret,var.secret_am)
-
-                with open(var.path_allaccounts,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Restore API All Accounts Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        if xbmcvfs.exists(var.chk_myaccounts):
-            try:
-                with open(var.path_myaccounts,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.myacts_client,var.client_am).replace(var.myacts_secret,var.secret_am)
-
-                with open(var.path_myaccounts,'w') as f:
-                    f.write(client)
-            except:
-                xbmc.log('%s: Traktit.py Restore API My Accounts Failed!' % var.amgr, xbmc.LOGINFO)
-                pass

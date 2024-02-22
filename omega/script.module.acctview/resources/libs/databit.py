@@ -287,13 +287,13 @@ def backup_fenlt_rd():
             pass
 
 ##################### Delete Fen Light RD Backup #####################
-def delete_fenlt_rd():
-    if os.path.exists(os.path.join(var.rd_backup_fenlt)):
-        try:
-            os.unlink(os.path.join(var.rd_backup_fenlt))
-        except OSError:
-            xbmc.log('%s: Databit_db Delete Fen Light RD Failed!' % var.amgr, xbmc.LOGINFO)
-            pass
+#def delete_fenlt_rd():
+#    if os.path.exists(os.path.join(var.rd_backup_fenlt)):
+#        try:
+#            os.unlink(os.path.join(var.rd_backup_fenlt))
+#        except OSError:
+#            xbmc.log('%s: Databit_db Delete Fen Light RD Failed!' % var.amgr, xbmc.LOGINFO)
+#            pass
 
 
 
@@ -368,13 +368,13 @@ def backup_fenlt_pm():
             pass
 
 ##################### Delete Fen Light PM Backup #####################
-def delete_fenlt_pm():
-    if os.path.exists(os.path.join(var.pm_backup_fenlt)):
-        try:
-            os.unlink(os.path.join(var.pm_backup_fenlt))
-        except OSError:
-            xbmc.log('%s: Databit_db Delete Fen Light PM Failed!' % var.amgr, xbmc.LOGINFO)
-            pass
+#def delete_fenlt_pm():
+#    if os.path.exists(os.path.join(var.pm_backup_fenlt)):
+#        try:
+#            os.unlink(os.path.join(var.pm_backup_fenlt))
+#        except OSError:
+#           xbmc.log('%s: Databit_db Delete Fen Light PM Failed!' % var.amgr, xbmc.LOGINFO)
+#           pass
 
 ######################### Restore Fen Light AD #########################
 def restore_fenlt_ad():
@@ -443,13 +443,13 @@ def backup_fenlt_ad():
             pass
 
 ##################### Delete Fen Light AD Backup #####################
-def delete_fenlt_ad():
-    if os.path.exists(os.path.join(var.ad_backup_fenlt)):
-        try:
-            os.unlink(os.path.join(var.ad_backup_fenlt))
-        except OSError:
-            xbmc.log('%s: Databit_db Delete Fen Light AD Failed!' % var.amgr, xbmc.LOGINFO)
-            pass
+#def delete_fenlt_ad():
+#    if os.path.exists(os.path.join(var.ad_backup_fenlt)):
+#        try:
+#            os.unlink(os.path.join(var.ad_backup_fenlt))
+#        except OSError:
+#            xbmc.log('%s: Databit_db Delete Fen Light AD Failed!' % var.amgr, xbmc.LOGINFO)
+#            pass
 
 
 
@@ -557,13 +557,13 @@ def backup_affen_rd():
             pass
 
 ##################### Delete afFENity RD Backup #####################
-def delete_affen_rd():
-    if os.path.exists(os.path.join(var.rd_backup_affen)):
-        try:
-            os.unlink(os.path.join(var.rd_backup_affen))
-        except OSError:
-            xbmc.log('%s: Databit_db Delete afFENity RD Failed!' % var.amgr, xbmc.LOGINFO)
-            pass
+#def delete_affen_rd():
+#    if os.path.exists(os.path.join(var.rd_backup_affen)):
+#        try:
+#            os.unlink(os.path.join(var.rd_backup_affen))
+#        except OSError:
+#            xbmc.log('%s: Databit_db Delete afFENity RD Failed!' % var.amgr, xbmc.LOGINFO)
+#            pass
 
 
 
@@ -638,13 +638,13 @@ def backup_affen_pm():
             pass
 
 ##################### Delete afFENity PM Backup #####################
-def delete_affen_pm():
-    if os.path.exists(os.path.join(var.pm_backup_affen)):
-        try:
-            os.unlink(os.path.join(var.pm_backup_affen))
-        except OSError:
-            xbmc.log('%s: Databit_db Delete afFENity PM Failed!' % var.amgr, xbmc.LOGINFO)
-            pass
+#def delete_affen_pm():
+#    if os.path.exists(os.path.join(var.pm_backup_affen)):
+#        try:
+#            os.unlink(os.path.join(var.pm_backup_affen))
+#        except OSError:
+#            xbmc.log('%s: Databit_db Delete afFENity PM Failed!' % var.amgr, xbmc.LOGINFO)
+#            pass
 
 
 
@@ -719,13 +719,13 @@ def backup_affen_ad():
             pass
 
 ##################### Delete afFENity AD Backup #####################
-def delete_affen_ad():
-    if os.path.exists(os.path.join(var.ad_backup_affen)):
-        try:
-            os.unlink(os.path.join(var.ad_backup_affen))
-        except OSError:
-            xbmc.log('%s: Databit_db Delete afFENity AD Failed!' % var.amgr, xbmc.LOGINFO)
-            pass
+#def delete_affen_ad():
+#    if os.path.exists(os.path.join(var.ad_backup_affen)):
+#        try:
+#            os.unlink(os.path.join(var.ad_backup_affen))
+#        except OSError:
+#            xbmc.log('%s: Databit_db Delete afFENity AD Failed!' % var.amgr, xbmc.LOGINFO)
+#            pass
 
 
     
@@ -834,13 +834,13 @@ def backup_fenlt_trakt():
             pass
 
 #Delete Trakt Backup
-def delete_fenlt_trakt():
-    if os.path.exists(os.path.join(var.trakt_backup_fenlt)):
-        try:
-            os.unlink(os.path.join(var.trakt_backup_fenlt))
-        except OSError:
-            xbmc.log('%s: Databit_db Delete Fen Light Trakt Failed!' % var.amgr, xbmc.LOGINFO)
-            pass
+#def delete_fenlt_trakt():
+#    if os.path.exists(os.path.join(var.trakt_backup_fenlt)):
+#        try:
+#            os.unlink(os.path.join(var.trakt_backup_fenlt))
+#        except OSError:
+#            xbmc.log('%s: Databit_db Delete Fen Light Trakt Failed!' % var.amgr, xbmc.LOGINFO)
+#            pass
         
 
 
@@ -949,13 +949,13 @@ def backup_affen_trakt():
             pass
 
 #Delete Trakt Backup
-def delete_affen_trakt():
-    if os.path.exists(os.path.join(var.trakt_backup_affen)):
-        try:
-            os.unlink(os.path.join(var.trakt_backup_affen))
-        except OSError:
-            xbmc.log('%s: Databit_db Delete afFENity Trakt Failed!' % var.amgr, xbmc.LOGINFO)
-            pass
+#def delete_affen_trakt():
+#    if os.path.exists(os.path.join(var.trakt_backup_affen)):
+#        try:
+#            os.unlink(os.path.join(var.trakt_backup_affen))
+#        except OSError:
+#            xbmc.log('%s: Databit_db Delete afFENity Trakt Failed!' % var.amgr, xbmc.LOGINFO)
+#            pass
 
 
 
@@ -1030,13 +1030,13 @@ def backup_fenlt_easy():
             pass
 
 ############################ Delete Easynews Backup ############################
-def delete_fenlt_easy():
-    if os.path.exists(os.path.join(var.easy_backup_fenlt)):
-        try:
-            os.unlink(os.path.join(var.easy_backup_fenlt))
-        except OSError:
-            xbmc.log('%s: Databit_db Delete Fen Light Easynews Failed!' % var.amgr, xbmc.LOGINFO)
-            pass
+#def delete_fenlt_easy():
+#    if os.path.exists(os.path.join(var.easy_backup_fenlt)):
+#        try:
+#            os.unlink(os.path.join(var.easy_backup_fenlt))
+#        except OSError:
+#            xbmc.log('%s: Databit_db Delete Fen Light Easynews Failed!' % var.amgr, xbmc.LOGINFO)
+#            pass
 
 
 
@@ -1111,13 +1111,13 @@ def backup_affen_easy():
             pass
 
 ############################ Delete Easynews Backup ############################
-def delete_affen_easy():
-    if os.path.exists(os.path.join(var.easy_backup_affen)):
-        try:
-            os.unlink(os.path.join(var.easy_backup_affen))
-        except OSError:
-            xbmc.log('%s: Databit_db Delete afFENity Easynews Failed!' % var.amgr, xbmc.LOGINFO)
-            pass
+#def delete_affen_easy():
+#    if os.path.exists(os.path.join(var.easy_backup_affen)):
+#        try:
+#            os.unlink(os.path.join(var.easy_backup_affen))
+#        except OSError:
+#            xbmc.log('%s: Databit_db Delete afFENity Easynews Failed!' % var.amgr, xbmc.LOGINFO)
+#            pass
 
 
 
@@ -1172,13 +1172,13 @@ def backup_fenlt_meta():
             pass
 
 ############################ Delete Metadata ############################
-def delete_fenlt_meta():
-    if os.path.exists(os.path.join(var.meta_backup_fenlt)):
-        try:
-            os.unlink(os.path.join(var.meta_backup_fenlt))
-        except OSError:
-            xbmc.log('%s: Databit_db Delete Metadata Failed!' % var.amgr, xbmc.LOGINFO)
-            pass
+#def delete_fenlt_meta():
+#    if os.path.exists(os.path.join(var.meta_backup_fenlt)):
+#        try:
+#            os.unlink(os.path.join(var.meta_backup_fenlt))
+#        except OSError:
+#            xbmc.log('%s: Databit_db Delete Metadata Failed!' % var.amgr, xbmc.LOGINFO)
+#            pass
 
 
 
@@ -1231,11 +1231,11 @@ def backup_affen_meta():
             pass
 
 ############################ Delete Metadata ############################
-def delete_affen_meta():
-    if os.path.exists(os.path.join(var.meta_backup_affen)):
-        try:
-            os.unlink(os.path.join(var.meta_backup_affen))
-        except OSError:
-            xbmc.log('%s: Databit_db Delete afFENity Metadata Failed!' % var.amgr, xbmc.LOGINFO)
-            pass
+#def delete_affen_meta():
+#    if os.path.exists(os.path.join(var.meta_backup_affen)):
+#        try:
+#            os.unlink(os.path.join(var.meta_backup_affen))
+#        except OSError:
+#            xbmc.log('%s: Databit_db Delete afFENity Metadata Failed!' % var.amgr, xbmc.LOGINFO)
+#            pass
 

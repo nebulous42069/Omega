@@ -449,19 +449,19 @@ msgid "[COLOR FFA0C12C] -- TMDb Help --[/COLOR]"
 msgstr ""
 
 msgctxt "#40092"
-msgid "[COLOR FF696969]-- Enable to receive update notifications --[/COLOR]"
+msgid "[COLOR FFA0C12C]-- Enable to receive update notifications --[/COLOR]"
 msgstr ""
 
 msgctxt "#40093"
-msgid "[COLOR FF696969]-- Disable ONLY if you do not use Trakt --[/COLOR]"
+msgid "[COLOR FFA0C12C]-- Disable ONLY if you do not use Trakt --[/COLOR]"
 msgstr ""
 
 msgctxt "#40094"
-msgid "[COLOR FF696969]-- Enable to Auto-Sync newly installed add-ons at start-up --[/COLOR]"
+msgid "[COLOR FFA0C12C]-- Auto-Sync supported add-ons at start-up --[/COLOR]"
 msgstr ""
 
 msgctxt "#40097"
-msgid "[COLOR FF696969]-- Restore default settings prior to using Account Manager --[/COLOR]"
+msgid "[COLOR FFA0C12C]-- Restore default settings prior to using Account Manager --[/COLOR]"
 msgstr ""
 
 msgctxt "#40098"
@@ -493,13 +493,27 @@ msgid "[COLOR FFA0C12C]-- View Changelog --[/COLOR]"
 msgstr ""
 
 msgctxt "#40105"
-msgid "[COLOR FF696969]-- Auto Backup Trakt & Debrid data during authorization --[/COLOR]"
+msgid "[COLOR FFA0C12C]-- Auto Backup Trakt & Debrid data during authorization --[/COLOR]"
 msgstr ""
 
 msgctxt "#40106"
-msgid "[COLOR FF696969]-- Builders can add they own Custom Trakt keys here --[/COLOR]"
+msgid "[COLOR FFA0C12C]-- Builders can add they own Custom Trakt keys here --[/COLOR]"
 msgstr """
 
 msgctxt "#40107"
 msgid "Enable Custom Trakt API Keys"
 msgstr """
+
+msgctxt "#40108"
+msgid "[COLOR FFA0C12C]-- Click here for more info --[/COLOR]"
+msgstr """
+
+msgctxt "#40109"
+msgid "[COLOR FFA0C12C]-- View Readme --[/COLOR]"
+msgstr """
+
+msgctxt "#40110"
+msgid "[COLOR FFA0C12C]-- View Help --[/COLOR]"
+msgstr """
+
+

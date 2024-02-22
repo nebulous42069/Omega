@@ -13,7 +13,7 @@ def get(file):
 	r = open(helpFile, 'r', encoding='utf-8', errors='ignore')
 	text = r.read()
 	r.close()
-	heading = '[B]My Accounts -  v%s - %s[/B]' % (accountmgr_version, file)
+	heading = '[B]Account Manager -  v%s - %s[/B]' % (accountmgr_version, file)
 	windows = TextViewerXML('textviewer.xml', accountmgr_path, heading=heading, text=text)
 	windows.run()
 	del windows
@@ -25,7 +25,7 @@ def get_tmdb():
 	r = open(helpFile, 'r', encoding='utf-8', errors='ignore')
 	text = r.read()
 	r.close()
-	heading = '[B]My Accounts -  v%s - TMDb Login Help[/B]' % (accountmgr_version)
+	heading = '[B]Account Manager -  v%s - TMDb Login Help[/B]' % (accountmgr_version)
 	windows = TextViewerXML('textviewer.xml', accountmgr_path, heading=heading, text=text)
 	windows.run()
 	del windows
@@ -37,7 +37,7 @@ def get_meta():
 	r = open(helpFile, 'r', encoding='utf-8', errors='ignore')
 	text = r.read()
 	r.close()
-	heading = '[B]My Accounts -  v%s - Metadata API Help[/B]' % (accountmgr_version)
+	heading = '[B]Account Manager -  v%s - Metadata API[/B]' % (accountmgr_version)
 	windows = TextViewerXML('textviewer.xml', accountmgr_path, heading=heading, text=text)
 	windows.run()
 	del windows
@@ -49,7 +49,55 @@ def get_nondebrid():
 	r = open(helpFile, 'r', encoding='utf-8', errors='ignore')
 	text = r.read()
 	r.close()
-	heading = '[B]My Accounts -  v%s - Furk/Easynews/FilePursuit Help[/B]' % (accountmgr_version)
+	heading = '[B]Account Manager -  v%s - Furk/Easynews/FilePursuit[/B]' % (accountmgr_version)
+	windows = TextViewerXML('textviewer.xml', accountmgr_path, heading=heading, text=text)
+	windows.run()
+	del windows
+
+def get_custom():
+	accountmgr_path = addonPath()
+	accountmgr_version = addonVersion()
+	helpFile = joinPath(accountmgr_path, 'lib', 'accountmgr', 'help', 'custom_keys.txt')
+	r = open(helpFile, 'r', encoding='utf-8', errors='ignore')
+	text = r.read()
+	r.close()
+	heading = '[B]Account Manager -  v%s - Custom Trakt API Keys[/B]' % (accountmgr_version)
+	windows = TextViewerXML('textviewer.xml', accountmgr_path, heading=heading, text=text)
+	windows.run()
+	del windows
+
+def get_restore():
+	accountmgr_path = addonPath()
+	accountmgr_version = addonVersion()
+	helpFile = joinPath(accountmgr_path, 'lib', 'accountmgr', 'help', 'restore.txt')
+	r = open(helpFile, 'r', encoding='utf-8', errors='ignore')
+	text = r.read()
+	r.close()
+	heading = '[B]Account Manager -  v%s - Restore to Default[/B]' % (accountmgr_version)
+	windows = TextViewerXML('textviewer.xml', accountmgr_path, heading=heading, text=text)
+	windows.run()
+	del windows
+
+def get_readme():
+	accountmgr_path = addonPath()
+	accountmgr_version = addonVersion()
+	helpFile = joinPath(accountmgr_path, 'lib', 'accountmgr', 'help', 'readme.txt')
+	r = open(helpFile, 'r', encoding='utf-8', errors='ignore')
+	text = r.read()
+	r.close()
+	heading = '[B]Account Manager -  v%s - Readme[/B]' % (accountmgr_version)
+	windows = TextViewerXML('textviewer.xml', accountmgr_path, heading=heading, text=text)
+	windows.run()
+	del windows
+
+def get_issues():
+	accountmgr_path = addonPath()
+	accountmgr_version = addonVersion()
+	helpFile = joinPath(accountmgr_path, 'lib', 'accountmgr', 'help', 'issues.txt')
+	r = open(helpFile, 'r', encoding='utf-8', errors='ignore')
+	text = r.read()
+	r.close()
+	heading = '[B]Account Manager -  v%s - Reporting Issues[/B]' % (accountmgr_version)
 	windows = TextViewerXML('textviewer.xml', accountmgr_path, heading=heading, text=text)
 	windows.run()
 	del windows

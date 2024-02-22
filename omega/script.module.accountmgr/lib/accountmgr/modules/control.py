@@ -20,6 +20,7 @@ monitor = xbmc.Monitor()
 transPath = xbmcvfs.translatePath
 joinPath = os.path.join
 
+accountmgr = xbmcaddon.Addon("script.module.accountmgr")
 dialog = xbmcgui.Dialog()
 window = xbmcgui.Window(10000)
 progressDialog = xbmcgui.DialogProgress()
@@ -199,6 +200,7 @@ def notification_trakt(title=None, message=None, icon=None, time=3000, sound=Fal
                 xbmc.executebuiltin('PlayMedia(plugin://script.module.acctview/?mode=savetrakt&name=all)') #Save trakt data
                 xbmc.sleep(4000)
 	notification('Trakt', 'Sync Complete!', icon=trakt_icon)
+	accountmgr.setSetting("trakt.service", "true") #Enable Trakt Service
 	xbmc.sleep(3000)
 	xbmcgui.Dialog().ok('Account Manager', 'To save changes, please close Kodi, Press OK to force close Kodi')
 	os._exit(1)

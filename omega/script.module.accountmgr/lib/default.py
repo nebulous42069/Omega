@@ -73,17 +73,14 @@ elif action == 'traktAuth':
 	from accountmgr.modules import trakt
 	control.function_monitor(trakt.Trakt().auth)
 
-elif action == 'traktReSync': #Sync additional add-ons after Account Manager is already authorized
-	if str(var.chk_accountmgr_tk) != '': #Skip sync if Account Mananger is not authorized
-                from accountmgr.modules import trakt_sync
-                control.function_monitor(trakt_sync.Auth().trakt_auth)
-                xbmc.sleep(1000)
-                notification('Account Manager', 'Sync Complete!', icon=trakt_icon)
-                xbmc.sleep(3000)
-                xbmcgui.Dialog().ok('Account Manager', 'To save changes, please close Kodi, Press OK to force close Kodi')
-                os._exit(1)
-	if str(var.chk_accountmgr_tk) == '': #If Account Mananger is not Authorized notify user
-                notification('Account Manager', 'Trakt NOT Authorized!', icon=trakt_icon)
+elif action == 'traktReSync': #Sync Trakt with installed add-ons
+        from accountmgr.modules import trakt_sync
+        control.function_monitor(trakt_sync.Auth().trakt_auth)
+        xbmc.sleep(1000)
+        notification('Account Manager', 'Sync Complete!', icon=trakt_icon)
+        xbmc.sleep(3000)
+        xbmcgui.Dialog().ok('Account Manager', 'To save changes, please close Kodi, Press OK to force close Kodi')
+        os._exit(1)
         
 elif action == 'traktRevoke':
 	from accountmgr.modules import trakt
@@ -98,13 +95,10 @@ elif action == 'realdebridAuth':
 	from accountmgr.modules import realdebrid
 	control.function_monitor(realdebrid.RealDebrid().auth)
 
-elif action == 'realdebridReSync': #Sync additional add-ons after Account Manager is already authorized
-	if str(var.chk_accountmgr_tk_rd) != '': #Skip sync if Account Mananger is not authorized
-                from accountmgr.modules import debrid_rd
-                control.function_monitor(debrid_rd.Auth().realdebrid_auth)
-                notification('Account Manager', 'Sync Complete!', icon=rd_icon)
-	if str(var.chk_accountmgr_tk_rd) == '': #If Account Mananger is not Authorized notify user
-                notification('Account Manager', 'Real-Debrid NOT Authorized!', icon=rd_icon)
+elif action == 'realdebridReSync': #Sync Real-Debrid with installed add-ons
+        from accountmgr.modules import debrid_rd
+        control.function_monitor(debrid_rd.Auth().realdebrid_auth)
+        notification('Account Manager', 'Sync Complete!', icon=rd_icon)
                 
 elif action == 'realdebridRevoke':
 	from accountmgr.modules import realdebrid
@@ -119,13 +113,10 @@ elif action == 'premiumizeAuth':
 	from accountmgr.modules import premiumize
 	control.function_monitor(premiumize.Premiumize().auth)
 
-elif action == 'premiumizeReSync': #Sync additional add-ons after Account Manager is already authorized
-	if str(var.chk_accountmgr_tk_pm) != '': #Skip sync if Account Mananger is not authorized
-                from accountmgr.modules import debrid_pm
-                control.function_monitor(debrid_pm.Auth().premiumize_auth)
-                notification('Account Manager', 'Sync Complete!', icon=pm_icon)
-	if str(var.chk_accountmgr_tk_pm) == '': #If Account Mananger is not Authorized notify user
-                notification('Account Manager', 'Premiumize NOT Authorized!', icon=pm_icon)
+elif action == 'premiumizeReSync': #Sync Premiumize with installed add-ons
+        from accountmgr.modules import debrid_pm
+        control.function_monitor(debrid_pm.Auth().premiumize_auth)
+        notification('Account Manager', 'Sync Complete!', icon=pm_icon)
 	
 elif action == 'premiumizeRevoke':
 	from accountmgr.modules import premiumize
@@ -140,20 +131,17 @@ elif action == 'alldebridAuth':
 	from accountmgr.modules import alldebrid
 	control.function_monitor(alldebrid.AllDebrid().auth)
 
-elif action == 'alldebridReSync': #Sync additional add-ons after Account Manager is already authorized
-	if str(var.chk_accountmgr_tk_ad) != '': #Skip sync if Account Mananger is not authorized
-                from accountmgr.modules import debrid_ad
-                control.function_monitor(debrid_ad.Auth().alldebrid_auth)
-                notification('Account Manager', 'Sync Complete!', icon=ad_icon)
-	if str(var.chk_accountmgr_tk_ad) == '': #If Account Mananger is not Authorized notify user
-                notification('Account Manager', 'All-Debrid NOT Authorized!', icon=ad_icon)
+elif action == 'alldebridReSync': #Sync All-Debrid with installed add-ons
+        from accountmgr.modules import debrid_ad
+        control.function_monitor(debrid_ad.Auth().alldebrid_auth)
+        notification('Account Manager', 'Sync Complete!', icon=ad_icon)
 
 elif action == 'alldebridRevoke':
 	from accountmgr.modules import alldebrid
 	control.function_monitor(alldebrid.AllDebrid().revoke)
 
 #Sync Multiple Debrid Accounts
-elif action == 'ReSyncAll': #Sync additional add-ons for all services after Account Manager is already authorized
+elif action == 'ReSyncAll': #Sync RD/PM?AD with installed add-ons
         #Real-Debrid
 	if str(var.chk_accountmgr_tk_rd) != '': #Skip sync if Account Mananger is not authorized
                 from accountmgr.modules import debrid_rd
@@ -281,6 +269,22 @@ elif action == 'ShowHelpMeta':
 elif action == 'ShowHelpNonDebrid':
 	from accountmgr.help import help
 	help.get_nondebrid()
+
+elif action == 'ShowHelpCustom':
+	from accountmgr.help import help
+	help.get_custom()
+
+elif action == 'ShowHelpRestore':
+	from accountmgr.help import help
+	help.get_restore()
+
+elif action == 'ShowHelpReadme':
+	from accountmgr.help import help
+	help.get_readme()
+	
+elif action == 'ShowHelpIssues':
+	from accountmgr.help import help
+	help.get_issues()
 	
 elif action == 'ShowOKDialog':
 	control.okDialog(params.get('title', 'default'), int(params.get('message', '')))

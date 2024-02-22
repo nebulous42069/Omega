@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <settings>
 	<category label="Accounts">
-		<setting type="lsep" label="40058" />
+		<setting type="lsep" label="Real-Debrid" />
 		<setting id="realdebrid.token" label="40079" type="text" default="" visible="false" />
 		<setting id="realdebrid.username" label="32318" type="text" default="" visible="!eq(-1,)" enable="false" />
-		<setting id="realdebrid.expiry.notice" type="bool" label="40086" default="true" visible="!eq(-2,)" />
+		<setting id="realdebrid.expiry.notice" type="bool" label="40086" default="false" visible="!eq(-2,)" />
 		<setting type="action" label="32316" option="close" action="RunScript(script.module.accountmgr, action=realdebridAcct)" visible="!eq(-2,)" />
 		<setting type="action" label="32319" option="close" action="RunScript(script.module.accountmgr, action=realdebridAuth)" visible="eq(-4,)" />
 		<setting id="realdebrid.client_id" label="realdebrid client_id" type="text" default="" visible="false" />
@@ -14,14 +14,14 @@
 		<setting type="lsep" label="Premiumize" />
 		<setting id="premiumize.token" label="40078" type="text" default="" visible="false" />
 		<setting id="premiumize.username" label="32318" type="text" default="" visible="!eq(-1,)" enable="false" />
-		<setting id="premiumize.expiry.notice" type="bool" label="40086" default="true" visible="!eq(-2,)" />
+		<setting id="premiumize.expiry.notice" type="bool" label="40086" default="false" visible="!eq(-2,)" />
 		<setting type="action" label="32316" option="close" action="RunScript(script.module.accountmgr, action=premiumizeAcct)" visible="!eq(-2,)" />
 		<setting type="action" label="32319" option="close" action="RunScript(script.module.accountmgr, action=premiumizeAuth)" visible="eq(-4,)" />
 
 		<setting type="lsep" label="All-Debrid" />
 		<setting id="alldebrid.token" label="40077" type="text" default="" visible="false" />
 		<setting id="alldebrid.username" label="32318" type="text" default="" visible="!eq(-1,)" enable="false" />
-		<setting id="alldebrid.expiry.notice" type="bool" label="40086" default="true" visible="!eq(-2,)" />
+		<setting id="alldebrid.expiry.notice" type="bool" label="40086" default="false" visible="!eq(-2,)" />
 		<setting type="action" label="32316" option="close" action="RunScript(script.module.accountmgr, action=alldebridAcct)" visible="!eq(-2,)" />
 		<setting type="action" label="32319" option="close" action="RunScript(script.module.accountmgr, action=alldebridAuth)" visible="eq(-4,)" />
 
@@ -168,8 +168,7 @@
 		<setting type="lsep" label="Startup Services" />
 		<setting id="checkAddonUpdates" type="bool" label="Update Notification Service" default="true" />
 		<setting label="40092" type="text" />
-      	<setting id="trakt.service"  type="bool" label="Trakt Service" default="true"/>
-		<setting label="40093" type="text" />
+      	<setting id="trakt.service" type="bool" visible="false" label="" default="" />
       	<setting id="sync.service"  type="bool" label="Trakt & Debrid Auto-Sync Service" default="true"/>
 		<setting label="40094" type="text" />
       	<setting id="sync.nondebrid.service"  type="bool" label="Furk/Easynews/FilePursuit Auto-Sync Service" default="false"/>
@@ -181,10 +180,12 @@
 		<setting id="devuserkey.enabled" type="bool" visible="eq(-1,false)" label="40107" default="false" />
 		<setting id="dev.client.id" type="text" option="hidden" visible="eq(-1,true)" label="40089" default="" />
 		<setting id="dev.client.secret" type="text" option="hidden" visible="eq(-2,true)" label="40088" default="" />
-		<setting label="40106" type="text" />
+        <setting label="40108" type="action" action="RunScript(script.module.accountmgr, action=ShowHelpCustom)" visible="true" />
 		<setting type="lsep" label="Restore All Add-ons To Default" />
 		<setting type="action" label="Restore To Default Settings" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=wipeclean&name=all)" visible="true" />
-		<setting label="40097" type="text" />
+        <setting label="40108" type="action" action="RunScript(script.module.accountmgr, action=ShowHelpRestore)" visible="true" />
+	</category>
+	<category label="Info">
 		<setting type="lsep" label="Supported Add-ons" />
 		<setting label="40099" type="action" action="RunScript(script.module.accountmgr, action=ShowSupported_Debrid)" />
 		<setting label="40098" type="action" action="RunScript(script.module.accountmgr, action=ShowSupported_Trakt)" />
@@ -192,8 +193,12 @@
 		<setting label="40100" type="action" action="RunScript(script.module.accountmgr, action=ShowSupported_Furk)" />
 		<setting label="40101" type="action" action="RunScript(script.module.accountmgr, action=ShowSupported_Easy)" />
 		<setting label="40102" type="action" action="RunScript(script.module.accountmgr, action=ShowSupported_File)" />
+		<setting type="lsep" label="Reporting Issues" />
+        <setting label="40110" type="action" action="RunScript(script.module.accountmgr, action=ShowHelpIssues)" visible="true" />
 		<setting type="lsep" label="Changelog" />
 		<setting label="40104" type="action" action="RunScript(script.module.accountmgr, action=ShowChangelog)" />
+		<setting type="lsep" label="Readme" />
+        <setting label="40109" type="action" action="RunScript(script.module.accountmgr, action=ShowHelpReadme)" visible="true" />
 	</category>
 
 </settings>

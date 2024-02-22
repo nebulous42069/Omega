@@ -37,10 +37,10 @@ def realizer_bk():
             pass
 
 ##################### Delete Realizer RD Backup #####################
-def realizer_rm():
-    if os.path.exists(os.path.join(var.rd_backup_realx)):
-        try:
-            os.unlink(os.path.join(var.rd_backup_realx))
-        except OSError:
-            xbmc.log('%s: Jsonit_db Delete Realizer RD Failed!' % var.amgr, xbmc.LOGINFO)
-            pass
+#def realizer_rm():
+#    if os.path.exists(os.path.join(var.rd_backup_realx)):
+#        try:
+#            os.unlink(os.path.join(var.rd_backup_realx))
+#        except OSError:
+#            xbmc.log('%s: Jsonit_db Delete Realizer RD Failed!' % var.amgr, xbmc.LOGINFO)
+#            pass
