@@ -1,0 +1,196 @@
+# Based on https://github.com/im85288/service.upnext/blob/master/.github/workflows/release.yml
+name: Make Release
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+      - '*-dev'
+
+jobs:
+  release:
+    if: github.repository == 'anxdpanic/plugin.video.youtube' || github.event_name == 'workflow_dispatch'
+    name: Make Release
+    runs-on: ubuntu-20.04
+    permissions:
+      contents: write
+
+    steps:
+      - name: Release Status
+        id: release
+        run: |
+          version=${GITHUB_REF/refs\/tags\//}
+          if [[ $version == *[-+]@(alpha|beta|dev)*([.0-9a-z]) ]] ;
+          then
+            echo "pre-release=true" >> $GITHUB_OUTPUT
+          else
+            echo "pre-release=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Checkout Add-on
+        uses: actions/checkout@v3
+        with:
+          path: ${{ github.event.repository.name }}
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install libxml2-utils xmlstarlet zip
+
+      - name: Get Changelog
+        id: changelog
+        run: |
+          readarray -t changes < <(awk '/^## /{rel_num++} {if(rel_num==2){exit} if(rel_num==1){print}}' changelog.txt)
+          echo "body<<${{ secrets.GITHUB_TOKEN }}" >> $GITHUB_OUTPUT
+          for change in "${changes[@]}"; do
+              echo "${change}" >> $GITHUB_OUTPUT
+          done
+          news=$(printf '%s\n' "${changes[@]}" | sed -E 's/ ?#[[:digit:]]+[., ]?//;s/\r//')
+          echo "${{ secrets.GITHUB_TOKEN }}" >> $GITHUB_OUTPUT
+        working-directory: ${{ github.event.repository.name }}
+
+      - name: Create Zip (Nexus)
+        id: zip-nexus
+        run: |
+          mv .git ..
+          rm -rf .??*
+          rm *.md
+          news=$(awk '/^## /{rel_num++} {if(rel_num==2){exit} if(rel_num==1){print}}' changelog.txt | sed -E 's/ ?#[[:digit:]]+[., ]?//;s/\r//')
+          xmlstarlet ed -L -P -s '/addon/extension[@point="xbmc.addon.metadata"]' -t elem -n news -v "${news:0:1500}" addon.xml
+          version=$(xmlstarlet sel -t -v 'string(/addon/@version)' addon.xml)
+          filename=${{ github.event.repository.name }}-${version}.zip
+          cd ..
+          zip -r $filename ${{ github.event.repository.name }}
+          mv .git ${{ github.event.repository.name }}
+          echo "filename=$filename" >> $GITHUB_OUTPUT
+        working-directory: ${{ github.event.repository.name }}
+
+      - name: Create Zip (Nexus-Unofficial)
+        id: zip-unofficial-nexus
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git reset
+          git checkout .
+          git fetch origin nexus-unofficial
+          git -c user.email="\<\>" -c user.name="make-release" merge -X theirs --allow-unrelated-histories origin/nexus-unofficial
+          git clean -fdx
+          mv .git ..
+          rm -rf .??*
+          rm *.md
+          news=$(awk '/^## /{rel_num++} {if(rel_num==2){exit} if(rel_num==1){print}}' changelog.txt | sed -E 's/ ?#[[:digit:]]+[., ]?//;s/\r//')
+          xmlstarlet ed -L -P -s '/addon/extension[@point="xbmc.addon.metadata"]' -t elem -n news -v "${news:0:1500}" addon.xml
+          version=$(xmlstarlet sel -t -v 'string(/addon/@version)' addon.xml)
+          xmlstarlet ed -L -P -u '/addon/@version' -v "${version}+unofficial.1" addon.xml
+          filename=${{ github.event.repository.name }}-${version}.unofficial.1.zip
+          cd ..
+          zip -r $filename ${{ github.event.repository.name }}
+          mv .git ${{ github.event.repository.name }}
+          echo "filename=$filename" >> $GITHUB_OUTPUT
+        working-directory: ${{ github.event.repository.name }}
+
+      - name: Create Zip (Matrix)
+        id: zip-matrix
+        run: |
+          git reset
+          git checkout .
+          git clean -fdx
+          mv .git ..
+          rm -rf .??*
+          rm *.md
+          news=$(awk '/^## /{rel_num++} {if(rel_num==2){exit} if(rel_num==1){print}}' changelog.txt | sed -E 's/ ?#[[:digit:]]+[., ]?//;s/\r//')
+          xmlstarlet ed -L -P -s '/addon/extension[@point="xbmc.addon.metadata"]' -t elem -n news -v "${news:0:1500}" addon.xml
+          version=$(xmlstarlet sel -t -v 'string(/addon/@version)' addon.xml)
+          xmlstarlet ed -L -P -u '/addon/@version' -v "${version}+matrix.1" addon.xml
+          xmlstarlet ed -L -P -u '/addon/requires/import[@addon="xbmc.python"]/@version' -v '3.0.0' addon.xml
+          xmlstarlet ed -L -P -u '/addon/requires/import[@addon="inputstream.adaptive"]/@version' -v '19.0.0' addon.xml
+          xmlstarlet ed -L -P -d '/addon/requires/import[@addon="script.module.infotagger"]' addon.xml
+          filename=${{ github.event.repository.name }}-${version}.matrix.1.zip
+          cd ..
+          zip -r $filename ${{ github.event.repository.name }}
+          mv .git ${{ github.event.repository.name }}
+          echo "filename=$filename" >> $GITHUB_OUTPUT
+        working-directory: ${{ github.event.repository.name }}
+
+      - name: Create Zip (Matrix-Unofficial)
+        id: zip-unofficial-matrix
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git reset
+          git checkout .
+          git fetch origin nexus-unofficial
+          git -c user.email="\<\>" -c user.name="make-release" merge -X theirs --allow-unrelated-histories origin/nexus-unofficial
+          git clean -fdx
+          mv .git ..
+          rm -rf .??*
+          rm *.md
+          news=$(awk '/^## /{rel_num++} {if(rel_num==2){exit} if(rel_num==1){print}}' changelog.txt | sed -E 's/ ?#[[:digit:]]+[., ]?//;s/\r//')
+          xmlstarlet ed -L -P -s '/addon/extension[@point="xbmc.addon.metadata"]' -t elem -n news -v "${news:0:1500}" addon.xml
+          version=$(xmlstarlet sel -t -v 'string(/addon/@version)' addon.xml)
+          xmlstarlet ed -L -P -u '/addon/@version' -v "${version}+matrix.unofficial.1" addon.xml
+          xmlstarlet ed -L -P -u '/addon/requires/import[@addon="xbmc.python"]/@version' -v '3.0.0' addon.xml
+          xmlstarlet ed -L -P -u '/addon/requires/import[@addon="inputstream.adaptive"]/@version' -v '19.0.0' addon.xml
+          xmlstarlet ed -L -P -d '/addon/requires/import[@addon="script.module.infotagger"]' addon.xml
+          filename=${{ github.event.repository.name }}-${version}.matrix.unofficial.1.zip
+          cd ..
+          zip -r $filename ${{ github.event.repository.name }}
+          mv .git ${{ github.event.repository.name }}
+          echo "filename=$filename" >> $GITHUB_OUTPUT
+        working-directory: ${{ github.event.repository.name }}
+
+      - name: Create Release
+        id: create-release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          body: ${{ steps.changelog.outputs.body }}
+          draft: false
+          prerelease: ${{ steps.release.outputs.pre-release }}
+
+      - name: Upload Zip (Nexus)
+        id: upload-nexus
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create-release.outputs.upload_url }}
+          asset_name: ${{ steps.zip-nexus.outputs.filename }}
+          asset_path: ${{ steps.zip-nexus.outputs.filename }}
+          asset_content_type: application/zip
+
+      - name: Upload Zip (Nexus-Unofficial)
+        id: upload-unofficial-nexus
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create-release.outputs.upload_url }}
+          asset_name: ${{ steps.zip-unofficial-nexus.outputs.filename }}
+          asset_path: ${{ steps.zip-unofficial-nexus.outputs.filename }}
+          asset_content_type: application/zip
+
+      - name: Upload Zip (Matrix)
+        id: upload-matrix
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create-release.outputs.upload_url }}
+          asset_name: ${{ steps.zip-matrix.outputs.filename }}
+          asset_path: ${{ steps.zip-matrix.outputs.filename }}
+          asset_content_type: application/zip
+
+      - name: Upload Zip (Matrix-Unofficial)
+        id: upload-unofficial-matrix
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create-release.outputs.upload_url }}
+          asset_name: ${{ steps.zip-unofficial-matrix.outputs.filename }}
+          asset_path: ${{ steps.zip-unofficial-matrix.outputs.filename }}
+          asset_content_type: application/zip
