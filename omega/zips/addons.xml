@@ -3465,7 +3465,7 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
             -Various changes so skin would install on Matrix
         </news>
     </extension>
-</addon><addon id="skin.xenon2" version="420.99.4" name="[B][COLOR gold]XENON 2[/COLOR][/B]  (Mid Power)" provider-name="SiLVO, Diggz">
+</addon><addon id="skin.xenon2" version="421.99.4" name="[B][COLOR gold]XENON 2[/COLOR][/B]  (Mid Power)" provider-name="SiLVO, Diggz">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0" />
 		<import addon="script.skinshortcuts" version="2.0.1" />

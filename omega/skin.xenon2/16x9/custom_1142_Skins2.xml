@@ -92,7 +92,7 @@
 					</item>
 					<item>
 						<label>Install FenFlix</label>
-						<onclick>installaddon(skin.xenox)</onclick>
+						<onclick>InstallAddon(skin.povflix)</onclick>
 						<icon>skins/diggzflix.png</icon>
 					</item>
 					<item>
