@@ -1324,13 +1324,12 @@ Random updates by lolage.
         </assets>
     <platform>all</platform>
   </extension>
-</addon><addon id="plugin.video.youtube" name="YouTube" version="667.7.0.4+beta.1" provider-name="anxdpanic, bromix">
+</addon><addon id="plugin.video.youtube" name="YouTube" version="667.7.0.5+beta.1+matrix.unofficial.1" provider-name="anxdpanic, bromix">
     <requires>
-        <import addon="xbmc.python" version="3.0.1" />
+        <import addon="xbmc.python" version="3.0.0" />
         <import addon="script.module.requests" version="2.27.1" />
-        <import addon="inputstream.adaptive" version="20.0.0" />
+        <import addon="inputstream.adaptive" version="19.0.0" />
         <import addon="script.module.inputstreamhelper" version="0.2.2" optional="true" />
-        <import addon="script.module.infotagger" version="0.0.5" />
     </requires>
     <extension point="xbmc.python.pluginsource" library="resources/lib/plugin.py">
         <provides>video</provides>
@@ -1425,7 +1424,28 @@ Random updates by lolage.
         <disclaimer lang="vi_VN">Plugin này không được xác nhận bởi Google</disclaimer>
         <disclaimer lang="zh_CN">此插件未被谷歌认可</disclaimer>
         <disclaimer lang="zh_TW">此附加元件未由Google支持</disclaimer>
-    </extension>
+    <news>## v7.0.5+beta.1
+### Fixed
+- Try to prevent Kodi freezing when settings are updated and container is reloaded
+- Fix lockups when using xbmc.executebuiltin #653
+- Fix searching for preferred language subtitles not using non-region specific subtitles
+- Fix not being able to set custom watch later history playlist per user
+- Update workarounds for multiple busy dialog crashes #649
+- Fix playing incorrect video when player request is blocked
+
+### Changed
+- Display search history as list rather than videos
+- Update Setup Wizard
+  - Add settings for Rasberry Pi 3 class devices (1080p30, VP9 enabled)
+  - Update settings for Rasberry Pi 4 class devices (1080p60, VP9 enabled)
+  - Move option to disable list details to last step in wizard
+- Shared playlist play using default order without prompting
+- Removed dependency on script.module.infotagger
+- Removed Nexus specific releases
+  - Matrix releases will now work in Kodi v19+
+  - Leia releases will work, but are unsupported, for Kodi v18 only
+- Updated client versions used for player requests
+  - Use iOS client as fallback for default client selection</news></extension>
 </addon><addon id="repository.diggz" name="Diggz Repository" version="18" provider-name="Diggz">
     <extension point="xbmc.addon.repository" name="Diggz Repository">
         <dir minversion="20.0.0" maxversion="20.89.0">

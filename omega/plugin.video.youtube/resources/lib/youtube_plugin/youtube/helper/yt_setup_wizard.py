@@ -14,7 +14,7 @@ import os
 
 from ...kodion.compatibility import urlencode, xbmcvfs
 from ...kodion.constants import ADDON_ID, DATA_PATH, WAIT_FLAG
-from ...kodion.network import Locator
+from ...kodion.network import Locator, httpd_status
 from ...kodion.sql_store import PlaybackHistory, SearchHistory
 from ...kodion.utils.datetime_parser import strptime
 from ...kodion.utils.methods import to_unicode
@@ -215,7 +215,7 @@ def process_language(provider, context, step, steps):
 
     json_data = client.get_supported_languages(kodi_language)
     items = json_data.get('items') or DEFAULT_LANGUAGES['items']
-    
+
     selected_language = [None]
 
     def _get_selected_language(item):
@@ -322,7 +322,12 @@ def process_default_settings(_provider, context, step, steps):
         settings.use_mpd_videos(True)
         settings.stream_select(4 if settings.ask_for_video_quality() else 3)
         settings.live_stream_type(2)
-        settings.cache_size(20)
+        if not xbmcvfs.exists('special://profile/playercorefactory.xml'):
+            settings.alternative_player_web_urls(False)
+        if settings.cache_size() < 20:
+            settings.cache_size(20)
+        if settings.use_isa() and not httpd_status():
+            settings.httpd_listen('0.0.0.0')
     return step
 
 
@@ -355,9 +360,51 @@ def process_performance_settings(_provider, context, step, steps):
         (localize('setup_wizard.prompt')
          % localize('setup_wizard.prompt.settings.performance'))
     ):
+        device_types = {
+            '720p30': {
+                'max_resolution': 3,  # 720p
+                'stream_features': ('avc1', 'mp4a', 'filter'),
+                'num_items': 10,
+                'settings': (
+                    (settings.use_isa, (True,)),
+                    (settings.use_mpd_videos, (False,)),
+                    (settings.live_stream_type, (2,)),
+                ),
+            },
+            '1080p30': {
+                'max_resolution': 4,  # 1080p
+                'stream_features': ('avc1', 'vp9', 'vorbis', 'mp4a', 'ssa', 'ac-3', 'ec-3', 'dts', 'filter'),
+                'num_items': 20,
+            },
+            '1080p60': {
+                'max_resolution': 4,  # 1080p
+                'stream_features': ('avc1', 'vp9', 'hfr', 'vorbis', 'mp4a', 'ssa', 'ac-3', 'ec-3', 'dts', 'filter'),
+                'num_items': 30,
+            },
+            '4k30': {
+                'max_resolution': 6,  # 4k
+                'stream_features': ('avc1', 'vp9', 'hdr', 'hfr', 'no_hfr_max', 'vorbis', 'mp4a', 'ssa', 'ac-3', 'ec-3', 'dts', 'filter'),
+                'num_items': 50,
+            },
+            '4k60': {
+                'max_resolution': 6,  # 4k
+                'stream_features': ('avc1', 'vp9', 'hdr', 'hfr', 'vorbis', 'mp4a', 'ssa', 'ac-3', 'ec-3', 'dts', 'filter'),
+                'num_items': 50,
+            },
+            '4k60_av1': {
+                'max_resolution': 6,  # 4k
+                'stream_features': ('avc1', 'vp9', 'av01', 'hdr', 'hfr', 'vorbis', 'mp4a', 'ssa', 'ac-3', 'ec-3', 'dts', 'filter'),
+                'num_items': 50,
+            },
+            'max': {
+                'max_resolution': 7,  # 8k
+                'stream_features': ('avc1', 'vp9', 'av01', 'hdr', 'hfr', 'vorbis', 'mp4a', 'ssa', 'ac-3', 'ec-3', 'dts', 'filter'),
+                'num_items': 50,
+            },
+        }
         items = [
             localize('setup_wizard.capabilities.' + item).split(' | ') + [item]
-            for item in ('old', 'low', 'medium', 'high', 'recent', 'max')
+            for item in device_types
         ]
         device_type = ui.on_select(
             localize('setup_wizard.capabilities'),
@@ -367,34 +414,13 @@ def process_performance_settings(_provider, context, step, steps):
         if device_type == -1:
             return step
 
-        video_qualities = {
-            'old': 3,
-            'low': 4,
-            'medium': 6,
-            'high': 6,
-            'recent': 6,
-            'max': 7,
-        }
-        stream_features = {
-            'old': ['avc1', 'mp4a', 'filter'],
-            'low': ['avc1', 'vorbis', 'mp4a', 'ssa', 'ac-3', 'ec-3', 'dts', 'filter'],
-            'medium': ['avc1', 'vp9', 'hdr', 'hfr', 'no_hfr_max', 'vorbis', 'mp4a', 'ssa', 'ac-3', 'ec-3', 'dts', 'filter'],
-            'high': ['avc1', 'vp9', 'hdr', 'hfr', 'vorbis', 'mp4a', 'ssa', 'ac-3', 'ec-3', 'dts', 'filter'],
-            'recent': ['avc1', 'vp9', 'av01', 'hdr', 'hfr', 'vorbis', 'mp4a', 'ssa', 'ac-3', 'ec-3', 'dts', 'filter'],
-            'max': ['avc1', 'vp9', 'av01', 'hdr', 'hfr', 'vorbis', 'mp4a', 'ssa', 'ac-3', 'ec-3', 'dts', 'filter'],
-        }
-        num_items = {
-            'old': 10,
-            'low': 20,
-            'medium': 50,
-            'high': 50,
-            'recent': 50,
-            'max': 50,
-        }
-
-        settings.mpd_video_qualities(video_qualities[device_type])
-        settings.stream_features(stream_features[device_type])
-        settings.items_per_page(num_items[device_type])
+        device_type = device_types[device_type]
+        settings.mpd_video_qualities(device_type['max_resolution'])
+        settings.stream_features(device_type['stream_features'])
+        settings.items_per_page(device_type['num_items'])
+        if 'settings' in device_type:
+            for setting in device_type['settings']:
+                setting[0](*setting[1])
     return step
 
 

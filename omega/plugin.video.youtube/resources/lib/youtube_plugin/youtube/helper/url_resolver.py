@@ -126,6 +126,9 @@ class YouTubeResolver(AbstractResolver):
         response = self.request(url,
                                 method=method,
                                 headers=self._HEADERS,
+                                # Manually configured cookies to avoid cookie
+                                # consent redirect
+                                cookies={'SOCS': 'CAISAiAD'},
                                 allow_redirects=True)
         if not response or not response.ok:
             return url
@@ -190,6 +193,12 @@ class CommonResolver(AbstractResolver):
         super(CommonResolver, self).__init__(*args, **kwargs)
 
     def supports_url(self, url, url_components):
+        if url_components.hostname in (
+                'www.youtube.com',
+                'youtube.com',
+                'm.youtube.com',
+        ):
+            return False
         return 'HEAD'
 
     def resolve(self, url, url_components, method='HEAD'):

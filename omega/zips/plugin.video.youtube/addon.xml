@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.youtube" name="YouTube" version="667.7.0.4+beta.1" provider-name="anxdpanic, bromix">
+<addon id="plugin.video.youtube" name="YouTube" version="667.7.0.5+beta.1+matrix.unofficial.1" provider-name="anxdpanic, bromix">
     <requires>
-        <import addon="xbmc.python" version="3.0.1"/>
+        <import addon="xbmc.python" version="3.0.0"/>
         <import addon="script.module.requests" version="2.27.1"/>
-        <import addon="inputstream.adaptive" version="20.0.0"/>
+        <import addon="inputstream.adaptive" version="19.0.0"/>
         <import addon="script.module.inputstreamhelper" version="0.2.2" optional="true"/>
-        <import addon="script.module.infotagger" version="0.0.5"/>
     </requires>
     <extension point="xbmc.python.pluginsource" library="resources/lib/plugin.py">
         <provides>video</provides>
@@ -61,7 +60,7 @@
         <description lang="es_ES">YouTube es uno de los sitios web más grande del mundo para compartir vídeos.</description>
         <description lang="es_MX">YouTube es uno de los más grandes sitios web de intercambio de videos del mundo.</description>
         <description lang="fi_FI">YouTube on yksi maailman suurimmista videoiden jakosivustoista.</description>
-        <description lang="fr_FR">YouTube est l&apos;un des plus grands sites de partage vidéos du monde.</description>
+        <description lang="fr_FR">YouTube est l'un des plus grands sites de partage vidéos du monde.</description>
         <description lang="he_IL">YouTube הוא אחד מאתרי שיתוף הווידאו הגדולים בעולם.</description>
         <description lang="hr_HR">YouTube je jedna od najvećih stranica za dijeljenje video sadržaja na svijetu.</description>
         <description lang="hu_HU">A YouTube világ egyik legnagyobb videómegosztó weboldala.</description>
@@ -86,7 +85,7 @@
         <disclaimer lang="es_ES">Este add-on no está respaldado por Google</disclaimer>
         <disclaimer lang="es_MX">Este complemento no está respaldado por Google</disclaimer>
         <disclaimer lang="fi_FI">Google ei tue tätä lisäosaa</disclaimer>
-        <disclaimer lang="fr_FR">Ce module n&apos;est pas validé par Google</disclaimer>
+        <disclaimer lang="fr_FR">Ce module n'est pas validé par Google</disclaimer>
         <disclaimer lang="hr_HR">Ovaj dodatak nije podržan od strane Googlea</disclaimer>
         <disclaimer lang="id_ID">Plugin ini tidak didukung oleh Google</disclaimer>
         <disclaimer lang="it_IT">Questo plugin non è approvato da Google</disclaimer>
@@ -100,5 +99,26 @@
         <disclaimer lang="vi_VN">Plugin này không được xác nhận bởi Google</disclaimer>
         <disclaimer lang="zh_CN">此插件未被谷歌认可</disclaimer>
         <disclaimer lang="zh_TW">此附加元件未由Google支持</disclaimer>
-    </extension>
+    <news>## v7.0.5+beta.1
+### Fixed
+- Try to prevent Kodi freezing when settings are updated and container is reloaded
+- Fix lockups when using xbmc.executebuiltin #653
+- Fix searching for preferred language subtitles not using non-region specific subtitles
+- Fix not being able to set custom watch later history playlist per user
+- Update workarounds for multiple busy dialog crashes #649
+- Fix playing incorrect video when player request is blocked
+
+### Changed
+- Display search history as list rather than videos
+- Update Setup Wizard
+  - Add settings for Rasberry Pi 3 class devices (1080p30, VP9 enabled)
+  - Update settings for Rasberry Pi 4 class devices (1080p60, VP9 enabled)
+  - Move option to disable list details to last step in wizard
+- Shared playlist play using default order without prompting
+- Removed dependency on script.module.infotagger
+- Removed Nexus specific releases
+  - Matrix releases will now work in Kodi v19+
+  - Leia releases will work, but are unsupported, for Kodi v18 only
+- Updated client versions used for player requests
+  - Use iOS client as fallback for default client selection</news></extension>
 </addon>

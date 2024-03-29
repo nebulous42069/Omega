@@ -133,11 +133,21 @@ class XbmcContextUI(AbstractContextUI):
     def open_settings(self):
         self._xbmc_addon.openSettings()
 
-    def refresh_container(self):
+    @staticmethod
+    def refresh_container():
         # TODO: find out why the RunScript call is required
         # xbmc.executebuiltin("Container.Refresh")
         xbmc.executebuiltin('RunScript({addon_id},action/refresh)'.format(
             addon_id=ADDON_ID
+        ))
+
+    def reload_container(self, path=None):
+        context = self._context
+        xbmc.executebuiltin('ReplaceWindow(Videos, {0})'.format(
+            context.create_uri(
+                path or context.get_path(),
+                dict(context.get_params(), refresh=True),
+            )
         ))
 
     @staticmethod
@@ -216,7 +226,7 @@ class XbmcContextUI(AbstractContextUI):
     def set_focus_next_item(self):
         list_id = xbmcgui.Window(xbmcgui.getCurrentWindowId()).getFocusId()
         try:
-            position = self._context.get_infolabel('Container.Position')
+            position = xbmc.getInfoLabel('Container.Position')
             next_position = int(position) + 1
             self._context.execute('SetFocus({list_id},{position})'.format(
                 list_id=list_id, position=next_position
