@@ -1513,18 +1513,22 @@ def actionResolve(params):
 
         json_data = r3.json()
 
-        # Only two qualities are ever available: 480p ("SD") and 720p ("HD").
+        # Three qualities can be available: 480p ("SD") / 720p ("HD") / 1080p ("FHD")
         source_urls = [ ]
         token_sd = json_data.get('enc', '')
         token_hd = json_data.get('hd', '')
+        token_fhd = json_data.get('fhd', '')
+
         source_base_url = json_data.get('server', '') + '/getvid?evid='
         if token_sd:
             # Order the items as (LABEL, URL).
             source_urls.append(('480 (SD)', source_base_url + token_sd))
         if token_hd:
             source_urls.append(('720 (HD)', source_base_url + token_hd))
+        if token_fhd:
+            source_urls.append(('1080 (FHD)', source_base_url + token_fhd))
         # Use the same backup stream method as the source: cdn domain + SD stream.
-        backup_url = json_data.get('cdn', '') + '/getvid?evid=' + (token_sd or token_hd)
+        backup_url = json_data.get('cdn', '') + '/getvid?evid=' + (token_sd or token_hd or token_fhd)
     elif stream_url:
         source_urls = [ ]
         source_urls.append(('480 (SD)', stream_url))
@@ -1542,20 +1546,22 @@ def actionResolve(params):
         backup_url = backup_match.group(1) if backup_match else ''
 
     media_url = None
-    if len(source_urls) == 1: # Only one quality available.
+    if len(source_urls) == 1:
+        # Only one quality available.
         media_url = source_urls[0][1]
     elif len(source_urls) > 0:
         # Always force "select quality" for now.
         playback_method = ADDON.getSetting('playbackMethod')
-        if playback_method == '0': # Select quality.
+        if playback_method == '0':
+            # Select quality.
             selected_index = xbmcgui.Dialog().select(
                 'Select Quality', [(sourceItem[0] or '?') for sourceItem in source_urls]
             )
             if selected_index != -1:
                 media_url = source_urls[selected_index][1]
-        else: # Auto-play user choice.
-            sorted_sources = sorted(source_urls)
-            media_url = sorted_sources[-1][1] if playback_method == '1' else sorted_sources[0][1]
+        else:
+            # Auto-play user choice.
+            media_url = source_urls[-1][1] if playback_method == '1' else source_urls[0][1]
 
     if media_url:
         # Kodi headers for playing web streamed media.
