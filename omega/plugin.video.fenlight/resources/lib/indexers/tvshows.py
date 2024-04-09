@@ -4,17 +4,16 @@ from modules import kodi_utils, settings
 from modules.metadata import tvshow_meta
 from modules.utils import manual_function_import, get_datetime, make_thread_list, make_thread_list_enumerate, make_thread_list_multi_arg, \
 						get_current_timestamp, paginate_list, jsondate_to_datetime
-from modules.watched_status import get_watched_info_tv, get_watched_status_tvshow
+from modules.watched_status import get_media_info, get_watched_status_tvshow, get_database
 # logger = kodi_utils.logger
 
 string, sys, external, add_items, add_dir, use_minimal_media_info = str, kodi_utils.sys, kodi_utils.external, kodi_utils.add_items, kodi_utils.add_dir, settings.use_minimal_media_info
 set_content, end_directory, set_view_mode, folder_path, random = kodi_utils.set_content, kodi_utils.end_directory, kodi_utils.set_view_mode, kodi_utils.folder_path, kodi_utils.random
-sleep, meta_function, get_datetime_function, add_item, xbmc_actor, home = kodi_utils.sleep, tvshow_meta, get_datetime, kodi_utils.add_item, kodi_utils.xbmc_actor, kodi_utils.home
-get_watched_function, get_watched_info_function, set_category, json = get_watched_status_tvshow, get_watched_info_tv, kodi_utils.set_category, kodi_utils.json
+sleep, meta_function, add_item, xbmc_actor, home = kodi_utils.sleep, tvshow_meta, kodi_utils.add_item, kodi_utils.xbmc_actor, kodi_utils.home
+set_category, json = kodi_utils.set_category, kodi_utils.json
 make_listitem, build_url, set_property = kodi_utils.make_listitem, kodi_utils.build_url, kodi_utils.set_property
-jsondate_to_datetime_function = jsondate_to_datetime
-poster_empty, fanart_empty = kodi_utils.empty_poster, kodi_utils.get_addon_fanart()
-nextpage_landscape, item_jump_landscape = kodi_utils.nextpage_landscape, kodi_utils.item_jump_landscape
+poster_empty, fanart_empty = kodi_utils.empty_poster, kodi_utils.default_addon_fanart
+nextpage_landscape = kodi_utils.nextpage_landscape
 extras_open_action, default_all_episodes, page_limit, paginate = settings.extras_open_action, settings.default_all_episodes, settings.page_limit, settings.paginate
 widget_hide_next_page, widget_hide_watched, watched_indicators = settings.widget_hide_next_page, settings.widget_hide_watched, settings.watched_indicators
 run_plugin, container_update = 'RunPlugin(%s)', 'Container.Update(%s)'
@@ -125,26 +124,24 @@ class TVShows:
 		try:
 			meta = meta_function(self.id_type, _id, self.current_date, self.current_time)
 			if not meta or 'blank_entry' in meta: return
-			meta_get = meta.get
-			premiered = meta_get('premiered')
-			first_airdate = jsondate_to_datetime_function(premiered, '%Y-%m-%d', True)
-			if not first_airdate or self.current_date < first_airdate: unaired = True
-			else: unaired = False
-			tmdb_id, total_seasons, total_aired_eps = meta_get('tmdb_id'), meta_get('total_seasons'), meta_get('total_aired_eps')
-			playcount, total_watched, total_unwatched = get_watched_function(self.watched_info, string(tmdb_id), total_aired_eps)
-			if total_watched:
-				try: progress = int((float(total_watched)/total_aired_eps)*100) or 1
-				except: progress = 1
-			else: progress = 0
 			cm = []
 			cm_append = cm.append
 			listitem = make_listitem()
 			set_properties = listitem.setProperties
+			meta_get = meta.get
+			premiered = meta_get('premiered')
 			trailer, title, year = meta_get('trailer'), meta_get('title'), meta_get('year') or '2050'
 			tvdb_id, imdb_id = meta_get('tvdb_id'), meta_get('imdb_id')
-			poster = meta_get('poster') or poster_empty
-			fanart = meta_get('fanart') or fanart_empty
-			clearlogo = meta_get('clearlogo') or ''
+			poster, fanart, clearlogo, landscape = meta_get('poster') or poster_empty, meta_get('fanart') or fanart_empty, meta_get('clearlogo') or '', meta_get('landscape') or ''
+			tmdb_id, total_seasons, total_aired_eps = meta_get('tmdb_id'), meta_get('total_seasons'), meta_get('total_aired_eps')
+			first_airdate = jsondate_to_datetime(premiered, '%Y-%m-%d', True)
+			if not first_airdate or self.current_date < first_airdate: unaired = True
+			else: unaired = False
+			playcount, total_watched, total_unwatched = get_watched_status_tvshow(self.watched_info, string(tmdb_id), total_aired_eps)
+			if total_watched:
+				try: progress = int((float(total_watched)/total_aired_eps)*100) or 1
+				except: progress = 1
+			else: progress = 0
 			options_params = build_url({'mode': 'options_menu_choice', 'content': 'tvshow', 'tmdb_id': tmdb_id, 'poster': poster, 'playcount': playcount,
 										'progress': progress, 'is_external': self.is_external, 'unaired': unaired, 'in_progress_menu': self.in_progress_menu})
 			extras_params = build_url({'mode': 'extras_menu_choice', 'tmdb_id': tmdb_id, 'media_type': 'tvshow', 'is_external': self.is_external})
@@ -171,7 +168,8 @@ class TVShows:
 			else: cm_append(('[B]Exit TV Show List[/B]', run_plugin % build_url({'mode': 'navigator.exit_media_menu'})))
 			listitem.setLabel(title)
 			listitem.addContextMenuItems(cm)
-			listitem.setArt({'poster': poster, 'fanart': fanart, 'icon': poster, 'clearlogo': clearlogo, 'tvshow.poster': poster, 'tvshow.clearlogo': clearlogo})
+			listitem.setArt({'poster': poster, 'fanart': fanart, 'icon': poster, 'clearlogo': clearlogo, 'landscape': landscape, 'thumb': landscape, 'icon': landscape,
+							'tvshow.poster': poster, 'tvshow.clearlogo': clearlogo})
 			info_tag = listitem.getVideoInfoTag()
 			info_tag.setMediaType('tvshow'), info_tag.setTitle(title), info_tag.setTvShowTitle(title), info_tag.setOriginalTitle(meta_get('original_title'))
 			info_tag.setUniqueIDs({'imdb': imdb_id, 'tmdb': string(tmdb_id), 'tvdb': string(tvdb_id)}), info_tag.setIMDBNumber(imdb_id)
@@ -187,10 +185,12 @@ class TVShows:
 		except: pass
 
 	def worker(self):
-		self.current_date, self.current_time = get_datetime_function(), get_current_timestamp()
-		self.watched_indicators, self.use_minimal_media = watched_indicators(), use_minimal_media_info()
-		self.watched_info, self.all_episodes, self.open_extras = get_watched_info_function(self.watched_indicators), default_all_episodes(), extras_open_action('tvshow')
-		self.is_folder, self.watched_title = False if self.open_extras else True, 'Trakt' if self.watched_indicators == 1 else 'Fen Light'
+		self.current_date, self.current_time, self.use_minimal_media = get_datetime(), get_current_timestamp(), use_minimal_media_info()
+		self.all_episodes, self.open_extras = default_all_episodes(), extras_open_action('tvshow')
+		self.is_folder = False if self.open_extras else True
+		self.watched_indicators = watched_indicators()
+		self.watched_info = get_media_info(self.watched_indicators, 'episode', include_progress=False)
+		self.watched_title = 'Trakt' if self.watched_indicators == 1 else 'Fen Light'
 		if self.custom_order:
 			threads = list(make_thread_list_multi_arg(self.build_tvshow_content, self.list))
 			[i.join() for i in threads]
@@ -205,7 +205,8 @@ class TVShows:
 		try:
 			random_results = []
 			if self.action in main: threads = list(make_thread_list(lambda x: random_results.extend(function(x)['results']), range(1, 6)))
-			elif self.action in trakt_main: threads = list(make_thread_list(lambda x: random_results.extend(function(x)), range(1, 6)))
+			elif self.action in trakt_main:
+				threads = list(make_thread_list(lambda x: random_results.extend(function(x)), ['shows',] if self.action == 'trakt_recommendations' else range(1, 6)))
 			else:
 				info = random.choice(meta_list_dict[self.action])
 				self.category_name = 'Random %s' % info['name']

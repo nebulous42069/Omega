@@ -15,14 +15,15 @@ get_main_lists, authorized_debrid_check = nc.get_main_lists, s.authorized_debrid
 log_loc, old_log_loc = tp('special://logpath/kodi.log'), tp('special://logpath/kodi.old.log')
 folder_icon = get_icon('folder')
 run_plugin = 'RunPlugin(%s)'
-mm_str, sf_str = 'menu_editor.%s', 'menu_editor.shortcut_folder_edit'
+me_str, sf_str = 'menu_editor.%s', 'menu_editor.shortcut_folder_edit'
 random_list_dict = {'movie': nc.random_movie_lists, 'tvshow': nc.random_tvshow_lists, 'trakt': nc.random_trakt_lists}
 search_mode_dict = {'movie': ('movie_queries', {'mode': 'search.get_key_id', 'media_type': 'movie', 'isFolder': 'false'}),
 				'tvshow': ('tvshow_queries', {'mode': 'search.get_key_id', 'media_type': 'tv_show', 'isFolder': 'false'}),
 				'people': ('people_queries', {'mode': 'search.get_key_id', 'search_type': 'people', 'isFolder': 'false'}),
 				'tmdb_keyword_movie': ('keyword_tmdb_movie_queries', {'mode': 'search.get_key_id', 'search_type': 'tmdb_keyword', 'media_type': 'movie', 'isFolder': 'false'}),
 				'tmdb_keyword_tvshow': ('keyword_tmdb_tvshow_queries', {'mode': 'search.get_key_id', 'search_type': 'tmdb_keyword', 'media_type': 'tvshow', 'isFolder': 'false'}),
-				'easynews_video': ('easynews_video_queries', {'mode': 'search.get_key_id', 'search_type': 'easynews_video', 'isFolder': 'false'})}
+				'easynews_video': ('easynews_video_queries', {'mode': 'search.get_key_id', 'search_type': 'easynews_video', 'isFolder': 'false'}),
+				'trakt_lists': ('trakt_list_queries', {'mode': 'search.get_key_id', 'search_type': 'trakt_lists', 'isFolder': 'false'})}
 
 class Navigator:
 	def __init__(self, params):
@@ -33,7 +34,20 @@ class Navigator:
 		self.is_home = home()
 
 	def main(self):
-		add_items(int(sys.argv[1]), list(self.build_main_list()))
+		if self.params_get('full_list', 'false') == 'true': browse_list = get_main_lists(self.list_name)[0]
+		else: browse_list = currently_used_list(self.list_name)
+		for count, item in enumerate(browse_list):
+			item_get = item.get
+			iconImage = item_get('iconImage')
+			icon, original_image = (iconImage, True) if iconImage.startswith('http') else (iconImage, False)
+			cm_items = [('[B]Move[/B]', run_plugin % build_url({'mode': me_str % 'move', 'active_list': self.list_name, 'position': count})),
+						('[B]Remove[/B]', run_plugin % build_url({'mode': me_str % 'remove', 'active_list': self.list_name, 'position': count})),
+						('[B]Add Content[/B]', run_plugin % build_url({'mode': me_str % 'add', 'active_list': self.list_name, 'position': count})),
+						('[B]Restore Menu[/B]', run_plugin % build_url({'mode': me_str % 'restore', 'active_list': self.list_name, 'position': count})),
+						('[B]Check for New Menu Items[/B]', run_plugin % build_url({'mode': me_str % 'update', 'active_list': self.list_name, 'position': count})),
+						('[B]Reload Menu[/B]', run_plugin % build_url({'mode': me_str % 'reload', 'active_list': self.list_name, 'position': count})),
+						('[B]Browse Removed items[/B]', run_plugin % build_url({'mode': me_str % 'browse', 'active_list': self.list_name, 'position': count}))]
+			self.add(item, item_get('name', ''), icon, original_image, cm_items=cm_items)
 		self.end_directory()
 
 	def discover(self):
@@ -86,7 +100,7 @@ class Navigator:
 			self.add({'mode': 'build_my_calendar'}, 'Trakt Calendar', 'trakt')
 		self.add({'mode': 'trakt.list.get_trakt_trending_popular_lists', 'list_type': 'trending', 'category_name': 'Trending User Lists'}, 'Trending User Lists', 'trakt')
 		self.add({'mode': 'trakt.list.get_trakt_trending_popular_lists', 'list_type': 'popular', 'category_name': 'Popular User Lists'}, 'Popular User Lists', 'trakt')
-		self.add({'mode': 'search.get_key_id', 'search_type': 'trakt_lists', 'isFolder': 'false'}, 'Search Lists...', 'search')
+		self.add({'mode': 'navigator.search_history', 'action': 'trakt_lists'}, 'Search User Lists', 'search')
 		self.end_directory()
 
 	def random_lists(self):
@@ -134,11 +148,11 @@ class Navigator:
 		self.end_directory()
 
 	def search(self):
-		self.add({'mode': 'navigator.search_history', 'action': 'movie', 'name': 'Movies'}, 'Movies', 'search_movie')
-		self.add({'mode': 'navigator.search_history', 'action': 'tvshow', 'name': 'TV Shows'}, 'TV Shows', 'search_tv')
-		self.add({'mode': 'navigator.search_history', 'action': 'people', 'name': 'People'}, 'People', 'search_people')
-		self.add({'mode': 'navigator.search_history', 'action': 'tmdb_keyword_movie', 'name': 'Keywords (Movies)'}, 'Keywords (Movies)', 'search_tmdb')
-		self.add({'mode': 'navigator.search_history', 'action': 'tmdb_keyword_tvshow', 'name': 'Keywords (TV Shows)'}, 'Keywords (TV Shows)', 'search_tmdb')
+		self.add({'mode': 'navigator.search_history', 'action': 'movie', 'name': 'Search History Movies'}, 'Movies', 'search_movie')
+		self.add({'mode': 'navigator.search_history', 'action': 'tvshow', 'name': 'Search History TV Shows'}, 'TV Shows', 'search_tv')
+		self.add({'mode': 'navigator.search_history', 'action': 'people', 'name': 'Search History People'}, 'People', 'search_people')
+		self.add({'mode': 'navigator.search_history', 'action': 'tmdb_keyword_movie', 'name': 'Search History Keywords (Movies)'}, 'Keywords (Movies)', 'search_tmdb')
+		self.add({'mode': 'navigator.search_history', 'action': 'tmdb_keyword_tvshow', 'name': 'Search History Keywords (TV Shows)'}, 'Keywords (TV Shows)', 'search_tmdb')
 		self.end_directory()
 
 	def downloads(self):
@@ -151,13 +165,16 @@ class Navigator:
 
 	def tools(self):
 		self.add({'mode': 'open_settings', 'isFolder': 'false'}, 'Settings', 'settings')
+		if get_property('fenlight.external_scraper.module') not in ('empty_setting', ''):
+			self.add({'mode': 'open_external_scraper_settings', 'isFolder': 'false'}, 'External Scraper Settings', 'settings')
 		self.add({'mode': 'navigator.tips'}, 'Tips for Use', 'settings2')
 		self.add({'mode': 'navigator.set_view_modes'}, 'Set Views', 'settings2')
 		self.add({'mode': 'build_next_episode_manager'}, 'TV Shows Progress Manager', 'settings2')
 		self.add({'mode': 'navigator.shortcut_folders'}, 'Shortcut Folders Manager', 'settings2')
 		self.add({'mode': 'navigator.changelog_utils'}, 'Changelog & Log Utils', 'settings2')
 		self.add({'mode': 'navigator.maintenance'}, 'Database & Cache Maintenance', 'settings2')
-		self.add({'mode': 'update_check', 'isFolder': 'false'}, 'Check For Updates', 'settings2')
+		self.add({'mode': 'updater.update_check', 'isFolder': 'false'}, 'Check For Updates', 'settings2')
+		self.add({'mode': 'updater.rollback_check', 'isFolder': 'false'}, 'Rollback to a Previous Version', 'settings2')
 		self.add({'mode': 'toggle_language_invoker', 'isFolder': 'false'}, 'Toggle Language Invoker (ADVANCED!!)', 'settings2')
 		self.end_directory()
 
@@ -232,7 +249,8 @@ class Navigator:
 		self.end_directory()
 
 	def networks(self):
-		if self.params_get('menu_type') == 'movie': return
+		menu_type = self.params_get('menu_type')
+		if menu_type == 'movie': return
 		mode, action, networks = 'build_tvshow_list', 'tmdb_tv_networks', sorted(ml.networks, key=lambda k: k['name'])
 		if 'random' in self.params: return self.handle_random(menu_type, action)
 		for i in networks: self.add({'mode': mode, 'action': action, 'key_id': i['id'], 'name': i['name']}, i['name'], i['icon'])
@@ -257,71 +275,38 @@ class Navigator:
 
 	def search_history(self):
 		from caches.main_cache import main_cache
-		def _builder():
-			for i in data:
-				try:
-					listitem = make_listitem()
-					key_id = unquote(i)
-					url_params['key_id'] = key_id
-					url_params['setting_id'] = setting_id
-					url = build_url(url_params)
-					if not self.is_home:
-						cm = []
-						cm.append(('[B]Remove from history[/B]', 'RunPlugin(%s)' % build_url({'mode': 'search.remove', 'setting_id':setting_id, 'key_id': key_id})))
-						cm.append(('[B]Clear All History[/B]', 'RunPlugin(%s)' % build_url({'mode': 'search.clear_all', 'setting_id':setting_id, 'refresh': 'true'})))
-						listitem.addContextMenuItems(cm)
-					listitem.setLabel(key_id)
-					listitem.setArt({'icon': icon, 'poster': icon, 'thumb': icon, 'fanart': fanart, 'banner': icon})
-					info_tag = listitem.getVideoInfoTag()
-					# info_tag.setMediaType('video')
-					info_tag.setPlot(' ')
-					yield (url, listitem, False)
-				except: pass
-		handle = int(sys.argv[1])
-		icon = get_icon('search_history')
 		setting_id, action_dict = search_mode_dict[self.list_name]
 		url_params = dict(action_dict)
 		data = main_cache.get(setting_id) or []
 		self.add(action_dict, '[B]NEW SEARCH...[/B]', 'search_new', False)
-		add_items(handle, list(_builder()))
-		set_content(handle, '')
-		set_category(handle, self.params_get('name') or 'History')
-		end_directory(handle, cacheToDisc=False)
-		set_view_mode('view.main', '')
+		for i in data:
+			try:
+				key_id = unquote(i)
+				url_params['key_id'] = key_id
+				url_params['setting_id'] = setting_id
+				cm_items = [('[B]Remove from history[/B]', 'RunPlugin(%s)' % build_url({'mode': 'search.remove', 'setting_id':setting_id, 'key_id': key_id})),
+							('[B]Clear All History[/B]', 'RunPlugin(%s)' % build_url({'mode': 'search.clear_all', 'setting_id':setting_id, 'refresh': 'true'}))]
+				self.add(url_params, key_id, 'search_history', cm_items=cm_items)
+			except: pass
+		self.category_name = self.params_get('name') or 'History'
+		self.end_directory()
 
 	def keyword_results(self):
 		from apis.tmdb_api import tmdb_keywords_by_query
-		def _builder():
-			for item in results:
-				try:
-					name = item['name'].upper()
-					url_params = {'mode': mode, 'action': action, 'key_id': item['id'], 'iconImage': 'tmdb', 'category_name': name}
-					url = build_url(url_params)
-					listitem = make_listitem()
-					listitem.setLabel(name)
-					listitem.setArt({'icon': tmdb_icon, 'poster': tmdb_icon, 'thumb': tmdb_icon, 'fanart': fanart, 'banner': tmdb_icon})
-					info_tag = listitem.getVideoInfoTag()
-					# info_tag.setMediaType('video')
-					info_tag.setPlot(' ')
-					yield (url, listitem, True)
-				except: pass
-		handle = int(sys.argv[1])
-		tmdb_icon = get_icon('tmdb')
 		media_type, key_id = self.params_get('media_type'), self.params_get('key_id') or self.params_get('query')
 		try: page_no = int(self.params_get('new_page', '1'))
 		except: page_no = self.params_get('new_page')
 		mode = 'build_movie_list' if media_type == 'movie' else 'build_tvshow_list'
 		action = 'tmdb_movie_keyword_results' if media_type == 'movie' else 'tmdb_tv_keyword_results'
 		data = tmdb_keywords_by_query(key_id, page_no)
-		results = data['results']
-		add_items(handle, list(_builder()))
+		for item in data['results']:
+			name = item['name'].upper()
+			self.add({'mode': mode, 'action': action, 'key_id': item['id'], 'iconImage': 'tmdb', 'category_name': name}, name, iconImage='tmdb')
 		if data['total_pages'] > page_no:
 			new_page = {'mode': 'navigator.keyword_results', 'key_id': key_id, 'category_name': self.category_name, 'new_page': str(data['page'] + 1)}
 			self.add(new_page, 'Next Page (%s) >>' % new_page['new_page'], 'nextpage', False)
-		set_content(handle, 'files')
-		set_category(handle, 'Search Results for %s' % key_id.upper())
-		end_directory(handle)
-		set_view_mode('view.main')
+		self.category_name = 'Search Results for %s' % key_id.upper()
+		self.end_directory()
 
 	def choose_view(self):
 		view_type, content = self.params['view_type'], self.params['content']
@@ -335,89 +320,36 @@ class Navigator:
 	def set_view(self):
 		set_setting(self.params['view_type'], str(current_window_object().getFocusId()))
 		notification('%s: %s' % (self.params['name'].upper(), get_infolabel('Container.Viewmode').upper()), time=500)
-
-	def folder_navigator(self):
-		from os.path import join as pjoin
-		from modules.utils import clean_file_name, normalize
-		def _process():
-			for info in results:
-				try:
-					path = info[0]
-					clean_title = clean_file_name(normalize(path))
-					display = clean_title
-					url = pjoin(folder_path, path)
-					listitem = make_listitem()
-					listitem.addContextMenuItems(cm)
-					listitem.setLabel(display)
-					listitem.setArt({'fanart': fanart})
-					info_tag = listitem.getVideoInfoTag()
-					# info_tag.setMediaType('video')
-					info_tag.setPlot(' ')
-					yield (url, listitem, info[1])
-				except: pass
-		folder_path = self.params_get('folder_path')
-		dirs, files = list_dirs(folder_path)
-		results = [(i, True) for i in dirs] + [(i, False) for i in files]
-		item_list = list(_process())
-		handle = int(sys.argv[1])
-		add_items(handle, item_list)
-		set_sort_method(handle, 'files')
-		self.end_directory()
-		set_view_mode('view.main', '')
 	
 	def shortcut_folders(self):
-		def _builder():
-			for i in folders:
-				try:
-					name = i[0]
-					listitem = make_listitem()
-					url = build_url({'mode': 'navigator.build_shortcut_folder_contents', 'name': name, 'iconImage': 'folder'})
-					if not self.is_home:
-						cm = []
-						cm.append(('[B]Rename[/B]', run_plugin % build_url({'mode': 'menu_editor.shortcut_folder_rename'})))
-						cm.append(('[B]Delete Shortcut Folder[/B]' , run_plugin % build_url({'mode': 'menu_editor.shortcut_folder_delete'})))
-						cm.append(('[B]Make New Shortcut Folder[/B]' , run_plugin % build_url({'mode': 'menu_editor.shortcut_folder_make'})))
-						listitem.addContextMenuItems(cm)
-					listitem.setLabel(name)
-					listitem.setArt({'icon': folder_icon, 'poster': folder_icon, 'thumb': folder_icon, 'fanart': fanart, 'banner': folder_icon})
-					info_tag = listitem.getVideoInfoTag()
-					# info_tag.setMediaType('video')
-					info_tag.setPlot(' ')
-					yield (url, listitem, True)
-				except: pass
 		folders = get_shortcut_folders()
-		if folders: add_items(int(sys.argv[1]), list(_builder()))
+		if folders:
+			for i in folders:
+				name = i[0]
+				cm_items = [('[B]Rename[/B]', run_plugin % build_url({'mode': 'menu_editor.shortcut_folder_rename'})),
+							('[B]Delete Shortcut Folder[/B]' , run_plugin % build_url({'mode': 'menu_editor.shortcut_folder_delete'})),
+							('[B]Make New Shortcut Folder[/B]' , run_plugin % build_url({'mode': 'menu_editor.shortcut_folder_make'}))]
+				self.add({'mode': 'navigator.build_shortcut_folder_contents', 'name': name, 'iconImage': 'folder'}, name, 'folder', cm_items=cm_items)
 		else: self.add({'mode': 'menu_editor.shortcut_folder_make', 'isFolder': 'false'}, '[I]Make New Shortcut Folder...[/I]', 'new')
+		self.category_name = 'Shortcut Folders'
 		self.end_directory()
 
 	def build_shortcut_folder_contents(self):
-		def _process():
-			for pos, item in enumerate(contents):
-				try:
-					item_get = item.get
-					name = item_get('name')
-					iconImage = item_get('iconImage', None)
-					if iconImage: icon = iconImage if iconImage.startswith('http') else get_icon(item_get('iconImage'))
-					else: icon = folder_icon
-					listitem = make_listitem()
-					cm = []
-					cm.append(('[B]Move[/B]', run_plugin % build_url({'mode': sf_str, 'active_list': list_name, 'position': pos, 'action': 'move'})))
-					cm.append(('[B]Remove[/B]' , run_plugin % build_url({'mode': sf_str, 'active_list': list_name, 'position': pos, 'action': 'remove'})))
-					cm.append(('[B]Add Content[/B]' , run_plugin % build_url({'mode': 'menu_editor.shortcut_folder_add', 'name': list_name})))
-					cm.append(('[B]Rename[/B]' , run_plugin % build_url({'mode': sf_str, 'active_list': list_name, 'position': pos, 'action': 'rename'})))
-					cm.append(('[B]Clear All[/B]' , run_plugin % build_url({'mode': sf_str, 'active_list': list_name, 'position': pos, 'action': 'clear'})))
-					listitem.addContextMenuItems(cm)
-					listitem.setLabel(name)
-					listitem.setArt({'icon': icon, 'poster': icon, 'thumb': icon, 'fanart': fanart, 'banner': icon})
-					info_tag = listitem.getVideoInfoTag()
-					# info_tag.setMediaType('video')
-					info_tag.setPlot(' ')
-					isFolder = item.get('isFolder', 'true') == 'true'
-					yield (build_url(item), listitem, isFolder)
-				except: pass
 		list_name = self.params_get('name')
 		contents = get_shortcut_folder_contents(list_name)
-		if contents: add_items(int(sys.argv[1]), list(_process()))
+		if contents:
+			for count, item in enumerate(contents):
+				item_get = item.get
+				iconImage = item_get('iconImage', None)
+				if iconImage: icon, original_image = iconImage, True if iconImage.startswith('http') else False
+				else: icon, original_image = folder_icon, False
+				
+				cm_items = [('[B]Move[/B]', run_plugin % build_url({'mode': sf_str, 'active_list': list_name, 'position': count, 'action': 'move'})),
+							('[B]Remove[/B]' , run_plugin % build_url({'mode': sf_str, 'active_list': list_name, 'position': count, 'action': 'remove'})),
+							('[B]Add Content[/B]' , run_plugin % build_url({'mode': 'menu_editor.shortcut_folder_add', 'name': list_name})),
+							('[B]Rename[/B]' , run_plugin % build_url({'mode': sf_str, 'active_list': list_name, 'position': count, 'action': 'rename'})),
+							('[B]Clear All[/B]' , run_plugin % build_url({'mode': sf_str, 'active_list': list_name, 'position': count, 'action': 'clear'}))]
+				self.add(item, item_get('name'), icon, original_image, cm_items=cm_items)
 		else: self.add({'mode': 'menu_editor.shortcut_folder_add', 'name': list_name, 'isFolder': 'false'}, '[I]Add Content...[/I]', 'new', False)
 		self.end_directory()
 
@@ -429,33 +361,15 @@ class Navigator:
 			results = discover_cache.get_all(media_type)
 			if media_type == 'movie': mode, action = 'build_movie_list', 'tmdb_movies_discover'
 			else: mode, action = 'build_tvshow_list', 'tmdb_tv_discover'
-			def _builder():
-				for item in results:
-					listitem = make_listitem()
-					name = item['id']
-					url_params = {'mode': mode, 'action': action, 'name': name, 'url': item['data']}
-					url = build_url(url_params)
-					if not self.is_home:
-						cm = []
-						cm.append(('[B]Remove from history[/B]', 'RunPlugin(%s)' % build_url({'mode': 'navigator.discover_contents', 'action':'delete_one', 'name': name})))
-						cm.append(('[B]Clear All History[/B]', 'RunPlugin(%s)' % build_url({'mode': 'navigator.discover_contents', 'action':'delete_all', 'media_type': media_type})))
-						listitem.addContextMenuItems(cm)
-					listitem.setLabel(name)
-					listitem.setArt({'icon': icon, 'poster': icon, 'thumb': icon, 'fanart': fanart, 'banner': icon})
-					info_tag = listitem.getVideoInfoTag()
-					# info_tag.setMediaType('video')
-					info_tag.setPlot(' ')
-					yield (url, listitem, True)
-			handle = int(sys.argv[1])
-			icon = get_icon('discover')
-			add_items(handle, list(_builder()))
-			set_content(handle, 'files')
-			set_category(handle, 'Discover')
-			end_directory(handle)
-			set_view_mode('view.main')
+			for item in results:
+				name = item['id']
+				cm_items = [('[B]Remove from history[/B]', 'RunPlugin(%s)' % build_url({'mode': 'navigator.discover_contents', 'action':'delete_one', 'name': name})),
+							('[B]Clear All History[/B]', 'RunPlugin(%s)' % build_url({'mode': 'navigator.discover_contents', 'action':'clear_cache', 'media_type': media_type}))]
+				self.add({'mode': mode, 'action': action, 'name': name, 'url': item['data']}, name, 'discover', cm_items=cm_items)
+			self.end_directory()
 		else:
 			if action == 'delete_one': discover_cache.delete_one(self.params_get('name'))
-			elif action == 'delete_all': discover_cache.delete_all(media_type)
+			elif action == 'clear_cache': discover_cache.clear_cache(media_type)
 			container_refresh()
 
 	def exit_media_menu(self):
@@ -470,9 +384,9 @@ class Navigator:
 		tips_append = tips_list.append
 		for item in files:
 			tip = item.replace('.txt', '')[4:]
-			if '!!HELP!!' in tip: tip, sort_order = tip.replace('!!HELP!!', '[COLOR crimson]HELP!!![/COLOR] '), 0
-			elif '!!NEW!!' in tip: tip, sort_order = tip.replace('!!NEW!!', '[COLOR chartreuse]NEW!![/COLOR] '), 1
-			elif '!!SPOTLIGHT!!' in tip: tip, sort_order = tip.replace('!!SPOTLIGHT!!', '[COLOR orange]SPOTLIGHT![/COLOR] '), 2
+			if '!!HELP!!' in tip: tip, sort_order = tip.replace('!!HELP!!', '[COLOR crimson][B]HELP!!![/B][/COLOR] '), 0
+			elif '!!NEW!!' in tip: tip, sort_order = tip.replace('!!NEW!!', '[COLOR chartreuse][B]NEW!![/B][/COLOR] '), 1
+			elif '!!SPOTLIGHT!!' in tip: tip, sort_order = tip.replace('!!SPOTLIGHT!!', '[COLOR orange][B]SPOTLIGHT![/B][/COLOR] '), 2
 			else: sort_order = 3
 			action = {'mode': 'show_text', 'heading': tip, 'file': tp(tips_location % item), 'font_size': 'large', 'isFolder': 'false'}
 			tips_append((action, tip, sort_order))
@@ -481,43 +395,14 @@ class Navigator:
 		self.end_directory()
 
 	def because_you_watched(self):
-		media_type = self.params_get('menu_type')
-		mode, action = ('build_movie_list', 'tmdb_movies_recommendations') if media_type == 'movie' else ('build_tvshow_list', 'tmdb_tv_recommendations')
+		if self.params_get('menu_type') == 'movie': mode, action, media_type = 'build_movie_list', 'tmdb_movies_recommendations', 'movie'
+		else: mode, action, media_type = 'build_tvshow_list', 'tmdb_tv_recommendations', 'episode'
 		recently_watched = get_recently_watched(media_type, short_list=0)
 		for item in recently_watched:
 			if media_type == 'movie': name, tmdb_id = item['title'], item['media_id']
 			else: name, tmdb_id = '%s - %sx%s' % (item['title'], str(item['season']), str(item['episode'])), item['media_ids']['tmdb']
 			self.add({'mode': mode, 'action': action, 'key_id': tmdb_id, 'name': 'Because You Watched %s' % name}, name, 'because_you_watched', False)
 		self.end_directory()
-
-	def build_main_list(self):
-		if self.params_get('full_list', 'false') == 'true': browse_list = get_main_lists(self.list_name)[0]
-		else: browse_list = currently_used_list(self.list_name)
-		for pos, item in enumerate(browse_list):
-			try:
-				item_get = item.get
-				isFolder = item_get('isFolder', 'true') == 'true'
-				if not isFolder and self.is_home: continue
-				listitem = make_listitem()
-				iconImage = item_get('iconImage')
-				icon = iconImage if iconImage.startswith('http') else get_icon(iconImage)
-				if not self.is_home:
-					cm = []
-					cm.append(('[B]Move[/B]', run_plugin % build_url({'mode': mm_str % 'move', 'active_list': self.list_name, 'position': pos})))
-					cm.append(('[B]Remove[/B]', run_plugin % build_url({'mode': mm_str % 'remove', 'active_list': self.list_name, 'position': pos})))
-					cm.append(('[B]Add Content[/B]', run_plugin % build_url({'mode': mm_str % 'add', 'active_list': self.list_name, 'position': pos})))
-					cm.append(('[B]Restore Menu[/B]', run_plugin % build_url({'mode': mm_str % 'restore', 'active_list': self.list_name, 'position': pos})))
-					cm.append(('[B]Check for New Menu Items[/B]', run_plugin % build_url({'mode': mm_str % 'update', 'active_list': self.list_name, 'position': pos})))
-					cm.append(('[B]Reload Menu[/B]', run_plugin % build_url({'mode': mm_str % 'reload', 'active_list': self.list_name, 'position': pos})))
-					cm.append(('[B]Browse Removed items[/B]', run_plugin % build_url({'mode': mm_str % 'browse', 'active_list': self.list_name, 'position': pos})))
-					listitem.addContextMenuItems(cm)
-				listitem.setLabel(item_get('name', ''))
-				listitem.setArt({'icon': icon, 'poster': icon, 'thumb': icon, 'fanart': fanart, 'banner': icon, 'landscape': icon})
-				info_tag = listitem.getVideoInfoTag()
-				# info_tag.setMediaType('video')
-				info_tag.setPlot(' ')
-				yield (build_url(item), listitem, isFolder)
-			except: pass
 
 	def build_random_lists(self):
 		menu_type = self.params_get('menu_type')
@@ -530,7 +415,7 @@ class Navigator:
 		else: from indexers.tvshows import TVShows as function
 		return function({'action': action, 'random': 'true'}).fetch_list()
 
-	def add(self, url_params, list_name, iconImage='folder', original_image=False):
+	def add(self, url_params, list_name, iconImage='folder', original_image=False, cm_items=[]):
 		isFolder = url_params.get('isFolder', 'true') == 'true'
 		if original_image: icon = iconImage
 		else: icon = get_icon(iconImage)
@@ -540,8 +425,8 @@ class Navigator:
 		listitem.setLabel(list_name)
 		listitem.setArt({'icon': icon, 'poster': icon, 'thumb': icon, 'fanart': fanart, 'banner': icon, 'landscape': icon})
 		info_tag = listitem.getVideoInfoTag()
-		# info_tag.setMediaType('video')
 		info_tag.setPlot(' ')
+		if cm_items and not self.is_home: listitem.addContextMenuItems(cm_items)
 		add_item(int(sys.argv[1]), url, listitem, isFolder)
 
 	def end_directory(self):

@@ -14,16 +14,16 @@ from modules.episode_tools import EpisodeTools
 
 Thread, get_icon, close_all_dialog = kodi_utils.Thread, kodi_utils.get_icon, kodi_utils.close_all_dialog
 backup_cast_thumbnail = get_icon('genre_family')
-addon_fanart, empty_poster = kodi_utils.get_addon_fanart(), kodi_utils.empty_poster
+addon_fanart, empty_poster = kodi_utils.default_addon_fanart, kodi_utils.empty_poster
 extras_button_label_values, show_busy_dialog, hide_busy_dialog = kodi_utils.extras_button_label_values, kodi_utils.show_busy_dialog, kodi_utils.hide_busy_dialog
 container_update, activate_window, clear_property = kodi_utils.container_update, kodi_utils.activate_window, kodi_utils.clear_property
 extras_enable_scrollbars, omdb_api_key, date_offset = settings.extras_enable_scrollbars, settings.omdb_api_key, settings.date_offset
 default_all_episodes, extras_enabled_menus = settings.default_all_episodes, settings.extras_enabled_menus
 enable_extra_ratings, watched_indicators = settings.extras_enable_extra_ratings, settings.watched_indicators
 options_menu_choice, extras_menu_choice, imdb_videos_choice = dialogs.options_menu_choice, dialogs.extras_menu_choice, dialogs.imdb_videos_choice
-get_progress_percent, get_bookmarks, get_watched_info_movie = watched_status.get_progress_percent, watched_status.get_bookmarks, watched_status.get_watched_info_movie
+get_progress_percent, get_media_info, get_bookmarks = watched_status.get_progress_percent, watched_status.get_media_info, watched_status.get_bookmarks
 trakt_manager_choice, random_choice, playback_choice, favorites_choice = dialogs.trakt_manager_choice, dialogs.random_choice, dialogs.playback_choice, dialogs.favorites_choice
-get_watched_status_movie, get_watched_info_tv, get_next_episodes = watched_status.get_watched_status_movie, watched_status.get_watched_info_tv, watched_status.get_next_episodes
+get_watched_status_movie, get_next_episodes = watched_status.get_watched_status_movie, watched_status.get_next_episodes
 trailer_choice, media_extra_info, genres_choice, random_choice = dialogs.trailer_choice, dialogs.media_extra_info_choice, dialogs.genres_choice, dialogs.random_choice
 keywords_choice = dialogs.keywords_choice
 person_search, person_data_dialog = people.person_search, people.person_data_dialog
@@ -39,7 +39,7 @@ setting_base, label_base, ratings_icon_base = 'fenlight.extras.%s.button', 'butt
 separator = '[B]  •  [/B]'
 button_ids = (10, 11, 12, 13, 14, 15, 16, 17, 50)
 plot_id, cast_id, recommended_id, reviews_id, comments_id, trivia_id, blunders_id, parentsguide_id = 2000, 2050, 2051, 2052, 2053, 2054, 2055, 2056
-videos_id, year_id, genres_id, networks_id, collection_id = 2057, 2058, 2059, 2060, 2061
+videos_id, year_id, genres_id, networks_id, collection_id, media_images_id = 2057, 2058, 2059, 2060, 2061, 2062
 items_list_ids = (recommended_id, year_id, genres_id, networks_id, collection_id)
 text_list_ids = (reviews_id, trivia_id, blunders_id, parentsguide_id, comments_id)
 finished_tvshow = ('', 'Ended', 'Canceled')
@@ -47,6 +47,7 @@ parentsguide_icons = {'Sex & Nudity': get_icon('sex_nudity'), 'Violence & Gore':
 						'Alcohol, Drugs & Smoking': get_icon('drugs_alcohol'), 'Frightening & Intense Scenes': get_icon('genre_horror')}
 meta_ratings_values = (('metascore', 1), ('tomatometer', 2), ('tomatousermeter', 3), ('imdb', 4), ('tmdb', 5))
 ratings_null = ('', '%')
+missing_image_check = ('', None, empty_poster, addon_fanart)
 _images = Images().run
 
 class Extras(BaseDialog):
@@ -57,7 +58,7 @@ class Extras(BaseDialog):
 		self.set_properties()
 		self.tasks = (self.set_artwork, self.set_infoline1, self.set_infoline2, self.make_ratings, self.make_cast, self.make_recommended, self.make_reviews,
 					self.make_comments, self.make_trivia, self.make_blunders, self.make_parentsguide, self.make_videos, self.make_year, self.make_genres,
-					self.make_network, self.make_collection)
+					self.make_network, self.make_collection, self.make_media_images)
 
 	def onInit(self):
 		self.set_home_property('window_loaded', 'true')
@@ -107,6 +108,8 @@ class Extras(BaseDialog):
 		if action in self.selection_actions:
 			try: chosen_var = self.get_listitem(self.control_id).getProperty(self.item_action_dict[self.control_id])
 			except: return
+			if not chosen_var: return
+			position = self.get_position(self.control_id)
 			if self.control_id in items_list_ids:
 				self.set_current_params()
 				self.new_params = {'mode': 'extras_menu_choice', 'tmdb_id': chosen_var, 'media_type': self.media_type, 'is_external': self.is_external, 'stacked': 'true'}
@@ -116,18 +119,16 @@ class Extras(BaseDialog):
 				self.new_params = {'mode': 'person_data_dialog', 'key_id': chosen_var, 'reference_tmdb_id': self.tmdb_id, 'is_external': self.is_external, 'stacked': 'true'}
 				return window_manager(self)
 			elif self.control_id == videos_id:
-				chosen = imdb_videos_choice({'videos': self.get_attribute(self, chosen_var)[self.get_position(self.control_id)]['videos'], 'poster': self.poster})
+				chosen = imdb_videos_choice({'videos': self.get_attribute(self, chosen_var)[position]['videos'], 'poster': self.poster})
 				if not chosen: return
 				self.set_current_params()
 				self.window_player_url = chosen
 				return window_player(self)
+			elif self.control_id == media_images_id:
+				return self.select_item(self.control_id, _images({'mode': 'imageviewer','all_images': self.get_attribute(self, chosen_var), 'current_index': position}))
 			elif self.control_id in text_list_ids:
-				if self.control_id == parentsguide_id:
-					if not chosen_var: return
-					self.show_text_media(text=chosen_var)
-				else:
-					end_index = self.show_text_media(text=self.get_attribute(self, chosen_var), current_index=self.get_position(self.control_id))
-					self.select_item(self.control_id, end_index)
+				if self.control_id == parentsguide_id: return self.show_text_media(text=chosen_var)
+				else: return self.select_item(self.control_id, self.show_text_media(text=self.get_attribute(self, chosen_var), current_index=position))
 			else: return
 
 	def make_ratings(self, win_prop=4000):
@@ -350,6 +351,28 @@ class Extras(BaseDialog):
 			self.add_items(collection_id, item_list)
 		except: pass
 
+	def make_media_images(self):
+		if not media_images_id in self.enabled_lists: return
+		def builder():
+			for item in all_images:
+				try:
+					listitem = self.make_listitem()
+					listitem.setProperty('name', item[1])
+					listitem.setProperty('thumbnail', item[0])
+					listitem.setProperty('content_list', 'all_media_images')
+					yield listitem
+				except: pass
+		try:
+			all_images = [(self.get_attribute(self, i), '%s %s' % (self.title, i.capitalize())) for i in ('poster', 'fanart', 'clearlogo')]
+			all_images = [i for i in all_images if not i[0] in missing_image_check]
+			if not all_images: return
+			self.all_media_images = [(change_image_resolution(i[0], 'original'), i[1]) for i in all_images]
+			item_list = list(builder())
+			self.setProperty('media_images.number', count_insert % len(item_list))
+			self.item_action_dict[media_images_id] = 'content_list'
+			self.add_items(media_images_id, item_list)
+		except: pass
+
 	def get_extra_ratings(self):
 		if not self.display_extra_ratings: return None
 		data = self.meta_get('extra_ratings', None) or fetch_ratings_info(self.meta, self.omdb_api)
@@ -501,8 +524,11 @@ class Extras(BaseDialog):
 		return _images({'mode': 'imdb_image_results', 'imdb_id': self.imdb_id, 'media_title': self.rootname, 'page_no': 1, 'rolling_count_list': [0]})
 
 	def show_media_images(self):
-		all_images = [(change_image_resolution(self.get_attribute(self, i), 'original'), '%s %s' % (self.title, i)) for i in ('poster', 'fanart', 'clearlogo')]
-		return _images({'mode': 'tmdb_image_results', 'all_images': [i for i in all_images if i[0]]})
+		all_images = [(self.get_attribute(self, i), '%s %s' % (self.title, i)) for i in ('poster', 'fanart', 'clearlogo')]
+		all_images = [i for i in all_images if not i[0] in missing_image_check]
+		if not all_images: return self.notification('No Media Images to Display')
+		all_images = [(i[0], change_image_resolution(i[0], 'original'), i[1]) for i in all_images]
+		return _images({'mode': 'tmdb_media_image_results', 'all_images': all_images})
 
 	def show_extrainfo(self, media_type=None, meta=None, poster=None):
 		text = media_extra_info({'media_type': media_type or self.media_type, 'meta': meta or self.meta})
@@ -527,7 +553,8 @@ class Extras(BaseDialog):
 
 	def play_nextep(self):
 		if self.nextep_season == None: return ok_dialog(text='No Episodes Available')
-		url_params = {'mode': 'playback.media', 'media_type': 'episode', 'tmdb_id': self.tmdb_id, 'season': self.nextep_season, 'episode': self.nextep_episode}
+		url_params = {'mode': 'playback.media', 'media_type': 'episode', 'tmdb_id': self.tmdb_id, 'season': self.nextep_season,
+					'episode': self.nextep_episode}
 		Sources().playback_prep(url_params)
 
 	def play_random_episode(self):
@@ -606,9 +633,8 @@ class Extras(BaseDialog):
 		self.status_infoline_value = self.make_status_infoline()
 		self.make_plot_and_tagline()
 		indicators = watched_indicators()
-		if self.media_type == 'movie':
-			self.watched_info, self.percent_watched = get_watched_info_movie(indicators), get_progress_percent(get_bookmarks(indicators, 'movie'), self.tmdb_id)
-		else: self.watched_info, self.percent_watched = get_watched_info_tv(indicators), None
+		self.watched_info, bookmarks = get_media_info(indicators, 'movie' if self.media_type == 'movie' else 'episode', True)
+		self.percent_watched = get_progress_percent(get_bookmarks(indicators, 'movie'), self.tmdb_id) if self.media_type == 'movie' else None
 
 	def set_properties(self):
 		self.assign_buttons()

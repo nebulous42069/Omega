@@ -8,8 +8,8 @@ set_property, clear_property, get_visibility, hide_busy_dialog, xbmc_actor = ku.
 Thread, json, xbmc_player, execute_builtin, sleep = ku.Thread, ku.json, ku.xbmc_player, ku.execute_builtin, ku.sleep
 make_listitem, volume_checker, get_infolabel = ku.make_listitem, ku.volume_checker, ku.get_infolabel
 close_all_dialog, notification, poster_empty, fanart_empty = ku.close_all_dialog, ku.notification, ku.empty_poster, ku.get_addon_fanart()
-watched_indicators, auto_resume, auto_nextep_settings = st.watched_indicators, st.auto_resume, st.auto_nextep_settings
-clear_local_bookmarks, set_bookmark, mark_movie, mark_episode = ws.clear_local_bookmarks, ws.set_bookmark, ws.mark_movie, ws.mark_episode
+auto_resume, auto_nextep_settings = st.auto_resume, st.auto_nextep_settings
+set_bookmark, mark_movie, mark_episode = ws.set_bookmark, ws.mark_movie, ws.mark_episode
 total_time_errors = ('0.0', '', 0.0, None)
 set_resume, set_watched = 5, 90
 video_fullscreen_check = 'Window.IsActive(fullscreenvideo)'
@@ -100,7 +100,6 @@ class FenLightPlayer(xbmc_player):
 			hide_busy_dialog()
 			if not self.media_marked: self.media_watched_marker()
 			self.clear_playback_properties()
-			clear_local_bookmarks()
 		except:
 			hide_busy_dialog()
 			self.sources_object.playback_successful = False
@@ -194,9 +193,10 @@ class FenLightPlayer(xbmc_player):
 			final_chapter = self.final_chapter() if nextep_settings['use_chapters'] else None
 			percentage = 100 - final_chapter if final_chapter else nextep_settings['window_percentage']
 			window_time = round((percentage/100) * self.total_time)
+			use_window = nextep_settings['alert_method'] == 0
 			default_action = nextep_settings['default_action']
 			self.start_prep = nextep_settings['scraper_time'] + window_time
-			self.nextep_settings = {'window_time': window_time, 'default_action': default_action, 'play_type': play_type}
+			self.nextep_settings = {'use_window': use_window, 'window_time': window_time, 'default_action': default_action, 'play_type': play_type}
 		except: pass
 
 	def final_chapter(self):

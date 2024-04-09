@@ -3,7 +3,7 @@ from datetime import date
 from modules import kodi_utils, settings
 from modules.sources import Sources
 from modules.metadata import episodes_meta, all_episodes_meta
-from modules.watched_status import get_next_episodes, get_watched_info_tv, get_hidden_progress_items
+from modules.watched_status import get_next_episodes, get_media_info, get_hidden_progress_items
 from modules.utils import adjust_premiered_date, get_datetime, make_thread_list, title_key
 # logger = kodi_utils.logger
 
@@ -119,7 +119,6 @@ def build_next_episode_manager():
 			listitem.setLabel(display)
 			listitem.setArt({'poster': icon, 'fanart': addon_fanart, 'icon': icon})
 			info_tag = listitem.getVideoInfoTag()
-			# info_tag.setMediaType('video')
 			info_tag.setPlot(' ')
 			append({'listitem': (url, listitem, False), 'sort_title': title})
 		except: pass
@@ -127,7 +126,7 @@ def build_next_episode_manager():
 	list_items = []
 	append = list_items.append
 	indicators = watched_indicators()
-	show_list = get_next_episodes(get_watched_info_tv(indicators))
+	show_list = get_next_episodes(get_media_info(indicators, 'episode', include_progress=False))
 	hidden_list = get_hidden_progress_items(indicators)
 	if indicators == 0: icon, mode = get_icon('folder'), 'hide_unhide_progress_items'
 	else: icon, mode = get_icon('trakt'), 'trakt.hide_unhide_progress_items'

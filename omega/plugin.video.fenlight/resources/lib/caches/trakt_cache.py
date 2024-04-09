@@ -10,6 +10,8 @@ WATCHED_INSERT = 'INSERT OR IGNORE INTO watched VALUES (?, ?, ?, ?, ?, ?)'
 WATCHED_DELETE = 'DELETE FROM watched WHERE db_type = ?'
 PROGRESS_INSERT = 'INSERT OR IGNORE INTO progress VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
 PROGRESS_DELETE = 'DELETE FROM progress WHERE db_type = ?'
+STATUS_INSERT = 'INSERT INTO watched_status VALUES (?, ?, ?)'
+STATUS_DELETE = 'DELETE FROM watched_status'
 BASE_DELETE = 'DELETE FROM %s'
 TC_BASE_GET = 'SELECT data FROM trakt_data WHERE id = ?'
 TC_BASE_SET = 'INSERT OR REPLACE INTO trakt_data (id, data) VALUES (?, ?)'
@@ -39,7 +41,15 @@ class TraktCache:
 
 trakt_cache = TraktCache()
 
-class TraktWatched():	
+class TraktWatched():
+	def set_bulk_tvshow_status(self, insert_list):
+		self._delete(STATUS_DELETE, ())
+		self._executemany(STATUS_INSERT, insert_list)
+
+	def set_tvshow_status(self, insert_dict):
+		dbcon = connect_database('trakt_db')
+		dbcon.execute('INSERT OR REPLACE INTO trakt_data (id, data) VALUES (?, ?)', ('trakt_tvshow_status', repr(insert_dict),))
+
 	def set_bulk_movie_watched(self, insert_list):
 		self._delete(WATCHED_DELETE, ('movie',))
 		self._executemany(WATCHED_INSERT, insert_list)
@@ -97,7 +107,6 @@ def clear_trakt_collection_watchlist_data(list_type, media_type):
 	if media_type == 'movies': media_type = 'movie'
 	if media_type in ('tvshows', 'shows'): media_type = 'tvshow'
 	string = 'trakt_%s_%s' % (list_type, media_type)
-	if media_type == 'movie': clear_trakt_movie_sets()
 	try:
 		dbcon = connect_database('trakt_db')
 		dbcon.execute(DELETE, (string,))
@@ -135,13 +144,6 @@ def clear_trakt_favorites():
 		dbcon.execute(DELETE_LIKE % 'trakt_favorites_%')
 	except: return
 
-def clear_trakt_movie_sets():
-	string = 'trakt_movie_sets'
-	try:
-		dbcon = connect_database('trakt_db')
-		dbcon.execute(DELETE, (string,))
-	except: pass
-
 def clear_all_trakt_cache_data(silent=False, refresh=True):
 	try:
 		start = silent or confirm_dialog()
@@ -156,7 +158,6 @@ def clear_all_trakt_cache_data(silent=False, refresh=True):
 	except: return False
 
 def default_activities():
-	'2020-01-01T00:00:01.000Z'
 	return {
 			'all': '2024-01-22T00:22:21.000Z',
 			'movies':

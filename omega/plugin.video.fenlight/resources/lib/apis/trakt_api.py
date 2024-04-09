@@ -8,11 +8,11 @@ from modules import kodi_utils, settings
 from modules.metadata import movie_meta, movie_meta_external_id, tvshow_meta_external_id
 from modules.utils import sort_list, sort_for_article, make_thread_list, get_datetime, timedelta, replace_html_codes, copy2clip, title_key, jsondate_to_datetime as js2date
 
-CLIENT_ID, CLIENT_SECRET = '1038ef327e86e7f6d39d80d2eb5479bff66dd8394e813c5e0e387af0f84d89fb', '8d27a92e1d17334dae4a0590083a4f26401cb8f721f477a79fd3f218f8534fd1'
+CLIENT_ID, CLIENT_SECRET = '234c0be756f91aae005aaf7be2457d2e6f305fb94b6af2c7735a00f0fd64eb60', 'a910d7ef82bbfbb09d8ab1e8ca5f3b0450faf92c734807eec4a267c9e79e9c31'
 json, monitor, sleep, random = kodi_utils.json, kodi_utils.monitor, kodi_utils.sleep, kodi_utils.random
 logger, notification, player, confirm_dialog, get_property = kodi_utils.logger, kodi_utils.notification, kodi_utils.player, kodi_utils.confirm_dialog, kodi_utils.get_property
 dialog, unquote, addon_installed, addon_enabled, addon = kodi_utils.dialog, kodi_utils.unquote, kodi_utils.addon_installed, kodi_utils.addon_enabled, kodi_utils.addon
-path_check, get_icon = kodi_utils.path_check, kodi_utils.get_icon, 
+path_check, get_icon, clear_property = kodi_utils.path_check, kodi_utils.get_icon, kodi_utils.clear_property
 requests, execute_builtin, select_dialog, kodi_refresh = kodi_utils.requests, kodi_utils.execute_builtin, kodi_utils.select_dialog, kodi_utils.kodi_refresh
 progress_dialog, external = kodi_utils.progress_dialog, kodi_utils.external
 lists_sort_order = settings.lists_sort_order
@@ -94,7 +94,7 @@ def trakt_get_device_token(device_codes):
 		user_code = str(device_codes['user_code'])
 		try: copy2clip(user_code)
 		except: pass
-		content = '[CR]Navigate to: [B]%s[/B][CR]%s' % (str(device_codes['verification_url']), 'Enter the following code: [COLOR red][B]%s[/B][/COLOR]' % user_code)
+		content = '[CR]Navigate to: [B]%s[/B][CR]Enter the following code: [B]%s[/B]' % (str(device_codes['verification_url']), user_code)
 		progressDialog = progress_dialog('Trakt Authorize', get_icon('trakt_qrcode'))
 		progressDialog.update(content, 0)
 		try:
@@ -538,8 +538,7 @@ def trakt_indicators_movies():
 		movie = item['movie']
 		tmdb_id = get_trakt_movie_id(movie['ids'])
 		if not tmdb_id: return
-		obj = ('movie', tmdb_id, '', '', item['last_watched_at'], movie['title'])
-		insert_append(obj)
+		insert_append(('movie', tmdb_id, '', '', item['last_watched_at'], movie['title']))
 	insert_list = []
 	insert_append = insert_list.append
 	params = {'path': 'sync/watched/movies%s', 'with_auth': True, 'pagination': False}
@@ -571,6 +570,57 @@ def trakt_indicators_tv():
 	[i.join() for i in threads]
 	trakt_watched_cache.set_bulk_tvshow_watched(insert_list)
 
+# def trakt_indicators_tv():
+# 	def _process(item):
+# 		reset_at = item.get('reset_at', None)
+# 		if reset_at: reset_at = js2date(reset_at, res_format)
+# 		tvshow_last_watched_at = item['last_watched_at']
+# 		show = item['show']
+# 		seasons = item['seasons']
+# 		title = show['title']
+# 		tmdb_id = get_trakt_tvshow_id(show['ids'])
+# 		if not tmdb_id: return
+# 		total_watched = 0
+# 		all_seasons_dict = {}
+# 		seasons_list = []
+# 		seasons_list_append = seasons_list.append
+# 		for s in seasons:
+# 			total_watched_per_season = 0
+# 			season_no, episodes = s['number'], s['episodes']
+# 			if season_no == 0: continue
+# 			watched_episodes_dict = {}
+# 			episodes_list = []
+# 			episodes_list_append = episodes_list.append
+# 			for e in episodes:
+# 				last_watched_at = e['last_watched_at']
+# 				if reset_at and reset_at > js2date(last_watched_at, res_format): continue
+# 				episode = e['number']
+# 				insert_append(('episode', tmdb_id, season_no, episode, last_watched_at, title))
+# 				total_watched_per_season += 1
+# 				episodes_list_append(episode)
+# 				watched_episodes_dict[episode] = last_watched_at
+# 			seasons_list.append(season_no)
+# 			episodes_list = sorted(episodes_list)
+# 			season_dict = {'total_watched': total_watched_per_season, 'episodes_watched': watched_episodes_dict, 'episodes_list': episodes_list}
+# 			all_seasons_dict[season_no] = season_dict
+# 			total_watched += total_watched_per_season
+# 		status_dict[tmdb_id] = {'title': title, 'total_watched': total_watched, 'last_watched_at': tvshow_last_watched_at, 'seasons': all_seasons_dict, 'seasons_list': seasons_list}
+# 		status_append(('tvshow', tmdb_id,
+# 			repr({'title': title, 'total_watched': total_watched, 'last_watched_at': tvshow_last_watched_at, 'seasons': all_seasons_dict, 'seasons_list': seasons_list})))
+# 	insert_list = []
+# 	insert_append = insert_list.append
+# 	status_list = []
+# 	status_append = status_list.append
+# 	status_dict = {}
+# 	params = {'path': 'users/me/watched/shows?extended=full%s', 'with_auth': True, 'pagination': False}
+# 	result = get_trakt(params)
+# 	threads = list(make_thread_list(_process, result))
+# 	[i.join() for i in threads]
+# 	trakt_watched_cache.set_bulk_tvshow_watched(insert_list)
+# 	# trakt_watched_cache.set_bulk_tvshow_status(status_list)
+# 	trakt_watched_cache.set_tvshow_status(status_dict)
+# 	kodi_utils.set_property('fenlight.watched_status', repr(status_dict))
+
 def trakt_playback_progress():
 	params = {'path': 'sync/playback%s', 'with_auth': True, 'pagination': False}
 	return get_trakt(params)
@@ -589,7 +639,7 @@ def trakt_comments(media_type, imdb_id):
 		return all_comments
 	all_comments = []
 	all_comments_append = all_comments.append
-	template, spoiler_template, date_format = '[B]%02d. [I]%s%s - %s[/I][/B][CR][CR]%s', '[B][COLOR red][%sCONTAINS SPOILERS][/COLOR][CR][/B]', '%Y-%m-%dT%H:%M:%S.000Z'
+	template, spoiler_template, date_format = '[B]%02d. [I]%s%s - %s[/I][/B][CR][CR]%s', '[B][COLOR red][CONTAINS SPOILERS][/COLOR][CR][/B]', '%Y-%m-%dT%H:%M:%S.000Z'
 	media_type = 'movies' if media_type in ('movie', 'movies') else 'shows'
 	string = 'trakt_comments_%s %s' % (media_type, imdb_id)
 	params = {'path': '%s/%s/comments', 'path_insert': (media_type, imdb_id), 'params': {'limit': 1000, 'sort': 'likes'}, 'pagination': False}
@@ -667,7 +717,11 @@ def trakt_get_my_calendar(recently_aired, current_date):
 
 def trakt_calendar_days(recently_aired, current_date):
 	if recently_aired: start, finish = (current_date - timedelta(days=14)).strftime('%Y-%m-%d'), '14'
-	else: start, finish = (current_date - timedelta(days=5)).strftime('%Y-%m-%d'), '28'
+	else:
+		previous_days = int(get_setting('fenlight.trakt.calendar_previous_days', '0'))
+		future_days = int(get_setting('fenlight.trakt.calendar_future_days', '7'))
+		start = (current_date - timedelta(days=previous_days)).strftime('%Y-%m-%d')
+		finish = str(previous_days + future_days)
 	return start, finish
 
 def make_trakt_slug(name):
@@ -688,6 +742,8 @@ def get_trakt(params):
 	return result[0] if params.get('pagination', True) else result
 
 def trakt_sync_activities(force_update=False):
+	def clear_properties(media_type):
+		for item in ((True, True), (True, False), (False, True), (False, False)): clear_property('1_%s_%s_%s_watched' % (media_type, item[0], item[1]))
 	def _get_timestamp(date_time):
 		return int(time.mktime(date_time.timetuple()))
 	def _compare(latest, cached):
@@ -716,9 +772,15 @@ def trakt_sync_activities(force_update=False):
 	if _compare(latest_episodes['collected_at'], cached_episodes['collected_at']): clear_trakt_collection_watchlist_data('collection', 'tvshow')
 	if _compare(latest_movies['watchlisted_at'], cached_movies['watchlisted_at']): clear_trakt_collection_watchlist_data('watchlist', 'movie')
 	if _compare(latest_shows['watchlisted_at'], cached_shows['watchlisted_at']): clear_trakt_collection_watchlist_data('watchlist', 'tvshow')
-	if _compare(latest_shows['hidden_at'], cached_shows['hidden_at']): clear_trakt_hidden_data('progress_watched')
-	if _compare(latest_movies['watched_at'], cached_movies['watched_at']): trakt_indicators_movies()
-	if _compare(latest_episodes['watched_at'], cached_episodes['watched_at']): trakt_indicators_tv()
+	if _compare(latest_shows['hidden_at'], cached_shows['hidden_at']):
+		clear_properties('episode')
+		clear_trakt_hidden_data('progress_watched')
+	if _compare(latest_movies['watched_at'], cached_movies['watched_at']):
+		clear_properties('movie')
+		trakt_indicators_movies()
+	if _compare(latest_episodes['watched_at'], cached_episodes['watched_at']):
+		clear_properties('episode')
+		trakt_indicators_tv()
 	if _compare(latest_movies['paused_at'], cached_movies['paused_at']): refresh_movies_progress = True
 	if _compare(latest_episodes['paused_at'], cached_episodes['paused_at']): refresh_shows_progress = True
 	if _compare(latest_lists['updated_at'], cached_lists['updated_at']):
@@ -729,8 +791,12 @@ def trakt_sync_activities(force_update=False):
 		lists_actions.append('liked_lists')
 	if refresh_movies_progress or refresh_shows_progress:
 		progress_info = trakt_playback_progress()
-		if refresh_movies_progress: trakt_progress_movies(progress_info)
-		if refresh_shows_progress: trakt_progress_tv(progress_info)
+		if refresh_movies_progress:
+			clear_properties('movie')
+			trakt_progress_movies(progress_info)
+		if refresh_shows_progress:
+			clear_properties('episode')
+			trakt_progress_tv(progress_info)
 	if clear_list_contents:
 		for item in lists_actions:
 			clear_trakt_list_data(item)

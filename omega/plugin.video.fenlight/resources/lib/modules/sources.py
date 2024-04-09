@@ -21,8 +21,7 @@ scraping_settings, include_prerelease_results, auto_rescrape_with_all = settings
 ignore_results_filter, results_sort_order, results_format, filter_status = settings.ignore_results_filter, settings.results_sort_order, settings.results_format, settings.filter_status
 autoplay_next_episode, autoscrape_next_episode, limit_resolve = settings.autoplay_next_episode, settings.autoscrape_next_episode, settings.limit_resolve
 debrid_enabled = debrid.debrid_enabled
-erase_bookmark, clear_local_bookmarks = watched_status.erase_bookmark, watched_status.clear_local_bookmarks
-get_progress_percent, get_bookmarks = watched_status.get_progress_percent, watched_status.get_bookmarks
+erase_bookmark, get_progress_percent, get_bookmarks = watched_status.erase_bookmark, watched_status.get_progress_percent, watched_status.get_bookmarks
 internal_include_list = ['easynews', 'pm_cloud', 'rd_cloud', 'ad_cloud']
 external_exclude_list = ['easynews', 'gdrive', 'library', 'filepursuit', 'plexshare']
 sd_check = ('SD', 'CAM', 'TELE', 'SYNC')
@@ -68,7 +67,7 @@ class Sources():
 		self.disabled_ext_ignored = params_get('disabled_ext_ignored', self.disabled_ext_ignored) == 'true'
 		self.default_ext_only = params_get('default_ext_only', self.default_ext_only) == 'true'
 		self.folders_ignore_filters = get_setting('fenlight.results.folders_ignore_filters', 'false') == 'true'
-		self.filter_size = get_setting('fenlight.results.filter_size') == 'true'
+		self.filter_size_method = int(get_setting('fenlight.results.filter_size_method', '0'))
 		self.media_type, self.tmdb_id = params_get('media_type'), params_get('tmdb_id')
 		self.custom_title, self.custom_year = params_get('custom_title', None), params_get('custom_year', None)
 		self.custom_season, self.custom_episode = params_get('custom_season', None), params_get('custom_episode', None)
@@ -88,7 +87,7 @@ class Sources():
 		self.audio_filter_key = audio_filters()
 		self.sort_function, self.quality_filter = results_sort_order(), self._quality_filter()
 		self.hybrid_allowed = self.filter_hdr in (0, 2)
-		self.include_unknown_size = get_setting('fenlight.results.include.unknown.size', 'false') == 'true'
+		self.include_unknown_size = get_setting('fenlight.results.size_unknown', 'false') == 'true'
 		self.include_3D_results = get_setting('fenlight.include_3d_results', 'true') == 'true'
 		self.make_search_info()
 		if self.autoscrape: self.autoscrape_nextep_handler()
@@ -185,10 +184,14 @@ class Sources():
 		else: folder_results = []
 		results = [i for i in results if i['quality'] in self.quality_filter]
 		if not self.include_3D_results: results = [i for i in results if not '3D' in i['extraInfo']]
-		if self.filter_size:
-			min_size = 0.00 if self.include_unknown_size else 0.02
-			duration = self.meta['duration'] or (5400 if self.media_type == 'movie' else 2400)
-			max_size = ((0.125 * (0.90 * string_to_float(get_setting('fenlight.results.line_speed', '20'), '20'))) * duration)/1000
+		if self.filter_size_method:
+			min_size = string_to_float(get_setting('fenlight.results.size_min', '0'), '0') / 1000
+			if min_size == 0.0 and not self.include_unknown_size: min_size = 0.02
+			if self.filter_size_method == 1:
+				duration = self.meta['duration'] or (5400 if self.media_type == 'movie' else 2400)
+				max_size = ((0.125 * (0.90 * string_to_float(get_setting('results.line_speed', '25'), '25'))) * duration)/1000
+			elif self.filter_size_method == 2:
+				max_size = string_to_float(get_setting('fenlight.results.%s_size_max' % self.media_type, '10000'), '10000') / 1000
 			results = [i for i in results if i['scrape_provider'] == 'folders' or min_size <= i['size'] <= max_size]
 		results += folder_results
 		return results
@@ -450,7 +453,8 @@ class Sources():
 			try:
 				episode_data = [i for i in episodes_data if i['episode'] == self.episode][0]
 				ep_thumb = episode_data.get('thumb', None) or self.meta.get('fanart') or ''
-				self.meta.update({'season': episode_data['season'], 'episode': episode_data['episode'], 'premiered': episode_data['premiered'],
+				episode_type = episode_data.get('episode_type', '')
+				self.meta.update({'season': episode_data['season'], 'episode': episode_data['episode'], 'premiered': episode_data['premiered'], 'episode_type': episode_type,
 								'ep_name': episode_data['title'], 'ep_thumb': ep_thumb, 'plot': episode_data['plot'], 'tvshow_plot': self.meta['plot'],
 								'custom_season': self.custom_season, 'custom_episode': self.custom_episode})
 			except: pass
@@ -490,9 +494,8 @@ class Sources():
 		self.progress_dialog.enable_resume(percent)
 		return self.progress_dialog.resume_choice
 
-	def _make_nextep_dialog(self, default_action='cancel', play_type='autoplay_nextep', focus_button=11):
-		try: action = open_window(('windows.next_episode', 'NextEpisode'), 'next_episode.xml',
-			meta=self.meta, default_action=default_action, play_type=play_type, focus_button=focus_button)
+	def _make_nextep_dialog(self, default_action='cancel'):
+		try: action = open_window(('windows.next_episode', 'NextEpisode'), 'next_episode.xml', meta=self.meta, default_action=default_action)
 		except: action = 'cancel'
 		return action
 
@@ -517,7 +520,6 @@ class Sources():
 		debrid_function = self.debrid_importer(debrid_info)
 		try: debrid_files = debrid_function().display_magnet_pack(magnet_url, info_hash)
 		except: debrid_files = None
-		debrid_files = debrid_function().display_magnet_pack(magnet_url, info_hash)
 		hide_busy_dialog()
 		if not debrid_files: return notification('Error')
 		debrid_files.sort(key=lambda k: k['filename'].lower())
@@ -557,12 +559,12 @@ class Sources():
 				provider_text = provider.upper()
 				extra_info = '[B]%s[/B] | [B]%s[/B] | %s' %  (item['quality'], item['size_label'], item['extraInfo'])
 				display_name = item['display_name'].upper()
-				resolve_item['resolve_display'] = '%s[CR]%s[CR]%s' % ('%02d. [B]%s[/B]' % (count, provider_text), extra_info, display_name)
+				resolve_item['resolve_display'] = '%02d. [B]%s[/B][CR]%s[CR]%s' % (count, provider_text, extra_info, display_name)
 				processed_items_append(resolve_item)
 				if provider == 'easynews':
 					for retry in range(1, 2):
 						resolve_item = dict(item)
-						resolve_item['resolve_display'] = '%s[CR]%s[CR]%s' % ('%02d. [B]%s (RETRYx%s)[/B]' % (count, provider_text, retry), extra_info, display_name)
+						resolve_item['resolve_display'] = '%02d. [B]%s (RETRYx%s)[/B][CR]%s[CR]%s' % (count, provider_text, retry, extra_info, display_name)
 						processed_items_append(resolve_item)
 			items = list(processed_items)
 			if not self.continue_resolve_check(): return self._kill_progress_dialog()
@@ -650,8 +652,8 @@ class Sources():
 		player = xbmc_player()
 		if player.isPlayingVideo():
 			total_time = player.getTotalTime()
-			window_time, default_action = self.nextep_settings['window_time'], self.nextep_settings['default_action']
-			action = 'close'
+			use_window, window_time, default_action = self.nextep_settings['use_window'], self.nextep_settings['window_time'], self.nextep_settings['default_action']
+			action = None if use_window else 'close'
 			continue_nextep = False
 			while player.isPlayingVideo():
 				try:
@@ -662,7 +664,8 @@ class Sources():
 					sleep(100)
 				except: pass
 			if continue_nextep:
-				action = self._make_nextep_dialog(default_action=default_action)
+				if use_window: action = self._make_nextep_dialog(default_action=default_action)
+				else: notification('[B]Next Up:[/B] %s S%02dE%02d' % (self.meta.get('title'), self.meta.get('season'), self.meta.get('episode')), 6500, self.meta.get('poster'))
 				if not action: action = default_action
 				if action == 'cancel': return False
 				elif action == 'pause':
@@ -680,19 +683,14 @@ class Sources():
 		else: return False
 
 	def autoscrape_nextep_handler(self):
-		default_action = 'cancel'
 		player = xbmc_player()
 		if player.isPlayingVideo():
-			action = self._make_nextep_dialog(play_type=self.play_type, focus_button=12)
-			if action == 'cancel': return
+			results = self.get_sources()
+			if not results: return notification(33092, 3000)
 			else:
-				results = self.get_sources()
-				if not results: return notification('No Auto Scrape Sources Found', 3000)
-				if action == 'play': player.stop()
-				else:
-					notification('Auto Scrape Sources Ready', 3000)
-					while player.isPlayingVideo(): sleep(100)
-				self.display_results(results)
+				notification('[B]Next Episode Ready:[/B] %s S%02dE%02d' % (self.meta.get('title'), self.meta.get('season'), self.meta.get('episode')), 6500, self.meta.get('poster'))
+				while player.isPlayingVideo(): sleep(100)
+			self.display_results(results)
 		else: return
 
 	def debrid_importer(self, debrid_provider):

@@ -11,8 +11,10 @@ from threading import Thread, activeCount
 from urllib.parse import unquote, unquote_plus, urlencode, quote, parse_qsl, urlparse
 from modules import icons
 
+try: xbmc_actor = xbmc.Actor
+except: xbmc_actor = None
 addon_object = xbmcaddon.Addon('plugin.video.fenlight')
-player, xbmc_player, numeric_input, xbmc_monitor, translatePath, xbmc_actor = xbmc.Player(), xbmc.Player, 1, xbmc.Monitor, xbmcvfs.translatePath, xbmc.Actor
+player, xbmc_player, numeric_input, xbmc_monitor, translatePath = xbmc.Player(), xbmc.Player, 1, xbmc.Monitor, xbmcvfs.translatePath
 ListItem, getSkinDir, log, getCurrentWindowId, Window = xbmcgui.ListItem, xbmc.getSkinDir, xbmc.log, xbmcgui.getCurrentWindowId, xbmcgui.Window
 File, exists, copy, delete, rmdir, rename = xbmcvfs.File, xbmcvfs.exists, xbmcvfs.copy, xbmcvfs.delete, xbmcvfs.rmdir, xbmcvfs.rename
 get_infolabel, get_visibility, execute_JSON, window_xml_dialog = xbmc.getInfoLabel, xbmc.getCondVisibility, xbmc.executeJSONRPC, xbmcgui.WindowXMLDialog
@@ -20,8 +22,6 @@ executebuiltin, xbmc_sleep, convertLanguage, getSupportedMedia, PlayList = xbmc.
 monitor, window, dialog, progressDialog, progressDialogBG = xbmc_monitor(), Window(10000), xbmcgui.Dialog(), xbmcgui.DialogProgress(), xbmcgui.DialogProgressBG()
 endOfDirectory, addSortMethod, listdir, mkdir, mkdirs = xbmcplugin.endOfDirectory, xbmcplugin.addSortMethod, xbmcvfs.listdir, xbmcvfs.mkdir, xbmcvfs.mkdirs
 addDirectoryItem, addDirectoryItems, setContent, setCategory = xbmcplugin.addDirectoryItem, xbmcplugin.addDirectoryItems, xbmcplugin.setContent, xbmcplugin.setPluginCategory
-window_xml_left_action, window_xml_right_action, window_xml_up_action, window_xml_down_action, window_xml_info_action = 1, 2, 3, 4, 11
-window_xml_selection_actions, window_xml_closing_actions, window_xml_context_actions = (7, 100), (9, 10, 13, 92), (101, 108, 117)
 path_join = osPath.join
 addon_info = addon_object.getAddonInfo
 addon_path = addon_info('path')
@@ -32,10 +32,10 @@ colorpalette_path = path_join(userdata_path, 'color_palette/')
 colorpalette_zip_path = path_join(addon_path,'resources', 'media', 'color_palette.zip')
 img_url = 'https://i.imgur.com/%s.png'
 invoker_switch_dict = {'true': 'false', 'false': 'true'}
-empty_poster, item_jump, nextpage = img_url % icons.box_office, img_url % icons.item_jump, img_url % icons.nextpage
-nextpage_landscape, item_jump_landscape = img_url % icons.nextpage_landscape, img_url % icons.item_jump_landscape
+empty_poster, nextpage = img_url % icons.box_office, img_url % icons.nextpage
+nextpage_landscape = img_url % icons.nextpage_landscape
 tmdb_default_api = 'b370b60447737762ca38457bd77579b3'
-int_window_prop, pause_services_prop, firstrun_update_prop = 'fenlight.internal_results.%s', 'fenlight.pause_services', 'firstrun_update'
+int_window_prop, pause_services_prop, firstrun_update_prop = 'fenlight.internal_results.%s', 'fenlight.pause_services', 'fenlight.firstrun_update'
 current_skin_prop, current_font_prop = 'fenlight.current_skin', 'fenlight.current_font'
 myvideos_db_paths = {19: '119', 20: '121', 21: '124'}
 sort_method_dict = {'episodes': 24, 'files': 5, 'label': 2}
@@ -52,28 +52,18 @@ extras_button_label_values = {
 					'play_nextep': 'Play Next', 'show_options': 'Options', 'show_media_images': 'Media Images', 'show_recommended': 'Recommended',
 					'show_trakt_manager': 'Trakt Manager', 'play_random_episode': 'Play Random', 'show_favorites_manager': 'Favorites Manager', 'show_plot': 'Plot',
 					'show_keywords': 'Keywords'}}
-movie_extras_buttons_defaults = [('extras.movie.button10', 'movies_play'), ('extras.movie.button11', 'show_trailers'), ('extras.movie.button12', 'show_keywords'),
-					('extras.movie.button13', 'show_images'), ('extras.movie.button14', 'show_extrainfo'), ('extras.movie.button15', 'show_genres'),
-					('extras.movie.button16', 'show_director'), ('extras.movie.button17', 'show_options')]
-tvshow_extras_buttons_defaults = [('extras.tvshow.button10', 'tvshow_browse'), ('extras.tvshow.button11', 'show_trailers'), ('extras.tvshow.button12', 'show_keywords'),
-					('extras.tvshow.button13', 'show_images'), ('extras.tvshow.button14', 'show_extrainfo'), ('extras.tvshow.button15', 'show_genres'),
-					('extras.tvshow.button16', 'play_nextep'), ('extras.tvshow.button17', 'show_options')]
-view_ids = ('view.main', 'view.movies', 'view.tvshows', 'view.seasons', 'view.episodes', 'view.episodes_single', 'view.premium')
 video_extensions = ('m4v', '3g2', '3gp', 'nsv', 'tp', 'ts', 'ty', 'pls', 'rm', 'rmvb', 'mpd', 'ifo', 'mov', 'qt', 'divx', 'xvid', 'bivx', 'vob', 'nrg', 'img', 'iso', 'udf', 'pva',
 					'wmv', 'asf', 'asx', 'ogm', 'm2v', 'avi', 'bin', 'dat', 'mpg', 'mpeg', 'mp4', 'mkv', 'mk3d', 'avc', 'vp3', 'svq3', 'nuv', 'viv', 'dv', 'fli', 'flv', 'wpl',
 					'xspf', 'vdr', 'dvr-ms', 'xsp', 'mts', 'm2t', 'm2ts', 'evo', 'ogv', 'sdp', 'avs', 'rec', 'url', 'pxml', 'vc1', 'h264', 'rcv', 'rss', 'mpls', 'mpl', 'webm',
 					'bdmv', 'bdm', 'wtv', 'trp', 'f4v', 'pvr', 'disc')
 image_extensions = ('jpg', 'jpeg', 'jpe', 'jif', 'jfif', 'jfi', 'bmp', 'dib', 'png', 'gif', 'webp', 'tiff', 'tif',
 					'psd', 'raw', 'arw', 'cr2', 'nrw', 'k25', 'jp2', 'j2k', 'jpf', 'jpx', 'jpm', 'mj2')
-default_highlights = {'provider.rd_highlight': 'FF3C9900', 'provider.pm_highlight': 'FFFF3300', 'provider.ad_highlight': 'FFE6B800', 'provider.easynews_highlight': 'FF00B3B2',
-					'provider.debrid_cloud_highlight': 'FF7A01CC', 'provider.folders_highlight': 'FFB36B00', 'scraper_4k_highlight': 'FFFF00FE',
-					'scraper_1080p_highlight': 'FFE6B800', 'scraper_720p_highlight': 'FF3C9900', 'scraper_SD_highlight': 'FF0166FF', 'scraper_single_highlight': 'FF008EB2'}
 
 def get_icon(image_name):
 	return img_url % getattr(icons, image_name, 'I1JJhji')
 
 def get_addon_fanart():
-	return get_property('fenlight.addon_fanart') or default_addon_fanart
+	return get_property('fenlight.default_addon_fanart') or default_addon_fanart
 
 def build_url(url_params):
 	return 'plugin://plugin.video.fenlight/?%s' % urlencode(url_params)
@@ -457,3 +447,14 @@ def upload_logfile(params):
 		else: ok_dialog(text='Error. Log Upload Failed')
 	except: ok_dialog(text='Error. Log Upload Failed')
 	hide_busy_dialog()
+
+def fetch_kodi_imagecache(image):
+	import sqlite3 as database
+	result = None
+	try:
+		dbcon = database.connect(translate_path('special://database/Textures13.db'), timeout=40.0)
+		dbcur = dbcon.cursor()
+		dbcur.execute("SELECT cachedurl FROM texture WHERE url = ?", (image,))
+		result = dbcur.fetchone()[0]
+	except: pass
+	return result

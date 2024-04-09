@@ -32,14 +32,12 @@ class RealDebridAPI:
 	def auth(self):
 		self.secret = ''
 		self.client_ID = 'X245A4XAIBGVM'
-		line = '%s[CR]%s[CR]%s'
 		url = auth_url + device_url % 'client_id=%s&new_credentials=yes' % self.client_ID
 		response = requests.get(url, timeout=timeout).json()
 		user_code = response['user_code']
 		try: copy2clip(user_code)
 		except: pass
-		content = line % ('Authorize Debrid Services', 'Navigate to: [B]%s[/B]' % 'https://real-debrid.com/device',
-														'Enter the following code: [COLOR seagreen][B]%s[/B][/COLOR]' % user_code)
+		content = 'Authorize Debrid Services[CR]Navigate to: [B]https://real-debrid.com/device[/B][CR]Enter the following code: [B]%s[/B]' % user_code
 		progressDialog = progress_dialog('Real Debrid Authorize', get_icon('rd_qrcode'))
 		progressDialog.update(content, 0)
 		expires_in = int(response['expires_in'])
@@ -183,6 +181,12 @@ class RealDebridAPI:
 	def delete_torrent(self, folder_id):
 		if self.token in ('empty_setting', ''): return None
 		url = 'torrents/delete/%s&auth_token=%s' % (folder_id, self.token)
+		response = requests.delete(base_url + url, timeout=timeout)
+		return response
+
+	def delete_download(self, download_id):
+		if self.token in ('empty_setting', ''): return None
+		url = 'downloads/delete/%s&auth_token=%s' % (download_id, self.token)
 		response = requests.delete(base_url + url, timeout=timeout)
 		return response
 
@@ -477,16 +481,15 @@ class RealDebridAPI:
 		try:
 			from modules.kodi_utils import clear_property
 			from caches.debrid_cache import debrid_cache
-			from caches.main_cache import main_cache
-			dbcon = main_cache.dbcon
+			from caches.base_cache import connect_database
+			dbcon = connect_database('maincache_db')
 			user_cloud_success = False
 			# USER CLOUD
 			try:
-				
-				try: 
-					user_cloud_cache = eval(dbcon.execute("""SELECT data FROM maincache WHERE id=?""", ('rd_user_cloud',)).fetchone()[0])
-					user_cloud_info_caches = [i['id'] for i in user_cloud_cache]
-				except: user_cloud_success = True
+				try:
+					user_cloud_info_caches = [eval(i[0])['id'] for i in dbcon.execute("""SELECT data FROM maincache WHERE id LIKE ?""", ('rd_user_cloud_info_%',)).fetchall()]
+				except:
+					user_cloud_success = True
 				if not user_cloud_success:
 					dbcon.execute("""DELETE FROM maincache WHERE id=?""", ('rd_user_cloud',))
 					clear_property("fenlight.rd_user_cloud")
@@ -501,12 +504,6 @@ class RealDebridAPI:
 				clear_property("fenlight.rd_downloads")
 				download_links_success = True
 			except: download_links_success = False
-			# HOSTERS
-			try:
-				dbcon.execute("""DELETE FROM maincache WHERE id=?""", ('rd_valid_hosts',))
-				clear_property('fenlight.rd_valid_hosts')
-				hoster_links_success = True
-			except: hoster_links_success = False
 			# HASH CACHED STATUS
 			if clear_hashes:
 				try:
@@ -515,6 +512,6 @@ class RealDebridAPI:
 				except: hash_cache_status_success = False
 			else: hash_cache_status_success = True
 		except: return False
-		if False in (user_cloud_success, download_links_success, hoster_links_success, hash_cache_status_success): return False
+		if False in (user_cloud_success, download_links_success, hash_cache_status_success): return False
 		return True
 

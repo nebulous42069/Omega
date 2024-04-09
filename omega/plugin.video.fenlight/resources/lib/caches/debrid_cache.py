@@ -49,14 +49,14 @@ class DebridCache:
 			return True
 		except: return False
 	
-	def clear_database(self):
+	def clear_cache(self):
 		try:
 			dbcon = connect_database('debridcache_db')
 			dbcon.execute(CLEAR)
 			dbcon.execute('VACUUM')
 			dbcon.close()
-			return 'success'
-		except: return 'failure'
+			return True
+		except: return False
 
 	def clean_database(self):
 		try:

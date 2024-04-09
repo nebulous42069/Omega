@@ -23,7 +23,6 @@ class AllDebridAPI:
 
 	def auth(self):
 		self.token = ''
-		line = '%s[CR]%s[CR]%s'
 		url = base_url + 'pin/get?agent=%s' % user_agent
 		response = requests.get(url, timeout=timeout).json()
 		response = response['data']
@@ -33,8 +32,7 @@ class AllDebridAPI:
 		try: copy2clip(user_code)
 		except: pass
 		sleep_interval = 5
-		content = line % ('Authorize Debrid Services', 'Navigate to: [B]%s[/B]' % response.get('base_url'),
-														'Enter the following code: [COLOR goldenrod][B]%s[/B][/COLOR]' % user_code)
+		content = 'Authorize Debrid Services[CR]Navigate to: [B]%s[/B][CR]Enter the following code: [B]%s[/B]' % (response.get('base_url'), user_code)
 		progressDialog = progress_dialog('All Debrid Authorize', get_icon('ad_qrcode'))
 		progressDialog.update(content, 0)
 		start, time_passed = time.time(), 0
@@ -114,8 +112,7 @@ class AllDebridAPI:
 		url = 'magnet/delete'
 		url_append = '&id=%s' % transfer_id
 		result = self._get(url, url_append)
-		if result.get('success', False):
-			return True
+		return result.get('success', False) == True
 
 	def resolve_magnet(self, magnet_url, info_hash, store_to_cloud, title, season, episode):
 		from modules.source_utils import supported_video_extensions, seas_ep_filter, EXTRAS
@@ -268,20 +265,14 @@ class AllDebridAPI:
 	def clear_cache(self, clear_hashes=True):
 		try:
 			from caches.debrid_cache import debrid_cache
-			from caches.main_cache import main_cache
-			dbcon = main_cache.dbcon
+			from caches.base_cache import connect_database
+			dbcon = connect_database('maincache_db')
 			# USER CLOUD
 			try:
 				dbcon.execute("""DELETE FROM maincache WHERE id=?""", ('ad_user_cloud',))
 				clear_property('ad_user_cloud')
 				user_cloud_success = True
 			except: user_cloud_success = False
-			# HOSTERS
-			try:
-				dbcon.execute("""DELETE FROM maincache WHERE id=?""", ('ad_valid_hosts',))
-				clear_property('ad_valid_hosts')
-				hoster_links_success = True
-			except: hoster_links_success = False
 			# HASH CACHED STATUS
 			if clear_hashes:
 				try:
@@ -290,5 +281,5 @@ class AllDebridAPI:
 				except: hash_cache_status_success = False
 			else: hash_cache_status_success = True
 		except: return False
-		if False in (user_cloud_success, hoster_links_success, hash_cache_status_success): return False
+		if False in (user_cloud_success, hash_cache_status_success): return False
 		return True

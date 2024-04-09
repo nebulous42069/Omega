@@ -2,7 +2,7 @@
 import re
 from windows.base_window import open_window, create_window
 from caches.base_cache import refresh_cached_data
-from caches.settings_cache import get_setting, set_setting, set_default
+from caches.settings_cache import get_setting, set_setting, set_default, default_setting_values
 from modules.downloader import manager
 from modules import kodi_utils, source_utils, settings, metadata
 from modules.source_utils import clear_scrapers_cache, get_aliases_titles, make_alias_dict, audio_filter_choices
@@ -12,16 +12,15 @@ from modules.utils import get_datetime, title_key, adjust_premiered_date, append
 ok_dialog, container_content, close_all_dialog, external = kodi_utils.ok_dialog, kodi_utils.container_content, kodi_utils.close_all_dialog, kodi_utils.external
 get_property, set_property, get_icon, dialog, open_settings = kodi_utils.get_property, kodi_utils.set_property, kodi_utils.get_icon, kodi_utils.dialog, kodi_utils.open_settings
 show_busy_dialog, hide_busy_dialog, notification, confirm_dialog = kodi_utils.show_busy_dialog, kodi_utils.hide_busy_dialog, kodi_utils.notification, kodi_utils.confirm_dialog
-img_url, sleep, default_highlights, external_scraper_settings = kodi_utils.img_url, kodi_utils.sleep, kodi_utils.default_highlights, kodi_utils.external_scraper_settings
-kodi_refresh, container_refresh_input = kodi_utils.kodi_refresh, kodi_utils.container_refresh_input
+img_url, sleep, external_scraper_settings = kodi_utils.img_url, kodi_utils.sleep, kodi_utils.external_scraper_settings
+kodi_refresh, container_refresh_input, autoscrape_next_episode = kodi_utils.kodi_refresh, kodi_utils.container_refresh_input, settings.autoscrape_next_episode
 json, build_url, select_dialog, clear_property = kodi_utils.json, kodi_utils.build_url, kodi_utils.select_dialog, kodi_utils.clear_property
 run_plugin, autoplay_next_episode, quality_filter = kodi_utils.run_plugin, settings.autoplay_next_episode, settings.quality_filter
 numeric_input, container_update, activate_window, addon_fanart = kodi_utils.numeric_input, kodi_utils.container_update, kodi_utils.activate_window, kodi_utils.default_addon_fanart
 addon_icon, poster_empty = kodi_utils.addon_icon, kodi_utils.empty_poster
-movie_extras_buttons_defaults, tvshow_extras_buttons_defaults = kodi_utils.movie_extras_buttons_defaults, kodi_utils.tvshow_extras_buttons_defaults
 extras_button_label_values, jsonrpc_get_addons = kodi_utils.extras_button_label_values, kodi_utils.jsonrpc_get_addons
 extras_enabled_menus, active_internal_scrapers, auto_play = settings.extras_enabled_menus, settings.active_internal_scrapers, settings.auto_play
-autoscrape_next_episode, audio_filters, extras_open_action = settings.autoscrape_next_episode, settings.audio_filters, settings.extras_open_action
+audio_filters, extras_open_action = settings.audio_filters, settings.extras_open_action
 quality_filter, date_offset = settings.quality_filter, settings.date_offset
 single_ep_list = ('episode.progress', 'episode.recently_watched', 'episode.next_trakt', 'episode.next_fenlight', 'episode.trakt_recently_aired', 'episode.trakt_calendar')
 scraper_names = ['EXTERNAL SCRAPERS', 'EASYNEWS', 'RD CLOUD', 'PM CLOUD', 'AD CLOUD', 'FOLDERS 1-5']
@@ -57,7 +56,7 @@ def external_scraper_choice(params):
 
 def restore_addon_fanart_choice(params):
 	if not confirm_dialog(): return
-	set_setting('addon_fanart', addon_fanart)
+	set_setting('default_addon_fanart', addon_fanart)
 
 def audio_filters_choice(params={}):
 	icon = get_icon('audio')
@@ -259,7 +258,6 @@ def playback_choice(params):
 			_process_params('', 'true', 'ignore_scrape_filters')
 			set_property('fs_filterless_search', 'true')
 	from modules.sources import Sources
-	play_params['number'] = get_property('fenlight.number')
 	Sources().playback_prep(play_params)
 
 def set_quality_choice(params):
@@ -308,10 +306,10 @@ def extras_buttons_choice(params):
 		if 'restore' in media_type:
 			restore_type = media_type.split('.')[1]
 			if restore_type in ('movie', 'both'):
-				for item in movie_extras_buttons_defaults:
+				for item in [(i, default_setting_values(i)['setting_default']) for i in ('extras.movie.button%s' % i for i in range(10,18))]:
 					set_setting(item[0], item[1])
 			if restore_type in ('tvshow', 'both'):
-				for item in tvshow_extras_buttons_defaults:
+				for item in [(i, default_setting_values(i)['setting_default']) for i in ('extras.tvshow.button%s' % i for i in range(10,18))]:
 					set_setting(item[0], item[1])
 			return ok_dialog(text='Success')
 	choices = [('[B]%s[/B]   |   %s' % (v['button_name'], v['button_label']), v['button_name'], v['button_label'], k) for k, v in button_dict.items() if media_type in k]
@@ -333,8 +331,8 @@ def extras_buttons_choice(params):
 def extras_lists_choice(params={}):
 	choices = [('Plot', 2000), ('Cast', 2050), ('Recommended', 2051), ('Reviews', 2052), ('Comments', 2053),
 				('Trivia', 2054), ('Blunders', 2055), ('Parental Guide', 2056), ('Videos', 2057),
-				('More from Year', 2058), ('More from Genres', 2059),
-				('More from Networks', 2060), ('More from Collection', 2061)]
+				('More from Year', 2058), ('More from Genres', 2059),	('More from Networks', 2060),
+				('More from Collection', 2061), ('Media Images', 2062)]
 	list_items = [{'line1': i[0]} for i in choices]
 	current_settings = extras_enabled_menus()
 	try: preselect = [choices.index(i) for i in choices if i[1] in current_settings]
@@ -394,12 +392,7 @@ def results_sorting_choice(params={}):
 		set_setting('results.sort_order', choice[1])
 
 def results_format_choice(params={}):
-	xml_choices = [
-					('List',      img_url % 'rcgKRWk'),
-					('Rows',      img_url % 'wHvaixs'),
-					('WideList',  img_url % '4UwfSLy')
-					]
-	choice = open_window(('windows.sources', 'SourcesChoice'), 'sources_choice.xml', xml_choices=xml_choices)
+	choice = open_window(('windows.sources', 'SourcesChoice'), 'sources_choice.xml')
 	if choice: set_setting('results.list_format', choice)
 
 def clear_favorites_choice(params={}):
@@ -429,7 +422,7 @@ def favorites_choice(params):
 
 def scraper_color_choice(params):
 	setting = params.get('setting_id')
-	current_setting, original_highlight = get_setting('fenlight.%s' % setting), default_highlights[setting]
+	current_setting, original_highlight = get_setting('fenlight.%s' % setting), default_setting_values(setting)['setting_default']
 	if current_setting != original_highlight:
 		action = confirm_dialog(text='Set new Highlight or Restore Default Highlight?', ok_label='Set New', cancel_label='Restore Default', default_control=10)
 		if action == None: return
@@ -441,10 +434,6 @@ def color_choice(params):
 	return open_window(('windows.color', 'SelectColor'), 'color.xml', current_setting=params.get('current_setting', None))
 
 def options_menu_choice(params, meta=None):
-	def strip_bold(_str):
-		return _str.replace('[B]', '').replace('[/B]', '')
-	def _builder():
-		for item in listing: yield {'line1': item[0], 'line2': item[1] or item[0], 'icon': poster}
 	params_get = params.get
 	tmdb_id, content, poster, season_poster = params_get('tmdb_id', None), params_get('content', None), params_get('poster', None), params_get('season_poster', None)
 	is_external, from_extras = params_get('is_external') in (True, 'True', 'true'), params_get('from_extras', 'false') == 'true'
@@ -506,20 +495,20 @@ def options_menu_choice(params, meta=None):
 		listing_append(('Recommended', 'Based On %s' % rootname, 'recommended'))
 		if menu_type == 'tvshow': listing_append(('Play Random', 'Based On %s' % rootname, 'random'))
 	if menu_type in ('movie', 'episode') or menu_type in single_ep_list:
-		base_str1, base_str2, on_str = '%s%s', 'Currently: [B]%s[/B]', 'On'
+		base_str1, base_str2, on_str, off_str = '%s%s', 'Currently: [B]%s[/B]', 'On', 'Off'
 		if auto_play(content): autoplay_status, autoplay_toggle, quality_setting = on_str, 'false', 'autoplay_quality_%s' % content
-		else: autoplay_status, autoplay_toggle, quality_setting = 'Off', 'true', 'results_quality_%s' % content
+		else: autoplay_status, autoplay_toggle, quality_setting = off_str, 'true', 'results_quality_%s' % content
 		active_int_scrapers = [i.replace('_', '') for i in active_internal_scrapers()]
 		current_scrapers_status = ', '.join([i for i in active_int_scrapers]) if len(active_int_scrapers) > 0 else 'N/A'
 		current_quality_status =  ', '.join(quality_filter(quality_setting))
 		listing_append((base_str1 % ('Auto Play', ' (%s)' % content), base_str2 % autoplay_status, 'toggle_autoplay'))
 		if menu_type == 'episode' or menu_type in single_ep_list:
 			if autoplay_status == on_str:
-				autoplay_next_status, autoplay_next_toggle = (on_str, 'false') if autoplay_next_episode() else ('Off', 'true')
+				autoplay_next_status, autoplay_next_toggle = (on_str, 'false') if autoplay_next_episode() else (off_str, 'true')
 				listing_append((base_str1 % ('Autoplay Next Episode', ''), base_str2 % autoplay_next_status, 'toggle_autoplay_next'))
 			else:
-				autoscrape_next_status, autoscrape_next_toggle = (on_str, 'false') if autoscrape_next_episode() else ('Off', 'true')
-				listing_append((base_str1 % ('Auto Scrape Next Episode', ''), base_str2 % autoscrape_next_status, 'toggle_autoscrape_next'))
+				autoscrape_next_status, autoscrape_next_toggle = (on_str, 'false') if autoscrape_next_episode() else (off_str, 'true')
+				listing_append((base_str1 % ('Autoscrape Next Episode', ''), base_str2 % autoscrape_next_status, 'toggle_autoscrape_next'))
 		listing_append((base_str1 % ('Quality Limit', ' (%s)' % content), base_str2 % current_quality_status, 'set_quality'))
 		listing_append((base_str1 % ('', 'Enable Scrapers'), base_str2 % current_scrapers_status, 'enable_scrapers'))
 	if menu_type in ('movie', 'tvshow'): listing_append(('RE-CACHE %s INFO' % ('Movies' if menu_type == 'movie' else 'TV Shows'), 'Clear %s Cache' % rootname, 'clear_media_cache'))
@@ -527,9 +516,9 @@ def options_menu_choice(params, meta=None):
 	if in_progress_menu: listing_append(('TV Shows Progress Manager', '', 'nextep_manager'))
 	listing_append(('Open Download Manager', '', 'open_download_manager'))
 	listing_append(('Open Tools', '', 'open_tools'))
-	if menu_type in ('movie', 'episode'): listing_append(('Open External Scraper Settings', '', 'open_external_scraper_settings'))
+	if menu_type in ('movie', 'episode') or menu_type in single_ep_list: listing_append(('Open External Scraper Settings', '', 'open_external_scraper_settings'))
 	listing_append(('Open Settings', '', 'open_settings'))
-	list_items = list(_builder())
+	list_items = [{'line1': item[0], 'line2': item[1] or item[0], 'icon': poster} for item in listing]
 	heading = rootname or 'Options...'
 	kwargs = {'items': json.dumps(list_items), 'heading': heading, 'multi_line': 'true'}
 	choice = select_dialog([i[2] for i in listing], **kwargs)

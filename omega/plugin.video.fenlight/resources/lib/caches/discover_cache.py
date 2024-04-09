@@ -4,7 +4,6 @@ from caches.base_cache import connect_database
 
 INSERT_ONE = 'INSERT OR REPLACE INTO discover VALUES (?, ?, ?)'
 DELETE_ONE = 'DELETE FROM discover where id=?'
-SELECT_ONE = 'SELECT data FROM discover WHERE id=?'
 SELECT_TYPE = 'SELECT * FROM discover WHERE db_type == ?'
 DELETE_TYPE = 'DELETE FROM discover WHERE db_type=?'
 
@@ -18,15 +17,11 @@ class DiscoverCache:
 		dbcon.execute(DELETE_ONE, (_id,))
 		dbcon.execute('VACUUM')
 
-	def get_one(self, _id):
-		dbcon = connect_database('discover_db')
-		dbcon.execute(SELECT_ONE, (_id,))
-
 	def get_all(self, db_type):
 		dbcon = connect_database('discover_db')
-		return [{'id': i[0], 'data': i[2]} for i in dbcon.execute(SELECT_TYPE, (db_type,)).fetchall()]
+		return [{'id': i[0], 'data': i[2]} for i in reversed(dbcon.execute(SELECT_TYPE, (db_type,)).fetchall())]
 
-	def delete_all(self, db_type):
+	def clear_cache(self, db_type):
 		dbcon = connect_database('discover_db')
 		dbcon.execute(DELETE_TYPE, (db_type,))
 		dbcon.execute('VACUUM')

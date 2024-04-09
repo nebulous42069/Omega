@@ -29,8 +29,7 @@ class PremiumizeAPI:
 		user_code = response['user_code']
 		try: copy2clip(user_code)
 		except: pass
-		content = line % ('Authorize Debrid Services', 'Navigate to: [B]%s[/B]' % response.get('verification_uri'),
-														'Enter the following code: [COLOR orangered][B]%s[/B][/COLOR]' % user_code)
+		content = 'Authorize Debrid Services[CR]Navigate to: [B]%s[/B][CR]Enter the following code: [B]%s[/B]' % (response.get('verification_uri'), user_code)
 		progressDialog = progress_dialog('Premiumize Authorize', get_icon('pm_qrcode'))
 		progressDialog.update(content, 0)
 		device_code = response['device_code']
@@ -214,6 +213,13 @@ class PremiumizeAPI:
 		url = 'item/listall'
 		return cache_object(self._get, string, url, False, 0.5)
 
+	def rename_cache_item(self, file_type, file_id, new_name):
+		if file_type == 'folder': url = 'folder/rename'
+		else: url = 'item/rename'
+		data = {'id': file_id , 'name': new_name}
+		response = self._post(url, data)
+		return response['status']
+
 	def transfers_list(self):
 		url = 'transfer/list'
 		return self._get(url)
@@ -286,8 +292,8 @@ class PremiumizeAPI:
 		try:
 			from modules.kodi_utils import clear_property
 			from caches.debrid_cache import debrid_cache
-			from caches.main_cache import main_cache
-			dbcon = main_cache.dbcon
+			from caches.base_cache import connect_database
+			dbcon = connect_database('maincache_db')
 			user_cloud_success = False
 			# USER CLOUD
 			try:
@@ -309,12 +315,6 @@ class PremiumizeAPI:
 				clear_property("fenlight.pm_transfers_list")
 				download_links_success = True
 			except: download_links_success = False
-			# HOSTERS
-			try:
-				dbcon.execute("""DELETE FROM maincache WHERE id=?""", ('pm_valid_hosts',))
-				clear_property('fenlight.pm_valid_hosts')
-				hoster_links_success = True
-			except: hoster_links_success = False
 			# HASH CACHED STATUS
 			if clear_hashes:
 				try:
@@ -323,5 +323,5 @@ class PremiumizeAPI:
 				except: hash_cache_status_success = False
 			else: hash_cache_status_success = True
 		except: return False
-		if False in (user_cloud_success, download_links_success, hoster_links_success, hash_cache_status_success): return False
+		if False in (user_cloud_success, download_links_success, hash_cache_status_success): return False
 		return True

@@ -18,7 +18,7 @@ filter_list_id = 2100
 button_ids = (10, 11)
 button_actions = {10: 'Save and Exit', 11: 'Exit'}
 default_key_values = ('key', 'display_key')
-discover_icon = get_icon('discover')
+empty_list_label = '[B]***Set Properties to make List***[/B]'
 
 class Discover(BaseDialog):
 	def __init__(self, *args, **kwargs):
@@ -69,6 +69,8 @@ class Discover(BaseDialog):
 				listitem.setProperty('label1', values['label'])
 				try: listitem.setProperty('label2', self.get_attribute(self, values['display_key']))
 				except: pass
+				try: listitem.setProperty('icon', get_icon(values['icon']))
+				except: listitem.setProperty('icon', get_icon('discover'))
 				listitem.setProperty('key', key)
 				yield listitem
 		if self.remake:
@@ -175,6 +177,13 @@ class Discover(BaseDialog):
 		choice = self.selection_dialog(self.chosen_item['label'], [{'name': i['name']} for i in sort_by_list], sort_by_list)
 		if choice != None: self.set_key_values(self.chosen_item['url_insert'] % choice['id'], choice['name'])
 
+	def released(self):
+		current_attribute_value = self.get_attribute(self, self.chosen_item['display_key'])
+		current_date = tmdb_api.get_current_date()
+		if not current_attribute_value or current_attribute_value == 'False': choice = {'name': 'True', 'id': current_date}
+		else: choice = {'name': 'False', 'id': current_date}
+		self.set_key_values(self.chosen_item['url_insert_%s' % self.media_type] % choice['id'], choice['name'])
+
 	def adult(self):
 		current_attribute_value = self.get_attribute(self, self.chosen_item['display_key'])
 		if not current_attribute_value or current_attribute_value == 'True': choice = {'name': 'False', 'id': 'false'}
@@ -202,12 +211,15 @@ class Discover(BaseDialog):
 			elif key == 'with_year_end':
 				if ignore_year_end: continue
 				label_extend = values['name_value'] % attribute_value
+			elif key == 'with_released':
+				if attribute_value == 'True': label_extend = values['name_value']
+				else: continue
 			elif key == 'with_adult':
 				if attribute_value == 'True': label_extend = values['name_value']
 				else: continue
 			else: label_extend = values['name_value'] % attribute_value
 			label += label_extend
-		self.label = label
+		self.label = label#.upper()
 
 	def set_key_values(self, key_content, display_key_content):
 		self.set_attribute(self, self.chosen_item['key'], key_content)
@@ -227,9 +239,9 @@ class Discover(BaseDialog):
 
 	def set_attributes_status(self, status='false'):
 		self.setProperty('active_attributes', status)
+		self.setProperty('list_label', self.label if status == 'true' else empty_list_label)
 
 	def set_starting_constants(self, kwargs):
 		self.position, self.remake, self.chosen_item, self.media_type, self.active_attributes,  self.label, self.url = 0, False, None, kwargs['media_type'], [], '', ''
-		self.setProperty('discover_icon', discover_icon)
 		for key, values in discover_items.items():
 			for key_value in default_key_values: self.set_attribute(self, values[key_value], '')

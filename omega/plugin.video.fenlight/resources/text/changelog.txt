@@ -1,5 +1,73 @@
 ++
 
+[COLOR dodgerblue][B]Version 1.0.41[/B][/COLOR]
+- Added "Rollback to a Previous Version" to Tools. Use this to "rollback" to any version still on the github. Useful if an update is causing issues. I will commit to having at least the previous version available on the github site moving forward.
+- Added assignment for "landscape" artwork. Metadata cache will need to be cleared to begin seeing the landscape artwork.
+- Added "Random Recommended Movies" and "Random Recommended TV Shows" to the Random Lists section.
+- Added context menu listing to delete items in debrid clouds when browsing through My Services.
+- Other changes/fixes.
+
+[COLOR dodgerblue][B]Version 1.0.40[/B][/COLOR]
+- Removed Playback->Utilities->"Remember Previous Successful Resolves". Short-lived. Didn't seem to work for most people for some reason, and broke Fen Light when it didn't work. I wasn't that enamoured with the feature in the first place, so better to remove it. The same functionality can already be achieved with a couple of settings.
+
+[COLOR dodgerblue][B]Version 1.0.39[/B][/COLOR]
+- Added settings for Trakt Calendar in Settings->Navigation. Choose previous/future days and sort order.
+
+[COLOR dodgerblue][B]Version 1.0.38[/B][/COLOR]
+- Added settings for maximum size for Movies or Episodes. Changed from a single setting for both. Found at Results->Sorting & Filtering.
+- Added Playback->Utilities->"Remember Previous Successful Resolves". Enable this and Fen Light will remember the last successful resolve for a Movie or TV Show and sort it to the top of the results list. The highlight color can be set in Results->Results Color Highlights when the setting is enabled.
+- Neutralized activation code colors when authorizing debrid providers or Trakt so as to assist colorblind people in seeing the code.
+- Other changes/fixes.
+
+[COLOR dodgerblue][B]Version 1.0.36/37[/B][/COLOR]
+- Couple of quick fixes.
+
+[COLOR dodgerblue][B]Version 1.0.35[/B][/COLOR]
+- Added "Sort Type" and "Sort Order" and "Include Airdate in Title" to Next Episode settings.
+- Added "Next Episode Alert Method" setting to Autoplay Next Episode Settings. Choose between "Window" and "Notification".
+- Added "Autoscrape Next Episode" to Episode playback settings. Notification will show when next episode sources are found and are ready to choose from.
+- Fixed scrolling issue in select dialog. List items will scroll when highlighted.
+- Other changes/fixes.
+
+[COLOR dodgerblue][B]Version 1.0.34[/B][/COLOR]
+- Quick fix for Extra Info in Extras window.
+
+[COLOR dodgerblue][B]Version 1.0.33[/B][/COLOR]
+- Added Kodi version check to startup services.
+- Added Choice of method for filtering results by size. Choose between Off, Line Speed or Max Filesize. You can also now set a minimum size.
+- Added a history for Trakt list searches.
+- Fixed incorrect episode size estimates on certain results.
+- Other changes/fixes.
+
+[COLOR dodgerblue][B]Version 1.0.32[/B][/COLOR]
+- Added Settings->Navigation->Next Episodes->"Sort Airing Today to Top" for Next Episodes list. Will sort any episodes airing that day to the top of the list.
+- Changed default focused button on Next Episode notification dialog to "Play".
+- Other changes/fixes.
+
+[COLOR dodgerblue][B]Version 1.0.31[/B][/COLOR]
+- Added Kodi version check to startup services.
+- Added "Released Only" to Discover options for Movies/TV Shows.
+- Other changes/fixes.
+
+[COLOR dodgerblue][B]Version 1.0.30[/B][/COLOR]
+- Added Settings->Navigation->"Include Adult Results from Media Searches". Defaults to DISABLED.
+- Removed "Autoscrape Next Episode".
+- Other changes/fixes.
+
+[COLOR dodgerblue][B]Version 1.0.25[/B][/COLOR]
+- Some changes/fixes.
+
+[COLOR dodgerblue][B]Version 1.0.24[/B][/COLOR]
+- Fixed broken cache clearing of debrid accounts.
+- Added "episode type" support to Next Episode dialog.
+- Other changes/fixes.
+
+[COLOR dodgerblue][B]Version 1.0.23[/B][/COLOR]
+- Fixed "Providers" menu for movies.
+- Added episode type support for Jurial skins. Currently only Arctic Fuse. Users should thank Jurial for adding this feature to his skin. He has a donation link where you can throw him some money and love. Users will need to clear metadata in Tools->Database & Cache Maintenance->Clear Meta Cache.
+- Added Media Images content for Fen Light Extras dialog. Just a list featuring the media's Poster, Fanart & Clearlogo. Will need to be enabled on current installs.
+- Other changes/fixes.
+
 [COLOR dodgerblue][B]Version 1.0.22[/B][/COLOR]
 - Added "Most Favorited" to Movies and TV Shows menu. Invoke context menu on Movie & TV Show menu item and select "Check for New Menu Items" and then place where desired. Alternately, select "Restore Menu" to reload the default menu items, which will now include the new menu item.
 - Quick fix for CAM, TELE, SCR results not showing when result highlights are based on quality.

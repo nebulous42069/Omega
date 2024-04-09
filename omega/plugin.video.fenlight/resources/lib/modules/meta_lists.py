@@ -54,17 +54,17 @@ decades_tvshows = [
 	]
 
 oscar_winners = (
-{'results': [{'id': 545611}, {'id': 776503}, {'id': 581734}, {'id': 496243}, {'id': 490132}, {'id': 399055}, {'id': 376867}, {'id': 314365}, {'id': 194662}, {'id': 76203}, 
-{'id': 68734}, {'id': 74643}, {'id': 45269}, {'id': 12162}, {'id': 12405}, {'id': 6977}, {'id': 1422}, {'id': 1640}, {'id': 70}, {'id': 122}], 'total_pages': 5, 'page': 1},
-{'results': [{'id': 1574}, {'id': 453}, {'id': 98}, {'id': 14}, {'id': 1934}, {'id': 597}, {'id': 409}, {'id': 197}, {'id': 13}, {'id': 424}, {'id': 33}, {'id': 274},
-{'id': 581}, {'id': 403}, {'id': 380}, {'id': 746}, {'id': 792}, {'id': 606}, {'id': 279}, {'id': 11050}], 'total_pages': 5, 'page': 2},
-{'results': [{'id': 783}, {'id': 9443}, {'id': 16619}, {'id': 12102}, {'id': 11778}, {'id': 703}, {'id': 1366}, {'id': 510}, {'id': 240}, {'id': 9277}, {'id': 238},
-{'id': 1051}, {'id': 11202}, {'id': 3116}, {'id': 17917}, {'id': 10633}, {'id': 874}, {'id': 15121}, {'id': 11113}, {'id': 5769}], 'total_pages': 5, 'page': 3},
-{'results': [{'id': 947}, {'id': 1725}, {'id': 284}, {'id': 665}, {'id': 17281}, {'id': 826}, {'id': 2897}, {'id': 15919}, {'id': 654}, {'id': 11426}, {'id': 27191},
-{'id': 2769}, {'id': 705}, {'id': 25430}, {'id': 23383}, {'id': 33667}, {'id': 887}, {'id': 28580}, {'id': 17661}, {'id': 27367}], 'total_pages': 5, 'page': 4},
-{'results': [{'id': 289}, {'id': 43266}, {'id': 223}, {'id': 770}, {'id': 34106}, {'id': 43278}, {'id': 43277}, {'id': 12311}, {'id': 3078}, {'id': 56164}, {'id': 33680},
-{'id': 42861}, {'id': 143}, {'id': 65203}, {'id': 28966}, {'id': 631}], 'total_pages': 5, 'page': 5}
-
+{'results': [{'id': 872585}, {'id': 545611}, {'id': 776503}, {'id': 581734}, {'id': 496243}, {'id': 490132}, {'id': 399055}, {'id': 376867}, {'id': 314365},
+{'id': 194662}, {'id': 76203}, {'id': 68734}, {'id': 74643}, {'id': 45269}, {'id': 12162}, {'id': 12405}, {'id': 6977}, {'id': 1422}, {'id': 1640}, {'id': 70}],
+'total_pages': 5, 'page': 1},
+{'results': [{'id': 122}, {'id': 1574}, {'id': 453}, {'id': 98}, {'id': 14}, {'id': 1934}, {'id': 597}, {'id': 409}, {'id': 197}, {'id': 13}, {'id': 424}, {'id': 33},
+{'id': 274}, {'id': 581}, {'id': 403}, {'id': 380}, {'id': 746}, {'id': 792}, {'id': 606}, {'id': 279}], 'total_pages': 5, 'page': 2},
+{'results': [{'id': 11050}, {'id': 783}, {'id': 9443}, {'id': 16619}, {'id': 12102}, {'id': 11778}, {'id': 703}, {'id': 1366}, {'id': 510}, {'id': 240}, {'id': 9277},
+{'id': 238}, {'id': 1051}, {'id': 11202}, {'id': 3116}, {'id': 17917}, {'id': 10633}, {'id': 874}, {'id': 15121}, {'id': 11113}], 'total_pages': 5, 'page': 3},
+{'results': [{'id': 5769}, {'id': 947}, {'id': 1725}, {'id': 284}, {'id': 665}, {'id': 17281}, {'id': 826}, {'id': 2897}, {'id': 15919}, {'id': 654}, {'id': 11426},
+{'id': 27191}, {'id': 2769}, {'id': 705}, {'id': 25430}, {'id': 23383}, {'id': 33667}, {'id': 887}, {'id': 28580}, {'id': 17661}], 'total_pages': 5, 'page': 4},
+{'results': [{'id': 27367}, {'id': 289}, {'id': 43266}, {'id': 223}, {'id': 770}, {'id': 34106}, {'id': 43278}, {'id': 43277}, {'id': 12311}, {'id': 3078}, {'id': 56164},
+{'id': 33680}, {'id': 42861}, {'id': 143}, {'id': 65203}, {'id': 28966}, {'id': 631}], 'total_pages': 5, 'page': 5}
 	)
 
 movie_certifications = [
@@ -367,33 +367,35 @@ tvshow_sorts = [
 
 discover_items = {
 'with_year_start': {'label': 'Year Start', 'key': 'with_year_start', 'display_key': 'with_year_start_display', 'action': 'years',
-'url_insert_movie': '&primary_release_date.gte=%s-01-01', 'url_insert_tvshow': '&first_air_date.gte=%s-01-01', 'name_value': ' | %s onwards'},
+'url_insert_movie': '&primary_release_date.gte=%s-01-01', 'url_insert_tvshow': '&first_air_date.gte=%s-01-01', 'name_value': ' | %s onwards', 'icon': 'calender'},
 'with_year_end': {'label': 'Year End', 'key': 'with_year_end', 'display_key': 'with_year_end_display', 'action': 'years',
-'url_insert_movie': '&primary_release_date.lte=%s-12-31', 'url_insert_tvshow': '&first_air_date.lte=%s-12-31', 'name_value': ' | up to %s'},
+'url_insert_movie': '&primary_release_date.lte=%s-12-31', 'url_insert_tvshow': '&first_air_date.lte=%s-12-31', 'name_value': ' | up to %s', 'icon': 'calender'},
 'with_genres': {'label': 'With Genres', 'key': 'with_genres', 'display_key': 'with_genres_display', 'action': 'genres',
-'url_insert': '&with_genres=%s', 'name_value': ' | %s'},
+'url_insert': '&with_genres=%s', 'name_value': ' | %s', 'icon': 'genres'},
 'without_genres': {'label': 'Without Genres', 'key': 'without_genres', 'display_key': 'without_genres_display', 'action': 'genres',
-'url_insert': '&without_genres=%s', 'name_value': ' | exclude %s'},
+'url_insert': '&without_genres=%s', 'name_value': ' | exclude %s', 'icon': 'genres'},
 'with_network': {'label': 'Network', 'key': 'with_network', 'display_key': 'with_network_display', 'action': 'network',
-'url_insert': '&with_networks=%s', 'name_value': ' | %s', 'limited': 'tvshow'},
+'url_insert': '&with_networks=%s', 'name_value': ' | %s', 'limited': 'tvshow', 'icon': 'networks'},
 'with_provider': {'label': 'Provider', 'key': 'with_provider', 'display_key': 'with_provider_display', 'action': 'provider',
-'url_insert': '&with_watch_providers=%s', 'name_value': ' | %s'},
+'url_insert': '&with_watch_providers=%s', 'name_value': ' | %s', 'icon': 'providers'},
 'with_certification': {'label': 'Certification', 'key': 'with_certification', 'display_key': 'with_certification_display', 'action': 'certifications',
-'url_insert': '&certification_country=US&certification=%s', 'name_value': ' | %s', 'limited': 'movie'},
+'url_insert': '&certification_country=US&certification=%s', 'name_value': ' | %s', 'limited': 'movie', 'icon': 'certifications'},
 'with_certification_and_lower': {'label': 'Certification (& lower)', 'key': 'with_certification_and_lower', 'display_key': 'with_certification_and_lower_display',
-'action': 'certification_and_lowers', 'url_insert': '&certification_country=US&certification.lte=%s', 'name_value': ' | %s', 'limited': 'movie'},		
+'action': 'certification_and_lowers', 'url_insert': '&certification_country=US&certification.lte=%s', 'name_value': ' | %s', 'limited': 'movie', 'icon': 'certifications'},		
 'with_keywords': {'label': 'With Keywords', 'key': 'with_keywords', 'display_key': 'with_keywords_display', 'action': 'keywords',
-'url_insert': '&with_keywords=%s', 'name_value': ' | Keywords: %s'},
+'url_insert': '&with_keywords=%s', 'name_value': ' | Keywords: %s', 'icon': 'genre_fantasy'},
 'with_rating': {'label': 'Minimum Rating', 'key': 'with_rating', 'display_key': 'with_rating_display', 'action': 'ratings',
-'url_insert': '&vote_average.gte=%s', 'name_value': ' | %s+'},
+'url_insert': '&vote_average.gte=%s', 'name_value': ' | %s+', 'icon': 'most_watched'},
 'with_rating_votes': {'label': 'Minimum Number of Votes', 'key': 'with_rating_votes', 'display_key': 'with_rating_votes_display', 'action': 'votes',
-'url_insert': '&vote_count.gte=%s', 'name_value': ' | %s votes'},
+'url_insert': '&vote_count.gte=%s', 'name_value': ' | %s votes', 'icon': 'most_voted'},
 'with_cast': {'label': 'Include Cast', 'key': 'with_cast', 'display_key': 'with_cast_display', 'action': 'casts',
-'url_insert': '&with_cast=%s', 'name_value': ' | with %s', 'limited': 'movie'},
+'url_insert': '&with_cast=%s', 'name_value': ' | with %s', 'limited': 'movie', 'icon': 'people'},
 'with_sort': {'label': 'Sort By', 'key': 'with_sort', 'display_key': 'with_sort_display', 'action': 'sort',
-'url_insert': '%s', 'name_value': ' | %s'},
+'url_insert': '%s', 'name_value': ' | %s', 'icon': 'lists'},
+'with_released': {'label': 'Released Only', 'key': 'with_released', 'display_key': 'with_released_display', 'action': 'released',
+'url_insert_movie': '&primary_release_date.lte=%s', 'url_insert_tvshow': '&include_null_first_air_dates=false&first_air_date.lte=%s', 'name_value': ' | Released Only', 'icon': 'dvd'},
 'with_adult': {'label': 'Include Adult', 'key': 'with_adult', 'display_key': 'with_adult_display', 'action': 'adult',
-'url_insert': '&include_adult=%s', 'name_value': ' | Include Adult', 'limited': 'movie'},
+'url_insert': '&include_adult=%s', 'name_value': ' | Include Adult', 'limited': 'movie', 'icon': 'genre_romance'}
 		}
 
 color_palette = [

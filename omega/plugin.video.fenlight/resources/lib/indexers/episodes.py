@@ -2,7 +2,6 @@
 from apis.trakt_api import trakt_watchlist, trakt_get_my_calendar
 from caches.favorites_cache import favorites_cache
 from modules import kodi_utils, settings, watched_status as ws
-from modules.watched_status import get_hidden_progress_items
 from modules.metadata import tvshow_meta, episodes_meta, all_episodes_meta
 from modules.utils import jsondate_to_datetime, adjust_premiered_date, make_day, get_datetime, title_key, date_difference, make_thread_list_enumerate
 # logger = kodi_utils.logger
@@ -10,16 +9,17 @@ from modules.utils import jsondate_to_datetime, adjust_premiered_date, make_day,
 set_view_mode, external, home, sys = kodi_utils.set_view_mode, kodi_utils.external, kodi_utils.home, kodi_utils.sys
 add_items, set_content, set_sort_method, end_directory = kodi_utils.add_items, kodi_utils.set_content, kodi_utils.set_sort_method, kodi_utils.end_directory
 date_offset_info, default_all_episodes, nextep_include_unwatched = settings.date_offset, settings.default_all_episodes, settings.nextep_include_unwatched
+nextep_airing_today, nextep_sort_key, nextep_sort_direction = settings.nextep_airing_today, settings.nextep_sort_key, settings.nextep_sort_direction
 nextep_include_unaired, ep_display_format, widget_hide_watched = settings.nextep_include_unaired, settings.single_ep_display_format, settings.widget_hide_watched
 make_listitem, build_url, xbmc_actor, set_category = kodi_utils.make_listitem, kodi_utils.build_url, kodi_utils.xbmc_actor, kodi_utils.set_category
+get_property, nextep_include_airdate, calendar_sort_order = kodi_utils.get_property, settings.nextep_include_airdate, settings.calendar_sort_order
 watched_indicators_info, use_minimal_media_info = settings.watched_indicators, settings.use_minimal_media_info
 tv_meta_function, episodes_meta_function, all_episodes_meta_function = tvshow_meta, episodes_meta, all_episodes_meta
-adjust_premiered_date_function, jsondate_to_datetime_function = adjust_premiered_date, jsondate_to_datetime
-make_day_function, title_key_function, get_datetime_function, date_difference_function = make_day, title_key, get_datetime, date_difference
-get_progress_percent, get_watched_status, get_watched_info, get_bookmarks = ws.get_progress_percent, ws.get_watched_status_episode, ws.get_watched_info_tv, ws.get_bookmarks
+get_progress_percent, get_watched_status, get_media_info = ws.get_progress_percent, ws.get_watched_status_episode, ws.get_media_info
 get_in_progress_episodes, get_next_episodes, get_recently_watched = ws.get_in_progress_episodes, ws.get_next_episodes, ws.get_recently_watched
+get_hidden_progress_items = ws.get_hidden_progress_items
 string =  str
-poster_empty, fanart_empty = kodi_utils.empty_poster, kodi_utils.get_addon_fanart()
+poster_empty, fanart_empty = kodi_utils.empty_poster, kodi_utils.default_addon_fanart
 run_plugin, unaired_label, tmdb_poster = 'RunPlugin(%s)', '[COLOR red][I]%s[/I][/COLOR]', 'https://image.tmdb.org/t/p/w780%s'
 upper = string.upper
 content_type = 'episodes'
@@ -32,15 +32,14 @@ def build_episode_list(params):
 		for item in episodes_data:
 			try:
 				cm = []
+				cm_append = cm.append
 				listitem = make_listitem()
 				set_properties = listitem.setProperties
-				cm_append = cm.append
 				item_get = item.get
 				season, episode, ep_name = item_get('season'), item_get('episode'), item_get('title')
-				episode_date, premiered = adjust_premiered_date_function(item_get('premiered'), adjust_hours)
-				playcount = get_watched_status(watched_info, string(tmdb_id), season, episode)
-				progress = get_progress_percent(bookmarks, tmdb_id, season, episode)
-				thumb = item_get('thumb', None) or show_fanart
+				episode_date, premiered = adjust_premiered_date(item_get('premiered'), adjust_hours)
+				episode_type = item_get('episode_type') or ''
+				thumb = item_get('thumb', None) or show_landscape or show_fanart
 				try: year = premiered.split('-')[0]
 				except: year = show_year or '2050'
 				if not item_get('duration'): item['duration'] = show_duration
@@ -48,6 +47,9 @@ def build_episode_list(params):
 					display, unaired = unaired_label % ep_name, True
 					item['title'] = display
 				else: display, unaired = ep_name, False
+				playcount = get_watched_status(watched_info, string(tmdb_id), season, episode)
+				if playcount and hide_watched: continue
+				progress = get_progress_percent(bookmarks, tmdb_id, season, episode)
 				options_params = build_url({'mode': 'options_menu_choice', 'content': 'episode', 'tmdb_id': tmdb_id, 'season': season, 'episode': episode,
 											'poster': show_poster, 'playcount': playcount, 'progress': progress, 'is_external': is_external, 'unaired': unaired})
 				extras_params = build_url({'mode': 'extras_menu_choice', 'tmdb_id': tmdb_id, 'media_type': 'episode', 'is_external': is_external})
@@ -58,7 +60,6 @@ def build_episode_list(params):
 				cm_append(('[B]Playback Options...[/B]', run_plugin % play_options_params))
 				if not unaired:
 					if playcount:
-						if hide_watched: continue
 						cm_append(('[B]Mark Unwatched %s[/B]' % watched_title, run_plugin % build_url({'mode': 'watched_status.mark_episode', 'action': 'mark_as_unwatched',
 													'tmdb_id': tmdb_id, 'tvdb_id': tvdb_id, 'season': season, 'episode': episode,  'title': title})))
 					else: cm_append(('[B]Mark Watched %s[/B]' % watched_title, run_plugin % build_url({'mode': 'watched_status.mark_episode', 'action': 'mark_as_watched',
@@ -82,19 +83,16 @@ def build_episode_list(params):
 					set_properties({'WatchedProgress': progress})
 				listitem.setLabel(display)
 				listitem.addContextMenuItems(cm)
-				listitem.setArt({'poster': show_poster, 'fanart': show_fanart, 'thumb': thumb, 'icon':thumb, 'clearlogo': show_clearlogo, 'season.poster': season_poster,
-								'tvshow.poster': show_poster, 'tvshow.clearlogo': show_clearlogo})
-				set_properties({'fenlight.extras_params': extras_params, 'fenlight.options_params': options_params, 'IsPlayable': 'false'})
+				listitem.setArt({'poster': show_poster, 'fanart': show_fanart, 'thumb': thumb, 'icon':thumb, 'clearlogo': show_clearlogo, 'landscape': show_landscape,
+								'season.poster': season_poster, 'tvshow.poster': show_poster, 'tvshow.clearlogo': show_clearlogo})
+				set_properties({'fenlight.extras_params': extras_params, 'fenlight.options_params': options_params, 'episode_type': episode_type})
 				yield (url_params, listitem, False)
 			except: pass
 	handle, is_external, is_home, category_name = int(sys.argv[1]), external(), home(), 'Episodes'
 	item_list = []
 	append = item_list.append
-	watched_indicators = watched_indicators_info()
-	adjust_hours = date_offset_info()
-	use_minimal_media = use_minimal_media_info()
-	hide_watched = is_home and widget_hide_watched()
-	current_date, watched_info, bookmarks = get_datetime_function(), get_watched_info(watched_indicators), get_bookmarks(watched_indicators, 'episode')
+	watched_indicators, adjust_hours, use_minimal_media = watched_indicators_info(), date_offset_info(), use_minimal_media_info()
+	current_date, hide_watched = get_datetime(), is_home and widget_hide_watched()
 	watched_title = 'Trakt' if watched_indicators == 1 else 'Fen Light'
 	meta = tv_meta_function('tmdb_id', params.get('tmdb_id'), current_date)
 	meta_get = meta.get
@@ -105,6 +103,7 @@ def build_episode_list(params):
 	show_poster = meta_get('poster') or poster_empty
 	show_fanart = meta_get('fanart') or fanart_empty
 	show_clearlogo = meta_get('clearlogo') or ''
+	show_landscape = meta_get('landscape') or ''
 	if season == 'all':
 		episodes_data = all_episodes_meta_function(meta)
 		season_poster = show_poster
@@ -114,6 +113,7 @@ def build_episode_list(params):
 			poster_path = [i['poster_path'] for i in meta_get('season_data') if i['season_number'] == int(season)][0]
 			season_poster = tmdb_poster % poster_path if poster_path is not None else show_poster
 		except: season_poster = show_poster
+	(watched_info, bookmarks) = get_media_info(watched_indicators, 'episode', True)
 	add_items(handle, list(_process()))
 	set_sort_method(handle, content_type)
 	category_name = 'Season %s' % season
@@ -141,24 +141,27 @@ def build_single_episode(list_type, params={}):
 			unwatched = ep_data_get('unwatched', False)
 			season_data = meta_get('season_data')
 			if list_type_starts_with('next_'):
-				if orig_episode == 0: orig_episode, new_season = 1, False
+				if orig_episode == 0: orig_episode = 1
 				else:
 					try:
 						episode_count = [i for i in season_data if i['season_number'] == orig_season][0]['episode_count']
 						if orig_episode >= episode_count:
-							orig_season, orig_episode, new_season = orig_season + 1, 1, True
+							orig_season, orig_episode = orig_season + 1, 1
 							if orig_season > meta_get('total_seasons'): return
-						else: orig_episode, new_season = orig_episode + 1, False
+						else: orig_episode = orig_episode + 1
 					except: return
 			episodes_data = episodes_meta_function(orig_season, meta)
 			try: item = [i for i in episodes_data if i['episode'] == orig_episode][0]
 			except: return
 			item_get = item.get
 			season, episode, ep_name = item_get('season'), item_get('episode'), item_get('title')
-			episode_date, premiered = adjust_premiered_date_function(item_get('premiered'), adjust_hours)
+			episode_date, premiered = adjust_premiered_date(item_get('premiered'), adjust_hours)
+			episode_type = item_get('episode_type') or ''
 			if not episode_date or current_date < episode_date:
 				if list_type_starts_with('next_'):
-					if episode_date and new_season and not date_difference_function(current_date, episode_date, 7): return
+					if not episode_date: return
+					if not include_unaired: return
+					if not date_difference(current_date, episode_date, 7): return
 				unaired = True
 			else: unaired = False
 			tmdb_id, tvdb_id, imdb_id, title, show_year = meta_get('tmdb_id'), meta_get('tvdb_id'), meta_get('imdb_id'), meta_get('title'), meta_get('year') or '2050'
@@ -167,31 +170,35 @@ def build_single_episode(list_type, params={}):
 			show_poster = meta_get('poster') or poster_empty
 			show_fanart = meta_get('fanart') or fanart_empty
 			show_clearlogo = meta_get('clearlogo') or ''
-			thumb = item_get('thumb', None) or show_fanart
+			show_landscape = meta_get('landscape') or ''
+			thumb = item_get('thumb', None) or show_landscape or show_fanart
 			try: year = premiered.split('-')[0]
 			except: year = show_year or '2050'
 			try:
 				poster_path = [i['poster_path'] for i in season_data if i['season_number'] == int(season)][0]
 				season_poster = tmdb_poster % poster_path if poster_path is not None else show_poster
 			except: season_poster = show_poster
-			playcount, progress = get_watched_status(watched_info, string(tmdb_id), season, episode), get_progress_percent(bookmarks, tmdb_id, season, episode)
 			str_season_zfill2, str_episode_zfill2 = string(season).zfill(2), string(episode).zfill(2)
 			if display_format == 0: title_string = '%s: ' % title
 			else: title_string = ''
 			if display_format in (0, 1): seas_ep = '%sx%s - ' % (str_season_zfill2, str_episode_zfill2)
 			else: seas_ep = ''
+			playcount = get_watched_status(watched_info, string(tmdb_id), season, episode)
+			if playcount and hide_watched: return
+			progress = get_progress_percent(bookmarks, tmdb_id, season, episode)
 			if list_type_starts_with('next_'):
 				if playcount: return
-				if unwatched: display_premiered, highlight_start, highlight_end = '', '[COLOR darkgoldenrod]', '[/COLOR]'
-				elif unaired:
-					if not include_unaired: return
-					if episode_date: display_premiered = '[%s] ' % make_day_function(current_date, episode_date)
+				if include_airdate:
+					if episode_date: display_premiered = '[%s] ' % make_day(current_date, episode_date)
 					else: display_premiered = '[UNKNOWN] '
-					highlight_start, highlight_end = '[COLOR red]', '[/COLOR]'
-				else: display_premiered, highlight_start, highlight_end = '', '', ''
+				else: display_premiered = ''
+
+				if unwatched: highlight_start, highlight_end = '[COLOR darkgoldenrod]', '[/COLOR]'
+				elif unaired: highlight_start, highlight_end = '[COLOR red]', '[/COLOR]'
+				else: highlight_start, highlight_end = '', ''
 				display = '%s%s%s%s%s%s' % (display_premiered, title_string, highlight_start, seas_ep, ep_name, highlight_end)
 			elif list_type_compare == 'trakt_calendar':
-				if episode_date: display_premiered = make_day_function(current_date, episode_date)
+				if episode_date: display_premiered = make_day(current_date, episode_date)
 				else: display_premiered = 'UNKNOWN'
 				display = '[%s] %s%s%s' % (display_premiered, title_string, seas_ep, ep_name)
 			else: display = '%s%s%s' % (title_string, seas_ep, ep_name)
@@ -206,13 +213,12 @@ def build_single_episode(list_type, params={}):
 			cm_append(('[B]Playback Options...[/B]', run_plugin % play_options_params))
 			if not unaired:
 				if playcount:
-					if hide_watched: return
 					cm_append(('[B]Mark Unwatched %s[/B]' % watched_title, run_plugin % build_url({'mode': 'watched_status.mark_episode', 'action': 'mark_as_unwatched',
-														'tmdb_id': tmdb_id, 'tvdb_id': tvdb_id, 'season': season, 'episode': episode,  'title': title})))
+												'tmdb_id': tmdb_id, 'tvdb_id': tvdb_id, 'season': season, 'episode': episode,  'title': title})))
 				else: cm_append(('[B]Mark Watched %s[/B]' % watched_title, run_plugin % build_url({'mode': 'watched_status.mark_episode', 'action': 'mark_as_watched',
-														'tmdb_id': tmdb_id, 'tvdb_id': tvdb_id, 'season': season, 'episode': episode,  'title': title})))
+												'tmdb_id': tmdb_id, 'tvdb_id': tvdb_id, 'season': season, 'episode': episode,  'title': title})))
 				if progress: cm_append(('[B]Clear Progress[/B]', run_plugin % build_url({'mode': 'watched_status.erase_bookmark', 'media_type': 'episode', 'tmdb_id': tmdb_id,
-														'season': season, 'episode': episode, 'refresh': 'true'})))
+												'season': season, 'episode': episode, 'refresh': 'true'})))
 			if is_home: cm_append(('[B]Refresh Widgets[/B]', run_plugin % build_url({'mode': 'kodi_refresh'})))
 			info_tag = listitem.getVideoInfoTag()
 			info_tag.setMediaType('episode'), info_tag.setOriginalTitle(orig_title), info_tag.setTvShowTitle(title), info_tag.setTitle(display), info_tag.setGenres(genre)
@@ -229,38 +235,35 @@ def build_single_episode(list_type, params={}):
 				set_properties({'WatchedProgress': progress})
 			listitem.setLabel(display)
 			listitem.addContextMenuItems(cm)
-			listitem.setArt({'poster': show_poster, 'fanart': show_fanart, 'thumb': thumb, 'icon':thumb, 'clearlogo': show_clearlogo,
+			listitem.setArt({'poster': show_poster, 'fanart': show_fanart, 'thumb': thumb, 'icon':thumb, 'clearlogo': show_clearlogo, 'landscape': show_landscape,
 							'season.poster': season_poster, 'tvshow.poster': show_poster, 'tvshow.clearlogo': show_clearlogo})
-			set_properties({'fenlight.extras_params': extras_params, 'fenlight.options_params': options_params, 'IsPlayable': 'false'})
+			set_properties({'fenlight.extras_params': extras_params, 'fenlight.options_params': options_params, 'episode_type': episode_type})
 			item_list_append({'list_items': (url_params, listitem, False), 'first_aired': premiered, 'name': '%s - %sx%s' % (title, str_season_zfill2, str_episode_zfill2),
 							'unaired': unaired, 'last_played': ep_data_get('last_played', resinsert), 'sort_order': string(_position), 'unwatched': ep_data_get('unwatched')})
 		except: pass
 	handle, is_external, is_home, category_name = int(sys.argv[1]), external(), home(), 'Episodes'
-	item_list, unwatched = [], []
+	item_list, airing_today, unwatched = [], [], []
 	resinsert = ''
 	item_list_append = item_list.append
 	all_episodes, watched_indicators, use_minimal_media, display_format = default_all_episodes(), watched_indicators_info(), use_minimal_media_info(), ep_display_format(is_external)
-	current_date, adjust_hours, hide_watched = get_datetime_function(), date_offset_info(), is_home and widget_hide_watched()
-	watched_info, bookmarks, watched_title = get_watched_info(watched_indicators), get_bookmarks(watched_indicators, 'episode'), 'Trakt' if watched_indicators == 1 else 'Fen Light'
+	current_date, adjust_hours, hide_watched = get_datetime(), date_offset_info(), is_home and widget_hide_watched()
+	(watched_info, bookmarks), watched_title = get_media_info(watched_indicators, 'episode', True), 'Trakt' if watched_indicators == 1 else 'Fen Light'
 	show_all_episodes = all_episodes in (1, 2)
 	category_name = _get_category_name()
 	if list_type == 'episode.next':
 		include_unwatched, include_unaired = nextep_include_unwatched(), nextep_include_unaired()
+		sort_key, sort_direction = nextep_sort_key(), nextep_sort_direction()
+		include_airdate = nextep_include_airdate()
 		data = get_next_episodes(watched_info)
-		if watched_indicators == 1:
-			resformat, resinsert = '%Y-%m-%dT%H:%M:%S.%fZ', '2000-01-01T00:00:00.000Z'
-			list_type = 'episode.next_trakt'
-		else:
-			resformat, resinsert = '%Y-%m-%d %H:%M:%S', '2000-01-01 00:00:00'
-			list_type = 'episode.next_fenlight'
 		hidden_data = get_hidden_progress_items(watched_indicators)
 		data = [i for i in data if not i['media_ids']['tmdb'] in hidden_data]
+		if watched_indicators == 1: resformat, resinsert, list_type = '%Y-%m-%dT%H:%M:%S.%fZ', '2000-01-01T00:00:00.000Z', 'episode.next_trakt'
+		else: resformat, resinsert, list_type = '%Y-%m-%d %H:%M:%S', '2000-01-01 00:00:00', 'episode.next_fenlight'
 		if include_unwatched != 0:
 			if include_unwatched in (1, 3):
 				try:
 					original_list = trakt_watchlist('watchlist', 'tvshow')
-					unwatched.extend([{'media_ids': i['media_ids'], 'season': 1, 'episode': 0, 'unwatched': True, 'title': i['title']} \
-								for i in original_list])
+					unwatched.extend([{'media_ids': i['media_ids'], 'season': 1, 'episode': 0, 'unwatched': True, 'title': i['title']} for i in original_list])
 				except: pass
 			if include_unwatched in (2, 3):
 				try: unwatched.extend([{'media_ids': {'tmdb': int(i['tmdb_id'])}, 'season': 1, 'episode': 0, 'unwatched': True, 'title': i['title']} \
@@ -271,7 +274,7 @@ def build_single_episode(list_type, params={}):
 	elif list_type == 'episode.recently_watched': data = get_recently_watched('episode')
 	else:#episode.trakt
 		recently_aired = params.get('recently_aired', None)
-		data = trakt_get_my_calendar(recently_aired, get_datetime_function())
+		data = trakt_get_my_calendar(recently_aired, get_datetime())
 		list_type = 'episode.trakt_recently_aired' if recently_aired else 'episode.trakt_calendar'
 		try: data = sorted(data, key=lambda i: (i['sort_title'], i.get('first_aired', '2100-12-31')), reverse=True)
 		except: data = sorted(data, key=lambda i: (i['sort_title']), reverse=True)
@@ -280,23 +283,34 @@ def build_single_episode(list_type, params={}):
 	threads = list(make_thread_list_enumerate(_process, data))
 	[i.join() for i in threads]
 	if list_type_starts_with('next_'):
-		try: item_list = sorted(item_list, key=lambda i: jsondate_to_datetime_function(i['last_played'], resformat), reverse=True)
-		except: pass
-		if unwatched:
-			unwatched = [i for i in item_list if i['unwatched']]
-			item_list = [i for i in item_list if not i in unwatched]
-		unaired = [i for i in item_list if i['unaired']]
-		aired = [i for i in item_list if not i in unaired]
-		item_list = aired + unaired + unwatched
+		def func(function):
+			if sort_key == 'name': return title_key(function)
+			elif sort_key == 'last_played': return jsondate_to_datetime(function, resformat)
+			else: return function
+		if nextep_airing_today():
+			airing_today = sorted([i for i in item_list if date_difference(current_date, jsondate_to_datetime(i.get('first_aired', '2100-12-31'), '%Y-%m-%d').date(), 0)],
+									key=lambda i: func(i[sort_key]), reverse=sort_direction)
+			item_list = [i for i in item_list if not i in airing_today]
+		else: airing_today = []
+		if sort_key == 'last_played':
+			unwatched = sorted([i for i in item_list if i['unwatched']], key=lambda i: title_key(i['name']))
+			item_list = sorted([i for i in item_list if not i['unwatched']], key=lambda i: func(i[sort_key]), reverse=sort_direction) + unwatched
+		else: item_list = sorted(item_list, key=lambda i: func(i[sort_key]), reverse=sort_direction)
+		item_list = airing_today + item_list
 	else:
 		item_list.sort(key=lambda i: i['sort_order'])
 		if list_type_compare in ('trakt_calendar', 'trakt_recently_aired'):
-			if list_type_compare == 'trakt_calendar': reverse = False
+			if list_type_compare == 'trakt_calendar': reverse = calendar_sort_order() == 0
 			else: reverse = True
 			try: item_list = sorted(item_list, key=lambda i: i.get('first_aired', '2100-12-31'), reverse=reverse)
 			except:
 				item_list = [i for i in item_list if i.get('first_aired') not in (None, 'None', '')]
 				item_list = sorted(item_list, key=lambda i: i.get('first_aired'), reverse=reverse)
+			if list_type_compare == 'trakt_calendar':
+				airing_today = sorted([i for i in item_list if date_difference(current_date, jsondate_to_datetime(i.get('first_aired', '2100-12-31'), '%Y-%m-%d').date(), 0)],
+										key=lambda i: i['first_aired'])
+				item_list = [i for i in item_list if not i in airing_today]
+				item_list = airing_today + item_list
 	add_items(handle, [i['list_items'] for i in item_list])
 	set_content(handle, content_type)
 	set_category(handle, category_name)

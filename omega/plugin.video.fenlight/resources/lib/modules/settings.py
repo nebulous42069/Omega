@@ -11,6 +11,7 @@ results_window_numbers_dict = {'List': 2000, 'Rows': 2001, 'WideList': 2002}
 default_action_dict = {'0': 'play', '1': 'cancel', '2': 'pause'}
 extras_open_action_dict = {'movie': (1, 3), 'tvshow': (2, 3)}
 paginate_dict = {True: 'fenlight.paginate.limit_widgets', False: 'fenlight.paginate.limit_addon'}
+nextep_sort_key_dict = {0: 'last_played', 1: 'first_aired', 2: 'name'}
 prescrape_scrapers_tuple = ('easynews', 'rd_cloud', 'pm_cloud', 'ad_cloud', 'folders')
 sort_to_top_dict = {'folders': 'fenlight.results.sort_folders_first', 'rd_cloud': 'fenlight.results.sort_rdcloud_first',
 					'pm_cloud': 'fenlight.results.sort_pmcloud_first', 'ad_cloud': 'fenlight.results.sort_adcloud_first'}
@@ -97,8 +98,11 @@ def auto_nextep_settings(play_type):
 	window_percentage = 100 - int(get_setting('fenlight.%s_next_window_percentage' % play_type, '95'))
 	use_chapters = get_setting('fenlight.%s_use_chapters' % play_type, 'true') == 'true'
 	scraper_time = int(get_setting('fenlight.results.timeout', '60')) + 20
-	default_action = default_action_dict[get_setting('fenlight.autoplay_default_action', '1')] if play_type == 'autoplay' else ''
-	return {'scraper_time': scraper_time, 'window_percentage': window_percentage, 'default_action': default_action, 'use_chapters': use_chapters}
+	if play_type == 'autoplay':
+		alert_method = int(get_setting('fenlight.autoplay_alert_method', '0'))
+		default_action = default_action_dict[get_setting('fenlight.autoplay_default_action', '1')]
+	else: alert_method, default_action = '', ''
+	return {'scraper_time': scraper_time, 'window_percentage': window_percentage, 'alert_method': alert_method, 'default_action': default_action, 'use_chapters': use_chapters}
 
 def filter_status(filter_type):
 	return int(get_setting('fenlight.filter_%s' % filter_type, '0'))
@@ -144,7 +148,7 @@ def extras_enable_scrollbars():
 	return get_setting('fenlight.extras.enable_scrollbars', 'true')
 
 def extras_enabled_menus():
-	setting = get_setting('fenlight.extras.enabled', '2000,2050,2051,2052,2053,2054,2055,2056,2057,2058,2059,2060,2061')
+	setting = get_setting('fenlight.extras.enabled', '2000,2050,2051,2052,2053,2054,2055,2056,2057,2058,2059,2060,2061,2062')
 	if setting in ('', None, 'noop', []): return []
 	return [int(i) for i in setting.split(',')]
 
@@ -232,6 +236,9 @@ def omdb_api_key():
 def default_all_episodes():
 	return int(get_setting('fenlight.default_all_episodes', '0'))
 
+def get_meta_filter():
+	return get_setting('fenlight.meta_filter', 'true')
+
 def widget_hide_next_page():
 	return get_setting('fenlight.widget_hide_next_page', 'false') == 'true'
 
@@ -254,8 +261,20 @@ def watched_indicators():
 def nextep_include_unwatched():
 	return int(get_setting('fenlight.nextep.include_unwatched', '0'))
 
+def nextep_include_airdate():
+	return get_setting('fenlight.nextep.include_airdate', 'false') == 'true'
+
+def nextep_airing_today():
+	return get_setting('fenlight.nextep.airing_today', 'false') == 'true'
+
 def nextep_include_unaired():
 	return get_setting('fenlight.nextep.include_unaired', 'false') == 'true'
+
+def nextep_sort_key():
+	return nextep_sort_key_dict[int(get_setting('fenlight.nextep.sort_type', '0'))]
+
+def nextep_sort_direction():
+	return int(get_setting('fenlight.nextep.sort_order', '0')) == 0
 
 def update_delay():
 	return int(get_setting('fenlight.update.delay', '45'))
