@@ -148,21 +148,23 @@
         <setting id="provider.filepursuit" type="bool" label="provider.filepursuit(Needs API Key.)" default="false" />
         <setting type="sep" />
         <setting id="provider.tvmovieflix_com" type="bool" label="provider.tvmovieflix_com" default="false" />	
-        <setting id="provider.watchserieshd_stream" type="bool" label="provider.watchserieshd_stream" default="true" />	
-        <setting id="provider.yomovies_bio" type="bool" label="provider.yomovies_bio" default="true" />	
-        <setting id="provider.goojara_club" type="bool" label="provider.goojara_club" default="true" />	
+        <setting id="provider.watchserieshd_stream" type="bool" label="provider.watchserieshd_stream" default="false" />	
+        <setting id="provider.yomovies_bio" type="bool" label="provider.yomovies_bio" default="false" />	
+        <setting id="provider.goojara_club" type="bool" label="provider.goojara_club" default="false" />	
         <setting id="provider.anymovies_co" type="bool" label="provider.anymovies_co" default="true" />			
         <setting id="provider.doomovies_ga" type="bool" label="provider.doomovies_ga" default="true" />	
-        <setting id="provider.123movies_skin" type="bool" label="provider.123movies_skin" default="true" />			
-        <setting id="provider.bnwmovies_com" type="bool" label="provider.bnwmovies_com" default="true" />
-        <setting id="provider.gowatchseries_ch" type="bool" label="provider.gowatchseries_ch" default="true" />
-        <setting id="provider.noxx_to" type="bool" label="provider.noxx_to" default="true" />
-        <setting id="provider.putlocker_to" type="bool" label="provider.putlocker_to" default="true" />
-        <setting id="provider.tinyzonetv_to" type="bool" label="provider.tinyzonetv_to" default="true" />
-        <setting id="provider.vumoo_to" type="bool" label="provider.vumoo_to" default="true" />	
-        <setting id="provider.1movies_la" type="bool" label="provider.1movies_la" default="true" />		
-        <setting id="provider.cinecalidad_vet" type="bool" label="provider.cinecalidad_vet" default="true" />	
-        <setting id="provider.123movies_net" type="bool" label="provider.123movies_net" default="true" />		
+        <setting id="provider.123movies_skin" type="bool" label="provider.123movies_skin" default="false" />			
+        <setting id="provider.bnwmovies_com" type="bool" label="provider.bnwmovies_com" default="false" />
+        <setting id="provider.gowatchseries_ch" type="bool" label="provider.gowatchseries_ch" default="false" />
+        <setting id="provider.noxx_to" type="bool" label="provider.noxx_to" default="false" />
+        <setting id="provider.putlocker_to" type="bool" label="provider.putlocker_to" default="false" />
+        <setting id="provider.tinyzonetv_to" type="bool" label="provider.tinyzonetv_to" default="false" />
+        <setting id="provider.1movies_la" type="bool" label="provider.1movies_la" default="false" />		
+        <setting id="provider.cinecalidad_vet" type="bool" label="provider.cinecalidad_vet" default="false" />	
+        <setting id="provider.123movies_net" type="bool" label="provider.123movies_net" default="false" />
+        <setting id="provider.upmovies_net" type="bool" label="provider.upmovies_net" default="true" />	
+        <setting id="provider.tvseries_video" type="bool" label="provider.tvseries_video" default="false" />	
+        <setting id="provider.epxmovies_net" type="bool" label="provider.epxmovies_net" default="true" />		
     </category>
 
     <category label="Dev'ish Settings">
