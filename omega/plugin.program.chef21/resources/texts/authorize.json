@@ -3,9 +3,13 @@
         "icon": "https://kodiapps.com/sharex/dllhost_2020-02-05_12-07-32.jpg",
         "items": [
             {
-                "name": "Install FEN (DEBRID ONLY)",
-                "url": "installaddon(plugin.video.fen)"
+                "name": "Install Affenity (DEBRID ONLY)",
+                "url": "installaddon(plugin.video.affenity)"
             },
+            {
+                "name": "Install FEN Light (DEBRID ONLY)",
+                "url": "installaddon(plugin.video.fenlight)"
+            },			
             {
                 "name": "Install Seren (DEBRID ONLY)",
                 "url": "installaddon(plugin.video.seren)"
@@ -19,60 +23,16 @@
                 "url": "installaddon(plugin.video.pov)"
             },
             {
-                "name": "Install Coalition (DEBRID ONLY)",
-                "url": "installaddon(plugin.video.coalition)"
-            },
-            {
-                "name": "Install FEN Light (DEBRID ONLY)",
-                "url": "installaddon(plugin.video.fenlight)"
-            },			
-            {
-                "name": "Install Absolution (DEBRID ONLY)",
-                "url": "installaddon(plugin.video.absolution)"
-            },
-            {
                 "name": "Install Shadow (DEBRID ONLY)",
                 "url": "installaddon(plugin.video.shadow)"
-            },
-            {
-                "name": "Install Ghost (DEBRID ONLY)",
-                "url": "installaddon(plugin.video.ghost)"
-            },
-            {
-                "name": "Install Unleashed (DEBRID ONLY)",
-                "url": "installaddon(plugin.video.unleashed)"
-            },
-            {
-                "name": "Install Base 19 (DEBRID ONLY)",
-                "url": "installaddon(plugin.video.base19)"
-            },
-            {
-                "name": "Install Realizer (DEBRID ONLY)",
-                "url": "installaddon(plugin.video.realizerx)"
-            },
-            {
-                "name": "Install Premiumizer (DEBRID ONLY)",
-                "url": "installaddon(plugin.video.premiumizerx)"
             },
             {
                 "name": "Install Scrubs V2 (FREE)",
                 "url": "installaddon(plugin.video.scrubsv2)"
             },
             {
-                "name": "Install Homelander (FREE AND DEBRID)",
-                "url": "installaddon(plugin.video.homelander)"
-            },
-            {
                 "name": "Install The Crew (FREE AND DEBRID)",
                 "url": "installaddon(plugin.video.thecrew)"
-            },
-            {
-                "name": "Install Quicksilver (FREE AND DEBRID)",
-                "url": "installaddon(plugin.video.quicksilver)"
-            },
-            {
-                "name": "Install Shazam (FREE AND DEBRID)",
-                "url": "installaddon(plugin.video.shazam)"
             },
             {
                 "name": "Install Magic Dragon (FREE AND DEBRID)",
@@ -81,7 +41,7 @@
             {
                 "name": "Install Asgard (FREE AND DEBRID)",
                 "url": "installaddon(plugin.video.asgard)"
-            }
+            }			
         ]
     },
     "Trakt And Debrid Account Manager": {
