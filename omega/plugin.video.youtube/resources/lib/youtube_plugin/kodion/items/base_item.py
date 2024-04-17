@@ -14,13 +14,12 @@ import json
 from datetime import date, datetime
 from hashlib import md5
 
-from ..compatibility import datetime_infolabel, string_type, unescape
+from ..compatibility import datetime_infolabel, string_type, to_str, unescape
 from ..constants import MEDIA_PATH
 
 
 class BaseItem(object):
     VERSION = 3
-    INFO_DATE = 'date'  # (string) iso 8601
 
     _playable = False
 
@@ -37,8 +36,8 @@ class BaseItem(object):
         self._fanart = None
         self.set_fanart(fanart)
 
+        self._bookmark_timestamp = None
         self._context_menu = None
-        self._replace_context_menu = False
         self._added_utc = None
         self._count = None
         self._date = None
@@ -48,43 +47,20 @@ class BaseItem(object):
         self._next_page = False
 
     def __str__(self):
-        name = self._name
-        uri = self._uri
-        image = self._image
-        obj_str = "------------------------------\n'%s'\nURI: %s\nImage: %s\n------------------------------" % (name, uri, image)
-        return obj_str
+        return ('------------------------------\n'
+                'Name: |{0}|\n'
+                'URI: |{1}|\n'
+                'Image: |{2}|\n'
+                '------------------------------'.format(self._name,
+                                                        self._uri,
+                                                        self._image))
 
-    def to_dict(self):
-        return {'type': self.__class__.__name__, 'data': self.__dict__}
-
-    def dumps(self):
-        def _encoder(obj):
-            if isinstance(obj, (date, datetime)):
-                class_name = obj.__class__.__name__
-
-                if 'fromisoformat' in dir(obj):
-                    return {
-                        '__class__': class_name,
-                        '__isoformat__': obj.isoformat(),
-                    }
-
-                if class_name == 'datetime':
-                    if obj.tzinfo:
-                        format_string = '%Y-%m-%dT%H:%M:%S%z'
-                    else:
-                        format_string = '%Y-%m-%dT%H:%M:%S'
-                else:
-                    format_string = '%Y-%m-%d'
-
-                return {
-                    '__class__': class_name,
-                    '__format_string__': format_string,
-                    '__value__': obj.strftime(format_string)
-                }
-
-            return json.JSONEncoder().default(obj)
-
-        return json.dumps(self.to_dict(), ensure_ascii=False, default=_encoder)
+    def __repr__(self):
+        return json.dumps(
+            {'type': self.__class__.__name__, 'data': self.__dict__},
+            ensure_ascii=False,
+            cls=_Encoder
+        )
 
     def get_id(self):
         """
@@ -146,25 +122,19 @@ class BaseItem(object):
     def get_fanart(self):
         return self._fanart
 
-    def set_context_menu(self, context_menu, replace=False):
+    def set_context_menu(self, context_menu):
         self._context_menu = context_menu
-        self._replace_context_menu = replace
 
-    def add_context_menu(self, context_menu, position=0, replace=None):
+    def add_context_menu(self, context_menu, position=0):
         if self._context_menu is None:
             self._context_menu = context_menu
         elif position == 'end':
             self._context_menu.extend(context_menu)
         else:
             self._context_menu[position:position] = context_menu
-        if replace is not None:
-            self._replace_context_menu = replace
 
     def get_context_menu(self):
         return self._context_menu
-
-    def replace_context_menu(self):
-        return self._replace_context_menu
 
     def set_date(self, year, month, day, hour=0, minute=0, second=0):
         self._date = datetime(year, month, day, hour, minute, second)
@@ -221,6 +191,12 @@ class BaseItem(object):
     def set_count(self, count):
         self._count = int(count or 0)
 
+    def set_bookmark_timestamp(self, timestamp):
+        self._bookmark_timestamp = timestamp
+
+    def get_bookmark_timestamp(self):
+        return self._bookmark_timestamp
+
     @property
     def next_page(self):
         return self._next_page
@@ -230,5 +206,39 @@ class BaseItem(object):
         self._next_page = bool(value)
 
     @property
-    def playable(cls):
-        return cls._playable
+    def playable(self):
+        return self._playable
+
+
+class _Encoder(json.JSONEncoder):
+    def encode(self, obj, nested=False):
+        if isinstance(obj, string_type):
+            output = to_str(obj)
+        elif isinstance(obj, dict):
+            output = {to_str(key): self.encode(value, nested=True)
+                      for key, value in obj.items()}
+        elif isinstance(obj, (list, tuple)):
+            output = [self.encode(item, nested=True) for item in obj]
+        elif isinstance(obj, (date, datetime)):
+            class_name = obj.__class__.__name__
+            if 'fromisoformat' in dir(obj):
+                output = {
+                    '__class__': class_name,
+                    '__isoformat__': obj.isoformat(),
+                }
+            else:
+                if class_name == 'datetime':
+                    if obj.tzinfo:
+                        format_string = '%Y-%m-%dT%H:%M:%S%z'
+                    else:
+                        format_string = '%Y-%m-%dT%H:%M:%S'
+                else:
+                    format_string = '%Y-%m-%d'
+                output = {
+                    '__class__': class_name,
+                    '__format_string__': format_string,
+                    '__value__': obj.strftime(format_string)
+                }
+        else:
+            output = obj
+        return output if nested else super(_Encoder, self).encode(output)

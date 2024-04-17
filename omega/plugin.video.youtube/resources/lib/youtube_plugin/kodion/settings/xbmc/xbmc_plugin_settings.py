@@ -12,6 +12,7 @@ from __future__ import absolute_import, division, unicode_literals
 
 from ..abstract_settings import AbstractSettings
 from ...compatibility import xbmcaddon
+from ...constants import VALUE_FROM_STR
 from ...logger import log_debug
 from ...utils.methods import get_kodi_setting_bool
 from ...utils.system_version import current_system_version
@@ -65,7 +66,12 @@ class XbmcPluginSettings(AbstractSettings):
             })
 
     @classmethod
-    def flush(cls, xbmc_addon):
+    def flush(cls, xbmc_addon=None):
+        if not xbmc_addon:
+            del cls._instance
+            cls._instance = None
+            return
+
         cls._echo = get_kodi_setting_bool('debug.showloginfo')
         cls._cache = {}
         if current_system_version.compatible(21, 0):
@@ -84,7 +90,7 @@ class XbmcPluginSettings(AbstractSettings):
             error = exc
             try:
                 value = self.get_string(setting, echo=False).lower()
-                value = AbstractSettings.VALUE_FROM_STR.get(value, default)
+                value = VALUE_FROM_STR.get(value, default)
             except TypeError as exc:
                 error = exc
                 value = default

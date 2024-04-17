@@ -1,3 +1,87 @@
+## v7.0.6+beta.1
+### Fixed
+- Improve updating containers and (re)loading windows #681
+- Fix refreshing video listing also forcing next pages to refresh when loaded
+- Fix overflow error resulting from parsing hashtags as episode numbers
+- Fix 6s delay on video playback start
+
+### Changed
+- Setup Wizard default settings now disable pre-downloading subtitles if MPEG-DASH is enabled
+- Ask for quality, Play with subtitles, Play audio only context menu items only displayed if
+  associated setting is not already enabled
+- Only make extra request for subtitles for Android client when all subtitle languages are enabled
+- Overhaul alternative player support due to Kodi changes and also improve external player support
+
+### New
+- Add recommended settings in Setup Wizard for Raspberry Pi 1/2 class devices #688
+- Added Bookmarks
+  - Save videos, channels, playlists to Bookmarks
+  - Bookmarked channels will be checked for updates in My Subscriptions
+  - Data is stored locally, without needing to be logged in
+
+## v7.0.5
+### Fixed
+- Fix typo causing no fractional frame rate hinting to fail #679
+- Fix typo that caused android player requests to fail
+- Fix error message when rating video #666
+- Fix various issues with Kodi 18 and Python 2 #668
+- Fix issues with video playback #654, #659, #663
+- Fix typos #661
+- Fix typo that prevented videos from being listed in Kodi versions prior to v20 #662
+- Try to prevent Kodi freezing when settings are updated and container is reloaded
+- Fix lockups when using xbmc.executebuiltin #647, #653
+- Fix searching for preferred language subtitles not using non-region specific subtitles
+- Fix not being able to set custom watch later history playlist per user #646
+- Update workarounds for multiple busy dialog crashes #640, #649
+- Fix playing incorrect video when player request is blocked #654
+
+### Changed
+- Update language used for maintenance action prompts that clear data
+- Display search history as list rather than videos
+- Update Setup Wizard
+  - Add settings for Raspberry Pi 3 class devices (1080p30, VP9 enabled)
+  - Update settings for Raspberry Pi 4 class devices (1080p60, VP9 enabled)
+  - Move option to disable list details to last step in wizard
+- Shared playlist play using default order without prompting
+- Removed dependency on script.module.infotagger #479
+- Removed Nexus specific releases
+  - Matrix releases will now work in Kodi v19+
+  - Leia releases will work, but are unsupported, for Kodi v18 only
+- Updated client versions used for player requests
+  - Use iOS client as fallback for default client selection
+
+### New
+- Add new client that may provide 1080p non-adaptive formats
+  - Can be accessed as Alternate #2
+- Allow channel name to be displayed/sorted in listing depending on sort order #644
+
+## v7.0.5+beta.5
+### Fixed
+- Fix typo causing no fractional frame rate hinting to fail #679
+
+## v7.0.5+beta.4
+### Fixed
+- Fix typo that caused android player requests to fail
+
+## v7.0.5+beta.3
+### Fixed
+- Fix error message when rating video #666
+- Fix various issues with Kodi 18 and Python 2 #668
+- Fix issues with video playback #654, #659, #663
+
+## v7.0.5+beta.2
+### Fixed
+- Fix typos #661
+- Fix typo that prevented videos from being listed in Kodi versions prior to v20 #662
+
+### Changed
+- Update language used for maintenance action prompts that clear data
+
+### New
+- Add new client that may provide 1080p non-adaptive formats
+  - Can be accessed as Alternate #2
+- Allow channel name to be displayed/sorted in listing depending on sort order #644
+
 ## v7.0.5+beta.1
 ### Fixed
 - Try to prevent Kodi freezing when settings are updated and container is reloaded
@@ -10,8 +94,8 @@
 ### Changed
 - Display search history as list rather than videos
 - Update Setup Wizard
-  - Add settings for Rasberry Pi 3 class devices (1080p30, VP9 enabled)
-  - Update settings for Rasberry Pi 4 class devices (1080p60, VP9 enabled)
+  - Add settings for Raspberry Pi 3 class devices (1080p30, VP9 enabled)
+  - Update settings for Raspberry Pi 4 class devices (1080p60, VP9 enabled)
   - Move option to disable list details to last step in wizard
 - Shared playlist play using default order without prompting
 - Removed dependency on script.module.infotagger #479

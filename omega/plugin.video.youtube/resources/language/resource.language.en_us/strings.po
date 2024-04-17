@@ -189,11 +189,11 @@ msgstr ""
 # empty strings from id 30039 to 30099
 
 msgctxt "#30100"
-msgid "Favourites"
-msgstr "Favorites"
+msgid "Bookmarks"
+msgstr ""
 
 msgctxt "#30101"
-msgid "Add to addon favs"
+msgid "Bookmark"
 msgstr ""
 
 msgctxt "#30102"
@@ -269,11 +269,15 @@ msgid "Please wait..."
 msgstr ""
 
 msgctxt "#30120"
-msgid "Clear"
+msgid "Confirm clear"
+msgstr ""
+
+msgctxt "#30121"
+msgid "Clear %s?"
 msgstr ""
 
 # YouTube
-# empty strings from id 30121 to 30199
+# empty strings from id 30122 to 30199
 
 msgctxt "#30200"
 msgid "API"
@@ -1451,15 +1455,15 @@ msgid "Choose device capabilities"
 msgstr ""
 
 msgctxt "#30787"
-msgid "720p | Limited or older devices"
+msgid "720p, H.264 only | Limited or older devices"
 msgstr ""
 
 msgctxt "#30788"
-msgid "1080p/30 fps | Rasberry Pi 3, or similar"
+msgid "1080p/30 fps | Raspberry Pi 3, or similar"
 msgstr ""
 
 msgctxt "#30789"
-msgid "4K/30 fps or 1080p/60 fps, HDR if compatible | Rasberry Pi 5, or similar"
+msgid "4K/30 fps or 1080p/60 fps, HDR if compatible | Raspberry Pi 5, or similar"
 msgstr ""
 
 msgctxt "#30790"
@@ -1487,5 +1491,33 @@ msgid "Comments count display color"
 msgstr ""
 
 msgctxt "#30796"
-msgid "1080p/60 fps | Rasberry Pi 4, or similar"
+msgid "1080p/60 fps | Raspberry Pi 4, or similar"
+msgstr ""
+
+msgctxt "#30797"
+msgid "1080p/30 fps or 720p/30 fps, H.264 only | Raspberry Pi 1/2, or similar"
+msgstr ""
+
+msgctxt "#30798"
+msgid "Clear bookmarks list"
+msgstr ""
+
+msgctxt "#30799"
+msgid "Delete bookmarks database"
+msgstr ""
+
+msgctxt "#30800"
+msgid "bookmarks list"
+msgstr ""
+
+msgctxt "#30801"
+msgid "Clear Bookmarks list"
+msgstr ""
+
+msgctxt "#30802"
+msgid "Are you sure you want to clear your Bookmarks list?"
+msgstr ""
+
+msgctxt "#30803"
+msgid "Bookmark %s"
 msgstr ""
