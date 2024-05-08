@@ -157,7 +157,7 @@
             <fanart>resources/fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="plugin.audio.radio_de_light" name="Radio.de light" provider-name="Publish3r" version="1.0.1">
+</addon><addon id="plugin.audio.radio_de_light" name="Radio.de light" provider-name="Publish3r" version="420.1.0.1">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
     <import addon="script.module.requests" />

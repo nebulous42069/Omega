@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.audio.radio_de_light" name="Radio.de light" provider-name="Publish3r" version="1.0.1">
+<addon id="plugin.audio.radio_de_light" name="Radio.de light" provider-name="Publish3r" version="420.1.0.1">
   <requires>
     <import addon="xbmc.python" version="3.0.0"/>
     <import addon="script.module.requests" />
