@@ -2161,15 +2161,15 @@ Random updates by lolage.
 		<email />
 		<source />
 	</extension>
-</addon><addon id="script.module.xenonpluss" name="Xenon Flavors" version="422" provider-name="Zaxxon709">
+</addon><addon id="script.module.xenonpluss" name="Xenon Plus Flavors" version="423" provider-name="Zaxxon709">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0" />
 	</requires>
 	<extension point="xbmc.python.pluginsource" library="addon.py">
 	</extension>
 	<extension point="xbmc.addon.metadata">
-		<summary lang="en_GB">Home Screen Changer</summary>
-		<description lang="en_GB">Kodi 19</description>
+		<summary lang="en_GB">Diggz Xenon Plus Flavors</summary>
+		<description lang="en_GB">Kodi 21</description>
 		<disclaimer lang="en_GB">This Addon contains no content</disclaimer>
 		<language>en</language>
 		<platform>all</platform>
@@ -3736,6 +3736,37 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
 	  <website />
 	  <email />
 	  <source>https://github.com/bartolomesoriano/skin.xenonlite</source>
+    <assets>
+      <icon>resources/icon.png</icon>
+      <fanart>resources/fanart.jpg</fanart>
+	    <screenshot>resources/screenshot-01.jpg</screenshot>
+    </assets>
+    <news>See changelog for latest changes</news>
+  </extension>
+</addon><addon id="skin.xenonplus" version="6.4" name="[B][COLOR gold]Xenon Plus[/COLOR][/B]  (Mid Power)" provider-name="Helly,bsoriano">
+  <requires>
+    <import addon="xbmc.gui" version="5.17.0" />
+	<import addon="script.favourites" version="8.1.2" />
+	<import addon="script.image.resource.select" version="3.0.2" />
+    <import addon="script.skinshortcuts" version="1.0.0" />
+    <import addon="script.module.xenonpluss" version="1.0.0" />	
+  </requires>
+  <extension point="xbmc.gui.skin" debugging="false" effectslowdown=".5">
+    <res width="1920" height="1080" aspect="16:9" default="true" folder="xml" />
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">eXtended MOD of Confluence skin originally by Jezz_X and CCM by Mudislander.</summary>
+    <summary lang="en_US">eXtended MOD of Confluence skin originally by Jezz_X and CCM by Mudislander.</summary>
+    <description lang="en">Xenon is a MOD of Confluence to enable a greater degree of user customisation to the default skin (based by Mudislander's CCM).</description>
+    <description lang="en_US">Xenon is a MOD of Confluence to enable a greater degree of user customisation to the default skin (based by Mudislander's CCM).</description>
+    <disclaimer lang="en">You break it - You get to keep the pieces</disclaimer>
+    <disclaimer lang="en_US">You break it - You get to keep the pieces</disclaimer>
+    <platform>all</platform>
+	  <license>GNU General Public License version 2</license>
+	  <forum>https://forum.kodi.tv/showthread.php?tid=346302</forum>
+	  <website />
+	  <email />
+	  <source>https://github.com/bartolomesoriano/skin.xenonplus</source>
     <assets>
       <icon>resources/icon.png</icon>
       <fanart>resources/fanart.jpg</fanart>

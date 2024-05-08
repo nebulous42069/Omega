@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Kodi 20+ MyFavourites.xml aka FavouritesBrowser -->
+<window>
+	<defaultcontrol always="true">450</defaultcontrol>
+	<menucontrol>9000</menucontrol>
+	<onload condition="!Skin.HasSetting(FirstTimeRun)">ActivateWindow(1112)</onload>
+	<views>450</views>
+	<controls>
+		<include>BehindDialogDarkBackgroundDarkest</include>
+		<control type="group">
+			<left>246</left>
+			<depth>DepthDialog+</depth>
+			<include>Window_OpenClose_Animation</include>
+			<control type="label">
+				<left>21</left>
+				<top>45</top>
+				<width>1356</width>
+				<height>45</height>
+				<font>font_MainMenu</font>
+				<textcolor>blue</textcolor>
+				<align>center</align>
+				<aligny>center</aligny>
+				<label>Xenon Favorites</label>
+			</control>
+			<include>MyFavoritesLayout</include>
+		</control>
+		<control type="group">
+			<left>-379</left>
+			<include>SideBladeLeft</include>
+			<control type="grouplist" id="9000">
+				<include>SideBladeLeftFadeInAni</include>
+				<left>6</left>
+				<top>90</top>
+				<width>375</width>
+				<height>975</height>
+				<onleft>9000</onleft>
+				<onright>450</onright>
+				<onup>9000</onup>
+				<ondown>9000</ondown>
+				<onback>450</onback>
+				<itemgap>0</itemgap>				
+				<control type="label" id="200">
+					<width>345</width>
+					<height>53</height>
+					<font>font12</font>
+					<label>31006</label>
+					<textcolor>blue</textcolor>
+					<align>center</align>
+					<aligny>center</aligny>
+				</control>
+				<control type="button" id="3">
+					<description>Sort by button</description>
+					<include>ButtonCommonValues</include>
+					<label>103</label>
+				</control>
+                <control type="togglebutton" id="4">
+                    <description>Sort asc</description>
+                    <include>ButtonCommonValues</include>
+                    <include>NormalButton</include>
+                    <include>AltButton</include>
+                    <alttexturenofocus></alttexturenofocus>
+                    <label>31051</label>
+                    <altlabel>31050</altlabel>
+                    <usealttexture>Container.SortDirection(Ascending)</usealttexture>
+                </control>
+				<control type="edit" id="19">
+					<visible>Container.CanFilter + !Container.CanFilterAdvanced</visible>
+					<description>Filter</description>
+					<textwidth>345</textwidth>
+					<include>ButtonCommonValues</include>
+					<label>587</label>
+				</control>
+				<include>CommonNowPlaying_Controls</include>
+			</control>
+		</control>
+	</controls>
+</window>
