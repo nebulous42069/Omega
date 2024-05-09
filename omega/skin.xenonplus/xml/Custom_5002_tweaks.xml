@@ -128,12 +128,7 @@
                 </focusedlayout>
                 <content>
 				<item>
-					<label>- [B]Choose Your Xenon Flavor[/B]</label>
-					<onclick>Dialog.Close(5002)</onclick>
-					<onclick>RunPlugin(plugin://script.module.xenonpluss/?mode=2)</onclick>
-				</item>
-				<item>
-					<label>- [B]Enable Or Disable Home Menus[/B]</label>
+					<label>- [COLOR chartreuse][B]Enable Or Disable Home Menus[/B][/COLOR]</label>
 					<onclick>ActivateWindow(5004)</onclick>
 				</item>				
 				<item>

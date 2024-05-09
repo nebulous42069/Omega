@@ -193,7 +193,7 @@
             <fanart>fanart.jpg</fanart>
     </assets>
   </extension>
-</addon><addon id="plugin.program.chef21" name="[B][COLOR chartreuse]Chef Omega Wizard[/COLOR][/B]" version="474" provider-name="Diggz">
+</addon><addon id="plugin.program.chef21" name="[B][COLOR chartreuse]Chef Omega Wizard[/COLOR][/B]" version="475" provider-name="Diggz">
 	<requires>
 		<import addon="xbmc.python" version="3.0.1" />
 		<import addon="repository.xbmc.org" />		
@@ -382,7 +382,7 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.cb20
         <disclaimer lang="de_DE">(c) 2024 aitschti</disclaimer>
         <reuselanguageinvoker>false</reuselanguageinvoker>
     </extension>
-</addon><addon id="plugin.video.fen" name="Fen" provider-name="Tikipeter" version="3.2.21">
+</addon><addon id="plugin.video.fen" name="Fen" provider-name="Tikipeter" version="3.2.29">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
         <import addon="script.module.requests" version="2.19.1" />
@@ -3761,7 +3761,7 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
     </assets>
     <news>See changelog for latest changes</news>
   </extension>
-</addon><addon id="skin.xenonplus" version="6.4" name="[B][COLOR gold]Xenon Plus[/COLOR][/B]  (Mid Power)" provider-name="Helly,bsoriano">
+</addon><addon id="skin.xenonplus" version="6.5" name="[B][COLOR gold]Xenon Plus[/COLOR][/B]  (Mid Power)" provider-name="Helly,bsoriano">
   <requires>
     <import addon="xbmc.gui" version="5.17.0" />
 	<import addon="script.favourites" version="8.1.2" />
