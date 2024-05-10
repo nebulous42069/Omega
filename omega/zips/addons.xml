@@ -2825,7 +2825,7 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
 		<news> 
 		</news>
 	</extension>
-</addon><addon id="skin.eminence.2.mod" version="998.3.0.4" name="[B][COLOR gold]Eminence[/COLOR][/B]  (Mid Power)" provider-name="Diggz">
+</addon><addon id="skin.eminence.2.mod" version="420.3.0.4" name="[B][COLOR gold]Eminence[/COLOR][/B]  (Mid Power)" provider-name="Diggz">
     <requires>
         <import addon="xbmc.gui" version="5.17.0" />
         <import addon="script.skinshortcuts" version="1.0.0" />
