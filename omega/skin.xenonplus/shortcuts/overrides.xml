@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <overrides>
+
+	<override action="ActivateWindow(favourites)">
+		<action>ActivateWindow(favouritesbrowser)</action>
+	</override>
 	<!-- Do not share menu as other skins use custom language strings that do not work -->
 	<doNotShareMenu />
 

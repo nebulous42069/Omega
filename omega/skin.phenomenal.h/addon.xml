@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<addon id="skin.phenomenal.h" name="[B][COLOR gold]Phenomenal[/COLOR][/B]  (Mid Power)" version="423" provider-name="Tomer, Diggz">
+<addon id="skin.phenomenal.h" name="[B][COLOR gold]Phenomenal[/COLOR][/B]  (Mid Power)" version="424" provider-name="Tomer, Diggz">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
 		<import addon="script.skin.helper.service" version="1.0.0"/>

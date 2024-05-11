@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <overrides>
+
+	<override action="ActivateWindow(favourites)">
+		<action>ActivateWindow(favouritesbrowser)</action>
+	</override>
 	<!-- Default Widgets -->
 	<widgetdefault labelID="videos">VideoAddons</widgetdefault>
 	<widgetdefault labelID="movies">RecentMovies</widgetdefault>

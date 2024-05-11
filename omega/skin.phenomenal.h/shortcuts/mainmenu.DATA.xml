@@ -88,7 +88,7 @@
 		<LabelID>favourites</LabelID>
 		<icon />
 		<thumb>special://skin/extras/icons/favourites.png</thumb>
-		<action>ActivateWindow(favourites)</action>
+		<action>ActivateWindow(FavouritesBrowser)</action>
 	</shortcut>
 	<shortcut>
 		<label>$LOCALIZE[12600]</label>

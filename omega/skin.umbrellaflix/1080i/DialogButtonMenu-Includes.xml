@@ -90,7 +90,7 @@
 						<item>
 							<label>$LOCALIZE[31681]</label> <!-- Favourites -->
 							<onclick>Dialog.Close(all,true)</onclick>
-							<onclick>ActivateWindow(favourites)</onclick>
+							<onclick>ActivateWindow(FavouritesBrowser)</onclick>
 						</item>
 					</content>
 				</control>

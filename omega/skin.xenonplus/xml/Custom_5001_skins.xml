@@ -134,7 +134,7 @@
 				</item>
 				<item>
 					<label>Install Xenon 2</label>
-					<onclick>InstallAddon(skin.xenonplus2)</onclick>
+					<onclick>InstallAddon(skin.xenon2)</onclick>
 				</item>				
 				<item>
 					<label>Install Fentastic</label>

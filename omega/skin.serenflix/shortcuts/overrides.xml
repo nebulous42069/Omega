@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <overrides>
 
+	<override action="ActivateWindow(favourites)">
+		<action>ActivateWindow(favouritesbrowser)</action>
+	</override>
+
     <!-- Widgets -->
     <widget label="8">Weather</widget>
     <widget label="5">Settings</widget>

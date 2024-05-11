@@ -159,7 +159,7 @@
                         <description>Favourites Window</description>
                         <label>$LOCALIZE[31338]</label>
                         <onclick>Dialog.Close(2119)</onclick>
-                        <onclick>Skin.SetString(UsrFavBtnCmd.Path,ActivateWindow(Favourites),return)</onclick>
+                        <onclick>Skin.SetString(UsrFavBtnCmd.Path,ActivateWindow(FavouritesBrowser),return)</onclick>
                         <onclick>Skin.SetString(UsrFavBtnCmd.Label,$LOCALIZE[31338])</onclick>
                         <onclick>ClearProperty(UsrSelectBtn,home)</onclick>
                         <visible>String.IsEqual(Window(Home).Property(UsrSelectBtn),UsrFavBtnCmd) + System.HasAddon(script.favourites)</visible>

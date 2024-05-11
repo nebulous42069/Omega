@@ -233,7 +233,7 @@
 				<height>40</height>
 				<label></label>
 				<font>-</font>
-				<onclick>ActivateWindow(Favourites)</onclick>
+				<onclick>ActivateWindow(FavouritesBrowser)</onclick>
 				<texturefocus colordiffuse="white">main/favs.png</texturefocus>
 				<texturenofocus colordiffuse="$VAR[menu_icon_color_nf]">main/favs.png</texturenofocus>
 				<pulseonselect>true</pulseonselect>
@@ -758,7 +758,7 @@
 				<height>40</height>
 				<label></label>
 				<font>-</font>
-				<onclick>ActivateWindow(Favourites)</onclick>
+				<onclick>ActivateWindow(FavouritesBrowser)</onclick>
 				<texturefocus colordiffuse="white">main/favs.png</texturefocus>
 				<texturenofocus colordiffuse="$VAR[menu_icon_color_nf]">main/favs.png</texturenofocus>
 				<pulseonselect>true</pulseonselect>

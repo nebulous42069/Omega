@@ -32,7 +32,7 @@
     </override>
     <override action="start_favourites">
 		<action>Skin.SetString(FocusedMenu.Background,$INFO[Container(9000).ListItem.Property(Background)])</action>
-		<action>ActivateWindow(favourites)</action>
+		<action>ActivateWindow(FavouritesBrowser)</action>
 	</override>	
 	
 	<!-- Warning to Remove/Disable Settings -->

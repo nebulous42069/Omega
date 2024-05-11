@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<addon id="skin.planetdiggz" version="9.0.2" name="[B][COLOR gold]Planet Diggz[/COLOR][/B]  (Low Power)" provider-name="SiLVO">
+<addon id="skin.planetdiggz" version="9.0.3" name="[B][COLOR gold]Planet Diggz[/COLOR][/B]  (Low Power)" provider-name="SiLVO">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0" />
 		<import addon="script.skinshortcuts" version="2.0.1" />

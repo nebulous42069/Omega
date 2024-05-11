@@ -2500,7 +2500,7 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
             <screenshot />
         </assets>
     </extension>
-</addon><addon id="skin.arctic.horizon.2" name="[B][COLOR gold]ArcticFlix[/COLOR][/B]   (High Power) (NO TOUCH/MOUSE)" provider-name="jurialmunkey" version="420.0.8.21">
+</addon><addon id="skin.arctic.horizon.2" name="[B][COLOR gold]ArcticFlix[/COLOR][/B]   (High Power) (NO TOUCH/MOUSE)" provider-name="jurialmunkey" version="421.0.8.21">
     <requires>
         <import addon="xbmc.gui" version="5.17.0" />
         <import addon="script.skinshortcuts" version="0.4.0" />
@@ -2526,7 +2526,7 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="skin.auraflix" version="1.1.9" name="[B][COLOR gold]DiggzFlix[/COLOR][/B]   (Mid Power) (NO MOUSE/TOUCH)" provider-name="skyfsza,inb4after,SerpentDrago">
+</addon><addon id="skin.auraflix" version="2.1.9" name="[B][COLOR gold]DiggzFlix[/COLOR][/B]   (Mid Power) (NO MOUSE/TOUCH)" provider-name="skyfsza,inb4after,SerpentDrago">
     <requires>
         <import addon="xbmc.gui" version="5.17.0" />
         <import addon="script.skin.helper.service" version="1.1.24" />
@@ -2772,7 +2772,7 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
             -Various changes so skin would install on Matrix
         </news>
     </extension>
-</addon><addon id="skin.diggzkids" version="5.2" name="[B][COLOR gold]Diggz Kidz[/COLOR][/B]  (Mid Power)" provider-name="Helly,bsoriano">
+</addon><addon id="skin.diggzkids" version="5.3" name="[B][COLOR gold]Diggz Kidz[/COLOR][/B]  (Mid Power)" provider-name="Helly,bsoriano">
   <requires>
     <import addon="xbmc.gui" version="5.17.0" />
 	<import addon="script.favourites" version="8.1.2" />
@@ -2802,7 +2802,7 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
     </assets>
     <news>See changelog for latest changes</news>
   </extension>
-</addon><addon id="skin.eminence.2.fen" version="420.3.0.4" name="[B][COLOR gold]Fentastic[/COLOR][/B]  (Mid Power)" provider-name="Diggz">
+</addon><addon id="skin.eminence.2.fen" version="421.3.0.4" name="[B][COLOR gold]Fentastic[/COLOR][/B]  (Mid Power)" provider-name="Diggz">
     <requires>
         <import addon="xbmc.gui" version="5.17.0" />
 		<import addon="script.skinshortcuts" version="1.0.17" />
@@ -2825,7 +2825,7 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
 		<news> 
 		</news>
 	</extension>
-</addon><addon id="skin.eminence.2.mod" version="420.3.0.4" name="[B][COLOR gold]Eminence[/COLOR][/B]  (Mid Power)" provider-name="Diggz">
+</addon><addon id="skin.eminence.2.mod" version="421.3.0.4" name="[B][COLOR gold]Eminence[/COLOR][/B]  (Mid Power)" provider-name="Diggz">
     <requires>
         <import addon="xbmc.gui" version="5.17.0" />
         <import addon="script.skinshortcuts" version="1.0.0" />
@@ -2848,7 +2848,7 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
 		<news> 
 		</news>
 	</extension>
-</addon><addon id="skin.phenomenal.h" name="[B][COLOR gold]Phenomenal[/COLOR][/B]  (Mid Power)" version="423" provider-name="Tomer, Diggz">
+</addon><addon id="skin.phenomenal.h" name="[B][COLOR gold]Phenomenal[/COLOR][/B]  (Mid Power)" version="424" provider-name="Tomer, Diggz">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0" />
 		<import addon="script.skin.helper.service" version="1.0.0" />
@@ -2874,7 +2874,7 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
 		v420 Update for Kodi 19 Matrix
 		</news>
 	</extension>
-</addon><addon id="skin.planetdiggz" version="9.0.2" name="[B][COLOR gold]Planet Diggz[/COLOR][/B]  (Low Power)" provider-name="SiLVO">
+</addon><addon id="skin.planetdiggz" version="9.0.3" name="[B][COLOR gold]Planet Diggz[/COLOR][/B]  (Low Power)" provider-name="SiLVO">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0" />
 		<import addon="script.skinshortcuts" version="2.0.1" />
@@ -2977,7 +2977,7 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
 		</assets>
 		<news>[I][COLOR FFFF9800]v9.0.1[/COLOR][/I][CR]- Live TV fixes and updates[CR]- Remove transparency from widget info "shadow"[CR]- Add Greek MPAA Ratings[CR]- Hide movie set count in info when showing mediaflags for RightList[CR]- Changes to MyPVRTimers[CR]- Fix for multiimage control displaying background when not supposed to[CR][I][COLOR FFFF9800]v9.0.0[/COLOR][/I][CR]- Kodi v20 Nexus support[CR]- Fix mismatched DialogMusicInfo icons[CR]- Add option to hide the system bars on the main menu[CR]- Add HDR type flags to some views[CR]- Add basic support for MyFavourites.xml[CR]- Fix status indicators not following the setting for MyFlix Landscape[CR]- Rework Settings screen[CR]- Add script.xbmcbackup to optional add-ons[CR]- Add show password button to DialogKeyboard.xml[CR]- Add option to hide budget + revenue from DialogVideoInfo[CR]- Remove references to Artwork Beef[CR]- Fix Live Background overriding SubMenu backgrounds[CR]- Add scrollbar to MyPVRRecordings[CR]- Add Opus mediaflag for audio codec[CR]- Fix InfoWall alternate layout status indicators[CR]- Add solid color backgrounds to fallback options[CR]- Fix navigation issue when in General section of Skin Settings[CR]- Add greyscale versions of colored aspect ratio icons to include missing ratios[CR]- Fix music playlist opening videoplaylists instead of musicplaylists for main and submenus using the main menu customizer[CR]- Add zorder to DialogSubtitles so pause icon/label isn't shown on top when directly calling SubtitleSearch[CR][CR][B]All updates may contain various changes and/or improvements[/B][CR]For a more complete list visit:[CR][I][COLOR FFFF9800]https://github.com/mikesilvo164/Aeon-Nox-SiLVO/commits/master[/COLOR][/I]</news>
 	</extension>
-</addon><addon id="skin.povflix" version="420.1.1.9" name="[B][COLOR gold]FenFlix[/COLOR][/B]" provider-name="skyfsza,inb4after,SerpentDrago">
+</addon><addon id="skin.povflix" version="421.1.1.9" name="[B][COLOR gold]FenFlix[/COLOR][/B]   (Mid Power) (NO TOUCH/MOUSE)" provider-name="skyfsza,inb4after,SerpentDrago">
     <requires>
         <import addon="xbmc.gui" version="5.17.0" />
         <import addon="script.skin.helper.service" version="1.1.24" />
@@ -3222,7 +3222,7 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
             -Various changes so skin would install on Matrix
         </news>
     </extension>
-</addon><addon id="skin.serenflix" version="420.1.1.9" name="[B][COLOR gold]SerenFlix[/COLOR][/B]" provider-name="skyfsza,inb4after,SerpentDrago">
+</addon><addon id="skin.serenflix" version="421.1.1.9" name="[B][COLOR gold]SerenFlix[/COLOR][/B]   (Mid Power) (NO TOUCH/MOUSE)" provider-name="skyfsza,inb4after,SerpentDrago">
     <requires>
         <import addon="xbmc.gui" version="5.17.0" />
         <import addon="script.skin.helper.service" version="1.1.24" />
@@ -3467,7 +3467,7 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
             -Various changes so skin would install on Matrix
         </news>
     </extension>
-</addon><addon id="skin.umbrellaflix" version="420.1.1.9" name="[B][COLOR gold]UmbrellaFlix[/COLOR][/B]" provider-name="skyfsza,inb4after,SerpentDrago">
+</addon><addon id="skin.umbrellaflix" version="421.1.1.9" name="[B][COLOR gold]UmbrellaFlix[/COLOR][/B]   (Mid Power) (NO TOUCH/MOUSE)" provider-name="skyfsza,inb4after,SerpentDrago">
     <requires>
         <import addon="xbmc.gui" version="5.17.0" />
         <import addon="script.skin.helper.service" version="1.1.24" />
@@ -3712,7 +3712,7 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
             -Various changes so skin would install on Matrix
         </news>
     </extension>
-</addon><addon id="skin.xenon2" version="421.99.4" name="[B][COLOR gold]XENON 2[/COLOR][/B]  (Mid Power)" provider-name="SiLVO, Diggz">
+</addon><addon id="skin.xenon2" version="422.99.4" name="[B][COLOR gold]XENON 2[/COLOR][/B]  (Mid Power)" provider-name="SiLVO, Diggz">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0" />
 		<import addon="script.skinshortcuts" version="2.0.1" />
@@ -3761,7 +3761,7 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
     </assets>
     <news>See changelog for latest changes</news>
   </extension>
-</addon><addon id="skin.xenonplus" version="6.5" name="[B][COLOR gold]Xenon Plus[/COLOR][/B]  (Mid Power)" provider-name="Helly,bsoriano">
+</addon><addon id="skin.xenonplus" version="6.6" name="[B][COLOR gold]Xenon Plus[/COLOR][/B]  (Mid Power)" provider-name="Helly,bsoriano">
   <requires>
     <import addon="xbmc.gui" version="5.17.0" />
 	<import addon="script.favourites" version="8.1.2" />
