@@ -2179,7 +2179,7 @@ Random updates by lolage.
 		<email />
 		<source />
 	</extension>
-</addon><addon id="script.module.xenonpluss" name="Xenon Plus Flavors" version="423" provider-name="Zaxxon709">
+</addon><addon id="script.module.xenonpluss" name="Xenon Plus Flavors" version="424" provider-name="Zaxxon709">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0" />
 	</requires>
