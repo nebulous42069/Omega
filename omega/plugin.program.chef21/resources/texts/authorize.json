@@ -4,7 +4,7 @@
         "items": [
             {
                 "name": "Install FEN (DEBRID ONLY)",
-                "url": "installaddon(plugin.video.affenity)"
+                "url": "installaddon(plugin.video.fen)"
             },			
             {
                 "name": "Install Seren (DEBRID ONLY)",
