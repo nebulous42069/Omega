@@ -21,6 +21,7 @@ ORDER = ['seren',
          'coal',
          'pov',
          'umbrella',
+         'onemoar',
          'dradis',
          'taz',
          'shadow',
@@ -147,8 +148,20 @@ TRAKTID = {
         'file'     : os.path.join(CONFIG.TRAKTFOLD, 'umbrella_trakt'),
         'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.umbrella', 'settings.xml'),
         'default'  : 'trakt.user.name',
-        'data'     : ['trakt.clientid', 'trakt.clientsecret', 'trakt.user.token', 'trakt.user.name', 'trakt.token.expires', 'trakt.refreshtoken', 'traktuserkey.customenabled'],
+        'data'     : ['trakt.clientid', 'trakt.clientsecret', 'trakt.user.token', 'trakt.user.name', 'trakt.token.expires', 'trakt.refreshtoken', 'traktuserkey.customenabled', 'trakt.scrobble', 'resume.source'],
         'activate' : 'Addon.OpenSettings(plugin.video.umbrella)'},
+    'onemoar': {
+        'name'     : 'OneMoar',
+        'plugin'   : 'plugin.video.onemoar',
+        'saved'    : 'onemoar',
+        'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.onemoar'),
+        'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.onemoar', 'icon.png'),
+        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.onemoar', 'fanart.jpg'),
+        'file'     : os.path.join(CONFIG.TRAKTFOLD, 'onemoar_trakt'),
+        'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.onemoar', 'settings.xml'),
+        'default'  : 'trakt.user.name',
+        'data'     : ['trakt.clientid', 'trakt.clientsecret', 'trakt.user.token', 'trakt.user.name', 'trakt.token.expires', 'trakt.refreshtoken', 'traktuserkey.customenabled', 'trakt.scrobble', 'resume.source'],
+        'activate' : 'Addon.OpenSettings(plugin.video.onemoar)'},
     'dradis': {
         'name'     : 'Dradis',
         'plugin'   : 'plugin.video.dradis',
@@ -773,7 +786,6 @@ def auto_update(who):
             else:
                 trakt_it('update', who)
 
-
 def import_list(who):
     if who == 'all':
         for log in TRAKTID:
@@ -799,7 +811,6 @@ def import_list(who):
 
             logging.log_notify("[COLOR {0}]{1}[/COLOR]".format(CONFIG.COLOR1, name),
                        '[COLOR {0}]Trakt Data: Imported![/COLOR]'.format(CONFIG.COLOR2))
-
 
 def open_settings_trakt(who):
     addonid = tools.get_addon_by_id(TRAKTID[who]['plugin'])

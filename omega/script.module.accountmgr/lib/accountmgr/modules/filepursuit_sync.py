@@ -29,6 +29,21 @@ class Auth:
                         xbmc.log('%s: Umbrella FilePursuit Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
+        #OneMoar
+                try:
+                        if xbmcvfs.exists(var.chk_onem) and xbmcvfs.exists(var.chkset_onem):
+                                
+                                chk_file = xbmcaddon.Addon('plugin.video.onemoar').getSetting("filepursuit.api")
+                                enable_file = ("true")
+                                
+                                if not str(var.chk_accountmgr_file) == str(chk_file) or str(chk_file) == '':
+                                        addon = xbmcaddon.Addon("plugin.video.onemoar")
+                                        addon.setSetting("filepursuit.enable", enable_file)
+                                        addon.setSetting("filepursuit.api", your_file_api)
+                except:
+                        xbmc.log('%s: OneMoar FilePursuit Failed!' % var.amgr, xbmc.LOGINFO)
+                        pass
+                
         #Dradis
                 try:
                         if xbmcvfs.exists(var.chk_dradis) and xbmcvfs.exists(var.chkset_dradis):
@@ -48,7 +63,7 @@ class Auth:
                                 os.mkdir(var.allaccounts_ud)
                                 xbmcvfs.copy(os.path.join(var.allaccounts), os.path.join(var.chkset_allaccounts))
                                 
-                        if not xbmcvfs.exists(var.chkset_allaccounts):
+                        if xbmcvfs.exists(var.chk_allaccounts) and not xbmcvfs.exists(var.chkset_allaccounts):
                                 xbmcvfs.copy(os.path.join(var.allaccounts), os.path.join(var.chkset_allaccounts))
                         
                         if xbmcvfs.exists(var.chk_allaccounts) and xbmcvfs.exists(var.chkset_allaccounts):
@@ -68,7 +83,7 @@ class Auth:
                                 os.mkdir(var.myaccounts_ud)
                                 xbmcvfs.copy(os.path.join(var.myaccounts), os.path.join(var.chkset_myaccounts))
                                 
-                        if not xbmcvfs.exists(var.chkset_myaccounts):
+                        if xbmcvfs.exists(var.chk_myaccounts) and not xbmcvfs.exists(var.chkset_myaccounts):
                                 xbmcvfs.copy(os.path.join(var.myaccounts), os.path.join(var.chkset_myaccounts))
                         
                         if xbmcvfs.exists(var.chk_myaccounts) and xbmcvfs.exists(var.chkset_myaccounts):

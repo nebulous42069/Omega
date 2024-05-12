@@ -22,6 +22,7 @@ ORDER = ['serenpm',
          'coalpm',
          'povpm',
          'umbpm',
+         'onempm',
          'dradispm',
          'tazpm',
          'shadowpm',
@@ -140,6 +141,18 @@ DEBRIDID = {
         'default'  : 'premiumizeusername',
         'data'     : ['premiumizeusername', 'premiumizetoken', 'premiumize.enable'],
         'activate' : 'Addon.OpenSettings(plugin.video.umbrella)'},
+    'onempm': {
+        'name'     : 'OneMoar',
+        'plugin'   : 'plugin.video.onemoar',
+        'saved'    : 'onempm',
+        'path'     : os.path.join(CONFIG.ADDONS, 'plugin.video.onemoar'),
+        'icon'     : os.path.join(CONFIG.ADDONS, 'plugin.video.onemoar', 'icon.png'),
+        'fanart'   : os.path.join(CONFIG.ADDONS, 'plugin.video.onemoar', 'fanart.jpg'),
+        'file'     : os.path.join(CONFIG.DEBRIDFOLD_PM, 'onem_pm'),
+        'settings' : os.path.join(CONFIG.ADDON_DATA, 'plugin.video.onemoar', 'settings.xml'),
+        'default'  : 'premiumizeusername',
+        'data'     : ['premiumizeusername', 'premiumizetoken', 'premiumize.enable'],
+        'activate' : 'Addon.OpenSettings(plugin.video.onemoar)'},
     'dradispm': {
         'name'     : 'Dradis',
         'plugin'   : 'plugin.video.dradis',
@@ -468,7 +481,6 @@ def debrid_it(do, who):
         else:
             logging.log('[Debrid Info] Invalid Entry: {0}'.format(who), level=xbmc.LOGERROR)
 
-
 def clear_saved(who, over=False):
     if who == 'all':
         for debrid in DEBRIDID:
@@ -479,7 +491,6 @@ def clear_saved(who, over=False):
             os.remove(file)
     if not over:
         xbmc.executebuiltin('Container.Refresh()')
-
 
 def update_debrid(do, who):
     file = DEBRIDID[who]['file']
@@ -554,6 +565,7 @@ def update_debrid(do, who):
                                    icon)
             except Exception as e:
                 logging.log("[Debrid Info] Unable to Clear Addon {0} ({1})".format(who, str(e)), level=xbmc.LOGERROR)
+        xbmc.executebuiltin('Container.Refresh()')
     elif do == 'wipeaddon':
         logging.log('{0} SETTINGS: {1}'.format(name, settings))
         if os.path.exists(settings):
@@ -567,11 +579,10 @@ def update_debrid(do, who):
                         root.remove(setting)
                             
                 tree.write(settings)
-              
+                
             except Exception as e:
                 logging.log("[Debrid Info] Unable to Clear Addon {0} ({1})".format(who, str(e)), level=xbmc.LOGERROR)
-    xbmc.executebuiltin('Container.Refresh()')
-
+        xbmc.executebuiltin('Container.Refresh()')
 
 def auto_update(who):
     if who == 'all':
@@ -600,7 +611,6 @@ def auto_update(who):
             else:
                 debrid_it('update', who)
 
-
 def import_list(who):
     if who == 'all':
         for log in DEBRIDID:
@@ -626,7 +636,6 @@ def import_list(who):
 
             logging.log_notify("[COLOR {0}]{1}[/COLOR]".format(CONFIG.COLOR1, name),
                        '[COLOR {0}]Debrid Info: Imported![/COLOR]'.format(CONFIG.COLOR2))
-
 
 def open_settings_debrid(who):
     addonid = tools.get_addon_by_id(DEBRIDID[who]['plugin'])

@@ -33,21 +33,29 @@
 		<setting id="traktuserkey.enabled" type="bool" visible="eq(-1,false)" label="40090" default="false" />
 		<setting id="trakt.client.id" type="text" visible="eq(-1,true) + eq(2,)" label="40089" default="" />
 		<setting id="trakt.client.secret" type="text" visible="eq(-2,true)+ eq(1,)" label="40088" default="" />
-		<setting type="action" label="Authorize" option="close" action="RunScript(script.module.accountmgr, action=traktAuth)" visible="eq(-7,)" />
+		<setting type="action" label="Authorize" option="close" action="RunScript(script.module.accountmgr, action=traktAuth)" visible="eq(-2,)" />
 		<setting id="trakt.username" type="text" default="" label="40062" enable="false" visible="!eq(-8,)" />
 		<setting type="action" label="32316" option="close" action="RunScript(script.module.accountmgr, action=traktAcct)" visible="!eq(-1,)" />
 
-		<setting type="lsep" label="Furk/Easynews/FilePursuit" />
-		<setting id="non.enabled" type="bool" visible="true" label="Enable" default="false" />
-		<setting type="action" label="Sync Add-ons" option="close" action="RunScript(script.module.accountmgr, action=SyncAll)"  visible="eq(-1,true)" />
+		<setting type="lsep" label="OffCloud" />
+		<setting id="offcloud.enabled" type="bool" visible="true" label="Enable" default="false" />
+		<setting id="offcloud.userid" label="40077" type="text" default="" visible="false" />
+		<setting id="offcloud.user" type="text" label="Offcloud Username" default="" visible="eq(-2,true)" />
+		<setting id="offcloud.pass" type="text" label="Offcloud Password" option="hidden" default="" visible="eq(-3,true)" />
+		<setting type="action" label="32319" option="close" action="RunScript(script.module.accountmgr, action=offcloudAuth)" visible="eq(-4,true)" />
+
+		<setting type="lsep" label="Easynews" />
+		<setting id="easynews.enabled" type="bool" visible="true" label="Enable" default="false" />
+		<setting type="action" label="Sync Add-ons" option="close" action="RunScript(script.module.accountmgr, action=easynewsReSync)"  visible="eq(-1,true)" />
 		<setting label="32311" type="action" action="RunScript(script.module.accountmgr, action=ShowHelpNonDebrid)" visible="eq(-2,true)" />
-		<setting type="lsep"/>
-		<setting id="furk.username" type="text" label="Furk Username" default="" visible="eq(-4,true)"/>
-		<setting id="furk.password" type="text" label="Furk Password" option="hidden" default="" visible="eq(-5,true)" />
-		<setting id="furk.api.key" type="text" label="Furk API Key" default="" visible="eq(-6,true)" />
-		<setting id="easynews.username" type="text" label="Easynews Username" default="" visible="eq(-7,true)" />
-		<setting id="easynews.password" type="text" label="Easynews Password" option="hidden" default="" visible="eq(-8,true)" />
-		<setting id="filepursuit.api.key" type="text" label="FilePursuit API Key" default="" visible="eq(-9,true)" />
+		<setting id="easynews.username" type="text" label="Easynews Username" default="" visible="eq(-3,true)" />
+		<setting id="easynews.password" type="text" label="Easynews Password" option="hidden" default="" visible="eq(-4,true)" />
+
+		<setting type="lsep" label="FilePursuit" />
+		<setting id="filepursuit.enabled" type="bool" visible="true" label="Enable" default="false" />
+		<setting type="action" label="Sync Add-ons" option="close" action="RunScript(script.module.accountmgr, action=filepursuitReSync)"  visible="eq(-1,true)" />
+		<setting label="32311" type="action" action="RunScript(script.module.accountmgr, action=ShowHelpNonDebrid)" visible="eq(-2,true)" />
+		<setting id="filepursuit.api.key" type="text" label="FilePursuit API Key" default="" visible="eq(-3,true)" />
 
 		<setting type="lsep" label="Metadata Providers" />
 		<setting id="meta.enabled" type="bool" visible="true" label="Enable" default="false" />
@@ -79,37 +87,52 @@
 		<setting type="lsep" label="Real-Debrid" />
 		<setting id="realdebrid.username" label="" type="text" default="" visible="false" enable="false" />
 		<setting type="action" label="View Authorizations" option="close" action="ActivateWindow(10001,plugin://script.module.acctview/?mode=realdebrid,return)" visible="!eq(-1,)" />
-		<setting type="action" label="Sync Add-ons" option="close" action="RunScript(script.module.accountmgr, action=realdebridReSync, opensettings=true)"  visible="!eq(-2,)" />
+		<setting type="action" label="Sync Add-ons" option="close" action="RunScript(script.module.accountmgr, action=realdebridReSync)"  visible="!eq(-2,)" />
 		<setting type="action" label="Revoke" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=addondebrid_rd&name=all)"  visible="!eq(-3,)" />
 
 		<setting type="lsep" label="Premiumize" />
 		<setting id="premiumize.username" label="" type="text" default="" visible="false" enable="false" />
 		<setting type="action" label="View Authorizations" option="close" action="ActivateWindow(10001,plugin://script.module.acctview/?mode=premiumize,return)" visible="!eq(-1,)" />
-		<setting type="action" label="Sync Add-ons" option="close" action="RunScript(script.module.accountmgr, action=premiumizeReSync, opensettings=true)"  visible="!eq(-2,)" />
+		<setting type="action" label="Sync Add-ons" option="close" action="RunScript(script.module.accountmgr, action=premiumizeReSync)"  visible="!eq(-2,)" />
 		<setting type="action" label="Revoke" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=addondebrid_pm&name=all)"  visible="!eq(-3,)" />
 	
 		<setting type="lsep" label="All-Debrid" />
 		<setting id="alldebrid.username" label="" type="text" default="" visible="false" enable="false" />
 		<setting type="action" label="View Authorizations" option="close" action="ActivateWindow(10001,plugin://script.module.acctview/?mode=alldebrid,return)" visible="!eq(-1,)" />
-		<setting type="action" label="Sync Add-ons" option="close" action="RunScript(script.module.accountmgr, action=alldebridReSync, opensettings=true)"  visible="!eq(-2,)" />
+		<setting type="action" label="Sync Add-ons" option="close" action="RunScript(script.module.accountmgr, action=alldebridReSync)"  visible="!eq(-2,)" />
 		<setting type="action" label="Revoke" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=addondebrid_ad&name=all)"  visible="!eq(-3,)" />
 
 		<setting type="lsep" label="Trakt" />
 		<setting id="trakt.username" label="" type="text" default="" visible="false" enable="false" />
 		<setting type="action" label="View Authorizations" option="close" action="ActivateWindow(10001,plugin://script.module.acctview/?mode=trakt,return)" visible="!eq(-1,)" />
-		<setting type="action" label="Sync Add-ons" option="close" action="RunScript(script.module.accountmgr, action=traktReSync, opensettings=true)" visible="!eq(-2,)" />
+		<setting type="action" label="Sync Add-ons" option="close" action="RunScript(script.module.accountmgr, action=traktReSync)" visible="!eq(-2,)" />
 		<setting type="action" label="Revoke" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=addontrakt&name=all)" visible="!eq(-3,)" />
 
-		<setting type="lsep" label="Furk/Easynews/FilePursuit" />
-		<setting id="non.enabled" type="bool" visible="false" label="" default="false" />
-		<setting type="action" label="View Authorizations" option="close" action="ActivateWindow(10001,plugin://script.module.acctview/?mode=nondebrid,return)" visible="eq(-1,true)" />
-		<setting type="action" label="Sync Add-ons" option="close" action="RunScript(script.module.accountmgr, action=SyncAll)"  visible="eq(-2,true)" />
-		<setting type="action" label="Revoke" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=addon_non&name=all)"  visible="eq(-3,true)" />
+		<setting type="lsep" label="OffCloud" />
+		<setting id="offcloud.enabled" type="bool" visible="false" label="" default="false" />
+		<setting id="offcloud.token" label="" type="text" default="" visible="false" enable="false" />
+		<setting type="action" label="View Authorizations" option="close" action="ActivateWindow(10001,plugin://script.module.acctview/?mode=offcloud,return)" visible="!eq(-1,) + eq(-2,true)" />
+		<setting type="action" label="Sync Add-ons" option="close" action="RunScript(script.module.accountmgr, action=offcloudReSync)"  visible="!eq(-2,) + eq(-3,true)" />
+		<setting type="action" label="Revoke" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=addonoffc&name=all)"  visible="!eq(-3,) + eq(-4,true)" />
+
+		<setting type="lsep" label="Easynews" />
+		<setting id="easynews.enabled" type="bool" visible="false" label="" default="false" />
+		<setting id="easynews.password" label="" type="text" default="" visible="false" enable="false" />
+		<setting type="action" label="View Authorizations" option="close" action="ActivateWindow(10001,plugin://script.module.acctview/?mode=easynews,return)" visible="!eq(-1,) + eq(-2,true)" />
+		<setting type="action" label="Sync Add-ons" option="close" action="RunScript(script.module.accountmgr, action=easynewsReSync)"  visible="!eq(-2,) + eq(-3,true)" />
+		<setting type="action" label="Revoke" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=addoneasy&name=all)"  visible="!eq(-3,) + eq(-4,true)" />
+
+		<setting type="lsep" label="FilePursuit" />
+		<setting id="filepursuit.enabled" type="bool" visible="false" label="" default="false" />
+		<setting id="filepursuit.api.key" label="" type="text" default="" visible="false" enable="false" />
+		<setting type="action" label="View Authorizations" option="close" action="ActivateWindow(10001,plugin://script.module.acctview/?mode=filepursuit,return)" visible="!eq(-1,) + eq(-2,true)" />
+		<setting type="action" label="Sync Add-ons" option="close" action="RunScript(script.module.accountmgr, action=filepursuitReSync)"  visible="!eq(-2,) + eq(-3,true)" />
+		<setting type="action" label="Revoke" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=addonfile&name=all)"  visible="!eq(-3,) + eq(-4,true)" />
 
 		<setting type="lsep" label="Metadata Providers" />
 		<setting id="meta.enabled" type="bool" visible="false" label="" default="false" />
 		<setting type="action" label="View Authorizations" option="close" action="ActivateWindow(10001,plugin://script.module.acctview/?mode=metadata,return)" visible="eq(-1,true)" />
-		<setting type="action" label="Sync Add-ons" option="close" action="RunScript(script.module.accountmgr, action=metaReSync, opensettings=true)"  visible="eq(-2,true)" />
+		<setting type="action" label="Sync Add-ons" option="close" action="RunScript(script.module.accountmgr, action=metaReSync)"  visible="eq(-2,true)" />
 		<setting type="action" label="Revoke" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=addonmeta&name=all)"  visible="eq(-3,true)" />
 	</category>
 	<category label="Backup & Restore">
@@ -143,11 +166,26 @@
 		<setting type="action" label="Restore Saved Data" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=restoretrakt&name=all)" visible="true" />
 		<setting type="action" label="Clear Saved Data" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=cleartrakt&name=all)" visible="true" />
 
-		<setting type="lsep" label="Furk/Easynews/FilePursuit" />
-		<setting id="non.enabled" type="bool" visible="false" label="" default="false" />
-		<setting type="action" label="Backup Data" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=save_non_acctmgr&name=all)"  visible="eq(-1,true)" />
-		<setting type="action" label="Restore Saved Data" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=restore_non&name=all)"  visible="true" />
-		<setting type="action" label="Clear Saved Data" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=clear_non&name=all)"  visible="true" />
+		<setting type="lsep" label="OffCloud" />
+		<setting id="offcloud.enabled" type="bool" visible="false" label="" default="false" />
+		<setting id="offcloud.token" label="" type="text" default="" visible="false" enable="false" />
+		<setting type="action" label="Backup Data" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=save_offc_acctmgr&name=all)"  visible="!eq(-1,) + eq(-2,true)" />
+		<setting type="action" label="Restore Saved Data" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=restoreoffc&name=all)"  visible="true" />
+		<setting type="action" label="Clear Saved Data" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=clearoffc&name=all)"  visible="true" />
+
+		<setting type="lsep" label="Easynews" />
+		<setting id="easynews.enabled" type="bool" visible="false" label="" default="false" />
+		<setting id="easynews.password" label="" type="text" default="" visible="false" enable="false" />
+		<setting type="action" label="Backup Data" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=save_easy_acctmgr&name=all)"  visible="!eq(-1,) + eq(-2,true)" />
+		<setting type="action" label="Restore Saved Data" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=restoreeasy&name=all)"  visible="true" />
+		<setting type="action" label="Clear Saved Data" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=cleareasy&name=all)"  visible="true" />
+
+		<setting type="lsep" label="FilePursuit" />
+		<setting id="filepursuit.enabled" type="bool" visible="false" label="" default="false" />
+		<setting id="filepursuit.api.key" label="" type="text" default="" visible="false" enable="false" />
+		<setting type="action" label="Backup Data" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=save_file_acctmgr&name=all)"  visible="!eq(-1,) + eq(-2,true)" />
+		<setting type="action" label="Restore Saved Data" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=restorefile&name=all)"  visible="true" />
+		<setting type="action" label="Clear Saved Data" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=clearfile&name=all)"  visible="true" />
 
 		<setting type="lsep" label="Metadata Providers" />
 		<setting id="meta.enabled" type="bool" visible="false" label="" default="false" />
@@ -168,37 +206,35 @@
 		<setting type="lsep" label="Startup Services" />
 		<setting id="checkAddonUpdates" type="bool" label="Update Notification Service" default="true" />
 		<setting label="40092" type="text" />
-      	<setting id="trakt.service" type="bool" visible="false" label="" default="" />
-      	<setting id="sync.service"  type="bool" label="Trakt & Debrid Auto-Sync Service" default="true"/>
+      		<setting id="api.service" type="bool" visible="false" label="" default="" />
+      		<setting id="sync.service"  type="bool" label="Trakt & Debrid Auto-Sync Service" default="true"/>
 		<setting label="40094" type="text" />
-      	<setting id="sync.nondebrid.service"  type="bool" label="Furk/Easynews/FilePursuit Auto-Sync Service" default="false"/>
+      		<setting id="sync.nondebrid.service"  type="bool" label="OffCloud/Easynew/FilePursuit Auto-Sync Service" default="false"/>
 		<setting label="40094" type="text" />
-      	<setting id="sync.metaservice" type="bool" label="Metadata Auto-Sync Service" default="false"/>
+      		<setting id="sync.metaservice" type="bool" label="Metadata Auto-Sync Service" default="false"/>
 		<setting label="40094" type="text" />
 		<setting type="lsep" label="Persistent Trakt Keys For Builders" />
 		<setting id="traktuserkey.enabled" type="bool" visible="false" label="" default="false" />
 		<setting id="devuserkey.enabled" type="bool" visible="eq(-1,false)" label="40107" default="false" />
 		<setting id="dev.client.id" type="text" option="hidden" visible="eq(-1,true)" label="40089" default="" />
 		<setting id="dev.client.secret" type="text" option="hidden" visible="eq(-2,true)" label="40088" default="" />
-        <setting label="40108" type="action" action="RunScript(script.module.accountmgr, action=ShowHelpCustom)" visible="true" />
+        	<setting label="40108" type="action" action="RunScript(script.module.accountmgr, action=ShowHelpCustom)" visible="true" />
 		<setting type="lsep" label="Restore All Add-ons To Default" />
-		<setting type="action" label="Restore To Default Settings" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=wipeclean&name=all)" visible="true" />
-        <setting label="40108" type="action" action="RunScript(script.module.accountmgr, action=ShowHelpRestore)" visible="true" />
+		<setting type="action" label="Restore To Default Settings" option="close" action="RunScript(script.module.accountmgr, action=resetSettings)" visible="true" />
+        	<setting label="40108" type="action" action="RunScript(script.module.accountmgr, action=ShowHelpRestore)" visible="true" />
 	</category>
 	<category label="Info">
 		<setting type="lsep" label="Supported Add-ons" />
 		<setting label="40099" type="action" action="RunScript(script.module.accountmgr, action=ShowSupported_Debrid)" />
 		<setting label="40098" type="action" action="RunScript(script.module.accountmgr, action=ShowSupported_Trakt)" />
-		<setting label="40103" type="action" action="RunScript(script.module.accountmgr, action=ShowSupported_Meta)" />
-		<setting label="40100" type="action" action="RunScript(script.module.accountmgr, action=ShowSupported_Furk)" />
+		<setting label="40100" type="action" action="RunScript(script.module.accountmgr, action=ShowSupported_Offcloud)" />
 		<setting label="40101" type="action" action="RunScript(script.module.accountmgr, action=ShowSupported_Easy)" />
 		<setting label="40102" type="action" action="RunScript(script.module.accountmgr, action=ShowSupported_File)" />
+		<setting label="40103" type="action" action="RunScript(script.module.accountmgr, action=ShowSupported_Meta)" />
 		<setting type="lsep" label="Reporting Issues" />
-        <setting label="40110" type="action" action="RunScript(script.module.accountmgr, action=ShowHelpIssues)" visible="true" />
+        	<setting label="40110" type="action" action="RunScript(script.module.accountmgr, action=ShowHelpIssues)" visible="true" />
 		<setting type="lsep" label="Changelog" />
 		<setting label="40104" type="action" action="RunScript(script.module.accountmgr, action=ShowChangelog)" />
-		<setting type="lsep" label="Readme" />
-        <setting label="40109" type="action" action="RunScript(script.module.accountmgr, action=ShowHelpReadme)" visible="true" />
 	</category>
 
 </settings>
