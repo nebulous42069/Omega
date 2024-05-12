@@ -2772,7 +2772,7 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
             -Various changes so skin would install on Matrix
         </news>
     </extension>
-</addon><addon id="skin.diggzkids" version="5.3" name="[B][COLOR gold]Diggz Kidz[/COLOR][/B]  (Mid Power)" provider-name="Helly,bsoriano">
+</addon><addon id="skin.diggzkids" version="5.4" name="[B][COLOR gold]Diggz Kidz[/COLOR][/B]  (Mid Power)" provider-name="Helly,bsoriano">
   <requires>
     <import addon="xbmc.gui" version="5.17.0" />
 	<import addon="script.favourites" version="8.1.2" />

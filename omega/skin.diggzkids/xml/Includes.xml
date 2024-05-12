@@ -657,6 +657,88 @@
 			<texture>_added_img/100x100_black.png</texture>
 			<animation effect="fade" end="96" time="0" condition="true">Conditional</animation>
 		</control>
+	</include>
+	<include name="MyFavoritesLayout">
+		<!-- Kodi 20+ MyFavourites.xml aka FavouritesBrowser -->
+		<control type="panel" id="450">
+			<left>39</left>
+			<top>138</top>
+			<width>1368</width>
+			<height>942</height>
+			<onleft>9000</onleft>
+			<onup>450</onup>
+			<onright>4501</onright>
+			<ondown>450</ondown>
+			<pagecontrol>4501</pagecontrol>
+			<include>StandardScrollTime</include>
+			<include>favoritesLayout1</include>
+		</control>
+		<include>favoritesLayoutScrollBar</include>
+	</include>
+	<include name="StandardScrollTime">
+		<scrolltime tween="sine" easing="inout">325</scrolltime>
+	</include>		
+	<include name="favoritesLayout1">
+		<itemlayout height="132" width="456">
+			<control type="image">
+				<left>5</left>
+				<top>5</top>
+				<width>120</width>
+				<height>119</height>
+				<texture background="true" colordiffuse="ffcecece" diffuse="colors/diffuse/rounded-generic-240x240.png">$VAR[FavoritesThumbnail]</texture>
+				<aspectratio scalediffuse="true">keep</aspectratio>
+			</control>
+			<control type="textbox">
+				<left>137</left>
+				<top>3</top>
+				<width>305</width>
+				<height>123</height>
+				<font>font16</font>
+				<textcolor>grey</textcolor>
+				<align>left</align>
+				<aligny>center</aligny>
+				<label>$INFO[ListItem.Label]</label>
+			</control>
+		</itemlayout>
+		<focusedlayout height="132" width="456">
+			<control type="image">
+				<left>0</left>
+				<top>0</top>
+				<width>453</width>
+				<height>129</height>
+				<texture border="14" colordiffuse="$VAR[accentColorDiffuseForNeutralTextures]">HomeSubFO_2-rounded-10px-neutral.png</texture>
+				<include>FocusAnimationTypeSimple1</include>
+			</control>
+			<control type="image">
+				<left>5</left>
+				<top>5</top>
+				<width>120</width>
+				<height>119</height>
+				<texture background="true" diffuse="colors/diffuse/rounded-generic-240x240.png">$VAR[FavoritesThumbnail]</texture>
+				<aspectratio scalediffuse="true">keep</aspectratio>
+			</control>
+			<control type="textbox">
+				<left>137</left>
+				<top>3</top>
+				<width>305</width>
+				<height>123</height>
+				<font>font16</font>
+				<textcolor>white</textcolor>
+				<align>left</align>
+				<aligny>center</aligny>
+				<label>$INFO[ListItem.Label]</label>
+			</control>
+		</focusedlayout>
+	</include>
+	<include name="FocusAnimationTypeSimple1">
+		<animation type="Focus">
+			<effect type="zoom" start="90" end="100" time="600" tween="sine" easing="inout" center="auto" />
+			<effect type="fade" start="0" end="100" time="600" />
+		</animation>
+		<animation type="UnFocus">
+			<effect type="zoom" start="100" end="90" time="400" tween="sine" easing="inout" center="auto" />
+			<effect type="fade" start="100" end="0" time="400" />
+		</animation>
 	</include>	
     <include name="DialogBackgroundCommons">
         <control type="image">
@@ -1840,6 +1922,16 @@
         <fadetime>FanartCrossfadeTime</fadetime>
         <include>Window_OpenClose_Animation</include>
     </include>
+	<include name="BehindDialogDarkBackgroundDarkest">
+		<control type="image">
+			<left>270</left>
+			<top>120</top>
+			<width>1400</width>
+			<height>955</height>
+			<texture>favorites.jpg</texture>
+			<animation effect="fade" end="98" time="0" condition="true">Conditional</animation>
+		</control>
+	</include>	
     <include name="CDBoxGlass">
         <control type="image">
             <width>375</width>
