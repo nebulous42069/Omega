@@ -109,17 +109,7 @@
 						<label>Install DiggzFlix</label>
 						<onclick>InstallAddon(skin.auraflix)</onclick>
 						<icon>skins/diggzflix.png</icon>
-					</item>					
-					<item>
-						<label>Install Planet Diggz</label>
-						<onclick>InstallAddon(skin.planetdiggz)</onclick>
-						<icon>skins/planetdiggz.png</icon>
-					</item>
-					<item>
-						<label>Install XeNox</label>
-						<onclick>InstallAddon(skin.xenox)</onclick>
-						<icon>skins/xenox.png</icon>
-					</item>					
+					</item>										
 					<item>
 						<label>Install Diggz Kidz</label>
 						<onclick>installaddon(skin.diggzkids)</onclick>
