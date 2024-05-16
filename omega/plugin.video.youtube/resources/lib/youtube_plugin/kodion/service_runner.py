@@ -10,7 +10,7 @@
 
 from __future__ import absolute_import, division, unicode_literals
 
-from .constants import TEMP_PATH
+from .constants import ABORT_FLAG, ADDON_ID, SLEEPING, TEMP_PATH, WAKEUP
 from .context import XbmcContext
 from .monitors import PlayerMonitor, ServiceMonitor
 from .utils import rm_dir
@@ -23,7 +23,8 @@ __all__ = ('run',)
 def run():
     context = XbmcContext()
     context.log_debug('YouTube service initialization...')
-    context.get_ui().clear_property('abort_requested')
+    ui = context.get_ui()
+    ui.clear_property(ABORT_FLAG)
 
     monitor = ServiceMonitor()
     player = PlayerMonitor(provider=Provider(),
@@ -33,28 +34,42 @@ def run():
     # wipe add-on temp folder on updates/restarts (subtitles, and mpd files)
     rm_dir(TEMP_PATH)
 
-    wait_interval = 10
     ping_period = waited = 60
     restart_attempts = 0
+    plugin_url = 'plugin://{0}/'.format(ADDON_ID)
     while not monitor.abortRequested():
-        if waited >= ping_period:
+        if not monitor.httpd:
+            if (monitor.httpd_required()
+                    and not context.get_infobool('System.IdleTime(10)')):
+                monitor.start_httpd()
+                waited = 0
+        elif context.get_infobool('System.IdleTime(10)'):
+            if ui.get_property(WAKEUP):
+                ui.clear_property(WAKEUP)
+                waited = 0
+            if waited >= 30:
+                monitor.shutdown_httpd()
+                ui.set_property(SLEEPING, 'true')
+        elif waited >= ping_period:
             waited = 0
-
-            if monitor.httpd and not monitor.ping_httpd():
-                restart_attempts += 1
-                if restart_attempts > 5:
-                    monitor.shutdown_httpd()
-                    restart_attempts = 0
-                else:
-                    monitor.restart_httpd()
-            else:
+            if monitor.ping_httpd():
                 restart_attempts = 0
+            elif restart_attempts < 5:
+                monitor.restart_httpd()
+                restart_attempts += 1
+            else:
+                monitor.shutdown_httpd()
+
+        if context.get_infolabel('Container.FolderPath').startswith(plugin_url):
+            wait_interval = 1
+        else:
+            wait_interval = 10
 
         if monitor.waitForAbort(wait_interval):
             break
         waited += wait_interval
 
-    context.get_ui().set_property('abort_requested', 'true')
+    ui.set_property(ABORT_FLAG, 'true')
 
     # clean up any/all playback monitoring threads
     player.cleanup_threads(only_ended=False)
@@ -62,4 +77,5 @@ def run():
     if monitor.httpd:
         monitor.shutdown_httpd()  # shutdown http server
 
+    monitor.tear_down()
     context.tear_down()

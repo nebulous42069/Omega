@@ -16,8 +16,8 @@ from ...kodion.compatibility import urlencode, xbmcvfs
 from ...kodion.constants import ADDON_ID, DATA_PATH, WAIT_FLAG
 from ...kodion.network import Locator, httpd_status
 from ...kodion.sql_store import PlaybackHistory, SearchHistory
+from ...kodion.utils import current_system_version, to_unicode
 from ...kodion.utils.datetime_parser import strptime
-from ...kodion.utils.methods import to_unicode
 
 
 DEFAULT_LANGUAGES = {'items': [
@@ -282,9 +282,8 @@ def process_language(provider, context, step, steps):
 
     # set new language id and region id
     settings = context.get_settings()
-    settings.set_string(settings.LANGUAGE, language_id)
-    settings.set_string(settings.REGION, region_id)
-    provider.reset_client()
+    settings.set_language(language_id)
+    settings.set_region(region_id)
     return step
 
 
@@ -322,7 +321,10 @@ def process_default_settings(_provider, context, step, steps):
         settings.use_mpd_videos(True)
         settings.stream_select(4 if settings.ask_for_video_quality() else 3)
         settings.set_subtitle_download(False)
-        settings.live_stream_type(2)
+        if current_system_version.compatible(21, 0):
+            settings.live_stream_type(3)
+        else:
+            settings.live_stream_type(2)
         if not xbmcvfs.exists('special://profile/playercorefactory.xml'):
             settings.default_player_web_urls(False)
         if settings.cache_size() < 20:
@@ -373,7 +375,7 @@ def process_performance_settings(_provider, context, step, steps):
             },
             '1080p30_avc': {
                 'max_resolution': 4,  # 1080p
-                'stream_features': ('avc1', 'vorbis', 'mp4a', 'filter'),
+                'stream_features': ('avc1', 'vorbis', 'opus', 'mp4a', 'filter'),
                 'num_items': 10,
                 'settings': (
                     (settings.client_selection, (2,)),
@@ -381,32 +383,32 @@ def process_performance_settings(_provider, context, step, steps):
             },
             '1080p30': {
                 'max_resolution': 4,  # 1080p
-                'stream_features': ('avc1', 'vp9', 'vorbis', 'mp4a', 'ssa', 'ac-3', 'ec-3', 'dts', 'filter'),
+                'stream_features': ('avc1', 'vp9', 'vorbis', 'opus', 'mp4a', 'ssa', 'ac-3', 'ec-3', 'dts', 'filter'),
                 'num_items': 20,
             },
             '1080p60': {
                 'max_resolution': 4,  # 1080p
-                'stream_features': ('avc1', 'vp9', 'hfr', 'vorbis', 'mp4a', 'ssa', 'ac-3', 'ec-3', 'dts', 'filter'),
+                'stream_features': ('avc1', 'vp9', 'hfr', 'vorbis', 'opus', 'mp4a', 'ssa', 'ac-3', 'ec-3', 'dts', 'filter'),
                 'num_items': 30,
             },
             '4k30': {
                 'max_resolution': 6,  # 4k
-                'stream_features': ('avc1', 'vp9', 'hdr', 'hfr', 'no_hfr_max', 'vorbis', 'mp4a', 'ssa', 'ac-3', 'ec-3', 'dts', 'filter'),
+                'stream_features': ('avc1', 'vp9', 'hdr', 'hfr', 'no_hfr_max', 'vorbis', 'opus', 'mp4a', 'ssa', 'ac-3', 'ec-3', 'dts', 'filter'),
                 'num_items': 50,
             },
             '4k60': {
                 'max_resolution': 6,  # 4k
-                'stream_features': ('avc1', 'vp9', 'hdr', 'hfr', 'vorbis', 'mp4a', 'ssa', 'ac-3', 'ec-3', 'dts', 'filter'),
+                'stream_features': ('avc1', 'vp9', 'hdr', 'hfr', 'vorbis', 'opus', 'mp4a', 'ssa', 'ac-3', 'ec-3', 'dts', 'filter'),
                 'num_items': 50,
             },
             '4k60_av1': {
                 'max_resolution': 6,  # 4k
-                'stream_features': ('avc1', 'vp9', 'av01', 'hdr', 'hfr', 'vorbis', 'mp4a', 'ssa', 'ac-3', 'ec-3', 'dts', 'filter'),
+                'stream_features': ('avc1', 'vp9', 'av01', 'hdr', 'hfr', 'vorbis', 'opus', 'mp4a', 'ssa', 'ac-3', 'ec-3', 'dts', 'filter'),
                 'num_items': 50,
             },
             'max': {
                 'max_resolution': 7,  # 8k
-                'stream_features': ('avc1', 'vp9', 'av01', 'hdr', 'hfr', 'vorbis', 'mp4a', 'ssa', 'ac-3', 'ec-3', 'dts', 'filter'),
+                'stream_features': ('avc1', 'vp9', 'av01', 'hdr', 'hfr', 'vorbis', 'opus', 'mp4a', 'ssa', 'ac-3', 'ec-3', 'dts', 'filter'),
                 'num_items': 50,
             },
         }
@@ -444,6 +446,7 @@ def process_subtitles(_provider, context, step, steps):
         context.execute('RunScript({addon_id},config/subtitles)'.format(
             addon_id=ADDON_ID
         ), wait_for=WAIT_FLAG)
+        context.get_settings(flush=True)
     return step
 
 

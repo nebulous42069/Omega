@@ -17,7 +17,7 @@ from traceback import format_stack
 from ..helper import utils, v3
 from ..youtube_exceptions import YouTubeException
 from ...kodion.compatibility import urlencode, urlunsplit
-from ...kodion.constants import SWITCH_PLAYER_FLAG, paths
+from ...kodion.constants import PLAYER_DATA, SWITCH_PLAYER_FLAG, paths
 from ...kodion.items import VideoItem
 from ...kodion.network import get_connect_address
 from ...kodion.utils import select_stream
@@ -40,7 +40,7 @@ def play_video(provider, context):
 
     is_external = ui.get_property(SWITCH_PLAYER_FLAG)
     if ((is_external and settings.alternative_player_web_urls())
-            or (not is_external and settings.default_player_web_urls())):
+            or settings.default_player_web_urls()):
         video_stream = {
             'url': 'https://www.youtube.com/watch?v={0}'.format(video_id),
         }
@@ -147,8 +147,7 @@ def play_video(provider, context):
         'refresh_only': screensaver
     }
 
-    ui.set_property('playback_json', json.dumps(playback_json,
-                                                ensure_ascii=False))
+    ui.set_property(PLAYER_DATA, json.dumps(playback_json, ensure_ascii=False))
     context.send_notification('PlaybackInit', {
         'video_id': video_id,
         'channel_id': playback_json.get('channel_id', ''),

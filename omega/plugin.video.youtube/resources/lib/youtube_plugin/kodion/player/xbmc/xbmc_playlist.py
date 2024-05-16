@@ -133,7 +133,7 @@ class XbmcPlaylist(AbstractPlaylist):
             self._context.log_error('XbmcPlaylist.get_items error - |{0}: {1}|'
                                     .format(error.get('code', 'unknown'),
                                             error.get('message', 'unknown')))
-        return '[]' if dumps else []
+        return '' if dumps else []
 
     def add_items(self, items, loads=False):
         if loads:
@@ -171,12 +171,15 @@ class XbmcPlaylist(AbstractPlaylist):
         context.log_debug('Playing from playlist position: {0}'
                           .format(position))
 
+        if not resume:
+            xbmc.Player().play(self._playlist, startpos=position - 1)
+            return
         # JSON Player.Open can be too slow but is needed if resuming is enabled
         jsonrpc(method='Player.Open',
                 params={'item': {'playlistid': self._playlist.getPlayListId(),
                                  # Convert 1 indexed to 0 indexed position
                                  'position': position - 1}},
-                options={'resume': resume},
+                options={'resume': True},
                 no_response=True)
 
     def get_position(self, offset=0):
@@ -203,7 +206,7 @@ class XbmcPlaylist(AbstractPlaylist):
         position += (offset + 1)
 
         # A playlist with only one element has no next item
-        if playlist_size > 1 and position <= playlist_size:
+        if playlist_size >= 1 and position <= playlist_size:
             self._context.log_debug('playlistid: {0}, position - {1}/{2}'
                                     .format(playlistid,
                                             position,

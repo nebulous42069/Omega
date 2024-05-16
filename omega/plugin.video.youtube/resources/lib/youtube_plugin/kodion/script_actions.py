@@ -29,9 +29,9 @@ def _config_actions(context, action, *_args):
 
     elif action == 'isa':
         if context.use_inputstream_adaptive():
-            xbmcaddon.Addon(id='inputstream.adaptive').openSettings()
+            xbmcaddon.Addon('inputstream.adaptive').openSettings()
         else:
-            settings.set_bool('kodion.video.quality.isa', False)
+            settings.use_isa(False)
 
     elif action == 'inputstreamhelper':
         try:
@@ -41,16 +41,16 @@ def _config_actions(context, action, *_args):
             xbmc.executebuiltin('InstallAddon(script.module.inputstreamhelper)')
 
     elif action == 'subtitles':
-        sub_lang = context.get_subtitle_language()
+        kodi_sub_lang = context.get_subtitle_language()
         plugin_lang = settings.get_language()
         sub_selection = settings.get_subtitle_selection()
 
-        if not sub_lang:
+        if not kodi_sub_lang:
             preferred = (plugin_lang,)
-        elif sub_lang.partition('-')[0] != plugin_lang.partition('-')[0]:
-            preferred = (sub_lang, plugin_lang)
+        elif kodi_sub_lang.partition('-')[0] != plugin_lang.partition('-')[0]:
+            preferred = (kodi_sub_lang, plugin_lang)
         else:
-            preferred = (sub_lang,)
+            preferred = (kodi_sub_lang,)
 
         fallback = ('ASR' if preferred[0].startswith('en') else
                     context.get_language_name('en'))
@@ -239,7 +239,7 @@ def _user_actions(context, action, params):
             localize('user.changed') % access_manager.get_username(user),
             localize('user.switch')
         )
-        if context.get_param('refresh') is not False:
+        if context.get_param('refresh') != 0:
             ui.refresh_container()
 
     if action == 'switch':
