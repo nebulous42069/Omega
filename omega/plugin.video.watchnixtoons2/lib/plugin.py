@@ -1424,7 +1424,7 @@ def actionResolve(params):
         html = content
 
     # On rare cases an episode might have several "chapters", which are video players on the page.
-    if 'playChapters' in params or ADDON.getSetting('chapterEpisodes') == 'true':
+    elif 'playChapters' in params or ADDON.getSetting('chapterEpisodes') == 'true':
 
         # try and get chapters from site class
         data_indices = re.compile( SITE_SETTINGS[ 'chapter' ][ 'regex' ], re.MULTILINE ).findall(content)
