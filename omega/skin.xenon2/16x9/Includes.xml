@@ -89,7 +89,7 @@
 			</control>
 			<control type="grouplist">
 				<left>10</left>
-				<width>100</width>
+				<width>95</width>
 				<height>78</height>
 				<align>center</align>
 				<control type="label">
@@ -112,7 +112,7 @@
 			</control>
 			<control type="grouplist">
 				<left>10</left>
-				<width>100</width>
+				<width>95</width>
 				<height>78</height>
 				<align>center</align>
 				<control type="label">
@@ -135,7 +135,7 @@
 			</control>
 			<control type="grouplist">
 				<left>10</left>
-				<width>100</width>
+				<width>95</width>
 				<height>78</height>
 				<align>center</align>
 				<control type="label">
@@ -936,7 +936,7 @@
 			<onfocus condition="!String.IsEmpty(Window(Home).Property(MediaMenu)) + Skin.HasSetting(Enable.AutoOpenMediaMenuOnMouseOver)">ClearProperty(MediaMenu,Home)</onfocus>
 			<texturenofocus />
 			<texturefocus />
-			<width>100</width>
+			<width>95</width>
 			<height>37</height>
 			<include>ButtonTopbarCommonvalues</include>
 			<visible>!String.IsEmpty(Window(Home).Property(Window.HasSettings))</visible>
@@ -1423,7 +1423,7 @@
 	<include name="DefaultVideoOSD">
 		<control type="grouplist" id="202">
 			<animation effect="slide" end="0,942" condition="!Skin.HasSetting(VideoOSDOnTop)">Conditional</animation>
-			<height>100</height>
+			<height>95</height>
 			<width>100%</width>
 			<align>center</align>
 			<scrolltime tween="sine">200</scrolltime>
@@ -1434,136 +1434,147 @@
 			<onup>703</onup>
 			<ondown>706</ondown>
 			<control type="button" id="701">
-				<texturefocus />
-				<font>IconOSDButtons</font>
+				<font/>
+				<texturefocus>osd/buttons2/OSDAudioFO.png</texturefocus>
+				<texturenofocus>osd/buttons2/OSDAudioNF.png</texturenofocus>
 				<label></label>
 				<focusedcolor>$VAR[FocusedOSDButtonsColor]</focusedcolor>
 				<textcolor>$VAR[UnfocusedOSDButtonsColor]</textcolor>
 				<shadowcolor>shadow</shadowcolor>
-				<width>100</width>
-				<height>100</height>
+				<width>95</width>
+				<height>95</height>
 				<onclick>ActivateWindow(osdaudiosettings)</onclick>
 				<oninfo>ActivateWindow(osdaudiosettings)</oninfo>
 			</control>
 			<control type="button" id="702">
-				<texturefocus />
-				<font>IconOSDButtons</font>
+				<font/>
+				<texturefocus>osd/buttons2/OSDVideoFO.png</texturefocus>
+				<texturenofocus>osd/buttons2/OSDVideoNF.png</texturenofocus>
 				<label></label>
 				<focusedcolor>$VAR[FocusedOSDButtonsColor]</focusedcolor>
 				<textcolor>$VAR[UnfocusedOSDButtonsColor]</textcolor>
 				<shadowcolor>shadow</shadowcolor>
-				<width>100</width>
-				<height>100</height>
+				<width>95</width>
+				<height>95</height>
 				<onclick>ActivateWindow(osdvideosettings)</onclick>
 				<oninfo>ActivateWindow(osdvideosettings)</oninfo>
 			</control>
 			<control type="togglebutton" id="703">
-				<texturefocus />
-				<alttexturefocus />
-				<font>IconOSDButtons</font>
+				<font/>
+				<texturefocus>osd/buttons2/OSDSubtitlesFO.png</texturefocus>
+				<texturenofocus>osd/buttons2/OSDSubtitlesNF.png</texturenofocus>
 				<label></label>
 				<altlabel></altlabel>
 				<focusedcolor>$VAR[FocusedOSDButtonsColor]</focusedcolor>
 				<textcolor>$VAR[UnfocusedOSDButtonsColor]</textcolor>
 				<shadowcolor>shadow</shadowcolor>
-				<width>100</width>
-				<height>100</height>
+				<width>95</width>
+				<height>95</height>
 				<usealttexture>VideoPlayer.HasSubtitles</usealttexture>
 				<onclick>ActivateWindow(OSDSubtitleSettings)</onclick>
 				<oninfo>ActivateWindow(SubtitleSearch)</oninfo>
 			</control>
 			<control type="button" id="600">
-				<texturefocus />
-				<font>IconOSDButtons</font>
+				<font/>
+				<texturefocus>osd/buttons2/OSDPrevTrackFO.png</texturefocus>
+				<texturenofocus>osd/buttons2/OSDPrevTrackNF.png</texturenofocus>
 				<label></label>
 				<focusedcolor>$VAR[FocusedOSDButtonsColor]</focusedcolor>
 				<textcolor>$VAR[UnfocusedOSDButtonsColor]</textcolor>
 				<shadowcolor>shadow</shadowcolor>
-				<width>100</width>
-				<height>100</height>
+				<width>95</width>
+				<height>95</height>
 				<onclick>PlayerControl(Previous)</onclick>
 				<oninfo>Dialog.Close(all,true)</oninfo>
 				<visible>!Skin.HasSetting(Disable.PlayerControlButtons)</visible>
 			</control>
 			<control type="button" id="601">
-				<texturefocus />
-				<font>IconOSDButtons</font>
+				<font/>
+				<texturefocus>osd/buttons2/OSDRewindFO.png</texturefocus>
+				<texturenofocus>osd/buttons2/OSDRewindNF.png</texturenofocus>
 				<label></label>
 				<focusedcolor>$VAR[FocusedOSDButtonsColor]</focusedcolor>
 				<textcolor>$VAR[UnfocusedOSDButtonsColor]</textcolor>
 				<shadowcolor>shadow</shadowcolor>
-				<width>100</width>
-				<height>100</height>
+				<width>95</width>
+				<height>95</height>
 				<onclick condition="!Player.TempoEnabled">PlayerControl(Rewind)</onclick>
 				<onclick condition="Player.TempoEnabled">PlayerControl(tempodown)</onclick>
 				<oninfo>Dialog.Close(all,true)</oninfo>
 				<visible>!Skin.HasSetting(Disable.PlayerControlButtons)</visible>
 			</control>
 			<control type="button" id="603">
-				<texturefocus />
-				<font>IconOSDButtons</font>
+				<font/>
+				<texturefocus>osd/buttons2/OSDStopFO.png</texturefocus>
+				<texturenofocus>osd/buttons2/OSDStopNF.png</texturenofocus>
 				<label></label>
 				<focusedcolor>$VAR[FocusedOSDButtonsColor]</focusedcolor>
 				<textcolor>$VAR[UnfocusedOSDButtonsColor]</textcolor>
 				<shadowcolor>shadow</shadowcolor>
-				<width>100</width>
-				<height>100</height>
+				<width>95</width>
+				<height>95</height>
 				<onclick>PlayerControl(Stop)</onclick>
 				<oninfo>Dialog.Close(all,true)</oninfo>
 				<visible>!Skin.HasSetting(Disable.PlayerControlButtons)</visible>
 			</control>
 			<control type="togglebutton" id="602">
-				<texturefocus />
-				<alttexturefocus />
-				<font>IconOSDButtons</font>
+				<font/>
+				<texturefocus>osd/buttons2/OSDPauseFO.png</texturefocus>
+				<texturenofocus>osd/buttons2/OSDPauseNF.png</texturenofocus>
+				<usealttexture>Player.Paused | Player.Forwarding | Player.Rewinding</usealttexture>
+				<alttexturefocus>osd/buttons2/OSDPlayFO.png</alttexturefocus>
+				<alttexturenofocus>osd/buttons2/OSDPlayNF.png</alttexturenofocus>
 				<label></label>
 				<altlabel></altlabel>
 				<focusedcolor>$VAR[FocusedOSDButtonsColor]</focusedcolor>
 				<textcolor>$VAR[UnfocusedOSDButtonsColor]</textcolor>
 				<shadowcolor>shadow</shadowcolor>
-				<width>100</width>
-				<height>100</height>
+				<width>95</width>
+				<height>95</height>
 				<usealttexture>Player.Paused | Player.Forwarding | Player.Rewinding</usealttexture>
 				<onclick>PlayerControl(Play)</onclick>
 				<oninfo>Dialog.Close(all,true)</oninfo>
 				<visible>!Skin.HasSetting(Disable.PlayerControlButtons)</visible>
 			</control>
 			<control type="button" id="604">
-				<texturefocus />
-				<font>IconOSDButtons</font>
+				<font/>
+				<texturefocus>osd/buttons2/OSDForwardFO.png</texturefocus>
+				<texturenofocus>osd/buttons2/OSDForwardNF.png</texturenofocus>
 				<label></label>
 				<focusedcolor>$VAR[FocusedOSDButtonsColor]</focusedcolor>
 				<textcolor>$VAR[UnfocusedOSDButtonsColor]</textcolor>
 				<shadowcolor>shadow</shadowcolor>
-				<width>100</width>
-				<height>100</height>
+				<width>95</width>
+				<height>95</height>
 				<onclick condition="!Player.TempoEnabled">PlayerControl(Forward)</onclick>
 				<onclick condition="Player.TempoEnabled">PlayerControl(tempoup)</onclick>
 				<oninfo>Dialog.Close(all,true)</oninfo>
 				<visible>!Skin.HasSetting(Disable.PlayerControlButtons)</visible>
 			</control>
 			<control type="button" id="605">
-				<texturefocus />
-				<font>IconOSDButtons</font>
+				<font/>
+				<texturefocus>osd/buttons2/OSDNextTrackFO.png</texturefocus>
+				<texturenofocus>osd/buttons2/OSDNextTrackNF.png</texturenofocus>
 				<label></label>
 				<focusedcolor>$VAR[FocusedOSDButtonsColor]</focusedcolor>
 				<textcolor>$VAR[UnfocusedOSDButtonsColor]</textcolor>
 				<shadowcolor>shadow</shadowcolor>
-				<width>100</width>
-				<height>100</height>
+				<width>95</width>
+				<height>95</height>
 				<onclick>PlayerControl(Next)</onclick>
 				<oninfo>Dialog.Close(all,true)</oninfo>
 				<visible>!Skin.HasSetting(Disable.PlayerControlButtons)</visible>
 			</control>
 			<control type="button" id="706">
-				<texturefocus />
-				<font>IconOSDButtons</font>
+				<font/>
+				<texturefocus>osd/buttons2/OSDInfoFO.png</texturefocus>
+				<texturenofocus>osd/buttons2/OSDInfoNF.png</texturenofocus>
 				<label></label>
 				<focusedcolor>$VAR[FocusedOSDButtonsColor]</focusedcolor>
 				<textcolor>$VAR[UnfocusedOSDButtonsColor]</textcolor>
 				<shadowcolor>shadow</shadowcolor>
-				<width>100</width>
-				<height>100</height>
+				<width>95</width>
+				<height>95</height>
 				<onclick>Close</onclick>
 				<onclick condition="!Window.IsActive(fullscreeninfo)">ActivateWindow(fullscreeninfo)</onclick>
 				<onclick condition="Window.IsActive(fullscreeninfo)">Dialog.Close(all,true)</onclick>
@@ -1571,26 +1582,28 @@
 				<oninfo>ActivateWindow(fullscreeninfo)</oninfo>
 			</control>
 			<control type="button" id="700">
-				<texturefocus />
-				<font>IconOSDButtons</font>
+				<font/>
+				<texturefocus>osd/buttons2/OSDBookmarksFO.png</texturefocus>
+				<texturenofocus>osd/buttons2/OSDBookmarksNF.png</texturenofocus>
 				<label></label>
 				<focusedcolor>$VAR[FocusedOSDButtonsColor]</focusedcolor>
 				<textcolor>$VAR[UnfocusedOSDButtonsColor]</textcolor>
 				<shadowcolor>shadow</shadowcolor>
-				<width>100</width>
-				<height>100</height>
+				<width>95</width>
+				<height>95</height>
 				<onclick>ActivateWindow(videobookmarks)</onclick>
 				<oninfo>ActivateWindow(videobookmarks)</oninfo>
 			</control>
 			<control type="button" id="704">
-				<texturefocus />
-				<font>IconOSDButtons</font>
+				<font/>
+				<texturefocus>osd/buttons2/OSDDvdFO.png</texturefocus>
+				<texturenofocus>osd/buttons2/OSDDvdNF.png</texturenofocus>
 				<label></label>
 				<focusedcolor>$VAR[FocusedOSDButtonsColor]</focusedcolor>
 				<textcolor>$VAR[UnfocusedOSDButtonsColor]</textcolor>
 				<shadowcolor>shadow</shadowcolor>
-				<width>100</width>
-				<height>100</height>
+				<width>95</width>
+				<height>95</height>
 				<onclick>PlayerControl(ShowVideoMenu)</onclick>
 				<oninfo>PlayerControl(ShowVideoMenu)</oninfo>
 				<visible>VideoPlayer.HasMenu</visible>
@@ -1602,8 +1615,8 @@
 				<focusedcolor>$VAR[FocusedOSDButtonsColor]</focusedcolor>
 				<textcolor>$VAR[UnfocusedOSDButtonsColor]</textcolor>
 				<shadowcolor>shadow</shadowcolor>
-				<width>100</width>
-				<height>100</height>
+				<width>95</width>
+				<height>95</height>
 				<onclick>StereoMode</onclick>
 				<oninfo>Dialog.Close(all,true)</oninfo>
 				<visible>VideoPlayer.IsStereoscopic</visible>
@@ -1615,8 +1628,8 @@
 				<focusedcolor>$VAR[FocusedOSDButtonsColor]</focusedcolor>
 				<textcolor>$VAR[UnfocusedOSDButtonsColor]</textcolor>
 				<shadowcolor>shadow</shadowcolor>
-				<width>100</width>
-				<height>100</height>
+				<width>95</width>
+				<height>95</height>
 				<onclick>Dialog.Close(all,true)</onclick>
 				<onclick>SetProperty(Enable.ScreenshotMode,True,Home)</onclick>
 				<onclick>Notification($LOCALIZE[19098]:,$LOCALIZE[31329],1500,icon.png)</onclick>
@@ -1626,14 +1639,15 @@
 				<visible>VideoPlayer.Content(movies) | VideoPlayer.Content(episodes)</visible>
 			</control>
 			<control type="button" id="709">
-				<texturefocus />
-				<font>IconOSDButtons</font>
+				<font/>
+				<texturefocus>osd/buttons2/OSDSettingsFO.png</texturefocus>
+				<texturenofocus>osd/buttons2/OSDSettingsNF.png</texturenofocus>
 				<label></label>
 				<focusedcolor>$VAR[FocusedOSDButtonsColor]</focusedcolor>
 				<textcolor>$VAR[UnfocusedOSDButtonsColor]</textcolor>
 				<shadowcolor>shadow</shadowcolor>
-				<width>100</width>
-				<height>100</height>
+				<width>95</width>
+				<height>95</height>
 				<onclick>SetProperty(DialogSettings,videoosd,Home)</onclick>
 				<onclick>ActivateWindow(1114)</onclick>
 				<oninfo>SetProperty(DialogSettings,videoosd,Home)</oninfo>
@@ -1677,8 +1691,8 @@
 				<focusedcolor>$VAR[FocusedOSDButtonsColor]</focusedcolor>
 				<textcolor>$VAR[UnfocusedOSDButtonsColor]</textcolor>
 				<shadowcolor>shadow</shadowcolor>
-				<width>100</width>
-				<height>100</height>
+				<width>95</width>
+				<height>95</height>
 				<onclick>ActivateWindow(osdaudiosettings)</onclick>
 			</control>
 			<control type="button" id="801">
@@ -1688,8 +1702,8 @@
 				<focusedcolor>$VAR[FocusedOSDButtonsColor]</focusedcolor>
 				<textcolor>$VAR[UnfocusedOSDButtonsColor]</textcolor>
 				<shadowcolor>shadow</shadowcolor>
-				<width>100</width>
-				<height>100</height>
+				<width>95</width>
+				<height>95</height>
 				<onclick>ActivateWindow(osdvideosettings)</onclick>
 			</control>
 			<control type="togglebutton" id="802">
@@ -1701,8 +1715,8 @@
 				<focusedcolor>$VAR[FocusedOSDButtonsColor]</focusedcolor>
 				<textcolor>$VAR[UnfocusedOSDButtonsColor]</textcolor>
 				<shadowcolor>shadow</shadowcolor>
-				<width>100</width>
-				<height>100</height>
+				<width>95</width>
+				<height>95</height>
 				<usealttexture>VideoPlayer.HasSubtitles</usealttexture>
 				<onclick>ActivateWindow(OSDSubtitleSettings)</onclick>
 			</control>
@@ -1713,8 +1727,8 @@
 				<focusedcolor>$VAR[FocusedOSDButtonsColor]</focusedcolor>
 				<textcolor>$VAR[UnfocusedOSDButtonsColor]</textcolor>
 				<shadowcolor>shadow</shadowcolor>
-				<width>100</width>
-				<height>100</height>
+				<width>95</width>
+				<height>95</height>
 				<onclick>ActivateWindow(Teletext)</onclick>
 			</control>
 			<control type="button" id="803">
@@ -1724,8 +1738,8 @@
 				<focusedcolor>$VAR[FocusedOSDButtonsColor]</focusedcolor>
 				<textcolor>$VAR[UnfocusedOSDButtonsColor]</textcolor>
 				<shadowcolor>shadow</shadowcolor>
-				<width>100</width>
-				<height>100</height>
+				<width>95</width>
+				<height>95</height>
 				<onclick>PlayerControl(Previous)</onclick>
 			</control>
 			<control type="button" id="805">
@@ -1735,8 +1749,8 @@
 				<focusedcolor>$VAR[FocusedOSDButtonsColor]</focusedcolor>
 				<textcolor>$VAR[UnfocusedOSDButtonsColor]</textcolor>
 				<shadowcolor>shadow</shadowcolor>
-				<width>100</width>
-				<height>100</height>
+				<width>95</width>
+				<height>95</height>
 				<onclick>PlayerControl(Rewind)</onclick>
 				<visible>Player.SeekEnabled</visible>
 				<visible>!Skin.HasSetting(Disable.PlayerControlButtons)</visible>
@@ -1748,8 +1762,8 @@
 				<focusedcolor>$VAR[FocusedOSDButtonsColor]</focusedcolor>
 				<textcolor>$VAR[UnfocusedOSDButtonsColor]</textcolor>
 				<shadowcolor>shadow</shadowcolor>
-				<width>100</width>
-				<height>100</height>
+				<width>95</width>
+				<height>95</height>
 				<onclick>PlayerControl(Stop)</onclick>
 				<visible>!Skin.HasSetting(Disable.PlayerControlButtons)</visible>
 			</control>
@@ -1762,8 +1776,8 @@
 				<focusedcolor>$VAR[FocusedOSDButtonsColor]</focusedcolor>
 				<textcolor>$VAR[UnfocusedOSDButtonsColor]</textcolor>
 				<shadowcolor>shadow</shadowcolor>
-				<width>100</width>
-				<height>100</height>
+				<width>95</width>
+				<height>95</height>
 				<usealttexture>Player.Paused | Player.Forwarding | Player.Rewinding</usealttexture>
 				<onclick>PlayerControl(Play)</onclick>
 				<visible>Player.PauseEnabled</visible>
@@ -1776,8 +1790,8 @@
 				<focusedcolor>$VAR[FocusedOSDButtonsColor]</focusedcolor>
 				<textcolor>$VAR[UnfocusedOSDButtonsColor]</textcolor>
 				<shadowcolor>shadow</shadowcolor>
-				<width>100</width>
-				<height>100</height>
+				<width>95</width>
+				<height>95</height>
 				<onclick>PlayerControl(Forward)</onclick>
 				<visible>Player.SeekEnabled</visible>
 				<visible>!Skin.HasSetting(Disable.PlayerControlButtons)</visible>
@@ -1789,8 +1803,8 @@
 				<focusedcolor>$VAR[FocusedOSDButtonsColor]</focusedcolor>
 				<textcolor>$VAR[UnfocusedOSDButtonsColor]</textcolor>
 				<shadowcolor>shadow</shadowcolor>
-				<width>100</width>
-				<height>100</height>
+				<width>95</width>
+				<height>95</height>
 				<onclick>PlayerControl(Next)</onclick>
 			</control>
 			<control type="togglebutton" id="809">
@@ -1802,8 +1816,8 @@
 				<focusedcolor>$VAR[FocusedOSDButtonsColor]</focusedcolor>
 				<textcolor>$VAR[UnfocusedOSDButtonsColor]</textcolor>
 				<shadowcolor>shadow</shadowcolor>
-				<width>100</width>
-				<height>100</height>
+				<width>95</width>
+				<height>95</height>
 				<onclick>PVR.ToggleRecordPlayingChannel</onclick>
 				<visible>PVR.CanRecordPlayingChannel</visible>
 				<usealttexture>PVR.IsRecordingPlayingChannel</usealttexture>
@@ -1815,8 +1829,8 @@
 				<focusedcolor>$VAR[FocusedOSDButtonsColor]</focusedcolor>
 				<textcolor>$VAR[UnfocusedOSDButtonsColor]</textcolor>
 				<shadowcolor>shadow</shadowcolor>
-				<width>100</width>
-				<height>100</height>
+				<width>95</width>
+				<height>95</height>
 				<onclick>Dialog.Close(VideoOSD)</onclick>
 				<onclick>ActivateWindow(PVROSDChannels)</onclick>
 			</control>
@@ -1827,8 +1841,8 @@
 				<focusedcolor>$VAR[FocusedOSDButtonsColor]</focusedcolor>
 				<textcolor>$VAR[UnfocusedOSDButtonsColor]</textcolor>
 				<shadowcolor>shadow</shadowcolor>
-				<width>100</width>
-				<height>100</height>
+				<width>95</width>
+				<height>95</height>
 				<onclick>Dialog.Close(VideoOSD)</onclick>
 				<onclick>ActivateWindow(pvrchannelguide)</onclick>
 			</control>
@@ -1839,8 +1853,8 @@
 				<focusedcolor>$VAR[FocusedOSDButtonsColor]</focusedcolor>
 				<textcolor>$VAR[UnfocusedOSDButtonsColor]</textcolor>
 				<shadowcolor>shadow</shadowcolor>
-				<width>100</width>
-				<height>100</height>
+				<width>95</width>
+				<height>95</height>
 				<onclick>ToggleStereoMode</onclick>
 				<visible>VideoPlayer.IsStereoscopic</visible>
 			</control>
@@ -1851,8 +1865,8 @@
 				<focusedcolor>$VAR[FocusedOSDButtonsColor]</focusedcolor>
 				<textcolor>$VAR[UnfocusedOSDButtonsColor]</textcolor>
 				<shadowcolor>shadow</shadowcolor>
-				<width>100</width>
-				<height>100</height>
+				<width>95</width>
+				<height>95</height>
 				<onclick>Dialog.Close(VideoOSD)</onclick>
 				<onclick>ActivateWindow(TVGuide)</onclick>
 			</control>
@@ -1863,8 +1877,8 @@
 				<focusedcolor>$VAR[FocusedOSDButtonsColor]</focusedcolor>
 				<textcolor>$VAR[UnfocusedOSDButtonsColor]</textcolor>
 				<shadowcolor>shadow</shadowcolor>
-				<width>100</width>
-				<height>100</height>
+				<width>95</width>
+				<height>95</height>
 				<onclick>SetProperty(DialogSettings,videoosd,Home)</onclick>
 				<onclick>ActivateWindow(1114)</onclick>
 				<oninfo>SetProperty(DialogSettings,videoosd,Home)</oninfo>
@@ -2425,7 +2439,7 @@
 						<top>130</top>
 						<left>382</left>
 						<width>900</width>
-						<height>100</height>
+						<height>95</height>
 						<control type="grouplist">
 							<visible>!ListItem.IsCollection</visible>
 							<control type="button">
@@ -3255,7 +3269,7 @@
 				<left>15</left>
 				<top>5</top>
 				<width>1890</width>
-				<height>100</height>
+				<height>95</height>
 				<align>center</align>
 				<orientation>horizontal</orientation>
 				<visible>![Window.IsActive(videoosd) + Skin.HasSetting(VideoOSDOnTop) | Window.IsVisible(playerprocessinfo) | Window.IsVisible(SliderDialog) | Window.IsVisible(pvrchannelguide) | Window.IsVisible(PVROSDTeletext) | Window.IsVisible(PVROSDChannels) | Window.IsVisible(OSDVideoSettings) | Window.IsVisible(OSDAudioSettings) | Window.IsVisible(OSDSubtitleSettings) | Window.IsVisible(VideoBookmarks) | Window.IsVisible(SubtitleSearch) | Window.IsVisible(1114)]</visible>
@@ -3472,7 +3486,7 @@
 								</control>
 								<control type="grouplist">
 									<visible>!String.IsEmpty(VideoPlayer.UserRating)</visible>
-									<width>100</width>
+									<width>95</width>
 									<orientation>horizontal</orientation>
 									<control type="image">
 										<width>50</width>

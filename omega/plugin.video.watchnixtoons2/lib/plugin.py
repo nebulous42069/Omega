@@ -1170,7 +1170,7 @@ def catalogFromIterable(iterable):
 def makeLatestCatalog(params):
 
     # Returns a list of links from the "Latest 50 Releases" area
-    html = request_helper(BASEURL + '/last-50-recent-release').text
+    html = request_helper(BASEURL + SITE_SETTINGS[ 'latest' ][ 'url' ]).text
 
     data_start_index = html.find( SITE_SETTINGS[ 'latest' ][ 'start' ] )
     if data_start_index == -1:
@@ -1185,7 +1185,7 @@ def makeLatestCatalog(params):
         # with no alphabet categories.
         return {
             'LATEST': tuple(
-                (match.group(1), match.group(3), "https:" + match.group(2))
+                (match.group('link'), match.group('name'), "https:" + match.group('img'))
                 for match in re.finditer(
                     SITE_SETTINGS[ 'latest' ][ 'regex' ], html[data_start_index : html.find( SITE_SETTINGS[ 'latest' ][ 'end' ], data_start_index )]
                 )
@@ -1194,7 +1194,7 @@ def makeLatestCatalog(params):
 
     # else:
     return catalogFromIterable(
-        (match.group(1), match.group(3), "https:" + match.group(2))
+        (match.group('link'), match.group('name'), "https:" + match.group('img'))
         for match in re.finditer(
             SITE_SETTINGS[ 'latest' ][ 'regex' ], html[data_start_index : html.find( SITE_SETTINGS[ 'latest' ][ 'end' ], data_start_index )]
         )

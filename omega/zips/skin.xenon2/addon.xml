@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<addon id="skin.xenon2" version="423.99.4" name="[B][COLOR gold]XENON 2[/COLOR][/B]  (Mid Power)" provider-name="SiLVO, Diggz">
+<addon id="skin.xenon2" version="424.99.4" name="[B][COLOR gold]XENON 2[/COLOR][/B]  (Mid Power)" provider-name="SiLVO, Diggz">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0" />
 		<import addon="script.skinshortcuts" version="2.0.1" />

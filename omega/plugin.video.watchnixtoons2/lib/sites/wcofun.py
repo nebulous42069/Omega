@@ -42,7 +42,8 @@ SITE_SETTINGS = {
         'end': '',
     },
     'latest': {
-        'regex': r'''<div class=\"img\">\s+?<a href=\"([^\"]+)\">\s+?<img class=\"hover-img1\" src=\"([^\"]+)\">\s+?</a>\s+?</div>\s+?<div class=\"recent-release-episodes\"><a href=\".*?\" rel=\"bookmark\">(.*?)</a''',
+        'url': '/last-50-recent-release',
+        'regex': r'''<div class=\"img\">\s+?<a href=\"(?P<link>[^\"]+)\">\s+?<img class=\"hover-img1\" src=\"(?P<img>[^\"]+)\">\s+?</a>\s+?</div>\s+?<div class=\"recent-release-episodes\"><a href=\".*?\" rel=\"bookmark\">(?P<name>.*?)</a''',
         'start': 'fourteen columns',
         'end': '</ul>',
     },

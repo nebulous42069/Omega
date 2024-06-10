@@ -47,8 +47,9 @@ SITE_SETTINGS = {
         'end': '',
     },
     'latest': {
-        'regex': r'''<li><a href=\"([^\"]+)\" rel=\"bookmark\" ()title=\"(?:[^\"]+)\">\s*([^<]+)<''',
-        'start': '="vsbaslik"',
+        'url': '',
+        'regex': r'''<li>\s*<div\s*class=\"img\">\s*<a href=\"(?P<link>[^\"]+)\">\s*<img\s*class=\"hover-img1\"\s*alt=\"(?P<name>[^\"]+)\"\s*src=\"(?P<img>[^\"]+)\"''',
+        'start': '<div class="recent-release">',
         'end': '</ul>',
     },
     'latest_movies': {
