@@ -947,9 +947,15 @@ def trakt_next_episode_rewatch(tmdb_id_num=None):
                 next_season_to_watch = i['number']
                 next_ep_to_watch = j['number']
                 next_flag = 'false'
-                break        
-            if int(i['number']) == int(next_season_to_watch) and int(j['number']) == int(next_ep_to_watch):
-                next_flag = 'true'
+                break
+            try:
+                if int(i['number']) == int(next_season_to_watch) and int(j['number']) == int(next_ep_to_watch):
+                    next_flag = 'true'
+            except:
+                xbmc.executebuiltin('Dialog.Close(busydialog)')
+                xbmc.executebuiltin('Dialog.Close(busydialognocancel)')
+                xbmcgui.Dialog().notification(heading='Trakt Next Episode Rewatch', message='Not REWATCHING!', icon=icon_path(),time=1000,sound=False)
+                return
 
     try:    
         season = int(next_season_to_watch)
@@ -1271,7 +1277,8 @@ def taste_dive_movies(cache_days=None):
     for i in response:
         release_date = i['release_date'][:4]
         response2 = []
-        response2 = TheMovieDB.get_tastedive_data_scrape(query=i['title'], year=i['release_date'][:4], limit=50, media_type='movie',item_id=i['id'])
+        try: response2 = TheMovieDB.get_tastedive_data_scrape(query=i['title'], year=i['release_date'][:4], limit=50, media_type='movie',item_id=i['id'])
+        except: continue
     xbmc.log(str('library.taste_dive_movies()_finished')+'===>OPEN_INFO', level=xbmc.LOGINFO)
 
 def trakt_unwatched_tv_shows(cache_days=None):

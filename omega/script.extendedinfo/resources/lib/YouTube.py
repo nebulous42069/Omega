@@ -118,10 +118,13 @@ def handle_youtube_videos(results, extended=False):
 	API_key2 = API_key
 	url = 'https://www.googleapis.com/youtube/v3/videos?id=%s&part=contentDetails%%2Cstatistics&key=%s' % (','.join(video_ids), API_key2)
 	ext_results = Utils.get_JSON_response(url=url, cache_days=0.5, folder='YouTube')
+	if 'quota' in str(ext_results):
+		xbmc.log(str(ext_results)+'_QUOTA_YOUTUBE===>OPENINFO', level=xbmc.LOGINFO)
 	if 'API_KEY_INVALID' in str(ext_results):
-		API_key2 = choice(['AIzaSyA0LiS7G-KlrlfmREcCAXjyGqa_h_zfrSE', 'AIzaSyBOXZVC-xzrdXSAmau5UM3rG7rc8eFIuFw'])
-		url = 'https://www.googleapis.com/youtube/v3/videos?id=%s&part=contentDetails%%2Cstatistics&key=%s' % (','.join(video_ids), API_key2)
-		ext_results = Utils.get_JSON_response(url=url, cache_days=0.5, folder='YouTube')
+		xbmc.log(str(ext_results)+'_API_KEY_INVALID_YOUTUBE===>OPENINFO', level=xbmc.LOGINFO)
+		#API_key2 = choice(['AIzaSyA0LiS7G-KlrlfmREcCAXjyGqa_h_zfrSE', 'AIzaSyBOXZVC-xzrdXSAmau5UM3rG7rc8eFIuFw'])
+		#url = 'https://www.googleapis.com/youtube/v3/videos?id=%s&part=contentDetails%%2Cstatistics&key=%s' % (','.join(video_ids), API_key2)
+		#ext_results = Utils.get_JSON_response(url=url, cache_days=0.5, folder='YouTube')
 	if not ext_results:
 		return videos
 	for i, item in enumerate(videos):
@@ -174,10 +177,14 @@ def search_youtube(search_str='', hd='', limit=None, extended=True, page='', fil
 	url = 'https://www.googleapis.com/youtube/v3/search?part=id%%2Csnippet&type=video%s%s&order=relevance&%skey=%s%s&maxResults=%i' % (page, search_str, filter_str, API_key2, hd, int(limit))
 	#xbmc.log(str(url)+'YOUTUBE.PY===>OPENINFO', level=xbmc.LOGINFO)
 	results = Utils.get_JSON_response(url=url, cache_days=0.5, folder='YouTube')
+	if 'quota' in str(results).lower():
+		xbmc.log(str(results)+'_QUOTA_YOUTUBE===>OPENINFO', level=xbmc.LOGINFO)
 	if 'API_KEY_INVALID' in str(results):
-		API_key2 = choice(['AIzaSyA0LiS7G-KlrlfmREcCAXjyGqa_h_zfrSE', 'AIzaSyBOXZVC-xzrdXSAmau5UM3rG7rc8eFIuFw'])
-		url = 'https://www.googleapis.com/youtube/v3/search?part=id%%2Csnippet&type=video%s%s&order=relevance&%skey=%s%s&maxResults=%i' % (page, search_str, filter_str, API_key2, hd, int(limit))
-		results = Utils.get_JSON_response(url=url, cache_days=0.5, folder='YouTube')
+		xbmc.log(str(results)+'_API_KEY_INVALID_YOUTUBE===>OPENINFO', level=xbmc.LOGINFO)
+	#if 'API_KEY_INVALID' in str(results):
+	#	API_key2 = choice(['AIzaSyA0LiS7G-KlrlfmREcCAXjyGqa_h_zfrSE', 'AIzaSyBOXZVC-xzrdXSAmau5UM3rG7rc8eFIuFw'])
+	#	url = 'https://www.googleapis.com/youtube/v3/search?part=id%%2Csnippet&type=video%s%s&order=relevance&%skey=%s%s&maxResults=%i' % (page, search_str, filter_str, API_key2, hd, int(limit))
+	#	results = Utils.get_JSON_response(url=url, cache_days=0.5, folder='YouTube')
 		
 	videos = handle_youtube_videos(results['items'], extended=extended)
 	if videos:

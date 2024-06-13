@@ -44,7 +44,9 @@ program_choices = {
 	'auto_clean_caches (7 days)				"main.py -auto_clean -days 7"': 9,
 	'default settings.xml					"main.py -default_settings"': 10,
 	'setup filters/limits/sorting			"main.py -setup_settings"': 11,
-	'get current filters/limits/sorting 			"main.py -curr_settings"': 12
+	'get current filters/limits/sorting 			"main.py -curr_settings"': 12,
+	'Search Torrent (Keyword) 			""': 13,
+	'Delete_Dupes 			""': 14
 }
 
 def downloader_daemon():
@@ -67,6 +69,10 @@ def main():
 
 	if result == 2:
 		getSources.run_movie_search()
+	if result == 13:
+		getSources.run_keyword_search()
+	if result == 14:
+		getSources.rd_delete_dupes()
 
 	if result == 3:
 		magnet_list = tools.get_setting('magnet_list')

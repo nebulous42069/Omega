@@ -73,7 +73,7 @@ def guessit(string, options=None):
     :return:
     :rtype:
     """
-    print(options)
+    #print(options)
     return default_api.guessit(string, options)
 
 

@@ -1439,7 +1439,7 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.sc19
 		</news>
 	</extension>
 
-</addon><addon id="plugin.video.watchnixtoons2" name="WatchNixtoons2" version="0.12.5" provider-name="WNT2">
+</addon><addon id="plugin.video.watchnixtoons2" name="WatchNixtoons2" version="0.12.6" provider-name="WNT2">
     <requires>
         <import addon="script.module.requests" />
         <import addon="script.module.six" />
@@ -1462,6 +1462,9 @@ Random updates by lolage.
         <language>en</language>
         <platform lang="en">all</platform>
         <news>[COLOR orange][B]WatchNixtoons2[/B][/COLOR] - Cartoons &amp; Anime
+[B]0.12.6:[/B]
+- Fix recent and page meta for wcostream
+
 [B]0.12.5:[/B]
 - Fix recent on wcostream
 - Update Thumbnail Hashes
@@ -2013,9 +2016,9 @@ Random updates by lolage.
 	<icon>icon.png</icon>
     </assets>
   </extension>
-</addon><addon id="script.extendedinfo" name="  [B][COLOR white]Extended Info-Diamond_MOD[/COLOR][/B]" version="420.8.00" provider-name="fryhenryj">
+</addon><addon id="script.extendedinfo" name="  [B][COLOR white]Extended Info-Diamond_MOD[/COLOR][/B]" version="420.8.26" provider-name="fryhenryj">
 	<requires>
-		<import addon="xbmc.python" version="3.0.1" />
+		<import addon="xbmc.python" version="3.0.0" />
 		<import addon="repository.jurialmunkey" version="2.2" optional="true" />
 		<import addon="plugin.video.youtube" version="6.8.11+matrix.1" />
 		<import addon="script.module.requests" version="2.25.1+matrix.1" />
@@ -2048,7 +2051,7 @@ Random updates by lolage.
 			</item>
 		</menu>
 	</extension>
-	
+	<extension point="xbmc.service" library="service.py" start="login" />
 	<extension point="xbmc.python.library" library="service2.py" />
 	<extension point="xbmc.addon.metadata">
 		<reuselanguageinvoker>true</reuselanguageinvoker>

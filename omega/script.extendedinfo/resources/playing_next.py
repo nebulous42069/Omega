@@ -14,6 +14,8 @@ class PlayingNext(BaseWindow):
 			self.player = xbmc.Player()
 			self.closed = False
 			self.actioned = None
+			if int(self.player.getTotalTime()) - int(self.player.getTime()) == 0:
+				return
 
 			try:
 				super(PlayingNext, self).__init__('playing_next.xml', xbmcaddon.Addon().getAddonInfo('path'), actionArgs=actionArgs)

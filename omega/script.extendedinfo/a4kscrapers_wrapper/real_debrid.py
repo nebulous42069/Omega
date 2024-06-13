@@ -33,7 +33,6 @@ RD_CLIENT_ID_KEY = "rd.client_id"
 RD_USERNAME_KEY = "rd.username"
 RD_AUTH_CLIENT_ID = "X245A4XAIBGVM"
 
-
 class RealDebrid:
 
 	def __init__(self):
@@ -49,6 +48,11 @@ class RealDebrid:
 		self._load_settings()
 		self.UNRESTRICT_FILE = None
 		self.UNRESTRICT_FILE_ID = None
+		self.UNRESTRICT_FILE_SIZE = None
+		self.original_tot_bytes = None
+		self.original_start_time = None
+		self.remaining_tot_bytes = None
+		self.num_lines = None
 
 	@cached_property
 	def session(self):
@@ -471,16 +475,25 @@ class RealDebrid:
 		url = "downloads/delete/{}".format(id)
 		self.delete_url(url)
 
-	def test_download_link(self,download_link):
+	def headers_filesize(self,headers):
+		filesize = int(headers['content-length'])
+		if filesize < 65536 * 2:
+			try: filesize = int(str(response.headers['content-range']).split('/')[1])
+			except: filesize = 0
+		self.UNRESTRICT_FILE_SIZE = filesize
+		return filesize
+
+	def test_download_link(self,download_link,rar_test=True):
 		if not download_link:
 			return None
 		try: 
 			headers=requests.head(download_link).headers
+			filesize = self.headers_filesize(headers)
 		except AttributeError:
 			self.UNRESTRICT_FILE_ID = download_link.split('/')[4]
 			self.delete_download(self.UNRESTRICT_FILE_ID)
 			return None
-		if download_link[-4:] == '.rar':
+		if download_link[-4:] == '.rar' and rar_test:
 			self.UNRESTRICT_FILE_ID = download_link.split('/')[4]
 			self.delete_download(self.UNRESTRICT_FILE_ID)
 			return None
@@ -501,6 +514,7 @@ class RealDebrid:
 			self.UNRESTRICT_FILE_ID = response["id"]
 			try: 
 				headers=requests.head(self.UNRESTRICT_FILE).headers
+				filesize = self.headers_filesize(headers)
 			except AttributeError:
 				self.delete_download(self.UNRESTRICT_FILE_ID)
 				return None

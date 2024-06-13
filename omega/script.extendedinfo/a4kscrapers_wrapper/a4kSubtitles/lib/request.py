@@ -11,6 +11,10 @@ from . import logger
 from requests import adapters
 from .third_party.cloudscraper import cloudscraper
 
+import tools
+from inspect import currentframe, getframeinfo
+##tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
+
 class TLSAdapter(adapters.HTTPAdapter):
 	def init_poolmanager(self, connections, maxsize, block=False):
 		ctx = ssl.create_default_context()
@@ -27,11 +31,13 @@ def __retry(core, request, response, next, cfscrape, retry=0):
 	if retry > 5:
 		return None
 
-	if response.status_code in [503, 429, 403]:
+	if response.status_code in [503, 429, 409, 403]:
 		if response.status_code == 503:
 			core.time.sleep(2)
 			retry = 5
 		if response.status_code == 429:
+			core.time.sleep(3)
+		if response.status_code == 409:
 			core.time.sleep(3)
 
 		retry += 1
@@ -60,8 +66,10 @@ def execute(core, request, progress=True, session=None):
 	if next:
 		request.pop('stream', None)
 
-	logger.debug('%s ^ - %s, %s' % (request['method'], request['url'], core.json.dumps(request.get('params', {}))))
+	logger.error('%s ^ - %s, %s' % (request['method'], request['url'], core.json.dumps(request.get('params', {}))))
+	#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
 	try:
+		#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
 		if cfscrape:
 			request.pop('cfscrape', None)
 			if not session:
@@ -73,22 +81,17 @@ def execute(core, request, progress=True, session=None):
 			response = session.request(**request)
 		exc = ''
 	except:  # pragma: no cover
+		#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
 		try:
 			if cfscrape:
 				if not session:
 					session = cloudscraper.create_scraper(interpreter='native')
 				response = session.request(verify=False, **request)
 			else:
-				try: 
-					response = requests.request(verify=False, **request)
-				except:  # pragma: no cover
-					exc = traceback.format_exc()
-					response = lambda: None
-					response.text = ''
-					response.content = ''
-					response.status_code = 500
+				response = requests.request(verify=False, **request)
 			exc = ''
 		except:  # pragma: no cover
+			#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
 			exc = traceback.format_exc()
 			response = lambda: None
 			response.text = ''
@@ -96,6 +99,9 @@ def execute(core, request, progress=True, session=None):
 			response.status_code = 500
 	logger.debug('%s $ - %s - %s, %s' % (request['method'], request['url'], response.status_code, exc))
 
+	#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
+	#tools.log(response)
+	#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
 	alt_request = validate(response)
 	if alt_request:
 		return execute(core, alt_request, progress)

@@ -336,6 +336,8 @@ class WindowManager(object):
 		try: currentwindow_id = int(window_id['result']['currentwindow']['id'])
 		except: currentwindow_id = 0
 		xbmc.log(str(currentwindow_id)+str('__wm_pop_stack__')+str(window_id)+str('wm_pop_stack')+'window_id_WindowManager===>OPENINFO', level=xbmc.LOGINFO)
+		xbmc.log(str(xbmcgui.Window(10000).getProperty(str(addon_ID_short())+'_running') == 'True')+'window_id_WindowManager===>OPENINFO', level=xbmc.LOGINFO)
+		xbmc.executebuiltin('Dialog.Close(okdialog)')
 		if xbmc.Player().isPlaying() or xbmc.getCondVisibility('Window.IsActive(12005)') or currentwindow_id >= 13001:
 			if currentwindow_id >= 13001:
 				xbmcgui.Window(10000).setProperty('diamond_info_time', str(int(time.time())+15))

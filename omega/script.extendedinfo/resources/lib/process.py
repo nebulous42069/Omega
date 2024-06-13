@@ -300,7 +300,28 @@ def start_info_actions(infos, params):
 			return items
 
 		elif info == 'eject_load_dvd':
-			json_result_test = xbmc.executeJSONRPC('{"jsonrpc": "2.0","method": "System.EjectOpticalDrive","params": {},"id": "1"}')
+			try:
+				import platform
+				if platform.system() == "Linux":
+					platform_var = 'Linux'
+
+			except:
+				platform_var = None
+				pass
+			if platform_var == None:
+				json_result_test = xbmc.executeJSONRPC('{"jsonrpc": "2.0","method": "System.EjectOpticalDrive","params": {},"id": "1"}')
+			else:
+				os.system('sudo mount -a')
+				#os.system('sudo umount /dev/sr0')
+				#os.system('sudo eject /dev/sr0')
+				os.system('sudo eject -T /dev/sr0')
+			indexes2 = xbmcgui.Dialog().yesno('Drive Tray', 'Insert Drive Tray', 'No', 'Yes') 
+			if indexes2 == True:
+				if platform_var == None:
+					json_result_test = xbmc.executeJSONRPC('{"jsonrpc": "2.0","method": "System.EjectOpticalDrive","params": {},"id": "1"}')
+				else:
+					os.system('sudo eject -T /dev/sr0')
+					os.system('sudo mount -a')
 			Utils.hide_busy()
 			return
 
@@ -481,6 +502,17 @@ def start_info_actions(infos, params):
 
 
 		elif info == 'test_route':
+			#from resources.lib.library import trakt_collection_movies
+			#movies = trakt_collection_movies()
+			#for i in movies:
+			#	xbmc.log(str(i)+'===>OPEN_INFO', level=xbmc.LOGINFO)
+			#xbmc.log(str(movies)+'===>OPEN_INFO', level=xbmc.LOGINFO)
+			from resources.lib.library import trakt_uncollected_watched_movies
+			#from resources.lib.library import trakt_unwatched_collection_movies
+			movies = trakt_uncollected_watched_movies()
+			xbmc.log(str(movies)+'===>OPEN_INFO', level=xbmc.LOGINFO)
+			Utils.hide_busy()
+			return
 			#from resources.lib.TheMovieDB import get_trakt_userlists
 			#from resources.lib.library import trak_auth
 			#trakt_data = get_trakt_userlists()
@@ -1153,12 +1185,28 @@ def start_info_actions(infos, params):
 			Utils.hide_busy()
 			
 
+		elif info == 'downloader_progress':
+			Utils.hide_busy()
+			curr_percent = xbmcgui.Window(10000).getProperty('curr_percent')
+			percent_done = xbmcgui.Window(10000).getProperty('percent_done')
+			seconds_remaining = xbmcgui.Window(10000).getProperty('seconds_remaining')
+			minutes_remaining = xbmcgui.Window(10000).getProperty('minutes_remaining')
+			hours_remaining = xbmcgui.Window(10000).getProperty('hours_remaining')
+			num_lines_remaining = xbmcgui.Window(10000).getProperty('num_lines_remaining')
+			msg = 'File_num_lines_remaining = %s || percent_done = %s || hours_remaining = %s ' % (str(num_lines_remaining),str(percent_done),str(hours_remaining))
+			xbmcgui.Dialog().notification(heading='downloader_progress', message=msg, icon=xbmcaddon.Addon().getAddonInfo('icon'), time=5000, sound=True)
+			xbmc.log(str(msg), level=xbmc.LOGINFO)
+
 		elif info == 'run_downloader':
 			Utils.hide_busy()
 			try:
 				import getSources
 			except:
 				from a4kscrapers_wrapper import getSources
+			stop_downloader = xbmcaddon.Addon(addon_ID()).getSetting('magnet_list').replace('magnet_list.txt','stop_downloader')
+			if os.path.exists(stop_downloader):
+				os.remove(stop_downloader)
+
 			magnet_list = xbmcaddon.Addon(addon_ID()).getSetting('magnet_list')
 			download_path = xbmcaddon.Addon(addon_ID()).getSetting('download_path')
 			xbmc.log(str('run_downloader___')+'run_downloader===>OPENINFO', level=xbmc.LOGINFO)
@@ -1176,6 +1224,14 @@ def start_info_actions(infos, params):
 			magnet_list = xbmcaddon.Addon(addon_ID()).getSetting('magnet_list')
 			from a4kscrapers_wrapper.tools import read_all_text
 			lines = read_all_text(magnet_list).split('\n')
+			curr_percent = xbmcgui.Window(10000).getProperty('curr_percent')
+			percent_done = xbmcgui.Window(10000).getProperty('percent_done')
+			seconds_remaining = xbmcgui.Window(10000).getProperty('seconds_remaining')
+			minutes_remaining = xbmcgui.Window(10000).getProperty('minutes_remaining')
+			hours_remaining = xbmcgui.Window(10000).getProperty('hours_remaining')
+			num_lines_remaining = xbmcgui.Window(10000).getProperty('num_lines_remaining')
+			msg = 'File_num_lines_remaining = %s || percent_done = %s || hours_remaining = %s ' % (str(num_lines_remaining),str(percent_done),str(hours_remaining))
+			xbmcgui.Dialog().notification(heading='downloader_progress', message=msg, icon=xbmcaddon.Addon().getAddonInfo('icon'), time=5000, sound=True)
 			labels = []
 			for line in lines:
 				try: new_line = eval(line)
@@ -1212,6 +1268,143 @@ def start_info_actions(infos, params):
 					idx = idx + 1
 			Utils.hide_busy()
 
+		elif info == 'fix_video':
+			import json
+			json_result = xbmc.executeJSONRPC('{"jsonrpc": "2.0","id": "1","method": "Player.GetProperties","params": {"playerid": 1,"properties": ["currentaudiostream", "currentsubtitle", "currentvideostream"]}}')
+			curr_sub_audio_json  = json.loads(json_result)
+			xbmc.log(str(curr_sub_audio_json)+'fix_video===>OPENINFO', level=xbmc.LOGINFO)
+			aspect_43 = 4/3
+			aspect_169 = 16/9
+			height = curr_sub_audio_json['result']['currentvideostream']['height']
+			width = curr_sub_audio_json['result']['currentvideostream']['width']
+			xbmc.log(str(aspect_43)+'fix_video===>OPENINFO', level=xbmc.LOGINFO)
+			xbmc.log(str(aspect_169)+'fix_video===>OPENINFO', level=xbmc.LOGINFO)
+			xbmc.log(str(height)+'fix_video===>OPENINFO', level=xbmc.LOGINFO)
+			xbmc.log(str(width)+'fix_video===>OPENINFO', level=xbmc.LOGINFO)
+			xbmc.log(str(width/height)+'fix_video===>OPENINFO', level=xbmc.LOGINFO)
+			test_43 = abs(aspect_43-(width/height))
+			test_169 = abs(aspect_169-(width/height))
+			#xbmc.log(str(test_43)+"__"+str(test_169)+'fix_video===>OPENINFO', level=xbmc.LOGINFO)
+			if min(test_43,test_169) == test_43:
+				if width/height > aspect_43:
+					pixel_ratio = aspect_43/(width/height)
+				else:
+					pixel_ratio =  (width/height)/aspect_43
+			else:
+				if width/height > aspect_169:
+					pixel_ratio = aspect_169/(width/height)
+				else:
+					pixel_ratio =  (width/height)/aspect_169
+			pixel_ratio = round(pixel_ratio,2)
+			xbmc.log(str(pixel_ratio)+'fix_video===>OPENINFO', level=xbmc.LOGINFO)
+			json_result = xbmc.executeJSONRPC('{"id":1,"jsonrpc":"2.0","method":"Player.SetViewMode","params":{"viewmode": {"pixelratio": %s}}}' % str(pixel_ratio))
+			curr_sub_audio_json  = json.loads(json_result)
+			xbmc.log(str(curr_sub_audio_json)+'fix_video===>OPENINFO', level=xbmc.LOGINFO)
+
+		elif info == 'estuary_fix':
+			estuary_fix()
+			Utils.hide_busy()
+
+		elif info == 'setup_favourites':
+			file_path = xbmcvfs.translatePath('special://userdata/favourites.xml')
+			fav1_list = []
+			fav1_list.append('    <favourite name="Trakt Watched TV" thumb="special://home/addons/script.extendedinfo/resources/skins/Default/media/tmdb/thumb.png">RunScript('+str(addonID)+',info=trakt_watched,trakt_type=tv)</favourite>')
+			fav1_list.append('    <favourite name="Trakt Watched Movies" thumb="special://home/addons/script.extendedinfo/resources/skins/Default/media/tmdb/thumb.png">RunScript('+str(addonID)+',info=trakt_watched,trakt_type=movie)</favourite>')
+			fav1_list.append('    <favourite name="Reopen Last" thumb="special://home/addons/script.extendedinfo/resources/skins/Default/media/tmdb/thumb.png">RunScript('+str(addonID)+',info=reopen_window)</favourite>')
+			fav1_list.append('    <favourite name="Youtube Trailers" thumb="special://home/addons/script.extendedinfo/resources/skins/Default/media/common/youtube.png">RunScript('+str(addonID)+',info=youtube,search_str=trailers)</favourite>')
+			fav1_list.append('    <favourite name="Eps_Movies Watching" thumb="special://home/addons/script.extendedinfo/resources/skins/Default/media/tmdb/thumb.png">RunScript('+str(addonID)+',info=ep_movie_progress)</favourite>')
+			fav1_list.append('    <favourite name="Settings" thumb="special://home/addons/script.extendedinfo/resources/skins/Default/media/icons/tool2.png">RunScript('+str(addonID)+',info=open_settings)</favourite>')
+			fav1_list.append('    <favourite name="manage_download_list" thumb="special://home/addons/script.extendedinfo/resources/skins/Default/media/icons/database.png">RunScript('+str(addonID)+',info=manage_download_list)</favourite>')
+			fav1_list.append('    <favourite name="run_downloader" thumb="special://home/addons/script.extendedinfo/resources/skins/Default/media/netflix/play.png">RunScript('+str(addonID)+',info=run_downloader)</favourite>')
+			fav1_list.append('    <favourite name="stop_downloader" thumb="special://home/addons/script.extendedinfo/resources/skins/Default/media/netflix/stop.png">RunScript('+str(addonID)+',info=stop_downloader)</favourite>')
+			file1 = open(file_path, 'r')
+			lines = file1.readlines()
+			new_file = ''
+			update_list = []
+			for j in fav1_list:
+				curr_test = j.split('RunScript(')[1].split(')</favourite>')[0]
+				if curr_test in str(lines):
+					continue
+				else:
+					update_list.append(j)
+			for idx, line in enumerate(lines):
+				if line == '</favourites>\n' or idx == len(lines) - 1:
+					for j in update_list:
+						new_file = new_file + j + '\n'
+					new_file = new_file + line
+				else:
+					new_file = new_file + line
+			file1.close()
+			if len(update_list) > 0:
+				xbmc.log(str('setup_favourites')+'_patch_seren_a4k===>OPENINFO', level=xbmc.LOGINFO)
+				file1 = open(file_path, 'w')
+				file1.writelines(new_file)
+				file1.close()
+			Utils.hide_busy()
+
+		elif info == 'patch_core':
+			from a4kscrapers_wrapper import getSources
+			getSources.patch_ak4_core_find_url()
+
+		elif info == 'patch_urllib3':
+			Utils.show_busy()
+			Utils.patch_urllib()
+			Utils.hide_busy()
+
+		elif info == 'patch_seren_a4k':
+			Utils.show_busy()
+			patch_line_147 = '            response = None'
+			patch_update_147 = """            response = response_err ## PATCH
+"""
+
+			patch_line_150 = '                response = request(None)'
+			patch_update_150 = """                try: response = request(None) ## PATCH
+                except requests.exceptions.ConnectionError: return response ## PATCH
+"""
+
+			patch_line_154 = '                response_err = response'
+			patch_update_154 = """                if response: ## PATCH
+                    response_err = response ## PATCH
+                    self._verify_response(response) ## PATCH
+                else: ## PATCH
+                    self._verify_response(response_err) ## PATCH
+"""
+
+			if params.get('downloader','') == 'true':
+				#kodi-send --action="RunScript(script.extendedinfo,info=patch_seren_a4k,downloader=true)"
+				file_path = os.path.join(os.path.join(Utils.ADDON_DATA_PATH.replace(addonID,'plugin.video.seren_downloader'), 'providerModules', 'a4kScrapers') , 'request.py')
+			else:
+				#kodi-send --action="RunScript(script.extendedinfo,info=patch_seren_a4k)"
+				file_path = os.path.join(os.path.join(Utils.ADDON_DATA_PATH.replace(addonID,'plugin.video.seren'), 'providerModules', 'a4kScrapers') , 'request.py')
+			file1 = open(file_path, 'r')
+			lines = file1.readlines()
+			new_file = ''
+			update_flag = False
+			for idx, line in enumerate(lines):
+				if update_flag == 154:
+					update_flag = True
+					continue
+				if '## PATCH' in str(line):
+					update_flag = False
+					break
+				if idx == 147-1 and line == patch_line_147 or patch_line_147 in str(line):
+					new_file = new_file + patch_update_147
+					update_flag = True
+				elif idx == 150-1 and line == patch_line_150 or patch_line_150 in str(line):
+					new_file = new_file + patch_update_150
+					update_flag = True
+				elif idx == 154-1 and line == patch_line_154 or patch_line_154 in str(line):
+					new_file = new_file + patch_update_154
+					update_flag = 154
+				else:
+					new_file = new_file + line
+			file1.close()
+			if update_flag:
+				xbmc.log(str('patch_seren_a4k')+'_patch_seren_a4k===>OPENINFO', level=xbmc.LOGINFO)
+				file1 = open(file_path, 'w')
+				file1.writelines(new_file)
+				file1.close()
+			Utils.hide_busy()
 
 		elif info == 'patch_fen_light':
 			Utils.show_busy()
@@ -1237,7 +1430,7 @@ def start_info_actions(infos, params):
 			xbmc.log(str(file_path)+'===>OPENINFO', level=xbmc.LOGINFO)
 			Utils.hide_busy()
 			return
-			#xbmc.log(str(fenlight_path)+'===>OPENINFO', level=xbmc.LOGINFO)
+
 			file1 = open(file_path, 'r')
 			lines = file1.readlines()
 			new_file = ''
@@ -1271,26 +1464,10 @@ def start_info_actions(infos, params):
 			file_path = os.path.join(os.path.join(Utils.ADDON_PATH.replace(addon_ID(),'plugin.video.themoviedb.helper'), 'resources', 'tmdbhelper','lib','player') , 'players.py')
 			if not os.path.exists(file_path):
 				file_path = os.path.join(os.path.join(Utils.ADDON_PATH.replace(addon_ID(),'plugin.video.themoviedb.helper'), 'resources', 'lib','player') , 'players.py')
-			#from distutils.dir_util import copy_tree
-			#skin_source = os.path.join(Utils.ADDON_PATH, 'resources' , 'skins', 'skin.estuary_fen_light')
-			#skin_dest = os.path.join(os.path.join(Utils.ADDON_PATH.replace(addon_ID(),'plugin.video.fenlight'), 'resources', 'skins'), 'Custom','skin.estuary')
 
 			themoviedb_helper_path = os.path.join(Utils.ADDON_PATH.replace(addon_ID(),'plugin.video.themoviedb.helper'))
-			#if os.path.exists(themoviedb_helper_path):
-			#	if not os.path.exists(skin_dest):
-			#		copy_tree(skin_source, skin_dest)
-			#		xbmc.log(str(skin_dest)+'_FENLIGHT_SKIN===>OPENINFO', level=xbmc.LOGINFO)
-			
-			#fen_path = os.path.join(Utils.ADDON_PATH.replace(addon_ID(),'plugin.video.fen'))
-			#skin_source = os.path.join(Utils.ADDON_PATH, 'resources' , 'skins', 'skin.estuary_fen')
-			#skin_dest = os.path.join(os.path.join(Utils.ADDON_PATH.replace(addon_ID(),'plugin.video.fen'), 'resources', 'skins'), 'Custom','skin.estuary')
-			#if os.path.exists(fen_path):
-			#	if not os.path.exists(skin_dest):
-			#		copy_tree(skin_source, skin_dest)
-			#		xbmc.log(str(skin_dest)+'_FEN_SKIN===>OPENINFO', level=xbmc.LOGINFO)
-
 			xbmc.log(str(file_path)+'===>OPENINFO', level=xbmc.LOGINFO)
-			#xbmc.log(str(fenlight_path)+'===>OPENINFO', level=xbmc.LOGINFO)
+
 			file1 = open(file_path, 'r')
 			lines = file1.readlines()
 			new_file = ''
@@ -1381,6 +1558,8 @@ def get_log_error_flag(mode=None):
 			error_flag = True
 			return error_flag
 	if mode == 'seren':
+		if 'script successfully run' in str(lines) and '.seren_downloader' in str(lines):
+			return error_flag
 		if 'Exited Keep Alive' in str(lines) and 'SEREN' in str(lines):
 			error_flag = True
 			return error_flag
@@ -1397,12 +1576,47 @@ def reopen_window():
 	wm.window_stack_empty()
 	return wm.open_video_list(search_str='', mode='reopen_window')
 
+def auto_clean_cache_seren_downloader(days=None):
+	import os 
+	import datetime
+	import glob
+	xbmc.log('STARTING===>auto_clean_cache_seren_downloader', level=xbmc.LOGINFO)
+	path = xbmcvfs.translatePath('special://profile/addon_data/'+str('plugin.video.seren_downloader')+'/')
+	if days==None:
+		days = -30
+	else:
+		days = int(days)*-1
+
+	today = datetime.datetime.today()#gets current time
+	if not xbmcvfs.exists(path):
+		return
+		#xbmcvfs.mkdir(path)
+	os.chdir(path) #changing path to current path(same as cd command)
+
+	directories_list = ['TheMovieDB', 'TVMaze']
+	#we are taking current folder, directory and files 
+	#separetly using os.walk function
+	for root,directories,files in os.walk(path,topdown=False): 
+		for name in files:
+			#this is the last modified time
+			t = os.stat(os.path.join(root, name))[8] 
+			filetime = datetime.datetime.fromtimestamp(t) - today
+			#checking if file is more than 7 days old 
+			#or not if yes then remove them
+			if filetime.days <= days: # and 'Taste' not in str(root):
+				#print(os.path.join(root, name), filetime.days)
+				for i in directories_list:
+					target = str(os.path.join(root, name))
+					if str(i) in target:
+						xbmc.log(str(target)+'===>DELETE', level=xbmc.LOGINFO)
+						os.remove(target)
+
 def auto_clean_cache(days=None):
 	import os 
 	import datetime
 	import glob
 	xbmc.log('STARTING===>auto_clean_cache', level=xbmc.LOGINFO)
-	path = Utils.ADDON_DATA_PATH
+	path = Utils.ADDON_DATA_PATH + '/'
 	if days==None:
 		days = -30
 	else:
@@ -1430,6 +1644,7 @@ def auto_clean_cache(days=None):
 					if str(i) in target:
 						xbmc.log(str(target)+'===>DELETE', level=xbmc.LOGINFO)
 						os.remove(target)
+	auto_clean_cache_seren_downloader(days=30)
 
 def auto_library():
 	Utils.hide_busy()
@@ -1505,3 +1720,134 @@ def auto_library():
 		#			if hours_since_up >=1:
 		#				xbmc.executebuiltin('RunPlugin(plugin://plugin.video.realizer/?action=rss_update)')
 		#xbmc.executebuiltin('RunPlugin(plugin://plugin.video.realizer/?action=rss_update)')
+		
+
+def estuary_fix():
+	#osmc_home = '/usr/share/kodi/addons/skin.estuary/xml/Home.xml'
+	import os
+	osmc_home = xbmcvfs.translatePath('special://skin/xml/Home.xml')
+	estuary_home_fix2 = xbmcvfs.translatePath(Utils.ADDON_PATH + '/estuary_home_fix2.py')
+	command = "sudo python %s '%s'" % (estuary_home_fix2, osmc_home)
+	xbmc.log(str(command)+'===>OPEN_INFO', level=xbmc.LOGINFO)
+	os.system(command)
+	return
+
+	home_xml = osmc_home 
+	file1 = open(home_xml, 'r')
+	Lines = file1.readlines()
+	out_xml = ''
+	item_flag = False
+	new_item = '''
+
+							<item>
+								<label>$LOCALIZE[10134]</label>
+								<onclick>ActivateWindow(favourites)</onclick>
+								<property name="menu_id">$NUMBER[14000]</property>
+								<thumb>icons/sidemenu/favourites.png</thumb>
+								<property name="id">favorites</property>
+								<visible>!Skin.HasSetting(HomeMenuNoFavButton)</visible>
+							</item>
+
+	'''
+	item_count = 0
+	change_flag = False
+	for line in Lines:
+		if item_flag == False and not '<item>' in line:
+			out_xml = out_xml + line 
+		if '<item>' in line:
+			item_flag = True
+			string = line
+			item_count = item_count + 1
+			continue
+		if item_flag == True:
+			string  = string + line
+		if '</item>' in line:
+			item_flag = False
+			curr_item = string.split('<property name="id">')[1].split('</property>')[0]
+			print(item_count, curr_item )
+			if curr_item == 'movies' and item_count == 1:
+				string = new_item + string 
+				change_flag = True
+			if curr_item == 'favorites' and item_count == 1:
+				change_flag = False
+			if curr_item == 'favorites' and item_count > 2:
+				continue
+				change_flag = True
+			out_xml = out_xml + string
+
+	if change_flag == True:
+		file1 = open(home_xml, 'w')
+		file1.writelines(out_xml)
+		file1.close()
+		print(out_xml)
+
+
+	#osmc_home = '/usr/share/kodi/addons/skin.estuary/xml/VideoOSD.xml'
+	#osmc_home = '/usr/share/kodi/addons/skin.estuary/xml/Home.xml'
+	osmc_home = xbmcvfs.translatePath('special://skin/xml/VideoOSD.xml')
+
+	home_xml = osmc_home 
+	file1 = open(home_xml, 'r')
+	Lines = file1.readlines()
+	out_xml = ''
+	item_flag = False
+	old_item = '''<defaultcontrol always="true">602</defaultcontrol>'''
+	new_item = '''
+		<defaultcontrol always="true">70048</defaultcontrol>
+	'''
+
+	item_count = 0
+	change_flag = False
+	for line in Lines:
+		if item_flag == False and old_item in str(line):
+			out_xml = out_xml + new_item 
+			item_flag = True
+			change_flag = True
+		else:
+			out_xml = out_xml + line
+
+
+	if change_flag == True:
+		file1 = open(home_xml, 'w')
+		file1.writelines(out_xml)
+		file1.close()
+		print(out_xml)
+		
+	line_593_594 = """				<onup>noop</onup>
+				<ondown>105</ondown>"""
+	line_593 = """<onup>noop</onup>"""
+	line_594 = """<ondown>105</ondown>"""
+	line_3 = """<defaultcontrol always="true">300</defaultcontrol>"""
+
+	line_593_594_new = """				<onup>300</onup>
+				<ondown>300</ondown>"""
+	line_3_new = """	<defaultcontrol always="true">105</defaultcontrol>"""
+
+	osmc_home = xbmcvfs.translatePath('special://skin/xml/DialogKeyboard.xml')
+	home_xml = osmc_home 
+	file1 = open(home_xml, 'r')
+	Lines = file1.readlines()
+	out_xml = ''
+	item_flag = False
+	item_count = 0
+	change_flag = False
+	for line in Lines:
+		if line_3 in str(line):
+			out_xml = out_xml + line_3_new 
+			item_flag = True
+			change_flag = True
+		if line_593 in str(line):
+			out_xml = out_xml + line_593_594_new 
+			item_flag = True
+			change_flag = True
+		if line_594 in str(line):
+			continue
+		else:
+			out_xml = out_xml + line
+
+
+	if change_flag == True:
+		file1 = open(home_xml, 'w')
+		file1.writelines(out_xml)
+		file1.close()
+		print(out_xml)

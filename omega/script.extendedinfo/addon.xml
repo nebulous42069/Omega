@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.extendedinfo" name="  [B][COLOR white]Extended Info-Diamond_MOD[/COLOR][/B]" version="420.8.00" provider-name="fryhenryj">
+<addon id="script.extendedinfo" name="  [B][COLOR white]Extended Info-Diamond_MOD[/COLOR][/B]" version="420.8.26" provider-name="fryhenryj">
 	<requires>
-		<import addon="xbmc.python" version="3.0.1"/>
+		<import addon="xbmc.python" version="3.0.0"/>
 		<import addon="repository.jurialmunkey" version="2.2" optional="true" />
 		<import addon="plugin.video.youtube" version="6.8.11+matrix.1"/>
 		<import addon="script.module.requests" version="2.25.1+matrix.1"/>
@@ -34,7 +34,7 @@
 			</item>
 		</menu>
 	</extension>
-	<!--<extension point="xbmc.service" library="service.py"  start="login"/>-->
+	<extension point="xbmc.service" library="service.py"  start="login"/>
 	<extension point="xbmc.python.library" library="service2.py"/>
 	<extension point="xbmc.addon.metadata">
 		<reuselanguageinvoker>true</reuselanguageinvoker>

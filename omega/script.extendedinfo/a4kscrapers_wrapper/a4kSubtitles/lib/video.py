@@ -382,6 +382,7 @@ def get_meta(core):
 		#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
 		#tools.log('tools.VIDEO_META', tools.VIDEO_META)
 		meta_json = json.dumps(tools.VIDEO_META, indent=2)
+		logger.error(meta_json)
 
 		#meta_json = json.dumps(VIDEO_META, indent=2)
 		#print(meta_json)
@@ -413,5 +414,10 @@ def get_meta(core):
 		else:
 			meta.tvshow_year_thread = threading.Thread(target=__scrape_tvshow_year, args=(core, meta))
 			meta.tvshow_year_thread.start()
+
+	try:
+		if len(meta.imdb_id) > 2:
+			meta.imdb_id_as_int = int(meta.imdb_id[2:].lstrip('0'))
+	except: pass
 
 	return meta

@@ -9,23 +9,31 @@ from inspect import currentframe, getframeinfo
 #print(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
 
 def __download(core, filepath, request):
+	#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
+	#tools.log(filepath)
 	request['stream'] = True
+
 	with core.request.execute(core, request) as r:
 		with open(filepath, 'wb') as f:
 			core.shutil.copyfileobj(r.raw, f)
+	return filepath
 
 def __extract_gzip(core, archivepath, filename):
+	#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
 	filepath = core.os.path.join(core.utils.temp_dir, filename)
 
 	if core.utils.py2:
+		#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
 		with open(archivepath, 'rb') as f:
 			gzip_file = f.read()
 
 		with core.gzip.GzipFile(fileobj=core.utils.StringIO(gzip_file)) as gzip:
+			#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
 			with open(filepath, 'wb') as f:
 				f.write(gzip.read())
 				f.flush()
 	else:
+		#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
 		with core.gzip.open(archivepath, 'rb') as f_in:
 			with open(filepath, 'wb') as f_out:
 				core.shutil.copyfileobj(f_in, f_out)
@@ -33,6 +41,7 @@ def __extract_gzip(core, archivepath, filename):
 	return filepath
 
 def __extract_zip(core, archivepath, filename, episodeid):
+	#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
 	sub_exts = ['.srt', '.sub']
 	sub_exts_secondary = ['.smi', '.ssa', '.aqt', '.jss', '.ass', '.rt', '.txt']
 
@@ -75,12 +84,15 @@ def __extract_zip(core, archivepath, filename, episodeid):
 	return dest
 
 def __insert_lang_code_in_filename(core, filename, lang_code):
+	#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
 	filename_chunks = core.utils.strip_non_ascii_and_unprintable(filename).split('.')
 	filename_chunks.insert(-1, lang_code)
 	return '.'.join(filename_chunks)
 
 def __postprocess(core, filepath, lang_code):
+	#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
 	try:
+	#if 1==1:
 		with open(filepath, 'rb') as f:
 			text_bytes = f.read()
 
@@ -88,7 +100,8 @@ def __postprocess(core, filepath, lang_code):
 			encoding = ''
 			if core.utils.py3:
 				detection = core.utils.chardet.detect(text_bytes)
-				detected_lang_code = core.kodi.xbmc.convertLanguage(detection['language'], core.kodi.xbmc.ISO_639_2)
+				#detected_lang_code = core.kodi.xbmc.convertLanguage(detection['language'], core.kodi.xbmc.ISO_639_2)
+				detected_lang_code = core.utils.get_lang_id(detection['language'], core.kodi.xbmc.ISO_639_2)
 				if detection['confidence'] == 1.0 or detected_lang_code == lang_code:
 					encoding = detection['encoding']
 
@@ -120,13 +133,13 @@ def __postprocess(core, filepath, lang_code):
 	except: pass
 
 def download(core, params):
+	#core.logger.debug(lambda: core.json.dumps(params, indent=2))
+	#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
 
 	try: new_VIDEO_META = core.utils.DictAsObject(params.get('VIDEO_META'))
 	except: new_VIDEO_META = None
 	if new_VIDEO_META:
 		tools.VIDEO_META = new_VIDEO_META
-
-	core.logger.debug(lambda: core.json.dumps(params, indent=2))
 
 	core.shutil.rmtree(core.utils.temp_dir, ignore_errors=True)
 	if not os.path.exists(core.utils.temp_dir):
@@ -134,10 +147,12 @@ def download(core, params):
 	#core.kodi.xbmcvfs.mkdirs(core.utils.temp_dir)
 
 	actions_args = params['action_args']
-	lang_code = core.kodi.xbmc.convertLanguage(actions_args['lang'], core.kodi.xbmc.ISO_639_2)
+	#lang_code = core.kodi.xbmc.convertLanguage(actions_args['lang'], core.kodi.xbmc.ISO_639_2)
 	#filename = __insert_lang_code_in_filename(core, actions_args['filename'], lang_code)
+	lang_code = core.utils.get_lang_id(actions_args['lang'], core.kodi.xbmc.ISO_639_2)
+	#tools.log(lang_code)
 	filename = __insert_lang_code_in_filename(core, tools.VIDEO_META['subs_filename'], lang_code)
-	
+
 	sub_ext = '.' + params['name'].split('.')[-1]
 	sub_exts = ['.sub', '.smi', '.ssa', '.aqt', '.jss', '.ass', '.rt', '.txt']
 	sub_ext_checked = None
@@ -148,21 +163,30 @@ def download(core, params):
 
 	if sub_ext_checked:
 		filename = filename.replace('.srt',sub_ext_checked)
-	archivepath = core.os.path.join(core.utils.temp_dir, 'sub.zip')
+	if actions_args.get('gzip', False):
+		archivepath = core.os.path.join(core.utils.temp_dir, 'sub.gzip')
+	else:
+		archivepath = core.os.path.join(core.utils.temp_dir, 'sub.zip')
 
 	service_name = params['service_name']
 	service = core.services[service_name]
 	request = service.build_download_request(core, service_name, actions_args)
-	#print(request)
+	#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
+	#tools.log(request)
 
 	if actions_args.get('raw', False):
+		#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
 		filepath = core.os.path.join(core.utils.temp_dir, filename)
-		__download(core, filepath, request)
+		download_filepath = __download(core, filepath, request)
 	else:
-		__download(core, archivepath, request)
-		if actions_args.get('gzip', False):
+		#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
+		download_filepath = __download(core, archivepath, request)
+		
+		if actions_args.get('gzip', False) or 'gzip' in download_filepath:
+			tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
 			filepath = __extract_gzip(core, archivepath, filename)
 		else:
+			tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
 			episodeid = actions_args.get('episodeid', '')
 			filepath = __extract_zip(core, archivepath, filename, episodeid)
 

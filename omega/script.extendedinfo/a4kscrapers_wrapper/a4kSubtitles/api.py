@@ -28,6 +28,7 @@ class A4kSubtitlesApi(object):
         api_mode.update(mocks)
         os.environ[api_mode_env_name] = json.dumps(api_mode)
         self.core = core
+        #self.core = importlib.import_module('a4kSubtitles.core')
 
     def __mock_video_meta(self, meta):
         def get_info_label(label):

@@ -29,6 +29,7 @@
 		<setting label="Auto Clear cache on startup?" type="bool" id="auto_clean_cache_bool" default="true"/>
 		<setting label="Log Plugin URLS" type="bool" id="log_urls" default="false"/>
 		<setting label="TEST ROUTE" type="action" action="RunScript(script.extendedinfo,info=test_route)"/>
+		<setting label="setup_favourites" type="action" action="RunScript(script.extendedinfo,info=setup_favourites)"/>
 		<setting label="fenlight_open_setting" type="action" action="RunPlugin(plugin://plugin.video.fenlight/?mode=open_settings)" visible="System.HasAddon(plugin.video.fenlight)"/>
 		<setting label="fenlight_patch" type="action" action="RunScript(script.extendedinfo,info=patch_fen_light)" visible="System.HasAddon(plugin.video.fenlight)"/>
 		<setting label="fen_light_players" type="action" action="RunScript(script.extendedinfo,info=setup_fen_light_players)" visible="System.HasAddon(plugin.video.fenlight)"/>
@@ -577,6 +578,8 @@
         <setting id="DOWNLOAD_FOLDER"                type="action" label="DOWNLOAD_FOLDER"
                  action="RunScript(script.extendedinfo,info=setDownloadLocation)"/>
 
+		<setting id="open_subs_password" type="text" label="open_subs_password" default="" />
+		<setting id="open_subs_username" type="text" label="open_subs_username" default="" />
 		<setting label="stop_downloader" type="action" action="RunScript(script.extendedinfo,info=stop_downloader)"/>
 		<setting label="run_downloader" type="action" action="RunScript(script.extendedinfo,info=run_downloader)"/>
 		<setting label="manage_download_list" type="action" action="RunScript(script.extendedinfo,info=manage_download_list)"/>

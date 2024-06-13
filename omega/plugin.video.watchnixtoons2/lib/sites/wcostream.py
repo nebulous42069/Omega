@@ -38,7 +38,7 @@ SITE_SETTINGS = {
     },
     'page_meta': {
         'regex': 'href="([^"]+)',
-        'start': '"header-tag"',
+        'start': 'class="lalyx"',
         'end': '',
     },
     'page_plot': {
@@ -48,7 +48,7 @@ SITE_SETTINGS = {
     },
     'latest': {
         'url': '',
-        'regex': r'''<li>\s*<div\s*class=\"img\">\s*<a href=\"(?P<link>[^\"]+)\">\s*<img\s*class=\"hover-img1\"\s*alt=\"(?P<name>[^\"]+)\"\s*src=\"(?P<img>[^\"]+)\"''',
+        'regex': r'''src=\"(?P<img>[^\"]+)\">\s*</a>\s*</div>\s*<div class=\"recent-release-episodes\">\s*<a href=\"(?P<link>[^\"]+)\" rel=\"bookmark\">(?P<name>[^<]+)</a>''',
         'start': '<div class="recent-release">',
         'end': '</ul>',
     },

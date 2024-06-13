@@ -42,7 +42,7 @@ BROWSER_AGENTS = [
 	"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:15.0) Gecko/20100101 Firefox/15.0.1",
 ]
 
-
+tools_stop_downloader = None
 
 #ADDON_USERDATA_PATH = './user_data'
 try:
@@ -157,6 +157,7 @@ class global_var:
 	
 	def __init__(self):
 		self.VIDEO_META = None
+		self.tools_stop_downloader = None
 
 
 def findReplace(directory, find, replace, filePattern):
@@ -951,12 +952,46 @@ def download_file(url, save_as):
 	with open(save_as, 'wb') as download:
 		download.write(content)
 
-def download_progressbar(url, file_path):
+def curr_percent(rd_api):
+	if rd_api.original_tot_bytes == 0:
+		return
+	curr_percent = round((rd_api.remaining_tot_bytes/rd_api.original_tot_bytes) * 100,2)
+
+	os.environ['DOWNLOAD_CURR_PERCENT'] = str(int(curr_percent))
+	#log('\n\n'+str(curr_percent)+'% total remaining on file')
+	percent_done = 100 - curr_percent
+	if percent_done == 0:
+		return
+	time_running = time.time() - rd_api.original_start_time
+	seconds_per_percent = time_running / percent_done
+	seconds_remaining = int(curr_percent * seconds_per_percent)
+	minutes_remaining = int((curr_percent * seconds_per_percent) / 60)
+	hours_remaining = round((curr_percent * seconds_per_percent) / (60*60),2)
+	#log('\n\n'+str(seconds_remaining)+' seconds_remaining')
+	#log('\n\n'+str(minutes_remaining)+' minutes_remaining')
+	#log('\n\n'+str(hours_remaining)+' hours_remaining')
+	#log('REMAINING_LINES_MAGNET_LIST =   '+str(rd_api.num_lines))
+	if rd_api.xbmc_gui:
+		import xbmcgui
+		xbmcgui.Window(10000).setProperty('curr_percent', str(curr_percent))
+		xbmcgui.Window(10000).setProperty('percent_done', str(percent_done))
+		xbmcgui.Window(10000).setProperty('seconds_remaining', str(seconds_remaining))
+		xbmcgui.Window(10000).setProperty('minutes_remaining', str(minutes_remaining))
+		xbmcgui.Window(10000).setProperty('hours_remaining', str(hours_remaining))
+		xbmcgui.Window(10000).setProperty('num_lines_remaining', str(rd_api.num_lines))
+
+def download_progressbar(rd_api, url, file_path):
 	#from urllib.request import urlretrieve
 	stop_downloader = get_setting('magnet_list').replace('magnet_list.txt','stop_downloader')
+	final_remaining_tot_bytes = rd_api.remaining_tot_bytes - rd_api.UNRESTRICT_FILE_SIZE
+	if os.path.exists(file_path):
+		rd_api.remaining_tot_bytes = rd_api.remaining_tot_bytes - os.path.getsize(file_path)
+	
 	if os.path.exists(stop_downloader):
 		delete_file(stop_downloader)
-		exit()
+		tools_stop_downloader = True
+		#exit()
+		return
 	
 	if not os.path.exists(os.path.dirname(file_path)):
 		from pathlib import Path
@@ -972,6 +1007,8 @@ def download_progressbar(url, file_path):
 	start = time.time()
 	def dlProgress(count, blockSize, totalSize):
 		percent = int(count*blockSize*100/totalSize)
+		rd_api.remaining_tot_bytes = rd_api.remaining_tot_bytes - blockSize
+		curr_percent(rd_api)
 		done = int(50 * count*blockSize / totalSize)
 		suffix = "\r[%s%s] %s   %s  %s   Kbps" % ('=' * done, ' ' * (50-done),str(percent)+'%',unquote(rem_file), (1/1000)*count*blockSize//(time.time() - start))
 		message = "\r" + rem_file + "...%d%%" % percent
@@ -983,8 +1020,16 @@ def download_progressbar(url, file_path):
 			delete_file(stop_downloader)
 			sys.stdout.write('\n')
 			sys.stdout.flush()
-			exit()
+			tools_stop_downloader = True
+			#exit()
+			raise DownloadError
+			return file_path
 	urlretrieve(url, file_path, reporthook=dlProgress)
+	if final_remaining_tot_bytes < rd_api.remaining_tot_bytes:
+		rd_api.remaining_tot_bytes = final_remaining_tot_bytes
+	rd_api.UNRESTRICT_FILE_SIZE = 0
+	sys.stdout.write('\n')
+	sys.stdout.flush()
 	return file_path
 
 def progressbar(it, prefix="", size=60, out=sys.stdout): # Python3.3+

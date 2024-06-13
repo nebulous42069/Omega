@@ -22,54 +22,84 @@ import distance
 
 META = None
 
-import struct
+import struct, os
+#import urllib
 __64k = 65536
 __longlong_format_char = 'q'
 __byte_size = struct.calcsize(__longlong_format_char)
 
-def sum_64k_bytes(file, filehash):
-	range_value = __64k / __byte_size
-	from a4kSubtitles.lib import utils
-	if utils.py3:
-		range_value = round(range_value)
+def first_last_64kb(url):
+	import requests
+	import tempfile
+	from urllib3.exceptions import IncompleteRead
 
-	for _ in range(range_value):
-		try: chunk = file.readBytes(__byte_size)
-		except: chunk = file.read(__byte_size)
-		(value,) = struct.unpack(__longlong_format_char, chunk)
-		filehash += value
-		filehash &= 0xFFFFFFFFFFFFFFFF
-		return filehash
+	def download_last_64kb(url):
+		# Create a temporary file to store the content
+		with tempfile.NamedTemporaryFile(delete=False) as temp_file:
+			try:
+				# Make the request with the Range header to download the last 64 KB
+				headers = {'Range': 'bytes=%s' % str(__64k*-1)}
+				with requests.get(url, headers=headers, stream=True) as response:
+					response.raise_for_status()
+					# Write the content to the temporary file
+					for chunk in response.iter_content(chunk_size=1024):
+						temp_file.write(chunk)
+				# Return the path to the temporary file
+				return temp_file.name
+			except IncompleteRead as e:
+				# Handle the incomplete read error
+				print(f"IncompleteRead error: {e}")
+				if os.path.exists(temp_file.name):
+					os.remove(temp_file.name)
 
-def set_size_and_hash(meta, filepath):
-	if meta == None and META != None:
-		meta = META
-	#f = xbmcvfs.File(filepath)
-	if 'http' in str(filepath):
-		meta = set_size_and_hash_url(meta=meta, file_path=filepath)
-		return meta
-	f = open(filepath, 'rb')
-	try:
-		#filesize = f.size()
-		filesize = os.path.getsize(filepath)
-		meta['filesize'] = filesize
+	def download_last_64kb_2(url):
+		# Create a temporary file to store the content
+		with tempfile.NamedTemporaryFile(delete=False) as temp_file:
+			try:
+				# Make the request with the Range header to download the last 64 KB
+				response = requests.head(url, verify=False)
+				filesize = int(response.headers['content-length'])
+				if filesize < __64k * 2:
+					try: filesize = int(str(response.headers['content-range']).split('/')[1])
+					except: pass
+				headers = {"Range": 'bytes=%s-%s' % (filesize - __64k, filesize)}
+				with requests.get(url, headers=headers, stream=True) as response:
+					response.raise_for_status()
+					# Write the content to the temporary file
+					for chunk in response.iter_content(chunk_size=1024):
+						temp_file.write(chunk)
+				# Return the path to the temporary file
+				return temp_file.name
+			except IncompleteRead as e:
+				# Handle the incomplete read error
+				print(f"IncompleteRead error: {e}")
+				if os.path.exists(temp_file.name):
+					os.remove(temp_file.name)
 
-		if filesize < __64k * 2:
-			return
-
-		# ref: https://trac.opensubtitles.org/projects/opensubtitles/wiki/HashSourceCodes
-		# filehash = filesize + 64bit sum of the first and last 64k of the file
-		filehash = lambda: None
-		filehash = filesize
-
-		filehash = sum_64k_bytes(f, filehash)
-		f.seek(filesize - __64k, os.SEEK_SET)
-		filehash = sum_64k_bytes(f, filehash)
-
-		meta['filehash'] = "%016x" % filehash
-	finally:
-		f.close()
-	return meta
+	def download_first_64kb(url):
+		# Create a temporary file to store the content
+		with tempfile.NamedTemporaryFile(delete=False) as temp_file:
+			try:
+				# Make the request with the Range header to download the last 64 KB
+				headers = {'Range': 'bytes=0-%s' % str(__64k)}
+				with requests.get(url, headers=headers, stream=True) as response:
+					response.raise_for_status()
+					# Write the content to the temporary file
+					for chunk in response.iter_content(chunk_size=1024):
+						temp_file.write(chunk)
+				# Return the path to the temporary file
+				return temp_file.name
+			except IncompleteRead as e:
+				# Handle the incomplete read error
+				print(f"IncompleteRead error: {e}")
+				if os.path.exists(temp_file.name):
+					os.remove(temp_file.name)
+	try: 
+		last_64kb = download_last_64kb(url)
+	except: 
+		last_64kb = download_last_64kb_2(url)
+	first_64kb = download_first_64kb(url)
+	return first_64kb, last_64kb
 
 
 def temp_file():
@@ -77,82 +107,140 @@ def temp_file():
 	file = tempfile.NamedTemporaryFile()
 	filename = file.name
 	return filename
+	
+def is_local(_str):
+	from urllib.parse import urlparse
+	if os.path.exists(_str):
+		return True
+	elif urlparse(_str).scheme in ['','file']:
+		return True
+	return False
+
+def hashFile_url(filepath): 
+	#https://trac.opensubtitles.org/projects/opensubtitles/wiki/HashSourceCodes
+	#filehash = filesize + 64bit sum of the first and last 64k of the file
+	name = filepath
+	if is_local(filepath):
+		local_file = True
+	else:
+		local_file = False
+
+	if local_file == False:
+		f = None
+		url = name
+		#from urllib import request
+		#request.urlcleanup()
+		import requests
+
+		response = requests.head(url)#, verify=False)
+		filesize = int(response.headers['content-length'])
+
+		if filesize < __64k * 2:
+			try: filesize = int(str(response.headers['content-range']).split('/')[1])
+			except: pass
+
+		first_64kb = temp_file()
+		last_64kb = temp_file()
+
+		headers = {"Range": 'bytes=0-%s' % (str(__64k -1 ))}
+		r = requests.get(url, headers=headers)#, verify=False)
+		with open(first_64kb, 'wb') as f:
+			for chunk in r.iter_content(chunk_size=1024): 
+				if chunk: # filter out keep-alive new chunks
+					f.write(chunk)
+
+		if filesize > 0:
+			headers = {"Range": 'bytes=%s-%s' % (filesize - __64k, filesize-1)}
+		else:
+			f.close()
+			os.remove(first_64kb)
+			return "SizeError", 0
+
+		try:
+			r = requests.get(url, headers=headers)#, verify=False)
+			with open(last_64kb, 'wb') as f:
+				for chunk in r.iter_content(chunk_size=1024): 
+					if chunk: # filter out keep-alive new chunks
+						f.write(chunk)
+		except:
+			f.close()
+			if os.path.exists(last_64kb):
+				os.remove(last_64kb)
+			if os.path.exists(first_64kb):
+				os.remove(first_64kb)
+			return 'IOError', 0
+		f = open(first_64kb, 'rb')
+
+	try:
+		longlongformat = '<q'  # little-endian long long
+		bytesize = struct.calcsize(longlongformat) 
+
+		if local_file:
+			f = open(name, "rb") 
+			filesize = os.path.getsize(name) 
+		hash = filesize 
+
+		if filesize < __64k * 2: 
+			f.close()
+			if local_file == False:
+				os.remove(last_64kb)
+				os.remove(first_64kb)
+			return "SizeError", 0
+
+		range_value = __64k / __byte_size
+		range_value = round(range_value)
+
+		for x in range(range_value): 
+			buffer = f.read(bytesize) 
+			(l_value,)= struct.unpack(longlongformat, buffer)  
+			hash += l_value 
+			hash = hash & 0xFFFFFFFFFFFFFFFF #to remain as 64bit number  
+
+		if local_file:
+			f.seek(max(0,filesize-__64k),0) 
+		else:
+			f.close() 
+			f = open(last_64kb, 'rb')
+		for x in range(range_value): 
+			buffer = f.read(bytesize) 
+			(l_value,)= struct.unpack(longlongformat, buffer)  
+			hash += l_value 
+			hash = hash & 0xFFFFFFFFFFFFFFFF 
+		
+		f.close() 
+		if local_file == False:
+			os.remove(last_64kb)
+			os.remove(first_64kb)
+		returnedhash =  "%016x" % hash 
+		return returnedhash, filesize
+
+	except(IOError): 
+		if local_file == False:
+			os.remove(last_64kb)
+			os.remove(first_64kb)
+		return 'IOError', 0
 
 def set_size_and_hash_url(meta, filepath):
 	if meta == None and META != None:
 		meta = META
-	import urllib
-	from urllib import request
-	f = None
-	opener = None
-	url = filepath
-	request.urlcleanup()
-	
-	f = request.urlopen(url)
-
-	#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
-	#tools.log(f.headers)
-
-	filesize = int(f.headers['Content-Length'])
-	if filesize < __64k * 2:
-		try: filesize = int(str(f.headers['Content-Range']).split('/')[1])
-		except: pass
-
-	opener = request.build_opener()
-	#opener.addheaders = [('Range', 'bytes=%s-%s' % (0, __64k-1))]
-	opener.addheaders = [('Range','bytes=0-65535')]
-
-	first_64kb = temp_file()
-	last_64kb = temp_file()
-	request.install_opener(opener)
-	#tools.log('first_64kb',first_64kb,'last_64kb',last_64kb)
-	#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
-	request.urlretrieve(url, first_64kb)
-	opener = request.build_opener()
-
-	if filesize > 0:
-		opener.addheaders = [('Range', 'bytes=%s-%s' % (filesize - __64k, 0))]
-		#tools.log(str('bytes=%s-%s' % (1+filesize - __64k, 0)))
-	else:
-		opener.addheaders = [('Range','bytes=-65535-0')]
-	request.install_opener(opener)
-	request.urlretrieve(url, last_64kb)
-
 	#f = xbmcvfs.File(filepath)
-	f = open(first_64kb, 'rb')
-
-	#try:
-	if 1==1:
-		#filesize = f.size()
-		meta['filesize'] = filesize
-		
-		if filesize < __64k * 2:
-			f.close()
-			meta['filehash'] = ''
-			tools.delete_file(first_64kb)
-			tools.delete_file(last_64kb)
-			#del request
-			return meta
-
-		# ref: https://trac.opensubtitles.org/projects/opensubtitles/wiki/HashSourceCodes
-		# filehash = filesize + 64bit sum of the first and last 64k of the file
-		filehash = lambda: None
-		filehash = filesize
-		filehash = sum_64k_bytes(f, filehash)
-		#f.seek(filesize - __64k, os.SEEK_SET)
-		#tools.log(first_64kb, 'size='+str(os.path.getsize(first_64kb)),'set_size_and_hash_url')
-		f.close()
-		f = open(last_64kb, 'rb')
-		filehash = sum_64k_bytes(f, filehash)
-		#tools.log(last_64kb, 'size='+str(os.path.getsize(last_64kb)),'set_size_and_hash_url')
-		meta['filehash'] = "%016x" % filehash
-		
-	#finally:
-		f.close()
-		tools.delete_file(first_64kb)
-		tools.delete_file(last_64kb)
-	#del request
+	#https://trac.opensubtitles.org/projects/opensubtitles/wiki/HashSourceCodes
+	#filehash = filesize + 64bit sum of the first and last 64k of the file
+	#tools.log(hashFile_url('https://static.opensubtitles.org/addons/avi/breakdance.avi'))
+	returnedhash, filesize = hashFile_url(filepath)
+	meta['filehash'] = returnedhash
+	meta['filesize'] = filesize
 	return meta
+
+def set_size_and_hash(meta, filepath):
+	if meta == None and META != None:
+		meta = META
+	#f = xbmcvfs.File(filepath)
+	returnedhash, filesize = hashFile_url(filepath)
+	meta['filehash'] = returnedhash
+	meta['filesize'] = filesize
+	return meta
+
 
 def get_subtitles_meta(VIDEO_META, file_path):
 	"""
@@ -177,6 +265,23 @@ getSources.get_subtitles(info , '')
 	#except:
 	#	pass
 	#try:
+	download_type = VIDEO_META.get('download_type',False)
+
+	daily_show_flag = False
+	if download_type != 'movie':
+		if VIDEO_META['air_date'][-2:] in VIDEO_META['name'] and VIDEO_META['air_date'][:4] in VIDEO_META['name']:
+			import datetime
+			if datetime.datetime.strptime(VIDEO_META['air_date'], '%Y-%m-%d').strftime('%B %d, %Y') in VIDEO_META['name']:
+				daily_show_flag = True
+
+	if daily_show_flag:
+		VIDEO_META['name'] = VIDEO_META['name'].replace(datetime.datetime.strptime(VIDEO_META['air_date'], '%Y-%m-%d').strftime('%B %d, %Y'), datetime.datetime.strptime(VIDEO_META['air_date'], '%Y-%m-%d').strftime('%Y.%m.%d'))
+		VIDEO_META['originaltitle'] = VIDEO_META['name']
+		VIDEO_META['title'] = VIDEO_META['name']
+		VIDEO_META['info']['title'] = VIDEO_META['name']
+		VIDEO_META['info']['originaltitle'] = VIDEO_META['name']
+		
+
 	if 1==1:
 		VIDEO_META['file_name'] = unquote(os.path.basename(file_path))
 		VIDEO_META['filename'] = unquote(VIDEO_META['file_name'])
@@ -206,6 +311,7 @@ getSources.get_subtitles(info , '')
 	if VIDEO_META.get('tvshowtitle','') != '':
 		if (VIDEO_META['tvshowtitle'] in VIDEO_META['aliases']) == False:
 			VIDEO_META['aliases'].append(VIDEO_META['tvshowtitle'])
+		VIDEO_META['aliases'] = VIDEO_META['aliases'][::-1]
 	#tools.VIDEO_META['SUB_FILE'] = tools.SUB_FILE
 	#json_data = json.dumps(VIDEO_META, indent=2)
 	#curr_meta = os.path.join(tools.ADDON_USERDATA_PATH, 'curr_meta.json')
@@ -344,17 +450,20 @@ class SubtitleService(object):
 		for r in sources:
 			#self.base_request['VIDEO_META'] = self.VIDEO_META
 			result = r.search(self.base_request)
-			if total_result > 66:
+			#tools.log(result)
+			if total_result > 99:
 				break
 			for i in result:
 				i['VIDEO_META'] = self.VIDEO_META
 				if not "impaired': 'true" in str(i):
 					result_store.append(i)
 					total_result = total_result + 1
-				if total_result > 66:
+				if total_result > 99:
 					break
 
+		#tools.log(result_store)
 		download_type = self.VIDEO_META.get('download_type',False)
+		"""
 		#if download_type == 'movie':
 		#	simple_info = tools._build_simple_movie_info(self.VIDEO_META)
 		#	simple_info['imdb_id'] = self.VIDEO_META['imdb_id']
@@ -375,6 +484,8 @@ class SubtitleService(object):
 
 		#	if ': True' in str(test):
 		#		source_list.append({'pack_title': i['name'], 'release_title': i['name'], 'filename': i['name'], 'pack_size': 999, 'size': 999, 'info': tools.get_info(i['name']), 'quality': tools.get_quality(i['name'])})
+		
+		##################
 		source_list = []
 		if download_type == 'movie':
 			input_guess = get_guess(self.VIDEO_META['file_name'])
@@ -384,7 +495,12 @@ class SubtitleService(object):
 					source_list.append({'pack_title': i['name'], 'release_title': i['name'], 'filename': i['name'], 'pack_size': 999, 'size': 999, 'info': tools.get_info(i['name']), 'quality': tools.get_quality(i['name'])})
 		else:
 			input_guess = get_guess(self.VIDEO_META['file_name'])
+			if input_guess.get('episode_title','') == '':
+				input_guess['episode_title'] = self.VIDEO_META['originaltitle']
+			if input_guess.get('title','') == '':
+				input_guess['title'] = self.VIDEO_META['originaltitle']
 			for i in result_store:
+				#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
 				guess = get_guess(i['name'])
 				try: ep_test = int(guess.get('episode',0))
 				except: ep_test = 0
@@ -396,15 +512,16 @@ class SubtitleService(object):
 					if i_quality != '4K' and i_quality != '1080p':
 						i_quality = '720p'
 				if input_guess.get('season','') == guess.get('season','') and input_guess.get('episode','') == guess.get('episode',''):
+					#tools.log(distance.jaro_similarity(input_guess.get('episode_title',''), guess.get('episode_title','')))
 					if distance.jaro_similarity(input_guess.get('episode_title',''), guess.get('episode_title','')) > 0.92:
-						source_list.append({'pack_title': i['name'], 'release_title': i['name'], 'filename': i['name'], 'pack_size': 999, 'size': 999, 'info': i_info, 'quality': i_quality})
+						source_list.append({'service': i['service'],'pack_title': i['name'], 'release_title': i['name'], 'filename': i['name'], 'pack_size': 999, 'size': 999, 'info': i_info, 'quality': i_quality})
 						continue
 				if input_guess.get('season','') == guess.get('season','') and input_guess.get('episode','') != guess.get('episode','') and ep_test > 0:
 					if distance.jaro_similarity(input_guess.get('episode_title',''), guess.get('episode_title','')) > 0.92:
-						source_list.append({'pack_title': i['name'], 'release_title': i['name'], 'filename': i['name'], 'pack_size': 999, 'size': 999, 'info': i_info, 'quality': i_quality})
+						source_list.append({'service': i['service'],'pack_title': i['name'], 'release_title': i['name'], 'filename': i['name'], 'pack_size': 999, 'size': 999, 'info': i_info, 'quality': i_quality})
 						continue
 				if distance.jaro_similarity(input_guess.get('episode_title',''), guess.get('episode_title','')) > 0.92:
-					source_list.append({'pack_title': i['name'], 'release_title': i['name'], 'filename': i['name'], 'pack_size': 999, 'size': 999, 'info': i_info, 'quality': i_quality})
+					source_list.append({'service': i['service'],'pack_title': i['name'], 'release_title': i['name'], 'filename': i['name'], 'pack_size': 999, 'size': 999, 'info': i_info, 'quality': i_quality})
 					continue
 				if (ep_test == 0 or ep_test == int(self.VIDEO_META['episode'])) and guess.get('episode_title','') == '' and season_test == int(self.VIDEO_META['season_number']) and guess.get('title') != None:
 					clean_guess_title = source_tools.clean_title(guess.get('title'))
@@ -427,16 +544,25 @@ class SubtitleService(object):
 							match = True
 							break
 					if match == True:
-						source_list.append({'pack_title': i['name'], 'release_title': i['name'], 'filename': i['name'], 'pack_size': 999, 'size': 999, 'info': i_info, 'quality': i_quality})
+						source_list.append({'service': i['service'],'pack_title': i['name'], 'release_title': i['name'], 'filename': i['name'], 'pack_size': 999, 'size': 999, 'info': i_info, 'quality': i_quality})
 						continue
 				elif guess.get('title') == None and ep_test == int(self.VIDEO_META['episode']) and season_test == int(self.VIDEO_META['season_number']):
-					source_list.append({'pack_title': i['name'], 'release_title': i['name'], 'filename': i['name'], 'pack_size': 999, 'size': 999, 'info': i_info, 'quality': i_quality})
+					source_list.append({'service': i['service'],'pack_title': i['name'], 'release_title': i['name'], 'filename': i['name'], 'pack_size': 999, 'size': 999, 'info': i_info, 'quality': i_quality})
 					continue
 				#tools.log(guess)
 		new_source_list = tools.SourceSorter(self.VIDEO_META).sort_sources(source_list)
+		##################
+
+
+		#tools.log('new_source_list_SUBTITLES_RESULTS')
+		#for i in new_source_list:
+		#	try: tools.log(i['pack_title'], i['service'])
+		#	except: continue
+
 		#tools.log('new_source_list',new_source_list)
 		#tools.log('result_store',result_store)
 		#tools.log(source_list)
+		##################
 		result_store2 = result_store
 		result_store = []
 		for x in new_source_list:
@@ -451,6 +577,8 @@ class SubtitleService(object):
 		#tools.log(result_store)
 		#for i in result_store:
 		#	tools.log(i['name'])
+		##################
+		"""
 		"""
 		input_guess = get_guess(self.VIDEO_META['file_name'])
 		#tools.log(input_guess)
@@ -499,8 +627,10 @@ class SubtitleService(object):
 		#tools.log(result_store_sorted)
 		result_store = result_store_sorted
 		"""
+		##################
 		sources = [A4kSubtitlesAdapter(self.VIDEO_META)]
 		#result_store[0]['VIDEO_META'] = self.VIDEO_META
+		#tools.log(result_store)
 		foreign_parts = []
 		normal_subs = []
 		foreign_parts_flag = False
@@ -518,7 +648,8 @@ class SubtitleService(object):
 				os.mkdir(utils.temp_dir2)
 			for r in sources:
 				sub_result = r.download(foreign_parts[0])
-				tools.log(foreign_parts[0]['name'])
+				try: tools.log(foreign_parts[0]['action_args']['filename'], foreign_parts[0]['service'])
+				except: tools.log(foreign_parts[0]['name'], foreign_parts[0]['service'])
 				break
 			#result_foreign = os.path.splitext(sub_result)[0] + '.FOREIGN.PARTS' +os.path.splitext(sub_result)[1]
 			result_foreign = os.path.splitext(sub_result)[0] + '.FORCED' +os.path.splitext(sub_result)[1]
@@ -530,7 +661,8 @@ class SubtitleService(object):
 		for r in sources:
 			try: 
 				sub_result = r.download(normal_subs[0])
-				tools.log(normal_subs[0]['name'])
+				try: tools.log(normal_subs[0]['action_args']['filename'], normal_subs[0]['service'])
+				except: tools.log(normal_subs[0]['name'], normal_subs[0]['service'])
 			except Exception as e: 
 				if 'zipfile.BadZipFile' in str(e):
 					pass
@@ -556,6 +688,7 @@ class SubtitleService(object):
 				self.VIDEO_META['SUB_FILE_FORCED'] = ''
 		#tools.VIDEO_META['SUB_FILE_FORCED'] = result_foreign
 		tools.VIDEO_META = self.VIDEO_META
+		#tools.log(self.VIDEO_META)
 		#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
 		#tools.log('self.VIDEO_META',self.VIDEO_META,'result_foreign',result_foreign,'result',sub_result)
 		tools.log('result_foreign',result_foreign,'result',sub_result)#

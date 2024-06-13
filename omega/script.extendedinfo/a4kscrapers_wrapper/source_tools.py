@@ -145,6 +145,7 @@ def clean_title(title, broken=None):
 	title = title.replace("'s", apostrophe_replacement)
 	title = title.replace("&#039;s", apostrophe_replacement)
 	title = title.replace(" 039 s", apostrophe_replacement)
+	title = title.replace(':',' ')
 
 	title = re.sub(r'\'|\’', '', title)
 	title = re.sub(r'\:|\\|\/|\,|\!|\?|\(|\)|\"|\+|\[|\]|\-|\_|\.|\{|\}', ' ', title)
@@ -490,9 +491,12 @@ def run_show_filters(simple_info, pack_title=None, release_title=None, guess=Fal
 	if release_title:
 		simple_info['query_title'] = release_title
 		simple_info['clean_release'] = clean_release_title_with_simple_info(release_title, simple_info)
+		simple_info2 = simple_info
+		simple_info2['clean_release'] = clean_release_title_with_simple_info(release_title, simple_info, remove_complete=False)
 		show_title_match = check_show_title(simple_info, release_title)
+		show_title_match2 = check_show_title(simple_info2, release_title)
 
-		if show_title_match == False:
+		if show_title_match == False and show_title_match2 == False:
 
 			result_dict = {}
 			result_dict['pack_title'] = False
@@ -522,13 +526,22 @@ def run_show_filters(simple_info, pack_title=None, release_title=None, guess=Fal
 
 		filter_fn = get_filter_single_episode_fn(simple_info)
 		result_dict['get_filter_single_episode_fn'] = filter_fn(simple_info['clean_release'])
+		if simple_info['episode_title'][:4].isnumeric():
+			if simple_info['episode_title'][:10] in release_title:
+				result_dict['get_filter_single_episode_fn'] = True
+			elif simple_info['episode_title'][:4] in simple_info['clean_release'] and simple_info['episode_title'][5:7] in simple_info['clean_release'] and simple_info['episode_title'][8:10] in simple_info['clean_release']:
+				result_dict['get_filter_single_episode_fn'] = True
 		result_dict['filter_single_special_episode'] = filter_single_special_episode(simple_info, simple_info['clean_release'])
 		filter_fn = get_filter_single_absolute_episode_fn(simple_info)
 		result_dict['get_filter_single_absolute_episode_fn'] = filter_fn(simple_info['clean_release'])
 		result_dict['filter_check_episode_title_match'] = filter_check_episode_title_match(simple_info, simple_info['clean_release'])
 
+		#tools.log(result_dict,simple_info)
+		#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
 		if not ': True' in str(result_dict):
 
+			if simple_info['episode_number'] == None or simple_info['episode_number'] == 'None':
+				simple_info['episode_number'] = '0'
 			guess = get_guess(release_title)
 			#guess = api.guessit(release_title)
 			guess_season = guess.get('season', -1)
@@ -573,7 +586,6 @@ def run_show_filters(simple_info, pack_title=None, release_title=None, guess=Fal
 				guess_episode.append(guess.get('episode'))
 			if guess_episode_title != '':
 				distance_apart = distance.jaro_similarity(show_episode_title.lower(),guess_episode_title.lower())
-				#tools.log(guess, distance_apart)
 				if distance_apart < 0.925:
 					if guess_season == int(simple_info['season_number']):
 						for i in guess_episode:
@@ -583,6 +595,18 @@ def run_show_filters(simple_info, pack_title=None, release_title=None, guess=Fal
 					for i in result_dict:
 							if result_dict[i] == True:
 								result_dict[i] = False
+				if distance_apart > 0.925:
+					ep_num_match = False
+					if guess_season == int(simple_info['season_number']):
+						for i in guess_episode:
+							if i == int(simple_info['episode_number']):
+								ep_num_match = True
+								
+						if ep_num_match == False and len(guess_episode) > 0 and guess_part == '':
+							for i in result_dict:
+									if result_dict[i] == True:
+										result_dict[i] = False
+							return result_dict
 			if guess_part != '':
 				if result_dict['filter_check_episode_title_match'] == True or result_dict['filter_single_special_episode'] == True or result_dict['get_filter_single_episode_fn'] == True:
 					match = False
@@ -622,6 +646,7 @@ def run_show_filters(simple_info, pack_title=None, release_title=None, guess=Fal
 
 	result_dict['episode_number'] = simple_info['episode_number']
 	
+	#tools.log(result_dict,simple_info)
 	return result_dict
 
 def filter_check_episode_title_match(simple_info, release_title):
@@ -919,12 +944,22 @@ def get_filter_single_absolute_episode_fn(simple_info):
 	episode_list.append('E'+str(int(show_episode_absolute)).zfill(3)+'-E'+str(int(show_episode_absolute)+1).zfill(3))
 	episode_list.append('E'+str(int(show_episode_absolute)-1).zfill(3)+'-E'+str(int(show_episode_absolute)).zfill(3))
 
+	episode_list.append('E'+str(int(show_episode_absolute)).zfill(3)+' E'+str(int(show_episode_absolute)+1).zfill(3))
+	episode_list.append('E'+str(int(show_episode_absolute)-1).zfill(3)+' E'+str(int(show_episode_absolute)).zfill(3))
+	episode_list.append('E'+str(int(show_episode_absolute)).zfill(3)+' '+str(int(show_episode_absolute)+1).zfill(3))
+	episode_list.append('E'+str(int(show_episode_absolute)-1).zfill(3)+' '+str(int(show_episode_absolute)).zfill(3))
+	#episode_list.append('E'+str(int(show_episode_absolute)).zfill(3)+' '+str(int(show_episode_absolute)+1).zfill(3))
+	#episode_list.append('E'+str(int(show_episode_absolute)-1).zfill(3)+' '+str(int(show_episode_absolute)).zfill(3))
+	#episode_list.append('E'+str(int(show_episode_absolute)).zfill(3)+' E'+str(int(show_episode_absolute)+1).zfill(3))
+	#episode_list.append('E'+str(int(show_episode_absolute)-1).zfill(3)+' E'+str(int(show_episode_absolute)).zfill(3))
+
 	suffixes = []
 	for i in episode_list:
 		suffixes.append(str(i).lower())
 	regex_pattern = get_regex_pattern(clean_titles, suffixes)
 
 	def filter_fn(release_title):
+
 		if re.match(regex_pattern, release_title):
 			return True
 
@@ -953,6 +988,7 @@ def check_show_title(simple_info, release_title):
 	clean_titles = []
 	for title in titles:
 		clean_titles.append(clean_title_with_simple_info(title, simple_info))
+	
 		
 	pattern = r'^(?:'
 	for title in titles:
@@ -961,8 +997,24 @@ def check_show_title(simple_info, release_title):
 			pattern += re.escape(title) + r' |'
 	pattern = pattern[:-1] + r')'
 	regex_pattern = re.compile(pattern)
+	regex_pattern2 = re.compile(pattern.lower())
+
+	pattern = r'^(?:'
+	for title in clean_titles:
+		title = title.strip()
+		if len(title) > 0:
+			pattern += re.escape(title) + r' |'
+	pattern = pattern[:-1] + r')'
+	regex_pattern3 = re.compile(pattern)
+	regex_pattern4 = re.compile(pattern.lower())
 
 	if re.match(regex_pattern, release_title):
+		return True
+	elif re.match(regex_pattern2, release_title):
+		return True
+	if re.match(regex_pattern3, release_title):
+		return True
+	elif re.match(regex_pattern4, release_title):
 		return True
 	else:
 		return False
@@ -1111,18 +1163,19 @@ def get_filter_show_pack_fn(simple_info):
 
 		first_season = 1
 		last_season = no_seasons
-		results.append(str('Complete').lower())
-		results.append(str('The Complete Series').lower())
-		results.append(str('Season '+str(first_season).zfill(1) + '-'+str(last_season).zfill(1)).lower())
-		results.append(str('Season '+str(first_season).zfill(2) + '-'+str(last_season).zfill(2)).lower())
-		results.append(str('Season '+str(first_season).zfill(1) + ' - '+str(last_season).zfill(1)).lower())
-		results.append(str('Season '+str(first_season).zfill(2) + ' - '+str(last_season).zfill(2)).lower())
-		results.append(str('Season '+str(first_season).zfill(1) + ' to '+str(last_season).zfill(1)).lower())
-		results.append(str('Season '+str(first_season).zfill(2) + ' to '+str(last_season).zfill(2)).lower())
-		results.append(str('S'+str(first_season).zfill(1) + '-S'+str(last_season).zfill(1)).lower())
-		results.append(str('S'+str(first_season).zfill(2) + '-S'+str(last_season).zfill(2)).lower())
-		results.append(str('S'+str(first_season).zfill(1) + ' - S'+str(last_season).zfill(1)).lower())
-		results.append(str('S'+str(first_season).zfill(2) + ' - S'+str(last_season).zfill(2)).lower())
+		results.append(str(' Complete').lower())
+		results.append(str(' The Complete Series').lower())
+		results.append(str(' Complete Series').lower())
+		results.append(str(' Season '+str(first_season).zfill(1) + '-'+str(last_season).zfill(1)).lower())
+		results.append(str(' Season '+str(first_season).zfill(2) + '-'+str(last_season).zfill(2)).lower())
+		results.append(str(' Season '+str(first_season).zfill(1) + ' - '+str(last_season).zfill(1)).lower())
+		results.append(str(' Season '+str(first_season).zfill(2) + ' - '+str(last_season).zfill(2)).lower())
+		results.append(str(' Season '+str(first_season).zfill(1) + ' to '+str(last_season).zfill(1)).lower())
+		results.append(str(' Season '+str(first_season).zfill(2) + ' to '+str(last_season).zfill(2)).lower())
+		results.append(str(' S'+str(first_season).zfill(1) + '-S'+str(last_season).zfill(1)).lower())
+		results.append(str(' S'+str(first_season).zfill(2) + '-S'+str(last_season).zfill(2)).lower())
+		results.append(str(' S'+str(first_season).zfill(1) + ' - S'+str(last_season).zfill(1)).lower())
+		results.append(str(' S'+str(first_season).zfill(2) + ' - S'+str(last_season).zfill(2)).lower())
 
 		return results
 
@@ -1190,13 +1243,36 @@ def get_filter_show_pack_fn(simple_info):
 		seasons_count += 1
 
 	regex_pattern = get_regex_pattern(titles, suffixes)
+	pattern = r'^(?:'
+	for title in titles:
+		title = title.strip()
+		if len(title) > 0:
+			pattern += re.escape(title) + r' |'
+	pattern = pattern[:-1] + r')+'
+	regex_pattern1 = re.compile(pattern)
+	
+	pattern = r'.*(?:'
+	for suffix in suffixes:
+		suffix = suffix.strip()
+		if len(suffix) > 0:
+			pattern += re.escape(suffix) + r' |'
+	pattern = pattern[:-1] + r')+'
+	regex_pattern2 = re.compile(pattern)
+
 
 	def filter_fn(release_title):
 		episode_number_match = check_episode_number_match(release_title)
+
 		if episode_number_match:
 			return False
 
 		if re.match(regex_pattern, release_title):
+			return True
+
+		#tools.log(re.match(regex_pattern1, release_title), re.match(regex_pattern2, release_title))
+		#tools.log(pattern)
+		#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
+		if re.match(regex_pattern1, release_title) and re.match(regex_pattern2, release_title):
 			return True
 
 		if os.getenv('A4KSCRAPERS_TEST_TOTAL') != '1':
@@ -1205,278 +1281,6 @@ def get_filter_show_pack_fn(simple_info):
 
 	return filter_fn
 
-#"""
-#
-#def match_episodes_season_pack_original(meta, sorted_torr_info):
-#	now = time.time()
-#	url = str(sorted_torr_info[0]) + 'season___' +str(meta['episode_meta']['season']) + 'meta_source__None'
-#	folder = 'show_filters'
-#	cache_days = 7
-#	url = url.encode('utf-8')
-#	hashed_url = hashlib.md5(url).hexdigest()
-#	cache_path = os.path.join(tools.ADDON_USERDATA_PATH, folder)
-#
-#	if not os.path.exists(cache_path):
-#		os.mkdir(cache_path)
-#	cache_seconds = int(cache_days * 86400.0)
-#	path = os.path.join(cache_path, '%s.txt' % hashed_url)
-#	if os.path.exists(path) and ((now - os.path.getmtime(path)) < cache_seconds):
-#		results = tools.read_all_text(path)
-#		results = eval(results)
-#		return results
-#	else:
-#		simple_info_tmdb = []
-#		simple_info_tvmaze = []
-#		for idx, x in enumerate(meta['tmdb_seasons']['episodes']):
-#			simple_info = tools._build_simple_show_info(x)
-#			simple_info_tmdb.append(simple_info)
-#
-#		for idx, x in enumerate(meta['tvmaze_seasons']['episodes']):
-#			simple_info = tools._build_simple_show_info(x)
-#			simple_info_tvmaze.append(simple_info)
-#
-#		simple_info1a = simple_info_tmdb[0]
-#		simple_info1b = simple_info_tvmaze[0]
-#		simple_info2a = simple_info_tmdb[-1]
-#		simple_info2b = simple_info_tvmaze[-1]
-#		#tools.log(simple_info1a, simple_info2a)
-#		#tools.log(simple_info1b, simple_info2b)
-#
-#		start_index = -1
-#		end_index = -1
-#		for idx, i in enumerate(sorted_torr_info):
-#			pack_path = os.path.basename(i['pack_path'])
-#			test1a = run_show_filters(simple_info1a, release_title = pack_path)
-#			if ': True' in str(test1a):
-#				start_index = idx
-#				#test1['start_index'] = int(idx)
-#				break
-#
-#		for idx, i in enumerate(sorted_torr_info):
-#			if idx < start_index - 2:
-#				continue
-#			pack_path = os.path.basename(i['pack_path'])
-#			test1a = run_show_filters(simple_info1b, release_title = pack_path)
-#			if ': True' in str(test1a):
-#				if idx < start_index:
-#					start_index = idx
-#				#test1['start_index'] = int(idx)
-#				break
-#
-#		for idx, i in enumerate(sorted_torr_info):
-#			if idx < start_index:
-#				continue
-#			pack_path = os.path.basename(i['pack_path'])
-#			test1a = run_show_filters(simple_info2a, release_title = pack_path)
-#			if ': True' in str(test1a):
-#				end_index = idx
-#				#test1['start_index'] = int(idx)
-#				break
-#
-#		for idx, i in enumerate(sorted_torr_info):
-#			if idx < end_index - 2:
-#				continue
-#			pack_path = os.path.basename(i['pack_path'])
-#			test1a = run_show_filters(simple_info2b, release_title = pack_path)
-#			if ': True' in str(test1a):
-#				if idx > end_index:
-#					end_index = idx
-#				#test1['start_index'] = int(idx)
-#				break
-#
-#		if len(simple_info_tvmaze) == (1+(end_index-start_index)):
-#			simple_info_list = simple_info_tvmaze
-#			meta_source = 'tvmaze_seasons'
-#		elif len(simple_info_tmdb) == (1+(end_index-start_index)):
-#			simple_info_list = simple_info_tmdb
-#			meta_source = 'tmdb_seasons'
-#		elif len(simple_info_tmdb) < (1+(end_index-start_index)):
-#			simple_info_list = simple_info_tvmaze
-#			meta_source = 'tvmaze_seasons'
-#		else:
-#			simple_info_list = simple_info_tmdb
-#			meta_source = 'tmdb_seasons'
-#
-#		#tools.log(sorted_torr_info)
-#		#tools.log(len(simple_info_tmdb), len(simple_info_tvmaze))
-#		#tools.log(end_index, start_index)
-#		#exit()
-#
-#		if end_index == -1:
-#			end_index = len(sorted_torr_info)-1
-#
-#		output_list = []
-#		output_ep = {}
-#		alternate_title = {}
-#		missing_list = []
-#		pop_ep = 0
-#		full_dict = {}
-#		full_dict['concat'] = []
-#		for iidx, i in enumerate(sorted_torr_info):
-#			if iidx < start_index or iidx > end_index:
-#				continue
-#			for idx, x in enumerate(meta[meta_source]['episodes']):
-#				if idx < pop_ep:
-#					continue
-#				#simple_info = tools._build_simple_show_info(x)
-#				simple_info = simple_info_list[idx]
-#				pack_path = os.path.basename(i['pack_path'])
-#				test = run_show_filters(simple_info, release_title = pack_path)
-#				test['alternate_title'].append(simple_info['episode_title'])
-#				if ': True' in str(test):
-#					output = str('ep='+str(int(idx)+1)+'='+i['pack_path'])
-#					if str('ep='+str(int(idx)+1)+'=') in str(output_list):
-#						if not i['pack_path'] in str(output_list) and not i['pack_path'] in str(missing_list):
-#							missing_list.append(i['pack_path'])
-#						continue
-#					output_list.append(output)
-#					output_ep[int(idx)+1] = i['pack_path']
-#					alternate_title[int(idx)+1] = test['alternate_title']
-#					pop_ep = idx
-#
-#		#for i in missing_list:
-#		#	if i in str(output_ep):
-#		#		continue
-#		#	if not i in str(output_ep):
-#		#		for jdx, j in enumerate(sorted_torr_info):
-#		#			if int(jdx) < int(start_index):
-#		#				continue
-#		#			if int(jdx) > int(end_index):
-#		#				continue
-#		#			if j['pack_path'] == i:
-#		#				for idx, x in enumerate(meta[meta_source]['episodes']):
-#		#					#simple_info = tools._build_simple_show_info(x)
-#		#					simple_info = simple_info_list[idx]
-#		#					pack_path = os.path.basename(j['pack_path'])
-#		#					test = run_show_filters(simple_info, release_title = pack_path)
-#
-#		result_dict = {}
-#		result_dict['episode_numbers'] = []
-#		result_dict['pack_paths'] = []
-#		result_dict['alternate_title'] = []
-#		result_dict['concat'] = []
-#		for idx, i in enumerate(meta[meta_source]['episodes']):
-#			test = output_ep.get(idx+1)
-#			if test:
-#				#print(idx+1,test)
-#				result_dict['episode_numbers'].append(idx+1)
-#				result_dict['pack_paths'].append(test)
-#				result_dict['alternate_title'].append(alternate_title[idx+1])
-#				result_dict['concat'].append({'meta_source': meta_source, 'tmdb': meta['tmdb'],'season': meta['episode_meta']['season'], 'episode_number': idx+1, 'pack_path': test, 'alternate_title': alternate_title[idx+1]})
-#
-#		missing_episodes = []
-#		for i in range(meta[meta_source]['episodes'][0]['episode'],meta[meta_source]['episodes'][-1]['episode']+1):
-#			if not i in result_dict['episode_numbers']:
-#				missing_episodes.append(i)
-#
-#		pop_ep = 0
-#		for i in missing_episodes:
-#			for jdx, j in enumerate(sorted_torr_info):
-#				ep_plus_one = str(int(i)+1)
-#				ep_minus_one = str(int(i)-1)
-#				simple_info = simple_info_list[int(i)-1]
-#				simple_info['episode_number'] = str(i)
-#				if int(jdx) < int(start_index):
-#					continue
-#				elif int(jdx) > int(end_index):
-#					continue
-#				elif int(jdx) < int(pop_ep):
-#					continue
-#				pack_path = os.path.basename(j['pack_path'])
-#				test1 = run_show_filters(simple_info, release_title = pack_path, fuzzy=True)
-#				test1['alternate_title'].append(simple_info['episode_title'])
-#
-#				if ': True' in str(test1):
-#					pop_ep = jdx 
-#					result_dict['episode_numbers'].append(simple_info['episode_number'])
-#					result_dict['pack_paths'].append(j['pack_path'])
-#					result_dict['alternate_title'].append(test1['alternate_title'])
-#					result_dict['concat'].append({'meta_source': meta_source, 'tmdb': meta['tmdb'],'season': meta['episode_meta']['season'], 'episode_number': simple_info['episode_number'], 'pack_path': j['pack_path'], 'alternate_title': test1['alternate_title']})
-#					break
-#				else:
-#					test2 = None
-#					if len(test1['part_number_title']) > 0:
-#						if int(test1['part_number_title'][0]) == 2:
-#							simple_info['episode_number'] = ep_minus_one
-#							test2 = run_show_filters(simple_info, release_title = pack_path, fuzzy=True)
-#							test2['alternate_title'].append(simple_info['episode_title'])
-#						elif int(test1['part_number_title'][0]) == 1:
-#							simple_info['episode_number'] = ep_plus_one
-#							test2 = run_show_filters(simple_info, release_title = pack_path, fuzzy=True)
-#							test2['alternate_title'].append(simple_info['episode_title'])
-#						if ': True' in str(test2):
-#							pop_ep = jdx 
-#							result_dict['episode_numbers'].append(str(i))
-#							result_dict['pack_paths'].append(j['pack_path'])
-#							result_dict['alternate_title'].append(test2['alternate_title'])
-#							result_dict['concat'].append({'meta_source': meta_source, 'tmdb': meta['tmdb'],'season': meta['episode_meta']['season'], 'episode_number': str(i), 'pack_path': j['pack_path'], 'alternate_title': test2['alternate_title']})
-#							break
-#
-#					
-#				
-#				#if not ': True' in str(test) and len(test['part_number_title'])>0 and len(test['part_number_release'])==0:
-#				#	simple_info2 = simple_info
-#				#	for i in test['part_match_title']:
-#				#		simple_info2['episode_title'] = simple_info['episode_title'].replace(i,'')
-#				#		simple_info2['clean_release'] = clean_release_title_with_simple_info( j['pack_path'], simple_info2)
-#				#		filter_fn = get_filter_single_episode_fn(simple_info2)
-#				#		test['get_filter_single_episode_fn'] = filter_fn(simple_info2['clean_release'])
-#				#		test['filter_single_special_episode'] = filter_single_special_episode(simple_info2, simple_info2['clean_release'])
-#				#		test['filter_check_episode_title_match'] = filter_check_episode_title_match(simple_info, simple_info['clean_release'])
-#				#		print('')
-#				#		print('')
-#				#		print(test)
-#				#		print('')
-#				#		print('')
-#				#		print({'meta_source': meta_source, 'tmdb': meta['tmdb'],'season': meta['episode_meta']['season'], 'episode_number': test['episode_number'], 'pack_path': j['pack_path']})
-#		
-#		new_result_dict = {}
-#		new_result_dict['episode_numbers'] = []
-#		new_result_dict['pack_paths'] = []
-#		new_result_dict['concat'] = []
-#		new_result_dict['alternate_title'] = []
-#		missing_list = []
-#		for i in range(1, len(result_dict['episode_numbers'])+1):
-#			try: idx = result_dict['episode_numbers'].index(str(i))
-#			except: 
-#				try: idx = result_dict['episode_numbers'].index(i)
-#				except: 
-#					missing_list.append(i)
-#					continue
-#			new_result_dict['episode_numbers'].append(str(result_dict['episode_numbers'][idx]))
-#			new_result_dict['pack_paths'].append(result_dict['pack_paths'][idx])
-#			new_result_dict['alternate_title'].append(result_dict['alternate_title'][idx])
-#			new_result_dict['concat'].append(result_dict['concat'][idx])
-#
-#		#tools.log(sorted_torr_info)
-#		tools.log(missing_list)
-#		#tools.log(new_result_dict)
-#		#result_dict = {}
-#		#result_dict['episode_numbers'] = []
-#		#result_dict['pack_paths'] = []
-#		#result_dict['concat'] = []
-#		#result_dict['alternate_title'] = []
-#		#update_flag = False
-#		#if len(simple_info_tvmaze) > len(simple_info_tmdb):
-#		#	for i in meta['tvmaze_seasons']['episodes']:
-#		#		tvmaze_ep_name = i['name']
-#		#		for jdx, j in enumerate(new_result_dict['alternate_title']):
-#		#			for alt in j:
-#		#				if alt in str(tvmaze_ep_name):
-#		#					#tools.log(i['episode'],tvmaze_ep_name,new_result_dict['concat'][jdx])
-#		#					result_dict['episode_numbers'].append(str(i['episode']))
-#		#					result_dict['pack_paths'].append(new_result_dict['pack_path'][jdx])
-#		#					result_dict['concat'].append(new_result_dict['concat'][jdx])
-#		#					result_dict['alternate_title'].append(new_result_dict['alternate_title'][jdx])
-#		#					update_flag = True
-#		#if update_flag == True:
-#		#	new_result_dict = result_dict
-#
-#		#tools.write_all_text(path, str(result_dict))
-#		return new_result_dict
-#"""
-
-
 
 def unique(list1):
 	from functools import reduce
@@ -1484,162 +1288,7 @@ def unique(list1):
 	ans = reduce(lambda re, x: re+[x] if x not in re else re, list1, [])
 	return list(ans)
 
-#def match_episodes_season_pack1(meta, sorted_torr_info):
-#	now = time.time()
-#	url = str(sorted_torr_info[0]) + 'season___' +str(meta['episode_meta']['season']) + 'meta_source__None'
-#	folder = 'show_filters'
-#	cache_days = 7
-#	url = url.encode('utf-8')
-#	hashed_url = hashlib.md5(url).hexdigest()
-#	cache_path = os.path.join(tools.ADDON_USERDATA_PATH, folder)
-#
-#	if not os.path.exists(cache_path):
-#		os.mkdir(cache_path)
-#	cache_seconds = int(cache_days * 86400.0)
-#	path = os.path.join(cache_path, '%s.txt' % hashed_url)
-#	if os.path.exists(path) and ((now - os.path.getmtime(path)) < cache_seconds):
-#		results = tools.read_all_text(path)
-#		results = eval(results)
-#		return results
-#	else:
-#		#sys.path.append(current_directory)
-#		#try:
-#		#	import daetutil, babelfish, rebulk, guessit
-#		#	from guessit import api
-#		#except:
-#		#	from a4kscrapers_wrapper import dateutil, babelfish, rebulk, guessit
-#		#	from a4kscrapers_wrapper.guessit import api
-#
-#		last_episode_tmdb = int(meta['tmdb_seasons']['episodes'][-1]['episode'])
-#		last_episode_tvmaze = int(meta['tvmaze_seasons']['episodes'][-1]['episode'])
-#		season = int(meta['tvmaze_seasons']['episodes'][-1]['season'])
-#		
-#		folders = unique([item['pack_path'].replace(os.path.basename(item['pack_path']),'') for item in sorted_torr_info])
-#		season_path = None
-#		for i in folders:
-#			#guess = api.guessit(i)
-#			guess = get_guess(i)
-#			if guess.get('season') == int(season):
-#				season_path = i
-#				break
-#
-#		#tools.log(sorted_torr_info)
-#		#tools.log(len(simple_info_tmdb), len(simple_info_tvmaze))
-#		#tools.log(folders)
-#		#exit()
-#
-#		#for idx, x in enumerate(meta['tvmaze_seasons']['episodes']):
-#		#for idx, x in enumerate(meta['tmdb_seasons']['episodes']):
-#
-#		result_dict = {}
-#		result_dict['episode_numbers'] = []
-#		result_dict['torr_episode_numbers'] = []
-#		result_dict['pack_paths'] = []
-#		result_dict['concat'] = []
-#		result_dict['alternate_title'] = []
-#		#result_dict['concat'].append({'meta_source': meta_source, 'tmdb': meta['tmdb'],'season': meta['episode_meta']['season'], 'episode_number': str(i), 'pack_path': j['pack_path'], 'alternate_title': test2['alternate_title']})
-#
-#		guessit_list = []
-#		start_index = -1
-#		end_index = -1
-#		options = {'type': 'episode'}
-#		for idx, i in enumerate(sorted_torr_info):
-#			pack_path = os.path.basename(i['pack_path'])
-#			if season_path:
-#				if not season_path in str(i['pack_path']):
-#					continue
-#			#guess = api.guessit(pack_path, options)
-#			guess = get_guess(pack_path, options)
-#			guessit_list.append([guess, idx, []])
-#			guess_season = guess.get('season')
-#			guess_episode = []
-#			guess_title = guess.get('title')
-#			if guess.get('episode') == None:
-#				continue
-#			if not 'int' in  str(type(guess.get('episode'))):
-#				for x in guess.get('episode'):
-#					guess_episode.append(x)
-#			else:
-#				guess_episode.append(guess.get('episode'))
-#
-#			for x in guess_episode:
-#				guessit_list[-1][-1].append(x)
-#				if guess_season == season and x == 1:
-#					start_index = idx
-#				if guess_season == season and x == last_episode_tmdb:
-#					if not end_index:
-#						end_index = idx
-#					elif end_index and idx > end_index:
-#						end_index = idx
-#				if guess_season == season and x == last_episode_tvmaze:
-#					if not end_index:
-#						end_index = idx
-#					elif end_index and idx > end_index:
-#						end_index = idx
-#
-#		if len(meta['tvmaze_seasons']['episodes']) == (1+(end_index-start_index)):
-#			meta_source = 'tvmaze_seasons'
-#		elif len(meta['tmdb_seasons']['episodes']) == (1+(end_index-start_index)):
-#			meta_source = 'tmdb_seasons'
-#		elif len(meta['tmdb_seasons']['episodes']) < (1+(end_index-start_index)):
-#			meta_source = 'tvmaze_seasons'
-#		else:
-#			meta_source = 'tmdb_seasons'
-#
-#		used_eps = []
-#		for xdx, x in enumerate(meta[meta_source]['episodes']):
-#			ep_title = x['name'].lower()
-#			ep_title = re.sub("[\x00-\x2F\x3A-\x40\x5B-\x60\x7B-\x7F]+", " ", ep_title.lower())
-#			if xdx in used_eps:
-#				continue
-#			for gdx, i in enumerate(guessit_list):
-#				idx = i[1]
-#				episode_title = i[0].get('episode_title')
-#				if episode_title:
-#					episode_title = re.sub("[\x00-\x2F\x3A-\x40\x5B-\x60\x7B-\x7F]+", " ", episode_title.lower())
-#				else:
-#					continue
-#				if ep_title == episode_title:
-#					for y in i[-1]:
-#						used_eps.append(xdx)
-#						result_dict['episode_numbers'].append(x['episode'])
-#						result_dict['torr_episode_numbers'].append(y)
-#						result_dict['pack_paths'].append(sorted_torr_info[idx]['pack_path'])
-#						result_dict['alternate_title'].append([ep_title,episode_title])
-#						result_dict['concat'].append({'meta_source': meta_source, 'tmdb': meta['tmdb'],'season': meta['episode_meta']['season'], 'episode_number': x['episode'], 'torr_episode_numbers': y, 'pack_path': sorted_torr_info[idx]['pack_path'], 'alternate_title': [ep_title,episode_title]})
-#					break
-#
-#		for xdx, x in enumerate(meta[meta_source]['episodes']):
-#			ep_title = x['name'].lower()
-#			ep_title = re.sub("[\x00-\x2F\x3A-\x40\x5B-\x60\x7B-\x7F]+", " ", ep_title.lower())
-#			if xdx in used_eps:
-#				continue
-#			for gdx, i in enumerate(guessit_list):
-#				idx = i[1]
-#				#episode_title = i[0].get('episode_title')
-#				#if episode_title:
-#				#	episode_title = re.sub("[\x00-\x2F\x3A-\x40\x5B-\x60\x7B-\x7F]+", " ", episode_title.lower())
 
-#				if i[0].get('episode') == None:
-#					continue
-#				else:
-#					break_flag = False
-#					for y in i[-1]:
-#						if x['episode'] == y and x['season'] == i[0].get('season'):
-#							used_eps.append(xdx)
-#							result_dict['episode_numbers'].append(x['episode'])
-#							result_dict['torr_episode_numbers'].append(y)
-#							result_dict['pack_paths'].append(sorted_torr_info[idx]['pack_path'])
-#							result_dict['alternate_title'].append([ep_title,episode_title])
-#							result_dict['concat'].append({'meta_source': meta_source, 'tmdb': meta['tmdb'],'season': meta['episode_meta']['season'], 'episode_number': x['episode'], 'torr_episode_numbers': y, 'pack_path': sorted_torr_info[idx]['pack_path'], 'alternate_title': [ep_title,episode_title]})
-#							break_flag = True
-#					if break_flag == True:
-#						break
-#		for i in result_dict:
-#			tools.log(i, result_dict[i])
-#		#tools.log(json.dumps(result_dict, indent=2))
-#
-#		return result_dict
 
 def match_episodes_season_pack(meta, sorted_torr_info):
 	now = time.time()
@@ -1669,6 +1318,10 @@ def match_episodes_season_pack(meta, sorted_torr_info):
 
 		last_episode_tmdb = int(meta['tmdb_seasons']['episodes'][-1]['episode'])
 		last_episode_tvmaze = int(meta['tvmaze_seasons']['episodes'][-1]['episode'])
+
+		last_abs_episode_tmdb = int(meta['tmdb_seasons']['episodes'][-1]['absoluteNumber'])
+		last_abs_episode_tvmaze = int(meta['tvmaze_seasons']['episodes'][-1]['absoluteNumber'])
+		
 		season = int(meta['tvmaze_seasons']['episodes'][-1]['season'])
 		
 		folders = unique([item['pack_path'].replace(os.path.basename(item['pack_path']),'') for item in sorted_torr_info])
@@ -1703,10 +1356,16 @@ def match_episodes_season_pack(meta, sorted_torr_info):
 		end_index = -1
 		options = {'type': 'episode'}
 		prev_episode = 0
+		max_episode = 0
+		absolute_flag = False
+		season_match = False
 		
 		for idx, i in enumerate(sorted_torr_info):
 			pack_path = os.path.basename(i['pack_path'])
+			#tools.log(pack_path)
+			#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
 			if season_path:
+				#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
 				if not season_path in str(i['pack_path']):
 					season_match = False
 					if int(meta['episode_meta']['episode']) == 1 and idx == prev_season_index:
@@ -1726,21 +1385,85 @@ def match_episodes_season_pack(meta, sorted_torr_info):
 								season_match = True
 					if season_match == False:
 						continue
+			if absolute_flag and season_match == False:
+				#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
+				curr_episode_tmdb = meta['tmdb_seasons']['episodes'][0]
+				curr_episode_tvmaze = meta['tvmaze_seasons']['episodes'][0]
+				simple_info = tools._build_simple_show_info(curr_episode_tvmaze)
+	
+				
+				filter_fn = get_filter_single_absolute_episode_fn(simple_info)
+				simple_info['query_title'] = i['pack_path']
+				simple_info['clean_release'] = clean_release_title_with_simple_info(i['pack_path'], simple_info)
+				test = filter_fn(simple_info['clean_release'])
+
+				simple_info2 = tools._build_simple_show_info(curr_episode_tmdb)
+				simple_info2['query_title'] = i['pack_path']
+				filter_fn = get_filter_single_absolute_episode_fn(simple_info2)
+				simple_info2['clean_release'] = clean_release_title_with_simple_info(i['pack_path'], simple_info2)
+				test2 = filter_fn(simple_info2['clean_release'])
+				
+				if test == True or test2 == True:
+					#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
+					season_match = True
+				if season_match == False:
+					#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
+					continue
 			#guess = api.guessit(pack_path, options)
 			guess = get_guess(pack_path, options)
-			#tools.log(pack_path,guess)
+			if guess.get('type') == 'episode' and 'miniseries' in str(meta).lower():
+				if guess.get('episode', False) == False and guess.get('part', False) != False:
+					guess['episode'] = guess['part'] 
+				if guess.get('season', False) == False:
+					guess['season'] = 1 
+				if guess.get('episode_title', False) == False:
+					guess['episode_title'] = simple_info['originaltitle']
+					
+			#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
 			#tools.log(pack_path,guess)
 			guessit_list.append([guess, idx, []])
 			guess_season = guess.get('season')
+
+			if guess_season == None and guess.get('episode') != None and absolute_flag == False:
+				absolute_flag = True
+				#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
+				curr_episode_tmdb = meta['tmdb_seasons']['episodes'][0]
+				curr_episode_tvmaze = meta['tvmaze_seasons']['episodes'][0]
+				simple_info = tools._build_simple_show_info(curr_episode_tvmaze)
+
+				filter_fn = get_filter_single_absolute_episode_fn(simple_info)
+				simple_info['query_title'] = i['pack_path']
+				simple_info['clean_release'] = clean_release_title_with_simple_info(i['pack_path'], simple_info)
+				test = filter_fn(simple_info['clean_release'])
+
+				simple_info2 = tools._build_simple_show_info(curr_episode_tmdb)
+				simple_info2['query_title'] = i['pack_path']
+				filter_fn = get_filter_single_absolute_episode_fn(simple_info2)
+				simple_info2['clean_release'] = clean_release_title_with_simple_info(i['pack_path'], simple_info2)
+				test2 = filter_fn(simple_info2['clean_release'])
+
+				if test == True or test2 == True:
+					#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
+					season_match = True
+				if season_match == False:
+					#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
+					continue
+
+				start_index = idx
+
 			guess_episode = []
 			guess_title = guess.get('title')
 			if guess.get('episode') == None:
-				curr_episode_tmdb = meta['tmdb_seasons']['episodes'][prev_episode]
-				curr_episode_tvmaze = meta['tvmaze_seasons']['episodes'][prev_episode]
+
+				try:
+					curr_episode_tmdb = meta['tmdb_seasons']['episodes'][prev_episode]
+					curr_episode_tvmaze = meta['tvmaze_seasons']['episodes'][prev_episode]
+				except IndexError:
+					continue
 				#tools.log(curr_episode_tvmaze,'')
 				simple_info = tools._build_simple_show_info(curr_episode_tvmaze)
 				test = run_show_filters(simple_info, release_title = i['pack_path'])
-				if test['get_filter_single_absolute_episode_fn'] == True or test['filter_check_episode_title_match'] == True or test['filter_single_special_episode'] == True or test['get_filter_single_episode_fn'] == True:
+				if test.get('get_filter_single_absolute_episode_fn',False) == True or test.get('filter_check_episode_title_match',False) == True or test.get('filter_single_special_episode',False) == True or test.get('get_filter_single_episode_fn',False) == True:
 					guess['episode'] = prev_episode
 					guess['title'] = curr_episode_tvmaze['tvshowtitle']
 					guess['episode_title'] = curr_episode_tvmaze['originaltitle']
@@ -1748,7 +1471,7 @@ def match_episodes_season_pack(meta, sorted_torr_info):
 				else:
 					simple_info = tools._build_simple_show_info(curr_episode_tmdb)
 					test = run_show_filters(simple_info, release_title = i['pack_path'])
-					if test['get_filter_single_absolute_episode_fn'] == True or test['filter_check_episode_title_match'] == True or test['filter_single_special_episode'] == True or test['get_filter_single_episode_fn'] == True:
+					if test.get('get_filter_single_absolute_episode_fn',False) == True or test.get('filter_check_episode_title_match',False) == True or test.get('filter_single_special_episode',False) == True or test.get('get_filter_single_episode_fn',False) == True:
 						guess['episode'] = prev_episode
 						guess['title'] = curr_episode_tvmaze['tvshowtitle']
 						guess['episode_title'] = curr_episode_tvmaze['originaltitle']
@@ -1767,6 +1490,13 @@ def match_episodes_season_pack(meta, sorted_torr_info):
 				if x > max_episode:
 					max_episode = x
 				guessit_list[-1][-1].append(x)
+				if absolute_flag:
+					
+					if x == last_abs_episode_tmdb or x == last_abs_episode_tvmaze:
+						end_index = idx
+					if x > last_abs_episode_tmdb and x > last_abs_episode_tvmaze:
+						season_match = False
+
 				if guess_season == season and x == 1:
 					start_index = idx
 				if guess_season == season and x == last_episode_tmdb:
@@ -1787,6 +1517,7 @@ def match_episodes_season_pack(meta, sorted_torr_info):
 				end_index = 0
 
 		#tools.log(end_index, start_index)
+		#tools.log(last_abs_episode_tmdb, last_abs_episode_tvmaze)
 		#tools.log(max(guess_episode))
 		#tools.log(max_episode,'max_episode')
 		if last_episode_tvmaze == -1:
@@ -1809,6 +1540,11 @@ def match_episodes_season_pack(meta, sorted_torr_info):
 			meta_source = 'tvmaze_seasons'
 
 		tools.log(meta_source,'meta_source')
+		ep_adj_number = 0
+		if int(meta[meta_source]['episodes'][-1]['episode']) > max_episode:
+			ep_adj_number = max_episode - int(meta[meta_source]['episodes'][-1]['episode'])
+		#tools.log(meta[meta_source]['episodes'][-1]['episode'],'max_episode_meta_source')
+
 		matched_episodes = {}
 		for xdx, x in enumerate(meta[meta_source]['episodes']):
 			ep_title = x['name'].lower()
@@ -1822,8 +1558,12 @@ def match_episodes_season_pack(meta, sorted_torr_info):
 					episode_title = re.sub("[\x00-\x2F\x3A-\x40\x5B-\x60\x7B-\x7F]+", " ", episode_title.lower())
 				else:
 					continue
+				if len(clean_title(i[0].get('episode_title'))) < len(i[0].get('episode_title')):
+					jaro_dist_factor = 0.8
+				else:
+					jaro_dist_factor = 0.90001
 
-				if ep_title == episode_title or str(ep_title) in str(episode_title) or str(episode_title) in str(ep_title) or distance.jaro_similarity(ep_title, episode_title) > 0.90001:
+				if ep_title == episode_title or str(ep_title) in str(episode_title) or str(episode_title) in str(ep_title) or distance.jaro_similarity(ep_title, episode_title) > float(jaro_dist_factor):
 					#tools.log(x,i)
 					for y in i[-1]:
 						try:
@@ -1845,7 +1585,7 @@ def match_episodes_season_pack(meta, sorted_torr_info):
 				except:
 					continue
 
-
+		#tools.log(matched_episodes,'matched_episodes')
 		for xdx, x in enumerate(meta[meta_source]['episodes']):
 			ep_title = x['name'].lower()
 			ep_title = re.sub("[\x00-\x2F\x3A-\x40\x5B-\x60\x7B-\x7F]+", " ", ep_title.lower())
@@ -1884,16 +1624,77 @@ def match_episodes_season_pack(meta, sorted_torr_info):
 					guess_episode = guess.get('episode') 
 					simple_info = tools._build_simple_show_info(meta[meta_source]['episodes'][int(i)-1])
 					part_number_title, part_number_release, part_match_title, part_match_release = parts_check(simple_info, pack_path)
+					#tools.log(simple_info,'simple_info')
+					#tools.log(pack_path,'pack_path')
+					#tools.log(part_number_title, part_number_release, part_match_title, part_match_release)
 					if episode_title:
+						#tools.log(distance.jaro_similarity(ep_title, episode_title))
+						#tools.log(ep_title, episode_title)
+						try: ep_title_part_test = int(ep_title.split(' ')[-1].replace(')','').replace('(',''))
+						except: ep_title_part_test = 0
+						#tools.log(ep_title_part_test, 'ep_title_part_test')
+						if ep_title_part_test > 0:
+							ep_title2 = ep_title.replace(' '+ep_title.split(' ')[-1],'')
+						else:
+							ep_title2 = None
+						#tools.log(ep_title2, 'ep_title2')
+						#tools.log(guess_episode, 'guess_episode')
+						#tools.log(i, 'i')
 						if ep_title == episode_title or distance.jaro_similarity(ep_title, episode_title) > 0.925:
 							if guess_episode == i and guess_season == int(meta[meta_source]['episodes'][int(i)-1]['season']):
 								match = True
+							elif ep_adj_number > 0 and guess_episode < i and i - guess_episode <= ep_adj_number and guess_season == int(meta[meta_source]['episodes'][int(i)-1]['season']):
+								match = True
 							elif part_number_title == part_number_release:
 								match = True
+						elif len(clean_title(episode_title)) < len(episode_title):
+							if ep_title == episode_title or distance.jaro_similarity(ep_title, episode_title) > 0.75:
+								if guess_episode == i and guess_season == int(meta[meta_source]['episodes'][int(i)-1]['season']):
+									match = True
+								elif ep_adj_number > 0 and guess_episode < i and i - guess_episode <= ep_adj_number and guess_season == int(meta[meta_source]['episodes'][int(i)-1]['season']):
+									match = True
+								elif part_number_title == part_number_release:
+									match = True
+
+						if ep_title2 and match == False:
+							#tools.log(distance.jaro_similarity(ep_title2, episode_title))
+							#tools.log(ep_title2, 'ep_title2')
+							#tools.log(guess_episode, i)
+							if ep_title2 == episode_title or distance.jaro_similarity(ep_title2, episode_title) > 0.925:
+								if (guess_episode == i or max(guess_episode,i)-min(guess_episode,i)==1) and guess_season == int(meta[meta_source]['episodes'][int(i)-1]['season']):
+									match = True
+								elif part_number_title == part_number_release:
+									match = True
+							elif len(clean_title(episode_title)) < len(episode_title):
+								if ep_title2 == episode_title or distance.jaro_similarity(ep_title2, episode_title) > 0.75:
+									if (guess_episode == i or max(guess_episode,i)-min(guess_episode,i)==1) and guess_season == int(meta[meta_source]['episodes'][int(i)-1]['season']):
+										match = True
+
+									#elif (guess_episode == i or max(guess_episode,i)-min(guess_episode,i)==1) and guess_season == int(meta[meta_source]['episodes'][int(i)-1]['season']):
+									elif ep_adj_number > 0 and guess_episode < i and i - guess_episode <= ep_adj_number and guess_season == int(meta[meta_source]['episodes'][int(i)-1]['season']):
+										match = True
+
+									elif part_number_title == part_number_release:
+										match = True
+
+						if match == False:
+							try:
+								if part_number_release[-1] == part_number_title[-1] and str(part_number_title[-1]) in str(part_match_release[-1]):
+									if ep_title == episode_title or distance.jaro_similarity(ep_title, episode_title) > 0.8:
+										match = True
+										#tools.log(simple_info,'simple_info,match = True')
+							except:
+								#tools.log(simple_info,'simple_info')
+								#tools.log(pack_path,'pack_path')
+								#tools.log(result_dict,'result_dict')
+								#tools.log(part_number_title, part_number_release, part_match_title, part_match_release)
+								match = False
 					else:
 						if guess_episode == i and guess_season == int(meta[meta_source]['episodes'][int(i)-1]['season']):
 							match = True
 					if match == True and not i in result_dict['episode_numbers']:
+						#tools.log(ep_title, episode_title)
+						#tools.log(i,'i')
 						result_dict['episode_numbers'].append(i)
 						result_dict['alt_ep_num'].append(guess_episode)
 						result_dict['pack_paths'].append(pack_path)
@@ -1920,6 +1721,8 @@ def match_episodes_season_pack(meta, sorted_torr_info):
 		result_dict_sorted['pack_paths'] = []
 		result_dict_sorted['alt_ep_num'] = []
 		result_dict_sorted['concat'] = []
+
+		#tools.log(result_dict)
 
 		for i in range(min(result_dict['episode_numbers']),max(result_dict['episode_numbers'])+1):
 			idx = result_dict['episode_numbers'].index(i)

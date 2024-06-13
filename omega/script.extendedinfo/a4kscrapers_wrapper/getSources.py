@@ -292,6 +292,31 @@ except ImportError:
 	from imp import reload as reload_module
 
 
+def patch_ak4_core_find_url():
+
+	patch_line_434 = """if self.caller_name in ['anirena'"""
+	patch_update_434 = """        if self.caller_name in ['anirena', 'btdig', 'bt4g', 'btscene', 'glo', 'eztv', 'lime', 'rutor', 'torrentapi', 'torrentz2', 'showrss', 'scenerls', 'piratebay', 'magnetdl', 'torrentio', 'elfhosted']: ## PATCH
+"""
+	file_path = os.path.join(os.path.join(tools.ADDON_USERDATA_PATH, 'providerModules', 'a4kScrapers') , 'core.py')
+	file1 = open(file_path, 'r')
+	lines = file1.readlines()
+	new_file = ''
+	update_flag = False
+	for idx, line in enumerate(lines):
+		if '## PATCH' in str(line):
+			update_flag = False
+			break
+		if patch_line_434 in str(line):
+			new_file = new_file + patch_update_434
+			update_flag = True
+		else:
+			new_file = new_file + line
+	file1.close()
+	if update_flag:
+		file1 = open(file_path, 'w')
+		file1.writelines(new_file)
+		file1.close()
+
 
 def patch_ak4_requests():
 	#tools.log('NO_PATCH')
@@ -343,6 +368,34 @@ def patch_ak4_requests():
 		file1.writelines(new_file)
 		file1.close()
 
+def curr_percent(rd_api):
+	if rd_api.original_tot_bytes == 0:
+		return
+	curr_percent = round((rd_api.remaining_tot_bytes/rd_api.original_tot_bytes) * 100,2)
+	if curr_percent < 0:
+		curr_percent = 0
+	os.environ['DOWNLOAD_CURR_PERCENT'] = str(int(curr_percent))
+	tools.log('\n\n'+str(curr_percent)+'% total remaining on file')
+	percent_done = 100 - curr_percent
+	if percent_done == 0:
+		return
+	time_running = time.time() - rd_api.original_start_time
+	seconds_per_percent = time_running / percent_done
+	seconds_remaining = int(curr_percent * seconds_per_percent)
+	minutes_remaining = int((curr_percent * seconds_per_percent) / 60)
+	hours_remaining = round((curr_percent * seconds_per_percent) / (60*60),2)
+	tools.log('\n\n'+str(seconds_remaining)+' seconds_remaining')
+	tools.log('\n\n'+str(minutes_remaining)+' minutes_remaining')
+	tools.log('\n\n'+str(hours_remaining)+' hours_remaining')
+	tools.log('REMAINING_LINES_MAGNET_LIST =   '+str(rd_api.num_lines))
+	if rd_api.xbmc_gui:
+		import xbmcgui
+		xbmcgui.Window(10000).setProperty('curr_percent', str(curr_percent))
+		xbmcgui.Window(10000).setProperty('percent_done', str(percent_done))
+		xbmcgui.Window(10000).setProperty('seconds_remaining', str(seconds_remaining))
+		xbmcgui.Window(10000).setProperty('minutes_remaining', str(minutes_remaining))
+		xbmcgui.Window(10000).setProperty('hours_remaining', str(hours_remaining))
+		xbmcgui.Window(10000).setProperty('num_lines_remaining', str(rd_api.num_lines))
 
 def run_downloader(magnet_list, download_path):
 	rd_api = real_debrid.RealDebrid()
@@ -350,11 +403,31 @@ def run_downloader(magnet_list, download_path):
 	start_time = time.time()
 	active_magnets = []
 	processed_files = []
-	
+	rd_api.original_start_time = time.time()
+	try:
+		rd_api.xbmc_gui = True
+		import xbmcgui
+	except:
+		rd_api.xbmc_gui = False
+
+	tot_bytes = 0
+	with open(magnet_list, 'r') as fp:
+		for line in fp:
+			try: tot_bytes = tot_bytes + eval(line)['tot_bytes']
+			except: continue
+	original_tot_bytes = tot_bytes
+	rd_api.original_tot_bytes = original_tot_bytes
+	rd_api.remaining_tot_bytes = original_tot_bytes
 	while time.time() < start_time + 300 and curr_download:
+		tot_bytes = 0
 		with open(magnet_list, 'r') as fp:
 			num_lines = sum(1 for line in fp if line.rstrip())
+			for line in fp:
+				try: tot_bytes = tot_bytes + eval(line)['tot_bytes']
+				except: continue
 		log('REMAINING_LINES_MAGNET_LIST =   '+str(num_lines))
+		rd_api.num_lines = num_lines
+		curr_percent(rd_api)
 
 		try: 
 			download_type = curr_download.get('download_type', None)
@@ -387,7 +460,9 @@ def run_downloader(magnet_list, download_path):
 				#torr_info = rd_api.torrent_info(torr_id)
 				if torr_info['status'] == 'downloaded':
 					download_cached_magnet_pack(rd_api, download_path, curr_download, torr_id, torr_info)
-					
+					if tools.tools_stop_downloader == True:
+						tools.tools_stop_downloader = False
+						return
 					start_time = time.time()
 					curr_download = tools.get_download_line(magnet_list)
 					tools.delete_download_line(magnet_list, curr_download)
@@ -399,7 +474,9 @@ def run_downloader(magnet_list, download_path):
 				#torr_info = rd_api.torrent_info(torr_id)
 				if torr_info['status'] == 'downloaded':
 					download_cached_movie(rd_api, download_path, curr_download, torr_id, torr_info)
-					
+					if tools.tools_stop_downloader == True:
+						tools.tools_stop_downloader = False
+						return
 					start_time = time.time()
 					curr_download = tools.get_download_line(magnet_list)
 					tools.delete_download_line(magnet_list, curr_download)
@@ -411,6 +488,9 @@ def run_downloader(magnet_list, download_path):
 				#torr_info = rd_api.torrent_info(torr_id)
 				if torr_info['status'] == 'downloaded':
 					download_cached_episode(rd_api, download_path, curr_download, torr_id, torr_info)
+					if tools.tools_stop_downloader == True:
+						tools.tools_stop_downloader = False
+						return
 
 					start_time = time.time()
 					curr_download = tools.get_download_line(magnet_list)
@@ -418,16 +498,25 @@ def run_downloader(magnet_list, download_path):
 					curr_download = tools.get_download_line(magnet_list)
 			if download_type == 'uncached':
 				processed_files = download_uncached_magnet(rd_api, download_path, curr_download, torr_id, torr_info, processed_files, magnet_list, True)
+				if tools.tools_stop_downloader == True:
+					tools.tools_stop_downloader = False
+					return
 				start_time = time.time()
 				curr_download = tools.get_download_line(magnet_list)
 			elif torr_info['status'] != 'downloaded':
 				active_magnets.append(magnet)
 				processed_files = download_uncached_magnet(rd_api, download_path, curr_download, torr_id, torr_info, processed_files, magnet_list, False)
+				if tools.tools_stop_downloader == True:
+					tools.tools_stop_downloader = False
+					return
 				start_time = time.time()
 				curr_download = tools.get_download_line(magnet_list)
 		else:
 			if str(curr_download).strip()[:4] == 'http':
 				download_http_rd_link(rd_api, download_path, curr_download)
+				if tools.tools_stop_downloader == True:
+					tools.tools_stop_downloader = False
+					return
 				tools.delete_download_line(magnet_list, curr_download)
 				rd_api.delete_download(rd_api.UNRESTRICT_FILE_ID)
 				start_time = time.time()
@@ -439,16 +528,25 @@ def run_downloader(magnet_list, download_path):
 				torr_info = rd_api.torrent_info(torr_id)
 				if curr_download in active_magnets:
 					processed_files = download_uncached_magnet(rd_api, download_path, curr_download, torr_id, torr_info, processed_files, magnet_list, True)
+					if tools.tools_stop_downloader == True:
+						tools.tools_stop_downloader = False
+						return
 					start_time = time.time()
 					curr_download = tools.get_download_line(magnet_list)
 				elif torr_info['status'] != 'downloaded':
 					active_magnets.append(curr_download)
 					processed_files = download_uncached_magnet(rd_api, download_path, curr_download, torr_id, torr_info, processed_files, magnet_list, False)
+					if tools.tools_stop_downloader == True:
+						tools.tools_stop_downloader = False
+						return
 					start_time = time.time()
 					curr_download = tools.get_download_line(magnet_list)
 				elif torr_info['status'] == 'downloaded':
 					active_magnets.append(curr_download)
 					processed_files = download_uncached_magnet(rd_api, download_path, curr_download, torr_id, torr_info, processed_files, magnet_list, True)
+					if tools.tools_stop_downloader == True:
+						tools.tools_stop_downloader = False
+						return
 					start_time = time.time()
 					curr_download = tools.get_download_line(magnet_list)
 		tools.log(processed_files)
@@ -456,6 +554,11 @@ def run_downloader(magnet_list, download_path):
 		time.sleep(10)
 		curr_download = tools.get_download_line(magnet_list)
 		sleep_count = 0
+		if not curr_download:
+			rd_api.num_lines = 0
+			if rd_api.remaining_tot_bytes < 0:
+				rd_api.remaining_tot_bytes = 0
+			curr_percent(rd_api)
 		while not curr_download:
 			if sleep_count > 90:
 				break
@@ -475,7 +578,26 @@ def run_tv_search():
 		return
 	meta = get_meta.get_episode_meta(season=season_number, episode=episode_number,tmdb=None, show_name=tv_show_title, year=None, interactive=True)
 	info = meta['episode_meta']
-	uncached, sources_list, item_information= Sources(info).get_sources()
+	#tools.log(info)
+	scrapper = Sources(info)
+	uncached, sources_list, item_information = scrapper.get_sources()
+	print(scrapper.progress)
+	if len(uncached) == 0 and len(sources_list) == 0:
+		for i in info['show_aliases']:
+			info['show_title'] = i
+			info['tvshow'] = i
+			info['tvshowtitle'] = i
+			info['info']['show_title'] = i
+			info['info']['tvshow'] = i
+			info['info']['tvshowtitle'] = i
+			#tools.log(info)
+			scrapper = Sources(info)
+			uncached, sources_list, item_information = scrapper.get_sources()
+			print(scrapper.progress)
+			if len(uncached) == 0 and len(sources_list) == 0:
+				continue
+			else:
+				break
 	sources_list = tools.SourceSorter(item_information).sort_sources(sources_list)
 	#sources_list, uncached = pack_sort(sources_list=sources_list, uncached=uncached, item_information=item_information)
 	
@@ -483,9 +605,13 @@ def run_tv_search():
 	magnet_list = tools.get_setting('magnet_list')
 	download_path = tools.get_setting('download_path')
 	torrent_choices_test = []
+	uncached_choice = {'provider_name_override': 'UNCACHED', 'hash': 'UNCACHED', 'package': 'UNCACHED', 'release_title': 'UNCACHED', 'size': 0, 'seeds': 0, 'magnet': 'UNCACHED', 'type': 'UNCACHED', 'provider_name': 'UNCACHED', 'info': {'UNCACHED'}, 'quality': 'UNCACHED', 'pack_size': 0, 'provider': 'UNCACHED', 'debrid_provider': 'UNCACHED'}
 	if len(sources_list) == 0:
 		tools.log('UNCACHED_NO_CACHED TORENTS FOUND!!')
-		sources_list = uncached
+		sources_list = []
+		sources_list.append(uncached_choice)
+		sources_list = sources_list + uncached
+		uncached_choice = None
 		for i in torrent_choices:
 			if not 'uncached' in str(i).lower():
 				torrent_choices_test.append(i)
@@ -495,7 +621,8 @@ def run_tv_search():
 				torrent_choices_test.append(i)
 	for i in torrent_choices_test:
 		torrent_choices.pop(i)
-	sources_list.append({'provider_name_override': 'UNCACHED', 'hash': 'UNCACHED', 'package': 'UNCACHED', 'release_title': 'UNCACHED', 'size': 0, 'seeds': 0, 'magnet': 'UNCACHED', 'type': 'UNCACHED', 'provider_name': 'UNCACHED', 'info': {'UNCACHED'}, 'quality': 'UNCACHED', 'pack_size': 0, 'provider': 'UNCACHED', 'debrid_provider': 'UNCACHED'})
+	if uncached_choice:
+		sources_list.append(uncached_choice)
 	torrent = choose_torrent(sources_list)
 	if not torrent:
 		tools.log('EXIT')
@@ -505,8 +632,8 @@ def run_tv_search():
 		torrent_choices = {
 	'Add to downloader list (whole pack)': 4,
 	'Add to downloader list (episode)': 5,
-	'Add to downloader list (whole pack + subtitles)': 6,
-	'Add to downloader list (episode + subtitles)': 7,
+	#'Add to downloader list (whole pack + subtitles)': 6,
+	#'Add to downloader list (episode + subtitles)': 7,
 	'(Uncached) Add to RD (whole pack) ': 8,
 	'(Uncached) Add to RD (individual files) ': 9
 }
@@ -527,7 +654,21 @@ def run_tv_search():
 
 	if result == 1 or result == 8:#'Add to RD Cache (whole pack)': 1,#'(Uncached) Add to RD (whole pack) ': 8,
 		tools.log(torrent)
-		response = rd_api.add_magnet(torrent['magnet'])
+		response = None
+		while response == None:
+			response = rd_api.add_magnet(torrent['magnet'])
+			for idx, i in enumerate(sources_list):
+				if i['hash'] == torrent['hash']:
+					break
+			sources_list.pop(idx)
+			if response.get('error',False):
+				tools.log(response)
+				torrent = choose_torrent(sources_list)
+				#result = tools.selectFromDict(torrent_choices, 'Torrent')
+				#if not result:
+				#	tools.log('EXIT')
+				#	return
+				response = None
 		tools.log(response)
 		torr_id = response['id']
 		response = rd_api.torrent_select_all(torr_id)
@@ -535,7 +676,22 @@ def run_tv_search():
 		tools.log(torr_info)
 	elif result == 2:#'Add to RD Cache + Unrestrict (whole pack)': 2,
 		tools.log(torrent)
-		response = rd_api.add_magnet(torrent['magnet'])
+		#response = rd_api.add_magnet(torrent['magnet'])
+		response = None
+		while response == None:
+			response = rd_api.add_magnet(torrent['magnet'])
+			for idx, i in enumerate(sources_list):
+				if i['hash'] == torrent['hash']:
+					break
+			sources_list.pop(idx)
+			if response.get('error',False):
+				tools.log(response)
+				torrent = choose_torrent(sources_list)
+				#result = tools.selectFromDict(torrent_choices, 'Torrent')
+				#if not result:
+				#	tools.log('EXIT')
+				#	return
+				response = None
 		tools.log(response)
 		torr_id = response['id']
 		response = rd_api.torrent_select_all(torr_id)
@@ -620,6 +776,7 @@ def run_tv_search():
 		#	download_id = rd_api.UNRESTRICT_FILE_ID
 		#	log(download_link, download_id)
 		download_link, new_meta = cloud_get_ep_season(rd_api, meta, torr_id, torr_info)
+
 			
 		stream_link = download_link
 		#file_name = unquote(stream_link).split('/')[-1]
@@ -628,6 +785,12 @@ def run_tv_search():
 		filename_without_ext = os.path.splitext(os.path.basename(stream_link))[0]
 		#file_name_ext = file_name.replace(filename_without_ext,'')
 		file_name_ext = os.path.splitext(os.path.basename(stream_link))[1]
+		tot_bytes = 0
+		for i in torr_info['files']:
+			if file_name_ext in i['path'] and i['selected'] == 1:
+				tot_bytes = tot_bytes + i['bytes']
+		meta['tot_bytes'] = tot_bytes
+
 		#if filename_without_ext == g.CURR_SOURCE['release_title'].lower() or filename_without_ext in g.CURR_SOURCE['release_title'].lower():
 		#	file_name = g.CURR_SOURCE['release_title'] + file_name_ext
 		#	filename_without_ext = g.CURR_SOURCE['release_title']
@@ -677,6 +840,12 @@ def run_tv_search():
 
 		stream_link = download_link
 		file_name = os.path.basename(stream_link)
+		tot_bytes = 0
+		for i in torr_info['files']:
+			if unquote(file_name) in unquote(i['path']) and i['selected'] == 1:
+				tot_bytes = tot_bytes + i['bytes']
+		meta['tot_bytes'] = tot_bytes
+
 		filename_without_ext = os.path.splitext(os.path.basename(stream_link))[0]
 		file_name_ext = os.path.splitext(os.path.basename(stream_link))[1]
 		subs_filename = filename_without_ext + '.srt'
@@ -724,6 +893,11 @@ def run_tv_search():
 
 			stream_link = download_link
 			file_name = os.path.basename(stream_link)
+			tot_bytes = 0
+			for i in torr_info['files']:
+				if unquote(file_name) in unquote(i['path']) and i['selected'] == 1:
+					tot_bytes = tot_bytes + i['bytes']
+			ep_meta['tot_bytes'] = tot_bytes
 			filename_without_ext = os.path.splitext(os.path.basename(stream_link))[0]
 			file_name_ext = os.path.splitext(os.path.basename(stream_link))[1]
 			subs_filename = filename_without_ext + '.srt'
@@ -768,6 +942,12 @@ def run_tv_search():
 
 		stream_link = download_link
 		file_name = os.path.basename(stream_link)
+		tot_bytes = 0
+		for i in torr_info['files']:
+			if unquote(file_name) in unquote(i['path']) and i['selected'] == 1:
+				tot_bytes = tot_bytes + i['bytes']
+		meta['tot_bytes'] = tot_bytes
+
 		filename_without_ext = os.path.splitext(os.path.basename(stream_link))[0]
 		file_name_ext = os.path.splitext(os.path.basename(stream_link))[1]
 		subs_filename = filename_without_ext + '.srt'
@@ -792,15 +972,26 @@ def run_tv_search():
 
 	return
 
-def run_movie_search():
-	try: 
-		movie_title = input('Enter Movie Title:  ')
-	except:
-		tools.log('EXIT')
-		return
+def run_keyword_search():
+	info = {'mediatype': 'movie', 'download_type': 'movie', 'episode': '', 'imdb_id': 'tt', 'is_movie': False, 'is_tvshow': False, 'media_type': 'movie', 'season': '', 'title': None, 'tmdb_id': None, 'tvshow': '', 'tvshow_year': '', 'year': '', 'info': {'mediatype': 'movie', 'episode': '', 'imdb_id': 'tt', 'is_movie': False, 'is_tvshow': False, 'media_type': 'movie', 'season': '', 'title': None, 'tmdb_id': None, 'tvshow': '', 'tvshow_year': '', 'year': ''}}
+	movie_title = input('Enter Search Term:  ')
+	info['title'] = movie_title
+	info['info']['title'] = movie_title
+	run_movie_search(info)
 
-	meta = get_meta.get_movie_meta(movie_name=movie_title,year=None, interactive=True)
-	info = meta
+def run_movie_search(info=None):
+	if info == None:
+		try: 
+			movie_title = input('Enter Movie Title:  ')
+		except:
+			tools.log('EXIT')
+			return
+
+		meta = get_meta.get_movie_meta(movie_name=movie_title,year=None, interactive=True)
+		info = meta
+	else:
+		meta = info
+
 	uncached, sources_list, item_information= Sources(info).get_sources()
 	torrent_choices = tools.torrent_choices
 	torrent_choices_original = str(tools.torrent_choices)
@@ -890,15 +1081,22 @@ def run_movie_search():
 		torr_info = rd_api.torrent_info(torr_id)
 		#tools.log(torr_info)
 
+		tot_bytes = 0
 		for i in torr_info['links']:
 			unrestrict_link = i
 			download_link = rd_api.resolve_hoster(unrestrict_link)
 			download_id = rd_api.UNRESTRICT_FILE_ID
 			log(download_link, download_id)
-			
+			for i in torr_info['files']:
+				if i['selected'] == 1:
+					tot_bytes = tot_bytes + i['bytes']
+		meta['tot_bytes'] = tot_bytes
+
 		stream_link = download_link
 		#file_name = unquote(stream_link).split('/')[-1]
 		file_name = os.path.basename(stream_link)
+
+
 		#filename_without_ext = file_name.replace('.'+file_name.split('.')[-1],'')
 		filename_without_ext = os.path.splitext(os.path.basename(stream_link))[0]
 		#file_name_ext = file_name.replace(filename_without_ext,'')
@@ -944,12 +1142,16 @@ def run_movie_search():
 		torr_info = rd_api.torrent_info(torr_id)
 		#tools.log(torr_info)
 
+		tot_bytes = 0
 		for i in torr_info['links']:
 			unrestrict_link = i
 			download_link = rd_api.resolve_hoster(unrestrict_link)
 			download_id = rd_api.UNRESTRICT_FILE_ID
 			log(download_link, download_id)
-			
+			for i in torr_info['files']:
+				if i['selected'] == 1:
+					tot_bytes = tot_bytes + i['bytes']
+		meta['tot_bytes'] = tot_bytes
 		stream_link = download_link
 		#file_name = unquote(stream_link).split('/')[-1]
 		file_name = os.path.basename(stream_link)
@@ -1006,6 +1208,26 @@ def cloud_get_ep_season(rd_api, meta, torr_id, torr_info):
 	info = meta['episode_meta']
 	simple_info = tools._build_simple_show_info(info)
 
+	daily_show_flag = False
+	if info['episode_air_date'][-2:] in info['title'] and info['episode_air_date'][:4] in info['title']:
+		import datetime
+		if datetime.datetime.strptime(info['episode_air_date'], '%Y-%m-%d').strftime('%B %d, %Y') in info['title']:
+			daily_show_flag = True
+		if datetime.datetime.strptime(info['episode_air_date'], '%Y-%m-%d').strftime('%Y.%m.%d') in info['title']:
+			daily_show_flag = True
+
+	if daily_show_flag:
+		info_keyword = {'mediatype': 'movie', 'download_type': 'movie', 'episode': '', 'imdb_id': 'tt', 'is_movie': False, 'is_tvshow': False, 'media_type': 'movie', 'season': '', 'title': None, 'tmdb_id': None, 'tvshow': '', 'tvshow_year': '', 'year': '', 'info': {'mediatype': 'movie', 'episode': '', 'imdb_id': 'tt', 'is_movie': False, 'is_tvshow': False, 'media_type': 'movie', 'season': '', 'title': None, 'tmdb_id': None, 'tvshow': '', 'tvshow_year': '', 'year': ''}}
+
+		info_keyword['title'] = '%s %s' % (info['tvshow'], info['episode_air_date'].replace('-','.'))
+		info_keyword['info']['title'] = info_keyword['title']
+		info['info']['title'] = info['info']['title'].replace(datetime.datetime.strptime(info['episode_air_date'], '%Y-%m-%d').strftime('%B %d, %Y'), datetime.datetime.strptime(info['episode_air_date'], '%Y-%m-%d').strftime('%Y.%m.%d'))
+		info['title'] = info['info']['title']
+		meta['episode_meta'] = info
+		simple_info['show_aliases'] = info['info']['show_aliases']
+		simple_info['episode_title'] = info['info']['title']
+		tools.log(meta['episode_meta'])
+
 	result_dict = source_tools.match_episodes_season_pack(meta, sorted_torr_info)
 
 	download_link = None
@@ -1018,12 +1240,31 @@ def cloud_get_ep_season(rd_api, meta, torr_id, torr_info):
 	tvmaze_adjusted_eps = []
 	jdx = 0
 	#if meta_source == 'tmdb_seasons' and len(meta['tmdb_seasons']['episodes']) < len(meta['tvmaze_seasons']['episodes']):
-	if meta_source == 'tmdb_seasons' and int(meta['tmdb_seasons']['episodes'][-1]['episode']) < int(meta['tvmaze_seasons']['episodes'][-1]['episode']):
+	#tools.log(meta_source)
+	#tools.log(meta['tmdb_seasons']['episodes'])
+	#tools.log(meta['tvmaze_seasons']['episodes'])
+	if meta_source == 'tmdb_seasons' and (int(meta['tmdb_seasons']['episodes'][-1]['episode']) < int(meta['tvmaze_seasons']['episodes'][-1]['episode']) or result_dict['alt_ep_num'][-1] < result_dict['episode_numbers'][-1]):
 		for idx, i in enumerate(meta['tvmaze_seasons']['episodes']):
 			try:
 				try: curr_tmdb_name = meta['tmdb_seasons']['episodes'][idx]['name']
 				except: curr_tmdb_name = ''
-				#tools.log(i['name'], curr_tmdb_name)
+
+				if result_dict['alt_ep_num'][-1] < result_dict['episode_numbers'][-1]:
+					i['name'] = i['name'].split(', Part ')[0]
+					#try: ep_title_part_test = int(curr_tmdb_name.split(' ')[-1].replace(')','').replace('(',''))
+					#except: ep_title_part_test = 0
+					#if ep_title_part_test > 0:
+					#	curr_tmdb_name = curr_tmdb_name.replace(' '+curr_tmdb_name.split(' ')[-1],'')
+					#try: ep_title_part_test = int(meta['tmdb_seasons']['episodes'][jdx]['name'].split(' ')[-1].replace(')','').replace('(',''))
+					#except: ep_title_part_test = 0
+					#if ep_title_part_test > 0:
+					#	meta['tmdb_seasons']['episodes'][jdx]['name'] = meta['tmdb_seasons']['episodes'][jdx]['name'].replace(' '+meta['tmdb_seasons']['episodes'][jdx]['name'].split(' ')[-1],'')
+				#tools.log(i['name'], 'i[name]')
+				#tools.log(curr_tmdb_name, 'curr_tmdb_name')
+				#tools.log(meta['tmdb_seasons']['episodes'][jdx]['name'], 'jdx_name')
+				#tools.log(distance.jaro_similarity(i['name'],meta['tmdb_seasons']['episodes'][jdx]['name']), curr_tmdb_name)
+
+
 				if i['name'] != curr_tmdb_name and not (str(i['name']) in str(curr_tmdb_name) or str(curr_tmdb_name) in str(i['name'])):
 					for jdx, ji in enumerate(meta['tmdb_seasons']['episodes']):
 						if i['name'] == meta['tmdb_seasons']['episodes'][jdx]['name'] or str(i['name']) in str(meta['tmdb_seasons']['episodes'][jdx]['name']) or str(meta['tmdb_seasons']['episodes'][jdx]['name']) in str(i['name']) :
@@ -1045,7 +1286,7 @@ def cloud_get_ep_season(rd_api, meta, torr_id, torr_info):
 							#log(guess1,guess2)
 							if guess1['episode_title'] == guess2['episode_title']:
 								tvmaze_adjusted_eps.append(jdx+1)
-								#log(i['name'], jdx+1,2a2a2a)
+								#log(i['name'], jdx+1,2323232)
 								#log(curr_tmdb_name)
 								break
 				elif i['name'] == curr_tmdb_name or str(i['name']) in str(curr_tmdb_name) or str(curr_tmdb_name) in str(i['name']):
@@ -1071,7 +1312,11 @@ def cloud_get_ep_season(rd_api, meta, torr_id, torr_info):
 				log('EXCEPTIUON__cloud_get_ep_season',i['name'], idx+1, meta['tvmaze_seasons']['episodes'][idx]['name'])
 				pass
 	#tools.log(tvmaze_adjusted_eps, simple_info)
-	original_ep_no = int(simple_info['episode_number'])
+	try: 
+		original_ep_no = int(simple_info['episode_number'])
+	except ValueError: 
+		original_ep_no = 0
+		simple_info['episode_number'] = 0
 	#tools.log(original_ep_no, 'original_ep_no')
 	#tools.log(result_dict['episode_numbers'], 'result_dict[episode_numbers]')
 	for i in result_dict['episode_numbers']:
@@ -1098,6 +1343,27 @@ def cloud_get_ep_season(rd_api, meta, torr_id, torr_info):
 	else:
 		test_ep = int(simple_info['episode_number'])
 	#log(simple_info['episode_number'])
+	#log(result_dict)
+
+	test_ep_adjust = 0
+	counted = []
+	for ijx, ij in enumerate(result_dict['alt_ep_num']):
+		#tools.log(ij,'alt_ep_num')
+		if ij in counted:
+			continue
+		if ijx > 0 and result_dict['alt_ep_num'][ijx-1] == ij:
+			test_ep_adjust = test_ep_adjust + 1 
+			counted.append(ij)
+		elif ijx == 0 and len(result_dict['alt_ep_num']) >= ijx+2:
+			if result_dict['alt_ep_num'][ijx+1] == ij:
+				test_ep_adjust = test_ep_adjust + 1 
+				counted.append(ij)
+		if ij == test_ep:
+			break
+	test_ep = test_ep - test_ep_adjust
+	if test_ep_adjust > 0:
+		log('test_ep_adjust - %s, test_ep = %s' % (test_ep_adjust, test_ep))
+
 
 	for ijx, ij in enumerate(result_dict['alt_ep_num']):
 		torr_ep_index = ijx
@@ -1121,12 +1387,28 @@ def cloud_get_ep_season(rd_api, meta, torr_id, torr_info):
 			if int(ij) == int(test_ep):
 				if int(ij) != int(result_dict['episode_numbers'][ijx]):
 					messed_up_numbering_flag = True
-					new_info = meta[meta_source]['episodes'][int(result_dict['episode_numbers'][ijx])-1]
+					new_info = meta[meta_source]['episodes'][int(result_dict['episode_numbers'][torr_ep_index])-1]
 					#tools.log(new_info)
 					new_meta = get_meta.get_episode_meta(season=new_info['season'],episode=new_info['episode'],tmdb=new_info['tmdb'])
 					break
+			#if result_dict['alt_ep_num'][ijx-1] == result_dict['alt_ep_num'][ijx] and int(test_ep) == result_dict['alt_ep_num'][ijx+1]:
+			#	if result_dict['alt_ep_num'][-1] < result_dict['episode_numbers'][-1]:
+			#		#torr_ep_index = torr_ep_index -1
+			#		if int(ij) != int(result_dict['episode_numbers'][ijx]):
+			#			messed_up_numbering_flag = True
+			#			new_info = meta[meta_source]['episodes'][int(result_dict['episode_numbers'][torr_ep_index])-1]
+			#			tools.log(new_info)
+			#			test_ep = int(ij)
+			#			new_meta = get_meta.get_episode_meta(season=new_info['season'],episode=new_info['episode'],tmdb=new_info['tmdb'])
+			#			break
+			#		#tools.log('ijx',result_dict['alt_ep_num'][ijx])
+			#		#tools.log('torr_ep_index',result_dict['alt_ep_num'][torr_ep_index])
+			#		#tools.log('simple_info',simple_info['episode_number'])
+			#		#tools.log('test_ep',test_ep)
+			#		#tools.log('ij',ij)
+			#		#tools.log('ijx',result_dict['episode_numbers'][ijx])
 
-
+	#tools.log('test_ep',test_ep)
 	if messed_up_numbering_flag == True:
 		for ijx, ij in enumerate(result_dict['alt_ep_num']):
 			try: 
@@ -1251,9 +1533,19 @@ def auto_scrape_rd(meta):
 		info = meta
 		download_type = meta.get('download_type',False)
 		meta['episode_meta'] = {}
+		daily_show_flag = False
 	else:
 		info = meta['episode_meta']
 		download_type = meta.get('download_type',False)
+		daily_show_flag = False
+		if info['episode_air_date'][-2:] in info['title'] and info['episode_air_date'][:4] in info['title']:
+			import datetime
+			if datetime.datetime.strptime(info['episode_air_date'], '%Y-%m-%d').strftime('%B %d, %Y') in info['title']:
+				daily_show_flag = True
+			if datetime.datetime.strptime(info['episode_air_date'], '%Y-%m-%d').strftime('%Y.%m.%d') in info['title']:
+				daily_show_flag = True
+
+
 	special_flag = False
 	special_meta = None
 	if meta['episode_meta'].get('special',False) == True:
@@ -1263,7 +1555,47 @@ def auto_scrape_rd(meta):
 		if special_meta:
 			special_simple_info = tools._build_simple_movie_info(special_meta)
 
-	uncached, sources_list, item_information = Sources(info).get_sources()
+	#tools.log(meta)
+	#tools.log(info)
+	if daily_show_flag:
+		info_keyword = {'mediatype': 'movie', 'download_type': 'movie', 'episode': '', 'imdb_id': 'tt', 'is_movie': False, 'is_tvshow': False, 'media_type': 'movie', 'season': '', 'title': None, 'tmdb_id': None, 'tvshow': '', 'tvshow_year': '', 'year': '', 'info': {'mediatype': 'movie', 'episode': '', 'imdb_id': 'tt', 'is_movie': False, 'is_tvshow': False, 'media_type': 'movie', 'season': '', 'title': None, 'tmdb_id': None, 'tvshow': '', 'tvshow_year': '', 'year': ''}}
+
+		info_keyword['title'] = '%s %s' % (info['tvshow'], info['episode_air_date'].replace('-','.'))
+		info_keyword['info']['title'] = info_keyword['title']
+		info['info']['title'] = info['info']['title'].replace(datetime.datetime.strptime(info['episode_air_date'], '%Y-%m-%d').strftime('%B %d, %Y'), datetime.datetime.strptime(info['episode_air_date'], '%Y-%m-%d').strftime('%Y.%m.%d'))
+		info['title'] = info['info']['title']
+		meta['episode_meta'] = info
+		uncached, sources_list, item_information = Sources(info_keyword).get_sources()
+		tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
+		#tools.log(meta['episode_meta'])
+		#tools.log(sources_list)
+	else:
+		#uncached, sources_list, item_information = Sources(info).get_sources()
+		scrapper = Sources(info)
+		uncached, sources_list, item_information = scrapper.get_sources()
+		print(scrapper.progress)
+		if meta.get('download_type',False) == 'movie' and len(uncached) == 0 and len(sources_list) == 0:
+			scrapper = Sources(info)
+			uncached, sources_list, item_information = scrapper.get_sources()
+			print(scrapper.progress)
+		elif len(uncached) == 0 and len(sources_list) == 0:
+			for i in info['show_aliases']:
+				info['show_title'] = i
+				info['tvshow'] = i
+				info['tvshowtitle'] = i
+				info['info']['show_title'] = i
+				info['info']['tvshow'] = i
+				info['info']['tvshowtitle'] = i
+				#tools.log(info)
+				scrapper = Sources(info)
+				uncached, sources_list, item_information = scrapper.get_sources()
+				print(scrapper.progress)
+				if len(uncached) == 0 and len(sources_list) == 0:
+					continue
+				else:
+					break
+
+
 	#sources_list = tools.SourceSorter(item_information).sort_sources(sources_list)
 	#uncached = tools.SourceSorter(info).sort_sources(uncached)
 	if meta.get('download_type',False) != 'movie':
@@ -1356,10 +1688,12 @@ def auto_scrape_rd(meta):
 		if download_link:
 			return download_link, meta
 		if download_type != 'movie':
+			#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
 			download_link, new_meta = cloud_single_ep(rd_api, meta, torr_id, torr_info)
 		if download_link:
 			return download_link, new_meta
 		if download_type != 'movie':
+			#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
 			download_link, new_meta = cloud_get_ep_season(rd_api, meta, torr_id, torr_info)
 		if download_link:
 			return download_link, new_meta
@@ -1522,6 +1856,26 @@ def cloud_single_ep(rd_api, meta, torr_id, torr_info):
 	simple_info = tools._build_simple_show_info(meta['episode_meta'])
 	info = meta['episode_meta']
 
+	daily_show_flag = False
+	if info['episode_air_date'][-2:] in info['title'] and info['episode_air_date'][:4] in info['title']:
+		import datetime
+		if datetime.datetime.strptime(info['episode_air_date'], '%Y-%m-%d').strftime('%B %d, %Y') in info['title']:
+			daily_show_flag = True
+		if datetime.datetime.strptime(info['episode_air_date'], '%Y-%m-%d').strftime('%Y.%m.%d') in info['title']:
+			daily_show_flag = True
+
+	if daily_show_flag:
+		info_keyword = {'mediatype': 'movie', 'download_type': 'movie', 'episode': '', 'imdb_id': 'tt', 'is_movie': False, 'is_tvshow': False, 'media_type': 'movie', 'season': '', 'title': None, 'tmdb_id': None, 'tvshow': '', 'tvshow_year': '', 'year': '', 'info': {'mediatype': 'movie', 'episode': '', 'imdb_id': 'tt', 'is_movie': False, 'is_tvshow': False, 'media_type': 'movie', 'season': '', 'title': None, 'tmdb_id': None, 'tvshow': '', 'tvshow_year': '', 'year': ''}}
+
+		info_keyword['title'] = '%s %s' % (info['tvshow'], info['episode_air_date'].replace('-','.'))
+		info_keyword['info']['title'] = info_keyword['title']
+		info['info']['title'] = info['info']['title'].replace(datetime.datetime.strptime(info['episode_air_date'], '%Y-%m-%d').strftime('%B %d, %Y'), datetime.datetime.strptime(info['episode_air_date'], '%Y-%m-%d').strftime('%Y.%m.%d'))
+		info['title'] = info['info']['title']
+		meta['episode_meta'] = info
+		simple_info['show_aliases'] = info['info']['show_aliases']
+		simple_info['episode_title'] = info['info']['title']
+		#tools.log(meta['episode_meta'])
+
 	unrestrict_link = None
 	download_link = None
 	for i in sorted_torr_info:
@@ -1578,12 +1932,35 @@ getSources.check_rd_cloud(meta)
 		if special_meta:
 			special_simple_info = tools._build_simple_movie_info(special_meta)
 			special_simple_info['imdb_id'] = special_meta['imdb_id']
-	#log(info)
+
 	if download_type == 'movie':
 		simple_info = tools._build_simple_movie_info(info)
 		simple_info['imdb_id'] = info['imdb_id']
+		daily_show_flag = False
 	else:
 		simple_info = tools._build_simple_show_info(info)
+
+		daily_show_flag = False
+		if info['episode_air_date'][-2:] in info['title'] and info['episode_air_date'][:4] in info['title']:
+			import datetime
+			if datetime.datetime.strptime(info['episode_air_date'], '%Y-%m-%d').strftime('%B %d, %Y') in info['title']:
+				daily_show_flag = True
+			if datetime.datetime.strptime(info['episode_air_date'], '%Y-%m-%d').strftime('%Y.%m.%d') in info['title']:
+				daily_show_flag = True
+
+	if daily_show_flag:
+		info_keyword = {'mediatype': 'movie', 'download_type': 'movie', 'episode': '', 'imdb_id': 'tt', 'is_movie': False, 'is_tvshow': False, 'media_type': 'movie', 'season': '', 'title': None, 'tmdb_id': None, 'tvshow': '', 'tvshow_year': '', 'year': '', 'info': {'mediatype': 'movie', 'episode': '', 'imdb_id': 'tt', 'is_movie': False, 'is_tvshow': False, 'media_type': 'movie', 'season': '', 'title': None, 'tmdb_id': None, 'tvshow': '', 'tvshow_year': '', 'year': ''}}
+
+		info_keyword['title'] = '%s %s' % (info['tvshow'], info['episode_air_date'].replace('-','.'))
+		info_keyword['info']['title'] = info_keyword['title']
+		info['info']['title'] = info['info']['title'].replace(datetime.datetime.strptime(info['episode_air_date'], '%Y-%m-%d').strftime('%B %d, %Y'), datetime.datetime.strptime(info['episode_air_date'], '%Y-%m-%d').strftime('%Y.%m.%d'))
+		info['title'] = info['info']['title']
+		meta['episode_meta'] = info
+		simple_info['show_aliases'] = info['info']['show_aliases']
+		simple_info['episode_title'] = info['info']['title']
+		#tools.log(meta['episode_meta'])
+		#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
+		#tools.log(sources_list)
 
 	rd_api = real_debrid.RealDebrid()
 	for i in range(1,99):
@@ -1609,7 +1986,7 @@ getSources.check_rd_cloud(meta)
 					test = ': True'
 			else:
 				test = source_tools.run_show_filters(simple_info, release_title = x['filename'])
-			#tools.log(test)
+
 			if ': True' in str(test):
 				download_link = x['download']
 				download_link = rd_api.test_download_link(download_link)
@@ -1673,13 +2050,19 @@ getSources.check_rd_cloud(meta)
 				#test2 = source_tools.filter_movie_title(x['filename'], source_tools.clean_title(x['filename']), meta['title'], simple_info)
 				test2 = {}
 			else:
+				#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
+				simple_info_original = simple_info
 				test = source_tools.run_show_filters(simple_info, pack_title = x['filename'])
+				simple_info = simple_info_original
 				if simple_info['episode_number'] == 'None' or simple_info['episode_number'] == None:
 					simple_info1 = simple_info
 					simple_info1['episode_number'] = '0'
+					#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
 					test2 = source_tools.run_show_filters(simple_info1, release_title = x['filename'])
 				else:
+					#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
 					test2 = source_tools.run_show_filters(simple_info, release_title = x['filename'])
+			#tools.log(test2, test)
 			if ': True' in str(test) or ': True' in str(test2):
 				torr_id = x['id']
 				torr_info = rd_api.torrent_info(torr_id)
@@ -1690,7 +2073,11 @@ getSources.check_rd_cloud(meta)
 						return download_link, meta
 
 				if download_type != 'movie':
-					download_link, new_meta = cloud_get_ep_season(rd_api, meta, torr_id, torr_info)
+					if daily_show_flag:
+						#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
+						download_link, new_meta = cloud_single_ep(rd_api, meta, torr_id, torr_info)
+					else:
+						download_link, new_meta = cloud_get_ep_season(rd_api, meta, torr_id, torr_info)
 				if download_link:
 					tools.log('cloud_get_ep_season',download_link)
 					return download_link, new_meta
@@ -1827,7 +2214,12 @@ def download_http_rd_link(rd_api, download_path, curr_download):
 
 	if not os.path.exists(download_folder):
 		os.makedirs(download_folder)
-	tools.download_progressbar(download_link, download_path2)
+	before_download = rd_api.remaining_tot_bytes
+	try: tools.download_progressbar(rd_api, download_link, download_path2)
+	except: tools.tools_stop_downloader = True
+	#rd_api.remaining_tot_bytes = rd_api.remaining_tot_bytes - rd_api.UNRESTRICT_FILE_SIZE
+	if rd_api.remaining_tot_bytes == before_download:
+		rd_api.remaining_tot_bytes = rd_api.remaining_tot_bytes - rd_api.UNRESTRICT_FILE_SIZE
 
 
 def download_uncached_magnet(rd_api, download_path, curr_download, torr_id, torr_info, processed_files, magnet_list, test_download):
@@ -1873,7 +2265,13 @@ def download_uncached_magnet(rd_api, download_path, curr_download, torr_id, torr
 
 		if not os.path.exists(download_folder):
 			os.makedirs(download_folder)
-		tools.download_progressbar(download_link, download_path2)
+		before_download = rd_api.remaining_tot_bytes
+		try: tools.download_progressbar(rd_api, download_link, download_path2)
+		except: tools.tools_stop_downloader = True
+		#rd_api.remaining_tot_bytes = rd_api.remaining_tot_bytes - rd_api.UNRESTRICT_FILE_SIZE
+		if rd_api.remaining_tot_bytes == before_download:
+			rd_api.remaining_tot_bytes = rd_api.remaining_tot_bytes - rd_api.UNRESTRICT_FILE_SIZE
+		curr_percent(rd_api)
 		#info = get_subtitles(info, download_path2)
 		#sub_out = os.path.basename(tools.SUB_FILE)
 		#sub_path = os.path.join(download_folder, sub_out)
@@ -1898,7 +2296,13 @@ def download_uncached_magnet(rd_api, download_path, curr_download, torr_id, torr
 
 		if not os.path.exists(download_folder):
 			os.makedirs(download_folder)
-		tools.download_progressbar(download_link, download_path2)
+		before_download = rd_api.remaining_tot_bytes
+		try: tools.download_progressbar(rd_api, download_link, download_path2)
+		except: tools.tools_stop_downloader = True
+		#rd_api.remaining_tot_bytes = rd_api.remaining_tot_bytes - rd_api.UNRESTRICT_FILE_SIZE
+		if rd_api.remaining_tot_bytes == before_download:
+			rd_api.remaining_tot_bytes = rd_api.remaining_tot_bytes - rd_api.UNRESTRICT_FILE_SIZE
+		curr_percent(rd_api)
 		#info = get_subtitles(curr_download, download_path2)
 		#sub_out = os.path.basename(tools.SUB_FILE)
 		#sub_path = os.path.join(download_folder, sub_out)
@@ -1921,7 +2325,13 @@ def download_uncached_magnet(rd_api, download_path, curr_download, torr_id, torr
 		if not os.path.exists(download_folder):
 			os.makedirs(download_folder)
 		download_path2 = os.path.join(download_folder, file_name)
-		tools.download_progressbar(download_link, download_path2)
+		before_download = rd_api.remaining_tot_bytes
+		try: tools.download_progressbar(rd_api, download_link, download_path2)
+		except: tools.tools_stop_downloader = True
+		#rd_api.remaining_tot_bytes = rd_api.remaining_tot_bytes - rd_api.UNRESTRICT_FILE_SIZE
+		if rd_api.remaining_tot_bytes == before_download:
+			rd_api.remaining_tot_bytes = rd_api.remaining_tot_bytes - rd_api.UNRESTRICT_FILE_SIZE
+		curr_percent(rd_api)
 
 	tot_streams = 0
 	downloaded_streams = 0
@@ -1965,6 +2375,9 @@ def download_uncached_magnet(rd_api, download_path, curr_download, torr_id, torr
 				rd_api.delete_download(rd_api.UNRESTRICT_FILE_ID)
 				processed_files.append(pack_path)
 				downloaded_streams = downloaded_streams + 1
+				if tools.tools_stop_downloader == True:
+					tools.tools_stop_downloader = False
+					return
 			if torr_info['status'] != 'downloaded':
 				log('Added ' + str(pack_path))
 
@@ -2014,10 +2427,18 @@ def download_cached_movie(rd_api, download_path, curr_download, torr_id, torr_in
 	download_link = rd_api.resolve_hoster(unrestrict_link)
 	download_id = rd_api.UNRESTRICT_FILE_ID
 	log(download_link, download_id)
-	
-	tools.download_progressbar(download_link, download_path)
+
+	before_download = rd_api.remaining_tot_bytes
+	try: tools.download_progressbar(rd_api, download_link, download_path)
+	except: tools.tools_stop_downloader = True
+	#rd_api.remaining_tot_bytes = rd_api.remaining_tot_bytes - rd_api.UNRESTRICT_FILE_SIZE
+	if rd_api.remaining_tot_bytes == before_download:
+		rd_api.remaining_tot_bytes = rd_api.remaining_tot_bytes - rd_api.UNRESTRICT_FILE_SIZE
 	#info = get_subtitles(curr_download, download_path)
-	
+
+	if tools.tools_stop_downloader == True:
+		return
+
 	download_folder1 = os.path.dirname(download_path)
 
 	sub_path1 = os.path.join(download_folder1,unquote(str(os.path.splitext(os.path.basename(download_link))[0] + '.srt')))
@@ -2067,12 +2488,13 @@ def download_cached_movie(rd_api, download_path, curr_download, torr_id, torr_in
 		poster_path = os.path.join(download_folder1, 'poster.png')
 	elif '.jpg' in movie_poster:
 		poster_path = os.path.join(download_folder1,'poster.jpg')
-	tools.download_progressbar(movie_poster, poster_path)
+	tools.download_progressbar(rd_api, movie_poster, poster_path)
 	#sub_out = os.path.basename(tools.SUB_FILE)
 	#sub_path = os.path.join(download_folder, sub_out)
 	#shutil.copyfile(tools.SUB_FILE, sub_path)
 	#log(sub_path)
 
+	curr_percent(rd_api)
 	rd_api.delete_torrent(torr_id)
 	rd_api.delete_download(rd_api.UNRESTRICT_FILE_ID)
 
@@ -2101,6 +2523,8 @@ def download_cached_episode(rd_api, download_path, curr_download, torr_id, torr_
 	#curr_download = info2
 	info2['aliases'].append(info2['tvshowtitle'])
 
+	curr_download['file_name'] = unquote(curr_download['file_name'])
+	curr_download['filename'] = unquote(curr_download['filename'])
 	show_folder = os.path.join(download_path, str(curr_download['episode_meta']['tvshow']) + ' (' + str(curr_download['episode_meta']['tvshow_year'] + ')')).replace(':','')
 	if not os.path.exists(show_folder):
 		os.makedirs(show_folder)
@@ -2116,7 +2540,16 @@ def download_cached_episode(rd_api, download_path, curr_download, torr_id, torr_
 			download_link = rd_api.resolve_hoster(unrestrict_link)
 			download_id = rd_api.UNRESTRICT_FILE_ID
 			log(download_link, download_id)
-			tools.download_progressbar(download_link, download_path)
+			before_download = rd_api.remaining_tot_bytes
+			try: tools.download_progressbar(rd_api, download_link, download_path)
+			except: tools.tools_stop_downloader = True
+			#rd_api.remaining_tot_bytes = rd_api.remaining_tot_bytes - rd_api.UNRESTRICT_FILE_SIZE
+			if rd_api.remaining_tot_bytes == before_download:
+				rd_api.remaining_tot_bytes = rd_api.remaining_tot_bytes - rd_api.UNRESTRICT_FILE_SIZE
+
+			if tools.tools_stop_downloader == True:
+				return
+
 			#info = get_subtitles(info, download_path)
 			#sub_out = os.path.basename(tools.SUB_FILE)
 			#sub_path = os.path.join(download_folder, sub_out)
@@ -2163,7 +2596,9 @@ def download_cached_episode(rd_api, download_path, curr_download, torr_id, torr_
 					shutil.copyfile(i, out_path)
 					tools.log(out_path)
 
+			curr_percent(rd_api)
 			rd_api.delete_download(rd_api.UNRESTRICT_FILE_ID)
+
 	#log(sub_path)
 
 	rd_api.delete_torrent(torr_id)
@@ -2207,7 +2642,15 @@ def download_cached_magnet_pack(rd_api, download_path, curr_download, torr_id, t
 		log(download_link, download_id)
 		if not os.path.exists(download_folder):
 			os.makedirs(download_folder)
-		tools.download_progressbar(download_link, download_path)
+		before_download = rd_api.remaining_tot_bytes
+		try: tools.download_progressbar(rd_api, download_link, download_path)
+		except: tools.tools_stop_downloader = True
+		#rd_api.remaining_tot_bytes = rd_api.remaining_tot_bytes - rd_api.UNRESTRICT_FILE_SIZE
+		if rd_api.remaining_tot_bytes == before_download:
+			rd_api.remaining_tot_bytes = rd_api.remaining_tot_bytes - rd_api.UNRESTRICT_FILE_SIZE
+
+		if tools.tools_stop_downloader == True:
+			return
 
 		download_folder1 = os.path.dirname(download_path)
 		sub_path1 = os.path.join(download_folder1,unquote(str(os.path.splitext(os.path.basename(download_link))[0] + '.srt'))).replace(':','')
@@ -2247,8 +2690,11 @@ def download_cached_magnet_pack(rd_api, download_path, curr_download, torr_id, t
 				out_path = os.path.join(download_folder1, os.path.basename(i))
 				shutil.copyfile(i, out_path)
 				tools.log(out_path)
+		if tools.tools_stop_downloader == True:
+			tools.tools_stop_downloader = False
+			return
 
-
+		curr_percent(rd_api)
 		rd_api.delete_download(rd_api.UNRESTRICT_FILE_ID)
 		#log(sub_path)
 
@@ -2280,6 +2726,102 @@ def cached_magnet(magnet_link, file_path, torr_id, download_folder):
 
 		remove_line_from_file(file_path, magnet_link)
 		log("All files downloaded. Removed magnet link from the file.")
+
+def rd_delete_dupes():
+	rd_api = real_debrid.RealDebrid()
+	i = 0
+	result = None
+	names = []
+	while result == None:
+		i = i + 1
+	#for i in range(1,99):
+		tools.log('PAGE_NUMBER', i)
+		result = rd_api.list_torrents_page(int(i))
+		for x in result:
+			#tools.log(x)
+			if x['status'] != 'downloaded' and x['status'] != 'downloading':
+				check_hash = rd_api.check_hash([x['hash']])
+				if len(x['links']) == 0:
+					tools.log('ERROR_DELETE=' + x['filename'])
+					#tools.log(check_hash)
+					delete_torrent = rd_api.delete_torrent(x['id'])
+					tools.log(delete_torrent)
+					break_flag = True
+			pass_count = 0
+			if x['status'] == 'downloading':
+				pass_count = 1
+			break_flag = False
+			if x['filename'] in names:
+				tools.log(x['filename'])
+				tools.log('DELETE_DUPLICATE=' + x['filename'])
+				delete_torrent = rd_api.delete_torrent(x['id'])
+				tools.log(delete_torrent)
+				break_flag = True
+			if break_flag == False:
+				for j in x['links']:
+					torr_link = rd_api.resolve_hoster(j)
+					torr_link = rd_api.test_download_link(torr_link,rar_test=False)
+					if torr_link:
+						pass_count = pass_count + 1
+					UNRESTRICT_FILE_ID = torr_link.split('/')[4]
+					rd_api.delete_download(UNRESTRICT_FILE_ID)
+				if pass_count == 0:
+					tools.log('DELETE_NO_LINKS=' + x['filename'])
+					delete_torrent = rd_api.delete_torrent(x['id'])
+					tools.log(delete_torrent)
+			if x['status'] != 'downloading':
+				names.append(x['filename'])
+		if type(result).__name__ == 'list':
+			result = None
+
+	try: continue_check = input('Check Downloads:  Y/y to continue\n')
+	except: continue_check = None
+	if continue_check and str(continue_check).lower() == 'y':
+		continue_check = True
+	else:
+		continue_check = False
+		return
+
+	i = 0
+	result = None
+	names = []
+	while result == None:
+		i = i + 1
+		tools.log('PAGE_NUMBER', i)
+		result = rd_api.list_downloads_page(int(i))
+		for x in result:
+			#PTN_link = x['download']
+			#PTN_link_pos = PTN_link.find('/d/')+3
+			#PTN_link_pos2 = PTN_link_pos+13
+			#PTN_link = PTN_link[0:PTN_link_pos2] + '/'
+			tools.log(str(x['download']).split('/')[-1])
+			#torr_link = rd_api.resolve_hoster(PTN_link)
+			if str(x['download']).split('/')[-1] in names:
+				RD_link = str(x['download']).split('/')[4]
+				delete_download = rd_api.delete_download(RD_link)
+				tools.log(delete_download)
+				tools.log('DELETE_DOWNLOAD_DUPLICATE' + x['filename'])
+				continue
+			torr_link = rd_api.test_download_link(x['download'],rar_test=False)
+			tools.log(torr_link)
+			if not torr_link:
+				RD_link = str(x['download']).split('/')[4]
+				delete_download = rd_api.delete_download(RD_link)
+				tools.log(delete_download)
+				tools.log('DELETE_DOWNLOAD_' + x['filename'])
+
+			names.append(str(x['download']).split('/')[-1])
+		if type(result).__name__ == 'list':
+			result = None
+			#try:
+			#	PTN_download = torr_link
+			#	RD_link = str(PTN_download).split('/')[4]
+			#	delete_download = rd_api.delete_download(RD_link)
+			#	tools.log('DELETE_DOWNLOAD_' + x['filename'])
+			#except:
+			#	RD_link = str(PTN_link).split('/')[4]
+			#	delete_download = rd_api.delete_download(RD_link)
+			#	tools.log('DELETE_DOWNLOAD_' + x['filename'])
 
 
 def rd_auth():
@@ -2363,6 +2905,18 @@ getSources.setup_providers('https://bit.ly/a4kScrapers')
 	folder = str(os.path.split(str(getframeinfo(currentframe()).filename))[0])
 	current_directory = folder.replace('a4kscrapers_wrapper','')
 	urls_json_path = os.path.join(tools.ADDON_USERDATA_PATH, 'providerModules','a4kScrapers', 'urls.json')
+
+	elf_hosted_path = os.path.join(current_directory, 'elfhosted.py')
+	new_elf_hosted_path = os.path.join(tools.A4KPROVIDERS_PATH, 'a4kScrapers', 'en', 'torrent', 'elfhosted.py')
+	shutil.copy(elf_hosted_path, new_elf_hosted_path)
+	elf_hosted_urls_dict = { "search": "/stream/{{category}}/%s.json", "cat_movie": "movie", "cat_episode": "series", "domains": [ { "base": "https://torrentio.elfhosted.com" } ] }
+
+	with open(urls_json_path,'r+') as file:
+		file_data = json.load(file)
+		file_data['trackers']["elfhosted"] = elf_hosted_urls_dict
+		file.seek(0)
+		json.dump(file_data, file, indent = 4)
+	patch_ak4_core_find_url()
 
 	"""
 	rutor_path = os.path.join(current_directory, 'rutor.py')

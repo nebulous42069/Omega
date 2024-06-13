@@ -3,18 +3,18 @@ import re
 from typing import List, Set, Dict
 
 try: 
-	from . import languages
-	from .settings import args, config
-	from .sub_block import SubBlock, ParsingException
+    from . import languages
+    from .settings import args, config
+    from .sub_block import SubBlock, ParsingException
 except: 
-	from subcleaner import languages
-	from subcleaner.settings import args, config
-	from subcleaner.sub_block import SubBlock, ParsingException
+    from subcleaner import languages
+    from subcleaner.settings import args, config
+    from subcleaner.sub_block import SubBlock, ParsingException
 
 try: 
-	from libs import langdetect as langdetect
+    from libs import langdetect as langdetect
 except:
-	import subcleaner.langdetect as langdetect
+    import subcleaner.langdetect as langdetect
 from pathlib import Path
 
 try: from ..langdetect import LangDetectException
@@ -110,6 +110,7 @@ class Subtitle:
                 e.file_line = line_lookup.get(lines[last_break + 1], None)
             logger.warning(str(e))
 
+        #logger.warning(lines)
         for i in range(start_index, len(lines)):
             line = lines[i]
             previous_line = lines[i-1]
@@ -143,10 +144,14 @@ class Subtitle:
         except ParsingException as e:
             e.subtitle_file = self.file
             e.file_line = line_lookup.get(lines[last_break], None)
-            if not e.file_line:
-                e.file_line = line_lookup.get(lines[last_break + 1], None)
+            try:
+                if not e.file_line:
+                    e.file_line = line_lookup.get(lines[last_break + 1], None)
+            except:
+                pass
             logger.warning(e)
-            self.blocks[-1].content += "\n\n" + "\n".join(lines[last_break:])
+            try: self.blocks[-1].content += "\n\n" + "\n".join(lines[last_break:])
+            except: pass
             return
         if block.content:
             self.blocks.append(block)
@@ -256,15 +261,77 @@ class FileContentException(Exception):
     def __str__(self) -> str:
         return f"File {self.subtitle_file} is empty."
 
+import sys
+if int(sys.version[0]) != 3:
+    print('Aborted: Python 3.x required')
+    sys.exit(1)
+
+def bomType(file):
+    """
+    returns file encoding string for open() function
+
+    EXAMPLE:
+        bom = bomtype(file)
+        open(file, encoding=bom, errors='ignore')
+    """
+    return "latin-1"
+    f = open(file, 'rb')
+    b = f.read(4)
+    f.close()
+
+    if (b[0:3] == b'\xef\xbb\xbf'):
+        return "utf8"
+
+    # Python automatically detects endianess if utf-16 bom is present
+    # write endianess generally determined by endianess of CPU
+    if ((b[0:2] == b'\xfe\xff') or (b[0:2] == b'\xff\xfe')):
+        return "utf16"
+
+    if ((b[0:5] == b'\xfe\xff\x00\x00') 
+              or (b[0:5] == b'\x00\x00\xff\xfe')):
+        return "utf32"
+
+    # If BOM is not provided, then assume its the codepage
+    #     used by your operating system
+    #return "cp1252"
+    return "latin-1"
+    # For the United States its: cp1252
+
+
+def OpenRead(file):
+    #bom = bomType(file)
+    #return open(file, 'r', encoding=bom, errors='ignore')
+    import codecs
+    try: 
+        return codecs.open(file, 'r', encoding='utf8')
+    except:
+        try:
+            return codecs.open(file, 'r', encoding='latin1')
+        except: 
+            bom = bomType(file)
+            return open(file, 'r', encoding=bom, errors='ignore')
+
 
 def read_file(file: Path) -> str:
     file_content: str
 
+    """
     try:
         with file.open("r", encoding="utf-8-sig") as opened_file:
             file_content = opened_file.read()
     except UnicodeDecodeError:
-        with file.open("r", encoding="cp1252") as opened_file:
+        try:
+            with file.open("r", encoding="utf-16-le") as opened_file:
+                file_content = opened_file.read()
+        except UnicodeError:
+                with file.open("r", encoding="cp1252") as opened_file:
+                    file_content = opened_file.read()
+    """
+    try:
+        opened_file = OpenRead(file)
+        file_content = opened_file.read()
+        opened_file.close()
+    except UnicodeDecodeError:
+        with file.open("r", encoding="utf-16-le") as opened_file:
             file_content = opened_file.read()
-
     return file_content

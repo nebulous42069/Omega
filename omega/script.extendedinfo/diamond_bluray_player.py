@@ -41,21 +41,21 @@ from os.path import expanduser
 home = expanduser("~")
 
 
-try: 
-	url = 'https://cable.ayra.ch/makemkv/api.php?json'
-	headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36'}
-	response= requests.get(url.strip(), headers=headers, timeout=10).json()
-
-	f = open(home + '/.MakeMKV/settings.conf', 'r') 
-	f_content = f.read()
-	f.close()
-	re_sub = str('app_Key = "%s"' % (response['key']))
-	f_content = re.sub(r'app_Key = "{1}.*"{1}', re_sub,f_content)
-	f = open(home + '/.MakeMKV/settings.conf', 'w') 
-	f.write(f_content)
-	f.close()
-except:
-	pass
+#try: 
+#	url = 'https://cable.ayra.ch/makemkv/api.php?json'
+#	headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36'}
+#	response= requests.get(url.strip(), headers=headers, timeout=10).json()
+#
+#	f = open(home + '/.MakeMKV/settings.conf', 'r') 
+#	f_content = f.read()
+#	f.close()
+#	re_sub = str('app_Key = "%s"' % (response['key']))
+#	f_content = re.sub(r'app_Key = "{1}.*"{1}', re_sub,f_content)
+#	f = open(home + '/.MakeMKV/settings.conf', 'w') 
+#	f.write(f_content)
+#	f.close()
+#except:
+#	pass
 
 try: os.system('sudo mount -a')
 except : pass
@@ -381,6 +381,25 @@ def next_ep_play_movie(movie_year, movie_title, tmdb, menu):
 	#	#con.commit()
 	#except:
 	#	pass
+	try:
+		file_name = BDMV.split('/')[-1]
+		sql_result = cur.execute("SELECT idfile,strFilename  from files where strFilename = '"+str(file_name)+"' ;").fetchall()
+		for i in sql_result:
+			id_file = i[0]
+			delete_result = cur.execute("DELETE FROM stacktimes WHERE idFile  = '"+str(id_file)+"' ;")
+			#delete_result = cur.execute("DELETE FROM movie WHERE idFile  = '"+str(id_file)+"' ;")
+			delete_result = cur.execute("DELETE FROM settings WHERE idFile  = '"+str(id_file)+"' ;")
+			#delete_result = cur.execute("DELETE FROM episode WHERE idFile  = '"+str(id_file)+"' ;")
+			delete_result = cur.execute("DELETE FROM bookmark WHERE idFile  = '"+str(id_file)+"' ;")
+			delete_result = cur.execute("DELETE FROM streamdetails WHERE idFile  = '"+str(id_file)+"' ;")
+			#delete_result = cur.execute("DELETE FROM musicvideo WHERE idFile  = '"+str(id_file)+"' ;")
+			delete_result = cur.execute("DELETE FROM files WHERE idFile  = '"+str(id_file)+"' ;")
+		con.commit()
+	except:
+		pass
+	cur.close()
+
+
 	cur.close()
 	con.close()
 
@@ -639,5 +658,5 @@ def next_ep_play_movie(movie_year, movie_title, tmdb, menu):
 		
 		##xbmc.Player().play(item=PTN_download, listitem=li)
 		#xbmc.Player().play(playlist)
-		exit()
+		#exit()
 		#return

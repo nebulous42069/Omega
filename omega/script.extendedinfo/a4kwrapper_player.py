@@ -120,6 +120,11 @@ def get_next_ep_details(show_title, season_num, ep_num, tmdb):
 	meta = get_meta.get_episode_meta(season=season_num,episode=ep_num,show_name=show_title, tmdb=tmdb, interactive=False)
 	info = meta['episode_meta']
 
+	daily_show_flag = False
+	if info['episode_air_date'][-2:] in info['title'] and info['episode_air_date'][:4] in info['title']:
+		if datetime.datetime.strptime(info['episode_air_date'], '%Y-%m-%d').strftime('%B %d, %Y') in info['title']:
+			daily_show_flag = True
+
 	xbmcgui.Window(10000).clearProperty('Next_EP.ResolvedUrl')
 
 	tvdb_id = meta['tvdb']
@@ -128,7 +133,11 @@ def get_next_ep_details(show_title, season_num, ep_num, tmdb):
 	show_id = meta['tvmaze_show_id']
 	curr_ep_flag = False
 	air_date_timestamp = 0
-	for i in meta['tvmaze_seasons']['episodes']:
+	if daily_show_flag == False:
+		meta_source = 'tvmaze_seasons'
+	else:
+		meta_source = 'tmdb_seasons'
+	for i in meta[meta_source]['episodes']:
 		i_air_date = str(i.get('air_date','1901-01-01'))
 		try: i_air_date = datetime.datetime.strptime(i_air_date, "%Y-%m-%d")
 		except TypeError: i_air_date = datetime.datetime(*(time.strptime(i_air_date, "%Y-%m-%d")[0:6]))
@@ -148,9 +157,14 @@ def get_next_ep_details(show_title, season_num, ep_num, tmdb):
 	if curr_ep_flag == True:
 		next_ep_episode = 1
 		next_ep_season = int(i['season']) + 1
-		if next_ep_season > (meta['tvmaze_total_seasons']):
-			print_log(str('ENDED')+'===>PHIL')
-			return None
+		if meta_source == 'tmdb_seasons':
+			if next_ep_season > (meta['total_seasons']):
+				print_log(str('ENDED')+'===>PHIL')
+				return None
+		else:
+			if next_ep_season > (meta['tvmaze_total_seasons']):
+				print_log(str('ENDED')+'===>PHIL')
+				return None
 		meta = get_meta.get_episode_meta(season=next_ep_season,episode=next_ep_episode,show_name=show_title, tmdb=tmdb, interactive=False)
 	else:
 		if air_date_timestamp > ( time.time()+60*60*36): #air_date > tomorrow
@@ -160,19 +174,23 @@ def get_next_ep_details(show_title, season_num, ep_num, tmdb):
 			print_log(str('NET_EP_NOT_AIRED')+'===>PHIL')
 			return None
 
-	for i in meta['tvmaze_seasons']['episodes']:
+	for i in meta[meta_source]['episodes']:
 		if int(i['episode']) == int(next_ep_episode) and int(i['season']) == int(next_ep_season):
 			next_ep_show = i['tvshowtitle']
 			next_ep_thumbnail = i['still_path']
 			next_ep_title = i['name']
 			next_ep_rating = i['vote_average']
 			next_ep_year = i['year']
-			next_ep_id = i['tvmaze_ep_id']
+			if daily_show_flag == False:
+				next_ep_id = i['tvmaze_ep_id']
 			air_date = i.get('airdate','')
 
-	url = 'http://api.tvmaze.com/episodes/'+str(next_ep_id)+'?embed=show'
-	#response = get_JSON_response(url=url, cache_days=7.0, folder='TVMaze')
-	response = get_meta.get_response_cache(url=url, cache_days=7.0, folder='TVMaze')
+	if daily_show_flag:
+		response = {'id': None, 'summary': None, '_embedded': {'show': {'genres': []}}}
+	else:
+		url = 'http://api.tvmaze.com/episodes/'+str(next_ep_id)+'?embed=show'
+		#response = get_JSON_response(url=url, cache_days=7.0, folder='TVMaze')
+		response = get_meta.get_response_cache(url=url, cache_days=7.0, folder='TVMaze')
 	next_ep_genre = response['_embedded']['show']['genres']
 	strm_title = '%s - S%sE%s - %s' % (next_ep_show, str(next_ep_season).zfill(2),str(next_ep_episode).zfill(2), next_ep_title)
 	
@@ -207,7 +225,7 @@ def get_next_ep_details(show_title, season_num, ep_num, tmdb):
 
 
 
-def next_ep_play(show_title, show_season, show_episode, tmdb, auto_rd=True):
+def next_ep_play(show_title, show_season, show_episode, tmdb, auto_rd=True, prescrape_test=None):
 	#from resources.lib.TheMovieDB import get_tmdb_data
 	#from resources.lib.TheMovieDB import single_tvshow_info
 	#from resources.lib.TheMovieDB import get_tvshow_info
@@ -228,13 +246,18 @@ def next_ep_play(show_title, show_season, show_episode, tmdb, auto_rd=True):
 	#except:
 	#	tmdb_response = None
 	#	pass
+	show_title = show_title.replace(' s ', 's ')
 	kodi_send_command = 'kodi-send --action="RunScript(%s,info=a4kwrapper_player,type=tv,show_title=%s,show_season=%s,show_episode=%s,tmdb=%s,test=True)"' % (addon_ID(), show_title, show_season, show_episode, tmdb)
 	print_log(kodi_send_command,'___kodi_send_command')
 	meta = get_meta.get_episode_meta(season=show_season,episode=show_episode,show_name=show_title, tmdb=tmdb, interactive=False)
 	def meta_process(meta):
 		show_title = meta['episode_meta']['info']['tvshowtitle']
 		show_season = int(meta['episode_meta']['info']['season'])
-		show_episode = int(meta['episode_meta']['info']['episode'])
+		try: 
+			show_episode = int(meta['episode_meta']['info']['episode'])
+		except ValueError: 
+			show_episode = 0
+			meta['episode_meta']['info']['episode'] = 0
 		for i in meta['tmdb_seasons']['episodes']:
 			if int(i['episode']) == int(show_episode) and int(i['season']) == int(show_season):
 				info1 = i
@@ -244,14 +267,21 @@ def next_ep_play(show_title, show_season, show_episode, tmdb, auto_rd=True):
 					if str(x['name']) in str(i.get('name')) or distance.jaro_similarity(str(x['name']),str(i.get('name'))) > 0.85:
 						tmdb_season = x['season']
 						tmdb_episode = x['episode']
-						if int(tmdb_episode) == int(show_episode) and int(tmdb_season) == int(show_season):
+						if int(tmdb_episode) == int(show_episode) and int(tmdb_season) == int(show_season) and show_episode != 0:
+							info2 = i
+							break
+						if show_episode == 0 and (str(x['name']) in str(i.get('name')) or distance.jaro_similarity(str(x['name']),str(i.get('name'))) > 0.85):
 							info2 = i
 							break
 			elif int(i['episode']) == int(show_episode) and int(i['season']) == int(show_season):
 				info2 = i
-		try: info1['tvmaze_ep_id'] = info2['tvmaze_ep_id']
-		except: tools.log('missing on TMDB!!!')
-		info = info2
+		try: 
+			info1['tvmaze_ep_id'] = info2['tvmaze_ep_id']
+		except: 
+			info1['tvmaze_ep_id'] = False
+			tools.log('missing on TMDB!!!')
+		try: info = info2
+		except: info = info1
 		meta_info = info
 
 		show_title = show_title.replace('+', ' ')
@@ -260,7 +290,7 @@ def next_ep_play(show_title, show_season, show_episode, tmdb, auto_rd=True):
 			xbmc.executebuiltin('ActivateWindow(busydialog)')
 
 
-		show_title_clean = regex.sub(' ', show_title.replace('\'s','s').replace('&','and')).replace('  ',' ').lower()
+		show_title_clean = regex.sub(' ', show_title.replace('\'s','s').replace('&','and')).replace('  ',' ').lower().replace(' s ','s ')
 		tmdb_id = tmdb
 		#response = get_tvshow_info(tvshow_label=show_title, year=None, use_dialog=False)
 		#tmdb_id2 = response['id']
@@ -293,10 +323,14 @@ def next_ep_play(show_title, show_season, show_episode, tmdb, auto_rd=True):
 		episode_name = info['title']
 		year = info['year']
 		air_date = info['air_date']
-		episode_id = info['tvmaze_ep_id']
-		url = 'http://api.tvmaze.com/episodes/'+str(episode_id)+'?embed=show'
-		#response = get_JSON_response(url=url, cache_days=7.0, folder='TVMaze')
-		response = get_meta.get_response_cache(url=url, cache_days=7.0, folder='TVMaze')
+		if info['tvmaze_ep_id']:
+			episode_id = info['tvmaze_ep_id']
+			url = 'http://api.tvmaze.com/episodes/'+str(episode_id)+'?embed=show'
+			#response = get_JSON_response(url=url, cache_days=7.0, folder='TVMaze')
+			response = get_meta.get_response_cache(url=url, cache_days=7.0, folder='TVMaze')
+		else:
+			episode_id = 0
+			response = {'id': None, 'summary': None, '_embedded': {'show': {'genres': []}}}
 		try: 
 			tmdb_response = extended_episode_info(tvshow_id=tmdb_id, season=show_season, episode=show_episode, cache_time=3)
 			extended_tvshow_info_response = extended_tvshow_info(tvshow_id=tmdb_id, cache_time=3)
@@ -329,10 +363,17 @@ def next_ep_play(show_title, show_season, show_episode, tmdb, auto_rd=True):
 		else:
 			rating = None
 
+		#tools.log(response)
+		#tools.log(tmdb_response)
+		#tools.log(extended_tvshow_info_response)
+		#tools.log(info1)
+		#tools.log(info)
 		try: runtime = int(info['runtime'])
 		except: runtime = 0
 
 		runtime_list = []
+		try: runtime_list.append(response.get('runtime',0))
+		except: pass
 		try: runtime_list.append(tmdb_response[1].get('runtime',0))
 		except: pass
 		try: runtime_list.append(extended_tvshow_info_response[0].get('duration','0').split(' -')[0])
@@ -477,6 +518,10 @@ def next_ep_play(show_title, show_season, show_episode, tmdb, auto_rd=True):
 		if 'http'  in str(PTN_download):
 			tools.log('prescrape_DOWNLOAD_FOUND!!',PTN_download)
 
+	if not 'http' in str(PTN_download) and prescrape_test:
+		PTN_download = prescrape_test
+		new_meta = meta
+		tools.log('prescrape_DOWNLOAD_FOUND!!',PTN_download)
 	
 
 	#print_log('SUBTITLES_____________')
@@ -944,7 +989,8 @@ def next_ep_play(show_title, show_season, show_episode, tmdb, auto_rd=True):
 			print_log({ 'poster': poster, 'fanart': fanart, 'banner': banner, 'clearlogo': clearlogo, 'landscape': landscape, 'thumb': thumb})
 			#print_log(next_ep_play_details,'next_ep_play_details')
 			print_log(str(infolabels)[:750].replace('\'','"'),'===>OPENINFO')
-			exit()
+			#exit()
+			return
 		if xbmc.Player().isPlaying():
 			playlist = xbmc.PlayList(xbmc.PLAYLIST_VIDEO)
 
@@ -983,7 +1029,7 @@ def next_ep_play(show_title, show_season, show_episode, tmdb, auto_rd=True):
 			xbmc.Player().play(playlist)
 			#xbmc.executebuiltin('PlayMedia('+PTN_download+')')
 
-			exit()
+			#exit()
 			#return
 
 
@@ -1165,6 +1211,7 @@ def next_ep_play_movie(movie_year, movie_title, tmdb):
 				from pathlib import Path
 				for i in subs_list:
 					sub = Path(i)
+					tools.log('CLEANING',sub)
 					clean_file.clean_file(sub)
 				tools.sub_cleaner_log_clean()
 				clean_file.files_handled = []
@@ -1452,7 +1499,8 @@ def next_ep_play_movie(movie_year, movie_title, tmdb):
 			#print_log(next_ep_play_details,'next_ep_play_details')
 			print_log(str(infolabels)[:750].replace('\'','"'),'===>OPENINFO')
 			xbmc.executebuiltin('Dialog.Close(busydialognocancel)')
-			exit()
+			#exit()
+			return
 
 		playlist = xbmc.PlayList(xbmc.PLAYLIST_VIDEO)
 		current_action = xbmcgui.Window(10000).getProperty('Next_EP.TMDB_action')
@@ -1489,5 +1537,5 @@ def next_ep_play_movie(movie_year, movie_title, tmdb):
 		json_result = xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"Addons.SetAddonEnabled","id":8,"params":{"addonid":"plugin.video.realizer","enabled":true}}')
 		print_log(str(json_result)+'plugin.video.realizer_ENABLED===>service.next_playlist2')
 		"""
-		exit()
+		#exit()
 		#return

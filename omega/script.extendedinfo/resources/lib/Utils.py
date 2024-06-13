@@ -63,6 +63,35 @@ def busy_dialog(func):
 		return result
 	return decorator
 
+def patch_urllib():
+	file_path = os.path.join(os.path.join(ADDON_PATH.replace(addon_ID(),'script.module.urllib3'), 'lib','urllib3') , 'response.py')
+	xbmc.log(str(file_path)+'===>OPENINFO', level=xbmc.LOGINFO)
+
+	file1 = open(file_path, 'r')
+	lines = file1.readlines()
+	new_file = ''
+	update_flag = False
+	line_update = '''                    if self.length_remaining > 1: raise IncompleteRead(self._fp_bytes_read, self.length_remaining) ## PATCH
+'''
+	original_line = '''raise IncompleteRead(self._fp_bytes_read, self.length_remaining)'''
+	for idx, line in enumerate(lines):
+		if '## PATCH' in str(line):
+			update_flag = False
+			xbmc.log('ALREADY_PATCHED_urllib3_===>OPENINFO', level=xbmc.LOGINFO)
+			break
+
+		if original_line in str(line):
+			new_file = new_file + line_update
+			update_flag = True
+		else:
+			new_file = new_file + line
+	file1.close()
+	if update_flag:
+		file1 = open(file_path, 'w')
+		file1.writelines(new_file)
+		file1.close()
+		xbmc.log(str(file_path)+'_PATCHED_urllib3===>OPENINFO', level=xbmc.LOGINFO)
+
 def run_async(func):
 	@wraps(func)
 	def async_func(*args, **kwargs):
