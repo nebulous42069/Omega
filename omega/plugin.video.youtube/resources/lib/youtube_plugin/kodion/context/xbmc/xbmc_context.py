@@ -11,6 +11,7 @@
 from __future__ import absolute_import, division, unicode_literals
 
 import atexit
+import json
 import sys
 from weakref import proxy
 
@@ -23,7 +24,14 @@ from ...compatibility import (
     xbmcaddon,
     xbmcplugin,
 )
-from ...constants import ABORT_FLAG, ADDON_ID, WAKEUP, content, sort
+from ...constants import (
+    ABORT_FLAG,
+    ADDON_ID,
+    CONTENT_TYPE,
+    WAKEUP,
+    content,
+    sort,
+)
 from ...player import XbmcPlayer, XbmcPlaylist
 from ...settings import XbmcPluginSettings
 from ...ui import XbmcContextUI
@@ -353,6 +361,21 @@ class XbmcContext(AbstractContext):
         pass  # implement from abstract
 
     def is_plugin_path(self, uri, uri_path='', partial=False):
+        if isinstance(uri_path, (list, tuple)):
+            if partial:
+                paths = [('plugin://%s/%s' % (self.get_id(), path)).rstrip('/')
+                         for path in uri_path]
+                return uri.startswith(paths)
+
+            paths = []
+            for path in uri_path:
+                path = ('plugin://%s/%s' % (self.get_id(), path)).rstrip('/')
+                paths.extend((
+                    path + '/',
+                    path + '?'
+                ))
+            return uri.startswith(paths)
+
         uri_path = ('plugin://%s/%s' % (self.get_id(), uri_path)).rstrip('/')
         if not partial:
             uri_path = (
@@ -481,11 +504,26 @@ class XbmcContext(AbstractContext):
         return result
 
     def set_content(self, content_type, sub_type=None, category_label=None):
-        self.log_debug('Setting content-type: |{type}| for |{path}|'.format(
+        ui = self.get_ui()
+        ui.set_property(CONTENT_TYPE, json.dumps(
+            (content_type, sub_type, category_label),
+            ensure_ascii=False,
+        ))
+
+    def apply_content(self):
+        ui = self.get_ui()
+        content_type = ui.get_property(CONTENT_TYPE)
+        if content_type:
+            ui.clear_property(CONTENT_TYPE)
+            content_type, sub_type, category_label = json.loads(content_type)
+        else:
+            return
+
+        self.log_debug('Applying content-type: |{type}| for |{path}|'.format(
             type=(sub_type or content_type), path=self.get_path()
         ))
         xbmcplugin.setContent(self._plugin_handle, content_type)
-        self.get_ui().get_view_manager().set_view_mode(content_type)
+        ui.get_view_manager().set_view_mode(content_type)
         if category_label is None:
             category_label = self.get_param('category_label')
         if category_label:
@@ -598,7 +636,7 @@ class XbmcContext(AbstractContext):
                                    error.get('message', 'unknown')))
             return False
 
-    def send_notification(self, method, data):
+    def send_notification(self, method, data=True):
         self.log_debug('send_notification: |%s| -> |%s|' % (method, data))
         jsonrpc(method='JSONRPC.NotifyAll',
                 params={'sender': ADDON_ID,
@@ -689,7 +727,7 @@ class XbmcContext(AbstractContext):
         return xbmc.getInfoLabel(name)
 
     @staticmethod
-    def get_listitem_detail(detail_name):
+    def get_listitem_property(detail_name):
         return xbmc.getInfoLabel('Container.ListItem(0).Property({0})'
                                  .format(detail_name))
 
@@ -727,5 +765,4 @@ class XbmcContext(AbstractContext):
                 pass
 
     def wakeup(self):
-        self.get_ui().set_property(WAKEUP)
-        self.send_notification(WAKEUP, True)
+        self.send_notification(WAKEUP)

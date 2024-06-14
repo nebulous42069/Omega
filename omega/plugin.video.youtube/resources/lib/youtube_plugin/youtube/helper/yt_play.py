@@ -17,7 +17,13 @@ from traceback import format_stack
 from ..helper import utils, v3
 from ..youtube_exceptions import YouTubeException
 from ...kodion.compatibility import urlencode, urlunsplit
-from ...kodion.constants import PLAYER_DATA, SWITCH_PLAYER_FLAG, paths
+from ...kodion.constants import (
+    PLAY_FORCE_AUDIO,
+    PLAY_PROMPT_QUALITY,
+    PLAYER_DATA,
+    SWITCH_PLAYER_FLAG,
+    paths,
+)
 from ...kodion.items import VideoItem
 from ...kodion.network import get_connect_address
 from ...kodion.utils import select_stream
@@ -46,15 +52,15 @@ def play_video(provider, context):
         }
     else:
         ask_for_quality = None
-        if not screensaver and ui.get_property('ask_for_quality') == video_id:
+        if not screensaver and ui.get_property(PLAY_PROMPT_QUALITY) == video_id:
             ask_for_quality = True
-        ui.clear_property('ask_for_quality')
+        ui.clear_property(PLAY_PROMPT_QUALITY)
 
         audio_only = None
-        if ui.get_property('audio_only') == video_id:
+        if ui.get_property(PLAY_FORCE_AUDIO) == video_id:
             ask_for_quality = False
             audio_only = True
-        ui.clear_property('audio_only')
+        ui.clear_property(PLAY_FORCE_AUDIO)
 
         try:
             video_streams = client.get_video_streams(context, video_id)
@@ -159,6 +165,7 @@ def play_playlist(provider, context):
     player = context.get_video_player()
     player.stop()
 
+    action = params.get('action')
     playlist_ids = params.get('playlist_ids')
     if not playlist_ids:
         playlist_ids = [params.get('playlist_id')]
@@ -223,36 +230,35 @@ def play_playlist(provider, context):
             # The implementation of XBMC/KODI is quite weak :(
             random.shuffle(videos)
 
+        if action == 'list':
+            return videos
+
         # clear the playlist
         playlist = context.get_video_playlist()
         playlist.clear()
-
-        # select unshuffle
-        if order == 'shuffle':
-            playlist.unshuffle()
+        playlist.unshuffle()
 
         # check if we have a video as starting point for the playlist
-        video_id = params.get('video_id', '')
+        video_id = params.get('video_id')
+        playlist_position = None if video_id else 0
         # add videos to playlist
-        playlist_position = 0
         for idx, video in enumerate(videos):
             playlist.add(video)
-            if (video_id and not playlist_position
-                    and video_id in video.get_uri()):
+            if playlist_position is None and video.video_id == video_id:
                 playlist_position = idx
 
-        # we use the shuffle implementation of the playlist
-        """
-        if order == 'shuffle':
-            playlist.shuffle()
-        """
+    options = {
+        provider.RESULT_CACHE_TO_DISC: False,
+        provider.RESULT_FORCE_RESOLVE: True,
+        provider.RESULT_UPDATE_LISTING: False,
+    }
 
-    if not params.get('play'):
-        return videos
-    if context.get_handle() == -1:
+    if action == 'queue':
+        return videos, options
+    if context.get_handle() == -1 or action == 'play':
         player.play(playlist_index=playlist_position)
         return False
-    return videos[playlist_position]
+    return videos[playlist_position], options
 
 
 def play_channel_live(provider, context):

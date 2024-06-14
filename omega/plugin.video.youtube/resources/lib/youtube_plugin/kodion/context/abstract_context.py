@@ -208,6 +208,9 @@ class AbstractContext(object):
             self._access_manager = AccessManager(self)
         return self._access_manager
 
+    def reload_access_manager(self):
+        self._access_manager = AccessManager(self)
+
     def get_video_playlist(self):
         raise NotImplementedError()
 
@@ -375,7 +378,7 @@ class AbstractContext(object):
     def get_handle(self):
         return self._plugin_handle
 
-    def get_settings(self, flush=False):
+    def get_settings(self, refresh=False):
         raise NotImplementedError()
 
     def localize(self, text_id, default_text=None):
@@ -425,7 +428,7 @@ class AbstractContext(object):
         raise NotImplementedError()
 
     @staticmethod
-    def get_listitem_detail(detail_name):
+    def get_listitem_property(detail_name):
         raise NotImplementedError()
 
     @staticmethod

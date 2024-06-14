@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.youtube" name="YouTube" version="668.7.0.7+beta.3.unofficial.1" provider-name="anxdpanic, bromix, MoojMidge">
+<addon id="plugin.video.youtube" name="YouTube" version="7.0.7.1+unofficial.1" provider-name="anxdpanic, bromix, MoojMidge">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
         <import addon="script.module.requests" version="2.27.1"/>
@@ -44,6 +44,7 @@
         <summary lang="nb_NO">Tillegg for YouTube</summary>
         <summary lang="nl_NL">Plugin voor YouTube</summary>
         <summary lang="pl_PL">Wtyczka YouTube</summary>
+        <summary lang="pt_BR">Plugin para YouTube</summary>
         <summary lang="ru_RU">Видеодополнение YouTube</summary>
         <summary lang="sk_SK">Doplnok pre YouTube</summary>
         <summary lang="sv_SE">Plugin för YouTube</summary>
@@ -71,6 +72,7 @@
         <description lang="nb_NO">YouTube er en av verdens største nettsider for videodeling.</description>
         <description lang="nl_NL">YouTube is een van de grootste videodelenwebsite in de hele wereld.</description>
         <description lang="pl_PL">YouTube jest jednym z największych na świecie serwisów udostępniania wideo.</description>
+        <description lang="pt_BR">O YouTube é um dos maiores sites de compartilhamento de vídeos do mundo.</description>
         <description lang="ru_RU">YouTube - популярнейший видеохостинговый сайт, предоставляющий пользователям услуги хранения, доставки и показа видео.</description>
         <description lang="sk_SK">YouTube je jednou z najväčších stránok na zdieľanie videa na svete.</description>
         <description lang="sv_SE">YouTube är en av de största videodelningssajterna i världen.</description>
@@ -94,6 +96,7 @@
         <disclaimer lang="ko_KR">이 플러그인은 Google의 허가를 받지 않았습니다</disclaimer>
         <disclaimer lang="nl_NL">Deze plug-in wordt niet door Google ondersteund</disclaimer>
         <disclaimer lang="pl_PL">Ta wtyczka nie jest zatwierdzona przez Google</disclaimer>
+        <disclaimer lang="pt_BR">Este plugin não é recomendado pelo Google</disclaimer>
         <disclaimer lang="ru_RU">Плагин не поддерживается Google</disclaimer>
         <disclaimer lang="sk_SK">Tento doplnok nie je schválený spoločnosťou Google</disclaimer>
         <disclaimer lang="sv_SE">Detta plugin är inte godkänt av Google</disclaimer>
@@ -102,7 +105,32 @@
         <disclaimer lang="vi_VN">Plugin này không được xác nhận bởi Google</disclaimer>
         <disclaimer lang="zh_CN">此插件未被谷歌认可</disclaimer>
         <disclaimer lang="zh_TW">此附加元件未由Google支持</disclaimer>
-    <news>## v7.0.7+beta.3
+    <news>## v7.0.7.1
 ### Fixed
-- Fix plugin settings raising exception in Kodi 19-20</news></extension>
+- Fixed not being able to re-refresh a directory listing that has already been refreshed
+- Fixed various window and history nagivation issues
+- Fixed http server idle shutdown not restarting if plugin is run but GUI is still idle
+- Additional improvements to busy dialog crash workaround
+- Workaround for new settings interface not updated correctly
+- Fix bookmarks icon background colour
+- Fix adding channel items directly to bookmarks
+- Fixes for player monitoring preventing item being marked as watched
+- Fix invalid pageToken error by removing jump from unsupported listings
+- Fix issues with post play refresh possibly causing loss of window history
+- Fix bug that could lead to plugin continuously reloading
+- Attempted fix for socket error 98 on Linux
+  - For error 10013 on Windows try either of the following:
+    - Start-Process powershell -Verb runAs -ArgumentList "net stop winnat; net start winnat"
+    - Start-Process powershell -Verb runAs -ArgumentList "net stop hns; net start hns"
+- Fix changing fanart type on My Subscriptions
+- Fix not using thumbnail fanart for channels/subscriptions/playlists when enabled
+- Fix My Subscriptions threading issues
+- Fix failing to login
+- Improve resource usage
+- Fix adding video to playlist
+- Fix plugin settings raising exception in Kodi 19-20
+- Fix My Subscriptions next page error
+- Fix page jump when page_token is not used
+- Fix not reloading access manager when performing user actions
+- Attempt to fix PlaylistPl</news></extension>
 </addon>
