@@ -134,19 +134,19 @@
 				</item>
 				<item>
 					<label>Install [B][COLOR gold]XENON Burst 2[/COLOR][/B]  (Mid Power)</label>
-					<onclick>InstallAddon(skin.xenon2)</onclick>
+					<onclick>InstallAddon(skin.xenonburst2)</onclick>
 				</item>				
 				<item>
 					<label>Install [B][COLOR gold]Eminence Burst[/COLOR][/B]  (Mid Power)</label>
-					<onclick>InstallAddon(skin.eminence.2.mod)</onclick>
+					<onclick>InstallAddon(skin.eminenceburst.2.mod)</onclick>
 				</item>
 				<item>
 					<label>Install [B][COLOR gold]BurstFlix[/COLOR][/B]   (Mid Power) (NO TOUCH/MOUSE)</label>
-					<onclick>InstallAddon(skin.auraflix)</onclick>
+					<onclick>InstallAddon(skin.burstflix)</onclick>
 				</item>								
 				<item>
 					<label>Install [B][COLOR gold]Phenomenal Burst[/COLOR][/B]  (Mid Power)</label>
-					<onclick>InstallAddon(skin.phenomenal.h)</onclick>
+					<onclick>InstallAddon(skin.phenomenalburst.h)</onclick>
 				</item>			
                 </content>
             </control>
