@@ -23,7 +23,7 @@ from ...constants import (
     SWITCH_PLAYER_FLAG,
     VIDEO_ID,
 )
-from ...utils import current_system_version, datetime_parser
+from ...utils import current_system_version, datetime_parser, redact_ip_from_url
 
 
 def set_info(list_item, item, properties, set_play_count=True, resume=True):
@@ -375,7 +375,7 @@ def set_info(list_item, item, properties, set_play_count=True, resume=True):
 
 def video_playback_item(context, video_item, show_fanart=None, **_kwargs):
     uri = video_item.get_uri()
-    context.log_debug('Converting VideoItem |%s|' % uri)
+    context.log_debug('Converting VideoItem |%s|' % redact_ip_from_url(uri))
 
     settings = context.get_settings()
     headers = video_item.get_headers()
@@ -401,8 +401,7 @@ def video_playback_item(context, video_item, show_fanart=None, **_kwargs):
             'isPlayable': str(video_item.playable).lower(),
         }
 
-    if (video_item.use_isa_video()
-            and context.addon_enabled('inputstream.adaptive')):
+    if video_item.use_isa_video() and context.use_inputstream_adaptive():
         if video_item.use_mpd_video():
             manifest_type = 'mpd'
             mime_type = 'application/dash+xml'
@@ -438,10 +437,9 @@ def video_playback_item(context, video_item, show_fanart=None, **_kwargs):
             mime_type = uri.split('mime=', 1)[1].split('&', 1)[0]
             mime_type = mime_type.replace('%2F', '/')
 
-        if (headers and uri.startswith('http') and not (
-                settings.default_player_web_urls()
-                or (is_external and settings.alternative_player_web_urls())
-        )):
+        if (headers and uri.startswith('http')
+                and not (is_external
+                         or settings.default_player_web_urls())):
             kwargs['path'] = '|'.join((uri, headers))
 
     list_item = xbmcgui.ListItem(**kwargs)
@@ -457,11 +455,12 @@ def video_playback_item(context, video_item, show_fanart=None, **_kwargs):
     if show_fanart is None:
         show_fanart = settings.fanart_selection()
     image = video_item.get_image()
-    list_item.setArt({
-        'icon': image or 'DefaultVideo.png',
-        'fanart': show_fanart and video_item.get_fanart() or '',
-        'thumb': image,
-    })
+    art = {'icon': image}
+    if image:
+        art['thumb'] = image
+    if show_fanart:
+        art['fanart'] = video_item.get_fanart()
+    list_item.setArt(art)
 
     if video_item.subtitles:
         list_item.setSubtitles(video_item.subtitles)
@@ -495,12 +494,13 @@ def audio_listitem(context,
 
     if show_fanart is None:
         show_fanart = context.get_settings().fanart_selection()
-    image = audio_item.get_image() or 'DefaultAudio.png'
-    list_item.setArt({
-        'icon': image,
-        'fanart': show_fanart and audio_item.get_fanart() or '',
-        'thumb': image,
-    })
+    image = audio_item.get_image()
+    art = {'icon': image}
+    if image:
+        art['thumb'] = image
+    if show_fanart:
+        art['fanart'] = audio_item.get_fanart()
+    list_item.setArt(art)
 
     resume = context.get_param('resume') or not for_playback
     set_info(list_item, audio_item, props, resume=resume)
@@ -544,12 +544,13 @@ def directory_listitem(context, directory_item, show_fanart=None, **_kwargs):
 
     if show_fanart is None:
         show_fanart = context.get_settings().fanart_selection()
-    image = directory_item.get_image() or 'DefaultFolder.png'
-    list_item.setArt({
-        'icon': image,
-        'fanart': show_fanart and directory_item.get_fanart() or '',
-        'thumb': image,
-    })
+    image = directory_item.get_image()
+    art = {'icon': image}
+    if image:
+        art['thumb'] = image
+    if show_fanart:
+        art['fanart'] = directory_item.get_fanart()
+    list_item.setArt(art)
 
     set_info(list_item, directory_item, props)
 
@@ -589,12 +590,13 @@ def image_listitem(context, image_item, show_fanart=None, **_kwargs):
 
     if show_fanart is None:
         show_fanart = context.get_settings().fanart_selection()
-    image = image_item.get_image() or 'DefaultPicture.png'
-    list_item.setArt({
-        'icon': image,
-        'fanart': show_fanart and image_item.get_fanart() or '',
-        'thumb': image,
-    })
+    image = image_item.get_image()
+    art = {'icon': image}
+    if image:
+        art['thumb'] = image
+    if show_fanart:
+        art['fanart'] = image_item.get_fanart()
+    list_item.setArt(art)
 
     set_info(list_item, image_item, props)
 
@@ -691,11 +693,12 @@ def video_listitem(context,
     if show_fanart is None:
         show_fanart = context.get_settings().fanart_selection()
     image = video_item.get_image()
-    list_item.setArt({
-        'icon': image or 'DefaultVideo.png',
-        'fanart': show_fanart and video_item.get_fanart() or '',
-        'thumb': image,
-    })
+    art = {'icon': image}
+    if image:
+        art['thumb'] = image
+    if show_fanart:
+        art['fanart'] = video_item.get_fanart()
+    list_item.setArt(art)
 
     if video_item.subtitles:
         list_item.setSubtitles(video_item.subtitles)

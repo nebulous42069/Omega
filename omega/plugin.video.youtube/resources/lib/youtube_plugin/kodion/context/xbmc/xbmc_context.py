@@ -127,6 +127,7 @@ class XbmcContext(AbstractContext):
         'live.upcoming': 30646,
         'maintenance.bookmarks': 30800,
         'maintenance.data_cache': 30687,
+        'maintenance.feed_history': 30814,
         'maintenance.function_cache': 30557,
         'maintenance.playback_history': 30673,
         'maintenance.search_history': 30558,
@@ -141,8 +142,10 @@ class XbmcContext(AbstractContext):
         'my_subscriptions.filter.removed': 30590,
         'my_subscriptions.filtered': 30584,
         'none': 30561,
-        'page.next': 30106,
+        'page.back': 30815,
         'page.choose': 30806,
+        'page.empty': 30816,
+        'page.next': 30106,
         'playlist.added_to': 30714,
         'playlist.create': 30522,
         'playlist.play.all': 30531,
@@ -361,22 +364,23 @@ class XbmcContext(AbstractContext):
         pass  # implement from abstract
 
     def is_plugin_path(self, uri, uri_path='', partial=False):
+        plugin = self.get_id()
+
         if isinstance(uri_path, (list, tuple)):
             if partial:
-                paths = [('plugin://%s/%s' % (self.get_id(), path)).rstrip('/')
+                paths = ['plugin://{0}/{1}'.format(plugin, path).rstrip('/')
                          for path in uri_path]
-                return uri.startswith(paths)
+            else:
+                paths = []
+                for path in uri_path:
+                    path = 'plugin://{0}/{1}'.format(plugin, path).rstrip('/')
+                    paths.extend((
+                        path + '/',
+                        path + '?'
+                    ))
+            return uri.startswith(tuple(paths))
 
-            paths = []
-            for path in uri_path:
-                path = ('plugin://%s/%s' % (self.get_id(), path)).rstrip('/')
-                paths.extend((
-                    path + '/',
-                    path + '?'
-                ))
-            return uri.startswith(paths)
-
-        uri_path = ('plugin://%s/%s' % (self.get_id(), uri_path)).rstrip('/')
+        uri_path = 'plugin://{0}/{1}'.format(plugin, uri_path).rstrip('/')
         if not partial:
             uri_path = (
                 uri_path + '/',
@@ -585,14 +589,23 @@ class XbmcContext(AbstractContext):
         new_context = XbmcContext(path=new_path,
                                   params=new_params,
                                   plugin_id=self._plugin_id)
-        new_context._function_cache = self._function_cache
-        new_context._search_history = self._search_history
-        new_context._bookmarks_list = self._bookmarks_list
-        new_context._watch_later_list = self._watch_later_list
+
         new_context._access_manager = self._access_manager
+        new_context._uuid = self._uuid
+
+        new_context._bookmarks_list = self._bookmarks_list
+        new_context._data_cache = self._data_cache
+        new_context._feed_history = self._feed_history
+        new_context._function_cache = self._function_cache
+        new_context._playback_history = self._playback_history
+        new_context._search_history = self._search_history
+        new_context._watch_later_list = self._watch_later_list
+
         new_context._ui = self._ui
         new_context._video_playlist = self._video_playlist
+        new_context._audio_playlist = self._audio_playlist
         new_context._video_player = self._video_player
+        new_context._audio_player = self._audio_player
 
         return new_context
 
@@ -637,25 +650,29 @@ class XbmcContext(AbstractContext):
             return False
 
     def send_notification(self, method, data=True):
-        self.log_debug('send_notification: |%s| -> |%s|' % (method, data))
         jsonrpc(method='JSONRPC.NotifyAll',
                 params={'sender': ADDON_ID,
                         'message': method,
                         'data': data})
 
-    def use_inputstream_adaptive(self):
-        if self._settings.use_isa():
-            if self.addon_enabled('inputstream.adaptive'):
-                success = True
-            elif self.get_ui().on_yes_no_input(
-                    self.get_name(), self.localize('isa.enable.confirm')
-            ):
-                success = self.set_addon_enabled('inputstream.adaptive')
-            else:
-                success = False
-        else:
-            success = False
-        return success
+    def use_inputstream_adaptive(self, prompt=False):
+        if not self.get_settings().use_isa():
+            return None
+
+        while 1:
+            try:
+                addon = xbmcaddon.Addon('inputstream.adaptive')
+                return addon.getAddonInfo('version')
+            except RuntimeError:
+                if (prompt
+                        and self.get_ui().on_yes_no_input(
+                            self.get_name(),
+                            self.localize('isa.enable.confirm'),
+                        )
+                        and self.set_addon_enabled('inputstream.adaptive')):
+                    prompt = False
+                    continue
+            return None
 
     # Values of capability map can be any of the following:
     # - required version number, as string param to loose_version() to compare
@@ -686,13 +703,8 @@ class XbmcContext(AbstractContext):
         # If capability param is provided, returns True if the installed version
         # of ISA supports the nominated capability, False otherwise
 
-        try:
-            addon = xbmcaddon.Addon('inputstream.adaptive')
-            inputstream_version = addon.getAddonInfo('version')
-        except RuntimeError:
-            inputstream_version = ''
-
-        if not self.use_inputstream_adaptive() or not inputstream_version:
+        inputstream_version = self.use_inputstream_adaptive()
+        if not inputstream_version:
             return frozenset() if capability is None else None
 
         isa_loose_version = loose_version(inputstream_version)
@@ -764,5 +776,29 @@ class XbmcContext(AbstractContext):
             except AttributeError:
                 pass
 
-    def wakeup(self):
-        self.send_notification(WAKEUP)
+    def wakeup(self, target, timeout=None):
+        data = {'target': target, 'response_required': bool(timeout)}
+        self.send_notification(WAKEUP, data)
+        if not timeout:
+            return
+
+        pop_property = self.get_ui().pop_property
+        no_timeout = timeout < 0
+        remaining = timeout
+        wait_period = 0.1
+
+        while no_timeout or remaining > 0:
+            awake = pop_property(WAKEUP)
+            if awake:
+                if awake == target:
+                    self.log_debug('Wakeup |{0}| in {1}s'
+                                   .format(awake, timeout - remaining))
+                else:
+                    self.log_error('Wakeup |{0}| in {1}s - expected |{2}|'
+                                   .format(awake, timeout - remaining, target))
+                break
+            wait(wait_period)
+            remaining -= wait_period
+        else:
+            self.log_error('Wakeup |{0}| timed out in {1}s'
+                           .format(target, timeout))

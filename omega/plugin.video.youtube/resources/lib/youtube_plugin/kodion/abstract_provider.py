@@ -19,6 +19,7 @@ from .items import (
     NewSearchItem,
     NextPageItem,
     SearchHistoryItem,
+    UriItem,
 )
 from .utils import to_unicode
 
@@ -50,6 +51,12 @@ class AbstractProvider(object):
             '(?P<page>/[0-9]+)?'
             '(?P<path>/[^?]+?)(?:/*[?].+|/*)$'
         )), self._internal_goto_page)
+
+        self.register_path(r''.join((
+            '^',
+            paths.COMMAND,
+            '/(?P<command>[^?]+?)(?:/*[?].+|/*)$'
+        )), self._on_command)
 
         self.register_path(r''.join((
             '^',
@@ -224,7 +231,6 @@ class AbstractProvider(object):
             try:
                 result, options = function_cache.run(
                     self.navigate,
-                    seconds=None,
                     _refresh=True,
                     _scope=function_cache.SCOPE_NONE,
                     context=context.clone(path, params),
@@ -259,13 +265,13 @@ class AbstractProvider(object):
             return self.on_search(query, context, re_match)
 
         if command == 'remove':
-            query = params.get('q', '')
+            query = to_unicode(params.get('q', ''))
             search_history.remove(query)
             ui.refresh_container()
             return True
 
         if command == 'rename':
-            query = params.get('q', '')
+            query = to_unicode(params.get('q', ''))
             result, new_query = ui.on_keyboard_input(
                 context.localize('search.rename'), query
             )
@@ -333,6 +339,10 @@ class AbstractProvider(object):
             result.append(search_history_item)
 
         return result, {self.RESULT_CACHE_TO_DISC: False}
+
+    def _on_command(self, _context, re_match):
+        command = re_match.group('command')
+        return UriItem('command://{0}'.format(command))
 
     def handle_exception(self, context, exception_to_handle):
         return True

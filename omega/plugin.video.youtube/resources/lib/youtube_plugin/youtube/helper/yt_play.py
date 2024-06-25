@@ -20,6 +20,7 @@ from ...kodion.compatibility import urlencode, urlunsplit
 from ...kodion.constants import (
     PLAY_FORCE_AUDIO,
     PLAY_PROMPT_QUALITY,
+    PLAYBACK_INIT,
     PLAYER_DATA,
     SWITCH_PLAYER_FLAG,
     paths,
@@ -48,7 +49,7 @@ def play_video(provider, context):
     if ((is_external and settings.alternative_player_web_urls())
             or settings.default_player_web_urls()):
         video_stream = {
-            'url': 'https://www.youtube.com/watch?v={0}'.format(video_id),
+            'url': 'https://youtu.be/{0}'.format(video_id),
         }
     else:
         ask_for_quality = None
@@ -116,7 +117,7 @@ def play_video(provider, context):
         video_stream['url'] = url
     video_item = VideoItem(video_details.get('title', ''), video_stream['url'])
 
-    use_history = not (screensaver or incognito or video_stream.get('Live'))
+    use_history = not (screensaver or incognito or video_stream.get('live'))
     use_remote_history = use_history and settings.use_remote_history()
     use_play_data = use_history and settings.use_local_history()
 
@@ -153,8 +154,9 @@ def play_video(provider, context):
         'refresh_only': screensaver
     }
 
+    context.wakeup('server', timeout=30)
     ui.set_property(PLAYER_DATA, json.dumps(playback_data, ensure_ascii=False))
-    context.send_notification('PlaybackInit', playback_data)
+    context.send_notification(PLAYBACK_INIT, playback_data)
     return video_item
 
 

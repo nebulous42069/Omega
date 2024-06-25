@@ -28,7 +28,19 @@ from ..compatibility import (
 )
 from ..constants import ADDON_ID, LICENSE_TOKEN, LICENSE_URL, TEMP_PATH, paths
 from ..logger import log_debug, log_error
-from ..utils import validate_ip_address, wait
+from ..utils import validate_ip_address, redact_ip_from_url, wait
+
+
+class HTTPServer(TCPServer):
+    allow_reuse_address = True
+    allow_reuse_port = True
+
+    def server_close(self):
+        try:
+            self.socket.shutdown(socket.SHUT_RDWR)
+        except (OSError, socket.error):
+            pass
+        self.socket.close()
 
 
 class RequestHandler(BaseHTTPRequestHandler, object):
@@ -82,7 +94,9 @@ class RequestHandler(BaseHTTPRequestHandler, object):
         # Strip trailing slash if present
         stripped_path = self.path.rstrip('/')
         if stripped_path != paths.PING:
-            log_debug('HTTPServer: GET |{path}|'.format(path=self.path))
+            log_debug('HTTPServer: GET |{path}|'.format(
+                path=redact_ip_from_url(self.path)
+            ))
 
         if not self.connection_allowed():
             self.send_error(403)
@@ -548,11 +562,7 @@ class Pages(object):
 def get_http_server(address, port, context):
     RequestHandler._context = context
     try:
-        server = TCPServer((address, port), RequestHandler, False)
-        server.allow_reuse_address = True
-        server.allow_reuse_port = True
-        server.server_bind()
-        server.server_activate()
+        server = HTTPServer((address, port), RequestHandler)
         return server
     except socket.error as exc:
         log_error('HTTPServer: Failed to start |{address}:{port}| |{response}|'

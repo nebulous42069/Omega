@@ -210,43 +210,43 @@ class YouTube(LoginClient):
 
             if 'audio' in video_stream and 'video' in video_stream:
                 if (video_stream['audio']['bitrate'] > 0
-                        and video_stream['video']['encoding']
-                        and video_stream['audio']['encoding']):
+                        and video_stream['video']['codec']
+                        and video_stream['audio']['codec']):
                     title = '%s (%s; %s / %s@%d)' % (
                         context.get_ui().bold(video_stream['title']),
                         video_stream['container'],
-                        video_stream['video']['encoding'],
-                        video_stream['audio']['encoding'],
+                        video_stream['video']['codec'],
+                        video_stream['audio']['codec'],
                         video_stream['audio']['bitrate']
                     )
 
-                elif (video_stream['video']['encoding']
-                      and video_stream['audio']['encoding']):
+                elif (video_stream['video']['codec']
+                      and video_stream['audio']['codec']):
                     title = '%s (%s; %s / %s)' % (
                         context.get_ui().bold(video_stream['title']),
                         video_stream['container'],
-                        video_stream['video']['encoding'],
-                        video_stream['audio']['encoding']
+                        video_stream['video']['codec'],
+                        video_stream['audio']['codec']
                     )
             elif 'audio' in video_stream and 'video' not in video_stream:
-                if (video_stream['audio']['encoding']
+                if (video_stream['audio']['codec']
                         and video_stream['audio']['bitrate'] > 0):
                     title = '%s (%s; %s@%d)' % (
                         context.get_ui().bold(video_stream['title']),
                         video_stream['container'],
-                        video_stream['audio']['encoding'],
+                        video_stream['audio']['codec'],
                         video_stream['audio']['bitrate']
                     )
 
             elif 'audio' in video_stream or 'video' in video_stream:
-                encoding = video_stream.get('audio', {}).get('encoding')
-                if not encoding:
-                    encoding = video_stream.get('video', {}).get('encoding')
-                if encoding:
+                codec = video_stream.get('audio', {}).get('codec')
+                if not codec:
+                    codec = video_stream.get('video', {}).get('codec')
+                if codec:
                     title = '%s (%s; %s)' % (
                         context.get_ui().bold(video_stream['title']),
                         video_stream['container'],
-                        encoding
+                        codec
                     )
 
             video_stream['title'] = title
@@ -649,12 +649,12 @@ class YouTube(LoginClient):
                     continue
 
         # Fetch existing list of items, if any
-        cache = self._context.get_data_cache()
+        data_cache = self._context.get_data_cache()
         cache_items_key = 'get-activities-home-items-v2'
         if refresh:
             cached = []
         else:
-            cached = cache.get_item(cache_items_key, None) or []
+            cached = data_cache.get_item(cache_items_key) or []
 
         # Increase value to recursively retrieve recommendations for the first
         # recommended video, up to the set maximum recursion depth
@@ -860,7 +860,7 @@ class YouTube(LoginClient):
         """
 
         # Update cache
-        cache.set_item(cache_items_key, items)
+        data_cache.set_item(cache_items_key, items)
 
         return payload
 
@@ -912,24 +912,30 @@ class YouTube(LoginClient):
                                 params=params,
                                 **kwargs)
 
-    def get_playlist_item_id_of_video_id(self, playlist_id, video_id, page_token=''):
-        old_max_results = self._max_results
-        self._max_results = 50
-        json_data = self.get_playlist_items(playlist_id=playlist_id, page_token=page_token)
-        self._max_results = old_max_results
+    def get_playlist_item_id_of_video_id(self,
+                                         playlist_id,
+                                         video_id,
+                                         page_token=''):
+        json_data = self.get_playlist_items(
+            playlist_id=playlist_id,
+            page_token=page_token,
+            max_results=50,
+        )
+        if not json_data:
+            return None
 
-        items = json_data.get('items', [])
-        for item in items:
-            playlist_item_id = item['id']
-            playlist_video_id = item.get('snippet', {}).get('resourceId', {}).get('videoId', '')
-            if playlist_video_id and playlist_video_id == video_id:
-                return playlist_item_id
+        for item in json_data.get('items', []):
+            if (item.get('snippet', {}).get('resourceId', {}).get('videoId')
+                    == video_id):
+                return item['id']
 
-        next_page_token = json_data.get('nextPageToken', '')
+        next_page_token = json_data.get('nextPageToken')
         if next_page_token:
-            return self.get_playlist_item_id_of_video_id(playlist_id=playlist_id, video_id=video_id,
-                                                         page_token=next_page_token)
-
+            return self.get_playlist_item_id_of_video_id(
+                playlist_id=playlist_id,
+                video_id=video_id,
+                page_token=next_page_token,
+            )
         return None
 
     def get_playlist_items(self,
@@ -938,9 +944,10 @@ class YouTube(LoginClient):
                            max_results=None,
                            **kwargs):
         # prepare params
-        max_results = str(self._max_results) if max_results is None else str(max_results)
+        if max_results is None:
+            max_results = self._max_results
         params = {'part': 'snippet',
-                  'maxResults': max_results,
+                  'maxResults': str(max_results),
                   'playlistId': playlist_id}
         if page_token:
             params['pageToken'] = page_token
@@ -1395,7 +1402,7 @@ class YouTube(LoginClient):
                   'relevanceLanguage': self._language,
                   'maxResults': str(self._max_results)}
 
-        if event_type and event_type in ['live', 'upcoming', 'completed']:
+        if event_type and event_type in {'live', 'upcoming', 'completed'}:
             params['eventType'] = event_type
         if search_type:
             params['type'] = search_type
@@ -1443,7 +1450,7 @@ class YouTube(LoginClient):
             'items': [],
         }
 
-        cache = self._context.get_data_cache()
+        cache = self._context.get_feed_history()
         settings = self._context.get_settings()
 
         if do_filter:
@@ -1470,14 +1477,7 @@ class YouTube(LoginClient):
         }
         totals['start'] += totals['end']
 
-        def _sort_by_date_time(item, limits, filters=None):
-            if filters:
-                filtered = item['_channel'] in filters['set']
-                if filters['blacklist']:
-                    if filtered:
-                        return -1
-                elif not filtered:
-                    return -1
+        def _sort_by_date_time(item, limits):
             video_id = item['id']
             if video_id in limits['video_ids']:
                 return -1
@@ -1539,19 +1539,17 @@ class YouTube(LoginClient):
         }
 
         def _get_feed_cache(channel_id, _cache=cache, _refresh=refresh):
-            cache_key = channel_id + '_feed'
-            cached = _cache.get_item(cache_key, as_dict=True)
+            cached = _cache.get_item(channel_id)
             if cached:
-                cached_items = cached['value']
+                feed_details = cached['value']
                 _refresh = _refresh or cached['age'] > _cache.ONE_HOUR
             else:
-                cached_items = None
+                feed_details = {
+                    'channel_name': None,
+                    'cached_items': None,
+                }
                 _refresh = True
 
-            feed_details = {
-                'cache_key': cache_key,
-                'cached_items': cached_items,
-            }
             if _refresh:
                 feed_details['refresh'] = True
 
@@ -1564,7 +1562,6 @@ class YouTube(LoginClient):
                     + channel_id,
                     headers=_headers,
                 ),
-                'cache_key': channel_id + '_feed',
                 'refresh': True,
             })
 
@@ -1576,12 +1573,13 @@ class YouTube(LoginClient):
 
         def _parse_feeds(feeds,
                          encode=not current_system_version.compatible(19, 0),
+                         filters=subscription_filters,
                          _ns=namespaces,
                          _cache=cache):
             all_items = {}
             new_cache = {}
             for channel_id, feed in feeds.items():
-                cache_key = feed['cache_key']
+                channel_name = feed.get('channel_name')
                 cached_items = feed.get('cached_items')
                 refresh_feed = feed.get('refresh')
                 content = feed.get('content')
@@ -1597,10 +1595,8 @@ class YouTube(LoginClient):
                         'kind': 'youtube#video',
                         'id': item.findtext('yt:videoId', '', _ns),
                         'snippet': {
-                            'title': item.findtext('atom:title', '', _ns),
                             'channelId': channel_id,
                         },
-                        '_channel': channel_name,
                         '_timestamp': datetime_parser.since_epoch(
                             datetime_parser.strptime(
                                 item.findtext('atom:published', '', _ns)
@@ -1622,12 +1618,23 @@ class YouTube(LoginClient):
                                     key=partial(_sort_by_date_time,
                                                 limits=feed_limits))
                     feed_items = feed_items[:min(1000, feed_limits['num'])]
-                    new_cache[cache_key] = feed_items
+                    new_cache[channel_id] = {
+                        'channel_name': channel_name,
+                        'cached_items': feed_items,
+                    }
                 elif cached_items:
                     feed_items = cached_items
                 else:
                     continue
-                all_items[cache_key] = feed_items
+                if filters:
+                    filtered = channel_name and channel_name in filters['set']
+                    if filters['blacklist']:
+                        if not filtered:
+                            all_items[channel_id] = feed_items
+                    elif filtered:
+                        all_items[channel_id] = feed_items
+                else:
+                    all_items[channel_id] = feed_items
 
             if new_cache:
                 _cache.set_items(new_cache)
@@ -1791,8 +1798,7 @@ class YouTube(LoginClient):
         if items:
             items.sort(reverse=True,
                        key=partial(_sort_by_date_time,
-                                   limits=totals,
-                                   filters=subscription_filters))
+                                   limits=totals))
         else:
             return None
 
@@ -2005,7 +2011,7 @@ class YouTube(LoginClient):
             elif reason == 'keyInvalid' and message == 'Bad Request':
                 notification = self._context.localize('api.key.incorrect')
                 timeout = 7000
-            elif reason in ('quotaExceeded', 'dailyLimitExceeded'):
+            elif reason in {'quotaExceeded', 'dailyLimitExceeded'}:
                 notification = message
                 timeout = 7000
             else:

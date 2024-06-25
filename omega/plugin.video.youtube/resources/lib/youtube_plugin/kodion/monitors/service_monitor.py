@@ -16,6 +16,7 @@ from ..compatibility import xbmc, xbmcgui
 from ..constants import (
     ADDON_ID,
     CHECK_SETTINGS,
+    PLAYBACK_INIT,
     REFRESH_CONTAINER,
     RELOAD_ACCESS_MANAGER,
     WAKEUP,
@@ -86,29 +87,30 @@ class ServiceMonitor(xbmc.Monitor):
         if event == CHECK_SETTINGS:
             if not isinstance(data, dict):
                 data = json.loads(data)
-            log_debug('onNotification: |check_settings| -> |{data}|'
-                      .format(data=data))
-
             if data == 'defer':
                 self._settings_state = data
-                return
-            if data == 'process':
+            elif data == 'process':
                 self._settings_state = data
                 self.onSettingsChanged()
                 self._settings_state = None
-                return
         elif event == WAKEUP:
-            if not self.httpd and self.httpd_required():
-                self.start_httpd()
-            self.interrupt = True
+            if not isinstance(data, dict):
+                data = json.loads(data)
+            if not data:
+                return
+            target = data.get('target')
+            if target == 'plugin':
+                self.interrupt = True
+            elif target == 'server':
+                if not self.httpd and self.httpd_required():
+                    self.start_httpd()
+            if data.get('response_required'):
+                self.set_property(WAKEUP, target)
         elif event == REFRESH_CONTAINER:
             self.refresh_container()
         elif event == RELOAD_ACCESS_MANAGER:
             self._context.reload_access_manager()
             self.refresh_container()
-        else:
-            log_debug('onNotification: |unhandled method| -> |{method}|'
-                      .format(method=method))
 
     def onSettingsChanged(self):
         self._settings_changes += 1
@@ -186,14 +188,16 @@ class ServiceMonitor(xbmc.Monitor):
         log_debug('HTTPServer: Serving on |{ip}:{port}|'
                   .format(ip=address[0], port=address[1]))
 
-    def shutdown_httpd(self):
+    def shutdown_httpd(self, sleep=False):
         if self.httpd:
+            if sleep and self.httpd_required(while_sleeping=True):
+                return
             log_debug('HTTPServer: Shutting down |{ip}:{port}|'
                       .format(ip=self._old_httpd_address,
                               port=self._old_httpd_port))
             self.httpd_address_sync()
             self.httpd.shutdown()
-            self.httpd.socket.close()
+            self.httpd.server_close()
             self.httpd_thread.join()
             self.httpd_thread = None
             self.httpd = None
@@ -210,5 +214,9 @@ class ServiceMonitor(xbmc.Monitor):
     def ping_httpd(self):
         return self.httpd and httpd_status(self._context)
 
-    def httpd_required(self):
+    def httpd_required(self, while_sleeping=False):
+        if while_sleeping:
+            settings = self._context.get_settings()
+            return (settings.api_config_page()
+                    or settings.support_alternative_player())
         return self._use_httpd

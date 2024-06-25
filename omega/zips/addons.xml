@@ -1533,7 +1533,7 @@ Random updates by lolage.
         </assets>
     <platform>all</platform>
   </extension>
-</addon><addon id="plugin.video.youtube" name="YouTube" version="7.0.7.1+unofficial.1" provider-name="anxdpanic, bromix, MoojMidge">
+</addon><addon id="plugin.video.youtube" name="YouTube" version="420.7.0.8+beta.5.unofficial.1" provider-name="anxdpanic, bromix, MoojMidge">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
         <import addon="script.module.requests" version="2.27.1" />
@@ -1639,34 +1639,18 @@ Random updates by lolage.
         <disclaimer lang="vi_VN">Plugin này không được xác nhận bởi Google</disclaimer>
         <disclaimer lang="zh_CN">此插件未被谷歌认可</disclaimer>
         <disclaimer lang="zh_TW">此附加元件未由Google支持</disclaimer>
-    <news>## v7.0.7.1
+    <news>## v7.0.8+beta.5
 ### Fixed
-- Fixed not being able to re-refresh a directory listing that has already been refreshed
-- Fixed various window and history nagivation issues
-- Fixed http server idle shutdown not restarting if plugin is run but GUI is still idle
-- Additional improvements to busy dialog crash workaround
-- Workaround for new settings interface not updated correctly
-- Fix bookmarks icon background colour
-- Fix adding channel items directly to bookmarks
-- Fixes for player monitoring preventing item being marked as watched
-- Fix invalid pageToken error by removing jump from unsupported listings
-- Fix issues with post play refresh possibly causing loss of window history
-- Fix bug that could lead to plugin continuously reloading
-- Attempted fix for socket error 98 on Linux
-  - For error 10013 on Windows try either of the following:
-    - Start-Process powershell -Verb runAs -ArgumentList "net stop winnat; net start winnat"
-    - Start-Process powershell -Verb runAs -ArgumentList "net stop hns; net start hns"
-- Fix changing fanart type on My Subscriptions
-- Fix not using thumbnail fanart for channels/subscriptions/playlists when enabled
-- Fix My Subscriptions threading issues
-- Fix failing to login
-- Improve resource usage
-- Fix adding video to playlist
-- Fix plugin settings raising exception in Kodi 19-20
-- Fix My Subscriptions next page error
-- Fix page jump when page_token is not used
-- Fix not reloading access manager when performing user actions
-- Attempt to fix PlaylistPl</news></extension>
+- Fix Python2 UnicodeDecodeError when removing/renaming searches
+- Fix not catching socket.error in Python2 when force shutting down socket
+- Fix deleting window property with multiple threads causing hang on exit
+
+### Changed
+- Update 720p preset in Setup Wizard
+- Update itags found in HLS playlists and exclude them in quality selection
+
+### New
+- Enable subtitles for alternative client 2</news></extension>
 </addon><addon id="repository.709" name=" The[COLOR FF0C5EB4][B]7o9[/B][/COLOR]Repo" version="1.0.2" provider-name="Zaxxon709">
     <extension point="xbmc.addon.repository" name="The7o9Repo">
         <dir>

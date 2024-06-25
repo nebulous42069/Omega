@@ -16,6 +16,8 @@ import threading
 from ..compatibility import xbmc
 from ..constants import (
     BUSY_FLAG,
+    PLAYBACK_STARTED,
+    PLAYBACK_STOPPED,
     PLAYER_DATA,
     REFRESH_CONTAINER,
     SWITCH_PLAYER_FLAG,
@@ -79,7 +81,7 @@ class PlayerMonitorThread(threading.Thread):
             self._monitor.waitForAbort(wait_interval)
             waited += wait_interval
         else:
-            self._context.send_notification('PlaybackStarted', {
+            self._context.send_notification(PLAYBACK_STARTED, {
                 'video_id': self.video_id,
                 'channel_id': self.channel_id,
                 'status': self.video_status,
@@ -218,7 +220,7 @@ class PlayerMonitorThread(threading.Thread):
             self._context.get_playback_history().update(self.video_id,
                                                         play_data)
 
-        self._context.send_notification('PlaybackStopped', self.playback_data)
+        self._context.send_notification(PLAYBACK_STOPPED, self.playback_data)
         self._context.log_debug('Playback stopped [{video_id}]:'
                                 ' {played_time:.3f} secs of {total_time:.3f}'
                                 ' @ {played_percent}%,'
@@ -234,8 +236,14 @@ class PlayerMonitorThread(threading.Thread):
                     playlist_id=watch_later_id, video_id=self.video_id
                 )
                 if playlist_item_id:
-                    client.remove_video_from_playlist(
-                        watch_later_id, playlist_item_id
+                    self._provider.on_playlist_x(
+                        self._context,
+                        method='remove',
+                        category='video',
+                        playlist_id=watch_later_id,
+                        video_id=playlist_item_id,
+                        video_name='',
+                        confirmed=True,
                     )
             else:
                 self._context.get_watch_later_list().remove(self.video_id)
@@ -258,10 +266,11 @@ class PlayerMonitorThread(threading.Thread):
                             r'/(?P<video_id>[^/]+)/(?P<rating>[^/]+)',
                             '/{0}/{1}/'.format(self.video_id, rating)
                         )
-                        self._provider.yt_video.process('rate',
-                                                        self._provider,
-                                                        self._context,
-                                                        rating_match)
+                        self._provider.on_video_x(
+                            self._context,
+                            rating_match,
+                            method='rate',
+                        )
 
         if settings.get_bool('youtube.post.play.refresh', False):
             self._context.send_notification(REFRESH_CONTAINER)
