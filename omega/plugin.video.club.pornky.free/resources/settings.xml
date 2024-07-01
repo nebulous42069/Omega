@@ -1,0 +1,31 @@
+<settings>
+    <category label="30001">
+        <setting id="res" type="enum" label="30010" lvalues="30011|30012|30013|30014|30015|30019" default="0" />
+        <setting id="search_items" type="text" label="30030" default="Abella,Nappi,Elsa,Riley,Gianna" />
+        <setting type="sep"/>
+        <setting id="download_path" type="folder" source="local" label="30300"  option="writeable" default=""/>
+    </category>
+    <category label="30002">
+        <setting id="filter" type="enum" label="30050" lvalues="30051|30052|30053" default="0" />
+        <setting label="30060" type="text" id="filter_items" default="Gay,Shemale" enable="!eq(-1,1)" />
+        <setting type="sep"/>
+        <setting label="30500" type="bool" id="show_category_image" default="true" />
+        <setting label="30501" type="bool" id="show_video_image" default="true" />
+        <setting label="30502" type="bool" id="show_video_background" default="true" />
+    </category>
+    <category label="30004">
+        <setting label="30400" type="bool" id="disable_login" default="false" />
+        <setting type="sep"/>
+        <setting label="30401" type="text" id="username" default="" enable="eq(-2,false)" />
+        <setting label="30402" type="text" id="password" option="hidden" default="" enable="eq(-3,false)" />
+        <setting type="sep"/>
+        <setting label="30403" type="text" id="cookie_PHPSESSID" default="" enable="eq(-5,false)" />
+    </category>
+    <category label="30009">
+        <setting label="30900" type="bool" id="overwrite_prefix" default="false" />
+        <setting label="30901" type="text" id="prefix" default="" enable="eq(-1,true)" />
+        <setting label="30902" type="bool" id="overwrite_server" default="false" />
+        <setting label="30903" type="text" id="server" default="" enable="eq(-1,true)" />
+        <setting type="text" id="first_run" default="" visible="false" />
+    </category>
+</settings>

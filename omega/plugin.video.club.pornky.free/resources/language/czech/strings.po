@@ -1,0 +1,140 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: plugin.video.com.pornky\n"
+"POT-Creation-Date: 2021-02-26 12:46+0100\n"
+"PO-Revision-Date: 2021-02-26 13:29+0100\n"
+"Last-Translator: fr33p0rt <fr33p0rt@protonmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
+"X-Generator: Poedit 2.4.1\n"
+
+msgctxt "#30001"
+msgid "General"
+msgstr "Obecné"
+
+msgctxt "#30002"
+msgid "Filter / Preview"
+msgstr "Filtr / Náhledy"
+
+msgctxt "#30003"
+msgid "Download"
+msgstr "Stahování"
+
+msgctxt "#30004"
+msgid "Credentials"
+msgstr "Přihlašovaní"
+
+msgctxt "#30005"
+msgid "Images / Preview"
+msgstr "Obrázky / Náhledy"
+
+msgctxt "#30010"
+msgid "Resolution"
+msgstr "Rozlišení"
+
+msgctxt "#30011"
+msgid "highest"
+msgstr "nejvyšší"
+
+msgctxt "#30012"
+msgid "up to 1080"
+msgstr "maximálně 1080"
+
+msgctxt "#30013"
+msgid "up to 720"
+msgstr "maximálně 720"
+
+msgctxt "#30014"
+msgid "up to 480"
+msgstr "maximálně 480"
+
+msgctxt "#30015"
+msgid "up to 360"
+msgstr "maximálně 360"
+
+msgctxt "#30019"
+msgid "lowest"
+msgstr "nejnižší"
+
+msgctxt "#30020"
+msgid "Begin with categories"
+msgstr "Zobrazit rovnou kategorie"
+
+msgctxt "#30030"
+msgid "Favorite searches (comma separated)"
+msgstr "Oblíbené hledání (oddělené čárkou)"
+
+msgctxt "#30050"
+msgid "Filter type"
+msgstr "Způsob filtrování"
+
+msgctxt "#30051"
+msgid "suppress filter items"
+msgstr "potlačit položky filtru"
+
+msgctxt "#30052"
+msgid "off"
+msgstr "vypnuto"
+
+msgctxt "#30053"
+msgid "show filter items only"
+msgstr "zobrazit jen položky filtru"
+
+msgctxt "#30060"
+msgid "Filter items (comma separated)"
+msgstr "Položky filtru (oddělené čárkou)"
+
+msgctxt "#30009"
+msgid "Expert settings"
+msgstr "Expertní nastavení"
+
+msgctxt "#30900"
+msgid "Overwrite prefix in video path calculation"
+msgstr "Přepsat prefix pro kalkulaci cesty k videu"
+
+msgctxt "#30901"
+msgid "Prefix"
+msgstr "Prefix"
+
+msgctxt "#30902"
+msgid "Overwrite videoserver"
+msgstr "Přepsat videoserver"
+
+msgctxt "#30903"
+msgid "Videoserver"
+msgstr "Videoserver"
+
+msgctxt "#30300"
+msgid "Download folder"
+msgstr "Složka pro stahování"
+
+msgctxt "#30400"
+msgid "Disable login"
+msgstr "Nepřihlašovat"
+
+msgctxt "#30401"
+msgid "Username"
+msgstr "Uživatelské jméno"
+
+msgctxt "#30402"
+msgid "Password"
+msgstr "Heslo"
+
+msgctxt "#30403"
+msgid "Cookie PHPSESSID"
+msgstr "Cookie PHPSESSID"
+
+msgctxt "#30500"
+msgid "Show category image"
+msgstr "Zobrazovat obrázek kategorie"
+
+msgctxt "#30501"
+msgid "Show video image"
+msgstr "Zobrazovat náhled videa"
+
+msgctxt "#30502"
+msgid "Show video image in background"
+msgstr "Zobrazovat náhled videa na pozadí"

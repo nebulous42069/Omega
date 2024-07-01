@@ -1,0 +1,142 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: plugin.video.com.pornky\n"
+"POT-Creation-Date: 2021-02-26 12:46+0100\n"
+"PO-Revision-Date: 2021-02-26 14:07+0100\n"
+"Last-Translator: fr33p0rt <fr33p0rt@protonmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"X-Generator: Poedit 2.4.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+msgctxt "#30001"
+msgid "General"
+msgstr "General"
+
+msgctxt "#30002"
+msgid "Filter / Preview"
+msgstr "Filter / Preview"
+
+msgctxt "#30003"
+msgid "Download"
+msgstr "Download"
+
+msgctxt "#30004"
+msgid "Credentials"
+msgstr "Credentials"
+
+msgctxt "#30005"
+msgid "Images / Preview"
+msgstr "Images / Preview"
+
+msgctxt "#30010"
+msgid "Resolution"
+msgstr "Resolution"
+
+msgctxt "#30011"
+msgid "highest"
+msgstr "highest"
+
+msgctxt "#30012"
+msgid "up to 1080"
+msgstr "up to 1080"
+
+msgctxt "#30013"
+msgid "up to 720"
+msgstr "up to 720"
+
+msgctxt "#30014"
+msgid "up to 480"
+msgstr "up to 480"
+
+msgctxt "#30015"
+msgid "up to 360"
+msgstr "up to 360"
+
+msgctxt "#30019"
+msgid "lowest"
+msgstr "lowest"
+
+msgctxt "#30020"
+msgid "Begin with categories"
+msgstr "Begin with categories"
+
+msgctxt "#30030"
+msgid "Favorite searches (comma separated)"
+msgstr "Favorite searches (comma separated)"
+
+msgctxt "#30050"
+msgid "Filter type"
+msgstr "Filter type"
+
+msgctxt "#30051"
+msgid "suppress filter items"
+msgstr "suppress filter items"
+
+msgctxt "#30052"
+msgid "off"
+msgstr "off"
+
+msgctxt "#30053"
+msgid "show filter items only"
+msgstr "show filter items only"
+
+msgctxt "#30060"
+msgid "Filter items (comma separated)"
+msgstr "Filter items (comma separated)"
+
+msgctxt "#30009"
+msgid "Expert settings"
+msgstr "Expert settings"
+
+msgctxt "#30900"
+msgid "Overwrite prefix in video path calculation"
+msgstr "Overwrite prefix in video path calculation"
+
+msgctxt "#30901"
+msgid "Prefix"
+msgstr "Prefix"
+
+msgctxt "#30902"
+msgid "Overwrite videoserver"
+msgstr "Overwrite videoserver"
+
+msgctxt "#30903"
+msgid "Videoserver"
+msgstr "Videoserver"
+
+msgctxt "#30300"
+msgid "Download folder"
+msgstr "Download folder"
+
+msgctxt "#30400"
+msgid "Disable login"
+msgstr "Disable login"
+
+msgctxt "#30401"
+msgid "Username"
+msgstr "Username"
+
+msgctxt "#30402"
+msgid "Password"
+msgstr "Password"
+
+msgctxt "#30403"
+msgid "Cookie PHPSESSID"
+msgstr "Cookie PHPSESSID"
+
+msgctxt "#30500"
+msgid "Show category image"
+msgstr "Show category image"
+
+msgctxt "#30501"
+msgid "Show video image"
+msgstr "Show video image"
+
+msgctxt "#30502"
+msgid "Show video image in background"
+msgstr "Show video image in background"
