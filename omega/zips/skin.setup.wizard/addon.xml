@@ -1,4 +1,4 @@
-<addon id="skin.setup.wizard" name="Setup Wizard" provider-name="jurialmunkey" version="420">
+<addon id="skin.setup.wizard" name="Setup Wizard" provider-name="jurialmunkey" version="421">
     <requires>
         <import addon="xbmc.gui" version="5.17.0" />
     </requires>

@@ -820,7 +820,7 @@
             <control type="label">
                 <height>32</height>
                 <textcolor>main_fg_100</textcolor>
-                <label>KODI</label>
+                <label>Diggz AIO</label>
                 <font>font_logo_large</font>
                 <align>center</align>
             </control>
