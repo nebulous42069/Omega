@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="skin.xenonburst"
-  version="6.7"
+  version="6.8"
   name="[B][COLOR gold]Xenon Burst[/COLOR][/B]  (Mid Power)"
   provider-name="Helly,bsoriano">
   <requires>
@@ -9,6 +9,7 @@
 	<import addon="script.favourites" version="8.1.2"/>
 	<import addon="script.image.resource.select" version="3.0.2"/>
     <import addon="script.skinshortcuts" version="1.0.0" />	
+    <import addon="plugin.video.elementum" version="1.0.0" />	
   </requires>
   <extension
     point="xbmc.gui.skin"
