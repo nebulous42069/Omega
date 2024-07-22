@@ -1,6 +1,7 @@
-<addon id="skin.aasetup.wizard" name="-[B][COLOR chartreuse]Setup Wizard[/COLOR][/B]" provider-name="jurialmunkey" version="420">
+<addon id="skin.aasetup.wizard" name="-[B][COLOR chartreuse]Setup Wizard[/COLOR][/B]" provider-name="jurialmunkey" version="421">
     <requires>
         <import addon="xbmc.gui" version="5.17.0" />
+		<import addon="script.skinshortcuts" version="2.0.1" />		
     </requires>
     <extension debugging="true" defaultthemename="Textures.xbt" effectslowdown="1" point="xbmc.gui.skin">
         <res aspect="16:9" default="true" folder="1080i" width="1920" height="1080" />
