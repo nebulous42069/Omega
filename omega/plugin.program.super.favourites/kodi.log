@@ -1,0 +1,881 @@
+﻿2022-02-09 19:16:23.504 T:12504    INFO <general>: -----------------------------------------------------------------------
+2022-02-09 19:16:23.504 T:12504    INFO <general>: Starting Kodi (19.3 (19.3.0) Git:20211024-49a04cd6a7). Platform: Windows NT x86 64-bit
+2022-02-09 19:16:23.504 T:12504    INFO <general>: Using Release Kodi x64
+2022-02-09 19:16:23.504 T:12504    INFO <general>: Kodi compiled 2021-10-24 by MSVC 191627045 for Windows NT x86 64-bit version 10.0 (0x0A000007)
+2022-02-09 19:16:23.504 T:12504    INFO <general>: Running on Windows 11 21H2, kernel: Windows NT x86 64-bit version 10.0.22000.493
+2022-02-09 19:16:23.504 T:12504    INFO <general>: FFmpeg version/source: 4.3.2-Kodi
+2022-02-09 19:16:23.504 T:12504    INFO <general>: Host CPU: Intel(R) Core(TM) i7-7700 CPU @ 3.60GHz, 8 cores available
+2022-02-09 19:16:23.508 T:12504    INFO <general>: System has 16.0 GB of RAM installed
+2022-02-09 19:16:23.508 T:12504    INFO <general>: Desktop Resolution: 1920x1080 32Bit at 60Hz
+2022-02-09 19:16:23.508 T:12504    INFO <general>: Running with restricted rights
+2022-02-09 19:16:23.508 T:12504    INFO <general>: Aero is enabled
+2022-02-09 19:16:23.508 T:12504    INFO <general>: Display is not HDR capable or cannot be detected
+2022-02-09 19:16:23.508 T:12504    INFO <general>: special://xbmc/ is mapped to: C:\Users\jenki\Desktop\Kodi Nick's TV 2
+2022-02-09 19:16:23.508 T:12504    INFO <general>: special://xbmcbin/ is mapped to: C:\Users\jenki\Desktop\Kodi Nick's TV 2
+2022-02-09 19:16:23.508 T:12504    INFO <general>: special://xbmcbinaddons/ is mapped to: C:\Users\jenki\Desktop\Kodi Nick's TV 2/addons
+2022-02-09 19:16:23.508 T:12504    INFO <general>: special://masterprofile/ is mapped to: C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\userdata
+2022-02-09 19:16:23.508 T:12504    INFO <general>: special://home/ is mapped to: C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\
+2022-02-09 19:16:23.508 T:12504    INFO <general>: special://temp/ is mapped to: C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\cache
+2022-02-09 19:16:23.508 T:12504    INFO <general>: special://logpath/ is mapped to: C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\
+2022-02-09 19:16:23.508 T:12504    INFO <general>: The executable running is: C:\Users\jenki\Desktop\Kodi Nick's TV 2\kodi.exe
+2022-02-09 19:16:23.510 T:12504    INFO <general>: Local hostname: DESKTOP-7MDP79U
+2022-02-09 19:16:23.510 T:12504    INFO <general>: Log File is located: C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\kodi.log
+2022-02-09 19:16:23.510 T:12504    INFO <general>: -----------------------------------------------------------------------
+2022-02-09 19:16:23.510 T:12504    INFO <general>: loading settings
+2022-02-09 19:16:23.510 T:12504    INFO <general>: special://profile/ is mapped to: special://masterprofile/
+2022-02-09 19:16:23.516 T:12504    INFO <general>: No settings file to load (special://xbmc/system/advancedsettings.xml)
+2022-02-09 19:16:23.516 T:12504    INFO <general>: Loaded settings file from special://profile/advancedsettings.xml
+2022-02-09 19:16:23.516 T:12504    INFO <general>: Contents of special://profile/advancedsettings.xml are...
+                                                   <advancedsettings>
+                                                     <pathsubstitution>
+                                                       <substitute>
+                                                         <from>special://profile/favourites.xml</from>
+                                                         <to>SMB://192.168.0.230/dietpi/Kodi Nick&apos;s TV/userdata/favourites.xml</to>
+                                                       </substitute>
+                                                     </pathsubstitution>
+                                                   </advancedsettings>
+                                                   
+2022-02-09 19:16:23.516 T:12504   DEBUG <general>: Configuring path substitutions
+2022-02-09 19:16:23.516 T:12504   DEBUG <general>:   Registering substitution pair:
+2022-02-09 19:16:23.517 T:12504   DEBUG <general>:     From: [C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\userdata\favourites.xml]
+2022-02-09 19:16:23.517 T:12504   DEBUG <general>:     To:   [smb://192.168.0.230/dietpi/Kodi Nick's TV/userdata/favourites.xml]
+2022-02-09 19:16:23.517 T:12504 WARNING <CSettingsManager>: missing version attribute
+2022-02-09 19:16:23.517 T:12504    INFO <general>: Default Video Player: VideoPlayer
+2022-02-09 19:16:23.517 T:12504    INFO <general>: Default Audio Player: paplayer
+2022-02-09 19:16:23.517 T:12504    INFO <general>: Disabled debug logging due to GUI setting. Level 0.
+2022-02-09 19:16:23.517 T:12504    INFO <general>: Log level changed to "INFO"
+2022-02-09 19:16:23.517 T:12504    INFO <general>: CMediaSourceSettings: loading media sources from special://masterprofile/sources.xml
+2022-02-09 19:16:23.518 T:12504    INFO <general>: creating subdirectories
+2022-02-09 19:16:23.518 T:12504    INFO <general>: userdata folder: special://masterprofile/
+2022-02-09 19:16:23.518 T:12504    INFO <general>: recording folder: 
+2022-02-09 19:16:23.518 T:12504    INFO <general>: screenshots folder: 
+2022-02-09 19:16:23.520 T:12504    INFO <general>: Running database version Addons33
+2022-02-09 19:16:23.567 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: audioencoder.kodi.builtin.aac v1.0.2 installed
+2022-02-09 19:16:23.567 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: audioencoder.kodi.builtin.wma v1.0.2 installed
+2022-02-09 19:16:23.568 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: context.kaito v0.0.3+matrix.1 installed
+2022-02-09 19:16:23.568 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: context.seren v2.1.2 installed
+2022-02-09 19:16:23.568 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: game.controller.default v1.0.19 installed
+2022-02-09 19:16:23.568 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: game.controller.snes v1.0.18 installed
+2022-02-09 19:16:23.568 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: inputstream.adaptive v19.0.2 installed
+2022-02-09 19:16:23.568 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: kodi.binary.global.audioengine v1.1.1 installed
+2022-02-09 19:16:23.568 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: kodi.binary.global.filesystem v1.1.6 installed
+2022-02-09 19:16:23.568 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: kodi.binary.global.general v1.0.5 installed
+2022-02-09 19:16:23.568 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: kodi.binary.global.gui v5.15.0 installed
+2022-02-09 19:16:23.568 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: kodi.binary.global.main v1.3.0 installed
+2022-02-09 19:16:23.568 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: kodi.binary.global.network v1.0.4 installed
+2022-02-09 19:16:23.568 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: kodi.binary.global.tools v1.0.4 installed
+2022-02-09 19:16:23.568 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: kodi.binary.instance.audiodecoder v3.0.0 installed
+2022-02-09 19:16:23.568 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: kodi.binary.instance.audioencoder v2.1.0 installed
+2022-02-09 19:16:23.569 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: kodi.binary.instance.game v2.1.0 installed
+2022-02-09 19:16:23.569 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: kodi.binary.instance.imagedecoder v2.1.1 installed
+2022-02-09 19:16:23.569 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: kodi.binary.instance.inputstream v3.0.1 installed
+2022-02-09 19:16:23.569 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: kodi.binary.instance.peripheral v2.0.0 installed
+2022-02-09 19:16:23.569 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: kodi.binary.instance.pvr v7.1.0 installed
+2022-02-09 19:16:23.569 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: kodi.binary.instance.screensaver v2.1.0 installed
+2022-02-09 19:16:23.569 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: kodi.binary.instance.vfs v3.0.0 installed
+2022-02-09 19:16:23.569 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: kodi.binary.instance.videocodec v2.0.2 installed
+2022-02-09 19:16:23.569 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: kodi.binary.instance.visualization v3.0.0 installed
+2022-02-09 19:16:23.569 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: kodi.resource v1.0.0 installed
+2022-02-09 19:16:23.569 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: metadata.album.universal v3.1.6 installed
+2022-02-09 19:16:23.570 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: metadata.artists.universal v4.3.6 installed
+2022-02-09 19:16:23.570 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: metadata.common.allmusic.com v3.2.2 installed
+2022-02-09 19:16:23.570 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: metadata.common.fanart.tv v3.6.3 installed
+2022-02-09 19:16:23.570 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: metadata.common.imdb.com v3.2.4 installed
+2022-02-09 19:16:23.570 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: metadata.common.musicbrainz.org v2.2.4 installed
+2022-02-09 19:16:23.570 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: metadata.common.theaudiodb.com v2.0.3 installed
+2022-02-09 19:16:23.570 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: metadata.common.themoviedb.org v3.2.17 installed
+2022-02-09 19:16:23.571 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: metadata.generic.albums v1.0.14 installed
+2022-02-09 19:16:23.571 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: metadata.generic.artists v1.0.14 installed
+2022-02-09 19:16:23.571 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: metadata.local v1.0.1 installed
+2022-02-09 19:16:23.571 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: metadata.themoviedb.org v5.2.6 installed
+2022-02-09 19:16:23.571 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: metadata.themoviedb.org.python v1.6.1+matrix.1 installed
+2022-02-09 19:16:23.571 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: metadata.tvshows.themoviedb.org v3.5.14 installed
+2022-02-09 19:16:23.571 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: metadata.tvshows.themoviedb.org.python v1.4.10 installed
+2022-02-09 19:16:23.571 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: peripheral.joystick v19.0.0 installed
+2022-02-09 19:16:23.571 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: plugin.audio.ytmusic.exp v1.0~beta4 installed
+2022-02-09 19:16:23.571 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: plugin.program.autocompletion v2.0.4 installed
+2022-02-09 19:16:23.571 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: plugin.program.autowidget v3.4.2 installed
+2022-02-09 19:16:23.572 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: plugin.program.iagl v3.0.6 installed
+2022-02-09 19:16:23.572 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: plugin.program.opendevtools v1.4.3 installed
+2022-02-09 19:16:23.572 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: plugin.program.super.favourites v2.2.3-6a0ce15~matrix installed
+2022-02-09 19:16:23.572 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: plugin.video.kaito v0.0.11+matrix.1 installed
+2022-02-09 19:16:23.572 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: plugin.video.newson v1.2.4 installed
+2022-02-09 19:16:23.572 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: plugin.video.seren v2.1.9 installed
+2022-02-09 19:16:23.572 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: plugin.video.themoviedb.helper v4.5.22 installed
+2022-02-09 19:16:23.572 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: plugin.video.twitch v2.5.12+matrix.1 installed
+2022-02-09 19:16:23.572 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: plugin.video.youtube v6.8.18+matrix.1 installed
+2022-02-09 19:16:23.572 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: repository.a4ksubtitles v1.1.0 installed
+2022-02-09 19:16:23.572 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: repository.auramod.aio v1.0 installed
+2022-02-09 19:16:23.572 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: repository.autowidget v1.1 installed
+2022-02-09 19:16:23.573 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: repository.cywteow v1.1.0 installed
+2022-02-09 19:16:23.573 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: repository.heppen v3.0.1 installed
+2022-02-09 19:16:23.573 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: repository.inb4after v1.0.0 installed
+2022-02-09 19:16:23.573 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: repository.jurialmunkey v2.2 installed
+2022-02-09 19:16:23.573 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: repository.marcelveldt v1.0.3 installed
+2022-02-09 19:16:23.573 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: repository.newdiamond v2.1 installed
+2022-02-09 19:16:23.573 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: repository.nixgates v2.1.0 installed
+2022-02-09 19:16:23.573 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: repository.opendevtools v1.0 installed
+2022-02-09 19:16:23.573 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: repository.openwizard v2.0 installed
+2022-02-09 19:16:23.573 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: repository.peno64 v1.3 installed
+2022-02-09 19:16:23.573 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: repository.rector.stuff v1.0.4 installed
+2022-02-09 19:16:23.573 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: repository.siku2 v1.0.0 installed
+2022-02-09 19:16:23.574 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: repository.swagotaku v0.0.2 installed
+2022-02-09 19:16:23.574 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: repository.twitch_development v1.0.0 installed
+2022-02-09 19:16:23.574 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: repository.xbmc.org v3.2.5 installed
+2022-02-09 19:16:23.574 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: repository.zachmorris v1.0.0 installed
+2022-02-09 19:16:23.574 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: resource.images.moviecountryicons.maps v0.0.1 installed
+2022-02-09 19:16:23.574 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: resource.images.moviegenreicons.transparent v0.0.6 installed
+2022-02-09 19:16:23.574 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: resource.images.studios.white v0.0.28 installed
+2022-02-09 19:16:23.574 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: resource.images.weathericons.default v1.1.9 installed
+2022-02-09 19:16:23.574 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: resource.images.weathericons.outline-hd v0.0.3 installed
+2022-02-09 19:16:23.574 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: resource.images.weathericons.white v0.0.6 installed
+2022-02-09 19:16:23.574 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: resource.language.en_gb v2.0.2 installed
+2022-02-09 19:16:23.574 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: resource.uisounds.kodi v1.0.1 installed
+2022-02-09 19:16:23.575 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: resource.uisounds.titan.modern v1.0.0 installed
+2022-02-09 19:16:23.575 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: screensaver.kaster v1.3.6+matrix.1 installed
+2022-02-09 19:16:23.575 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: screensaver.xbmc.builtin.black v1.0.34 installed
+2022-02-09 19:16:23.575 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: screensaver.xbmc.builtin.dim v1.0.64 installed
+2022-02-09 19:16:23.575 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: script.artistslideshow v3.3.2 installed
+2022-02-09 19:16:23.575 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: script.common.plugin.cache v2.6.3+matrix.1 installed
+2022-02-09 19:16:23.575 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: script.embuary.helper v2.0.8 installed
+2022-02-09 19:16:23.575 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: script.extendedinfo v3.48 installed
+2022-02-09 19:16:23.575 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: script.ezmaintenanceplus v2021.12.19.0 installed
+2022-02-09 19:16:23.575 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: script.image.resource.select v3.0.2 installed
+2022-02-09 19:16:23.575 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: script.module.archive_tool v2.0.3 installed
+2022-02-09 19:16:23.575 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: script.module.arrow v1.0.3.1 installed
+2022-02-09 19:16:23.575 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: script.module.autocompletion v2.0.3 installed
+2022-02-09 19:16:23.576 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: script.module.beautifulsoup4 v4.9.3+matrix.1 installed
+2022-02-09 19:16:23.576 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: script.module.certifi v2020.12.05+matrix.1 installed
+2022-02-09 19:16:23.576 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: script.module.chardet v4.0.0+matrix.1 installed
+2022-02-09 19:16:23.576 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: script.module.dateutil v2.8.2 installed
+2022-02-09 19:16:23.576 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: script.module.defusedxml v0.6.0+matrix.1 installed
+2022-02-09 19:16:23.576 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: script.module.future v0.18.2+matrix.1 installed
+2022-02-09 19:16:23.576 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: script.module.idna v2.10.0+matrix.1 installed
+2022-02-09 19:16:23.576 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: script.module.inputstreamhelper v0.5.8+matrix.1 installed
+2022-02-09 19:16:23.576 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: script.module.kodi-six v0.1.3.1 installed
+2022-02-09 19:16:23.576 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: script.module.metadatautils v1.0.42 installed
+2022-02-09 19:16:23.576 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: script.module.musicbrainz v0.7.0 installed
+2022-02-09 19:16:23.576 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: script.module.myconnpy v8.0.18+matrix.1 installed
+2022-02-09 19:16:23.576 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: script.module.pil v5.1.0 installed
+2022-02-09 19:16:23.576 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: script.module.pycryptodome v3.4.3 installed
+2022-02-09 19:16:23.577 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: script.module.pysocks v1.7.0+matrix.1 installed
+2022-02-09 19:16:23.577 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: script.module.python.twitch v2.0.19+matrix.1 installed
+2022-02-09 19:16:23.577 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: script.module.requests v2.25.1+matrix.1 installed
+2022-02-09 19:16:23.577 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: script.module.routing v0.2.3+matrix.1 installed
+2022-02-09 19:16:23.577 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: script.module.simplecache v2.0.2 installed
+2022-02-09 19:16:23.577 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: script.module.simpleeval v0.9.10 installed
+2022-02-09 19:16:23.577 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: script.module.simplejson v3.17.0+matrix.2 installed
+2022-02-09 19:16:23.577 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: script.module.six v1.15.0+matrix.1 installed
+2022-02-09 19:16:23.577 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: script.module.soupsieve v2.1.0+matrix.1 installed
+2022-02-09 19:16:23.577 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: script.module.thetvdb v1.0.29 installed
+2022-02-09 19:16:23.577 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: script.module.typing_extensions v3.7.4.3 installed
+2022-02-09 19:16:23.577 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: script.module.unidecode v1.1.1+matrix.2 installed
+2022-02-09 19:16:23.578 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: script.module.urllib3 v1.26.4+matrix.1 installed
+2022-02-09 19:16:23.578 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: script.openweathermap.maps v1.0.6 installed
+2022-02-09 19:16:23.578 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: script.service.sponsorblock v0.3.1 installed
+2022-02-09 19:16:23.578 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: script.skin.helper.service v1.1.38 installed
+2022-02-09 19:16:23.578 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: script.skinshortcuts v2.0.1 installed
+2022-02-09 19:16:23.578 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: service.subtitles.a4ksubtitles v2.8.0 installed
+2022-02-09 19:16:23.579 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: service.xbmc.versioncheck v0.5.21+matrix.1 installed
+2022-02-09 19:16:23.579 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: skin.arctic.zephyr.2.resurrection.mod v0.7.5 installed
+2022-02-09 19:16:23.579 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: skin.estouchy v3.0.6 installed
+2022-02-09 19:16:23.579 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: skin.estuary v3.0.5 installed
+2022-02-09 19:16:23.579 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: vfs.libarchive v19.0.1 installed
+2022-02-09 19:16:23.579 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: weather.multi v0.0.6 installed
+2022-02-09 19:16:23.579 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: webinterface.default v19.x-2.4.8 installed
+2022-02-09 19:16:23.580 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: xbmc.addon v19.1.0 installed
+2022-02-09 19:16:23.580 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: xbmc.core v0.1.0 installed
+2022-02-09 19:16:23.580 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: xbmc.gui v5.15.0 installed
+2022-02-09 19:16:23.580 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: xbmc.json v12.4.0 installed
+2022-02-09 19:16:23.580 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: xbmc.metadata v2.1.0 installed
+2022-02-09 19:16:23.580 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: xbmc.python v3.0.0 installed
+2022-02-09 19:16:23.580 T:12504    INFO <general>: CAddonMgr::ADDON::CAddonMgr::FindAddons: xbmc.webinterface v1.0.0 installed
+2022-02-09 19:16:26.122 T:12504 WARNING <general>: XFILE::CWin32SMBDirectory::ConnectAndAuthenticate: Can't connect to "\\192.168.0.230\dietpi" with username "dietpi" and with password because of conflict of credential. Will try to close current connections.
+2022-02-09 19:16:26.127 T:12504 WARNING <general>: Skipped 2 duplicate messages..
+2022-02-09 19:16:26.127 T:12504 WARNING <general>: XFILE::CWin32SMBDirectory::ConnectAndAuthenticate: Can't connect to "\\192.168.0.230\dietpi" with username "dietpi" and with password. Error code: 1219
+2022-02-09 19:16:26.286 T:12504    INFO <general>: CKeyboardLayoutManager: loading keyboard layouts from special://xbmc/system/keyboardlayouts...
+2022-02-09 19:16:26.295 T:8536     INFO <general>: Loading special://xbmc/system/IRSSmap.xml
+2022-02-09 19:16:26.295 T:8536     INFO <general>: * Adding remote mapping for device 'Microsoft MCE'
+2022-02-09 19:16:26.295 T:8536     INFO <general>: * Adding remote mapping for device 'Abstract'
+2022-02-09 19:16:26.302 T:12504    INFO <general>: [WS-Discovery]: Daemon started successfully.
+2022-02-09 19:16:26.303 T:12504    INFO <general>: Primary mode: Generic PnP Monitor #2: 1920x1080 @ 60.00Hz
+2022-02-09 19:16:26.305 T:12504    INFO <general>: Additional mode: Generic PnP Monitor #2: 1920x1080 @ 60.00Hz
+2022-02-09 19:16:26.305 T:12504    INFO <general>: Additional mode: Generic PnP Monitor #2: 1920x1080 @ 59.94Hz
+2022-02-09 19:16:26.305 T:12504    INFO <general>: Additional mode: Generic PnP Monitor #2: 1920x1080 @ 50.00Hz
+2022-02-09 19:16:26.305 T:12504    INFO <general>: Additional mode: Generic PnP Monitor #2: 640x480 @ 60.00Hz
+2022-02-09 19:16:26.305 T:12504    INFO <general>: Additional mode: Generic PnP Monitor #2: 720x480 @ 60.00Hz
+2022-02-09 19:16:26.305 T:12504    INFO <general>: Additional mode: Generic PnP Monitor #2: 720x480 @ 59.94Hz
+2022-02-09 19:16:26.305 T:12504    INFO <general>: Additional mode: Generic PnP Monitor #2: 720x576 @ 50.00Hz
+2022-02-09 19:16:26.305 T:12504    INFO <general>: Additional mode: Generic PnP Monitor #2: 800x600 @ 60.00Hz
+2022-02-09 19:16:26.305 T:12504    INFO <general>: Additional mode: Generic PnP Monitor #2: 1024x768 @ 60.00Hz
+2022-02-09 19:16:26.305 T:12504    INFO <general>: Additional mode: Generic PnP Monitor #2: 1152x864 @ 60.00Hz
+2022-02-09 19:16:26.305 T:12504    INFO <general>: Additional mode: Generic PnP Monitor #2: 1176x664 @ 50.00Hz
+2022-02-09 19:16:26.306 T:12504    INFO <general>: Additional mode: Generic PnP Monitor #2: 1176x664 @ 60.00Hz
+2022-02-09 19:16:26.306 T:12504    INFO <general>: Additional mode: Generic PnP Monitor #2: 1176x664 @ 59.94Hz
+2022-02-09 19:16:26.306 T:12504    INFO <general>: Additional mode: Generic PnP Monitor #2: 1280x720 @ 60.00Hz
+2022-02-09 19:16:26.306 T:12504    INFO <general>: Additional mode: Generic PnP Monitor #2: 1280x720 @ 59.94Hz
+2022-02-09 19:16:26.306 T:12504    INFO <general>: Additional mode: Generic PnP Monitor #2: 1280x720 @ 50.00Hz
+2022-02-09 19:16:26.306 T:12504    INFO <general>: Additional mode: Generic PnP Monitor #2: 1280x768 @ 60.00Hz
+2022-02-09 19:16:26.306 T:12504    INFO <general>: Additional mode: Generic PnP Monitor #2: 1280x800 @ 60.00Hz
+2022-02-09 19:16:26.306 T:12504    INFO <general>: Additional mode: Generic PnP Monitor #2: 1280x960 @ 60.00Hz
+2022-02-09 19:16:26.306 T:12504    INFO <general>: Additional mode: Generic PnP Monitor #2: 1280x1024 @ 60.00Hz
+2022-02-09 19:16:26.307 T:12504    INFO <general>: Additional mode: Generic PnP Monitor #2: 1360x768 @ 60.00Hz
+2022-02-09 19:16:26.307 T:12504    INFO <general>: Additional mode: Generic PnP Monitor #2: 1366x768 @ 60.00Hz
+2022-02-09 19:16:26.307 T:12504    INFO <general>: Additional mode: Generic PnP Monitor #2: 1600x900 @ 59.94Hz
+2022-02-09 19:16:26.307 T:12504    INFO <general>: Additional mode: Generic PnP Monitor #2: 1600x900 @ 60.00Hz
+2022-02-09 19:16:26.308 T:12504    INFO <general>: Additional mode: Generic PnP Monitor #2: 1600x1024 @ 59.94Hz
+2022-02-09 19:16:26.308 T:12504    INFO <general>: Additional mode: Generic PnP Monitor #2: 1600x1024 @ 60.00Hz
+2022-02-09 19:16:26.308 T:12504    INFO <general>: Additional mode: Generic PnP Monitor #2: 1600x1200 @ 60.00Hz
+2022-02-09 19:16:26.308 T:12504    INFO <general>: Additional mode: Generic PnP Monitor #2: 1680x1050 @ 59.94Hz
+2022-02-09 19:16:26.308 T:12504    INFO <general>: Additional mode: Generic PnP Monitor #2: 1680x1050 @ 60.00Hz
+2022-02-09 19:16:26.308 T:12504    INFO <general>: Additional mode: Generic PnP Monitor #2: 1440x900 @ 60.00Hz
+2022-02-09 19:16:26.308 T:12504    INFO <general>: Additional mode: Generic PnP Monitor #2: 1400x1050 @ 60.00Hz
+2022-02-09 19:16:26.308 T:12504    INFO <general>: CApplication::CApplication::CreateGUI - using the default windowing system
+2022-02-09 19:16:26.308 T:12504    INFO <general>: Checking resolution 16
+2022-02-09 19:16:26.334 T:13820    INFO <general>: CAESinkWASAPI::EnumerateDevicesEx: stream type "STREAM_TYPE_DTSHD" on device "1080P 2D 2Ch (NVIDIA High Definition Audio)" seems to be not supported.
+2022-02-09 19:16:26.334 T:13820    INFO <general>: CAESinkWASAPI::EnumerateDevicesEx: stream type "STREAM_TYPE_DTSHD_MA" on device "1080P 2D 2Ch (NVIDIA High Definition Audio)" seems to be not supported.
+2022-02-09 19:16:26.334 T:13820    INFO <general>: CAESinkWASAPI::EnumerateDevicesEx: stream type "STREAM_TYPE_TRUEHD" on device "1080P 2D 2Ch (NVIDIA High Definition Audio)" seems to be not supported.
+2022-02-09 19:16:26.335 T:13820    INFO <general>: CAESinkWASAPI::EnumerateDevicesEx: stream type "STREAM_TYPE_EAC3" on device "1080P 2D 2Ch (NVIDIA High Definition Audio)" seems to be not supported.
+2022-02-09 19:16:26.335 T:13820    INFO <general>: CAESinkWASAPI::EnumerateDevicesEx: stream type "STREAM_TYPE_DTS" on device "1080P 2D 2Ch (NVIDIA High Definition Audio)" seems to be not supported.
+2022-02-09 19:16:26.335 T:13820    INFO <general>: CAESinkWASAPI::EnumerateDevicesEx: stream type "STREAM_TYPE_AC3" on device "1080P 2D 2Ch (NVIDIA High Definition Audio)" seems to be not supported.
+2022-02-09 19:16:26.338 T:13820    INFO <general>: CAESinkWASAPI::EnumerateDevicesEx: sample rate 192khz on device "1080P 2D 2Ch (NVIDIA High Definition Audio)" seems to be not supported.
+2022-02-09 19:16:26.351 T:13820    INFO <general>: CAESinkWASAPI::EnumerateDevicesEx: stream type "STREAM_TYPE_DTSHD" on device "Speakers (NVIDIA Broadcast)" seems to be not supported.
+2022-02-09 19:16:26.351 T:13820    INFO <general>: CAESinkWASAPI::EnumerateDevicesEx: stream type "STREAM_TYPE_DTSHD_MA" on device "Speakers (NVIDIA Broadcast)" seems to be not supported.
+2022-02-09 19:16:26.352 T:13820    INFO <general>: CAESinkWASAPI::EnumerateDevicesEx: stream type "STREAM_TYPE_TRUEHD" on device "Speakers (NVIDIA Broadcast)" seems to be not supported.
+2022-02-09 19:16:26.352 T:13820    INFO <general>: CAESinkWASAPI::EnumerateDevicesEx: stream type "STREAM_TYPE_EAC3" on device "Speakers (NVIDIA Broadcast)" seems to be not supported.
+2022-02-09 19:16:26.352 T:13820    INFO <general>: CAESinkWASAPI::EnumerateDevicesEx: stream type "STREAM_TYPE_DTS" on device "Speakers (NVIDIA Broadcast)" seems to be not supported.
+2022-02-09 19:16:26.352 T:13820    INFO <general>: CAESinkWASAPI::EnumerateDevicesEx: stream type "STREAM_TYPE_AC3" on device "Speakers (NVIDIA Broadcast)" seems to be not supported.
+2022-02-09 19:16:26.356 T:13820    INFO <general>: CAESinkWASAPI::EnumerateDevicesEx: sample rate 192khz on device "Speakers (NVIDIA Broadcast)" seems to be not supported.
+2022-02-09 19:16:26.374 T:13820    INFO <general>: CAESinkWASAPI::EnumerateDevicesEx: sample rate 192khz on device "Speakers (Yeti Stereo Microphone)" seems to be not supported.
+2022-02-09 19:16:26.378 T:13820    INFO <general>: CAESinkWASAPI::EnumerateDevicesEx: stream type "STREAM_TYPE_DTSHD" on device "HP LA2306 (NVIDIA High Definition Audio)" seems to be not supported.
+2022-02-09 19:16:26.378 T:13820    INFO <general>: CAESinkWASAPI::EnumerateDevicesEx: stream type "STREAM_TYPE_DTSHD_MA" on device "HP LA2306 (NVIDIA High Definition Audio)" seems to be not supported.
+2022-02-09 19:16:26.378 T:13820    INFO <general>: CAESinkWASAPI::EnumerateDevicesEx: stream type "STREAM_TYPE_TRUEHD" on device "HP LA2306 (NVIDIA High Definition Audio)" seems to be not supported.
+2022-02-09 19:16:26.379 T:13820    INFO <general>: CAESinkWASAPI::EnumerateDevicesEx: stream type "STREAM_TYPE_EAC3" on device "HP LA2306 (NVIDIA High Definition Audio)" seems to be not supported.
+2022-02-09 19:16:26.379 T:13820    INFO <general>: CAESinkWASAPI::EnumerateDevicesEx: stream type "STREAM_TYPE_DTS" on device "HP LA2306 (NVIDIA High Definition Audio)" seems to be not supported.
+2022-02-09 19:16:26.379 T:13820    INFO <general>: CAESinkWASAPI::EnumerateDevicesEx: stream type "STREAM_TYPE_AC3" on device "HP LA2306 (NVIDIA High Definition Audio)" seems to be not supported.
+2022-02-09 19:16:26.383 T:13820    INFO <general>: CAESinkWASAPI::EnumerateDevicesEx: sample rate 192khz on device "HP LA2306 (NVIDIA High Definition Audio)" seems to be not supported.
+2022-02-09 19:16:26.408 T:12504    INFO <general>: DX::DeviceResources::CheckNV12SharedTexturesSupport: extended NV12 shared textures is supported
+2022-02-09 19:16:26.408 T:12504    INFO <general>: DX::DeviceResources::CreateDeviceResources: device is created on adapter 'NVIDIA GeForce RTX 2070 SUPER' with D3D_FEATURE_LEVEL_12_1
+2022-02-09 19:16:26.410 T:13820    INFO <general>: CAESinkWASAPI::EnumerateDevicesEx: sample rate 192khz on device "Line (Voicemod Virtual Audio Device (WDM))" seems to be not supported.
+2022-02-09 19:16:26.420 T:12504    INFO <general>: DX::DeviceResources::ResizeBuffers: 8 bit swapchain is used with 6 flip discard buffers and SDR output
+2022-02-09 19:16:26.441 T:13820    INFO <general>: Found 2 Lists of Devices
+2022-02-09 19:16:26.441 T:13820    INFO <general>: Enumerated DIRECTSOUND devices:
+2022-02-09 19:16:26.441 T:13820    INFO <general>:     Device 1
+2022-02-09 19:16:26.441 T:13820    INFO <general>:         m_deviceName      : {00E3B577-EFD9-479F-8D5B-6E6D60E2A04B}
+2022-02-09 19:16:26.441 T:13820    INFO <general>:         m_displayName     : Headphones - Headphones (Oculus Virtual Audio Device)
+2022-02-09 19:16:26.442 T:13820    INFO <general>:         m_displayNameExtra: DIRECTSOUND: Headphones (Oculus Virtual Audio Device)
+2022-02-09 19:16:26.442 T:13820    INFO <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2022-02-09 19:16:26.442 T:13820    INFO <general>:         m_channels        : FL, FR
+2022-02-09 19:16:26.442 T:13820    INFO <general>:         m_sampleRates     : 48000
+2022-02-09 19:16:26.442 T:13820    INFO <general>:         m_dataFormats     : AE_FMT_FLOAT
+2022-02-09 19:16:26.442 T:13820    INFO <general>:         m_streamTypes     : No passthrough capabilities
+2022-02-09 19:16:26.442 T:13820    INFO <general>:     Device 2
+2022-02-09 19:16:26.442 T:13820    INFO <general>:         m_deviceName      : {06EF4F38-4A90-4F7D-B81A-DD9CB32EF72B}
+2022-02-09 19:16:26.442 T:13820    INFO <general>:         m_displayName     : Speakers - CABLE-D Input (VB-Audio Cable D)
+2022-02-09 19:16:26.442 T:13820    INFO <general>:         m_displayNameExtra: DIRECTSOUND: CABLE-D Input (VB-Audio Cable D)
+2022-02-09 19:16:26.442 T:13820    INFO <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2022-02-09 19:16:26.442 T:13820    INFO <general>:         m_channels        : FL, FR
+2022-02-09 19:16:26.442 T:13820    INFO <general>:         m_sampleRates     : 48000
+2022-02-09 19:16:26.442 T:13820    INFO <general>:         m_dataFormats     : AE_FMT_FLOAT
+2022-02-09 19:16:26.442 T:13820    INFO <general>:         m_streamTypes     : No passthrough capabilities
+2022-02-09 19:16:26.442 T:13820    INFO <general>:     Device 3
+2022-02-09 19:16:26.442 T:13820    INFO <general>:         m_deviceName      : {16CA88FA-02B9-48B3-BC16-4BB91DF0F4C1}
+2022-02-09 19:16:26.442 T:13820    INFO <general>:         m_displayName     : HDMI - 1080P 2D 2Ch (NVIDIA High Definition Audio)
+2022-02-09 19:16:26.442 T:13820    INFO <general>:         m_displayNameExtra: DIRECTSOUND: 1080P 2D 2Ch (NVIDIA High Definition Audio)
+2022-02-09 19:16:26.442 T:13820    INFO <general>:         m_deviceType      : AE_DEVTYPE_HDMI
+2022-02-09 19:16:26.442 T:13820    INFO <general>:         m_channels        : FL, FR
+2022-02-09 19:16:26.442 T:13820    INFO <general>:         m_sampleRates     : 48000
+2022-02-09 19:16:26.442 T:13820    INFO <general>:         m_dataFormats     : AE_FMT_FLOAT,AE_FMT_RAW
+2022-02-09 19:16:26.442 T:13820    INFO <general>:         m_streamTypes     : STREAM_TYPE_AC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_512
+2022-02-09 19:16:26.442 T:13820    INFO <general>:     Device 4
+2022-02-09 19:16:26.442 T:13820    INFO <general>:         m_deviceName      : {5544A30F-909D-448E-893A-A6DA89A3AA35}
+2022-02-09 19:16:26.442 T:13820    INFO <general>:         m_displayName     : Speakers - VoiceMeeter VAIO3 Input (VB-Audio VoiceMeeter VAIO3)
+2022-02-09 19:16:26.442 T:13820    INFO <general>:         m_displayNameExtra: DIRECTSOUND: VoiceMeeter VAIO3 Input (VB-Audio VoiceMeeter VAIO3)
+2022-02-09 19:16:26.442 T:13820    INFO <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2022-02-09 19:16:26.442 T:13820    INFO <general>:         m_channels        : FL, FR
+2022-02-09 19:16:26.442 T:13820    INFO <general>:         m_sampleRates     : 48000
+2022-02-09 19:16:26.442 T:13820    INFO <general>:         m_dataFormats     : AE_FMT_FLOAT
+2022-02-09 19:16:26.442 T:13820    INFO <general>:         m_streamTypes     : STREAM_TYPE_AC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_512
+2022-02-09 19:16:26.442 T:13820    INFO <general>:     Device 5
+2022-02-09 19:16:26.442 T:13820    INFO <general>:         m_deviceName      : {655045BA-35D0-4D2B-9B25-B48F0F468A09}
+2022-02-09 19:16:26.442 T:13820    INFO <general>:         m_displayName     : HDMI - Speakers (NVIDIA Broadcast)
+2022-02-09 19:16:26.442 T:13820    INFO <general>:         m_displayNameExtra: DIRECTSOUND: Speakers (NVIDIA Broadcast)
+2022-02-09 19:16:26.442 T:13820    INFO <general>:         m_deviceType      : AE_DEVTYPE_HDMI
+2022-02-09 19:16:26.442 T:13820    INFO <general>:         m_channels        : FL, FR
+2022-02-09 19:16:26.442 T:13820    INFO <general>:         m_sampleRates     : 48000
+2022-02-09 19:16:26.442 T:13820    INFO <general>:         m_dataFormats     : AE_FMT_FLOAT,AE_FMT_RAW
+2022-02-09 19:16:26.442 T:13820    INFO <general>:         m_streamTypes     : STREAM_TYPE_AC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_512
+2022-02-09 19:16:26.443 T:13820    INFO <general>:     Device 6
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_deviceName      : {6676FD55-7546-4B23-9C8F-8CC620F14719}
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_displayName     : Speakers - CABLE Input (VB-Audio Virtual Cable)
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_displayNameExtra: DIRECTSOUND: CABLE Input (VB-Audio Virtual Cable)
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_channels        : FL, FR
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_sampleRates     : 48000
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_dataFormats     : AE_FMT_FLOAT
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_streamTypes     : STREAM_TYPE_AC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_512
+2022-02-09 19:16:26.443 T:13820    INFO <general>:     Device 7
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_deviceName      : {6BF5F5B0-6649-4FD9-9782-BFBEFD95C93C}
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_displayName     : Speakers - Speakers (Yeti Stereo Microphone)
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_displayNameExtra: DIRECTSOUND: Speakers (Yeti Stereo Microphone)
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_channels        : FL, FR
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_sampleRates     : 48000
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_dataFormats     : AE_FMT_FLOAT
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_streamTypes     : STREAM_TYPE_AC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_512
+2022-02-09 19:16:26.443 T:13820    INFO <general>:     Device 8
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_deviceName      : {740185D7-9853-4E61-8213-987AB045FE11}
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_displayName     : HDMI - HP LA2306 (NVIDIA High Definition Audio)
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_displayNameExtra: DIRECTSOUND: HP LA2306 (NVIDIA High Definition Audio)
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_deviceType      : AE_DEVTYPE_HDMI
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_channels        : FL, FR
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_sampleRates     : 48000
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_dataFormats     : AE_FMT_FLOAT,AE_FMT_RAW
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_streamTypes     : STREAM_TYPE_AC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_512
+2022-02-09 19:16:26.443 T:13820    INFO <general>:     Device 9
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_deviceName      : {829A23FD-AC20-4BA6-AAD2-9638F3B182BE}
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_displayName     : Speakers - CABLE-A Input (VB-Audio Cable A)
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_displayNameExtra: DIRECTSOUND: CABLE-A Input (VB-Audio Cable A)
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_channels        : FL, FR
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_sampleRates     : 48000
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_dataFormats     : AE_FMT_FLOAT
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_streamTypes     : STREAM_TYPE_AC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_512
+2022-02-09 19:16:26.443 T:13820    INFO <general>:     Device 10
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_deviceName      : {B5EA990F-1A17-4D08-935B-BA8024E80E6F}
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_displayName     : Speakers - VoiceMeeter Aux Input (VB-Audio VoiceMeeter AUX VAIO)
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_displayNameExtra: DIRECTSOUND: VoiceMeeter Aux Input (VB-Audio VoiceMeeter AUX VAIO)
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_channels        : FL, FR
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_sampleRates     : 48000
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_dataFormats     : AE_FMT_FLOAT
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_streamTypes     : STREAM_TYPE_AC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_512
+2022-02-09 19:16:26.443 T:13820    INFO <general>:     Device 11
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_deviceName      : {B5FDFCDC-9689-4196-8A11-CA45D7395687}
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_displayName     : LineLevel - Line (Voicemod Virtual Audio Device (WDM))
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_displayNameExtra: DIRECTSOUND: Line (Voicemod Virtual Audio Device (WDM))
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_channels        : FL, FR
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_sampleRates     : 48000
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_dataFormats     : AE_FMT_FLOAT
+2022-02-09 19:16:26.443 T:13820    INFO <general>:         m_streamTypes     : STREAM_TYPE_AC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_512
+2022-02-09 19:16:26.443 T:13820    INFO <general>:     Device 12
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_deviceName      : {C476D0A7-83D3-4E6C-AAB1-4F01EF4CE412}
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_displayName     : Speakers - CABLE-B Input (VB-Audio Cable B)
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_displayNameExtra: DIRECTSOUND: CABLE-B Input (VB-Audio Cable B)
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_channels        : FL, FR
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_sampleRates     : 48000
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_dataFormats     : AE_FMT_FLOAT
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_streamTypes     : STREAM_TYPE_AC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_512
+2022-02-09 19:16:26.444 T:13820    INFO <general>:     Device 13
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_deviceName      : {DDB9EF57-7A32-477A-8585-150D98B9DAA9}
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_displayName     : Speakers - CABLE-C Input (VB-Audio Cable C)
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_displayNameExtra: DIRECTSOUND: CABLE-C Input (VB-Audio Cable C)
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_channels        : FL, FR
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_sampleRates     : 48000
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_dataFormats     : AE_FMT_FLOAT
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_streamTypes     : STREAM_TYPE_AC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_512
+2022-02-09 19:16:26.444 T:13820    INFO <general>:     Device 14
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_deviceName      : {F862B811-1EAB-4F6D-9478-7956F7916B50}
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_displayName     : Speakers - VoiceMeeter Input (VB-Audio VoiceMeeter VAIO)
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_displayNameExtra: DIRECTSOUND: VoiceMeeter Input (VB-Audio VoiceMeeter VAIO)
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_channels        : FL, FR
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_sampleRates     : 48000
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_dataFormats     : AE_FMT_FLOAT
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_streamTypes     : STREAM_TYPE_AC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_512
+2022-02-09 19:16:26.444 T:13820    INFO <general>:     Device 15
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_deviceName      : default
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_displayName     : default
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_displayNameExtra: 
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_channels        : FL, FR
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_sampleRates     : 48000
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_dataFormats     : AE_FMT_FLOAT
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_streamTypes     : STREAM_TYPE_AC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_512
+2022-02-09 19:16:26.444 T:13820    INFO <general>: Enumerated WASAPI devices:
+2022-02-09 19:16:26.444 T:13820    INFO <general>:     Device 1
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_deviceName      : {00E3B577-EFD9-479F-8D5B-6E6D60E2A04B}
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_displayName     : Headphones - Headphones (Oculus Virtual Audio Device)
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_displayNameExtra: WASAPI: Headphones (Oculus Virtual Audio Device)
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_channels        : FL, FR
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_sampleRates     : 48000
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_dataFormats     : AE_FMT_S16NE,AE_FMT_S16LE,AE_FMT_S16BE
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_streamTypes     : No passthrough capabilities
+2022-02-09 19:16:26.444 T:13820    INFO <general>:     Device 2
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_deviceName      : {06EF4F38-4A90-4F7D-B81A-DD9CB32EF72B}
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_displayName     : Speakers - CABLE-D Input (VB-Audio Cable D)
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_displayNameExtra: WASAPI: CABLE-D Input (VB-Audio Cable D)
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_channels        : FL, FR
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_sampleRates     : 192000,176400,96000,88200,48000,44100,32000,22050,11025
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_dataFormats     : AE_FMT_S24NE3,AE_FMT_S24LE3,AE_FMT_S24BE3,AE_FMT_S16NE,AE_FMT_S16LE,AE_FMT_S16BE,AE_FMT_U8
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_streamTypes     : No passthrough capabilities
+2022-02-09 19:16:26.444 T:13820    INFO <general>:     Device 3
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_deviceName      : {16CA88FA-02B9-48B3-BC16-4BB91DF0F4C1}
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_displayName     : HDMI - 1080P 2D 2Ch (NVIDIA High Definition Audio)
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_displayNameExtra: WASAPI: 1080P 2D 2Ch (NVIDIA High Definition Audio)
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_deviceType      : AE_DEVTYPE_HDMI
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_channels        : FL, FR
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_sampleRates     : 192000,48000,44100,32000
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_dataFormats     : AE_FMT_S24NE4MSB,AE_FMT_S16NE,AE_FMT_S16LE,AE_FMT_S16BE,AE_FMT_RAW
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_streamTypes     : STREAM_TYPE_DTSHD,STREAM_TYPE_DTSHD_MA,STREAM_TYPE_TRUEHD,STREAM_TYPE_EAC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3
+2022-02-09 19:16:26.444 T:13820    INFO <general>:     Device 4
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_deviceName      : {5544A30F-909D-448E-893A-A6DA89A3AA35}
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_displayName     : Speakers - VoiceMeeter VAIO3 Input (VB-Audio VoiceMeeter VAIO3)
+2022-02-09 19:16:26.444 T:13820    INFO <general>:         m_displayNameExtra: WASAPI: VoiceMeeter VAIO3 Input (VB-Audio VoiceMeeter VAIO3)
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_channels        : FL, FR
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_sampleRates     : 192000,176400,96000,88200,48000,44100,32000,22050,11025
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_dataFormats     : AE_FMT_S24NE3,AE_FMT_S24LE3,AE_FMT_S24BE3,AE_FMT_S16NE,AE_FMT_S16LE,AE_FMT_S16BE,AE_FMT_U8,AE_FMT_RAW
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_streamTypes     : STREAM_TYPE_DTSHD,STREAM_TYPE_DTSHD_MA,STREAM_TYPE_TRUEHD,STREAM_TYPE_EAC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3
+2022-02-09 19:16:26.445 T:13820    INFO <general>:     Device 5
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_deviceName      : {655045BA-35D0-4D2B-9B25-B48F0F468A09}
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_displayName     : HDMI - Speakers (NVIDIA Broadcast)
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_displayNameExtra: WASAPI: Speakers (NVIDIA Broadcast)
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_deviceType      : AE_DEVTYPE_HDMI
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_channels        : FL, FR
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_sampleRates     : 192000,48000
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_dataFormats     : AE_FMT_S16NE,AE_FMT_S16LE,AE_FMT_S16BE,AE_FMT_RAW
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_streamTypes     : STREAM_TYPE_DTSHD,STREAM_TYPE_DTSHD_MA,STREAM_TYPE_TRUEHD,STREAM_TYPE_EAC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3,STREAM_TYPE_DTSHD,STREAM_TYPE_DTSHD_MA,STREAM_TYPE_TRUEHD,STREAM_TYPE_EAC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3
+2022-02-09 19:16:26.445 T:13820    INFO <general>:     Device 6
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_deviceName      : {6676FD55-7546-4B23-9C8F-8CC620F14719}
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_displayName     : Speakers - CABLE Input (VB-Audio Virtual Cable)
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_displayNameExtra: WASAPI: CABLE Input (VB-Audio Virtual Cable)
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_channels        : FL, FR
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_sampleRates     : 192000,176400,96000,88200,48000,44100,32000,22050,11025
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_dataFormats     : AE_FMT_S24NE3,AE_FMT_S24LE3,AE_FMT_S24BE3,AE_FMT_S16NE,AE_FMT_S16LE,AE_FMT_S16BE,AE_FMT_U8,AE_FMT_RAW
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_streamTypes     : STREAM_TYPE_DTSHD,STREAM_TYPE_DTSHD_MA,STREAM_TYPE_TRUEHD,STREAM_TYPE_EAC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3,STREAM_TYPE_DTSHD,STREAM_TYPE_DTSHD_MA,STREAM_TYPE_TRUEHD,STREAM_TYPE_EAC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3
+2022-02-09 19:16:26.445 T:13820    INFO <general>:     Device 7
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_deviceName      : {6BF5F5B0-6649-4FD9-9782-BFBEFD95C93C}
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_displayName     : Speakers - Speakers (Yeti Stereo Microphone)
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_displayNameExtra: WASAPI: Speakers (Yeti Stereo Microphone)
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_channels        : FL, FR
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_sampleRates     : 192000,48000,44100
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_dataFormats     : AE_FMT_S16NE,AE_FMT_S16LE,AE_FMT_S16BE,AE_FMT_RAW
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_streamTypes     : STREAM_TYPE_DTSHD,STREAM_TYPE_DTSHD_MA,STREAM_TYPE_TRUEHD,STREAM_TYPE_EAC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3,STREAM_TYPE_DTSHD,STREAM_TYPE_DTSHD_MA,STREAM_TYPE_TRUEHD,STREAM_TYPE_EAC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3
+2022-02-09 19:16:26.445 T:13820    INFO <general>:     Device 8
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_deviceName      : {740185D7-9853-4E61-8213-987AB045FE11}
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_displayName     : HDMI - HP LA2306 (NVIDIA High Definition Audio)
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_displayNameExtra: WASAPI: HP LA2306 (NVIDIA High Definition Audio)
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_deviceType      : AE_DEVTYPE_HDMI
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_channels        : FL, FR
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_sampleRates     : 192000,48000,44100,32000
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_dataFormats     : AE_FMT_S24NE4MSB,AE_FMT_S16NE,AE_FMT_S16LE,AE_FMT_S16BE,AE_FMT_RAW
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_streamTypes     : STREAM_TYPE_DTSHD,STREAM_TYPE_DTSHD_MA,STREAM_TYPE_TRUEHD,STREAM_TYPE_EAC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3,STREAM_TYPE_DTSHD,STREAM_TYPE_DTSHD_MA,STREAM_TYPE_TRUEHD,STREAM_TYPE_EAC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3,STREAM_TYPE_DTSHD,STREAM_TYPE_DTSHD_MA,STREAM_TYPE_TRUEHD,STREAM_TYPE_EAC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3
+2022-02-09 19:16:26.445 T:13820    INFO <general>:     Device 9
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_deviceName      : {829A23FD-AC20-4BA6-AAD2-9638F3B182BE}
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_displayName     : Speakers - CABLE-A Input (VB-Audio Cable A)
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_displayNameExtra: WASAPI: CABLE-A Input (VB-Audio Cable A)
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_channels        : FL, FR
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_sampleRates     : 192000,176400,96000,88200,48000,44100,32000,22050,11025
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_dataFormats     : AE_FMT_S24NE3,AE_FMT_S24LE3,AE_FMT_S24BE3,AE_FMT_S16NE,AE_FMT_S16LE,AE_FMT_S16BE,AE_FMT_U8,AE_FMT_RAW
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_streamTypes     : STREAM_TYPE_DTSHD,STREAM_TYPE_DTSHD_MA,STREAM_TYPE_TRUEHD,STREAM_TYPE_EAC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3,STREAM_TYPE_DTSHD,STREAM_TYPE_DTSHD_MA,STREAM_TYPE_TRUEHD,STREAM_TYPE_EAC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3,STREAM_TYPE_DTSHD,STREAM_TYPE_DTSHD_MA,STREAM_TYPE_TRUEHD,STREAM_TYPE_EAC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3
+2022-02-09 19:16:26.445 T:13820    INFO <general>:     Device 10
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_deviceName      : {B5EA990F-1A17-4D08-935B-BA8024E80E6F}
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_displayName     : Speakers - VoiceMeeter Aux Input (VB-Audio VoiceMeeter AUX VAIO)
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_displayNameExtra: WASAPI: VoiceMeeter Aux Input (VB-Audio VoiceMeeter AUX VAIO)
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_channels        : FL, FR
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_sampleRates     : 192000,176400,96000,88200,48000,44100,32000,22050,11025
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_dataFormats     : AE_FMT_S24NE3,AE_FMT_S24LE3,AE_FMT_S24BE3,AE_FMT_S16NE,AE_FMT_S16LE,AE_FMT_S16BE,AE_FMT_U8,AE_FMT_RAW
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_streamTypes     : STREAM_TYPE_DTSHD,STREAM_TYPE_DTSHD_MA,STREAM_TYPE_TRUEHD,STREAM_TYPE_EAC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3,STREAM_TYPE_DTSHD,STREAM_TYPE_DTSHD_MA,STREAM_TYPE_TRUEHD,STREAM_TYPE_EAC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3,STREAM_TYPE_DTSHD,STREAM_TYPE_DTSHD_MA,STREAM_TYPE_TRUEHD,STREAM_TYPE_EAC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3
+2022-02-09 19:16:26.445 T:13820    INFO <general>:     Device 11
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_deviceName      : {B5FDFCDC-9689-4196-8A11-CA45D7395687}
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_displayName     : LineLevel - Line (Voicemod Virtual Audio Device (WDM))
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_displayNameExtra: WASAPI: Line (Voicemod Virtual Audio Device (WDM))
+2022-02-09 19:16:26.445 T:13820    INFO <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2022-02-09 19:16:26.446 T:13820    INFO <general>:         m_channels        : FL, FR
+2022-02-09 19:16:26.446 T:13820    INFO <general>:         m_sampleRates     : 192000,48000
+2022-02-09 19:16:26.446 T:13820    INFO <general>:         m_dataFormats     : AE_FMT_S16NE,AE_FMT_S16LE,AE_FMT_S16BE,AE_FMT_RAW
+2022-02-09 19:16:26.446 T:13820    INFO <general>:         m_streamTypes     : STREAM_TYPE_DTSHD,STREAM_TYPE_DTSHD_MA,STREAM_TYPE_TRUEHD,STREAM_TYPE_EAC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3,STREAM_TYPE_DTSHD,STREAM_TYPE_DTSHD_MA,STREAM_TYPE_TRUEHD,STREAM_TYPE_EAC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3,STREAM_TYPE_DTSHD,STREAM_TYPE_DTSHD_MA,STREAM_TYPE_TRUEHD,STREAM_TYPE_EAC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3
+2022-02-09 19:16:26.446 T:13820    INFO <general>:     Device 12
+2022-02-09 19:16:26.446 T:13820    INFO <general>:         m_deviceName      : {C476D0A7-83D3-4E6C-AAB1-4F01EF4CE412}
+2022-02-09 19:16:26.446 T:13820    INFO <general>:         m_displayName     : Speakers - CABLE-B Input (VB-Audio Cable B)
+2022-02-09 19:16:26.446 T:13820    INFO <general>:         m_displayNameExtra: WASAPI: CABLE-B Input (VB-Audio Cable B)
+2022-02-09 19:16:26.446 T:13820    INFO <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2022-02-09 19:16:26.446 T:13820    INFO <general>:         m_channels        : FL, FR
+2022-02-09 19:16:26.446 T:13820    INFO <general>:         m_sampleRates     : 192000,176400,96000,88200,48000,44100,32000,22050,11025
+2022-02-09 19:16:26.446 T:13820    INFO <general>:         m_dataFormats     : AE_FMT_S24NE3,AE_FMT_S24LE3,AE_FMT_S24BE3,AE_FMT_S16NE,AE_FMT_S16LE,AE_FMT_S16BE,AE_FMT_U8,AE_FMT_RAW
+2022-02-09 19:16:26.446 T:13820    INFO <general>:         m_streamTypes     : STREAM_TYPE_DTSHD,STREAM_TYPE_DTSHD_MA,STREAM_TYPE_TRUEHD,STREAM_TYPE_EAC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3,STREAM_TYPE_DTSHD,STREAM_TYPE_DTSHD_MA,STREAM_TYPE_TRUEHD,STREAM_TYPE_EAC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3,STREAM_TYPE_DTSHD,STREAM_TYPE_DTSHD_MA,STREAM_TYPE_TRUEHD,STREAM_TYPE_EAC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3
+2022-02-09 19:16:26.446 T:13820    INFO <general>:     Device 13
+2022-02-09 19:16:26.446 T:13820    INFO <general>:         m_deviceName      : {DDB9EF57-7A32-477A-8585-150D98B9DAA9}
+2022-02-09 19:16:26.446 T:13820    INFO <general>:         m_displayName     : Speakers - CABLE-C Input (VB-Audio Cable C)
+2022-02-09 19:16:26.446 T:13820    INFO <general>:         m_displayNameExtra: WASAPI: CABLE-C Input (VB-Audio Cable C)
+2022-02-09 19:16:26.446 T:13820    INFO <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2022-02-09 19:16:26.446 T:13820    INFO <general>:         m_channels        : FL, FR
+2022-02-09 19:16:26.446 T:13820    INFO <general>:         m_sampleRates     : 192000,176400,96000,88200,48000,44100,32000,22050,11025
+2022-02-09 19:16:26.446 T:13820    INFO <general>:         m_dataFormats     : AE_FMT_S24NE3,AE_FMT_S24LE3,AE_FMT_S24BE3,AE_FMT_S16NE,AE_FMT_S16LE,AE_FMT_S16BE,AE_FMT_U8,AE_FMT_RAW
+2022-02-09 19:16:26.446 T:13820    INFO <general>:         m_streamTypes     : STREAM_TYPE_DTSHD,STREAM_TYPE_DTSHD_MA,STREAM_TYPE_TRUEHD,STREAM_TYPE_EAC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3,STREAM_TYPE_DTSHD,STREAM_TYPE_DTSHD_MA,STREAM_TYPE_TRUEHD,STREAM_TYPE_EAC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3,STREAM_TYPE_DTSHD,STREAM_TYPE_DTSHD_MA,STREAM_TYPE_TRUEHD,STREAM_TYPE_EAC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3
+2022-02-09 19:16:26.446 T:13820    INFO <general>:     Device 14
+2022-02-09 19:16:26.446 T:13820    INFO <general>:         m_deviceName      : {F862B811-1EAB-4F6D-9478-7956F7916B50}
+2022-02-09 19:16:26.446 T:13820    INFO <general>:         m_displayName     : Speakers - VoiceMeeter Input (VB-Audio VoiceMeeter VAIO)
+2022-02-09 19:16:26.446 T:13820    INFO <general>:         m_displayNameExtra: WASAPI: VoiceMeeter Input (VB-Audio VoiceMeeter VAIO)
+2022-02-09 19:16:26.446 T:13820    INFO <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2022-02-09 19:16:26.446 T:13820    INFO <general>:         m_channels        : FL, FR
+2022-02-09 19:16:26.446 T:13820    INFO <general>:         m_sampleRates     : 192000,176400,96000,88200,48000,44100,32000,22050,11025
+2022-02-09 19:16:26.446 T:13820    INFO <general>:         m_dataFormats     : AE_FMT_S24NE3,AE_FMT_S24LE3,AE_FMT_S24BE3,AE_FMT_S16NE,AE_FMT_S16LE,AE_FMT_S16BE,AE_FMT_U8,AE_FMT_RAW
+2022-02-09 19:16:26.446 T:13820    INFO <general>:         m_streamTypes     : STREAM_TYPE_DTSHD,STREAM_TYPE_DTSHD_MA,STREAM_TYPE_TRUEHD,STREAM_TYPE_EAC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3,STREAM_TYPE_DTSHD,STREAM_TYPE_DTSHD_MA,STREAM_TYPE_TRUEHD,STREAM_TYPE_EAC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3,STREAM_TYPE_DTSHD,STREAM_TYPE_DTSHD_MA,STREAM_TYPE_TRUEHD,STREAM_TYPE_EAC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3
+2022-02-09 19:16:26.446 T:13820    INFO <general>:     Device 15
+2022-02-09 19:16:26.446 T:13820    INFO <general>:         m_deviceName      : default
+2022-02-09 19:16:26.447 T:13820    INFO <general>:         m_displayName     : default
+2022-02-09 19:16:26.447 T:13820    INFO <general>:         m_displayNameExtra: 
+2022-02-09 19:16:26.447 T:13820    INFO <general>:         m_deviceType      : AE_DEVTYPE_PCM
+2022-02-09 19:16:26.447 T:13820    INFO <general>:         m_channels        : FL, FR
+2022-02-09 19:16:26.447 T:13820    INFO <general>:         m_sampleRates     : 192000,176400,96000,88200,48000,44100,32000,22050,11025
+2022-02-09 19:16:26.447 T:13820    INFO <general>:         m_dataFormats     : AE_FMT_S24NE3,AE_FMT_S24LE3,AE_FMT_S24BE3,AE_FMT_S16NE,AE_FMT_S16LE,AE_FMT_S16BE,AE_FMT_U8,AE_FMT_RAW
+2022-02-09 19:16:26.447 T:13820    INFO <general>:         m_streamTypes     : STREAM_TYPE_DTSHD,STREAM_TYPE_DTSHD_MA,STREAM_TYPE_TRUEHD,STREAM_TYPE_EAC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3,STREAM_TYPE_DTSHD,STREAM_TYPE_DTSHD_MA,STREAM_TYPE_TRUEHD,STREAM_TYPE_EAC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3,STREAM_TYPE_DTSHD,STREAM_TYPE_DTSHD_MA,STREAM_TYPE_TRUEHD,STREAM_TYPE_EAC3,STREAM_TYPE_DTSHD_CORE,STREAM_TYPE_DTS_2048,STREAM_TYPE_DTS_1024,STREAM_TYPE_DTS_512,STREAM_TYPE_AC3
+2022-02-09 19:16:26.447 T:1212     INFO <general>: CActiveAESink::OpenSink - initialize sink
+2022-02-09 19:16:26.465 T:12504    INFO <general>: RetroPlayer[PROCESS]: Registering process control for Windows
+2022-02-09 19:16:26.465 T:12504    INFO <general>: RetroPlayer[RENDER]: Registering renderer factory for DirectX
+2022-02-09 19:16:26.499 T:13820 WARNING <general>: CActiveAE::ActiveAE::CActiveAE::StateMachine - signal: 0 from port: OutputControlPort not handled for state: 7
+2022-02-09 19:16:26.569 T:12504    INFO <general>: load keymapping
+2022-02-09 19:16:26.571 T:12504    INFO <general>: Loading special://xbmc/system/keymaps/appcommand.xml
+2022-02-09 19:16:26.571 T:12504    INFO <general>: Loading special://xbmc/system/keymaps/customcontroller.AppleRemote.xml
+2022-02-09 19:16:26.572 T:12504    INFO <general>: Loading special://xbmc/system/keymaps/customcontroller.Harmony.xml
+2022-02-09 19:16:26.572 T:12504    INFO <general>: Loading special://xbmc/system/keymaps/customcontroller.SiriRemote.xml
+2022-02-09 19:16:26.572 T:12504    INFO <general>: Loading special://xbmc/system/keymaps/gamepad.xml
+2022-02-09 19:16:26.573 T:12504    INFO <general>: Loading special://xbmc/system/keymaps/joystick.xml
+2022-02-09 19:16:26.574 T:12504    INFO <general>: Loading special://xbmc/system/keymaps/keyboard.xml
+2022-02-09 19:16:26.575 T:12504    INFO <general>: Loading special://xbmc/system/keymaps/mouse.xml
+2022-02-09 19:16:26.575 T:12504    INFO <general>: Loading special://xbmc/system/keymaps/remote.xml
+2022-02-09 19:16:26.576 T:12504    INFO <general>: Loading special://xbmc/system/keymaps/touchscreen.xml
+2022-02-09 19:16:26.577 T:12504    INFO <general>: GUI format 1920x1080, Display Generic PnP Monitor #2: 1920x1080 @ 60.00Hz
+2022-02-09 19:16:26.577 T:12504    INFO <general>: CLangInfo: loading resource.language.en_gb language information...
+2022-02-09 19:16:26.578 T:12504    INFO <general>: global locale set to en-us
+2022-02-09 19:16:26.578 T:12504    INFO <general>: CLangInfo: loading resource.language.en_gb language strings...
+2022-02-09 19:16:26.583 T:12504 WARNING <general>: Repository add-on repository.twitch_development uses plain HTTP for add-on downloads in path http://panicked.xyz/repository/twitch/python2/zips/ - this is insecure and will make your Kodi installation vulnerable to attacks if enabled!
+2022-02-09 19:16:26.599 T:15884    INFO <general>: Running database version Addons33
+2022-02-09 19:16:26.599 T:15884    INFO <general>: Running database version ViewModes6
+2022-02-09 19:16:26.600 T:15884    INFO <general>: Running database version Textures13
+2022-02-09 19:16:26.601 T:15884    INFO <general>: Running database version MyMusic82
+2022-02-09 19:16:26.602 T:15884    INFO <general>: Running database version MyVideos119
+2022-02-09 19:16:26.603 T:15884    INFO <general>: Running database version TV38
+2022-02-09 19:16:26.604 T:15884    INFO <general>: Running database version Epg13
+2022-02-09 19:16:26.615 T:12504    INFO <general>: Unloaded skin
+2022-02-09 19:16:26.616 T:12504    INFO <general>:   load skin from: C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\skin.arctic.zephyr.2.resurrection.mod\ (version: 0.7.5)
+2022-02-09 19:16:26.616 T:12504    INFO <general>:   load fonts for skin...
+2022-02-09 19:16:26.616 T:12504    INFO <general>: Loading colors from C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\skin.arctic.zephyr.2.resurrection.mod\colors\Dark with dark dialogs.xml
+2022-02-09 19:16:26.617 T:12504    INFO <general>: Loading skin includes from C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\skin.arctic.zephyr.2.resurrection.mod\1080i\includes.xml
+2022-02-09 19:16:26.742 T:12504    INFO <general>: Loading fonts from C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\skin.arctic.zephyr.2.resurrection.mod\1080i\Font.xml
+2022-02-09 19:16:26.773 T:12504    INFO <general>:   load new skin...
+2022-02-09 19:16:26.773 T:12504    INFO <general>: Loading custom window XMLs from skin path C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\skin.arctic.zephyr.2.resurrection.mod\1080i
+2022-02-09 19:16:26.784 T:12504    INFO <general>:   initialize new skin...
+2022-02-09 19:16:26.784 T:12504    INFO <general>: Loading skin file: Custom_1114_AutoAS.xml, load type: LOAD_ON_GUI_INIT
+2022-02-09 19:16:26.784 T:12504    INFO <general>: Loading skin file: DialogBusy.xml, load type: LOAD_ON_GUI_INIT
+2022-02-09 19:16:26.786 T:12504    INFO <general>: Loading skin file: Pointer.xml, load type: LOAD_ON_GUI_INIT
+2022-02-09 19:16:26.787 T:12504    INFO <general>: Loading skin file: DialogVolumeBar.xml, load type: LOAD_ON_GUI_INIT
+2022-02-09 19:16:26.790 T:12504    INFO <general>: Loading skin file: DialogExtendedProgressBar.xml, load type: LOAD_ON_GUI_INIT
+2022-02-09 19:16:26.794 T:12504    INFO <general>: Loading skin file: DialogSeekBar.xml, load type: LOAD_ON_GUI_INIT
+2022-02-09 19:16:26.796 T:12504    INFO <general>: Loading skin file: DialogNotification.xml, load type: LOAD_ON_GUI_INIT
+2022-02-09 19:16:26.800 T:12504    INFO <general>: Loading skin file: DialogBusy.xml, load type: LOAD_ON_GUI_INIT
+2022-02-09 19:16:26.802 T:12504    INFO <general>: Loading skin file: Custom_1115_AutoVis.xml, load type: LOAD_ON_GUI_INIT
+2022-02-09 19:16:26.802 T:12504    INFO <general>: Loading skin file: Custom_1122_MusicFullscreenEnabler.xml, load type: LOAD_ON_GUI_INIT
+2022-02-09 19:16:26.802 T:12504    INFO <general>: Loading skin file: Custom_Overlay.xml, load type: LOAD_ON_GUI_INIT
+2022-02-09 19:16:26.808 T:12504    INFO <general>: Loading resource://resource.uisounds.titan.modern/sounds.xml
+2022-02-09 19:16:26.848 T:12504   ERROR <general>: Window Translator: Can't find window infodialog
+2022-02-09 19:16:26.877 T:12504    INFO <general>:   skin loaded...
+2022-02-09 19:16:26.877 T:12504    INFO <general>: Loading skin file: Startup.xml, load type: LOAD_EVERY_TIME
+2022-02-09 19:16:26.881 T:12504    INFO <general>: Loading skin file: Home.xml, load type: KEEP_IN_MEMORY
+2022-02-09 19:16:27.205 T:12504 WARNING <general>: Trying to add unsupported control type 1
+2022-02-09 19:16:27.846 T:5216     INFO <general>: Skipped 569 duplicate messages..
+2022-02-09 19:16:27.846 T:5216     INFO <general>: initializing python engine.
+2022-02-09 19:16:27.858 T:12504 WARNING <general>: Skipped 2 duplicate messages..
+2022-02-09 19:16:27.858 T:12504 WARNING <general>: JSONRPC: Could not parse type "Setting.Details.SettingList"
+2022-02-09 19:16:27.858 T:12504    INFO <general>: JSONRPC: Adding type "Setting.Details.SettingList" to list of incomplete definitions (waiting for "Setting.Details.Setting")
+2022-02-09 19:16:27.858 T:12504    INFO <general>: JSONRPC: Resolving incomplete types/methods referencing Setting.Details.Setting
+2022-02-09 19:16:27.869 T:12504    INFO <general>: JSONRPC v12.4.0: Successfully initialized
+2022-02-09 19:16:27.873 T:12504    INFO <general>: AddOnLog: peripheral.joystick: Enabling joystick interface "xinput"
+2022-02-09 19:16:27.873 T:12504    INFO <general>: AddOnLog: peripheral.joystick: Enabling joystick interface "directinput"
+2022-02-09 19:16:27.874 T:12504    INFO <general>: PERIPHERALS::CPeripheralBus::Register - new keyboard device registered on application->keyboard: Keyboard (0000:0000)
+2022-02-09 19:16:27.874 T:12504    INFO <general>: PERIPHERALS::CPeripheralBus::Register - new mouse device registered on application->mouse: Mouse (0000:0000)
+2022-02-09 19:16:27.875 T:12504    INFO <general>: Loading player core factory settings from special://xbmc/system/playercorefactory.xml.
+2022-02-09 19:16:27.875 T:12504    INFO <general>: Loaded playercorefactory configuration
+2022-02-09 19:16:27.875 T:12504    INFO <general>: Loading player core factory settings from special://masterprofile/playercorefactory.xml.
+2022-02-09 19:16:27.875 T:12504    INFO <general>: special://masterprofile/playercorefactory.xml does not exist. Skipping.
+2022-02-09 19:16:27.875 T:12504    INFO <general>: removing tempfiles
+2022-02-09 19:16:27.876 T:12504 WARNING <general>: Repository add-on repository.twitch_development uses plain HTTP for add-on downloads in path http://panicked.xyz/repository/twitch/python2/zips/ - this is insecure and will make your Kodi installation vulnerable to attacks if enabled!
+2022-02-09 19:16:27.880 T:15432    INFO <general>: initializing python engine.
+2022-02-09 19:16:27.883 T:12504    INFO <general>: Skipped 14 duplicate messages..
+2022-02-09 19:16:27.883 T:12504    INFO <general>: initialize done
+2022-02-09 19:16:27.883 T:2972     INFO <general>: initializing python engine.
+2022-02-09 19:16:27.883 T:12504    INFO <general>: Running the application...
+2022-02-09 19:16:27.885 T:12504 WARNING <general>: Repository add-on repository.twitch_development uses plain HTTP for add-on downloads in path http://panicked.xyz/repository/twitch/python2/zips/ - this is insecure and will make your Kodi installation vulnerable to attacks if enabled!
+2022-02-09 19:16:27.886 T:7896     INFO <general>: ES: Starting UDP Event server on port 9777
+2022-02-09 19:16:27.886 T:7896     INFO <general>: UDP: Listening on port 9777 (ipv6 : false)
+2022-02-09 19:16:27.887 T:12504    INFO <general>: JSONRPC Server: Successfully initialized
+2022-02-09 19:16:28.228 T:15432    INFO <general>: context.seren service: starting
+2022-02-09 19:16:28.867 T:3868     INFO <general>: CD Analysis Report
+2022-02-09 19:16:28.867 T:3868     INFO <general>: __________________________________
+                                                   
+2022-02-09 19:16:28.868 T:3868     INFO <general>: CD-ROM with ISO 9660 filesystem
+2022-02-09 19:16:28.868 T:3868     INFO <general>: ISO 9660: 1151849 blocks, label 
+2022-02-09 19:16:29.156 T:14124 WARNING <general>: script.module.python.twitch: API version |V5| is deprecated, update to |Helix| by |TBD|
+2022-02-09 19:16:29.367 T:3868     INFO <general>: WEATHER: Downloading weather
+2022-02-09 19:16:29.368 T:5296     INFO <general>: initializing python engine.
+2022-02-09 19:16:29.670 T:15036    INFO <general>: plugin.program.autowidget: +++++ STARTING AUTOWIDGET SERVICE +++++
+2022-02-09 19:16:29.704 T:15036    INFO <general>: plugin.program.autowidget: +++++ AUTOWIDGET REFRESHING NOT ENABLED +++++
+2022-02-09 19:16:29.864 T:12504    INFO <general>: Loading special://xbmc/system/keymaps/appcommand.xml
+2022-02-09 19:16:29.864 T:12504    INFO <general>: Loading special://xbmc/system/keymaps/customcontroller.AppleRemote.xml
+2022-02-09 19:16:29.865 T:12504    INFO <general>: Loading special://xbmc/system/keymaps/customcontroller.Harmony.xml
+2022-02-09 19:16:29.866 T:12504    INFO <general>: Loading special://xbmc/system/keymaps/customcontroller.SiriRemote.xml
+2022-02-09 19:16:29.866 T:12504    INFO <general>: Loading special://xbmc/system/keymaps/gamepad.xml
+2022-02-09 19:16:29.867 T:12504    INFO <general>: Loading special://xbmc/system/keymaps/joystick.xml
+2022-02-09 19:16:29.868 T:12504    INFO <general>: Loading special://xbmc/system/keymaps/keyboard.xml
+2022-02-09 19:16:29.871 T:12504    INFO <general>: Loading special://xbmc/system/keymaps/mouse.xml
+2022-02-09 19:16:29.872 T:12504    INFO <general>: Loading special://xbmc/system/keymaps/remote.xml
+2022-02-09 19:16:29.874 T:12504    INFO <general>: Loading special://xbmc/system/keymaps/touchscreen.xml
+2022-02-09 19:16:30.336 T:8536     INFO <general>: CIRServerSuite::Process: failed to connect to irss, will keep retrying every 5 seconds
+2022-02-09 19:16:30.511 T:8016     INFO <general>: [ script.embuary.helper ] Service: Started
+2022-02-09 19:16:30.511 T:8016     INFO <general>: [ script.embuary.helper ] Service: Player monitor started
+2022-02-09 19:16:30.759 T:15296    INFO <general>: CPythonInvoker(2, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\script.skinshortcuts\resources\lib\entry_point.py): script successfully run
+2022-02-09 19:16:30.930 T:15296    INFO <general>: Python interpreter stopped
+2022-02-09 19:16:32.052 T:9576     INFO <general>: [script.service.sponsorblock] monitor: skipping the following categories: {'sponsor'}
+2022-02-09 19:16:32.063 T:16228    INFO <general>: CPythonInvoker(14, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\script.ezmaintenanceplus\service.py): script successfully run
+2022-02-09 19:16:32.236 T:16228    INFO <general>: Python interpreter stopped
+2022-02-09 19:16:32.236 T:5532     INFO <general>: ServiceMonitor_diamond_info_service_started===>___OPEN_INFO
+2022-02-09 19:16:32.296 T:12504 WARNING <general>: CGUIWindowManager - CGUIWindowManager::HandleAction - ignoring action 1, because topmost modal dialog closing animation is running
+2022-02-09 19:16:32.486 T:5532     INFO <general>: run_diamond_info_service_started===>___OPEN_INFO
+2022-02-09 19:16:32.813 T:10776    INFO <general>: initializing python engine.
+2022-02-09 19:16:32.837 T:7972     INFO <general>: SEREN (2): Seren, Running Path - {'action': 'genericEndpoint', 'endpoint': 'popular', 'from_widget': 'true', 'mediatype': 'movies'}
+2022-02-09 19:16:32.871 T:5216     INFO <general>: SEREN (1): Seren, Running Path - {'action': 'genericEndpoint', 'endpoint': 'popular', 'from_widget': 'true', 'mediatype': 'movies'}
+2022-02-09 19:16:32.901 T:13364    INFO <general>: SEREN (0): ##################  STARTING SERVICE  ######################
+2022-02-09 19:16:32.901 T:13364    INFO <general>: SEREN (0): ### plugin.video.seren 2.1.9
+2022-02-09 19:16:32.901 T:13364    INFO <general>: SEREN (0): ### PLATFORM: windows
+2022-02-09 19:16:32.901 T:13364    INFO <general>: SEREN (0): ### SQLite: 3.30.1
+2022-02-09 19:16:32.901 T:13364    INFO <general>: SEREN (0): ### Detected Kodi Version: 19
+2022-02-09 19:16:32.901 T:13364    INFO <general>: SEREN (0): ### Detected timezone: 'America/New_York'
+2022-02-09 19:16:32.901 T:13364    INFO <general>: SEREN (0): #############  SERVICE ENTERED KEEP ALIVE  #################
+2022-02-09 19:16:32.913 T:2200     INFO <general>: initializing python engine.
+2022-02-09 19:16:32.970 T:14124    INFO <general>: Twitch: Service: Start
+2022-02-09 19:16:32.985 T:13460    INFO <general>: [plugin.video.themoviedb.helper]
+                                                   Trakt user account authorized
+2022-02-09 19:16:33.015 T:2572     INFO <general>: Skin Helper Service --> Skin Helper Service version 1.1.38 started
+2022-02-09 19:16:33.342 T:5296    ERROR <general>: EXCEPTION Thrown (PythonToCppException) : -->Python callback/script returned the following error<--
+                                                    - NOTE: IGNORING THIS CAN LEAD TO MEMORY LEAKS!
+                                                   Error Type: <class 'KeyError'>
+                                                   Error Contents: 0
+                                                   Traceback (most recent call last):
+                                                     File "C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\weather.multi\default.py", line 5, in <module>
+                                                       weather.MAIN(mode=sys.argv[1])
+                                                     File "C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\weather.multi\lib\weather.py", line 28, in __init__
+                                                       self.get_forecast(location, locationid, locationlat, locationlon)
+                                                     File "C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\weather.multi\lib\weather.py", line 115, in get_forecast
+                                                       yahoo.Weather.get_weather(data, loc, locid)
+                                                     File "C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\weather.multi\lib\providers\yahoo.py", line 8, in get_weather
+                                                       data = response['weathers'][0]
+                                                   KeyError: 0
+                                                   -->End of Python script error report<--
+                                                   
+2022-02-09 19:16:33.606 T:5296     INFO <general>: Python interpreter stopped
+2022-02-09 19:16:33.715 T:3868     INFO <general>: VideoInfoScanner: Starting scan ..
+2022-02-09 19:16:33.715 T:3868  WARNING <general>: VIDEO::CVideoInfoScanner::Process directory 'AutoWidget' does not exist - skipping scan.
+2022-02-09 19:16:33.718 T:3868     INFO <general>: VideoInfoScanner: Finished scan. Scanning for video info took 00:00
+2022-02-09 19:16:33.904 T:2972     INFO <general>: CPythonInvoker(18, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\service.xbmc.versioncheck\resources\lib\runner.py): script successfully run
+2022-02-09 19:16:34.149 T:2972     INFO <general>: Python interpreter stopped
+2022-02-09 19:16:34.865 T:5216     INFO <general>: CPythonInvoker(0, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\plugin.video.seren\seren.py): script successfully run
+2022-02-09 19:16:35.106 T:5216     INFO <general>: Python interpreter stopped
+2022-02-09 19:16:35.165 T:7972     INFO <general>: CPythonInvoker(1, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\plugin.video.seren\seren.py): script successfully run
+2022-02-09 19:16:35.408 T:7972     INFO <general>: Python interpreter stopped
+2022-02-09 19:16:35.410 T:1052     INFO <general>: CPythonInvoker(6, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\plugin.video.kaito\service.py): script successfully run
+2022-02-09 19:16:35.563 T:12504    INFO <general>: Loading skin file: Settings.xml, load type: KEEP_IN_MEMORY
+2022-02-09 19:16:35.619 T:1052     INFO <general>: Python interpreter stopped
+2022-02-09 19:16:36.001 T:2200     INFO <general>: SEREN (-1): Seren, Running Path - {'action': 'longLifeServiceManager'}
+2022-02-09 19:16:36.008 T:2200     INFO <general>: SEREN (-1): Init provider packages
+2022-02-09 19:16:36.181 T:2200     INFO <general>: SEREN (-1): Starting Service Manager Long Life Service
+2022-02-09 19:16:36.181 T:2200     INFO <general>: SEREN (-1): Request to start services for package: a4kScrapers v2.74.0
+2022-02-09 19:16:36.763 T:12504 WARNING <general>: Repository add-on repository.twitch_development uses plain HTTP for add-on downloads in path http://panicked.xyz/repository/twitch/python2/zips/ - this is insecure and will make your Kodi installation vulnerable to attacks if enabled!
+2022-02-09 19:16:36.765 T:12504    INFO <general>: Loading skin file: AddonBrowser.xml, load type: KEEP_IN_MEMORY
+2022-02-09 19:16:36.768 T:12504 WARNING <general>: Skin has invalid include: 
+2022-02-09 19:16:36.814 T:12504 WARNING <general>: Skipped 5 duplicate messages..
+2022-02-09 19:16:36.814 T:12504 WARNING <general>: Repository add-on repository.twitch_development uses plain HTTP for add-on downloads in path http://panicked.xyz/repository/twitch/python2/zips/ - this is insecure and will make your Kodi installation vulnerable to attacks if enabled!
+2022-02-09 19:16:39.599 T:10776    INFO <general>: Skipped 3 duplicate messages..
+2022-02-09 19:16:39.599 T:10776    INFO <general>: CPythonInvoker(20, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\script.openweathermap.maps\default.py): script successfully run
+2022-02-09 19:16:39.792 T:10776    INFO <general>: Python interpreter stopped
+2022-02-09 19:16:41.731 T:15396 WARNING <general>: Repository add-on repository.twitch_development uses plain HTTP for add-on downloads in path http://panicked.xyz/repository/twitch/python2/zips/ - this is insecure and will make your Kodi installation vulnerable to attacks if enabled!
+2022-02-09 19:16:42.173 T:8284     INFO <general>: Skipped 2 duplicate messages..
+2022-02-09 19:16:42.173 T:8284     INFO <general>: CronJobMonitor_STARTED_diamond_info_service_started===>___OPEN_INFO
+2022-02-09 19:16:42.643 T:10464 WARNING <general>: Repository add-on repository.twitch_development uses plain HTTP for add-on downloads in path http://panicked.xyz/repository/twitch/python2/zips/ - this is insecure and will make your Kodi installation vulnerable to attacks if enabled!
+2022-02-09 19:16:43.447 T:12504    INFO <general>: Skipped 4 duplicate messages..
+2022-02-09 19:16:43.446 T:12504    INFO <general>: Loading skin file: DialogAddonInfo.xml, load type: KEEP_IN_MEMORY
+2022-02-09 19:16:47.849 T:12504    INFO <general>: Loading skin file: MyVideoNav.xml, load type: KEEP_IN_MEMORY
+2022-02-09 19:16:47.851 T:12504 WARNING <general>: Skin has invalid include: 
+2022-02-09 19:16:48.057 T:14264    INFO <general>: Skipped 17 duplicate messages..
+2022-02-09 19:16:48.057 T:14264    INFO <general>: initializing python engine.
+2022-02-09 19:16:48.193 T:14264    INFO <general>: CPythonInvoker(22, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\plugin.program.super.favourites\default.py): script successfully run
+2022-02-09 19:16:48.378 T:14264    INFO <general>: Python interpreter stopped
+2022-02-09 19:16:50.897 T:2228     INFO <general>: initializing python engine.
+2022-02-09 19:16:51.032 T:2228     INFO <general>: CPythonInvoker(23, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\plugin.program.super.favourites\default.py): script successfully run
+2022-02-09 19:16:51.211 T:2228     INFO <general>: Python interpreter stopped
+2022-02-09 19:16:51.667 T:15920    INFO <general>: initializing python engine.
+2022-02-09 19:16:51.816 T:15920    INFO <general>: CPythonInvoker(24, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\plugin.program.super.favourites\default.py): script successfully run
+2022-02-09 19:16:51.999 T:15920    INFO <general>: Python interpreter stopped
+2022-02-09 19:16:52.380 T:12504 WARNING <general>: Repository add-on repository.twitch_development uses plain HTTP for add-on downloads in path http://panicked.xyz/repository/twitch/python2/zips/ - this is insecure and will make your Kodi installation vulnerable to attacks if enabled!
+2022-02-09 19:17:02.950 T:3844     INFO <general>: Skipped 11 duplicate messages..
+2022-02-09 19:17:02.950 T:3844     INFO <general>: initializing python engine.
+2022-02-09 19:17:03.257 T:3844     INFO <general>: SEREN (-1): Seren, Running Path - {'action': 'runMaintenance'}
+2022-02-09 19:17:03.274 T:3844     INFO <general>: SEREN (-1): Performing Maintenance
+2022-02-09 19:17:03.732 T:3844     INFO <general>: SEREN (-1): Real Debrid: premium
+2022-02-09 19:17:03.865 T:3844     INFO <general>: SEREN (-1): Init provider packages
+2022-02-09 19:17:03.902 T:12504   ERROR <general>: Control 52 in window 10025 has been asked to focus, but it can't
+2022-02-09 19:17:03.917 T:16116    INFO <general>: initializing python engine.
+2022-02-09 19:17:04.108 T:3844     INFO <general>: SEREN (-1): Init provider packages
+2022-02-09 19:17:04.198 T:16116    INFO <general>: CPythonInvoker(26, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\plugin.video.themoviedb.helper\plugin.py): script successfully run
+2022-02-09 19:17:04.409 T:16116    INFO <general>: Python interpreter stopped
+2022-02-09 19:17:04.655 T:3844     INFO <general>: SEREN (-1): Failed to obtain remote meta information for skin: SerenMod-Full
+2022-02-09 19:17:04.657 T:3844     INFO <general>: CPythonInvoker(25, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\plugin.video.seren\seren.py): script successfully run
+2022-02-09 19:17:04.869 T:3844     INFO <general>: Python interpreter stopped
+2022-02-09 19:17:05.285 T:13768    INFO <general>: initializing python engine.
+2022-02-09 19:17:05.500 T:13768    INFO <general>: CPythonInvoker(27, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\plugin.video.themoviedb.helper\plugin.py): script successfully run
+2022-02-09 19:17:05.706 T:13768    INFO <general>: Python interpreter stopped
+2022-02-09 19:17:06.470 T:10776    INFO <general>: initializing python engine.
+2022-02-09 19:17:07.496 T:10776    INFO <general>: CPythonInvoker(28, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\plugin.video.themoviedb.helper\plugin.py): script successfully run
+2022-02-09 19:17:07.695 T:10776    INFO <general>: Python interpreter stopped
+2022-02-09 19:17:08.942 T:14400   ERROR <general>: XFILE::CDirectory::GetDirectory - Error getting \
+2022-02-09 19:17:14.836 T:12504    INFO <general>: Skipped 2 duplicate messages..
+2022-02-09 19:17:14.836 T:12504    INFO <general>: Loading skin file: DialogContextMenu.xml, load type: KEEP_IN_MEMORY
+2022-02-09 19:17:17.947 T:7884     INFO <general>: initializing python engine.
+2022-02-09 19:17:18.261 T:7884     INFO <general>: SEREN (-1): Seren, Running Path - {'action': 'syncTraktActivities'}
+2022-02-09 19:17:18.502 T:7884     INFO <general>: CPythonInvoker(29, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\plugin.video.seren\seren.py): script successfully run
+2022-02-09 19:17:18.613 T:6512     INFO <general>: initializing python engine.
+2022-02-09 19:17:18.707 T:7884     INFO <general>: Python interpreter stopped
+2022-02-09 19:17:18.766 T:6512    ERROR <general>: EXCEPTION: XBMC is not playing any file
+2022-02-09 19:17:18.920 T:12504    INFO <general>: Loading skin file: FileBrowser.xml, load type: KEEP_IN_MEMORY
+2022-02-09 19:17:30.203 T:6512     INFO <general>: CPythonInvoker(30, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\plugin.program.super.favourites\menu_addtofaves.py): script successfully run
+2022-02-09 19:17:30.388 T:6512     INFO <general>: Python interpreter stopped
+2022-02-09 19:17:31.094 T:9944    ERROR <general>: XFILE::CDirectory::GetDirectory - Error getting \
+2022-02-09 19:17:31.283 T:6712     INFO <general>: initializing python engine.
+2022-02-09 19:17:31.393 T:12504    INFO <general>: Loading special://xbmc/system/keymaps/appcommand.xml
+2022-02-09 19:17:31.393 T:12504    INFO <general>: Loading special://xbmc/system/keymaps/customcontroller.AppleRemote.xml
+2022-02-09 19:17:31.393 T:12504    INFO <general>: Loading special://xbmc/system/keymaps/customcontroller.Harmony.xml
+2022-02-09 19:17:31.394 T:12504    INFO <general>: Loading special://xbmc/system/keymaps/customcontroller.SiriRemote.xml
+2022-02-09 19:17:31.395 T:12504    INFO <general>: Loading special://xbmc/system/keymaps/gamepad.xml
+2022-02-09 19:17:31.396 T:12504    INFO <general>: Loading special://xbmc/system/keymaps/joystick.xml
+2022-02-09 19:17:31.397 T:12504    INFO <general>: Loading special://xbmc/system/keymaps/keyboard.xml
+2022-02-09 19:17:31.400 T:12504    INFO <general>: Loading special://xbmc/system/keymaps/mouse.xml
+2022-02-09 19:17:31.400 T:12504    INFO <general>: Loading special://xbmc/system/keymaps/remote.xml
+2022-02-09 19:17:31.401 T:12504    INFO <general>: Loading special://xbmc/system/keymaps/touchscreen.xml
+2022-02-09 19:17:31.450 T:6712     INFO <general>: CPythonInvoker(31, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\plugin.video.themoviedb.helper\plugin.py): script successfully run
+2022-02-09 19:17:31.647 T:6712     INFO <general>: Python interpreter stopped
+2022-02-09 19:17:32.550 T:5216     INFO <general>: initializing python engine.
+2022-02-09 19:17:32.684 T:5216     INFO <general>: CPythonInvoker(32, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\plugin.video.themoviedb.helper\plugin.py): script successfully run
+2022-02-09 19:17:32.871 T:5216     INFO <general>: Python interpreter stopped
+2022-02-09 19:17:32.946 T:1932     INFO <general>: initializing python engine.
+2022-02-09 19:17:33.237 T:1932     INFO <general>: SEREN (-1): Seren, Running Path - {'action': 'updateLocalTimezone'}
+2022-02-09 19:17:33.244 T:1932     INFO <general>: CPythonInvoker(33, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\plugin.video.seren\seren.py): script successfully run
+2022-02-09 19:17:33.447 T:1932     INFO <general>: Python interpreter stopped
+2022-02-09 19:17:33.513 T:12504 WARNING <general>: Repository add-on repository.twitch_development uses plain HTTP for add-on downloads in path http://panicked.xyz/repository/twitch/python2/zips/ - this is insecure and will make your Kodi installation vulnerable to attacks if enabled!
+2022-02-09 19:17:37.353 T:12504   ERROR <general>: Skipped 3 duplicate messages..
+2022-02-09 19:17:37.353 T:12504   ERROR <general>: Control 500 in window 10025 has been asked to focus, but it can't
+2022-02-09 19:17:37.371 T:5560     INFO <general>: initializing python engine.
+2022-02-09 19:17:37.534 T:5560     INFO <general>: CPythonInvoker(34, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\plugin.program.super.favourites\default.py): script successfully run
+2022-02-09 19:17:37.730 T:5560     INFO <general>: Python interpreter stopped
+2022-02-09 19:17:39.018 T:5808     INFO <general>: initializing python engine.
+2022-02-09 19:17:39.167 T:5808    ERROR <general>: NEWADDON Unknown Video Info Key "label"
+2022-02-09 19:17:39.198 T:5808     INFO <general>: CPythonInvoker(35, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\plugin.program.super.favourites\default.py): script successfully run
+2022-02-09 19:17:39.388 T:5808     INFO <general>: Python interpreter stopped
+2022-02-09 19:17:41.010 T:9128     INFO <general>: initializing python engine.
+2022-02-09 19:17:41.147 T:9128     INFO <general>: CPythonInvoker(36, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\plugin.program.super.favourites\default.py): script successfully run
+2022-02-09 19:17:41.147 T:772      INFO <general>: initializing python engine.
+2022-02-09 19:17:41.331 T:9128     INFO <general>: Python interpreter stopped
+2022-02-09 19:17:41.341 T:10556   ERROR <general>: XFILE::CDirectory::GetDirectory - Error getting plugin://plugin.program.super.favourites/?cmd=ActivateWindow(10025%2c%22plugin%3a%2f%2fplugin.video.themoviedb.helper%2f%3finfo%3dseasons%26tmdb_id%3d1402%26tmdb_type%3dtv%26sf_options%3dfanart%253Dhttps%253A%252F%252Fassets.fanart.tv%252Ffanart%252Ftv%252F153021%252Fshowbackground%252Fthe-walking-dead-4fd5f9c464280.jpg%2526desc%253DSheriff%2527s%2bdeputy%2bRick%2bGrimes%2bawakens%2bfrom%2ba%2bcoma%2bto%2bfind%2ba%2bpost-apocalyptic%2bworld%2bdominated%2bby%2bflesh-eating%2bzombies.%2bHe%2bsets%2bout%2bto%2bfind%2bhis%2bfamily%2band%2bencounters%2bmany%2bother%2bsurvivors%2balong%2bthe%2bway.%2526meta%253Drating%25253D8.1%252526votes%25253D12%2525252C469%252526trailer%25253Dplugin%2525253A%2525252F%2525252Fplugin.video.youtube%2525252Fplay%2525252F%2525253Fvideo_id%2525253DBXqUmob-nfg%252526genre%25253DAction%25252B%25252526%25252BAdventure%25252B%2525252F%25252BDrama%25252B%2525252F%25252BSci-Fi%25252B%25252526%25252BFantasy%252526mpaa%25253DRated%25252B%25252BTV-MA%252526plot%25253DSheriff%25252527s%25252Bdeputy%25252BRick%25252BGrimes%25252Bawakens%25252Bfrom%25252Ba%25252Bcoma%25252Bto%25252Bfind%25252Ba%25252Bpost-apocalyptic%25252Bworld%25252Bdominated%25252Bby%25252Bflesh-eating%25252Bzombies.%25252BHe%25252Bsets%25252Bout%25252Bto%25252Bfind%25252Bhis%25252Bfamily%25252Band%25252Bencounters%25252Bmany%25252Bother%25252Bsurvivors%25252Balong%25252Bthe%25252Bway.%252526tagline%25253DFight%25252Bthe%25252Bdead.%25252BFear%25252Bthe%25252Bliving.%252526title%25253DThe%25252BWalking%25252BDead%252526originaltitle%25253DThe%25252BWalking%25252BDead%252526label%25253DThe%25252BWalking%25252BDead%252526year%25253D2010%252526premiered%25253D10%2525252F31%2525252F2010%252526season%25253D11%252526episode%25253D161%252526studio%25253DAMC%25252B%2525252F%25252BAMC%25252BNetworks%25252B%2525252F%25252BCircle%25252Bof%25252BConfusion%25252B%2525252F%25252BValhalla%25252BMotion%25252BPictures%25252B%2525252F%25252BDarkwoods%25252BProductions%252526castandrole%25253D%2525255B%25252528%25252527Norman%25252BReedus%25252527%2525252C%25252B%25252527Daryl%25252BDixon%25252527%25252529%2525252C%25252B%25252528%25252527Melissa%25252BMcBride%25252527%2525252C%25252B%25252527Carol%25252BPeletier%25252527%25252529%2525252C%25252B%25252528%25252527Lauren%25252BCohan%25252527%2525252C%25252B%25252527Maggie%25252BGreene%25252527%25252529%2525252C%25252B%25252528%25252527Christian%25252BSerratos%25252527%2525252C%25252B%25252527Rosita%25252BEspinosa%25252527%25252529%2525252C%25252B%25252528%25252527Josh%25252BMcDermitt%25252527%2525252C%25252B%25252527Eugene%25252BPorter%25252527%25252529%2525252C%25252B%25252528%25252527Seth%25252BGilliam%25252527%2525252C%25252B%25252527Gabriel%25252BStokes%25252527%25252529%2525252C%25252B%25252528%25252527Ross%25252BMarquand%25252527%2525252C%25252B%25252527Aaron%25252527%25252529%2525252C%25252B%25252528%25252527Khary%25252BPayton%25252527%2525252C%25252B%25252527Ezekiel%25252527%25252529%2525252C%25252B%25252528%25252527Cooper%25252BAndrews%25252527%2525252C%25252B%25252527Jerry%25252527%25252529%2525252C%25252B%25252528%25252527Callan%25252BMcAuliffe%25252527%2525252C%25252B%25252527Alden%25252527%25252529%2525252C%25252B%25252528%25252527Jeffrey%25252BDean%25252BMorgan%25252527%2525252C%25252B%25252527Negan%25252527%25252529%2525255D%2526_options_sf%22%2creturn)&content_type&fanart=https%3a%2f%2fassets.fanart.tv%2ffanart%2ftv%2f153021%2fshowbackground%2fthe-walking-dead-4fd5f9c464280.jpg&image=https%3a%2f%2fassets.fanart.tv%2ffanart%2ftv%2f153021%2ftvposter%2fthe-walking-dead-5212771f42d2f.jpg&label=The%20Walking%20Dead&mode=650
+2022-02-09 19:17:41.376 T:12504   ERROR <general>: CGUIMediaWindow::GetDirectory(plugin://plugin.program.super.favourites/?cmd=ActivateWindow(10025%2c%22plugin%3a%2f%2fplugin.video.themoviedb.helper%2f%3finfo%3dseasons%26tmdb_id%3d1402%26tmdb_type%3dtv%26sf_options%3dfanart%253Dhttps%253A%252F%252Fassets.fanart.tv%252Ffanart%252Ftv%252F153021%252Fshowbackground%252Fthe-walking-dead-4fd5f9c464280.jpg%2526desc%253DSheriff%2527s%2bdeputy%2bRick%2bGrimes%2bawakens%2bfrom%2ba%2bcoma%2bto%2bfind%2ba%2bpost-apocalyptic%2bworld%2bdominated%2bby%2bflesh-eating%2bzombies.%2bHe%2bsets%2bout%2bto%2bfind%2bhis%2bfamily%2band%2bencounters%2bmany%2bother%2bsurvivors%2balong%2bthe%2bway.%2526meta%253Drating%25253D8.1%252526votes%25253D12%2525252C469%252526trailer%25253Dplugin%2525253A%2525252F%2525252Fplugin.video.youtube%2525252Fplay%2525252F%2525253Fvideo_id%2525253DBXqUmob-nfg%252526genre%25253DAction%25252B%25252526%25252BAdventure%25252B%2525252F%25252BDrama%25252B%2525252F%25252BSci-Fi%25252B%25252526%25252BFantasy%252526mpaa%25253DRated%25252B%25252BTV-MA%252526plot%25253DSheriff%25252527s%25252Bdeputy%25252BRick%25252BGrimes%25252Bawakens%25252Bfrom%25252Ba%25252Bcoma%25252Bto%25252Bfind%25252Ba%25252Bpost-apocalyptic%25252Bworld%25252Bdominated%25252Bby%25252Bflesh-eating%25252Bzombies.%25252BHe%25252Bsets%25252Bout%25252Bto%25252Bfind%25252Bhis%25252Bfamily%25252Band%25252Bencounters%25252Bmany%25252Bother%25252Bsurvivors%25252Balong%25252Bthe%25252Bway.%252526tagline%25253DFight%25252Bthe%25252Bdead.%25252BFear%25252Bthe%25252Bliving.%252526title%25253DThe%25252BWalking%25252BDead%252526originaltitle%25253DThe%25252BWalking%25252BDead%252526label%25253DThe%25252BWalking%25252BDead%252526year%25253D2010%252526premiered%25253D10%2525252F31%2525252F2010%252526season%25253D11%252526episode%25253D161%252526studio%25253DAMC%25252B%2525252F%25252BAMC%25252BNetworks%25252B%2525252F%25252BCircle%25252Bof%25252BConfusion%25252B%2525252F%25252BValhalla%25252BMotion%25252BPictures%25252B%2525252F%25252BDarkwoods%25252BProductions%252526castandrole%25253D%2525255B%25252528%25252527Norman%25252BReedus%25252527%2525252C%25252B%25252527Daryl%25252BDixon%25252527%25252529%2525252C%25252B%25252528%25252527Melissa%25252BMcBride%25252527%2525252C%25252B%25252527Carol%25252BPeletier%25252527%25252529%2525252C%25252B%25252528%25252527Lauren%25252BCohan%25252527%2525252C%25252B%25252527Maggie%25252BGreene%25252527%25252529%2525252C%25252B%25252528%25252527Christian%25252BSerratos%25252527%2525252C%25252B%25252527Rosita%25252BEspinosa%25252527%25252529%2525252C%25252B%25252528%25252527Josh%25252BMcDermitt%25252527%2525252C%25252B%25252527Eugene%25252BPorter%25252527%25252529%2525252C%25252B%25252528%25252527Seth%25252BGilliam%25252527%2525252C%25252B%25252527Gabriel%25252BStokes%25252527%25252529%2525252C%25252B%25252528%25252527Ross%25252BMarquand%25252527%2525252C%25252B%25252527Aaron%25252527%25252529%2525252C%25252B%25252528%25252527Khary%25252BPayton%25252527%2525252C%25252B%25252527Ezekiel%25252527%25252529%2525252C%25252B%25252528%25252527Cooper%25252BAndrews%25252527%2525252C%25252B%25252527Jerry%25252527%25252529%2525252C%25252B%25252528%25252527Callan%25252BMcAuliffe%25252527%2525252C%25252B%25252527Alden%25252527%25252529%2525252C%25252B%25252528%25252527Jeffrey%25252BDean%25252BMorgan%25252527%2525252C%25252B%25252527Negan%25252527%25252529%2525255D%2526_options_sf%22%2creturn)&content_type&fanart=https%3a%2f%2fassets.fanart.tv%2ffanart%2ftv%2f153021%2fshowbackground%2fthe-walking-dead-4fd5f9c464280.jpg&image=https%3a%2f%2fassets.fanart.tv%2ffanart%2ftv%2f153021%2ftvposter%2fthe-walking-dead-5212771f42d2f.jpg&label=The%20Walking%20Dead&mode=650) failed
+2022-02-09 19:17:41.377 T:14680    INFO <general>: initializing python engine.
+2022-02-09 19:17:41.567 T:14680   ERROR <general>: NEWADDON Unknown Video Info Key "label"
+2022-02-09 19:17:41.569 T:14680    INFO <general>: CPythonInvoker(38, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\plugin.program.super.favourites\default.py): script successfully run
+2022-02-09 19:17:41.766 T:14680    INFO <general>: Python interpreter stopped
+2022-02-09 19:17:42.138 T:772   WARNING <general>: Attempt to use invalid handle -1
+2022-02-09 19:17:43.755 T:772      INFO <general>: Skipped 18 duplicate messages..
+2022-02-09 19:17:43.755 T:772      INFO <general>: CPythonInvoker(37, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\plugin.video.themoviedb.helper\plugin.py): script successfully run
+2022-02-09 19:17:43.953 T:772      INFO <general>: Python interpreter stopped
+2022-02-09 19:17:45.610 T:2916     INFO <general>: initializing python engine.
+2022-02-09 19:17:45.748 T:2916     INFO <general>: Skipped 1 duplicate messages..
+2022-02-09 19:17:45.748 T:2916     INFO <general>: CPythonInvoker(39, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\plugin.program.super.favourites\default.py): script successfully run
+2022-02-09 19:17:45.937 T:2916     INFO <general>: Python interpreter stopped
+2022-02-09 19:17:45.944 T:1012    ERROR <general>: XFILE::CDirectory::GetDirectory - Error getting plugin://plugin.program.super.favourites/?cmd=ActivateWindow(10025%2c%22plugin%3a%2f%2fplugin.video.themoviedb.helper%2f%3finfo%3dseasons%26tmdb_id%3d1402%26tmdb_type%3dtv%26sf_options%3dfanart%253Dhttps%253A%252F%252Fassets.fanart.tv%252Ffanart%252Ftv%252F153021%252Fshowbackground%252Fthe-walking-dead-4fd5f9c464280.jpg%2526desc%253DSheriff%2527s%2bdeputy%2bRick%2bGrimes%2bawakens%2bfrom%2ba%2bcoma%2bto%2bfind%2ba%2bpost-apocalyptic%2bworld%2bdominated%2bby%2bflesh-eating%2bzombies.%2bHe%2bsets%2bout%2bto%2bfind%2bhis%2bfamily%2band%2bencounters%2bmany%2bother%2bsurvivors%2balong%2bthe%2bway.%2526meta%253Drating%25253D8.1%252526votes%25253D12%2525252C469%252526trailer%25253Dplugin%2525253A%2525252F%2525252Fplugin.video.youtube%2525252Fplay%2525252F%2525253Fvideo_id%2525253DBXqUmob-nfg%252526genre%25253DAction%25252B%25252526%25252BAdventure%25252B%2525252F%25252BDrama%25252B%2525252F%25252BSci-Fi%25252B%25252526%25252BFantasy%252526mpaa%25253DRated%25252B%25252BTV-MA%252526plot%25253DSheriff%25252527s%25252Bdeputy%25252BRick%25252BGrimes%25252Bawakens%25252Bfrom%25252Ba%25252Bcoma%25252Bto%25252Bfind%25252Ba%25252Bpost-apocalyptic%25252Bworld%25252Bdominated%25252Bby%25252Bflesh-eating%25252Bzombies.%25252BHe%25252Bsets%25252Bout%25252Bto%25252Bfind%25252Bhis%25252Bfamily%25252Band%25252Bencounters%25252Bmany%25252Bother%25252Bsurvivors%25252Balong%25252Bthe%25252Bway.%252526tagline%25253DFight%25252Bthe%25252Bdead.%25252BFear%25252Bthe%25252Bliving.%252526title%25253DThe%25252BWalking%25252BDead%252526originaltitle%25253DThe%25252BWalking%25252BDead%252526label%25253DThe%25252BWalking%25252BDead%252526year%25253D2010%252526premiered%25253D10%2525252F31%2525252F2010%252526season%25253D11%252526episode%25253D161%252526studio%25253DAMC%25252B%2525252F%25252BAMC%25252BNetworks%25252B%2525252F%25252BCircle%25252Bof%25252BConfusion%25252B%2525252F%25252BValhalla%25252BMotion%25252BPictures%25252B%2525252F%25252BDarkwoods%25252BProductions%252526castandrole%25253D%2525255B%25252528%25252527Norman%25252BReedus%25252527%2525252C%25252B%25252527Daryl%25252BDixon%25252527%25252529%2525252C%25252B%25252528%25252527Melissa%25252BMcBride%25252527%2525252C%25252B%25252527Carol%25252BPeletier%25252527%25252529%2525252C%25252B%25252528%25252527Lauren%25252BCohan%25252527%2525252C%25252B%25252527Maggie%25252BGreene%25252527%25252529%2525252C%25252B%25252528%25252527Christian%25252BSerratos%25252527%2525252C%25252B%25252527Rosita%25252BEspinosa%25252527%25252529%2525252C%25252B%25252528%25252527Josh%25252BMcDermitt%25252527%2525252C%25252B%25252527Eugene%25252BPorter%25252527%25252529%2525252C%25252B%25252528%25252527Seth%25252BGilliam%25252527%2525252C%25252B%25252527Gabriel%25252BStokes%25252527%25252529%2525252C%25252B%25252528%25252527Ross%25252BMarquand%25252527%2525252C%25252B%25252527Aaron%25252527%25252529%2525252C%25252B%25252528%25252527Khary%25252BPayton%25252527%2525252C%25252B%25252527Ezekiel%25252527%25252529%2525252C%25252B%25252528%25252527Cooper%25252BAndrews%25252527%2525252C%25252B%25252527Jerry%25252527%25252529%2525252C%25252B%25252528%25252527Callan%25252BMcAuliffe%25252527%2525252C%25252B%25252527Alden%25252527%25252529%2525252C%25252B%25252528%25252527Jeffrey%25252BDean%25252BMorgan%25252527%2525252C%25252B%25252527Negan%25252527%25252529%2525255D%2526_options_sf%22%2creturn)&content_type&fanart=https%3a%2f%2fassets.fanart.tv%2ffanart%2ftv%2f153021%2fshowbackground%2fthe-walking-dead-4fd5f9c464280.jpg&image=https%3a%2f%2fassets.fanart.tv%2ffanart%2ftv%2f153021%2ftvposter%2fthe-walking-dead-5212771f42d2f.jpg&label=The%20Walking%20Dead&mode=650
+2022-02-09 19:17:45.946 T:12504   ERROR <general>: CGUIMediaWindow::GetDirectory(plugin://plugin.program.super.favourites/?cmd=ActivateWindow(10025%2c%22plugin%3a%2f%2fplugin.video.themoviedb.helper%2f%3finfo%3dseasons%26tmdb_id%3d1402%26tmdb_type%3dtv%26sf_options%3dfanart%253Dhttps%253A%252F%252Fassets.fanart.tv%252Ffanart%252Ftv%252F153021%252Fshowbackground%252Fthe-walking-dead-4fd5f9c464280.jpg%2526desc%253DSheriff%2527s%2bdeputy%2bRick%2bGrimes%2bawakens%2bfrom%2ba%2bcoma%2bto%2bfind%2ba%2bpost-apocalyptic%2bworld%2bdominated%2bby%2bflesh-eating%2bzombies.%2bHe%2bsets%2bout%2bto%2bfind%2bhis%2bfamily%2band%2bencounters%2bmany%2bother%2bsurvivors%2balong%2bthe%2bway.%2526meta%253Drating%25253D8.1%252526votes%25253D12%2525252C469%252526trailer%25253Dplugin%2525253A%2525252F%2525252Fplugin.video.youtube%2525252Fplay%2525252F%2525253Fvideo_id%2525253DBXqUmob-nfg%252526genre%25253DAction%25252B%25252526%25252BAdventure%25252B%2525252F%25252BDrama%25252B%2525252F%25252BSci-Fi%25252B%25252526%25252BFantasy%252526mpaa%25253DRated%25252B%25252BTV-MA%252526plot%25253DSheriff%25252527s%25252Bdeputy%25252BRick%25252BGrimes%25252Bawakens%25252Bfrom%25252Ba%25252Bcoma%25252Bto%25252Bfind%25252Ba%25252Bpost-apocalyptic%25252Bworld%25252Bdominated%25252Bby%25252Bflesh-eating%25252Bzombies.%25252BHe%25252Bsets%25252Bout%25252Bto%25252Bfind%25252Bhis%25252Bfamily%25252Band%25252Bencounters%25252Bmany%25252Bother%25252Bsurvivors%25252Balong%25252Bthe%25252Bway.%252526tagline%25253DFight%25252Bthe%25252Bdead.%25252BFear%25252Bthe%25252Bliving.%252526title%25253DThe%25252BWalking%25252BDead%252526originaltitle%25253DThe%25252BWalking%25252BDead%252526label%25253DThe%25252BWalking%25252BDead%252526year%25253D2010%252526premiered%25253D10%2525252F31%2525252F2010%252526season%25253D11%252526episode%25253D161%252526studio%25253DAMC%25252B%2525252F%25252BAMC%25252BNetworks%25252B%2525252F%25252BCircle%25252Bof%25252BConfusion%25252B%2525252F%25252BValhalla%25252BMotion%25252BPictures%25252B%2525252F%25252BDarkwoods%25252BProductions%252526castandrole%25253D%2525255B%25252528%25252527Norman%25252BReedus%25252527%2525252C%25252B%25252527Daryl%25252BDixon%25252527%25252529%2525252C%25252B%25252528%25252527Melissa%25252BMcBride%25252527%2525252C%25252B%25252527Carol%25252BPeletier%25252527%25252529%2525252C%25252B%25252528%25252527Lauren%25252BCohan%25252527%2525252C%25252B%25252527Maggie%25252BGreene%25252527%25252529%2525252C%25252B%25252528%25252527Christian%25252BSerratos%25252527%2525252C%25252B%25252527Rosita%25252BEspinosa%25252527%25252529%2525252C%25252B%25252528%25252527Josh%25252BMcDermitt%25252527%2525252C%25252B%25252527Eugene%25252BPorter%25252527%25252529%2525252C%25252B%25252528%25252527Seth%25252BGilliam%25252527%2525252C%25252B%25252527Gabriel%25252BStokes%25252527%25252529%2525252C%25252B%25252528%25252527Ross%25252BMarquand%25252527%2525252C%25252B%25252527Aaron%25252527%25252529%2525252C%25252B%25252528%25252527Khary%25252BPayton%25252527%2525252C%25252B%25252527Ezekiel%25252527%25252529%2525252C%25252B%25252528%25252527Cooper%25252BAndrews%25252527%2525252C%25252B%25252527Jerry%25252527%25252529%2525252C%25252B%25252528%25252527Callan%25252BMcAuliffe%25252527%2525252C%25252B%25252527Alden%25252527%25252529%2525252C%25252B%25252528%25252527Jeffrey%25252BDean%25252BMorgan%25252527%2525252C%25252B%25252527Negan%25252527%25252529%2525255D%2526_options_sf%22%2creturn)&content_type&fanart=https%3a%2f%2fassets.fanart.tv%2ffanart%2ftv%2f153021%2fshowbackground%2fthe-walking-dead-4fd5f9c464280.jpg&image=https%3a%2f%2fassets.fanart.tv%2ffanart%2ftv%2f153021%2ftvposter%2fthe-walking-dead-5212771f42d2f.jpg&label=The%20Walking%20Dead&mode=650) failed
+2022-02-09 19:17:45.948 T:1944     INFO <general>: initializing python engine.
+2022-02-09 19:17:46.164 T:1944    ERROR <general>: NEWADDON Unknown Video Info Key "label"
+2022-02-09 19:17:46.166 T:1944     INFO <general>: CPythonInvoker(41, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\plugin.program.super.favourites\default.py): script successfully run
+2022-02-09 19:17:46.365 T:1944     INFO <general>: Python interpreter stopped
+2022-02-09 19:17:46.385 T:16108 WARNING <general>: Attempt to use invalid handle -1
+2022-02-09 19:17:46.805 T:16108    INFO <general>: Skipped 18 duplicate messages..
+2022-02-09 19:17:46.805 T:16108    INFO <general>: CPythonInvoker(40, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\plugin.video.themoviedb.helper\plugin.py): script successfully run
+2022-02-09 19:17:47.003 T:16108    INFO <general>: Python interpreter stopped
+2022-02-09 19:17:59.661 T:7652     INFO <general>: initializing python engine.
+2022-02-09 19:17:59.801 T:7652     INFO <general>: CPythonInvoker(42, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\plugin.program.super.favourites\default.py): script successfully run
+2022-02-09 19:17:59.930 T:7652     INFO <general>: Python interpreter interrupted by user
+2022-02-09 19:17:59.930 T:5640    ERROR <general>: XFILE::CDirectory::GetDirectory - Error getting plugin://plugin.program.super.favourites/
+2022-02-09 19:17:59.934 T:12504   ERROR <general>: CGUIMediaWindow::GetDirectory(plugin://plugin.program.super.favourites/) failed
+2022-02-09 19:17:59.935 T:11784   ERROR <general>: Unable to find plugin 
+2022-02-09 19:17:59.935 T:11784   ERROR <general>: XFILE::CDirectory::GetDirectory - Error getting plugin://
+2022-02-09 19:17:59.935 T:12504   ERROR <general>: CGUIMediaWindow::GetDirectory(plugin://) failed
+2022-02-09 19:18:00.163 T:12504 WARNING <general>: Repository add-on repository.twitch_development uses plain HTTP for add-on downloads in path http://panicked.xyz/repository/twitch/python2/zips/ - this is insecure and will make your Kodi installation vulnerable to attacks if enabled!
+2022-02-09 19:18:01.515 T:13164    INFO <general>: Skipped 7 duplicate messages..
+2022-02-09 19:18:01.515 T:13164    INFO <general>: initializing python engine.
+2022-02-09 19:18:01.735 T:13164    INFO <general>: CPythonInvoker(43, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\script.skinshortcuts\resources\lib\entry_point.py): script successfully run
+2022-02-09 19:18:01.935 T:13164    INFO <general>: Python interpreter stopped
+2022-02-09 19:18:02.796 T:12504    INFO <general>: Loading skin file: DialogButtonMenu.xml, load type: KEEP_IN_MEMORY
+2022-02-09 19:18:04.046 T:12504    INFO <general>: Stopping player
+2022-02-09 19:18:04.046 T:12504    INFO <general>: Storing total System Uptime
+2022-02-09 19:18:04.046 T:12504    INFO <general>: Saving settings
+2022-02-09 19:18:04.050 T:12504    INFO <general>: Saving skin settings
+2022-02-09 19:18:04.050 T:12504    INFO <general>: Stopping all
+2022-02-09 19:18:04.051 T:12504    INFO <general>: ES: Stopping event server
+2022-02-09 19:18:04.936 T:7896     INFO <general>: ES: UDP Event server stopped
+2022-02-09 19:18:04.936 T:15432    INFO <general>: context.seren service: stopped
+2022-02-09 19:18:04.936 T:15432    INFO <general>: CPythonInvoker(3, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\context.seren\service.py): script successfully run
+2022-02-09 19:18:05.054 T:15432    INFO <general>: Python interpreter interrupted by user
+2022-02-09 19:18:05.054 T:15036    INFO <general>: CPythonInvoker(4, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\plugin.program.autowidget\service.py): script successfully run
+2022-02-09 19:18:05.176 T:15036    INFO <general>: Python interpreter interrupted by user
+2022-02-09 19:18:05.176 T:6072     INFO <general>: CPythonInvoker(5, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\plugin.program.super.favourites\service.py): script successfully run
+2022-02-09 19:18:05.287 T:6072     INFO <general>: Python interpreter interrupted by user
+2022-02-09 19:18:05.287 T:12504    INFO <general>: CServiceAddonManager: failed to stop plugin.video.kaito (may have ended)
+2022-02-09 19:18:05.288 T:13364    INFO <general>: CPythonInvoker(7, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\plugin.video.seren\service.py): script successfully run
+2022-02-09 19:18:05.402 T:13364    INFO <general>: Python interpreter interrupted by user
+2022-02-09 19:18:05.402 T:13460    INFO <general>: CPythonInvoker(8, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\plugin.video.themoviedb.helper\service.py): script successfully run
+2022-02-09 19:18:05.506 T:13460    INFO <general>: Python interpreter interrupted by user
+2022-02-09 19:18:05.506 T:14124    INFO <general>: Twitch: Service: Shutdown
+2022-02-09 19:18:05.506 T:14124    INFO <general>: CPythonInvoker(9, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\plugin.video.twitch\resources\lib\service_runner.py): script successfully run
+2022-02-09 19:18:05.600 T:14124    INFO <general>: Python interpreter interrupted by user
+2022-02-09 19:18:05.901 T:14808    INFO <general>: CPythonInvoker(10, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\plugin.video.youtube\resources\lib\startup.py): script successfully run
+2022-02-09 19:18:06.006 T:14808    INFO <general>: Python interpreter interrupted by user
+2022-02-09 19:18:06.101 T:14144    INFO <general>: CPythonInvoker(11, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\script.common.plugin.cache\resources\lib\entry_point.py): script successfully run
+2022-02-09 19:18:06.168 T:14144    INFO <general>: Python interpreter interrupted by user
+2022-02-09 19:18:06.169 T:8016     INFO <general>: [ script.embuary.helper ] Service: Player monitor stopped
+2022-02-09 19:18:06.169 T:8016     INFO <general>: [ script.embuary.helper ] Service: Stopped
+2022-02-09 19:18:06.169 T:8016     INFO <general>: CPythonInvoker(12, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\script.embuary.helper\service.py): script successfully run
+2022-02-09 19:18:06.234 T:8016     INFO <general>: Python interpreter interrupted by user
+2022-02-09 19:18:06.234 T:5532     INFO <general>: CPythonInvoker(13, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\script.extendedinfo\service.py): script successfully run
+2022-02-09 19:18:06.234 T:5532     INFO <general>: CPythonInvoker(13, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\script.extendedinfo\service.py): waiting on thread 8284
+2022-02-09 19:18:06.399 T:5532     INFO <general>: Python interpreter interrupted by user
+2022-02-09 19:18:06.399 T:12504    INFO <general>: CServiceAddonManager: failed to stop script.ezmaintenanceplus (may have ended)
+2022-02-09 19:18:06.399 T:9576     INFO <general>: CPythonInvoker(15, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\script.service.sponsorblock\service.py): script successfully run
+2022-02-09 19:18:06.452 T:9576     INFO <general>: Python interpreter interrupted by user
+2022-02-09 19:18:06.452 T:2572     INFO <general>: Skin Helper Service --> Shutdown requested !
+2022-02-09 19:18:06.509 T:2572     INFO <general>: Skin Helper Service --> Skin Helper Service version 1.1.38 stopped
+2022-02-09 19:18:06.509 T:2572     INFO <general>: CPythonInvoker(16, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\script.skin.helper.service\service.py): script successfully run
+2022-02-09 19:18:06.564 T:2572     INFO <general>: Python interpreter interrupted by user
+2022-02-09 19:18:06.564 T:4540     INFO <general>: CPythonInvoker(17, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\service.subtitles.a4ksubtitles\main_service.py): script successfully run
+2022-02-09 19:18:06.601 T:4540     INFO <general>: Python interpreter interrupted by user
+2022-02-09 19:18:06.601 T:12504    INFO <general>: CServiceAddonManager: failed to stop service.xbmc.versioncheck (may have ended)
+2022-02-09 19:18:06.612 T:12504    INFO <general>: Application stopped
+2022-02-09 19:18:06.813 T:12504    INFO <general>: XBApplicationEx: destroying...
+2022-02-09 19:18:06.964 T:12504    INFO <general>: AddOnLog: peripheral.joystick: Disabling joystick interface "directinput"
+2022-02-09 19:18:06.964 T:12504    INFO <general>: AddOnLog: peripheral.joystick: Disabling joystick interface "xinput"
+2022-02-09 19:18:06.965 T:12504    INFO <general>: ADDON: Dll Destroyed - Joystick Support
+2022-02-09 19:18:06.965 T:12504    INFO <general>: unload skin
+2022-02-09 19:18:07.008 T:12504 WARNING <general>: CGUITextureManager::Cleanup: Having to cleanup texture common/white-gradient.png
+2022-02-09 19:18:07.024 T:12504    INFO <general>: Unloaded skin
+2022-02-09 19:18:07.024 T:2200     INFO <general>: CPythonInvoker(21, C:\Users\jenki\Desktop\Kodi Nick's TV 2\portable_data\addons\plugin.video.seren\seren.py): script successfully run
+2022-02-09 19:18:07.055 T:2200     INFO <general>: Python interpreter interrupted by user
+2022-02-09 19:18:07.093 T:12504    INFO <general>: unload sections
+2022-02-09 19:18:07.097 T:12504    INFO <general>: ADDON: Dll Destroyed - Archive support
+2022-02-09 19:18:07.100 T:12504    INFO <general>: [WS-Discovery]: terminating
+2022-02-09 19:18:09.124 T:12504    INFO <general>: XBApplicationEx: application stopped!

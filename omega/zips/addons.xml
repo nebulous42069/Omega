@@ -330,7 +330,7 @@
             <icon>resources/icon.png</icon>
         </assets>
     </extension>
-</addon><addon id="plugin.program.super.favourites" name="Super Favourites" version="2.3.7" provider-name="jmooremcc, spoyser">
+</addon><addon id="plugin.program.super.favourites" name="Super Favourites" version="420.2.3.7" provider-name="jmooremcc, spoyser">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
   </requires>
