@@ -824,7 +824,6 @@
 					<visible>Control.IsVisible(50)</visible>
 				</control>
 				<control type="panel" id="50">
-					<visible>$EXP[Exp_View_50]</visible>
 					<left>330</left>
 					<top>780</top>
 					<width>1140</width>
@@ -911,6 +910,19 @@
 						<altlabel>1024</altlabel>
 						<usealttexture>String.IsEqual(ListItem.DBTYPE,tvshow)</usealttexture>
 					</control>
+					<control type="button" id="11">
+						<description>Play Trailer</description>
+						<include>ButtonInfoDialogsCommonValues</include>
+						<label>20410</label>
+						<visible>!String.IsEmpty(ListItem.Trailer) + !Skin.HasSetting(WindowedTrailer)</visible>
+					</control>
+					<control type="button" id="15">
+						<description>Play Trailer Windowed</description>
+						<include>ButtonInfoDialogsCommonValues</include>
+						<label>20410</label>
+						<onclick>PlayMedia($INFO[ListItem.Trailer],1)</onclick>
+						<visible>!String.IsEmpty(ListItem.Trailer) + Skin.HasSetting(WindowedTrailer)</visible>
+					</control>					
 					<control type="button" id="1227">
 						<description>Special Features button</description>
 						<label>$LOCALIZE[31054]</label>
@@ -939,7 +951,7 @@
 						<include>ButtonInfoDialogsCommonValues</include>
 						<label>31204</label>
 						<onclick>PreviousMenu</onclick>
-						<onclick>RunScript(script.extendedinfo,info=extendedinfo,id=$INFO[ListItem.IMDBNumber])</onclick>
+						<onclick>RunScript(script.extendedinfo,info=extendedinfo,dbid=$INFO[ListItem.DBID],name=$INFO[ListItem.Title])</onclick>
 						<enable>System.HasAddon(script.extendedinfo)</enable>
 						<visible>Container.Content(movies) + System.HasAddon(script.extendedinfo) + !Skin.HasSetting(EnableCustomVideoInfoScript)</visible>
 					</control>
@@ -952,34 +964,10 @@
 						<enable>!String.IsEmpty(Skin.String(CustomVideoInfoScript))</enable>
 						<visible>Skin.HasSetting(EnableCustomVideoInfoScript)</visible>
 					</control>
-					<control type="button" id="6">
-						<description>Refresh</description>
-						<include>ButtonInfoDialogsCommonValues</include>
-						<label>184</label>
-					</control>
 					<control type="button" id="10">
 						<description>Get Thumb</description>
 						<include>ButtonInfoDialogsCommonValues</include>
 						<label>13511</label>
-					</control>
-					<control type="button" id="11">
-						<description>Play Trailer</description>
-						<include>ButtonInfoDialogsCommonValues</include>
-						<label>20410</label>
-						<visible>!String.IsEmpty(ListItem.Trailer) + !Skin.HasSetting(WindowedTrailer)</visible>
-					</control>
-					<control type="button" id="15">
-						<description>Play Trailer Windowed</description>
-						<include>ButtonInfoDialogsCommonValues</include>
-						<label>20410</label>
-						<onclick>PlayMedia($INFO[ListItem.Trailer],1)</onclick>
-						<visible>!String.IsEmpty(ListItem.Trailer) + Skin.HasSetting(WindowedTrailer)</visible>
-					</control>
-					<control type="button" id="13">
-						<description>Same Director</description>
-						<include>ButtonInfoDialogsCommonValues</include>
-						<label>$LOCALIZE[32020]</label>
-						<visible>!String.IsEmpty(ListItem.Director)</visible>
 					</control>
 					<control type="button" id="7">
 						<description>Set my rating</description>

@@ -128,44 +128,49 @@
                 </focusedlayout>
                 <content>
 				<item>
-					<label>[B][COLOR chartreuse]Click Here To Switch Skin[/COLOR][/B]</label>
+					<label>[B][COLOR chartreuse]Click HERE To Switch Skins after installing.. [/COLOR][/B]</label>
 					<onclick>Dialog.Close(5001)</onclick>
 					<onclick>RunPlugin(plugin://script.diggzskins)</onclick>
 				</item>
 				<item>
-					<label>Install Xenon 2</label>
+					<label>Install [B][COLOR gold]XENON 2[/COLOR][/B]  (Mid Power)</label>
 					<onclick>InstallAddon(skin.xenon2)</onclick>
 				</item>				
 				<item>
-					<label>Install Fentastic</label>
+					<label>Install [B][COLOR gold]Fentastic[/COLOR][/B]  (Mid Power)</label>
 					<onclick>InstallAddon(skin.eminence.2.fen)</onclick>
 				</item>
 				<item>
-					<label>Install Eminence</label>
+					<label>Install [B][COLOR gold]Eminence[/COLOR][/B]  (Mid Power)</label>
 					<onclick>InstallAddon(skin.eminence.2.mod)</onclick>
 				</item>
 				<item>
-					<label>Install ArcticFlix</label>
-					<onclick>InstallAddon(skin.arctic.horizon.2)</onclick>
-				</item>
+					<label>Install [B][COLOR gold]DiggzFlix[/COLOR][/B]   (Mid Power) (NO TOUCH/MOUSE)</label>
+					<onclick>InstallAddon(skin.auraflix)</onclick>
+				</item>				
+				
 				<item>
-					<label>Install FenFlix</label>
+					<label>Install [B][COLOR gold]FenFlix[/COLOR][/B]   (Mid Power) (NO TOUCH/MOUSE)</label>
 					<onclick>InstallAddon(skin.povflix)</onclick>
 				</item>
 				<item>
-					<label>Install SerenFlix</label>
+					<label>Install [B][COLOR gold]SerenFlix[/COLOR][/B]   (Mid Power) (NO TOUCH/MOUSE)</label>
 					<onclick>InstallAddon(skin.serenflix)</onclick>
 				</item>
 				<item>
-					<label>Install UmbrellaFlix</label>
+					<label>Install [B][COLOR gold]UmbrellaFlix[/COLOR][/B]   (Mid Power) (NO TOUCH/MOUSE)</label>
 					<onclick>InstallAddon(skin.umbrellaflix)</onclick>
 				</item>
 				<item>
-					<label>Install Phenomenal</label>
+					<label>Install [B][COLOR gold]ArcticFlix[/COLOR][/B]   (High Power) (NO TOUCH/MOUSE)</label>
+					<onclick>InstallAddon(skin.arctic.horizon.2)</onclick>
+				</item>				
+				<item>
+					<label>Install [B][COLOR gold]Phenomenal[/COLOR][/B]  (Mid Power)</label>
 					<onclick>InstallAddon(skin.phenomenal.h)</onclick>
 				</item>
 				<item>
-					<label>Install Diggz Kidz</label>
+					<label>Install [B][COLOR gold]Diggz Kidz[/COLOR][/B]  (Mid Power)</label>
 					<onclick>installaddon(skin.diggzkids)</onclick>
 				</item>			
                 </content>

@@ -5,26 +5,34 @@ from caches.settings_cache import get_setting, set_setting
 from caches.main_cache import cache_object
 from caches.lists_cache import lists_cache_object
 from modules import kodi_utils, settings
-from modules.metadata import movie_meta, movie_meta_external_id, tvshow_meta_external_id
+from modules.metadata import movie_meta_external_id, tvshow_meta_external_id
 from modules.utils import sort_list, sort_for_article, make_thread_list, get_datetime, timedelta, replace_html_codes, copy2clip, title_key, jsondate_to_datetime as js2date
 
-CLIENT_ID, CLIENT_SECRET = '234c0be756f91aae005aaf7be2457d2e6f305fb94b6af2c7735a00f0fd64eb60', 'a910d7ef82bbfbb09d8ab1e8ca5f3b0450faf92c734807eec4a267c9e79e9c31'
 json, monitor, sleep, random = kodi_utils.json, kodi_utils.monitor, kodi_utils.sleep, kodi_utils.random
 logger, notification, player, confirm_dialog, get_property = kodi_utils.logger, kodi_utils.notification, kodi_utils.player, kodi_utils.confirm_dialog, kodi_utils.get_property
 dialog, unquote, addon_installed, addon_enabled, addon = kodi_utils.dialog, kodi_utils.unquote, kodi_utils.addon_installed, kodi_utils.addon_enabled, kodi_utils.addon
 path_check, get_icon, clear_property = kodi_utils.path_check, kodi_utils.get_icon, kodi_utils.clear_property
 requests, execute_builtin, select_dialog, kodi_refresh = kodi_utils.requests, kodi_utils.execute_builtin, kodi_utils.select_dialog, kodi_utils.kodi_refresh
-progress_dialog, external = kodi_utils.progress_dialog, kodi_utils.external
-lists_sort_order = settings.lists_sort_order
+progress_dialog, external, trakt_user_active = kodi_utils.progress_dialog, kodi_utils.external, settings.trakt_user_active
+lists_sort_order, trakt_client, trakt_secret, tmdb_api_key = settings.lists_sort_order, settings.trakt_client, settings.trakt_secret, settings.tmdb_api_key
 clear_all_trakt_cache_data, cache_trakt_object, clear_trakt_calendar = trakt_cache.clear_all_trakt_cache_data, trakt_cache.cache_trakt_object, trakt_cache.clear_trakt_calendar
 trakt_watched_cache, reset_activity, clear_trakt_list_contents_data = trakt_cache.trakt_watched_cache, trakt_cache.reset_activity, trakt_cache.clear_trakt_list_contents_data
 clear_trakt_collection_watchlist_data, clear_trakt_hidden_data = trakt_cache.clear_trakt_collection_watchlist_data, trakt_cache.clear_trakt_hidden_data
 clear_trakt_recommendations, clear_trakt_list_data = trakt_cache.clear_trakt_recommendations, trakt_cache.clear_trakt_list_data
 clear_trakt_favorites = trakt_cache.clear_trakt_favorites
+empty_setting_check = (None, 'empty_setting', '')
 standby_date = '2050-01-01T01:00:00.000Z'
 res_format = '%Y-%m-%dT%H:%M:%S.%fZ'
 API_ENDPOINT = 'https://api.trakt.tv/%s'
 timeout = 20
+
+def no_client_key():
+	notification('Please set a valid Trakt Client ID Key')
+	return None
+
+def no_secret_key():
+	notification('Please set a valid Trakt Client Secret Key')
+	return None
 
 def call_trakt(path, params={}, data=None, is_delete=False, with_auth=True, method=None, pagination=False, page_no=1):
 	def send_query():
@@ -53,6 +61,8 @@ def call_trakt(path, params={}, data=None, is_delete=False, with_auth=True, meth
 			resp.raise_for_status()
 		except Exception as e: return logger('Trakt Error', str(e))
 		return resp
+	CLIENT_ID = trakt_client()
+	if CLIENT_ID in empty_setting_check: return no_client_key()
 	headers = {'Content-Type': 'application/json', 'trakt-api-version': '2', 'trakt-api-key': CLIENT_ID}
 	if pagination: params['page'] = page_no
 	response = send_query()
@@ -80,10 +90,16 @@ def call_trakt(path, params={}, data=None, is_delete=False, with_auth=True, meth
 	else: return result
 
 def trakt_get_device_code():
+	CLIENT_ID = trakt_client()
+	if CLIENT_ID in empty_setting_check: return no_client_key()
 	data = {'client_id': CLIENT_ID}
 	return call_trakt('oauth/device/code', data=data, with_auth=False)
 
 def trakt_get_device_token(device_codes):
+	CLIENT_ID = trakt_client()
+	if CLIENT_ID in empty_setting_check: return no_client_key()
+	CLIENT_SECRET = trakt_secret()
+	if CLIENT_SECRET in empty_setting_check: return no_secret_key()
 	result = None
 	try:
 		headers = {'Content-Type': 'application/json', 'trakt-api-version': '2', 'trakt-api-key': CLIENT_ID}
@@ -118,6 +134,10 @@ def trakt_get_device_token(device_codes):
 	return result
 
 def trakt_refresh_token():
+	CLIENT_ID = trakt_client()
+	if CLIENT_ID in empty_setting_check: return no_client_key()
+	CLIENT_SECRET = trakt_secret()
+	if CLIENT_SECRET in empty_setting_check: return no_secret_key()
 	data = {        
 		'client_id': CLIENT_ID, 'client_secret': CLIENT_SECRET, 'redirect_uri': 'urn:ietf:wg:oauth:2.0:oob',
 		'grant_type': 'refresh_token', 'refresh_token': get_setting('fenlight.trakt.refresh')}
@@ -147,8 +167,6 @@ def trakt_authenticate(dummy=''):
 	return False
 
 def trakt_revoke_authentication(dummy=''):
-	data = {'token': get_setting('fenlight.trakt.token'), 'client_id': CLIENT_ID, 'client_secret': CLIENT_SECRET}
-	response = call_trakt("oauth/revoke", data=data, with_auth=False)
 	set_setting('trakt.user', 'empty_setting')
 	set_setting('trakt.expires', '')
 	set_setting('trakt.token', '')
@@ -156,33 +174,39 @@ def trakt_revoke_authentication(dummy=''):
 	set_setting('watched_indicators', '0')
 	clear_all_trakt_cache_data(silent=True, refresh=False)
 	notification('Trakt Account Authorization Reset', 3000)
+	CLIENT_ID = trakt_client()
+	if CLIENT_ID in empty_setting_check: return no_client_key()
+	CLIENT_SECRET = trakt_secret()
+	if CLIENT_SECRET in empty_setting_check: return no_secret_key()
+	data = {'token': get_setting('fenlight.trakt.token'), 'client_id': CLIENT_ID, 'client_secret': CLIENT_SECRET}
+	response = call_trakt("oauth/revoke", data=data, with_auth=False)
 
 def trakt_movies_trending(page_no):
 	string = 'trakt_movies_trending_%s' % page_no
 	params = {'path': 'movies/trending/%s', 'params': {'limit': 20}, 'page_no': page_no}
-	return lists_cache_object(get_trakt, string, params, False, 48)
+	return lists_cache_object(get_trakt, string, params)
 
 def trakt_movies_trending_recent(page_no):
 	current_year = get_datetime().year
 	years = '%s-%s' % (str(current_year-1), str(current_year))
 	string = 'trakt_movies_trending_recent_%s' % page_no
 	params = {'path': 'movies/trending/%s', 'params': {'limit': 20, 'years': years}, 'page_no': page_no}
-	return lists_cache_object(get_trakt, string, params, False, 48)
+	return lists_cache_object(get_trakt, string, params)
 
 def trakt_movies_top10_boxoffice(page_no):
 	string = 'trakt_movies_top10_boxoffice'
 	params = {'path': 'movies/boxoffice/%s', 'pagination': False}
-	return lists_cache_object(get_trakt, string, params, False, 48)
+	return lists_cache_object(get_trakt, string, params)
 
 def trakt_movies_most_watched(page_no):
 	string = 'trakt_movies_most_watched_%s' % page_no
 	params = {'path': 'movies/watched/daily/%s', 'params': {'limit': 20}, 'page_no': page_no}
-	return lists_cache_object(get_trakt, string, params, False, 48)
+	return lists_cache_object(get_trakt, string, params)
 
 def trakt_movies_most_favorited(page_no):
 	string = 'trakt_movies_most_favorited%s' % page_no
 	params = {'path': 'movies/favorited/daily/%s', 'params': {'limit': 20}, 'page_no': page_no}
-	return lists_cache_object(get_trakt, string, params, False, 48)
+	return lists_cache_object(get_trakt, string, params)
 
 def trakt_recommendations(media_type):
 	string = 'trakt_recommendations_%s' % (media_type)
@@ -193,29 +217,29 @@ def trakt_recommendations(media_type):
 def trakt_tv_trending(page_no):
 	string = 'trakt_tv_trending_%s' % page_no
 	params = {'path': 'shows/trending/%s', 'params': {'limit': 20}, 'page_no': page_no}
-	return lists_cache_object(get_trakt, string, params, False, 48)
+	return lists_cache_object(get_trakt, string, params)
 
 def trakt_tv_trending_recent(page_no):
 	current_year = get_datetime().year
 	years = '%s-%s' % (str(current_year-1), str(current_year))
 	string = 'trakt_tv_trending_recent_%s' % page_no
 	params = {'path': 'shows/trending/%s', 'params': {'limit': 20, 'years': years}, 'page_no': page_no}
-	return lists_cache_object(get_trakt, string, params, False, 48)
+	return lists_cache_object(get_trakt, string, params)
 
 def trakt_tv_most_watched(page_no):
 	string = 'trakt_tv_most_watched_%s' % page_no
 	params = {'path': 'shows/watched/daily/%s', 'params': {'limit': 20}, 'page_no': page_no}
-	return lists_cache_object(get_trakt, string, params, False, 48)
+	return lists_cache_object(get_trakt, string, params)
 
 def trakt_tv_most_favorited(page_no):
 	string = 'trakt_tv_most_favorited_%s' % page_no
 	params = {'path': 'shows/favorited/daily/%s', 'params': {'limit': 20}, 'page_no': page_no}
-	return lists_cache_object(get_trakt, string, params, False, 48)
+	return lists_cache_object(get_trakt, string, params)
 
 def trakt_tv_certifications(certification, page_no):
 	string = 'trakt_tv_certifications_%s_%s' % (certification, page_no)
 	params = {'path': 'shows/collected/all%s', 'params': {'certifications': certification, 'limit': 20}, 'page_no': page_no}
-	return lists_cache_object(get_trakt, string, params, False, 48)
+	return lists_cache_object(get_trakt, string, params)
 
 def trakt_get_hidden_items(list_type):
 	def _get_trakt_ids(item):
@@ -381,7 +405,8 @@ def trakt_favorites(media_type, dummy_arg):
 
 def get_trakt_list_contents(list_type, user, slug, with_auth):
 	def _process(params):
-		return [{'media_ids': i[i['type']]['ids'], 'title': i[i['type']]['title'], 'type': i['type'], 'order': c} for c, i in enumerate(get_trakt(params))]	
+		return [{'media_ids': i[i['type']]['ids'], 'title': i[i['type']]['title'], 'type': i['type'], 'order': c} \
+				for c, i in enumerate(get_trakt(params)) if i['type'] in ('movie', 'show')]	
 	string = 'trakt_list_contents_%s_%s_%s' % (list_type, user, slug)
 	if user == 'Trakt Official': params = {'path': 'lists/%s/items', 'path_insert': slug, 'params': {'extended':'full'}, 'method': 'sort_by_headers'}
 	else: params = {'path': 'users/%s/lists/%s/items', 'path_insert': (user, slug), 'params': {'extended':'full'}, 'with_auth': with_auth, 'method': 'sort_by_headers'}
@@ -401,15 +426,6 @@ def trakt_get_lists(list_type):
 		path = 'users/likes/lists%s'
 	params = {'path': path, 'params': {'limit': 1000}, 'pagination': False, 'with_auth': True}
 	return cache_trakt_object(get_trakt, string, params)
-
-def get_trakt_random_lists(params):
-	import random
-	from indexers.trakt_lists import build_trakt_list
-	list_type = params.get('list_type')
-	random_list = random.choice(trakt_get_lists(list_type))
-	if list_type == 'liked_lists': random_list = random_list['list']
-	url_params = {'user': random_list['user']['ids']['slug'], 'slug': random_list['ids']['slug'], 'list_type': list_type, 'list_name': random_list['name'], 'random': 'true'}
-	return build_trakt_list(url_params)
 
 def get_trakt_list_selection(list_choice=None):
 	my_lists = [{'name': item['name'], 'display': '[B]PERSONAL:[/B] [I]%s[/I]' % item['name'].upper(), 'user': item['user']['ids']['slug'], 'slug': item['ids']['slug']} \
@@ -510,9 +526,10 @@ def trakt_unlike_a_list(params):
 def get_trakt_movie_id(item):
 	if item['tmdb']: return item['tmdb']
 	tmdb_id = None
+	api_key = tmdb_api_key()
 	if item['imdb']:
 		try:
-			meta = movie_meta_external_id('imdb_id', item['imdb'])
+			meta = movie_meta_external_id('imdb_id', item['imdb'], api_key)
 			tmdb_id = meta['id']
 		except: pass
 	return tmdb_id
@@ -520,15 +537,16 @@ def get_trakt_movie_id(item):
 def get_trakt_tvshow_id(item):
 	if item['tmdb']: return item['tmdb']
 	tmdb_id = None
+	api_key = tmdb_api_key()
 	if item['imdb']:
 		try: 
-			meta = tvshow_meta_external_id('imdb_id', item['imdb'])
+			meta = tvshow_meta_external_id('imdb_id', item['imdb'], api_key)
 			tmdb_id = meta['id']
 		except: tmdb_id = None
 	if not tmdb_id:
 		if item['tvdb']:
 			try: 
-				meta = tvshow_meta_external_id('tvdb_id', item['tvdb'])
+				meta = tvshow_meta_external_id('tvdb_id', item['tvdb'], api_key)
 				tmdb_id = meta['id']
 			except: tmdb_id = None
 	return tmdb_id
@@ -569,57 +587,6 @@ def trakt_indicators_tv():
 	threads = list(make_thread_list(_process, result))
 	[i.join() for i in threads]
 	trakt_watched_cache.set_bulk_tvshow_watched(insert_list)
-
-# def trakt_indicators_tv():
-# 	def _process(item):
-# 		reset_at = item.get('reset_at', None)
-# 		if reset_at: reset_at = js2date(reset_at, res_format)
-# 		tvshow_last_watched_at = item['last_watched_at']
-# 		show = item['show']
-# 		seasons = item['seasons']
-# 		title = show['title']
-# 		tmdb_id = get_trakt_tvshow_id(show['ids'])
-# 		if not tmdb_id: return
-# 		total_watched = 0
-# 		all_seasons_dict = {}
-# 		seasons_list = []
-# 		seasons_list_append = seasons_list.append
-# 		for s in seasons:
-# 			total_watched_per_season = 0
-# 			season_no, episodes = s['number'], s['episodes']
-# 			if season_no == 0: continue
-# 			watched_episodes_dict = {}
-# 			episodes_list = []
-# 			episodes_list_append = episodes_list.append
-# 			for e in episodes:
-# 				last_watched_at = e['last_watched_at']
-# 				if reset_at and reset_at > js2date(last_watched_at, res_format): continue
-# 				episode = e['number']
-# 				insert_append(('episode', tmdb_id, season_no, episode, last_watched_at, title))
-# 				total_watched_per_season += 1
-# 				episodes_list_append(episode)
-# 				watched_episodes_dict[episode] = last_watched_at
-# 			seasons_list.append(season_no)
-# 			episodes_list = sorted(episodes_list)
-# 			season_dict = {'total_watched': total_watched_per_season, 'episodes_watched': watched_episodes_dict, 'episodes_list': episodes_list}
-# 			all_seasons_dict[season_no] = season_dict
-# 			total_watched += total_watched_per_season
-# 		status_dict[tmdb_id] = {'title': title, 'total_watched': total_watched, 'last_watched_at': tvshow_last_watched_at, 'seasons': all_seasons_dict, 'seasons_list': seasons_list}
-# 		status_append(('tvshow', tmdb_id,
-# 			repr({'title': title, 'total_watched': total_watched, 'last_watched_at': tvshow_last_watched_at, 'seasons': all_seasons_dict, 'seasons_list': seasons_list})))
-# 	insert_list = []
-# 	insert_append = insert_list.append
-# 	status_list = []
-# 	status_append = status_list.append
-# 	status_dict = {}
-# 	params = {'path': 'users/me/watched/shows?extended=full%s', 'with_auth': True, 'pagination': False}
-# 	result = get_trakt(params)
-# 	threads = list(make_thread_list(_process, result))
-# 	[i.join() for i in threads]
-# 	trakt_watched_cache.set_bulk_tvshow_watched(insert_list)
-# 	# trakt_watched_cache.set_bulk_tvshow_status(status_list)
-# 	trakt_watched_cache.set_tvshow_status(status_dict)
-# 	kodi_utils.set_property('fenlight.watched_status', repr(status_dict))
 
 def trakt_playback_progress():
 	params = {'path': 'sync/playback%s', 'with_auth': True, 'pagination': False}
@@ -742,6 +709,9 @@ def get_trakt(params):
 	return result[0] if params.get('pagination', True) else result
 
 def trakt_sync_activities(force_update=False):
+	# def clear_watched_tvshow_cache():
+	# 	from modules.watched_status import clear_cache_watched_tvshow_status
+	# 	clear_cache_watched_tvshow_status(watched_indicators=1)
 	def clear_properties(media_type):
 		for item in ((True, True), (True, False), (False, True), (False, False)): clear_property('1_%s_%s_%s_watched' % (media_type, item[0], item[1]))
 	def _get_timestamp(date_time):
@@ -755,13 +725,13 @@ def trakt_sync_activities(force_update=False):
 	clear_trakt_list_contents_data('user_lists')
 	clear_trakt_list_contents_data('liked_lists')
 	clear_trakt_list_contents_data('my_lists')
-	if get_setting('fenlight.trakt.user', 'empty_setting') in ('empty_setting', '') and not force_update: return 'no account'
+	if not trakt_user_active and not force_update: return 'no account'
 	try: latest = trakt_get_activity()
 	except: return 'failed'
 	cached = reset_activity(latest)
 	if not _compare(latest['all'], cached['all']): return 'not needed'
 	clear_list_contents, lists_actions = False, []
-	refresh_movies_progress, refresh_shows_progress = False, False
+	refresh_movies_progress, refresh_shows_progress, clear_tvshow_watched_cache = False, False, False
 	cached_movies, latest_movies = cached['movies'], latest['movies']
 	cached_shows, latest_shows = cached['shows'], latest['shows']
 	cached_episodes, latest_episodes = cached['episodes'], latest['episodes']
@@ -781,6 +751,7 @@ def trakt_sync_activities(force_update=False):
 	if _compare(latest_episodes['watched_at'], cached_episodes['watched_at']):
 		clear_properties('episode')
 		trakt_indicators_tv()
+		# clear_tvshow_watched_cache = True
 	if _compare(latest_movies['paused_at'], cached_movies['paused_at']): refresh_movies_progress = True
 	if _compare(latest_episodes['paused_at'], cached_episodes['paused_at']): refresh_shows_progress = True
 	if _compare(latest_lists['updated_at'], cached_lists['updated_at']):
@@ -801,4 +772,5 @@ def trakt_sync_activities(force_update=False):
 		for item in lists_actions:
 			clear_trakt_list_data(item)
 			clear_trakt_list_contents_data(item)
+	# if clear_tvshow_watched_cache: clear_watched_tvshow_cache()
 	return 'success'

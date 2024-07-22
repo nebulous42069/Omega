@@ -45,7 +45,7 @@
                 <width>1155</width>
                 <height>45</height>
                 <font>font13_title</font>
-                <label>Xenon Skin Options</label>
+                <label>Diggz Build Options</label>
                 <align>center</align>
                 <aligny>center</aligny>
                 <textcolor>selected</textcolor>
@@ -128,10 +128,17 @@
                 </focusedlayout>
                 <content>				
 				<item>
-					<label>    [COLOR chartreuse]2-[/COLOR] Choose Your Flavor</label>
-					<onclick>Dialog.Close(5000)</onclick>
+					<label>[COLOR chartreuse]Xenon FREE Versions[/COLOR]</label>
+					<onclick>RunPlugin(plugin://script.module.xenonfree/?mode=2)</onclick>
+				</item>
+				<item>
+					<label>[COLOR chartreuse]Xenon DEBRID Versions[/COLOR]</label>
 					<onclick>RunPlugin(plugin://script.module.xenonpluss/?mode=2)</onclick>
-				</item>								
+				</item>
+				<item>
+					<label>[COLOR chartreuse]Diggz Debrid Only Skins[/COLOR]</label>
+					<onclick>ActivateWindow(5001)</onclick>
+				</item>				
                 </content>
             </control>
             <control type="scrollbar" id="61">

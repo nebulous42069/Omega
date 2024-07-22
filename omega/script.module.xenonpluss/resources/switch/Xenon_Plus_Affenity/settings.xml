@@ -1329,7 +1329,7 @@
     <setting id="HomeItem.4.Addon" type="string">AddonSetTwo</setting>
     <setting id="UserSubThree.4.Label" type="string">Configure Controllers</setting>
     <setting id="HomeItem.11.Type" type="string">AddOns</setting>
-    <setting id="subvideos.5.path" type="string">addon.opensettings(weather.multi)</setting>
+    <setting id="subvideos.5.path" type="string">addon.opensettings(weather.gismeteo)</setting>
     <setting id="addonsetthree.25.path" type="string">ActivateWindow(videos,&quot;plugin://slyguy.samsung.tv.plus/?_=live_tv&amp;code=us&quot;,return)</setting>
     <setting id="addonsetfive.26.path" type="string"></setting>
     <setting id="SubPictures.3.Icon" type="string"></setting>

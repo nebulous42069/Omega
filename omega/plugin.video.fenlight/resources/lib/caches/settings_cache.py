@@ -6,10 +6,11 @@ from caches.base_cache import connect_database
 json, numeric_input = kodi_utils.json, kodi_utils.numeric_input
 dialog, ok_dialog, select_dialog, confirm_dialog = kodi_utils.dialog, kodi_utils.ok_dialog, kodi_utils.select_dialog, kodi_utils.confirm_dialog
 default_addon_fanart, get_property, set_property, notification = kodi_utils.default_addon_fanart, kodi_utils.get_property, kodi_utils.set_property, kodi_utils.notification
+tmdb_default_api, trakt_default_id, trakt_default_secret = kodi_utils.tmdb_default_api, kodi_utils.trakt_default_id, kodi_utils.trakt_default_secret
 boolean_dict = {'true': 'false', 'false': 'true'}
 
 BASE_GET = 'SELECT setting_value from settings WHERE setting_id = ?'
-GET_MANY = 'SELECT * FROM settings WHERE setting_value in (%s)'
+GET_MANY = 'SELECT setting_id, setting_value FROM settings WHERE setting_id in (%s)'
 GET_ALL = 'SELECT setting_id, setting_value FROM settings'
 BASE_SET = 'INSERT OR REPLACE INTO settings VALUES (?, ?, ?, ?)'
 BASE_DELETE = 'DELETE FROM settings WHERE setting_id = ?'
@@ -30,8 +31,12 @@ class SettingsCache:
 		dbcon.execute(BASE_DELETE, (setting_id,))
 
 	def get_many(self, settings_list):
-		dbcon = connect_database('settings_db')
-		cache_data = dbcon.execute(GET_MANY % (', '.join('?' for _ in settings_list)), settings_list).fetchall()
+		try:
+			dbcon = connect_database('settings_db')
+			results = dict(dbcon.execute(GET_MANY % (', '.join('?' for _ in settings_list)), settings_list).fetchall())
+			return results
+		except: results = {}
+		return results
 
 	def get_all(self):
 		dbcon = connect_database('settings_db')
@@ -80,6 +85,9 @@ def set_setting(setting_id, value):
 
 def get_setting(setting_id, fallback=''):
 	return get_property(setting_id) or settings_cache.get(setting_id) or fallback
+
+def get_many(settings_list):
+	return settings_cache.get_many(settings_list)
 
 def sync_settings(params={}):
 	silent = params.get('silent', 'true') == 'true'
@@ -167,10 +175,20 @@ def set_source_folder_path(params):
 	current_setting = get_setting('fenlight.%s' % setting_id)
 	if current_setting not in (None, 'None', ''):
 		if confirm_dialog(text='Enter Blank Value?', ok_label='Yes', cancel_label='Re-Enter Value', default_control=11): return set_setting(setting_id, 'None')
-	return set_path(params) 
+	return set_path(params)
+
+def restore_setting_default(params):
+	silent = params.get('silent', 'false') == 'true'
+	if not silent and not confirm_dialog(): return
+	try:
+		setting_id = params['setting_id']
+		setting_default = default_setting_values(setting_id)['setting_default']
+		set_setting(setting_id, setting_default)
+	except:
+		if not silent: ok_dialog(text='Error restoring default setting')
 
 def default_setting_values(setting_id):
-	return [i for i in default_settings() if i['setting_id'] == setting_id][0]
+	return next((i for i in default_settings() if i['setting_id'] == setting_id), None)
 
 def default_settings():
 	return [
@@ -205,12 +223,11 @@ def default_settings():
 {'setting_id': 'extras.open_action', 'setting_type': 'action', 'setting_default': '0', 'settings_options': {'0': 'None', '1': 'Movies', '2': 'TV Shows', '3': 'Both'}},
 {'setting_id': 'extras.enable_extra_ratings', 'setting_type': 'boolean', 'setting_default': 'true'},
 {'setting_id': 'extras.enable_scrollbars', 'setting_type': 'boolean', 'setting_default': 'false'},
-#==================== Custom Actions
-{'setting_id': 'auto_custom_actions', 'setting_type': 'boolean', 'setting_default': 'false'},
+{'setting_id': 'extras.videos_default', 'setting_type': 'action', 'setting_default': '0', 'settings_options': {'0': 'Choose', '1': '1080p', '2': '720p', '3': '480p', '4': '360p'}},
 
 
 #==================================================================================#
-#====================================NAVIGATION====================================#
+#====================================CONTENT====================================#
 #==================================================================================#
 #==================== Sorting - Personal Lists
 {'setting_id': 'sort.progress', 'setting_type': 'action', 'setting_default': '0', 'settings_options': {'0': 'Title', '1': 'Recently Watched'}},
@@ -226,13 +243,17 @@ def default_settings():
 {'setting_id': 'single_ep_display_widget', 'setting_type': 'action', 'setting_default': '1', 'settings_options': {'0': 'TITLE: SxE - EPISODE', '1': 'SxE - EPISODE', '2': 'EPISODE'}},
 {'setting_id': 'meta_filter', 'setting_type': 'boolean', 'setting_default': 'false'},
 {'setting_id': 'use_minimal_media_info', 'setting_type': 'boolean', 'setting_default': 'false'},
+{'setting_id': 'use_viewtypes', 'setting_type': 'boolean', 'setting_default': 'true'},
 #======+============= Trakt Calendar
 {'setting_id': 'trakt.calendar_sort_order', 'setting_type': 'action', 'setting_default': '0', 'settings_options': {'0': 'Descending', '1': 'Ascending'}},
 {'setting_id': 'trakt.calendar_previous_days', 'setting_type': 'action', 'setting_default': '7', 'min_value': '0', 'max_value': '14'},
 {'setting_id': 'trakt.calendar_future_days', 'setting_type': 'action', 'setting_default': '7', 'min_value': '0', 'max_value': '14'},
 #==================== Next Episodes
+{'setting_id': 'nextep.method', 'setting_type': 'action', 'setting_default': '0', 'settings_options': {'0': 'Last Aired', '1': 'Last Watched'}},
 {'setting_id': 'nextep.sort_type', 'setting_type': 'action', 'setting_default': '0', 'settings_options': {'0': 'Recently Watched', '1': 'Airdate', '2': 'Title'}},
 {'setting_id': 'nextep.sort_order', 'setting_type': 'action', 'setting_default': '0', 'settings_options': {'0': 'Descending', '1': 'Ascending'}},
+{'setting_id': 'nextep.limit_history', 'setting_type': 'boolean', 'setting_default': 'false'},
+{'setting_id': 'nextep.limit', 'setting_type': 'action', 'setting_default': '20', 'min_value': '1', 'max_value': '200'},
 {'setting_id': 'nextep.include_unwatched', 'setting_type': 'action', 'setting_default': '0', 'settings_options': {'0': 'None', '1': 'Watchlist', '2': 'Favorites', '3': 'Both'}},
 {'setting_id': 'nextep.include_airdate', 'setting_type': 'boolean', 'setting_default': 'false'},
 {'setting_id': 'nextep.airing_today', 'setting_type': 'boolean', 'setting_default': 'false'},
@@ -247,6 +268,10 @@ def default_settings():
 #=====================================================================================#
 #==================== Trakt
 {'setting_id': 'trakt.user', 'setting_type': 'string', 'setting_default': 'empty_setting'},
+{'setting_id': 'trakt.client', 'setting_type': 'string', 'setting_default': trakt_default_id},
+{'setting_id': 'trakt.secret', 'setting_type': 'string', 'setting_default': trakt_default_secret},
+#==================== TMDb
+{'setting_id': 'tmdb_api', 'setting_type': 'string', 'setting_default': tmdb_default_api},
 #==================== OMDb
 {'setting_id': 'omdb_api', 'setting_type': 'string', 'setting_default': 'empty_setting'},
 

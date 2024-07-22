@@ -1,0 +1,38 @@
+[
+    {
+        "name": "The Loop Channels",
+        "url": "http://loopaddon.uk/files/k19/epg/gameDay_epg.m3u",
+        "image": "special://home/addons/resource.images.skinicons.wide/resources/icons/loop.png",
+        "logos": "",
+        "epg": "",
+        "cache": 0,
+        "uuid": "ceb9f280-1554-4b82-800c-1e7b0c34bea3"
+    },
+    {
+        "name": "Mad Titan Channels",
+        "url": "https://magnetic.website/jet/playlist1.m3u8",
+        "image": "special://home/addons/resource.images.skinicons.wide/resources/icons/madtitan.png",
+        "logos": "",
+        "epg": "",
+        "cache": 60,
+        "uuid": "16c0fc84-cb97-4ebf-a1b0-f76690ff1ff3"
+    },
+    {
+        "name": "Mad Titan 1 Click Channels",
+        "url": "https://magnetic.website/jet/One_Click_Tv.m3u8",
+        "image": "special://home/addons/resource.images.skinicons.wide/resources/icons/madtitan.png",
+        "logos": "",
+        "epg": "",
+        "cache": 60,
+        "uuid": "754f9154-336c-4b15-be53-895fc9e767d6"
+    },
+    {
+        "name": "The_Tv_App",
+        "url": "https://int.klcis.cc/klcis.m3u?key=6af9b4",
+        "image": "special://home/addons/resource.images.skinicons.wide/resources/icons/thetvapp.png",
+        "logos": "",
+        "epg": "",
+        "cache": 5,
+        "uuid": "77f7ccaa-b147-4e6b-9992-72962e59a59a"
+    }
+]

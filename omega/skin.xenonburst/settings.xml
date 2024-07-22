@@ -1555,7 +1555,7 @@
     <setting id="addonsetfive.9.path" type="string"></setting>
     <setting id="AddonSetFifteen.11.Icon" type="string"></setting>
     <setting id="AddonSetTen.21.Label" type="string"></setting>
-    <setting id="subvideos.5.path" type="string">addon.opensettings(weather.multi)</setting>
+    <setting id="subvideos.5.path" type="string">addon.opensettings(weather.gismeteo)</setting>
     <setting id="addonsettwelve.3.path" type="string">ActivateWindow(addonbrowser,&quot;addons://outdated/&quot;,return)</setting>
     <setting id="AddonSetOne.7.List" type="string">plugin://plugin.video.seren/?action=moviesHome</setting>
     <setting id="addonsetfour.7.path" type="string">ActivateWindow(videos,&quot;plugin://plugin.video.umbrella/?action=tools_traktToolsNavigator&amp;folderName=Trakt%20Management%20Tools&quot;,return)</setting>

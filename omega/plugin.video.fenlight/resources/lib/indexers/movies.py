@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
 from modules import meta_lists
 from modules import kodi_utils, settings
-from modules.metadata import movie_meta
-from modules.utils import manual_function_import, get_datetime, make_thread_list, make_thread_list_enumerate, make_thread_list_multi_arg, \
-						get_current_timestamp, paginate_list, jsondate_to_datetime
-from modules.watched_status import get_watched_status_movie, get_progress_percent, get_media_info
+from modules.metadata import movie_meta, movieset_meta
+from modules.utils import manual_function_import, get_datetime, make_thread_list_enumerate, make_thread_list_multi_arg, get_current_timestamp, paginate_list, jsondate_to_datetime
+from modules.watched_status import get_database, watched_info_movie, get_watched_status_movie, get_bookmarks_movie, get_progress_status_movie
 # logger = kodi_utils.logger
 
-make_listitem, build_url, nextpage_landscape, random = kodi_utils.make_listitem, kodi_utils.build_url, kodi_utils.nextpage_landscape, kodi_utils.random
+make_listitem, build_url, nextpage_landscape = kodi_utils.make_listitem, kodi_utils.build_url, kodi_utils.nextpage_landscape
 string, sys, external, add_items, add_dir, get_property = str, kodi_utils.sys, kodi_utils.external, kodi_utils.add_items, kodi_utils.add_dir, kodi_utils.get_property
 set_content, end_directory, set_view_mode, folder_path = kodi_utils.set_content, kodi_utils.end_directory, kodi_utils.set_view_mode, kodi_utils.folder_path
 poster_empty, fanart_empty, set_property = kodi_utils.empty_poster, kodi_utils.default_addon_fanart, kodi_utils.set_property
 sleep, xbmc_actor, set_category, json = kodi_utils.sleep, kodi_utils.xbmc_actor, kodi_utils.set_category, kodi_utils.json
-meta_function, add_item, home = movie_meta, kodi_utils.add_item, kodi_utils.home
+movie_meta, add_item, home = movie_meta, kodi_utils.add_item, kodi_utils.home
 watched_indicators, use_minimal_media_info, widget_hide_next_page = settings.watched_indicators, settings.use_minimal_media_info, settings.widget_hide_next_page
 widget_hide_watched, extras_open_action, page_limit, paginate = settings.widget_hide_watched, settings.extras_open_action, settings.page_limit, settings.paginate
+tmdb_api_key = settings.tmdb_api_key
 run_plugin = 'RunPlugin(%s)'
 main = ('tmdb_movies_popular', 'tmdb_movies_popular_today','tmdb_movies_blockbusters','tmdb_movies_in_theaters', 'tmdb_movies_upcoming', 'tmdb_movies_latest_releases',
 'tmdb_movies_premieres', 'tmdb_movies_oscar_winners')
@@ -45,7 +45,6 @@ class Movies:
 	def fetch_list(self):
 		handle = int(sys.argv[1])
 		try:
-			is_random = self.params_get('random', 'false') == 'true'
 			try: page_no = int(self.params_get('new_page', '1'))
 			except: page_no = self.params_get('new_page')
 			if page_no == 1 and not self.is_external: set_property('fenlight.exit_params', folder_path())
@@ -54,18 +53,15 @@ class Movies:
 			try: function = manual_function_import(var_module, import_function)
 			except: pass
 			if self.action in main:
-				if is_random: data = self.random_worker(function)
-				else: data = function(page_no)
+				data = function(page_no)
 				self.list = [i['id'] for i in data['results']]
-				if not is_random and data['total_pages'] > page_no: self.new_page = {'new_page': string(data['page'] + 1)}
+				if data['total_pages'] > page_no: self.new_page = {'new_page': string(data['page'] + 1)}
 			elif self.action in special:
-				if is_random: data, key_id = self.random_worker(function), None
-				else:
-					key_id = self.params_get('key_id') or self.params_get('query')
-					if not key_id: return
-					data = function(key_id, page_no)
+				key_id = self.params_get('key_id') or self.params_get('query')
+				if not key_id: return
+				data = function(key_id, page_no)
 				self.list = [i['id'] for i in data['results']]
-				if not is_random and data['total_pages'] > page_no: self.new_page = {'new_page': string(data['page'] + 1), 'key_id': key_id}
+				if data['total_pages'] > page_no: self.new_page = {'new_page': string(data['page'] + 1), 'key_id': key_id}
 			elif self.action in personal:
 				data = function('movie', page_no)
 				if self.action == 'recent_watched_movies': total_pages = 1
@@ -75,11 +71,10 @@ class Movies:
 				if total_pages > page_no: self.new_page = {'new_page': string(page_no + 1), 'paginate_start': self.paginate_start}
 			elif self.action in trakt_main:
 				self.id_type = 'trakt_dict'
-				if is_random: data = self.random_worker(function)['results']
-				else: data = function(page_no)
+				data = function(page_no)
 				try: self.list = [i['movie']['ids'] for i in data]
 				except: self.list = [i['ids'] for i in data]
-				if not is_random and self.action not in ('trakt_movies_top10_boxoffice', 'trakt_recommendations'): self.new_page = {'new_page': string(page_no + 1)}
+				if self.action not in ('trakt_movies_top10_boxoffice', 'trakt_recommendations'): self.new_page = {'new_page': string(page_no + 1)}
 			elif self.action in trakt_personal:
 				self.id_type = 'trakt_dict'
 				data = function('movies', page_no)
@@ -95,10 +90,13 @@ class Movies:
 				data = function(url, page_no)
 				self.list = [i['id'] for i in data['results']]
 				if data['total_pages'] > page_no: self.new_page = {'url': url, 'new_page': string(data['page'] + 1)}
+			elif self.action  == 'tmdb_movies_sets':
+				data = sorted(movieset_meta(self.params_get('key_id'), tmdb_api_key())['parts'], key=lambda k: k['release_date'] or '2050')
+				self.list = [i['id'] for i in data]
 			add_items(handle, self.worker())
 			if self.new_page and not self.widget_hide_next_page:
-					self.new_page.update({'mode': 'build_movie_list', 'action': self.action, 'category_name': self.category_name})
-					add_dir(self.new_page, 'Next Page (%s) >>' % self.new_page['new_page'], handle, 'nextpage', nextpage_landscape)
+						self.new_page.update({'mode': 'build_movie_list', 'action': self.action, 'category_name': self.category_name})
+						add_dir(self.new_page, 'Next Page (%s) >>' % self.new_page['new_page'], handle, 'nextpage', nextpage_landscape)
 		except: pass
 		set_content(handle, content_type)
 		set_category(handle, self.category_name)
@@ -109,7 +107,7 @@ class Movies:
 		
 	def build_movie_content(self, _position, _id):
 		try:
-			meta = meta_function(self.id_type, _id, self.current_date, self.current_time)
+			meta = movie_meta(self.id_type, _id, self.tmdb_api_key, self.current_date, self.current_time)
 			if not meta or 'blank_entry' in meta: return
 			listitem = make_listitem()
 			cm = []
@@ -120,16 +118,18 @@ class Movies:
 			premiered = meta_get('premiered')
 			title, year = meta_get('title'), meta_get('year') or '2050'
 			tmdb_id, imdb_id = meta_get('tmdb_id'), meta_get('imdb_id')
+			str_tmdb_id = string(tmdb_id)
 			poster, fanart, clearlogo, landscape = meta_get('poster') or poster_empty, meta_get('fanart') or fanart_empty, meta_get('clearlogo') or '', meta_get('landscape') or ''
+			collection_id, collection_name = meta_get('extra_info').get('collection_id', None), meta_get('extra_info').get('collection_name', None)
 			first_airdate = jsondate_to_datetime(premiered, '%Y-%m-%d', True)
 			if not first_airdate or self.current_date < first_airdate: unaired = True
 			else: unaired = False
-			progress = get_progress_percent(self.bookmarks, tmdb_id)
-			playcount = get_watched_status_movie(self.watched_info, string(tmdb_id))
+			progress = get_progress_status_movie(self.bookmarks, str_tmdb_id)
+			playcount = get_watched_status_movie(self.watched_info, str_tmdb_id)
 			play_params = build_url({'mode': 'playback.media', 'media_type': 'movie', 'tmdb_id': tmdb_id})
 			extras_params = build_url({'mode': 'extras_menu_choice', 'media_type': 'movie', 'tmdb_id': tmdb_id, 'is_external': self.is_external})
-			options_params = build_url({'mode': 'options_menu_choice', 'content': 'movie', 'tmdb_id': tmdb_id, 'poster': poster, 'playcount': playcount,
-										'progress': progress, 'is_external': self.is_external, 'unaired': unaired})
+			options_params = build_url({'mode': 'options_menu_choice', 'content': 'movie', 'tmdb_id': tmdb_id, 'poster': poster, 'is_external': self.is_external})
+			belongs_to_collection = 'true' if all([collection_id, collection_name]) else 'false'
 			if self.open_extras:
 				url_params = extras_params
 				cm_append(('[B]Playback...[/B]', run_plugin % play_params))
@@ -138,6 +138,14 @@ class Movies:
 				cm_append(('[B]Extras...[/B]', run_plugin % extras_params))
 			cm_append(('[B]Options...[/B]', run_plugin % options_params))
 			cm_append(('[B]Playback Options...[/B]', run_plugin % build_url({'mode': 'playback_choice', 'media_type': 'movie', 'poster': poster, 'meta': tmdb_id})))
+			if belongs_to_collection == 'true': cm_append(('[B]Browse Movie Set[/B]', self.window_command % \
+					build_url({'mode': 'build_movie_list', 'action': 'tmdb_movies_sets', 'key_id': collection_id, 'name': collection_name})))
+			cm_append(('[B]Browse Recommended[/B]', self.window_command % \
+					build_url({'mode': 'build_movie_list', 'action': 'tmdb_movies_recommendations', 'key_id': tmdb_id, 'name': 'Recommended based on %s' % title})))
+			cm_append(('[B]Trakt Lists Manager[/B]', run_plugin % \
+				build_url({'mode': 'trakt_manager_choice', 'tmdb_id': tmdb_id, 'imdb_id': imdb_id, 'tvdb_id': 'None', 'media_type': 'movie', 'icon': poster})))
+			cm_append(('[B]Favorites Manager[/B]', run_plugin % \
+				build_url({'mode': 'favorites_choice', 'media_type': 'movie', 'tmdb_id': tmdb_id, 'title': title})))
 			if playcount:
 				if self.widget_hide_watched: return
 				cm_append(('[B]Mark Unwatched %s[/B]' % self.watched_title, run_plugin % build_url({'mode': 'watched_status.mark_movie', 'action': 'mark_as_unwatched',
@@ -152,7 +160,7 @@ class Movies:
 			info_tag = listitem.getVideoInfoTag()
 			info_tag.setMediaType('movie'), info_tag.setTitle(title), info_tag.setOriginalTitle(meta_get('original_title')), info_tag.setGenres(meta_get('genre'))
 			info_tag.setDuration(meta_get('duration')), info_tag.setPlaycount(playcount), info_tag.setPlot(meta_get('plot'))
-			info_tag.setUniqueIDs({'imdb': imdb_id, 'tmdb': string(tmdb_id)}), info_tag.setIMDBNumber(imdb_id), info_tag.setPremiered(premiered)
+			info_tag.setUniqueIDs({'imdb': imdb_id, 'tmdb': str_tmdb_id}), info_tag.setIMDBNumber(imdb_id), info_tag.setPremiered(premiered)
 			if not self.use_minimal_media:
 				info_tag.setYear(int(year)), info_tag.setRating(meta_get('rating')), info_tag.setVotes(meta_get('votes')), info_tag.setMpaa(meta_get('mpaa'))
 				info_tag.setCountries(meta_get('country')), info_tag.setTrailer(meta_get('trailer'))
@@ -165,15 +173,18 @@ class Movies:
 			listitem.setLabel(title)
 			listitem.addContextMenuItems(cm)
 			listitem.setArt({'poster': poster, 'fanart': fanart, 'icon': poster, 'clearlogo': clearlogo, 'landscape': landscape, 'thumb': landscape})
-			set_properties({'fenlight.extras_params': extras_params, 'fenlight.options_params': options_params})
+			set_properties({'fenlight.extras_params': extras_params, 'fenlight.options_params': options_params, 'belongs_to_collection': belongs_to_collection})
 			self.append(((url_params, listitem, False), _position))
 		except: pass
 
 	def worker(self):
-		self.current_date, self.current_time, self.watched_indicators = get_datetime(), get_current_timestamp(), watched_indicators()
-		(self.watched_info, self.bookmarks), self.watched_title = get_media_info(self.watched_indicators, 'movie', True), 'Trakt' if self.watched_indicators == 1 else 'Fen Light'
+		self.current_date, self.current_time, self.watched_indicators, self.tmdb_api_key = get_datetime(), get_current_timestamp(), watched_indicators(), tmdb_api_key()
+		self.watched_title = 'Trakt' if self.watched_indicators == 1 else 'Fen Light'
+		watched_db = get_database(self.watched_indicators)
+		self.watched_info, self.bookmarks = watched_info_movie(watched_db), get_bookmarks_movie(watched_db)
 		self.open_extras = extras_open_action('movie')
 		self.use_minimal_media = use_minimal_media_info()
+		self.window_command = 'ActivateWindow(Videos,%s,return)' if self.is_external else 'Container.Update(%s)'
 		if self.custom_order:
 			threads = list(make_thread_list_multi_arg(self.build_movie_content, self.list))
 			[i.join() for i in threads]
@@ -183,20 +194,6 @@ class Movies:
 			self.items.sort(key=lambda k: k[1])
 			self.items = [i[0] for i in self.items]
 		return self.items
-
-	def random_worker(self, function):
-		try:
-			random_results = []
-			if self.action in main: threads = list(make_thread_list(lambda x: random_results.extend(function(x)['results']), range(1, 6)))
-			elif self.action in trakt_main:
-				threads = list(make_thread_list(lambda x: random_results.extend(function(x)), ['movies',] if self.action == 'trakt_recommendations' else range(1, 6)))
-			else:
-				info = random.choice(meta_list_dict[self.action])
-				self.category_name = 'Random %s' % info['name']
-				threads = list(make_thread_list(lambda x: random_results.extend(function(info['id'], x)['results']), range(1, 6)))
-			[i.join() for i in threads]
-			return {'results': random.sample(random_results, min(len(random_results), 20))}
-		except: return {'results': []}
 
 	def paginate_list(self, data, page_no):
 		if paginate(self.is_home):

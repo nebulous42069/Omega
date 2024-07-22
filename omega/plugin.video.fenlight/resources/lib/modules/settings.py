@@ -3,7 +3,7 @@ from caches.settings_cache import get_setting, set_setting
 from modules import kodi_utils
 # logger = kodi_utils.logger
 
-translate_path, get_property, tmdb_default_api = kodi_utils.translate_path, kodi_utils.get_property, kodi_utils.tmdb_default_api
+translate_path, get_property = kodi_utils.translate_path, kodi_utils.get_property
 download_directories_dict = {'movie': 'fenlight.movie_download_directory', 'episode': 'fenlight.tvshow_download_directory', 'thumb_url': 'fenlight.image_download_directory',
 							'image_url': 'fenlight.image_download_directory','image': 'fenlight.image_download_directory', 'premium': 'fenlight.premium_download_directory',
 							None: 'fenlight.premium_download_directory', 'None': False}
@@ -16,6 +16,18 @@ prescrape_scrapers_tuple = ('easynews', 'rd_cloud', 'pm_cloud', 'ad_cloud', 'fol
 sort_to_top_dict = {'folders': 'fenlight.results.sort_folders_first', 'rd_cloud': 'fenlight.results.sort_rdcloud_first',
 					'pm_cloud': 'fenlight.results.sort_pmcloud_first', 'ad_cloud': 'fenlight.results.sort_adcloud_first'}
 internal_scrapers_clouds_list = [('rd', 'provider.rd_cloud'), ('pm', 'provider.pm_cloud'), ('ad', 'provider.ad_cloud')]
+
+def tmdb_api_key():
+	return get_setting('fenlight.tmdb_api', '')
+
+def trakt_client():
+	return get_setting('fenlight.trakt.client', '')
+
+def trakt_secret():
+	return get_setting('fenlight.trakt.secret', '')
+
+def trakt_user_active():
+	return get_setting('fenlight.trakt.user', 'empty_setting') not in ('empty_setting', '')
 
 def results_format():
 	window_format = str(get_setting('fenlight.results.list_format', 'List'))
@@ -118,9 +130,6 @@ def trakt_sync_interval():
 def lists_sort_order(setting):
 	return int(get_setting('fenlight.sort.%s' % setting, '0'))
 
-def auto_start():
-	return get_setting('fenlight.auto_start', 'false') == 'true'
-
 def use_minimal_media_info():
 	return get_setting('fenlight.use_minimal_media_info', 'true') == 'true'
 
@@ -146,6 +155,9 @@ def extras_enable_extra_ratings():
 
 def extras_enable_scrollbars():
 	return get_setting('fenlight.extras.enable_scrollbars', 'true')
+
+def extras_videos_default():
+	return int(get_setting('fenlight.extras.videos_default', '0'))
 
 def extras_enabled_menus():
 	setting = get_setting('fenlight.extras.enabled', '2000,2050,2051,2052,2053,2054,2055,2056,2057,2058,2059,2060,2061,2062')
@@ -255,8 +267,17 @@ def extras_open_action(media_type):
 	return int(get_setting('fenlight.extras.open_action', '0')) in extras_open_action_dict[media_type]
 
 def watched_indicators():
-	if get_setting('fenlight.trakt.user') in ('empty_setting', ''): return 0
+	if not trakt_user_active(): return 0
 	return int(get_setting('fenlight.watched_indicators', '0'))
+
+def nextep_method():
+	return int(get_setting('fenlight.nextep.method', '0'))
+
+def nextep_limit_history():
+	return get_setting('fenlight.nextep.limit_history', 'false') == 'true'
+
+def nextep_limit():
+	return int(get_setting('fenlight.nextep.limit', '20'))
 
 def nextep_include_unwatched():
 	return int(get_setting('fenlight.nextep.include_unwatched', '0'))

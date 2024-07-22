@@ -167,7 +167,7 @@
                 <height>60</height>
                 <align>center</align>
                 <aligny>center</aligny>
-                <label>10035</label>
+                <label>Reset Controller</label>
                 <font>font12_title</font>
                 <onleft>18</onleft>
                 <onright>20</onright>
@@ -185,7 +185,7 @@
                 <font>font12_title</font>
                 <textcolor>white</textcolor>
                 <pulseonselect>false</pulseonselect>
-                <label>$LOCALIZE[21452]</label>
+                <label>More Controllers..</label>
                 <onleft>19</onleft>
                 <onright>17</onright>
                 <onup>9000</onup>

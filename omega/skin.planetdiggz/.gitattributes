@@ -1,7 +1,0 @@
-* text=auto
-*.shortcuts text
-*.xml text
-*.po text
-*.jpg binary
-*.png binary
-*.ttf binary

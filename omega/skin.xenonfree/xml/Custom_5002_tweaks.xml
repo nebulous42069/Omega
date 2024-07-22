@@ -126,11 +126,7 @@
                         <label>$INFO[ListItem.Label]</label>
                     </control>
                 </focusedlayout>
-                <content>
-				<item>
-					<label>- [COLOR chartreuse][B]Enable Or Disable Home Menus[/B][/COLOR]</label>
-					<onclick>ActivateWindow(5004)</onclick>
-				</item>				
+                <content>			
 				<item>
 					<label>- [B]Xenon Skin Settings[/B]</label>
 					<onclick>Dialog.Close(5002)</onclick>					
@@ -145,12 +141,7 @@
 					<label>- [B]Kodi Advanced Settings[/B]</label>
 					<onclick>Dialog.Close(5002)</onclick>
 					<onclick>ActivateWindow(servicesettings,filecache.memorysize)</onclick>
-				</item>				
-				<item>
-					<label>- [B]Chef Omega Build Wizard[/B]</label>
-					<onclick>Dialog.Close(5002)</onclick>					
-					<onclick>RunAddon(plugin.program.chef21)</onclick>
-				</item>				
+				</item>							
 				<item>
 					<label>- [B]Clear Cache[/B]</label>
 					<onclick>PlayMedia(&quot;plugin://program.RockCleaner-Classic/?url=url&amp;mode=1&amp;name=%5BCOLOR+red%5D%5BB%5D%5BI%5DClear+Cache%5B%2FI%5D%5B%2FB%5D%5B%2FCOLOR%5D&quot;)</onclick>

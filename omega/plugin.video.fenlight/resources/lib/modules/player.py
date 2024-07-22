@@ -57,7 +57,7 @@ class FenLightPlayer(xbmc_player):
 				except: pass
 			resolve_percent = round(resolve_percent + 26.0/100, 1)
 			self.sources_object.progress_dialog.update_resolver(percent=resolve_percent)
-			sleep(100)
+			sleep(50)
 
 	def playback_close_dialogs(self):
 		self.sources_object.playback_successful = True
@@ -77,8 +77,8 @@ class FenLightPlayer(xbmc_player):
 				else: self.autoplay_nextep, self.autoscrape_nextep = self.sources_object.autoplay_nextep, self.sources_object.autoscrape_nextep
 			else: play_random_continual, self.autoplay_nextep, self.autoscrape_nextep = False, False, False
 			while total_check_time <= 30 and not get_visibility(video_fullscreen_check):
-				sleep(250)
-				total_check_time += 0.25
+				sleep(100)
+				total_check_time += 0.10
 			hide_busy_dialog()
 			sleep(1000)
 			while self.isPlayingVideo():

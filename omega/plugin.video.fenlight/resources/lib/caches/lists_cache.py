@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-from caches.base_cache import BaseCache
+from caches.base_cache import BaseCache, get_timestamp
 # from modules.kodi_utils import logger
 
 GET_ALL = 'SELECT id FROM lists'
 DELETE_ALL = 'DELETE FROM lists'
+CLEAN = 'DELETE from lists WHERE CAST(expires AS INT) <= ?'
 
 class ListsCache(BaseCache):
 	def __init__(self):
@@ -18,9 +19,17 @@ class ListsCache(BaseCache):
 			return True
 		except: return False
 
+	def clean_database(self):
+		try:
+			dbcon = self.manual_connect('lists_db')
+			dbcon.execute(CLEAN, (get_timestamp(),))
+			dbcon.execute('VACUUM')
+			return True
+		except: return False
+
 lists_cache = ListsCache()
 
-def lists_cache_object(function, string, args, json=True, expiration=24):
+def lists_cache_object(function, string, args, json=False, expiration=48):
 	cache = lists_cache.get(string)
 	if cache is not None: return cache
 	if isinstance(args, list): args = tuple(args)

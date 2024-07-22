@@ -10,11 +10,11 @@ from modules.utils import calculate_age, get_datetime
 
 addon_fanart, Thread, empty_poster, execute_builtin = kodi_utils.default_addon_fanart, kodi_utils.Thread, kodi_utils.empty_poster, kodi_utils.execute_builtin
 notification, show_busy_dialog, hide_busy_dialog, get_icon = kodi_utils.notification, kodi_utils.show_busy_dialog, kodi_utils.hide_busy_dialog, kodi_utils.get_icon
-extras_enable_scrollbars = settings.extras_enable_scrollbars
+extras_enable_scrollbars, tmdb_api_key, easynews_authorized = settings.extras_enable_scrollbars, settings.tmdb_api_key, settings.easynews_authorized
 tmdb_image_base = 'https://image.tmdb.org/t/p/%s%s'
 backup_cast_thumbnail = get_icon('genre_family')
 roles_exclude = ('himself', 'herself', 'self', 'narrator', 'voice', 'voice (voice)')
-button_ids = [10, 11, 50]
+button_ids = [10, 11, 12, 50]
 genres_exclude = (10763, 10764, 10767)		
 gender_dict = {0: '', 1: 'Female', 2: 'Male', 3: ''}
 more_from_movies_id, more_from_tvshows_id, trivia_id, videos_id, more_from_director_id = 2050, 2051, 2052, 2053, 2054
@@ -58,10 +58,11 @@ class People(BaseDialog):
 		self.control_id = None
 		if controlID in button_ids:
 			if controlID == 10:
-				_images({'mode': 'people_image_results', 'actor_name': self.person_name, 'actor_id': self.person_id, 'actor_imdb_id': self.person_imdb_id,
-							'actor_image': self.person_image, 'page_no': 1, 'rolling_count_list': [0]})
+				_images({'mode': 'tmdb_people_image_results', 'actor_name': self.person_name, 'actor_id': self.person_id, 'actor_image': self.person_image})
 			elif controlID == 11:
-				_images({'mode': 'people_tagged_image_results', 'actor_name': self.person_name, 'actor_id': self.person_id})
+				_images({'mode': 'tmdb_people_tagged_image_results', 'actor_name': self.person_name, 'actor_id': self.person_id})
+			elif controlID == 12:
+				_images({'mode': 'easynews_image_results', 'key_id': self.person_name, 'page_no': 1})
 			elif controlID == 50:
 				self.show_text_media(text=self.person_biography)
 		else: self.control_id = controlID
@@ -77,7 +78,7 @@ class People(BaseDialog):
 			chosen_listitem = self.get_listitem(focus_id)
 			media_type = 'movie' if focus_id in (more_from_movies_id, more_from_director_id) else 'tvshow'
 			function = movie_meta if media_type == 'movie' else tvshow_meta
-			meta = function('tmdb_id', chosen_listitem.getProperty('tmdb_id'), get_datetime())
+			meta = function('tmdb_id', chosen_listitem.getProperty('tmdb_id'), tmdb_api_key(), get_datetime())
 			hide_busy_dialog()
 			self.show_extrainfo(media_type, meta, meta.get('poster', empty_poster))
 		if not self.control_id: return
@@ -95,7 +96,7 @@ class People(BaseDialog):
 				self.select_item(self.control_id, end_index)
 			elif self.control_id == videos_id:
 				thumb = chosen_listitem.getProperty('thumbnail')
-				chosen = dialogs.imdb_videos_choice(self.get_attribute(self, chosen_var)[self.get_position(self.control_id)]['videos'], thumb)
+				chosen = dialogs.imdb_videos_choice({'videos': self.get_attribute(self, chosen_var)[self.get_position(self.control_id)]['videos'], 'poster': thumb})
 				if not chosen: return
 				self.set_current_params()
 				self.window_player_url = chosen
@@ -285,3 +286,4 @@ class People(BaseDialog):
 		self.setProperty('deathday', self.person_deathday)
 		self.setProperty('age', str(self.person_age))
 		self.setProperty('enable_scrollbars', self.enable_scrollbars)
+		self.setProperty('easynews_authorized', 'true' if easynews_authorized() else 'false')

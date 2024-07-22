@@ -16,12 +16,13 @@ Thread, get_property, set_property, clear_property = kodi_utils.Thread, kodi_uti
 auto_play, active_internal_scrapers, provider_sort_ranks, audio_filters = settings.auto_play, settings.active_internal_scrapers, settings.provider_sort_ranks, settings.audio_filters
 check_prescrape_sources, external_scraper_info, auto_resume = settings.check_prescrape_sources, settings.external_scraper_info, settings.auto_resume
 store_resolved_to_cloud, source_folders_directory, watched_indicators = settings.store_resolved_to_cloud, settings.source_folders_directory, settings.watched_indicators
-quality_filter, sort_to_top = settings.quality_filter, settings.sort_to_top
+quality_filter, sort_to_top, tmdb_api_key = settings.quality_filter, settings.sort_to_top, settings.tmdb_api_key
 scraping_settings, include_prerelease_results, auto_rescrape_with_all = settings.scraping_settings, settings.include_prerelease_results, settings.auto_rescrape_with_all
 ignore_results_filter, results_sort_order, results_format, filter_status = settings.ignore_results_filter, settings.results_sort_order, settings.results_format, settings.filter_status
 autoplay_next_episode, autoscrape_next_episode, limit_resolve = settings.autoplay_next_episode, settings.autoscrape_next_episode, settings.limit_resolve
 debrid_enabled = debrid.debrid_enabled
-erase_bookmark, get_progress_percent, get_bookmarks = watched_status.erase_bookmark, watched_status.get_progress_percent, watched_status.get_bookmarks
+get_progress_status_movie, get_bookmarks_movie, erase_bookmark = watched_status.get_progress_status_movie, watched_status.get_bookmarks_movie, watched_status.erase_bookmark
+get_progress_status_episode, get_bookmarks_episode = watched_status.get_progress_status_episode, watched_status.get_bookmarks_episode
 internal_include_list = ['easynews', 'pm_cloud', 'rd_cloud', 'ad_cloud']
 external_exclude_list = ['easynews', 'gdrive', 'library', 'filepursuit', 'plexshare']
 sd_check = ('SD', 'CAM', 'TELE', 'SYNC')
@@ -68,7 +69,7 @@ class Sources():
 		self.default_ext_only = params_get('default_ext_only', self.default_ext_only) == 'true'
 		self.folders_ignore_filters = get_setting('fenlight.results.folders_ignore_filters', 'false') == 'true'
 		self.filter_size_method = int(get_setting('fenlight.results.filter_size_method', '0'))
-		self.media_type, self.tmdb_id = params_get('media_type'), params_get('tmdb_id')
+		self.media_type, self.tmdb_id = params_get('media_type'), params_get('tmdb_id')		
 		self.custom_title, self.custom_year = params_get('custom_title', None), params_get('custom_year', None)
 		self.custom_season, self.custom_episode = params_get('custom_season', None), params_get('custom_episode', None)
 		if 'autoplay' in self.params: self.autoplay = params_get('autoplay', 'false') == 'true'
@@ -446,9 +447,9 @@ class Sources():
 		return results
 
 	def get_meta(self):
-		if self.media_type == 'movie': self.meta = metadata.movie_meta('tmdb_id', self.tmdb_id, get_datetime())
+		if self.media_type == 'movie': self.meta = metadata.movie_meta('tmdb_id', self.tmdb_id, tmdb_api_key(), get_datetime())
 		else:
-			self.meta = metadata.tvshow_meta('tmdb_id', self.tmdb_id, get_datetime())
+			self.meta = metadata.tvshow_meta('tmdb_id', self.tmdb_id, tmdb_api_key(), get_datetime())
 			episodes_data = metadata.episodes_meta(self.season, self.meta)
 			try:
 				episode_data = [i for i in episodes_data if i['episode'] == self.episode][0]
@@ -613,8 +614,9 @@ class Sources():
 		except: pass
 
 	def get_playback_percent(self):
-		if self.media_type == 'episode' and any((self.random, self.random_continual)): return 0.0
-		percent = get_progress_percent(get_bookmarks(watched_indicators(), self.media_type), self.tmdb_id, self.season, self.episode)
+		if self.media_type == 'movie': percent = get_progress_status_movie(get_bookmarks_movie(), str(self.tmdb_id))
+		elif any((self.random, self.random_continual)): return 0.0
+		else: percent = get_progress_status_episode(get_bookmarks_episode(self.tmdb_id, self.season), self.episode)
 		if not percent: return 0.0
 		action = self.get_resume_status(percent)
 		if action == 'cancel': return None

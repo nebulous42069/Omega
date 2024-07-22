@@ -3,9 +3,9 @@ from datetime import date
 from modules import kodi_utils, settings
 from modules.sources import Sources
 from modules.metadata import episodes_meta, all_episodes_meta
-from modules.watched_status import get_next_episodes, get_media_info, get_hidden_progress_items
+from modules.watched_status import get_next_episodes, get_hidden_progress_items, watched_info_episode, get_next
 from modules.utils import adjust_premiered_date, get_datetime, make_thread_list, title_key
-# logger = kodi_utils.logger
+logger = kodi_utils.logger
 
 Thread, get_property, set_property, add_items = kodi_utils.Thread, kodi_utils.get_property, kodi_utils.set_property, kodi_utils.add_items
 make_listitem, set_content, end_directory, set_view_mode = kodi_utils.make_listitem, kodi_utils.set_content, kodi_utils.end_directory, kodi_utils.set_view_mode
@@ -26,13 +26,11 @@ class EpisodeTools:
 			current_date = get_datetime()
 			season_data = self.meta_get('season_data')
 			current_season, current_episode = int(self.meta_get('season')), int(self.meta_get('episode'))
-			curr_season_data = [i for i in season_data if i['season_number'] == current_season][0]
-			season = current_season if current_episode < curr_season_data['episode_count'] else current_season + 1
-			episode = current_episode + 1 if current_episode < curr_season_data['episode_count'] else 1
+			season, episode = get_next(current_season, current_episode, watched_info_episode(self.meta_get('tmdb_id')), season_data, 0)
 			ep_data = episodes_meta(season, self.meta)
 			if not ep_data: return 'no_next_episode'
-			try: ep_data = [i for i in ep_data if i['episode'] == episode][0]
-			except: return 'no_next_episode'
+			ep_data = next((i for i in ep_data if i['episode'] == episode), None)
+			if not ep_data: return 'no_next_episode'
 			airdate = ep_data['premiered']
 			d = airdate.split('-')
 			episode_date = date(int(d[0]), int(d[1]), int(d[2]))
@@ -91,12 +89,6 @@ class EpisodeTools:
 		except: url_params = 'error'
 		return url_params
 
-	def auto_nextep(self):
-		url_params = self.next_episode_info()
-		if url_params == 'error': return notification('Next Episode Error', 3000)
-		elif url_params == 'no_next_episode': return
-		return Sources().playback_prep(url_params)
-
 	def play_random(self):
 		url_params = self.get_random_episode()
 		if url_params == 'error': return notification('Single Random Play Error', 3000)
@@ -104,7 +96,15 @@ class EpisodeTools:
 
 	def play_random_continual(self, first_run=True):
 		url_params = self.get_random_episode(continual=True, first_run=first_run)
+		logger('play_random_continual url_params', url_params)
 		if url_params == 'error': return notification('Continual Random Play Error', 3000)
+		return Sources().playback_prep(url_params)
+
+	def auto_nextep(self):
+		url_params = self.next_episode_info()
+		logger('auto_nextep url_params', url_params)
+		if url_params == 'error': return notification('Next Episode Error', 3000)
+		elif url_params == 'no_next_episode': return
 		return Sources().playback_prep(url_params)
 
 def build_next_episode_manager():
@@ -112,7 +112,7 @@ def build_next_episode_manager():
 		try:
 			listitem = make_listitem()
 			tmdb_id, title = item['media_ids']['tmdb'], item['title']
-			if tmdb_id in hidden_list: display, action = 'Unhide [B]%s[/B] [COLOR=red][HIDDEN][/COLOR]' % title, 'unhide'
+			if int(tmdb_id) in hidden_list: display, action = 'Unhide [B]%s[/B] [COLOR=red][HIDDEN][/COLOR]' % title, 'unhide'
 			else: display, action = 'Hide [B]%s[/B]' % title, 'hide'
 			url_params = {'mode': mode, 'action': action, 'media_type': 'shows', 'media_id': tmdb_id, 'section': 'progress_watched'}
 			url = build_url(url_params)
@@ -126,7 +126,7 @@ def build_next_episode_manager():
 	list_items = []
 	append = list_items.append
 	indicators = watched_indicators()
-	show_list = get_next_episodes(get_media_info(indicators, 'episode', include_progress=False))
+	show_list = get_next_episodes(0)
 	hidden_list = get_hidden_progress_items(indicators)
 	if indicators == 0: icon, mode = get_icon('folder'), 'hide_unhide_progress_items'
 	else: icon, mode = get_icon('trakt'), 'trakt.hide_unhide_progress_items'

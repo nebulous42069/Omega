@@ -9,14 +9,14 @@ from modules.utils import copy2clip
 # logger = kodi_utils.logger
 
 requests, sleep, confirm_dialog, ok_dialog, monitor = kodi_utils.requests, kodi_utils.sleep, kodi_utils.confirm_dialog, kodi_utils.ok_dialog, kodi_utils.monitor
-progress_dialog, dialog, get_icon, notification = kodi_utils.progress_dialog, kodi_utils.dialog, kodi_utils.get_icon, kodi_utils.notification
-Thread = kodi_utils.Thread
+progress_dialog, dialog, get_icon, notification, Thread = kodi_utils.progress_dialog, kodi_utils.dialog, kodi_utils.get_icon, kodi_utils.notification, kodi_utils.Thread
+unquote_plus = kodi_utils.unquote_plus
 base_url = 'https://api.real-debrid.com/rest/1.0/'
 auth_url = 'https://api.real-debrid.com/oauth/v2/'
 device_url = 'device/code?%s'
 credentials_url = 'device/credentials?%s'
-timeout = 20.0
 icon = get_icon('realdebrid')
+timeout = 20.0
 
 class RealDebridAPI:
 	def __init__(self):
@@ -268,7 +268,7 @@ class RealDebridAPI:
 				if file_url.endswith('rar'): file_url = None
 				if not any(file_url.lower().endswith(x) for x in extensions): file_url = None
 				if not store_to_cloud: Thread(target=self.delete_torrent, args=(torrent_id,)).start()
-				return file_url
+				return unquote_plus(file_url)
 			else: self.delete_torrent(torrent_id)
 		except:
 			if torrent_id: self.delete_torrent(torrent_id)
