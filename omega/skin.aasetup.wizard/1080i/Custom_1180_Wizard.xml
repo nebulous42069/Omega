@@ -195,7 +195,11 @@
                                     <item>
                                         <label>DEBID ONLY</label>
                                         <visible>String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/xenon.png)| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/xenon2.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/fentastic.png)| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/diggzflix.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/fenflix.png)| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/eminence.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/serenflix.png)| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/umbrellaflix.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/phenomenal.png)</visible>
-                                    </item>										
+                                    </item>
+                                    <item>
+                                        <label>Netflix Style</label>
+                                        <visible>String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/diggzflix.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/fenflix.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/serenflix.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/umbrellaflix.png)</visible>
+                                    </item>									
                                     <item>
                                         <label>Multiple Flavors</label>
                                         <visible>String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/Xenon.png) | String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/xenon2.png)</visible>
