@@ -1,4 +1,4 @@
-<addon id="skin.aasetup.wizard" name="-[B][COLOR chartreuse]Diggz Skins Setup Wizard[/COLOR][/B]" provider-name="jurialmunkey" version="423">
+<addon id="skin.aasetup.wizard" name="-[B][COLOR chartreuse]Diggz Skins Setup Wizard[/COLOR][/B]" provider-name="jurialmunkey" version="424">
     <requires>
         <import addon="xbmc.gui" version="5.17.0" />
 		<import addon="script.skinshortcuts" version="2.0.1" />		
