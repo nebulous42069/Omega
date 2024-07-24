@@ -28,7 +28,7 @@
     },
     {
         "name": "The_Tv_App",
-        "url": "https://int.klcis.cc/klcis.m3u?key=6af9b4",
+        "url": "https://int.klcis.cc/klcis.m3u?key=c41417",
         "image": "special://home/addons/resource.images.skinicons.wide/resources/icons/thetvapp.png",
         "logos": "",
         "epg": "",
