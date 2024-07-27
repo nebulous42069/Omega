@@ -578,8 +578,9 @@
         <setting id="DOWNLOAD_FOLDER"                type="action" label="DOWNLOAD_FOLDER"
                  action="RunScript(script.extendedinfo,info=setDownloadLocation)"/>
 
-		<setting id="open_subs_password" type="text" label="open_subs_password" default="" />
-		<setting id="open_subs_username" type="text" label="open_subs_username" default="" />
+		<setting id="opensubtitles.password" type="text" label="open_subs_password" default="" />
+		<setting id="opensubtitles.username" type="text" label="open_subs_username" default="" />
+		<setting id="subdl.apikey" label="subdl_apikey" type="text" default=""/>
 		<setting label="stop_downloader" type="action" action="RunScript(script.extendedinfo,info=stop_downloader)"/>
 		<setting label="run_downloader" type="action" action="RunScript(script.extendedinfo,info=run_downloader)"/>
 		<setting label="manage_download_list" type="action" action="RunScript(script.extendedinfo,info=manage_download_list)"/>

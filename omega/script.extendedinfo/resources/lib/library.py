@@ -1275,7 +1275,8 @@ def taste_dive_movies(cache_days=None):
     response = TheMovieDB.get_trakt(trakt_type='movie',info='trakt_watched',limit=100)
     response3 = []
     for i in response:
-        release_date = i['release_date'][:4]
+        try: release_date = i['release_date'][:4]
+        except: continue
         response2 = []
         try: response2 = TheMovieDB.get_tastedive_data_scrape(query=i['title'], year=i['release_date'][:4], limit=50, media_type='movie',item_id=i['id'])
         except: continue

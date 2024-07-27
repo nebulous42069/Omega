@@ -84,7 +84,7 @@ class VideoPlayer(xbmc.Player):
 		import time
 		xbmc.executebuiltin('Dialog.Close(okdialog)')
 		xbmcgui.Window(10000).setProperty('diamond_info_time', str(int(time.time())+120))
-		if dbid != 0:
+		if dbid != 0 and 1==2:
 			item = '{"%s": %s}' % (type, dbid)
 		else:
 			item = '{"file": "%s"}' % url
@@ -111,6 +111,7 @@ class VideoPlayer(xbmc.Player):
 		xbmc.executebuiltin('RunPlugin(%s)' % url)
 		#xbmc.log(str('play_from_button')+'_________________________play_from_button===>OPENINFO', level=xbmc.LOGINFO)
 		log(str(str('play_from_button')+'_________________________play_from_button'))
+		log(str(str(item)+'_________________________play_from_button'))
 		return
 
 		for i in range(800):

@@ -1065,7 +1065,18 @@ class PlayerMonitor(xbmc.Player):
 							tools.log('NON_ENGLISH_LANG_ENG_DUB_FIX')
 							break
 			sub_toggle = False
-			if lang_toggle == True:
+
+			force_toggle = False
+			try:
+				for i in sub_audio_json['result']['subtitles']:
+					if 'External' in str(i) and i['isforced'] == True:
+						force_toggle = True
+						break
+			except:
+				pass
+
+
+			if lang_toggle == True or force_toggle == True:
 				for i in reversed(sub_audio_json['result']['subtitles']):
 					if i['language'] == 'eng' and (i['isforced'] == True or i['isforced'] == 'True' or 'forced' in str(i['name']).lower()):
 						if sub_audio_json['result']['subtitleenabled'] == False or sub_audio_json['result']['subtitleenabled'] == 'False':
@@ -1287,7 +1298,7 @@ class PlayerMonitor(xbmc.Player):
 
 			if (self.player_meta['percentage'] > 85) and self.library_refresh == False and player.isPlayingVideo()==1:
 				if int(self.player_meta['dbID']) > 0:
-					self.SetMovieDetails2(self, self.player_meta['dbID'], self.player_meta['resume_duration'])
+					self.SetMovieDetails2(self.player_meta['dbID'], self.player_meta['resume_duration'])
 				log(str('STARTING...library.trakt_watched_movies_full'))
 				library.trakt_refresh_all()
 				self.library_refresh = True
@@ -1444,7 +1455,7 @@ class PlayerMonitor(xbmc.Player):
 			if player.isPlayingVideo()==1 and self.player_meta['percentage'] > 85 and self.library_refresh == False:
 
 				if self.player_meta['dbID'] != None:
-					self.SetEpisodeDetails2(self, self.player_meta['dbID'], self.player_meta['resume_duration']) ##PLAYCOUNT_LASTPLAYED
+					self.SetEpisodeDetails2(self.player_meta['dbID'], self.player_meta['resume_duration']) ##PLAYCOUNT_LASTPLAYED
 
 				log(str('STARTING...library.trakt_watched_tv_shows_full'))
 				library.trakt_refresh_all()

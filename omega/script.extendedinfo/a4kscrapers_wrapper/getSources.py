@@ -986,13 +986,25 @@ def run_movie_search(info=None):
 		except:
 			tools.log('EXIT')
 			return
+		if 'magnet:' in movie_title:
+			custom = {'provider_name_override': 'CUSTOM', 'hash': 'CUSTOM', 'package': 'CUSTOM', 'release_title': 'CUSTOM', 'size': 0, 'seeds': 0, 'magnet': movie_title, 'type': 'CUSTOM', 'provider_name': 'CUSTOM', 'info': {'CUSTOM'}, 'quality': 'CUSTOM', 'pack_size': 0, 'provider': 'CUSTOM', 'debrid_provider': 'CUSTOM'}
+			movie_title = input('Enter Movie Title:  ')
+		else:
+			custom = None
 
 		meta = get_meta.get_movie_meta(movie_name=movie_title,year=None, interactive=True)
 		info = meta
 	else:
 		meta = info
 
-	uncached, sources_list, item_information= Sources(info).get_sources()
+
+	if custom:
+		uncached = None
+		sources_list = []
+		sources_list.append(custom)
+		item_information = info
+	else:
+		uncached, sources_list, item_information= Sources(info).get_sources()
 	torrent_choices = tools.torrent_choices
 	torrent_choices_original = str(tools.torrent_choices)
 
@@ -1116,6 +1128,9 @@ def run_movie_search(info=None):
 		meta['release_title'] = torrent['release_title']
 		meta['CURR_LABEL'] =  torrent['release_title']
 		meta['package'] = torrent['package']
+		if meta['CURR_LABEL'] == 'CUSTOM':
+			meta['CURR_LABEL'] = file_name
+			meta['package'] = file_name
 		meta['file_name'] = file_name
 
 		tools.log(meta)
@@ -1174,6 +1189,9 @@ def run_movie_search(info=None):
 		meta['release_title'] = torrent['release_title']
 		meta['CURR_LABEL'] =  torrent['release_title']
 		meta['package'] = torrent['package']
+		if meta['CURR_LABEL'] == 'CUSTOM':
+			meta['CURR_LABEL'] = file_name
+			meta['package'] = file_name
 		meta['file_name'] = file_name
 
 		tools.log(meta)
@@ -1195,10 +1213,14 @@ def choose_torrent(sources_list):
 		sources_dict[source_name] = str(idx)
 
 	result = tools.selectFromDict(sources_dict, 'Torrent')
-	try: torrent = sources_list[int(result)]
-	except: return None
-	#log(torrent)
-	return torrent
+	if 'magnet:' in result:
+		custom =  {'provider_name_override': 'CUSTOM', 'hash': 'CUSTOM', 'package': 'CUSTOM', 'release_title': 'CUSTOM', 'size': 0, 'seeds': 0, 'magnet': result, 'type': 'CUSTOM', 'provider_name': 'CUSTOM', 'info': {'CUSTOM'}, 'quality': 'CUSTOM', 'pack_size': 0, 'provider': 'CUSTOM', 'debrid_provider': 'CUSTOM'}
+		return custom
+	else:
+		try: torrent = sources_list[int(result)]
+		except: return None
+		#log(torrent)
+		return torrent
 
 
 def cloud_get_ep_season(rd_api, meta, torr_id, torr_info):
@@ -2411,7 +2433,7 @@ def download_cached_movie(rd_api, download_path, curr_download, torr_id, torr_in
 		#test = source_tools.run_show_filters(simple_info, pack_title = i['pack_path'])
 		test1 = source_tools.filter_movie_title(curr_download['CURR_LABEL'], source_tools.clean_title(curr_download['CURR_LABEL']), curr_download['title'], simple_info)
 		test2 = source_tools.filter_movie_title(curr_download['CURR_LABEL'], source_tools.clean_title( i['pack_path']), curr_download['title'], simple_info)
-		if test1 or test2:
+		if test1 or test2 or curr_download['release_title'] == 'CUSTOM':
 			pack_path = i['pack_path']
 			break
 

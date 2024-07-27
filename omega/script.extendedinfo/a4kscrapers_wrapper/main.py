@@ -1,5 +1,6 @@
 import sys
 import os
+import shutil
 from inspect import currentframe, getframeinfo
 #tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
 
@@ -46,7 +47,13 @@ program_choices = {
 	'setup filters/limits/sorting			"main.py -setup_settings"': 11,
 	'get current filters/limits/sorting 			"main.py -curr_settings"': 12,
 	'Search Torrent (Keyword) 			""': 13,
-	'Delete_Dupes 			""': 14
+	'Delete_Dupes 			""': 14,
+	'Get Subtitles for File			""': 15
+}
+
+program_choices2 = {
+	'Search Subtitles (episode) 				" "': 1 ,
+	'Search Subtitles (movie)				" "': 2,
 }
 
 def downloader_daemon():
@@ -56,6 +63,10 @@ def downloader_daemon():
 	with daemon.DaemonContext():
 		getSources.run_downloader(magnet_list, download_path)
 
+def copy_and_replace(source_path, destination_path):
+	if os.path.exists(destination_path):
+		os.remove(destination_path)
+	shutil.copy2(source_path, destination_path)
 
 def main():
 	#program_choices = tools.program_choices
@@ -99,7 +110,7 @@ def main():
 			file1 = open(magnet_list, "w")
 			file1.write("\n")
 			file1.close()
-			for line in lines:
+			for line in reversed(lines):
 				if except_flag == False:
 					try: new_line = eval(line)
 					except: continue
@@ -149,6 +160,54 @@ def main():
 	elif result == 12:
 		info = get_meta.blank_meta()
 		tools.SourceSorter(info).get_sort_methods()
+	elif result == 15:
+		import importlib
+		try:
+			from importlib import reload as reload_module  # pylint: disable=no-name-in-module
+		except ImportError:
+			# Invalid version of importlib
+			from imp import reload as reload_module
+		try: result2 = tools.selectFromDict(program_choices2, 'CHOOSE')
+		except KeyboardInterrupt: 
+			print('\nEXIT')
+			return
+		if result2 == 0:
+			tv_show_title = input('Enter TV Show Title:  ')
+
+			season_number = input('Enter Season Number:  ')
+			episode_number = input('Enter Episode Number:  ')
+			meta = get_meta.get_episode_meta(season=season_number, episode=episode_number,tmdb=None, show_name=tv_show_title, year=None, interactive=True)
+			info = meta['episode_meta']
+		else:
+			movie_title = input('Enter Movie Title:  ')
+			movie_title = movie_title.replace('.',' ')
+			meta = get_meta.get_movie_meta(movie_name=movie_title,year=None, interactive=True)
+			info = meta
+		
+		file_path = input('Enter file path for source file MP4:  ').strip()
+		source_dir = os.path.dirname(file_path)
+		if file_path[:4] == 'http':
+			source_dir = os.path.join(tools.ADDON_USERDATA_PATH, 'temp')
+		print(source_dir)
+		print(file_path)
+		
+		try: subs = importlib.import_module("subs")
+		except: subs = reload_module(importlib.import_module("subs"))
+		subs.META = meta
+		meta = subs.set_size_and_hash_url(meta, file_path)
+		subs_list = subs.get_subtitles_list(meta, file_path)
+		del subs
+		#exit()
+		if len(subs_list) > 0:
+			from subcleaner import clean_file
+			from pathlib import Path
+			for i in subs_list:
+				sub = Path(i)
+				clean_file.clean_file(sub)
+				dest_file = os.path.join(source_dir, os.path.basename(i))
+				copy_and_replace(i, dest_file)
+			tools.sub_cleaner_log_clean()
+			clean_file.files_handled = []
 
 
 if __name__ == "__main__":

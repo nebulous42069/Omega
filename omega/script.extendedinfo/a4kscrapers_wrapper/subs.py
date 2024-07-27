@@ -119,12 +119,17 @@ def is_local(_str):
 def hashFile_url(filepath): 
 	#https://trac.opensubtitles.org/projects/opensubtitles/wiki/HashSourceCodes
 	#filehash = filesize + 64bit sum of the first and last 64k of the file
-	name = filepath
+	name = filepath.strip()
+	filepath = filepath.strip()
 	if is_local(filepath):
 		local_file = True
 	else:
 		local_file = False
 
+	tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
+	if local_file == True and filepath[:4] == 'http':
+		tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
+		local_file = False
 	if local_file == False:
 		f = None
 		url = name
@@ -647,10 +652,15 @@ class SubtitleService(object):
 			if not os.path.exists(utils.temp_dir2):
 				os.mkdir(utils.temp_dir2)
 			for r in sources:
-				sub_result = r.download(foreign_parts[0])
+				for i in foreign_parts:
+					sub_result = r.download(i)
+					sub_size = os.path.getsize(sub_result)
+					print(foreign_parts)
+					if sub_result and sub_size > 0:
+						break
 				try: tools.log(foreign_parts[0]['action_args']['filename'], foreign_parts[0]['service'])
 				except: tools.log(foreign_parts[0]['name'], foreign_parts[0]['service'])
-				break
+				
 			#result_foreign = os.path.splitext(sub_result)[0] + '.FOREIGN.PARTS' +os.path.splitext(sub_result)[1]
 			result_foreign = os.path.splitext(sub_result)[0] + '.FORCED' +os.path.splitext(sub_result)[1]
 			result_foreign = os.path.basename(result_foreign)
@@ -660,7 +670,12 @@ class SubtitleService(object):
 			os.rename(sub_result, result_foreign1)
 		for r in sources:
 			try: 
-				sub_result = r.download(normal_subs[0])
+				for i in normal_subs:
+					sub_result = r.download(i)
+					sub_size = os.path.getsize(sub_result)
+					if sub_size > 0:
+						break
+
 				try: tools.log(normal_subs[0]['action_args']['filename'], normal_subs[0]['service'])
 				except: tools.log(normal_subs[0]['name'], normal_subs[0]['service'])
 			except Exception as e: 

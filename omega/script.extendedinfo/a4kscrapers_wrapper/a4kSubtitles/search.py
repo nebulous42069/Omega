@@ -10,7 +10,8 @@ def __auth_service(core, service_name, request):
 	service = core.services[service_name]
 	response = core.request.execute(core, request)
 	if response.status_code == 200 and response.text:
-		service.parse_auth_response(core, service_name, response.text)
+		try: service.parse_auth_response(core, service_name, response.text)
+		except: service.parse_auth_response(core, service_name, response)
 	elif service_name != 'bsplayer':
 		core.kodi.notification('%s authentication failed!' % service.display_name)
 
@@ -357,6 +358,7 @@ def search(core, params):
 
 		service = core.services[service_name]
 		core.progress_text += service.display_name + '|'
+		tools.log(core.progress_text)
 
 		auth_thread = None
 		#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))

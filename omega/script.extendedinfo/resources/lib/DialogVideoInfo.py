@@ -314,7 +314,7 @@ def get_movie_window(window_type):
 		def play_movie(self):
 			if self.dbid and int(self.dbid) > 0:
 				dbid = self.dbid
-				url = ''
+				url = 'plugin://plugin.video.themoviedb.helper?info=play&amp;type=movie&amp;tmdb_id=%s' % self.info.get('id', '')
 				PLAYER.play_from_button(url, listitem=None, window=self, type='movieid', dbid=dbid)
 			else:
 				url = 'plugin://plugin.video.themoviedb.helper?info=play&amp;type=movie&amp;tmdb_id=%s' % self.info.get('id', '')
@@ -326,7 +326,7 @@ def get_movie_window(window_type):
 		def play_movie_choose_player(self):
 			if self.dbid and int(self.dbid) > 0:
 				dbid = self.dbid
-				url = ''
+				url = 'plugin://plugin.video.themoviedb.helper?info=play&amp;type=movie&amp;tmdb_id=%s' % self.info.get('id', '')
 				PLAYER.play_from_button(url, listitem=None, window=self, type='movieid', dbid=dbid)
 			else:
 				url = 'plugin://plugin.video.themoviedb.helper?info=play&amp;type=movie&amp;tmdb_id=%s' % self.info.get('id', '')

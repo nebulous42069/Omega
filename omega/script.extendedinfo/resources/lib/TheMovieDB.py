@@ -323,9 +323,9 @@ def search_company(company_name):
 	else:
 		return ''
 
-def get_movie_info(movie_label, year=None, use_dialog=True, item_id=None):
+def get_movie_info(movie_label, year=None, use_dialog=True, item_id=None, notify = True):
 	if item_id:
-		return single_movie_info(movie_id=item_id, cache_time=7)
+		return single_movie_info(movie_id=item_id, cache_time=7, notify=notify)
 	#movies = movie_label.split(' / ')
 	if year:
 		year_string = '&primary_release_year=' + str(year)
@@ -463,7 +463,7 @@ def get_tastedive_data_scrape(url='', query='', year='', limit=20, media_type=No
 			response = get_tvshow_info(tvshow_label=query,year=year,use_dialog=False)
 			item_id = response['id']
 		else:
-			response = get_movie_info(movie_label=query,year=year,use_dialog=False)
+			response = get_movie_info(movie_label=query,year=year,use_dialog=False, notify = False)
 			item_id = response['id']
 		url = 'https://tastedive.com/%s' % (item_id,media_type)
 
@@ -504,7 +504,7 @@ def get_tastedive_data_scrape(url='', query='', year='', limit=20, media_type=No
 				type = 'show'
 			else:
 				#response = extended_movie_info(item_id)
-				response = single_movie_info(movie_id=item_id, cache_time=7)
+				response = single_movie_info(movie_id=item_id, cache_time=7, notify = False)
 				type = 'movie'
 		else:
 			if 'show' in media_type or 'tv' in media_type:
@@ -514,10 +514,10 @@ def get_tastedive_data_scrape(url='', query='', year='', limit=20, media_type=No
 				response = single_tvshow_info(tvshow_id=item_id, cache_time=7)
 				type = 'show'
 			else:
-				response = get_movie_info(movie_label=query,year=year,use_dialog=False)
+				response = get_movie_info(movie_label=query,year=year,use_dialog=False, notify = False)
 				item_id = response['id']
 				#response = extended_movie_info(item_id)
-				response = single_movie_info(movie_id=item_id, cache_time=7)
+				response = single_movie_info(movie_id=item_id, cache_time=7, notify = False)
 				type = 'movie'
 		imdb_response = get_imdb_recommendations(imdb_id=response['imdb_id'], return_items=True)
 		#xbmc.log(str(imdb_response)+'query_get_tastedive_data_scrape===>OPENINFO', level=xbmc.LOGINFO)
@@ -735,39 +735,39 @@ def play_tv_trailer_fullscreen(id):
 	trailer = get_tvtrailer(id)
 	xbmc.executebuiltin('PlayMedia(plugin://plugin.video.youtube/play/?video_id=%s)' % str(trailer))
 
-def single_movie_info(movie_id=None, dbid=None, cache_time=14):
+def single_movie_info(movie_id=None, dbid=None, cache_time=14, notify = True):
 	if not movie_id:
 		return None
 	session_str = ''
 	response = get_tmdb_data('movie/%s?append_to_response=external_ids,recommendations,rating,alternative_titles&language=%s&%s' % (movie_id, xbmcaddon.Addon().getSetting('LanguageID'), session_str), cache_time)
 	#response = get_tmdb_data('movie/%s?append_to_response=alternative_titles,credits,images,keywords,releases,videos,translations,similar,reviews,rating&include_image_language=en,null,%s&language=%s&%s' % (movie_id, xbmcaddon.Addon().getSetting('LanguageID'), xbmcaddon.Addon().getSetting('LanguageID'), session_str), cache_time)
-	if not response:
+	if not response and notify:
 		Utils.notify('Could not get movie information', sound=False)
 		return {}
 	genres = [i['id'] for i in response['genres']]
 	results = {
-		'media_type': 'movie',
-		'mediatype': 'movie',
-		'adult': response['adult'],
-		'backdrop_path': response['backdrop_path'],
-		'genre_ids': genres,
-		'id': response['id'],
-		'imdb_id': Utils.fetch(Utils.fetch(response, 'external_ids'), 'imdb_id'),
-		'original_language': response['original_language'],
-		'original_title': response['original_title'],
-		'alternative_titles': response['alternative_titles'],
-		'overview': response['overview'],
-		'similar': response['recommendations'],
-		'Rating': Utils.fetch(response, 'vote_average'),
-		'Votes': Utils.fetch(response, 'vote_count'),
-		'popularity': response['popularity'],
-		'poster_path': response['poster_path'],
-		'release_date': response['release_date'],
-		'title': response['title'],
-		'video': response['video'],
-		'vote_average': response['vote_average'],
-		'vote_count': response['vote_count']
-		}
+			'media_type': 'movie',
+			'mediatype': 'movie',
+			'adult': response['adult'],
+			'backdrop_path': response['backdrop_path'],
+			'genre_ids': genres,
+			'id': response['id'],
+			'imdb_id': Utils.fetch(Utils.fetch(response, 'external_ids'), 'imdb_id'),
+			'original_language': response['original_language'],
+			'original_title': response['original_title'],
+			'alternative_titles': response.get('alternative_titles',[]),
+			'overview': response['overview'],
+			'similar': response['recommendations'],
+			'Rating': Utils.fetch(response, 'vote_average'),
+			'Votes': Utils.fetch(response, 'vote_count'),
+			'popularity': response['popularity'],
+			'poster_path': response['poster_path'],
+			'release_date': response['release_date'],
+			'title': response['title'],
+			'video': response['video'],
+			'vote_average': response['vote_average'],
+			'vote_count': response['vote_count']
+			}
 	return results
 
 def single_tvshow_info(tvshow_id=None, cache_time=7, dbid=None):
@@ -808,12 +808,13 @@ def single_tvshow_info(tvshow_id=None, cache_time=7, dbid=None):
 		}
 	return results
 
-def extended_movie_info(movie_id=None, dbid=None, cache_time=14):
+def extended_movie_info(movie_id=None, dbid=None, cache_time=14, notify=True):
 	if not movie_id:
 		return None
 	session_str = ''
-	response = get_tmdb_data('movie/%s?append_to_response=alternative_titles,credits,images,keywords,releases,videos,translations,recommendations,reviews,rating&include_image_language=en,null,%s&language=%s&%s' % (movie_id, xbmcaddon.Addon().getSetting('LanguageID'), xbmcaddon.Addon().getSetting('LanguageID'), session_str), cache_time)
-	if not response:
+	#response = get_tmdb_data('movie/%s?append_to_response=alternative_titles,credits,images,keywords,releases,videos,translations,recommendations,reviews,rating&include_image_language=en,null,%s&language=%s&%s' % (movie_id, xbmcaddon.Addon().getSetting('LanguageID'), xbmcaddon.Addon().getSetting('LanguageID'), session_str), cache_time)
+	response = get_tmdb_data('movie/%s?append_to_response=alternative_titles,credits,images,keywords,releases,videos,recommendations,reviews,rating&include_image_language=en,null,%s&language=%s&%s' % (movie_id, xbmcaddon.Addon().getSetting('LanguageID'), xbmcaddon.Addon().getSetting('LanguageID'), session_str), cache_time)
+	if not response and notify:
 		Utils.notify('Could not get movie information', sound=False)
 		return {}
 	mpaa = ''
@@ -903,7 +904,8 @@ def extended_tvshow_info(tvshow_id=None, cache_time=7, dbid=None):
 	if not tvshow_id:
 		return None
 	session_str = ''
-	response = get_tmdb_data('tv/%s?append_to_response=alternative_titles,content_ratings,credits,external_ids,images,keywords,rating,recommendations,translations,videos&language=%s&include_image_language=en,null,%s&%s' % (tvshow_id, xbmcaddon.Addon().getSetting('LanguageID'), xbmcaddon.Addon().getSetting('LanguageID'), session_str), cache_time)
+	#response = get_tmdb_data('tv/%s?append_to_response=alternative_titles,content_ratings,credits,external_ids,images,keywords,rating,recommendations,translations,videos&language=%s&include_image_language=en,null,%s&%s' % (tvshow_id, xbmcaddon.Addon().getSetting('LanguageID'), xbmcaddon.Addon().getSetting('LanguageID'), session_str), cache_time)
+	response = get_tmdb_data('tv/%s?append_to_response=alternative_titles,content_ratings,credits,external_ids,images,keywords,rating,recommendations,videos&language=%s&include_image_language=en,null,%s&%s' % (tvshow_id, xbmcaddon.Addon().getSetting('LanguageID'), xbmcaddon.Addon().getSetting('LanguageID'), session_str), cache_time)
 	if not response:
 		return False
 	videos = handle_tmdb_videos(response['videos']['results']) if 'videos' in response else []
@@ -1002,7 +1004,8 @@ def extended_season_info(tvshow_id, season_number):
 	if not tvshow_id or not season_number:
 		return None
 	session_str = ''
-	tvshow = get_tmdb_data('tv/%s?append_to_response=alternative_titles,content_ratings,credits,external_ids,images,keywords,rating,similar,translations,videos&language=%s&include_image_language=en,null,%s&%s' % (tvshow_id, xbmcaddon.Addon().getSetting('LanguageID'), xbmcaddon.Addon().getSetting('LanguageID'), session_str), 99999)
+	#tvshow = get_tmdb_data('tv/%s?append_to_response=alternative_titles,content_ratings,credits,external_ids,images,keywords,rating,similar,translations,videos&language=%s&include_image_language=en,null,%s&%s' % (tvshow_id, xbmcaddon.Addon().getSetting('LanguageID'), xbmcaddon.Addon().getSetting('LanguageID'), session_str), 99999)
+	tvshow = get_tmdb_data('tv/%s?append_to_response=alternative_titles,content_ratings,credits,external_ids,images,keywords,rating,similar,videos&language=%s&include_image_language=en,null,%s&%s' % (tvshow_id, xbmcaddon.Addon().getSetting('LanguageID'), xbmcaddon.Addon().getSetting('LanguageID'), session_str), 99999)
 	response = get_tmdb_data('tv/%s/season/%s?append_to_response=videos,images,external_ids,credits&language=%s&include_image_language=en,null,%s&' % (tvshow_id, season_number, xbmcaddon.Addon().getSetting('LanguageID'), xbmcaddon.Addon().getSetting('LanguageID')), 7)
 	dbid = Utils.fetch(tvshow, 'dbid')
 	tmdb_id = Utils.fetch(tvshow, 'id')
@@ -1054,7 +1057,8 @@ def extended_episode_info(tvshow_id, season, episode, cache_time=7):
 	if not season:
 		season = 0
 	session_str = ''
-	tvshow = get_tmdb_data('tv/%s?append_to_response=alternative_titles,content_ratings,credits,external_ids,images,keywords,rating,similar,translations,videos&language=%s&include_image_language=en,null,%s&%s' % (tvshow_id, xbmcaddon.Addon().getSetting('LanguageID'), xbmcaddon.Addon().getSetting('LanguageID'), session_str), 99999)
+	#tvshow = get_tmdb_data('tv/%s?append_to_response=alternative_titles,content_ratings,credits,external_ids,images,keywords,rating,similar,translations,videos&language=%s&include_image_language=en,null,%s&%s' % (tvshow_id, xbmcaddon.Addon().getSetting('LanguageID'), xbmcaddon.Addon().getSetting('LanguageID'), session_str), 99999)
+	tvshow = get_tmdb_data('tv/%s?append_to_response=alternative_titles,content_ratings,credits,external_ids,images,keywords,rating,similar,videos&language=%s&include_image_language=en,null,%s&%s' % (tvshow_id, xbmcaddon.Addon().getSetting('LanguageID'), xbmcaddon.Addon().getSetting('LanguageID'), session_str), 99999)
 	response = get_tmdb_data('tv/%s/season/%s/episode/%s?append_to_response=credits,runtime,external_ids,images,rating,videos&language=%s&include_image_language=en,null,%s&%s&' % (tvshow_id, season, episode, xbmcaddon.Addon().getSetting('LanguageID'), xbmcaddon.Addon().getSetting('LanguageID'), session_str), cache_time)
 	tmdb_id = Utils.fetch(tvshow, 'id')
 	TVShowTitle = Utils.fetch(tvshow, 'name')
@@ -1649,7 +1653,11 @@ def get_imdb_userlists():
 			#list_name = 'IMDB - ' + i.split('/')[3].replace('">','')
 			list_name = 'IMDB - ' + i.split('View list page for ')[1].split('">')[0]
 			imdb_list['imdb_list'].append({list_number: list_name})
-			
+	
+	if len(imdb_list['imdb_list']) == 0:
+		xbmc.log(str(imdb_url)+'===>OPENINFO', level=xbmc.LOGINFO)
+		xbmc.log(str(list_container)+'===>OPENINFO', level=xbmc.LOGINFO)
+		xbmc.log(str(imdb_url)+'===>OPENINFO', level=xbmc.LOGINFO)
 	return imdb_list
 
 def get_imdb_userlists_search(imdb_id=None):
@@ -1963,7 +1971,11 @@ def get_trakt(trakt_type=None,info=None,limit=0):
 			elif result_type != False:
 				#listitems += handle_tmdb_multi_search(response[result_type])
 				if result_type == 'movie_results':
-					listitems.append(single_movie_info(response[result_type][0]['id']))
+					try: 
+						listitems.append(single_movie_info(response[result_type][0]['id']))
+					except: 
+						xbmc.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename))+'===>OPENINFO', level=xbmc.LOGINFO)
+						xbmc.log(str(response[result_type][0])+'===>EXCEPTION', level=xbmc.LOGINFO)
 				else:
 					listitems.append(single_tvshow_info(response[result_type][0]['id']))
 		#Utils.show_busy()

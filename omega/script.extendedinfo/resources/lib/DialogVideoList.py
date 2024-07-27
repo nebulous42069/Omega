@@ -594,7 +594,7 @@ def get_tmdb_window(window_type):
 					xbmc.executebuiltin('Dialog.Close(busydialog)')
 					if self.listitem.getProperty('dbid'):
 						dbid = self.listitem.getProperty('dbid')
-						url = ''
+						url = 'plugin://plugin.video.themoviedb.helper?info=play&amp;type=movie&amp;tmdb_id=%s' % item_id
 						xbmc.executebuiltin('Dialog.Close(all,true)')
 						PLAYER.play_from_button(url, listitem=None, window=self, type='movieid', dbid=dbid)
 					else:
@@ -1192,7 +1192,11 @@ def get_tmdb_window(window_type):
 					#xbmc.log(str(i)+'query_get_tastedive_data_scrape===>OPENINFO', level=xbmc.LOGINFO)
 					#response2 = TheMovieDB.get_tastedive_data(query=i['title'], limit=50, media_type='movie')
 
-					release_date = i['release_date'][:4]
+					try: release_date = i['release_date'][:4]
+					except: 
+						continue
+
+					#release_date = i['release_date'][:4]
 					#single_movie_info = TheMovieDB.single_movie_info(movie_id=i['id'])
 					#alternative_titles = []
 					#for xi in single_movie_info['alternative_titles']['titles']:

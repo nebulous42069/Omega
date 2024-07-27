@@ -746,6 +746,8 @@ def selectFromDict(options, name):
 	while not inputValid:
 		try: 
 			inputRaw = input('\n' + name + ': ')
+			if 'magnet:' in inputRaw:
+				return inputRaw
 		except: 
 			print('EXIT\n')
 			return
