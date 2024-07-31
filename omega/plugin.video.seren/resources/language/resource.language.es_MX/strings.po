@@ -23,7 +23,7 @@ msgstr "Descubre Películas"
 
 #: /resources/lib/gui/homeMenu.py:21
 msgctxt "#30001"
-msgid "My Movies"
+msgid "My Trakt Movies"
 msgstr "Mis Películas"
 
 #: /resources/lib/gui/homeMenu.py:14
@@ -33,7 +33,7 @@ msgstr "Descubre Series de TV"
 
 #: /resources/lib/gui/homeMenu.py:27
 msgctxt "#30003"
-msgid "My Shows"
+msgid "My Trakt TV Shows"
 msgstr "Mis Series"
 
 #: /resources/settings.xml:31 /resources/settings.xml:42

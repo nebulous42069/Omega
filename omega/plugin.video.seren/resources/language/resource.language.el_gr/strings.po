@@ -12,7 +12,7 @@ msgstr "Ανακαλύψτε Ταινίες"
 
 #: /resources/lib/gui/homeMenu.py:21
 msgctxt "#30001"
-msgid "My Movies"
+msgid "My Trakt Movies"
 msgstr "Οι Ταινίες μου"
 
 #: /resources/lib/gui/homeMenu.py:14
@@ -22,7 +22,7 @@ msgstr "Ανακαλύψτε Τηλεοπτικές Σειρές"
 
 #: /resources/lib/gui/homeMenu.py:27
 msgctxt "#30003"
-msgid "My Shows"
+msgid "My Trakt TV Shows"
 msgstr "Οι Τηλεοπτικές Σειρές μου"
 
 #: /resources/settings.xml:31 /resources/settings.xml:42

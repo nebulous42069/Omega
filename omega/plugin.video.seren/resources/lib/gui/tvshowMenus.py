@@ -70,6 +70,12 @@ class Menus:
 
     @staticmethod
     def discover_shows():
+        g.add_directory_item(
+            g.get_language_string(30003),
+            action='myShows',
+            description=g.get_language_string(30367),
+            menu_item=g.create_icon_dict("shows_trakt", g.ICONS_PATH),
+        )        
 
         g.add_directory_item(
             g.get_language_string(30004),

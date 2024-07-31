@@ -59,6 +59,13 @@ class Menus:
 
     @staticmethod
     def discover_movies():
+
+        g.add_directory_item(
+            g.get_language_string(30001),
+            action='myMovies',
+            description=g.get_language_string(30366),
+            menu_item=g.create_icon_dict("movies_trakt", g.ICONS_PATH),
+        )
         g.add_directory_item(
             g.get_language_string(30004),
             action="genericEndpoint",
