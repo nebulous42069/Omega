@@ -17,15 +17,7 @@
             {
                 "name": "Install Asgard (FREE AND DEBRID)",
                 "url": "installaddon(plugin.video.asgard)"
-            },			
-            {
-                "name": "Install POV (DEBRID ONLY)",
-                "url": "installaddon(plugin.video.pov)"
-            },
-            {
-                "name": "Install Coalition (DEBRID ONLY)",
-                "url": "installaddon(plugin.video.coalition)"
-            },			
+            },						
             {
                 "name": "Install Shadow (DEBRID ONLY)",
                 "url": "installaddon(plugin.video.shadow)"
@@ -33,15 +25,7 @@
             {
                 "name": "Install Diggz Free99 (FREE)",
                 "url": "installaddon(plugin.video.free99)"
-            },			
-            {
-                "name": "Install Scrubs V2 (FREE)",
-                "url": "installaddon(plugin.video.scrubsv2)"
-            },
-            {
-                "name": "Install Homelander (FREE AND DEBRID)",
-                "url": "installaddon(plugin.video.homelander)"
-            },			
+            },						
             {
                 "name": "Install The Crew (FREE AND DEBRID)",
                 "url": "installaddon(plugin.video.thecrew)"
@@ -49,14 +33,6 @@
             {
                 "name": "Install Magic Dragon (FREE AND DEBRID)",
                 "url": "installaddon(plugin.video.magicdragon)"
-            },
-            {
-                "name": "Install Quicksilver (FREE AND DEBRID)",
-                "url": "installaddon(plugin.video.quicksilver)"
-            },
-            {
-                "name": "Install Shazam (FREE AND DEBRID)",
-                "url": "installaddon(plugin.video.shazam)"
             }			
         ]
     },
