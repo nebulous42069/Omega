@@ -2372,10 +2372,11 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
             <screenshot />
         </assets>
     </extension>
-</addon><addon id="skin.aasetup.wizard" name="-[B][COLOR chartreuse]Diggz Skins Setup Wizard[/COLOR][/B]" provider-name="jurialmunkey" version="424">
+</addon><addon id="skin.aasetup.wizard" name="-[B][COLOR chartreuse]Diggz Skins Setup Wizard[/COLOR][/B]" provider-name="jurialmunkey" version="425">
     <requires>
         <import addon="xbmc.gui" version="5.17.0" />
-		<import addon="script.skinshortcuts" version="2.0.1" />		
+		<import addon="script.skinshortcuts" version="2.0.1" />
+        <import addon="script.texturemaker" version="0.2.9" />		
     </requires>
     <extension debugging="false" defaultthemename="Textures.xbt" effectslowdown="1" point="xbmc.gui.skin">
         <res aspect="16:9" default="true" folder="1080i" width="1920" height="1080" />
