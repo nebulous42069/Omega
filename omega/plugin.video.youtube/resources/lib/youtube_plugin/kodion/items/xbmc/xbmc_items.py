@@ -16,14 +16,14 @@ from .. import AudioItem, DirectoryItem, ImageItem, VideoItem
 from ...compatibility import to_str, xbmc, xbmcgui
 from ...constants import (
     CHANNEL_ID,
-    PLAY_COUNT,
-    PLAYLIST_ID,
     PLAYLISTITEM_ID,
+    PLAYLIST_ID,
+    PLAY_COUNT,
+    PLAY_WITH,
     SUBSCRIPTION_ID,
-    SWITCH_PLAYER_FLAG,
     VIDEO_ID,
 )
-from ...utils import current_system_version, datetime_parser, redact_ip_from_url
+from ...utils import current_system_version, datetime_parser, redact_ip
 
 
 def set_info(list_item, item, properties, set_play_count=True, resume=True):
@@ -375,12 +375,12 @@ def set_info(list_item, item, properties, set_play_count=True, resume=True):
 
 def video_playback_item(context, video_item, show_fanart=None, **_kwargs):
     uri = video_item.get_uri()
-    context.log_debug('Converting VideoItem |%s|' % redact_ip_from_url(uri))
+    context.log_debug('Converting VideoItem |%s|' % redact_ip(uri))
 
     settings = context.get_settings()
     headers = video_item.get_headers()
     license_key = video_item.get_license_key()
-    is_external = context.get_ui().get_property(SWITCH_PLAYER_FLAG)
+    is_external = context.get_ui().get_property(PLAY_WITH)
     is_strm = context.get_param('strm')
     mime_type = None
 
@@ -402,24 +402,35 @@ def video_playback_item(context, video_item, show_fanart=None, **_kwargs):
         }
 
     if video_item.use_isa_video() and context.use_inputstream_adaptive():
-        if video_item.use_mpd_video():
+        use_mpd = video_item.use_mpd_video()
+        if use_mpd:
             manifest_type = 'mpd'
             mime_type = 'application/dash+xml'
-            if 'auto' in settings.stream_select():
-                props['inputstream.adaptive.stream_selection_type'] = 'adaptive'
         else:
             manifest_type = 'hls'
             mime_type = 'application/x-mpegURL'
 
-        inputstream_property = ('inputstream'
-                                if current_system_version.compatible(19, 0) else
-                                'inputstreamaddon')
-        props[inputstream_property] = 'inputstream.adaptive'
+        stream_select = settings.stream_select()
+        if not use_mpd and 'list' in stream_select:
+            props['inputstream.adaptive.stream_selection_type'] = 'manual-osd'
+        elif 'auto' in stream_select:
+            props['inputstream.adaptive.stream_selection_type'] = 'adaptive'
+            props['inputstream.adaptive.chooser_resolution_max'] = 'auto'
+
+        if current_system_version.compatible(19, 0):
+            props['inputstream'] = 'inputstream.adaptive'
+        else:
+            props['inputstreamaddon'] = 'inputstream.adaptive'
 
         if current_system_version.compatible(21, 0):
-            if video_item.live:
+            isa_capabilities = context.inputstream_adaptive_capabilities()
+            if video_item.live and 'manifest_config_prop' in isa_capabilities:
                 props['inputstream.adaptive.manifest_config'] = dumps({
                     'timeshift_bufferlimit': 4 * 60 * 60,
+                })
+            if not settings.verify_ssl() and 'config_prop' in isa_capabilities:
+                props['inputstream.adaptive.config'] = dumps({
+                    'ssl_verify_peer': False,
                 })
         else:
             props['inputstream.adaptive.manifest_type'] = manifest_type
@@ -530,15 +541,25 @@ def directory_listitem(context, directory_item, show_fanart=None, **_kwargs):
     if directory_item.next_page:
         props['specialSort'] = 'bottom'
     else:
-        prop_value = directory_item.get_subscription_id()
+        special_sort = 'top'
+
+        prop_value = directory_item.subscription_id
         if prop_value:
+            special_sort = None
             props[SUBSCRIPTION_ID] = prop_value
-        elif directory_item.get_channel_id():
-            pass
-        elif directory_item.get_playlist_id():
-            pass
-        else:
-            props['specialSort'] = 'top'
+
+        prop_value = directory_item.channel_id
+        if prop_value:
+            special_sort = None
+            props[CHANNEL_ID] = prop_value
+
+        prop_value = directory_item.playlist_id
+        if prop_value:
+            special_sort = None
+            props[PLAYLIST_ID] = prop_value
+
+        if special_sort:
+            props['specialSort'] = special_sort
 
     list_item = xbmcgui.ListItem(**kwargs)
 
@@ -669,22 +690,22 @@ def video_listitem(context,
         props[VIDEO_ID] = prop_value
 
     # make channel_id property available for keymapping
-    prop_value = video_item.get_channel_id()
+    prop_value = video_item.channel_id
     if prop_value:
         props[CHANNEL_ID] = prop_value
 
     # make subscription_id property available for keymapping
-    prop_value = video_item.get_subscription_id()
+    prop_value = video_item.subscription_id
     if prop_value:
         props[SUBSCRIPTION_ID] = prop_value
 
     # make playlist_id property available for keymapping
-    prop_value = video_item.get_playlist_id()
+    prop_value = video_item.playlist_id
     if prop_value:
         props[PLAYLIST_ID] = prop_value
 
     # make playlist_item_id property available for keymapping
-    prop_value = video_item.get_playlist_item_id()
+    prop_value = video_item.playlist_item_id
     if prop_value:
         props[PLAYLISTITEM_ID] = prop_value
 
@@ -712,7 +733,7 @@ def video_listitem(context,
     if not set_play_count:
         video_id = video_item.video_id
         playback_history = context.get_playback_history()
-        playback_history.update(video_id, dict(
+        playback_history.set_item(video_id, dict(
             playback_history.get_item(video_id) or {},
             play_count=int(not video_item.get_play_count()),
             played_time=0.0,

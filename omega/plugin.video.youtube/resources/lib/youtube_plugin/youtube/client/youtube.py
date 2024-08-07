@@ -18,7 +18,7 @@ from itertools import chain, islice
 from random import randint
 
 from .login_client import LoginClient
-from ..helper.video_info import VideoInfo
+from ..helper.stream_info import StreamInfo
 from ..youtube_exceptions import InvalidJSON, YouTubeException
 from ...kodion.compatibility import cpu_count, string_type, to_str
 from ...kodion.utils import (
@@ -45,9 +45,6 @@ class YouTube(LoginClient):
             'headers': {
                 'Host': 'www.youtube.com',
             },
-            'params': {
-                'key': 'AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8',
-            },
         },
         3: {
             'url': 'https://www.googleapis.com/youtube/v3/{_endpoint}',
@@ -70,9 +67,6 @@ class YouTube(LoginClient):
             'headers': {
                 'Host': 'www.youtube.com',
             },
-            'params': {
-                'key': 'AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8',
-            },
         },
         'tv_embed': {
             'url': 'https://www.youtube.com/youtubei/v1/{_endpoint}',
@@ -87,9 +81,6 @@ class YouTube(LoginClient):
             },
             'headers': {
                 'Host': 'www.youtube.com',
-            },
-            'params': {
-                'key': 'AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8',
             },
         },
         '_common': {
@@ -133,7 +124,7 @@ class YouTube(LoginClient):
         if 'items_per_page' in kwargs:
             self._max_results = kwargs.pop('items_per_page')
 
-        super(YouTube, self).__init__(**kwargs)
+        super(YouTube, self).__init__(context=context, **kwargs)
 
     def get_max_results(self):
         return self._max_results
@@ -166,7 +157,7 @@ class YouTube(LoginClient):
             'Accept': '*/*',
             'Accept-Language': 'en-US,en;q=0.5',
             'DNT': '1',
-            'Referer': 'https://www.youtube.com/watch?v={0}'.format(video_id),
+            'Referer': 'https://www.youtube.com/watch?v=' + video_id,
             'User-Agent': ('Mozilla/5.0 (Linux; Android 10; SM-G981B)'
                            ' AppleWebKit/537.36 (KHTML, like Gecko)'
                            ' Chrome/80.0.3987.162 Mobile Safari/537.36'),
@@ -195,63 +186,17 @@ class YouTube(LoginClient):
         self.request(url, params=params, headers=headers,
                      error_msg='Failed to update watch history')
 
-    def get_video_streams(self, context, video_id):
-        video_info = VideoInfo(context, access_token=self._access_token_tv,
-                               language=self._language)
-
-        video_streams = video_info.load_stream_infos(video_id)
-
-        # update title
-        for video_stream in video_streams:
-            title = '%s (%s)' % (
-                context.get_ui().bold(video_stream['title']),
-                video_stream['container']
-            )
-
-            if 'audio' in video_stream and 'video' in video_stream:
-                if (video_stream['audio']['bitrate'] > 0
-                        and video_stream['video']['codec']
-                        and video_stream['audio']['codec']):
-                    title = '%s (%s; %s / %s@%d)' % (
-                        context.get_ui().bold(video_stream['title']),
-                        video_stream['container'],
-                        video_stream['video']['codec'],
-                        video_stream['audio']['codec'],
-                        video_stream['audio']['bitrate']
-                    )
-
-                elif (video_stream['video']['codec']
-                      and video_stream['audio']['codec']):
-                    title = '%s (%s; %s / %s)' % (
-                        context.get_ui().bold(video_stream['title']),
-                        video_stream['container'],
-                        video_stream['video']['codec'],
-                        video_stream['audio']['codec']
-                    )
-            elif 'audio' in video_stream and 'video' not in video_stream:
-                if (video_stream['audio']['codec']
-                        and video_stream['audio']['bitrate'] > 0):
-                    title = '%s (%s; %s@%d)' % (
-                        context.get_ui().bold(video_stream['title']),
-                        video_stream['container'],
-                        video_stream['audio']['codec'],
-                        video_stream['audio']['bitrate']
-                    )
-
-            elif 'audio' in video_stream or 'video' in video_stream:
-                codec = video_stream.get('audio', {}).get('codec')
-                if not codec:
-                    codec = video_stream.get('video', {}).get('codec')
-                if codec:
-                    title = '%s (%s; %s)' % (
-                        context.get_ui().bold(video_stream['title']),
-                        video_stream['container'],
-                        codec
-                    )
-
-            video_stream['title'] = title
-
-        return video_streams
+    def get_streams(self,
+                    context,
+                    video_id,
+                    ask_for_quality=False,
+                    audio_only=False,
+                    use_mpd=True):
+        return StreamInfo(context,
+                          access_token=self._access_token_tv,
+                          ask_for_quality=ask_for_quality,
+                          audio_only=audio_only,
+                          use_mpd=use_mpd).load_stream_info(video_id)
 
     def remove_playlist(self, playlist_id, **kwargs):
         params = {'id': playlist_id,
@@ -957,17 +902,25 @@ class YouTube(LoginClient):
                                 params=params,
                                 **kwargs)
 
-    def get_channel_by_username(self, username, **kwargs):
+    def get_channel_by_identifier(self,
+                                  identifier,
+                                  mine=False,
+                                  handle=False,
+                                  **kwargs):
         """
         Returns a collection of zero or more channel resources that match the request criteria.
-        :param username: retrieve channel_id for username
+        :param str identifier: channel username to retrieve channel ID for
+        :param bool mine: treat identifier as request for authenticated user
+        :param bool handle: treat identifier as request for handle
         :return:
         """
         params = {'part': 'id'}
-        if username == 'mine':
+        if mine or identifier == 'mine':
             params['mine'] = True
+        elif handle or identifier.startswith('@'):
+            params['forHandle'] = identifier
         else:
-            params['forUsername'] = username
+            params['forUsername'] = identifier
 
         return self.api_request(method='GET',
                                 path='channels',
@@ -1275,7 +1228,9 @@ class YouTube(LoginClient):
                 max_results=remaining,
                 **kwargs
             )
-            if continuation and 'nextPageToken' in continuation:
+            if not continuation:
+                break
+            if 'nextPageToken' in continuation:
                 page_token = continuation['nextPageToken']
             else:
                 page_token = ''
@@ -1448,6 +1403,10 @@ class YouTube(LoginClient):
         v3_response = {
             'kind': 'youtube#videoListResponse',
             'items': [],
+            'pageInfo': {
+                'totalResults': 0,
+                'resultsPerPage': self._max_results,
+            },
         }
 
         cache = self._context.get_feed_history()
@@ -1809,6 +1768,7 @@ class YouTube(LoginClient):
         else:
             return None
 
+        v3_response['pageInfo']['totalResults'] = totals['num']
         v3_response['items'] = items
         return v3_response
 
@@ -2017,7 +1977,7 @@ class YouTube(LoginClient):
             else:
                 notification = message
 
-            title = '{0}: {1}'.format(self._context.get_name(), reason)
+            title = ': '.join((self._context.get_name(), reason))
             if ok_dialog:
                 self._context.get_ui().on_ok(title, notification)
             else:
@@ -2046,8 +2006,12 @@ class YouTube(LoginClient):
         }
         if headers:
             client_data['headers'] = headers
-        if post_data and method == 'POST':
-            client_data['json'] = post_data
+        if method in {'POST', 'PUT'}:
+            if post_data:
+                client_data['json'] = post_data
+            clear_data = False
+        else:
+            clear_data = True
         if params:
             client_data['params'] = params
 
@@ -2065,7 +2029,7 @@ class YouTube(LoginClient):
             else:
                 del client['params']['key']
 
-        if method != 'POST' and 'json' in client:
+        if clear_data and 'json' in client:
             del client['json']
 
         params = client.get('params')

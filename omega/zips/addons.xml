@@ -193,7 +193,7 @@
             <fanart>fanart.jpg</fanart>
     </assets>
   </extension>
-</addon><addon id="plugin.program.chef21" name="[B][COLOR chartreuse]Chef Omega Wizard[/COLOR][/B]" version="478" provider-name="Diggz">
+</addon><addon id="plugin.program.chef21" name="[B][COLOR chartreuse]Chef Omega Wizard[/COLOR][/B]" version="479" provider-name="Diggz">
 	<requires>
 		<import addon="xbmc.python" version="3.0.1" />
 		<import addon="repository.xbmc.org" />		
@@ -1538,7 +1538,7 @@ Random updates by lolage.
         </assets>
     <platform>all</platform>
   </extension>
-</addon><addon id="plugin.video.youtube" name="YouTube" version="420.7.0.8+beta.5.unofficial.1" provider-name="anxdpanic, bromix, MoojMidge">
+</addon><addon id="plugin.video.youtube" name="YouTube" version="420.7.0.9+beta.9.unofficial.1" provider-name="anxdpanic, bromix, MoojMidge">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
         <import addon="script.module.requests" version="2.27.1" />
@@ -1644,18 +1644,9 @@ Random updates by lolage.
         <disclaimer lang="vi_VN">Plugin này không được xác nhận bởi Google</disclaimer>
         <disclaimer lang="zh_CN">此插件未被谷歌认可</disclaimer>
         <disclaimer lang="zh_TW">此附加元件未由Google支持</disclaimer>
-    <news>## v7.0.8+beta.5
+    <news>## v7.0.9+beta.9
 ### Fixed
-- Fix Python2 UnicodeDecodeError when removing/renaming searches
-- Fix not catching socket.error in Python2 when force shutting down socket
-- Fix deleting window property with multiple threads causing hang on exit
-
-### Changed
-- Update 720p preset in Setup Wizard
-- Update itags found in HLS playlists and exclude them in quality selection
-
-### New
-- Enable subtitles for alternative client 2</news></extension>
+- Fix not properly defining default audio role</news></extension>
 </addon><addon id="repository.709" name=" The[COLOR FF0C5EB4][B]7o9[/B][/COLOR]Repo" version="1.0.2" provider-name="Zaxxon709">
     <extension point="xbmc.addon.repository" name="The7o9Repo">
         <dir>

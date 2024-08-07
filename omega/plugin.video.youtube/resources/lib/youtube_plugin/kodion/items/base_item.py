@@ -19,13 +19,10 @@ from ..constants import MEDIA_PATH
 
 
 class BaseItem(object):
-    VERSION = 3
-
+    _version = 3
     _playable = False
 
     def __init__(self, name, uri, image=None, fanart=None):
-        self._version = BaseItem.VERSION
-
         self._name = None
         self.set_name(name)
 
@@ -67,9 +64,7 @@ class BaseItem(object):
         Returns a unique id of the item.
         :return: unique id of the item.
         """
-        md5_hash = md5()
-        md5_hash.update(''.join((self._name, self._uri)).encode('utf-8'))
-        return md5_hash.hexdigest()
+        return md5(''.join((self._name, self._uri)).encode('utf-8')).hexdigest()
 
     def set_name(self, name):
         try:
@@ -120,7 +115,10 @@ class BaseItem(object):
     def get_fanart(self, default=True):
         if self._fanart or not default:
             return self._fanart
-        return '{0}/fanart.jpg'.format(MEDIA_PATH)
+        return '/'.join((
+            MEDIA_PATH,
+            'fanart.jpg',
+        ))
 
     def add_context_menu(self, context_menu, position='end', replace=False):
         context_menu = (item for item in context_menu if item)

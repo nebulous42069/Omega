@@ -15,6 +15,14 @@
                 "url": "installaddon(plugin.video.umbrella)"
             },
             {
+                "name": "Install POV (DEBRID ONLY)",
+                "url": "installaddon(plugin.video.pov)"
+            },
+            {
+                "name": "Install Coalition (DEBRID ONLY)",
+                "url": "installaddon(plugin.video.coalition)"
+            },
+            {
                 "name": "Install Asgard (FREE AND DEBRID)",
                 "url": "installaddon(plugin.video.asgard)"
             },						

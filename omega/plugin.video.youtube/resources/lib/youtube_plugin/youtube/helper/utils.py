@@ -14,7 +14,7 @@ import re
 import time
 from math import log10
 
-from ...kodion.constants import LICENSE_TOKEN, LICENSE_URL, content, paths
+from ...kodion.constants import CONTENT, LICENSE_TOKEN, LICENSE_URL, PATHS
 from ...kodion.items import DirectoryItem, menu_items
 from ...kodion.utils import (
     datetime_parser,
@@ -90,27 +90,33 @@ def make_comment_item(context, snippet, uri, total_replies=0):
 
     # Format the label of the comment item.
     if label_props:
-        label = '{author} ({props}) {body}'.format(
-            author=author,
-            props='|'.join(label_props),
-            body=body.replace('\n', ' ')
-        )
+        label = ''.join((
+            author,
+            ' (',
+            '|'.join(label_props),
+            ') ',
+            body.replace('\n', ' '),
+        ))
     else:
-        label = '{author} {body}'.format(
-            author=author, body=body.replace('\n', ' ')
-        )
+        label = ' '.join((
+            author,
+            body.replace('\n', ' '),
+        ))
 
     # Format the plot of the comment item.
     if plot_props:
-        plot = '{author} ({props}){body}'.format(
-            author=author,
-            props='|'.join(plot_props),
-            body=ui.new_line(body, cr_before=2)
-        )
+        plot = ''.join((
+            author,
+            ' (',
+            '|'.join(plot_props),
+            ')',
+            ui.new_line(body, cr_before=2),
+        ))
     else:
-        plot = '{author}{body}'.format(
-            author=author, body=ui.new_line(body, cr_before=2)
-        )
+        plot = ''.join((
+            author,
+            ui.new_line(body, cr_before=2),
+        ))
 
     comment_item = DirectoryItem(label, uri, plot=plot, action=(not uri))
 
@@ -151,7 +157,7 @@ def update_channel_infos(provider, context, channel_id_dict,
     path = context.get_path()
 
     filter_list = None
-    if path.startswith(paths.SUBSCRIPTIONS):
+    if path.startswith(PATHS.SUBSCRIPTIONS):
         in_bookmarks_list = False
         in_subscription_list = True
         if settings.get_bool('youtube.folder.my_subscriptions_filtered.show',
@@ -162,7 +168,7 @@ def update_channel_infos(provider, context, channel_id_dict,
             filter_string = filter_string.replace(', ', ',')
             filter_list = filter_string.split(',')
             filter_list = [x.lower() for x in filter_list]
-    elif path.startswith(paths.BOOKMARKS):
+    elif path.startswith(PATHS.BOOKMARKS):
         in_bookmarks_list = True
         in_subscription_list = False
     else:
@@ -172,9 +178,11 @@ def update_channel_infos(provider, context, channel_id_dict,
     thumb_size = settings.get_thumbnail_size()
 
     for channel_id, yt_item in data.items():
-        channel_item = channel_id_dict[channel_id]
-
+        if not yt_item or 'snippet' not in yt_item:
+            continue
         snippet = yt_item['snippet']
+
+        channel_item = channel_id_dict[channel_id]
 
         # title
         title = snippet['title']
@@ -190,7 +198,7 @@ def update_channel_infos(provider, context, channel_id_dict,
         # -- unsubscribe from channel
         subscription_id = subscription_id_dict.get(channel_id, '')
         if subscription_id:
-            channel_item.set_subscription_id(subscription_id)
+            channel_item.subscription_id = subscription_id
             context_menu.append(
                 menu_items.unsubscribe_from_channel(
                     context, subscription_id=subscription_id
@@ -219,13 +227,14 @@ def update_channel_infos(provider, context, channel_id_dict,
 
         if not in_bookmarks_list:
             context_menu.append(
-                menu_items.bookmarks_add_channel(
+                menu_items.bookmark_add_channel(
                     context, channel_id
                 )
             )
 
         if context_menu:
-            channel_item.add_context_menu(context_menu, replace=True)
+            context_menu.append(menu_items.separator())
+            channel_item.add_context_menu(context_menu)
 
         # update channel mapping
         if channel_items_dict is not None:
@@ -256,10 +265,10 @@ def update_playlist_infos(provider, context, playlist_id_dict,
     thumb_size = context.get_settings().get_thumbnail_size()
 
     # if the path directs to a playlist of our own, set channel id to 'mine'
-    if path.startswith(paths.MY_PLAYLISTS):
+    if path.startswith(PATHS.MY_PLAYLISTS):
         in_bookmarks_list = False
         in_my_playlists = True
-    elif path.startswith(paths.BOOKMARKS):
+    elif path.startswith(PATHS.BOOKMARKS):
         in_bookmarks_list = True
         in_my_playlists = False
     else:
@@ -267,11 +276,15 @@ def update_playlist_infos(provider, context, playlist_id_dict,
         in_my_playlists = False
 
     for playlist_id, yt_item in data.items():
+        if not yt_item or 'snippet' not in yt_item:
+            continue
+        snippet = yt_item['snippet']
+
         playlist_item = playlist_id_dict[playlist_id]
 
-        snippet = yt_item['snippet']
         title = snippet['title']
         playlist_item.set_name(title)
+
         image = get_thumbnail(thumb_size, snippet.get('thumbnails', {}))
         playlist_item.set_image(image)
 
@@ -283,7 +296,7 @@ def update_playlist_infos(provider, context, playlist_id_dict,
             menu_items.play_all_from_playlist(
                 context, playlist_id
             ),
-            menu_items.bookmarks_add(
+            menu_items.bookmark_add(
                 context, playlist_item
             ) if not in_bookmarks_list and channel_id != 'mine' else None,
         ]
@@ -327,13 +340,14 @@ def update_playlist_infos(provider, context, playlist_id_dict,
         if not in_bookmarks_list and channel_id != 'mine':
             context_menu.append(
                 # bookmark channel of the playlist
-                menu_items.bookmarks_add_channel(
+                menu_items.bookmark_add_channel(
                     context, channel_id, channel_name
                 )
             )
 
         if context_menu:
-            playlist_item.add_context_menu(context_menu, replace=True)
+            context_menu.append(menu_items.separator())
+            playlist_item.add_context_menu(context_menu)
 
         # update channel mapping
         if channel_items_dict is not None:
@@ -389,17 +403,17 @@ def update_video_infos(provider, context, video_id_dict,
     path = context.get_path()
     ui = context.get_ui()
 
-    if path.startswith(paths.MY_SUBSCRIPTIONS):
+    if path.startswith(PATHS.MY_SUBSCRIPTIONS):
         in_bookmarks_list = False
         in_my_subscriptions_list = True
         in_watched_later_list = False
         playlist_match = False
-    elif path.startswith(paths.WATCH_LATER):
+    elif path.startswith(PATHS.WATCH_LATER):
         in_bookmarks_list = False
         in_my_subscriptions_list = False
         in_watched_later_list = True
         playlist_match = False
-    elif path.startswith(paths.BOOKMARKS):
+    elif path.startswith(PATHS.BOOKMARKS):
         in_bookmarks_list = True
         in_my_subscriptions_list = False
         in_watched_later_list = False
@@ -411,14 +425,12 @@ def update_video_infos(provider, context, video_id_dict,
         playlist_match = __RE_PLAYLIST.match(path)
 
     for video_id, yt_item in data.items():
-        video_item = video_id_dict[video_id]
-
-        # set mediatype
-        video_item.set_mediatype(content.VIDEO_TYPE)
-
         if not yt_item or 'snippet' not in yt_item:
             continue
         snippet = yt_item['snippet']
+
+        video_item = video_id_dict[video_id]
+        video_item.set_mediatype(CONTENT.VIDEO_TYPE)
 
         play_data = use_play_data and yt_item.get('play_data')
         if play_data and 'total_time' in play_data:
@@ -512,12 +524,10 @@ def update_video_infos(provider, context, video_id_dict,
                 type_label = localize('live')
             else:
                 type_label = localize(335)  # "Start"
-            start_at = '{type_label} {start_at}'.format(
-                type_label=type_label,
-                start_at=datetime_parser.get_scheduled_start(
-                    context, local_datetime
-                )
-            )
+            start_at = ' '.join((
+                type_label,
+                datetime_parser.get_scheduled_start(context, local_datetime),
+            ))
 
         label_stats = []
         stats = []
@@ -643,7 +653,7 @@ def update_video_infos(provider, context, video_id_dict,
 
         # update channel mapping
         channel_id = snippet.get('channelId', '')
-        video_item.set_channel_id(channel_id)
+        video_item.channel_id = channel_id
         if channel_id and channel_items_dict is not None:
             if channel_id not in channel_items_dict:
                 channel_items_dict[channel_id] = []
@@ -693,7 +703,7 @@ def update_video_infos(provider, context, video_id_dict,
 
         if not in_bookmarks_list:
             context_menu.append(
-                menu_items.bookmarks_add(
+                menu_items.bookmark_add(
                     context, video_item
                 )
             )
@@ -704,8 +714,8 @@ def update_video_infos(provider, context, video_id_dict,
                 and playlist_channel_id == 'mine'
                 and playlist_id.strip().lower() not in {'hl', 'wl'}):
             playlist_item_id = playlist_item_id_dict[video_id]
-            video_item.set_playlist_id(playlist_id)
-            video_item.set_playlist_item_id(playlist_item_id)
+            video_item.playlist_id = playlist_id
+            video_item.playlist_item_id = playlist_item_id
             context_menu.append(
                 menu_items.remove_video_from_playlist(
                     context,
@@ -718,7 +728,7 @@ def update_video_infos(provider, context, video_id_dict,
         # got to [CHANNEL] only if we are not directly in the channel
         if (channel_id and channel_name and
                 context.create_path('channel', channel_id) != path):
-            video_item.set_channel_id(channel_id)
+            video_item.channel_id = channel_id
             context_menu.append(
                 menu_items.go_to_channel(
                     context, channel_id, channel_name
@@ -740,11 +750,11 @@ def update_video_infos(provider, context, video_id_dict,
         if not in_bookmarks_list:
             context_menu.append(
                 # remove bookmarked channel of the video
-                menu_items.bookmarks_remove(
+                menu_items.bookmark_remove(
                     context, item_id=channel_id
                 ) if in_my_subscriptions_list else
                 # bookmark channel of the video
-                menu_items.bookmarks_add_channel(
+                menu_items.bookmark_add_channel(
                     context, channel_id, channel_name
                 )
             )
@@ -768,7 +778,7 @@ def update_video_infos(provider, context, video_id_dict,
                 )
 
         # more...
-        refresh = path.startswith((paths.LIKED_VIDEOS, paths.DISLIKED_VIDEOS))
+        refresh = path.startswith((PATHS.LIKED_VIDEOS, PATHS.DISLIKED_VIDEOS))
         context_menu.append(
             menu_items.more_for_video(
                 context,
@@ -780,7 +790,7 @@ def update_video_infos(provider, context, video_id_dict,
 
         # 'play with...' (external player)
         if alternate_player:
-            context_menu.append(menu_items.play_with(context))
+            context_menu.append(menu_items.play_with(context, video_id))
 
         if not subtitles_prompt:
             context_menu.append(
@@ -804,10 +814,8 @@ def update_video_infos(provider, context, video_id_dict,
             )
 
         if context_menu:
-            context_menu.append(
-                menu_items.separator(),
-            )
-            video_item.add_context_menu(context_menu, replace=True)
+            context_menu.append(menu_items.separator())
+            video_item.add_context_menu(context_menu)
 
 
 def update_play_info(provider, context, video_id, video_item, video_stream,

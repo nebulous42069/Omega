@@ -27,10 +27,10 @@ from ...compatibility import (
 from ...constants import (
     ABORT_FLAG,
     ADDON_ID,
+    CONTENT,
     CONTENT_TYPE,
+    SORT,
     WAKEUP,
-    content,
-    sort,
 )
 from ...player import XbmcPlayer, XbmcPlaylist
 from ...settings import XbmcPluginSettings
@@ -59,12 +59,13 @@ class XbmcContext(AbstractContext):
         'archive': 30105,
         'are_you_sure': 30703,
         'auto_remove_watch_later': 30515,
+        'bookmark': 30101,
+        'bookmark.channel': 30803,
+        'bookmark.created': 21362,
+        'bookmark.remove': 20404,
         'bookmarks': 30100,
-        'bookmarks.add': 30101,
-        'bookmarks.add.channel': 30803,
         'bookmarks.clear': 30801,
         'bookmarks.clear.confirm': 30802,
-        'bookmarks.remove': 20404,
         'browse_channels': 30512,
         'cancel': 30615,
         'channels': 30500,
@@ -99,11 +100,7 @@ class XbmcContext(AbstractContext):
         'error.no_video_streams_found': 30549,
         'error.rtmpe_not_supported': 30542,
         'failed': 30576,
-        'failed.watch_later.retry': 30614,
-        'failed.watch_later.retry.2': 30709,
-        'failed.watch_later.retry.3': 30710,
         'go_to_channel': 30502,
-        'highlights': 30104,
         'history': 30509,
         'history.clear': 30609,
         'history.clear.confirm': 30610,
@@ -132,7 +129,6 @@ class XbmcContext(AbstractContext):
         'maintenance.playback_history': 30673,
         'maintenance.search_history': 30558,
         'maintenance.watch_later': 30782,
-        'must_be_signed_in': 30616,
         'my_channel': 30507,
         'my_location': 30654,
         'my_subscriptions': 30510,
@@ -163,12 +159,12 @@ class XbmcContext(AbstractContext):
         'purchases': 30622,
         'recommendations': 30551,
         'refresh': 30543,
+        'refresh.settings.confirm': 30818,
         'related_videos': 30514,
         'remove': 30108,
         'removed': 30666,
         'rename': 30113,
         'renamed': 30667,
-        'requires.krypton': 30624,
         'reset.access_manager.confirm': 30581,
         'retry': 30612,
         'saved.playlists': 30611,
@@ -206,13 +202,13 @@ class XbmcContext(AbstractContext):
         'setup_wizard.prompt.settings.performance': 30785,
         'setup_wizard.prompt.subtitles': 30600,
         'sign.enter_code': 30519,
-        'sign.go_to': 30518,
+        'sign.go_to': 30502,
         'sign.in': 30111,
         'sign.out': 30112,
         'sign.twice.text': 30547,
         'sign.twice.title': 30546,
         'stats.commentCount': 30732,
-        # 'stats.favoriteCount': 30100,
+        # 'stats.favoriteCount': 1036,
         'stats.likeCount': 30733,
         'stats.viewCount': 30767,
         'stream.alternate': 30747,
@@ -280,7 +276,6 @@ class XbmcContext(AbstractContext):
         'watch_later.list.set': 30567,
         'watch_later.list.set.confirm': 30570,
         'watch_later.remove': 30108,
-        'watch_later.retrieval_page': 30711,
         'youtube': 30003,
     }
 
@@ -364,23 +359,20 @@ class XbmcContext(AbstractContext):
         pass  # implement from abstract
 
     def is_plugin_path(self, uri, uri_path='', partial=False):
-        plugin = self.get_id()
-
         if isinstance(uri_path, (list, tuple)):
             if partial:
-                paths = ['plugin://{0}/{1}'.format(plugin, path).rstrip('/')
-                         for path in uri_path]
+                paths = [self.create_uri(path).rstrip('/') for path in uri_path]
             else:
                 paths = []
                 for path in uri_path:
-                    path = 'plugin://{0}/{1}'.format(plugin, path).rstrip('/')
+                    path = self.create_uri(path).rstrip('/')
                     paths.extend((
                         path + '/',
                         path + '?'
                     ))
             return uri.startswith(tuple(paths))
 
-        uri_path = 'plugin://{0}/{1}'.format(plugin, uri_path).rstrip('/')
+        uri_path = self.create_uri(uri_path).rstrip('/')
         if not partial:
             uri_path = (
                 uri_path + '/',
@@ -516,13 +508,11 @@ class XbmcContext(AbstractContext):
 
     def apply_content(self):
         ui = self.get_ui()
-        content_type = ui.get_property(CONTENT_TYPE)
-        if content_type:
-            ui.clear_property(CONTENT_TYPE)
-            content_type, sub_type, category_label = json.loads(content_type)
-        else:
+        content_type = ui.pop_property(CONTENT_TYPE)
+        if not content_type:
             return
 
+        content_type, sub_type, category_label = json.loads(content_type)
         self.log_debug('Applying content-type: |{type}| for |{path}|'.format(
             type=(sub_type or content_type), path=self.get_path()
         ))
@@ -535,43 +525,43 @@ class XbmcContext(AbstractContext):
         detailed_labels = self.get_settings().show_detailed_labels()
         if sub_type == 'history':
             self.add_sort_method(
-                (sort.LASTPLAYED,       '%T \u2022 %P',           '%D | %J'),
-                (sort.PLAYCOUNT,        '%T \u2022 %P',           '%D | %J'),
-                (sort.UNSORTED,         '%T \u2022 %P',           '%D | %J'),
-                (sort.LABEL,            '%T \u2022 %P',           '%D | %J'),
+                (SORT.LASTPLAYED,       '%T \u2022 %P',           '%D | %J'),
+                (SORT.PLAYCOUNT,        '%T \u2022 %P',           '%D | %J'),
+                (SORT.UNSORTED,         '%T \u2022 %P',           '%D | %J'),
+                (SORT.LABEL,            '%T \u2022 %P',           '%D | %J'),
             ) if detailed_labels else self.add_sort_method(
-                (sort.LASTPLAYED,),
-                (sort.PLAYCOUNT,),
-                (sort.UNSORTED,),
-                (sort.LABEL,),
+                (SORT.LASTPLAYED,),
+                (SORT.PLAYCOUNT,),
+                (SORT.UNSORTED,),
+                (SORT.LABEL,),
             )
         else:
             self.add_sort_method(
-                (sort.UNSORTED,         '%T \u2022 %P',           '%D | %J'),
-                (sort.LABEL,            '%T \u2022 %P',           '%D | %J'),
+                (SORT.UNSORTED,         '%T \u2022 %P',           '%D | %J'),
+                (SORT.LABEL,            '%T \u2022 %P',           '%D | %J'),
             ) if detailed_labels else self.add_sort_method(
-                (sort.UNSORTED,),
-                (sort.LABEL,),
+                (SORT.UNSORTED,),
+                (SORT.LABEL,),
             )
-        if content_type == content.VIDEO_CONTENT:
+        if content_type == CONTENT.VIDEO_CONTENT:
             self.add_sort_method(
-                (sort.CHANNEL,          '[%A - ]%T \u2022 %P',    '%D | %J'),
-                (sort.ARTIST,           '%T \u2022 %P | %D | %J', '%A'),
-                (sort.PROGRAM_COUNT,    '%T \u2022 %P | %D | %J', '%C'),
-                (sort.VIDEO_RATING,     '%T \u2022 %P | %D | %J', '%R'),
-                (sort.DATE,             '%T \u2022 %P | %D',      '%J'),
-                (sort.DATEADDED,        '%T \u2022 %P | %D',      '%a'),
-                (sort.VIDEO_RUNTIME,    '%T \u2022 %P | %J',      '%D'),
-                (sort.TRACKNUM,         '[%N. ]%T \u2022 %P',     '%D | %J'),
+                (SORT.CHANNEL,          '[%A - ]%T \u2022 %P',    '%D | %J'),
+                (SORT.ARTIST,           '%T \u2022 %P | %D | %J', '%A'),
+                (SORT.PROGRAM_COUNT,    '%T \u2022 %P | %D | %J', '%C'),
+                (SORT.VIDEO_RATING,     '%T \u2022 %P | %D | %J', '%R'),
+                (SORT.DATE,             '%T \u2022 %P | %D',      '%J'),
+                (SORT.DATEADDED,        '%T \u2022 %P | %D',      '%a'),
+                (SORT.VIDEO_RUNTIME,    '%T \u2022 %P | %J',      '%D'),
+                (SORT.TRACKNUM,         '[%N. ]%T \u2022 %P',     '%D | %J'),
             ) if detailed_labels else self.add_sort_method(
-                (sort.CHANNEL,          '[%A - ]%T'),
-                (sort.ARTIST,),
-                (sort.PROGRAM_COUNT,),
-                (sort.VIDEO_RATING,),
-                (sort.DATE,),
-                (sort.DATEADDED,),
-                (sort.VIDEO_RUNTIME,),
-                (sort.TRACKNUM,         '[%N. ]%T '),
+                (SORT.CHANNEL,          '[%A - ]%T'),
+                (SORT.ARTIST,),
+                (SORT.PROGRAM_COUNT,),
+                (SORT.VIDEO_RATING,),
+                (SORT.DATE,),
+                (SORT.DATEADDED,),
+                (SORT.VIDEO_RUNTIME,),
+                (SORT.TRACKNUM,         '[%N. ]%T '),
             )
 
     def add_sort_method(self, *sort_methods):
@@ -649,7 +639,8 @@ class XbmcContext(AbstractContext):
                                    error.get('message', 'unknown')))
             return False
 
-    def send_notification(self, method, data=True):
+    @staticmethod
+    def send_notification(method, data=True):
         jsonrpc(method='JSONRPC.NotifyAll',
                 params={'sender': ADDON_ID,
                         'message': method,
@@ -680,13 +671,17 @@ class XbmcContext(AbstractContext):
     # - any Falsy value to exclude capability regardless of version
     # - True to include capability regardless of version
     _ISA_CAPABILITIES = {
-        'live': loose_version('2.0.12'),
+        # functionality
         'drm': loose_version('2.2.12'),
+        'live': loose_version('2.0.12'),
         'ttml': loose_version('20.0.0'),
+        # properties
+        'config_prop': loose_version('21.4.11'),
+        'manifest_config_prop': loose_version('21.4.5'),
         # audio codecs
         'vorbis': loose_version('2.3.14'),
-        # Opus audio enabled in Kodi v21+ which fixes stalls after seek
-        'opus': loose_version('21.0.0'),
+        # unknown when Opus audio support was implemented
+        'opus': loose_version('19.0.0'),
         'mp4a': True,
         'ac-3': loose_version('2.1.15'),
         'ec-3': loose_version('2.1.15'),
@@ -784,21 +779,22 @@ class XbmcContext(AbstractContext):
 
         pop_property = self.get_ui().pop_property
         no_timeout = timeout < 0
-        remaining = timeout
-        wait_period = 0.1
+        remaining = timeout = timeout * 1000
+        wait_period_ms = 100
+        wait_period = wait_period_ms / 1000
 
         while no_timeout or remaining > 0:
             awake = pop_property(WAKEUP)
             if awake:
                 if awake == target:
-                    self.log_debug('Wakeup |{0}| in {1}s'
+                    self.log_debug('Wakeup |{0}| in {1}ms'
                                    .format(awake, timeout - remaining))
                 else:
-                    self.log_error('Wakeup |{0}| in {1}s - expected |{2}|'
+                    self.log_error('Wakeup |{0}| in {1}ms - expected |{2}|'
                                    .format(awake, timeout - remaining, target))
                 break
             wait(wait_period)
-            remaining -= wait_period
+            remaining -= wait_period_ms
         else:
-            self.log_error('Wakeup |{0}| timed out in {1}s'
+            self.log_error('Wakeup |{0}| timed out in {1}ms'
                            .format(target, timeout))

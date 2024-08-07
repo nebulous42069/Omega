@@ -46,10 +46,10 @@ class ResourceManager(object):
                 continue
 
             data = function_cache.run(
-                client.get_channel_by_username,
+                client.get_channel_by_identifier,
                 function_cache.ONE_DAY,
                 _refresh=refresh,
-                username=channel_id
+                identifier=channel_id,
             ) or {}
             items = data.get('items', [{'id': 'mine'}])
 
@@ -66,7 +66,9 @@ class ResourceManager(object):
         else:
             result = data_cache.get_items(ids, data_cache.ONE_MONTH)
         to_update = [id_ for id_ in ids
-                     if id_ not in result or result[id_].get('_partial')]
+                     if id_ not in result
+                     or not result[id_]
+                     or result[id_].get('_partial')]
 
         if result:
             self._context.log_debug('Found cached data for channels:\n|{ids}|'
@@ -139,7 +141,9 @@ class ResourceManager(object):
             data_cache = self._context.get_data_cache()
             result = data_cache.get_items(ids, data_cache.ONE_MONTH)
         to_update = [id_ for id_ in ids
-                     if id_ not in result or result[id_].get('_partial')]
+                     if id_ not in result
+                     or not result[id_]
+                     or result[id_].get('_partial')]
 
         if result:
             self._context.log_debug('Found cached data for playlists:\n|{ids}|'
@@ -288,7 +292,9 @@ class ResourceManager(object):
             data_cache = self._context.get_data_cache()
             result = data_cache.get_items(ids, data_cache.ONE_MONTH)
         to_update = [id_ for id_ in ids
-                     if id_ not in result or result[id_].get('_partial')]
+                     if id_ not in result
+                     or not result[id_]
+                     or result[id_].get('_partial')]
 
         if result:
             self._context.log_debug('Found cached data for videos:\n|{ids}|'

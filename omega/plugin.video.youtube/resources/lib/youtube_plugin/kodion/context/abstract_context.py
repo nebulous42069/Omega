@@ -13,8 +13,15 @@ from __future__ import absolute_import, division, unicode_literals
 import os
 
 from .. import logger
-from ..compatibility import quote, to_str, urlencode
-from ..constants import VALUE_FROM_STR
+from ..compatibility import parse_qsl, quote, to_str, urlencode, urlsplit
+from ..constants import (
+    PATHS,
+    PLAY_FORCE_AUDIO,
+    PLAY_PROMPT_QUALITY,
+    PLAY_PROMPT_SUBTITLES,
+    PLAY_WITH,
+    VALUE_FROM_STR,
+)
 from ..json_store import AccessManager
 from ..sql_store import (
     BookmarksList,
@@ -34,8 +41,10 @@ class AbstractContext(object):
     _settings = None
 
     _BOOL_PARAMS = {
-        'ask_for_quality',
-        'audio_only',
+        PLAY_FORCE_AUDIO,
+        PLAY_PROMPT_SUBTITLES,
+        PLAY_PROMPT_QUALITY,
+        PLAY_WITH,
         'confirmed',
         'clip',
         'enable',
@@ -47,7 +56,6 @@ class AbstractContext(object):
         'location',
         'logged_in',
         'play',
-        'prompt_for_subtitles',
         'resume',
         'screensaver',
         'strm',
@@ -65,9 +73,9 @@ class AbstractContext(object):
         'refresh',
     }
     _FLOAT_PARAMS = {
+        'end',
         'seek',
         'start',
-        'end'
     }
     _LIST_PARAMS = {
         'channel_ids',
@@ -127,7 +135,7 @@ class AbstractContext(object):
 
         self._path = self.create_path(path)
         self._params = params or {}
-        self.parse_params()
+        self.parse_params(self._params)
         self._uri = self.create_uri(self._path, self._params)
 
     @staticmethod
@@ -249,20 +257,24 @@ class AbstractContext(object):
     def get_system_version():
         return current_system_version
 
-    def create_uri(self, path=None, params=None):
+    def create_uri(self, path=None, params=None, run=False):
         if isinstance(path, (list, tuple)):
             uri = self.create_path(*path, is_uri=True)
         elif path:
             uri = path
         else:
-            uri = '/' if params else '/?'
+            uri = '/'
 
         uri = self._plugin_id.join(('plugin://', uri))
 
         if params:
             uri = '?'.join((uri, urlencode(params)))
 
-        return uri
+        return ''.join((
+            'RunPlugin(',
+            uri,
+            ')'
+        )) if run else uri
 
     @staticmethod
     def create_path(*args, **kwargs):
@@ -297,10 +309,15 @@ class AbstractContext(object):
     def get_param(self, name, default=None):
         return self._params.get(name, default)
 
-    def parse_params(self, params=None):
-        if not params:
-            params = self._params
+    def parse_uri(self, uri):
+        uri = urlsplit(uri)
+        path = uri.path
+        params = self.parse_params(dict(parse_qsl(uri.query)), update=False)
+        return path, params
+
+    def parse_params(self, params, update=True):
         to_delete = []
+        output = self._params if update else {}
 
         for param, value in params.items():
             try:
@@ -330,7 +347,7 @@ class AbstractContext(object):
                     elif param == 'action':
                         if parsed_value in {'play_all', 'play_video'}:
                             to_delete.append(param)
-                            self.set_path('play')
+                            self.set_path(PATHS.PLAY)
                             continue
                     elif param == 'videoid':
                         to_delete.append(param)
@@ -351,10 +368,12 @@ class AbstractContext(object):
                 to_delete.append(param)
                 continue
 
-            self._params[param] = parsed_value
+            output[param] = parsed_value
 
         for param in to_delete:
             del params[param]
+
+        return output
 
     def set_param(self, name, value):
         self.parse_params({name: value})
@@ -457,5 +476,5 @@ class AbstractContext(object):
     def tear_down(self):
         pass
 
-    def wakeup(self):
+    def wakeup(self, target, timeout=None):
         raise NotImplementedError()

@@ -82,9 +82,7 @@ class Subtitles(object):
             self.preferred_lang = ('en',)
 
         ui = context.get_ui()
-        self.prompt_override = (ui.get_property(PLAY_PROMPT_SUBTITLES)
-                                == video_id)
-        ui.clear_property(PLAY_PROMPT_SUBTITLES)
+        self.prompt_override = bool(ui.pop_property(PLAY_PROMPT_SUBTITLES))
 
     def load(self, captions, headers=None):
         if headers:
@@ -393,7 +391,7 @@ class Subtitles(object):
         if not download:
             return subtitle_url, self.FORMATS[sub_format]['mime_type']
 
-        response = BaseRequestsClass().request(
+        response = BaseRequestsClass(context=self._context).request(
             subtitle_url,
             headers=self.headers,
             error_info=('Subtitles._get_url - GET failed for: {lang}: {{exc}}'
