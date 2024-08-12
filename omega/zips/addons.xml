@@ -472,33 +472,6 @@
     </menu>
   </extension>
 
-</addon><addon id="plugin.program.xenon2" name="Xenon 2 Flavors" version="4" provider-name="Diggz">
-	<requires>
-		<import addon="xbmc.python" version="3.0.0" />
-	</requires>
-	<extension point="xbmc.python.pluginsource" library="addon.py">
-		<provides>executable</provides>
-	</extension>
-	
-	<extension point="xbmc.addon.metadata">
-		<summary lang="en_GB" />
-		<description lang="en_GB" />
-		<disclaimer lang="en_GB">This Addon contains no content</disclaimer>
-		<language>en</language>
-		<platform>all</platform>
-		<license>GPL-2.0-or-later</license>
-		<forum />
-		<website /> 
-		<email />
-		<source />
-		<assets>
-				<icon>resources/icon.png</icon>
-				<fanart>resources/fanart.jpg</fanart>
-				<banner />
-				<clearlogo />
-				<screenshot />
-		</assets>
-	</extension>
 </addon><addon id="plugin.video.BewbsandBeer19" name="BewbsandBeer (Hidden Version)" version="1.1" provider-name="Uncle Touchy">
   <requires>
 	
@@ -582,14 +555,14 @@ https://github.com/Vashiel/repository.adulthideout
 		<fanart>fanart.jpg</fanart>
   </assets>
   </extension>
-</addon><addon id="plugin.video.cb20" version="2.1.0" name="CB20" provider-name="aitschti">
+</addon><addon id="plugin.video.cb20" version="2.1.0" name="CB20 (Hidden Version)" provider-name="aitschti">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
         
         <import addon="inputstream.ffmpegdirect" version="20.0.0" />
     </requires>
     <extension point="xbmc.python.pluginsource" library="addon.py">
-        <provides>video</provides>
+        <provides />
     </extension>
     <extension point="xbmc.python.library" library="resources/lib/helperscript.py" />
     <extension point="xbmc.addon.metadata">
@@ -614,14 +587,14 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.cb20
         <disclaimer lang="de_DE">(c) 2024 aitschti</disclaimer>
         <reuselanguageinvoker>false</reuselanguageinvoker>
     </extension>
-</addon><addon id="plugin.video.club.pornky.free" version="0.9.13" name="pornky.club (free)" provider-name="fr33p0rt">
+</addon><addon id="plugin.video.club.pornky.free" version="0.9.13" name="pornky.club (free) (Hidden Version)" provider-name="fr33p0rt">
 <requires>
   <import addon="script.module.requests" />
   <import addon="script.module.beautifulsoup4" />
   <import addon="script.module.six" />
 </requires>
 <extension point="xbmc.python.pluginsource" library="main.py">
-  <provides>video</provides>
+  <provides />
 </extension>
 <extension point="xbmc.addon.metadata">
   <license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
@@ -638,35 +611,6 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.cb20
   <email>fr33p0rt@protonmail.com</email>
   <news>Fix to follow website change again</news>
 </extension>
-</addon><addon id="plugin.video.crackle" name="Crackle" version="2024.7.22" provider-name="eracknaphobia">
-  <requires>
-      <import addon="xbmc.python" version="3.0.0" />
-      <import addon="script.module.requests" />
-      <import addon="script.module.inputstreamhelper" />
-      <import addon="script.module.kodi-six" />
-  </requires>
-  <extension point="xbmc.python.pluginsource" library="main.py">
-        <provides>video</provides>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-    <platform>all</platform>
-    <summary lang="en_GB">Crackle delivers popular, award-winning TV, movies and originals. With no limit to how much you can watch across all your devices, you can binge all you want, wherever you want.</summary>
-    <description lang="en_GB">Crackle is a video streaming distributor of original web shows, Hollywood movies, and TV shows. Founded in the early 2000s as Grouper, and rebranded in 2007, Crackle is owned by Sony Pictures Entertainment.</description>
-      <news>
-        - Refactor for upstream changes
-        - Added pagination
-        - Playback is only possible on Android Devices now because of widevine VMP
-        - Added settings for page size and sort by
-      </news>
-    <language>en</language>
-    <license>GPL-2.0-or-later</license>
-    <forum />
-    <source>https://github.com/eracknaphobia/plugin.video.crackle</source>
-    <assets>
-        <icon>icon.png</icon>
-        <fanart>fanart.jpg</fanart>
-    </assets>
-  </extension>
 </addon><addon id="plugin.video.cumination" name="Cumination (Hidden Version)" provider-name="Cumination" version="1.1.113">
     <requires>
         <import addon="script.module.six" />
@@ -875,14 +819,14 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.cb20
             <fanart>fanart.jpg</fanart>			
         </assets>
 	</extension>
-</addon><addon id="plugin.video.sc19" version="1.4.1" name="SC19" provider-name="aitschti">
+</addon><addon id="plugin.video.sc19" version="1.4.1" name="SC19 (Hidden Version)" provider-name="aitschti">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
         <import addon="inputstream.ffmpegdirect" version="19.0.0" />
     </requires>
     
     <extension point="xbmc.python.pluginsource" library="addon.py">
-        <provides>video</provides>
+        <provides />
     </extension>
     
     <extension point="xbmc.python.library" library="resources/lib/helperscript.py" />
