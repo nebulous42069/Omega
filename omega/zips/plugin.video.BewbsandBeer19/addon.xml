@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.video.BewbsandBeer19"                                                                                                                                    
+	   name="BewbsandBeer (Hidden Version)"                                                 
+	   version="1.1"                                                                                                                                        
+	   provider-name="Uncle Touchy">
+  <requires>
+	
+  </requires>
+  <extension point="xbmc.python.pluginsource"
+            library="default.py">
+        <provides></provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Bewbs and Beer, what more is there to say</summary>
+    <description lang="en">A mix of wet t-shit, bikini, drunk fails and nudity for fans of that. This addon is built using Shadow as a base, thanks go out to AA for his great work.</description>
+	
+    <platform>all</platform>
+	<assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
+    </assets>
+  </extension>
+  
+</addon>

@@ -1,0 +1,39 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Addons\n" #TVADDONS 
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "#9000"
+msgid "Addon has no configuration options."
+msgstr ""
+
+msgctxt "#9001"
+msgid ""
+msgstr ""
+
+msgctxt "#9002"
+msgid ""
+msgstr ""
+
+msgctxt "#9003"
+msgid ""
+msgstr ""
+
+msgctxt "#9004"
+msgid "Free Live TV"
+msgstr ""
+
+msgctxt "#9005"
+msgid "If outside the USA consider subscribing to a VPN service."
+msgstr ""
+
+msgctxt "#10000"
+msgid "Information"
+msgstr ""

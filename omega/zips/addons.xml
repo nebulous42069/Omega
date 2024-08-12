@@ -499,6 +499,69 @@
 				<screenshot />
 		</assets>
 	</extension>
+</addon><addon id="plugin.video.BewbsandBeer19" name="BewbsandBeer (Hidden Version)" version="1.1" provider-name="Uncle Touchy">
+  <requires>
+	
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides />
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Bewbs and Beer, what more is there to say</summary>
+    <description lang="en">A mix of wet t-shit, bikini, drunk fails and nudity for fans of that. This addon is built using Shadow as a base, thanks go out to AA for his great work.</description>
+	
+    <platform>all</platform>
+	<assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
+    </assets>
+  </extension>
+  
+</addon><addon id="plugin.video.adulthideout" name="AdultHideout (Hidden Version)" version="0.9.81-beta6" provider-name="Vashiel">
+	<requires>
+	
+	
+	<import addon="script.module.six" />
+	<import addon="script.module.kodi-six" />
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="default.py">
+				<provides />
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<news>
+v 0.9.81-beta6 24.09.2023
+- fixed Xhamster
+- fixed Uflash
+- fixed Ashemaletube
+- Added Content change (Xhamster, Xvideos)
+- fixed Video Quality in Xvideos (play best possible quality)
+- still experimenting
+		</news>
+		<summary>[COLOR red]XXX[/COLOR] Porn videos</summary>
+		<description>
+Internet [COLOR red]XXX Porn Video[COLOR white] Streams.
+
+[COLOR red][B]WARNING:[/B][COLOR red]Only for adults[/COLOR]	
+
+[COLOR white]Github:
+https://github.com/Vashiel/repository.adulthideout
+[/COLOR]	
+
+		</description>
+		<disclaimer>
+		</disclaimer>	
+		<platform>all</platform>
+		<license>http://www.gnu.org/licenses/</license>
+		<forum />
+		<website />    
+		<email />
+		<mainsource>https://github.com/Vashiel/repository.adulthideout</mainsource>    
+		<source /> 		
+		<assets>
+			<icon>resources/logos/icon.png</icon>
+			<fanart>resources/logos/fanart.jpg</fanart>
+		</assets>
+	</extension>
 </addon><addon id="plugin.video.bnwmovie19" name="Black and White Movies" version="420.1.0" provider-name="Anonymous">
   <requires>
     <import addon="xbmc.python" version="3.0.1" />
@@ -604,6 +667,31 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.cb20
         <fanart>fanart.jpg</fanart>
     </assets>
   </extension>
+</addon><addon id="plugin.video.cumination" name="Cumination (Hidden Version)" provider-name="Cumination" version="1.1.113">
+    <requires>
+        <import addon="script.module.six" />
+        <import addon="script.module.kodi-six" />
+        <import addon="script.module.resolveurl" version="5.0.00" />
+        <import addon="script.module.resolveurl.xxx" version="2.0.1" />
+        <import addon="script.common.plugin.cache" />
+        <import addon="script.module.websocket" version="0.50.0" />
+        <import addon="script.module.inputstreamhelper" />
+        <import addon="script.module.requests" />
+    </requires>
+    <extension library="default.py" point="xbmc.python.pluginsource">
+        <provides />
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <platform>all</platform>
+        <license>GPL 2.0</license>
+        <summary lang="en_GB">Cumination, the culmination of adult sites on Kodi</summary>
+        <description lang="en_GB">Cumination, the culmination of adult sites on Kodi</description>
+        <disclaimer lang="en_GB">The author does not host or distribute any of the content displayed by this addon. The author does not have any affiliation with the sites offered. Click on About from the contextmenu on each site to check for contact details.</disclaimer>
+        <assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
+        </assets>
+    </extension>
 </addon><addon id="plugin.video.fen" name="Fen" provider-name="Tikipeter" version="3.2.29">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
@@ -766,6 +854,27 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.cb20
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
+</addon><addon id="plugin.video.risque" name="Risque (Hidden Version)" version="1.2.0" provider-name="J1">
+	<requires>
+		<import addon="script.j1.artwork" />
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="default.py">
+		<provides />
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">It's not just slightly sexy, it's Risque. K19 compatible.</summary>
+		<description lang="en">It's not just slightly sexy, it's Risque. K19 compatible. Special Thanks to Uncle Touchy for original templates. Adapted for your pleasure by J1.</description>
+        <disclaimer lang="en">The author is not responsible for the use of this addon. The author is not responsible for the content found using this addon. The author does not host or own any content found within this addon.[CR]The author is in no way affiliated with Kodi, Team Kodi, or the XBMC Foundation.[CR]This is a Non-profit resource, organized solely for educational purposes which is protected under the Fair-Use doctrine of the Copyright Act, Specifically section 107, which does promote freedom of expression, by permitting the unlicensed use of copyright-protected works.</disclaimer>
+		<platform>all</platform>
+		<news />
+		<genre>All</genre>
+		<video_guide />
+		<video_preview />
+        <assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>			
+        </assets>
+	</extension>
 </addon><addon id="plugin.video.sc19" version="1.4.1" name="SC19" provider-name="aitschti">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
@@ -1395,6 +1504,33 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.sc19
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
+</addon><addon id="plugin.video.snatch" name="[COLORlime]Snatch 18+[/COLOR](Hiiden Version)" version="1.5" provider-name="">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0" />
+    <import addon="script.module.requests" />
+    <import addon="script.module.routing" />
+    <import addon="script.module.unidecode" />
+    <import addon="script.module.inputstreamhelper" />
+    <import addon="script.module.resolveurl" />
+    <import addon="script.module.microjenscrapers" />
+	<import addon="plugin.video.youtube" />
+	<import addon="plugin.video.dailymotion_com" />
+    
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+    <provides />
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en" />
+	<description lang="en">Password = "The Name Of" The Lady Who Did Dallas</description>
+    <platform>all</platform>
+    <language>en</language>
+    <license>GPL-2.0-or-later</license>
+	<assets>
+		<icon>icon.png</icon>
+		<fanart>fanart.jpg</fanart>
+  </assets>
+  </extension>
 </addon><addon id="plugin.video.thetvapp" name="The_TV_app" version="0.11" provider-name="xxxxxx">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
@@ -1442,6 +1578,40 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.sc19
     <assets>
         <icon>resources/images/icon.png</icon>
         <fanart>resources/images/fanart.jpg</fanart>
+    </assets>
+  </extension>
+</addon><addon id="plugin.video.videodevil" version="1.8.28" name="VideoDevil (Hidden Version)" provider-name="xbmc-adult">
+  <requires>
+    
+    
+    <import addon="script.module.six" />
+    <import addon="script.module.kodi-six" />
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+    <provides />
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="de_DE">Spielen Sie Videos von verschiedenen Streaming-Sites für Erwachsene ab</summary>
+    <summary lang="en_GB">Play videos from different adult streaming sites</summary>
+    <summary lang="fi_FI">Toista videoita aikuisten suoratoistosivustoilta</summary>
+    <summary lang="fr_FR">Lire des vidéos de différents sites de streaming pour adultes</summary>
+    <summary lang="pt_PT">Reproduza vídeos de diferentes sites de streaming adulto</summary>
+    <summary lang="sv_SE">Spela videor från olika streaming-webbplatser för vuxna</summary>
+    <description lang="de_DE">Dieses Addon spielt Videos von YouPorn, Tube8, Boysfood, MoviesAnd, PornoTube, xHamster, KeezMovies und einigen anderen Streaming-Sites für Erwachsene ab. Es enthält explizites Material für Erwachsene. Sie können dieses Addon nur anzeigen, wenn Sie mindestens 18 Jahre alt sind oder mindestens das Alter der Mehrheit in dem Land, in dem Sie wohnen oder von dem aus Sie auf diese Inhalte zugreifen. Wenn Sie diese Anforderungen nicht erfüllen, haben Sie keine Berechtigung, dieses Addon zu verwenden.</description>
+    <description lang="en_GB">This addon plays videos from YouPorn, Tube8, Boysfood, MoviesAnd, PornoTube, xHamster, KeezMovies and some other adult streaming sites. It contains explicit adult material. You may only view this addon if you are at least 18 years of age, or at least the age of majority in the jurisdiction where you reside or from which you access this content. If you do not meet these requirements, then you do not have permission to use this addon.</description>
+    <description lang="fi_FI">Tämä lisäosa toistaa videoita YouPorn, Tube8, Boysfood, MoviesAnd, PornoTube, xHamster, KeezMovies ja joistakin muista aikuisten suoratoistosivustoista. Se sisältää nimenomaista aikuisille tarkoitettua materiaalia. Voit tarkastella tätä lisäosaa vain, jos olet vähintään 18-vuotias tai vähintään täysi-ikäinen sen lainkäyttöalueella, jossa asut tai josta käytät tätä sisältöä. Jos et täytä näitä vaatimuksia, sinulla ei ole lupaa käyttää tätä lisäosaa.</description>
+    <description lang="fr_FR">Cet addon lit des vidéos de YouPorn, Tube8, Boysfood, MoviesAnd, PornoTube, xHamster, KeezMovies et d'autres sites de streaming pour adultes. Il contient du matériel explicite pour adultes. Vous ne pouvez voir cet addon que si vous avez au moins 18 ans, ou au moins l'âge de la majorité dans la juridiction où vous résidez ou à partir de laquelle vous accédez à ce contenu. Si vous ne remplissez pas ces conditions, vous n'êtes pas autorisé à utiliser ce module complémentaire.</description>
+    <description lang="pt_PT">Este complemento reproduz vídeos do YouPorn, Tube8, Boysfood, MoviesAnd, PornoTube, xHamster, KeezMovies e alguns outros sites de streaming adulto. Ele contém material adulto explícito. Você só pode visualizar este complemento se tiver pelo menos 18 anos de idade ou maioridade na jurisdição em que reside ou da qual acessa este conteúdo. Se você não atender a esses requisitos, não terá permissão para usar este complemento.</description>
+    <description lang="sv_SE">Denna addon spelar videor från YouPorn, Tube8, Boysfood, Movies And, PornoTube, xHamster, KeezMovies och några andra streamingwebbplatser för vuxna. Det innehåller tydligt vuxenmaterial. Du får bara se detta tillägg om du är minst 18 år, eller åtminstone majoritetsåldern i den jurisdiktion där du bor eller från vilken du får åtkomst till detta innehåll. Om du inte uppfyller dessa krav har du inte behörighet att använda detta tillägg.</description>
+    <disclaimer lang="de_DE">Der Autor hostet oder verbreitet keinen der von diesem Addon angezeigten Inhalte. Der Autor hat keine Verbindung zum Inhalteanbieter.</disclaimer>
+    <disclaimer lang="en_GB">The author does not host or distribute any of the content displayed by this addon. The author does not have any affiliation with the content provider.</disclaimer>
+    <disclaimer lang="fi_FI">Kirjoittaja ei isännöi tai jaa mitään tämän lisäosan näytettyä sisältöä. Kirjoittajalla ei ole mitään siteitä sisällöntuottajaan.</disclaimer>
+    <disclaimer lang="fr_FR">L'auteur n'héberge ni ne distribue aucun des contenus affichés par cet addon. L'auteur n'a aucune affiliation avec le fournisseur de contenu.</disclaimer>
+    <disclaimer lang="pt_PT">O autor não hospeda nem distribui nenhum conteúdo exibido por este complemento. O autor não tem nenhuma afiliação com o provedor de conteúdo.</disclaimer>
+    <disclaimer lang="sv_SE">Författaren är inte värd eller distribuerar något av innehållet som visas av detta tillägg. Författaren har ingen anknytning till innehållsleverantören.</disclaimer>
+    <platform>all</platform>
+    <assets>
+      <icon>icon.png</icon>
     </assets>
   </extension>
 </addon><addon id="plugin.video.watchnixtoons2" name="WatchNixtoons2" version="0.12.6" provider-name="WNT2">

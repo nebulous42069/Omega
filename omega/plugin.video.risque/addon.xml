@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.video.risque" name="Risque (Hidden Version)" version="1.2.0" provider-name="J1">
+	<requires>
+		<import addon="script.j1.artwork" />
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="default.py">
+		<provides></provides>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">It's not just slightly sexy, it's Risque. K19 compatible.</summary>
+		<description lang="en">It's not just slightly sexy, it's Risque. K19 compatible. Special Thanks to Uncle Touchy for original templates. Adapted for your pleasure by J1.</description>
+        <disclaimer lang="en">The author is not responsible for the use of this addon. The author is not responsible for the content found using this addon. The author does not host or own any content found within this addon.[CR]The author is in no way affiliated with Kodi, Team Kodi, or the XBMC Foundation.[CR]This is a Non-profit resource, organized solely for educational purposes which is protected under the Fair-Use doctrine of the Copyright Act, Specifically section 107, which does promote freedom of expression, by permitting the unlicensed use of copyright-protected works.</disclaimer>
+		<platform>all</platform>
+		<news></news>
+		<genre>All</genre>
+		<video_guide></video_guide>
+		<video_preview></video_preview>
+        <assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>			
+        </assets>
+	</extension>
+</addon>
