@@ -4035,13 +4035,9 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
     </assets>
     <news>See changelog for latest changes</news>
   </extension>
-</addon><addon id="skin.xenonplus" version="6.6" name="[B][COLOR gold]Xenon Plus[/COLOR][/B]  (Mid Power)" provider-name="Helly,bsoriano">
+</addon><addon id="skin.xenonplus" version="6.7" name="[B][COLOR gold]Xenon Plus[/COLOR][/B]  (Mid Power)" provider-name="Helly,bsoriano">
   <requires>
-    <import addon="xbmc.gui" version="5.17.0" />
-	<import addon="script.favourites" version="8.1.2" />
-	<import addon="script.image.resource.select" version="3.0.2" />
-    <import addon="script.skinshortcuts" version="1.0.0" />
-    <import addon="script.module.xenonpluss" version="1.0.0" />	
+    <import addon="xbmc.gui" version="5.17.0" />	
   </requires>
   <extension point="xbmc.gui.skin" debugging="false" effectslowdown=".5">
     <res width="1920" height="1080" aspect="16:9" default="true" folder="xml" />
