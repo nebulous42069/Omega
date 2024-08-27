@@ -3,8 +3,8 @@
         "icon": "https://kodiapps.com/sharex/dllhost_2020-02-05_12-07-32.jpg",
         "items": [
             {
-                "name": "Install FEN (DEBRID ONLY)",
-                "url": "installaddon(plugin.video.fen)"
+                "name": "Install FEN Light (DEBRID ONLY)",
+                "url": "installaddon(plugin.video.fenlight)"
             },			
             {
                 "name": "Install Seren (DEBRID ONLY)",
@@ -19,16 +19,12 @@
                 "url": "installaddon(plugin.video.pov)"
             },
             {
-                "name": "Install Coalition (DEBRID ONLY)",
+                "name": "Install The Coalition (DEBRID ONLY)",
                 "url": "installaddon(plugin.video.coalition)"
             },
             {
                 "name": "Install Asgard (FREE AND DEBRID)",
                 "url": "installaddon(plugin.video.asgard)"
-            },						
-            {
-                "name": "Install Shadow (DEBRID ONLY)",
-                "url": "installaddon(plugin.video.shadow)"
             },			
             {
                 "name": "Install Diggz Free99 (FREE)",
@@ -39,8 +35,8 @@
                 "url": "installaddon(plugin.video.thecrew)"
             },
             {
-                "name": "Install Magic Dragon (FREE AND DEBRID)",
-                "url": "installaddon(plugin.video.magicdragon)"
+                "name": "Install Elementum (Free Torrents- VPN Required!!)",
+                "url": "installaddon(plugin.video.elementum)"
             }			
         ]
     },
