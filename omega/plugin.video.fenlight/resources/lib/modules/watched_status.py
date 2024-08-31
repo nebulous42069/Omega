@@ -11,7 +11,7 @@ from modules.utils import get_datetime, adjust_premiered_date, sort_for_article,
 sleep, progressDialogBG, Thread, get_video_database_path = kodi_utils.sleep, kodi_utils.progressDialogBG, kodi_utils.Thread, kodi_utils.get_video_database_path
 notification, kodi_refresh = kodi_utils.notification, kodi_utils.kodi_refresh
 watched_indicators_function, lists_sort_order, date_offset, nextep_method = settings.watched_indicators, settings.lists_sort_order, settings.date_offset, settings.nextep_method
-tmdb_api_key = settings.tmdb_api_key
+tmdb_api_key, mpaa_region = settings.tmdb_api_key, settings.mpaa_region
 progress_db_string = 'fenlight_hidden_progress_items'
 indicators_dict = {0: 'watched_db', 1: 'trakt_db'}
 
@@ -61,14 +61,14 @@ def refresh_container(refresh=True):
 def active_tvshows_information(status_type):
 	def _process(item):
 		media_id = item['media_id']
-		meta = metadata.tvshow_meta('tmdb_id', media_id, api_key, get_datetime())
+		meta = metadata.tvshow_meta('tmdb_id', media_id, api_key, mpaa_region_value, get_datetime())
 		watched_status = get_watched_status_tvshow(watched_info[media_id], meta.get('total_aired_eps'))
 		if watched_status[0] == status_check: results_append(item)
 	results = []
 	results_append = results.append
 	watched_indicators = watched_indicators_function()
 	watched_info = watched_info_tvshow()
-	api_key = tmdb_api_key()
+	api_key, mpaa_region_value = tmdb_api_key(), mpaa_region()
 	data = [v for k, v in watched_info.items()]
 	if status_type == 'progress': status_check = 0
 	else: status_check = 1
@@ -185,7 +185,7 @@ def erase_bookmark(media_type, media_id, season='', episode='', refresh='false')
 		watched_db = get_database(watched_indicators)
 		if watched_indicators == 1:
 			try:
-				if media_type == 'episode': resume_id = get_bookmarks_episode(str(media_id), season, watched_db)[episode]['resume_id']
+				if media_type == 'episode': resume_id = get_bookmarks_episode(str(media_id), season, watched_db)[int(episode)]['resume_id']
 				else: resume_id = get_bookmarks_movie()[str(media_id)]['resume_id']
 				sleep(1000)
 				trakt_progress('clear_progress', media_type, media_id, 0, season, episode, resume_id)
@@ -203,9 +203,9 @@ def batch_erase_bookmark(watched_indicators, insert_list, action):
 			def _process():
 				for i in insert_list:
 					try:
-						media_id, season, episode = insert_list[1], insert_list[2], insert_list[3]
-						resume_id = get_bookmarks_episode(str(media_id), season, watched_db)[episode]['resume_id']
-						sleep(1100)
+						media_id, season, episode = i[1], i[2], i[3]
+						resume_id = get_bookmarks_episode(str(media_id), season, watched_db)[int(episode)]['resume_id']
+						sleep(1000)
 						trakt_progress('clear_progress', i[0], i[1], 0, i[2], i[3], resume_id)
 					except: pass
 			Thread(target=_process).start()
@@ -257,7 +257,7 @@ def mark_tvshow(params):
 	current_date = get_datetime()
 	insert_list = []
 	insert_append = insert_list.append
-	meta = metadata.tvshow_meta('tmdb_id', tmdb_id, tmdb_api_key(), get_datetime())
+	meta = metadata.tvshow_meta('tmdb_id', tmdb_id, tmdb_api_key(), mpaa_region(), get_datetime())
 	season_data = meta['season_data']
 	season_data = [i for i in season_data if i['season_number'] > 0]
 	total = len(season_data)
@@ -292,7 +292,7 @@ def mark_season(params):
 		clear_trakt_collection_watchlist_data('watchlist', 'tvshow')
 	progressDialogBG.create('[B]Please Wait..[/B]', '')
 	current_date = get_datetime()
-	meta = metadata.tvshow_meta('tmdb_id', tmdb_id, tmdb_api_key(), get_datetime())
+	meta = metadata.tvshow_meta('tmdb_id', tmdb_id, tmdb_api_key(), mpaa_region(), get_datetime())
 	ep_data = metadata.episodes_meta(season, meta)
 	last_played = get_last_played_value(watched_indicators)
 	for count, item in enumerate(ep_data, 1):
@@ -308,15 +308,15 @@ def mark_season(params):
 	refresh_container()
 
 def mark_episode(params):
+	season, episode, title = int(params.get('season')), int(params.get('episode')), params.get('title')
+	if season == 0: return notification('Failed')
 	action, media_type = params.get('action'), 'episode'
 	refresh, from_playback = params.get('refresh', 'true') == 'true', params.get('from_playback', 'false') == 'true'
 	if from_playback: refresh = False
 	tmdb_id = params.get('tmdb_id')
 	try: tvdb_id = int(params.get('tvdb_id', '0'))
 	except: tvdb_id = 0
-	season, episode, title = int(params.get('season')), int(params.get('episode')), params.get('title')
 	watched_indicators = watched_indicators_function()
-	if season == 0: notification('Failed'); return
 	if watched_indicators == 1:
 		if from_playback == 'true' and trakt_official_status(media_type) == False: sleep(1000)
 		elif not trakt_watched_status_mark(action, media_type, tmdb_id, tvdb_id, season, episode): return notification('Error')

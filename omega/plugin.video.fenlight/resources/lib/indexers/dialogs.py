@@ -10,17 +10,16 @@ from modules.utils import get_datetime, title_key, adjust_premiered_date, append
 # logger = kodi_utils.logger
 
 ok_dialog, container_content, close_all_dialog, external = kodi_utils.ok_dialog, kodi_utils.container_content, kodi_utils.close_all_dialog, kodi_utils.external
-set_property, get_icon, dialog, open_settings = kodi_utils.set_property, kodi_utils.get_icon, kodi_utils.dialog, kodi_utils.open_settings
+set_property, get_icon, dialog, open_settings, folder_path = kodi_utils.set_property, kodi_utils.get_icon, kodi_utils.dialog, kodi_utils.open_settings, kodi_utils.folder_path
 show_busy_dialog, hide_busy_dialog, notification, confirm_dialog = kodi_utils.show_busy_dialog, kodi_utils.hide_busy_dialog, kodi_utils.notification, kodi_utils.confirm_dialog
 external_scraper_settings, kodi_refresh, autoscrape_next_episode = kodi_utils.external_scraper_settings, kodi_utils.kodi_refresh, settings.autoscrape_next_episode
 json, select_dialog, autoplay_next_episode, quality_filter = kodi_utils.json, kodi_utils.select_dialog, settings.autoplay_next_episode, settings.quality_filter
 numeric_input, container_update, activate_window = kodi_utils.numeric_input, kodi_utils.container_update, kodi_utils.activate_window
-poster_empty, parse_qsl, get_infolabel, audio_filters = kodi_utils.empty_poster, kodi_utils.parse_qsl, kodi_utils.get_infolabel, settings.audio_filters
+poster_empty, audio_filters, mpaa_region = kodi_utils.empty_poster, settings.audio_filters, settings.mpaa_region
 extras_button_label_values, jsonrpc_get_addons, tmdb_api_key = kodi_utils.extras_button_label_values, kodi_utils.jsonrpc_get_addons, settings.tmdb_api_key
 extras_enabled_menus, active_internal_scrapers, auto_play = settings.extras_enabled_menus, settings.active_internal_scrapers, settings.auto_play
-quality_filter, date_offset, extras_videos_default, trakt_user_active = settings.quality_filter, settings.date_offset, settings.extras_videos_default, settings.trakt_user_active
-single_ep_list = ('episode.progress', 'episode.recently_watched', 'episode.next_trakt', 'episode.next_fenlight', 'episode.trakt_recently_aired', 'episode.trakt_calendar')
-scraper_names = ['EXTERNAL SCRAPERS', 'EASYNEWS', 'RD CLOUD', 'PM CLOUD', 'AD CLOUD', 'FOLDERS 1-5']
+quality_filter, date_offset, trakt_user_active = settings.quality_filter, settings.date_offset, settings.trakt_user_active
+single_ep_list, scraper_names = kodi_utils.single_ep_list, kodi_utils.scraper_names
 
 def tmdb_api_check_choice(params):
 	from apis.tmdb_api import movie_details
@@ -69,34 +68,6 @@ def audio_filters_choice(params={}):
 	if selection == []: set_setting('filter_audio', 'empty_setting')
 	else: set_setting('filter_audio', ', '.join(selection))
 
-def trailer_choice(params):
-	media_type, poster, tmdb_id, trailer_url, all_trailers = params['media_type'], params['poster'], params['tmdb_id'], params['trailer_url'], params['all_trailers']
-	if not trailer_url and not all_trailers:
-		show_busy_dialog()
-		from apis.tmdb_api import tmdb_media_videos
-		try: all_trailers = tmdb_media_videos(media_type, tmdb_id)['results']
-		except: pass
-		hide_busy_dialog()
-	if all_trailers:
-		if len(all_trailers) == 1: video_id = all_trailers[0].get('key')
-		else:
-			from modules.utils import clean_file_name
-			def _sort_trailers():
-				official_trailers = [i for i in all_trailers if i['type'] == 'Trailer' and i['name'].lower() == 'official trailer']
-				other_official_trailers = [i for i in all_trailers if i['type'] == 'Trailer' and 'official' in i['name'].lower() and not i in official_trailers]
-				other_trailers = [i for i in all_trailers if i['type'] == 'Trailer' and not i in official_trailers  and not i in other_official_trailers]
-				teaser_trailers = [i for i in all_trailers if i['type'] == 'Teaser']
-				full_trailers = official_trailers + other_official_trailers + other_trailers + teaser_trailers
-				features = [i for i in all_trailers if not i in full_trailers]
-				return full_trailers + features
-			sorted_trailers = _sort_trailers()
-			list_items = [{'line1': clean_file_name(i['name']), 'icon': poster} for i in sorted_trailers]
-			kwargs = {'items': json.dumps(list_items)}
-			video_id = select_dialog([i['key'] for i in sorted_trailers], **kwargs)
-			if video_id == None: return 'canceled'
-		trailer_url = 'plugin://plugin.video.youtube/play/?video_id=%s' % video_id
-	return trailer_url
-
 def genres_choice(params):
 	genres_list, genres, poster = params['genres_list'], params['genres'], params['poster']
 	genre_list = [i for i in genres_list if i['name'] in genres]
@@ -122,20 +93,6 @@ def keywords_choice(params):
 	list_items = [{'line1': i['name'], 'icon': poster} for i in results]
 	kwargs = {'items': json.dumps(list_items)}
 	return select_dialog([i['id'] for i in results], **kwargs)
-
-def imdb_videos_choice(params):
-	videos, poster = params['videos'], params['poster']
-	try: videos = json.loads(videos)
-	except: pass
-	default_quality = extras_videos_default()
-	if default_quality:
-		quality = {1: '1080p', 2: '720p', 3: '480p', 4: '360p'}[default_quality]
-		chosen_video = next((i for i in videos if i['quality'] == quality), None)
-		if chosen_video: return chosen_video['url']
-	videos.sort(key=lambda x: x['quality_rank'])
-	list_items = [{'line1': i['quality'], 'icon': poster} for i in videos]
-	kwargs = {'items': json.dumps(list_items)}
-	return select_dialog([i['url'] for i in videos], **kwargs)
 
 def random_choice(params):
 	meta, poster, return_choice = params.get('meta'), params.get('poster'), params.get('return_choice', 'false')
@@ -169,7 +126,7 @@ def playback_choice(params):
 	except: pass
 	if not isinstance(meta, dict):
 		function = metadata.movie_meta if media_type == 'movie' else metadata.tvshow_meta
-		meta = function('tmdb_id', meta, tmdb_api_key(), get_datetime())
+		meta = function('tmdb_id', meta, tmdb_api_key(), mpaa_region(), get_datetime())
 	aliases = get_aliases_titles(make_alias_dict(meta, meta['title']))
 	items = [{'line': 'Select Source', 'function': 'scrape'},
 			{'line': 'Rescrape & Select Source', 'function': 'clear_and_rescrape'},
@@ -343,8 +300,9 @@ def extras_buttons_choice(params):
 	return extras_buttons_choice({'button_dict': button_dict, 'orig_button_dict': orig_button_dict, 'media_type': media_type})
 
 def extras_lists_choice(params={}):
-	choices = [('Plot', 2000), ('Cast', 2050), ('Recommended', 2051), ('Reviews', 2052), ('Comments', 2053), ('Trivia', 2054), ('Blunders', 2055), ('Parental Guide', 2056),
-				('Videos', 2057), ('More from Year', 2058), ('More from Genres', 2059),	('More from Networks', 2060), ('More from Collection', 2061)]
+	choices = [('Plot', 2000), ('Cast', 2050), ('Recommended', 2051), ('More Like This', 2052), ('Reviews', 2053), ('Comments', 2054), ('Trivia', 2055),
+			('Blunders', 2056), ('Parental Guide', 2057), ('In Trakt Lists', 2058), ('Videos', 2059), ('More from Year', 2060), ('More from Genres', 2061),
+			('More from Networks', 2062), ('More from Collection', 2063)]
 	list_items = [{'line1': i[0]} for i in choices]
 	current_settings = extras_enabled_menus()
 	try: preselect = [choices.index(i) for i in choices if i[1] in current_settings]
@@ -358,23 +316,20 @@ def extras_lists_choice(params={}):
 
 def set_language_filter_choice(params):
 	from modules.meta_lists import language_choices
-	filter_setting = params.get('filter_setting')
-	multi_choice = params.get('multi_choice', 'false')
-	include_none = params.get('include_none', 'false')
+	filter_setting_id, multi_choice, include_none = params.get('filter_setting_id'), params.get('multi_choice', 'false'), params.get('include_none', 'false')
 	lang_choices = language_choices
 	if include_none == 'false': lang_choices.pop('None')
-	dl = list(lang_choices.keys())
-	fl = list(lang_choices.values())
-	try: preselect = [fl.index(i) for i in get_setting('fenlight.%s' % filter_setting).split(', ')]
+	dl, fl = list(lang_choices.keys()), list(lang_choices.values())
+	try: preselect = [fl.index(i) for i in get_setting('fenlight.%s' % filter_setting_id).split(', ')]
 	except: preselect = []
 	list_items = [{'line1': item} for item in dl]
 	kwargs = {'items': json.dumps(list_items), 'multi_choice': multi_choice, 'preselect': preselect}
 	choice = select_dialog(fl, **kwargs)
 	if choice == None: return
 	if multi_choice == 'true':
-		if choice == []: set_setting(filter_setting, 'eng')
-		else: set_setting(filter_setting, ', '.join(choice))
-	else: set_setting(filter_setting, choice)
+		if choice == []: set_setting(filter_setting_id, 'eng')
+		else: set_setting(filter_setting_id, ', '.join(choice))
+	else: set_setting(filter_setting_id, choice)
 
 def enable_scrapers_choice(params={}):
 	icon = params.get('icon', None) or get_icon('fenlight')
@@ -408,7 +363,7 @@ def results_format_choice(params={}):
 	if choice: set_setting('results.list_format', choice)
 
 def clear_favorites_choice(params={}):
-	fl = [('Clear Movies Favorites', 'movie'), ('Clear TV Show Favorites', 'tvshow')]
+	fl = [('Clear Movies Favorites', 'movie'), ('Clear TV Show Favorites', 'tvshow'), ('Clear People Favorites', 'people')]
 	list_items = [{'line1': item[0]} for item in fl]
 	kwargs = {'items': json.dumps(list_items), 'narrow_window': 'true'}
 	media_type = select_dialog([item[1] for item in fl], **kwargs)
@@ -419,18 +374,25 @@ def clear_favorites_choice(params={}):
 	notification('Success', 3000)
 
 def favorites_choice(params):
-	media_type, tmdb_id, title = params.get('media_type'), params.get('tmdb_id'), params.get('title')
 	from caches.favorites_cache import favorites_cache
+	media_type, tmdb_id, title = params.get('media_type'), params.get('tmdb_id'), params.get('title')
 	current_favorites = favorites_cache.get_favorites(media_type)
-	if any(i['tmdb_id'] == tmdb_id for i in current_favorites): function, text, refresh = favorites_cache.delete_favourite, 'Remove From Favorites?', 'true'
-	else: function, text, refresh = favorites_cache.set_favourite, 'Add To Favorites?', 'false'
-	if not confirm_dialog(heading=title, text=text): return
+	people_favorite = media_type == 'people'
+	current_favorite = any(i['tmdb_id'] == tmdb_id for i in current_favorites)
+	if current_favorite:
+		function, text = favorites_cache.delete_favourite, 'Remove From Favorites?'
+		param_refresh = params.get('refresh', None)
+		if param_refresh == None: refresh = any(i in folder_path() for i in ('action=favorites_movies', 'action=favorites_tvshows'))
+		else: refresh = param_refresh == 'true'
+	else: function, text, refresh = favorites_cache.set_favourite, 'Add To Favorites?', False
+	heading = title.split('|')[0] if people_favorite else title
+	if not confirm_dialog(heading=heading, text=text): return
 	success = function(media_type, tmdb_id, title)
-	refresh = params.get('refresh', refresh)
 	if success:
-		if refresh == 'true': kodi_refresh()
+		if refresh: kodi_refresh()
 		notification('Success', 3500)
 	else: notification('Error', 3500)
+	if people_favorite and success: return text
 
 def scraper_color_choice(params):
 	setting = params.get('setting_id')
@@ -445,6 +407,18 @@ def scraper_color_choice(params):
 def color_choice(params):
 	return open_window(('windows.color', 'SelectColor'), 'color.xml', current_setting=params.get('current_setting', None))
 
+def mpaa_region_choice(params={}):
+	from modules.meta_lists import regions
+	regions.sort(key=lambda x: x['name'])
+	list_items = [{'line1': i['name']} for i in regions]
+	kwargs = {'items': json.dumps(list_items), 'heading': 'Set MPAA Region', 'narrow_window': 'true'}
+	choice = select_dialog(regions, **kwargs)
+	if choice == None: return None
+	from caches.meta_cache import delete_meta_cache
+	set_setting('mpaa_region', choice['id'])
+	set_setting('mpaa_region_display_name', choice['name'])
+	delete_meta_cache(silent=True)
+
 def options_menu_choice(params, meta=None):
 	params_get = params.get
 	tmdb_id, content, poster = params_get('tmdb_id', None), params_get('content', None), params_get('poster', None)
@@ -454,7 +428,7 @@ def options_menu_choice(params, meta=None):
 	if content.startswith('episode.'): content = 'episode'
 	if not meta:
 		function = metadata.movie_meta if content == 'movie' else metadata.tvshow_meta
-		meta = function('tmdb_id', tmdb_id, tmdb_api_key(), get_datetime())
+		meta = function('tmdb_id', tmdb_id, tmdb_api_key(), mpaa_region(), get_datetime())
 	meta_get = meta.get
 	if menu_type == 'movie': collection_id, collection_name = meta_get('extra_info').get('collection_id', None), meta_get('extra_info').get('collection_name', None)
 	else: collection_id, collection_name = None, None
@@ -466,7 +440,6 @@ def options_menu_choice(params, meta=None):
 		if menu_type in ('movie', 'episode'): listing_append(('Playback Options', 'Scrapers Options', 'playback_choice'))
 		if trakt_user_active(): listing_append(('Trakt Lists Manager', '', 'trakt_manager'))
 		listing_append(('Favorites Manager', '', 'favorites_choice'))
-	if menu_type in single_ep_list: listing_append(('Browse', 'Browse %s' % title, 'browse'))
 	if menu_type == 'tvshow': listing_append(('Play Random', 'Based On %s' % rootname, 'random'))
 	if menu_type in ('movie', 'episode') or menu_type in single_ep_list:
 		base_str1, base_str2, on_str, off_str = '%s%s', 'Currently: [B]%s[/B]', 'On', 'Off'
@@ -517,10 +490,6 @@ def options_menu_choice(params, meta=None):
 		return external_scraper_settings()
 	if choice == 'playback_choice':
 		return playback_choice({'media_type': content, 'poster': poster, 'meta': meta, 'season': season, 'episode': episode})
-	if choice == 'browse':
-		return window_function({'mode': 'build_season_list', 'tmdb_id': tmdb_id})
-	if choice == 'browse_season':
-		return window_function({'mode': 'build_episode_list', 'tmdb_id': tmdb_id, 'season': season})
 	if choice == 'nextep_manager':
 		return window_function({'mode': 'build_next_episode_manager'})
 	if choice == 'random':
@@ -547,22 +516,15 @@ def extras_menu_choice(params):
 	if not stacked: show_busy_dialog()
 	media_type = params['media_type']
 	function = metadata.movie_meta if media_type == 'movie' else metadata.tvshow_meta
-	meta = function('tmdb_id', params['tmdb_id'], tmdb_api_key(), get_datetime())
+	meta = function('tmdb_id', params['tmdb_id'], tmdb_api_key(), mpaa_region(), get_datetime())
 	if not stacked: hide_busy_dialog()
 	open_window(('windows.extras', 'Extras'), 'extras.xml', meta=meta, is_external=params.get('is_external', 'true' if external() else 'false'),
 															options_media_type=media_type, starting_position=params.get('starting_position', None))
 
-def custom_key_extras_menu_choice(params):
-	try:
-		params = dict(parse_qsl(get_infolabel('ListItem.Property(fenlight.extras_params)').split('plugin://plugin.video.fenlight/?')[1], keep_blank_values=True))
-		if params: extras_menu_choice(params)
-	except: pass
-
-def custom_key_options_menu_choice(params):
-	try:
-		params = dict(parse_qsl(get_infolabel('ListItem.Property(fenlight.options_params)').split('plugin://plugin.video.fenlight/?')[1], keep_blank_values=True))
-		if params: options_menu_choice(params)
-	except: pass
+def open_movieset_choice(params):
+	hide_busy_dialog()
+	window_function = activate_window if params['is_external'] in (True, 'True', 'true') else container_update
+	return window_function({'mode': 'build_movie_list', 'action': 'tmdb_movies_sets', 'key_id': params['key_id'], 'name': params['name']})
 
 def media_extra_info_choice(params):
 	media_type, meta = params.get('media_type'), params.get('meta')

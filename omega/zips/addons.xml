@@ -472,6 +472,33 @@
     </menu>
   </extension>
 
+</addon><addon id="plugin.program.xenon2" name="Xenon 2 Flavors" version="4" provider-name="Diggz">
+	<requires>
+		<import addon="xbmc.python" version="3.0.0" />
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="addon.py">
+		<provides>executable</provides>
+	</extension>
+	
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB" />
+		<description lang="en_GB" />
+		<disclaimer lang="en_GB">This Addon contains no content</disclaimer>
+		<language>en</language>
+		<platform>all</platform>
+		<license>GPL-2.0-or-later</license>
+		<forum />
+		<website /> 
+		<email />
+		<source />
+		<assets>
+				<icon>resources/icon.png</icon>
+				<fanart>resources/fanart.jpg</fanart>
+				<banner />
+				<clearlogo />
+				<screenshot />
+		</assets>
+	</extension>
 </addon><addon id="plugin.video.BewbsandBeer19" name="BewbsandBeer (Hidden Version)" version="1.1" provider-name="Uncle Touchy">
   <requires>
 	
@@ -659,7 +686,7 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.cb20
         </assets>
         <news>INFO: For latest changes see Changelog within Tools of add-on.</news>
     </extension>
-</addon><addon id="plugin.video.fenlight" name="Fen Light" provider-name="Tikipeter" version="1.0.62">
+</addon><addon id="plugin.video.fenlight" name="Fen Light" provider-name="Tikipeter" version="1.0.71">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
         <import addon="script.module.requests" version="2.19.1" />
@@ -670,7 +697,7 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.cb20
     <extension library="resources/lib/service.py" point="xbmc.service" />
     <extension library="resources/lib/" point="xbmc.python.module" />
     <extension point="xbmc.addon.metadata">
-        <reuselanguageinvoker>true</reuselanguageinvoker>
+        <reuselanguageinvoker>false</reuselanguageinvoker>
         <summary lang="en">Access your content from Easynews and Debrid Clouds.</summary>
         <description lang="en">This add-on is intended for advanced Kodi users only. You must own the content of any media you play through this addon. This is an English language only add-on.</description>
         <platform>all</platform>
@@ -3934,7 +3961,7 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
             -Various changes so skin would install on Matrix
         </news>
     </extension>
-</addon><addon id="skin.xenon2" version="426.99.4" name="[B][COLOR gold]XENON 2[/COLOR][/B]  (Mid Power)" provider-name="SiLVO, Diggz">
+</addon><addon id="skin.xenon2" version="427.99.4" name="[B][COLOR gold]XENON 2[/COLOR][/B]  (Mid Power)" provider-name="SiLVO, Diggz">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0" />
 		<import addon="script.skinshortcuts" version="2.0.1" />
@@ -3984,7 +4011,7 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
     </assets>
     <news>See changelog for latest changes</news>
   </extension>
-</addon><addon id="skin.xenonburst2" version="426.99.4" name="[B][COLOR gold]XENON Burst 2[/COLOR][/B]  (Mid Power)" provider-name="SiLVO, Diggz">
+</addon><addon id="skin.xenonburst2" version="427.99.4" name="[B][COLOR gold]XENON Burst 2[/COLOR][/B]  (Mid Power)" provider-name="SiLVO, Diggz">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0" />
 		<import addon="script.skinshortcuts" version="2.0.1" />

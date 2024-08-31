@@ -71,7 +71,7 @@
                                     <icon>special://skin/extras/screenshots/widgets/diggzkids.png</icon>
                                     <visible>String.IsEmpty(Window(Home).Property(WizardStep))</visible>
                                     <onclick>installaddon(skin.diggzkids)</onclick>
-                                </item>								
+                                </item>							
                                 <item>
                                     <label>Install Diggz Xenon</label>
                                     <icon>special://skin/extras/screenshots/widgets/xenon.png</icon>
@@ -96,6 +96,12 @@
                                     <visible>String.IsEmpty(Window(Home).Property(WizardStep))</visible>
                                     <onclick>InstallAddon(skin.xenonburst)</onclick>
                                 </item>
+                                <item>
+                                    <label>Install Diggz ArcticFlix</label>
+                                    <icon>special://skin/extras/screenshots/widgets/arcticflix.png</icon>
+                                    <visible>String.IsEmpty(Window(Home).Property(WizardStep))</visible>
+                                    <onclick>installaddon(skin.arctic.horizon.2)</onclick>
+                                </item>									
                                 <item>
                                     <label>Install Fentastic</label>
                                     <icon>special://skin/extras/screenshots/widgets/fentastic.png</icon>
@@ -194,7 +200,7 @@
                                     </item>
                                     <item>
                                         <label>DEBID ONLY</label>
-                                        <visible>String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/xenon.png)| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/xenon2.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/fentastic.png)| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/diggzflix.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/fenflix.png)| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/eminence.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/serenflix.png)| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/umbrellaflix.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/phenomenal.png)</visible>
+                                        <visible>String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/xenon.png)| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/xenon2.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/fentastic.png)| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/diggzflix.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/fenflix.png)| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/eminence.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/serenflix.png)| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/umbrellaflix.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/phenomenal.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/arcticflix.png)</visible>
                                     </item>
                                     <item>
                                         <label>Netflix Style</label>
@@ -241,15 +247,15 @@
                                 <content>
                                     <item>
                                         <label>No Free Movies</label>
-                                        <visible>String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/xenon.png)| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/xenon2.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/fentastic.png)| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/diggzflix.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/fenflix.png)| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/eminence.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/serenflix.png)| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/umbrellaflix.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/phenomenal.png)</visible>
+                                        <visible>String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/xenon.png)| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/xenon2.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/fentastic.png)| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/diggzflix.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/fenflix.png)| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/eminence.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/serenflix.png)| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/umbrellaflix.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/phenomenal.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/arcticflix.png)</visible>
                                     </item>
                                     <item>
                                         <label>No Free TV Shows</label>
-                                        <visible>String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/xenon.png)| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/xenon2.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/fentastic.png)| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/diggzflix.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/fenflix.png)| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/eminence.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/serenflix.png)| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/umbrellaflix.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/phenomenal.png)</visible>
+                                        <visible>String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/xenon.png)| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/xenon2.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/fentastic.png)| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/diggzflix.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/fenflix.png)| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/eminence.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/serenflix.png)| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/umbrellaflix.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/phenomenal.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/arcticflix.png)</visible>
                                     </item>
                                     <item>
                                         <label>No Mouse/Touchscreen</label>
-                                        <visible> String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/diggzflix.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/fenflix.png)| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/serenflix.png)| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/umbrellaflix.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/phenomenal.png)</visible>
+                                        <visible> String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/diggzflix.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/fenflix.png)| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/serenflix.png)| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/umbrellaflix.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/phenomenal.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/arcticflix.png)</visible>
                                     </item>										
                                     <item>
                                         <label>No Debrid</label>

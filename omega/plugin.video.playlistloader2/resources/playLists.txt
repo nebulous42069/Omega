@@ -25,14 +25,5 @@
         "epg": "",
         "cache": 60,
         "uuid": "754f9154-336c-4b15-be53-895fc9e767d6"
-    },
-    {
-        "name": "The_Tv_App",
-        "url": "https://int.klcis.cc/klcis.m3u?key=d7d36e",
-        "image": "special://home/addons/resource.images.skinicons.wide/resources/icons/thetvapp.png",
-        "logos": "",
-        "epg": "",
-        "cache": 5,
-        "uuid": "77f7ccaa-b147-4e6b-9992-72962e59a59a"
     }
 ]

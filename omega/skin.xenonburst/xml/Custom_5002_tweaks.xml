@@ -143,16 +143,9 @@
 					<onclick>ActivateWindow(servicesettings,filecache.memorysize)</onclick>
 				</item>							
 				<item>
-					<label>- [B]Clear Cache[/B]</label>
-					<onclick>PlayMedia(&quot;plugin://program.RockCleaner-Classic/?url=url&amp;mode=1&amp;name=%5BCOLOR+red%5D%5BB%5D%5BI%5DClear+Cache%5B%2FI%5D%5B%2FB%5D%5B%2FCOLOR%5D&quot;)</onclick>
-				</item>					
-				<item>
-					<label>- [B]Clear Packages[/B]</label>
-					<onclick>PlayMedia(&quot;plugin://plugin.program.chef21/?url=&amp;mode=6&amp;name=%5BB%5D%5BCOLOR+snow%5DClear+Packages%5B%2FCOLOR%5D%5B%2FB%5D&amp;icon=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.chef21%5Cresources%5Cicon.png&amp;fanart=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.chef21%5Cresources%5Cfanart.jpg&amp;description=%5BB%5D%5BCOLOR+deepskyblue%5DClear+the+packages+folder+to+free+up+space.%5B%2FCOLOR%5D%5B%2FB%5D&amp;name2=&amp;version=&quot;)</onclick>
-				</item>
-				<item>
-					<label>- [B]Clear Thumbnails[/B]</label>
-					<onclick>PlayMedia(&quot;plugin://plugin.program.chef21/?url=&amp;mode=7&amp;name=%5BB%5D%5BCOLOR+snow%5DClear+Thumbnails%5B%2FCOLOR%5D%5B%2FB%5D&amp;icon=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.chef21%5Cresources%5Cicon.png&amp;fanart=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.chef21%5Cresources%5Cfanart.jpg&amp;description=%5BB%5D%5BCOLOR+snow%5DDelete+the+Thumbnails+folder+and+Textures13+database+file.+You+should+only+delete+these+if+you+want+to+free+up+space.+Reboot+Kodi+for+thumbnails+to+repopulate.%5B%2FCOLOR%5D%5B%2FB%5D&amp;name2=&amp;version=&quot;)</onclick>
+					<label>- [B]Maintenance[/B]</label>
+					<onclick>Dialog.Close(5002)</onclick>					
+					<onclick>ActivateWindow(10001,"plugin://script.ezmaintenanceplus/?action=maintenance&amp;description&amp;fanart=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cscript.ezmaintenanceplus%5cfanart.jpg&amp;icon=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cscript.ezmaintenanceplus%5cicon.png&amp;name=%5bCOLOR%20white%5d%5bB%5dMAINTENANCE%5b%2fB%5d%5b%2fCOLOR%5d&amp;url=ur",return)</onclick>
 				</item>			
 				<item>
 					<label>- [B]Download Wallpapers[/B]</label>

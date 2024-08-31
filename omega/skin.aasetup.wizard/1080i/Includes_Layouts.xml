@@ -52,7 +52,7 @@
                             <texture background="true" border="20" colordiffuse="panel_bg_70">common/box.png</texture>
                         </control>
                         <control type="image">
-                            <aspectratio scalediffuse="false">scale</aspectratio>
+                            <aspectratio scalediffuse="false">stretch</aspectratio>
                             <texture background="true" diffuse="diffuse/landscape_w720_h405.png">$INFO[ListItem.Icon]</texture>
                         </control>
                         <control type="group">

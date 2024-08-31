@@ -1,5 +1,47 @@
 [COLOR darkgoldenrod]GOD BLESS HIM AND KEEP HIM SAFE.[/COLOR]
 
+[COLOR dodgerblue][B]Version 1.0.71[/B][/COLOR]
+- Quick fix for choosing Easynews language filters.
+
+[COLOR dodgerblue][B]Version 1.0.70[/B][/COLOR]
+- Quick fix for Extras Videos.
+
+[COLOR dodgerblue][B]Version 1.0.69[/B][/COLOR]
+- Quick fix for Trakt Lists Liking/Unliking in Extras window.
+
+[COLOR dodgerblue][B]Version 1.0.67/68[/B][/COLOR]
+- Added "People" option to Favorites to go along with Movies and TV Shows.
+- Added spoken language info to Extras. Metacache will need to be cleared to see this.
+- Added "Close All Dialogs" as a button option for Extras. This will close all open Extras (and People) windows currently in the window stack.
+- Added indicator for lists within "In Trakt Lists" in Extras window when you have already Liked that list.
+- Added ability to Like/Unlike a list in "In Trakt Lists" in Extras window.
+- Added "Settings->Content->Content->Set MPAA Region". Set this to your desired region for this information.
+- Added "Random" as a sort option when making a Discover list. Will provide 20 results from the random algorithm.
+- Changed the algorithm slightly for fetching random items for the random lists. Should be just as good, but a little easier on TMDb.
+- Fixed Discover lists that include the "Released Only" parameter not updating with new content. Unfortunately, any Discover list made with this param that you want to have update daily will need to be remade.
+- Other changes/fixes.
+
+[COLOR dodgerblue][B]Version 1.0.66[/B][/COLOR]
+- Couple of quick fixes.
+
+[COLOR dodgerblue][B]Version 1.0.65[/B][/COLOR]
+- Added "In Trakt Lists" to movie and tvshow context menu. Also in Extras, and also available to make as a button in Extras. This will display Trakt lists that the movie/tvshow belong to. 100 max lists will show. You will need to re-set your Extras menu settings after this update as control ids have changed for the second time in as many updates.
+- Added "Show Special Episodes When Available" to Content->Content.
+- Other changes/fixes.
+
+[COLOR dodgerblue][B]Version 1.0.64[/B][/COLOR]
+- Removed Settings->Features->"Open Extras When Selecting". Replaced with "Special Open Actions" within same Features tab.
+- Removed "Use Minimal Media Info" setting.
+- Added "More Like This" recommendations to Extras window and context menu of Movies and TV Shows.
+- Added rudimentary support for "Special" episodes. I see no use in including these, as there will almost never be sources for playback. But I had the request so here they are. Also, you will not be able to mark them as watched within Fen Light.
+- Added "guest star" cast members for TV Show episodes. Will include additional cast appearing in that specific episode. Requested.
+- Other changes/fixes.
+
+[COLOR dodgerblue][B]Version 1.0.63[/B][/COLOR]
+- Added "Open Movie Collections Instead When Available" subsetting to Features->"Open Extras When Selecting". If you enable this and the movie you select is part of a collection, then that collection will be displayed, and the movie selected will be highlighted. This will be instead of opening the Extras window. Selecting the movie again from within the collection results will then open the Extras window.
+- Removed Test Repository support.
+- Other changes/fixes.
+
 [COLOR dodgerblue][B]Version 1.0.62[/B][/COLOR]
 - Added "belongs_to_collection" listitem property to movie items. Skins can use this to display whether listitem is part of a collection.
 - Other changes/fixes.

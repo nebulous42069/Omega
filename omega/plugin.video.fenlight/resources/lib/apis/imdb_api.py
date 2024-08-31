@@ -8,21 +8,25 @@ from modules.kodi_utils import requests, json, sleep
 from modules.utils import remove_accents, replace_html_codes
 # from modules.kodi_utils import logger
 
-# headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'}
 headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Firefox/102.0'}
-# headers = {'User-Agent': 'Mozilla/5.0 (iPhone; U; CPU like Mac OS X; en) AppleWebKit/420+ (KHTML, like Gecko) Version/3.0 Mobile/1A543 Safari/419.3'}
 base_url = 'https://www.imdb.com/%s'
+more_like_this_url = 'title/%s'
 reviews_url = 'title/%s/reviews/_ajax?paginationKey=%s'
 trivia_url = 'title/%s/trivia'
 blunders_url = 'title/%s/goofs'
 parentsguide_url = 'title/%s/parentalguide'
 images_url = 'title/%s/mediaindex?page=%s'
-videos_url = '_json/video/%s'
 people_images_url = 'name/%s/mediaindex?page=%s'
 people_trivia_url = 'name/%s/trivia'
 people_search_url_backup = 'search/name/?name=%s'
 people_search_url = 'https://sg.media-imdb.com/suggests/%s/%s.json'
 timeout = 20.0
+
+def imdb_more_like_this(imdb_id):
+	url = base_url % more_like_this_url % imdb_id
+	string = 'imdb_more_like_this_%s' % imdb_id
+	params = {'url': url, 'action': 'imdb_more_like_this', 'imdb_id': imdb_id}
+	return cache_object(get_imdb, string, params, False, 168)[0]
 
 def imdb_people_id(actor_name):
 	name = actor_name.lower()
@@ -61,17 +65,25 @@ def imdb_people_trivia(imdb_id):
 	params = {'url': url, 'action': 'imdb_people_trivia'}
 	return cache_object(get_imdb, string, params, False, 168)[0]
 
-def imdb_videos(imdb_id):
-	string = 'imdb_videos_%s' % imdb_id
-	url = base_url % videos_url % imdb_id
-	params = {'url': url, 'imdb_id': imdb_id, 'action': 'imdb_videos'}
-	return cache_object(get_imdb, string, params, False, 24)[0]
-
 def get_imdb(params):
 	imdb_list = []
 	action = params.get('action')
 	url = params.get('url')
 	next_page = None
+	if action == 'imdb_more_like_this':
+		def _process():
+			for item in items:
+				try:
+					_id = item.split('href="/title/')[1].split('/?ref_')[0]
+					if _id.replace('tt','').isnumeric(): yield (_id)
+				except: pass
+		try:
+			result = requests.get(url, timeout=timeout, headers=headers).text
+			result = result.split('<span>Storyline</span>')[0].split('<span>More like this</span>')[1]
+			items = str(result).split('poster-card__title--clickable" aria-label="')
+		except: items = []
+		imdb_list = list(_process())
+		imdb_list = [i for n, i in enumerate(imdb_list) if i not in imdb_list[n + 1:]] # remove duplicates
 	if action in ('imdb_trivia', 'imdb_blunders'):
 		def _process():
 			for count, item in enumerate(items, 1):
@@ -151,27 +163,6 @@ def get_imdb(params):
 			except: break
 			count += 1
 		all_reviews = non_spoiler_list + spoiler_list
-		imdb_list = list(_process())
-	elif action == 'imdb_videos':
-		def _process():
-			for count, item in enumerate(playlists, 1):
-				videos = []
-				vid_id = item['videoId']
-				metadata = videoMetadata[vid_id]
-				title = '%01d. %s' % (count, metadata['title'])
-				poster = metadata['slate']['url']
-				for i in metadata['encodings']:
-					quality = i['definition']
-					if quality == 'auto': continue
-					if quality == 'SD': quality = '360p'
-					quality_rank = quality_ranks_dict[quality]
-					videos.append({'quality': quality, 'quality_rank': quality_rank, 'url': i['videoUrl']})
-				yield {'title': title, 'poster': poster, 'videos': videos}
-		quality_ranks_dict = {'360p': 3, '480p': 2, '720p': 1, '1080p': 0}
-		result = requests.get(url, timeout=timeout)
-		result = result.json()
-		playlists = result['playlists'][params['imdb_id']]['listItems']
-		videoMetadata = result['videoMetadata']
 		imdb_list = list(_process())
 	elif action == 'imdb_people_id':
 		try:

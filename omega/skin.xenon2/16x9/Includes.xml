@@ -1461,8 +1461,8 @@
 			</control>
 			<control type="togglebutton" id="703">
 				<font/>
-				<texturefocus>osd/buttons2/OSDSubtitlesFO.png</texturefocus>
-				<texturenofocus>osd/buttons2/OSDSubtitlesNF.png</texturenofocus>
+				<texturefocus>osd/buttons2/SubFO.png</texturefocus>
+				<texturenofocus>osd/buttons2/SubNF.png</texturenofocus>
 				<label></label>
 				<altlabel></altlabel>
 				<focusedcolor>$VAR[FocusedOSDButtonsColor]</focusedcolor>
@@ -1470,9 +1470,7 @@
 				<shadowcolor>shadow</shadowcolor>
 				<width>95</width>
 				<height>95</height>
-				<usealttexture>VideoPlayer.HasSubtitles</usealttexture>
 				<onclick>ActivateWindow(OSDSubtitleSettings)</onclick>
-				<oninfo>ActivateWindow(SubtitleSearch)</oninfo>
 			</control>
 			<control type="button" id="600">
 				<font/>
@@ -1707,9 +1705,9 @@
 				<onclick>ActivateWindow(osdvideosettings)</onclick>
 			</control>
 			<control type="togglebutton" id="802">
-				<texturefocus />
-				<alttexturefocus />
-				<font>IconOSDButtons</font>
+				<font/>
+				<texturefocus>osd/buttons2/SubFO.png</texturefocus>
+				<texturenofocus>osd/buttons2/SubNF.png</texturenofocus>
 				<label></label>
 				<altlabel></altlabel>
 				<focusedcolor>$VAR[FocusedOSDButtonsColor]</focusedcolor>
@@ -1717,7 +1715,6 @@
 				<shadowcolor>shadow</shadowcolor>
 				<width>95</width>
 				<height>95</height>
-				<usealttexture>VideoPlayer.HasSubtitles</usealttexture>
 				<onclick>ActivateWindow(OSDSubtitleSettings)</onclick>
 			</control>
 			<control type="button" id="814">

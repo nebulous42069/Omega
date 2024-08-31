@@ -1548,7 +1548,7 @@
                         <visible>![Skin.HasSetting(HideRatingsViews) | !String.Contains(ListItem.Rating,.)]</visible>			
                         <visible> Container.Content(TVShows) | Container.Content(Episodes) | Container.Content(Movies) </visible>
 						<!-- END runtime addition by:rafi  -->
-                        <animation effect="slide" start="0,0" end="60,0" delay="0" time="0" condition="![String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,episode]">conditional</animation>
+                        <animation effect="slide" start="0,0" end="60,0" delay="0" time="0" condition="![String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,episode)]">conditional</animation>
                     </control>
                     <control type="label">
                         <left>15</left>
@@ -1568,7 +1568,7 @@
                         <visible>![Skin.HasSetting(HideRatingsViews)]</visible>			
                         <visible> Container.Content(TVShows) | Container.Content(Episodes) | Container.Content(Movies) </visible>
 						<!-- END runtime addition by:rafi  -->
-                        <animation effect="slide" start="0,0" end="60,0" delay="0" time="0" condition="![String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,episode]">conditional</animation>
+                        <animation effect="slide" start="0,0" end="60,0" delay="0" time="0" condition="![String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,episode)]">conditional</animation>
                     </control>
                     <control type="image">
                         <left>758</left>
@@ -1647,7 +1647,7 @@
                         <visible>![Skin.HasSetting(HideRatingsViews) | !String.Contains(ListItem.Rating,.)]</visible>			
                         <visible> Container.Content(TVShows) | Container.Content(Episodes) | Container.Content(Movies) </visible>
 						<!-- END runtime addition by:rafi  -->
-                        <animation effect="slide" start="0,0" end="60,0" delay="0" time="0" condition="![String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,episode]">conditional</animation>
+                        <animation effect="slide" start="0,0" end="60,0" delay="0" time="0" condition="![String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,episode)]">conditional</animation>
                     </control>
                     <control type="label">
                         <left>15</left>
@@ -1667,7 +1667,7 @@
 			<visible>![Skin.HasSetting(HideRatingsViews)]</visible>			
                         <visible> Container.Content(TVShows) | Container.Content(Episodes) | Container.Content(Movies) </visible>
 						<!-- END runtime addition by:rafi  -->
-                        <animation effect="slide" start="0,0" end="60,0" delay="0" time="0" condition="![String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,episode]">conditional</animation>
+                        <animation effect="slide" start="0,0" end="60,0" delay="0" time="0" condition="![String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,episode)]">conditional</animation>
                     </control>
                     <control type="image">
                         <left>758</left>

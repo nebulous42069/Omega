@@ -6,43 +6,41 @@ from indexers import dialogs, people
 from indexers.images import Images
 from modules import kodi_utils, settings, watched_status
 from modules.sources import Sources
-from modules.utils import change_image_resolution, adjust_premiered_date, get_datetime
+from modules.utils import change_image_resolution, adjust_premiered_date, get_datetime, make_thread_list_enumerate, batch_replace
 from modules.meta_lists import networks, movie_genres, tvshow_genres
-from modules.metadata import movieset_meta, episodes_meta
+from modules.metadata import movieset_meta, episodes_meta, movie_meta, tvshow_meta
 from modules.episode_tools import EpisodeTools
 # logger = kodi_utils.logger
 
 Thread, get_icon, close_all_dialog = kodi_utils.Thread, kodi_utils.get_icon, kodi_utils.close_all_dialog
-backup_cast_thumbnail = get_icon('genre_family')
 addon_fanart, empty_poster = kodi_utils.default_addon_fanart, kodi_utils.empty_poster
 extras_button_label_values, show_busy_dialog, hide_busy_dialog = kodi_utils.extras_button_label_values, kodi_utils.show_busy_dialog, kodi_utils.hide_busy_dialog
 container_update, activate_window, clear_property = kodi_utils.container_update, kodi_utils.activate_window, kodi_utils.clear_property
-extras_enable_scrollbars, omdb_api_key, date_offset = settings.extras_enable_scrollbars, settings.omdb_api_key, settings.date_offset
 default_all_episodes, extras_enabled_menus, tmdb_api_key = settings.default_all_episodes, settings.extras_enabled_menus, settings.tmdb_api_key
 enable_extra_ratings, nextep_method, watched_indicators = settings.extras_enable_extra_ratings, settings.nextep_method, settings.watched_indicators
-options_menu_choice, extras_menu_choice, imdb_videos_choice = dialogs.options_menu_choice, dialogs.extras_menu_choice, dialogs.imdb_videos_choice
+extras_enable_scrollbars, omdb_api_key, date_offset, mpaa_region = settings.extras_enable_scrollbars, settings.omdb_api_key, settings.date_offset, settings.mpaa_region
+options_menu_choice, extras_menu_choice = dialogs.options_menu_choice, dialogs.extras_menu_choice
 trakt_manager_choice, random_choice, playback_choice, favorites_choice = dialogs.trakt_manager_choice, dialogs.random_choice, dialogs.playback_choice, dialogs.favorites_choice
 get_next_episodes, get_watched_status_movie, watched_info_movie = watched_status.get_next_episodes, watched_status.get_watched_status_movie, watched_status.watched_info_movie
 watched_info_episode, get_database, get_next = watched_status.watched_info_episode, watched_status.get_database, watched_status.get_next
 get_progress_status_movie, get_bookmarks_movie = watched_status.get_progress_status_movie, watched_status.get_bookmarks_movie
-trailer_choice, media_extra_info, genres_choice, random_choice = dialogs.trailer_choice, dialogs.media_extra_info_choice, dialogs.genres_choice, dialogs.random_choice
-keywords_choice = dialogs.keywords_choice
+media_extra_info, genres_choice, random_choice, keywords_choice = dialogs.media_extra_info_choice, dialogs.genres_choice, dialogs.random_choice, dialogs.keywords_choice
 person_search, person_data_dialog = people.person_search, people.person_data_dialog
 tmdb_movies_year, tmdb_tv_year, tmdb_movies_genres, tmdb_tv_genres = tmdb_api.tmdb_movies_year, tmdb_api.tmdb_tv_year, tmdb_api.tmdb_movies_genres, tmdb_api.tmdb_tv_genres
 tmdb_movies_recommendations, tmdb_tv_recommendations, tmdb_company_id = tmdb_api.tmdb_movies_recommendations, tmdb_api.tmdb_tv_recommendations, tmdb_api.tmdb_company_id
 tmdb_movies_companies, tmdb_tv_networks = tmdb_api.tmdb_movies_companies, tmdb_api.tmdb_tv_networks
-imdb_reviews, imdb_trivia, imdb_blunders = imdb_api.imdb_reviews, imdb_api.imdb_trivia, imdb_api.imdb_blunders
-imdb_parentsguide, imdb_videos = imdb_api.imdb_parentsguide, imdb_api.imdb_videos
-fetch_ratings_info, trakt_comments = omdb_api.fetch_ratings_info, trakt_api.trakt_comments
+imdb_reviews, imdb_trivia, imdb_blunders, imdb_parentsguide = imdb_api.imdb_reviews, imdb_api.imdb_trivia, imdb_api.imdb_blunders, imdb_api.imdb_parentsguide
+fetch_ratings_info, trakt_comments, like_a_list, unlike_a_list = omdb_api.fetch_ratings_info, trakt_api.trakt_comments, trakt_api.trakt_like_a_list, trakt_api.trakt_unlike_a_list
 tmdb_image_base, count_insert = 'https://image.tmdb.org/t/p/%s%s', 'x%s'
 youtube_check = 'plugin.video.youtube'
 setting_base, label_base, ratings_icon_base = 'fenlight.extras.%s.button', 'button%s.label', 'fenlight_flags/ratings/%s'
 separator = '[B]  •  [/B]'
 button_ids = (10, 11, 12, 13, 14, 15, 16, 17, 50)
-plot_id, cast_id, recommended_id, reviews_id, comments_id, trivia_id, blunders_id, parentsguide_id = 2000, 2050, 2051, 2052, 2053, 2054, 2055, 2056
-videos_id, year_id, genres_id, networks_id, collection_id = 2057, 2058, 2059, 2060, 2061
-items_list_ids = (recommended_id, year_id, genres_id, networks_id, collection_id)
+plot_id, cast_id, recommended_id, more_like_this_id, reviews_id, comments_id, trivia_id = 2000, 2050, 2051, 2052, 2053, 2054, 2055
+blunders_id, parentsguide_id, in_lists_id, videos_id, year_id, genres_id, networks_id, collection_id = 2056, 2057, 2058, 2059, 2060, 2061, 2062, 2063
+items_list_ids = (recommended_id, more_like_this_id, year_id, genres_id, networks_id, collection_id)
 text_list_ids = (reviews_id, trivia_id, blunders_id, parentsguide_id, comments_id)
+open_folder_list_ids = (in_lists_id,)
 finished_tvshow = ('', 'Ended', 'Canceled')
 parentsguide_icons = {'Sex & Nudity': get_icon('sex_nudity'), 'Violence & Gore': get_icon('genre_war'), 'Profanity': get_icon('bad_language'),
 						'Alcohol, Drugs & Smoking': get_icon('drugs_alcohol'), 'Frightening & Intense Scenes': get_icon('genre_horror')}
@@ -50,6 +48,7 @@ meta_ratings_values = (('metascore', 1), ('tomatometer', 2), ('tomatousermeter',
 ratings_null = ('', '%')
 missing_image_check = ('', None, empty_poster, addon_fanart)
 _images = Images().run
+youtube_thumb_url, youtube_url = 'https://img.youtube.com/vi/%s/0.jpg', 'plugin://plugin.video.youtube/play/?video_id=%s'
 
 class Extras(BaseDialog):
 	def __init__(self, *args, **kwargs):
@@ -57,20 +56,16 @@ class Extras(BaseDialog):
 		self.control_id = None
 		self.set_starting_constants(kwargs)
 		self.set_properties()
-		self.tasks = (self.set_artwork, self.set_infoline1, self.set_infoline2, self.make_ratings, self.make_cast, self.make_recommended, self.make_reviews,
-					self.make_comments, self.make_trivia, self.make_blunders, self.make_parentsguide, self.make_videos, self.make_year, self.make_genres,
-					self.make_network, self.make_collection)
+		self.tasks = (self.set_artwork, self.set_infoline1, self.set_infoline2, self.make_ratings, self.make_cast, self.make_recommended,
+					self.make_more_like_this, self.make_reviews, self.make_comments, self.make_in_lists, self.make_trivia, self.make_blunders, self.make_parentsguide,
+					self.make_videos, self.make_year, self.make_genres, self.make_network, self.make_collection)
 
 	def onInit(self):
 		self.set_home_property('window_loaded', 'true')
 		for i in self.tasks: Thread(target=i).start()
 		self.set_default_focus()
 		if self.starting_position:
-			try:
-				window_id, focus = self.starting_position
-				self.sleep(750)
-				self.setFocusId(window_id)
-				self.select_item(window_id, focus)
+			try: self.set_returning_focus(*self.starting_position)
 			except: self.set_default_focus()
 
 	def set_default_focus(self):
@@ -78,6 +73,13 @@ class Extras(BaseDialog):
 		except:
 			self.close_all()
 			self.close()
+
+	def set_returning_focus(self, window_id, focus, sleep_time=750):
+		try:
+			self.sleep(sleep_time)
+			self.setFocusId(window_id)
+			self.select_item(window_id, focus)
+		except: self.set_default_focus()
 
 	def run(self):
 		self.doModal()
@@ -98,7 +100,7 @@ class Extras(BaseDialog):
 			from modules.metadata import movie_meta, tvshow_meta
 			chosen_listitem = self.get_listitem(focus_id)
 			function = movie_meta if self.media_type == 'movie' else tvshow_meta
-			meta = function('tmdb_id', chosen_listitem.getProperty('tmdb_id'), self.tmdb_api_key, get_datetime())
+			meta = function('tmdb_id', chosen_listitem.getProperty('tmdb_id'), self.tmdb_api_key, self.mpaa_region, self.current_date)
 			hide_busy_dialog()
 			self.show_extrainfo(self.media_type, meta, meta.get('poster', empty_poster))
 		elif action in self.context_actions:
@@ -106,6 +108,17 @@ class Extras(BaseDialog):
 			if focus_id == cast_id:
 				person_name = self.get_listitem(focus_id).getProperty(self.item_action_dict[focus_id])
 				return person_search(person_name)
+			elif focus_id == in_lists_id:
+				show_busy_dialog()
+				try:
+					list_item, position = self.get_listitem(focus_id), self.get_position(focus_id)
+					chosen = self.get_attribute(self, list_item.getProperty(self.item_action_dict[focus_id]))[self.get_position(focus_id)]
+					user, list_slug = chosen['user']['ids']['slug'], chosen['ids']['slug']
+					function, new_value = (like_a_list, 'true') if list_item.getProperty('liked_status') == 'false' else (unlike_a_list, 'false')
+					new_value = 'true' if list_item.getProperty('liked_status') == 'false' else 'false'
+					if function({'user': user, 'list_slug': list_slug, 'refresh': 'false'}): list_item.setProperty('liked_status', new_value)
+				except: return self.notification('Error with Trakt List')
+				hide_busy_dialog()
 			else: return
 		if not self.control_id: return
 		if action in self.selection_actions:
@@ -122,18 +135,27 @@ class Extras(BaseDialog):
 				self.new_params = {'mode': 'person_data_dialog', 'key_id': chosen_var, 'reference_tmdb_id': self.tmdb_id, 'is_external': self.is_external, 'stacked': 'true'}
 				return window_manager(self)
 			elif self.control_id == videos_id:
-				chosen = imdb_videos_choice({'videos': self.get_attribute(self, chosen_var)[position]['videos'], 'poster': self.poster})
-				if not chosen: return
-				self.set_current_params()
-				self.window_player_url = chosen
+				self.set_current_params(set_starting_position=False)
+				self.window_player_url = youtube_url % chosen_var
 				return window_player(self)
 			elif self.control_id in text_list_ids:
 				if self.control_id == parentsguide_id: return self.show_text_media(text=chosen_var)
 				else: return self.select_item(self.control_id, self.show_text_media(text=self.get_attribute(self, chosen_var), current_index=position))
+			elif self.control_id in open_folder_list_ids:
+				try: chosen_var = self.get_listitem(self.control_id).getProperty(self.item_action_dict[self.control_id])
+				except: return
+				if not chosen_var: return
+				try:
+					self.close_all()
+					chosen = self.get_attribute(self, chosen_var)[position]
+					list_name, user, slug = chosen['name'], chosen['user']['ids']['slug'], chosen['ids']['slug']
+					self.selected = self.folder_runner({'mode': 'trakt.list.build_trakt_list', 'user': user, 'slug': slug, 'list_type': 'user_lists', 'list_name': list_name})
+					self.close()
+				except: return
 			else: return
 
 	def make_ratings(self, win_prop=4000):
-		data = self.get_extra_ratings()
+		data = self.get_omdb_ratings()
 		if not data: return
 		active_extra_ratings = False
 		if self.rating: data['tmdb']['rating'] = self.rating
@@ -158,18 +180,44 @@ class Extras(BaseDialog):
 			for item in self.meta_get('cast'):
 				try:
 					listitem = self.make_listitem()
-					thumbnail = item['thumbnail'] or backup_cast_thumbnail
+					thumbnail = item['thumbnail'] or icon
 					listitem.setProperty('name', item['name'])
 					listitem.setProperty('role', item['role'])
 					listitem.setProperty('thumbnail', thumbnail)
 					yield listitem
 				except: pass
 		try:
+			icon = get_icon('genre_family')
 			item_list = list(builder())
 			self.setProperty('cast.number', count_insert % len(item_list))
 			self.item_action_dict[cast_id] = 'name'
 			self.add_items(cast_id, item_list)
 		except: pass
+
+	def make_more_like_this(self):
+		if not more_like_this_id in self.enabled_lists: return
+		def builder(position, item):
+			try:
+				details = function('imdb_id', item, self.tmdb_api_key, self.mpaa_region, self.current_date, current_time=None)					
+				listitem = self.make_listitem()
+				listitem.setProperty('name', details['title'])
+				listitem.setProperty('release_date', details['year'])
+				listitem.setProperty('vote_average', '%.1f' % details['rating'])
+				listitem.setProperty('thumbnail', details['poster'] or empty_poster)
+				listitem.setProperty('tmdb_id', str(details['tmdb_id']))
+				item_list_append((listitem, position))
+			except: pass
+		data = imdb_api.imdb_more_like_this(self.imdb_id)
+		function = movie_meta if self.media_type == 'movie' else tvshow_meta
+		item_list = []
+		item_list_append = item_list.append
+		threads = list(make_thread_list_enumerate(builder, data))
+		[i.join() for i in threads]
+		item_list.sort(key=lambda k: k[1])
+		item_list = [i[0] for i in item_list]
+		self.setProperty('more_like_this.number', count_insert % len(item_list))
+		self.item_action_dict[more_like_this_id] = 'tmdb_id'
+		self.add_items(more_like_this_id, item_list)
 
 	def make_recommended(self):
 		if not recommended_id in self.enabled_lists: return
@@ -216,6 +264,35 @@ class Extras(BaseDialog):
 			self.setProperty('trakt_comments.number', count_insert % len(item_list))
 			self.item_action_dict[comments_id] = 'content_list'
 			self.add_items(comments_id, item_list)
+		except: pass
+
+	def make_in_lists(self):
+		if not in_lists_id in self.enabled_lists: return
+		def builder():
+			for count, item in enumerate(self.all_in_lists, 1):
+				try:
+					listitem = self.make_listitem()
+					compare = (item['ids']['slug'], item['user']['ids']['slug'])
+					if compare in liked_lists: liked = 'true'
+					else: liked = 'false'
+					likes = item.get('likes', '')
+					likes_insert = '[CR]%s %s' % (likes, 'Likes' if likes > 1 else 'Like') if likes else '' 
+					listitem.setProperty('name', template % (count, batch_replace(item['name'].upper(), replacements), likes_insert, item['user']['ids']['slug'], item['item_count']))
+					listitem.setProperty('content_list', 'all_in_lists')
+					listitem.setProperty('thumbnail', icon)
+					listitem.setProperty('liked_status', liked)
+					yield listitem
+				except: pass
+		try:
+			icon = get_icon('trakt')
+			try: liked_lists = [(i['list']['ids']['slug'], i['list']['user']['ids']['slug']) for i in trakt_api.trakt_get_lists('liked_lists')]
+			except: liked_lists = []
+			template, replacements = '%02d.[CR][B]%s[/B]%s[CR][CR]by %s[CR](x%02d)', (('-', ' '), ('_', ' '), ('.', ' '))
+			self.all_in_lists = trakt_api.trakt_lists_with_media(self.media_type, self.imdb_id)
+			item_list = list(builder())
+			self.setProperty('trakt_in_lists.number', count_insert % len(item_list))
+			self.item_action_dict[in_lists_id] = 'content_list'
+			self.add_items(in_lists_id, item_list)
 		except: pass
 
 	def make_trivia(self):
@@ -281,20 +358,30 @@ class Extras(BaseDialog):
 
 	def make_videos(self):
 		if not videos_id in self.enabled_lists: return
+		if not self.youtube_installed_check(): return
+		def _sort_trailers(trailers):
+			official_trailers = [i for i in trailers if i['type'] == 'Trailer' and i['name'].lower() == 'official trailer']
+			other_official_trailers = [i for i in trailers if i['type'] == 'Trailer' and 'official' in i['name'].lower() and not i in official_trailers]
+			other_trailers = [i for i in trailers if i['type'] == 'Trailer' and not i in official_trailers  and not i in other_official_trailers]
+			teaser_trailers = [i for i in trailers if i['type'] == 'Teaser']
+			full_trailers = official_trailers + other_official_trailers + other_trailers + teaser_trailers
+			features = [i for i in trailers if not i in full_trailers]
+			return full_trailers + features
 		def builder():
-			for item in self.all_videos:
+			for item in all_trailers:
 				try:
 					listitem = self.make_listitem()
-					listitem.setProperty('name', item['title'])
-					listitem.setProperty('thumbnail', item['poster'])
-					listitem.setProperty('content_list', 'all_videos')
+					key = item['key']
+					listitem.setProperty('name', item['name'])
+					listitem.setProperty('thumbnail', youtube_thumb_url % key)
+					listitem.setProperty('key_id', key)
 					yield listitem
 				except: pass
 		try:
-			self.all_videos = imdb_videos(self.imdb_id)
+			all_trailers = _sort_trailers(self.meta_get('all_trailers', []))
 			item_list = list(builder())
-			self.setProperty('imdb_videos.number', count_insert % len(item_list))
-			self.item_action_dict[videos_id] = 'content_list'
+			self.setProperty('youtube_videos.number', count_insert % len(item_list))
+			self.item_action_dict[videos_id] = 'key_id'
 			self.add_items(videos_id, item_list)
 		except: pass
 
@@ -352,7 +439,7 @@ class Extras(BaseDialog):
 			self.add_items(collection_id, item_list)
 		except: pass
 
-	def get_extra_ratings(self):
+	def get_omdb_ratings(self):
 		if not self.display_extra_ratings: return None
 		data = self.meta_get('extra_ratings', None) or fetch_ratings_info(self.meta, self.omdb_api)
 		return data
@@ -423,7 +510,7 @@ class Extras(BaseDialog):
 			item = next((i for i in episodes_data if i['episode'] == nextep_episode), None)
 			item_get = item.get
 			episode_date, premiered = adjust_premiered_date(item_get('premiered'), date_offset())
-			if episode_date and get_datetime() >= episode_date:
+			if episode_date and self.current_date >= episode_date:
 				self.nextep_season, self.nextep_episode = nextep_season, nextep_episode
 				value = 'Next Episode: S%.2dE%.2d' % (self.nextep_season, self.nextep_episode)
 		except: pass
@@ -484,12 +571,8 @@ class Extras(BaseDialog):
 
 	def show_trailers(self):
 		if not self.youtube_installed_check(): return self.notification('Youtube Plugin needed for playback')
-		chosen = trailer_choice({'media_type': self.media_type, 'poster': self.poster, 'tmdb_id': self.tmdb_id,
-								'trailer_url': self.meta_get('trailer'), 'all_trailers': self.meta_get('all_trailers', [])})
-		if not chosen: return ok_dialog()
-		elif chosen == 'canceled': return
 		self.set_current_params(set_starting_position=False)
-		self.window_player_url = chosen
+		self.window_player_url = self.meta_get('trailer')
 		return window_player(self)
 
 	def show_images(self):
@@ -547,6 +630,19 @@ class Extras(BaseDialog):
 		self.selected = self.folder_runner({'mode': mode, 'action': action, 'key_id': self.tmdb_id, 'name': 'Recommended based on %s' % self.title})
 		self.close()
 
+	def show_more_like_this(self):
+		self.close_all()
+		mode = 'build_movie_list' if self.media_type == 'movie' else 'build_tvshow_list'
+		self.selected = self.folder_runner({'mode': mode, 'action': 'imdb_more_like_this', 'key_id': self.imdb_id, 'name': 'More Like This based on %s' % self.title})
+		self.close()
+
+	def show_in_trakt_lists(self):
+		self.close_all()
+		media_type = 'movies' if self.media_type == 'movie' else 'shows'
+		self.selected = self.folder_runner({'mode': 'trakt.list.get_trakt_lists_with_media', 'media_type': media_type,
+											'imdb_id': self.imdb_id, 'category_name': '%s In Trakt Lists' % self.title})
+		self.close()
+
 	def show_trakt_manager(self):
 		return trakt_manager_choice({'tmdb_id': self.tmdb_id, 'imdb_id': self.imdb_id, 'tvdb_id': self.meta_get('tvdb_id', 'None'),
 									'media_type': self.media_type, 'icon': self.poster})
@@ -589,19 +685,21 @@ class Extras(BaseDialog):
 		self.is_external = kwargs['is_external'].lower()
 		self.item_action_dict, self.button_action_dict = {}, {}
 		self.selected = None
+		self.current_date = get_datetime()
 		self.current_params, self.new_params = {}, {}
 		self.extra_info = self.meta_get('extra_info')
 		self.extra_info_get = self.extra_info.get
 		self.tmdb_id, self.imdb_id = self.meta_get('tmdb_id'), self.meta_get('imdb_id')
 		self.folder_runner = activate_window if self.is_external == 'true' else container_update
 		self.enabled_lists, self.enable_scrollbars = extras_enabled_menus(), extras_enable_scrollbars()
-		self.tmdb_api_key, self.omdb_api = tmdb_api_key(), omdb_api_key()
+		self.tmdb_api_key, self.omdb_api, self.mpaa_region = tmdb_api_key(), omdb_api_key(), mpaa_region()
 		self.display_extra_ratings = self.imdb_id and self.omdb_api not in ('empty_setting', '') and enable_extra_ratings()
 		self.title, self.year, self.rootname = self.meta_get('title'), str(self.meta_get('year')), self.meta_get('rootname')
 		self.poster = self.meta_get('poster') or empty_poster
 		self.fanart = self.meta_get('fanart') or addon_fanart
 		self.clearlogo = self.meta_get('clearlogo') or ''
 		self.landscape = self.meta_get('landscape') or ''
+		self.spoken_language = self.meta_get('spoken_language')
 		self.rating = str(round(self.meta_get('rating'), 1)) if self.meta_get('rating') not in (0, 0.0, None) else None
 		self.mpaa, self.genre, self.network = self.meta_get('mpaa'), self.meta_get('genre'), self.meta_get('studio') or ''
 		self.status, self.duration_data = self.extra_info_get('status', '').replace(' Series', ''), int(float(self.meta_get('duration'))/60)
@@ -622,7 +720,8 @@ class Extras(BaseDialog):
 		return status_str
 
 	def set_infoline1(self, remove_rating=False):
-		self.set_label(2001, separator.join([i for i in (self.year, None if remove_rating else self.rating, self.mpaa, self.get_duration(), self.status_infoline_value) if i]))
+		self.set_label(2001, separator.join([i for i in (self.year, None if remove_rating else self.rating, self.mpaa, self.spoken_language,
+											self.get_duration(), self.status_infoline_value) if i]))
 
 	def set_infoline2(self):
 		if self.media_type == 'movie':
@@ -647,7 +746,7 @@ class ShowTextMedia(BaseDialog):
 		self.position = kwargs.get('current_index', None)
 		self.text_is_list = isinstance(self.text, list)
 		self.len_text = len(self.text) if self.text_is_list else None
-		self.window_id = 2061
+		self.window_id = 2099
 		self.setProperty('poster', kwargs.get('poster'))
 
 	def run(self):
