@@ -6,10 +6,7 @@
   provider-name="Helly,bsoriano">
   <requires>
     <import addon="xbmc.gui" version="5.17.0"/>
-	<import addon="script.favourites" version="8.1.2"/>
-	<import addon="script.image.resource.select" version="3.0.2"/>
-    <import addon="script.skinshortcuts" version="1.0.0" />
-    <import addon="plugin.video.free99" version="1.0.0" />	
+	<import addon="script.favourites" version="8.1.2"/>	
   </requires>
   <extension
     point="xbmc.gui.skin"
