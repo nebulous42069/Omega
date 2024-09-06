@@ -24,7 +24,7 @@
         "setting": "saveyoutube",
         "path": "data_path"
     },
-    "weather.multi": {
+    "weather.multi2": {
         "name": "Multi Weather",
         "setting": "savemultiweather",
         "path": "data_path"
