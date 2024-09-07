@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="repository.diggz" name="Diggz Repository" version="21" provider-name="Diggz">
+<addon id="repository.diggz" name="Diggz Repository" version="22" provider-name="Diggz">
     <extension point="xbmc.addon.repository" name="Diggz Repository">
         <dir minversion="20.90.0" maxversion="22.9.9">
             <info compressed="false">https://raw.githubusercontent.com/nebulous42069/Omega/master/omega/zips/addons.xml</info>
@@ -325,13 +325,6 @@
 			<info compressed="false">https://raw.githubusercontent.com/jewbmx/repo/master/addons.xml</info>
 			<checksum>https://raw.githubusercontent.com/jewbmx/repo/master/addons.xml.md5</checksum>
 			<datadir zip="true">https://raw.githubusercontent.com/jewbmx/repo/master/zips/</datadir>
-		</dir>
-		<dir>
-			<info>https://mirrors.kodi.tv/addons/omega/addons.xml.gz</info>
-			<checksum verify="sha256">https://mirrors.kodi.tv/addons/omega/addons.xml.gz?sha256</checksum>
-			<datadir>https://mirrors.kodi.tv/addons/omega</datadir>
-			<artdir>https://mirrors.kodi.tv/addons/omega</artdir>
-			<hashes>sha256</hashes>
 		</dir>		
     </extension>
     <extension point="xbmc.addon.metadata">
