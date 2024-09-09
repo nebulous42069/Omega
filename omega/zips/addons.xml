@@ -3536,7 +3536,7 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
 		v420 Update for Kodi 19 Matrix
 		</news>
 	</extension>
-</addon><addon id="skin.povflix" version="421.1.1.9" name="[B][COLOR gold]FenFlix[/COLOR][/B]   (Mid Power) (NO TOUCH/MOUSE)" provider-name="skyfsza,inb4after,SerpentDrago">
+</addon><addon id="skin.povflix" version="422.1.1.9" name="[B][COLOR gold]FenFlix[/COLOR][/B]   (Mid Power) (NO TOUCH/MOUSE)" provider-name="skyfsza,inb4after,SerpentDrago">
     <requires>
         <import addon="xbmc.gui" version="5.17.0" />
         <import addon="script.skin.helper.service" version="1.1.24" />
@@ -3546,6 +3546,7 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
         <import addon="resource.images.studios.white" version="0.0.10" />
         <import addon="resource.images.studios.coloured" version="0.0.18" />
         <import addon="script.colorbox" version="2.0.8" />
+        <import addon="plugin.video.fenlight" version="1.0.71" />		
     </requires>
     <extension point="xbmc.gui.skin" defaultthemename="Textures.xbt" debugging="false" effectslowdown="1">
         <res width="1920" height="1080" aspect="16:9" default="true" folder="1080i" />
@@ -3781,7 +3782,7 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
             -Various changes so skin would install on Matrix
         </news>
     </extension>
-</addon><addon id="skin.serenflix" version="421.1.1.9" name="[B][COLOR gold]SerenFlix[/COLOR][/B]   (Mid Power) (NO TOUCH/MOUSE)" provider-name="skyfsza,inb4after,SerpentDrago">
+</addon><addon id="skin.serenflix" version="422.1.1.9" name="[B][COLOR gold]SerenFlix[/COLOR][/B]   (Mid Power) (NO TOUCH/MOUSE)" provider-name="skyfsza,inb4after,SerpentDrago">
     <requires>
         <import addon="xbmc.gui" version="5.17.0" />
         <import addon="script.skin.helper.service" version="1.1.24" />
@@ -3791,6 +3792,7 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
         <import addon="resource.images.studios.white" version="0.0.10" />
         <import addon="resource.images.studios.coloured" version="0.0.18" />
         <import addon="script.colorbox" version="2.0.8" />
+        <import addon="plugin.video.seren" version="3.0.4" />		
     </requires>
     <extension point="xbmc.gui.skin" defaultthemename="Textures.xbt" debugging="false" effectslowdown="1">
         <res width="1920" height="1080" aspect="16:9" default="true" folder="1080i" />
@@ -4026,7 +4028,7 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
             -Various changes so skin would install on Matrix
         </news>
     </extension>
-</addon><addon id="skin.umbrellaflix" version="421.1.1.9" name="[B][COLOR gold]UmbrellaFlix[/COLOR][/B]   (Mid Power) (NO TOUCH/MOUSE)" provider-name="skyfsza,inb4after,SerpentDrago">
+</addon><addon id="skin.umbrellaflix" version="422.1.1.9" name="[B][COLOR gold]UmbrellaFlix[/COLOR][/B]   (Mid Power) (NO TOUCH/MOUSE)" provider-name="skyfsza,inb4after,SerpentDrago">
     <requires>
         <import addon="xbmc.gui" version="5.17.0" />
         <import addon="script.skin.helper.service" version="1.1.24" />
@@ -4036,6 +4038,7 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
         <import addon="resource.images.studios.white" version="0.0.10" />
         <import addon="resource.images.studios.coloured" version="0.0.18" />
         <import addon="script.colorbox" version="2.0.8" />
+        <import addon="plugin.video.umbrella" version="6.7.0" />		
     </requires>
     <extension point="xbmc.gui.skin" defaultthemename="Textures.xbt" debugging="false" effectslowdown="1">
         <res width="1920" height="1080" aspect="16:9" default="true" folder="1080i" />
