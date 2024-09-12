@@ -193,7 +193,7 @@
             <fanart>fanart.jpg</fanart>
     </assets>
   </extension>
-</addon><addon id="plugin.program.chef21" name="[B][COLOR chartreuse]Chef Omega Wizard[/COLOR][/B]" version="481" provider-name="Diggz">
+</addon><addon id="plugin.program.chef21" name="[B][COLOR chartreuse]Chef Omega Wizard[/COLOR][/B]" version="482" provider-name="Diggz">
 	<requires>
 		<import addon="xbmc.python" version="3.0.1" />
 		<import addon="repository.xbmc.org" />		
@@ -686,7 +686,7 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.cb20
         </assets>
         <news>INFO: For latest changes see Changelog within Tools of add-on.</news>
     </extension>
-</addon><addon id="plugin.video.fenlight" name="Fen Light" provider-name="Tikipeter" version="1.0.71">
+</addon><addon id="plugin.video.fenlight" name="Fen Light" provider-name="Tikipeter" version="1.0.75">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
         <import addon="script.module.requests" version="2.19.1" />

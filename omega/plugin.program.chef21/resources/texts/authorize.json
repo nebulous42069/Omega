@@ -44,21 +44,37 @@
         "icon": "https://techwiser.com/wp-content/uploads/2020/09/trakt-logo.png",
         "items": [
             {
-                "name": "Authenticate Real Debrid",
+                "name": "[COLOR orangered]Authenticate Real Debrid[/COLOR]",
                 "url": "RunScript(script.module.accountmgr, action=realdebridAuth)"
             },
             {
-                "name": "Authenticate Premiumize",
+                "name": "[COLOR chartreuse]View Real Debrid logins[/COLOR]",
+                "url": "ActivateWindow(10001,plugin://script.module.acctview/?mode=realdebrid,return)"
+            },			
+            {
+                "name": "[COLOR orangered]Authenticate TRAKT[/COLOR]",
+                "url": "RunScript(script.module.accountmgr, action=traktAuth)"
+            },
+            {
+                "name": "[COLOR chartreuse]View Trakt Logins[/COLOR]",
+                "url": "ActivateWindow(10001,plugin://script.module.acctview/?mode=trakt,return)"
+            },						
+            {
+                "name": "[COLOR orangered]Authenticate Premiumize[/COLOR]",
                 "url": "RunScript(script.module.accountmgr, action=premiumizeAuth)"
             },
             {
-                "name": "Authenticate All Debrid",
+                "name": "[COLOR chartreuse]View Premiumize logins[/COLOR]",
+                "url": "ActivateWindow(10001,plugin://script.module.acctview/?mode=premiumize,return)"
+            },			
+            {
+                "name": "[COLOR orangered]Authenticate All-Debrid[/COLOR]",
                 "url": "RunScript(script.module.accountmgr, action=alldebridAuth)"
             },
             {
-                "name": "Authenticate TRAKT",
-                "url": "RunScript(script.module.accountmgr, action=traktAuth)"
-            },
+                "name": "[COLOR chartreuse]View All-Debrid Logins[/COLOR]",
+                "url": "ActivateWindow(10001,plugin://script.module.acctview/?mode=alldebrid,return)"
+            },			
             {
                 "name": "Re-Sync Debrid Accounts",
                 "url": "RunScript(script.module.accountmgr, action=ReSyncAll)"
@@ -68,28 +84,8 @@
                 "url": "RunScript(script.module.accountmgr, action=traktReSync)"
             },
             {
-                "name": "View Real Debrid logins",
-                "url": "ActivateWindow(10001,plugin://script.module.acctview/?mode=realdebrid,return)"
-            },
-            {
-                "name": "View Premiumize logins",
-                "url": "ActivateWindow(10001,plugin://script.module.acctview/?mode=premiumize,return)"
-            },
-            {
-                "name": "View All-Debrid Logins",
-                "url": "ActivateWindow(10001,plugin://script.module.acctview/?mode=alldebrid,return)"
-            },
-            {
-                "name": "View Trakt Logins",
-                "url": "ActivateWindow(10001,plugin://script.module.acctview/?mode=trakt,return)"
-            },
-            {
                 "name": "Open Account Manager",
                 "url": "addon.opensettings(script.module.accountmgr)"
-            },
-            {
-                "name": "Fix/Restore Broken Authorizations",
-                "url": "PlayMedia(plugin://script.module.acctview/?mode=wipeclean&name=all)"
             }			
         ]
     }
