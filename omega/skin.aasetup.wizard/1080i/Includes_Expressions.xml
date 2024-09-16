@@ -165,7 +165,7 @@
 
     <expression name="Exp_InfoDialogs">[Window.IsVisible(DialogVideoInfo.xml) | Window.IsVisible(DialogMusicInfo.xml)]</expression>
 
-    <expression name="Exp_SettingsDialogs">[Window.IsVisible(settings) | Window.IsVisible(filemanager) | Window.IsVisible(addonbrowser) | Window.IsVisible(SettingsCategory.xml) | Window.IsVisible(SkinSettings.xml) | Window.IsVisible(SettingsProfile.xml) | Window.IsVisible(SettingsSystemInfo.xml) | Window.IsVisible(EventLog.xml) | Window.IsVisible(1180) | Window.IsVisible(2000)]</expression>
+    <expression name="Exp_SettingsDialogs">[Window.IsVisible(settings) | Window.IsVisible(filemanager) | Window.IsVisible(addonbrowser) | Window.IsVisible(SettingsCategory.xml) | Window.IsVisible(SkinSettings.xml) | Window.IsVisible(SettingsProfile.xml) | Window.IsVisible(SettingsSystemInfo.xml) | Window.IsVisible(EventLog.xml) | Window.IsVisible(1180) | Window.IsVisible(1184) | Window.IsVisible(1186) | Window.IsVisible(1187)]</expression>
 
     <expression name="Exp_SettingsDialogs_Next">[Window.Next(settings) | Window.Next(filemanager) | Window.Next(addonbrowser) | Window.Next(SettingsCategory.xml) | Window.Next(SkinSettings.xml) | Window.Next(SettingsProfile.xml) | Window.Next(SettingsSystemInfo.xml) | Window.Next(EventLog.xml) | Window.Next(1197)]</expression>
 

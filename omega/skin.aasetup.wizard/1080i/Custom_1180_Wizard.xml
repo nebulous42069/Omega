@@ -26,7 +26,7 @@
                 <include content="Dialog_Head">
                     <param name="top">40</param>
                     <param name="left">40</param>
-                    <param name="label">[CAPITALIZE]$LOCALIZE[31449]$VAR[Label_Header_Wizard,: ,][/CAPITALIZE]</param>
+                    <param name="label">DIGGZ SETUP WIZARD</param>
                 </include>
                 <control type="group">
                     <include content="Dialog_Overlay_Mode_Glass">
@@ -67,82 +67,22 @@
 
                                 <!-- Step 01: Widgets -->
                                <item>
-                                    <label>Install Diggz Kids</label>
-                                    <icon>special://skin/extras/screenshots/widgets/diggzkids.png</icon>
+                                    <label>STEP 3- Install Skins</label>
+                                    <icon>special://skin/extras/screenshots/widgets/skins.jpg</icon>
                                     <visible>String.IsEmpty(Window(Home).Property(WizardStep))</visible>
-                                    <onclick>installaddon(skin.diggzkids)</onclick>
-                                </item>							
-                                <item>
-                                    <label>Install Diggz Xenon</label>
-                                    <icon>special://skin/extras/screenshots/widgets/xenon.png</icon>
-                                    <visible>String.IsEmpty(Window(Home).Property(WizardStep))</visible>
-                                    <onclick>InstallAddon(skin.xenonplus)</onclick>
+                                    <onclick>ActivateWindow(1187)</onclick>
                                 </item>
                                 <item>
-                                    <label>Install Diggz Xenon 2</label>
-                                    <icon>special://skin/extras/screenshots/widgets/xenon2.png</icon>
+                                    <label>STEP 1- Install Addons</label>
+                                    <icon>special://skin/extras/screenshots/widgets/addons.jpg</icon>
                                     <visible>String.IsEmpty(Window(Home).Property(WizardStep))</visible>
-                                    <onclick>InstallAddon(skin.xenon2)</onclick>
+                                    <onclick>ActivateWindow(1184)</onclick>
                                 </item>								
                                 <item>
-                                    <label>Install Diggz Xenon Free</label>
-                                    <icon>special://skin/extras/screenshots/widgets/xenonfree.png</icon>
+                                    <label>STEP 2- Debid And Trakt Logins</label>
+                                    <icon>special://skin/extras/screenshots/widgets/debridtrakt.gif</icon>
                                     <visible>String.IsEmpty(Window(Home).Property(WizardStep))</visible>
-                                    <onclick>InstallAddon(skin.xenonfree)</onclick>
-                                </item>
-                                <item>
-                                    <label>Install Diggz Xenon Burst</label>
-                                    <icon>special://skin/extras/screenshots/widgets/xenonburst.png</icon>
-                                    <visible>String.IsEmpty(Window(Home).Property(WizardStep))</visible>
-                                    <onclick>InstallAddon(skin.xenonburst)</onclick>
-                                </item>
-                                <item>
-                                    <label>Install Diggz ArcticFlix</label>
-                                    <icon>special://skin/extras/screenshots/widgets/arcticflix.png</icon>
-                                    <visible>String.IsEmpty(Window(Home).Property(WizardStep))</visible>
-                                    <onclick>installaddon(skin.arctic.horizon.2)</onclick>
-                                </item>									
-                                <item>
-                                    <label>Install Fentastic</label>
-                                    <icon>special://skin/extras/screenshots/widgets/fentastic.png</icon>
-                                    <visible>String.IsEmpty(Window(Home).Property(WizardStep))</visible>
-                                    <onclick>InstallAddon(skin.eminence.2.fen)</onclick>
-                                </item>
-                                <item>
-                                    <label>Install Eminence</label>
-                                    <icon>special://skin/extras/screenshots/widgets/eminence.png</icon>
-                                    <visible>String.IsEmpty(Window(Home).Property(WizardStep))</visible>
-                                    <onclick>InstallAddon(skin.eminence.2.mod)</onclick>
-                                </item>	
-                                <item>
-                                    <label>Install DiggzFlix</label>
-                                    <icon>special://skin/extras/screenshots/widgets/diggzflix.png</icon>
-                                    <visible>String.IsEmpty(Window(Home).Property(WizardStep))</visible>
-                                    <onclick>InstallAddon(skin.auraflix)</onclick>
-                                </item>
-                                <item>
-                                    <label>Install FenFlix</label>
-                                    <icon>special://skin/extras/screenshots/widgets/fenflix.png</icon>
-                                    <visible>String.IsEmpty(Window(Home).Property(WizardStep))</visible>
-                                    <onclick>InstallAddon(skin.povflix)</onclick>
-                                </item>
-                                <item>
-                                    <label>Install SerenFlix</label>
-                                    <icon>special://skin/extras/screenshots/widgets/serenflix.png</icon>
-                                    <visible>String.IsEmpty(Window(Home).Property(WizardStep))</visible>
-                                    <onclick>InstallAddon(skin.serenflix)</onclick>
-                                </item>
-                                <item>
-                                    <label>Install UmbrellaFlix</label>
-                                    <icon>special://skin/extras/screenshots/widgets/umbrellaflix.png</icon>
-                                    <visible>String.IsEmpty(Window(Home).Property(WizardStep))</visible>
-                                    <onclick>InstallAddon(skin.umbrellaflix)</onclick>
-                                </item>
-                                <item>
-                                    <label>Install Phenomenal</label>
-                                    <icon>special://skin/extras/screenshots/widgets/phenomenal.png</icon>
-                                    <visible>String.IsEmpty(Window(Home).Property(WizardStep))</visible>
-                                    <onclick>InstallAddon(skin.phenomenal.h)</onclick>
+                                    <onclick>ActivateWindow(1186)</onclick>
                                 </item>
 
                             </content>
@@ -193,11 +133,7 @@
                                         <param name="icon">special://skin/extras/icons/circle-check.png</param>
                                     </include>
                                 </focusedlayout>
-                                <content>
-                                    <item>
-                                        <label>Free Addons</label>
-                                        <visible>String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/xenonfree.png)</visible>
-                                    </item>
+                                <content>								
                                     <item>
                                         <label>DEBID ONLY</label>
                                         <visible>String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/xenon.png)| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/xenon2.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/fentastic.png)| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/diggzflix.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/fenflix.png)| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/eminence.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/serenflix.png)| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/umbrellaflix.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/phenomenal.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/arcticflix.png)</visible>
@@ -275,34 +211,6 @@
 
 
                         </control>
-                    </control>
-                </control>
-                <control type="grouplist" id="9000">
-                    <right>40</right>
-                    <left>40</left>
-                    <height>80</height>
-                    <bottom>20</bottom>
-                    <align>center</align>
-                    <orientation>horizontal</orientation>
-                    <itemgap>20</itemgap>
-                    <onup>50</onup>
-                    <control type="button" id="9001">
-                        <width>280</width>
-                        <label>  &lt;&lt;  Prev Step      </label>
-                        <include>defs_dialog_button</include>
-                        <visible>!String.IsEmpty(Window(Home).Property(WizardStep))</visible>
-                        <onclick condition="String.IsEqual(Window(Home).Property(WizardStep),Themes)">ClearProperty(WizardStep,Home)</onclick>
-                        <onclick condition="String.IsEqual(Window(Home).Property(WizardStep),Dialog)">SetProperty(WizardStep,Themes,Home)</onclick>
-                        <onclick>SetFocus(50)</onclick>
-                    </control>
-                    <control type="button" id="9003">
-                        <width>280</width>
-                        <label>      Apply Skin  &gt;&gt; </label>
-                        <include>defs_dialog_button</include>
-                        <onclick condition="String.IsEmpty(Window(Home).Property(WizardStep))">RunPlugin(plugin://script.diggzskins)</onclick>
-                        <onclick condition="String.IsEqual(Window(Home).Property(WizardStep),Themes)">SetProperty(WizardStep,Dialog,Home)</onclick>
-                        <onclick>SetFocus(50)</onclick>
-                        <visible>!String.IsEqual(Window(Home).Property(WizardStep),Dialog)</visible>
                     </control>
                 </control>
             </control>
