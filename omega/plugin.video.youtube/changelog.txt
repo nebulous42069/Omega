@@ -1,3 +1,76 @@
+## v7.1.0+beta.3
+### Fixed
+- Fix various timing and sync issues with script, service, plugin and Kodi settings
+
+### Changed
+- Move IP location lookup to script and add to settings dialog
+- Move language and region selection to script and add to settings dialog
+
+### New
+- Add hide_next_page query parameter to hide plugin Next page item #896
+- Add new input_prompt command for search endpoint to bypass Kodi window caching
+  - plugin://plugin.video.youtube/kodion/search/input_prompt
+
+## v7.1.0+beta.2
+### Fixed
+- Fix possible regression causing 6s delay on first play
+- Fix regression in building client details causing wrong referer to be used
+- Only reroute to new window if container was not filled by the plugin #896
+- Only reroute to new window if modal dialog is not open #896
+
+### Changed
+- Use a CommandItem that opens the Info dialog for comments to avoid log spam
+- Revert old workaround for Kodi treating a non-folder listitem as playable
+- Improve parsing of plugin url query parameters to allow empty values
+
+### New
+- Add items_per_page query parameter to allow number of items in widgets to be customised #896
+- Add item_filter query parameter to override "Hide videos from listings" setting #896
+  - Comma seperated string of item types to be filtered out of listing
+  - "?item_filter=shorts" will remove shorts from listing
+  - "?item_filter=shorts,live" will remove shorts and live streams from listing
+  - "?item_filter" will show all item types
+  - Allowable item types:
+    - shorts
+    - upcoming
+    - upcoming_live
+    - live
+    - premieres
+    - completed
+    - vod
+
+## v7.1.0+beta.1
+### Fixed
+- Fix logging/retry of sqlite3.OperationalError
+- Fix trying to use ISA for progressive live streams
+- Retain list position when refreshing listings
+- Add workarounds for trying to play videos using RunPlugin rather PlayMedia
+
+### Changed
+- Update multiple busy dialog crash workaround #891
+- Use all playable codecs but deprioritise if not selected in stream features
+- Change default live stream type to suit ISA and Youtube stream availability
+
+### New
+- Allow ask for quality from context menu to override audio only setting
+
+## v7.0.9.2
+### Fixed
+- Fix various Kodi 18 listitem setInfo compatibility issues
+- Additional fixes and compatibility shims for playing AudioItems #873
+- Fix early thread loop termination in My Subscriptions #888
+
+## v7.0.9.1
+### Fixed
+- Add playlist_type_hint property to workaround issues with CPlayListPlayer::Play #873
+- Fix comments not displaying for recommended videos #878
+- Fix not correctly loading bookmarks for My Subscriptions
+- Fix invalid escape sequence in non-raw string #885
+- Attempt to fix various threading issues with My Subscriptions #882
+
+### New
+- Add refresh settings to Setup Wizard
+
 ## v7.0.9
 ### Fixed
 - Fix renaming playlists

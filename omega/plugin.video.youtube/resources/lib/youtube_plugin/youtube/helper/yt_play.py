@@ -18,9 +18,12 @@ from ..helper import utils, v3
 from ..youtube_exceptions import YouTubeException
 from ...kodion.compatibility import urlencode, urlunsplit
 from ...kodion.constants import (
+    BUSY_FLAG,
     PATHS,
     PLAYBACK_INIT,
     PLAYER_DATA,
+    PLAYLIST_PATH,
+    PLAYLIST_POSITION,
     PLAY_FORCE_AUDIO,
     PLAY_PROMPT_QUALITY,
     PLAY_PROMPT_SUBTITLES,
@@ -29,7 +32,7 @@ from ...kodion.constants import (
     SERVER_POST_START,
     SERVER_WAKEUP,
 )
-from ...kodion.items import VideoItem
+from ...kodion.items import AudioItem, VideoItem
 from ...kodion.network import get_connect_address
 from ...kodion.utils import find_video_id, select_stream
 
@@ -49,6 +52,7 @@ def _play_stream(provider, context):
     incognito = params.get('incognito', False)
     screensaver = params.get('screensaver', False)
 
+    audio_only = False
     is_external = ui.get_property(PLAY_WITH)
     if ((is_external and settings.alternative_player_web_urls())
             or settings.default_player_web_urls()):
@@ -59,10 +63,10 @@ def _play_stream(provider, context):
         ask_for_quality = settings.ask_for_video_quality()
         if ui.pop_property(PLAY_PROMPT_QUALITY) and not screensaver:
             ask_for_quality = True
-
-        audio_only = settings.audio_only()
-        if ui.pop_property(PLAY_FORCE_AUDIO):
+        elif ui.pop_property(PLAY_FORCE_AUDIO):
             audio_only = True
+        else:
+            audio_only = settings.audio_only()
 
         try:
             streams = client.get_streams(context,
@@ -119,13 +123,16 @@ def _play_stream(provider, context):
         ))
         stream['url'] = url
 
-    video_item = VideoItem(metadata.get('title', ''), stream['url'])
+    if audio_only or not video_type:
+        media_item = AudioItem(metadata.get('title', ''), stream['url'])
+    else:
+        media_item = VideoItem(metadata.get('title', ''), stream['url'])
 
     use_history = not (screensaver or incognito or stream.get('live'))
     use_remote_history = use_history and settings.use_remote_history()
     use_play_data = use_history and settings.use_local_history()
 
-    utils.update_play_info(provider, context, video_id, video_item,
+    utils.update_play_info(provider, context, video_id, media_item,
                            stream, use_play_data=use_play_data)
 
     seek_time = 0.0 if params.get('resume') else params.get('seek', 0.0)
@@ -133,20 +140,20 @@ def _play_stream(provider, context):
     end_time = params.get('end', 0.0)
 
     if start_time:
-        video_item.set_start_time(start_time)
+        media_item.set_start_time(start_time)
     # Setting the duration based on end_time can cause issues with
     # listing/sorting and other addons that monitor playback
     # if end_time:
     #     video_item.set_duration_from_seconds(end_time)
 
-    play_count = use_play_data and video_item.get_play_count() or 0
+    play_count = use_play_data and media_item.get_play_count() or 0
     playback_stats = stream.get('playback_stats')
 
     playback_data = {
         'video_id': video_id,
         'channel_id': metadata.get('channel', {}).get('id', ''),
         'video_status': metadata.get('status', {}),
-        'playing_file': video_item.get_uri(),
+        'playing_file': media_item.get_uri(),
         'play_count': play_count,
         'use_remote_history': use_remote_history,
         'use_local_history': use_play_data,
@@ -160,15 +167,15 @@ def _play_stream(provider, context):
 
     ui.set_property(PLAYER_DATA, json.dumps(playback_data, ensure_ascii=False))
     context.send_notification(PLAYBACK_INIT, playback_data)
-    return video_item
+    return media_item
 
 
 def _play_playlist(provider, context):
     videos = []
     params = context.get_params()
 
-    player = context.get_video_player()
-    player.stop()
+    playlist_player = context.get_playlist_player()
+    playlist_player.stop()
 
     action = params.get('action')
     playlist_ids = params.get('playlist_ids')
@@ -239,16 +246,15 @@ def _play_playlist(provider, context):
             return videos
 
         # clear the playlist
-        playlist = context.get_video_playlist()
-        playlist.clear()
-        playlist.unshuffle()
+        playlist_player.clear()
+        playlist_player.unshuffle()
 
         # check if we have a video as starting point for the playlist
         video_id = params.get('video_id')
         playlist_position = None if video_id else 0
         # add videos to playlist
         for idx, video in enumerate(videos):
-            playlist.add(video)
+            playlist_player.add(video)
             if playlist_position is None and video.video_id == video_id:
                 playlist_position = idx
 
@@ -261,7 +267,7 @@ def _play_playlist(provider, context):
     if action == 'queue':
         return videos, options
     if context.get_handle() == -1 or action == 'play':
-        player.play(playlist_index=playlist_position)
+        playlist_player.play(playlist_index=playlist_position)
         return False
     return videos[playlist_position], options
 
@@ -289,15 +295,13 @@ def _play_channel_live(provider, context):
     except IndexError:
         return False
 
-    player = context.get_video_player()
-    player.stop()
-
-    playlist = context.get_video_playlist()
-    playlist.clear()
-    playlist.add(video_item)
+    playlist_player = context.get_playlist_player()
+    playlist_player.stop()
+    playlist_player.clear()
+    playlist_player.add(video_item)
 
     if context.get_handle() == -1:
-        player.play(playlist_index=0)
+        playlist_player.play(playlist_index=0)
         return False
     return video_item
 
@@ -308,8 +312,9 @@ def process(provider, context, **_kwargs):
     params = context.get_params()
     param_keys = params.keys()
 
-    if ({'channel_id', 'playlist_id', 'playlist_ids', 'video_id'}
-            .isdisjoint(param_keys)):
+    if {'channel_id', 'playlist_id', 'playlist_ids', 'video_id'}.isdisjoint(
+            param_keys
+    ):
         listitem_path = context.get_listitem_info('FileNameAndPath')
         if context.is_plugin_path(listitem_path, PATHS.PLAY):
             video_id = find_video_id(listitem_path)
@@ -340,11 +345,32 @@ def process(provider, context, **_kwargs):
         if force_play:
             context.execute('Action(Play)')
             return False
+
+        if context.get_handle() == -1:
+            context.execute('PlayMedia({0})'.format(
+                context.create_uri(('play',), params)
+            ))
+            return False
+
+        ui.set_property(BUSY_FLAG)
+        playlist_player = context.get_playlist_player()
+        position, _ = playlist_player.get_position()
+        items = playlist_player.get_items()
+
         ui.clear_property(SERVER_POST_START)
         context.wakeup(SERVER_WAKEUP, timeout=5)
-        video_item = _play_stream(provider, context)
+        media_item = _play_stream(provider, context)
         ui.set_property(SERVER_POST_START)
-        return video_item
+
+        if media_item:
+            if position and items:
+                ui.set_property(PLAYLIST_PATH,
+                                items[position - 1]['file'])
+                ui.set_property(PLAYLIST_POSITION, str(position))
+        else:
+            ui.clear_property(BUSY_FLAG)
+
+        return media_item
 
     if playlist_id or 'playlist_ids' in params:
         return _play_playlist(provider, context)
