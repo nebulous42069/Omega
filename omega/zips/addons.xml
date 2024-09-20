@@ -1763,6 +1763,24 @@ Random updates by lolage.
             <icon>icon.png</icon>
         </assets>
     </extension>
+</addon><addon id="repository.otaku" name="Otaku's Repository" version="1.0" provider-name="Goldenfreddy0703">
+    <extension point="xbmc.addon.repository" name="Otaku's Repository">
+        <dir>
+            <info compressed="false">https://raw.githubusercontent.com/Goldenfreddy0703/repository.otaku/master/repo/zips/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/Goldenfreddy0703/repository.otaku/master/repo/zips/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/Goldenfreddy0703/repository.otaku/master/repo/zips/</datadir>
+        </dir>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary>Otaku's Repository</summary>
+        <description>A repository for Otaku</description>
+        <disclaimer />
+        <platform>all</platform>
+        <assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
+        </assets>
+    </extension>
 </addon><addon id="resource.font.robotocjksc" name="Roboto CJKSC" version="0.0.2" provider-name="jurialmunkey">
     <requires>
         <import addon="kodi.resource" version="1.0.0" />
@@ -1822,7 +1840,7 @@ Random updates by lolage.
     			<fanart>fanart.png</fanart>
   		</assets>
         </extension>
-</addon><addon id="script.autorunsxenon" name="Autoruns Xenon" version="11" provider-name="fight night, Jon Bovi">
+</addon><addon id="script.autorunsxenon" name="Autoruns Xenon" version="12" provider-name="fight night, Jon Bovi">
     <requires>
         <import addon="xbmc.python" version="3.0.1" />
         <import addon="script.module.six" />
@@ -1832,7 +1850,8 @@ Random updates by lolage.
 		<import addon="inputstream.adaptive" />
 		<import addon="inputstream.ffmpegdirect" /> 
 		<import addon="script.favourites" />
-        <import addon="resource.images.studios.white" />		
+        <import addon="resource.images.studios.white" />
+        <import addon="repository.otaku" />		
     </requires>
     <extension point="xbmc.python.pluginsource" library="default.py">
         <provides>executable</provides>
