@@ -4,18 +4,8 @@
         "setting": "savefavs",
         "path": "user_path"
     },
-    "advancedsettings.xml": {
-        "name": "Advanced Settings",
-        "setting": "saveadvanced",
-        "path": "user_path"
-    },
     "plugin.program.chef21": {
         "name": "Chef Wizard",
-        "setting": "savedata",
-        "path": "data_path"
-    },
-    "script.module.accountmgr": {
-        "name": "Account Manager",
         "setting": "savedata",
         "path": "data_path"
     },
