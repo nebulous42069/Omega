@@ -82,11 +82,25 @@ def startup_meta_sync():
                 pass
         
 def dradis_sync():
-        try:
+        try:  
                 xbmc.executebuiltin('RunPlugin(plugin://plugin.video.dradis/?action=tools_forceTraktSync)') #Start Trakt Sync
+                xbmc.sleep(1000)
+                if xbmc.getCondVisibility('Window.IsTopMost(yesnodialog)'):
+                        xbmc.executebuiltin('SendClick(yesnodialog, 11)')
                 accountmgr.setSetting("dradis_traktsync", 'false')
         except:
-                xbmc.log('%s: Startup Dradis Sync Failed!' % var.amgr, xbmc.LOGINFO)
+                xbmc.log('%s: Startup Dradis Trakt Sync Failed!' % var.amgr, xbmc.LOGINFO)
+                pass
+
+def genocide_sync():
+        try:               
+                xbmc.executebuiltin('RunPlugin(plugin://plugin.video.chainsgenocide/?action=tools_forceTraktSync)') #Start Trakt Sync
+                xbmc.sleep(1000)
+                if xbmc.getCondVisibility('Window.IsTopMost(yesnodialog)'):
+                        xbmc.executebuiltin('SendClick(yesnodialog, 11)')
+                accountmgr.setSetting("genocide_traktsync", 'false')
+        except:
+                xbmc.log('%s: Startup Chains Genocide Trakt Sync Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
                 
 class AddonCheckUpdate:
@@ -260,34 +274,26 @@ def check_api():
                                 
                 if var.setting('api.service')=='true' and xbmcvfs.exists(var.chk_pov) and xbmcvfs.exists(var.chkset_pov) and str(var.chk_accountmgr_tk) != '':
                         try:
-                                with open(var.path_pov) as f:
-                                        if var.chk_api in f.read():
-                                                pass
-                                        else:
-                                                with open(var.path_pov,'r') as f:
-                                                    data = f.read()
-
-                                                client = data.replace(var.pov_client,var.client_am).replace(var.pov_secret,var.secret_am)
-
-                                                with open(var.path_pov,'w') as f:
-                                                    f.write(client)
+                                chk_auth_pov = xbmcaddon.Addon('plugin.video.pov').getSetting("trakt.token")
+                                chk_client = xbmcaddon.Addon('plugin.video.pov').getSetting("trakt.client_id")
+                                
+                                if not str(chk_client) == str(var.chk_api) and str(var.chk_accountmgr_tk) == str(chk_auth_pov):
+                                        addon = xbmcaddon.Addon("plugin.video.pov")
+                                        addon.setSetting("trakt.client_id", var.client_am)
+                                        addon.setSetting("trakt.client_secret", var.secret_am)
                         except:
                                 xbmc.log('%s: POV API Failed!' % var.amgr, xbmc.LOGINFO)
                                 pass
                         
                 if var.setting('api.service')=='true' and xbmcvfs.exists(var.chk_dradis) and xbmcvfs.exists(var.chkset_dradis) and str(var.chk_accountmgr_tk) != '':
                         try:
-                                with open(var.path_dradis) as f:
-                                        if var.chk_api in f.read():
-                                                pass
-                                        else:
-                                                with open(var.path_dradis,'r') as f:
-                                                    data = f.read()
-
-                                                client = data.replace(var.dradis_client,var.client_am).replace(var.dradis_secret,var.secret_am)
-
-                                                with open(var.path_dradis,'w') as f:
-                                                    f.write(client)
+                                chk_auth_dradis = xbmcaddon.Addon('plugin.video.dradis').getSetting("trakt.token")
+                                chk_client = xbmcaddon.Addon('plugin.video.dradis').getSetting("trakt.client_id")
+                                
+                                if not str(chk_client) == str(var.chk_api) and str(var.chk_accountmgr_tk) == str(chk_auth_dradis):
+                                        addon = xbmcaddon.Addon("plugin.video.dradis")
+                                        addon.setSetting("trakt.client_id", var.client_am)
+                                        addon.setSetting("trakt.client_secret", var.secret_am)
                         except:
                                 xbmc.log('%s: Dradis API Failed!' % var.amgr, xbmc.LOGINFO)
                                 pass
@@ -495,6 +501,23 @@ def check_api():
                         except:
                                 xbmc.log('%s: Nightwing Lite API Failed!' % var.amgr, xbmc.LOGINFO)
                                 pass
+
+                if var.setting('api.service')=='true' and xbmcvfs.exists(var.chk_genocide) and xbmcvfs.exists(var.chkset_genocide) and str(var.chk_accountmgr_tk) != '':
+                        try:
+                                with open(var.path_genocide) as f:
+                                        if var.chk_api in f.read():
+                                                pass
+                                        else:   
+                                                with open(var.path_genocide,'r') as f:
+                                                    data = f.read()
+
+                                                client = data.replace(var.genocide_client,var.client_am).replace(var.genocide_secret,var.secret_am)
+
+                                                with open(var.path_genocide,'w') as f:
+                                                    f.write(client)
+                        except:
+                                xbmc.log('%s: Chains Genocide API Failed!' % var.amgr, xbmc.LOGINFO)
+                                pass
                         
                 if var.setting('api.service')=='true' and xbmcvfs.exists(var.chk_crew) and xbmcvfs.exists(var.chkset_crew) and str(var.chk_accountmgr_tk) != '':
                         try:
@@ -646,26 +669,18 @@ def restore_api():
 
         if xbmcvfs.exists(var.chk_pov):
             try:
-                with open(var.path_pov,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.pov_client,var.client_am).replace(var.pov_secret,var.secret_am)
-
-                with open(var.path_pov,'w') as f:
-                    f.write(client)
+                addon = xbmcaddon.Addon("plugin.video.pov")
+                addon.setSetting("trakt.client_id", var.client_am)
+                addon.setSetting("trakt.client_secret", var.secret_am)
             except:
                 xbmc.log('%s: Restore API POV Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
         if xbmcvfs.exists(var.chk_dradis):
             try:
-                with open(var.path_dradis,'r') as f:
-                    data = f.read()
-
-                client = data.replace(var.dradis_client,var.client_am).replace(var.dradis_secret,var.secret_am)
-
-                with open(var.path_dradis,'w') as f:
-                    f.write(client)
+                addon = xbmcaddon.Addon("plugin.video.dradis")
+                addon.setSetting("trakt.client_id", var.client_am)
+                addon.setSetting("trakt.client_secret", var.secret_am)
             except:
                 xbmc.log('%s: Restore API Dradis Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
@@ -824,6 +839,19 @@ def restore_api():
             except:
                 xbmc.log('%s: Restore API Nightwing Lite Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
+
+        if xbmcvfs.exists(var.chk_genocide):
+            try:
+                with open(var.path_genocide,'r') as f:
+                    data = f.read()
+
+                client = data.replace(var.genocide_client,var.client_am).replace(var.genocide_secret,var.secret_am)
+
+                with open(var.path_genocide,'w') as f:
+                    f.write(client)
+            except:
+                xbmc.log('%s: Restore API Chains Genocide Failed!' % var.amgr, xbmc.LOGINFO)
+                pass
         
         if xbmcvfs.exists(var.chk_crew):
             try:
@@ -935,6 +963,11 @@ PremAccntNotification().run()
 
 if var.setting('dradis_traktsync')=='true': #Check if Trakt Sync is enabled for Dradis add-on
         dradis_sync() #Start Dradis Trakt sync
+else:
+        pass
+
+if var.setting('genocide_traktsync')=='true': #Check if Trakt Sync is enabled for Chains Genocide add-on
+        genocide_sync() #Start Chains Genocide Trakt sync
 else:
         pass
 

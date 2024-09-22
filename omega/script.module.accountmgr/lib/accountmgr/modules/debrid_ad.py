@@ -775,6 +775,26 @@ class Auth:
         except:
                 xbmc.log('%s: Nightwing Lite All-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
+
+    #Chains Genocide AD
+        try:
+                if xbmcvfs.exists(var.chk_genocide) and not xbmcvfs.exists(var.genocide_ud):
+                        os.mkdir(var.genocide_ud)
+                        xbmcvfs.copy(os.path.join(var.genocide), os.path.join(var.chkset_genocide))
+                        
+                if xbmcvfs.exists(var.chk_genocide) and not xbmcvfs.exists(var.chkset_genocide):
+                        xbmcvfs.copy(os.path.join(var.genocide), os.path.join(var.chkset_genocide))
+                        
+                if xbmcvfs.exists(var.chk_genocide) and xbmcvfs.exists(var.chkset_genocide):
+                        chk_auth_genocide = xbmcaddon.Addon('plugin.video.chainsgenocide').getSetting("alldebrid.token")
+                        if not str(var.chk_accountmgr_tk_ad) == str(chk_auth_genocide) or str(chk_auth_genocide) == '':
+                        
+                                addon = xbmcaddon.Addon("plugin.video.chainsgenocide")
+                                addon.setSetting("alldebrid.username", your_ad_username)
+                                addon.setSetting("alldebrid.token", your_ad_token)
+        except:
+                xbmc.log('%s: Chains Genocide All-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
+                pass
             
      #Otaku AD
         try:

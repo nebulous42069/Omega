@@ -769,6 +769,26 @@ class Auth:
         except:
                 xbmc.log('%s: Nightwing Lite Premiumize Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
+
+     #Chains Genocide PM
+        try:
+                if xbmcvfs.exists(var.chk_genocide) and not xbmcvfs.exists(var.genocide_ud):
+                        os.mkdir(var.genocide_ud)
+                        xbmcvfs.copy(os.path.join(var.genocide), os.path.join(var.chkset_genocide))
+                        
+                if xbmcvfs.exists(var.chk_genocide) and not xbmcvfs.exists(var.chkset_genocide):
+                        xbmcvfs.copy(os.path.join(var.genocide), os.path.join(var.chkset_genocide))
+                        
+                if xbmcvfs.exists(var.chk_genocide) and xbmcvfs.exists(var.chkset_genocide):
+                        chk_auth_genocide = xbmcaddon.Addon('plugin.video.chainsgenocide').getSetting("premiumize.token")
+                        if not str(var.chk_accountmgr_tk_pm) == str(chk_auth_genocide) or str(chk_auth_genocide) == '':
+                        
+                                addon = xbmcaddon.Addon("plugin.video.chainsgenocide")
+                                addon.setSetting("premiumize.username", your_pm_username)
+                                addon.setSetting("premiumize.token", your_pm_token)
+        except:
+                xbmc.log('%s: Chains Genocide Premiumize Failed!' % var.amgr, xbmc.LOGINFO)
+                pass
             
      #Otaku PM
         try:

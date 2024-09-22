@@ -31,9 +31,9 @@
 		<setting id="trakt.expires" type="text" visible="false" label="" default="" />
 		<setting id="devuserkey.enabled" type="bool" visible="false" label="" default="false" />
 		<setting id="traktuserkey.enabled" type="bool" visible="eq(-1,false)" label="40090" default="false" />
-		<setting id="trakt.client.id" type="text" visible="eq(-1,true) + eq(2,)" label="40089" default="" />
-		<setting id="trakt.client.secret" type="text" visible="eq(-2,true)+ eq(1,)" label="40088" default="" />
-		<setting type="action" label="Authorize" option="close" action="RunScript(script.module.accountmgr, action=traktAuth)" visible="eq(-2,)" />
+		<setting id="trakt.client.id" type="text" visible="eq(-1,true) + eq(4,)" label="40089" default="" />
+		<setting id="trakt.client.secret" type="text" visible="eq(-2,true)+ eq(3,)" label="40088" default="" />
+		<setting type="action" label="Authorize" option="close" action="RunScript(script.module.accountmgr, action=traktAuth)" visible="eq(1,)" />
 		<setting id="trakt.username" type="text" default="" label="40062" enable="false" visible="!eq(-8,)" />
 		<setting type="action" label="32316" option="close" action="RunScript(script.module.accountmgr, action=traktAcct)" visible="!eq(-1,)" />
 
