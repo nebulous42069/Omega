@@ -32,6 +32,8 @@ class DialogBaseInfo(object):
 		self.window = xbmcgui.Window(self.window_id)
 		self.window.setProperty('type', self.type)
 		xbmcgui.Window(10000).setProperty('diamondinfo_fanart', self.info.get('fanart', ''))
+
+		#log(Utils.db_con)
 		if Utils.trakt_kodi_mode == 'Trakt Only':
 			xbmcgui.Window(self.window_id).setProperty('trakt_only', 'true')
 		else:
@@ -195,6 +197,7 @@ class DialogBaseInfo(object):
 
 	@ch.action('previousmenu', '*')
 	def exit_script(self):
+		Utils.db_con.close()
 		self.close()
 		try: del self
 		except: pass

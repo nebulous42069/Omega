@@ -90,6 +90,17 @@ def get_season_window(window_type):
 			self.close()
 			xbmc.executebuiltin('ActivateWindow(videos,%s,return)' % url)
 
+
+		@ch.action('play', 10)
+		def context_play(self):
+			self.info['media_type'] = 'season'
+			Utils.context_play(window=self,tmdb_id = self.tvshow_id)
+
+		@ch.action('play', 2000)
+		def context_play(self):
+			self.info['media_type'] = 'episode'
+			Utils.context_play(window=self,tmdb_id = self.info['tmdb_id'])
+
 		@ch.click(750)
 		@ch.click(1000)
 		def open_actor_info(self):

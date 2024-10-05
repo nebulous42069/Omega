@@ -34,10 +34,15 @@ def get_tvshow_window(window_type):
 				imdb_id = data[0]['imdb_id']
 				if 'tt' not in str(imdb_id):
 					imdb_id = Utils.fetch(TheMovieDB.get_tvshow_ids(kwargs.get('tmdb_id', False)), 'imdb_id')
-				imdb_similar = TheMovieDB.get_imdb_recommendations(imdb_id=imdb_id,return_items=True)
+			#	imdb_similar = TheMovieDB.get_imdb_recommendations(imdb_id=imdb_id,return_items=True)
+			#else:
+			#	imdb_similar = None
+				imdbs_thread = IMDB_Thread(imdb_id)
+				imdbs_thread.start()
+				imdbs_thread.join()
+				imdb_similar = imdbs_thread.imdb_similar
 			else:
 				imdb_similar = None
-
 
 			if Utils.NETFLIX_VIEW == 'true':
 				#super(DialogTVShowInfo, self).__init__(*args, **kwargs)
@@ -157,6 +162,60 @@ def get_tvshow_window(window_type):
 			self.close()
 			xbmc.executebuiltin('ActivateWindow(videos,%s,return)' % url)
 
+		def context_trakt_in_lists(self):
+			from resources.lib.library import trakt_in_lists
+			try: 
+				search_str = self.listitem.getProperty('title')
+				item_id = self.listitem.getProperty('id')
+				TVShowTitle = self.listitem.getProperty('TVShowTitle')
+			except: 
+				search_str = self.info['title']
+				item_id = self.info['id']
+				TVShowTitle = self.info['TVShowTitle']
+			Utils.show_busy()
+			
+			if xbmc.getInfoLabel('listitem.DBTYPE') == 'movie' or self.type == 'movie':
+				self_type = 'movie'
+			elif xbmc.getInfoLabel('listitem.DBTYPE') in ['tv', 'tvshow', 'season', 'episode']:
+				self_type = 'tv'
+			elif TVShowTitle:
+				self_type = 'tv'
+			else:
+				self_type = 'movie'
+			if self_type == 'tv':
+				media_type = 'tv'
+				imdb_id = Utils.fetch(TheMovieDB.get_tvshow_ids(item_id), 'imdb_id')
+			else:
+				media_type = 'movie'
+				imdb_id = TheMovieDB.get_imdb_id_from_movie_id(item_id)
+			list_name, user_id, list_slug, sort_by, sort_order = trakt_in_lists(type=media_type,imdb_id=imdb_id,return_var=None)
+			if list_name == None or list_name == '':
+				Utils.hide_busy()
+				return
+			wm.pop_video_list = False
+			self.page = 1
+			self.mode = 'trakt'
+			self.filter_label='Trakt In Lists ('+str(search_str)+'):'
+			wm.append_window_stack_table(mode='curr_window')
+			self.close()
+			xbmc.executebuiltin('RunScript('+str(addon_ID())+',info=trakt_list,trakt_type=%s,trakt_label=%s,user_id=%s,list_slug=%s,trakt_sort_by=%s,trakt_sort_order=%s,trakt_list_name=%s,keep_stack=True,script=True)' % (media_type,list_name,user_id,list_slug,sort_by,sort_order,list_name))
+
+		@ch.action('play', 250)
+		def context_play(self):
+			tmdb_id = self.info['id']
+			self.info['media_type'] = 'season'
+			Utils.context_play(window=self,tmdb_id = tmdb_id)
+
+		@ch.action('play', 150)
+		@ch.action('play', 9)
+		def context_play(self):
+			try: 
+				tmdb_id = self.listitem.getProperty('id')
+			except: 
+				tmdb_id = self.info['id']
+				self.info['media_type'] = 'tvshow'
+			Utils.context_play(window=self,tmdb_id = tmdb_id)
+
 		@ch.action('contextmenu', 150)
 		def right_click_similar(self):
 			item_id = self.listitem.getProperty('id')
@@ -187,6 +246,8 @@ def get_tvshow_window(window_type):
 			if self.listitem.getProperty('TVShowTitle'):
 				listitems += ['Hide on Trakt Calendar']
 				listitems += ['Unhide on Trakt Calendar']
+
+			listitems += ['In Trakt Lists']
 			listitems += ['Search item']
 
 			if xbmcaddon.Addon(addon_ID()).getSetting('context_menu') == 'true':
@@ -260,6 +321,9 @@ def get_tvshow_window(window_type):
 				url = next_episode_show(tmdb_id_num=item_id,dbid_num=dbid)
 				xbmc.executebuiltin('Dialog.Close(all,true)')
 				PLAYER.play_from_button(url, listitem=None, window=self, dbid=0)
+
+			if selection_text == 'In Trakt Lists':
+				self.context_trakt_in_lists()
 
 			if selection_text == 'Play Trakt Next Episode':
 				url = trakt_next_episode_normal(tmdb_id_num=item_id)
@@ -436,6 +500,8 @@ def get_tvshow_window(window_type):
 				if self.type == 'tv' or self.info['TVShowTitle']:
 					listitems += ['Play Trakt Next Episode']
 					listitems += ['Play Trakt Next Episode (Rewatch)']
+
+			listitems += ['In Trakt Lists']
 			listitems += ['Search item']
 			listitems += ['Trailer']
 			if self.info['TVShowTitle']:
@@ -502,6 +568,9 @@ def get_tvshow_window(window_type):
 							trakt_add_movie(item_id,'Add')
 							Utils.after_add(type='movie')
 							Utils.notify(header='[B]%s[/B] added to library' % self.info['title'], message='Exit & re-enter to refresh', icon=self.info['poster'], time=1000, sound=False)
+
+			if selection_text == 'In Trakt Lists':
+				self.context_trakt_in_lists()
 
 			if selection_text == 'Play Kodi Next Episode':
 				url = next_episode_show(tmdb_id_num=item_id,dbid_num=dbid)
@@ -578,5 +647,19 @@ def get_tvshow_window(window_type):
 		@ch.click(29)
 		def stop_tv_trailer_button(self):
 			xbmc.executebuiltin('PlayerControl(Stop)')
+
+	class IMDB_Thread(threading.Thread):
+
+		def __init__(self, imdb_id=''):
+			threading.Thread.__init__(self)
+			self.imdb_id = imdb_id
+			self.imdb_similar = None
+
+		def run(self):
+			if self.imdb_id:
+				imdb_similar = TheMovieDB.get_imdb_recommendations(imdb_id=self.imdb_id,return_items=True)
+				self.imdb_similar = imdb_similar
+			else:
+				self.imdb_similar = []
 
 	return DialogTVShowInfo

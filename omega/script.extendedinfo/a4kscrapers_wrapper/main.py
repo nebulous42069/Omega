@@ -65,6 +65,8 @@ def downloader_daemon():
 
 def copy_and_replace(source_path, destination_path):
 	if os.path.exists(destination_path):
+		if source_path == destination_path:
+			return
 		os.remove(destination_path)
 	shutil.copy2(source_path, destination_path)
 
@@ -171,13 +173,19 @@ def main():
 		except KeyboardInterrupt: 
 			print('\nEXIT')
 			return
-		if result2 == 0:
+		if result2 == 1:
 			tv_show_title = input('Enter TV Show Title:  ')
 
 			season_number = input('Enter Season Number:  ')
 			episode_number = input('Enter Episode Number:  ')
 			meta = get_meta.get_episode_meta(season=season_number, episode=episode_number,tmdb=None, show_name=tv_show_title, year=None, interactive=True)
 			info = meta['episode_meta']
+			meta = info
+			meta['air_date'] = meta['episode_air_date']
+			meta['originaltitle'] = meta['title']
+			meta['name'] = meta['title']
+			print(meta)
+
 		else:
 			movie_title = input('Enter Movie Title:  ')
 			movie_title = movie_title.replace('.',' ')

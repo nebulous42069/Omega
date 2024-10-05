@@ -48,6 +48,7 @@ class DialogBaseList(object):
 		if xbmcaddon.Addon().getSetting('alt_browser_layout') == 'true':
 			self.setProperty('alt_layout', 'true')
 
+		#log(Utils.db_con)
 		self.update_ui()
 		xbmc.sleep(100)
 
@@ -103,6 +104,7 @@ class DialogBaseList(object):
 
 	@ch.action('previousmenu', '*')
 	def exit_script(self):
+		Utils.db_con.close()
 		self.close()
 		Utils.hide_busy()
 
@@ -154,7 +156,7 @@ class DialogBaseList(object):
 		wm.page_position = None
 		ch.serve(control_id, self)
 
-	@ch.click(5005)
+	@ch.click(5018)
 	def reset_filters(self):
 		if len(self.filters) > 0:
 			listitems = ['%s: %s' % (f['typelabel'], f['label']) for f in self.filters]
@@ -549,10 +551,27 @@ class DialogBaseList(object):
 			self.filters[index]['label'] = str(label)
 			return None
 		dialog = xbmcgui.Dialog()
-		ret = dialog.yesno(heading='Filter', message='Choose filter behaviour', nolabel='OR', yeslabel='AND')
-		if ret:
-			self.filters[index]['id'] = str(self.filters[index]['id']) + ',' + quote_plus(str(value))
-			self.filters[index]['label'] = self.filters[index]['label'] + ',' + label
+
+		without_genres = [i["label"] for i in self.filters if i["type"] == "without_genres"]
+		try: without_genres = without_genres[0].replace(',','+').replace('|',' OR ')
+		except: without_genres = ''
+		with_genres = [i["label"] for i in self.filters if i["type"] == "with_genres"] 
+		try: with_genres = with_genres[0].replace(',','+').replace('|',' OR ')
+		except: with_genres = ''
+		if key == 'without_genres':
+			dialog_label = ' NOT  ' + without_genres
 		else:
+			dialog_label = ' WITH  ' + with_genres
+		dialog_label = dialog_label + ': ' + label + '?'
+		#xbmc.log(str(dialog_label)+'indexes===>OPENINFO', level=xbmc.LOGFATAL)
+
+		ret = dialog.yesno(heading='Filter', message='Choose filter behaviour' + dialog_label, nolabel='AND', yeslabel='OR')
+		if ret == -1:
+			return
+		if ret:
 			self.filters[index]['id'] = str(self.filters[index]['id']) + '|' + quote_plus(str(value))
 			self.filters[index]['label'] = self.filters[index]['label'] + '|' + label
+		else:
+			self.filters[index]['id'] = str(self.filters[index]['id']) + ',' + quote_plus(str(value))
+			self.filters[index]['label'] = self.filters[index]['label'] + ',' + label
+

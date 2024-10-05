@@ -1,8 +1,8 @@
 import sys
 import xbmc, xbmcaddon
 import requests,json
-from resources.lib import TheMovieDB
-
+from resources.lib.library import addon_ID
+from resources.lib import Utils
 #ext_key = xbmcaddon.Addon().getSetting('tmdb_api')
 
 #if len(ext_key) == 32:
@@ -12,30 +12,40 @@ from resources.lib import TheMovieDB
 
 
 if __name__ == '__main__':
-	base = 'RunScript(plugin.video.themoviedb.helper,play,tmdb_type='
-	info = sys.listitem.getVideoInfoTag()
-	type = info.getMediaType()
-	year = info.getYear()
-	if type == 'movie':
-		title = info.getTitle()
-		tmdb_type = 'movie'
-	elif type == 'tvshow' or type == 'season' or type == 'episode':
-		title = info.getTVShowTitle()
-		tmdb_type = 'tv'
-	language = xbmcaddon.Addon().getSetting('LanguageID')
-	try:
-		TheMovieDB.get_tmdb_data()
-		response = TheMovieDB.get_tmdb_data('search/%s?query=%s&language=en-US&include_adult=%s&' % (tmdb_type, title, xbmcaddon.Addon().getSetting('include_adults')), 30)
-		#url = 'https://api.themoviedb.org/3/search/'+str(tmdb_type)+'?api_key='+str(API_key)+'&language='+str(language)+'&page=1&query='+str(title)+'&include_adult=false&first_air_date_year='+str(year)
-		#response = requests.get(url).json()
-		tmdb_id = response['results'][0]['id']
-	except:
-		response = TheMovieDB.get_tmdb_data('search/%s?query=%s&language=%s&include_adult=%s&' % (tmdb_type, title, language, xbmcaddon.Addon().getSetting('include_adults')), 30)
-		#url = 'https://api.themoviedb.org/3/search/'+str(tmdb_type)+'?api_key='+str(API_key)+'&language='+str(language)+'&page=1&query='+str(title)+'&include_adult=false'
-		#response = requests.get(url).json()
-		tmdb_id = response['results'][0]['id']
-	if type == 'movie':
-		xbmc.executebuiltin('%s%s,tmdb_id=%s)' % (base, type, tmdb_id))
-	elif type == 'episode':
-		xbmc.executebuiltin('%s%s,tmdb_id=%s,season=%s,episode=%s)' % (base, type, tmdb_id, info.getSeason(), info.getEpisode()))
+	def context_trakt_in_lists():
+		from resources.lib.library import trakt_in_lists
+		search_str = sys.listitem.getProperty('title')
+		Utils.show_busy()
+		info = sys.listitem.getVideoInfoTag()
+		type = info.getMediaType()
+		year = info.getYear()
+		item_id = info.getUniqueID('tmdb')
+		imdb_id = info.getUniqueID('imdb')
 
+		imdb_id2 = info.getIMDBNumber()
+		if 'tt' in imdb_id:
+			imdb_id = imdb_id
+		if 'tt' in imdb_id2 and imdb_id2 != imdb_id:
+			imdb_id = imdb_id2
+		#if xbmc.getInfoLabel('listitem.DBTYPE') == 'movie' or type == 'movie':
+		#	self_type = 'movie'
+		#elif xbmc.getInfoLabel('listitem.DBTYPE') in ['tv', 'tvshow', 'season', 'episode']:
+		#	self_type = 'tv'
+		#elif sys.listitem.getProperty('TVShowTitle'):
+		#	self_type = 'tv'
+		#else:
+		#	self_type = 'movie'
+		#if self_type == 'tv':
+		#	media_type = 'tv'
+		#	#imdb_id = Utils.fetch(TheMovieDB.get_tvshow_ids(item_id), 'imdb_id')
+		#else:
+		#	media_type = 'movie'
+		#	imdb_id = TheMovieDB.get_imdb_id_from_movie_id(item_id)
+		xbmc.log(str(imdb_id)+'===>PHIL', level=xbmc.LOGINFO)
+		list_name, user_id, list_slug, sort_by, sort_order = trakt_in_lists(type=type,imdb_id=imdb_id,return_var=None)
+		if list_name == None or list_name == '':
+			Utils.hide_busy()
+			return
+		#Utils.hide_busy()
+		xbmc.executebuiltin('RunScript('+str(addon_ID())+',info=trakt_list,trakt_type=%s,trakt_label=%s,user_id=%s,list_slug=%s,trakt_sort_by=%s,trakt_sort_order=%s,trakt_list_name=%s,keep_stack=True,script=True)' % (type,list_name,user_id,list_slug,sort_by,sort_order,list_name))
+	context_trakt_in_lists()

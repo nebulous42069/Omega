@@ -22,6 +22,7 @@ class WindowManager(object):
 		Utils.show_busy()
 	window_stack = []
 
+
 	def __init__(self):
 		global dialog
 		self.reopen_window = False
@@ -45,6 +46,7 @@ class WindowManager(object):
 		self.position = None
 		self.focus_id = None
 		self.custom_filter = None
+
 		try: self.window_stack_len = self.window_stack_len
 		except: self.window_stack_len = 0
 		#self.reopen_window_var = None
@@ -57,6 +59,7 @@ class WindowManager(object):
 			self.osAndroid_path = ''
 	if 'estuary' in str(Utils.SKIN_DIR):
 			 Utils.SKIN_DIR = 'skin.estuary'
+
 
 
 	def window_stack_connection(self):
@@ -82,6 +85,8 @@ class WindowManager(object):
 
 	def window_stack_empty(self):
 		self.window_stack_length()
+		#if xbmc.Player().isPlaying():
+		#	return
 		con = self.window_stack_connection()
 		cur = con.cursor()
 		sql_result = """
@@ -765,6 +770,12 @@ class WindowManager(object):
 		except: pass
 		gc.collect()
 
+	def open_selectdialog_autoclose(self, listitems, autoclose=0, autoselect=0):
+		dialog = SelectDialog('DialogSelect.xml', Utils.ADDON_PATH, listing=listitems, autoclose=autoclose, autoselect=autoselect)
+		Utils.hide_busy()
+		dialog.doModal()
+		return dialog.listitem, dialog.index
+
 	def open_selectdialog(self, listitems):
 		dialog = SelectDialog('DialogSelect.xml', Utils.ADDON_PATH, listing=listitems)
 		Utils.hide_busy()
@@ -907,24 +918,48 @@ class SelectDialog(xbmcgui.WindowXMLDialog):
 		self.listitems = Utils.create_listitems(self.items)
 		self.listitem = None
 		self.index = -1
+		self.closed = None
+		self.autoselect = kwargs.get('autoselect')
+		self.autoclose = kwargs.get('autoclose')
+		self.autoclose_time = None
+		if self.autoclose > 0:
+			self.autoclose_time = time.time() + self.autoclose
 
 	def onInit(self):
 		self.list = self.getControl(6)
 		self.getControl(3).setVisible(False)
 		self.getControl(5).setVisible(False)
 		self.getControl(1).setLabel('Choose option')
+		self.getControl(8).setVisible(False)
 		self.list.addItems(self.listitems)
 		self.setFocus(self.list)
+		self.background_tasks()
+
+	def background_tasks(self):
+		while not self.closed:
+			curr_time = time.time()
+			self.getControl(1).setLabel(self.list.getSelectedItem().getProperty('label2'))
+			if self.autoclose != 0 and self.autoclose_time <= curr_time:
+				self.index = self.list.getSelectedPosition()
+				self.closed = True
+				self.close()
+			xbmc.sleep(500)
+			#xbmc.log(str(time.time())+'__wm.open_selectdialog(listitems=listitems)', level=xbmc.LOGINFO)
+			#xbmc.log(str(self.index)+'__wm.open_selectdialog(listitems=listitems)', level=xbmc.LOGINFO)
+			#xbmc.log(str(self.list.getSelectedPosition())+'__wm.open_selectdialog(listitems=listitems)', level=xbmc.LOGINFO)
 
 	def onAction(self, action):
 		if action in self.ACTION_PREVIOUS_MENU:
+			self.closed = True
 			self.close()
 
 	def onClick(self, control_id):
 		if control_id == 6 or control_id == 3:
 			self.index = int(self.list.getSelectedItem().getProperty('index'))
 			self.listitem = self.items[self.index]
+			self.closed = True
 			self.close()
 
 	def onFocus(self, control_id):
+		self.getControl(1).setLabel(self.list.getSelectedItem().getProperty('label2'))
 		pass

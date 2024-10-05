@@ -648,7 +648,7 @@
 				<texturenofocus border="40" colordiffuse="$VAR[ColorHighlight]">common/roundedbutton-nofocus.png</texturenofocus>
 				<font>font13</font>
 				<textcolor>FF999999</textcolor>
-				<onup>5018</onup>
+				<onup>5019</onup>
 				<!---OPENINFO--->
 				<ondown>6001</ondown>
 				<!---OPENINFO--->
@@ -684,7 +684,7 @@
 				<font>font13</font>
 				<textcolor>FF999999</textcolor>
 				<onup>6000</onup>
-				<ondown>5007</ondown>
+				<ondown>5001</ondown>
 				<onright>500</onright>
 				<onleft>500</onleft>
 				<focusedcolor>FFFFFFFF</focusedcolor>
@@ -715,9 +715,11 @@
 				<onright>500</onright>
 				<onleft>500</onleft>
 				<onback>500</onback>
-				<control type="button" id="5007">
+				<control type="button" id="5001">
 					<label>Type:</label>
-					<label2>[COLOR FFFFFFFF]$INFO[Window.Property(Type)][/COLOR]</label2>
+					<!---OPENINFO--->
+					<onup>6001</onup>
+					<!---OPENINFO--->					<label2>[COLOR FFFFFFFF]$INFO[Window.Property(Type)][/COLOR]</label2>
 					<width>400</width>
 					<height>90</height>
 					<textoffsetx>40</textoffsetx>
@@ -731,10 +733,8 @@
 					<textcolor>FF999999</textcolor>
 					<focusedcolor>FFFFFFFF</focusedcolor>
 				</control>
-				<control type="button" id="5001">
-					<!---OPENINFO--->
-					<onup>6001</onup>
-					<!---OPENINFO--->
+				<control type="button" id="5002">
+
 					<label>Sort by</label>
 					<label2>[COLOR FFFFFFFF]$INFO[Window.Property(Sort_Label)][/COLOR]</label2>
 					<width>400</width>
@@ -750,7 +750,7 @@
 					<textcolor>FF999999</textcolor>
 					<focusedcolor>FFFFFFFF</focusedcolor>
 				</control>
-				<control type="button" id="5004">
+				<control type="button" id="5003">
 					<label>Order</label>
 					<label2>[COLOR FFFFFFFF]$INFO[Window.Property(Order_Label)][/COLOR]</label2>
 					<width>400</width>
@@ -766,7 +766,7 @@
 					<textcolor>FF999999</textcolor>
 					<focusedcolor>FFFFFFFF</focusedcolor>
 				</control>
-				<control type="label" id="5333">
+				<control type="label" id="5004">
 					<label>Filters</label>
 					<width>400</width>
 					<height>75</height>
@@ -778,7 +778,7 @@
 					<textcolor>FF999999</textcolor>
 				</control>
 
-				<control type="button" id="5013">
+				<control type="button" id="5005">
 					<label>Original Language</label>
 					<width>400</width>
 					<height>90</height>
@@ -794,7 +794,7 @@
 					<focusedcolor>FFFFFFFF</focusedcolor>
 				</control>
 
-				<control type="button" id="50139">
+				<control type="button" id="5006">
 					<label>Page Number</label>
 					<width>400</width>
 					<height>90</height>
@@ -810,7 +810,7 @@
 					<focusedcolor>FFFFFFFF</focusedcolor>
 				</control>
 
-				<control type="button" id="5002">
+				<control type="button" id="5007">
 					<label>Genre</label>
 					<width>400</width>
 					<height>90</height>
@@ -825,7 +825,7 @@
 					<textcolor>FF999999</textcolor>
 					<focusedcolor>FFFFFFFF</focusedcolor>
 				</control>
-				<control type="button" id="5003">
+				<control type="button" id="5008">
 					<label>Release date</label>
 					<width>400</width>
 					<height>90</height>
@@ -840,7 +840,7 @@
 					<textcolor>FF999999</textcolor>
 					<focusedcolor>FFFFFFFF</focusedcolor>
 				</control>
-				<control type="button" id="5006">
+				<control type="button" id="5009">
 					<label>Certification</label>
 					<width>400</width>
 					<height>90</height>
@@ -855,7 +855,7 @@
 					<textcolor>FF999999</textcolor>
 					<focusedcolor>FFFFFFFF</focusedcolor>
 				</control>
-				<control type="button" id="5008">
+				<control type="button" id="5010">
 					<label>Actor / Crew member</label>
 					<width>400</width>
 					<height>90</height>
@@ -870,7 +870,7 @@
 					<textcolor>FF999999</textcolor>
 					<focusedcolor>FFFFFFFF</focusedcolor>
 				</control>
-				<control type="button" id="5009">
+				<control type="button" id="5011">
 					<label>Keyword</label>
 					<width>400</width>
 					<height>90</height>
@@ -885,7 +885,7 @@
 					<textcolor>FF999999</textcolor>
 					<focusedcolor>FFFFFFFF</focusedcolor>
 				</control>
-				<control type="button" id="5010">
+				<control type="button" id="5012">
 					<label>Studio</label>
 					<width>400</width>
 					<height>90</height>
@@ -900,7 +900,7 @@
 					<textcolor>FF999999</textcolor>
 					<focusedcolor>FFFFFFFF</focusedcolor>
 				</control>
-				<control type="button" id="5012">
+				<control type="button" id="5013">
 					<label>Vote count</label>
 					<width>400</width>
 					<height>90</height>
@@ -948,7 +948,7 @@
 					<focusedcolor>FFFFFFFF</focusedcolor>
 				</control>
 
-				<control type="button" id="5017">
+				<control type="button" id="5016">
 					<label>User_Lists</label>
 					<width>400</width>
 					<height>90</height>
@@ -964,7 +964,7 @@
 					<focusedcolor>FFFFFFFF</focusedcolor>
 				</control>
 
-				<control type="button" id="5016">
+				<control type="button" id="5017">
 					<label>Plugin Routes</label>
 					<width>400</width>
 					<height>90</height>
@@ -980,7 +980,7 @@
 					<focusedcolor>FFFFFFFF</focusedcolor>
 				</control>
 
-				<control type="button" id="5005">
+				<control type="button" id="5018">
 					<visible>!String.IsEmpty(Window.Property(Filter_Label))</visible>
 					<label>Edit Filters</label>
 					<width>400</width>
@@ -995,10 +995,9 @@
 					<font>font13</font>
 					<textcolor>FF999999</textcolor>
 					<focusedcolor>FFFFFFFF</focusedcolor>
-					<ondown>6000</ondown>
 				</control>
 
-				<control type="button" id="5018">
+				<control type="button" id="5019">
 					<label>EXIT</label>
 					<width>400</width>
 					<height>90</height>
@@ -1012,6 +1011,7 @@
 					<font>font13</font>
 					<textcolor>FF999999</textcolor>
 					<focusedcolor>FFFFFFFF</focusedcolor>
+					<ondown>6000</ondown>
 				</control>
 
 			</control>

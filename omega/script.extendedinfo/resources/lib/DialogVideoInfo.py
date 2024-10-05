@@ -24,6 +24,8 @@ def get_movie_window(window_type):
 			#xbmc.log(str(imdb_id)+'===>OPENINFO', level=xbmc.LOGINFO)
 			#xbmc.log(str(kwargs.get('id'))+'===>OPENINFO', level=xbmc.LOGINFO)
 			data = TheMovieDB.extended_movie_info(movie_id=kwargs.get('id'), dbid=self.dbid)
+
+
 			imdb_recommendations = Utils.imdb_recommendations
 
 			if 'IMDB' in str(imdb_recommendations):
@@ -32,7 +34,11 @@ def get_movie_window(window_type):
 				#if 'tt' not in str(imdb_id):
 				#	imdb_id = Utils.fetch(TheMovieDB.get_tvshow_ids(kwargs.get('id')), 'imdb_id')
 				#xbmc.log(str(imdb_id)+'===>OPENINFO', level=xbmc.LOGINFO)
-				imdb_similar = TheMovieDB.get_imdb_recommendations(imdb_id=imdb_id,return_items=True)
+				#imdb_similar = TheMovieDB.get_imdb_recommendations(imdb_id=imdb_id,return_items=True)
+				imdbs_thread = IMDB_Thread(imdb_id)
+				imdbs_thread.start()
+				imdbs_thread.join()
+				imdb_similar = imdbs_thread.imdb_similar
 			else:
 				imdb_similar = None
 			if Utils.NETFLIX_VIEW == 'true':
@@ -173,6 +179,38 @@ def get_movie_window(window_type):
 			super(DialogVideoInfo, self).onAction(action)
 			ch.serve_action(action, self.getFocusId(), self)
 
+		def context_trakt_in_lists(self):
+			from resources.lib.library import trakt_in_lists
+			search_str = self.listitem.getProperty('title')
+			Utils.show_busy()
+			item_id = self.listitem.getProperty('id')
+			if xbmc.getInfoLabel('listitem.DBTYPE') == 'movie' or self.type == 'movie':
+				self_type = 'movie'
+			elif xbmc.getInfoLabel('listitem.DBTYPE') in ['tv', 'tvshow', 'season', 'episode']:
+				self_type = 'tv'
+			elif self.listitem.getProperty('TVShowTitle'):
+				self_type = 'tv'
+			else:
+				self_type = 'movie'
+			if self_type == 'tv':
+				media_type = 'tv'
+				imdb_id = Utils.fetch(TheMovieDB.get_tvshow_ids(item_id), 'imdb_id')
+			else:
+				media_type = 'movie'
+				imdb_id = TheMovieDB.get_imdb_id_from_movie_id(item_id)
+			list_name, user_id, list_slug, sort_by, sort_order = trakt_in_lists(type=media_type,imdb_id=imdb_id,return_var=None)
+			if list_name == None or list_name == '':
+				Utils.hide_busy()
+				return
+			wm.pop_video_list = False
+			self.page = 1
+			self.mode = 'trakt'
+			self.filter_label='Trakt In Lists ('+str(search_str)+'):'
+			wm.append_window_stack_table(mode='curr_window')
+			self.close()
+			xbmc.executebuiltin('RunScript('+str(addon_ID())+',info=trakt_list,trakt_type=%s,trakt_label=%s,user_id=%s,list_slug=%s,trakt_sort_by=%s,trakt_sort_order=%s,trakt_list_name=%s,keep_stack=True,script=True)' % (media_type,list_name,user_id,list_slug,sort_by,sort_order,list_name))
+
+
 		@ch.click(1000)
 		@ch.click(750)
 		def open_actor_info(self):
@@ -189,7 +227,18 @@ def get_movie_window(window_type):
 			if selection == 0:
 				self.close()
 				xbmc.executebuiltin('RunScript('+str(addon_ID())+',info=search_person,person=%s)' % self.listitem.getLabel())
-			
+
+		@ch.action('play', 250)
+		@ch.action('play', 150)
+		@ch.action('play', 8)
+		def context_play(self):
+			try: 
+				tmdb_id = self.listitem.getProperty('id')
+			except: 
+				tmdb_id = self.info['id']
+				self.info['media_type'] = 'movie'
+			Utils.context_play(window=self, tmdb_id = tmdb_id)
+
 		@ch.action('contextmenu', 150)
 		@ch.action('contextmenu', 250)
 		def context_menu(self):
@@ -211,6 +260,7 @@ def get_movie_window(window_type):
 				listitems = ['Play - TMDB Helper']
 
 			listitems += ['Search item']
+			listitems += ['In Trakt Lists']
 
 			if xbmcaddon.Addon(addon_ID()).getSetting('RD_bluray_player') == 'true' or xbmcaddon.Addon(addon_ID()).getSetting('RD_bluray_player2')  == 'true':
 				listitems += ['Eject/Load DVD']
@@ -239,7 +289,8 @@ def get_movie_window(window_type):
 
 			if selection_text == 'Eject/Load DVD':
 				xbmc.executebuiltin('RunScript(%s,info=eject_load_dvd)' % (addon_ID()))
-
+			if selection_text == 'In Trakt Lists':
+				self.context_trakt_in_lists()
 
 		@ch.click(150)
 		@ch.click(250)
@@ -398,6 +449,20 @@ def get_movie_window(window_type):
 		@ch.click(29)
 		def stop_movie_trailer_button(self):
 			xbmc.executebuiltin('PlayerControl(Stop)')
+
+	class IMDB_Thread(threading.Thread):
+
+		def __init__(self, imdb_id=''):
+			threading.Thread.__init__(self)
+			self.imdb_id = imdb_id
+			self.imdb_similar = None
+
+		def run(self):
+			if self.imdb_id:
+				imdb_similar = TheMovieDB.get_imdb_recommendations(imdb_id=self.imdb_id,return_items=True)
+				self.imdb_similar = imdb_similar
+			else:
+				self.imdb_similar = []
 
 	class SetItemsThread(threading.Thread):
 

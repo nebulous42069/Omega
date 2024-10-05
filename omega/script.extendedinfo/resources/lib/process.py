@@ -19,14 +19,28 @@ def start_info_actions(infos, params):
 	addonID_short = addon_ID_short()
 
 	wm.custom_filter = params.get('meta_filter')
+	log(Utils.db_con)
 	if wm.custom_filter:
 		wm.custom_filter = eval(unquote(wm.custom_filter))
+
+	keep_stack = params.get('keep_stack',False)
 
 	if 'imdbid' in params and 'imdb_id' not in params:
 		params['imdb_id'] = params['imdbid']
 	for info in infos:
 		Utils.show_busy()
 		data = [], ''
+
+		if info == 'rss_test':
+			from a4kscrapers_wrapper import get_meta
+			get_meta.get_rss_cache()
+
+		if info == 'delete_db_expired':
+			Utils.db_delete_expired(Utils.db_con)
+
+		if info == 'clear_db':
+			table_name = params.get('table_name', False)
+			Utils.clear_db(Utils.db_con,table_name)
 
 		if info == 'getplayingfile':
 			xbmc.log(str(xbmc.Player().getPlayingFile())+'===>OPENINFO', level=xbmc.LOGINFO)
@@ -36,6 +50,12 @@ def start_info_actions(infos, params):
 			rd_api = real_debrid.RealDebrid()
 			rd_api.auth_kodi()
 			Utils.hide_busy()
+
+		if info == 'context_info':
+			if xbmc.Player().isPlaying():
+				context_info()
+			else:
+				context_info2()
 
 		if info == 'a4kProviders':
 			from a4kscrapers_wrapper import getSources
@@ -576,11 +596,13 @@ def start_info_actions(infos, params):
 			from resources.lib.library import main_file_path
 			rd_player_path_in = xbmcvfs.translatePath(main_file_path() + 'direct.diamond_player.json')
 			rd_player_path_in2 = xbmcvfs.translatePath(main_file_path() + 'direct.diamond_player_torr_scrape.json')
+			rd_player_path_in3 = xbmcvfs.translatePath(main_file_path() + 'direct.diamond_player_torr_scrape_dialog.json')
 			rd_bluray_player_path_in = xbmcvfs.translatePath(main_file_path() + 'direct.diamond_player_bluray.json')
 			rd_bluray_player2_path_in = xbmcvfs.translatePath(main_file_path() + 'direct.diamond_player_bluray2.json')
 			
 			rd_player_path_out = xbmcvfs.translatePath(player_path + '/direct.diamond_player.json')
 			rd_player_path_out2 = xbmcvfs.translatePath(player_path + '/direct.diamond_player_torr_scrape.json')
+			rd_player_path_out3 = xbmcvfs.translatePath(player_path + '/direct.diamond_player_torr_scrape_dialog.json')
 			rd_bluray_player_path_out = xbmcvfs.translatePath(player_path + '/direct.diamond_player_bluray.json')
 			rd_bluray_player2_path_out = xbmcvfs.translatePath(player_path + '/direct.diamond_player_bluray2.json')
 			import shutil
@@ -596,6 +618,12 @@ def start_info_actions(infos, params):
 			if xbmcvfs.exists(rd_player_path_out2) and RD_player == 'true':
 				shutil.copyfile(rd_player_path_in2, rd_player_path_out2)
 				xbmc.log(str({'rd_player_path_in': rd_player_path_in2, 'rd_player_path_out': rd_player_path_out2})+'===>OPENINFO', level=xbmc.LOGINFO)
+			if not xbmcvfs.exists(rd_player_path_out3) and RD_player == 'true':
+				shutil.copyfile(rd_player_path_in3, rd_player_path_out3)
+				xbmc.log(str({'rd_player_path_in3': rd_player_path_in3, 'rd_player_path_out3': rd_player_path_out3})+'===>OPENINFO', level=xbmc.LOGINFO)
+			if xbmcvfs.exists(rd_player_path_out3) and RD_player == 'true':
+				shutil.copyfile(rd_player_path_in3, rd_player_path_out3)
+				xbmc.log(str({'rd_player_path_in3': rd_player_path_in3, 'rd_player_path_out3': rd_player_path_out3})+'===>OPENINFO', level=xbmc.LOGINFO)
 
 			if not xbmcvfs.exists(rd_bluray_player_path_out) and RD_bluray_player == 'true':
 				shutil.copyfile(rd_bluray_player_path_in, rd_bluray_player_path_out)
@@ -773,7 +801,8 @@ def start_info_actions(infos, params):
 					if trakt_script == 'False':
 						return get_trakt_lists(list_name=trakt_label,user_id=trakt_user_id,list_slug=takt_list_slug,sort_by=trakt_sort_by,sort_order=trakt_sort_order,limit=limit)
 					movies = trakt_lists(list_name=trakt_label,user_id=trakt_user_id,list_slug=takt_list_slug,sort_by=trakt_sort_by,sort_order=trakt_sort_order,limit=limit)
-				wm.window_stack_empty()
+				if keep_stack == None or keep_stack == False:
+					wm.window_stack_empty()
 				return wm.open_video_list(mode='trakt', listitems=[], search_str=movies, media_type=trakt_type, filter_label=trakt_label)
 
 		elif info == 'imdb_list':
@@ -1557,6 +1586,9 @@ def get_log_error_flag(mode=None):
 		if 'lib.player - playing' in str(lines) and 'plugin://' in str(lines) and 'plugin.video.themoviedb.helper/plugin.py): script successfully run' in str(lines):
 			error_flag = True
 			return error_flag
+		if 'TORRENTS_FOUND' in str(lines) and '===>A4K_Wrapper' in str(lines):
+			error_flag = True
+			return error_flag
 	if mode == 'seren':
 		if 'script successfully run' in str(lines) and '.seren_downloader' in str(lines):
 			return error_flag
@@ -1612,38 +1644,40 @@ def auto_clean_cache_seren_downloader(days=None):
 						os.remove(target)
 
 def auto_clean_cache(days=None):
-	import os 
-	import datetime
-	import glob
+	#import os 
+	#import datetime
+	#import glob
 	xbmc.log('STARTING===>auto_clean_cache', level=xbmc.LOGINFO)
-	path = Utils.ADDON_DATA_PATH + '/'
-	if days==None:
-		days = -30
-	else:
-		days = int(days)*-1
+	#path = Utils.ADDON_DATA_PATH + '/'
+	#if days==None:
+	#	days = -30
+	#else:
+	#	days = int(days)*-1
 
-	today = datetime.datetime.today()#gets current time
-	if not xbmcvfs.exists(path):
-		xbmcvfs.mkdir(path)
-	os.chdir(path) #changing path to current path(same as cd command)
+	#today = datetime.datetime.today()#gets current time
+	#if not xbmcvfs.exists(path):
+	#	xbmcvfs.mkdir(path)
+	#os.chdir(path) #changing path to current path(same as cd command)
 
-	directories_list = ['Trakt', 'TheMovieDB', 'show_filters', 'TVMaze', 'IMDB', 'FanartTV', 'TasteDive', 'YouTube', 'images', 'rss']
-	#we are taking current folder, directory and files 
-	#separetly using os.walk function
-	for root,directories,files in os.walk(path,topdown=False): 
-		for name in files:
-			#this is the last modified time
-			t = os.stat(os.path.join(root, name))[8] 
-			filetime = datetime.datetime.fromtimestamp(t) - today
-			#checking if file is more than 7 days old 
-			#or not if yes then remove them
-			if filetime.days <= days: # and 'Taste' not in str(root):
-				#print(os.path.join(root, name), filetime.days)
-				for i in directories_list:
-					target = str(os.path.join(root, name))
-					if str(i) in target:
-						xbmc.log(str(target)+'===>DELETE', level=xbmc.LOGINFO)
-						os.remove(target)
+	#directories_list = ['Trakt', 'TheMovieDB', 'show_filters', 'TVMaze', 'IMDB', 'FanartTV', 'TasteDive', 'YouTube', 'images', 'rss']
+	##we are taking current folder, directory and files 
+	##separetly using os.walk function
+	#for root,directories,files in os.walk(path,topdown=False): 
+	#	for name in files:
+	#		#this is the last modified time
+	#		t = os.stat(os.path.join(root, name))[8] 
+	#		filetime = datetime.datetime.fromtimestamp(t) - today
+	#		#checking if file is more than 7 days old 
+	#		#or not if yes then remove them
+	#		if filetime.days <= days: # and 'Taste' not in str(root):
+	#			#print(os.path.join(root, name), filetime.days)
+	#			for i in directories_list:
+	#				target = str(os.path.join(root, name))
+	#				if str(i) in target:
+	#					xbmc.log(str(target)+'===>DELETE', level=xbmc.LOGINFO)
+	#					os.remove(target)
+	Utils.db_delete_expired(connection=Utils.db_con)
+	#Utils.db_con.close()
 	auto_clean_cache_seren_downloader(days=30)
 
 def auto_library():
@@ -1721,6 +1755,129 @@ def auto_library():
 		#				xbmc.executebuiltin('RunPlugin(plugin://plugin.video.realizer/?action=rss_update)')
 		#xbmc.executebuiltin('RunPlugin(plugin://plugin.video.realizer/?action=rss_update)')
 		
+
+def context_info():
+	import json
+	base = 'RunScript('+str(addon_ID())+',info='
+	#info = sys.listitem.getVideoInfoTag()
+
+	json_result = xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"XBMC.GetInfoLabels","params": {"labels":["VideoPlayer.Title", "Player.Filename","Player.Filenameandpath", "VideoPlayer.MovieTitle", "VideoPlayer.TVShowTitle", "VideoPlayer.DBID", "VideoPlayer.DBTYPE", "VideoPlayer.Duration", "VideoPlayer.Season", "VideoPlayer.Episode", "VideoPlayer.DBID", "VideoPlayer.Year", "VideoPlayer.Rating", "VideoPlayer.mpaa", "VideoPlayer.Studio", "VideoPlayer.VideoAspect", "VideoPlayer.Plot", "VideoPlayer.RatingAndVotes", "VideoPlayer.Genre", "VideoPlayer.LastPlayed", "VideoPlayer.IMDBNumber", "ListItem.DBID", "Container.FolderPath", "Container.FolderName", "Container.PluginName", "ListItem.TVShowTitle", "ListItem.FileNameAndPath"]}, "id":1}')
+	json_object  = json.loads(json_result)
+
+	dbid = json_object['result']['VideoPlayer.DBID']
+	type = json_object['result']['VideoPlayer.DBTYPE']
+	episode = json_object['result']['VideoPlayer.Episode']
+	Season = json_object['result']['VideoPlayer.Season']
+	remote_id = None
+	IMDBNumber = json_object['result']['VideoPlayer.IMDBNumber']
+	#xbmc.log(str(IMDBNumber)+'===>META_FILTERS', level=xbmc.LOGINFO)
+	
+	if not type in ['movie','tvshow','season','episode','actor','director']:
+		if episode == '' or episode == None:
+			type = 'movie'
+			title = json_object['result']['VideoPlayer.MovieTitle']
+		else:
+			type = 'episode'
+			title = json_object['result']['VideoPlayer.TVShowTitle']
+
+	params = {}
+	infos = []
+	if type   == 'movie':
+		base = 'RunScript('+str(addon_ID())+',info='+str(addon_ID_short())
+		url = '%s,dbid=%s,id=%s,imdb_id=%s,name=%s)' % (base, dbid, remote_id, IMDBNumber, title)
+		infos.append(str(addon_ID_short()))
+		params['dbid'] = dbid
+		params['id'] = remote_id
+		params['imdb_id'] = IMDBNumber
+		params['name'] = title
+	elif type == 'episode':
+		infos.append('extendedepisodeinfo')
+		params['dbid'] = dbid
+		params['id'] = remote_id
+		params['tvshow'] = title
+		params['season'] = Season
+		params['episode'] = episode
+	xbmc.log(str(params)+'===>context_info', level=xbmc.LOGINFO)
+	if infos:
+		start_info_actions(infos, params)
+
+
+def context_info2():
+	import json
+	base = 'RunScript('+str(addon_ID())+',info='
+	#info = sys.listitem.getVideoInfoTag()
+
+	json_result = xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"XBMC.GetInfoLabels","params": {"labels":["ListItem.Title", "ListItem.Label",  "ListItem.MovieTitle",    "ListItem.DBTYPE",  "ListItem.Season", "ListItem.Episode", "ListItem.Year",  "ListItem.IMDBNumber", "ListItem.DBID",   "ListItem.TVShowTitle", "ListItem.FileNameAndPath", "ListItem.UniqueID(tmdb)", "ListItem.UniqueID(imdb)", "Container.ListItem.UniqueID(imdb)"]}, "id":1}')
+	json_object  = json.loads(json_result)
+	#xbmc.log(str(json_object)+'===>PHIL', level=xbmc.LOGINFO)
+	dbid = json_object['result']['ListItem.DBID']
+	type = json_object['result']['ListItem.DBTYPE']
+	episode = json_object['result']['ListItem.Episode']
+	Season = json_object['result']['ListItem.Season']
+	TVShowTitle = json_object['result']['ListItem.TVShowTitle']
+	MovieTitle = json_object['result']['ListItem.MovieTitle']
+	Title = json_object['result']['ListItem.Title']
+	Label = json_object['result']['ListItem.Label']
+	remote_id = json_object['result']['ListItem.UniqueID(tmdb)']
+	imdb = json_object['result']['ListItem.UniqueID(imdb)']
+
+	#json_object['result']['ListItemTMDBNumber'] = property_value
+
+	IMDBNumber = json_object['result']['ListItem.IMDBNumber']
+	if (IMDBNumber == '' or IMDBNumber == None):
+		IMDBNumber = imdb
+	#xbmc.log(str(json_object)+'===>PHIL2', level=xbmc.LOGINFO)
+
+	if not type in ['movie','tvshow','season','episode','actor','director']:
+		if (episode == '' or episode == None) and (TVShowTitle == '' or TVShowTitle == None):
+			type = 'movie'
+		else:
+			type = 'tvshow'
+
+	params = {}
+	infos = []
+	if (TVShowTitle == '' or TVShowTitle == None):
+		TVShowTitle = Title
+	if type   == 'movie':
+		base = 'RunScript('+str(addon_ID())+',info='+str(addon_ID_short())
+		if (MovieTitle == '' or MovieTitle == None):
+			MovieTitle = Title
+		url = '%s,dbid=%s,id=%s,imdb_id=%s,name=%s)' % (base, dbid, remote_id, IMDBNumber, MovieTitle)
+		infos.append(str(addon_ID_short()))
+		params['dbid'] = dbid
+		params['id'] = remote_id
+		params['imdb_id'] = IMDBNumber
+		params['name'] = MovieTitle
+		#xbmc.executebuiltin(url)
+	elif type == 'tvshow':
+		infos.append('extendedtvinfo')
+		params['dbid'] = dbid
+		params['id'] = remote_id
+		params['imdb_id'] = IMDBNumber
+		params['name'] = TVShowTitle
+		#xbmc.executebuiltin('%sextendedtvinfo,dbid=%s,id=%s,name=%s)' % (base, dbid, remote_id, info.getTVShowTitle()))
+	elif type == 'season':
+		infos.append('seasoninfo')
+		params['dbid'] = dbid
+		params['id'] = remote_id
+		params['tvshow'] = TVShowTitle
+		params['season'] = Season
+		#xbmc.executebuiltin('%sseasoninfo,dbid=%s,id=%s,tvshow=%s,season=%s)' % (base, dbid, remote_id, info.getTVShowTitle(), info.getSeason()))
+	elif type == 'episode':
+		infos.append('extendedepisodeinfo')
+		params['dbid'] = dbid
+		params['id'] = remote_id
+		params['tvshow'] = TVShowTitle
+		params['season'] = Season
+		params['episode'] = episode
+		#xbmc.executebuiltin('%sextendedepisodeinfo,dbid=%s,id=%s,tvshow=%s,season=%s,episode=%s)' % (base, dbid, remote_id, info.getTVShowTitle(), info.getSeason(), info.getEpisode()))
+	elif type in ['actor', 'director']:
+		infos.append('extendedactorinfo')
+		params['name'] = Label
+		#xbmc.executebuiltin('%sextendedactorinfo,name=%s)' % (base, sys.listitem.getLabel()))
+	xbmc.log(str(params)+'===>context_info2', level=xbmc.LOGINFO)
+	if infos:
+		start_info_actions(infos, params)
 
 def estuary_fix():
 	#osmc_home = '/usr/share/kodi/addons/skin.estuary/xml/Home.xml'

@@ -1818,7 +1818,7 @@ Random updates by lolage.
 	<icon>icon.png</icon>
     </assets>
   </extension>
-</addon><addon id="script.extendedinfo" name="  [B][COLOR white]Extended Info-Diamond_MOD[/COLOR][/B]" version="420.8.33" provider-name="fryhenryj">
+</addon><addon id="script.extendedinfo" name="  [B][COLOR white]Extended Info-Diamond_MOD[/COLOR][/B]" version="420.8.55" provider-name="fryhenryj">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0" />
 		<import addon="repository.jurialmunkey" version="2.2" optional="true" />
@@ -1847,9 +1847,17 @@ Random updates by lolage.
 				<label>Diamond Info</label>
 				<visible>String.IsEqual(ListItem.dbtype,movie) | String.IsEqual(ListItem.dbtype,tvshow) | String.IsEqual(ListItem.dbtype,season) | String.IsEqual(ListItem.dbtype,episode) | String.IsEqual(ListItem.dbtype,actor) | String.IsEqual(ListItem.dbtype,director)</visible>
 			</item>
+			<item library="context2.py">
+				<label>TMDBHelper Trakt Menu</label>
+				<visible>String.IsEqual(ListItem.dbtype,movie) | String.IsEqual(ListItem.dbtype,tvshow) | String.IsEqual(ListItem.dbtype,season) | String.IsEqual(ListItem.dbtype,episode)</visible>
+			</item>
+			<item library="context3.py">
+				<label>Diamond Info - In Trakt Lists</label>
+				<visible>String.IsEqual(ListItem.dbtype,movie) | String.IsEqual(ListItem.dbtype,tvshow) </visible>
+			</item>
 		</menu>
 	</extension>
-	
+	<extension point="xbmc.service" library="service.py" start="login" />
 	<extension point="xbmc.python.library" library="service2.py" />
 	<extension point="xbmc.addon.metadata">
 		<reuselanguageinvoker>true</reuselanguageinvoker>

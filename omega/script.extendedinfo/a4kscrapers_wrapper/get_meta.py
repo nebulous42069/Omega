@@ -102,10 +102,13 @@ def write_all_text(file_path, content):
 		except Exception:
 			pass
 
+
 def get_rss_cache(rss_feed=None, cache_days=30, folder='rss'):
 	import feedparser
 	import real_debrid
 	import xbmcaddon
+	import urllib.parse
+
 	#import rapbg_2160
 	from resources.lib.library import addon_ID
 	#rss_rarbg_enabled = xbmcaddon.Addon(addon_ID()).getSetting('rss_rarbg')
@@ -124,49 +127,77 @@ def get_rss_cache(rss_feed=None, cache_days=30, folder='rss'):
 		rss_feed_list.append(xbmcaddon.Addon(addon_ID()).getSetting('rss.link.4'))
 	rd_api = real_debrid.RealDebrid()
 	for rss_feed in rss_feed_list:
+		tools.log('RSS_FEED',rss_feed)
 		NewsFeed = feedparser.parse(rss_feed)
 		for i in NewsFeed.entries:
-			for j in i:
-				if 'magnet' in i[j]:
-					url = i.get(j,'')
-					magnet = url
-					if url != '':
-						break
+			infohash = None
+			title = None
+			id = None
+			magnet = None
+			link = None
+			safe_title = 'safe_title'
+			try: 
+				magnet = i.get('magnet',None)
+				link = i.get('link',None)
+			except:
+				pass
+			if link and magnet == None and 'magnet:?xt=urn:btih:' in link:
+				magnet = link
+				url = magnet
+			if magnet == None:
+				for j in i:
+					try:
+						if 'magnet' in i[j]:
+							url = i.get(j,'')
+							magnet = url
+							if url != '':
+								break
+					except:
+						pass
+					if 'infohash' in j:
+						infohash = i[j]
+					if 'id' == j:
+						id = i[j]
+					if 'title' in j:
+						title = i[j]
+						try: safe_title = urllib.parse.quote_plus(title)
+						except: continue
+				if infohash and magnet == None:
+					magnet = 'magnet:?xt=urn:btih:%s&dn=%s&tr=%s' % (infohash,safe_title, id)
+					url = magnet
+
 			now = time.time()
 			url = url.encode('utf-8')
 			hashed_url = hashlib.md5(url).hexdigest()
-			#try: cache_path = os.path.join(g.ADDON_USERDATA_PATH, folder)
-			#except: cache_path = os.path.join(tools.ADDON_USERDATA_PATH, folder)
-			cache_path = os.path.join(ADDON_USERDATA_PATH, folder)
 
-			if not os.path.exists(cache_path):
-				os.mkdir(cache_path)
-			cache_seconds = int(cache_days * 86400.0)
-			path = os.path.join(cache_path, '%s.txt' % hashed_url)
-			torr_info = None
-			if os.path.exists(path) and ((now - os.path.getmtime(path)) < cache_seconds):
-				torr_info = read_all_text(path)
-				try: torr_info = eval(torr_info)
-				except: pass
+			try: 
+				db_result = tools.query_db(connection=tools.db_con,url=url, cache_days=cache_days, folder=folder, headers=None)
+			except:
+				db_result = None
+			if db_result:
+				continue
 			else:
 				response = rd_api.add_magnet(magnet)
-				torr_id = response['id']
+				try: 
+					torr_id = response['id']
+				except: 
+					tools.log('exception',response)
+					continue
+				if 'parameter_missing' in str(response) or 'magnet_conversion' in str(response):
+					rd_api.delete_torrent(torr_id)
+					continue
 				response = rd_api.torrent_select_all(torr_id)
+				if 'parameter_missing' in str(response) or 'magnet_conversion' in str(response):
+					rd_api.delete_torrent(torr_id)
+					continue
 				torr_info = rd_api.torrent_info(torr_id)
-				try:
-					#magnet = json.loads(response)
-					#save_to_file(results, hashed_url, cache_path)
-					#file_path = os.path.join(cache_path, hashed_url)
-					write_all_text(path, str(torr_info))
+
+				if torr_info:
 					tools.log('RSS_ADDED_MAGNET',torr_info['filename'])
-				except:
-					log('Exception: Could not get new JSON data from %s. Tryin to fallback to cache' % url)
-					log(torr_info)
-					torr_info = read_all_text(path) if os.path.exists(path) else []
+					tools.write_db(connection=tools.db_con,url=url, cache_days=cache_days, folder=folder,cache_val=torr_info)
+
 				if not torr_info:
 					continue
-	#if rss_rarbg_enabled == 'true':
-	#	rapbg_2160.rarbg_4k_magnets()
 
 def get_response_cache(url='', cache_days=7.0, folder=False, headers=False):
 	now = time.time()
@@ -176,29 +207,39 @@ def get_response_cache(url='', cache_days=7.0, folder=False, headers=False):
 	#except: cache_path = os.path.join(tools.ADDON_USERDATA_PATH, folder)
 	cache_path = os.path.join(ADDON_USERDATA_PATH, folder)
 
-	if not os.path.exists(cache_path):
-		os.mkdir(cache_path)
-	cache_seconds = int(cache_days * 86400.0)
-	path = os.path.join(cache_path, '%s.txt' % hashed_url)
-	if os.path.exists(path) and ((now - os.path.getmtime(path)) < cache_seconds):
-		try: 
-			results = read_all_text(path)
-		except: 
-			tools.log(path)
-			results = read_all_text(path)
-		try: results = eval(results)
-		except: pass
+	try: 
+		db_result = tools.query_db(connection=tools.db_con,url=url, cache_days=cache_days, folder=folder, headers=headers)
+	except:
+		db_result = None
+	if db_result:
+		return db_result
 	else:
+
+	#if not os.path.exists(cache_path):
+	#	os.mkdir(cache_path)
+	#cache_seconds = int(cache_days * 86400.0)
+	#path = os.path.join(cache_path, '%s.txt' % hashed_url)
+	#if os.path.exists(path) and ((now - os.path.getmtime(path)) < cache_seconds):
+	#	try: 
+	#		results = read_all_text(path)
+	#	except: 
+	#		tools.log(path)
+	#		results = read_all_text(path)
+	#	try: results = eval(results)
+	#	except: pass
+	#else:
 		response = get_http(url, headers)
 		try:
 			results = json.loads(response)
+			tools.write_db(connection=tools.db_con,url=url, cache_days=cache_days, folder=folder,cache_val=results)
 			#save_to_file(results, hashed_url, cache_path)
 			#file_path = os.path.join(cache_path, hashed_url)
-			write_all_text(path, str(results))
+			#write_all_text(path, str(results))
 		except:
 			log('Exception: Could not get new JSON data from %s. Tryin to fallback to cache' % url)
 			log(response)
-			results = read_all_text(path) if os.path.exists(path) else []
+			results = None
+			#results = read_all_text(path) if os.path.exists(path) else []
 	if not results:
 		return None
 	return results
@@ -869,6 +910,9 @@ def get_fanart_results(tvdb_id, media_type=None, show_season = None):
 		for i in tv_dict:
 			if tv_dict[i] == None and i in ('seasonposter', 'seasonthumb', 'seasonbanner'):
 				for k in response.get(i,[]):
+					if str(k['season']) == 'all':
+						tv_dict[i] = k['url']
+						break
 					if int(k['season']) == int(show_season):
 						tv_dict[i] = k['url']
 						break

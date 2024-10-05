@@ -56,6 +56,7 @@ def __extract_zip(core, archivepath, filename, episodeid):
 		(dirs, files) = core.kodi.xbmcvfs.listdir('archive://%s' % archivepath_)
 		namelist = [file.decode(core.utils.default_encoding) if core.utils.py2 else file for file in files]
 
+	#tools.log(namelist)
 	subfile = core.utils.find_file_in_archive(core, namelist, sub_exts, episodeid)
 	if not subfile:
 		subfile = core.utils.find_file_in_archive(core, namelist, sub_exts_secondary, episodeid)
@@ -93,7 +94,7 @@ def __postprocess(core, filepath, lang_code):
 	#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
 	try:
 	#if 1==1:
-		with open(filepath, 'rb') as f:
+		with open(filepath, 'rb', encoding=core.utils.default_encoding) as f:
 			text_bytes = f.read()
 
 		if core.kodi.get_bool_setting('general.use_chardet'):
@@ -187,8 +188,9 @@ def download(core, params):
 			tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
 			filepath = __extract_gzip(core, archivepath, filename)
 		else:
-			tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
+			#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
 			episodeid = actions_args.get('episodeid', '')
+			#tools.log(actions_args)
 			filepath = __extract_zip(core, archivepath, filename, episodeid)
 
 	__postprocess(core, filepath, lang_code)

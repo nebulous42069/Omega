@@ -1299,15 +1299,22 @@ def match_episodes_season_pack(meta, sorted_torr_info):
 	hashed_url = hashlib.md5(url).hexdigest()
 	cache_path = os.path.join(tools.ADDON_USERDATA_PATH, folder)
 
-	if not os.path.exists(cache_path):
-		os.mkdir(cache_path)
-	cache_seconds = int(cache_days * 86400.0)
-	path = os.path.join(cache_path, '%s.txt' % hashed_url)
-	if os.path.exists(path) and ((now - os.path.getmtime(path)) < cache_seconds):
-		results = tools.read_all_text(path)
-		results = eval(results)
-		return results
+	try: 
+		db_result = tools.query_db(connection=tools.db_con,url=url, cache_days=cache_days, folder=folder, headers=None)
+	except:
+		db_result = None
+	if db_result:
+		return db_result
 	else:
+	#if not os.path.exists(cache_path):
+	#	os.mkdir(cache_path)
+	#cache_seconds = int(cache_days * 86400.0)
+	#path = os.path.join(cache_path, '%s.txt' % hashed_url)
+	#if os.path.exists(path) and ((now - os.path.getmtime(path)) < cache_seconds):
+	#	results = tools.read_all_text(path)
+	#	results = eval(results)
+	#	return results
+	#else:
 		#sys.path.append(current_directory)
 		#try:
 		#	import daetutil, babelfish, rebulk, guessit
@@ -1565,6 +1572,10 @@ def match_episodes_season_pack(meta, sorted_torr_info):
 
 				if ep_title == episode_title or str(ep_title) in str(episode_title) or str(episode_title) in str(ep_title) or distance.jaro_similarity(ep_title, episode_title) > float(jaro_dist_factor):
 					#tools.log(x,i)
+					#tools.log(x['episode'])
+					if x['episode'] == -1:
+						x['episode'] = i[0].get('episode')
+						continue
 					for y in i[-1]:
 						try:
 							if not sorted_torr_info[idx]['pack_path'] in matched_episodes[int(x['episode'])]:
@@ -1723,6 +1734,8 @@ def match_episodes_season_pack(meta, sorted_torr_info):
 		result_dict_sorted['concat'] = []
 
 		#tools.log(result_dict)
+		if len(result_dict['episode_numbers']) == 0 or abs(len(meta[meta_source]['episodes']) - len(result_dict['episode_numbers']))>=4:
+			return
 
 		for i in range(min(result_dict['episode_numbers']),max(result_dict['episode_numbers'])+1):
 			idx = result_dict['episode_numbers'].index(i)
@@ -1733,5 +1746,8 @@ def match_episodes_season_pack(meta, sorted_torr_info):
 
 		#for i in result_dict:
 		#	tools.log(i, result_dict[i])
-		tools.write_all_text(path, str(result_dict_sorted))
+		#tools.write_all_text(path, str(result_dict_sorted))
+		#exit()
+		tools.write_db(connection=tools.db_con,url=url, cache_days=cache_days, folder=folder,cache_val=result_dict_sorted)
+		
 		return result_dict_sorted

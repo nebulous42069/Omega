@@ -15,19 +15,21 @@ except:
 	from a4kscrapers_wrapper import tools
 
 try:
-    from .third_party import chardet, iso639
+	from .third_party import chardet, iso639
 except: pass
 
 try:  # pragma: no cover
-    from urlparse import unquote, parse_qsl
-    from urllib import quote_plus
-    from StringIO import StringIO
-    import Queue as queue
+	from urlparse import unquote, parse_qsl
+	from urllib import quote_plus
+	from StringIO import StringIO
+	import Queue as queue
 except ImportError:
-    from urllib.parse import quote_plus, unquote, parse_qsl
-    from io import StringIO
-    import queue
-    unicode = lambda v: v
+	from urllib.parse import quote_plus, unquote, parse_qsl
+	from io import StringIO
+	import queue
+	unicode = lambda v: v
+
+from inspect import currentframe, getframeinfo
 
 __url_regex = r'[a-z0-9][a-z0-9-]{0,5}[a-z0-9]\.[a-z0-9]{2,20}\.[a-z]{2,5}'
 __credit_part_regex = r'(sync|synced|fix|fixed|corrected|corrections)'
@@ -61,176 +63,216 @@ if not os.path.exists(data_dir):
 
 
 class DictAsObject(dict):
-    def __getattr__(self, name):
-        return self.get(name, None)
+	def __getattr__(self, name):
+		return self.get(name, None)
 
-    def __setattr__(self, name, value):
-        self[name] = value
+	def __setattr__(self, name, value):
+		self[name] = value
 
 def get_all_relative_entries(relative_file, ext='.py', ignore_private=True):
-    entries = os.listdir(os.path.dirname(relative_file))
-    return [os.path.splitext(name)[0] for name in entries if not ignore_private or not name.startswith('__') and name.endswith(ext)]
+	entries = os.listdir(os.path.dirname(relative_file))
+	return [os.path.splitext(name)[0] for name in entries if not ignore_private or not name.startswith('__') and name.endswith(ext)]
 
 def strip_non_ascii_and_unprintable(text):
-    if not isinstance(text, str) and (not py2 or not isinstance(text, unicode)):
-        return str(text)
+	if not isinstance(text, str) and (not py2 or not isinstance(text, unicode)):
+		return str(text)
 
-    result = ''.join(char for char in text if char in string.printable)
-    return result.encode('ascii', errors='ignore').decode('ascii', errors='ignore')
+	result = ''.join(char for char in text if char in string.printable)
+	return result.encode('ascii', errors='ignore').decode('ascii', errors='ignore')
 
 def get_lang_id(language, lang_format):
-    try:
-        lang_code = get_lang_ids([language], lang_format)[0]
-        #return get_lang_ids([language], lang_format)[0]
-    except:
-        #return ''
-        lang_code = ''
-    if lang_code == '':
-        lang_code = 'eng'
-    return lang_code
+	try:
+		lang_code = get_lang_ids([language], lang_format)[0]
+		#return get_lang_ids([language], lang_format)[0]
+	except:
+		#return ''
+		lang_code = ''
+	if lang_code == '':
+		lang_code = 'eng'
+	return lang_code
 
 def get_lang_ids(languages, lang_format=kodi.xbmc.ISO_639_2):
-    try:
-        lang_ids = []
-        for language in languages:
-            lang = language.lower()
-            if lang in ['pb', 'pob', 'pt-br'] or 'brazil' in lang:
-                if lang_format == kodi.xbmc.ISO_639_1:
-                    lang_ids.append('pt-br')
-                elif lang_format == kodi.xbmc.ISO_639_2:
-                    lang_ids.append('pob')
-                elif lang_format == kodi.xbmc.ENGLISH_NAME:
-                    lang_ids.append('Portuguese (Brazil)')
-                continue
+	try:
+		lang_ids = []
+		for language in languages:
+			lang = language.lower()
+			if lang in ['pb', 'pob', 'pt-br'] or 'brazil' in lang:
+				if lang_format == kodi.xbmc.ISO_639_1:
+					lang_ids.append('pt-br')
+				elif lang_format == kodi.xbmc.ISO_639_2:
+					lang_ids.append('pob')
+				elif lang_format == kodi.xbmc.ENGLISH_NAME:
+					lang_ids.append('Portuguese (Brazil)')
+				continue
 
-            lang = iso639.Lang(language)
+			lang = iso639.Lang(language)
 
-            lang_id = None
-            if lang_format == kodi.xbmc.ISO_639_1:
-                lang_id = lang.pt1
-            elif lang_format == kodi.xbmc.ISO_639_2:
-                lang_id = lang.pt3
-            elif lang_format == kodi.xbmc.ENGLISH_NAME:
-                lang_id = lang.name
+			lang_id = None
+			if lang_format == kodi.xbmc.ISO_639_1:
+				lang_id = lang.pt1
+			elif lang_format == kodi.xbmc.ISO_639_2:
+				lang_id = lang.pt3
+			elif lang_format == kodi.xbmc.ENGLISH_NAME:
+				lang_id = lang.name
 
-            if lang_id is not None:
-                lang_ids.append(lang_id)
+			if lang_id is not None:
+				lang_ids.append(lang_id)
 
-        lang_ids.sort()
-        return lang_ids
-    except:
-        return []
+		lang_ids.sort()
+		return lang_ids
+	except:
+		return []
 
 def wait_threads(threads):
-    for thread in threads:
-        thread.start()
-    for thread in threads:
-        thread.join()
+	for thread in threads:
+		thread.start()
+	for thread in threads:
+		thread.join()
 
 def get_any_of_regex(array):
-    regex = r'('
-    for target in array:
-        regex += re.escape(target) + r'|'
-    return regex[:-1] + r')'
+	regex = r'('
+	for target in array:
+		regex += re.escape(target) + r'|'
+	return regex[:-1] + r')'
 
 def cleanup_subtitles(core, sub_contents):
-    service_names_regex = get_any_of_regex(core.services.keys())
-    all_lines = sub_contents.split('\n')
-    cleaned_lines = []
-    buffer = []
-    garbage = False
+	service_names_regex = get_any_of_regex(core.services.keys())
+	all_lines = sub_contents.split('\n')
+	cleaned_lines = []
+	buffer = []
+	garbage = False
 
-    if all_lines[0].strip() != '':
-        all_lines.insert(0, '')
+	if all_lines[0].strip() != '':
+		all_lines.insert(0, '')
 
-    if all_lines[-1].strip() != '':
-        all_lines.append('')
+	if all_lines[-1].strip() != '':
+		all_lines.append('')
 
-    for line in all_lines:
-        line = line.strip()
+	for line in all_lines:
+		line = line.strip()
 
-        if garbage and line != '':
-            continue
+		if garbage and line != '':
+			continue
 
-        garbage = False
+		garbage = False
 
-        if line == '':
-            if len(buffer) > 0:
-                buffer.insert(0, '')
-                cleaned_lines.extend(buffer)
-                buffer = []
-            continue
+		if line == '':
+			if len(buffer) > 0:
+				buffer.insert(0, '')
+				cleaned_lines.extend(buffer)
+				buffer = []
+			continue
 
-        line_contains_ad = (
-            re.search(service_names_regex, line, re.IGNORECASE) or
-            re.search(__url_regex, line, re.IGNORECASE) or
-            re.search(__credit_regex, line, re.IGNORECASE)
-        )
+		line_contains_ad = (
+			re.search(service_names_regex, line, re.IGNORECASE) or
+			re.search(__url_regex, line, re.IGNORECASE) or
+			re.search(__credit_regex, line, re.IGNORECASE)
+		)
 
-        if line_contains_ad:
-            logger.notice('(detected ad) %s' % line.encode('ascii', errors='ignore'))
-            if not re.match(r'^\{\d+\}\{\d+\}', line):
-                garbage = True
-                buffer = []
-            continue
+		if line_contains_ad:
+			logger.notice('(detected ad) %s' % line.encode('ascii', errors='ignore'))
+			if not re.match(r'^\{\d+\}\{\d+\}', line):
+				garbage = True
+				buffer = []
+			continue
 
-        buffer.append(line)
+		buffer.append(line)
 
-    if cleaned_lines[0] == '':
-        cleaned_lines.pop(0)
+	if cleaned_lines[0] == '':
+		cleaned_lines.pop(0)
 
-    return '\n'.join(cleaned_lines)
+	return '\n'.join(cleaned_lines)
 
 def open_file_wrapper(file, mode='r', encoding='utf-8'):
-    if py2:
-        return lambda: open(file, mode)
-    return lambda: open(file, mode, encoding=encoding)
+	if py2:
+		return lambda: open(file, mode)
+	return lambda: open(file, mode, encoding=encoding)
 
 def get_json(path, filename):
-    path = path if os.path.isdir(path) else os.path.dirname(path)
-    if not filename.endswith('.json'):
-        filename += '.json'
+	path = path if os.path.isdir(path) else os.path.dirname(path)
+	if not filename.endswith('.json'):
+		filename += '.json'
 
-    json_path = os.path.join(path, filename)
-    with open_file_wrapper(json_path)() as json_result:
-        return json.load(json_result)
+	json_path = os.path.join(path, filename)
+	with open_file_wrapper(json_path)() as json_result:
+		return json.load(json_result)
+
+def __extract_season_episode(core, text):
+	pattern = core.re.compile(r'(?:S(\d+)|Season\s*(\d+))[^E]*?(?:E(\d+)|Episode\s*(\d+))', core.re.IGNORECASE)
+	match = pattern.search(text)
+
+	logger.notice(text)
+	if match:
+		# Extract season and episode numbers from groups
+		season = match.group(1) or match.group(2)
+		episode = match.group(3) or match.group(4)
+		return (season, episode)
+
+	# If no matches found, attempt to capture episode-like sequences
+	fallback_pattern = core.re.compile(r'\bE?P?(\d{2,5})\b', core.re.IGNORECASE)
+	fallback_matches = fallback_pattern.findall(text)
+
+	if fallback_matches:
+		# Assuming the last number in the fallback matches is the episode number
+		episode_number = fallback_matches[-1]
+		return (None, episode_number)
+
+	return (None, None)
 
 def find_file_in_archive(core, namelist, exts, part_of_filename=''):
-    first_ext_match = None
-    exact_file = None
-    for file in namelist:
-        file_lower = file.lower()
-        if any(file_lower.endswith(ext) for ext in exts):
-            if not first_ext_match:
-                first_ext_match = file
-            if (part_of_filename == '' or part_of_filename in file_lower):
-                exact_file = file
-                break
+	first_ext_match = None
+	exact_file = None
+	meta = DictAsObject(core.params.get('VIDEO_META'))
+	#tools.log(meta.episode)
+	#tools.log(meta.season)
+	#tools.log(exts)
+	for file in namelist:
+		file_lower = file.lower()
+		#tools.log(file_lower)
+		#tools.log(file_lower.split('.')[-1])
+		if any(file_lower.split('.')[-1] for ext in exts):
+			
+			if not first_ext_match:
+				first_ext_match = file
+			if (part_of_filename != '' and part_of_filename in file_lower):
+				exact_file = file
+				break
 
-    return exact_file if exact_file is not None else first_ext_match
+			season, episode = __extract_season_episode(core, file_lower)
+			#tools.log(episode)
+			#tools.log(season)
+			if int(season) == int(meta.season) and int(meta.episode) == int(episode):
+				exact_file = file
+				break
+
+	if exact_file is not None:
+		tools.log(exact_file)
+	else:
+		tools.log(first_ext_match)	
+	return exact_file if exact_file is not None else first_ext_match
 
 def get_zipfile_namelist(zipfile):
-    infolist = zipfile.infolist()
-    namelist = []
+	infolist = zipfile.infolist()
+	namelist = []
 
-    if py2:
-        for info in infolist:
-            namelist.append(info.filename.decode(default_encoding))
-    else:
-        for info in infolist:
-            filename = info.filename
-            if not info.flag_bits & zip_utf8_flag:
-                filename = info.filename.encode(py3_zip_missing_utf8_flag_fallback_encoding).decode(default_encoding)
-            namelist.append(filename)
+	if py2:
+		for info in infolist:
+			namelist.append(info.filename.decode(default_encoding))
+	else:
+		for info in infolist:
+			filename = info.filename
+			if not info.flag_bits & zip_utf8_flag:
+				filename = info.filename.encode(py3_zip_missing_utf8_flag_fallback_encoding).decode(default_encoding)
+			namelist.append(filename)
 
-    return namelist
+	return namelist
 
 def extract_zipfile_member(zipfile, filename, dest):
-    if py2:
-        return zipfile.extract(filename.encode(default_encoding), dest)
-    else:
-        try:
-            return zipfile.extract(filename, dest)
-        except:
-            filename = filename.encode(default_encoding).decode(py3_zip_missing_utf8_flag_fallback_encoding)
-            return zipfile.extract(filename, dest)
+	if py2:
+		return zipfile.extract(filename.encode(default_encoding), dest)
+	else:
+		try:
+			return zipfile.extract(filename, dest)
+		except:
+			filename = filename.encode(default_encoding).decode(py3_zip_missing_utf8_flag_fallback_encoding)
+			return zipfile.extract(filename, dest)

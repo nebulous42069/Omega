@@ -9,7 +9,8 @@ __display_names = {
     'bsplayer': 'BSPlayer',
     'opensubtitles': 'OpenSubtitles',
     'podnadpisi': 'Podnadpisi',
-    'subdl': 'SubDL',
+    'subsource': 'SubSource',
+    'subdl': 'SubDL'
 }
 
 def __set_fn_if_missing(service, fn_name, fn):

@@ -90,7 +90,8 @@ class VideoPlayer(xbmc.Player):
 			item = '{"file": "%s"}' % url
 		if Utils.window_stack_enable == 'false':
 			super(VideoPlayer, self).play(item=url, listitem=listitem, windowed=False, startpos=-1)
-			window.close()
+			if window:
+				window.close()
 			gc.collect()
 			#xbmc.executebuiltin('RunPlugin(%s)' % url)
 			del window
@@ -100,8 +101,9 @@ class VideoPlayer(xbmc.Player):
 			return
 		xbmcgui.Window(10000).setProperty(str(addon_ID_short())+'_running', 'False')
 		xbmcgui.Window(10000).setProperty('diamond_info_started', 'True')
-		wm.add_to_stack(window, 'curr_window')
-		window.close()
+		if window:
+			wm.add_to_stack(window, 'curr_window')
+			window.close()
 		xbmc.executebuiltin('Dialog.Close(all,true)')
 		#Utils.get_kodi_json(method='Player.Open', params='{"item": %s}' % item)
 		xbmc.executebuiltin('Dialog.Close(okdialog)')

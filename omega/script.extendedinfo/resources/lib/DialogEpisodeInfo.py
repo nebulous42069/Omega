@@ -82,6 +82,12 @@ def get_episode_window(window_type):
 		def open_actor_info(self):
 			wm.open_actor_info(prev_window=self, actor_id=self.listitem.getProperty('id'))
 
+		@ch.action('play', 8)
+		def context_play(self):
+			tmdb_id = self.tvshow_id
+			self.info['media_type'] = 'episode'
+			Utils.context_play(window=self,tmdb_id = tmdb_id)
+
 		@ch.action('contextmenu', 750)
 		@ch.action('contextmenu', 1000)
 		def context_menu(self):
