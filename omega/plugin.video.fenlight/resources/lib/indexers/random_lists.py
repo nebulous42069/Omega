@@ -25,12 +25,16 @@ movie_trakt_personal = ('trakt_collection_lists', 'trakt_watchlist_lists')
 discover_personal = ('tmdb_movies_discover', 'tmdb_tv_discover')
 movie_meta_list_dict = {'tmdb_movies_languages': meta_lists.languages, 'tmdb_movies_providers': meta_lists.watch_providers_movies, 'tmdb_movies_year': meta_lists.years_movies,
 'tmdb_movies_decade': meta_lists.decades_movies, 'tmdb_movies_certifications': meta_lists.movie_certifications, 'tmdb_movies_genres': meta_lists.movie_genres}
-tvshow_main = ('tmdb_tv_popular', 'tmdb_tv_popular_today', 'tmdb_tv_premieres', 'tmdb_tv_airing_today','tmdb_tv_on_the_air','tmdb_tv_upcoming')
-tvshow_trakt_main = ('trakt_tv_trending', 'trakt_tv_trending_recent', 'trakt_recommendations', 'trakt_tv_most_watched', 'trakt_tv_most_favorited')
+tvshow_main = ('tmdb_tv_popular', 'tmdb_tv_popular_today', 'tmdb_tv_premieres', 'tmdb_tv_airing_today','tmdb_tv_on_the_air','tmdb_tv_upcoming',
+'tmdb_anime_popular', 'tmdb_anime_popular_recent', 'tmdb_anime_premieres', 'tmdb_anime_upcoming', 'tmdb_anime_on_the_air')
+tvshow_trakt_main = ('trakt_tv_trending', 'trakt_tv_trending_recent', 'trakt_recommendations', 'trakt_tv_most_watched', 'trakt_tv_most_favorited',
+'trakt_anime_trending', 'trakt_anime_trending_recent', 'trakt_anime_most_watched', 'trakt_anime_most_favorited')
 tvshow_trakt_personal = ('trakt_collection_lists', 'trakt_watchlist_lists')
 tvshow_meta_list_dict = {'tmdb_tv_languages': meta_lists.languages, 'tmdb_tv_networks': meta_lists.networks, 'tmdb_tv_providers': meta_lists.watch_providers_tvshows,
 'tmdb_tv_year': meta_lists.years_tvshows, 'tmdb_tv_decade': meta_lists.decades_tvshows, 'tmdb_tv_genres': meta_lists.tvshow_genres,
-'trakt_tv_certifications': meta_lists.tvshow_certifications}
+'trakt_tv_certifications': meta_lists.tvshow_certifications, 'tmdb_anime_year': meta_lists.years_tvshows, 'tmdb_anime_decade': meta_lists.decades_tvshows,
+'tmdb_anime_genres': meta_lists.anime_genres, 'tmdb_anime_providers': meta_lists.watch_providers_tvshows, 'trakt_anime_certifications': meta_lists.tvshow_certifications}
+tvshow_trakt_special = ('trakt_tv_certifications', 'trakt_anime_certifications')
 memory_str = 'fenlight.%s'
 
 def get_persistent_content(menu_type, key, remake_widgets, is_external):
@@ -72,6 +76,8 @@ class RandomLists():
 		else: self.function, self.view_mode, self.content_type = TVShows, 'view.tvshows', 'tvshows'
 		self.category_name, self.list_items, self.random_results = '', [], []
 		self.remake_widgets = self.is_external and get_property('fenlight.refresh_widgets') == 'true'
+		if self.action and 'anime' in self.action: self.max_range, self.sample_size = 4, 3
+		else: self.max_range, self.sample_size = 10, 3
 
 	def run_random(self):
 		if self.mode == 'build_trakt_lists': return self.random_trakt_lists()
@@ -89,7 +95,7 @@ class RandomLists():
 		random_list, cache_to_memory = get_persistent_content('random_main', self.action, self.remake_widgets, self.is_external)
 		if not random_list:
 			list_function = self.get_function()
-			threads = list(make_thread_list(lambda x: self.random_results.extend(list_function(x)['results']), self.get_sample(10, 3)))
+			threads = list(make_thread_list(lambda x: self.random_results.extend(list_function(x)['results']), self.get_sample()))
 			[i.join() for i in threads]
 			random_list = random.sample(self.random_results, min(len(self.random_results), 20))
 			if cache_to_memory: set_persistent_content('random_main', self.action, random_list)
@@ -105,20 +111,18 @@ class RandomLists():
 			choice_list = movie_meta_list_dict if self.menu_type == 'movie' else tvshow_meta_list_dict
 			info = random.choice(choice_list[self.action])
 			list_name = info['name']
-			if not list_name.endswith('s'): list_name += 's'
-			if self.action == 'trakt_tv_certifications':
-				threads = list(make_thread_list(lambda x: self.random_results.extend(list_function(info['id'], x)), self.get_sample(10, 3)))			
+			if self.action in tvshow_trakt_special:
+				threads = list(make_thread_list(lambda x: self.random_results.extend(list_function(info['id'], x)), self.get_sample()))			
 			else:
-				threads = list(make_thread_list(lambda x: self.random_results.extend(list_function(info['id'], x)['results']), self.get_sample(10, 3)))
+				threads = list(make_thread_list(lambda x: self.random_results.extend(list_function(info['id'], x)['results']), self.get_sample()))
 			[i.join() for i in threads]
 			result = random.sample(self.random_results, min(len(self.random_results), 20))
 			if cache_to_memory: set_persistent_content('random_special_main', self.action, {'name': list_name, 'result': result})
 		else: list_name, result = random_list['name'], random_list['result']
-		if self.action == 'trakt_tv_certifications': self.params.update({'id_type': 'trakt_dict', 'list': [i['show']['ids'] for i in result]})
+		if self.action in tvshow_trakt_special: self.params.update({'id_type': 'trakt_dict', 'list': [i['show']['ids'] for i in result]})
 		else: self.params['list'] = [i['id'] for i in result]
 		self.list_items = self.function(self.params).worker()
 		self.category_name = list_name
-		self.set_property()
 		self.make_directory()
 
 	def random_discover(self):
@@ -127,14 +131,13 @@ class RandomLists():
 		random_list, cache_to_memory = get_persistent_content('random_discover', url, self.remake_widgets, self.is_external)
 		if not random_list:
 			list_function = self.get_function()
-			threads = list(make_thread_list(lambda x: self.random_results.extend(list_function(url, x)['results']), self.get_sample(10, 3)))
+			threads = list(make_thread_list(lambda x: self.random_results.extend(list_function(url, x)['results']), self.get_sample()))
 			[i.join() for i in threads]
 			random_list = random.sample(self.random_results, min(len(self.random_results), 20))
 			if cache_to_memory: set_persistent_content('random_discover', url, random_list)
 		self.params['list'] = [i['id'] for i in random_list]
 		self.list_items = self.function(self.params).worker()
 		self.category_name = self.params_get('category_name', None) or self.base_list_name or ''
-		self.set_property()
 		self.make_directory()
 
 	def random_trakt_main(self):
@@ -143,7 +146,7 @@ class RandomLists():
 		if not random_list:
 			list_function = self.get_function()
 			threads = list(make_thread_list(lambda x: self.random_results.extend(list_function(x)), [function_key,] \
-						if self.action == 'trakt_recommendations' else self.get_sample(10, 3)))
+						if self.action == 'trakt_recommendations' else self.get_sample()))
 			[i.join() for i in threads]
 			random_list = random.sample(self.random_results, min(len(self.random_results), 20))
 			if cache_to_memory: set_persistent_content('random_trakt_main', self.action, random_list)
@@ -176,7 +179,6 @@ class RandomLists():
 			url_params = {'base_list_name':list_type_name, 'list_name': list_name, 'result': result}
 			self.list_items = build_trakt_list(url_params)
 		self.category_name = list_name
-		self.set_property()
 		self.make_directory()
 
 	def trakt_my_lists_contents(self):
@@ -198,7 +200,6 @@ class RandomLists():
 			url_params = {'base_list_name':list_type_name, 'list_name': list_name, 'result': result}
 			self.list_items = build_trakt_list(url_params)
 		self.category_name = list_name
-		self.set_property()
 		self.make_directory()
 
 	def random_trakt_personal_lists(self):
@@ -212,16 +213,7 @@ class RandomLists():
 		self.params['id_type'] = 'trakt_dict'
 		self.list_items = self.function(self.params).worker()
 		self.category_name = self.base_list_name
-		self.set_property()
 		self.make_directory()
-
-	def set_property(self):
-		if self.is_external: 
-			if self.folder_name: set_property('fenlight.%s' % self.folder_name, self.category_name)
-			else: set_property('fenlight.%s' % self.base_list_name, self.category_name)
-
-	def get_function(self):
-		return manual_function_import('apis.%s_api' % self.action.split('_')[0], self.action)
 
 	def make_directory(self, next_page_params={}):
 		add_items(self.handle, self.list_items)
@@ -229,12 +221,19 @@ class RandomLists():
 		set_content(self.handle, self.content_type)
 		set_category(self.handle, self.category_name)
 		end_directory(self.handle, cacheToDisc=False if self.is_external else True)
-		if not self.is_external: set_view_mode(self.view_mode, self.content_type, self.is_external)
+		if self.is_external:
+			if self.folder_name: set_property('fenlight.%s' % self.folder_name, self.category_name)
+			else: set_property('fenlight.%s' % self.base_list_name, self.category_name)
+		else: set_view_mode(self.view_mode, self.content_type, self.is_external)
 
-	def get_sample(self, max_range, sample_size):
-		return random.sample(range(1, max_range), sample_size)
+	def get_function(self):
+		return manual_function_import('apis.%s_api' % self.action.split('_')[0], self.action)
+
+	def get_sample(self):
+		return random.sample(range(1, self.max_range), self.sample_size)
 
 def random_shortcut_folders(folder_name, random_results):
+	random_results = [i for i in random_results if i['mode'].replace('random.', '') in random_valid_type_check]
 	is_external = external()
 	remake_widgets = is_external and get_property('fenlight.refresh_widgets') == 'true'
 	random_list, cache_to_memory = get_persistent_content('random_shortcut_folders', folder_name, remake_widgets, is_external)
@@ -244,6 +243,7 @@ def random_shortcut_folders(folder_name, random_results):
 		random_list.update({'folder_name': folder_name, 'mode': random_list['mode'].replace('random.', '')})
 		if cache_to_memory: set_persistent_content('random_shortcut_folders',  folder_name, random_list)
 	if random_list.get('random') == 'true' or random_list.get('shuffle') == 'true': return RandomLists(random_list).run_random()
+	if random_list.get('action') in discover_personal: return RandomLists(random_list).run_random()
 	menu_type = random_valid_type_check[random_list['mode']]
 	list_name = random_list.get('list_name', None) or random_list.get('name', None) or 'Random'
 	if is_external: set_property('fenlight.%s' % folder_name, list_name)
