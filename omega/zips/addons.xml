@@ -1497,8 +1497,7 @@ Random updates by lolage.
     <import addon="script.module.routing" />
     <import addon="script.module.unidecode" />
     <import addon="script.module.inputstreamhelper" />
-    <import addon="script.module.resolveurl" />
-    <import addon="repository.wod" />	
+    <import addon="script.module.resolveurl" />	
   </requires>
   <extension point="xbmc.python.pluginsource" library="default.py">
     <provides>video</provides>
