@@ -1,0 +1,16 @@
+<settings>   
+    
+    <!-- initial settings  -->
+    <category label="Home Page">
+        <setting id="root_xml" type="text" label="Root XML Location" option="hidden" default="https://l3grthu.com/hades/wod21/base.xml" visible="true"/>
+        <setting id="message_xml_url" type="text" label="News File Location" option="hidden" default="https://l3grthu.com/hades/wod21/startinfo.xml" visible="true"/>
+    </category>
+    
+    <!-- Dev Mode - future features for playlisters and developers -->
+    <category label="Dev Mode">
+        <setting id="debug" type="bool" label="Enable Debugging Mode" default="false" visible="true"/>        
+    </category>
+
+    
+
+</settings>
