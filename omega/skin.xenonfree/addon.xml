@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="skin.xenonfree"
-  version="6.8"
+  version="6.9"
   name="[B][COLOR gold]Xenon Free[/COLOR][/B]  (Mid Power)"
   provider-name="Helly,bsoriano">
   <requires>
-    <import addon="xbmc.gui" version="5.17.0"/>
-	<import addon="script.favourites" version="8.1.2"/>	
+    <import addon="xbmc.gui" version="5.17.0"/>	
   </requires>
   <extension
     point="xbmc.gui.skin"

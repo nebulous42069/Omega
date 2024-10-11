@@ -146,7 +146,7 @@
 					<label>- [B]Maintenance[/B]</label>
 					<onclick>Dialog.Close(5002)</onclick>					
 					<onclick>ActivateWindow(10001,"plugin://script.ezmaintenanceplus/?action=maintenance&amp;description&amp;fanart=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cscript.ezmaintenanceplus%5cfanart.jpg&amp;icon=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cscript.ezmaintenanceplus%5cicon.png&amp;name=%5bCOLOR%20white%5d%5bB%5dMAINTENANCE%5b%2fB%5d%5b%2fCOLOR%5d&amp;url=ur",return)</onclick>
-				</item>			
+				</item>									
 				<item>
 					<label>- [B]Download Wallpapers[/B]</label>
 					<onclick>Dialog.Close(5002)</onclick>					

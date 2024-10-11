@@ -39,7 +39,7 @@
             <description>Close Window button</description>
             <left>740</left>
             <top>24</top>
-            <onclick>ActivateWindow(5000)</onclick>
+            <onclick>RunPlugin(plugin://script.module.xenonpluss/?mode=2)</onclick>
             <include>DialogCloseButton</include>
             <onleft>10</onleft>
             <onright>10</onright>
@@ -71,8 +71,8 @@
             <onup>11</onup>
             <ondown>11</ondown>
             <onclick>Dialog.Close(2135)</onclick>
-            <onclick>ActivateWindow(5000)</onclick>
-			<onback>ActivateWindow(5000)</onback>
+            <onclick>RunPlugin(plugin://script.module.xenonpluss/?mode=2)</onclick>
+			<onback>RunPlugin(plugin://script.module.xenonpluss/?mode=2)</onback>
         </control>
     </controls>
 </window>

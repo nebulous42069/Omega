@@ -3815,10 +3815,9 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
 			<fanart>resources/fanart.jpg</fanart>
 		</assets>
 	</extension>
-</addon><addon id="skin.xenonfree" version="6.8" name="[B][COLOR gold]Xenon Free[/COLOR][/B]  (Mid Power)" provider-name="Helly,bsoriano">
+</addon><addon id="skin.xenonfree" version="6.9" name="[B][COLOR gold]Xenon Free[/COLOR][/B]  (Mid Power)" provider-name="Helly,bsoriano">
   <requires>
-    <import addon="xbmc.gui" version="5.17.0" />
-	<import addon="script.favourites" version="8.1.2" />	
+    <import addon="xbmc.gui" version="5.17.0" />	
   </requires>
   <extension point="xbmc.gui.skin" debugging="false" effectslowdown=".5">
     <res width="1920" height="1080" aspect="16:9" default="true" folder="xml" />
