@@ -89,13 +89,7 @@
                                     <icon>special://skin/extras/screenshots/widgets/fanart-seren-3.png</icon>
                                     <visible>String.IsEmpty(Window(Home).Property(WizardStep))</visible>
                                     <onclick>installaddon(plugin.video.seren)</onclick>
-                                </item>								
-								<item>
-                                    <label>Install Elementum (VPN Required!!)</label>
-                                    <icon>special://skin/extras/screenshots/widgets/elementum.jpg</icon>
-                                    <visible>String.IsEmpty(Window(Home).Property(WizardStep))</visible>
-                                    <onclick>installaddon(plugin.video.elementum)</onclick>
-                                </item>
+                                </item>	
                                 <item>
                                     <label>Install Umbrella</label>
                                     <icon>special://skin/extras/screenshots/widgets/Umbrella_fanart.jpg</icon>

@@ -91,12 +91,6 @@
                                     <onclick>InstallAddon(skin.xenonfree)</onclick>
                                 </item>
                                 <item>
-                                    <label>Install Diggz Xenon Burst</label>
-                                    <icon>special://skin/extras/screenshots/widgets/xenonburst.png</icon>
-                                    <visible>String.IsEmpty(Window(Home).Property(WizardStep))</visible>
-                                    <onclick>InstallAddon(skin.xenonburst)</onclick>
-                                </item>
-                                <item>
                                     <label>Install Diggz ArcticFlix</label>
                                     <icon>special://skin/extras/screenshots/widgets/arcticflix.png</icon>
                                     <visible>String.IsEmpty(Window(Home).Property(WizardStep))</visible>
