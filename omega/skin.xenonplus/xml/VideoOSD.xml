@@ -85,14 +85,16 @@
                 <visible>VideoPlayer.Content(LiveTV)</visible>
             </control>
             <control type="radiobutton" id="304">
-                <label>210</label>
+                <label>31351</label>
+                <label2>208</label2>
                 <font></font>
-                <include content="OSDButton">
+                <include content="OSDButtonAlt">
                     <param name="Size" value="73" />
-                    <param name="Texture" value="osdmute" />
+                    <param name="Texture" value="nomute" />
+                    <param name="AltTexture" value="osdmute" />
+                    <param name="Selected" value="Player.Muted" />
                 </include>
                 <onclick>mute</onclick>
-                <visible>Skin.HasSetting(EnableVolumeButtons)</visible>
             </control>			
             <control type="radiobutton" id="302">
                 <label>210</label>
