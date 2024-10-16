@@ -45,7 +45,7 @@ no_rollback_str = 'No previous versions found.[CR]Please install rollback manual
 error_update_str = 'Error Updating.[CR]Please install new update manually'
 error_rollback_str = 'Error rolling back.[CR]Please install rollback manually'
 changes_heading_str = 'New Online Release (v.%s) Changelog'
-view_changes_str = 'New release available [B](v.%s)[/B].[CR]Do you want to view the changelog for the new release before installing?'
+view_changes_str = 'Do you want to view the changelog for the new release before installing?'
 no_changes_str = 'You are running the current version of Fen Light.[CR][CR]There is no new version changelog to view.'
 
 def get_versions():
@@ -84,7 +84,7 @@ def update_check(action=4):
 		return
 	if action in (0, 4):
 		if not confirm_dialog(heading=heading_str, text=result_str % (current_version, online_version, update_available_str), ok_label='Yes', cancel_label='No'): return
-		if confirm_dialog(heading=heading_str, text=view_changes_str % online_version, ok_label='Yes', cancel_label='No'):
+		if confirm_dialog(heading=heading_str, text=view_changes_str, ok_label='Yes', cancel_label='No'):
 			get_changes(online_version)
 			if not confirm_dialog(heading=heading_str, text=continue_confirm_str, ok_label='Yes', cancel_label='No'): return
 	if action == 1: notification(notification_occuring_str, icon=downloads_icon)

@@ -40,6 +40,7 @@ def build_episode_list(params):
 				season_special = season == 0
 				episode_date, premiered = adjust_premiered_date(item_get('premiered'), adjust_hours)
 				episode_type = item_get('episode_type') or ''
+				episode_id = item_get('episode_id') or None
 				thumb = item_get('thumb', None) or show_landscape or show_fanart
 				try: year = premiered.split('-')[0]
 				except: year = show_year or '2050'
@@ -59,7 +60,7 @@ def build_episode_list(params):
 				cm_append(('[B]Extras[/B]', run_plugin % extras_params))
 				cm_append(('[B]Options[/B]', run_plugin % options_params))
 				cm_append(('[B]Playback Options[/B]', run_plugin % \
-							build_url({'mode': 'playback_choice', 'media_type': 'episode', 'poster': show_poster, 'meta': tmdb_id, 'season': season, 'episode': episode})))
+							build_url({'mode': 'playback_choice', 'media_type': 'episode', 'meta': tmdb_id, 'season': season, 'episode': episode, 'episode_id': episode_id})))
 				if not unaired and not season_special:
 					if playcount:
 						cm_append(('[B]Mark Unwatched %s[/B]' % watched_title, run_plugin % build_url({'mode': 'watched_status.mark_episode', 'action': 'mark_as_unwatched',
@@ -68,7 +69,7 @@ def build_episode_list(params):
 													'tmdb_id': tmdb_id, 'tvdb_id': tvdb_id, 'season': season, 'episode': episode,  'title': title})))
 					if progress: cm_append(('[B]Clear Progress[/B]', run_plugin % build_url({'mode': 'watched_status.erase_bookmark', 'media_type': 'episode', 'tmdb_id': tmdb_id,
 													'season': season, 'episode': episode, 'refresh': 'true'})))
-				if is_home:
+				if is_external:
 					cm_append(('[B]Refresh Widgets[/B]', run_plugin % build_url({'mode': 'refresh_widgets'})))
 					cm_append(('[B]Reload Widgets[/B]', run_plugin % build_url({'mode': 'kodi_refresh'})))
 				info_tag = listitem.getVideoInfoTag()
@@ -159,6 +160,7 @@ def build_single_episode(list_type, params={}):
 			season, episode, ep_name = item_get('season'), item_get('episode'), item_get('title')
 			episode_date, premiered = adjust_premiered_date(item_get('premiered'), adjust_hours)
 			episode_type = item_get('episode_type') or ''
+			episode_id = item_get('episode_id') or None
 			if not episode_date or current_date < episode_date:
 				if list_type_starts_with('next_'):
 					if not episode_date: return
@@ -208,7 +210,7 @@ def build_single_episode(list_type, params={}):
 			cm_append(('[B]Extras[/B]', run_plugin % extras_params))
 			cm_append(('[B]Options[/B]', run_plugin % options_params))
 			cm_append(('[B]Playback Options[/B]', run_plugin % \
-						build_url({'mode': 'playback_choice', 'media_type': 'episode', 'poster': show_poster, 'meta': tmdb_id, 'season': season, 'episode': episode})))
+						build_url({'mode': 'playback_choice', 'media_type': 'episode', 'meta': tmdb_id, 'season': season, 'episode': episode, 'episode_id': episode_id})))
 			if not unaired:
 				if playcount:
 					cm_append(('[B]Mark Unwatched %s[/B]' % watched_title, run_plugin % build_url({'mode': 'watched_status.mark_episode', 'action': 'mark_as_unwatched',
@@ -218,7 +220,7 @@ def build_single_episode(list_type, params={}):
 				if progress: cm_append(('[B]Clear Progress[/B]', run_plugin % build_url({'mode': 'watched_status.erase_bookmark', 'media_type': 'episode', 'tmdb_id': tmdb_id,
 												'season': season, 'episode': episode, 'refresh': 'true'})))
 			cm_append(('[B]Browse[/B]', window_command % build_url({'mode': 'build_season_list', 'tmdb_id': tmdb_id})))
-			if is_home:
+			if is_external:
 				cm_append(('[B]Refresh Widgets[/B]', run_plugin % build_url({'mode': 'refresh_widgets'})))
 				cm_append(('[B]Reload Widgets[/B]', run_plugin % build_url({'mode': 'kodi_refresh'})))
 			info_tag = listitem.getVideoInfoTag()

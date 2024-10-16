@@ -63,6 +63,9 @@ def tv_show_directory():
 def download_directory(media_type):
 	return translate_path(get_setting(download_directories_dict[media_type]))
 
+def show_unaired_watchlist():
+	return get_setting('fenlight.show_unaired_watchlist', 'true') == 'true'
+
 def auto_start_fenlight():
 	return get_setting('fenlight.auto_start_fenlight', 'false') == 'true'
 
@@ -159,6 +162,12 @@ def extras_enabled_menus():
 	setting = get_setting('fenlight.extras.enabled', '2000,2050,2051,2052,2053,2054,2055,2056,2057,2058,2059,2060,2061,2062')
 	if setting in ('', None, 'noop', []): return []
 	return [int(i) for i in setting.split(',')]
+
+def recommend_service():
+	return int(get_setting('fenlight.recommend_service', '0'))
+
+def recommend_seed():
+	return int(get_setting('fenlight.recommend_seed', '5'))
 
 def tv_progress_location():
 	return int(get_setting('fenlight.tv_progress_location', '0'))
