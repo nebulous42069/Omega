@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="window" id="1187">
+    <defaultcontrol always="true">50</defaultcontrol>
+    <include>Action_BlurImage_SimpleBackground_Onload</include>
+    <controls>
+
+        <include content="Object_Hidden_Button">
+            <param name="id">8001</param>
+            <onfocus condition="String.IsEqual(Window(Home).Property(WizardStep),Themes)">ClearProperty(WizardStep,Home)</onfocus>
+            <onfocus condition="String.IsEqual(Window(Home).Property(WizardStep),Dialog)">SetProperty(WizardStep,Themes,Home)</onfocus>
+            <onfocus condition="!String.IsEmpty(Window(Home).Property(WizardStep))">SetFocus(50)</onfocus>
+            <onfocus condition="String.IsEmpty(Window(Home).Property(WizardStep))">PreviousMenu</onfocus>
+            <onfocus>Skin.SetString(Shortcuts.RebuildDateTime,$INFO[System.Date(yyyy-mm-dd)]_$INFO[System.Time(hh:mm:ss)])</onfocus>
+        </include>
+
+        <include>Background_Main</include>
+
+        <control type="group">
+            <top>40</top>
+            <bottom>40</bottom>
+            <width>1500</width>
+            <centerleft>50%</centerleft>
+            <control type="group">
+                <include>Dialog_Background_Blur</include>
+                <include>Animation_Right_Delay</include>
+                <include content="Dialog_Head">
+                    <param name="top">40</param>
+                    <param name="left">40</param>
+                    <param name="label">[CAPITALIZE]Install a skin...[/CAPITALIZE]</param>
+                </include>
+                <control type="group">
+                    <include content="Dialog_Overlay_Mode_Glass">
+                        <param name="flipped">false</param>
+                    </include>
+                    <control type="image">
+                        <top>120</top>
+                        <height>1</height>
+                        <texture colordiffuse="dialog_fg_12">common/white.png</texture>
+                        <left>40</left>
+                        <right>40</right>
+                    </control>
+                </control>
+                <control type="group">
+                    <include>Dimension_Dialog_Body</include>
+
+
+                    <control type="group">
+                        <top>-40</top>
+                        <width>1500</width>
+                        <centerleft>50%</centerleft>
+                        <control type="wraplist" id="50">
+                            <ondown>9000</ondown>
+                            <focusposition>1</focusposition>
+                            <preloaditems>2</preloaditems>
+                            <orientation>horizontal</orientation>
+                            <onback>8001</onback>
+                            <itemlayout width="900" height="600">
+                                <include>Layout_Wizard</include>
+                            </itemlayout>
+                            <focusedlayout width="900" height="600">
+                                <include content="Layout_Wizard">
+                                    <param name="selected">true</param>
+                                </include>
+                            </focusedlayout>
+
+                            <content>
+
+                                <!-- Step 01: Widgets -->
+                                <item>
+                                    <label>Install Phenomenal Burst</label>
+                                    <icon>special://skin/extras/screenshots/widgets/phenomenal.png</icon>
+                                    <visible>String.IsEmpty(Window(Home).Property(WizardStep))</visible>
+                                    <onclick>InstallAddon(skin.phenomenal.h)</onclick>
+                                </item>
+                                <item>
+                                    <label>Install Xenon FREE</label>
+                                    <icon>special://skin/extras/screenshots/widgets/xenonfree.png</icon>
+                                    <visible>String.IsEmpty(Window(Home).Property(WizardStep))</visible>
+                                    <onclick>InstallAddon(skin.xenonfree)</onclick>
+                                </item>
+								<item>
+                                    <label>Install Elementum</label>
+                                    <icon>special://skin/extras/screenshots/widgets/elementum.jpg</icon>
+                                    <visible>String.IsEmpty(Window(Home).Property(WizardStep))</visible>
+                                    <onclick>InstallAddon(plugin.video.elementum)</onclick>
+								</item>									
+                                <item>
+                                    <label>Install Xenon Burst</label>
+                                    <icon>special://skin/extras/screenshots/widgets/xenonburst.png</icon>
+                                    <visible>String.IsEmpty(Window(Home).Property(WizardStep))</visible>
+                                    <onclick>InstallAddon(skin.xenonburst)</onclick>
+                                </item>
+                                <item>
+                                    <label>Install Xenon Burst 2</label>
+                                    <icon>special://skin/extras/screenshots/widgets/xenon2.png</icon>
+                                    <visible>String.IsEmpty(Window(Home).Property(WizardStep))</visible>
+                                    <onclick>InstallAddon(skin.xenon2)</onclick>
+                                </item>
+                                <item>
+                                    <label>Install Eminence Burst </label>
+                                    <icon>special://skin/extras/screenshots/widgets/eminence.png</icon>
+                                    <visible>String.IsEmpty(Window(Home).Property(WizardStep))</visible>
+                                    <onclick>InstallAddon(skin.eminence.2.mod)</onclick>
+                                </item>
+                                <item>
+                                    <label>Install BurstFlix</label>
+                                    <icon>special://skin/extras/screenshots/widgets/diggzflix.png</icon>
+                                    <visible>String.IsEmpty(Window(Home).Property(WizardStep))</visible>
+                                    <onclick>InstallAddon(skin.auraflix)</onclick>
+                                </item>
+                                <item>
+                                    <label>Install ArcticBurst</label>
+                                    <icon>special://skin/extras/screenshots/widgets/arcticflix.png</icon>
+                                    <visible>String.IsEmpty(Window(Home).Property(WizardStep))</visible>
+                                    <onclick>installaddon(skin.arctic.horizon.2)</onclick>
+                                </item>								
+								
+
+                            </content>
+                        </control>
+
+                        <control type="group">
+                            <bottom>200</bottom>
+                            <height>80</height>
+                            <left>40</left>
+                            <right>40</right>
+                            <control type="label">
+                                <aligny>center</aligny>
+                                <textcolor>dialog_fg_30</textcolor>
+                                <label>$INFO[Container(50).ListItem(-1).Label,&lt;&lt;  ,]</label>
+                                <align>left</align>
+                            </control>
+                            <control type="label">
+                                <aligny>center</aligny>
+                                <textcolor>dialog_fg_90</textcolor>
+                                <label>$INFO[Container(50).ListItem.Label]</label>
+                                <align>center</align>
+                                <font>font_main_bold</font>
+                            </control>
+                            <control type="label">
+                                <aligny>center</aligny>
+                                <textcolor>dialog_fg_30</textcolor>
+                                <label>$INFO[Container(50).ListItem(1).Label,,  &gt;&gt;]</label>
+                                <align>right</align>
+                            </control>
+                        </control>
+                        <control type="group">
+                            <bottom>80</bottom>
+                            <height>120</height>
+                            <left>310</left>
+                            <right>310</right>
+
+                            <control type="list">
+                                <width>40%</width>
+                                <left>60</left>
+                                <orientation>vertical</orientation>
+                                <itemlayout height="40">
+                                    <include content="Layout_Wizard_Checklist">
+                                        <param name="icon">special://skin/extras/icons/circle-check.png</param>
+                                    </include>
+                                </itemlayout>
+                                <focusedlayout height="40">
+                                    <include content="Layout_Wizard_Checklist">
+                                        <param name="icon">special://skin/extras/icons/circle-check.png</param>
+                                    </include>
+                                </focusedlayout>
+                                <content>
+                                    <item>
+                                        <label>Free Addons</label>
+                                        <visible>String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/xenonfree.png)</visible>
+                                    </item>
+                                    <item>
+                                        <label>Install Addons</label>
+                                        <visible>String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/debridtrakt.gif)</visible>
+                                    </item>
+                                    <item>
+                                        <label>Debrid Logins</label>
+                                        <visible>String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/debridtrakt.gif)</visible>
+                                    </item>
+                                    <item>
+                                        <label>Trakt Logins</label>
+                                        <visible>String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/debridtrakt.gif)</visible>
+                                    </item>									
+                                    <item>
+                                        <label>Netflix Style</label>
+                                        <visible>String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/diggzflix.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/fenflix.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/serenflix.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/umbrellaflix.png)</visible>
+                                    </item>									
+                                    <item>
+                                        <label>Free Torrent Streaming</label>
+                                        <visible>String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/xenonburst.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/eminence.png| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/xenon2.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/diggzflix.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/phenomenal.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/arcticflix.png)</visible>
+                                    </item>
+                                    <item>
+                                        <label>Required For Burst Builds</label>
+                                        <visible>String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/elementum.jpg)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/fenflix.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/serenflix.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/umbrellaflix.png)</visible>
+                                    </item>										
+                                    <item>
+                                        <label>Mouse/Touchscreen</label>
+                                        <visible>String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/xenon.png) | String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/xenon2.png)| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/xenonfree.png) | String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/eminence.png)| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/xenonburst.png)</visible>
+                                    </item>									
+                                    <item>
+                                        <label>VPN Required!!</label>
+                                        <visible>String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/xenonburst.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/eminence.png)| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/xenon2.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/diggzflix.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/phenomenal.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/elementum.jpg)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/arcticflix.png)</visible>
+                                    </item>
+
+                                </content>
+                            </control>
+
+                            <control type="list">
+                                <right>0</right>
+                                <width>41%</width>
+                                <orientation>vertical</orientation>
+                                <itemlayout height="40">
+                                    <include content="Layout_Wizard_Checklist">
+                                        <param name="icon">special://skin/extras/icons/circle-xmark.png</param>
+                                    </include>
+                                </itemlayout>
+                                <focusedlayout height="40">
+                                    <include content="Layout_Wizard_Checklist">
+                                        <param name="icon">special://skin/extras/icons/circle-xmark.png</param>
+                                    </include>
+                                </focusedlayout>
+                                <content>
+                                    <item>
+                                        <label>No Mouse/Touchscreen</label>
+                                        <visible> String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/diggzflix.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/fenflix.png)| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/serenflix.png)| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/umbrellaflix.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/phenomenal.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/arcticflix.png)</visible>
+                                    </item>										
+                                    <item>
+                                        <label>No Debrid</label>
+                                        <visible>String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/xenonburst.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/eminence.png| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/xenon2.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/diggzflix.png)|String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/phenomenal.png| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/xenonfree.png)| String.IsEqual(Container(50).ListItem.Icon,special://skin/extras/screenshots/widgets/arcticflix.png)</visible>
+                                    </item>									
+                                </content>
+                            </control>
+
+                            <control type="textbox">
+                                <left>120</left>
+                                <right>120</right>
+                                <font>font_mini_plot</font>
+                                <align>center</align>
+                                <aligny>top</aligny>
+                                <label>$INFO[Container(50).ListItem.Property(textbox)]</label>
+                            </control>
+
+
+                        </control>
+                    </control>
+                </control>
+                <control type="grouplist" id="9000">
+                    <right>-800</right>
+                    <left>-240</left>
+                    <height>80</height>
+                    <bottom>20</bottom>
+                    <align>center</align>
+                    <orientation>horizontal</orientation>
+                    <itemgap>360</itemgap>
+                    <onup>50</onup>
+                    <control type="button" id="9001">
+                        <width>280</width>
+                        <label>  &lt;&lt;  Prev Step      </label>
+                        <include>defs_dialog_button</include>
+                        <visible>!String.IsEmpty(Window(Home).Property(WizardStep))</visible>
+                        <onclick condition="String.IsEqual(Window(Home).Property(WizardStep),Themes)">ClearProperty(WizardStep,Home)</onclick>
+                        <onclick condition="String.IsEqual(Window(Home).Property(WizardStep),Dialog)">SetProperty(WizardStep,Themes,Home)</onclick>
+                        <onclick>SetFocus(50)</onclick>
+                    </control>
+                    <control type="button" id="9003">
+                        <width>380</width>
+                        <label>    [B]Apply Skin  &gt;&gt;[/B] </label>
+                        <include>defs_dialog_button</include>
+                        <onclick condition="String.IsEmpty(Window(Home).Property(WizardStep))">RunPlugin(plugin://script.diggzskins)</onclick>
+                        <onclick condition="String.IsEqual(Window(Home).Property(WizardStep),Themes)">SetProperty(WizardStep,Dialog,Home)</onclick>
+                        <onclick>SetFocus(50)</onclick>
+                        <visible>!String.IsEqual(Window(Home).Property(WizardStep),Dialog)</visible>
+                    </control>
+                    <control type="button" id="9004">
+                        <width>200</width>
+                        <label>Power Off</label>
+                        <include>defs_dialog_button</include>
+                        <onclick condition="String.IsEmpty(Window(Home).Property(WizardStep))">ActivateWindow(10001,"plugin://plugin.program.chef21/?description=%5bB%5d%5bCOLOR%20snow%5dForce%20Close%20Kodi%5b%2fCOLOR%5d%5b%2fB%5d&amp;fanart=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.program.chef21%5cresources%5cfanart.jpg&amp;icon=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.program.chef21%5cresources%5cicon.png&amp;mode=18&amp;name=%5bB%5d%5bCOLOR%20snow%5dForce%20Close%5b%2fCOLOR%5d%5b%2fB%5d&amp;name2&amp;url&amp;version",return)</onclick>
+                        <onclick condition="String.IsEqual(Window(Home).Property(WizardStep),Themes)">SetProperty(WizardStep,Dialog,Home)</onclick>
+                        <onclick>SetFocus(50)</onclick>
+                    </control>
+                </control>
+            </control>
+        </control>
+
+
+    </controls>
+</window>

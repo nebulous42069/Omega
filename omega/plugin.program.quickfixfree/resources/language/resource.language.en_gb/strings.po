@@ -1,0 +1,99 @@
+# Kodi Media Center language file
+# Addon Name: Simple 19 Wizard
+# Addon id: plugin.program.quickfixfree
+# Addon Provider: Slam, BYB
+msgid ""
+msgstr ""
+"Project-Id-Version: Kodi Addons\n"
+"Report-Msgid-Bugs-To: alanwww1@kodi.org\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Kodi Translation Team\n"
+"Language-Team: English (http://www.transifex.com/projects/p/xbmc-addons/language/en/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+
+#####----- MainMenu items -----#####
+#####----- 30000->30020 -------#####
+msgctxt "#30000"
+msgid "Wizard Menu"
+msgstr ""
+
+msgctxt "#30001"
+msgid "Install a build."
+msgstr ""
+
+msgctxt "#30002"
+msgid "Maintenance Tools"
+msgstr ""
+
+msgctxt "#30003"
+msgid "Clear all the data in your current setup except items in your save list."
+msgstr ""
+
+msgctxt "#30004"
+msgid "Install Build"
+msgstr ""
+
+msgctxt "#30005"
+msgid "Clear the packages folder to free up space."
+msgstr ""
+
+msgctxt "#30006"
+msgid "Fresh Start"
+msgstr ""
+
+msgctxt "#30007"
+msgid "Clear all data. Warning, this cannot be undone."
+msgstr ""
+
+msgctxt "#30008"
+msgid "Deletes the Thumbnails folder and Textures13 database file. You should only delete these if you want to free up space. Reboot Kodi for thumbnails to repopulate."
+msgstr ""
+
+msgctxt "#30009"
+msgid "A list of presets to set the cache size based on your device's RAM size."
+msgstr ""
+
+#####----- GuiMenu items -----#####
+#####----- 30020->30040 ------#####
+
+msgctxt "#30020"
+msgid "Basic Dialog Text"
+msgstr ""
+
+msgctxt ""
+msgid ""
+msgstr ""
+
+
+
+######-----Settings-----#####
+
+msgctxt "#30100"
+msgid "Logging"
+msgstr ""
+
+msgctxt "#30101"
+msgid "Settings for logging of Addon"
+msgstr ""
+
+msgctxt "#30102"
+msgid "Debug"
+msgstr ""
+
+msgctxt "#30103"
+msgid "Actions"
+msgstr ""
+
+msgctxt "#30104"
+msgid "Window Imformation"
+msgstr ""
+
+msgctxt "#30105"
+msgid "General"
+msgstr ""
