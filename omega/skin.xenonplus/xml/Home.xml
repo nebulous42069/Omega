@@ -3,12 +3,6 @@
     <defaultcontrol always="true">9000</defaultcontrol>
     
 	<include condition="!Skin.HasSetting(InitialSetUpRun)">DefaultInitialSetup</include>
-    <include condition="!Skin.HasSetting(Updates_V312)">UpdatesV312</include>
-    <include condition="!Skin.HasSetting(Updates_V320)">UpdatesV320</include>
-    <include condition="!Skin.HasSetting(Updates_V335)">UpdatesV335</include>
-    <include condition="!Skin.HasSetting(Updates_V337)">UpdatesV337</include>
-    <include condition="!Skin.HasSetting(Updates_V403)">UpdatesV403</include>
-	<include condition="!Skin.HasSetting(Updates_V415)">UpdatesV415</include>
     
 	<onload condition="!String.IsEmpty(Window(Home).Property(MenuItemSelected))">ClearProperty(MenuItemSelected,Home)</onload>
     <onload condition="!String.IsEmpty(Window(Home).Property(MenuItemActive))">ClearProperty(MenuItemActive,Home)</onload>
