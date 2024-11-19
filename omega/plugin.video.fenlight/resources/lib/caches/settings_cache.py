@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
+import json
 from modules import kodi_utils
 from caches.base_cache import connect_database
 # logger = kodi_utils.logger
 
-json, numeric_input = kodi_utils.json, kodi_utils.numeric_input
-dialog, ok_dialog, select_dialog, confirm_dialog = kodi_utils.dialog, kodi_utils.ok_dialog, kodi_utils.select_dialog, kodi_utils.confirm_dialog
-default_addon_fanart, get_property, set_property, notification = kodi_utils.default_addon_fanart, kodi_utils.get_property, kodi_utils.set_property, kodi_utils.notification
+numeric_input = kodi_utils.numeric_input
+kodi_dialog, ok_dialog, select_dialog, confirm_dialog = kodi_utils.kodi_dialog, kodi_utils.ok_dialog, kodi_utils.select_dialog, kodi_utils.confirm_dialog
+default_addon_fanart, get_property, set_property, notification = kodi_utils.addon_fanart(), kodi_utils.get_property, kodi_utils.set_property, kodi_utils.notification
 tmdb_default_api, trakt_default_id, trakt_default_secret = kodi_utils.tmdb_default_api, kodi_utils.trakt_default_id, kodi_utils.trakt_default_secret
 boolean_dict = {'true': 'false', 'false': 'true'}
 
@@ -131,7 +132,7 @@ def set_boolean(params):
 def set_string(params):
 	current_value = get_setting('fenlight.%s' % params['setting_id'])
 	current_value = current_value.replace('empty_setting', '')
-	new_value = dialog.input('', defaultt=current_value)
+	new_value = kodi_dialog().input('', defaultt=current_value)
 	if not new_value and not confirm_dialog(text='Enter Blank Value?', ok_label='Yes', cancel_label='Re-Enter Value', default_control=11): return set_string(params)
 	set_setting(params['setting_id'], new_value)
 
@@ -147,7 +148,7 @@ def set_numeric(params):
 		kwargs = {'items': json.dumps(list_items), 'narrow_window': 'true', 'heading': 'Will this be a positive or negative number?'}
 		multiplier = select_dialog(multiplier_values, **kwargs)
 	else: multiplier = None
-	new_value = dialog.input('Range [B]%s - %s[/B].' % (min_value, max_value), type=numeric_input)
+	new_value = kodi_dialog().input('Range [B]%s - %s[/B].' % (min_value, max_value), type=numeric_input)
 	if not new_value: return
 	if multiplier: new_value = str(int(float(new_value) * multiplier[1]))
 	if int(new_value) < min_value or int(new_value) > max_value:
@@ -158,7 +159,7 @@ def set_numeric(params):
 def set_path(params):
 	setting_id = params['setting_id']
 	browse_mode = int(default_setting_values(setting_id)['browse_mode'])
-	new_value = dialog.browse(browse_mode, '', '', defaultt=get_setting('fenlight.%s' % setting_id))
+	new_value = kodi_dialog().browse(browse_mode, '', '', defaultt=get_setting('fenlight.%s' % setting_id))
 	set_setting(setting_id, new_value)
 
 def set_from_list(params):
@@ -196,8 +197,10 @@ default_settings = [
 #==================== General
 {'setting_id': 'auto_start_fenlight', 'setting_type': 'boolean', 'setting_default': 'false'},
 {'setting_id': 'default_addon_fanart', 'setting_type': 'path', 'setting_default': default_addon_fanart, 'browse_mode': '2'},
-{'setting_id': 'update.action', 'setting_type': 'action', 'setting_default': '0', 'settings_options': {'0': 'Prompt', '1': 'Automatic', '2': 'Notification', '3': 'Off'}},
+{'setting_id': 'limit_concurrent_threads', 'setting_type': 'boolean', 'setting_default': 'false'},
+{'setting_id': 'max_threads', 'setting_type': 'action', 'setting_default': '60', 'min_value': '10', 'max_value': '250'},
 #==================== Manage Updates
+{'setting_id': 'update.action', 'setting_type': 'action', 'setting_default': '0', 'settings_options': {'0': 'Prompt', '1': 'Automatic', '2': 'Notification', '3': 'Off'}},
 {'setting_id': 'update.delay', 'setting_type': 'action', 'setting_default': '10', 'min_value': '10', 'max_value': '300'},
 #==================== Watched Indicators
 {'setting_id': 'watched_indicators', 'setting_type': 'action', 'setting_default': '0', 'settings_options': {'0': 'Fen Light', '1': 'Trakt'}},
@@ -344,6 +347,7 @@ default_settings = [
 {'setting_id': 'results.list_format', 'setting_type': 'string', 'setting_default': 'List'},
 #==================== General
 {'setting_id': 'results.auto_rescrape_with_all', 'setting_type': 'action', 'setting_default': '0', 'settings_options': {'0': 'Off', '1': 'Auto', '2': 'Prompt'}},
+{'setting_id': 'results.auto_episode_group', 'setting_type': 'action', 'setting_default': '0', 'settings_options': {'0': 'Off', '1': 'Auto', '2': 'Prompt'}},
 {'setting_id': 'results.ignore_filter', 'setting_type': 'action', 'setting_default': '0', 'settings_options': {'0': 'Off', '1': 'Auto', '2': 'Prompt'}},
 #==================== Sorting and Filtering
 {'setting_id': 'results.sort_order_display', 'setting_type': 'string', 'setting_default': 'Quality, Size, Provider'},
@@ -357,14 +361,15 @@ default_settings = [
 {'setting_id': 'results.size_unknown', 'setting_type': 'boolean', 'setting_default': 'true'},
 {'setting_id': 'results.include.unknown.size', 'setting_type': 'boolean', 'setting_default': 'true'},
 {'setting_id': 'include_prerelease_results', 'setting_type': 'boolean', 'setting_default': 'true'},
-{'setting_id': 'include_3d_results', 'setting_type': 'boolean', 'setting_default': 'true'},
-{'setting_id': 'filter_hevc', 'setting_type': 'action', 'setting_default': '0', 'settings_options': {'0': 'Include', '1': 'Exclude', '2': 'Prefer (Autoplay)'}},
-{'setting_id': 'filter_hevc.max_quality', 'setting_type': 'action', 'setting_default': '4K', 'settings_options': {'4K': '4K', '1080p': '1080p', '720p': '720p', 'SD': 'SD'}},
-{'setting_id': 'filter_hevc.max_autoplay_quality', 'setting_type': 'action', 'setting_default': '4K', 'settings_options': {'4K': '4K', '1080p': '1080p', '720p': '720p', 'SD': 'SD'}},
-{'setting_id': 'filter_hdr', 'setting_type': 'action', 'setting_default': '0', 'settings_options': {'0': 'Include', '1': 'Exclude', '2': 'Prefer (Autoplay)'}},
-{'setting_id': 'filter_dv', 'setting_type': 'action', 'setting_default': '0', 'settings_options': {'0': 'Include', '1': 'Exclude', '2': 'Prefer (Autoplay)'}},
-{'setting_id': 'filter_av1', 'setting_type': 'action', 'setting_default': '0', 'settings_options':{'0': 'Include', '1': 'Exclude', '2': 'Prefer (Autoplay)'}},
-{'setting_id': 'filter_enhanced_upscaled', 'setting_type': 'action', 'setting_default': '0', 'settings_options':{'0': 'Include', '1': 'Exclude', '2': 'Prefer (Autoplay)'}},
+{'setting_id': 'filter.hevc', 'setting_type': 'action', 'setting_default': '0', 'settings_options': {'0': 'Include', '1': 'Exclude'}},
+{'setting_id': 'filter.hevc.max_quality', 'setting_type': 'action', 'setting_default': '4K', 'settings_options': {'4K': '4K', '1080p': '1080p', '720p': '720p', 'SD': 'SD'}},
+{'setting_id': 'filter.hevc.max_autoplay_quality', 'setting_type': 'action', 'setting_default': '4K', 'settings_options': {'4K': '4K', '1080p': '1080p', '720p': '720p', 'SD': 'SD'}},
+{'setting_id': 'filter.3d', 'setting_type': 'action', 'setting_default': '0', 'settings_options': {'0': 'Include', '1': 'Exclude'}},
+{'setting_id': 'filter.hdr', 'setting_type': 'action', 'setting_default': '0', 'settings_options': {'0': 'Include', '1': 'Exclude'}},
+{'setting_id': 'filter.dv', 'setting_type': 'action', 'setting_default': '0', 'settings_options': {'0': 'Include', '1': 'Exclude'}},
+{'setting_id': 'filter.av1', 'setting_type': 'action', 'setting_default': '0', 'settings_options':{'0': 'Include', '1': 'Exclude'}},
+{'setting_id': 'filter_enhanced_upscaled', 'setting_type': 'action', 'setting_default': '0', 'settings_options':{'0': 'Include', '1': 'Exclude'}},
+{'setting_id': 'preferred_autoplay', 'setting_type': 'string', 'setting_default': 'empty_setting'},
 {'setting_id': 'filter_audio', 'setting_type': 'string', 'setting_default': 'empty_setting'},
 #==================== Results Color Highlights
 {'setting_id': 'highlight.type', 'setting_type': 'action', 'setting_default': '0', 'settings_options': {'0': 'Provider', '1': 'Quality', '2': 'Single Color'}},

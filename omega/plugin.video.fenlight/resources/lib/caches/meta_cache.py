@@ -92,24 +92,18 @@ class MetaCache:
 		except: return
 
 	def get_memory_cache(self, media_type, id_type, media_id, current_time):
-		result = None
 		try:
 			prop_string = media_prop % (media_type, id_type, media_id)
-			cachedata = get_property(prop_string)
-			if cachedata:
-				cachedata = eval(cachedata)
-				if cachedata[0] > current_time: result = cachedata[1]
-		except: pass
+			cachedata = eval(get_property(prop_string))
+			if cachedata[0] > current_time: result = cachedata[1]
+		except: result = None
 		return result
 
 	def get_memory_cache_season(self, prop_string, current_time):
-		result = None
 		try:
-			cachedata = get_property(season_prop % prop_string)
-			if cachedata:
-				cachedata = eval(cachedata)
-				if cachedata[0] > current_time: result = cachedata[1]
-		except: pass
+			cachedata = eval(get_property(season_prop % prop_string))
+			if cachedata[0] > current_time: result = cachedata[1]
+		except: result = None
 		return result
 
 	def set_memory_cache(self, media_type, id_type, meta, expires, media_id):

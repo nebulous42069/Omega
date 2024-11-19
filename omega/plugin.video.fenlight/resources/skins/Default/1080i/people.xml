@@ -12,13 +12,11 @@
             <control type="image">
                 <texture>$INFO[Window.Property(fanart)]</texture>
                 <aspectratio>scale</aspectratio>
-                <animation effect="fade" end="25">WindowOpen</animation>
+                <animation effect="fade" end="25" time="400">WindowOpen</animation>
             </control>
         </control>
         <control type="group">
-            <animation type="WindowOpen" reversible="false">
-                <effect type="fade" end="100" time="400" delay="500" />
-            </animation>
+            <animation effect="fade" end="100" time="200" delay="400">WindowOpen</animation>
             <!-- Logo and Tips/Clock & Date -->
             <control type="group">
                 <control type="image">
@@ -85,7 +83,7 @@
                     <left>55</left>
                     <width max="1150">auto</width>
                     <height>30</height>
-                    <font>font60</font> <!-- FENLIGHT_60_BOLD -->
+                    <font>font38_title</font> <!-- FENLIGHT_60_BOLD -->
                     <textcolor>FFCCCCCC</textcolor>
                     <align>center</align>
                     <aligny>bottom</aligny>

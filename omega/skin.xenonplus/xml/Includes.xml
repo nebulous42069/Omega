@@ -3172,7 +3172,7 @@
         <texturenofocus border="5">MenuItemNF.png</texturenofocus>
     </include>
     <include name="ButtonClassic">
-        <texturefocus border="5" colordiffuse="$VAR[MainColorOne]">lf_classic/button/button-focus2.png</texturefocus>
+        <texturefocus border="5" colordiffuse="$VAR[MainColorOne]">lf_classic/button/MenuItemFO.png</texturefocus>
     </include>
     <include name="ButtonModern">
         <texturefocus border="5" colordiffuse="$VAR[MainColorOne]">lf_modern/button/button-focus.png</texturefocus>

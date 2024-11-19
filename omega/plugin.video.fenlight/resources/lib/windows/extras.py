@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from threading import Thread
 from datetime import datetime, timedelta
 from windows.base_window import BaseDialog, window_manager, window_player, ok_dialog
 from apis import tmdb_api, imdb_api, omdb_api, trakt_api
@@ -12,8 +13,8 @@ from modules.metadata import movieset_meta, episodes_meta, movie_meta, tvshow_me
 from modules.episode_tools import EpisodeTools
 # logger = kodi_utils.logger
 
-Thread, get_icon, close_all_dialog = kodi_utils.Thread, kodi_utils.get_icon, kodi_utils.close_all_dialog
-addon_fanart, empty_poster = kodi_utils.default_addon_fanart, kodi_utils.empty_poster
+get_icon, close_all_dialog = kodi_utils.get_icon, kodi_utils.close_all_dialog
+addon_fanart, empty_poster = kodi_utils.addon_fanart(), kodi_utils.empty_poster
 extras_button_label_values, show_busy_dialog, hide_busy_dialog = kodi_utils.extras_button_label_values, kodi_utils.show_busy_dialog, kodi_utils.hide_busy_dialog
 container_update, activate_window, clear_property = kodi_utils.container_update, kodi_utils.activate_window, kodi_utils.clear_property
 default_all_episodes, extras_enabled_menus, tmdb_api_key = settings.default_all_episodes, settings.extras_enabled_menus, settings.tmdb_api_key
@@ -347,8 +348,9 @@ class Extras(BaseDialog):
 		if not videos_id in self.enabled_lists: return
 		if not self.youtube_installed_check(): return
 		def _sort_trailers(trailers):
-			official_trailers = [i for i in trailers if i['type'] == 'Trailer' and i['name'].lower() == 'official trailer']
-			other_official_trailers = [i for i in trailers if i['type'] == 'Trailer' and 'official' in i['name'].lower() and not i in official_trailers]
+			youtube_trailers = [i for i in trailers if i['site'] == 'YouTube']
+			official_trailers = [i for i in youtube_trailers if i['official'] and i['type'] == 'Trailer' and 'official trailer' in i['name'].lower()]
+			other_official_trailers = [i for i in youtube_trailers if i['official'] and i['type'] == 'Trailer' and not i in official_trailers]
 			other_trailers = [i for i in trailers if i['type'] == 'Trailer' and not i in official_trailers  and not i in other_official_trailers]
 			teaser_trailers = [i for i in trailers if i['type'] == 'Teaser']
 			full_trailers = official_trailers + other_official_trailers + other_trailers + teaser_trailers
@@ -399,8 +401,8 @@ class Extras(BaseDialog):
 		if not networks_id in self.enabled_lists: return
 		try:
 			network = self.meta_get('studio')[0]
-			network_id = [i['id'] for i in tmdb_company_id(network)['results'] if i['name'] == network][0] \
-						if self.media_type == 'movie' else [item['id'] for item in networks if item['name'] == network][0]
+			network_list = tmdb_company_id(network)['results'] if self.media_type == 'movie' else networks
+			network_id = next(i['id'] for i in network_list if i['name'] == network)
 			function = tmdb_movies_companies if self.media_type == 'movie' else tmdb_tv_networks
 			data = self.remove_current_tmdb_mediaitem(function(network_id, 1)['results'])
 			item_list = list(self.make_tmdb_listitems(data))
@@ -667,7 +669,7 @@ class Extras(BaseDialog):
 			self.close_all()
 			self.close()
 
-	def set_returning_focus(self, window_id, focus, sleep_time=750):
+	def set_returning_focus(self, window_id, focus, sleep_time=700):
 		try:
 			self.sleep(sleep_time)
 			self.setFocusId(window_id)

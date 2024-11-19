@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import sys
 from modules import meta_lists
 from modules import kodi_utils, settings
 from modules.metadata import tvshow_meta
@@ -6,11 +7,11 @@ from modules.utils import manual_function_import, get_datetime, make_thread_list
 from modules.watched_status import get_database, watched_info_tvshow, get_watched_status_tvshow, get_progress_status_tvshow
 # logger = kodi_utils.logger
 
-string, sys, external, add_items, add_dir = str, kodi_utils.sys, kodi_utils.external, kodi_utils.add_items, kodi_utils.add_dir
+string, external, add_items, add_dir = str, kodi_utils.external, kodi_utils.add_items, kodi_utils.add_dir
 sleep, add_item, xbmc_actor, home, tmdb_api_key = kodi_utils.sleep, kodi_utils.add_item, kodi_utils.xbmc_actor, kodi_utils.home, settings.tmdb_api_key
-set_category, json, make_listitem, build_url, set_property = kodi_utils.set_category, kodi_utils.json, kodi_utils.make_listitem, kodi_utils.build_url, kodi_utils.set_property
+set_category, make_listitem, build_url, set_property = kodi_utils.set_category, kodi_utils.make_listitem, kodi_utils.build_url, kodi_utils.set_property
 set_content, end_directory, set_view_mode, folder_path = kodi_utils.set_content, kodi_utils.end_directory, kodi_utils.set_view_mode, kodi_utils.folder_path
-poster_empty, fanart_empty, nextpage_landscape = kodi_utils.empty_poster, kodi_utils.default_addon_fanart, kodi_utils.nextpage_landscape
+poster_empty, fanart_empty, nextpage_landscape = kodi_utils.empty_poster, kodi_utils.addon_fanart(), kodi_utils.nextpage_landscape
 media_open_action, default_all_episodes, page_limit, paginate = settings.media_open_action, settings.default_all_episodes, settings.page_limit, settings.paginate
 widget_hide_next_page, widget_hide_watched, watched_indicators = settings.widget_hide_next_page, settings.widget_hide_watched, settings.watched_indicators
 mpaa_region = settings.mpaa_region
@@ -171,7 +172,7 @@ class TVShows:
 			if progress:
 				cm_append(('[B]Mark Unwatched %s[/B]' % self.watched_title, run_plugin % build_url({'mode': 'watched_status.mark_tvshow', 'action': 'mark_as_unwatched',
 																			'title': title, 'tmdb_id': tmdb_id, 'tvdb_id': tvdb_id})))
-				set_properties({'watchedepisodes': string(total_watched), 'unwatchedepisodes': string(total_unwatched)})
+			set_properties({'watchedepisodes': string(total_watched), 'unwatchedepisodes': string(total_unwatched)})
 			set_properties({'watchedprogress': string(visible_progress), 'totalepisodes': string(total_aired_eps), 'totalseasons': string(total_seasons)})
 			if self.is_external:
 				cm_append(('[B]Refresh Widgets[/B]', run_plugin % build_url({'mode': 'refresh_widgets'})))

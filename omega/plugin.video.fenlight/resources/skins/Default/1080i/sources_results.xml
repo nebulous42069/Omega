@@ -18,11 +18,11 @@
                 <height>1080</height>
                 <aspectratio>scale</aspectratio>
                 <texture>$INFO[Window.Property(fanart)]</texture>
-                <animation effect="fade" start="0" end="25" time="0" tween="sine">WindowOpen</animation>
+                <animation effect="fade" end="25" time="120" tween="sine">WindowOpen</animation>
             </control>
         </control>
         <control type="group">
-            <animation effect="fade" end="100" time="400">WindowOpen</animation>
+            <animation effect="fade" end="100" time="200">WindowOpen</animation>
             <!-- Logo and Total Results -->
             <control type="group">
                 <control type="image">
@@ -64,7 +64,7 @@
                     <left>355</left>
                     <width max="1210">auto</width>
                     <height>30</height>
-                    <font>font60</font> <!-- FENLIGHT_60_BOLD -->
+                    <font>font38_title</font> <!-- FENLIGHT_60_BOLD -->
                     <textcolor>FFCCCCCC</textcolor>
                     <align>center</align>
                     <aligny>top</aligny>
@@ -344,7 +344,7 @@
                     <left>355</left>
                     <width max="1210">auto</width>
                     <height>30</height>
-                    <font>font60</font> <!-- FENLIGHT_60_BOLD -->
+                    <font>font38_title</font> <!-- FENLIGHT_60_BOLD -->
                     <textcolor>FFCCCCCC</textcolor>
                     <align>center</align>
                     <aligny>bottom</aligny>
@@ -615,7 +615,7 @@
                     <left>355</left>
                     <width max="1210">auto</width>
                     <height>30</height>
-                    <font>font60</font> <!-- FENLIGHT_60_BOLD -->
+                    <font>font38_title</font> <!-- FENLIGHT_60_BOLD -->
                     <textcolor>FFCCCCCC</textcolor>
                     <align>center</align>
                     <aligny>top</aligny>

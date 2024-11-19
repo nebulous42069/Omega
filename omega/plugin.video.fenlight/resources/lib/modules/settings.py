@@ -90,6 +90,11 @@ def audio_filters():
 	if setting in ('empty_setting', ''): return []
 	return setting.split(', ')
 
+def preferred_autoplay():
+	setting = get_setting('fenlight.preferred_autoplay')
+	if setting in ('empty_setting', ''): return []
+	return setting.split(', ')
+
 def include_prerelease_results():
 	return get_setting('fenlight.include_prerelease_results', 'true') == 'true'
 
@@ -107,6 +112,9 @@ def autoscrape_next_episode():
 def auto_rescrape_with_all():
 	return int(get_setting('fenlight.results.auto_rescrape_with_all', '0'))
 
+def auto_episode_group():
+	return int(get_setting('fenlight.results.auto_episode_group', '0'))
+
 def auto_nextep_settings(play_type):
 	play_type = 'autoplay' if play_type == 'autoplay_nextep' else 'autoscrape'
 	window_percentage = 100 - int(get_setting('fenlight.%s_next_window_percentage' % play_type, '95'))
@@ -119,7 +127,7 @@ def auto_nextep_settings(play_type):
 	return {'scraper_time': scraper_time, 'window_percentage': window_percentage, 'alert_method': alert_method, 'default_action': default_action, 'use_chapters': use_chapters}
 
 def filter_status(filter_type):
-	return int(get_setting('fenlight.filter_%s' % filter_type, '0'))
+	return int(get_setting('fenlight.filter.%s' % filter_type, '0'))
 
 def ignore_results_filter():
 	return int(get_setting('fenlight.results.ignore_filter', '0'))
@@ -256,6 +264,10 @@ def omdb_api_key():
 
 def default_all_episodes():
 	return int(get_setting('fenlight.default_all_episodes', '0'))
+
+def max_threads():
+	if not get_setting('fenlight.limit_concurrent_threads', 'false') == 'true': return 60
+	return int(get_setting('fenlight.max_threads', '60'))
 
 def get_meta_filter():
 	return get_setting('fenlight.meta_filter', 'true')

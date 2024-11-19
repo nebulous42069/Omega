@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
+import json
+from threading import Thread
 from windows.base_window import BaseDialog, select_dialog, ok_dialog
+from modules.source_utils import source_filters
 from modules.settings import provider_sort_ranks
 from modules import kodi_utils
 # logger = kodi_utils.logger
 
-json, Thread, dialog = kodi_utils.json, kodi_utils.Thread, kodi_utils.dialog
-hide_busy_dialog, addon_fanart, empty_poster = kodi_utils.hide_busy_dialog, kodi_utils.default_addon_fanart, kodi_utils.empty_poster
+kodi_dialog = kodi_utils.kodi_dialog
+hide_busy_dialog, addon_fanart, empty_poster = kodi_utils.hide_busy_dialog, kodi_utils.addon_fanart(), kodi_utils.empty_poster
 get_icon, img_url = kodi_utils.get_icon, kodi_utils.img_url
 
 resume_dict = {10: 'resume', 11: 'start_over', 12: 'cancel'}
@@ -13,12 +16,6 @@ info_icons_dict = {'easynews': get_icon('provider_easynews'), 'alldebrid': get_i
 				'real-debrid': get_icon('provider_realdebrid'), 'premiumize': get_icon('provider_premiumize'), 'ad_cloud': get_icon('provider_alldebrid'),
 				'rd_cloud': get_icon('provider_realdebrid'), 'pm_cloud': get_icon('provider_premiumize')}
 info_quality_dict = {'4k': get_icon('flag_4k'), '1080p': get_icon('flag_1080p'), '720p': get_icon('flag_720p'), 'sd': get_icon('flag_sd')}
-extra_info_choices = (('PACK', 'PACK'), ('DOLBY VISION', 'D/VISION'), ('HIGH DYNAMIC RANGE (HDR)', 'HDR'), ('IMAX', 'IMAX'), ('HYBRID', 'HYBRID'), ('AV1', 'AV1'),
-					('HEVC (X265)', 'HEVC'), ('REMUX', 'REMUX'), ('BLURAY', 'BLURAY'), ('AI ENHANCED/UPSCALED', 'AI ENHANCED/UPSCALED'), ('SDR', 'SDR'), ('3D', '3D'),
-					('DOLBY ATMOS', 'ATMOS'), ('DOLBY TRUEHD', 'TRUEHD'), ('DOLBY DIGITAL EX', 'DD-EX'), ('DOLBY DIGITAL PLUS', 'DD+'), ('DOLBY DIGITAL', 'DD'),
-					('DTS-HD MASTER AUDIO', 'DTS-HD MA'), ('DTS-X', 'DTS-X'), ('DTS-HD', 'DTS-HD'), ('DTS', 'DTS'), ('AAC', 'AAC'), ('OPUS', 'OPUS'), ('MP3', 'MP3'),
-					('8CH AUDIO', '8CH'), ('7CH AUDIO', '7CH'), ('6CH AUDIO', '6CH'), ('2CH AUDIO', '2CH'), ('DVD SOURCE', 'DVD'), ('WEB SOURCE', 'WEB'),
-					('MULTIPLE LANGUAGES', 'MULTI-LANG'), ('SUBTITLES', 'SUBS'))
 quality_choices = ('4K', '1080P', '720P', 'SD', 'CAM/SCR/TELE')
 prerelease_values, prerelease_key = ('CAM', 'SCR', 'TELE'), 'CAM/SCR/TELE'
 poster_lists, pack_check = ('list', 'medialist'), ('true', 'show', 'season')
@@ -37,6 +34,7 @@ class SourcesResults(BaseDialog):
 		self.results = kwargs.get('results')
 		self.uncached_results = kwargs.get('uncached_results', [])
 		self.info_highlights_dict = kwargs.get('scraper_settings')
+		self.episode_group_label = kwargs.get('episode_group_label', '')
 		self.prescrape = kwargs.get('prescrape')
 		self.meta = kwargs.get('meta')
 		self.filters_ignored = kwargs.get('filters_ignored', False)
@@ -80,16 +78,16 @@ class SourcesResults(BaseDialog):
 				else: filtered_list = [i for i in self.item_list if i.getProperty(filter_type) == filter_value]
 			elif filter_type == 'special':
 				if filter_value == 'title':
-					keywords = dialog.input('Enter Keyword (Comma Separated for Multiple)')
+					keywords = kodi_dialog().input('Enter Keyword (Comma Separated for Multiple)')
 					if not keywords: return
 					keywords.replace(' ', '')
 					keywords = keywords.split(',')
 					choice = [upper(i) for i in keywords]
 					filtered_list = [i for i in self.item_list if all(x in i.getProperty('name') for x in choice)]
 				elif filter_value == 'extraInfo':
-					list_items = [{'line1': item[0], 'icon': self.poster} for item in extra_info_choices]
+					list_items = [{'line1': item[0], 'icon': self.poster} for item in source_filters]
 					kwargs = {'items': json.dumps(list_items), 'heading': 'Filter Results', 'multi_choice': 'true'}
-					choice = select_dialog(extra_info_choices, **kwargs)
+					choice = select_dialog(source_filters, **kwargs)
 					if choice == None: return
 					choice = [i[1] for i in choice]
 					filtered_list = [i for i in self.item_list if all(x in i.getProperty('extraInfo') for x in choice)]
@@ -140,7 +138,8 @@ class SourcesResults(BaseDialog):
 					extraInfo = get('extraInfo', '')
 					extraInfo = extraInfo.rstrip('| ')
 					if pack: extraInfo = '[B]%s PACK[/B] | %s' % (get('package'), extraInfo)
-					elif not extraInfo: extraInfo = 'N/A'
+					if self.episode_group_label: extraInfo = '%s | %s' % (self.episode_group_label, extraInfo)
+					if not extraInfo: extraInfo = 'N/A'
 					if scrape_provider == 'external':
 						source_site = upper(get('provider'))
 						provider = upper(get('debrid', source_site).replace('.me', ''))
