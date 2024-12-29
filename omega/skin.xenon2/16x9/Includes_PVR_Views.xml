@@ -87,7 +87,7 @@
 					<control type="image">
 						<width>821</width>
 						<height>120</height>
-						<texture colordiffuse="$VAR[HighlightBarColor]" border="4">listselect_fo.png</texture>
+						<texture colordiffuse="$VAR[HighlightBarColor]" border="4">lf_classic/button/MenuItemFO.png</texture>
 						<visible>Control.HasFocus(50)</visible>
 						<include>VisibleFadeAnimation</include>
 					</control>
@@ -171,11 +171,12 @@
 					<texture border="40">listpanel_back.png</texture>
 				</control>
 				<control type="image">
-					<left>32</left>
-					<top>32</top>
-					<width>821</width>
-					<height>461</height>
-					<texture fallback="special://skin/extras/backgrounds/fallback_movies.jpg">$INFO[Skin.String(Home_Custom_Back_TV_Folder)]</texture>
+					<left>132</left>
+					<top>132</top>
+					<width>621</width>
+					<height>261</height>
+					<aspectratio>keep</aspectratio>
+					<texture fallback="special://skin/extras/backgrounds/fallback_movies.jpg">$INFO[ListItem.Icon]</texture>
 					<include>VisibleFadeAnimation</include>
 					<visible>!Player.HasVideo</visible>
 				</control>
@@ -187,7 +188,7 @@
 					<control type="image">
 						<width>822</width>
 						<height>461</height>
-						<texture>colors/black.png</texture>
+						<texture>contentpanel.png</texture>
 					</control>
 					<control type="videowindow">
 						<width>822</width>
@@ -507,7 +508,7 @@
 					<control type="image">
 						<width>445</width>
 						<height>225</height>
-						<texture>colors/black.png</texture>
+						<texture>contentpanel.png</texture>
 					</control>
 					<control type="videowindow">
 						<width>445</width>
@@ -674,7 +675,7 @@
 								<left>1</left>
 								<width>970</width>
 								<height>63</height>
-								<texture colordiffuse="$VAR[HighlightBarColor]" border="4">listselect_fo.png</texture>
+								<texture colordiffuse="$VAR[HighlightBarColor]" border="4">lf_classic/button/MenuItemFO.png</texture>
 								<animation effect="fade" start="100" end="0" time="300" tween="sine" easing="inout" condition="!Control.HasFocus(52)">Conditional</animation>
 							</control>
 							<control type="label">
@@ -743,9 +744,12 @@
 						<width>720</width>
 						<height>405</height>
 						<control type="image">
-							<width>720</width>
-							<height>405</height>
-							<texture fallback="special://skin/extras/backgrounds/fallback_movies.jpg">$INFO[Skin.String(Home_Custom_Back_TV_Folder)]</texture>
+							<left>52</left>
+							<top>62</top>
+							<width>621</width>
+							<height>261</height>
+							<aspectratio>keep</aspectratio>
+							<texture fallback="special://skin/extras/backgrounds/fallback_movies.jpg">$INFO[ListItem.Icon]</texture>
 							<visible>!Player.HasVideo</visible>
 						</control>
 						<control type="group">
@@ -754,7 +758,7 @@
 							<control type="image">
 								<width>720</width>
 								<height>405</height>
-								<texture>colors/black.png</texture>
+								<texture>contentpanel.png</texture>
 							</control>
 							<control type="videowindow">
 								<width>720</width>
@@ -958,7 +962,7 @@
 					<control type="image">
 						<width>1020</width>
 						<height>60</height>
-						<texture colordiffuse="$VAR[HighlightBarColor]" border="4">listselect_fo.png</texture>
+						<texture colordiffuse="$VAR[HighlightBarColor]" border="4">lf_classic/button/MenuItemFO.png</texture>
 						<visible>Control.HasFocus(50)</visible>
 						<include>VisibleFadeAnimation</include>
 					</control>
@@ -1243,7 +1247,7 @@
 					<control type="image">
 						<width>1140</width>
 						<height>120</height>
-						<texture colordiffuse="$VAR[HighlightBarColor]" border="4">listselect_fo.png</texture>
+						<texture colordiffuse="$VAR[HighlightBarColor]" border="4">lf_classic/button/MenuItemFO.png</texture>
 						<visible>Control.HasFocus(51)</visible>
 						<include>VisibleFadeAnimation</include>
 					</control>

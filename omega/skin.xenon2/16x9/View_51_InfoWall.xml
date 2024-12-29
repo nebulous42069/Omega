@@ -5,7 +5,7 @@
 		<control type="group">
 			<visible>Control.IsVisible(51) + !Window.IsActive(addoninformation)</visible>
 			<include>ViewAnimation</include>
-			<top>-65</top>
+			<top>-95</top>
 			<include content="BackPanel">
 				<param name="left">107</param>
 				<param name="top">178</param>

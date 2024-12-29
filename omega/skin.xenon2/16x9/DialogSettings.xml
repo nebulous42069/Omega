@@ -1,102 +1,153 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-	<defaultcontrol always="true">5</defaultcontrol>
-	<include>DialogOpenCloseAnimation</include>
-	<controls>
-		<control type="group">
-			<include>VisibleFadeAnimation</include>
-			<visible>!Window.IsDialogTopmost(DialogSelect.xml)</visible>
-			<control type="image">
-				<include>FullscreenDimensions</include>
-				<texture>colors/black50.png</texture>
-				<animation effect="fade" time="300">WindowOpen</animation>
-				<animation effect="fade" time="300">WindowClose</animation>
-			</control>
-			<control type="group">
-				<left>210</left>
-				<top>234</top>
-				<animation effect="fade" start="100" end="0" time="400" condition="Window.IsVisible(SliderDialog) | Window.IsVisible(SubtitleSearch)">Conditional</animation>
-				<animation effect="slide" end="0,-160" condition="Window.IsVisible(fullscreeninfo)">Conditional</animation>
-				<include content="DialogPanel">
-					<param name="height">611</param>
-					<param name="header_label">$VAR[DialogSettingsHeaderVar]</param>
-					<param name="buttons_ondown">5</param>
-					<param name="close_onclick">SendClick(29)</param>
-					<param name="ok_onclick">SendClick(28)</param>
-					<param name="ok_visible">Control.IsVisible(28)</param>
-					<param name="more_onclick">SendClick(30)</param>
-					<param name="more_visible">Control.IsVisible(30)</param>
-				</include>
-				<control type="grouplist" id="5">
-					<left>2</left>
-					<top>69</top>
-					<width>1498</width>
-					<height>540</height>
-					<pagecontrol>6</pagecontrol>
-					<onup>5</onup>
-					<ondown>5</ondown>
-					<ondown>9001</ondown>
-					<onleft>97</onleft>
-					<onright condition="Control.IsVisible(6)">6</onright>
-					<onright condition="!Control.IsVisible(6)">97</onright>
-				</control>
-				<control type="scrollbar" id="6">
-					<left>1491</left>
-					<top>69</top>
-					<width>8</width>
-					<height>540</height>
-					<onleft>5</onleft>
-					<onright>97</onright>
-					<texturesliderbackground>colors/black.png</texturesliderbackground>
-					<texturesliderbar>colors/white25.png</texturesliderbar>
-					<texturesliderbarfocus colordiffuse="$VAR[ThemeLabelColor]">colors/white.png</texturesliderbarfocus>
-					<showonepage>false</showonepage>
-				</control>
-				<control type="button" id="7">
-					<description>Default Button</description>
-				</control>
-				<control type="radiobutton" id="8">
-					<description>Default RadioButton</description>
-					<radioposx>1396</radioposx>
-				</control>
-				<control type="spincontrolex" id="9">
-					<description>Default SpinControlex</description>
-					<reverse>true</reverse>
-				</control>
-				<control type="edit" id="11">
-					<description>Default separator</description>
-					<visible>no</visible>
-				</control>
-				<control type="edit" id="12">
-					<description>Default Edit</description>
-				</control>
-				<control type="sliderex" id="13">
-					<description>Default Slider</description>
-				</control>
-				<control type="label" id="14">
-					<description>Default label</description>
-					<height>60</height>
-					<font>font14</font>
-					<textoffsetx>15</textoffsetx>
-					<textcolor>$VAR[ThemeLabelColor]</textcolor>
-				</control>
-			</control>
-		</control>
-		<control type="label" id="2">
-			<description>Header label</description>
-			<include>HiddenObject</include>
-		</control>
-		<control type="button" id="28">
-			<description>Ok Button</description>
-			<include>HiddenObject</include>
-		</control>
-		<control type="button" id="29">
-			<description>Cancel Button</description>
-			<include>HiddenObject</include>
-		</control>
-		<control type="button" id="30">
-			<description>Clear Button</description>
-			<include>HiddenObject</include>
-		</control>
-	</controls>
+    <defaultcontrol always="true">5</defaultcontrol>
+    <coordinates>
+        <left>360</left>
+        <top>213</top>
+    </coordinates>
+    <include>dialogeffect</include>
+    <controls>
+        <control type="group">
+            <animation effect="fade" start="100" end="0" time="150" condition="Window.Is(contentsettings) + Window.IsActive(AddonSettings)">Conditional</animation>
+            <animation effect="fade" start="100" end="0" time="300" condition="[Window.Is(osdaudiosettings) | Window.Is(osdvideosettings) | Window.Is(osdsubtitlesettings)] + [Window.IsVisible(SliderDialog) | Window.IsVisible(FileBrowser)]">Conditional</animation>
+            <include content="DialogBackgroundCommons">
+                <param name="DialogBackgroundWidth" value="1200" />
+                <param name="DialogBackgroundHeight" value="687" />
+                <param name="DialogHeaderWidth" value="1080" />
+                <param name="DialogHeaderId" value="2" />
+                <param name="CloseButtonLeft" value="1025" />
+                <param name="CloseButtonNav" value="10" />
+            </include>
+            <control type="grouplist" id="5">
+                <animation effect="slide" start="0,0" end="-15,0" time="0" condition="Control.IsVisible(60)">Conditional</animation>
+                <description>control area</description>
+                <left>52</left>
+                <top>105</top>
+                <width>1095</width>
+                <height>462</height>
+                <itemgap>6</itemgap>
+                <pagecontrol>60</pagecontrol>
+                <onup>9001</onup>
+                <ondown>9001</ondown>
+                <onleft>60</onleft>
+                <onright>60</onright>
+            </control>
+            <control type="scrollbar" id="60">
+                <left>1137</left>
+                <top>105</top>
+                <width>38</width>
+                <height>462</height>
+                <texturesliderbackground border="0,14,0,14">ScrollBarV.png</texturesliderbackground>
+                <texturesliderbar border="0,14,0,14">ScrollBarV_bar.png</texturesliderbar>
+                <texturesliderbarfocus border="0,14,0,14" colordiffuse="$VAR[ThemeLabelColor]">ScrollBarV_bar_focus.png</texturesliderbarfocus>
+                <textureslidernib colordiffuse="$VAR[ThemeLabelColor]">ScrollBarNib.png</textureslidernib>
+                <textureslidernibfocus colordiffuse="$VAR[ThemeLabelColor]">ScrollBarNib.png</textureslidernibfocus>
+                <onleft>5</onleft>
+                <onright>5</onright>
+                <ondown>60</ondown>
+                <onup>60</onup>
+                <showonepage>false</showonepage>
+                <orientation>vertical</orientation>
+            </control>
+            <control type="button" id="7">
+                <description>Default Button</description>
+                <height>60</height>
+                <font>font13</font>
+                <textcolor>grey2</textcolor>
+                <focusedcolor>white</focusedcolor>
+            </control>
+            <control type="radiobutton" id="8">
+                <description>Default RadioButton</description>
+                <height>60</height>
+                <font>font13</font>
+                <textcolor>grey2</textcolor>
+                <focusedcolor>white</focusedcolor>
+            </control>
+            <control type="spincontrolex" id="9">
+                <description>Default SpinControlex</description>
+                <height>60</height>
+                <font>font13</font>
+                <textcolor>grey2</textcolor>
+                <focusedcolor>white</focusedcolor>
+                <aligny>center</aligny>
+                <reverse>yes</reverse>
+            </control>
+            <control type="image" id="11">
+                <description>separator image</description>
+                <height>3</height>
+                <texture>separator2.png</texture>
+            </control>
+            <control type="edit" id="12">
+                <description>Default Edit</description>
+                <height>60</height>
+                <font>font13</font>
+                <textcolor>grey2</textcolor>
+                <focusedcolor>white</focusedcolor>
+            </control>
+            <control type="sliderex" id="13">
+                <description>Default Slider</description>
+                <height>60</height>
+                <font>font13</font>
+                <textcolor>grey2</textcolor>
+                <focusedcolor>white</focusedcolor>
+            </control>
+            <control type="label" id="14">
+                <description>Default Heading</description>
+                <height>51</height>
+                <font>font12</font>
+                <align>center</align>
+                <aligny>center</aligny>
+                <textcolor>$VAR[ThemeLabelColor]</textcolor>
+                <shadowcolor>black</shadowcolor>
+            </control>
+            <control type="grouplist" id="9001">
+                <left>255</left>
+                <top>590</top>
+                <width>690</width>
+                <align>center</align>
+                <itemgap>30</itemgap>
+                <orientation>horizontal</orientation>
+                <control type="button" id="28">
+                    <description>OK Button</description>
+                    <top>0</top>
+                    <width>300</width>
+                    <height>60</height>
+                    <align>center</align>
+                    <aligny>center</aligny>
+                    <font>font12_title</font>
+                    <onleft>30</onleft>
+                    <onright>29</onright>
+                    <onup>5</onup>
+                    <ondown>5</ondown>
+                </control>
+                <control type="button" id="29">
+                    <description>Cancel Button</description>
+                    <top>0</top>
+                    <width>300</width>
+                    <height>60</height>
+                    <align>center</align>
+                    <aligny>center</aligny>
+                    <font>font12_title</font>
+                    <label />
+                    <onleft>28</onleft>
+                    <onright>30</onright>
+                    <onup>5</onup>
+                    <ondown>5</ondown>
+                </control>
+                <control type="button" id="30">
+                    <description>Settings Button</description>
+                    <top>0</top>
+                    <width>300</width>
+                    <height>60</height>
+                    <align>center</align>
+                    <aligny>center</aligny>
+                    <font>font12_title</font>
+                    <onleft>29</onleft>
+                    <onright>28</onright>
+                    <onup>5</onup>
+                    <ondown>5</ondown>
+                </control>
+            </control>
+        </control>
+    </controls>
 </window>

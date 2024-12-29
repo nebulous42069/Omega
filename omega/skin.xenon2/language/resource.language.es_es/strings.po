@@ -2238,8 +2238,8 @@ msgid "Choose the menu item icon when the Xenon main menu layout is set to Icons
 msgstr "Elegir el icono del elemento de menú para cuando la disposición del menú principal de Xenon sea Iconos."
 
 msgctxt "#31555"
-msgid "Use this to set the default action without changing the label. Choose 'Custom item' for any of Kodi's built-in functions. (http://kodi.wiki/?title=List_of_Built_In_Functions)"
-msgstr "Use esto para establecer la acción por defecto sin cambiar la etiqueta. Elija 'Ítem Personalizado' para cualquiera de las funciones de Kodi. (http://kodi.wiki/?title=List_of_Built_In_Functions)"
+msgid "Use this to set the default action without changing the label. Choose 'Custom item' for any of Kodi's built-in functions."
+msgstr "Use esto para establecer la acción por defecto sin cambiar la etiqueta. Elija 'Ítem Personalizado' para cualquiera de las funciones de Kodi."
 
 msgctxt "#31556"
 msgid "Choose the submenu items displayed below your menu for Horizontal or in the left slide out submenu for the Vertical menu."
@@ -2254,7 +2254,7 @@ msgid "Choose what Widget 1 will display. Widget 1 is always directly above the 
 msgstr "Seleccione lo que el Widget 1 mostrará. El Widget 1 está siempre directamente encima del menú Horizontal o en el centro para el menú Vertical."
 
 msgctxt "#31559"
-msgid "Choose what Widget 2 will display. Widget 2 swaps location depending on the Xenon main menu horizontal position. If it is low then it will be at the top of the screen and centered will be below the Horizontal menu. Vertical menu location is always near the bottom of the Home window."
+msgid "Choose what Widget 2 will display. Widget 2 swaps location depending on the Xenon main menu horizontal position. If it is low then it will be at the top of the screen and centered will be below the Horizontal menu."
 msgstr "Seleccione lo que el Widget 2 mostrará. El Widget 2 intercambia sitio dependiendo de la posición del menú principal horizontal de Xenon. Si está en posición baja, el widget estará en la parte superior de la pantalla; si está centrado, estará debajo del menú Horizontal. El sitio para el menú Vertical es siempre cerca de la parte inferior de la ventana Principal."
 
 msgctxt "#31560"
@@ -2378,7 +2378,7 @@ msgid "Enable to hide the multi-search option in the library views and directly 
 msgstr "Activar para ocultar la opción de multi-búsqueda en las vistas de colección y buscar usando directamente la búsqueda incluida en Kodi"
 
 msgctxt "#31590"
-msgid "Hide the system bar containing the time, date, library statistcs, etc. Will also hide the RSS feed if enabled in Kodi settings"
+msgid "Hide the system bar containing the time, date, library statistcs, power button, favorites button, search button. Will also hide the RSS feed if enabled in Kodi settings"
 msgstr "Oculta la barra de sistema que contiene la hora, fecha, estadísticas de la colección, etc. También oculta el feed RSS si estuviera activado en los ajustes de Kodi"
 
 msgctxt "#31591"
@@ -2882,7 +2882,7 @@ msgid "Map & Alerts"
 msgstr "Mapa y alertas"
 
 msgctxt "#31911"
-msgid "Setup the Xenon main menu"
+msgid "Setup the Xenon main menu, widgets, and shortcuts"
 msgstr "Configuración del menú principal Xenon"
 
 msgctxt "#31912"

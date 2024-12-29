@@ -11,7 +11,7 @@
 			<control type="image">
 				<width>729</width>
 				<height>1080</height>
-				<texture>colors/black.png</texture>
+				<texture>contentpanel.png</texture>
 			</control>
 			<control type="image">
 				<width>729</width>
@@ -46,7 +46,7 @@
 				<width>1200</width>
 				<height>100%</height>
 				<control type="image">
-					<texture>colors/black.png</texture>
+					<texture>contentpanel.png</texture>
 				</control>
 				<control type="image">
 					<aspectratio align="center">scale</aspectratio>
@@ -305,7 +305,7 @@
 							<top>5</top>
 							<width>598</width>
 							<height>62</height>
-							<texture colordiffuse="$VAR[HighlightBarColor]" border="4">listselect_fo.png</texture>
+							<texture colordiffuse="$VAR[HighlightBarColor]" border="4">lf_classic/button/MenuItemFO.png</texture>
 							<visible>Control.HasFocus(300)</visible>
 							<include>VisibleFadeAnimation</include>
 						</control>
@@ -333,7 +333,7 @@
 							<top>5</top>
 							<width>1195</width>
 							<height>62</height>
-							<texture colordiffuse="$VAR[HighlightBarColor]" border="4">listselect_fo.png</texture>
+							<texture colordiffuse="$VAR[HighlightBarColor]" border="4">lf_classic/button/MenuItemFO.png</texture>
 							<visible>Control.HasFocus(300)</visible>
 							<include>VisibleFadeAnimation</include>
 						</control>
@@ -965,7 +965,7 @@
 						<control type="image">
 							<width>593</width>
 							<height>82</height>
-							<texture colordiffuse="$VAR[HighlightBarColor]" border="5">listselect_fo.png</texture>
+							<texture colordiffuse="$VAR[HighlightBarColor]" border="5">lf_classic/button/MenuItemFO.png</texture>
 							<visible>Control.HasFocus(50)</visible>
 							<include>VisibleFadeAnimation</include>
 						</control>
@@ -1023,7 +1023,7 @@
 					<control type="image">
 						<width>593</width>
 						<height>60</height>
-						<texture colordiffuse="$VAR[HighlightBarColor]" border="5">listselect_fo.png</texture>
+						<texture colordiffuse="$VAR[HighlightBarColor]" border="5">lf_classic/button/MenuItemFO.png</texture>
 						<visible>Control.HasFocus(9060)</visible>
 						<include>VisibleFadeAnimation</include>
 					</control>

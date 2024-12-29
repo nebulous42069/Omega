@@ -1,83 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<window>
-	<defaultcontrol>90000</defaultcontrol>
-	<controls>
-		<control type="image">
-			<include>FullscreenDimensions</include>
-			<texture>colors/black50.png</texture>
-			<animation effect="fade" time="250">WindowOpen</animation>
-			<animation effect="fade" time="250">WindowClose</animation>
-		</control>
-		<control type="group">
-			<animation effect="slide" end="0,60" condition="Integer.IsLess(Container(90000).NumItems,5)">Conditional</animation>
-			<include>DialogOpenCloseAnimation</include>
-			<centerleft>50%</centerleft>
-			<centertop>50%</centertop>
-			<width>510</width>
-			<height>600</height>
-			<control type="panel" id="90000">
-				<width>510</width>
-				<height>600</height>
-				<onleft>90000</onleft>
-				<onright>90000</onright>
-				<onup>90000</onup>
-				<ondown>90000</ondown>
-				<scrolltime tween="quadratic" easing="out">200</scrolltime>
-				<itemlayout width="510" height="60" infoupdate="5000">
-					<control type="image">
-						<width>510</width>
-						<height>60</height>
-						<texture>button_nofocus.png</texture>
-					</control>
-					<control type="label">
-						<width>510</width>
-						<height>60</height>
-						<textcolor>grey2</textcolor>
-						<font>font14</font>
-						<textoffsetx>35</textoffsetx>
-						<label>$INFO[ListItem.Label]</label>
-					</control>
-					<control type="label">
-						<width>510</width>
-						<height>60</height>
-						<textcolor>grey2</textcolor>
-						<font>font14</font>
-						<textoffsetx>35</textoffsetx>
-						<align>right</align>
-						<label>$INFO[ListItem.Label2]</label>
-					</control>
-				</itemlayout>
-				<focusedlayout width="510" height="60" infoupdate="5000">
-					<control type="image">
-						<width>510</width>
-						<height>60</height>
-						<texture colordiffuse="$VAR[HighlightBarColor]">button_focus.png</texture>
-					</control>
-					<control type="label">
-						<width>510</width>
-						<height>60</height>
-						<font>font14</font>
-						<textoffsetx>35</textoffsetx>
-						<label>$INFO[ListItem.Label]</label>
-					</control>
-					<control type="label">
-						<width>510</width>
-						<height>60</height>
-						<font>font14</font>
-						<textoffsetx>35</textoffsetx>
-						<align>right</align>
-						<label>$INFO[ListItem.Label2]</label>
-					</control>
-				</focusedlayout>
-				<content>
-					<include>skinshortcuts-group-buttonmenu</include>
-					<item>
-						<label>5</label>
-						<onclick>Dialog.Close(all,true)</onclick>
-						<onclick>ActivateWindow(settings)</onclick>
-					</item>
-				</content>
-			</control>
-		</control>
-	</controls>
+<window type="buttonMenu">
+    <defaultcontrol>9001</defaultcontrol>
+    <include>dialogeffect</include>
+    <coordinates>
+        <left>0</left>
+        <top>0</top>
+    </coordinates>
+    <include>dialogeffect</include>
+    <depth>DepthDialog+</depth>
+    <controls>
+        <control type="button" id="9001">
+            <description>Make sure we hit the first button in the group list and not the close window button</description>
+            <left>-24</left>
+            <top>-24</top>
+            <width>6</width>
+            <height>6</height>
+            <label></label>
+            <font></font>
+            <onfocus>down</onfocus>
+            <texturefocus></texturefocus>
+            <texturenofocus></texturenofocus>
+            <onleft>9000</onleft>
+            <onright>9000</onright>
+            <onup>9000</onup>
+            <ondown>2</ondown>
+        </control>
+        <control type="image">
+            <left>0</left>
+            <top>0</top>
+            <width>1920</width>
+            <height>1080</height>
+            <texture>black-back.png</texture>
+        </control>
+    	<include>StandardPowerItems</include>
+    </controls>
 </window>

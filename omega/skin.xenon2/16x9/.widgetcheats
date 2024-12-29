@@ -1,0 +1,5 @@
+	widget1 PANEL  spacers=5150
+	widget1 PANEL with Info PLOT Text ON Bottom widget Text Plot width=894 and down
+	
+	widget1 EXTENDED PANEL with Info PLOT Text ON =1144	
+	widget1 EXTENDED PANEL  spacers=5391

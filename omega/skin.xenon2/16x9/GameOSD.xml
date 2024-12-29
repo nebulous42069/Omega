@@ -77,7 +77,7 @@
 						<control type="image">
 							<width>780</width>
 							<height>60</height>
-							<texture colordiffuse="$VAR[HighlightBarColor]" border="5">listselect_fo.png</texture>
+							<texture colordiffuse="$VAR[HighlightBarColor]" border="5">lf_classic/button/MenuItemFO.png</texture>
 							<visible>Control.HasFocus(3)</visible>
 							<include>VisibleFadeAnimation</include>
 						</control>

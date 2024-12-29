@@ -35,6 +35,13 @@ def start_info_actions(infos, params):
 			from a4kscrapers_wrapper import get_meta
 			get_meta.get_rss_cache()
 
+		if info == 'con_man_fix':
+			from resources.lib.con_man_fix import list_and_select_wifi
+			Utils.hide_busy()
+			list_and_select_wifi()
+			Utils.hide_busy()
+			return
+
 		if info == 'delete_db_expired':
 			Utils.db_delete_expired(Utils.db_con)
 
@@ -356,7 +363,7 @@ def start_info_actions(infos, params):
 				return
 			xbmc.log(str('start...')+'play_test_pop_stack===>OPENINFO', level=xbmc.LOGINFO)
 			time_start = time.time()
-			time_end = time_start + 90
+			time_end = time_start + 145
 			tmdb_plugin_flag = False
 			tmdb_helper_finished = 0
 			plugin_finished = 0
@@ -462,7 +469,7 @@ def start_info_actions(infos, params):
 				return
 			xbmc.log(str('start...')+'play_test_pop_stack===>OPENINFO', level=xbmc.LOGINFO)
 			home_count = 0
-			for i in range(1, int((90 * 1000)/1000)):
+			for i in range(1, int((145 * 1000)/1000)):
 				window_id = xbmc.executeJSONRPC('{"jsonrpc":"2.0","method":"GUI.GetProperties","params":{"properties":["currentwindow", "currentcontrol"]},"id":1}')
 				window_id = json.loads(window_id)
 				xbmc.sleep(1000)
@@ -522,6 +529,10 @@ def start_info_actions(infos, params):
 
 
 		elif info == 'test_route':
+			from resources.lib.con_man_fix import list_and_select_wifi
+			list_and_select_wifi()
+			Utils.hide_busy()
+			return
 			#from resources.lib.library import trakt_collection_movies
 			#movies = trakt_collection_movies()
 			#for i in movies:

@@ -7,11 +7,12 @@
 			<control type="list" id="505">
 				<viewtype label="$LOCALIZE[31314]">wrap</viewtype>
 				<left>72.5</left>
-				<top>335</top>
+				<top>135</top>
 				<width>1830</width>
-				<height>840</height>
+				<height>940</height>
 				<onup>SetProperty(MediaMenu,True,Home)</onup>
 				<onup>SetFocus(9050)</onup>
+				<ondown condition="Container.Content(movies) | Container.Content(tvshows) | !Container.Content(seasons) | !Container.Content(episodes) |  !Container.Content(musicvideos) | !Container.Content(files) | !Container.Content(addons) | !Container.Content() | !String.IsEmpty(ListItem.Trailer)">PlayMedia("$INFO[ListItem.Trailer]")</ondown>				
 				<ondown condition="Control.IsVisible(50560)">50560</ondown>
 				<ondown condition="!Control.IsVisible(50560)">4400</ondown>
 				<onleft>505</onleft>
@@ -56,8 +57,15 @@
 					<control type="image">
 						<width>555</width>
 						<height>730</height>
-						<texture colordiffuse="$VAR[HighlightBarColor]">listselect_fo.png</texture>
+						<texture colordiffuse="$VAR[ThemeLabelColor]" border="10">thumbs/thumbnail_focused.png</texture>
 					</control>
+					<control type="image">
+						<left>3</left>
+						<top>5</top>						
+						<width>545</width>
+						<height>725</height>
+						<texture colordiffuse="$VAR[ThemeLabelColor]" border="10">dialogs/default/bg.png</texture>
+					</control>					
 					<control type="label">
 						<top>327</top>
 						<left>15</left>

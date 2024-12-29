@@ -1,9 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window id="1140" type="dialog">
 	<defaultcontrol always="true">9000</defaultcontrol>
+	<onload>SetProperty(Window.HasSettings,True,Home)</onload>
+	<onload>ClearProperty(MediaMenu,Home)</onload>
+	<onunload>ClearProperty(MediaMenu,Home)</onunload>
+	<onunload>ClearProperty(Window.HasSettings,Home)</onunload>		
 	<controls>
 		<control type="group">
-			<top>64</top>
+			<animation effect="fade" time="500" delay="400" condition="Window.Previous(home)">WindowOpen</animation>
+			<animation effect="fade" time="500" condition="!Window.Previous(home)">WindowOpen</animation>
+			<animation effect="fade" time="500">WindowClose</animation>
+			<include>GlobalFanart</include>
+			<include>SnowBackground</include>
+			<control type="visualisation">
+				<include>FullscreenDimensions</include>
+				<visible>Player.HasAudio</visible>
+				<visible>!Skin.HasSetting(Disable.ShowBackgroundVis)</visible>
+				<visible>!Window.IsVisible(TVChannels) + !Window.IsVisible(RadioChannels) + !SlideShow.IsActive</visible>
+				<visible>String.IsEmpty(Window(Videos).Property(PlayingBackgroundMedia))</visible>
+			</control>
+		</control>
+		<control type="group">
+			<visible>[Player.HasVideo + !Skin.HasSetting(Disable.ShowBackgroundVideo) + !SlideShow.IsActive]</visible>
+			<control type="image">
+				<include>FullscreenDimensions</include>
+				<texture>colors/black.png</texture>
+			</control>
+			<control type="videowindow">
+				<include>FullscreenDimensions</include>
+			</control>
+		</control>
+		<control type="group">
+			<top>64</top>		
+			<control type="group">
+				<visible>!Window.IsActive(script-skinshortcuts.xml)</visible>			
+				<left>135</left>
+				<top>45</top>
+				<control type="image">
+					<left>-60</left>
+					<top>-60</top>
+					<width>1750</width>
+					<height>880</height>
+					<texture border="15">ContentPanel.png</texture>
+					<include>TransparentEffect</include>
+				</control>
+				<control type="button" id="50">
+					<include>InvisibleButton</include>
+					<onleft>800</onleft>
+					<onright>800</onright>
+					<onup>9000</onup>
+					<ondown>9000</ondown>
+					<visible>false</visible>
+				</control>
+			</control>				
+		</control>				
+		<control type="group">
+			<top>84</top>
 			<control type="list" id="9000">
 				<left>81</left>
 				<top>32</top>
@@ -17,6 +69,11 @@
 				<scrolltime tween="quadratic" easing="out">200</scrolltime>
 				<include>SettingsFadeAnimation</include>
 				<itemlayout height="90" width="356">
+					<control type="image">
+						<width>356</width>
+						<height>90</height>
+						<texture border="5">MenuItemNF.png</texture>
+					</control>				
 					<control type="label">
 						<width>356</width>
 						<height>90</height>
@@ -26,11 +83,11 @@
 						<label>$INFO[ListItem.Label]</label>
 					</control>
 				</itemlayout>
-				<focusedlayout height="90" width="356">
+				<focusedlayout height="90" width="356">				
 					<control type="image">
 						<width>355</width>
 						<height>90</height>
-						<texture colordiffuse="$VAR[HighlightBarColor]" border="4">listselect_fo.png</texture>
+						<texture colordiffuse="$VAR[HighlightBarColor]" border="4">lf_classic/button/MenuItemFO.png</texture>
 						<animation effect="fade" start="100" end="40" time="300" tween="sine" easing="inout" condition="!Control.HasFocus(9000)">Conditional</animation>
 					</control>
 					<control type="label">
@@ -56,7 +113,7 @@
 						<label>31155</label>
 					</item>
 					<item id="5">
-						<label>OSD</label>
+						<label>$LOCALIZE[478]</label>
 					</item>
 				</content>
 			</control>
@@ -81,19 +138,11 @@
 					<ondown>9004</ondown>
 					<visible>Container(9000).HasFocus(4)</visible>
 					<control type="radiobutton" id="400">
-						<label>Xenon</label>
+						<label>Xenon Default Colors</label>
 						<onclick>SetProperty(SetSiLVOSkinColors,True,Home)</onclick>
 						<onclick>ActivateWindow(1126)</onclick>
 						<include content="CustomColorRadioButton">
-							<param name="ColorStringVar">FF007FFF</param>
-						</include>
-					</control>
-					<control type="radiobutton" id="401">
-						<label>$LOCALIZE[762]</label>
-						<onclick>SetProperty(SetBlueSkinColors,True,Home)</onclick>
-						<onclick>ActivateWindow(1126)</onclick>
-						<include content="CustomColorRadioButton">
-							<param name="ColorStringVar">FF2A52BE</param>
+							<param name="ColorStringVar">FF0084ff</param>
 						</include>
 					</control>
 					<control type="radiobutton" id="402">

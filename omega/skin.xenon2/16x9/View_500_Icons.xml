@@ -169,7 +169,7 @@
 						<top>310</top>
 						<width>420</width>
 						<height>50</height>
-						<texture>colors/black.png</texture>
+						<texture>contentpanel.png</texture>
 						<bordersize>2</bordersize>
 						<colordiffuse>88ffffff</colordiffuse>
 					</control>
@@ -220,7 +220,7 @@
 							<top>310</top>
 							<width>408</width>
 							<height>44</height>
-							<texture>colors/black.png</texture>
+							<texture>contentpanel.png</texture>
 							<bordersize>2</bordersize>
 							<colordiffuse>88ffffff</colordiffuse>
 						</control>
@@ -326,7 +326,7 @@
 				<onright condition="Control.IsVisible(615)">SetFocus(615)</onright>
 				<ondown>50060</ondown>
 				<onup>50060</onup>
-				<texturesliderbackground>colors/black.png</texturesliderbackground>
+				<texturesliderbackground>contentpanel.png</texturesliderbackground>
 				<texturesliderbar>colors/white25.png</texturesliderbar>
 				<texturesliderbarfocus colordiffuse="$VAR[ThemeLabelColor]">colors/white.png</texturesliderbarfocus>
 				<showonepage>false</showonepage>
@@ -379,7 +379,7 @@
 							<top>190</top>
 							<width>240</width>
 							<height>50</height>
-							<texture>colors/black.png</texture>
+							<texture>contentpanel.png</texture>
 							<bordersize>2</bordersize>
 							<colordiffuse>88ffffff</colordiffuse>
 						</control>
@@ -578,7 +578,7 @@
 						<top>250</top>
 						<width>560</width>
 						<height>50</height>
-						<texture>colors/black.png</texture>
+						<texture>contentpanel.png</texture>
 						<bordersize>2</bordersize>
 						<colordiffuse>88ffffff</colordiffuse>
 					</control>
@@ -622,7 +622,7 @@
 							<top>250</top>
 							<width>560</width>
 							<height>50</height>
-							<texture>colors/black.png</texture>
+							<texture>contentpanel.png</texture>
 							<bordersize>2</bordersize>
 							<colordiffuse>88ffffff</colordiffuse>
 						</control>

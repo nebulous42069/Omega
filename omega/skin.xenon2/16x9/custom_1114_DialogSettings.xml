@@ -47,7 +47,7 @@
 				<height>660</height>
 				<onleft>90200</onleft>
 				<onright>97</onright>
-				<texturesliderbackground>colors/black.png</texturesliderbackground>
+				<texturesliderbackground>contentpanel.png</texturesliderbackground>
 				<texturesliderbar>colors/white25.png</texturesliderbar>
 				<texturesliderbarfocus colordiffuse="$VAR[ThemeLabelColor]">colors/white.png</texturesliderbarfocus>
 				<showonepage>false</showonepage>

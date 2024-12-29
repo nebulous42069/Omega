@@ -5,250 +5,282 @@
 		<include>LyricsFonts</include>
 		<!-- Normal Fonts -->
 		<font>
+			<name>font_submenu</name>
+			<filename>Roboto-Regular.ttf</filename>
+			<size>25</size>
+		</font>		
+		<font>
 			<name>fontArial15</name>
 			<filename>arial.ttf</filename>
 			<size>35</size>
 		</font>
 		<font>
 			<name>font10</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<size>21</size>
 		</font>
 		<font>
 			<name>font11_compact</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<size>24</size>
-			<linespacing>.8</linespacing>
 		</font>
 		<font>
 			<name>font12</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<size>26</size>
 		</font>
 		<font>
+			<name>font12_submenu</name>
+			<filename>Roboto-Regular.ttf</filename>
+			<size>26</size>
+		</font>		
+		<font>
 			<name>font13</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<size>30</size>
 		</font>
 		<font>
+			<name>font_widgettitle</name>
+			<filename>destructobeambb_reg.ttf</filename>
+			<size>30</size>
+		</font>		
+		<font>
 			<name>font13_bold</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<style>bold</style>
 			<size>30</size>
 		</font>
 		<font>
 			<name>font14_textbox</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<size>33</size>
-			<linespacing>1.27</linespacing>
 		</font>
 		<font>
 			<name>font14_textbox2</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<size>33</size>
-			<linespacing>1.1</linespacing>
 		</font>
 		<font>
 			<name>font15_textbox</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<size>35</size>
-			<linespacing>1.4</linespacing>
 		</font>
 		<font>
 			<name>font15_textbox2</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<size>36</size>
-			<linespacing>1.3</linespacing>
 		</font>
 		<font>
 			<name>font14</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<size>33</size>
 		</font>
 		<font>
 			<name>font14_bold</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<style>bold</style>
 			<size>33</size>
 		</font>
 		<font>
 			<name>font15</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<size>35</size>
 		</font>
 		<font>
 			<name>font15_bold</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<style>bold</style>
 			<size>35</size>
 		</font>
 		<font>
 			<name>font16</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<size>38</size>
 		</font>
+        <font>
+            <name>font16_xenon</name>
+            <filename>Roboto-Regular.ttf</filename>
+            <size>38</size>
+        </font>		
 		<font>
 			<name>font16_textbox</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<size>38</size>
-			<linespacing>1.4</linespacing>
 		</font>
 		<font>
 			<name>font16bold_textbox</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<style>bold</style>
-			<size>38</size>
-			<linespacing>1.3</linespacing>
+			<size>36</size>
 		</font>
 		<font>
 			<name>font18_textbox</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<size>44</size>
-			<linespacing>1.3</linespacing>
 		</font>
 		<font>
 			<name>font30</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<size>45</size>
 		</font>
 		<font>
 			<name>font48</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<size>48</size>
 		</font>
 		<font>
 			<name>font48_bold</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<style>bold</style>
 			<size>48</size>
 		</font>
 		<font>
 			<name>font52_bold</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<style>bold</style>
 			<size>52</size>
 		</font>
 		<!-- LiveTV Fonts -->
 		<font>
 			<name>font60</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<size>60</size>
 		</font>
 		<font>
 			<name>font65</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<size>65</size>
 		</font>
 		<font>
 			<name>font24_bold</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<size>24</size>
 			<style>bold</style>
 		</font>
 		<font>
 			<name>font28_bold</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<size>28</size>
 			<style>bold</style>
 		</font>
 		<font>
 			<name>font11</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<size>24</size>
 		</font>
 		<font>
 			<name>font13b</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<size>32</size>
 		</font>
 		<!-- Title Fonts -->
 		<font>
 			<name>font12_title</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<style>uppercase</style>
 			<size>26</size>
 		</font>
 		<font>
+			<name>font12_title_notificatons</name>
+			<filename>Roboto-Bold.ttf</filename>
+			<size>26</size>
+		</font>		
+		<font>
 			<name>font13_title</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<style>uppercase</style>
 			<size>30</size>
 		</font>
 		<font>
 			<name>font14_title</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<style>uppercase</style>
 			<size>33</size>
 		</font>
 		<font>
 			<name>font15_title</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<style>uppercase</style>
 			<size>35</size>
 		</font>
 		<font>
 			<name>font16_title</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<style>uppercase</style>
 			<size>38</size>
 		</font>
 		<font>
 			<name>font16_title_bold</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<style>uppercase bold</style>
 			<size>38</size>
 		</font>
 		<font>
 			<name>font24_title</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<style>uppercase</style>
 			<size>36</size>
 		</font>
+        <font>
+            <name>font24_title_xenon</name>
+            <filename>Roboto-Bold.ttf</filename>
+            <size>33</size>
+        </font>
+        <font>
+            <name>font28_title</name>
+            <filename>Roboto-Bold.ttf</filename>
+            <size>42</size>
+        </font>		
 		<font>
 			<name>font30_title</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<style>uppercase</style>
 			<size>45</size>
 		</font>
+        <font>
+            <name>font30_title_clock</name>
+            <filename>Roboto-Bold.ttf</filename>
+            <size>45</size>
+        </font>		
 		<font>
 			<name>font30_title_bold</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<style>uppercase bold</style>
 			<size>45</size>
 		</font>
 		<font>
 			<name>font48_title</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<style>uppercase</style>
 			<size>48</size>
 		</font>
 		<font>
 			<name>font35_title</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<style>uppercase</style>
 			<size>52</size>
 		</font>
 		<font>
 			<name>font35_title_bold</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<style>uppercase bold</style>
 			<size>52</size>
 		</font>
 		<font>
 			<name>font60caps_title</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<style>uppercase</style>
 			<size>60</size>
 		</font>
 		<font>
 			<name>font45caps_title</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<style>uppercase</style>
 			<size>68</size>
 		</font>
 		<font>
 			<name>font100caps_title</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<style>uppercase</style>
 			<size>100</size>
 		</font>
@@ -260,19 +292,18 @@
 		<font>
 			<name>font_version</name>
 			<filename>LeagueGothic-Regular.ttf</filename>
-			<linespacing>0</linespacing>
 			<size>60</size>
 		</font>
 		<font>
 			<name>font_MainMenu</name>
 			<filename>destructobeambb_reg.ttf</filename>
-			<linespacing>0</linespacing>
-			<size>75</size>
+			<size>53</size>
 		</font>
 		<font>
 			<name>font_VerticalMainMenu</name>
-			<filename>BebasNeue.ttf</filename>
-			<size>75</size>
+			<filename>destructobeambb_reg.ttf</filename>
+			<style>bold</style>
+			<size>53</size>
 		</font>
 		<font>
 			<name>BigAssFont</name>
@@ -281,13 +312,12 @@
 		</font>
 		<font>
 			<name>BigAssTimeFont</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<size>180</size>
-			<linespacing>.8</linespacing>
 		</font>
 		<font>
 			<name>WeatherTemp</name>
-			<filename>RobotoCondensed-Regular.ttf</filename>
+			<filename>Roboto-Regular.ttf</filename>
 			<style>uppercase</style>
 			<size>120</size>
 		</font>
@@ -298,13 +328,11 @@
 			<name>fontCDartist</name>
 			<filename>PermanentMarker.ttf</filename>
 			<size>45</size>
-			<linespacing>.8</linespacing>
 		</font>
 		<font>
 			<name>fontCDalbum</name>
 			<filename>PermanentMarker.ttf</filename>
 			<size>36</size>
-			<linespacing>.8</linespacing>
 		</font>
 	</fontset>
 	<fontset id="Arial" idloc="31391" unicode="true">
@@ -325,7 +353,6 @@
 			<name>font11_compact</name>
 			<filename>arial.ttf</filename>
 			<size>20</size>
-			<linespacing>.8</linespacing>
 		</font>
 		<font>
 			<name>font12</name>
@@ -347,25 +374,21 @@
 			<name>font14_textbox</name>
 			<filename>arial.ttf</filename>
 			<size>30</size>
-			<linespacing>1.27</linespacing>
 		</font>
 		<font>
 			<name>font14_textbox2</name>
 			<filename>arial.ttf</filename>
 			<size>30</size>
-			<linespacing>1.1</linespacing>
 		</font>
 		<font>
 			<name>font15_textbox</name>
 			<filename>arial.ttf</filename>
 			<size>32</size>
-			<linespacing>1.38</linespacing>
 		</font>
 		<font>
 			<name>font15_textbox2</name>
 			<filename>arial.ttf</filename>
 			<size>32</size>
-			<linespacing>1.26</linespacing>
 		</font>
 		<font>
 			<name>font14</name>
@@ -398,14 +421,12 @@
 			<name>font16_textbox</name>
 			<filename>arial.ttf</filename>
 			<size>35</size>
-			<linespacing>1.4</linespacing>
 		</font>
 		<font>
 			<name>font16bold_textbox</name>
 			<filename>arial.ttf</filename>
 			<style>bold</style>
 			<size>35</size>
-			<linespacing>1.5</linespacing>
 		</font>
 		<font>
 			<name>font30</name>
@@ -544,20 +565,17 @@
 		<font>
 			<name>font_musicviz</name>
 			<filename>arial.ttf</filename>
-			<linespacing>0</linespacing>
 			<style>uppercase</style>
 			<size>65</size>
 		</font>
 		<font>
 			<name>font_version</name>
 			<filename>LeagueGothic-Regular.ttf</filename>
-			<linespacing>0</linespacing>
 			<size>60</size>
 		</font>
 		<font>
 			<name>font_MainMenu</name>
 			<filename>arial.ttf</filename>
-			<linespacing>0</linespacing>
 			<style>uppercase</style>
 			<size>70</size>
 		</font>
@@ -585,13 +603,11 @@
 			<name>fontCDartist</name>
 			<filename>PermanentMarker.ttf</filename>
 			<size>45</size>
-			<linespacing>.8</linespacing>
 		</font>
 		<font>
 			<name>fontCDalbum</name>
 			<filename>PermanentMarker.ttf</filename>
 			<size>36</size>
-			<linespacing>.8</linespacing>
 		</font>
 	</fontset>
 	<fontset id="NoTo" idloc="31964">
@@ -622,19 +638,16 @@
 			<name>font14_textbox</name>
 			<filename>NotoSans-Regular.ttf</filename>
 			<size>33</size>
-			<linespacing>1</linespacing>
 		</font>
 		<font>
 			<name>font14_textbox2</name>
 			<filename>NotoSans-Regular.ttf</filename>
 			<size>33</size>
-			<linespacing>1.1</linespacing>
 		</font>
 		<font>
 			<name>font15_textbox</name>
 			<filename>NotoSans-Regular.ttf</filename>
 			<size>35</size>
-			<linespacing>1.2</linespacing>
 		</font>
 		<font>
 			<name>font14</name>
@@ -661,14 +674,12 @@
 			<name>font16_textbox</name>
 			<filename>NotoSans-Regular.ttf</filename>
 			<size>38</size>
-			<linespacing>1.4</linespacing>
 		</font>
 		<font>
 			<name>font16bold_textbox</name>
 			<filename>NotoSans-Regular.ttf</filename>
 			<style>bold</style>
 			<size>38</size>
-			<linespacing>1.2</linespacing>
 		</font>
 		<font>
 			<name>font30</name>
@@ -813,13 +824,11 @@
 		<font>
 			<name>font_version</name>
 			<filename>LeagueGothic-Regular.ttf</filename>
-			<linespacing>0</linespacing>
 			<size>60</size>
 		</font>
 		<font>
 			<name>font_MainMenu</name>
 			<filename>NotoSans-Regular.ttf</filename>
-			<linespacing>0</linespacing>
 			<style>uppercase</style>
 			<size>95</size>
 		</font>
@@ -838,7 +847,6 @@
 			<name>BigAssTimeFont</name>
 			<filename>NotoSans-Regular.ttf</filename>
 			<size>180</size>
-			<linespacing>.8</linespacing>
 		</font>
 		<font>
 			<name>WeatherTemp</name>
@@ -853,13 +861,11 @@
 			<name>fontCDartist</name>
 			<filename>PermanentMarker.ttf</filename>
 			<size>45</size>
-			<linespacing>.8</linespacing>
 		</font>
 		<font>
 			<name>fontCDalbum</name>
 			<filename>PermanentMarker.ttf</filename>
 			<size>36</size>
-			<linespacing>.8</linespacing>
 		</font>
 	</fontset>
 	<fontset id="Raleway" idloc="31223">
@@ -890,19 +896,16 @@
 			<name>font14_textbox</name>
 			<filename>Raleway-Medium.ttf</filename>
 			<size>33</size>
-			<linespacing>1</linespacing>
 		</font>
 		<font>
 			<name>font14_textbox2</name>
 			<filename>Raleway-Medium.ttf</filename>
 			<size>33</size>
-			<linespacing>1.1</linespacing>
 		</font>
 		<font>
 			<name>font15_textbox</name>
 			<filename>Raleway-Medium.ttf</filename>
 			<size>35</size>
-			<linespacing>1.2</linespacing>
 		</font>
 		<font>
 			<name>font14</name>
@@ -929,14 +932,12 @@
 			<name>font16_textbox</name>
 			<filename>Raleway-Medium.ttf</filename>
 			<size>38</size>
-			<linespacing>1.4</linespacing>
 		</font>
 		<font>
 			<name>font16bold_textbox</name>
 			<filename>Raleway-Medium.ttf</filename>
 			<style>bold</style>
 			<size>38</size>
-			<linespacing>1.2</linespacing>
 		</font>
 		<font>
 			<name>font30</name>
@@ -1081,13 +1082,11 @@
 		<font>
 			<name>font_version</name>
 			<filename>LeagueGothic-Regular.ttf</filename>
-			<linespacing>0</linespacing>
 			<size>60</size>
 		</font>
 		<font>
 			<name>font_MainMenu</name>
 			<filename>Raleway-Medium.ttf</filename>
-			<linespacing>0</linespacing>
 			<style>uppercase</style>
 			<size>112</size>
 		</font>
@@ -1106,7 +1105,6 @@
 			<name>BigAssTimeFont</name>
 			<filename>Raleway-Medium.ttf</filename>
 			<size>180</size>
-			<linespacing>.8</linespacing>
 		</font>
 		<font>
 			<name>WeatherTemp</name>
@@ -1121,13 +1119,11 @@
 			<name>fontCDartist</name>
 			<filename>PermanentMarker.ttf</filename>
 			<size>45</size>
-			<linespacing>.8</linespacing>
 		</font>
 		<font>
 			<name>fontCDalbum</name>
 			<filename>PermanentMarker.ttf</filename>
 			<size>36</size>
-			<linespacing>.8</linespacing>
 		</font>
 	</fontset>
 	<fontset id="Ubuntu Condensed" idloc="31481">
@@ -1148,7 +1144,6 @@
 			<name>font11_compact</name>
 			<filename>UbuntuCondensed-Regular.ttf</filename>
 			<size>24</size>
-			<linespacing>.8</linespacing>
 		</font>
 		<font>
 			<name>font12</name>
@@ -1170,25 +1165,21 @@
 			<name>font14_textbox</name>
 			<filename>UbuntuCondensed-Regular.ttf</filename>
 			<size>33</size>
-			<linespacing>1.27</linespacing>
 		</font>
 		<font>
 			<name>font14_textbox2</name>
 			<filename>UbuntuCondensed-Regular.ttf</filename>
 			<size>33</size>
-			<linespacing>1.1</linespacing>
 		</font>
 		<font>
 			<name>font15_textbox</name>
 			<filename>UbuntuCondensed-Regular.ttf</filename>
 			<size>35</size>
-			<linespacing>1.4</linespacing>
 		</font>
 		<font>
 			<name>font15_textbox2</name>
 			<filename>UbuntuCondensed-Regular.ttf</filename>
 			<size>36</size>
-			<linespacing>1.3</linespacing>
 		</font>
 		<font>
 			<name>font14</name>
@@ -1221,14 +1212,12 @@
 			<name>font16_textbox</name>
 			<filename>UbuntuCondensed-Regular.ttf</filename>
 			<size>38</size>
-			<linespacing>1.4</linespacing>
 		</font>
 		<font>
 			<name>font16bold_textbox</name>
 			<filename>UbuntuCondensed-Regular.ttf</filename>
 			<style>bold</style>
 			<size>38</size>
-			<linespacing>1.4</linespacing>
 		</font>
 		<font>
 			<name>font30</name>
@@ -1384,13 +1373,11 @@
 		<font>
 			<name>font_version</name>
 			<filename>LeagueGothic-Regular.ttf</filename>
-			<linespacing>0</linespacing>
 			<size>60</size>
 		</font>
 		<font>
 			<name>font_MainMenu</name>
 			<filename>UbuntuCondensed-Regular.ttf</filename>
-			<linespacing>0</linespacing>
 			<style>uppercase</style>
 			<size>112</size>
 		</font>
@@ -1408,7 +1395,6 @@
 			<name>BigAssTimeFont</name>
 			<filename>UbuntuCondensed-Regular.ttf</filename>
 			<size>180</size>
-			<linespacing>.8</linespacing>
 		</font>
 		<font>
 			<name>WeatherTemp</name>
@@ -1423,13 +1409,11 @@
 			<name>fontCDartist</name>
 			<filename>PermanentMarker.ttf</filename>
 			<size>45</size>
-			<linespacing>.8</linespacing>
 		</font>
 		<font>
 			<name>fontCDalbum</name>
 			<filename>PermanentMarker.ttf</filename>
 			<size>36</size>
-			<linespacing>.8</linespacing>
 		</font>
 	</fontset>
 	<fontset id="Fira Sans" idloc="31482">
@@ -1460,19 +1444,16 @@
 			<name>font14_textbox</name>
 			<filename>FiraSans-Regular.ttf</filename>
 			<size>33</size>
-			<linespacing>1</linespacing>
 		</font>
 		<font>
 			<name>font14_textbox2</name>
 			<filename>FiraSans-Regular.ttf</filename>
 			<size>33</size>
-			<linespacing>1.1</linespacing>
 		</font>
 		<font>
 			<name>font15_textbox</name>
 			<filename>FiraSans-Regular.ttf</filename>
 			<size>35</size>
-			<linespacing>1.2</linespacing>
 		</font>
 		<font>
 			<name>font14</name>
@@ -1499,14 +1480,12 @@
 			<name>font16_textbox</name>
 			<filename>FiraSans-Regular.ttf</filename>
 			<size>38</size>
-			<linespacing>1.4</linespacing>
 		</font>
 		<font>
 			<name>font16bold_textbox</name>
 			<filename>FiraSans-Regular.ttf</filename>
 			<style>bold</style>
 			<size>38</size>
-			<linespacing>1.2</linespacing>
 		</font>
 		<font>
 			<name>font30</name>
@@ -1651,13 +1630,11 @@
 		<font>
 			<name>font_version</name>
 			<filename>LeagueGothic-Regular.ttf</filename>
-			<linespacing>0</linespacing>
 			<size>60</size>
 		</font>
 		<font>
 			<name>font_MainMenu</name>
 			<filename>FiraSans-Regular.ttf</filename>
-			<linespacing>0</linespacing>
 			<style>uppercase</style>
 			<size>95</size>
 		</font>
@@ -1676,7 +1653,6 @@
 			<name>BigAssTimeFont</name>
 			<filename>FiraSans-Regular.ttf</filename>
 			<size>180</size>
-			<linespacing>.8</linespacing>
 		</font>
 		<font>
 			<name>WeatherTemp</name>
@@ -1691,13 +1667,11 @@
 			<name>fontCDartist</name>
 			<filename>PermanentMarker.ttf</filename>
 			<size>45</size>
-			<linespacing>.8</linespacing>
 		</font>
 		<font>
 			<name>fontCDalbum</name>
 			<filename>PermanentMarker.ttf</filename>
 			<size>36</size>
-			<linespacing>.8</linespacing>
 		</font>
 	</fontset>
 	<fontset id="Caviar Dreams" idloc="31483">
@@ -1718,7 +1692,6 @@
 			<name>font11_compact</name>
 			<filename>CaviarDreams.ttf</filename>
 			<size>24</size>
-			<linespacing>.8</linespacing>
 		</font>
 		<font>
 			<name>font12</name>
@@ -1740,25 +1713,21 @@
 			<name>font14_textbox</name>
 			<filename>CaviarDreams.ttf</filename>
 			<size>33</size>
-			<linespacing>1.27</linespacing>
 		</font>
 		<font>
 			<name>font14_textbox2</name>
 			<filename>CaviarDreams.ttf</filename>
 			<size>33</size>
-			<linespacing>1.1</linespacing>
 		</font>
 		<font>
 			<name>font15_textbox</name>
 			<filename>CaviarDreams.ttf</filename>
 			<size>35</size>
-			<linespacing>1.4</linespacing>
 		</font>
 		<font>
 			<name>font15_textbox2</name>
 			<filename>CaviarDreams.ttf</filename>
 			<size>36</size>
-			<linespacing>1.3</linespacing>
 		</font>
 		<font>
 			<name>font14</name>
@@ -1791,14 +1760,12 @@
 			<name>font16_textbox</name>
 			<filename>CaviarDreams.ttf</filename>
 			<size>38</size>
-			<linespacing>1.4</linespacing>
 		</font>
 		<font>
 			<name>font16bold_textbox</name>
 			<filename>CaviarDreams.ttf</filename>
 			<style>bold</style>
 			<size>38</size>
-			<linespacing>1.4</linespacing>
 		</font>
 		<font>
 			<name>font30</name>
@@ -1954,7 +1921,6 @@
 		<font>
 			<name>font_version</name>
 			<filename>LeagueGothic-Regular.ttf</filename>
-			<linespacing>0</linespacing>
 			<size>60</size>
 		</font>
 		<font>
@@ -1977,7 +1943,6 @@
 			<name>BigAssTimeFont</name>
 			<filename>CaviarDreams.ttf</filename>
 			<size>180</size>
-			<linespacing>.8</linespacing>
 		</font>
 		<font>
 			<name>WeatherTemp</name>
@@ -1992,13 +1957,11 @@
 			<name>fontCDartist</name>
 			<filename>PermanentMarker.ttf</filename>
 			<size>45</size>
-			<linespacing>.8</linespacing>
 		</font>
 		<font>
 			<name>fontCDalbum</name>
 			<filename>PermanentMarker.ttf</filename>
 			<size>36</size>
-			<linespacing>.8</linespacing>
 		</font>
 	</fontset>
 	<fontset id="Play Regular" idloc="31484">
@@ -2019,7 +1982,6 @@
 			<name>font11_compact</name>
 			<filename>play.regular.ttf</filename>
 			<size>24</size>
-			<linespacing>.8</linespacing>
 		</font>
 		<font>
 			<name>font12</name>
@@ -2041,25 +2003,21 @@
 			<name>font14_textbox</name>
 			<filename>play.regular.ttf</filename>
 			<size>33</size>
-			<linespacing>1.27</linespacing>
 		</font>
 		<font>
 			<name>font14_textbox2</name>
 			<filename>play.regular.ttf</filename>
 			<size>33</size>
-			<linespacing>1.1</linespacing>
 		</font>
 		<font>
 			<name>font15_textbox</name>
 			<filename>play.regular.ttf</filename>
 			<size>35</size>
-			<linespacing>1.4</linespacing>
 		</font>
 		<font>
 			<name>font15_textbox2</name>
 			<filename>play.regular.ttf</filename>
 			<size>36</size>
-			<linespacing>1.3</linespacing>
 		</font>
 		<font>
 			<name>font14</name>
@@ -2092,14 +2050,12 @@
 			<name>font16_textbox</name>
 			<filename>play.regular.ttf</filename>
 			<size>38</size>
-			<linespacing>1.4</linespacing>
 		</font>
 		<font>
 			<name>font16bold_textbox</name>
 			<filename>play.regular.ttf</filename>
 			<style>bold</style>
 			<size>38</size>
-			<linespacing>1.4</linespacing>
 		</font>
 		<font>
 			<name>font30</name>
@@ -2255,7 +2211,6 @@
 		<font>
 			<name>font_version</name>
 			<filename>LeagueGothic-Regular.ttf</filename>
-			<linespacing>0</linespacing>
 			<size>60</size>
 		</font>
 		<font>
@@ -2278,7 +2233,6 @@
 			<name>BigAssTimeFont</name>
 			<filename>play.regular.ttf</filename>
 			<size>180</size>
-			<linespacing>.8</linespacing>
 		</font>
 		<font>
 			<name>WeatherTemp</name>
@@ -2293,13 +2247,11 @@
 			<name>fontCDartist</name>
 			<filename>PermanentMarker.ttf</filename>
 			<size>45</size>
-			<linespacing>.8</linespacing>
 		</font>
 		<font>
 			<name>fontCDalbum</name>
 			<filename>PermanentMarker.ttf</filename>
 			<size>36</size>
-			<linespacing>.8</linespacing>
 		</font>
 	</fontset>
 </fonts>

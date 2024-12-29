@@ -6,7 +6,7 @@
 			<include>ViewAnimation</include>
 			<include content="BackPanel">
 				<param name="left">57</param>
-				<param name="top">93</param>
+				<param name="top">45</param>
 				<param name="width">1817</param>
 				<param name="height">939</param>
 				<param name="texture">colors/black75.png</param>
@@ -15,11 +15,12 @@
 			<control type="list" id="507">
 				<viewtype label="$LOCALIZE[31242]">biglist</viewtype>
 				<left>58</left>
-				<top>94</top>
+				<top>54</top>
 				<width>1808</width>
 				<height>952</height>
 				<onleft>SetProperty(MediaMenu,True,Home)</onleft>
 				<onleft>SetFocus(9050)</onleft>
+				<onright condition="Container.Content(movies) | Container.Content(tvshows) | !Container.Content(seasons) | !Container.Content(episodes) |  !Container.Content(musicvideos) | !Container.Content(files) | !Container.Content(addons) | !Container.Content() | !String.IsEmpty(ListItem.Trailer)">PlayMedia("$INFO[ListItem.Trailer]")</onright>				
 				<onright condition="Control.IsVisible(50760)">50760</onright>
 				<onright condition="!Control.IsVisible(50760)">4400</onright>
 				<onup>507</onup>
@@ -164,9 +165,9 @@
 				<focusedlayout width="1808" height="238">
 					<control type="image">
 						<top>-8</top>
-						<width>1803</width>
+						<width>1810</width>
 						<height>231</height>
-						<texture colordiffuse="$VAR[HighlightBarColor]">listselect_fo.png</texture>
+						<texture colordiffuse="$VAR[ThemeLabelColor]" border="10">thumbs/thumbnail_focused.png</texture>
 						<visible>Control.HasFocus(507)</visible>
 						<include>VisibleFadeAnimation</include>
 					</control>

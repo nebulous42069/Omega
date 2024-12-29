@@ -17,7 +17,7 @@
 			<width>720</width>
 			<height>100%</height>
 			<control type="image">
-				<texture>colors/black.png</texture>
+				<texture>contentpanel.png</texture>
 			</control>
 			<control type="image">
 				<aspectratio>scale</aspectratio>
@@ -37,7 +37,7 @@
 				<control type="group">
 					<height>100%</height>
 					<control type="image">
-						<texture>colors/black.png</texture>
+						<texture>contentpanel.png</texture>
 					</control>
 					<control type="image">
 						<aspectratio align="center">scale</aspectratio>
@@ -130,7 +130,7 @@
 							<control type="image">
 								<width>1198</width>
 								<height>73</height>
-								<texture colordiffuse="$VAR[HighlightBarColor]" border="4">listselect_fo.png</texture>
+								<texture colordiffuse="$VAR[HighlightBarColor]" border="4">lf_classic/button/MenuItemFO.png</texture>
 								<visible>Control.HasFocus(3000)</visible>
 								<include>VisibleFadeAnimation</include>
 							</control>

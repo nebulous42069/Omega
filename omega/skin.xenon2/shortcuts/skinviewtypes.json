@@ -62,14 +62,14 @@
         "movies": {
             "rule": "Container.Content(movies)",
             "viewtypes": ["50", "506", "501", "507", "602", "59", "509", "503", "609", "55", "51", "53", "52", "56", "57", "58", "500", "591", "504", "505"],
-            "library": "509",
-            "plugins": "509"
+            "library": "50",
+            "plugins": "50"
         },
         "sets": {
             "rule": "Container.Content(sets)",
             "viewtypes": ["50", "506", "501", "602", "59", "509", "503", "609", "55", "53", "52", "56", "58", "500", "591", "504"],
-            "library": "509",
-            "plugins": "509"
+            "library": "50",
+            "plugins": "50"
         },
         "episodes": {
             "rule": "Container.Content(episodes)",
@@ -145,7 +145,7 @@
         },
         "none-videos": {
             "rule": "Container.Content() + Window.IsVisible(MyVideoNav.xml)",
-            "viewtypes": ["50", "500"],
+            "viewtypes": ["50", "506", "501", "507", "602", "59", "503", "609", "55", "51", "53", "52", "56", "57", "58", "500", "591", "504", "505"],
             "library": "50",
             "plugins": "50"
         },

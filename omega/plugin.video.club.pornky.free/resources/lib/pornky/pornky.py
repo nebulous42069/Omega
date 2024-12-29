@@ -9,7 +9,7 @@ import requests
 from bs4 import BeautifulSoup
 
 class Pornky:
-    URL = 'https://www.pornky.club/'
+    URL = 'https://hd.pornky.com/'
     URL_CAT = '%s%s' % (URL, 'categories/')
     URL_SEARCH = '%s%s' % (URL, 'search/?q=%s')
     URL_LOGIN = '%s%s' % (URL, 'login.php')

@@ -372,6 +372,15 @@
 							<bordersize>20</bordersize>
 						</control>
 						<control type="image">
+							<width>300</width>
+							<height>430</height>
+							<aspectratio>scale</aspectratio>
+							<bordertexture colordiffuse="$VAR[ThemeLabelColor]" border="8">thumbs/thumbnail_focused.png</bordertexture>
+							<bordersize>6</bordersize>
+							<texture background="true">$VAR[PosterThumbVar]</texture>
+							<fadetime>10</fadetime>
+						</control>						
+						<control type="image">
 							<left>-33</left>
 							<top>-20</top>
 							<width>333</width>
@@ -424,7 +433,7 @@
 			</control>
 		</control>
 		<control type="group">
-			<left>300</left>
+			<left>302</left>
 			<top>60</top>
 			<visible>!ListItem.IsParentFolder</visible>
 			<visible>[Container.Content(movies) | Container.Content(tvshows)]</visible>
@@ -442,21 +451,6 @@
 				<texture>colors/black90.png</texture>
 				<bordersize>1</bordersize>
 				<bordertexture border="1" infill="false" colordiffuse="$VAR[ThemeBorderColor]">colors/border_frame.png</bordertexture>
-			</control>
-			<control type="image">
-				<top>192</top>
-				<width>19</width>
-				<height>36</height>
-				<texture colordiffuse="FF060b0e">views/wall/arrow.png</texture>
-				<visible>Integer.IsLessOrEqual(Container(503).Column,3)</visible>
-			</control>
-			<control type="image">
-				<left>644</left>
-				<top>192</top>
-				<width>19</width>
-				<height>36</height>
-				<texture colordiffuse="FF060b0e" flipx="true">views/wall/arrow.png</texture>
-				<visible>Integer.IsGreater(Container(503).Column,3)</visible>
 			</control>
 			<control type="label">
 				<left>50</left>

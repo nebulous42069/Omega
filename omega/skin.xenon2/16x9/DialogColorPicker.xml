@@ -6,7 +6,7 @@
 	<controls>
 		<control type="image">
 			<include>FullscreenDimensions</include>
-			<texture>colors/black.png</texture>
+			<texture>contentpanel.png</texture>
 			<animation effect="fade" time="300">WindowOpen</animation>
 			<animation effect="fade" time="300">WindowClose</animation>
 		</control>

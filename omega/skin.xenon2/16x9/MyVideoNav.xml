@@ -626,7 +626,7 @@
 					</control>
 					<!-- (List - Tripanel - Posters - Shift - BannerWall - Icons - RightList - MyFlix - BigFan - FanartList) -->
 					<control type="group">
-						<visible>Control.IsVisible(50) | Control.IsVisible(55) | Control.IsVisible(56) | Control.IsVisible(57) | [Control.IsVisible(58)] | Control.IsVisible(500) | Control.IsVisible(506) | Control.IsVisible(509) | Control.IsVisible(591) | Control.IsVisible(602)</visible>
+						<visible>Control.IsVisible(50) | Control.IsVisible(55) | Control.IsVisible(56) | Control.IsVisible(57) | [Control.IsVisible(58)] | Control.IsVisible(500) | Control.IsVisible(506) | Control.IsVisible(509) | Control.IsVisible(591) | Control.IsVisible(602) | Control.IsVisible(507)</visible>
 						<include>ViewAnimation</include>
 						<top>1014</top>
 						<height>90</height>
@@ -637,7 +637,7 @@
 							<animation effect="slide" end="80" condition="Control.IsVisible(50) + Container.Content(movies)">Conditional</animation>
 							<control type="group">
 								<left>40</left>
-								<visible>[Container.Content(movies) + Control.IsVisible(50) + !Skin.HasSetting(Disable.List.Mediaflags)] | [Container.Content(episodes) + Control.IsVisible(50)]  | [Container.Content(movies) + Control.IsVisible(506) + !Skin.HasSetting(Disable.RightList.Mediaflags)] | [Container.Content(episodes) + Control.IsVisible(506) + !Skin.HasSetting(Disable.RightList.EpisodeMediaflags)] | Control.IsVisible(591) + [Container.Content(movies) | Container.Content(episodes)] | Control.IsVisible(509) + !Skin.HasSetting(Disable.MyFlix.Mediaflags) + [Container.Content(movies) | Container.Content(episodes)] | Control.IsVisible(55) | Control.IsVisible(56) | Control.IsVisible(57) | Control.IsVisible(58) | Control.IsVisible(500) | Control.IsVisible(602)</visible>
+								<visible>[Container.Content(movies) + Control.IsVisible(50) + !Skin.HasSetting(Disable.List.Mediaflags)] | [Container.Content(episodes) + Control.IsVisible(50)]  | [Container.Content(movies) + Control.IsVisible(506) + !Skin.HasSetting(Disable.RightList.Mediaflags)] | [Container.Content(episodes) + Control.IsVisible(506) + !Skin.HasSetting(Disable.RightList.EpisodeMediaflags)] | Control.IsVisible(591) + [Container.Content(movies) | Container.Content(episodes)] | Control.IsVisible(509) + !Skin.HasSetting(Disable.MyFlix.Mediaflags) + [Container.Content(movies) | Container.Content(episodes)] | Control.IsVisible(55) | Control.IsVisible(56) | Control.IsVisible(57) | Control.IsVisible(58) | Control.IsVisible(500) | Control.IsVisible(602) | Control.IsVisible(507)</visible>
 								<include>ViewAnimation</include>
 								<include condition="!System.AddonIsEnabled(script.embuary.helper) + !System.AddonIsEnabled(plugin.video.themoviedb.helper)">NoRatingsHelperFlagAnimations</include>
 								<!-- ROTTENTOMATOES/METACRITIC -->
@@ -654,7 +654,7 @@
 									<orientation>horizontal</orientation>
 									<control type="group">
 										<width>170</width>
-										<visible>![Container.Content(movies) + Control.IsVisible(50)]</visible>
+										<visible>Container.Content(movies)</visible>
 										<control type="image" id="912">
 											<include>MediaFlagValues</include>
 											<texture>$VAR[PathFlagsStudios]$INFO[ListItem.Studio,,.png]</texture>
@@ -673,7 +673,7 @@
 									<control type="image">
 										<include>MediaFlagValues</include>
 										<texture fallback="flags/default/mpaa/NR.png">$VAR[MediaFlagsPathVar]/mpaa/$VAR[RatingFlagVar]</texture>
-										<visible>!String.StartsWith(Container.FolderPath,plugin://)</visible>
+										<visible>String.StartsWith(Container.FolderPath,plugin://)</visible>
 									</control>
 									<control type="image">
 										<include>MediaFlagValues</include>
@@ -788,7 +788,7 @@
 						</control>
 						<!-- Shows + Seasons -->
 						<control type="group">
-							<left>1000</left>
+							<left>750</left>
 							<control type="group">
 								<visible>!Control.IsVisible(50) + !Control.IsVisible(506) + [Container.Content(tvshows) | Container.Content(seasons)] | Control.IsVisible(50) + !Skin.HasSetting(Disable.List.TVMediaflags) + [Container.Content(tvshows) | Container.Content(seasons)] | Control.IsVisible(506) + !Skin.HasSetting(Disable.RightList.TVMediaflags) + [Container.Content(tvshows) | Container.Content(seasons)]</visible>
 								<!-- Shows -->
@@ -807,7 +807,6 @@
 											<width>200</width>
 											<include>MediaFlagValues</include>
 											<texture>$VAR[PathFlagsStudios]$INFO[ListItem.Studio,,.png]</texture>
-											<visible>!Control.IsVisible(50)</visible>
 										</control>
 										<control type="label">
 											<width>200</width>
@@ -1257,7 +1256,7 @@
 			<include>FullscreenDimensions</include>
 			<visible>Window.IsActive(1113)</visible>
 			<control type="image">
-				<texture>colors/black.png</texture>
+				<texture>contentpanel.png</texture>
 			</control>
 			<control type="multiimage">
 				<include>MultiImageTime</include>
@@ -1268,5 +1267,6 @@
 		<control type="button" id="8">
 			<include>HiddenObject</include>
 		</control>
+        <include>FloorReturnButtons</include>		
 	</controls>
 </window>

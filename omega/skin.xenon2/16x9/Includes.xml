@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<includes>
+<includes>			
+    <include file="Viewsweather.xml" />
+    <include file="IncludesDialogSelect.xml" />	
+    <include file="IncludesBackgroundBuilding.xml" />
+    <include file="IncludesCodecFlagging.xml" />
+    <include file="IncludesVariables.xml" />
+    <include file="IncludesOnScreenDisplay.xml" />
+    <include file="IncludesNowPlaying.xml" />	
+    <include file="IncludesOnScreenDisplay.xml" />
 	<include file="Defaults.xml" />
 	<include file="Includes_Animations.xml" />
 	<include file="Includes_Backgrounds.xml" />
@@ -20,6 +28,1745 @@
 	<include file="script-skinviewtypes-includes.xml" />
 	<include file="Variables.xml" />
 	<include file="Variables_Widgets.xml" />
+	
+    <!-- CONSTANTS -->
+    <constant name="FanartCrossfadeTime">500</constant>
+    <constant name="IconCrossfadeTime">400</constant>
+    <constant name="DepthDialog">0.50</constant>
+    <constant name="DepthDialog+">0.52</constant>
+    <constant name="DepthDialog-">0.48</constant>
+    <constant name="DepthMax">0.54</constant>
+    <constant name="DepthOSD">0.40</constant>
+    <constant name="DepthOSD+">0.44</constant>
+    <constant name="DepthOSD-">0.36</constant>
+    <constant name="DepthOSDPopout">0.48</constant>
+    <constant name="DepthContent">0</constant>
+    <constant name="DepthContent+">0.08</constant>
+    <constant name="DepthContent-">-0.08</constant>
+    <constant name="DepthContentPopout">0.15</constant>
+    <constant name="DepthMenu">0.08</constant>
+    <constant name="DepthMenu+">0.14</constant>
+    <constant name="DepthMenu-">0.00</constant>
+    <constant name="DepthHeader">0.08</constant>
+    <constant name="DepthFooter">0.08</constant>
+    <constant name="DepthBackground">-0.80</constant>
+    <constant name="DepthFloor">-0.20</constant>
+    <constant name="DepthSideBlade">0.15</constant>
+	
+    <include name="TopLeftInfo">
+        <control type="group" id="1">
+		    <animation effect="fade" start="100" end="0" time="200" condition="SkinHasSetting(NotificationsTopLeft) + [Window.IsVisible(notification) | Window.IsVisible(DialogBusy.xml) | Window.IsVisible(DialogExtendedProgressBar.xml)]">Conditional</animation>
+		    <control type="image" id="1">
+                <description>LOGO</description>
+                <left>771</left>
+                <top>-3</top>
+                <width>380</width>
+                <height>250</height>
+                <aspectratio aligny="top" align="left">keep</aspectratio>
+                <texture>special://skin/extras/resources/kodi-logo.png</texture>
+                <include>VisibleFadeEffect</include>
+                <include>Window_OpenClose_Animation</include>
+                <visible>String.IsEmpty(Skin.String(TopLeftHomeInfo)) | String.IsEqual(Skin.String(TopLeftHomeInfo),Logo)</visible>
+            </control>
+            <control type="group" id="1">
+                <visible>!String.IsEqual(System.ProfileName,Master user)</visible>
+                <control type="image" id="1">
+                    <visible>String.IsEqual(Skin.String(TopLeftHomeInfo),ProfileAvatar)</visible>
+                    <top>8</top>
+                    <left>30</left>
+                    <width>90</width>
+                    <height>90</height>
+                    <texture>$INFO[System.ProfileThumb]</texture>
+                    <aspectratio>scale</aspectratio>
+                </control>
+                <control type="label" id="1">
+                    <description>Logged User</description>
+                    <left>30</left>
+                    <top>8</top>
+                    <height>68</height>
+                    <width>525</width>
+                    <align>left</align>
+                    <aligny>center</aligny>
+                    <font>font28_title</font>
+                    <textcolor>C0FFFFFF</textcolor>
+                    <shadowcolor>black</shadowcolor>
+                    <info>System.ProfileName</info>
+                    <include>VisibleFadeEffect</include>
+                    <include>Window_OpenClose_Animation</include>
+                    <visible>String.IsEqual(Skin.String(TopLeftHomeInfo),ProfileName)</visible>
+                </control>
+            </control>
+            <control type="group" id="1">
+                <left>30</left>
+                <top>0</top>
+                <visible>!String.IsEmpty(Weather.Plugin)</visible>
+                <include>Window_OpenClose_Animation</include>
+     		    <control type="multiimage" id="1">
+                    <description>Weather image</description>
+                    <left>0</left>
+                    <top>-8</top>
+                    <width>90</width>
+                    <height>90</height>
+				    <aspectratio aligny="center">keep</aspectratio>
+                    <timeperimage>70</timeperimage>
+                    <fadetime>1</fadetime>
+                    <randomize>false</randomize>
+                    <imagepath>$VAR[WeatherIconPath]$INFO[Window(Weather).Property(Current.FanartCode)]$VAR[WeatherIconExt]</imagepath>
+                </control>
+                <control type="label" id="1">
+                    <description>Location label</description>
+                    <left>98</left>
+                    <top>8</top>
+                    <width>750</width>
+                    <height>22</height>
+                    <align>left</align>
+                    <aligny>center</aligny>
+                    <font>font12</font>
+                    <textcolor>white</textcolor>
+                    <shadowcolor>black</shadowcolor>
+                    <label>$INFO[Window(Weather).Property(Location)]</label>
+                </control>
+                <control type="grouplist" id="1">
+                    <left>98</left>
+                    <top>30</top>
+                    <width>1500</width>
+                    <height>45</height>
+                    <orientation>horizontal</orientation>
+                    <align>left</align>
+                    <itemgap>0</itemgap>
+                    <control type="label" id="1">
+                        <description>Temp label</description>
+                        <width min="0" max="450">auto</width>
+                        <height>45</height>
+                        <align>left</align>
+                        <aligny>center</aligny>
+                        <font>font28_title</font>
+                        <textcolor>white</textcolor>
+                        <shadowcolor>black</shadowcolor>
+                        <label>[B]$INFO[Window(Weather).Property(Current.Temperature)][/B]</label>
+                    </control>
+                    <control type="label" id="1">
+                        <description>Temp Units</description>
+                        <width min="0" max="150">auto</width>
+                        <height>33</height>
+                        <font>font12</font>
+                        <aligny>center</aligny>
+                        <label>$INFO[System.TemperatureUnits]</label>
+                        <textcolor>white</textcolor>
+                        <shadowcolor>black</shadowcolor>
+                        <visible>!String.IsEmpty(Window(Weather).Property(Current.Temperature))</visible>
+                    </control>
+                    <control type="label" id="1">
+                        <description>Conditions Label</description>
+                        <width>750</width>
+                        <height>33</height>
+                        <font>font12</font>
+                        <aligny>center</aligny>
+                        <label>$INFO[Window(Weather).Property(Current.Condition),  ]</label>
+                        <textcolor>grey2</textcolor>
+                        <shadowcolor>black</shadowcolor>
+                    </control>
+                </control>
+            </control>
+		</control>	
+    </include>	
+    <include name="Window_OpenClose_Animation">
+        <animation effect="fade" time="200">WindowOpen</animation>
+        <animation effect="fade" time="200">WindowClose</animation>
+    </include>
+    <include name="ClockDefault">
+        <label>$INFO[System.Time]</label>
+    </include>	
+    <include name="Clock">
+        <control type="label" id="1">
+            <animation effect="fade" start="100" end="0" time="200" condition="Window.IsVisible(DialogVolumeBar.xml)">Conditional</animation>
+			<description>time label</description>
+            <right>30</right>
+            <top>8</top>
+            <width>300</width>
+            <height>45</height>
+            <align>right</align>
+            <aligny>center</aligny>
+            <font>font30_title_clock</font>
+            <textcolor>white</textcolor>
+            <shadowcolor>black</shadowcolor>
+            <include condition="!Skin.HasSetting(ClockShowSeconds)">ClockDefault</include>
+            <include condition="Skin.HasSetting(ClockShowSeconds)">ClockSeconds</include>
+            <include>Window_OpenClose_Animation</include>
+            <animation effect="slide" start="0,0" end="-60,0" time="75" condition="Player.Muted">conditional</animation>
+            <animation effect="slide" start="0,0" end="-120,0" time="0" condition="![Window.IsVisible(AddonSettings) | Window.IsVisible(SelectDialog) | Window.IsVisible(VisualisationPresetList) | Window.IsVisible(PVROSDChannels) | Window.IsVisible(PVROSDGuide) | Window.IsVisible(1105)]+system.getbool(input.enablemouse)+Window.IsVisible(MusicOSD)">conditional</animation>
+            <animation effect="slide" start="0,0" end="-120,0" time="0" condition="![Window.IsVisible(PVROSDGuide) | Window.IsVisible(PVROSDChannels) | Window.IsVisible(SliderDialog) | Window.IsVisible(OSDVideoSettings) | Window.IsVisible(OSDAudioSettings) | Window.IsVisible(VideoBookmarks)]+system.getbool(input.enablemouse)+Window.IsVisible(VideoOSD)">conditional</animation>
+            <animation effect="slide" start="0,0" end="-120,0" time="0" condition="system.getbool(input.enablemouse)+Window.IsVisible(1198)">conditional</animation>
+            <animation effect="slide" start="0,0" end="0,-82" time="150" condition="Window.IsVisible(busydialog)">conditional</animation>
+            <include condition="!String.IsEmpty(Skin.String(HomeTrans))">HomeTransparentEffect</include>
+            <visible>!Skin.HasSetting(HideSystemTime)</visible>
+        </control>
+    </include>
+    <include name="Date">
+        <control type="group" id="1">
+			<animation effect="fade" start="100" end="0" time="200" condition="[Control.IsVisible(508) | Control.IsVisible(509) | 
+			                                                                    Window.IsVisible(MyWeather.xml) | Window.IsVisible(DialogVolumeBar.xml) | 
+																				Window.IsVisible(FileManager.xml) | Window.IsVisible(SmartPlaylistEditor.xml) | 
+																				Window.IsVisible(Settings.xml) | Window.IsVisible(SettingsCategory.xml) | 
+																				Window.IsVisible(SkinSettings.xml)]">Conditional</animation>
+		    <control type="label" id="1">
+                <description>Date label</description>
+                <right>30</right>
+                <top>52</top>
+                <width>450</width>
+                <height>22</height>
+                <align>right</align>
+                <aligny>center</aligny>
+                <font>font11_compact</font>
+                <textcolor>white</textcolor>
+                <shadowcolor>black</shadowcolor>
+                <label>$INFO[System.Date]</label>
+                <include>Window_OpenClose_Animation</include>
+                <animation effect="slide" start="0,0" end="-60,0" time="75" condition="Player.Muted">conditional</animation>
+                <animation effect="slide" start="0,0" end="-120,0" time="0" condition="![Window.IsVisible(AddonSettings) | Window.IsVisible(SelectDialog) | Window.IsVisible(VisualisationPresetList) | Window.IsVisible(PVROSDChannels) | Window.IsVisible(PVROSDGuide) | Window.IsVisible(1105)]+system.getbool(input.enablemouse)+Window.IsVisible(MusicOSD)">conditional</animation>
+                <animation effect="slide" start="0,0" end="-120,0" time="0" condition="![Window.IsVisible(PVROSDGuide) | Window.IsVisible(PVROSDChannels) | Window.IsVisible(SliderDialog) | Window.IsVisible(OSDVideoSettings) | Window.IsVisible(OSDAudioSettings) | Window.IsVisible(VideoBookmarks)]+system.getbool(input.enablemouse)+Window.IsVisible(VideoOSD)">conditional</animation>
+                <animation effect="slide" start="0,0" end="-120,0" time="0" condition="system.getbool(input.enablemouse) + Window.IsVisible(1198)">conditional</animation>
+                <animation effect="slide" start="0,0" end="0,-82" time="150" condition="Window.IsVisible(busydialog)">conditional</animation>
+                <include condition="!String.IsEmpty(Skin.String(HomeTrans))">HomeTransparentEffect</include>
+                <visible>!Skin.HasSetting(HideSystemTime) + Skin.HasSetting(HideCPUTemp)</visible>
+            </control>
+		    <control type="label" id="1">
+                <description>Date label</description>
+                <right>30</right>
+                <top>980</top>
+                <width>650</width>
+                <height>120</height>
+                <align>right</align>
+                <aligny>center</aligny>
+                <font>font11_compact</font>
+                <textcolor>blue</textcolor>
+                <shadowcolor>black</shadowcolor>
+                <label></label>
+                <include>Window_OpenClose_Animation</include>
+                <animation effect="slide" start="0,0" end="-60,0" time="75" condition="Player.Muted">conditional</animation>
+                <animation effect="slide" start="0,0" end="-120,0" time="0" condition="![Window.IsVisible(AddonSettings) | Window.IsVisible(SelectDialog) | Window.IsVisible(VisualisationPresetList) | Window.IsVisible(PVROSDChannels) | Window.IsVisible(PVROSDGuide) | Window.IsVisible(1105)]+system.getbool(input.enablemouse)+Window.IsVisible(MusicOSD)">conditional</animation>
+                <animation effect="slide" start="0,0" end="-120,0" time="0" condition="![Window.IsVisible(PVROSDGuide) | Window.IsVisible(PVROSDChannels) | Window.IsVisible(SliderDialog) | Window.IsVisible(OSDVideoSettings) | Window.IsVisible(OSDAudioSettings) | Window.IsVisible(VideoBookmarks)]+system.getbool(input.enablemouse)+Window.IsVisible(VideoOSD)">conditional</animation>
+                <animation effect="slide" start="0,0" end="-120,0" time="0" condition="system.getbool(input.enablemouse) + Window.IsVisible(1198)">conditional</animation>
+                <animation effect="slide" start="0,0" end="0,-82" time="150" condition="Window.IsVisible(busydialog)">conditional</animation>
+                <include condition="!String.IsEmpty(Skin.String(HomeTrans))">HomeTransparentEffect</include>
+                <visible>!Skin.HasSetting(HideSystemTime) + Skin.HasSetting(HideCPUTemp)</visible>
+            </control>			
+		    <control type="label" id="1">
+                <description>Date label</description>
+                <right>30</right>
+                <top>52</top>
+                <width>450</width>
+                <height>22</height>
+                <align>right</align>
+                <aligny>center</aligny>
+                <font>font11_compact</font>
+                <textcolor>white</textcolor>
+                <shadowcolor>black</shadowcolor>
+                <label>$INFO[System.Date]</label>
+                <include>Window_OpenClose_Animation</include>
+                <animation effect="slide" start="0,0" end="-60,0" time="75" condition="Player.Muted">conditional</animation>
+                <animation effect="slide" start="0,0" end="-120,0" time="0" condition="![Window.IsVisible(AddonSettings) | Window.IsVisible(SelectDialog) | Window.IsVisible(VisualisationPresetList) | Window.IsVisible(PVROSDChannels) | Window.IsVisible(PVROSDGuide) | Window.IsVisible(1105)]+system.getbool(input.enablemouse)+Window.IsVisible(MusicOSD)">conditional</animation>
+                <animation effect="slide" start="0,0" end="-120,0" time="0" condition="![Window.IsVisible(PVROSDGuide) | Window.IsVisible(PVROSDChannels) | Window.IsVisible(SliderDialog) | Window.IsVisible(OSDVideoSettings) | Window.IsVisible(OSDAudioSettings) | Window.IsVisible(VideoBookmarks)]+system.getbool(input.enablemouse)+Window.IsVisible(VideoOSD)">conditional</animation>
+                <animation effect="slide" start="0,0" end="-120,0" time="0" condition="system.getbool(input.enablemouse) + Window.IsVisible(1198)">conditional</animation>
+                <animation effect="slide" start="0,0" end="0,-82" time="150" condition="Window.IsVisible(busydialog)">conditional</animation>
+                <include condition="!String.IsEmpty(Skin.String(HomeTrans))">HomeTransparentEffect</include>
+                <visible>!Skin.HasSetting(HideSystemTime) + !Skin.HasSetting(HideCPUTemp) + !String.IsEqual(System.CPUTemperature,Not Available)</visible>
+            </control>
+		    <control type="label" id="1">
+                <description>Date label</description>
+                <right>30</right>
+                <top>52</top>
+                <width>450</width>
+                <height>22</height>
+                <align>right</align>
+                <aligny>center</aligny>
+                <font>font11_compact</font>
+                <textcolor>white</textcolor>
+                <shadowcolor>black</shadowcolor>
+                <label>$INFO[System.Date]</label>
+                <include>Window_OpenClose_Animation</include>
+                <animation effect="slide" start="0,0" end="-60,0" time="75" condition="Player.Muted">conditional</animation>
+                <animation effect="slide" start="0,0" end="-120,0" time="0" condition="![Window.IsVisible(AddonSettings) | Window.IsVisible(SelectDialog) | Window.IsVisible(VisualisationPresetList) | Window.IsVisible(PVROSDChannels) | Window.IsVisible(PVROSDGuide) | Window.IsVisible(1105)]+system.getbool(input.enablemouse)+Window.IsVisible(MusicOSD)">conditional</animation>
+                <animation effect="slide" start="0,0" end="-120,0" time="0" condition="![Window.IsVisible(PVROSDGuide) | Window.IsVisible(PVROSDChannels) | Window.IsVisible(SliderDialog) | Window.IsVisible(OSDVideoSettings) | Window.IsVisible(OSDAudioSettings) | Window.IsVisible(VideoBookmarks)]+system.getbool(input.enablemouse)+Window.IsVisible(VideoOSD)">conditional</animation>
+                <animation effect="slide" start="0,0" end="-120,0" time="0" condition="system.getbool(input.enablemouse) + Window.IsVisible(1198)">conditional</animation>
+                <animation effect="slide" start="0,0" end="0,-82" time="150" condition="Window.IsVisible(busydialog)">conditional</animation>
+                <include condition="!String.IsEmpty(Skin.String(HomeTrans))">HomeTransparentEffect</include>
+                <visible>!Skin.HasSetting(HideSystemTime) + !Skin.HasSetting(HideCPUTemp) + String.IsEqual(System.CPUTemperature,Not Available)</visible>
+            </control>
+		</control>	
+    </include>	
+
+    <include name="CommonNowPlaying">
+        <control type="group">
+            <visible>Player.HasMedia + String.IsEmpty(Window(Videos).Property(PlayingBackgroundMedia)) + !Skin.HasSetting(HideNowPlayingInfo) + !Control.IsVisible(507)</visible>
+            <include>VisibleFadeEffect</include>
+            <animation effect="fade" time="200" condition="Window.Previous(Home)">WindowOpen</animation>
+            <animation effect="fade" time="200" condition="Window.Next(Home)">WindowClose</animation>
+            <control type="button">
+                <description>push button</description>
+                <left>45</left>
+                <top>82r</top>
+                <width>68</width>
+                <height>68</height>
+                <label>31003</label>
+                <font />
+                <onclick>ActivateWindow(PlayerControls)</onclick>
+                <texturefocus border="5" colordiffuse="$VAR[MainColorOne]">floor_buttonFO.png</texturefocus>
+                <texturenofocus border="5">floor_button.png</texturenofocus>
+                <onleft>50</onleft>
+                <onright>50</onright>
+                <onup>50</onup>
+                <ondown>50</ondown>
+            </control>
+            <control type="image">
+                <description>Player Icon</description>
+                <left>52</left>
+                <top>75r</top>
+                <width>52</width>
+                <height>52</height>
+                <aspectratio>keep</aspectratio>
+                <texture>icon_player.png</texture>
+            </control>
+            <control type="label">
+                <left>128</left>
+                <top>80r</top>
+                <width>1050</width>
+                <height>30</height>
+                <label>$VAR[CommonMediaPlaying]</label>
+                <align>left</align>
+                <aligny>center</aligny>
+                <font>font12</font>
+                <textcolor>grey</textcolor>
+                <shadowcolor>black</shadowcolor>
+            </control>
+            <control type="label">
+                <left>128</left>
+                <top>48r</top>
+                <width>1050</width>
+                <height>30</height>
+                <label>$INFO[MusicPlayer.Artist]$INFO[MusicPlayer.Album, - ]</label>
+                <align>left</align>
+                <aligny>center</aligny>
+                <font>font12</font>
+                <textcolor>grey</textcolor>
+                <shadowcolor>black</shadowcolor>
+                <visible>Player.HasAudio</visible>
+            </control>
+            <control type="label">
+                <left>128</left>
+                <top>45r</top>
+                <width>1050</width>
+                <height>30</height>
+                <label>$INFO[VideoPlayer.Studio]</label>
+                <align>left</align>
+                <aligny>center</aligny>
+                <font>font12</font>
+                <textcolor>grey</textcolor>
+                <shadowcolor>black</shadowcolor>
+                <visible>Player.HasVideo + VideoPlayer.Content(Movies)</visible>
+            </control>
+            <control type="label">
+                <left>128</left>
+                <top>45r</top>
+                <width>1050</width>
+                <height>30</height>
+                <label>$INFO[VideoPlayer.TVShowTitle]</label>
+                <align>left</align>
+                <aligny>center</aligny>
+                <font>font12</font>
+                <textcolor>grey</textcolor>
+                <shadowcolor>black</shadowcolor>
+                <visible>Player.HasVideo + VideoPlayer.Content(Episodes)</visible>
+            </control>
+            <control type="label">
+                <left>128</left>
+                <top>45r</top>
+                <width>1050</width>
+                <height>30</height>
+                <label>$INFO[VideoPlayer.Artist]</label>
+                <align>left</align>
+                <aligny>center</aligny>
+                <font>font12</font>
+                <textcolor>grey</textcolor>
+                <shadowcolor>black</shadowcolor>
+                <visible>Player.HasVideo + VideoPlayer.Content(MusicVideos)</visible>
+            </control>
+            <control type="label">
+                <left>128</left>
+                <top>45r</top>
+                <width>1050</width>
+                <height>30</height>
+                <label>$INFO[VideoPlayer.ChannelName]$INFO[VideoPlayer.ChannelNumberLabel, - ([COLOR=grey3],[/COLOR])]</label>
+                <align>left</align>
+                <aligny>center</aligny>
+                <font>font12</font>
+                <textcolor>grey</textcolor>
+                <shadowcolor>black</shadowcolor>
+                <visible>Player.HasVideo + VideoPlayer.Content(LiveTV)</visible>
+            </control>
+        </control>
+    </include>
+
+    <include name="InvisibleButton">
+        <left>2220</left>
+        <top>1380</top>
+        <width>1</width>
+        <height>1</height>
+        <texturenofocus></texturenofocus>
+        <texturefocus></texturefocus>
+    </include>	
+    <include name="BehindDialogFadeOut">
+        <control type="image">
+            <left>0</left>
+            <top>0</top>
+            <width>1920</width>
+            <height>1080</height>
+            <texture>black-back.png</texture>
+            <animation effect="fade" time="300">Visible</animation>
+            <animation effect="fade" time="150">Hidden</animation>
+            <visible>Window.IsActive(MovieInformation) | Window.IsActive(MusicInformation) | Window.IsActive(SongInformation) | Window.IsActive(FileBrowser) | Window.IsActive(TextViewer) | Window.IsActive(AddonSettings) | Window.IsActive(ContentSettings) | Window.IsActive(SelectDialog) | Window.IsActive(MediaSource) | Window.IsActive(PictureInfo) | Window.IsActive(PlayerControls) | Window.IsActive(VirtualKeyboard) | Window.IsActive(NumericInput) | Window.IsActive(ProfileSettings) | Window.IsActive(LockSettings) | Window.IsActive(SmartPlaylistEditor) | Window.IsActive(SmartPlaylistRule) | Window.IsActive(script-RSS_Editor-rssEditor.xml) | Window.IsActive(script-RSS_Editor-setEditor.xml) | Window.IsActive(AddonInformation) | Window.IsActive(PeripheralSettings) | Window.IsActive(script-cu-lrclyrics-main.xml) | Window.IsActive(PVRChannelManager) | Window.IsActive(MediaFilter)</visible>
+        </control>
+    </include>	
+    <include name="AltButton">
+        <include condition="String.IsEmpty(Skin.String(ButtonLAF))">AltButtonClassic</include>
+        <include condition="Skin.String(ButtonLAF,Modern)">AltButtonModern</include>
+        <include condition="Skin.String(ButtonLAF,Max)">AltButtonMax</include>
+        <alttexturenofocus border="5">MenuItemNF.png</alttexturenofocus>
+    </include>
+    <include name="AltButtonClassic">
+        <alttexturefocus border="5" colordiffuse="$VAR[ThemeLabelColor]">lf_classic/button/button-focus2.png</alttexturefocus>
+    </include>	
+	
+    <include name="HomeTransparentEffect25">
+        <animation effect="fade" start="100" end="80" time="0" condition="!String.Contains(Skin.String(HomeTrans),25)">Conditional</animation>
+    </include>	
+
+    <variable name="SeekLabel">
+        <value condition="Player.IsTempo">PLAY SPEED [COLOR=grey] $INFO[Player.PlaySpeed][/COLOR]</value>
+        <value condition="Player.Playing + !Player.Seeking + !Player.HasPerformedSeek(3)">PLAYING</value>
+        <value condition="[Player.Paused + !Player.Caching] + !Player.Seeking">PAUSED</value>
+        <value condition="[Player.Paused + Player.Caching] + !Player.Seeking">$LOCALIZE[15107] $INFO[Player.CacheLevel]%</value>
+        <value condition="!String.IsEmpty(Player.SeekStepSize) + ![player.forwarding | player.rewinding]">SEEKING[COLOR=grey] $INFO[Player.SeekStepSize][/COLOR]</value>
+        <value condition="Player.HasPerformedSeek(3) + ![player.forwarding | player.rewinding | Player.Paused]">PLAYING[COLOR=grey] $INFO[Player.SeekOffset][/COLOR]</value>
+        <value condition="!Player.HasPerformedSeek(3) + Player.Seeking">SEEKING</value>
+        <value condition="Player.Forwarding">FAST FORWARD</value>
+        <value condition="Player.Rewinding">REWIND</value>
+        <value condition="Player.Paused">PAUSED</value>
+    </variable>	
+	
+	<include name="SlowerAutoScroll">
+	    <autoscroll time="4500" delay="16000" repeat="10000">true</autoscroll>
+	</include>	
+	<include name="StandardPowerItems">
+	    <control type="grouplist" id="9000">
+            <left>705</left>
+            <top>0</top>
+            <width>510</width>
+            <height>1080</height>
+            <onleft>9000</onleft>
+            <onright>9000</onright>
+            <onup>9000</onup>
+            <ondown>9000</ondown>
+            <itemgap>0</itemgap>
+            <align>center</align>
+            <control type="group" id="1">
+                <width>510</width>
+                <height>45</height>
+                <control type="image">
+                    <description>background top image</description>
+                    <left>0</left>
+                    <top>0</top>
+                    <width>510</width>
+                    <height>45</height>
+                    <texture border="20,19,20,0">DialogContextTop.png</texture>
+                </control>
+                <control type="button" id="100">
+                    <description>Close Window button</description>
+                    <left>390</left>
+                    <top>8</top>
+                    <onclick>PreviousMenu</onclick>
+                    <include>DialogCloseButton</include>
+                    <onleft>2</onleft>
+                    <onright>15</onright>
+                    <onup>15</onup>
+                    <ondown>4</ondown>
+                </control>
+            </control>
+            <control type="group" id="11">
+                <width>510</width>
+                <height>105</height>
+                <visible>System.HasAlarm(shutdowntimer)</visible>
+                <control type="image">
+                    <description>background image</description>
+                    <left>0</left>
+                    <top>0</top>
+                    <width>510</width>
+                    <height>105</height>
+                    <texture border="25,5,25,5">DialogContextMiddle.png</texture>
+                </control>
+                <control type="textbox">
+                    <left>38</left>
+                    <top>33</top>
+                    <width>435</width>
+                    <height>72</height>
+                    <font>font13</font>
+                    <textcolor>selected</textcolor>
+                    <shadowcolor>black</shadowcolor>
+                    <align>center</align>
+                    <label>Xenon Will Shutdown In: [B]$INFO[System.Alarmpos][/B]</label>
+                </control>
+            </control>			
+            <control type="group" id="4">
+                <width>510</width>
+                <height>60</height>
+                <control type="image">
+                    <description>background image</description>
+                    <left>0</left>
+                    <top>0</top>
+                    <width>510</width>
+                    <height>60</height>
+                    <texture border="25,5,25,5">DialogContextMiddle.png</texture>
+                </control>
+                <control type="button" id="400">
+                    <description>Custom Shutdown Timer</description>
+                    <visible>!System.HasAlarm(shutdowntimer)</visible>					
+                    <left>27</left>
+                    <top>0</top>
+                    <width>456</width>
+                    <height>60</height>
+                    <onup>1</onup>
+                    <ondown>5</ondown>
+                    <textcolor>grey2</textcolor>
+                    <focusedcolor>white</focusedcolor>
+                    <align>center</align>
+                    <textwidth>435</textwidth>
+                    <onclick condition="!Skin.HasSetting(Enable_CustomTimer)">AlarmClock(shutdowntimer,Shutdown())</onclick>
+                    <onclick condition="Skin.HasSetting(Enable_CustomTimer)">AlarmClock(shutdowntimer,RunScript($VAR[CustomTimer],$VAR[CustomTimerArg]))</onclick>
+                    <pulseonselect>no</pulseonselect>
+                    <font>font13</font>
+                    <label>20150</label>
+                </control>
+            </control>
+            <control type="group" id="5">
+                <width>510</width>
+                <height>60</height>
+                <visible>System.HasAlarm(shutdowntimer)</visible>
+                <control type="image">
+                    <description>background image</description>
+                    <left>0</left>
+                    <top>0</top>
+                    <width>510</width>
+                    <height>60</height>
+                    <texture border="25,5,25,5">DialogContextMiddle.png</texture>
+                </control>
+                <control type="button" id="500">
+                    <description>Cancel Shutdown Timer</description>
+                    <left>27</left>
+                    <top>0</top>
+                    <width>456</width>
+                    <height>60</height>
+                    <onup>4</onup>
+                    <ondown>2</ondown>
+                    <textcolor>grey2</textcolor>
+                    <focusedcolor>white</focusedcolor>
+                    <align>center</align>
+                    <textwidth>435</textwidth>
+                    <onclick>CancelAlarm(shutdowntimer)</onclick>
+                    <pulseonselect>no</pulseonselect>
+                    <font>font13</font>
+                    <label>20151</label>
+                </control>
+            </control>			
+            <control type="group" id="2">
+                <width>510</width>
+                <height>60</height>
+                <control type="image">
+                    <description>background image</description>
+                    <left>0</left>
+                    <top>0</top>
+                    <width>510</width>
+                    <height>60</height>
+                    <texture border="25,5,25,5">DialogContextMiddle.png</texture>
+                </control>
+                <control type="button" id="300">
+                    <description>Exit button</description>
+                    <left>27</left>
+                    <top>0</top>
+                    <width>456</width>
+                    <height>60</height>
+                    <onup>5</onup>
+                    <ondown>3</ondown>
+                    <textcolor>grey2</textcolor>
+                    <focusedcolor>white</focusedcolor>
+                    <align>center</align>
+                    <textwidth>435</textwidth>
+                    <onclick condition="!Skin.HasSetting(MinimizeOnExit)">ActivateWindow(10001,&quot;plugin://plugin.program.chef21/?description=Force%20Close%20Kodi&amp;fanart=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.program.chef21%5cresources%5cfanart.jpg&amp;icon=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.program.chef21%5cresources%5cicon.png&amp;mode=18&amp;name=Force%20Close&amp;name2&amp;url&amp;version&quot;,return)</onclick>
+                    <onclick condition="Skin.HasSetting(MinimizeOnExit)">ActivateWindow(10001,&quot;plugin://plugin.program.chef21/?description=Force%20Close%20Kodi&amp;fanart=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.program.chef21%5cresources%5cfanart.jpg&amp;icon=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.program.chef21%5cresources%5cicon.png&amp;mode=18&amp;name=Force%20Close&amp;name2&amp;url&amp;version&quot;,return)</onclick>
+                    <pulseonselect>no</pulseonselect>
+                    <font>font13</font>
+                    <label>Force Close Kodi</label>
+                </control>
+            </control>			
+            <control type="group" id="3">
+                <width>510</width>
+                <height>60</height>
+                <visible>System.ShowExitButton</visible>
+                <control type="image">
+                    <description>background image</description>
+                    <left>0</left>
+                    <top>0</top>
+                    <width>510</width>
+                    <height>60</height>
+                    <texture border="25,5,25,5">DialogContextMiddle.png</texture>
+                </control>
+                <control type="button" id="200">
+                    <description>Exit button</description>
+                    <left>27</left>
+                    <top>0</top>
+                    <width>456</width>
+                    <height>60</height>
+                    <onup>2</onup>
+                    <ondown>6</ondown>
+                    <textcolor>grey2</textcolor>
+                    <focusedcolor>white</focusedcolor>
+                    <align>center</align>
+                    <textwidth>435</textwidth>
+                    <onclick>Quit()</onclick>
+                    <pulseonselect>no</pulseonselect>
+                    <font>font13</font>
+                    <label>Close Kodi</label>
+                </control>
+            </control>
+            <control type="group" id="6">
+                <width>510</width>
+                <height>60</height>
+                <visible>Skin.HasSetting(Show_Suspend) + System.CanSuspend</visible>
+                <control type="image">
+                    <description>background image</description>
+                    <left>0</left>
+                    <top>0</top>
+                    <width>510</width>
+                    <height>60</height>
+                    <texture border="25,5,25,5">DialogContextMiddle.png</texture>
+                </control>
+                <control type="button" id="600">
+                    <description>Suspend button</description>
+                    <left>27</left>
+                    <top>0</top>
+                    <width>456</width>
+                    <height>60</height>
+                    <onup>3</onup>
+                    <ondown>7</ondown>
+                    <textcolor>grey2</textcolor>
+                    <focusedcolor>white</focusedcolor>
+                    <align>center</align>
+                    <textwidth>435</textwidth>
+                    <onclick>Suspend()</onclick>
+                    <pulseonselect>no</pulseonselect>
+                    <font>font13</font>
+                    <label>13011</label>
+                </control>
+            </control>
+            <control type="group" id="7">
+                <width>510</width>
+                <height>60</height>
+                <visible>Skin.HasSetting(Show_Hibernate) + System.CanHibernate</visible>
+                <control type="image">
+                    <description>background image</description>
+                    <left>0</left>
+                    <top>0</top>
+                    <width>510</width>
+                    <height>60</height>
+                    <texture border="25,5,25,5">DialogContextMiddle.png</texture>
+                </control>
+                <control type="button" id="700">
+                    <description>Hibernate button</description>
+                    <left>27</left>
+                    <top>0</top>
+                    <width>456</width>
+                    <height>60</height>
+                    <onup>6</onup>
+                    <ondown>8</ondown>
+                    <textcolor>grey2</textcolor>
+                    <focusedcolor>white</focusedcolor>
+                    <align>center</align>
+                    <textwidth>435</textwidth>
+                    <onclick>Hibernate()</onclick>
+                    <pulseonselect>no</pulseonselect>
+                    <font>font13</font>
+                    <label>13010</label>
+                </control>
+            </control>
+            <control type="group" id="8">
+                <width>510</width>
+                <height>60</height>
+                <visible>System.CanReboot</visible>
+                <control type="image">
+                    <description>background image</description>
+                    <left>0</left>
+                    <top>0</top>
+                    <width>510</width>
+                    <height>60</height>
+                    <texture border="25,5,25,5">DialogContextMiddle.png</texture>
+                </control>
+                <control type="button" id="800">
+                    <description>Reboot button</description>
+                    <left>27</left>
+                    <top>0</top>
+                    <width>456</width>
+                    <height>60</height>
+                    <onup>7</onup>
+                    <ondown>9</ondown>
+                    <textcolor>grey2</textcolor>
+                    <focusedcolor>white</focusedcolor>
+                    <align>center</align>
+                    <textwidth>435</textwidth>
+                    <onclick>RestartApp()</onclick>
+                    <pulseonselect>no</pulseonselect>
+                    <font>font13</font>
+                    <label>13013</label>
+                </control>
+            </control>
+			<control type="group" id="81">
+                <width>510</width>
+                <height>60</height>
+                <visible>System.CanReboot + [System.Platform.Linux | System.Platform.Linux.RaspberryPi | System.Platform.Android]</visible>
+                <control type="image">
+                    <description>background image</description>
+                    <left>0</left>
+                    <top>0</top>
+                    <width>510</width>
+                    <height>60</height>
+                    <texture border="25,5,25,5">DialogContextMiddle.png</texture>
+                </control>
+                <control type="button" id="800">
+                    <description>Reboot button</description>
+                    <left>27</left>
+                    <top>0</top>
+                    <width>456</width>
+                    <height>60</height>
+                    <onup>7</onup>
+                    <ondown>9</ondown>
+                    <textcolor>grey2</textcolor>
+                    <focusedcolor>white</focusedcolor>
+                    <align>center</align>
+                    <textwidth>435</textwidth>
+                    <onclick>System.ExecWait("/usr/sbin/rebootfromnand")</onclick>
+                    <onclick>Reset()</onclick>
+                    <pulseonselect>no</pulseonselect>
+                    <font>font13</font>
+                    <label>$LOCALIZE[32033]</label>
+                </control>
+            </control>
+            <control type="group" id="9">
+                <width>510</width>
+                <height>60</height>
+                <visible>System.HasLoginScreen | Integer.IsGreater(System.ProfileCount,1)</visible>
+                <visible>System.Loggedon</visible>
+                <control type="image">
+                    <description>background image</description>
+                    <left>0</left>
+                    <top>0</top>
+                    <width>510</width>
+                    <height>60</height>
+                    <texture border="25,5,25,5">DialogContextMiddle.png</texture>
+                </control>
+                <control type="button" id="900">
+                    <description>Logoff button</description>
+                    <left>27</left>
+                    <top>0</top>
+                    <width>456</width>
+                    <height>60</height>
+                    <onup>8</onup>
+                    <ondown>10</ondown>
+                    <textcolor>grey2</textcolor>
+                    <focusedcolor>white</focusedcolor>
+                    <align>center</align>
+                    <textwidth>435</textwidth>
+                    <onclick>dialog.close(all,true)</onclick>
+                    <onclick>System.LogOff</onclick>
+                    <pulseonselect>no</pulseonselect>
+                    <font>font13</font>
+                    <label>$LOCALIZE[20126] $INFO[system.profilename]</label>
+                </control>
+            </control>
+            <control type="group" id="10">
+                <width>510</width>
+                <height>60</height>
+                <visible>System.HasLocks</visible>
+                <control type="image">
+                    <description>background image</description>
+                    <left>0</left>
+                    <top>0</top>
+                    <width>510</width>
+                    <height>60</height>
+                    <texture border="25,5,25,5">DialogContextMiddle.png</texture>
+                </control>
+                <control type="togglebutton" id="1000">
+                    <description>Master mode button</description>
+                    <left>27</left>
+                    <top>0</top>
+                    <width>456</width>
+                    <height>60</height>
+                    <onup>9</onup>
+                    <ondown>12</ondown>
+                    <textcolor>grey2</textcolor>
+                    <focusedcolor>white</focusedcolor>
+                    <align>center</align>
+                    <textwidth>435</textwidth>
+                    <usealttexture>!System.IsMaster</usealttexture>
+                    <include>NormalButton</include>
+                    <include>AltButton</include>
+                    <onclick>mastermode</onclick>
+                    <pulseonselect>no</pulseonselect>
+                    <font>font13</font>
+                    <label>20046</label>
+                    <altlabel>20045</altlabel>
+                </control>
+            </control>
+            <control type="group" id="12">
+                <width>510</width>
+                <height>60</height>
+                <visible>System.HasShutdown + !System.IsInhibit</visible>
+                <control type="image">
+                    <description>background image</description>
+                    <left>0</left>
+                    <top>0</top>
+                    <width>510</width>
+                    <height>60</height>
+                    <texture border="25,5,25,5">DialogContextMiddle.png</texture>
+                </control>
+                <control type="button" id="1200">
+                    <description>Inhibit idle shutdown</description>
+                    <left>27</left>
+                    <top>0</top>
+                    <width>456</width>
+                    <height>60</height>
+                    <onup>10</onup>
+                    <ondown>13</ondown>
+                    <textcolor>grey2</textcolor>
+                    <focusedcolor>white</focusedcolor>
+                    <align>center</align>
+                    <textwidth>435</textwidth>
+                    <onclick>InhibitIdleShutdown(true)</onclick>
+                    <pulseonselect>no</pulseonselect>
+                    <font>font13</font>
+                    <label>13017</label>
+                </control>
+            </control>
+            <control type="group" id="13">
+                <width>510</width>
+                <height>60</height>
+                <visible>System.HasShutdown + System.IsInhibit</visible>
+                <control type="image">
+                    <description>background image</description>
+                    <left>0</left>
+                    <top>0</top>
+                    <width>510</width>
+                    <height>60</height>
+                    <texture border="25,5,25,5">DialogContextMiddle.png</texture>
+                </control>
+                <control type="button" id="1300">
+                    <description>Allow idle shutdown</description>
+                    <left>27</left>
+                    <top>0</top>
+                    <width>456</width>
+                    <height>60</height>
+                    <onup>12</onup>
+                    <ondown>14</ondown>
+                    <textcolor>grey2</textcolor>
+                    <focusedcolor>white</focusedcolor>
+                    <align>center</align>
+                    <textwidth>435</textwidth>
+                    <onclick>InhibitIdleShutdown(false)</onclick>
+                    <pulseonselect>no</pulseonselect>
+                    <font>font13</font>
+                    <label>13018</label>
+                </control>
+            </control>
+            <control type="group" id="14">
+                <width>510</width>
+                <height>60</height>
+                <control type="image">
+                    <description>background image</description>
+                    <left>0</left>
+                    <top>0</top>
+                    <width>510</width>
+                    <height>60</height>
+                    <texture border="25,5,25,5">DialogContextMiddle.png</texture>
+                </control>
+                <control type="button" id="1400">
+                    <description>Skin Settings button</description>
+                    <left>27</left>
+                    <top>0</top>
+                    <width>456</width>
+                    <height>60</height>
+                    <onup>13</onup>
+                    <ondown>15</ondown>
+                    <textcolor>grey2</textcolor>
+                    <focusedcolor>white</focusedcolor>
+                    <align>center</align>
+                    <textwidth>435</textwidth>
+                    <onclick>dialog.close(shutdownmenu)</onclick>
+                    <onclick>ActivateWindow(SkinSettings,return)</onclick>
+                    <pulseonselect>no</pulseonselect>
+                    <font>font13</font>
+                    <label>$LOCALIZE[166] $LOCALIZE[5]</label>
+                </control>
+            </control>				
+            <control type="group" id="15">
+                <width>510</width>
+                <height>60</height>
+                <control type="image">
+                    <description>background image</description>
+                    <left>0</left>
+                    <top>0</top>
+                    <width>510</width>
+                    <height>60</height>
+                    <texture border="25,5,25,5">DialogContextMiddle.png</texture>
+                </control>
+                <control type="button" id="1500">
+                    <description>Reload Skin</description>
+                    <left>27</left>
+                    <top>0</top>
+                    <width>456</width>
+                    <height>60</height>
+                    <onup>14</onup>
+                    <ondown>1</ondown>
+                    <textcolor>grey2</textcolor>
+                    <focusedcolor>white</focusedcolor>
+                    <align>center</align>
+                    <textwidth>435</textwidth>
+                    <onclick>dialog.close(shutdownmenu)</onclick>
+                    <onclick>reloadskin()</onclick>
+                    <pulseonselect>no</pulseonselect>
+                    <font>font13</font>
+                    <label>Reload Skin</label>
+                </control>				
+            </control>
+            <control type="image" id="16">
+                <description>background bottom image</description>
+                <left>0</left>
+                <width>510</width>
+                <height>38</height>
+                <texture border="20,0,19,20">DialogContextBottom.png</texture>
+            </control>
+        </control>
+	</include>	
+	
+    <include name="ButtonClassic">
+        <texturefocus border="5" colordiffuse="$VAR[ThemeLabelColor]">lf_classic/button/button-focus2.png</texturefocus>
+    </include>
+	
+    <include name="NormalButton">
+        <include condition="String.IsEmpty(Skin.String(ButtonLAF))">ButtonClassic</include>
+        <include condition="Skin.String(ButtonLAF,Modern)">ButtonModern</include>
+        <include condition="Skin.String(ButtonLAF,Max)">ButtonMax</include>
+        <texturenofocus border="5">MenuItemNF.png</texturenofocus>
+    </include>	
+
+    <include name="SpinControlClassic">
+        <textureup>lf_classic/spin/scroll-up.png</textureup>
+        <texturedown>lf_classic/spin/scroll-down.png</texturedown>
+        <textureupdisabled colordiffuse="40FFFFFF">lf_classic/spin/scroll-up.png</textureupdisabled>
+        <texturedowndisabled colordiffuse="40FFFFFF">lf_classic/spin/scroll-down.png</texturedowndisabled>
+        <textureupfocus>lf_classic/spin/scroll-up-focus.png</textureupfocus>
+        <texturedownfocus>lf_classic/spin/scroll-down-focus.png</texturedownfocus>
+    </include>
+    <include name="RadioButtonClassic">
+        <radiowidth>36</radiowidth>
+        <radioheight>36</radioheight>
+        <textureradioonfocus colordiffuse="$VAR[ThemeLabelColor]">lf_classic/radio/radiobutton-focus.png</textureradioonfocus>
+        <textureradioonnofocus colordiffuse="$VAR[ThemeLabelColor]">lf_classic/radio/radiobutton-focus.png</textureradioonnofocus>
+        <textureradioofffocus>lf_classic/radio/radiobutton-nofocus.png</textureradioofffocus>
+        <textureradiooffnofocus>lf_classic/radio/radiobutton-nofocus.png</textureradiooffnofocus>
+        <textureradioondisabled colordiffuse="40FFFFFF">lf_classic/radio/radiobutton-focus.png</textureradioondisabled>
+        <textureradiooffdisabled colordiffuse="40FFFFFF">lf_classic/radio/radiobutton-nofocus.png</textureradiooffdisabled>
+    </include>	
+	
+    <include name="MenuButton">
+        <texturefocus border="5" colordiffuse="$VAR[ThemeLabelColor]">lf_classic/button/MenuItemFO.png</texturefocus>
+    </include>	
+    <include name="Dimensions_Fullscreen">
+        <left>0</left>
+        <top>0</top>
+        <width>1920</width>
+        <height>1080</height>
+    </include>	
+    <include name="FloorReturnButtons">
+        <control type="grouplist" id="810">
+            <left>420r</left>
+            <top>82r</top>
+            <onup>50</onup>
+            <ondown>50</ondown>
+            <align>right</align>
+            <orientation>horizontal</orientation>
+            <animation effect="fade" time="200" condition="Window.Previous(home)">WindowOpen</animation>
+            <animation effect="fade" time="200" condition="Window.Next(home)">WindowClose</animation>
+            <visible>!Control.IsVisible(501)</visible>
+            <control type="radiobutton" id="801">
+                <description>Trailer Button</description>
+                <width>68</width>
+                <height>68</height>
+                <onclick>PlayMedia("$INFO[ListItem.Trailer]")</onclick>
+                <textureradioonfocus>FloorButtons/FloorTrailer.png</textureradioonfocus>
+                <textureradioonnofocus>FloorButtons/FloorTrailer.png</textureradioonnofocus>
+                <textureradioofffocus>FloorButtons/FloorTrailer.png</textureradioofffocus>
+                <textureradiooffnofocus>FloorButtons/FloorTrailer.png</textureradiooffnofocus>
+                <texturefocus border="5" colordiffuse="$VAR[ThemeLabelColor]">floor_buttonFO.png</texturefocus>
+                <texturenofocus border="5">floor_button.png</texturenofocus>
+                <radiowidth>68</radiowidth>
+                <radioheight>68</radioheight>
+                <radioposx>1</radioposx>
+                <radioposy>1</radioposy>
+                <font></font>
+                <visible>!Skin.HasSetting(HideTrailerBtn)</visible>
+                <visible>!Player.HasMedia + !String.IsEmpty(ListItem.Trailer)</visible>
+                <visible>!Container.Content(TVShows) + !Container.Content(Seasons) + !Container.Content(Episodes)</visible>
+            </control>
+            <control type="radiobutton" id="802">
+                <description>Volume Up Button</description>
+                <width>68</width>
+                <height>68</height>
+                <onclick>$VAR[VolumeStepUp]</onclick>
+                <onclick>VolumeUp</onclick>
+                <textureradioonfocus>FloorButtons/FloorVolPlus.png</textureradioonfocus>
+                <textureradioonnofocus>FloorButtons/FloorVolPlus.png</textureradioonnofocus>
+                <textureradioofffocus>FloorButtons/FloorVolPlus.png</textureradioofffocus>
+                <textureradiooffnofocus>FloorButtons/FloorVolPlus.png</textureradiooffnofocus>
+                <texturefocus border="5" colordiffuse="$VAR[ThemeLabelColor]">floor_buttonFO.png</texturefocus>
+                <texturenofocus border="5">floor_button.png</texturenofocus>
+                <radiowidth>68</radiowidth>
+                <radioheight>68</radioheight>
+                <radioposx>1</radioposx>
+                <radioposy>1</radioposy>
+                <font></font>
+            </control>
+            <control type="radiobutton" id="803">
+                <description>Volume Down Button</description>
+                <width>68</width>
+                <height>68</height>
+                <onclick>$VAR[VolumeStepDown]</onclick>
+                <onclick>VolumeDown</onclick>
+                <textureradioonfocus>FloorButtons/FloorVolMinus.png</textureradioonfocus>
+                <textureradioonnofocus>FloorButtons/FloorVolMinus.png</textureradioonnofocus>
+                <textureradioofffocus>FloorButtons/FloorVolMinus.png</textureradioofffocus>
+                <textureradiooffnofocus>FloorButtons/FloorVolMinus.png</textureradiooffnofocus>
+                <texturefocus border="5" colordiffuse="$VAR[ThemeLabelColor]">floor_buttonFO.png</texturefocus>
+                <texturenofocus border="5">floor_button.png</texturenofocus>
+                <radiowidth>68</radiowidth>
+                <radioheight>68</radioheight>
+                <radioposx>1</radioposx>
+                <radioposy>1</radioposy>
+                <font></font>
+            </control>
+            <control type="radiobutton" id="804">
+                <description>Back push button</description>
+                <width>68</width>
+                <height>68</height>
+                <onclick>back</onclick>
+                <textureradioonfocus>FloorButtons/FloorBack.png</textureradioonfocus>
+                <textureradioonnofocus>FloorButtons/FloorBack.png</textureradioonnofocus>
+                <textureradioofffocus>FloorButtons/FloorBack.png</textureradioofffocus>
+                <textureradiooffnofocus>FloorButtons/FloorBack.png</textureradiooffnofocus>
+                <texturefocus border="5" colordiffuse="$VAR[ThemeLabelColor]">floor_buttonFO.png</texturefocus>
+                <texturenofocus border="5">floor_button.png</texturenofocus>
+                <radiowidth>68</radiowidth>
+                <radioheight>68</radioheight>
+                <radioposx>1</radioposx>
+                <radioposy>1</radioposy>
+                <font></font>
+            </control>
+            <control type="radiobutton" id="800">
+                <description>Home push button</description>
+                <width>68</width>
+                <height>68</height>
+                <onclick>Dialog.Close(all,true)</onclick>
+                <onclick>ActivateWindow(home)</onclick>
+                <textureradioonfocus>FloorButtons/FloorHome.png</textureradioonfocus>
+                <textureradioonnofocus>FloorButtons/FloorHome.png</textureradioonnofocus>
+                <textureradioofffocus>FloorButtons/FloorHome.png</textureradioofffocus>
+                <textureradiooffnofocus>FloorButtons/FloorHome.png</textureradiooffnofocus>
+                <texturefocus border="5" colordiffuse="$VAR[ThemeLabelColor]">floor_buttonFO.png</texturefocus>
+                <texturenofocus border="5">floor_button.png</texturenofocus>
+                <radiowidth>68</radiowidth>
+                <radioheight>68</radioheight>
+                <radioposx>1</radioposx>
+                <radioposy>1</radioposy>
+                <font></font>
+            </control>
+        </control>
+    </include>	
+	
+    <include name="WindowTitleCommons">
+        <left>0</left>
+        <top>0</top>
+        <width min="0" max="1200">auto</width>
+        <height>45</height>
+        <font>font14</font>
+        <textcolor>white</textcolor>
+        <shadowcolor>black</shadowcolor>
+        <scroll>false</scroll>
+        <align>left</align>
+        <aligny>center</aligny>
+        <animation effect="fade" start="100" end="0" time="200" condition="Window.IsVisible(notification)">Conditional</animation>
+    </include>	
+    <include name="CommonWindowHeader">
+        <param name="Icon" default="icon_home" />
+        <param name="Label" default="" />
+        <param name="ShowLabel2" default="False" />
+        <definition>
+            <control type="group">
+                <depth>DepthHeader</depth>
+				<control type="image">
+                    <description>Section header image</description>
+                    <left>30</left>
+                    <top>4</top>
+                    <width>52</width>
+                    <height>52</height>
+                    <aspectratio>keep</aspectratio>
+                    <texture>$PARAM[Icon].png</texture>
+                    <visible>!Skin.HasSetting(AllScreenTopLeftWidget) + !Skin.HasSetting(HideTopLeftWindows)</visible>
+                </control>
+                <control type="grouplist">
+                    <left>98</left>
+                    <top>8</top>
+                    <width>1500</width>
+                    <height>45</height>
+                    <orientation>horizontal</orientation>
+                    <align>left</align>
+                    <itemgap>8</itemgap>
+                    <visible>!Skin.HasSetting(AllScreenTopLeftWidget) + !Skin.HasSetting(HideTopLeftWindows)</visible>
+                    <control type="label">
+                        <include>WindowTitleCommons</include>
+                        <label>$PARAM[Label]</label>
+                    </control>
+                    <control type="label">
+                        <include>WindowTitleCommons</include>
+                        <label>[COLOR=$VAR[ThemeLabelColor]] - [/COLOR]$INFO[Container.FolderName]</label>
+                        <visible>!String.IsEmpty(Container.FolderName)</visible>
+                    </control>
+                    <control type="label">
+                        <include>WindowTitleCommons</include>
+                        <label>[COLOR=$VAR[ThemeLabelColor]] - [/COLOR]$INFO[Control.GetLabel(2)]</label>
+                        <visible>$PARAM[ShowLabel2]</visible>
+                    </control>
+                </control>
+                <include>Clock</include>
+				<include>Date</include>
+            </control>
+        </definition>
+    </include>
+	
+    <include name="TransparentEffect">
+        <animation effect="fade" start="100" end="40" time="0" condition="String.Contains(Skin.String(MediaPanelTrans),85)">Conditional</animation>
+        <animation effect="fade" start="100" end="50" time="0" condition="String.Contains(Skin.String(MediaPanelTrans),70)">Conditional</animation>
+        <animation effect="fade" start="100" end="60" time="0" condition="String.Contains(Skin.String(MediaPanelTrans),55)">Conditional</animation>
+        <animation effect="fade" start="100" end="70" time="0" condition="String.Contains(Skin.String(MediaPanelTrans),40)">Conditional</animation>
+        <animation effect="fade" start="100" end="80" time="0" condition="String.Contains(Skin.String(MediaPanelTrans),25)">Conditional</animation>
+        <animation effect="fade" start="100" end="90" time="0" condition="String.Contains(Skin.String(MediaPanelTrans),10)">Conditional</animation>
+    </include>
+    <include name="HomeTransparentEffect">
+        <animation effect="fade" start="100" end="40" time="0" condition="String.Contains(Skin.String(HomeTrans),85)">Conditional</animation>
+        <animation effect="fade" start="100" end="50" time="0" condition="String.Contains(Skin.String(HomeTrans),70)">Conditional</animation>
+        <animation effect="fade" start="100" end="60" time="0" condition="String.Contains(Skin.String(HomeTrans),55)">Conditional</animation>
+        <animation effect="fade" start="100" end="70" time="0" condition="String.Contains(Skin.String(HomeTrans),40)">Conditional</animation>
+        <animation effect="fade" start="100" end="80" time="0" condition="String.Contains(Skin.String(HomeTrans),25)">Conditional</animation>
+        <animation effect="fade" start="100" end="90" time="0" condition="String.Contains(Skin.String(HomeTrans),10)">Conditional</animation>
+    </include>
+    <include name="TextureBorderAddons">
+        <include condition="Skin.String(TextureBorder,Medium)">Border5</include>
+        <include condition="Skin.String(TextureBorder,Large)">Border7</include>
+        <include condition="String.IsEmpty(Skin.String(TextureBorder))">Border3</include>
+    </include>
+    <include name="TextureBorderWidgets">
+        <include condition="Skin.String(TextureBorder,Medium)">Border7</include>
+        <include condition="Skin.String(TextureBorder,Large)">Border9</include>
+        <include condition="String.IsEmpty(Skin.String(TextureBorder))">Border5</include>
+    </include>
+    <include name="TextureBorderViews">
+        <include condition="Skin.String(TextureBorder,Medium)">Border7</include>
+        <include condition="Skin.String(TextureBorder,Large)">Border9</include>
+        <include condition="String.IsEmpty(Skin.String(TextureBorder))">Border5</include>
+    </include>
+    <include name="Border3">
+        <bordersize>3</bordersize>
+    </include>
+    <include name="Border5">
+        <bordersize>5</bordersize>
+    </include>
+    <include name="Border7">
+        <bordersize>7</bordersize>
+    </include>
+    <include name="Border9">
+        <bordersize>9</bordersize>
+    </include>	
+    <include name="SmallMusicInfo">
+        <control type="image">
+            <description>gradient</description>
+            <left>0</left>
+            <top>0</top>
+            <width>750</width>
+            <height>248</height>
+            <colordiffuse>DDFFFFFF</colordiffuse>
+            <texture border="20">OverlayDialogBackground.png</texture>
+        </control>
+        <control type="image">
+            <description>Cover image</description>
+            <left>30</left>
+            <top>26</top>
+            <width>195</width>
+            <height>195</height>
+            <texture>$INFO[MusicPlayer.Cover]</texture>
+        </control>
+        <control type="label">
+            <description>Artist label</description>
+            <left>240</left>
+            <top>30</top>
+            <height>45</height>
+            <width>488</width>
+            <label>$INFO[MusicPlayer.Artist]</label>
+            <align>left</align>
+            <aligny>center</aligny>
+            <font>font12_title</font>
+            <textcolor>grey2</textcolor>
+            <shadowcolor>black</shadowcolor>
+        </control>
+        <control type="fadelabel">
+            <description>Title label</description>
+            <left>240</left>
+            <top>64</top>
+            <height>45</height>
+            <width>488</width>
+            <label>$INFO[Player.Title]</label>
+            <align>left</align>
+            <aligny>center</aligny>
+            <font>font13_title</font>
+            <textcolor>white</textcolor>
+            <shadowcolor>black</shadowcolor>
+            <scrollout>false</scrollout>
+            <pauseatend>2000</pauseatend>
+        </control>
+        <control type="label">
+            <description>Album Label</description>
+            <left>240</left>
+            <top>105</top>
+            <height>45</height>
+            <width>488</width>
+            <label>$INFO[MusicPlayer.Album]$INFO[musicplayer.discnumber, - $LOCALIZE[427]:]</label>
+            <align>left</align>
+            <aligny>center</aligny>
+            <font>font12</font>
+            <textcolor>white</textcolor>
+            <shadowcolor>black</shadowcolor>
+        </control>
+        <control type="label">
+            <description>Time Label</description>
+            <left>240</left>
+            <top>142</top>
+            <height>45</height>
+            <width>488</width>
+            <label>$INFO[MusicPlayer.Time]$INFO[MusicPlayer.Duration, / ]</label>
+            <align>left</align>
+            <aligny>center</aligny>
+            <font>font12</font>
+            <textcolor>white</textcolor>
+            <shadowcolor>black</shadowcolor>
+        </control>
+        <control type="label">
+            <description>Next Label</description>
+            <left>240</left>
+            <top>180</top>
+            <height>45</height>
+            <width>488</width>
+            <label>[COLOR=$VAR[ThemeLabelColor]]$LOCALIZE[19031] :[/COLOR] $INFO[MusicPlayer.offset(1).Title]</label>
+            <align>right</align>
+            <aligny>center</aligny>
+            <font>font12</font>
+            <textcolor>grey</textcolor>
+            <shadowcolor>black</shadowcolor>
+        </control>
+    </include>
+    <include name="SmallVideoInfo">
+        <control type="image">
+            <description>gradient</description>
+            <left>0</left>
+            <top>0</top>
+            <width>750</width>
+            <height>248</height>
+            <colordiffuse>DDFFFFFF</colordiffuse>
+            <texture border="20">OverlayDialogBackground.png</texture>
+        </control>
+        <control type="image">
+            <description>Cover image</description>
+            <left>30</left>
+            <top>26</top>
+            <width>195</width>
+            <height>195</height>
+            <aspectratio>keep</aspectratio>
+            <texture>$INFO[VideoPlayer.cover]</texture>
+            <visible>!Player.IsInternetStream</visible>
+        </control>
+        <control type="image">
+            <description>Streaming image</description>
+            <left>30</left>
+            <top>26</top>
+            <width>195</width>
+            <height>195</height>
+            <aspectratio>keep</aspectratio>
+            <texture>$VAR[StreamingVideoIcon]</texture>
+            <visible>Player.IsInternetStream</visible>
+        </control>
+        <control type="label">
+            <description>Streaming label</description>
+            <left>240</left>
+            <top>30</top>
+            <height>45</height>
+            <width>488</width>
+            <label>$LOCALIZE[31212]</label>
+            <align>left</align>
+            <aligny>center</aligny>
+            <font>font12_title</font>
+            <textcolor>grey2</textcolor>
+            <shadowcolor>black</shadowcolor>
+            <visible>Player.IsInternetStream</visible>
+        </control>
+        <control type="label">
+            <description>Studio label</description>
+            <left>240</left>
+            <top>30</top>
+            <height>45</height>
+            <width>488</width>
+            <label>$INFO[VideoPlayer.Studio]</label>
+            <align>left</align>
+            <aligny>center</aligny>
+            <font>font12_title</font>
+            <textcolor>grey2</textcolor>
+            <shadowcolor>black</shadowcolor>
+            <visible>!Player.IsInternetStream + !videoplayer.content(episodes) + !videoplayer.content(musicvideos)</visible>
+        </control>
+        <control type="label">
+            <description>TV Show Title label</description>
+            <left>240</left>
+            <top>30</top>
+            <height>45</height>
+            <width>488</width>
+            <label>$INFO[VideoPlayer.tvshowtitle]</label>
+            <align>left</align>
+            <aligny>center</aligny>
+            <font>font12_title</font>
+            <textcolor>white</textcolor>
+            <shadowcolor>black</shadowcolor>
+            <visible>videoplayer.content(episodes)</visible>
+        </control>
+        <control type="fadelabel">
+            <description>Music Video Artist label</description>
+            <left>240</left>
+            <top>30</top>
+            <height>45</height>
+            <width>488</width>
+            <label>$INFO[VideoPlayer.Artist]</label>
+            <align>left</align>
+            <aligny>center</aligny>
+            <font>font12_title</font>
+            <textcolor>white</textcolor>
+            <shadowcolor>black</shadowcolor>
+            <visible>videoplayer.content(musicvideos)</visible>
+            <scrollout>false</scrollout>
+            <pauseatend>2000</pauseatend>
+        </control>
+        <control type="fadelabel">
+            <description>Title label</description>
+            <left>240</left>
+            <top>64</top>
+            <height>45</height>
+            <width>488</width>
+            <label>$VAR[VideoNowPlaying]</label>
+            <align>left</align>
+            <aligny>center</aligny>
+            <font>font13_title</font>
+            <textcolor>white</textcolor>
+            <shadowcolor>black</shadowcolor>
+            <scrollout>false</scrollout>
+            <pauseatend>2000</pauseatend>
+        </control>
+        <control type="label">
+            <description>Genre label</description>
+            <left>240</left>
+            <top>105</top>
+            <height>45</height>
+            <width>488</width>
+            <label>$INFO[VideoPlayer.Genre]</label>
+            <align>left</align>
+            <aligny>center</aligny>
+            <font>font12</font>
+            <textcolor>white</textcolor>
+            <shadowcolor>black</shadowcolor>
+            <visible>!videoplayer.content(episodes) + !videoplayer.content(musicvideos)</visible>
+        </control>
+        <control type="label">
+            <left>240</left>
+            <top>105</top>
+            <height>45</height>
+            <width>488</width>
+            <label>$INFO[VideoPlayer.Album]</label>
+            <align>left</align>
+            <aligny>center</aligny>
+            <font>font12</font>
+            <textcolor>white</textcolor>
+            <shadowcolor>black</shadowcolor>
+            <visible>videoplayer.content(musicvideos)</visible>
+        </control>
+        <control type="label">
+            <description>Season and Episode label</description>
+            <left>240</left>
+            <top>105</top>
+            <height>45</height>
+            <width>488</width>
+            <label>$LOCALIZE[20373] $INFO[VideoPlayer.Season] - $LOCALIZE[20359] $INFO[VideoPlayer.episode]</label>
+            <align>left</align>
+            <aligny>center</aligny>
+            <font>font12</font>
+            <textcolor>white</textcolor>
+            <shadowcolor>black</shadowcolor>
+            <visible>videoplayer.content(episodes)</visible>
+        </control>
+        <control type="label">
+            <description>Time Label</description>
+            <left>240</left>
+            <top>142</top>
+            <height>45</height>
+            <width>488</width>
+            <label>$INFO[VideoPlayer.Time]$INFO[VideoPlayer.Duration, / ]</label>
+            <align>left</align>
+            <aligny>center</aligny>
+            <font>font12</font>
+            <textcolor>white</textcolor>
+            <shadowcolor>black</shadowcolor>
+        </control>
+    </include>
+    <include name="CommonNowPlaying_Controls">
+        <control type="label" id="202">
+            <width>375</width>
+            <height>52</height>
+            <font>font12</font>
+            <label>31023</label>
+            <textcolor>$VAR[ThemeLabelColor]</textcolor>
+            <align>center</align>
+            <aligny>center</aligny>
+            <visible>Player.HasMedia</visible>
+            <include>VisibleFadeEffect</include>
+        </control>
+        <control type="button" id="610">
+            <description>Fake Button to fix Player Controls Navigation</description>
+            <visible>false</visible>
+        </control>
+        <control type="group" id="90060">
+            <height>68</height>
+            <visible>VideoPlayer.Content(LiveTV)</visible>
+            <include>VisibleFadeEffect</include>
+            <control type="grouplist" id="9006">
+                <width>375</width>
+                <height>68</height>
+                <itemgap>1</itemgap>
+                <orientation>horizontal</orientation>
+                <onright>50</onright>
+                <onback>50</onback>
+                <onup>610</onup>
+                <ondown>611</ondown>
+                <control type="radiobutton" id="600">
+                    <label />
+                    <include content="OSDButton">
+                        <param name="Size" value="58" />
+                        <param name="Texture" value="OSDChannelUp" />
+                    </include>
+                    <onclick>ChannelDown</onclick>
+                </control>
+                <control type="radiobutton" id="601">
+                    <label />
+                    <include content="OSDButton">
+                        <param name="Size" value="58" />
+                        <param name="Texture" value="OSDChannelDown" />
+                    </include>
+                    <onclick>ChannelUp</onclick>
+                </control>
+                <control type="radiobutton" id="603">
+                    <label />
+                    <include content="OSDButton">
+                        <param name="Size" value="58" />
+                        <param name="Texture" value="OSDStop" />
+                    </include>
+                    <onclick>down</onclick>
+                    <onclick>PlayerControl(Stop)</onclick>
+                </control>
+                <control type="radiobutton" id="604">
+                    <label />
+                    <include content="OSDButtonAlt">
+                        <param name="Size" value="58" />
+                        <param name="Texture" value="OSDPause" />
+                        <param name="AltTexture" value="OSDPlay" />
+                        <param name="Selected" value="Player.Paused | Player.Forwarding | Player.Rewinding" />
+                    </include>
+                    <onclick>PlayerControl(Play)</onclick>
+                    <enable>Player.PauseEnabled</enable>
+                    <animation effect="fade" start="100" end="30" time="75" condition="!Player.PauseEnabled">Conditional</animation>
+                </control>
+                <control type="radiobutton" id="605">
+                    <label />
+                    <include content="OSDButton">
+                        <param name="Size" value="58" />
+                        <param name="Texture" value="OSDRecordOff" />
+                    </include>
+                    <onclick>PVR.ToggleRecordPlayingChannel</onclick>
+                    <enable>PVR.CanRecordPlayingChannel</enable>
+                    <animation effect="fade" start="100" end="30" time="75" condition="!PVR.CanRecordPlayingChannel">Conditional</animation>
+                </control>
+                <control type="radiobutton" id="606">
+                    <label />
+                    <include content="OSDButton">
+                        <param name="Size" value="58" />
+                        <param name="Texture" value="OSDRadioRDS" />
+                    </include>
+                    <visible>RDS.HasRadiotextPlus</visible>
+                    <onclick>ActivateWindow(PVRRadioRDSInfo)</onclick>
+                </control>
+                <control type="radiobutton" id="622">
+                    <label />
+                    <include content="OSDButton">
+                        <param name="Size" value="58" />
+                        <param name="Texture" value="OSDChannelList" />
+                    </include>
+                    <visible>!RDS.HasRadiotextPlus</visible>
+                    <onclick>ActivateWindow(PVRGuideInfo)</onclick>
+                </control>
+            </control>
+        </control>
+        <control type="group" id="90050">
+            <visible>Player.HasMedia</visible>
+            <visible>!VideoPlayer.Content(LiveTV)</visible>
+            <include>VisibleFadeEffect</include>
+            <height>68</height>
+            <control type="grouplist" id="9005">
+                <width>375</width>
+                <height>68</height>
+                <itemgap>1</itemgap>
+                <orientation>horizontal</orientation>
+                <onright>50</onright>
+                <onback>50</onback>
+                <onup>610</onup>
+                <ondown>611</ondown>
+                <defaultcontrol always="true">603</defaultcontrol>
+                <control type="radiobutton" id="700">
+                    <label />
+                    <include content="OSDButton">
+                        <param name="Size" value="58" />
+                        <param name="Texture" value="OSDPrevTrack" />
+                    </include>
+                    <onclick>PlayerControl(Previous)</onclick>
+                </control>
+                <control type="radiobutton" id="706">
+                    <label />
+                    <include content="OSDButton">
+                        <param name="Size" value="58" />
+                        <param name="Texture" value="OSDRewind" />
+                    </include>
+                    <onclick>PlayerControl(Rewind)</onclick>
+                    <visible>Window.IsVisible(MusicPlaylist) | Window.IsVisible(VideoPlaylist) | Player.HasVideo</visible>
+                </control>
+                <control type="radiobutton" id="703">
+                    <label />
+                    <include content="OSDButtonAlt">
+                        <param name="Size" value="58" />
+                        <param name="Texture" value="OSDPause" />
+                        <param name="AltTexture" value="OSDPlay" />
+                        <param name="Selected" value="Player.Paused | Player.Forwarding | Player.Rewinding" />
+                    </include>
+                    <onclick>PlayerControl(Play)</onclick>
+                </control>
+                <control type="radiobutton" id="701">
+                    <label />
+                    <include content="OSDButton">
+                        <param name="Size" value="58" />
+                        <param name="Texture" value="OSDStop" />
+                    </include>
+                    <onclick>down</onclick>
+                    <onclick>PlayerControl(Stop)</onclick>
+                </control>
+                <control type="radiobutton" id="707">
+                    <label />
+                    <include content="OSDButton">
+                        <param name="Size" value="58" />
+                        <param name="Texture" value="OSDForward" />
+                    </include>
+                    <onclick>PlayerControl(Forward)</onclick>
+                    <visible>Window.IsVisible(MusicPlaylist) | Window.IsVisible(VideoPlaylist) | Player.HasVideo</visible>
+                </control>
+                <control type="radiobutton" id="702">
+                    <label />
+                    <include content="OSDButton">
+                        <param name="Size" value="58" />
+                        <param name="Texture" value="OSDNextTrack" />
+                    </include>
+                    <onclick>PlayerControl(Next)</onclick>
+                </control>
+                <control type="radiobutton" id="704">
+                    <label />
+                    <include content="OSDButton">
+                        <param name="Size" value="58" />
+                        <param name="Texture" value="OSDRepeatOne" />
+                    </include>
+                    <onclick>PlayerControl(Repeat)</onclick>
+                    <visible>!Window.IsVisible(MusicPlaylist) + !Window.IsVisible(VideoPlaylist) + !Player.HasVideo</visible>
+                    <visible>Playlist.IsRepeatOne</visible>
+                </control>
+                <control type="radiobutton" id="705">
+                    <label />
+                    <include content="OSDButton">
+                        <param name="Size" value="58" />
+                        <param name="Texture" value="OSDRepeatAll" />
+                    </include>
+                    <onclick>PlayerControl(Repeat)</onclick>
+                    <visible>!Window.IsVisible(MusicPlaylist) + !Window.IsVisible(VideoPlaylist) + !Player.HasVideo</visible>
+                    <visible>Playlist.IsRepeat</visible>
+                </control>
+                <control type="radiobutton" id="708">
+                    <label />
+                    <include content="OSDButton">
+                        <param name="Size" value="58" />
+                        <param name="Texture" value="OSDRepeat" />
+                    </include>
+                    <onclick>PlayerControl(Repeat)</onclick>
+                    <visible>!Window.IsVisible(MusicPlaylist) + !Window.IsVisible(VideoPlaylist) + !Player.HasVideo</visible>
+                    <visible>!Playlist.IsRepeatOne + !Playlist.IsRepeat</visible>
+                </control>
+                <control type="radiobutton" id="709">
+                    <label />
+                    <include content="OSDButtonAlt">
+                        <param name="Size" value="58" />
+                        <param name="Texture" value="OSDRandomOff" />
+                        <param name="AltTexture" value="OSDRandomOn" />
+                        <param name="Selected" value="Playlist.IsRandom" />
+                    </include>
+                    <onclick>PlayerControl(Random)</onclick>
+                    <visible>!Window.IsVisible(MusicPlaylist) + !Window.IsVisible(VideoPlaylist) + !Player.HasVideo</visible>
+                </control>
+            </control>
+        </control>
+        <control type="radiobutton" id="611">
+            <description>Go to fullscreen Playback</description>
+            <include>ButtonCommonValues</include>
+            <label>31008</label>
+            <onclick>fullscreen</onclick>
+            <textureradioonfocus>GoFullscreen.png</textureradioonfocus>
+            <textureradioonnofocus>GoFullscreen.png</textureradioonnofocus>
+            <textureradioofffocus>GoFullscreen.png</textureradioofffocus>
+            <textureradiooffnofocus>GoFullscreen.png</textureradiooffnofocus>
+            <visible>Player.HasMedia</visible>
+        </control>
+        <control type="button" id="612">
+            <description>Go to playlist</description>
+            <include>ButtonCommonValues</include>
+            <label>13350</label>
+            <onclick>$VAR[PlayList]</onclick>
+            <visible>[Window.IsActive(Videos) + !String.IsEqual(Playlist.Length(video),0)] | [Window.IsActive(Music) + !String.IsEqual(Playlist.Length(music),0)]</visible>
+        </control>
+    </include>	
+	
+    <include name="KeyboardButton">
+        <width>75</width>
+        <height>75</height>
+        <texturenofocus border="3">KeyboardKeyNF.png</texturenofocus>
+        <texturefocus border="5" colordiffuse="$VAR[ThemeLabelColor]">KeyboardKey.png</texturefocus>
+        <align>center</align>
+        <aligny>center</aligny>
+        <font>font13</font>
+        <focusedcolor>white</focusedcolor>
+    </include>	
+	
+    <variable name="SelectLabel">
+        <value condition="Control.IsVisible(3)">([COLOR=$VAR[ThemeLabelColor]]$INFO[Container(3).NumItems][/COLOR]) $LOCALIZE[31025] - $LOCALIZE[31024] ([COLOR=$VAR[ThemeLabelColor]]$INFO[Container(3).CurrentPage]/$INFO[Container(3).NumPages][/COLOR])</value>
+        <value condition="Control.IsVisible(6)">([COLOR=$VAR[ThemeLabelColor]]$INFO[Container(6).NumItems][/COLOR]) $LOCALIZE[31025] - $LOCALIZE[31024] ([COLOR=$VAR[ThemeLabelColor]]$INFO[Container(6).CurrentPage]/$INFO[Container(6).NumPages][/COLOR])</value>
+    </variable>	
+    <include name="DialogCloseButton">
+        <width>96</width>
+        <height>48</height>
+        <label></label>
+        <font></font>
+        <include>DialogCloseButtonClassic</include>
+    </include>
+    <include name="DialogCloseButtonClassic">
+        <texturefocus>DialogCloseButton-focus.png</texturefocus>
+        <texturenofocus>DialogCloseButton.png</texturenofocus>
+    </include>
+	
+    <include name="dialogeffect">
+        <depth>DepthDialog</depth>
+        <animation effect="fade" time="200">WindowOpen</animation>
+        <animation effect="fade" time="200">WindowClose</animation>
+    </include>
+    <include name="VisibleFadeEffect">
+        <animation effect="fade" time="225">Visible</animation>
+        <animation effect="fade" time="225">Hidden</animation>
+    </include>
+    <include name="DialogBackgroundCommons">
+        <control type="image">
+            <description>background image</description>
+            <left>0</left>
+            <top>0</top>
+            <width>$PARAM[DialogBackgroundWidth]</width>
+            <height>$PARAM[DialogBackgroundHeight]</height>
+            <texture border="40">$VAR[SelectBack]</texture>
+        </control>
+        <control type="image">
+            <description>Dialog Header image</description>
+            <left>60</left>
+            <top>24</top>
+            <width>$PARAM[DialogHeaderWidth]</width>
+            <height>60</height>
+            <texture>dialogheader.png</texture>
+        </control>
+        <control type="button">
+            <description>Close Window button</description>
+            <left>$PARAM[CloseButtonLeft]</left>
+            <top>24</top>
+            <onclick>PreviousMenu</onclick>
+            <include>DialogCloseButton</include>
+            <onleft>$PARAM[CloseButtonNav]</onleft>
+            <onright>$PARAM[CloseButtonNav]</onright>
+            <onup>$PARAM[CloseButtonNav]</onup>
+            <ondown>$PARAM[CloseButtonNav]</ondown>
+        </control>
+        <control type="label" id="$PARAM[DialogHeaderId]">
+            <description>header label</description>
+            <left>60</left>
+            <top>30</top>
+            <width>$PARAM[DialogHeaderWidth]</width>
+            <height>45</height>
+            <font>font13</font>
+            <label>$PARAM[DialogHeaderLabel]</label>
+            <align>center</align>
+            <aligny>center</aligny>
+            <textcolor>selected</textcolor>
+            <shadowcolor>black</shadowcolor>
+            <wrapmultiline>true</wrapmultiline>
+        </control>
+    </include>
+    <variable name="AddonInfoHeading">
+        <value condition="!String.IsEmpty(Window(home).Property(WhatsNew))">$LOCALIZE[24054]</value>
+        <value>$LOCALIZE[21821]</value>
+    </variable>
+    <variable name="AddonInfoDescription">
+        <value condition="!String.IsEmpty(Window(home).Property(WhatsNew))">$INFO[ListItem.AddonNews]</value>
+        <value>$INFO[ListItem.AddonDescription]</value>
+    </variable>
+    <variable name="AddonInfoButtonLabel">
+        <value condition="!String.IsEmpty(Window(home).Property(WhatsNew))">$LOCALIZE[21821]</value>
+        <value>$LOCALIZE[24054]</value>
+    </variable>	
+    <variable name="SelectBack">
+        <value condition="![Window.IsVisible(FullscreenVideo) | Window.IsVisible(Visualisation)]">$VAR[DialogPath]DialogBack.png</value>
+        <value>$VAR[DialogPath]DialogBack2.png</value>
+    </variable>	
 	<!-- TMDb Helper Ratings -->
 	<include name="TMDbHelperFlags">
 		<control type="grouplist">
@@ -239,7 +1986,7 @@
 		<control type="image">
 			<width>432</width>
 			<height>1080</height>
-			<texture border="40">mediamenu_back.png</texture>
+			<texture border="40">MediaBladeSub.png</texture>
 		</control>
 		<control type="button" id="9051">
 			<include>HiddenObject</include>
@@ -254,7 +2001,7 @@
 			<width>64</width>
 			<height>48</height>
 			<label></label>
-			<font>CloseButton</font>
+			<font></font>
 			<textcolor>grey</textcolor>
 			<focusedcolor>$VAR[ThemeLabelColor]</focusedcolor>
 			<onclick>ClearProperty(MediaMenu,Home)</onclick>
@@ -264,12 +2011,27 @@
 			<visible>system.getbool(input.enablemouse) + !Window.IsVisible(1128) + !Window.IsVisible(1130) + !Window.IsVisible(1131) + !Window.IsVisible(1132)</visible>
 		</control>
 		<control type="image">
-			<top>-20</top>
-			<width>400</width>
-			<height>130</height>
+			<left>55</left>		
+			<top>-5</top>
+			<width>300</width>
+			<height>100</height>
 			<texture>aeon-nox-logo.png</texture>
 		</control>
-	</include>
+        <control type="button" id="9001">
+            <left>423</left>
+            <top>390</top>
+            <width>63</width>
+            <height>192</height>
+            <font />
+            <texturefocus colordiffuse="$VAR[ThemeLabelColor]">HasSubFocus.png</texturefocus>
+            <texturenofocus>HasSub.png</texturenofocus>
+            <onright>ClearProperty(SideBladeOpen)</onright>
+            <onleft>50</onleft>
+			<onclick condition="String.IsEmpty(Window(Home).Property(MediaMenu))">SetProperty(MediaMenu,True,Home)</onclick>
+			<onclick condition="!String.IsEmpty(Window(Home).Property(MediaMenu))">ClearProperty(MediaMenu,Home)</onclick>
+            <visible>String.IsEmpty(Skin.String(SideBladeLabel))</visible>
+        </control>		
+    </include>
 	<include name="KioskModeButton">
 		<control type="button">
 			<include>ButtonCommonValues</include>
@@ -279,7 +2041,7 @@
 		</control>
 	</include>
 	<include name="MediaMenuTop">
-		<top>80</top>
+		<top>120</top>
 		<width>400</width>
 		<height>1080</height>
 		<onleft>9050</onleft>
@@ -450,7 +2212,7 @@
 				</control>
 				<control type="button" id="28">
 					<description>Channel Groups</description>
-					<textwidth>255</textwidth>
+					<textwidth>400</textwidth>
 					<include>ButtonCommonValues</include>
 					<label />
 					<visible>Window.IsActive(tvchannels) | Window.IsActive(tvguide)</visible>
@@ -917,29 +2679,6 @@
 					<label>$VAR[TopBarRightLabelVar]</label>
 				</control>
 			</control>
-			<control type="button" id="90022">
-				<left>-27</left>
-				<top>3</top>
-				<label />
-				<texturenofocus colordiffuse="grey">mediamenu_indicator.png</texturenofocus>
-				<texturefocus colordiffuse="FFFFFFFF">mediamenu_indicator.png</texturefocus>
-				<height>32</height>
-				<include>ButtonTopbarCommonvalues</include>
-				<visible>!String.IsEmpty(Window(Home).Property(Window.HasSettings))</visible>
-			</control>
-		</control>
-		<control type="button" id="900222">
-			<label />
-			<onclick condition="String.IsEmpty(Window(Home).Property(MediaMenu))">SetProperty(MediaMenu,True,Home)</onclick>
-			<onclick condition="!String.IsEmpty(Window(Home).Property(MediaMenu))">ClearProperty(MediaMenu,Home)</onclick>
-			<onfocus condition="String.IsEmpty(Window(Home).Property(MediaMenu)) + Skin.HasSetting(Enable.AutoOpenMediaMenuOnMouseOver)">SetProperty(MediaMenu,True,Home)</onfocus>
-			<onfocus condition="!String.IsEmpty(Window(Home).Property(MediaMenu)) + Skin.HasSetting(Enable.AutoOpenMediaMenuOnMouseOver)">ClearProperty(MediaMenu,Home)</onfocus>
-			<texturenofocus />
-			<texturefocus />
-			<width>95</width>
-			<height>37</height>
-			<include>ButtonTopbarCommonvalues</include>
-			<visible>!String.IsEmpty(Window(Home).Property(Window.HasSettings))</visible>
 		</control>
 	</include>
 	<!-- System Panels -->
@@ -980,74 +2719,69 @@
 		</control>
 	</include>
 	<!-- Auto Complete -->
-	<include name="ExtendedInfoAutoComplete">
-		<control type="group">
-			<animation effect="fade" start="100" end="0" time="300" condition="String.IsEmpty(Container(5000).ListItem.Label)">Conditional</animation>
-			<visible>!System.HasHiddenInput</visible>
-			<control type="image">
-				<top>540</top>
-				<width>1340</width>
-				<height>220</height>
-				<texture border="40">dialogs/default/bg.png</texture>
-			</control>
-			<control type="image">
-				<left>30</left>
-				<top>572</top>
-				<width>1280</width>
-				<height>161</height>
-				<texture border="5">dialogs/default/inner.png</texture>
-			</control>
-			<control type="panel" id="5000">
-				<left>30</left>
-				<top>572</top>
-				<width>1280</width>
-				<height>160</height>
-				<onleft>5000</onleft>
-				<onright>5000</onright>
-				<onup>4000</onup>
-				<ondown>4000</ondown>
-				<onback>noop</onback>
-				<scrolltime tween="quadratic" easing="out">200</scrolltime>
-				<itemlayout height="80" width="320">
-					<control type="image">
-						<width>320</width>
-						<height>80</height>
-						<texture border="4">thumbs/panel_border.png</texture>
-					</control>
-					<control type="label">
-						<width>320</width>
-						<height>80</height>
-						<align>center</align>
-						<textcolor>grey2</textcolor>
-						<font>font15</font>
-						<label>$INFO[ListItem.Label]</label>
-					</control>
-				</itemlayout>
-				<focusedlayout height="80" width="320">
-					<control type="image">
-						<width>320</width>
-						<height>80</height>
-						<texture border="4">thumbs/panel_border.png</texture>
-						<visible>!Control.HasFocus(5000)</visible>
-					</control>
-					<control type="image">
-						<width>320</width>
-						<height>80</height>
-						<texture colordiffuse="$VAR[HighlightBarColor]" border="5">listselect_fo.png</texture>
-						<visible>Control.HasFocus(5000)</visible>
-					</control>
-					<control type="label">
-						<width>320</width>
-						<height>80</height>
-						<align>center</align>
-						<font>font15</font>
-						<label>$INFO[ListItem.Label]</label>
-					</control>
-				</focusedlayout>
-				<content>plugin://plugin.program.autocompletion?info=autocomplete&amp;&amp;id=$INFO[Control.GetLabel(312).Index(1)]&amp;&amp;limit=8</content>
-			</control>
-		</control>
-	</include>
+    <include name="ExtendedInfoAutoComplete">
+        <control type="group" id="5000">
+            <animation effect="slide" start="0,-360" end="0,0" time="300" tween="quadratic" easing="out">VisibleChange</animation>
+            <visible>!String.IsEmpty(Control.GetLabel(312).index(1)) + !Control.IsVisible(313)</visible>
+            <top>-180</top>
+            <left>0</left>
+            <control type="image">
+                <left>0</left>
+				<top>815</top>
+				<width>1290</width>
+				<height>150</height>>
+                <texture border="20">OverlayDialogBackground.png</texture>
+            </control>
+            <control type="panel" id="5001">
+                <left>22</left>
+                <top>830</top>
+                <width>1290</width>
+                <height>180</height>
+                <onleft>5001</onleft>
+                <onright>5001</onright>
+                <onup>300</onup>
+                <ondown>300</ondown>
+                <orientation>vertical</orientation>
+                <scrolltime tween="quadratic" easing="out">200</scrolltime>
+                <itemlayout height="60" width="315">
+                    <control type="image">
+                        <top>8</top>
+                        <width>300</width>
+                        <height>45</height>
+                        <texture>KeyboardKeyNF.png</texture>
+                    </control>
+                    <control type="label">
+                        <top>8</top>
+                        <width>294</width>
+                        <height>45</height>
+                        <align>center</align>
+                        <textcolor>grey</textcolor>
+                        <textoffsetx>8</textoffsetx>
+                        <font>font13</font>
+                        <label>$INFO[ListItem.Label]</label>
+                    </control>
+                </itemlayout>
+                <focusedlayout height="60" width="315">
+                    <control type="image">
+                        <top>8</top>
+                        <width>300</width>
+                        <height>45</height>
+                        <texture border="5" colordiffuse="$VAR[ThemeLabelColor]">KeyboardKey.png</texture>
+                    </control>
+                    <control type="label">
+                        <top>8</top>
+                        <width>300</width>
+                        <height>45</height>
+                        <align>center</align>
+                        <textoffsetx>8</textoffsetx>
+                        <font>font13</font>
+                        <label>$INFO[ListItem.Label]</label>
+                    </control>
+                </focusedlayout>
+                <content>plugin://plugin.program.autocompletion?info=autocomplete&amp;&amp;id=$INFO[Control.GetLabel(312).index(1)]&amp;&amp;limit=8</content>
+            </control>
+        </control>
+    </include>
 	<!-- Extended Info -->
 	<include name="ExtendedInfoMovieLists">
 		<control type="panel" id="90011">

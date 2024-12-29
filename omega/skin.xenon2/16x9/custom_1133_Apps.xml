@@ -19,7 +19,7 @@
 					<top>179</top>
 					<width>832</width>
 					<height>842</height>
-					<texture>colors/black75.png</texture>
+					<texture>contentpanel.png</texture>
 					<bordersize>1</bordersize>
 					<bordertexture border="1" infill="false" colordiffuse="$VAR[ThemeBorderColor]">colors/border_frame.png</bordertexture>
 				</control>
@@ -75,9 +75,11 @@
 					</itemlayout>
 					<focusedlayout height="120" width="810">
 						<control type="image">
-							<width>830</width>
-							<height>120</height>
-							<texture colordiffuse="$VAR[HighlightBarColor]" border="4">listselect_fo.png</texture>
+							<left>12</left>
+							<top>10</top>							
+							<width>810</width>
+							<height>110</height>
+							<texture colordiffuse="$VAR[HighlightBarColor]" border="4">lf_classic/button/MenuItemFO.png</texture>
 							<visible>Control.HasFocus(50)</visible>
 							<include>VisibleFadeAnimation</include>
 						</control>
@@ -191,7 +193,7 @@
 					<ondown>60</ondown>
 					<onleft>50</onleft>
 					<onright>51</onright>
-					<texturesliderbackground>colors/black.png</texturesliderbackground>
+					<texturesliderbackground>contentpanel.png</texturesliderbackground>
 					<texturesliderbar>colors/white25.png</texturesliderbar>
 					<texturesliderbarfocus colordiffuse="$VAR[ThemeLabelColor]">colors/white.png</texturesliderbarfocus>
 					<showonepage>false</showonepage>
@@ -205,7 +207,7 @@
 					<top>179</top>
 					<width>832</width>
 					<height>842</height>
-					<texture>colors/black75.png</texture>
+					<texture>contentpanel.png</texture>
 					<bordersize>1</bordersize>
 					<bordertexture border="1" infill="false" colordiffuse="$VAR[ThemeBorderColor]">colors/border_frame.png</bordertexture>
 				</control>
@@ -272,9 +274,11 @@
 					</itemlayout>
 					<focusedlayout height="120" width="810">
 						<control type="image">
-							<width>830</width>
-							<height>120</height>
-							<texture colordiffuse="$VAR[HighlightBarColor]" border="4">listselect_fo.png</texture>
+							<left>7</left>
+							<top>5</top>							
+							<width>815</width>
+							<height>110</height>
+							<texture colordiffuse="$VAR[HighlightBarColor]" border="4">lf_classic/button/MenuItemFO.png</texture>
 							<visible>Control.HasFocus(51)</visible>
 							<include>VisibleFadeAnimation</include>
 						</control>
@@ -332,7 +336,7 @@
 					<ondown>60</ondown>
 					<onleft>51</onleft>
 					<onright>noop</onright>
-					<texturesliderbackground>colors/black.png</texturesliderbackground>
+					<texturesliderbackground>contentpanel.png</texturesliderbackground>
 					<texturesliderbar>colors/white25.png</texturesliderbar>
 					<texturesliderbarfocus colordiffuse="$VAR[ThemeLabelColor]">colors/white.png</texturesliderbarfocus>
 					<showonepage>false</showonepage>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<addon id="skin.xenon2" version="427.99.4" name="[B][COLOR gold]XENON 2[/COLOR][/B]  (Mid Power)" provider-name="SiLVO, Diggz">
+<addon id="skin.xenon2" version="427.99.4" name="[B][COLOR gold]DIGGZ XENON[/COLOR][/B]  (Mid Power)" provider-name="SiLVO, Diggz">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0" />
 		<import addon="script.skinshortcuts" version="2.0.1" />
@@ -10,8 +10,8 @@
 		<res width="1920" height="1080" aspect="16:9" default="true" folder="16x9" />
 	</extension>
 	<extension point="xbmc.addon.metadata">
-		<summary lang="en_GB">Created by BigNoid, Modded by SiLVO, and Widgets by Mr. V</summary>
-		<description lang="en_GB">Completely redesigned to create a modern look, while retaining the classic Aeon feel.</description>
+		<summary lang="en_GB">Diggz Xenon</summary>
+		<description lang="en_GB">Completely redesigned to include modern functions, while retaining the classic Xenon feel.</description>
 		<platform>all</platform>
 
 		<assets>

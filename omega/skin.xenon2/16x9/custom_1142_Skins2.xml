@@ -66,8 +66,8 @@
 				</focusedlayout>
 				<content>
 					<item>
-						<label>[B][COLOR chartreuse]Click Here To Switch Skin[/COLOR][/B]</label>
-						<onclick>RunPlugin(plugin://script.diggzskins)</onclick>
+						<label>[B][COLOR chartreuse]Abstract[/COLOR][/B]</label>
+						<onclick>ActivateWindow(10025,"plugin://plugin.image.diggzwallpapers/?fanart=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.image.diggzwallpapers%5cfanart.jpg&amp;iconimage=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.image.diggzwallpapers%5cicon.png&amp;mode=5&amp;name=%5bB%5d%5bCOLOR%20blue%5dABSTRACT%5b%2fCOLOR%5d%5b%2fB%5d&amp;url=https%3a%2f%2fia601602.us.archive.org%2f6%2fitems%2ftr049_20230511%2fWALLPAPERS%2fABSTRACT%2f",return)</onclick>
 						<icon>skins/switch.gif</icon>
 					</item>
 					<item>

@@ -777,17 +777,33 @@ def run_tv_search():
 	elif result == 4:#'Add to downloader list (whole pack)': 4,
 
 		tools.log(torrent)
+		#response = rd_api.add_magnet(torrent['magnet'])
+		response = None
+		while response == None:
+			response = rd_api.add_magnet(torrent['magnet'])
+			for idx, i in enumerate(sources_list):
+				if i['hash'] == torrent['hash']:
+					break
+			sources_list.pop(idx)
+			if response.get('error',False):
+				tools.log(response)
+				torrent = choose_torrent(sources_list)
+				#result = tools.selectFromDict(torrent_choices, 'Torrent')
+				#if not result:
+				#	tools.log('EXIT')
+				#	return
+				response = None
+		tools.log(response)
+		torr_id = response['id']
+		response = rd_api.torrent_select_all(torr_id)
+		torr_info = rd_api.torrent_info(torr_id)
+		
 
 		meta['download_type'] = 'pack'
 		#meta['download_type'] = 'episode'
 
 		meta['magnet'] = torrent['magnet']
 
-		response = rd_api.add_magnet(torrent['magnet'])
-		#tools.log(response)
-		torr_id = response['id']
-		response = rd_api.torrent_select_all(torr_id)
-		torr_info = rd_api.torrent_info(torr_id)
 		#tools.log(torr_info)
 
 		#for i in torr_info['links']:
@@ -796,7 +812,9 @@ def run_tv_search():
 		#	download_id = rd_api.UNRESTRICT_FILE_ID
 		#	log(download_link, download_id)
 		download_link, new_meta = cloud_get_ep_season(rd_api, meta, torr_id, torr_info)
-
+		if download_link == '' or download_link == None:
+			tools.log('UNCACHED')
+			return
 			
 		stream_link = download_link
 		#file_name = unquote(stream_link).split('/')[-1]
@@ -1723,7 +1741,7 @@ def auto_scrape_rd(meta, select_dialog=False, unrestrict=False):
 		from resources.lib.WindowManager import wm
 		listitem, selection = wm.open_selectdialog_autoclose(listitems=listitems, autoclose=30, autoselect=0)
 		if selection == -1:
-			return
+			return None, meta
 		from resources.lib.Utils import show_busy
 		show_busy()
 		#tools.log(selection)
@@ -1734,6 +1752,7 @@ def auto_scrape_rd(meta, select_dialog=False, unrestrict=False):
 		idx = 0
 
 	while download_link == None:
+		torr_id = None
 		try: 
 			torrent = sources_list[idx]
 		except: 
@@ -1789,7 +1808,11 @@ def auto_scrape_rd(meta, select_dialog=False, unrestrict=False):
 				#continue
 				return None, meta
 			except:
-				rd_api.delete_torrent(torr_id)
+				if torr_id:
+					rd_api.delete_torrent(torr_id)
+				else:
+					tools.log('NONE___EXCEPTION_auto_scrape_rd')
+					return None, meta
 				if curr_idx >= len(uncached):
 					return None, meta
 				uncached.pop(curr_idx)
@@ -2176,6 +2199,31 @@ getSources.check_rd_cloud(meta)
 	for i in range(1,99):
 		#tools.log('torrent', i)
 		result = rd_api.list_torrents_page(int(i))
+
+		items_changed = False
+		for x in result:
+			if x['status'] != 'downloaded':
+				#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
+				added_timestamp = time.mktime(time.strptime(x['added'], "%Y-%m-%dT%H:%M:%S.000Z"))
+				current_timestamp = time.time()
+				time_diff_seconds = current_timestamp - added_timestamp
+				if time_diff_seconds > 200:
+					if x['status'] == 'waiting_files_selection':
+						torr_id = x['id']
+						response = rd_api.torrent_select_all(torr_id)
+						#tools.log('torrent_torrent_select_all', i, x,response)
+						if 'error' in str(response):
+							response = rd_api.delete_torrent(torr_id)
+							#tools.log('torrent_delete_torrent', i, x,response)
+							items_changed = True
+					else:
+						torr_id = x['id']
+						response = rd_api.delete_torrent(torr_id)
+						items_changed = True
+						#tools.log('torrent_delete_torrent', i, x,response)
+
+		if items_changed:
+			result = rd_api.list_torrents_page(int(i))
 		if '[204]' in str(result):
 			break
 		for x in result:
@@ -2183,6 +2231,7 @@ getSources.check_rd_cloud(meta)
 			#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
 			if x['status'] == 'downloading':
 				continue
+
 			file_info1 = tools.get_info(x['filename'])
 			file_info2 = tools.get_info(source_tools.clean_title(x['filename']))
 			source_list = []
@@ -2217,6 +2266,11 @@ getSources.check_rd_cloud(meta)
 					#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
 					test2 = source_tools.run_show_filters(simple_info, release_title = x['filename'])
 			#tools.log(test2, test)
+			if download_type != 'movie':
+				if (len(x['links']) >= meta['tvmaze_seasons_episode_tot'] or len(x['links']) >= meta['tmdb_seasons_episode_tot']) and not (': True' in str(test) or ': True' in str(test2)) and download_type != 'movie':
+					simple_info['imdb_id'] = meta['episode_meta']['imdbnumber']
+					test2['show_match'] = source_tools.filter_movie_title(x['filename'], source_tools.clean_title(x['filename']), simple_info['show_title'], simple_info)
+
 			if ': True' in str(test) or ': True' in str(test2):
 				torr_id = x['id']
 				torr_info = rd_api.torrent_info(torr_id)
@@ -2228,7 +2282,7 @@ getSources.check_rd_cloud(meta)
 
 				if download_type != 'movie':
 					if daily_show_flag:
-						#tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
+						tools.log(str(str('Line ')+str(getframeinfo(currentframe()).lineno)+'___'+str(getframeinfo(currentframe()).filename)))
 						download_link, new_meta = cloud_single_ep(rd_api, meta, torr_id, torr_info)
 					else:
 						download_link, new_meta = cloud_get_ep_season(rd_api, meta, torr_id, torr_info)
@@ -3358,7 +3412,7 @@ class Sources(object):
 		self.runtime = 0
 		#self.host_domains = []
 		#self.host_names = []
-		self.timeout = 45
+		self.timeout = 145
 		#self.window = SourceWindowAdapter(self.item_information, self)
 
 		#self.silent = g.get_bool_runtime_setting('tempSilent')
@@ -4027,6 +4081,8 @@ class TorrentCacheCheck:
 							self._handle_episode_rd_worker(i, real_debrid_cache, info)
 						else:
 							self._handle_movie_rd_worker(i, real_debrid_cache)
+					#i['debrid_provider'] = 'real_debrid'
+					#self.store_torrent(i)
 				except KeyError:
 					pass
 		#except Exception:

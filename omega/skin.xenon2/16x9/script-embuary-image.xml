@@ -3,7 +3,7 @@
 	<controls>
 		<control type="image">
 			<include>FullscreenDimensions</include>
-			<texture>colors/black.png</texture>
+			<texture>contentpanel.png</texture>
 		</control>
 		<control type="list" id="1">
 			<width>1920</width>

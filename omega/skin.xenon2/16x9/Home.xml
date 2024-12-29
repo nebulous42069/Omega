@@ -6,7 +6,7 @@
 	<onload condition="!Skin.HasSetting(AskedDefaultBackground)">SetProperty(AskDefaultBackground,True,Home)</onload>
 	<onload condition="!Skin.HasSetting(AskedDefaultBackground) + !Control.IsVisible(9999)">Skin.TimerStart(askdefaultbackground)</onload>
 	<onload condition="!String.IsEmpty(Skin.String(StartupIntro)) + !String.IsEmpty(Window(Home).Property(Playing.StartupIntro))">AlarmClock(Clear_PlayingIntroProp,ClearProperty(Playing.StartupIntro,Home),00:04,silent)</onload>
-	<menucontrol>9051</menucontrol>
+	<menucontrol>9051</menucontrol>	
 	<controls>
 		<control type="button" id="64">
 			<include>HiddenObject</include>
@@ -148,6 +148,8 @@
 				<!-- Horizontal Menu -->
 				<!-- RSS Feeds -->
 				<include condition="!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + !Skin.HasSetting(HideSystemBars)">HorizontalMenuSystemBars</include>
+				<include condition="!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + !Skin.HasSetting(HideSystemBars)">HomeShortcuts</include>
+				<include condition="!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + !Skin.HasSetting(HideSystemBars)">NowPlayingMediaControls</include>				
 				<include condition="!String.IsEqual(Skin.String(MainMenu.Layout),vertical)">HorizontalMenu</include>
 				<!-- Vertical Menu -->
 				<include condition="!String.IsEqual(Skin.String(HorizontalRSSPosition),high) + system.getbool(lookandfeel.enablerssfeeds) + !String.IsEqual(Skin.String(MainMenu.Layout),vertical) + !Skin.HasSetting(HideSystemBars)">RSSFeed</include>
@@ -210,5 +212,11 @@
 				</control>
 			</control>
 		</control>
-	</controls>
+        <control type="group">
+            <depth>DepthHeader</depth>
+            <include>Clock</include>
+            <include>Date</include>
+			<include>TopLeftInfo</include>
+        </control>		
+	</controls>	
 </window>

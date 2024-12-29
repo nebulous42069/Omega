@@ -430,6 +430,7 @@
 				<onleft condition="Control.IsVisible(50663)">50663</onleft>
 				<onleft condition="!Control.IsVisible(50663)">SetProperty(MediaMenu,True,Home)</onleft>
 				<onleft condition="!Control.IsVisible(50663)">SetFocus(9050)</onleft>
+				<onright condition="Container.Content(movies) | Container.Content(tvshows) | !Container.Content(seasons) | !Container.Content(episodes) |  !Container.Content(musicvideos) | !Container.Content(files) | !Container.Content(addons) | !Container.Content() | !String.IsEmpty(ListItem.Trailer)">PlayMedia("$INFO[ListItem.Trailer]")</onright>				
 				<onright condition="Control.IsVisible(50660)">50660</onright>
 				<onright condition="!Control.IsVisible(50660)">4400</onright>
 				<onup>506</onup>
@@ -495,7 +496,7 @@
 		<left>30</left>
 		<width>880</width>
 		<height>90</height>
-		<texture colordiffuse="$VAR[HighlightBarColor]" border="4">listselect_fo.png</texture>
+		<texture colordiffuse="$VAR[HighlightBarColor]" border="4">lf_classic/button/MenuItemFO.png</texture>
 		<animation effect="fade" start="100" end="40" time="300" tween="sine" easing="inout" condition="!Control.HasFocus(506)">Conditional</animation>
 	</include>
 	<include name="fixedlistrightlist">
@@ -518,6 +519,7 @@
 		<onleft condition="!Control.IsVisible(50664)">SetProperty(MediaMenu,True,Home)</onleft>
 		<onleft condition="!Control.IsVisible(50664)">SetFocus(9050)</onleft>
 		<onleft condition="Control.IsVisible(50664)">50664</onleft>
+		<onright condition="Container.Content(movies) | Container.Content(tvshows) | !Container.Content(seasons) | !Container.Content(episodes) |  !Container.Content(musicvideos) | !Container.Content(files) | !Container.Content(addons) | !Container.Content() | !String.IsEmpty(ListItem.Trailer)">PlayMedia("$INFO[ListItem.Trailer]")</onright>		
 		<onright condition="Control.IsVisible(50660)">50660</onright>
 		<onright condition="!Control.IsVisible(50660)">4400</onright>
 		<onup>506</onup>

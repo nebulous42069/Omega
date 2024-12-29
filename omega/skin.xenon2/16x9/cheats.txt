@@ -1,0 +1,23 @@
+				<control type="image">
+					<top>255</top>				
+					<width>235</width>
+					<height>85</height>
+					<texture>trailer.png</texture>
+					<visible>!Player.HasMedia + !String.IsEmpty(ListItem.Trailer)</visible>					
+				</control>
+				
+				
+                <onclick>PlayMedia("$INFO[ListItem.Trailer]")</onclick>		
+
+					<onright condition="!String.IsEmpty(ListItem.Trailer)">PlayMedia("$INFO[ListItem.Trailer]")</onright>		
+
+**BOTTOM SHORTCUTS EDITS FOR *COMPACT PANEL* IN TEMPLATE.XML LINE 3436, LINE 3484 FOR LEFT POSITION/WIDTH, 5757 FOR SIZES, 5851 FOR FONTS
+Includes_Widgets.xml- Bottom shortcuts border (IconBorder_FO.png)-line 718, bottom label font=476				
+
+Extended Panel=3041, 3185, 3818, 5511
+
+IconBorder_FO.png
+button-nofocus.png
+
+**XENON 2**
+COMPACT PANEL EXTENDED-3736(LEFT/RIGHT POSITION). 6003=DIMENTIONS, bottom label=6122

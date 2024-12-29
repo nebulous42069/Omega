@@ -27,7 +27,7 @@
 				<control type="group">
 					<animation effect="slide" end="0,320" condition="Skin.HasSetting(Disable.MyFlixInfo)">Conditional</animation>
 					<control type="image" id="50999">
-						<left>20</left>
+						<left>50</left>
 						<top>40</top>
 						<width>500</width>
 						<height>190</height>
@@ -58,7 +58,7 @@
 					</control>
 				</control>
 				<control type="group">
-					<left>10</left>
+					<left>30</left>
 					<top>270</top>
 					<width>1000</width>
 					<height>135</height>
@@ -317,6 +317,7 @@
 				<onright>509</onright>
 				<onup>SetProperty(MediaMenu,True,Home)</onup>
 				<onup>SetFocus(9050)</onup>
+				<ondown condition="Container.Content(movies) | Container.Content(tvshows) | !Container.Content(seasons) | !Container.Content(episodes) |  !Container.Content(musicvideos) | !Container.Content(files) | !Container.Content(addons) | !Container.Content() | !String.IsEmpty(ListItem.Trailer)">PlayMedia("$INFO[ListItem.Trailer]")</ondown>				
 				<ondown condition="Control.IsVisible(50960)">50960</ondown>
 				<ondown condition="!Control.IsVisible(50960)">4400</ondown>
 				<viewtype label="$LOCALIZE[31244]">bigwrap</viewtype>
@@ -339,7 +340,7 @@
 						<top>75</top>
 						<width>268</width>
 						<height>390</height>
-						<texture>colors/black.png</texture>
+						<texture>contentpanel.png</texture>
 						<colordiffuse>$VAR[MyFlixDimmerVar]</colordiffuse>
 						<bordersize>20</bordersize>
 					</control>
@@ -355,6 +356,16 @@
 							<include>FlixNoCaseVars</include>
 							<texture background="true">$VAR[CaseBackPathVar]$VAR[GlobalCaseVar]</texture>
 						</control>
+						<control type="image">
+							<top>80</top>
+							<left>14</left>
+							<width>260</width>
+							<height>380</height>
+							<texture colordiffuse="$VAR[ThemeLabelColor]" border="10">thumbs/thumbnail_focused.png</texture>
+							<bordersize>8</bordersize>
+							<animation effect="fade" start="100" end="0" time="150" reversible="false">UnFocus</animation>
+							<animation effect="fade" start="0" end="100" time="150" reversible="false">Focus</animation>
+						</control>						
 						<control type="image">
 							<include>FlixNoClearCaseVars</include>
 							<texture background="true">$VAR[CaseBackPathVar]$VAR[GlobalCaseVar]</texture>
@@ -383,7 +394,7 @@
 						<top>75</top>
 						<width>268</width>
 						<height>390</height>
-						<texture>colors/black.png</texture>
+						<texture>contentpanel.png</texture>
 						<colordiffuse>$VAR[MyFlixDimmerVar]</colordiffuse>
 						<bordersize>20</bordersize>
 					</control>
@@ -407,6 +418,16 @@
 						<texture background="true">$VAR[CaseTypePathVar]$VAR[GlobalCaseVar]</texture>
 					</control>
 					<include>FlixPosterOverlay</include>
+						<control type="image">
+							<top>80</top>
+							<left>14</left>
+							<width>260</width>
+							<height>380</height>
+							<texture colordiffuse="$VAR[ThemeLabelColor]" border="10">thumbs/thumbnail_focused.png</texture>
+							<bordersize>8</bordersize>
+							<animation effect="fade" start="100" end="0" time="150" reversible="false">UnFocus</animation>
+							<animation effect="fade" start="0" end="100" time="150" reversible="false">Focus</animation>
+						</control>					
 				</focusedlayout>
 				<itemlayout height="270" width="480" condition="[Container.Content(movies) + Skin.HasSetting(Enable.MyFlix.MovieLandscape)] | [Container.Content(tvshows) + Skin.HasSetting(Enable.MyFlix.TVLandscape)]">
 					<include>FlixLandscape</include>
@@ -424,7 +445,7 @@
 						<top>197</top>
 						<width>480</width>
 						<height>270</height>
-						<texture>colors/black.png</texture>
+						<texture>contentpanel.png</texture>
 						<colordiffuse>$VAR[MyFlixDimmerVar]</colordiffuse>
 						<bordersize>20</bordersize>
 					</control>
@@ -440,6 +461,16 @@
 						<aspectratio align="center" aligny="top">keep</aspectratio>
 						<visible>[!String.IsEmpty(Skin.String(509.Movies.DisableOverlay)) + Container.Content(movies)] | [!String.IsEmpty(Skin.String(509.Sets.DisableOverlay)) + Container.Content(sets)] | [!String.IsEmpty(Skin.String(509.TV.DisableOverlay)) + Container.Content(tvshows)]</visible>
 					</control>
+					<control type="image">
+						<top>205</top>
+						<left>0</left>
+						<width>465</width>
+						<height>256</height>
+						<texture colordiffuse="$VAR[ThemeLabelColor]" border="10">thumbs/thumbnail_focused.png</texture>
+						<bordersize>8</bordersize>
+						<animation effect="fade" start="100" end="0" time="150" reversible="false">UnFocus</animation>
+						<animation effect="fade" start="0" end="100" time="150" reversible="false">Focus</animation>
+					</control>					
 				</focusedlayout>
 				<itemlayout height="270" width="480" condition="Container.Content(episodes)">
 					<include>FlixEpisodeThumb</include>
@@ -456,7 +487,7 @@
 						<top>197</top>
 						<width>480</width>
 						<height>270</height>
-						<texture>colors/black.png</texture>
+						<texture>contentpanel.png</texture>
 						<colordiffuse>$VAR[MyFlixDimmerVar]</colordiffuse>
 						<bordersize>20</bordersize>
 					</control>
@@ -472,6 +503,16 @@
 						<aspectratio align="center" aligny="top">keep</aspectratio>
 						<visible>!String.IsEmpty(Skin.String(509.Episodes.DisableOverlay)) + Container.Content(episodes)</visible>
 					</control>
+					<control type="image">
+						<top>205</top>
+						<left>6</left>
+						<width>465</width>
+						<height>256</height>
+						<texture colordiffuse="$VAR[ThemeLabelColor]" border="10">thumbs/thumbnail_focused.png</texture>
+						<bordersize>8</bordersize>
+						<animation effect="fade" start="100" end="0" time="150" reversible="false">UnFocus</animation>
+						<animation effect="fade" start="0" end="100" time="150" reversible="false">Focus</animation>
+					</control>					
 				</focusedlayout>
 			</control>
 			<control type="group">

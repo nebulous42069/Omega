@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+		<!-- EDITS- LINE 6001,  -->
 <template>
 	<!-- WIDGET 1 -->
 	<!-- List -->
@@ -293,7 +294,7 @@
 							<control type="image">
 								<width>342</width>
 								<height>342</height>
-								<visible>Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+								<visible>!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
 								<texture colordiffuse="$VAR[HomeWidgetBackColor]" border="40">$VAR[HomeWidgetBackgroundVar]</texture>
 							</control>
 							<control type="image">
@@ -945,16 +946,18 @@
 							<width>1472.5</width>
 							<height>$SKINSHORTCUTS[height]</height>
 							<control type="image">
-								<width>1472.5</width>
+								<left>-10</left>
+								<width>1520</width>
 								<height>$SKINSHORTCUTS[height]</height>
 								<texture colordiffuse="$VAR[HomeWidgetBackColor]" border="40">$VAR[HomeWidgetBackgroundVar]</texture>
-								<visible>Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+								<visible>!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
 							</control>
 							<control type="image">
-								<width>1472.5</width>
+								<left>-10</left>
+								<width>1520</width>
 								<height>$SKINSHORTCUTS[height]</height>
 								<texture colordiffuse="$SKINSHORTCUTS[widgetbackgroundcolor]" border="40">$SKINSHORTCUTS[widgetbackground]</texture>
-								<visible>!Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+								<visible>!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + !Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
 							</control>
 						</control>
 						<include content="PanelLabel">
@@ -1053,16 +1056,18 @@
 							<width>1472.5</width>
 							<height>$SKINSHORTCUTS[height]</height>
 							<control type="image">
-								<width>1472.5</width>
+								<left>-10</left>
+								<width>1520</width>
 								<height>$SKINSHORTCUTS[height]</height>
 								<texture colordiffuse="$VAR[HomeWidgetBackColor]" border="40">$VAR[HomeWidgetBackgroundVar]</texture>
-								<visible>Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+								<visible>!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
 							</control>
 							<control type="image">
-								<width>1472.5</width>
+								<left>-10</left>
+								<width>1520</width>
 								<height>$SKINSHORTCUTS[height]</height>
 								<texture colordiffuse="$SKINSHORTCUTS[widgetbackgroundcolor]" border="40">$SKINSHORTCUTS[widgetbackground]</texture>
-								<visible>!Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+								<visible>!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + !Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
 							</control>
 						</control>
 						<include content="PanelLabel">
@@ -1163,10 +1168,11 @@
 						<control type="group">
 							<animation effect="fade" end="0">WindowClose</animation>
 							<control type="image">
-								<top>-40</top>
-								<width>1890</width>
-								<height>391</height>
-								<texture>homewidgets/list_shadow.png</texture>
+								<left>-20</left>							
+								<top>-15</top>
+								<width>1880</width>
+								<height>404</height>
+								<texture>contentpanel.png</texture>
 							</control>
 							<!-- Poster -->
 							<control type="group">
@@ -1196,16 +1202,18 @@
 							<width>1882.5</width>
 							<height>$SKINSHORTCUTS[height]</height>
 							<control type="image">
-								<width>1882.5</width>
+								<left>-10</left>
+								<width>1905</width>
 								<height>$SKINSHORTCUTS[height]</height>
 								<texture colordiffuse="$VAR[HomeWidgetBackColor]" border="40">$VAR[HomeWidgetBackgroundVar]</texture>
-								<visible>Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+								<visible>!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
 							</control>
 							<control type="image">
-								<width>1882.5</width>
+								<left>-10</left>
+								<width>1905</width>
 								<height>$SKINSHORTCUTS[height]</height>
 								<texture colordiffuse="$SKINSHORTCUTS[widgetbackgroundcolor]" border="40">$SKINSHORTCUTS[widgetbackground]</texture>
-								<visible>!Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+								<visible>!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + !Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
 							</control>
 						</control>
 						<include content="PanelLabel">
@@ -1304,16 +1312,18 @@
 							<width>1882.5</width>
 							<height>$SKINSHORTCUTS[height]</height>
 							<control type="image">
-								<width>1882.5</width>
+								<left>-10</left>
+								<width>1905</width>
 								<height>$SKINSHORTCUTS[height]</height>
 								<texture colordiffuse="$VAR[HomeWidgetBackColor]" border="40">$VAR[HomeWidgetBackgroundVar]</texture>
-								<visible>Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+								<visible>!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
 							</control>
 							<control type="image">
-								<width>1882.5</width>
+								<left>-10</left>
+								<width>1905</width>
 								<height>$SKINSHORTCUTS[height]</height>
 								<texture colordiffuse="$SKINSHORTCUTS[widgetbackgroundcolor]" border="40">$SKINSHORTCUTS[widgetbackground]</texture>
-								<visible>!Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+								<visible>!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + !Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
 							</control>
 						</control>
 						<include content="PanelLabel">
@@ -1447,16 +1457,18 @@
 							<width>1472.5</width>
 							<height>$SKINSHORTCUTS[height]</height>
 							<control type="image">
-								<width>1472.5</width>
+								<left>-10</left>
+								<width>1520</width>
 								<height>$SKINSHORTCUTS[height]</height>
 								<texture colordiffuse="$VAR[HomeWidgetBackColor]" border="40">$VAR[HomeWidgetBackgroundVar]</texture>
-								<visible>Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+								<visible>!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
 							</control>
 							<control type="image">
-								<width>1472.5</width>
+								<left>-10</left>
+								<width>1520</width>
 								<height>$SKINSHORTCUTS[height]</height>
 								<texture colordiffuse="$SKINSHORTCUTS[widgetbackgroundcolor]" border="40">$SKINSHORTCUTS[widgetbackground]</texture>
-								<visible>!Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+								<visible>!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + !Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
 							</control>
 						</control>
 						<include content="PanelLabel">
@@ -1555,16 +1567,18 @@
 							<width>1472.5</width>
 							<height>$SKINSHORTCUTS[height]</height>
 							<control type="image">
-								<width>1472.5</width>
+								<left>-10</left>
+								<width>1520</width>
 								<height>$SKINSHORTCUTS[height]</height>
 								<texture colordiffuse="$VAR[HomeWidgetBackColor]" border="40">$VAR[HomeWidgetBackgroundVar]</texture>
-								<visible>Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+								<visible>!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
 							</control>
 							<control type="image">
-								<width>1472.5</width>
+								<left>-10</left>
+								<width>1520</width>
 								<height>$SKINSHORTCUTS[height]</height>
 								<texture colordiffuse="$SKINSHORTCUTS[widgetbackgroundcolor]" border="40">$SKINSHORTCUTS[widgetbackground]</texture>
-								<visible>!Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+								<visible>!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + !Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
 							</control>
 						</control>
 						<include content="PanelLabel">
@@ -1698,16 +1712,18 @@
 							<width>1882.5</width>
 							<height>$SKINSHORTCUTS[height]</height>
 							<control type="image">
-								<width>1882.5</width>
+								<left>-10</left>
+								<width>1905</width>
 								<height>$SKINSHORTCUTS[height]</height>
 								<texture colordiffuse="$VAR[HomeWidgetBackColor]" border="40">$VAR[HomeWidgetBackgroundVar]</texture>
-								<visible>Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+								<visible>!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
 							</control>
 							<control type="image">
-								<width>1882.5</width>
+								<left>-10</left>
+								<width>1905</width>
 								<height>$SKINSHORTCUTS[height]</height>
 								<texture colordiffuse="$SKINSHORTCUTS[widgetbackgroundcolor]" border="40">$SKINSHORTCUTS[widgetbackground]</texture>
-								<visible>!Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+								<visible>!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + !Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
 							</control>
 						</control>
 						<include content="PanelLabel">
@@ -1806,16 +1822,18 @@
 							<width>1882.5</width>
 							<height>$SKINSHORTCUTS[height]</height>
 							<control type="image">
-								<width>1882.5</width>
+								<left>-10</left>
+								<width>1905</width>
 								<height>$SKINSHORTCUTS[height]</height>
 								<texture colordiffuse="$VAR[HomeWidgetBackColor]" border="40">$VAR[HomeWidgetBackgroundVar]</texture>
-								<visible>Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+								<visible>!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
 							</control>
 							<control type="image">
-								<width>1882.5</width>
+								<left>-10</left>
+								<width>1905</width>
 								<height>$SKINSHORTCUTS[height]</height>
 								<texture colordiffuse="$SKINSHORTCUTS[widgetbackgroundcolor]" border="40">$SKINSHORTCUTS[widgetbackground]</texture>
-								<visible>!Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+								<visible>!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + !Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
 							</control>
 						</control>
 						<include content="PanelLabel">
@@ -2636,7 +2654,7 @@
 							<control type="image">
 								<width>342</width>
 								<height>342</height>
-								<visible>!Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+								<visible>!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + !Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
 								<texture colordiffuse="$SKINSHORTCUTS[widgetbackgroundcolor]" border="40">$SKINSHORTCUTS[widgetbackground]</texture>
 							</control>
 						</control>
@@ -2839,16 +2857,18 @@
 							<width>1472.5</width>
 							<height>$SKINSHORTCUTS[height]</height>
 							<control type="image">
-								<width>1472.5</width>
+								<left>-10</left>
+								<width>1520</width>
 								<height>$SKINSHORTCUTS[height]</height>
 								<texture colordiffuse="$VAR[HomeWidgetBackColor]" border="40">$VAR[HomeWidgetBackgroundVar]</texture>
-								<visible>Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+								<visible>!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
 							</control>
 							<control type="image">
-								<width>1472.5</width>
+								<left>-10</left>
+								<width>1520</width>
 								<height>$SKINSHORTCUTS[height]</height>
 								<texture colordiffuse="$SKINSHORTCUTS[widgetbackgroundcolor]" border="40">$SKINSHORTCUTS[widgetbackground]</texture>
-								<visible>!Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+								<visible>!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + !Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
 							</control>
 						</control>
 						<include content="PanelLabel">
@@ -2949,16 +2969,18 @@
 							<width>1472.5</width>
 							<height>$SKINSHORTCUTS[height]</height>
 							<control type="image">
-								<width>1472.5</width>
+								<left>-10</left>
+								<width>1520</width>
 								<height>$SKINSHORTCUTS[height]</height>
 								<texture colordiffuse="$VAR[HomeWidgetBackColor]" border="40">$VAR[HomeWidgetBackgroundVar]</texture>
-								<visible>Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+								<visible>!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
 							</control>
 							<control type="image">
-								<width>1472.5</width>
+								<left>-10</left>
+								<width>1520</width>
 								<height>$SKINSHORTCUTS[height]</height>
 								<texture colordiffuse="$SKINSHORTCUTS[widgetbackgroundcolor]" border="40">$SKINSHORTCUTS[widgetbackground]</texture>
-								<visible>!Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+								<visible>!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + !Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
 							</control>
 						</control>
 						<include content="PanelLabel">
@@ -3093,16 +3115,18 @@
 							<width>1882.5</width>
 							<height>$SKINSHORTCUTS[height]</height>
 							<control type="image">
-								<width>1882.5</width>
+								<left>-10</left>
+								<width>1905</width>
 								<height>$SKINSHORTCUTS[height]</height>
 								<texture colordiffuse="$VAR[HomeWidgetBackColor]" border="40">$VAR[HomeWidgetBackgroundVar]</texture>
-								<visible>Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+								<visible>!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
 							</control>
 							<control type="image">
-								<width>1882.5</width>
+								<left>-10</left>
+								<width>1905</width>
 								<height>$SKINSHORTCUTS[height]</height>
 								<texture colordiffuse="$SKINSHORTCUTS[widgetbackgroundcolor]" border="40">$SKINSHORTCUTS[widgetbackground]</texture>
-								<visible>!Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+								<visible>!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + !Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
 							</control>
 						</control>
 						<include content="PanelLabel">
@@ -3202,16 +3226,18 @@
 							<width>1882.5</width>
 							<height>$SKINSHORTCUTS[height]</height>
 							<control type="image">
-								<width>1882.5</width>
+								<left>-10</left>
+								<width>1905</width>
 								<height>$SKINSHORTCUTS[height]</height>
 								<texture colordiffuse="$VAR[HomeWidgetBackColor]" border="40">$VAR[HomeWidgetBackgroundVar]</texture>
-								<visible>Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+								<visible>!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
 							</control>
 							<control type="image">
-								<width>1882.5</width>
+								<left>-10</left>
+								<width>1905</width>
 								<height>$SKINSHORTCUTS[height]</height>
 								<texture colordiffuse="$SKINSHORTCUTS[widgetbackgroundcolor]" border="40">$SKINSHORTCUTS[widgetbackground]</texture>
-								<visible>!Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+								<visible>!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + !Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
 							</control>
 						</control>
 						<include content="PanelLabel">
@@ -3345,16 +3371,18 @@
 							<width>1472.5</width>
 							<height>$SKINSHORTCUTS[height]</height>
 							<control type="image">
-								<width>1472.5</width>
+								<left>-10</left>
+								<width>1520</width>
 								<height>$SKINSHORTCUTS[height]</height>
 								<texture colordiffuse="$VAR[HomeWidgetBackColor]" border="40">$VAR[HomeWidgetBackgroundVar]</texture>
-								<visible>Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+								<visible>!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
 							</control>
 							<control type="image">
-								<width>1472.5</width>
+								<left>-10</left>
+								<width>1520</width>
 								<height>$SKINSHORTCUTS[height]</height>
 								<texture colordiffuse="$SKINSHORTCUTS[widgetbackgroundcolor]" border="40">$SKINSHORTCUTS[widgetbackground]</texture>
-								<visible>!Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+								<visible>!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + !Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
 							</control>
 						</control>
 						<include content="PanelLabel">
@@ -3454,16 +3482,18 @@
 							<width>1472.5</width>
 							<height>$SKINSHORTCUTS[height]</height>
 							<control type="image">
-								<width>1472.5</width>
+								<left>-10</left>
+								<width>1520</width>
 								<height>$SKINSHORTCUTS[height]</height>
 								<texture colordiffuse="$VAR[HomeWidgetBackColor]" border="40">$VAR[HomeWidgetBackgroundVar]</texture>
-								<visible>Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+								<visible>!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
 							</control>
 							<control type="image">
-								<width>1472.5</width>
+								<left>-10</left>
+								<width>1520</width>
 								<height>$SKINSHORTCUTS[height]</height>
 								<texture colordiffuse="$SKINSHORTCUTS[widgetbackgroundcolor]" border="40">$SKINSHORTCUTS[widgetbackground]</texture>
-								<visible>!Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+								<visible>!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + !Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
 							</control>
 						</control>
 						<include content="PanelLabel">
@@ -3597,16 +3627,18 @@
 							<width>1882.5</width>
 							<height>$SKINSHORTCUTS[height]</height>
 							<control type="image">
-								<width>1882.5</width>
+								<left>-10</left>
+								<width>1905</width>
 								<height>$SKINSHORTCUTS[height]</height>
 								<texture colordiffuse="$VAR[HomeWidgetBackColor]" border="40">$VAR[HomeWidgetBackgroundVar]</texture>
-								<visible>Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+								<visible>!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
 							</control>
 							<control type="image">
-								<width>1882.5</width>
+								<left>-10</left>
+								<width>1905</width>
 								<height>$SKINSHORTCUTS[height]</height>
 								<texture colordiffuse="$SKINSHORTCUTS[widgetbackgroundcolor]" border="40">$SKINSHORTCUTS[widgetbackground]</texture>
-								<visible>!Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+								<visible>!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + !Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
 							</control>
 						</control>
 						<include content="PanelLabel">
@@ -3618,7 +3650,7 @@
 							<param name="labelWidth">922</param>
 							<param name="labelLeft">38</param>
 							<param name="labelRight">959</param>
-							<param name="labelTitle">$SKINSHORTCUTS[labeltitle]</param>
+							<param name="labelTitle"></param>
 						</include>
 					</control>
 				</control>
@@ -3692,7 +3724,7 @@
 		<propertyGroup>extendedCompactPanel2Common</propertyGroup>
 		<controls>
 			<control type="group">
-				<animation effect="slide" end="0,-20" condition="$SKINSHORTCUTS[widgetsquare]">Conditional</animation>
+				<animation effect="slide" end="0,-30" condition="$SKINSHORTCUTS[widgetsquare]">Conditional</animation>
 				<skinshortcuts>visibility</skinshortcuts>
 				<control type="group">
 					<visible>Integer.IsGreater(Container(8021$SKINSHORTCUTS[id]).NumItems,0)</visible>
@@ -3703,19 +3735,21 @@
 							<include condition="!String.IsEmpty(Skin.String(Widget.Trans))">HomeWidgetFade</include>
 							<centerleft>50%</centerleft>
 							<top>-21</top>
-							<width>1882.5</width>
+							<width>1650</width>
 							<height>$SKINSHORTCUTS[height]</height>
 							<control type="image">
-								<width>1882.5</width>
+								<left>-10</left>
+								<width>1660</width>
 								<height>$SKINSHORTCUTS[height]</height>
 								<texture colordiffuse="$VAR[HomeWidgetBackColor]" border="40">$VAR[HomeWidgetBackgroundVar]</texture>
-								<visible>Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+								<visible>!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
 							</control>
 							<control type="image">
-								<width>1882.5</width>
+								<left>-10</left>
+								<width>1660</width>
 								<height>$SKINSHORTCUTS[height]</height>
 								<texture colordiffuse="$SKINSHORTCUTS[widgetbackgroundcolor]" border="40">$SKINSHORTCUTS[widgetbackground]</texture>
-								<visible>!Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+								<visible>!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + !Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
 							</control>
 						</control>
 						<include content="PanelLabel">
@@ -3727,7 +3761,7 @@
 							<param name="labelWidth">922</param>
 							<param name="labelLeft">38</param>
 							<param name="labelRight">959</param>
-							<param name="labelTitle">$SKINSHORTCUTS[labeltitle]</param>
+							<param name="labelTitle"></param>
 						</include>
 					</control>
 				</control>
@@ -3735,8 +3769,8 @@
 				<control type="group">
 					<top>$SKINSHORTCUTS[top]</top>
 					<control type="panel" id="8021$SKINSHORTCUTS[id]">
-						<left>37.5</left>
-						<width>1845</width>
+						<left>157.5</left>
+						<width>1625</width>
 						<height>243</height>
 						<orientation>horizontal</orientation>
 						<preloaditems>2</preloaditems>
@@ -3801,9 +3835,11 @@
 		<condition tag="property" attribute="name|widgetStyle">Extended Compact Panel</condition>
 		<match>any</match>
 		<controls>
-			<onup condition="!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Control.IsVisible(90020) + !Skin.HasSetting(centermainmenu)">90020</onup>
+			<onup condition="!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Control.IsVisible(90010) + Skin.HasSetting(centermainmenu)">PlayMedia("$INFO[ListItem.Trailer]")</onup>
+			<onup condition="!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Control.IsVisible(90020) + !Skin.HasSetting(centermainmenu)">90020</onup>			
 			<onup condition="String.IsEqual(Skin.String(MainMenu.Layout),vertical) + [Control.IsVisible(9027) | System.HasMediaDVD]">9020</onup>
 			<onup condition="String.IsEqual(Skin.String(MainMenu.Layout),vertical) + ![Control.IsVisible(9027) | System.HasMediaDVD]">9000</onup>
+			<onup condition="String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Control.IsVisible(90020)">PlayMedia("$INFO[ListItem.Trailer]")</onup>
 			<ondown condition="!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + ![System.HasMediaDVD | Control.IsVisible(9027)]">9000</ondown>
 			<ondown condition="!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + [System.HasMediaDVD | Control.IsVisible(9027)]">9020</ondown>
 			<ondown condition="String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Control.IsVisible(90020)">90020</ondown>
@@ -3825,6 +3861,8 @@
 			<onup condition="String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Control.IsVisible(90010)">90010</onup>
 			<onup condition="String.IsEqual(Skin.String(MainMenu.Layout),vertical) + !Control.IsVisible(90010) + [Control.IsVisible(9027) | System.HasMediaDVD]">9020</onup>
 			<onup condition="String.IsEqual(Skin.String(MainMenu.Layout),vertical) + !Control.IsVisible(90010) + ![Control.IsVisible(9027) | System.HasMediaDVD]">9000</onup>
+			<ondown condition="!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Control.IsVisible(90020) + Skin.HasSetting(centermainmenu) + !Player.HasMedia">9081</ondown>
+			<ondown condition="!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Control.IsVisible(90020) + Skin.HasSetting(centermainmenu) + Player.HasMedia">600</ondown>			
 			<ondown condition="!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Control.IsVisible(90020) + Skin.HasSetting(centermainmenu)">90020</ondown>
 			<ondown condition="!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Control.IsVisible(90010) + !Skin.HasSetting(centermainmenu)">90010</ondown>
 			<ondown condition="!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + !Control.IsVisible(90010) + [System.HasMediaDVD | Control.IsVisible(9027)] + !Skin.HasSetting(centermainmenu)">9020</ondown>
@@ -5249,9 +5287,9 @@
 		<property name="top" tag="property" attribute="name|widgetArt" value="FanArt|Landscape|ClearArt|ClearLogo|Thumb">471</property>
 		<property name="top" tag="property" attribute="name|widgetArt" value="Banner">470</property>
 		<!-- Background Height -->
-		<property name="height" tag="property" attribute="name|widgetArt" value="Poster">342</property>
-		<property name="height" tag="property" attribute="name|widgetArt" value="Square Poster|DiscArt|CharacterArt">324</property>
-		<property name="height" tag="property" attribute="name|widgetArt" value="FanArt|Landscape|ClearArt|ClearLogo|Thumb">308</property>
+		<property name="height" tag="property" attribute="name|widgetArt" value="Poster">380</property>
+		<property name="height" tag="property" attribute="name|widgetArt" value="Square Poster|DiscArt|CharacterArt">365</property>
+		<property name="height" tag="property" attribute="name|widgetArt" value="FanArt|Landscape|ClearArt|ClearLogo|Thumb">350</property>
 		<property name="height" tag="property" attribute="name|widgetArt" value="Banner">311</property>
 		<!-- Label Bottom Position -->
 		<property name="labelbottom" tag="property" attribute="name|widgetArt" value="Poster">318</property>
@@ -5372,12 +5410,12 @@
 		<property name="top" tag="property" attribute="name|widgetArt.2" value="FanArt|Landscape|ClearArt|ClearLogo|Thumb">112</property>
 		<property name="top" tag="property" attribute="name|widgetArt.2" value="Banner">111</property>
 		<!-- Background Height -->
-		<property name="height" tag="property" attribute="name|widgetArt.2" value="Poster">342</property>
-		<property name="height" tag="property" attribute="name|widgetArt.2" value="Square Poster|DiscArt|CharacterArt">325</property>
-		<property name="height" tag="property" attribute="name|widgetArt.2" value="FanArt|Landscape|ClearArt|ClearLogo|Thumb">308</property>
+		<property name="height" tag="property" attribute="name|widgetArt.2" value="Poster">377</property>
+		<property name="height" tag="property" attribute="name|widgetArt.2" value="Square Poster|DiscArt|CharacterArt">370</property>
+		<property name="height" tag="property" attribute="name|widgetArt.2" value="FanArt|Landscape|ClearArt|ClearLogo|Thumb">350</property>
 		<property name="height" tag="property" attribute="name|widgetArt.2" value="Banner">311</property>
 		<!-- Label Bottom Position -->
-		<property name="labelbottom" tag="property" attribute="name|widgetArt.2" value="Poster">318</property>
+		<property name="labelbottom" tag="property" attribute="name|widgetArt.2" value="Poster">325</property>
 		<property name="labelbottom" tag="property" attribute="name|widgetArt.2" value="Square Poster|DiscArt|CharacterArt">306</property>
 		<property name="labelbottom" tag="property" attribute="name|widgetArt.2" value="FanArt|Landscape|ClearArt|ClearLogo|Thumb">289</property>
 		<property name="labelbottom" tag="property" attribute="name|widgetArt.2" value="Banner">292</property>
@@ -5495,12 +5533,12 @@
 		<property name="top" tag="property" attribute="name|widgetArt" value="FanArt|Landscape|ClearArt|ClearLogo|Thumb">476</property>
 		<property name="top" tag="property" attribute="name|widgetArt" value="Banner">488</property>
 		<!-- Background Height -->
-		<property name="height" tag="property" attribute="name|widgetArt" value="Poster">342</property>
-		<property name="height" tag="property" attribute="name|widgetArt" value="Square Poster|DiscArt|CharacterArt">300</property>
-		<property name="height" tag="property" attribute="name|widgetArt" value="FanArt|Landscape|ClearArt|ClearLogo|Thumb">299</property>
+		<property name="height" tag="property" attribute="name|widgetArt" value="Poster">377</property>
+		<property name="height" tag="property" attribute="name|widgetArt" value="Square Poster|DiscArt|CharacterArt">340</property>
+		<property name="height" tag="property" attribute="name|widgetArt" value="FanArt|Landscape|ClearArt|ClearLogo|Thumb">342</property>
 		<property name="height" tag="property" attribute="name|widgetArt" value="Banner">273</property>
 		<!-- Label Bottom Position -->
-		<property name="labelbottom" tag="property" attribute="name|widgetArt" value="Poster">318</property>
+		<property name="labelbottom" tag="property" attribute="name|widgetArt" value="Poster">325</property>
 		<property name="labelbottom" tag="property" attribute="name|widgetArt" value="Square Poster|DiscArt|CharacterArt">281</property>
 		<property name="labelbottom" tag="property" attribute="name|widgetArt" value="FanArt|Landscape|ClearArt|ClearLogo|Thumb">280</property>
 		<property name="labelbottom" tag="property" attribute="name|widgetArt" value="Banner">254</property>
@@ -5618,12 +5656,12 @@
 		<property name="top" tag="property" attribute="name|widgetArt.2" value="FanArt|Landscape|ClearArt|ClearLogo|Thumb">117</property>
 		<property name="top" tag="property" attribute="name|widgetArt.2" value="Banner">130</property>
 		<!-- Background Height -->
-		<property name="height" tag="property" attribute="name|widgetArt.2" value="Poster">342</property>
-		<property name="height" tag="property" attribute="name|widgetArt.2" value="Square Poster|DiscArt|CharacterArt">300</property>
-		<property name="height" tag="property" attribute="name|widgetArt.2" value="FanArt|Landscape|ClearArt|ClearLogo|Thumb">299</property>
+		<property name="height" tag="property" attribute="name|widgetArt.2" value="Poster">376</property>
+		<property name="height" tag="property" attribute="name|widgetArt.2" value="Square Poster|DiscArt|CharacterArt">340</property>
+		<property name="height" tag="property" attribute="name|widgetArt.2" value="FanArt|Landscape|ClearArt|ClearLogo|Thumb">340</property>
 		<property name="height" tag="property" attribute="name|widgetArt.2" value="Banner">273</property>
 		<!-- Label Bottom Position -->
-		<property name="labelbottom" tag="property" attribute="name|widgetArt.2" value="Poster">318</property>
+		<property name="labelbottom" tag="property" attribute="name|widgetArt.2" value="Poster">325</property>
 		<property name="labelbottom" tag="property" attribute="name|widgetArt.2" value="Square Poster|DiscArt|CharacterArt">281</property>
 		<property name="labelbottom" tag="property" attribute="name|widgetArt.2" value="FanArt|Landscape|ClearArt|ClearLogo|Thumb">280</property>
 		<property name="labelbottom" tag="property" attribute="name|widgetArt.2" value="Banner">254</property>
@@ -5741,12 +5779,12 @@
 		<property name="top" tag="property" attribute="name|widgetArt" value="FanArt|Landscape|ClearArt|ClearLogo|Thumb">505</property>
 		<property name="top" tag="property" attribute="name|widgetArt" value="Banner">515</property>
 		<!-- Background Height -->
-		<property name="height" tag="property" attribute="name|widgetArt" value="Poster">276</property>
-		<property name="height" tag="property" attribute="name|widgetArt" value="Square Poster|DiscArt|CharacterArt">242</property>
-		<property name="height" tag="property" attribute="name|widgetArt" value="FanArt|Landscape|ClearArt|ClearLogo|Thumb">241</property>
+		<property name="height" tag="property" attribute="name|widgetArt" value="Poster">310</property>
+		<property name="height" tag="property" attribute="name|widgetArt" value="Square Poster|DiscArt|CharacterArt">283</property>
+		<property name="height" tag="property" attribute="name|widgetArt" value="FanArt|Landscape|ClearArt|ClearLogo|Thumb">280</property>
 		<property name="height" tag="property" attribute="name|widgetArt" value="Banner">221</property>
 		<!-- Label Bottom Position -->
-		<property name="labelbottom" tag="property" attribute="name|widgetArt" value="Poster">252</property>
+		<property name="labelbottom" tag="property" attribute="name|widgetArt" value="Poster">260</property>
 		<property name="labelbottom" tag="property" attribute="name|widgetArt" value="Square Poster|DiscArt|CharacterArt">223</property>
 		<property name="labelbottom" tag="property" attribute="name|widgetArt" value="FanArt|Landscape|ClearArt|ClearLogo|Thumb">222</property>
 		<property name="labelbottom" tag="property" attribute="name|widgetArt" value="Banner">202</property>
@@ -5757,7 +5795,7 @@
 		<!-- Layout Dimensions -->
 		<property name="containerwidth" tag="property" attribute="name|widgetArt.2" value="Poster">159.4</property>
 		<property name="containerheight" tag="property" attribute="name|widgetArt.2" value="Poster">233</property>
-		<property name="containerwidth" tag="property" attribute="name|widgetArt.2" value="Square Poster|DiscArt|CharacterArt">205</property>
+		<property name="containerwidth" tag="property" attribute="name|widgetArt.2" value="Square Poster|DiscArt|CharacterArt">240</property>
 		<property name="containerheight" tag="property" attribute="name|widgetArt.2" value="Square Poster|DiscArt|CharacterArt">200</property>
 		<property name="containerwidth" tag="property" attribute="name|widgetArt.2" value="FanArt|Landscape|ClearArt|ClearLogo|Thumb">358.7</property>
 		<property name="containerheight" tag="property" attribute="name|widgetArt.2" value="FanArt|Landscape|ClearArt|ClearLogo|Thumb">199</property>
@@ -5842,7 +5880,7 @@
 		<property name="labelheightcase" tag="property" attribute="name|widgetCase.2" value="Case|Case ">5</property>
 		<property name="labelheightcase">-29</property>
 		<property name="labelheight" tag="property" attribute="name|widgetArt.2" value="Poster">$SKINSHORTCUTS[labelheightcase]</property>
-		<property name="labelheight" tag="property" attribute="name|widgetArt.2" value="Square Poster|DiscArt|CharacterArt|FanArt|Landscape|ClearArt|ClearLogo|Thumb">-29</property>
+		<property name="labelheight" tag="property" attribute="name|widgetArt.2" value="Square Poster|DiscArt|CharacterArt|FanArt|Landscape|ClearArt|ClearLogo|Thumb">40</property>
 		<property name="labelheight" tag="property" attribute="name|widgetArt.2" value="Banner">-38</property>
 		<!-- Fonts -->
 		<property name="weatherfont">font12</property>
@@ -5864,14 +5902,14 @@
 		<property name="top" tag="property" attribute="name|widgetArt.2" value="FanArt|Landscape|ClearArt|ClearLogo|Thumb">146</property>
 		<property name="top" tag="property" attribute="name|widgetArt.2" value="Banner">156</property>
 		<!-- Background Height -->
-		<property name="height" tag="property" attribute="name|widgetArt.2" value="Poster">275</property>
-		<property name="height" tag="property" attribute="name|widgetArt.2" value="Square Poster|DiscArt|CharacterArt">242</property>
-		<property name="height" tag="property" attribute="name|widgetArt.2" value="FanArt|Landscape|ClearArt|ClearLogo|Thumb">241</property>
+		<property name="height" tag="property" attribute="name|widgetArt.2" value="Poster">325</property>
+		<property name="height" tag="property" attribute="name|widgetArt.2" value="Square Poster|DiscArt|CharacterArt">315</property>
+		<property name="height" tag="property" attribute="name|widgetArt.2" value="FanArt|Landscape|ClearArt|ClearLogo|Thumb">315</property>
 		<property name="height" tag="property" attribute="name|widgetArt.2" value="Banner">221</property>
 		<!-- Label Bottom Position -->
-		<property name="labelbottom" tag="property" attribute="name|widgetArt.2" value="Poster">251</property>
-		<property name="labelbottom" tag="property" attribute="name|widgetArt.2" value="Square Poster|DiscArt|CharacterArt">223</property>
-		<property name="labelbottom" tag="property" attribute="name|widgetArt.2" value="FanArt|Landscape|ClearArt|ClearLogo|Thumb">222</property>
+		<property name="labelbottom" tag="property" attribute="name|widgetArt.2" value="Poster">261</property>
+		<property name="labelbottom" tag="property" attribute="name|widgetArt.2" value="Square Poster|DiscArt|CharacterArt">250</property>
+		<property name="labelbottom" tag="property" attribute="name|widgetArt.2" value="FanArt|Landscape|ClearArt|ClearLogo|Thumb">250</property>
 		<property name="labelbottom" tag="property" attribute="name|widgetArt.2" value="Banner">202</property>
 	</propertyGroup>
 	<propertyGroup name="extendedCompactPanelCommon">
@@ -5987,24 +6025,24 @@
 		<property name="top" tag="property" attribute="name|widgetArt" value="FanArt|Landscape|ClearArt|ClearLogo|Thumb">502</property>
 		<property name="top" tag="property" attribute="name|widgetArt" value="Banner">518</property>
 		<!-- Background Height -->
-		<property name="height" tag="property" attribute="name|widgetArt" value="Poster">285</property>
-		<property name="height" tag="property" attribute="name|widgetArt" value="Square Poster|DiscArt|CharacterArt">242</property>
-		<property name="height" tag="property" attribute="name|widgetArt" value="FanArt|Landscape|ClearArt|ClearLogo|Thumb">247</property>
+		<property name="height" tag="property" attribute="name|widgetArt" value="Poster">320</property>
+		<property name="height" tag="property" attribute="name|widgetArt" value="Square Poster|DiscArt|CharacterArt">282</property>
+		<property name="height" tag="property" attribute="name|widgetArt" value="FanArt|Landscape|ClearArt|ClearLogo|Thumb">325</property>
 		<property name="height" tag="property" attribute="name|widgetArt" value="Banner">215</property>
 		<!-- Label Bottom Position -->
 		<property name="labelbottom" tag="property" attribute="name|widgetArt" value="Poster">260</property>
 		<property name="labelbottom" tag="property" attribute="name|widgetArt" value="Square Poster|DiscArt|CharacterArt">223</property>
-		<property name="labelbottom" tag="property" attribute="name|widgetArt" value="FanArt|Landscape|ClearArt|ClearLogo|Thumb">228</property>
+		<property name="labelbottom" tag="property" attribute="name|widgetArt" value="FanArt|Landscape|ClearArt|ClearLogo|Thumb">250</property>
 		<property name="labelbottom" tag="property" attribute="name|widgetArt" value="Banner">196</property>
 	</propertyGroup>
 	<propertyGroup name="extendedCompactPanel2Common">
 		<!-- Info - Set Back Width -->
 		<property name="infowidthshadow">1890</property>
 		<!-- Layout Dimensions -->
-		<property name="containerwidth" tag="property" attribute="name|widgetArt.2" value="Poster">167.7</property>
+		<property name="containerwidth" tag="property" attribute="name|widgetArt.2" value="Poster">187</property>
 		<property name="containerheight" tag="property" attribute="name|widgetArt.2" value="Poster">243</property>
-		<property name="containerwidth" tag="property" attribute="name|widgetArt.2" value="Square Poster|DiscArt|CharacterArt">205</property>
-		<property name="containerheight" tag="property" attribute="name|widgetArt.2" value="Square Poster|DiscArt|CharacterArt">200</property>
+		<property name="containerwidth" tag="property" attribute="name|widgetArt.2" value="Square Poster|DiscArt|CharacterArt">232</property>
+		<property name="containerheight" tag="property" attribute="name|widgetArt.2" value="Square Poster|DiscArt|CharacterArt">205</property>
 		<property name="containerwidth" tag="property" attribute="name|widgetArt.2" value="FanArt|Landscape|ClearArt|ClearLogo|Thumb">369</property>
 		<property name="containerheight" tag="property" attribute="name|widgetArt.2" value="FanArt|Landscape|ClearArt|ClearLogo|Thumb">205</property>
 		<property name="containerwidth" tag="property" attribute="name|widgetArt.2" value="Banner">461.25</property>
@@ -6088,12 +6126,12 @@
 		<property name="labelheightcase" tag="property" attribute="name|widgetCase.2" value="Case|Case ">5</property>
 		<property name="labelheightcase">-29</property>
 		<property name="labelheight" tag="property" attribute="name|widgetArt.2" value="Poster">$SKINSHORTCUTS[labelheightcase]</property>
-		<property name="labelheight" tag="property" attribute="name|widgetArt.2" value="Square Poster|DiscArt|CharacterArt|FanArt|Landscape|ClearArt|ClearLogo|Thumb">-29</property>
+		<property name="labelheight" tag="property" attribute="name|widgetArt.2" value="Square Poster|DiscArt|CharacterArt|FanArt|Landscape|ClearArt|ClearLogo|Thumb">40</property>
 		<property name="labelheight" tag="property" attribute="name|widgetArt.2" value="Banner">-37</property>
 		<!-- Fonts -->
 		<property name="weatherfont">font12</property>
-		<property name="labelfont">font11</property>
-		<property name="labelfontback">font13_title</property>
+		<property name="labelfont">font10</property>
+		<property name="labelfontback">font13_bold</property>
 		<property name="fallbackfont">fontCDalbum</property>
 		<!-- Is Weather/System -->
 		<property name="isweather" tag="property" attribute="name|widgetType.2" value="weather|system">true</property>
@@ -6110,14 +6148,14 @@
 		<property name="top" tag="property" attribute="name|widgetArt.2" value="FanArt|Landscape|ClearArt|ClearLogo|Thumb">143</property>
 		<property name="top" tag="property" attribute="name|widgetArt.2" value="Banner">159</property>
 		<!-- Background Height -->
-		<property name="height" tag="property" attribute="name|widgetArt.2" value="Poster">285</property>
-		<property name="height" tag="property" attribute="name|widgetArt.2" value="Square Poster|DiscArt|CharacterArt">242</property>
-		<property name="height" tag="property" attribute="name|widgetArt.2" value="FanArt|Landscape|ClearArt|ClearLogo|Thumb">247</property>
+		<property name="height" tag="property" attribute="name|widgetArt.2" value="Poster">330</property>
+		<property name="height" tag="property" attribute="name|widgetArt.2" value="Square Poster|DiscArt|CharacterArt">320</property>
+		<property name="height" tag="property" attribute="name|widgetArt.2" value="FanArt|Landscape|ClearArt|ClearLogo|Thumb">320</property>
 		<property name="height" tag="property" attribute="name|widgetArt.2" value="Banner">215</property>
 		<!-- Label Bottom Position -->
-		<property name="labelbottom" tag="property" attribute="name|widgetArt.2" value="Poster">261</property>
-		<property name="labelbottom" tag="property" attribute="name|widgetArt.2" value="Square Poster|DiscArt|CharacterArt">223</property>
-		<property name="labelbottom" tag="property" attribute="name|widgetArt.2" value="FanArt|Landscape|ClearArt|ClearLogo|Thumb">228</property>
+		<property name="labelbottom" tag="property" attribute="name|widgetArt.2" value="Poster">270</property>
+		<property name="labelbottom" tag="property" attribute="name|widgetArt.2" value="Square Poster|DiscArt|CharacterArt">260</property>
+		<property name="labelbottom" tag="property" attribute="name|widgetArt.2" value="FanArt|Landscape|ClearArt|ClearLogo|Thumb">258</property>
 		<property name="labelbottom" tag="property" attribute="name|widgetArt.2" value="Banner">196</property>
 	</propertyGroup>
 </template>

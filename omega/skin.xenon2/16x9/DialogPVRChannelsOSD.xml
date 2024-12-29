@@ -103,7 +103,7 @@
 						<left>1</left>
 						<width>990</width>
 						<height>60</height>
-						<texture colordiffuse="$VAR[HighlightBarColor]" border="4">listselect_fo.png</texture>
+						<texture colordiffuse="$VAR[HighlightBarColor]" border="4">lf_classic/button/MenuItemFO.png</texture>
 					</control>
 					<control type="label">
 						<width>70</width>

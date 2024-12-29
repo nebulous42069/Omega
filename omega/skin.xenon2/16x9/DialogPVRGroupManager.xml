@@ -142,7 +142,7 @@
 						<control type="image">
 							<width>495</width>
 							<height>80</height>
-							<texture colordiffuse="$VAR[HighlightBarColor]" border="4">listselect_fo.png</texture>
+							<texture colordiffuse="$VAR[HighlightBarColor]" border="4">lf_classic/button/MenuItemFO.png</texture>
 							<visible>Control.HasFocus(13)</visible>
 							<include>VisibleFadeAnimation</include>
 						</control>
@@ -239,7 +239,7 @@
 						<control type="image">
 							<width>513</width>
 							<height>80</height>
-							<texture colordiffuse="$VAR[HighlightBarColor]" border="4">listselect_fo.png</texture>
+							<texture colordiffuse="$VAR[HighlightBarColor]" border="4">lf_classic/button/MenuItemFO.png</texture>
 							<visible>Control.HasFocus(11)</visible>
 							<include>VisibleFadeAnimation</include>
 						</control>
@@ -337,7 +337,7 @@
 						<control type="image">
 							<width>513</width>
 							<height>80</height>
-							<texture colordiffuse="$VAR[HighlightBarColor]" border="4">listselect_fo.png</texture>
+							<texture colordiffuse="$VAR[HighlightBarColor]" border="4">lf_classic/button/MenuItemFO.png</texture>
 							<visible>Control.HasFocus(12)</visible>
 							<include>VisibleFadeAnimation</include>
 						</control>

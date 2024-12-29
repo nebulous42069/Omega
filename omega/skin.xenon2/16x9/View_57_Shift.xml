@@ -138,6 +138,7 @@
 				<onup condition="!ListItem.IsParentFolder">4401</onup>
 				<onleft>57</onleft>
 				<onright>57</onright>
+				<ondown condition="Container.Content(movies) | Container.Content(tvshows) | !Container.Content(seasons) | !Container.Content(episodes) |  !Container.Content(musicvideos) | !Container.Content(files) | !Container.Content(addons) | !Container.Content() | !String.IsEmpty(ListItem.Trailer)">PlayMedia("$INFO[ListItem.Trailer]")</ondown>				
 				<ondown condition="Control.IsVisible(95760)">95760</ondown>
 				<ondown condition="!Control.IsVisible(95760)">4400</ondown>
 				<orientation>horizontal</orientation>

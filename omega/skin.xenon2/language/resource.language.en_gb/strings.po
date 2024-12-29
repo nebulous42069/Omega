@@ -2237,7 +2237,7 @@ msgid "Choose the menu item icon when the Xenon main menu layout is set to Icons
 msgstr ""
 
 msgctxt "#31555"
-msgid "Use this to set the default action without changing the label. Choose 'Custom item' for any of Kodi's built-in functions. (http://kodi.wiki/?title=List_of_Built_In_Functions)"
+msgid "Use this to set the default action without changing the label. Choose 'Custom item' for any of Kodi's built-in functions."
 msgstr ""
 
 msgctxt "#31556"
@@ -2253,7 +2253,7 @@ msgid "Choose what Widget 1 will display. Widget 1 is always directly above the 
 msgstr ""
 
 msgctxt "#31559"
-msgid "Choose what Widget 2 will display. Widget 2 swaps location depending on the Xenon main menu horizontal position. If it is low then it will be at the top of the screen and centered will be below the Horizontal menu. Vertical menu location is always near the bottom of the Home window."
+msgid "Choose what Widget 2 will display. Widget 2 swaps location depending on the Xenon main menu horizontal position. If it is low then it will be at the top of the screen and centered will be below the Horizontal menu."
 msgstr ""
 
 msgctxt "#31560"
@@ -2377,7 +2377,7 @@ msgid "Enable to hide the multi-search option in the library views and directly 
 msgstr ""
 
 msgctxt "#31590"
-msgid "Hide the system bar containing the time, date, library statistcs, etc. Will also hide the RSS feed if enabled in Kodi settings"
+msgid "Hide the system bar containing the time, date, library statistcs, power button, favorites button, search button. Will also hide the RSS feed if enabled in Kodi settings"
 msgstr ""
 
 msgctxt "#31591"
@@ -2887,7 +2887,7 @@ msgid "Map & Alerts"
 msgstr ""
 
 msgctxt "#31911"
-msgid "Setup the Xenon main menu"
+msgid "Setup the Xenon main menu, widgets, and shortcuts"
 msgstr ""
 
 msgctxt "#31912"

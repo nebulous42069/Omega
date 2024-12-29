@@ -45,7 +45,7 @@
 					</control>
 				</control>
 				<control type="image">
-					<left>1500</left>
+					<left>620</left>
 					<top>545</top>
 					<width>390</width>
 					<height>164</height>
@@ -355,6 +355,13 @@
 					<include>DefaultButtonsValues</include>
 					<autoscroll time="3000" delay="4000" repeat="5000">Skin.HasSetting(Enable.AutoScroll) + !Control.HasFocus(50161)</autoscroll>
 				</control>
+				<control type="image">
+					<top>255</top>				
+					<width>235</width>
+					<height>85</height>
+					<texture>trailer.png</texture>
+					<visible>!Player.HasMedia + !String.IsEmpty(ListItem.Trailer)</visible>					
+				</control>				
 				<control type="scrollbar" id="50161">
 					<left>636</left>
 					<top>99</top>
@@ -704,7 +711,7 @@
 				<include condition="Skin.HasSetting(nohighlist)">LowListHeightLow</include>
 				<onleft>SetProperty(MediaMenu,True,Home)</onleft>
 				<onleft>SetFocus(9050)</onleft>
-				<onright condition="Control.IsVisible(50160)">50160</onright>
+				<onright condition="!String.IsEmpty(ListItem.Trailer)">PlayMedia("$INFO[ListItem.Trailer]")</onright>
 				<onright condition="!Control.IsVisible(50160) + Control.IsVisible(50161)">50161</onright>
 				<onright condition="!Control.IsVisible(50160) + !Control.IsVisible(50161)">4400</onright>
 				<onup>501</onup>
@@ -775,7 +782,7 @@
 					<control type="image">
 						<width>806</width>
 						<height>68</height>
-						<texture colordiffuse="$VAR[HighlightBarColor]" border="4">listselect_fo.png</texture>
+						<texture colordiffuse="$VAR[HighlightBarColor]" border="4">lf_classic/button/MenuItemFO.png</texture>
 						<visible>Control.HasFocus(501)</visible>
 						<include>VisibleFadeAnimation</include>
 					</control>
@@ -875,7 +882,7 @@
 					<control type="image">
 						<width>806</width>
 						<height>68</height>
-						<texture colordiffuse="$VAR[HighlightBarColor]" border="4">listselect_fo.png</texture>
+						<texture colordiffuse="$VAR[HighlightBarColor]" border="4">lf_classic/button/MenuItemFO.png</texture>
 						<visible>Control.HasFocus(501)</visible>
 						<include>VisibleFadeAnimation</include>
 					</control>
@@ -956,7 +963,7 @@
 					<control type="image">
 						<width>806</width>
 						<height>68</height>
-						<texture colordiffuse="$VAR[HighlightBarColor]" border="4">listselect_fo.png</texture>
+						<texture colordiffuse="$VAR[HighlightBarColor]" border="4">lf_classic/button/MenuItemFO.png</texture>
 						<visible>Control.HasFocus(501)</visible>
 						<include>VisibleFadeAnimation</include>
 					</control>
@@ -1028,7 +1035,7 @@
 					<control type="image">
 						<width>806</width>
 						<height>68</height>
-						<texture colordiffuse="$VAR[HighlightBarColor]" border="4">listselect_fo.png</texture>
+						<texture colordiffuse="$VAR[HighlightBarColor]" border="4">lf_classic/button/MenuItemFO.png</texture>
 						<visible>Control.HasFocus(501)</visible>
 						<include>VisibleFadeAnimation</include>
 					</control>
@@ -1277,7 +1284,7 @@
 					<control type="image">
 						<width>806</width>
 						<height>68</height>
-						<texture colordiffuse="$VAR[HighlightBarColor]" border="4">listselect_fo.png</texture>
+						<texture colordiffuse="$VAR[HighlightBarColor]" border="4">lf_classic/button/MenuItemFO.png</texture>
 						<visible>Control.HasFocus(501)</visible>
 						<include>VisibleFadeAnimation</include>
 					</control>
@@ -1362,7 +1369,7 @@
 					<control type="image">
 						<width>806</width>
 						<height>68</height>
-						<texture colordiffuse="$VAR[HighlightBarColor]" border="4">listselect_fo.png</texture>
+						<texture colordiffuse="$VAR[HighlightBarColor]" border="4">lf_classic/button/MenuItemFO.png</texture>
 						<visible>Control.HasFocus(501)</visible>
 						<include>VisibleFadeAnimation</include>
 					</control>
@@ -1428,7 +1435,7 @@
 					<control type="image">
 						<width>806</width>
 						<height>68</height>
-						<texture colordiffuse="$VAR[HighlightBarColor]" border="4">listselect_fo.png</texture>
+						<texture colordiffuse="$VAR[HighlightBarColor]" border="4">lf_classic/button/MenuItemFO.png</texture>
 						<visible>Control.HasFocus(501)</visible>
 						<include>VisibleFadeAnimation</include>
 					</control>
@@ -1616,7 +1623,7 @@
 					<control type="image">
 						<width>806</width>
 						<height>68</height>
-						<texture colordiffuse="$VAR[HighlightBarColor]" border="4">listselect_fo.png</texture>
+						<texture colordiffuse="$VAR[HighlightBarColor]" border="4">lf_classic/button/MenuItemFO.png</texture>
 						<visible>Control.HasFocus(501)</visible>
 						<include>VisibleFadeAnimation</include>
 					</control>

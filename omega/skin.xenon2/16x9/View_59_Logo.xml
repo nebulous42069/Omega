@@ -63,6 +63,7 @@
 		<onup condition="!ListItem.IsParentFolder">4401</onup>
 		<onup condition="ListItem.IsParentFolder">SetProperty(MediaMenu,True,Home)</onup>
 		<onup condition="ListItem.IsParentFolder">SetFocus(9050)</onup>
+		<ondown condition="Container.Content(movies) | Container.Content(tvshows) | !Container.Content(seasons) | !Container.Content(episodes) |  !Container.Content(musicvideos) | !Container.Content(files) | !Container.Content(addons) | !Container.Content() | !String.IsEmpty(ListItem.Trailer)">PlayMedia("$INFO[ListItem.Trailer]")</ondown>		
 		<ondown condition="Control.IsVisible(95960)">95960</ondown>
 		<ondown condition="!Control.IsVisible(95960)">4400</ondown>
 		<pagecontrol>95960</pagecontrol>

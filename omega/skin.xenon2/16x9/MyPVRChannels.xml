@@ -7,18 +7,18 @@
 	<onload>ClearProperty(MediaMenu,Home)</onload>
 	<onunload>ClearProperty(MediaMenu,Home)</onunload>
 	<onunload>ClearProperty(Window.HasSettings,Home)</onunload>
-	<views>50,51,52</views>
+	<views>52,51,50</views>
 	<menucontrol>9051</menucontrol>
 	<controls>
 		<include>CommonBackground</include>
 		<control type="group">
 			<include>WindowOpenCloseAnimation</include>
+			<!-- view id = 52 -->
+			<include condition="!Skin.HasSetting(Disable.BigListPVRChannels)">BigListPVRChannels</include>			
 			<!-- view id = 50 -->
 			<include>DefaultPVRChannels</include>
 			<!-- view id = 51 -->
 			<include condition="!Skin.HasSetting(Disable.WallPVRChannels)">WallPVRChannels</include>
-			<!-- view id = 52 -->
-			<include condition="!Skin.HasSetting(Disable.BigListPVRChannels)">BigListPVRChannels</include>
 		</control>
 		<include condition="!Skin.HasSetting(Disable.ScrollLabel)">ScrollOffsetLabel</include>
 		<include>PVRBackgroundDim</include>

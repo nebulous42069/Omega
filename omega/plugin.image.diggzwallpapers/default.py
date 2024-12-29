@@ -51,7 +51,7 @@ download_dir = xbmcvfs.translatePath(os.path.join(backupdir,''))
 ADDON        = xbmcaddon.Addon()
 dialog       = xbmcgui.Dialog()
 dp           = xbmcgui.DialogProgress()
-base= 'https://ia601602.us.archive.org/6/items/tr049_20230511/WALLPAPERS/'
+base= 'https://diggz1.me/WALLPAPERS/'
 if not os.path.exists(download_dir): os.makedirs(download_dir)
 
 def CATEGORIES():

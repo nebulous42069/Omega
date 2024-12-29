@@ -1039,9 +1039,11 @@ def trakt_in_lists(type=None,imdb_id=None,return_var='movies'):
 	#import json
 	#headers = trak_auth()
 	if type == 'movie':
-		url = 'https://api.trakt.tv/movies/%s/lists/all/popular' % (imdb_id)
+		#url = 'https://api.trakt.tv/movies/%s/lists/all/popular' % (imdb_id)
+		url = 'https://api.trakt.tv/movies/%s/lists/personal/popular' % (imdb_id)
 	else:
-		url = 'https://api.trakt.tv/shows/%s/lists/all/popular' % (imdb_id)
+		#url = 'https://api.trakt.tv/shows/%s/lists/all/popular' % (imdb_id)
+		url = 'https://api.trakt.tv/shows/%s/lists/personal/popular' % (imdb_id)
 	response = get_trakt_data(url, 1)
 	trakt_list = []
 	for i in response:
@@ -1113,16 +1115,19 @@ def get_trakt_data(url='', cache_days=14, folder='Trakt'):
 	return get_JSON_response(url, cache_days, folder,headers=headers)
 
 def trakt_refresh_all():
-	trakt_watched_movies(cache_days=0.00001)
-	trakt_watched_movies_full()
-	trakt_watched_tv_shows_full()
-	trakt_watched_tv_shows(cache_days=0.00001)
-	trakt_popular_shows(cache_days=0.00001)
-	trakt_popular_movies(cache_days=0.00001)
-	trakt_trending_shows(cache_days=0.00001)
-	trakt_trending_movies(cache_days=0.00001)
-	trakt_collection_shows(cache_days=0.00001)
-	trakt_collection_movies(cache_days=0.00001)
+	try:
+		trakt_watched_movies(cache_days=0.00001)
+		trakt_watched_movies_full()
+		trakt_watched_tv_shows_full()
+		trakt_watched_tv_shows(cache_days=0.00001)
+		trakt_popular_shows(cache_days=0.00001)
+		trakt_popular_movies(cache_days=0.00001)
+		trakt_trending_shows(cache_days=0.00001)
+		trakt_trending_movies(cache_days=0.00001)
+		trakt_collection_shows(cache_days=0.00001)
+		trakt_collection_movies(cache_days=0.00001)
+	except TypeError: 
+		pass
 
 def trakt_watched_movies(cache_days=None):
 	#import requests

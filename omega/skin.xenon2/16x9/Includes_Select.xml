@@ -2,12 +2,7 @@
 <includes>
 	<!-- Built-in-Select -->
 	<include name="DefaultSelect">
-		<control type="image">
-			<include>FullscreenDimensions</include>
-			<texture>colors/black50.png</texture>
-			<animation effect="fade" time="300">WindowOpen</animation>
-			<animation effect="fade" time="300">WindowClose</animation>
-		</control>
+		<include>DimBackground</include>
 		<control type="group">
 			<include>DialogOpenCloseAnimation</include>
 			<left>210</left>
@@ -198,6 +193,7 @@
 				<description>Add/Get More... button</description>
 				<onfocus>SetFocus(98)</onfocus>
 				<include>HiddenObject</include>
+				<visible>!Window.IsActive(script-skinshortcuts.xml)</visible>
 			</control>
 		</control>
 	</include>
@@ -366,13 +362,13 @@
 			<left>1</left>
 			<top>67</top>
 			<width>628</width>
-			<height>100</height>
+			<height>1</height>
 			<texture colordiffuse="grey4">separator_horizontal.png</texture>
 		</control>
 		<control type="label" id="1">
 			<width>630</width>
 			<height>70</height>
-			<font>font16_title_bold</font>
+			<font>font16</font>
 			<label>$VAR[CustomSelectLabelVar]</label>
 			<align>center</align>
 			<textcolor>dialogheader</textcolor>
@@ -648,24 +644,9 @@
 	</include>
 	<include name="SelectMainMenuLayout">
 		<item>
-			<label>5 $LOCALIZE[31025]</label>
+			<label>Horizontal Menu</label>
 			<onclick>Dialog.Close(1129)</onclick>
 			<onclick>Skin.Reset(MainMenu.Layout)</onclick>
-		</item>
-		<item>
-			<label>3 $LOCALIZE[31025]</label>
-			<onclick>Dialog.Close(1129)</onclick>
-			<onclick>Skin.SetString(MainMenu.Layout,3)</onclick>
-		</item>
-		<item>
-			<label>1 $LOCALIZE[31025]</label>
-			<onclick>Dialog.Close(1129)</onclick>
-			<onclick>Skin.SetString(MainMenu.Layout,1)</onclick>
-		</item>
-		<item>
-			<label>$LOCALIZE[536]</label>
-			<onclick>Dialog.Close(1129)</onclick>
-			<onclick>Skin.SetString(MainMenu.Layout,icons)</onclick>
 		</item>
 		<item>
 			<label>$LOCALIZE[31994]</label>
@@ -1316,11 +1297,6 @@
 	</include>
 	<include name="SelectStartupIntro">
 		<item>
-			<label>$LOCALIZE[13106]</label>
-			<onclick>Skin.Reset(StartupIntro)</onclick>
-			<onclick>Dialog.Close(1129)</onclick>
-		</item>
-		<item>
 			<label>Xenon Robot Intro</label>
 			<onclick>Skin.SetString(StartupIntro,special://skin/extras/Xenon_Robot.mp4)</onclick>
 			<onclick>Dialog.Close(1129)</onclick>
@@ -1330,61 +1306,101 @@
 			<onclick>Skin.SetFile(StartupIntro,.mp4|.mkv|.avi)</onclick>
 			<onclick>Dialog.Close(1129)</onclick>
 		</item>
+		<item>
+			<label>Disable Intro</label>
+			<onclick>Skin.Reset(StartupIntro)</onclick>
+			<onclick>Dialog.Close(1129)</onclick>
+		</item>
+
 	</include>
 	<!-- Custom Confirm -->
 	<include name="SetPresetSiLVOTheme">
 		<include>ResetSkinColorsOnclick</include>
-		<onclick>Skin.SetString(ThemeLabelColor,FF007FFF)</onclick>
-		<onclick>Skin.SetString(ThemeBorderColor,FF606060)</onclick>
-		<onclick>Skin.SetString(HighlightBarColor,FF2A52BE)</onclick>
-		<onclick>Skin.SetString(ThemeHomeLabelColor,FF007FFF)</onclick>
-		<onclick>Skin.SetString(ThemeHomeSystemBarsColor,81000000)</onclick>
-		<onclick>Skin.SetString(ThemeHomeSystemGlowBarsColor,ff3285ff)</onclick>		
-		<onclick>Skin.SetString(ThemeHomeMenuBarColor,C0000000)</onclick>
-		<onclick>Skin.SetString(ThemeHomeMenuGlowBarColor,FF007FFF)</onclick>		
-		<onclick>Skin.SetString(FocusedMainMenuColor,FF007FFF)</onclick>
-		<onclick>Skin.SetString(UnfocusedMainMenuColor,417F7F7F)</onclick>
-		<onclick>Skin.SetString(UnFocusedMainMenuIconLabelColor,FF000000)</onclick>
-		<onclick>Skin.SetString(FocusedSubMenuColor,FFE7FEFF)</onclick>
-		<onclick>Skin.SetString(UnfocusedSubMenuColor,FF36454F)</onclick>			
-		<onclick>Skin.SetString(WidgetHighlightBarColor,FF0084ff)</onclick>		
-	</include>
-	<include name="SetPresetBlueTheme">
-		<include>ResetSkinColorsOnclick</include>
-		<onclick>Skin.SetString(ThemeLabelColor,FF2A52BE)</onclick>
-		<onclick>Skin.SetString(ThemeBorderColor,FF2A52BE)</onclick>
-		<onclick>Skin.SetString(ThemeHomeMenuBarColor,FF2A52BE)</onclick>
-		<onclick>Skin.SetString(FocusedMainMenuColor,white)</onclick>
-		<onclick>Skin.SetString(UnfocusedMainMenuColor,FF000000)</onclick>
-		<onclick>Skin.SetString(UnFocusedMainMenuIconLabelColor,FF000000)</onclick>
-		<onclick>Skin.SetString(HighlightBarColor,FF2A52BE)</onclick>
+		<onclick>Skin.SetString(ThemeLabelColor,FF0084ff)</onclick>
+		<onclick>Skin.SetString(ThemeBorderColor,FF7DF9FF)</onclick>
+		<onclick>Skin.SetString(ThemeHomeMenuBarColor,00FFFFFF)</onclick>
+		<onclick>Skin.SetString(FocusedMainMenuColor,FF0084ff)</onclick>
+		<onclick>Skin.SetString(UnfocusedMainMenuColor,817F7F7F)</onclick>
+		<onclick>Skin.SetString(UnFocusedMainMenuIconLabelColor,817F7F7F)</onclick>
+		<onclick>Skin.SetString(HighlightBarColor,FF0084ff)</onclick>
 		<onclick>Skin.SetString(ThemeHomeSystemBarsColor,FF000000)</onclick>
-		<onclick>Skin.SetString(WidgetHighlightBarColor,FF2A52BE)</onclick>
+		<onclick>Skin.SetString(WidgetHighlightBarColor,FF0084ff)</onclick>
+		<onclick>Skin.SetString(ThemeHomeLabelColor,FF0084ff)</onclick>
+		<onclick>Skin.SetString(ThemeHomeMenuGlowBarColor,FF0084ff)</onclick>
+		<onclick>Skin.SetString(ThemeHomeSystemGlowBarsColor,FF0084ff)</onclick>
+		<onclick>Skin.SetString(FocusedSubMenuColor,FFFFFFFF)</onclick>
+		<onclick>Skin.SetString(UnfocusedSubMenuColor,FF9E9E9E)</onclick>
+		<onclick>Skin.SetString(FocusedMainMenuIconLabelColor,FF0084ff)</onclick>
+		<onclick>Skin.SetString(RSSFeedColor,FF0084ff)</onclick>
+		<onclick>Skin.SetString(UnWatchedEpColor,FFEB9E17)</onclick>
+		<onclick>Skin.SetString(TopBarColor,41000000)</onclick>
+		<onclick>Skin.SetString(WidgetBackgroundColor,81000000)</onclick>
+		<onclick>Skin.SetString(ThemeOSDProgressColor,FF0084ff)</onclick>
+		<onclick>Skin.SetString(FocusedOSDButtonsColor,FF0084ff)</onclick>
+		<onclick>Skin.SetString(UnfocusedOSDButtonsColor,FFE8EAF6)</onclick>		
+		   
+									
+										   
+															 
+															  
+																   
+															   
+																	
+																			 
+															   
+																	  
+																	 
 	</include>
 	<include name="SetPresetOrangeTheme">
-		<include>ResetSkinColorsOnclick</include>
+		<include>ResetSkinColorsOnclick</include>	
 		<onclick>Skin.SetString(ThemeLabelColor,FFFF9800)</onclick>
 		<onclick>Skin.SetString(ThemeBorderColor,FFFF9800)</onclick>
 		<onclick>Skin.SetString(ThemeHomeMenuBarColor,FFFF9800)</onclick>
-		<onclick>Skin.SetString(FocusedMainMenuColor,white)</onclick>
-		<onclick>Skin.SetString(UnfocusedMainMenuColor,FF000000)</onclick>
-		<onclick>Skin.SetString(UnFocusedMainMenuIconLabelColor,FF000000)</onclick>
+		<onclick>Skin.SetString(FocusedMainMenuColor,FFFF9800)</onclick>
+		<onclick>Skin.SetString(UnfocusedMainMenuColor,817F7F7F)</onclick>
+		<onclick>Skin.SetString(UnFocusedMainMenuIconLabelColor,817F7F7F)</onclick>
 		<onclick>Skin.SetString(HighlightBarColor,FFFF9800)</onclick>
 		<onclick>Skin.SetString(ThemeHomeSystemBarsColor,FF000000)</onclick>
 		<onclick>Skin.SetString(WidgetHighlightBarColor,FFFF9800)</onclick>
+		<onclick>Skin.SetString(ThemeHomeLabelColor,FFFF9800)</onclick>
+		<onclick>Skin.SetString(ThemeHomeMenuGlowBarColor,FFFF9800)</onclick>
+		<onclick>Skin.SetString(ThemeHomeSystemGlowBarsColor,FFFF9800)</onclick>
+		<onclick>Skin.SetString(FocusedSubMenuColor,FFFF9800)</onclick>
+		<onclick>Skin.SetString(UnfocusedSubMenuColor,FFD50000)</onclick>
+		<onclick>Skin.SetString(FocusedMainMenuIconLabelColor,FFFF9800)</onclick>
+		<onclick>Skin.SetString(RSSFeedColor,FFFF9800)</onclick>
+		<onclick>Skin.SetString(UnWatchedEpColor,FFFF9800)</onclick>
+		<onclick>Skin.SetString(TopBarColor,41000000)</onclick>
+		<onclick>Skin.SetString(WidgetBackgroundColor,81000000)</onclick>
+		<onclick>Skin.SetString(ThemeOSDProgressColor,FFFF9800)</onclick>
+		<onclick>Skin.SetString(FocusedOSDButtonsColor,FFFF9800)</onclick>
+		<onclick>Skin.SetString(UnfocusedOSDButtonsColor,FFE8EAF6)</onclick>		
 	</include>
 	<include name="SetPresetRedTheme">
 		<include>ResetSkinColorsOnclick</include>
 		<onclick>Skin.SetString(ThemeLabelColor,FFD50000)</onclick>
 		<onclick>Skin.SetString(ThemeBorderColor,FFD50000)</onclick>
 		<onclick>Skin.SetString(ThemeHomeMenuBarColor,FFD50000)</onclick>
-		<onclick>Skin.SetString(FocusedMainMenuColor,white)</onclick>
-		<onclick>Skin.SetString(UnfocusedMainMenuColor,FF000000)</onclick>
-		<onclick>Skin.SetString(UnFocusedMainMenuIconLabelColor,FF000000)</onclick>
+		<onclick>Skin.SetString(FocusedMainMenuColor,FFD50000)</onclick>
+		<onclick>Skin.SetString(UnfocusedMainMenuColor,817F7F7F)</onclick>
+		<onclick>Skin.SetString(UnFocusedMainMenuIconLabelColor,817F7F7F)</onclick>
 		<onclick>Skin.SetString(HighlightBarColor,FFD50000)</onclick>
 		<onclick>Skin.SetString(ThemeHomeSystemBarsColor,FF000000)</onclick>
 		<onclick>Skin.SetString(WidgetHighlightBarColor,FFD50000)</onclick>
-	</include>
+		<onclick>Skin.SetString(ThemeHomeLabelColor,FFD50000)</onclick>
+		<onclick>Skin.SetString(ThemeHomeMenuGlowBarColor,FFD50000)</onclick>
+		<onclick>Skin.SetString(ThemeHomeSystemGlowBarsColor,FFD50000)</onclick>
+		<onclick>Skin.SetString(FocusedSubMenuColor,FFD50000)</onclick>
+		<onclick>Skin.SetString(UnfocusedSubMenuColor,817F7F7F)</onclick>
+		<onclick>Skin.SetString(FocusedMainMenuIconLabelColor,FFD50000)</onclick>
+		<onclick>Skin.SetString(RSSFeedColor,FFD50000)</onclick>
+		<onclick>Skin.SetString(UnWatchedEpColor,FFD50000)</onclick>
+		<onclick>Skin.SetString(TopBarColor,41000000)</onclick>
+		<onclick>Skin.SetString(WidgetBackgroundColor,81000000)</onclick>
+		<onclick>Skin.SetString(ThemeOSDProgressColor,FFD50000)</onclick>
+		<onclick>Skin.SetString(FocusedOSDButtonsColor,FFD50000)</onclick>
+		<onclick>Skin.SetString(UnfocusedOSDButtonsColor,FFE8EAF6)</onclick>		
+	</include>	
 	<include name="ResetSkinColorsOnclick">
 		<onclick>Skin.Reset(ThemeLabelColor)</onclick>
 		<onclick>Skin.Reset(ThemeBorderColor)</onclick>
@@ -1406,5 +1422,10 @@
 		<onclick>Skin.Reset(WidgetBackgroundColor)</onclick>
 		<onclick>Skin.Reset(UnWatchedEpColor)</onclick>
 		<onclick>Skin.Reset(ThemeOSDProgressColor)</onclick>
+		<onclick>Skin.Reset(FocusedOSDButtonsColor)</onclick>
+		<onclick>Skin.Reset(UnfocusedOSDButtonsColor)</onclick>		
 	</include>
+
+
+
 </includes>

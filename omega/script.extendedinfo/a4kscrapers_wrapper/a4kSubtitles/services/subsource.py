@@ -7,42 +7,40 @@ __getSub = __api + "getSub"
 __search = __api + "searchMovie"
 __download = __api + "downloadSub/"
 
-def __extract_season_episode(core, text):
-	pattern = core.re.compile(r'(?:S(\d+)|Season\s*(\d+))[^E]*?(?:E(\d+)|Episode\s*(\d+))', core.re.IGNORECASE)
-	match = pattern.search(text)
-
-	if match:
-		# Extract season and episode numbers from groups
-		season = match.group(1) or match.group(2)
-		episode = match.group(3) or match.group(4)
-		return (season, episode)
-
-	# If no matches found, attempt to capture episode-like sequences
-	fallback_pattern = core.re.compile(r'\bE?P?(\d{2,5})\b', core.re.IGNORECASE)
-	fallback_matches = fallback_pattern.findall(text)
-
-	if fallback_matches:
-		# Assuming the last number in the fallback matches is the episode number
-		episode_number = fallback_matches[-1]
-		return (None, episode_number)
-
-	return (None, None)
+ss_to_code = {
+	"Big 5 code": "zh",
+	"Brazilian Portuguese": "pt-BR",
+	"Bulgarian": "bg",
+	"Chinese BG code": "zh",
+	"Farsi/Persian": "fa",
+	"Chinese(Simplified)": "zh-Hans",
+	"Chinese(Traditional)": "zh-Hant",
+	"French(France)": "fr-FR",
+	"Icelandic": "is",
+	"Spanish(Latin America)": "es-419",
+	"Spanish(Spain)": "es-ES"
+}
 
 def build_search_requests(core, service_name, meta):
 	def get_movie(response):
 		results = response.json()
 		found = results.get("found", [])
 		movie_name = ""
+		seasons = []
 
 		for res in found:
-			if res.get("type", "Movie") == "Movie" and meta.is_tvshow:
+			incorrect_type = res.get("type", "Movie") == "Movie" and meta.is_tvshow
+			incorrect_movie = meta.is_movie and meta.imdb_id and res.get("imdb") and res["imdb"] != meta.imdb_id
+			if incorrect_type or incorrect_movie:
 				continue
 			movie_name = res["linkName"]
+			seasons = res.get("seasons")
 			break
 
 		params = {"movieName": movie_name, "langs": meta.languages}
 		if meta.is_tvshow:
-			params["season"] = "season-" + meta.season
+			season = seasons[0].get("number") if len(seasons) == 1 else meta.season
+			params["season"] = "season-" + str(season)
 		return {"method": "POST", "url": __getMovie, "data": params}
 
 	name = (meta.title if meta.is_movie else meta.tvshow)
@@ -70,31 +68,18 @@ def parse_search_response(core, service_name, meta, response):
 	if "subs" not in results:
 		return []
 
-	movie_details = results.get("movie", {})
-
-	# altname = movie_details.get("altName")
-	full_name = movie_details.get("fullName", "")
-
 	def map_result(result):
 		name = result.get("releaseName", "")
 		lang = result.get("lang")
+
+		if lang in ss_to_code:
+			lang = core.kodi.xbmc.convertLanguage(ss_to_code[lang], core.kodi.xbmc.ENGLISH_NAME)
 
 		if lang not in meta.languages:
 			return None
 
 		rating = result.get("rating", 0)
 		lang_code = core.utils.get_lang_id(lang, core.kodi.xbmc.ISO_639_1)
-
-		if meta.is_tvshow:
-			subtitle_season = core.re.search(r'Season\s(\d+)', full_name)
-			season, episode = __extract_season_episode(core, name)
-			season = subtitle_season.group(1).zfill(2) if subtitle_season else season
-
-			if season == meta.season.zfill(2) and episode == meta.episode.zfill(2):
-				name = meta.filename
-			elif not season and meta.season == "1" and episode == meta.episode.zfill(2):
-				name = meta.filename
-
 		return {
 			"service_name": service_name,
 			"service": service.display_name,
@@ -106,7 +91,7 @@ def parse_search_response(core, service_name, meta, response):
 			"impaired": "true" if result.get("hi", 0) != 0 else "false",
 			"color": "teal",
 			"action_args": {
-				"url": result["subId"],
+				"url": "{}#{}".format(result["subId"], name),
 				"lang": lang,
 				"filename": name,
 				"full_link": result["fullLink"],

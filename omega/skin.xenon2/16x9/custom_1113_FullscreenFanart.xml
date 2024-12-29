@@ -5,7 +5,7 @@
 	<controls>
 		<control type="button" id="9013">
 			<include>HiddenObject</include>
-			<onclick>Dialog.Close(1113)</onclick>
+			<onclick>PlayMedia("$INFO[ListItem.Trailer]")</onclick>
 			<onup>Dialog.Close(1113)</onup>
 			<ondown>Dialog.Close(1113)</ondown>
 			<onleft>Dialog.Close(1113)</onleft>
@@ -15,5 +15,6 @@
 			<include>FullscreenDimensions</include>
 			<texture>$INFO[Window(movieinformation).Property(FSFanart)]</texture>
 		</control>
+        <include>FloorReturnButtons</include>		
 	</controls>
 </window>

@@ -7,7 +7,11 @@
 			<animation effect="slide" tween="cubic" time="720" end="0,-1080" start="0,0" condition="!String.IsEqual(Skin.String(MainMenu.Layout),vertical)">WindowClose</animation>
 			<animation effect="slide" tween="cubic" time="720" start="1920,0" end="0,0" condition="String.IsEqual(Skin.String(MainMenu.Layout),vertical)">WindowOpen</animation>
 			<animation effect="slide" tween="cubic" time="720" end="1920,0" start="0,0" condition="String.IsEqual(Skin.String(MainMenu.Layout),vertical)">WindowClose</animation>
+			
+			
 			<animation effect="slide" end="0,-349" condition="!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Skin.HasSetting(centermainmenu)">Conditional</animation>
+			
+			
 			<animation effect="slide" end="220,-80" condition="String.IsEqual(Skin.String(MainMenu.Layout),vertical) + !String.Contains(Container(9000).ListItem.Property(widgetStyle),Extended)">Conditional</animation>
 			<animation effect="slide" end="425,-20" condition="String.IsEqual(Skin.String(MainMenu.Layout),vertical) + String.IsEqual(Container(9000).ListItem.Property(widgetStyle),Extended Compact Panel)">Conditional</animation>
 			<animation effect="slide" end="425,-64" condition="String.IsEqual(Skin.String(MainMenu.Layout),vertical) + String.IsEqual(Container(9000).ListItem.Property(widgetStyle),Extended Panel)">Conditional</animation>
@@ -62,7 +66,7 @@
 			<width>$PARAM[width]</width>
 			<height>312</height>
 			<itemgap>10</itemgap>
-			<!-- Title -->
+			<!-- Title LIST WIDGET INFO-->
 			<control type="label">
 				<width>$PARAM[width]</width>
 				<height>27</height>
@@ -72,7 +76,7 @@
 				<scroll>true</scroll>
 				<label>$VAR[HomeWidgetInfoTitleVar]</label>
 			</control>
-			<!-- SubTitle -->
+			<!-- SubTitle LIST WIDGET INFO-->
 			<control type="label">
 				<width>$PARAM[width]</width>
 				<height>27</height>
@@ -326,7 +330,7 @@
 		<focusedlayout width="300" height="61">
 			<control type="group">
 				<animation type="Focus" reversible="false">
-					<effect type="zoom" start="95" end="100" time="300" tween="sine" easing="inout" center="auto" />
+					<effect type="zoom" start="95" end="110" time="200" tween="sine" easing="inout" center="auto" />
 				</animation>
 				<control type="image">
 					<left>$PARAM[leftArt]</left>
@@ -371,7 +375,7 @@
 					<top>$PARAM[topArt]</top>
 					<width>$PARAM[widthArt]</width>
 					<height>$PARAM[heightArt]</height>
-					<texture colordiffuse="$VAR[WidgetHighlightBarColor]" border="4">listselect_fo.png</texture>
+					<texture colordiffuse="$VAR[WidgetHighlightBarColor]" border="4">lf_classic/button/MenuItemFO.png</texture>
 					<visible>Control.HasFocus($PARAM[id])</visible>
 				</control>
 				<control type="image">
@@ -402,7 +406,7 @@
 			<control type="image">
 				<width>300</width>
 				<height>50</height>
-				<texture colordiffuse="$VAR[WidgetHighlightBarColor]" border="5">listselect_fo.png</texture>
+				<texture colordiffuse="$VAR[WidgetHighlightBarColor]" border="5">lf_classic/button/MenuItemFO.png</texture>
 				<visible>Control.HasFocus($PARAM[id])</visible>
 			</control>
 			<control type="label">
@@ -441,7 +445,7 @@
 			<control type="image">
 				<width>300</width>
 				<height>50</height>
-				<texture colordiffuse="$VAR[WidgetHighlightBarColor]" border="5">listselect_fo.png</texture>
+				<texture colordiffuse="$VAR[WidgetHighlightBarColor]" border="5">lf_classic/button/MenuItemFO.png</texture>
 				<visible>Control.HasFocus($PARAM[id])</visible>
 			</control>
 			<control type="image">
@@ -473,9 +477,10 @@
 				<width>$PARAM[labelWidth]</width>
 				<height>auto</height>
 				<align>center</align>
-				<font>font13_title</font>
+				<font>font13</font>
 				<shadowcolor>black</shadowcolor>
 				<label>$PARAM[Label]</label>
+				<textcolor>grey2</textcolor>
 				<visible>![Control.HasFocus($PARAM[id]) + $PARAM[labelTitle]]</visible>
 			</control>
 			<control type="label">
@@ -484,7 +489,7 @@
 				<width>$PARAM[labelWidth]</width>
 				<height>auto</height>
 				<align>center</align>
-				<font>font13_title</font>
+				<font>font13</font>
 				<shadowcolor>black</shadowcolor>
 				<label>$PARAM[Title]</label>
 				<visible>Control.HasFocus($PARAM[id]) + $PARAM[labelTitle]</visible>
@@ -497,17 +502,7 @@
 				<top>$PARAM[labelBottom]</top>
 				<width>$PARAM[labelWidth]</width>
 				<height>auto</height>
-				<font>font13_title</font>
-				<shadowcolor>black</shadowcolor>
-				<label>$PARAM[Label]</label>
-				<visible>![Control.HasFocus($PARAM[id]) + $PARAM[labelTitle]]</visible>
-			</control>
-			<control type="label">
-				<left>$PARAM[labelLeft]</left>
-				<top>$PARAM[labelBottom]</top>
-				<width>$PARAM[labelWidth]</width>
-				<height>auto</height>
-				<font>font13_title</font>
+				<font>font13</font>
 				<shadowcolor>black</shadowcolor>
 				<label>$PARAM[Title]</label>
 				<visible>Control.HasFocus($PARAM[id]) + $PARAM[labelTitle]</visible>
@@ -542,7 +537,7 @@
 							<height>$PARAM[labelHeight]</height>
 							<align>center</align>
 							<textoffsetx>7</textoffsetx>
-							<font>$PARAM[labelFont]</font>
+							<font>font10</font>
 							<textcolor>lightgrey</textcolor>
 							<label>$VAR[HomeWidgetTitleVar]</label>
 						</control>
@@ -561,7 +556,7 @@
 		<focusedlayout width="$PARAM[containerWidth]" height="$PARAM[containerHeight]">
 			<control type="group">
 				<animation type="Focus" reversible="false">
-					<effect type="zoom" start="95" end="100" time="300" tween="sine" easing="inout" center="auto" />
+					<effect type="zoom" start="95" end="110" time="200" tween="sine" easing="inout" center="auto" />
 				</animation>
 				<control type="group">
 					<left>$PARAM[leftArt]</left>
@@ -588,7 +583,7 @@
 							<height>$PARAM[labelHeight]</height>
 							<align>center</align>
 							<textoffsetx>7</textoffsetx>
-							<font>$PARAM[labelFont]</font>
+							<font>font10</font>
 							<textcolor>$VAR[ThemeLabelColor]</textcolor>
 							<label>$VAR[HomeWidgetTitleVar]</label>
 						</control>
@@ -615,7 +610,7 @@
 						<top>$PARAM[topArt]</top>
 						<width>$PARAM[widthArt]</width>
 						<height>$PARAM[heightArt]</height>
-						<aspectratio aligny="$PARAM[Aligny]">$PARAM[Aspect]</aspectratio>
+						<aspectratio align="center">keep</aspectratio>
 						<texture fallback="DefaultMovies.png" background="true">$PARAM[Texture]</texture>
 						<visible>!$PARAM[fallbackVisible]</visible>
 					</control>
@@ -657,7 +652,7 @@
 							<height>$PARAM[labelHeight]</height>
 							<align>center</align>
 							<textoffsetx>7</textoffsetx>
-							<font>$PARAM[labelFont]</font>
+							<font>font10</font>
 							<textcolor>lightgrey</textcolor>
 							<label>$VAR[HomeWidgetTitleVar]</label>
 						</control>
@@ -675,7 +670,7 @@
 		<focusedlayout width="$PARAM[containerWidth]" height="$PARAM[containerHeight]" condition="!$PARAM[isWeather]">
 			<control type="group">
 				<animation type="Focus" reversible="false">
-					<effect type="zoom" start="95" end="100" time="300" tween="sine" easing="inout" center="auto" />
+					<effect type="zoom" start="95" end="110" time="200" tween="sine" easing="inout" center="auto" />
 				</animation>
 				<control type="group">
 					<left>$PARAM[leftArt]</left>
@@ -683,7 +678,7 @@
 						<top>$PARAM[topArt]</top>
 						<width>$PARAM[widthArt]</width>
 						<height>$PARAM[heightArt]</height>
-						<aspectratio aligny="$PARAM[Aligny]">$PARAM[Aspect]</aspectratio>
+						<aspectratio align="center">keep</aspectratio>
 						<texture fallback="DefaultMovies.png" background="true">$PARAM[Texture]</texture>
 						<visible>!$PARAM[fallbackVisible]</visible>
 					</control>
@@ -715,7 +710,7 @@
 						<top>$PARAM[topArt]</top>
 						<width>$PARAM[widthArt]</width>
 						<height>$PARAM[heightArt]</height>
-						<texture colordiffuse="$VAR[WidgetHighlightBarColor]" border="4">listselect_fo.png</texture>
+						<texture colordiffuse="$VAR[WidgetHighlightBarColor]" border="4">IconBorder_FO.png</texture>
 					</control>
 					<control type="group">
 						<visible>$PARAM[labelFocusVisible]</visible>
@@ -731,7 +726,7 @@
 							<height>$PARAM[labelHeight]</height>
 							<align>center</align>
 							<textoffsetx>7</textoffsetx>
-							<font>$PARAM[labelFont]</font>
+							<font>font10</font>
 							<textcolor>lightgrey</textcolor>
 							<label>$VAR[HomeWidgetTitleVar]</label>
 						</control>
@@ -786,7 +781,7 @@
 						</control>
 					</control>
 					<control type="label">
-						<top>$PARAM[weatherTop1]</top>
+						<top>15</top>
 						<width>$PARAM[widthArt]</width>
 						<height>30</height>
 						<font>$PARAM[weatherFont]</font>
@@ -797,10 +792,10 @@
 						<label>$INFO[ListItem.Label]</label>
 					</control>
 					<control type="label">
-						<top>$PARAM[weatherTop2]</top>
+						<top>175</top>
 						<width>$PARAM[widthArt]</width>
 						<height>30</height>
-						<font>$PARAM[weatherFont]</font>
+						<font>font12</font>
 						<align>center</align>
 						<textcolor>white2</textcolor>
 						<shadowcolor>shadow</shadowcolor>
@@ -808,10 +803,10 @@
 						<label>$INFO[ListItem.Label2]</label>
 					</control>
 					<control type="label">
-						<top>$PARAM[weatherTop3]</top>
+						<top>213</top>
 						<width>$PARAM[widthArt]</width>
 						<height>30</height>
-						<font>$PARAM[weatherFont]</font>
+						<font>font12</font>
 						<align>center</align>
 						<textcolor>white2</textcolor>
 						<shadowcolor>shadow</shadowcolor>
@@ -831,7 +826,7 @@
 		<focusedlayout width="$PARAM[containerWidth]" height="$PARAM[containerHeight]" condition="$PARAM[isWeather]">
 			<control type="group">
 				<animation type="Focus" reversible="false">
-					<effect type="zoom" start="95" end="100" time="300" tween="sine" easing="inout" center="auto" />
+					<effect type="zoom" start="95" end="110" time="200" tween="sine" easing="inout" center="auto" />
 				</animation>
 				<control type="group">
 					<left>$PARAM[leftArt]</left>
@@ -873,10 +868,10 @@
 						<top>$PARAM[topArt]</top>
 						<width>$PARAM[widthArt]</width>
 						<height>$PARAM[heightArt]</height>
-						<texture colordiffuse="$VAR[WidgetHighlightBarColor]" border="4">listselect_fo.png</texture>
+						<texture colordiffuse="$VAR[WidgetHighlightBarColor]" border="4">IconBorder_FO.png</texture>
 					</control>
 					<control type="label">
-						<top>$PARAM[weatherTop1]</top>
+						<top>15</top>
 						<width>$PARAM[widthArt]</width>
 						<height>30</height>
 						<font>$PARAM[weatherFont]</font>
@@ -887,10 +882,10 @@
 						<label>$INFO[ListItem.Label]</label>
 					</control>
 					<control type="label">
-						<top>$PARAM[weatherTop2]</top>
+						<top>175</top>
 						<width>$PARAM[widthArt]</width>
 						<height>30</height>
-						<font>$PARAM[weatherFont]</font>
+						<font>font12</font>
 						<align>center</align>
 						<textcolor>white2</textcolor>
 						<shadowcolor>shadow</shadowcolor>
@@ -898,10 +893,10 @@
 						<label>$INFO[ListItem.Label2]</label>
 					</control>
 					<control type="label">
-						<top>$PARAM[weatherTop3]</top>
+						<top>213</top>
 						<width>$PARAM[widthArt]</width>
 						<height>30</height>
-						<font>$PARAM[weatherFont]</font>
+						<font>font12</font>
 						<align>center</align>
 						<textcolor>white2</textcolor>
 						<shadowcolor>shadow</shadowcolor>
@@ -928,10 +923,19 @@
 					<top>$PARAM[topArt]</top>
 					<width>$PARAM[widthArt]</width>
 					<height>$PARAM[heightArt]</height>
-					<aspectratio aligny="$PARAM[Aligny]">$PARAM[Aspect]</aspectratio>
+					<aspectratio align="center">keep</aspectratio>
 					<texture fallback="homewidgets/DefaultMovies_landscape.png" background="true">$PARAM[Texture]</texture>
 					<visible>![$PARAM[fallbackVisible]]</visible>
 				</control>
+                <control type="image">
+                    <left>12</left>
+                    <top>87</top>
+                    <width>230</width>
+                    <height>130</height>
+                    <aspectratio align="center" aligny="bottom">keep</aspectratio>
+                    <texture>$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
+                    <visible>String.IsEqual(ListItem.DBType,episode)</visible>
+                </control>				
 				<control type="label">
 					<left>$PARAM[leftArt]</left>
 					<top>$PARAM[topArt]</top>
@@ -960,7 +964,7 @@
 					<height>$PARAM[labelHeight]</height>
 					<align>center</align>
 					<textoffsetx>7</textoffsetx>
-					<font>$PARAM[labelFont]</font>
+					<font>font10</font>
 					<textcolor>lightgrey</textcolor>
 					<label>$VAR[HomeWidgetTitleVar]</label>
 					<visible>$PARAM[labelVisible]</visible>
@@ -977,17 +981,26 @@
 		<focusedlayout width="$PARAM[containerWidth]" height="$PARAM[containerHeight]">
 			<control type="group">
 				<animation type="Focus" reversible="false">
-					<effect type="zoom" start="95" end="100" time="300" tween="sine" easing="inout" center="auto" />
+					<effect type="zoom" start="95" end="110" time="200" tween="sine" easing="inout" center="auto" />
 				</animation>
 				<control type="image">
 					<left>$PARAM[leftArt]</left>
 					<top>$PARAM[topArt]</top>
 					<width>$PARAM[widthArt]</width>
 					<height>$PARAM[heightArt]</height>
-					<aspectratio aligny="$PARAM[Aligny]">$PARAM[Aspect]</aspectratio>
+					<aspectratio align="center">keep</aspectratio>
 					<texture fallback="homewidgets/DefaultMovies_landscape.png" background="true">$PARAM[Texture]</texture>
 					<visible>![$PARAM[fallbackVisible]]</visible>
 				</control>
+                <control type="image">
+                    <left>12</left>
+                    <top>87</top>
+                    <width>230</width>
+                    <height>130</height>
+                    <aspectratio align="center" aligny="bottom">keep</aspectratio>
+                    <texture>$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
+                    <visible>String.IsEqual(ListItem.DBType,episode)</visible>
+                </control>	
 				<control type="label">
 					<left>$PARAM[leftArt]</left>
 					<top>$PARAM[topArt]</top>
@@ -1006,7 +1019,7 @@
 					<top>$PARAM[topArt]</top>
 					<width>$PARAM[widthArt]</width>
 					<height>$PARAM[heightArt]</height>
-					<texture colordiffuse="$VAR[WidgetHighlightBarColor]" border="4">listselect_fo.png</texture>
+					<texture colordiffuse="$VAR[WidgetHighlightBarColor]" border="4">IconBorder_FO.png</texture>
 				</control>
 				<control type="image">
 					<left>$PARAM[leftArt]</left>
@@ -1023,7 +1036,7 @@
 					<height>$PARAM[labelHeight]</height>
 					<align>center</align>
 					<textoffsetx>7</textoffsetx>
-					<font>$PARAM[labelFont]</font>
+					<font>font10</font>
 					<textcolor>$VAR[ThemeLabelColor]</textcolor>
 					<label>$VAR[HomeWidgetTitleVar]</label>
 					<visible>$PARAM[labelFocusVisible]</visible>
@@ -1096,7 +1109,7 @@
 					<height>$PARAM[labelHeight]</height>
 					<align>center</align>
 					<textoffsetx>7</textoffsetx>
-					<font>$PARAM[labelFont]</font>
+					<font>font10</font>
 					<textcolor>lightgrey</textcolor>
 					<label>$VAR[HomeWidgetTitleVar]</label>
 					<visible>$PARAM[labelVisible]</visible>
@@ -1113,7 +1126,7 @@
 		<focusedlayout width="$PARAM[containerWidth]" height="$PARAM[containerHeight]">
 			<control type="group">
 				<animation type="Focus" reversible="false">
-					<effect type="zoom" start="95" end="100" time="300" tween="sine" easing="inout" center="auto" />
+					<effect type="zoom" start="95" end="110" time="200" tween="sine" easing="inout" center="auto" />
 				</animation>
 				<control type="image">
 					<left>$PARAM[leftArt]</left>
@@ -1159,7 +1172,7 @@
 					<top>$PARAM[topArt]</top>
 					<width>$PARAM[widthArt]</width>
 					<height>$PARAM[heightArt]</height>
-					<texture colordiffuse="$VAR[WidgetHighlightBarColor]" border="4">listselect_fo.png</texture>
+					<texture colordiffuse="$VAR[WidgetHighlightBarColor]" border="4">lf_classic/button/MenuItemFO.png</texture>
 				</control>
 				<control type="image">
 					<left>$PARAM[leftArt]</left>
@@ -1176,7 +1189,7 @@
 					<height>$PARAM[labelHeight]</height>
 					<align>center</align>
 					<textoffsetx>7</textoffsetx>
-					<font>$PARAM[labelFont]</font>
+					<font>font10</font>
 					<textcolor>$VAR[ThemeLabelColor]</textcolor>
 					<label>$VAR[HomeWidgetTitleVar]</label>
 					<visible>$PARAM[labelFocusVisible]</visible>

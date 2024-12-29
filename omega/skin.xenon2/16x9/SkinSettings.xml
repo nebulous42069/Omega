@@ -42,105 +42,217 @@
 				<texture colordiffuse="$VAR[ThemeLabelColor]">floor.png</texture>
 			</control>
 			<control type="image">
-				<left>55</left>
-				<top>880</top>
+				<left>0</left>
+				<top>900</top>
 				<width>400</width>
 				<height>130</height>
 				<texture>aeon-nox-logo.png</texture>
-			</control>
-			<include>SystemPanel</include>
+			</control>			
 			<control type="group">
-				<visible>!Window.IsActive(script-skinshortcuts.xml)</visible>
+				<visible>!Window.IsActive(script-skinshortcuts.xml)</visible>			
+				<left>135</left>
+				<top>45</top>
+				<animation type="WindowOpen" reversible="false">
+					<effect type="zoom" start="80" end="100" center="960,540" easing="out" tween="back" time="225" />
+					<effect type="fade" start="0" end="100" time="225" />
+				</animation>
+				<animation type="WindowClose" reversible="false">
+					<effect type="zoom" start="100" end="80" center="960,540" easing="in" tween="back" time="225" />
+					<effect type="fade" start="100" end="0" time="225" />
+				</animation>
+				<control type="image">
+					<left>-60</left>
+					<top>-60</top>
+					<width>1750</width>
+					<height>880</height>
+					<texture border="15">ContentPanel.png</texture>
+					<include>TransparentEffect</include>
+				</control>
+				<control type="image">
+					<description>LOGO</description>
+					<left>0</left>
+					<top>-60</top>
+					<width>300</width>
+					<height>162</height>
+					<aspectratio>keep</aspectratio>
+					<texture>Xonfluence_Logo.png</texture>
+				</control>
+				<control type="button" id="50">
+					<include>InvisibleButton</include>
+					<onleft>800</onleft>
+					<onright>800</onright>
+					<onup>9000</onup>
+					<ondown>9000</ondown>
+					<visible>false</visible>
+				</control>
 				<control type="list" id="9000">
-					<left>80</left>
-					<top>32</top>
-					<width>356</width>
-					<height>810</height>
-					<onleft>SetProperty(MediaMenu,True,Home)</onleft>
-					<onleft>SetFocus(9050)</onleft>
+					<left>-80</left>
+					<top>70</top>
+					<width>420</width>
+					<height>740</height>
+					<onleft>9010</onleft>
 					<onright>90000</onright>
 					<onup>9000</onup>
 					<ondown>9000</ondown>
-					<scrolltime tween="quadratic" easing="out">200</scrolltime>
-					<visible>!Window.IsActive(1140) + !Window.IsActive(1117)</visible>
-					<include>SettingsFadeAnimation</include>
-					<itemlayout height="81" width="356">
+					<pagecontrol></pagecontrol>
+					<scrolltime>300</scrolltime>
+					<itemlayout height="105" width="390">
+						<control type="image">
+							<left>80</left>
+							<top>0</top>
+							<width>330</width>
+							<height>106</height>
+							<texture border="5">MenuItemNF.png</texture>
+						</control>
 						<control type="label">
-							<width>356</width>
-							<height>81</height>
-							<font>font15</font>
-							<textoffsetx>20</textoffsetx>
-							<textcolor>grey</textcolor>
+							<left>15</left>
+							<top>15</top>
+							<width>360</width>
+							<height>30</height>
+							<font>font24_title_xenon</font>
+							<textcolor>grey3</textcolor>
+							<align>right</align>
+							<aligny>center</aligny>
 							<label>$INFO[ListItem.Label]</label>
+						</control>
+						<control type="label">
+							<left>15</left>
+							<top>56</top>
+							<width>360</width>
+							<height>30</height>
+							<font>font12</font>
+							<textcolor>grey2</textcolor>
+							<align>right</align>
+							<aligny>center</aligny>
+							<label>$INFO[ListItem.Label2]</label>
 						</control>
 					</itemlayout>
-					<focusedlayout height="81" width="356">
+					<focusedlayout height="105" width="390">
 						<control type="image">
-							<width>356</width>
-							<height>81</height>
-							<texture colordiffuse="$VAR[HighlightBarColor]" border="4">listselect_fo.png</texture>
-							<animation effect="fade" start="100" end="40" time="300" tween="sine" easing="inout" condition="!Control.HasFocus(9000)">Conditional</animation>
+							<left>25</left>
+							<top>0</top>
+							<width>410</width>
+							<height>106</height>
+							<texture border="5" colordiffuse="$VAR[ThemeLabelColor]">lf_classic/button/MenuItemFO.png</texture>
+							<animation effect="fade" start="100" end="30" time="75" condition="!Control.HasFocus(9000)">Conditional</animation>
+							<include>TransparentEffect</include>
 						</control>
 						<control type="label">
-							<width>356</width>
-							<height>81</height>
-							<font>font15</font>
-							<textoffsetx>20</textoffsetx>
+							<left>15</left>
+							<top>15</top>
+							<width>360</width>
+							<height>30</height>
+							<font>font24_title_xenon</font>
+							<textcolor>white</textcolor>
+							<align>right</align>
+							<aligny>center</aligny>
 							<label>$INFO[ListItem.Label]</label>
+						</control>
+						<control type="label">
+							<left>15</left>
+							<top>56</top>
+							<width>360</width>
+							<height>30</height>
+							<font>font12</font>
+							<textcolor>grey2</textcolor>
+							<align>right</align>
+							<aligny>center</aligny>
+							<label>$INFO[ListItem.Label2]</label>
 						</control>
 					</focusedlayout>
 					<content>
 						<item id="9">
 							<label>31445</label>
+							<label2>5</label2>
 							<icon />
 						</item>
 						<item id="1">
 							<label>513</label>
+							<label2>33063</label2>
 							<icon />
 						</item>
 						<item id="6">
 							<label>31365</label>
+							<label2>33063</label2>
 							<icon />
 						</item>
 						<item id="2">
 							<label>16000</label>
+							<label2>5</label2>
 							<icon />
 						</item>
 						<item id="4">
 							<label>10038</label>
+							<label2>33063</label2>
 							<icon />
 						</item>
 						<item id="8">
 							<label>31155</label>
+							<label2>39157</label2>
 							<icon />
 						</item>
 						<item id="3">
 							<label>31014</label>
+							<label2>33063</label2>
 							<icon />
 						</item>
 						<item id="5">
 							<label>Xenon $LOCALIZE[31014]</label>
-							<icon />
-						</item>
-						<item id="7">
-							<label>10043</label>
+							<label2>5</label2>
 							<icon />
 						</item>
 						<item id="10">
 							<label>31569</label>
 							<icon />
-							<visible>System.AddonIsEnabled(script.xbmcbackup)</visible>
 						</item>
 					</content>
+				</control>
+				<control type="image">
+					<left>335</left>
+					<top>-50</top>
+					<width>1345</width>
+					<height>860</height>
+					<texture border="5">black-back2.png</texture>
+				</control>
+				<control type="image">
+					<left>404</left>
+					<top>-50</top>
+					<width>1181</width>
+					<height>78</height>
+					<texture>$VAR[DialogPath]dialogheader.png</texture>
+				</control>
+				<control type="label">
+					<description>header label</description>
+					<left>450</left>
+					<top>-30</top>
+					<width>1089</width>
+					<height>45</height>
+					<font>font16</font>
+					<label>$LOCALIZE[20077] - $INFO[Container(9000).ListItem.Label]</label>
+					<align>center</align>
+					<aligny>center</aligny>
+					<textcolor>white</textcolor>
+					<shadowcolor>black</shadowcolor>
+				</control>
+				<control type="button">
+					<description>Close Window button</description>
+					<left>1580</left>
+					<top>-50</top>
+					<onclick>PreviousMenu</onclick>
+					<include>DialogCloseButton</include>
+					<onleft>1</onleft>
+					<onright>1</onright>
+					<onup>1</onup>
+					<ondown>1</ondown>
 				</control>
 				<control type="group" id="90000">
 					<visible>!Window.IsActive(1140) + !Window.IsActive(1117)</visible>
 					<include>SettingsFadeAnimation</include>
 					<control type="grouplist" id="9009">
-						<left>437</left>
+						<left>337</left>
 						<top>32</top>
-						<width>1401</width>
-						<height>810</height>
+						<width>1345</width>
+						<height>775</height>
 						<onleft>9000</onleft>
 						<visible>Container(9000).HasFocus(9)</visible>
 						<control type="button" id="1000">
@@ -181,14 +293,6 @@
 							<onclick>Skin.ToggleSetting(HideSystemBars)</onclick>
 							<selected>Skin.HasSetting(HideSystemBars)</selected>
 						</control>
-						<control type="radiobutton" id="1015">
-							<include>SettingsButtonCommonValues</include>
-							<label>$LOCALIZE[31436]</label>
-							<onclick>Skin.ToggleSetting(CenteredInfoLine)</onclick>
-							<selected>Skin.HasSetting(CenteredInfoLine)</selected>
-							<visible>!String.IsEqual(Skin.String(MainMenu.Layout),vertical)</visible>
-							<visible>!Skin.HasSetting(HideSystemBars)</visible>
-						</control>
 						<control type="button" id="1005">
 							<include>SettingsButtonCommonValues</include>
 							<label>$LOCALIZE[13305]</label>
@@ -203,23 +307,6 @@
 							<onclick>Skin.ToggleSetting(Enable.VisibleSubmenu)</onclick>
 							<selected>Skin.HasSetting(Enable.VisibleSubmenu)</selected>
 							<visible>[system.getbool(lookandfeel.enablerssfeeds) + !String.IsEqual(Skin.String(MainMenu.Layout),vertical) + !String.IsEmpty(Skin.String(HorizontalRSSPosition))]</visible>
-						</control>
-						<control type="radiobutton" id="1018">
-							<include>SettingsButtonCommonValues</include>
-							<label>$LOCALIZE[31498]</label>
-							<onclick>Skin.ToggleSetting(SystemBarOnTop)</onclick>
-							<selected>Skin.HasSetting(SystemBarOnTop)</selected>
-							<visible>![System.GetBool(lookandfeel.enablerssfeeds) + String.IsEqual(Skin.String(HorizontalRSSPosition),high)]</visible>
-							<visible>!String.IsEqual(Skin.String(MainMenu.Layout),vertical)</visible>
-							<visible>!Skin.HasSetting(HideSystemBars)</visible>
-						</control>
-						<control type="button" id="1006">
-							<include>SettingsButtonCommonValues</include>
-							<label>$LOCALIZE[31220]</label>
-							<label2>[COLOR $VAR[ThemeLabelColor]]$VAR[VerticalMenuRSSLabelVar][/COLOR]</label2>
-							<onclick>$VAR[VerticalMenuRSSPositionVar]</onclick>
-							<visible>system.getbool(lookandfeel.enablerssfeeds) + String.IsEqual(Skin.String(MainMenu.Layout),vertical)</visible>
-							<visible>!Skin.HasSetting(HideSystemBars)</visible>
 						</control>
 						<control type="button" id="1007">
 							<include>SettingsButtonCommonValues</include>
@@ -251,10 +338,10 @@
 						</control>
 					</control>
 					<control type="grouplist" id="9001">
-						<left>437</left>
+						<left>337</left>
 						<top>32</top>
-						<width>1401</width>
-						<height>810</height>
+						<width>1345</width>
+						<height>775</height>
 						<onleft>9000</onleft>
 						<visible>Container(9000).HasFocus(1)</visible>
 						<control type="radiobutton" id="1009">
@@ -290,10 +377,10 @@
 						</control>
 					</control>
 					<control type="grouplist" id="9002">
-						<left>437</left>
+						<left>337</left>
 						<top>32</top>
-						<width>1401</width>
-						<height>810</height>
+						<width>1345</width>
+						<height>775</height>
 						<onleft>9000</onleft>
 						<visible>Container(9000).HasFocus(2)</visible>
 						<control type="radiobutton" id="20003">
@@ -354,10 +441,10 @@
 						</control>
 					</control>
 					<control type="grouplist" id="9003">
-						<left>437</left>
+						<left>337</left>
 						<top>32</top>
-						<width>1401</width>
-						<height>810</height>
+						<width>1345</width>
+						<height>775</height>
 						<onleft>9000</onleft>
 						<visible>Container(9000).HasFocus(3)</visible>
 						<control type="radiobutton" id="3005">
@@ -433,10 +520,10 @@
 						</control>
 					</control>
 					<control type="grouplist" id="9004">
-						<left>437</left>
+						<left>337</left>
 						<top>32</top>
-						<width>1401</width>
-						<height>810</height>
+						<width>1345</width>
+						<height>775</height>
 						<onleft>9000</onleft>
 						<visible>Container(9000).HasFocus(4)</visible>
 						<control type="button" id="4001">
@@ -485,10 +572,10 @@
 						</control>
 					</control>
 					<control type="grouplist" id="9005">
-						<left>437</left>
+						<left>337</left>
 						<top>32</top>
-						<width>1401</width>
-						<height>810</height>
+						<width>1345</width>
+						<height>775</height>
 						<onleft>9000</onleft>
 						<visible>Container(9000).HasFocus(5)</visible>
 						<control type="radiobutton" id="5000">
@@ -544,22 +631,17 @@
 						</control>
 					</control>
 					<control type="grouplist" id="9006">
-						<left>437</left>
+						<left>337</left>
 						<top>32</top>
-						<width>1401</width>
-						<height>810</height>
+						<width>1345</width>
+						<height>775</height>
 						<onleft>9000</onleft>
 						<visible>Container(9000).HasFocus(6)</visible>
 						<control type="button" id="6000">
 							<include>SettingsButtonCommonValues</include>
-							<label>31911</label>
-							<onclick>RunScript(script.skinshortcuts,type=manage&amp;group=mainmenu)</onclick>
-						</control>
-						<control type="button" id="6011">
-							<include>SettingsButtonCommonValues</include>
-							<label>$LOCALIZE[31624]</label>
-							<onclick>RunScript(script.skinshortcuts,type=manage&amp;group=buttonmenu)</onclick>
-						</control>
+							<label>Setup Xenon Custom Viewtypes</label>
+							<onclick>runscript(script.skinvariables,action=buildviews,configure)</onclick>
+						</control>						
 						<control type="button" id="6001">
 							<include>SettingsButtonCommonValues</include>
 							<label>$LOCALIZE[31281]</label>
@@ -617,10 +699,10 @@
 						</control>
 					</control>
 					<control type="grouplist" id="9008">
-						<left>437</left>
+						<left>337</left>
 						<top>32</top>
-						<width>1401</width>
-						<height>810</height>
+						<width>1345</width>
+						<height>775</height>
 						<onleft>9000</onleft>
 						<visible>Container(9000).HasFocus(8)</visible>
 						<control type="button" id="8001">
@@ -660,8 +742,8 @@
 					</control>
 					<control type="grouplist" id="9007">
 						<left>437</left>
-						<width>1401</width>
-						<height>830</height>
+						<width>1345</width>
+						<height>775</height>
 						<onleft>9000</onleft>
 						<visible>Container(9000).HasFocus(7)</visible>
 						<usecontrolcoords>true</usecontrolcoords>
@@ -757,10 +839,10 @@
 						</control>
 					</control>
 					<control type="grouplist" id="9010">
-						<left>437</left>
+						<left>337</left>
 						<top>32</top>
-						<width>1401</width>
-						<height>810</height>
+						<width>1345</width>
+						<height>775</height>
 						<onleft>9000</onleft>
 						<visible>Container(9000).HasFocus(10)</visible>
 						<control type="button" id="10001">
@@ -793,7 +875,6 @@
 		<include>Topbar</include>
 		<control type="group">
 			<left>-440</left>
-			<include>SideBladeLeft</include>
 			<control type="grouplist" id="9050">
 				<include>NoMediaMenu</include>
 			</control>

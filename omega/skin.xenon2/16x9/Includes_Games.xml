@@ -218,7 +218,7 @@
 				</itemlayout>
 				<focusedlayout height="100" width="1302">
 					<control type="image">
-						<texture colordiffuse="$VAR[HighlightBarColor]" border="5">listselect_fo.png</texture>
+						<texture colordiffuse="$VAR[HighlightBarColor]" border="5">lf_classic/button/MenuItemFO.png</texture>
 					</control>
 					<control type="label">
 						<textoffsetx>15</textoffsetx>

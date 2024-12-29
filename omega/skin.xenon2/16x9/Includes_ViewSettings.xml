@@ -465,7 +465,7 @@
 		</control>
 		<control type="radiobutton" id="1510">
 			<include>ButtonCommonValues</include>
-			<label>$LOCALIZE[31156]</label>
+			<label>:</label>
 			<onclick>Skin.ToggleSetting(Enable.Logo.clearart)</onclick>
 			<selected>Skin.HasSetting(Enable.Logo.clearart)</selected>
 		</control>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon id="plugin.video.club.pornky.free"
-version="0.9.13"
-name="pornky.club (free) (Hidden Version)"
+version="0.9.14"
+name="pornky.club (free)"
 provider-name="fr33p0rt">
 <requires>
   <import addon="script.module.requests" />
@@ -9,7 +9,7 @@ provider-name="fr33p0rt">
   <import addon="script.module.six"/>
 </requires>
 <extension point="xbmc.python.pluginsource" library="main.py">
-  <provides></provides>
+  <provides>video</provides>
 </extension>
 <extension point="xbmc.addon.metadata">
   <license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>

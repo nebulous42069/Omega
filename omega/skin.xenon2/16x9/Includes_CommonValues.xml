@@ -52,20 +52,37 @@
 		<radioposx>300</radioposx>
 	</include>
 	<include name="SettingsButtonCommonValues">
-		<width>1401</width>
+		<width>1345</width>
 		<height>81</height>
 		<textoffsetx>30</textoffsetx>
-		<font>font15</font>
-		<radioposx>1281</radioposx>
+		<font>font13</font>
+		<radioposx>1240</radioposx>
 	</include>
+	<include name="SettingsButtonSkinShortcuts">
+		<width>1135</width>
+		<height>81</height>
+		<textoffsetx>30</textoffsetx>
+		<font>font13</font>
+		<radioposx>1030</radioposx>
+	</include>	
 	<include name="SettingsTextboxValues">
-		<left>467</left>
-		<top>888</top>
-		<width>1341</width>
-		<height>120</height>
+		<left>280</left>
+		<top>830</top>
+		<width>1451</width>
+		<height>150</height>
 		<font>font16bold_textbox</font>
 		<textcolor>grey2</textcolor>
-		<align>justify</align>
+		<align>center</align>
+		<aligny>center</aligny>
+	</include>
+	<include name="SettingsTextboxValuesSS">
+		<left>420</left>
+		<top>840</top>
+		<width>1451</width>
+		<height>200</height>
+		<font>font16bold_textbox</font>
+		<textcolor>grey2</textcolor>
+		<align>center</align>
 		<aligny>center</aligny>
 	</include>
 	<include name="ButtonInfoDialogsCommonValues">
@@ -74,7 +91,7 @@
 		<textoffsetx>0</textoffsetx>
 		<align>center</align>
 		<aligny>center</aligny>
-		<font>font15</font>
+		<font>font13</font>
 		<textcolor>grey</textcolor>
 		<focusedcolor>white</focusedcolor>
 	</include>
@@ -91,13 +108,13 @@
 		<left>-123</left>
 		<width>320</width>
 		<height>80</height>
-		<texturefocus colordiffuse="$VAR[HighlightBarColor]" border="4">listselect_fo.png</texturefocus>
+		<texturefocus colordiffuse="$VAR[HighlightBarColor]" border="4">lf_classic/button/MenuItemFO.png</texturefocus>
 		<include>Objects_KeyOff</include>
 	</include>
 	<include name="Objects_SingleKeyOff">
 		<width>80</width>
 		<height>80</height>
-		<texturefocus colordiffuse="$VAR[HighlightBarColor]" border="4">listselect_fo.png</texturefocus>
+		<texturefocus colordiffuse="$VAR[HighlightBarColor]" border="4">lf_classic/button/MenuItemFO.png</texturefocus>
 		<include>Objects_KeyOff</include>
 	</include>
 	<include name="ShowCaseInfoPanelButtonsValues">
@@ -651,7 +668,7 @@
 			<textureradioonnofocus colordiffuse="$PARAM[ColorStringVar]">colors/grey.png</textureradioonnofocus>
 			<textureradioofffocus colordiffuse="$PARAM[ColorStringVar]">colors/grey.png</textureradioofffocus>
 			<textureradiooffnofocus colordiffuse="$PARAM[ColorStringVar]">colors/grey.png</textureradiooffnofocus>
-			<texturefocus colordiffuse="$VAR[HighlightBarColor]" border="1">listselect_fo.png</texturefocus>
+			<texturefocus colordiffuse="$VAR[HighlightBarColor]" border="1">lf_classic/button/MenuItemFO.png</texturefocus>
 		</definition>
 	</include>
 	<!-- EXP -->

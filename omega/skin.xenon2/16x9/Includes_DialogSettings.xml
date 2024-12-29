@@ -12,7 +12,7 @@
 			<control type="image">
 				<width>1500</width>
 				<height>$PARAM[height]</height>
-				<texture>colors/black.png</texture>
+				<texture>contentpanel.png</texture>
 				<bordersize>1</bordersize>
 				<bordertexture border="1" infill="false" colordiffuse="$VAR[ThemeBorderColor]">colors/border_frame.png</bordertexture>
 				<visible>$PARAM[icon_visible]</visible>
@@ -20,7 +20,7 @@
 			<control type="image">
 				<width>960</width>
 				<height>$PARAM[height]</height>
-				<texture>colors/black.png</texture>
+				<texture>contentpanel.png</texture>
 				<bordersize>4</bordersize>
 				<bordertexture infill="false" colordiffuse="$VAR[ThemeBorderColor]">colors/border_frame.png</bordertexture>
 				<visible>!$PARAM[icon_visible]</visible>
@@ -134,13 +134,6 @@
 			<label2>[COLOR $VAR[ThemeLabelColor]]$VAR[AutoHideVideoOSDLabelVar][/COLOR]</label2>
 			<onclick>SetProperty(CustomSelect,autohidevideoosd,Home)</onclick>
 			<onclick>ActivateWindow(1129)</onclick>
-		</control>
-		<control type="radiobutton" id="90202">
-			<width>1498</width>
-			<radioposx>1396</radioposx>
-			<label>$LOCALIZE[31508]</label>
-			<onclick>Skin.ToggleSetting(VideoOSDOnTop)</onclick>
-			<selected>Skin.HasSetting(VideoOSDOnTop)</selected>
 		</control>
 		<control type="radiobutton" id="90203">
 			<width>1498</width>

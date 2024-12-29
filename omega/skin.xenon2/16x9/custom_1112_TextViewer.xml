@@ -6,7 +6,7 @@
 	<onunload>ClearProperty(TextViewerContent,Home)</onunload>
 	<onunload>ClearProperty(AddonNews,Home)</onunload>
 	<onunload>ClearProperty(FAQ,skinsettings)</onunload>
-	<controls>
+	<controls>	
 		<control type="button" id="64">
 			<oninfo>Dialog.Close(1112)</oninfo>
 			<onclick>Dialog.Close(1112)</onclick>
@@ -17,11 +17,14 @@
 			<include>HiddenObject</include>
 		</control>
 		<control type="image">
-			<include>FullscreenDimensions</include>
-			<texture>colors/black50.png</texture>
+			<top>70</top>		
+			<left>300</left>
+			<width>1350</width>
+			<height>930</height>
+			<texture>colors/black90.png</texture>
 			<animation effect="fade" time="100">WindowOpen</animation>
 			<animation effect="fade" time="50">WindowClose</animation>
-			<visible>!Window.IsVisible(addoninformation)</visible>
+			<visible>Window.IsVisible(addoninformation)</visible>
 		</control>
 		<control type="group">
 			<animation effect="slide" end="166,0" condition="Window.IsActive(addoninformation)">Conditional</animation>
@@ -40,9 +43,9 @@
 				<visible>String.IsEmpty(Window(Home).Property(AddonNews))</visible>
 			</control>
 			<control type="label">
-				<left>62</left>
+				<left>30</left>
 				<top>40</top>
-				<width>1256</width>
+				<width>1000</width>
 				<height>40</height>
 				<font>font30_title</font>
 				<align>center</align>
@@ -50,9 +53,9 @@
 				<label>$INFO[Window(Home).Property(TextViewerHeader)]</label>
 			</control>
 			<control type="label">
-				<left>62</left>
+				<left>30</left>
 				<top>90</top>
-				<width>1256</width>
+				<width>1000</width>
 				<height>40</height>
 				<font>font15</font>
 				<align>center</align>
@@ -60,9 +63,9 @@
 				<label>$INFO[Window(Home).Property(TextViewerSubHeader)]</label>
 			</control>
 			<control type="textbox">
-				<left>62</left>
+				<left>30</left>
 				<top>145</top>
-				<width>1256</width>
+				<width>1000</width>
 				<height>750</height>
 				<align>justify</align>
 				<font>font16_textbox</font>
@@ -71,7 +74,7 @@
 				<label>$VAR[CustomTextViewerContentVar]</label>
 			</control>
 			<control type="scrollbar" id="61">
-				<left>1341</left>
+				<left>1190</left>
 				<top>145</top>
 				<width>20</width>
 				<height>750</height>
