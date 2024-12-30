@@ -348,9 +348,8 @@ class Extras(BaseDialog):
 		if not videos_id in self.enabled_lists: return
 		if not self.youtube_installed_check(): return
 		def _sort_trailers(trailers):
-			youtube_trailers = [i for i in trailers if i['site'] == 'YouTube']
-			official_trailers = [i for i in youtube_trailers if i['official'] and i['type'] == 'Trailer' and 'official trailer' in i['name'].lower()]
-			other_official_trailers = [i for i in youtube_trailers if i['official'] and i['type'] == 'Trailer' and not i in official_trailers]
+			official_trailers = [i for i in trailers if i['official'] and i['type'] == 'Trailer' and 'official trailer' in i['name'].lower()]
+			other_official_trailers = [i for i in trailers if i['official'] and i['type'] == 'Trailer' and not i in official_trailers]
 			other_trailers = [i for i in trailers if i['type'] == 'Trailer' and not i in official_trailers  and not i in other_official_trailers]
 			teaser_trailers = [i for i in trailers if i['type'] == 'Teaser']
 			full_trailers = official_trailers + other_official_trailers + other_trailers + teaser_trailers
@@ -506,11 +505,9 @@ class Extras(BaseDialog):
 		return value
 
 	def make_tvshow_browse_params(self):
-		total_seasons = self.meta_get('total_seasons')
 		all_episodes = default_all_episodes()
-		show_all_episodes = True if all_episodes in (1, 2) else False
-		if show_all_episodes:
-			if all_episodes == 1 and total_seasons > 1: url_params = {'mode': 'build_season_list', 'tmdb_id': self.tmdb_id}
+		if all_episodes:
+			if all_episodes == 1 and self.meta_get('total_seasons') > 1: url_params = {'mode': 'build_season_list', 'tmdb_id': self.tmdb_id}
 			else: url_params = {'mode': 'build_episode_list', 'tmdb_id': self.tmdb_id, 'season': 'all'}
 		else: url_params = {'mode': 'build_season_list', 'tmdb_id': self.tmdb_id}
 		return url_params
@@ -585,7 +582,7 @@ class Extras(BaseDialog):
 		self.close()
 
 	def show_keywords(self):
-		keyword_id = keywords_choice({'media_type': self.media_type, 'tmdb_id': self.tmdb_id, 'poster': self.poster})
+		keyword_id = keywords_choice({'media_type': self.media_type, 'meta': self.meta})
 		if not keyword_id: return
 		self.close_all()
 		mode, action = ('build_movie_list', 'tmdb_movie_keyword_results') if self.media_type == 'movie' else ('build_tvshow_list', 'tmdb_tv_keyword_results')

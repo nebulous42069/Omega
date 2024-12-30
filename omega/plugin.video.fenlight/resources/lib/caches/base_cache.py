@@ -176,7 +176,7 @@ def clear_cache(cache_type, silent=False):
 		from apis import easynews_api
 		results = []
 		results.append(easynews_api.clear_media_results_database())
-		for item in ('pm_cloud', 'rd_cloud', 'ad_cloud', 'folders'): results.append(clear_cache(item, silent=True))
+		for item in ('pm_cloud', 'rd_cloud', 'ad_cloud', 'oc_cloud', 'ed_cloud', 'tb_cloud', 'folders'): results.append(clear_cache(item, silent=True))
 		success = False not in results
 	elif cache_type == 'external_scrapers':
 		from caches.external_cache import external_cache
@@ -203,6 +203,18 @@ def clear_cache(cache_type, silent=False):
 		if not _confirm(): return
 		from apis.alldebrid_api import AllDebridAPI
 		success = AllDebridAPI().clear_cache()
+	elif cache_type == 'oc_cloud':
+		if not _confirm(): return
+		from apis.offcloud_api import OffcloudAPI
+		success = OffcloudAPI().clear_cache()
+	elif cache_type == 'ed_cloud':
+		if not _confirm(): return
+		from apis.easydebrid_api import EasyDebridAPI
+		success = EasyDebridAPI().clear_cache()
+	elif cache_type == 'tb_cloud':
+		if not _confirm(): return
+		from apis.torbox_api import TorBoxAPI
+		success = TorBoxAPI().clear_cache()
 	elif cache_type == 'folders':
 		if not _confirm(): return
 		from caches.main_cache import main_cache
@@ -224,7 +236,8 @@ def clear_all_cache():
 	line = 'Clearing....[CR]%s'
 	caches = (('meta', 'Meta Cache'), ('internal_scrapers', 'Internal Scrapers Cache'), ('external_scrapers', 'External Scrapers Cache'),
 			('trakt', 'Trakt Cache'), ('imdb', 'IMDb Cache'), ('list', 'List Data Cache', ), ('main', 'Main Cache', ),
-			('pm_cloud', 'Premiumize Cloud'), ('rd_cloud', 'Real Debrid Cloud'), ('ad_cloud', 'All Debrid Cloud'))
+			('pm_cloud', 'Premiumize Cloud'), ('rd_cloud', 'Real Debrid Cloud'), ('ad_cloud', 'All Debrid Cloud'),
+			('oc_cloud', 'OffCloud Cloud'), ('ed_cloud', 'Easy Debrid Cloud'), ('tb_cloud', 'TorBox Cloud'))
 	for count, cache_type in enumerate(caches, 1):
 		try:
 			progressDialog.update(line % (cache_type[1]), int(float(count) / float(len(caches)) * 100))
@@ -254,15 +267,12 @@ class BaseCache(object):
 		result = None
 		try:
 			current_time = get_timestamp()
-			result = self.get_memory_cache(string, current_time)
-			if result is None:
-				dbcon = connect_database(self.dbfile)
-				cache_data = dbcon.execute(BASE_GET % self.table, (string,)).fetchone()
-				if cache_data:
-					if cache_data[0] > current_time:
-						result = eval(cache_data[1])
-						self.set_memory_cache(result, string, cache_data[0])
-					else: self.delete(string)
+			dbcon = connect_database(self.dbfile)
+			cache_data = dbcon.execute(BASE_GET % self.table, (string,)).fetchone()
+			if cache_data:
+				if cache_data[0] > current_time:
+					result = eval(cache_data[1])
+				else: self.delete(string)
 		except: pass
 		return result
 
@@ -271,25 +281,7 @@ class BaseCache(object):
 			dbcon = connect_database(self.dbfile)
 			expires = get_timestamp(expiration)
 			dbcon.execute(BASE_SET % self.table, (string, repr(data), int(expires)))
-			self.set_memory_cache(data, string, int(expires))
 		except: return None
-
-	def get_memory_cache(self, string, current_time):
-		result = None
-		try:
-			cachedata = get_property(media_prop % string)
-			if cachedata:
-				cachedata = eval(cachedata)
-				if cachedata[0] > current_time: result = cachedata[1]
-		except: pass
-		return result
-
-	def set_memory_cache(self, data, string, expires):
-		try:
-			cachedata = (expires, data)
-			cachedata_repr = repr(cachedata)
-			set_property(media_prop % string, cachedata_repr)
-		except: pass
 
 	def delete(self, string):
 		try:

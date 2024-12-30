@@ -139,71 +139,6 @@ class PremiumizeAPI:
 			return end_results
 		except: return None
 
-	def add_uncached(self, magnet_url, pack=False):
-		from modules.kodi_utils import show_busy_dialog, hide_busy_dialog
-		from modules.source_utils import supported_video_extensions
-		def _transfer_info(transfer_id):
-			info = self.transfers_list()
-			if 'status' in info and info['status'] == 'success':
-				for item in info['transfers']:
-					if item['id'] == transfer_id:
-						return item
-			return {}
-		def _return_failed(message='Error', cancelled=False):
-			try:
-				progressDialog.close()
-			except Exception:
-				pass
-			hide_busy_dialog()
-			sleep(500)
-			if cancelled:
-				if confirm_dialog(heading='Fen Light Cloud Transfer', text='Continue Transfer in Background?'):
-					ok_dialog(heading='Fen Light Cloud Transfer', text='Saving Result to the Premiumize Cloud')
-				else: self.delete_transfer(transfer_id)
-			else: ok_dialog(heading='Fen Light Cloud Transfer', text=message)
-			return False
-		show_busy_dialog()
-		monitor = xbmc_monitor()
-		extensions = supported_video_extensions()
-		transfer_id = self.create_transfer(magnet_url)
-		if not transfer_id['status'] == 'success':
-			return _return_failed(transfer_id.get('message'))
-		transfer_id = transfer_id['id']
-		transfer_info = _transfer_info(transfer_id)
-		if not transfer_info: return _return_failed()
-		if pack:
-			self.clear_cache(clear_hashes=False)
-			hide_busy_dialog()
-			ok_dialog(text='Saving Result to the Premiumize Cloud')
-			return True
-		interval = 5
-		line = '%s[CR]%s[CR]%s'
-		line1 = 'Saving Result to the Premiumize Cloud...'
-		line2 = transfer_info['name']
-		line3 = transfer_info['message']
-		progressDialog = progress_dialog('Fen Light Cloud Transfer', icon)
-		progressDialog.update(line % (line1, line2, line3), 0)
-		while not transfer_info['status'] == 'seeding':
-			sleep(1000 * interval)
-			transfer_info = _transfer_info(transfer_id)
-			line3 = transfer_info['message']
-			progressDialog.update(line % (line1, line2, line3), int(float(transfer_info['progress']) * 100))
-			if monitor.abortRequested() == True: return
-			try:
-				if progressDialog.iscanceled():
-					return _return_failed('Cancelled', cancelled=True)
-			except Exception:
-				pass
-			if transfer_info.get('status') == 'stalled':
-				return _return_failed()
-		sleep(1000 * interval)
-		try:
-			progressDialog.close()
-		except Exception:
-			pass
-		hide_busy_dialog()
-		return True
-
 	def user_cloud(self, folder_id=None):
 		if folder_id:
 			string = 'pm_user_cloud_%s' % folder_id
@@ -211,12 +146,12 @@ class PremiumizeAPI:
 		else:
 			string = 'pm_user_cloud_root'
 			url = 'folder/list'
-		return cache_object(self._get, string, url, False, 0.5)
+		return cache_object(self._get, string, url, False, 0.03)
 
 	def user_cloud_all(self):
 		string = 'pm_user_cloud_all_files'
 		url = 'item/listall'
-		return cache_object(self._get, string, url, False, 0.5)
+		return cache_object(self._get, string, url, False, 0.03)
 
 	def rename_cache_item(self, file_type, file_id, new_name):
 		if file_type == 'folder': url = 'folder/rename'
@@ -255,21 +190,7 @@ class PremiumizeAPI:
 		url = 'item/details'
 		data = {'id': item_id}
 		args = [url, data]
-		return cache_object(self._post, string, args, False, 24)
-
-	def get_hosts(self):
-		string = 'pm_valid_hosts'
-		url = 'services/list'
-		hosts_dict = {'Premiumize.me': []}
-		hosts = []
-		append = hosts.append
-		try:
-			result = cache_object(self._get, string, url, False, 168)
-			for x in result['directdl']:
-				for alias in result['aliases'][x]: append(alias)
-			hosts_dict['Premiumize.me'] = list(set(hosts))
-		except: pass
-		return hosts_dict
+		return cache_object(self._post, string, args, False, 0.5)
 
 	def add_headers_to_url(self, url):
 		return url + '|' + urlencode(self.headers())
@@ -295,14 +216,12 @@ class PremiumizeAPI:
 
 	def clear_cache(self, clear_hashes=True):
 		try:
-			from modules.kodi_utils import clear_property
 			from caches.debrid_cache import debrid_cache
 			from caches.base_cache import connect_database
 			dbcon = connect_database('maincache_db')
 			user_cloud_success = False
 			# USER CLOUD
 			try:
-				
 				try:
 					user_cloud_cache = dbcon.execute("""SELECT id FROM maincache WHERE id LIKE ?""", ('pm_user_cloud%',)).fetchall()
 					user_cloud_cache = [i[0] for i in user_cloud_cache]
@@ -311,13 +230,11 @@ class PremiumizeAPI:
 				if not user_cloud_success:
 					for i in user_cloud_cache:
 						dbcon.execute("""DELETE FROM maincache WHERE id=?""", (i,))
-						clear_property(str(i))
 					user_cloud_success = True
 			except: user_cloud_success = False
 			# DOWNLOAD LINKS
 			try:
 				dbcon.execute("""DELETE FROM maincache WHERE id=?""", ('pm_transfers_list',))
-				clear_property("fenlight.pm_transfers_list")
 				download_links_success = True
 			except: download_links_success = False
 			# HASH CACHED STATUS

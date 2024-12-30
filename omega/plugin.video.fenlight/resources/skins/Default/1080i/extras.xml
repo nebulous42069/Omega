@@ -132,7 +132,7 @@
                         <left>70</left>
                         <width max="1130">auto</width>
                         <height>30</height>
-                        <font>font38_title</font> <!-- FENLIGHT_60_BOLD -->
+                        <font>font60</font> <!-- FENLIGHT_60_BOLD -->
                         <textcolor>FFCCCCCC</textcolor>
                         <align>center</align>
                         <aligny>bottom</aligny>

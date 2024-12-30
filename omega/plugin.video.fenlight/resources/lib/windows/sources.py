@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import json
-from threading import Thread
 from windows.base_window import BaseDialog, select_dialog, ok_dialog
 from modules.source_utils import source_filters
 from modules.settings import provider_sort_ranks
@@ -12,9 +11,9 @@ hide_busy_dialog, addon_fanart, empty_poster = kodi_utils.hide_busy_dialog, kodi
 get_icon, img_url = kodi_utils.get_icon, kodi_utils.img_url
 
 resume_dict = {10: 'resume', 11: 'start_over', 12: 'cancel'}
-info_icons_dict = {'easynews': get_icon('provider_easynews'), 'alldebrid': get_icon('provider_alldebrid'),
-				'real-debrid': get_icon('provider_realdebrid'), 'premiumize': get_icon('provider_premiumize'), 'ad_cloud': get_icon('provider_alldebrid'),
-				'rd_cloud': get_icon('provider_realdebrid'), 'pm_cloud': get_icon('provider_premiumize')}
+info_icons_dict = {'easynews': get_icon('easynews'), 'alldebrid': get_icon('alldebrid'), 'real-debrid': get_icon('realdebrid'), 'premiumize': get_icon('premiumize'),
+'offcloud': get_icon('offcloud'), 'easydebrid': get_icon('easydebrid'), 'torbox': get_icon('torbox'), 'ad_cloud': get_icon('alldebrid'), 'rd_cloud': get_icon('realdebrid'),
+'pm_cloud': get_icon('premiumize'), 'oc_cloud': get_icon('offcloud'), 'tb_cloud': get_icon('torbox')}
 info_quality_dict = {'4k': get_icon('flag_4k'), '1080p': get_icon('flag_1080p'), '720p': get_icon('flag_720p'), 'sd': get_icon('flag_sd')}
 quality_choices = ('4K', '1080P', '720P', 'SD', 'CAM/SCR/TELE')
 prerelease_values, prerelease_key = ('CAM', 'SCR', 'TELE'), 'CAM/SCR/TELE'
@@ -110,8 +109,8 @@ class SourcesResults(BaseDialog):
 				return self.close()
 			chosen_source = json.loads(chosen_listitem.getProperty('source'))
 			if 'Uncached' in chosen_source.get('cache_provider', ''):
-				from modules.sources import Sources
-				return Thread(target=Sources().resolve_uncached, args=(chosen_source['debrid'], chosen_source['url'], 'package' in chosen_source)).start()
+				from modules.debrid import manual_add_magnet_to_cloud
+				return manual_add_magnet_to_cloud({'mode': 'manual_add_magnet_to_cloud', 'provider': chosen_source['debrid'], 'magnet_url': chosen_source['url']})
 			self.selected = ('play', chosen_source)
 			return self.close()
 		elif action in self.context_actions:
@@ -120,10 +119,6 @@ class SourcesResults(BaseDialog):
 			if choice:
 				if isinstance(choice, dict): return self.execute_code(run_plugin_str % self.build_url(choice))
 				if choice == 'results_info': return self.open_window(('windows.sources', 'SourcesInfo'), 'sources_info.xml', item=chosen_listitem)
-		elif action in self.closing_actions:
-			if self.filter_applied: return self.clear_filter()
-			self.selected = (None, '')
-			return self.close()
 
 	def make_items(self, filtered_list=None):
 		def builder(results):
@@ -150,11 +145,12 @@ class SourcesResults(BaseDialog):
 							else: set_properties({'source_type': 'UNCACHED'})
 							set_properties({'highlight': 'FF7C7C7C'})
 						else:
+							cache_flag = 'UNCHECKED' if provider in ('REAL-DEBRID', 'ALLDEBRID') else '[B]CACHED[/B]'
 							if highlight_type == 0: key = provider_lower
 							else: key = basic_quality
 							set_properties({'highlight': self.info_highlights_dict[key]})
-							if pack: set_properties({'source_type': 'CACHED [B]PACK[/B]'})
-							else: set_properties({'source_type': 'CACHED'})
+							if pack: set_properties({'source_type': '%s [B]PACK[/B]' % cache_flag})
+							else: set_properties({'source_type': '%s' % cache_flag})
 						set_properties({'provider': provider})
 					else:
 						source_site = upper(source)
@@ -228,13 +224,13 @@ class SourcesResults(BaseDialog):
 		if not uncached and scrape_provider != 'folders':
 			down_file_params = {'mode': 'downloader.runner', 'action': 'meta.single', 'name': self.meta.get('rootname', ''), 'source': source,
 								'url': None, 'provider': scrape_provider, 'meta': meta_json}
-		if 'package' in item and not uncached:
+		if 'package' in item and not uncached and cache_provider != 'EasyDebrid':
 			down_pack_params = {'mode': 'downloader.runner', 'action': 'meta.pack', 'name': self.meta.get('rootname', ''), 'source': source, 'url': None,
 								'provider': cache_provider, 'meta': meta_json, 'magnet_url': magnet_url, 'info_hash': info_hash}
 		if provider_source == 'torrent' and not uncached:
 			browse_pack_params = {'mode': 'debrid.browse_packs', 'provider': cache_provider, 'name': name,
 								'magnet_url': magnet_url, 'info_hash': info_hash}
-			add_magnet_to_cloud_params = {'mode': 'manual_add_magnet_to_cloud', 'provider': cache_provider, 'magnet_url': magnet_url}
+			if cache_provider != 'EasyDebrid': add_magnet_to_cloud_params = {'mode': 'manual_add_magnet_to_cloud', 'provider': cache_provider, 'magnet_url': magnet_url}
 		choices_append(('Info', 'results_info'))
 		if add_magnet_to_cloud_params: choices_append(('Add to Cloud', add_magnet_to_cloud_params))
 		if browse_pack_params: choices_append(('Browse', browse_pack_params))

@@ -124,7 +124,7 @@ def routing(sys):
 			return RealDebridAPI().revoke()
 		if mode == 'real_debrid.delete':
 			from indexers.real_debrid import rd_delete
-			return rd_delete(params.get('id'), params.get('cache_type'))
+			return rd_delete(_get('id'), _get('cache_type'))
 	if 'premiumize' in mode:
 		if mode == 'premiumize.pm_cloud':
 			from indexers.premiumize import pm_cloud
@@ -143,10 +143,10 @@ def routing(sys):
 			return PremiumizeAPI().revoke()
 		if mode == 'premiumize.rename':
 			from indexers.premiumize import pm_rename
-			return pm_rename(params.get('file_type'), params.get('id'), params.get('name'))
+			return pm_rename(_get('file_type'), _get('id'), _get('name'))
 		if mode == 'premiumize.delete':
 			from indexers.premiumize import pm_delete
-			return pm_delete(params.get('file_type'), params.get('id'))
+			return pm_delete(_get('file_type'), _get('id'))
 	if 'alldebrid' in mode:
 		if mode == 'alldebrid.ad_cloud':
 			from indexers.alldebrid import ad_cloud
@@ -166,9 +166,60 @@ def routing(sys):
 		if mode == 'alldebrid.revoke_authentication':
 			from apis.alldebrid_api import AllDebridAPI
 			return AllDebridAPI().revoke()
-		if mode == 'real_debrid.delete':
+		if mode == 'alldebrid.delete':
 			from indexers.alldebrid import ad_delete
-			return ad_delete(params.get('id'))
+			return ad_delete(_get('id'))
+	if 'offcloud' in mode:
+		if mode == 'offcloud.oc_cloud':
+			from indexers.offcloud import oc_cloud
+			return oc_cloud()
+		if mode == 'offcloud.browse_oc_cloud':
+			from indexers.offcloud import browse_oc_cloud
+			return browse_oc_cloud(_get('folder_id'))
+		if mode == 'offcloud.resolve_oc':
+			from indexers.offcloud import resolve_oc
+			return resolve_oc(params)
+		if mode == 'offcloud.oc_account_info':
+			from indexers.offcloud import oc_account_info
+			return oc_account_info()
+		if mode == 'offcloud.authenticate':
+			from apis.offcloud_api import OffcloudAPI
+			return OffcloudAPI().auth()
+		if mode == 'offcloud.revoke_authentication':
+			from apis.offcloud_api import OffcloudAPI
+			return OffcloudAPI().revoke()
+		if mode == 'offcloud.delete':
+			from indexers.offcloud import oc_delete
+			return oc_delete(_get('folder_id'))
+	if 'easydebrid' in mode:
+		if mode == 'easydebrid.authenticate':
+			from apis.easydebrid_api import EasyDebridAPI
+			return EasyDebridAPI().auth()
+		if mode == 'easydebrid.revoke_authentication':
+			from apis.easydebrid_api import EasyDebridAPI
+			return EasyDebridAPI().revoke()
+	if 'torbox' in mode:
+		if mode == 'torbox.tb_cloud':
+			from indexers.torbox import tb_cloud
+			return tb_cloud()
+		if mode == 'torbox.browse_tb_cloud':
+			from indexers.torbox import browse_tb_cloud
+			return browse_tb_cloud(_get('folder_id'), _get('media_type'))
+		if mode == 'torbox.resolve_tb':
+			from indexers.torbox import resolve_tb
+			return resolve_tb(params)
+		if mode == 'torbox.tb_account_info':
+			from indexers.torbox import tb_account_info
+			return tb_account_info()
+		if mode == 'torbox.authenticate':
+			from apis.torbox_api import TorBoxAPI
+			return TorBoxAPI().auth()
+		if mode == 'torbox.revoke_authentication':
+			from apis.torbox_api import TorBoxAPI
+			return TorBoxAPI().revoke()
+		if mode == 'torbox.delete':
+			from indexers.torbox import tb_delete
+			return tb_delete(_get('folder_id'), _get('media_type'))
 	if '_cache' in mode:
 		from caches import base_cache
 		if mode == 'clear_cache':

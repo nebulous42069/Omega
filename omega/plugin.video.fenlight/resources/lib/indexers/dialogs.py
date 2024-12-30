@@ -44,7 +44,7 @@ def preferred_autoplay_choice(params):
 		return (new_default, clear_choice)
 	def _param_choices(choice):
 		used_filters = [i['value'] for i in choices if not i['value'].startswith('Choose')]
-		unused_filters = [i for i in source_filters if not i[1] in used_filters]
+		unused_filters = [i for i in filters_choice if not i[1] in used_filters]
 		param_list_items = [{'line1': i[0], 'line2': i[1]} for i in unused_filters]
 		param_kwargs = {'items': json.dumps(param_list_items), 'multi_line': 'true', 'heading': 'Choose Sort to Top Params for Autoplay', 'narrow_window': 'true'}
 		param_choice = select_dialog(unused_filters, **param_kwargs)
@@ -55,6 +55,7 @@ def preferred_autoplay_choice(params):
 		new_settings = [i['value'] for i in choices if not i['value'].startswith('Choose')]
 		if not new_settings: set_setting('preferred_autoplay', 'empty_setting')
 		else: set_setting('preferred_autoplay', ', '.join(new_settings))
+	filters_choice = [(i[0], i[1].replace('[B]', '').replace('[/B]', '')) for i in source_filters]
 	choices = params.get('choices') or _beginning_choices()
 	list_items = [{'line1': i['name'], 'line2': i['value']} for i in choices]
 	kwargs = {'items': json.dumps(list_items), 'multi_line': 'true', 'heading': 'Choose Sort to Top Params for Autoplay', 'narrow_window': 'true'}
@@ -137,20 +138,23 @@ def genres_choice(params):
 	return select_dialog([i['id'] for i in genre_list], **kwargs)
 
 def keywords_choice(params):
-	from apis.tmdb_api import tmdb_movie_keywords, tmdb_tv_keywords
-	show_busy_dialog()
-	media_type, tmdb_id, poster = params['media_type'], params['tmdb_id'], params['poster']
-	if media_type == 'movie': function, key = tmdb_movie_keywords, 'keywords'
-	else: function, key = tmdb_tv_keywords, 'results'
-	try: results = function(tmdb_id)[key]
-	except: results = []
-	hide_busy_dialog()
-	if not results:
+	media_type, meta = params['media_type'], params['meta']
+	keywords, tmdb_id, poster = meta.get('keywords', []), meta['tmdb_id'], meta['poster']
+	if keywords: keywords = keywords['keywords']
+	else:
+		show_busy_dialog()
+		from apis.tmdb_api import tmdb_movie_keywords, tmdb_tv_keywords
+		if media_type == 'movie': function, key = tmdb_movie_keywords, 'keywords'
+		else: function, key = tmdb_tv_keywords, 'results'
+		try: keywords = function(tmdb_id)[key]
+		except: keywords = []
+		hide_busy_dialog()
+	if not keywords:
 		notification('No Results', 2500)
 		return None
-	list_items = [{'line1': i['name'], 'icon': poster} for i in results]
+	list_items = [{'line1': i['name'], 'icon': poster} for i in keywords]
 	kwargs = {'items': json.dumps(list_items)}
-	return select_dialog([i['id'] for i in results], **kwargs)
+	return select_dialog([i['id'] for i in keywords], **kwargs)
 
 def random_choice(params):
 	meta, poster, return_choice = params.get('meta'), params.get('poster'), params.get('return_choice', 'false')
@@ -430,8 +434,8 @@ def set_language_filter_choice(params):
 
 def enable_scrapers_choice(params={}):
 	icon = params.get('icon', None) or get_icon('fenlight')
-	scrapers = ['external', 'easynews', 'rd_cloud', 'pm_cloud', 'ad_cloud', 'folders']
-	cloud_scrapers = {'rd_cloud': 'rd.enabled', 'pm_cloud': 'pm.enabled', 'ad_cloud': 'ad.enabled'}
+	scrapers = ['external', 'easynews', 'rd_cloud', 'pm_cloud', 'ad_cloud', 'oc_cloud', 'tb_cloud', 'folders']
+	cloud_scrapers = {'rd_cloud': 'rd.enabled', 'pm_cloud': 'pm.enabled', 'ad_cloud': 'ad.enabled', 'oc_cloud': 'oc.enabled', 'tb_cloud': 'tb.enabled'}
 	preselect = [scrapers.index(i) for i in active_internal_scrapers()]
 	list_items = [{'line1': item, 'icon': icon} for item in scraper_names]
 	kwargs = {'items': json.dumps(list_items), 'multi_choice': 'true', 'preselect': preselect}
@@ -560,7 +564,7 @@ def options_menu_choice(params, meta=None):
 				listing_append((base_str1 % ('Autoscrape Next Episode', ''), base_str2 % autoscrape_next_status, 'toggle_autoscrape_next'))
 		listing_append((base_str1 % ('Quality Limit', ' (%s)' % content), base_str2 % current_quality_status, 'set_quality'))
 		listing_append((base_str1 % ('', 'Enable Scrapers'), base_str2 % current_scrapers_status, 'enable_scrapers'))
-		if menu_type == 'episode':
+		if menu_type == 'episode' or menu_type in single_ep_list:
 			listing_append(('Assign an Episode Group to %s' % rootname, 'Currently %s' % episode_groups_cache.get(tmdb_id).get('name', 'None'), 'episode_group'))
 	if not from_extras:
 		if menu_type in ('movie', 'tvshow'):

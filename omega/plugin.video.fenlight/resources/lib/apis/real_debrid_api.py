@@ -130,17 +130,25 @@ class RealDebridAPI:
 	def user_cloud(self):
 		string = 'rd_user_cloud'
 		url = 'torrents?limit=500'
-		return cache_object(self._get, string, url, False, 0.5)
+		return cache_object(self._get, string, url, False, 0.03)
+
+	def user_cloud_check(self):
+		url = 'torrents?limit=500'
+		return self._get(url)
 
 	def downloads(self):
 		string = 'rd_downloads'
 		url = 'downloads?limit=500'
-		return cache_object(self._get, string, url, False, 0.5)
+		return cache_object(self._get, string, url, False, 0.03)
 
 	def user_cloud_info(self, file_id):
 		string = 'rd_user_cloud_info_%s' % file_id
 		url = 'torrents/info/%s' % file_id
-		return cache_object(self._get, string, url, False, 2)
+		return cache_object(self._get, string, url, False, 0.03)
+
+	def user_cloud_info_check(self, file_id):
+		url = 'torrents/info/%s' % file_id
+		return self._get(url)
 
 	def torrent_info(self, file_id):
 		url = 'torrents/info/%s' % file_id
@@ -192,77 +200,54 @@ class RealDebridAPI:
 		response = requests.delete(base_url + url, timeout=timeout)
 		return response
 
-	def get_hosts(self):
-		string = 'rd_valid_hosts'
-		url = 'hosts/domains'
-		hosts_dict = {'Real-Debrid': []}
-		try:
-			result = cache_object(self._get, string, url, False, 48)
-			hosts_dict['Real-Debrid'] = result
-		except: pass
-		return hosts_dict
-
 	def resolve_magnet(self, magnet_url, info_hash, store_to_cloud, title, season, episode):
+		compare_title = re.sub(r'[^A-Za-z0-9]+', '.', title.replace('\'', '').replace('&', 'and').replace('%', '.percent')).lower()
+		elapsed_time, transfer_finished = 0, False
+		extensions = supported_video_extensions()
+		torrent_id = None
 		try:
-			torrent_id, match = None, False
-			extensions = supported_video_extensions()
-			torrent_files = self.check_hash(info_hash)
-			if not info_hash in torrent_files: return None
 			torrent = self.add_magnet(magnet_url)
+			if 'error' in torrent: return None
 			torrent_id = torrent['id']
-			torrent_files = torrent_files[info_hash]['rd']
-			vid_only = [i for i in torrent_files if self.video_only(i, extensions)]
-			remainder = [i for i in torrent_files if not i in vid_only]
-			torrent_files = vid_only + remainder
-			if season: torrent_files = [item for item in torrent_files if self.name_check(item, season, episode, seas_ep_filter)]
+			self.add_torrent_select(torrent_id, 'all')
+			torrent_info = self.user_cloud_info_check(torrent_id)
+			if not torrent_info['links'] or 'error' in torrent_info:
+				self.delete_torrent(torrent_id)
+				return None
+			sleep(200)
+			while elapsed_time <= 4 and not transfer_finished:
+				active_count = self.torrents_activeCount()
+				active_list = active_count['list']
+				elapsed_time += 1
+				if info_hash in active_list: sleep(1000)
+				else: transfer_finished = True
+			if not transfer_finished:
+				self.delete_torrent(torrent_id)
+				return None
+			selected_files = [(idx, i) for idx, i in enumerate([i for i in torrent_info['files'] if i['selected'] == 1 and i['path'].lower().endswith(tuple(extensions))])]
+			selected_files = sorted(selected_files, key=lambda x: x[1]['bytes'], reverse=True)
+			match = False
+			if season:
+				correct_files = []
+				correct_file_check = False
+				for value in selected_files:
+					correct_file_check = seas_ep_filter(season, episode, value[1]['path'])
+					if correct_file_check: correct_files.append(value[1]); break
+				if len(correct_files) == 0: match = False
+				else:
+					for i in correct_files:
+						compare_link = seas_ep_filter(season, episode, i['path'], split=True)
+						compare_link = re.sub(compare_title, '', compare_link)
+						if any(x in compare_link for x in EXTRAS): continue
+						else: match = True; break
+				if match: index = [i[0] for i in selected_files if i[1]['path'] == correct_files[0]['path']][0]
 			else:
-				m2ts_check = self._m2ts_check(torrent_files)
-				if m2ts_check: m2ts_key, torrent_files = self._m2ts_key_value(torrent_files)
-				else: torrent_files = self.sort_cache_list([(item, max([i['filesize'] for i in item.values()])) for item in torrent_files])
-			compare_title = re.sub(r'[^A-Za-z0-9]+', '.', title.replace('\'', '').replace('&', 'and').replace('%', '.percent')).lower()
-			for item in torrent_files:
-				try:
-					if not season and not m2ts_check:
-						possible_files = 0
-						item_values = self.sort_cache_list([(i['filename'], i['filesize']) for i in item.values()])
-						for value in item_values:
-							filename = re.sub(r'[^A-Za-z0-9-]+', '.', value.replace('\'', '').replace('&', 'and').replace('%', '.percent')).lower()
-							filename_info = filename.replace(compare_title, '')
-							if any(x in filename_info for x in EXTRAS): continue
-							possible_files += 1
-						if not possible_files: continue
-					torrent_keys = item.keys()
-					if len(torrent_keys) == 0: continue
-					torrent_keys = ','.join(torrent_keys)
-					self.add_torrent_select(torrent_id, torrent_keys)
-					torrent_info = self.user_cloud_info(torrent_id)
-					if not torrent_info['links']: continue
-					if 'error' in torrent_info: continue
-					selected_files = [(idx, i) for idx, i in enumerate([i for i in torrent_info['files'] if i['selected'] == 1])]
-					if season:
-						correct_files = []
-						correct_file_check = False
-						for value in selected_files:
-							correct_file_check = seas_ep_filter(season, episode, value[1]['path'])
-							if correct_file_check: correct_files.append(value[1]); break
-						if len(correct_files) == 0: continue
-						for i in correct_files:
-							compare_link = seas_ep_filter(season, episode, i['path'], split=True)
-							compare_link = re.sub(compare_title, '', compare_link)
-							if any(x in compare_link for x in EXTRAS): continue
-							else: match = True; break
-						if match: index = [i[0] for i in selected_files if i[1]['path'] == correct_files[0]['path']][0]; break
-					elif m2ts_check: match, index = True, [i[0] for i in selected_files if i[1]['id'] == m2ts_key][0]; break
-					else:
-						match = False
-						selected_files = sorted(selected_files, key=lambda x: x[1]['bytes'], reverse=True)
-						for value in selected_files:
-							filename = re.sub(r'[^A-Za-z0-9-]+', '.', value[1]['path'].rsplit('/', 1)[1].replace('\'', '').replace('&', 'and').replace('%', '.percent')).lower()
-							filename_info = filename.replace(compare_title, '')
-							if any(x in filename_info for x in EXTRAS): continue
-							match, index = True, value[0]; break
-						if match: break
-				except: pass
+				if self._m2ts_check(selected_files): self.delete_torrent(torrent_id) ; return None
+				for value in selected_files:
+					filename = re.sub(r'[^A-Za-z0-9-]+', '.', value[1]['path'].rsplit('/', 1)[1].replace('\'', '').replace('&', 'and').replace('%', '.percent')).lower()
+					filename_info = filename.replace(compare_title, '')
+					if any(x in filename_info for x in EXTRAS): continue
+					match, index = True, value[0]; break
 			if match:
 				rd_link = torrent_info['links'][index]
 				file_url = self.unrestrict_link(rd_link)
@@ -276,26 +261,26 @@ class RealDebridAPI:
 			return None
 
 	def display_magnet_pack(self, magnet_url, info_hash):
-		from modules.source_utils import supported_video_extensions
 		try:
-			video_only_items, list_file_items = [], []
-			video_only_append = video_only_items.append
-			extensions = supported_video_extensions()
-			torrent_files = self.check_hash(info_hash)
-			if not info_hash in torrent_files: return None
+			torrent_id = None
 			torrent = self.add_magnet(magnet_url)
 			torrent_id = torrent['id']
-			torrent_files = torrent_files[info_hash]['rd']
-			torrent_files = [item for item in torrent_files if self.video_only(item, extensions)]
-			for item in torrent_files:
-				torrent_keys = item.keys()
-				if len(torrent_keys) == 0: continue
-				video_only_append(torrent_keys)
-			if not video_only_items: return None
-			video_only_items = max(video_only_items, key=len)
-			torrent_keys = ','.join(video_only_items)
-			self.add_torrent_select(torrent_id, torrent_keys)
-			torrent_info = self.user_cloud_info(torrent_id)
+			self.add_torrent_select(torrent_id, 'all')
+			torrent_info = self.user_cloud_info_check(torrent_id)
+			if not torrent_info['links'] or 'error' in torrent_info:
+				self.delete_torrent(torrent_id)
+				return None
+			sleep(1000)
+			elapsed_time, transfer_finished = 0, False
+			while elapsed_time <= 4 and not transfer_finished:
+				active_count = self.torrents_activeCount()
+				active_list = active_count['list']
+				elapsed_time += 1
+				if info_hash in active_list: sleep(1000)
+				else: transfer_finished = True
+			if not transfer_finished:
+				self.delete_torrent(torrent_id)
+				return None
 			list_file_items = [dict(i, **{'link': torrent_info['links'][idx]}) for idx, i in enumerate([i for i in torrent_info['files'] if i['selected'] == 1])]
 			list_file_items = [{'link': i['link'], 'filename': i['path'].replace('/', ''), 'size': i['bytes']} for i in list_file_items]
 			self.delete_torrent(torrent_id)
@@ -315,141 +300,8 @@ class RealDebridAPI:
 		return [i[0] for i in sorted_list]
 
 	def _m2ts_check(self, folder_details):
-		for item in folder_details:
-			if any(i['filename'].endswith('.m2ts') for i in item.values()): return True
-		return False
-
-	def _m2ts_key_value(self, torrent_files):
-		total_max_size, total_min_length = 0, 10000000000
-		for item in torrent_files:
-			max_filesize, item_length = max([i['filesize'] for i in item.values()]), len(item)
-			if max_filesize >= total_max_size:
-				if item_length < total_min_length:
-					total_max_size, total_min_length = max_filesize, item_length
-					dict_item = item
-					key = int([k for k,v in iter(item.items()) if v['filesize'] == max_filesize][0])
-		return key, [dict_item,]
-
-	def add_uncached(self, magnet_url, pack=False):
-		from modules.kodi_utils import show_busy_dialog, hide_busy_dialog
-		from modules.source_utils import supported_video_extensions
-		def _return_failed(message='Error', cancelled=False):
-			try: progressDialog.close()
-			except Exception: pass
-			hide_busy_dialog()
-			sleep(500)
-			if cancelled:
-				if confirm_dialog(text='Continue Transfer in Background?'): ok_dialog(heading='Fen Light Cloud Transfer', text='Saving Result to the Real Debrid Cloud')
-				else: self.delete_torrent(torrent_id)
-			else: ok_dialog(heading='Fen Light Cloud Transfer', text=message)
-			return False
-		show_busy_dialog()
-		monitor = xbmc_monitor()
-		try:
-			active_count = self.torrents_activeCount()
-			if active_count['nb'] >= active_count['limit']:
-				return _return_failed()
-		except: pass
-		interval = 5
-		stalled = ('magnet_error', 'error', 'virus', 'dead')
-		extensions = supported_video_extensions()
-		torrent = self.add_magnet(magnet_url)
-		torrent_id = torrent['id']
-		if not torrent_id: return _return_failed()
-		torrent_info = self.torrent_info(torrent_id)
-		if 'error_code' in torrent_info: return _return_failed()
-		status = torrent_info['status']
-		line = '%s[CR]%s[CR]%s'
-		if status == 'magnet_conversion':
-			line1 = 'Converting MAGNET...'
-			line2 = torrent_info['filename']
-			line3 = '%s seeders' % torrent_info['seeders']
-			progress_timeout = 100
-			progressDialog = progress_dialog('Fen Light Cloud Transfer', icon)
-			while status == 'magnet_conversion' and progress_timeout > 0:
-				progressDialog.update(line % (line1, line2, line3), progress_timeout)
-				if monitor.abortRequested() == True: return
-				try:
-					if progressDialog.iscanceled():
-						return _return_failed('Cancelled', cancelled=True)
-				except Exception:
-					pass
-				progress_timeout -= interval
-				sleep(1000 * interval)
-				torrent_info = self.torrent_info(torrent_id)
-				status = torrent_info['status']
-				if any(x in status for x in stalled):
-					return _return_failed()
-				line3 = '%s seeders' % torrent_info['seeders']
-			try:
-				progressDialog.close()
-			except Exception:
-				pass
-		if status == 'downloaded':
-			hide_busy_dialog()
-			return True
-		if status == 'magnet_conversion':
-			return _return_failed()
-		if any(x in status for x in stalled):
-			return _return_failed(str(status))
-		if status == 'waiting_files_selection':
-			video_files = []
-			append = video_files.append
-			all_files = torrent_info['files']
-			for item in all_files:
-				if any(item['path'].lower().endswith(x) for x in extensions):
-					append(item)
-			if pack:
-				try:
-					if len(video_files) == 0: return _return_failed()
-					video_files.sort(key=lambda x: x['path'])
-					torrent_keys = [str(i['id']) for i in video_files]
-					if not torrent_keys: return _return_failed('Cancelled')
-					torrent_keys = ','.join(torrent_keys)
-					self.add_torrent_select(torrent_id, torrent_keys)
-					ok_dialog(text='Saving Result to the Real Debrid Cloud')
-					hide_busy_dialog()
-					return True
-				except Exception:
-					return _return_failed()
-			else:
-				try:
-					video = max(video_files, key=lambda x: x['bytes'])
-					file_id = video['id']
-				except ValueError:
-					return _return_failed()
-				self.add_torrent_select(torrent_id, str(file_id))
-			sleep(2000)
-			torrent_info = self.torrent_info(torrent_id)
-			status = torrent_info['status']
-			if status == 'downloaded':
-				hide_busy_dialog()
-				return True
-			file_size = round(float(video['bytes']) / (1000 ** 3), 2)
-			line1 = 'Saving Result to the Real Debrid Cloud...'
-			line2 = torrent_info['filename']
-			line3 = status
-			progressDialog = progress_dialog('Fen Light Cloud Transfer', icon)
-			while not status == 'downloaded':
-				sleep(1000 * interval)
-				torrent_info = self.torrent_info(torrent_id)
-				status = torrent_info['status']
-				if status == 'downloading':
-					line3 = 'Downloading %s GB @ %s mbps from %s peers, %s %% completed' \
-							% (file_size, round(float(torrent_info['speed']) / (1000**2), 2), torrent_info['seeders'], torrent_info['progress'])
-				else:
-					line3 = status
-				progressDialog.update(line % (line1, line2, line3), int(float(torrent_info['progress'])))
-				if monitor.abortRequested() == True: return sys.exit()
-				try:
-					if progressDialog.iscanceled(): return _return_failed('Cancelled', cancelled=True)
-				except: pass
-				if any(x in status for x in stalled): return _return_failed()
-			try: progressDialog.close()
-			except: pass
-			hide_busy_dialog()
-			return True
-		hide_busy_dialog()
+		for idx, item in folder_details:
+			if item['path'].endswith('.m2ts'): return True
 		return False
 
 	def _get(self, url):
@@ -480,7 +332,6 @@ class RealDebridAPI:
 
 	def clear_cache(self, clear_hashes=True):
 		try:
-			from modules.kodi_utils import clear_property
 			from caches.debrid_cache import debrid_cache
 			from caches.base_cache import connect_database
 			dbcon = connect_database('maincache_db')
@@ -493,16 +344,13 @@ class RealDebridAPI:
 					user_cloud_success = True
 				if not user_cloud_success:
 					dbcon.execute("""DELETE FROM maincache WHERE id=?""", ('rd_user_cloud',))
-					clear_property("fenlight.rd_user_cloud")
 					for i in user_cloud_info_caches:
 						dbcon.execute("""DELETE FROM maincache WHERE id=?""", ('rd_user_cloud_info_%s' % i,))
-						clear_property("fenlight.rd_user_cloud_info_%s" % i)
 					user_cloud_success = True
 			except: user_cloud_success = False
 			# DOWNLOAD LINKS
 			try:
 				dbcon.execute("""DELETE FROM maincache WHERE id=?""", ('rd_downloads',))
-				clear_property("fenlight.rd_downloads")
 				download_links_success = True
 			except: download_links_success = False
 			# HASH CACHED STATUS
