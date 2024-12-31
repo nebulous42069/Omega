@@ -20,7 +20,8 @@
 				<top>1005</top>
 				<width>68</width>
 				<height>68</height>
-			    <onup>90020</onup>
+				<onup condition="!Skin.HasSetting(centermainmenu)">9010</onup>
+				<onup condition="Skin.HasSetting(centermainmenu)">90020</onup>				
 			    <onright>9082</onright>
 			    <onleft>90020</onleft>
                 <textureradioonfocus>icon_power.png</textureradioonfocus>
@@ -41,7 +42,8 @@
 				<top>1005</top>
 				<width>68</width>
 				<height>68</height>
-			    <onup>90020</onup>			
+				<onup condition="!Skin.HasSetting(centermainmenu)">9010</onup>
+				<onup condition="Skin.HasSetting(centermainmenu)">90020</onup>			
 			    <onright>9083</onright>
 			    <onleft>9081</onleft>				
                 <textureradioonfocus>icon_favourites.png</textureradioonfocus>
@@ -62,7 +64,8 @@
 				<top>1005</top>
 				<width>68</width>
 				<height>68</height>
-			    <onup>90020</onup>			
+				<onup condition="!Skin.HasSetting(centermainmenu)">9010</onup>
+				<onup condition="Skin.HasSetting(centermainmenu)">90020</onup>			
 			    <onright>600</onright>
 			    <onleft>9082</onleft>				
                 <textureradioonfocus>icon_search.png</textureradioonfocus>
@@ -87,7 +90,8 @@
 			<onup>9000</onup>
 			<onback>9000</onback>
 			<ondown condition="Control.IsVisible(90020) + Skin.HasSetting(centermainmenu)">90020</ondown>
-			<ondown condition="!Control.IsVisible(90020) | !Skin.HasSetting(centermainmenu)">9000</ondown>
+			<ondown condition="!Player.HasMedia + Control.IsVisible(9000) + !Skin.HasSetting(centermainmenu)">9081</ondown>
+			<ondown condition="!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Control.IsVisible(90020) + !Skin.HasSetting(centermainmenu) + Player.HasMedia">600</ondown>
 			<pagecontrol />
 			<scrolltime tween="quadratic" easing="out">300</scrolltime>
 			<focusposition>2</focusposition>

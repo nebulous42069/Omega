@@ -464,8 +464,8 @@
             <visible>String.IsEmpty(Window(Videos).Property(PlayingBackgroundMedia))</visible>		
             <control type="group" id="600">
                 <left>200</left>
-                <onup condition="!Skin.HasSetting(LowerMainMenuBar)">9003</onup>
-                <onup condition="Skin.HasSetting(LowerMainMenuBar)">9002</onup>
+				<onup condition="!Skin.HasSetting(centermainmenu)">9010</onup>
+				<onup condition="Skin.HasSetting(centermainmenu)">90020</onup>
                 <ondown>9000</ondown>
                 <defaultcontrol></defaultcontrol>
                 <enable>Player.HasMedia</enable>
@@ -509,8 +509,8 @@
                         </include>
                         <onleft>9083</onleft>
                         <onright>602</onright>
-                        <onup condition="!Skin.HasSetting(LowerMainMenuBar)">90020</onup>
-                        <onup condition="Skin.HasSetting(LowerMainMenuBar)">9002</onup>
+						<onup condition="!Skin.HasSetting(centermainmenu)">9010</onup>
+						<onup condition="Skin.HasSetting(centermainmenu)">90020</onup>
                         <ondown>9000</ondown>
                         <onclick>PlayerControl(Previous)</onclick>
                     </control>
@@ -524,8 +524,8 @@
                         </include>
                         <onleft>601</onleft>
                         <onright>603</onright>
-                        <onup condition="!Skin.HasSetting(LowerMainMenuBar)">90020</onup>
-                        <onup condition="Skin.HasSetting(LowerMainMenuBar)">9002</onup>
+						<onup condition="!Skin.HasSetting(centermainmenu)">9010</onup>
+						<onup condition="Skin.HasSetting(centermainmenu)">90020</onup>
                         <ondown>9000</ondown>
                         <onclick>PlayerControl(Rewind)</onclick>
                     </control>
@@ -541,8 +541,8 @@
                         </include>
                         <onleft>602</onleft>
                         <onright>604</onright>
-                        <onup condition="!Skin.HasSetting(LowerMainMenuBar)">90020</onup>
-                        <onup condition="Skin.HasSetting(LowerMainMenuBar)">9002</onup>
+						<onup condition="!Skin.HasSetting(centermainmenu)">9010</onup>
+						<onup condition="Skin.HasSetting(centermainmenu)">90020</onup>
                         <ondown>9000</ondown>
                         <onclick>PlayerControl(Play)</onclick>
                     </control>
@@ -556,8 +556,8 @@
                         </include>
                         <onleft>603</onleft>
                         <onright>605</onright>
-                        <onup condition="!Skin.HasSetting(LowerMainMenuBar)">90020</onup>
-                        <onup condition="Skin.HasSetting(LowerMainMenuBar)">9002</onup>
+						<onup condition="!Skin.HasSetting(centermainmenu)">9010</onup>
+						<onup condition="Skin.HasSetting(centermainmenu)">90020</onup>
                         <ondown>9000</ondown>
                         <onclick>down</onclick>
                         <onclick>PlayerControl(Stop)</onclick>
@@ -572,8 +572,8 @@
                         </include>
                         <onleft>604</onleft>
                         <onright>606</onright>
-                        <onup condition="!Skin.HasSetting(LowerMainMenuBar)">90020</onup>
-                        <onup condition="Skin.HasSetting(LowerMainMenuBar)">9002</onup>
+						<onup condition="!Skin.HasSetting(centermainmenu)">9010</onup>
+						<onup condition="Skin.HasSetting(centermainmenu)">90020</onup>
                         <ondown>9000</ondown>
                         <onclick>PlayerControl(Forward)</onclick>
                     </control>
@@ -587,8 +587,8 @@
                         </include>
                         <onleft>605</onleft>
                         <onright>607</onright>
-                        <onup condition="!Skin.HasSetting(LowerMainMenuBar)">90020</onup>
-                        <onup condition="Skin.HasSetting(LowerMainMenuBar)">9002</onup>
+						<onup condition="!Skin.HasSetting(centermainmenu)">9010</onup>
+						<onup condition="Skin.HasSetting(centermainmenu)">90020</onup>
                         <ondown>9000</ondown>
                         <onclick>PlayerControl(Next)</onclick>
                     </control>
@@ -603,8 +603,8 @@
                         </include>
                         <onleft>606</onleft>
                         <onright>608</onright>
-                        <onup condition="!Skin.HasSetting(LowerMainMenuBar)">90020</onup>
-                        <onup condition="Skin.HasSetting(LowerMainMenuBar)">9002</onup>
+						<onup condition="!Skin.HasSetting(centermainmenu)">9010</onup>
+						<onup condition="Skin.HasSetting(centermainmenu)">90020</onup>
                         <ondown>9000</ondown>
                         <onclick>$VAR[VolumeStepUp]</onclick>
                         <onclick>VolumeUp</onclick>
@@ -620,8 +620,8 @@
                         </include>
                         <onleft>607</onleft>
                         <onright>601</onright>
-                        <onup condition="!Skin.HasSetting(LowerMainMenuBar)">90020</onup>
-                        <onup condition="Skin.HasSetting(LowerMainMenuBar)">9002</onup>
+						<onup condition="!Skin.HasSetting(centermainmenu)">9010</onup>
+						<onup condition="Skin.HasSetting(centermainmenu)">90020</onup>
                         <ondown>9000</ondown>
                         <onclick>$VAR[VolumeStepDown]</onclick>
                         <onclick>VolumeDown</onclick>
@@ -639,8 +639,8 @@
                         </include>
                         <onleft>9083</onleft>
                         <onright>602</onright>
-                        <onup condition="!Skin.HasSetting(LowerMainMenuBar)">90020</onup>
-                        <onup condition="Skin.HasSetting(LowerMainMenuBar)">9002</onup>
+						<onup condition="!Skin.HasSetting(centermainmenu)">9010</onup>
+						<onup condition="Skin.HasSetting(centermainmenu)">90020</onup>
                         <ondown>9000</ondown>
                         <onclick>ChannelDown</onclick>
                     </control>
@@ -654,8 +654,8 @@
                         </include>
                         <onleft>601</onleft>
                         <onright>603</onright>
-                        <onup condition="!Skin.HasSetting(LowerMainMenuBar)">90020</onup>
-                        <onup condition="Skin.HasSetting(LowerMainMenuBar)">9002</onup>
+						<onup condition="!Skin.HasSetting(centermainmenu)">9010</onup>
+						<onup condition="Skin.HasSetting(centermainmenu)">90020</onup>
                         <ondown>9000</ondown>
                         <onclick>ChannelUp</onclick>
                     </control>
@@ -669,8 +669,8 @@
                         </include>
                         <onleft>602</onleft>
                         <onright>604</onright>
-                        <onup condition="!Skin.HasSetting(LowerMainMenuBar)">90020</onup>
-                        <onup condition="Skin.HasSetting(LowerMainMenuBar)">9002</onup>
+						<onup condition="!Skin.HasSetting(centermainmenu)">9010</onup>
+						<onup condition="Skin.HasSetting(centermainmenu)">90020</onup>
                         <ondown>9000</ondown>
                         <onclick>down</onclick>
                         <onclick>PlayerControl(Stop)</onclick>
@@ -687,8 +687,8 @@
                         </include>
                         <onleft>603</onleft>
                         <onright>605</onright>
-                        <onup condition="!Skin.HasSetting(LowerMainMenuBar)">90020</onup>
-                        <onup condition="Skin.HasSetting(LowerMainMenuBar)">9002</onup>
+						<onup condition="!Skin.HasSetting(centermainmenu)">9010</onup>
+						<onup condition="Skin.HasSetting(centermainmenu)">90020</onup>
                         <ondown>9000</ondown>
                         <onclick>PlayerControl(Play)</onclick>
                         <enable>Player.PauseEnabled</enable>
@@ -704,7 +704,8 @@
                         </include>
                         <onleft>604</onleft>
                         <onright>606</onright>
-                        <onup>90020</onup>
+						<onup condition="!Skin.HasSetting(centermainmenu)">9010</onup>
+						<onup condition="Skin.HasSetting(centermainmenu)">90020</onup>
                         <ondown>9000</ondown>
                         <onclick>ActivateWindow(PVRRadioRDSInfo)</onclick>
                         <enable>RDS.HasRadiotextPlus</enable>
@@ -720,8 +721,8 @@
                         </include>
                         <onleft>605</onleft>
                         <onright>607</onright>
-                        <onup condition="!Skin.HasSetting(LowerMainMenuBar)">90020</onup>
-                        <onup condition="Skin.HasSetting(LowerMainMenuBar)">9002</onup>
+						<onup condition="!Skin.HasSetting(centermainmenu)">9010</onup>
+						<onup condition="Skin.HasSetting(centermainmenu)">90020</onup>
                         <ondown>9000</ondown>
                         <onclick>PVR.ToggleRecordPlayingChannel</onclick>
                     </control>
@@ -736,8 +737,8 @@
                         </include>
                         <onleft>606</onleft>
                         <onright>608</onright>
-                        <onup condition="!Skin.HasSetting(LowerMainMenuBar)">90020</onup>
-                        <onup condition="Skin.HasSetting(LowerMainMenuBar)">9002</onup>
+						<onup condition="!Skin.HasSetting(centermainmenu)">9010</onup>
+						<onup condition="Skin.HasSetting(centermainmenu)">90020</onup>
                         <ondown>9000</ondown>
                         <onclick>$VAR[VolumeStepUp]</onclick>
                         <onclick>VolumeUp</onclick>
@@ -753,8 +754,8 @@
                         </include>
                         <onleft>607</onleft>
                         <onright>609</onright>
-                        <onup condition="!Skin.HasSetting(LowerMainMenuBar)">90020</onup>
-                        <onup condition="Skin.HasSetting(LowerMainMenuBar)">9002</onup>
+						<onup condition="!Skin.HasSetting(centermainmenu)">9010</onup>
+						<onup condition="Skin.HasSetting(centermainmenu)">90020</onup>
                         <ondown>9000</ondown>
                         <onclick>$VAR[VolumeStepDown]</onclick>
                         <onclick>VolumeDown</onclick>

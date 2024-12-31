@@ -3177,6 +3177,10 @@ msgctxt "#31994"
 msgid "Vertical Menu"
 msgstr ""
 
+msgctxt "#31995"
+msgid "LARGE FONT"
+msgstr ""
+
 #~ msgctxt "#31015"
 #~ msgid "Set path to video genre fanart folder"
 #~ msgstr "Configurar ruta a la carpeta del fanart de géneros de video"
