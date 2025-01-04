@@ -3890,7 +3890,7 @@
                     <pulseonselect>no</pulseonselect>
                     <font>font13</font>
                     <label>$LOCALIZE[166] $LOCALIZE[5]</label>
-                </control>
+                </control>				
             </control>				
             <control type="group" id="15">
                 <width>510</width>
@@ -3904,12 +3904,42 @@
                     <texture border="25,5,25,5">$VAR[DialogPath]DialogContextMiddle.png</texture>
                 </control>
                 <control type="button" id="1500">
-                    <description>Reload Skin</description>
+                    <description>Kodi Settings button</description>
                     <left>27</left>
                     <top>0</top>
                     <width>456</width>
                     <height>60</height>
                     <onup>14</onup>
+                    <ondown>16</ondown>
+                    <textcolor>grey2</textcolor>
+                    <focusedcolor>white</focusedcolor>
+                    <align>center</align>
+                    <textwidth>435</textwidth>
+                    <onclick>dialog.close(shutdownmenu)</onclick>
+                    <onclick>ActivateWindow(Settings,return)</onclick>
+                    <pulseonselect>no</pulseonselect>
+                    <font>font13</font>
+                    <label>Kodi Settings</label>
+                </control>				
+            </control>
+            <control type="group" id="16">
+                <width>510</width>
+                <height>60</height>
+                <control type="image">
+                    <description>background image</description>
+                    <left>0</left>
+                    <top>0</top>
+                    <width>510</width>
+                    <height>60</height>
+                    <texture border="25,5,25,5">$VAR[DialogPath]DialogContextMiddle.png</texture>
+                </control>
+                <control type="button" id="1600">
+                    <description>Reload Skin</description>
+                    <left>27</left>
+                    <top>0</top>
+                    <width>456</width>
+                    <height>60</height>
+                    <onup>15</onup>
                     <ondown>1</ondown>
                     <textcolor>grey2</textcolor>
                     <focusedcolor>white</focusedcolor>
@@ -3921,7 +3951,7 @@
                     <font>font13</font>
                     <label>Reload Skin</label>
                 </control>				
-            </control>
+            </control>			
             <control type="image" id="16">
                 <description>background bottom image</description>
                 <left>0</left>

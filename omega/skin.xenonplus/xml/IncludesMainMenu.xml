@@ -1046,9 +1046,8 @@
                 <radioposy>8</radioposy>
                 <label></label>
                 <font></font>
-                <onclick>RunScript(script.globalsearch)</onclick>
+                <onclick>ActivateWindow(5001)</onclick>
                 <include condition="!String.IsEmpty(Skin.String(HomeTrans))">HomeTransparentEffect</include>
-                <visible>!Skin.HasSetting(DisableGlobalSearch) + Skin.HasSetting(FloorGlobalSearch)</visible>
             </control>
         </control>
 	</include>

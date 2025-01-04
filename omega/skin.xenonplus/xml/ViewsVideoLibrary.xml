@@ -2431,6 +2431,8 @@
                     <itemgap>3</itemgap>
                     <orientation>horizontal</orientation>
                     <include>VideoMPAAFlaggingConditions</include>
+                    <include>StudioIcon</include>	
+					<include>StudioText</include>
                     <include>VideoCodecFlaggingConditions</include>
                     <include>AudioCodecFlaggingConditions</include>
                     <include>AudioChannelsFlaggingConditions</include>
