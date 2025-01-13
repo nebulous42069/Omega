@@ -73,7 +73,7 @@
                                     <onclick>installaddon(skin.diggzkids)</onclick>
                                 </item>								
                                 <item>
-                                    <label>Install Diggz Xenon</label>
+                                    <label>Install Diggz Xenon Plus</label>
                                     <icon>special://skin/extras/screenshots/widgets/xenon.png</icon>
                                     <visible>String.IsEmpty(Window(Home).Property(WizardStep))</visible>
                                     <onclick>InstallAddon(skin.xenonplus)</onclick>
@@ -83,7 +83,7 @@
                                     <icon>special://skin/extras/screenshots/widgets/xenon2.png</icon>
                                     <visible>String.IsEmpty(Window(Home).Property(WizardStep))</visible>
                                     <onclick>InstallAddon(skin.xenon2)</onclick>
-                                </item>	
+                                </item>								
                                 <item>
                                     <label>Install Diggz ArcticFlix</label>
                                     <icon>special://skin/extras/screenshots/widgets/arcticflix.png</icon>

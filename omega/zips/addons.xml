@@ -2024,7 +2024,7 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
             <screenshot />
         </assets>
     </extension>
-</addon><addon id="skin.aasetup.wizard" name="-[B][COLOR chartreuse]Diggz Skins Setup Wizard[/COLOR][/B]" provider-name="jurialmunkey" version="426">
+</addon><addon id="skin.aasetup.wizard" name="-[B][COLOR chartreuse]Diggz Skins Install Wizard[/COLOR][/B]" provider-name="jurialmunkey" version="427">
     <requires>
         <import addon="xbmc.gui" version="5.17.0" />
 		<import addon="script.skinshortcuts" version="2.0.1" />

@@ -65,13 +65,7 @@
 
                             <content>
 
-                                <!-- Step 01: Widgets -->							
-                                <item>
-                                    <label>Install The Coalition</label>
-                                    <icon>special://skin/extras/screenshots/widgets/coalition_fanart.jpg</icon>
-                                    <visible>String.IsEmpty(Window(Home).Property(WizardStep))</visible>
-                                    <onclick>InstallAddon(plugin.video.coalition)</onclick>
-                                </item>								
+                                <!-- Step 01: Widgets -->															
                                 <item>
                                     <label>Install POV</label>
                                     <icon>special://skin/extras/screenshots/widgets/pov.jpg</icon>

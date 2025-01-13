@@ -95,6 +95,12 @@
                                     <icon>special://skin/extras/screenshots/widgets/trakt.jpg</icon>
                                     <visible>String.IsEmpty(Window(Home).Property(WizardStep))</visible>
                                     <onclick>RunScript(script.module.accountmgr, action=traktAuth)</onclick>
+                                </item>
+                                <item>
+                                    <label>Authenticate Seren TRAKT</label>
+                                    <icon>special://skin/extras/screenshots/widgets/fanart-seren-3.png</icon>
+                                    <visible>String.IsEmpty(Window(Home).Property(WizardStep))</visible>
+                                    <onclick>RunPlugin(plugin://plugin.video.seren/?action=authTrakt)</onclick>
                                 </item>								
 
                             </content>

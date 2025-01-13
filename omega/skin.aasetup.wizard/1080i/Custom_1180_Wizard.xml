@@ -67,19 +67,25 @@
 
                                 <!-- Step 01: Widgets -->
                                <item>
-                                    <label>STEP 3- Install Skins</label>
+                                    <label>STEP 4- Install Skins</label>
                                     <icon>special://skin/extras/screenshots/widgets/skins.jpg</icon>
                                     <visible>String.IsEmpty(Window(Home).Property(WizardStep))</visible>
                                     <onclick>ActivateWindow(1187)</onclick>
                                 </item>
+								<item>
+									<label>Step 1- Needed Updates[B][COLOR red]$INFO[System.AddonUpdateCount, (,)][/COLOR][/B]</label>
+									<property name="folderpath">addons://outdated/</property>
+									<icon>special://skin/extras/screenshots/widgets/updates.gif</icon>
+									<onclick>ActivateWindow(addonbrowser,addons://outdated/,return)</onclick>
+								</item>
                                 <item>
-                                    <label>STEP 1- Install Addons</label>
+                                    <label>STEP 2- Install Addons</label>
                                     <icon>special://skin/extras/screenshots/widgets/addons.jpg</icon>
                                     <visible>String.IsEmpty(Window(Home).Property(WizardStep))</visible>
                                     <onclick>ActivateWindow(1184)</onclick>
                                 </item>								
                                 <item>
-                                    <label>STEP 2- Debid And Trakt Logins</label>
+                                    <label>STEP 3- Debrid And Trakt Logins</label>
                                     <icon>special://skin/extras/screenshots/widgets/debridtrakt.gif</icon>
                                     <visible>String.IsEmpty(Window(Home).Property(WizardStep))</visible>
                                     <onclick>ActivateWindow(1186)</onclick>
