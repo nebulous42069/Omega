@@ -1417,8 +1417,8 @@ class tvshows:
         traktCredentials = trakt.getTraktCredentialsInfo()
         tmdbCredentials = tmdb_utils.getTMDbCredentialsInfo()
         indicators = playcount.getTVShowIndicators()#refresh=True) if action == 'tvshows' else playcount.getTVShowIndicators()
-        watchedMenu = '[I][COLOR goldenrod]Free99[/COLOR] Mark Watched in Trakt[/I]' if trakt.getTraktIndicatorsInfo() == True else '[I]Watched in Scrubs[/I]'
-        unwatchedMenu = '[I][COLOR goldenrod]Free99[/COLOR] Mark Unwatched in Trakt[/I]' if trakt.getTraktIndicatorsInfo() == True else '[I]Unwatched in Scrubs[/I]'
+        watchedMenu = '[I][COLOR goldenrod]Free99[/COLOR] Mark Watched in Trakt[/I]' if trakt.getTraktIndicatorsInfo() == True else '[I]Watched in Free99[/I]'
+        unwatchedMenu = '[I][COLOR goldenrod]Free99[/COLOR] Mark Unwatched in Trakt[/I]' if trakt.getTraktIndicatorsInfo() == True else '[I]Unwatched in Free99[/I]'
         nextMenu = '[I]Next Page[/I]'
         try:
             favitems = favorites.getFavorites('tvshow')

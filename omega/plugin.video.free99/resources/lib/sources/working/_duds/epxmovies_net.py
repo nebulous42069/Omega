@@ -19,6 +19,11 @@ class source:
         self.search_link = '/search.php?search=%s'
 
 
+#epxmovieshd.net
+#europixhd.site
+#topgmovies.net
+
+
     def movie(self, imdb, tmdb, title, localtitle, aliases, year):
         url = {'imdb': imdb, 'title': title, 'aliases': aliases, 'year': year}
         url = urlencode(url)
@@ -57,7 +62,7 @@ class source:
             r = client_utils.parseDOM(r, 'div', attrs={'class': r'col-lg-2 col-md-3 wow.*?'})
             r = [(client_utils.parseDOM(i, 'a', ret='href'), client_utils.parseDOM(i, 'h5')) for i in r if not 'Hindi Dubbed' in i]
             r = [(i[0][0], i[1][0]) for i in r if len(i[0]) > 0 and len(i[1]) > 0]
-            r = [(i[0], re.findall('(.+?) [(](\d{4})[)]', i[1])) for i in r]
+            r = [(i[0], re.findall(r'(.+?) [(](\d{4})[)]', i[1])) for i in r]
             r = [(i[0], i[1][0]) for i in r if len(i[1]) > 0]
             try:
                 r_link = [i[0] for i in r if cleantitle.match_alias(i[1][0], aliases) and cleantitle.match_year(i[1][1], year)][0]

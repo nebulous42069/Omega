@@ -349,8 +349,8 @@ class seasons:
             indicators = playcount.getSeasonIndicators(items[0]['imdb'])
         except:
             pass
-        watchedMenu = '[COLOR goldenrod]Free99[/COLOR] Mark Watched in Trakt' if trakt.getTraktIndicatorsInfo() == True else 'Watched in Scrubs'
-        unwatchedMenu = '[COLOR goldenrod]Free99[/COLOR] Mark Unwatched in Trakt' if trakt.getTraktIndicatorsInfo() == True else 'Unwatched in Scrubs'
+        watchedMenu = '[COLOR goldenrod]Free99[/COLOR] Mark Watched in Trakt' if trakt.getTraktIndicatorsInfo() == True else 'Watched in Free99'
+        unwatchedMenu = '[COLOR goldenrod]Free99[/COLOR] Mark Unwatched in Trakt' if trakt.getTraktIndicatorsInfo() == True else 'Unwatched in Free99'
         for i in items:
             try:
                 label = 'Season %s' % i['season']
@@ -1717,8 +1717,8 @@ class episodes:
             sysaction = ''
         isFolder = False if not sysaction == 'episodes' else True
         playbackMenu = '[COLOR goldenrod]Free99[/COLOR] Select Source' if control.setting('hosts.mode') == '2' else '[COLOR goldenrod]Free99[/COLOR] Auto Play'
-        watchedMenu = '[COLOR goldenrod]Free99[/COLOR] Mark Watched in Trakt' if trakt.getTraktIndicatorsInfo() == True else 'Watched in Scrubs'
-        unwatchedMenu = '[COLOR goldenrod]Free99[/COLOR] Mark Unwatched in Trakt' if trakt.getTraktIndicatorsInfo() == True else 'Unwatched in Scrubs'
+        watchedMenu = '[COLOR goldenrod]Free99[/COLOR] Mark Watched in Trakt' if trakt.getTraktIndicatorsInfo() == True else 'Watched in Free99'
+        unwatchedMenu = '[COLOR goldenrod]Free99[/COLOR] Mark Unwatched in Trakt' if trakt.getTraktIndicatorsInfo() == True else 'Unwatched in Free99'
         for i in items:
             try:
                 if not 'label' in i:

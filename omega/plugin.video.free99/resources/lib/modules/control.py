@@ -202,10 +202,10 @@ def moderator():
         ]
         plugin_name = infoLabel('Container.PluginName')
         if not plugin_name in white_list:
-            xbmc.log('Scrubs v2 Moderator Blockage: %s (Contact me with this line if you feel its a error.)' % plugin_name, xbmc.LOGWARNING)
+            xbmc.log('Free99 Moderator Blockage: %s (Contact me with this line if you feel its a error.)' % plugin_name, xbmc.LOGWARNING)
             sys.exit()
     except Exception as error:
-        xbmc.log('Scrubs v2 Moderator Failure: %s' % error, xbmc.LOGDEBUG)
+        xbmc.log('Free99 Moderator Failure: %s' % error, xbmc.LOGDEBUG)
 
 
 def version():

@@ -16,8 +16,8 @@ from resources.lib.modules import scrape_sources
 class source:
     def __init__(self):
         self.results = []
-        self.domains = ['tvmovieflix.com']
-        self.base_link = 'https://tvmovieflix.com'
+        self.domains = ['flixhq.click']
+        self.base_link = 'https://flixhq.click'
         self.search_link = '/?s=%s'
 
 

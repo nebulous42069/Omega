@@ -1431,8 +1431,8 @@ class movies:
         isPlayable = True if not 'plugin' in control.infoLabel('Container.PluginName') else False
         indicators = playcount.getMovieIndicators()#refresh=True) if action == 'movies' else playcount.getMovieIndicators()
         playbackMenu = '[COLOR goldenrod]Free99[/COLOR] Select Source' if control.setting('hosts.mode') == '2' else '[COLOR goldenrod]Free99[/COLOR] Auto Play'
-        watchedMenu = '[COLOR goldenrod]Free99[/COLOR] Mark Watched in Trakt' if trakt.getTraktIndicatorsInfo() == True else 'Watched in Scrubs'
-        unwatchedMenu = '[COLOR goldenrod]Free99[/COLOR] Mark Unwatched in Trakt' if trakt.getTraktIndicatorsInfo() == True else 'Unwatched in Scrubs'
+        watchedMenu = '[COLOR goldenrod]Free99[/COLOR] Mark Watched in Trakt' if trakt.getTraktIndicatorsInfo() == True else 'Watched in Free99'
+        unwatchedMenu = '[COLOR goldenrod]Free99[/COLOR] Mark Unwatched in Trakt' if trakt.getTraktIndicatorsInfo() == True else 'Unwatched in Free99'
         nextMenu = '[I]Next Page[/I]'
         try:
             favitems = favorites.getFavorites('movie')

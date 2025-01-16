@@ -5,47 +5,45 @@
     <category label="General Settings">
         <setting type="lsep" label="Appearance" />
         <setting id="theme.alt" type="action" label="Theme" default="-" option="close" action="RunPlugin(plugin://plugin.video.free99/?action=artwork)" visible="!System.HasAddon(script.free99.artwork)" />
-        <setting id="theme.1" type="select" label="Theme" values="Grey|Purple" default="Grey" visible="System.HasAddon(script.free99.artwork)" />		
-        <setting id="show.artwork" type="bool" label="Theme Artwork PopUp" default="false" enable="!eq(-1,true)" visible="!System.HasAddon(script.free99.artwork)" />
-        <setting id="theme.1" type="select" label="Theme" values="Grey" default="Grey" visible="false" />
+        <setting id="show.artwork" type="bool" label="Theme Artwork PopUp" default="true" enable="!eq(-1,true)" visible="!System.HasAddon(script.Free99.artwork)" />
+        <setting id="theme.1" type="select" label="Theme" values="Grey|Purple" default="Purple" visible="System.HasAddon(script.Free99.artwork)" />
         <setting id="api.language" type="select" label="Info Language" values="AUTO|Bulgarian|Chinese|Croatian|Czech|Danish|Dutch|English|Finnish|French|German|Greek|Hebrew|Hungarian|Italian|Japanese|Korean|Norwegian|Polish|Portuguese|Romanian|Russian|Serbian|Slovak|Slovenian|Spanish|Swedish|Thai|Turkish|Ukrainian" default="AUTO" />
-        <setting id="show.changelog" type="bool" label="Show ChangeLog After Updates" default="false" />
+        <setting id="show.changelog" type="bool" label="Show ChangeLog After Updates" default="true" />
         <setting id="show.noyear" type="bool" label="Show Items Without/Future Year/AirDate" default="false" />
         <setting id="showunaired" type="bool" label="Show Unaired Items" default="true" />
         <setting id="unaired.color" type="action" label="Unaired Color" option="close" action="RunPlugin(plugin://plugin.video.free99/?action=color_choice&amp;setting=unaired.color&amp;query=0.8)" default="darkred" subsetting="true" enable="!eq(-1,false)" visible="eq(-1,true)" />
         <setting id="tv.specials" type="bool" label="Show Special Episodes/Season 0" default="false" />
-        <setting id="studio.artwork" type="bool" label="Show Studio Info/Artwork" default="true" />
-        <setting id="original.artwork" type="bool" label="Use TMDb Original Artwork Sizes (Bulky at times.)" default="true" />
-        <setting id="fanart" type="bool" label="Enable Fanart" default="true" />
-        <setting id="hq.artwork" type="bool" label="Enable FanArt.tv Artwork" default="false" />
-        <setting id="tmdb.collections.linesplit" type="enum" label="TMDb Collections List Appearance" values="Single line|Double line" default="0" />
+        <setting id="studio.artwork" type="bool" label="Show Studio Info/Artwork" default="false" />
+        <setting id="original.artwork" type="bool" label="Use TMDb Original Artwork Sizes (Bulky at times.)" default="false" />
+        <setting id="show.fanart" type="bool" label="Enable Fanart" default="true" />
+        <setting id="fanart.artwork" type="bool" label="Enable FanArt.tv Artwork" default="false" />
+        <setting id="fanart.artwork_size" type="bool" label="Enable FanArt.tv Preview Size" default="false" subsetting="true" enable="!eq(-1,false)" visible="eq(-1,true)" />
+        <setting id="tmdb.collections.linesplit" type="enum" label="TMDb Collections List Appearance" values="Single line|Double line" default="1" />
         <setting id="trakt.authed" type="text" label="Trakt User:" default="" enable="false" visible="false" />
+        <setting id="lists.widget" type="enum" label="My Stuff" values="Disabled|Enabled" default="1" />
         <setting id="episode.widget.alt" type="enum" label="Episodes (Widget)" values="Disabled|TVmaze Calendar|TVmaze Episodes|Trakt Progress|Trakt Episodes" default="3" visible="!eq(-2,)" />
-        <setting id="episode.widget" type="enum" label="Episodes (Widget)" values="Disabled|TVmaze Calendar|TVmaze Episodes|" default="3" visible="eq(-3,)" />
+        <setting id="episode.widget" type="enum" label="Episodes (Widget)" values="Disabled|TVmaze Calendar|TVmaze Episodes|" default="1" visible="eq(-3,)" />
         <setting id="indicators.alt" type="enum" label="Indicators" values="Local|Trakt" default="1" visible="!eq(-4,)" />
         <setting id="indicators" type="enum" label="Indicators" values="Local" default="0" visible="eq(-5,)" />
         <setting id="items.per.page" type="slider" label="Items Per Page" default="20" range="10,40" option="int" />
-        <setting id="imdb.sort.order" type="enum" label="Sort Order for IMDb Watchlist/User Lists" values="Recently added|Title" default="1" />
-        <setting id="prgr.sortorder" type="enum" label="Sort Order for Trakt Watched Progress" values="Recently aired|Recently watched" default="1" visible="!eq(-8,)" />
-        <setting id="trakt.item.limit" type="slider" label="Trakt Progress/Episodes Item Limit" default="100" range="50,50,150" option="int" visible="!eq(-9,)" />
+        <setting id="prgr.sortorder" type="enum" label="Sort Order for Trakt Watched Progress" values="Recently aired|Recently watched" default="1" visible="!eq(-7,)" />
+        <setting id="trakt.item.limit" type="slider" label="Trakt Progress/Episodes Item Limit" default="100" range="50,50,150" option="int" visible="!eq(-8,)" />
         <setting type="lsep" label="Auto Trakt Collections Syncing" />
-        <setting id="trakt.sync" type="bool" label="Trakt Library Sync on Kodi Startup" default="false" enable="!eq(-11,)" />
-        <setting id="trakt.synctime" type="slider" label="Delay Trakt Library Sync _ Hour/s" default="0" range="0,24" option="int" subsetting="true" enable="!eq(-12,false)" visible="eq(-1,true)" />
-        <setting id="trakt.synctext" type="text" label="0 Value Disables Delay" subsetting="true" enable="!eq(-13,false)" visible="eq(-2,true)" />
+        <setting id="trakt.sync" type="bool" label="Trakt Library Sync on Kodi Startup" default="false" enable="!eq(-10,)" />
+        <setting id="trakt.synctime" type="slider" label="Delay Trakt Library Sync _ Hour/s" default="0" range="0,24" option="int" subsetting="true" enable="!eq(-11,false)" visible="eq(-1,true)" />
+        <setting id="trakt.synctext" type="text" label="0 Value Disables Delay" subsetting="true" enable="!eq(-12,false)" visible="eq(-2,true)" />
         <setting type="lsep" label="Search Tools Metadata" />
-        <setting id="search.movies.source" type="enum" label="Movies Search Source" values="TMDb|IMDb|Trakt" default="0" />
-        <setting id="search.tvshows.source" type="enum" label="TV Shows Search Source" values="TMDb|IMDb|Trakt" default="0" />
-        <setting id="search.people.source" type="enum" label="People Search Source" values="TMDb|IMDb" default="0" />
-        <setting id="search.keywords.source" type="enum" label="Keywords Search Source" values="TMDb|IMDb" default="0" />
+        <setting id="search.movies.source" type="enum" label="Movies Search Source" values="TMDb|Trakt" default="0" />
+        <setting id="search.tvshows.source" type="enum" label="TV Shows Search Source" values="TMDb|Trakt" default="0" />
         <setting type="lsep" label="Info Metadata" />
         <setting id="info.movies.source" type="enum" label="Movies Info Source" values="TMDb|Trakt" default="0" />
         <setting id="info.tvshows.source" type="enum" label="TV Shows Info Source" values="TMDb|Trakt" default="0" />
         <setting id="info.art.source" type="enum" label="Prioritized Art Source" values="Default|TMDb|FanArt.tv" default="0" />
         <setting type="lsep" label="Trailers" />
         <setting id="trailer.select" type="enum" label="Trailers Action" values="Auto Play|Select" default="1" />
-        <setting id="trailer.source" type="enum" label="Trailers Source" values="TMDb|YouTube|IMDb|Trakt|Multi" default="4" />
-        <setting id="trailers.tmdb" type="bool" label="Use TMDb" default="true" enable="!eq(-1,false)" subsetting="true" visible="eq(-1,4)" />
-        <setting id="trailers.youtube" type="bool" label="Use YouTube" default="true" enable="!eq(-2,false)" subsetting="true" visible="eq(-2,4)" />
+        <setting id="trailer.source" type="enum" label="Trailers Source" values="TMDb|YouTube|IMDb|Trakt|Multi" default="2" />
+        <setting id="trailers.tmdb" type="bool" label="Use TMDb" default="false" enable="!eq(-1,false)" subsetting="true" visible="eq(-1,4)" />
+        <setting id="trailers.youtube" type="bool" label="Use YouTube" default="false" enable="!eq(-2,false)" subsetting="true" visible="eq(-2,4)" />
         <setting id="trailers.imdb" type="bool" label="Use IMDb" default="true" enable="!eq(-3,false)" subsetting="true" visible="eq(-3,4)" />
         <setting id="trailers.trakt" type="bool" label="Use Trakt" default="true" enable="!eq(-4,false)" subsetting="true" visible="eq(-4,4)" />
         <setting id="trailer.specials" type="bool" label="Show Trailer Specials(Non-Trailers)" default="true" />
@@ -62,16 +60,16 @@
         <setting id="hosts.mode" type="enum" label="Default Action" values="Dialog|Directory|Auto Play" default="1" />
         <setting id="progress.dialog" type="enum" label="Progress Dialog" values="Foreground|Background" default="0" />
         <setting id="sourcelist.linesplit" type="enum" label="Source List Appearance" values="Single line|Double line|Simple" default="1" />
-        <setting id="sourcelist.meta" type="bool" label="Source List Metadata" default="false" />
-        <setting id="quality.artwork" type="bool" label="Use Source Quality Images" default="false" />
+        <setting id="sourcelist.meta" type="bool" label="Enable Source List Metadata" default="false" />
+        <setting id="quality.artwork" type="bool" label="Enable Source List Artwork (Quality)" default="false" />
         <setting id="sourcefilter.and" type="bool" label="Source Search With [and symbol] (on=symbol / off=word)" default="false" />
         <setting id="providers.timeout" type="slider" label="Providers Timeout" default="60" range="10,60" option="int" />
-        <setting id="preemptive.termination" type="bool" label="Pre-Emptive Termination" default="false" />
+        <setting id="preemptive.termination" type="bool" label="Enable Pre-Emptive Termination" default="false" />
         <setting id="preemptive.limit" type="slider" label="Pre-Emptive Limit" default="10" range="1,50" option="int" subsetting="true" enable="!eq(-1,false)" visible="eq(-1,true)" />
         <setting id="preemptive.type" type="enum" label="Pre-Emptive Based On:" values="Max Quality|Total Sources" default="0" subsetting="true" enable="!eq(-2,false)" visible="eq(-2,true)" />
-        <setting id="host.limit" type="bool" label="Use Host Limit" default="false" />
+        <setting id="host.limit" type="bool" label="Enable Host Limit" default="true" />
         <setting id="host.count" type="slider" label="Host Limit Count" default="3" range="1,50" option="int" subsetting="true" enable="!eq(-1,false)" visible="eq(-1,true)" />
-        <setting id="sort.provider" type="bool" label="Sort By Provider" default="false" />
+        <setting id="sort.provider" type="bool" label="Sort By Provider" default="true" />
         <setting id="sort.hoster" type="bool" label="Sort By Host" default="false" />
         <setting id="quality.max" type="enum" label="Max Quality" values="4K|1080p|720p|SD" default="0" />
         <setting id="quality.min" type="enum" label="Min Quality" values="4K|1080p|720p|SD" default="3" />
@@ -83,32 +81,32 @@
     </category>
 
     <category label="Account Settings">
+        <setting type="lsep" label="(Custom API settings are all optional besides FilePursuit.)" />
+        <setting id="lazy.spacer1" type="text" label="" default="" enable="false" visible="false" />
         <setting type="lsep" label="ResolveURL" />
         <setting id="resolveURL.settings" type="action" label="Open ResolveUrl Settings" enable="true" option="close" action="RunPlugin(plugin://plugin.video.free99/?action=open_resolveurl_settings)" />
-        <setting id="resolve.dbird" type="bool" label="Resolve With Debrid(UnTested)" default="false" visible="false"  />
+        <setting id="resolve.dbird" type="bool" label="Resolve With Debrid(UnTested)" default="false" />
         <setting type="lsep" label="FilePursuit" />
         <setting id="filepursuit.api" type="text" label="API:" default="" />
         <setting type="lsep" label="Trakt" />
         <setting id="trakt.user" type="action" label="Authorize Trakt" option="close" action="RunPlugin(plugin://plugin.video.free99/?action=auth_trakt)" />
-        <setting id="trakt.token" type="text" visible="false" label="" default="" />
-        <setting id="trakt.refresh" type="text" visible="false" label="" default="" />
-        <setting type="lsep" label="IMDb" />
-        <setting id="imdb.user" type="text" label="UserID:" default="" />
+        <setting id="trakt.token" type="text" label="" default="" enable="false" visible="false" />
+        <setting id="trakt.refresh" type="text" label="" default="" enable="false" visible="false" />
         <setting type="lsep" label="TMDb" />
-        <setting id="tmdb.api" type="text" option="hidden" label="API:" default="" />
+        <setting id="tmdb.api" type="text" label="API:" default="" />
         <setting id="tmdb.user" type="text" label="Username:" default="" />
-        <setting id="tmdb.pass" type="text" option="hidden" label="Password:" default="" />
+        <setting id="tmdb.pass" type="text" label="Password:" default="" option="hidden" />
         <setting id="tmdb.auth" type="action" label="Authorize TMDb" option="close" action="RunPlugin(plugin://plugin.video.free99/?action=auth_tmdb)" />
-        <setting id="tmdb.session" type="text" label="Account Session:" default="" enable="false" visible="true" />
         <setting id="tmdb.id" type="text" label="Account ID:" default="" enable="false" visible="true" />
+        <setting id="tmdb.session" type="text" label="Account Session:" default="" enable="false" visible="true" />
         <setting type="lsep" label="YouTube" />
-        <setting id="youtube.api" type="text" option="hidden" label="API:" default="" />
+        <setting id="youtube.api" type="text" label="API:" default="" />
         <setting type="lsep" label="FanArt.tv" />
-        <setting id="fanart.api" type="text" option="hidden" label="API:" default="ad7eccc1dd67f889f7f5c2e9ebb810ae" />
+        <setting id="fanart.api" type="text" label="API:" default="" />
         <setting type="sep" />
         <setting type="lsep" label="Opensubtitles.org" />
         <setting id="os.user" type="text" label="Username:" default="" />
-        <setting id="os.pass" type="text" option="hidden" label="Password:" default="" />
+        <setting id="os.pass" type="text" label="Password:" default="" option="hidden" />
     </category>
 
     <category label="Special Settings">
@@ -125,13 +123,17 @@
         <setting id="library.importdelay" type="bool" label="24HR Delay Before Import" default="false" />
         <setting id="library.include_unknown" type="bool" label="Include Episodes With Unknown Air Dates" default="true" />
         <setting id="library.include_special" type="bool" label="Include Special Episodes" default="false" />
-        <setting id="downloads" type="bool" label="Enable Downloads" default="false" visible="false" />
-        <setting id="movie.download.path" type="folder" label="Movies" enable="!eq(-2,false)" default="" visible="false" />
-        <setting id="tv.download.path" type="folder" label="TV" enable="!eq(-3,false)" default="" visible="false" />
-        <setting id="dl.text1" type="text" label="Downloading Features Are Disabled By Default." enable="false" visible="false" />
-        <setting id="dl.text2" type="text" label="Set Up Your Download Folders In Order To Enable Them." enable="false" visible="false" />
+        <setting type="lsep" label="Downloads" />
+        <setting id="downloads" type="bool" label="Enable Downloads" default="false" />
+        <setting type="sep" />
+        <setting id="movie.download.path" type="folder" label="Movies" enable="!eq(-2,false)" default="" visible="eq(-2,true)" />
+        <setting id="tv.download.path" type="folder" label="TV" enable="!eq(-3,false)" default="" visible="eq(-3,true)" />
+        <setting type="sep" />
+        <setting id="dl.text1" type="text" label="Downloading Features Are Disabled By Default." enable="false" visible="eq(-5,true)" />
+        <setting id="dl.text2" type="text" label="Set Up Your Download Folders In Order To Enable Them." enable="false" visible="eq(-6,true)" />
         <setting type="lsep" label="Subtitles" />
         <setting id="subtitles" type="bool" label="Enable Subtitles" default="false" />
+        <setting type="sep" />
         <setting id="subtitles.lang.1" type="select" label="Primary Language" values="Afrikaans|Albanian|Arabic|Armenian|Basque|Bengali|Bosnian|Breton|Bulgarian|Burmese|Catalan|Chinese|Croatian|Czech|Danish|Dutch|English|Esperanto|Estonian|Finnish|French|Galician|Georgian|German|Greek|Hebrew|Hindi|Hungarian|Icelandic|Indonesian|Italian|Japanese|Kazakh|Khmer|Korean|Latvian|Lithuanian|Luxembourgish|Macedonian|Malay|Malayalam|Manipuri|Mongolian|Montenegrin|Norwegian|Occitan|Persian|Polish|Portuguese|Portuguese(Brazil)|Romanian|Russian|Serbian|Sinhalese|Slovak|Slovenian|Spanish|Swahili|Swedish|Syriac|Tagalog|Tamil|Telugu|Thai|Turkish|Ukrainian|Urdu" enable="!eq(-2,false)" default="English" visible="eq(-2,true)" />
         <setting id="subtitles.lang.2" type="select" label="Secondary Language" values="Afrikaans|Albanian|Arabic|Armenian|Basque|Bengali|Bosnian|Breton|Bulgarian|Burmese|Catalan|Chinese|Croatian|Czech|Danish|Dutch|English|Esperanto|Estonian|Finnish|French|Galician|Georgian|German|Greek|Hebrew|Hindi|Hungarian|Icelandic|Indonesian|Italian|Japanese|Kazakh|Khmer|Korean|Latvian|Lithuanian|Luxembourgish|Macedonian|Malay|Malayalam|Manipuri|Mongolian|Montenegrin|Norwegian|Occitan|Persian|Polish|Portuguese|Portuguese(Brazil)|Romanian|Russian|Serbian|Sinhalese|Slovak|Slovenian|Spanish|Swahili|Swedish|Syriac|Tagalog|Tamil|Telugu|Thai|Turkish|Ukrainian|Urdu" enable="!eq(-3,false)" default="English" visible="eq(-3,true)" />
         <setting type="sep" />
@@ -145,30 +147,20 @@
         <setting id="providers.enableall" type="action" label="Enable ALL Providers" option="close" action="RunPlugin(plugin://plugin.video.free99/?action=enable_all)" />
         <setting id="providers.disableall" type="action" label="Disable ALL Providers" option="close" action="RunPlugin(plugin://plugin.video.free99/?action=disable_all)" />
         <setting id="provider.library" type="bool" label="provider.library(Uses Your Library.)" default="false" />
-        <setting id="provider.filepursuit" type="bool" label="provider.filepursuit(Needs API Key.)" default="false" />
-        <setting type="sep" />
-        <setting id="provider.tvmovieflix_com" type="bool" label="provider.tvmovieflix_com" default="false" />	
-        <setting id="provider.watchserieshd_stream" type="bool" label="provider.watchserieshd_stream" default="false" />	
-        <setting id="provider.yomovies_bio" type="bool" label="provider.yomovies_bio" default="false" />	
-        <setting id="provider.goojara_club" type="bool" label="provider.goojara_club" default="false" />	
-        <setting id="provider.anymovies_co" type="bool" label="provider.anymovies_co" default="true" />			
-        <setting id="provider.doomovies_ga" type="bool" label="provider.doomovies_ga" default="true" />	
-        <setting id="provider.123movies_skin" type="bool" label="provider.123movies_skin" default="false" />			
-        <setting id="provider.bnwmovies_com" type="bool" label="provider.bnwmovies_com" default="false" />
-        <setting id="provider.gowatchseries_ch" type="bool" label="provider.gowatchseries_ch" default="false" />
-        <setting id="provider.noxx_to" type="bool" label="provider.noxx_to" default="false" />
-        <setting id="provider.putlocker_to" type="bool" label="provider.putlocker_to" default="false" />
-        <setting id="provider.tinyzonetv_to" type="bool" label="provider.tinyzonetv_to" default="false" />
-        <setting id="provider.1movies_la" type="bool" label="provider.1movies_la" default="false" />		
-        <setting id="provider.cinecalidad_vet" type="bool" label="provider.cinecalidad_vet" default="false" />	
-        <setting id="provider.123movies_net" type="bool" label="provider.123movies_net" default="false" />
-        <setting id="provider.upmovies_net" type="bool" label="provider.upmovies_net" default="true" />	
-        <setting id="provider.tvseries_video" type="bool" label="provider.tvseries_video" default="false" />	
-        <setting id="provider.epxmovies_net" type="bool" label="provider.epxmovies_net" default="true" />		
+        <setting id="provider.1movies_la" type="bool" label="provider.1movies_la" default="true" />	
+        <setting id="provider.anymovies_co" type="bool" label="provider.anymovies_co" default="true" />
+        <setting id="provider.bnwmovies_com" type="bool" label="provider.bnwmovies_com" default="true" />
+        <setting id="provider.couchtuner_show" type="bool" label="provider.couchtuner_show" default="true" />
+        <setting id="provider.iwaatch_com" type="bool" label="provider.iwaatch_com" default="true" />
+        <setting type="lsep" label="Providers" />	
+        <setting id="provider.tubitv_com" type="bool" label="provider.tubitv_com" default="true" />
+        <setting id="provider.tvmovieflix_com" type="bool" label="provider.tvmovieflix_com" default="true" />
     </category>
 
     <category label="Dev'ish Settings">
-        <setting type="lsep" label="Scrape_Sources Embed/Host Toggles" />
+        <setting type="lsep" label="Scrape_Sources: Host Fixing" />
+        <setting id="mod.domains" type="bool" label="mod.domains(host domain swaps)" default="true" />
+        <setting type="lsep" label="Scrape_Sources: Embed/Host Toggles" />
         <setting id="scrape.gdriveplayer" type="bool" label="scrape.gdriveplayer(working?)" default="true" />
         <setting id="scrape.gomo" type="bool" label="scrape.gomo(working?)" default="true" />
         <setting id="scrape.furher" type="bool" label="scrape.furher(working?)" default="true" />
@@ -177,6 +169,7 @@
         <setting id="scrape.ronemo" type="bool" label="scrape.ronemo(unknown?)" default="true" />
         <setting id="scrape.source_stream" type="bool" label="scrape.source_stream(unknown?)" default="true" />
         <setting id="scrape.superembed" type="bool" label="scrape.superembed(unknown?)" default="true" />
+        <setting id="scrape.truepoweroflove" type="bool" label="scrape.truepoweroflove(unknown?)" default="true" />
         <setting id="scrape.twoembed" type="bool" label="scrape.twoembed(temp down?)" default="true" />
         <setting id="scrape.vidembed" type="bool" label="scrape.vidembed(working?)" default="true" />
         <setting id="scrape.vidlink" type="bool" label="scrape.vidlink(blockage?)" default="true" />
@@ -184,6 +177,7 @@
         <setting id="scrape.voxzer" type="bool" label="scrape.voxzer(unknown?)" default="true" />
         <setting type="lsep" label="Users Requested" />
         <setting id="addon.caching" type="bool" label="Use Indexers Cache Feature" default="true" />
+        <setting id="addon.caching_timeout" type="number" label="Cache Timeout:(In Hours)" default="12" enable="!eq(-1,false)" subsetting="true" visible="eq(-1,true)" />
         <setting id="episode.thumbs" type="bool" label="Replace Episode Thumbs With Season Poster" default="false" />
         <setting id="episode.views" type="bool" label="Replace Episode Views With Season Views" enable="!eq(-1,false)" default="false" subsetting="true" visible="eq(-1,true)" />
         <setting type="lsep" label="Debugging" />
@@ -193,8 +187,9 @@
         <setting id="addon.debug_resolve" type="bool" label="Enable Detailed Resolve Debugging" enable="!eq(-3,false)" default="false" subsetting="true" visible="eq(-3,true)" />
         <setting id="addon.log_providerdomains" type="bool" label="Enable Provider Domains Feature logging" enable="!eq(-4,false)" default="false" subsetting="true" visible="eq(-4,true)" />
         <setting type="lsep" label="Notifcations" />
-        <setting id="addon.notifcations" type="bool" label="Disable Notifcations" default="true" />
-        <setting id="addon.enable_notifcations" type="bool" label="ReEnable Notifcations When Updated" enable="!eq(-1,false)" default="false" subsetting="true" visible="eq(-1,true)" />
+        <setting id="addon.notifcations" type="bool" label="Disable Notifcations" default="false" />
+        <setting id="addon.enable_notifcations" type="bool" label="ReEnable Notifcations When Updated" enable="!eq(-1,false)" default="true" subsetting="true" visible="eq(-1,true)" />
+        <setting type="lsep" label="----" />
         <setting id="dev.widget" type="bool" label="Dev Menu" default="false" />
     </category>
 

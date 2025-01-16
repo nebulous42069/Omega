@@ -18,9 +18,9 @@ LOGFATAL = xbmc.LOGFATAL
 LOGNONE = xbmc.LOGNONE
 
 version = control.addonInfo('version')
-ChangeLog_head = '--[Scrubs v2 - %s - ChangeLog]--' % version
-DebugLog_head = '--[Scrubs v2 - %s - DebugLog]--' % version
-DEBUGPREFIX = '[Scrubs v2 - %s - DEBUG]' % version
+ChangeLog_head = '--[Free99 - %s - ChangeLog]--' % version
+DebugLog_head = '--[Free99 - %s - DebugLog]--' % version
+DEBUGPREFIX = '[Free99 - %s - DEBUG]' % version
 
 LOGPATH = control.transPath('special://logpath/')
 log_file = os.path.join(LOGPATH, 'free99.log')

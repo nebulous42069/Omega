@@ -1,4 +1,4 @@
-# Addon Name: Scrubs v2
+# Addon Name: Free99
 # Addon id: plugin.video.free99
 # Addon Provider: JewBMX
 # Translators:

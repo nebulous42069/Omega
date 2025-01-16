@@ -14,10 +14,10 @@ from resources.lib.modules import scrape_sources
 class source:
     def __init__(self):
         self.results = []
-        self.domains = ['downloads-anymovies.co', 'downloads-anymovies.com']
-        self.base_link = 'https://www.downloads-anymovies.co'
-        self.search_link = '/search.php?zoom_query=%s+%s'
-        self.notes = 'looks like the search has blockage now.'
+        self.domains = ['123watch.to']
+        self.base_link = 'https://123watch.to'
+        self.search_link = '/?search=%s'
+        self.notes = 'this site seems to use only embed hosts and doesnt always return results.'
 
 
     def movie(self, imdb, tmdb, title, localtitle, aliases, year):
@@ -35,23 +35,20 @@ class source:
             aliases = eval(data['aliases'])
             title = data['title']
             year = data['year']
-            search_title = cleantitle.get_plus(title)
-            search_url = self.base_link + self.search_link % (search_title, year)
-            search_html = client.scrapePage(search_url).text
-            try:
-                r = client_utils.parseDOM(search_html, 'div', attrs={'class': 'result_title'})
-                r = zip(client_utils.parseDOM(r, 'a', ret='href'), client_utils.parseDOM(r, 'a'))
-                r = [(i[0], re.findall(r'(?:Watch|)(.+?)\((\d+)', i[1])) for i in r]
-                r = [(i[0], i[1][0]) for i in r if len(i[1]) > 0]
-                page_url = [i[0] for i in r if cleantitle.match_alias(i[1][0], aliases) and cleantitle.match_year(i[1][1], year)][0]
-            except:
-                page_url = self.base_link + '/added_movies/%s-%s-watch-full-movie-online-free.html' % (cleantitle.geturl(title), year)
-            page_html = client.scrapePage(page_url).text
-            links = client_utils.parseDOM(page_html, 'a', attrs={'target': '_blank'}, ret='href')
+            search_url = self.base_link + self.search_link % cleantitle.get_plus(title)
+            r = client.scrapePage(search_url).text
+            r = client_utils.parseDOM(r, 'div', attrs={'class': 'product__item'})
+            r = [(client_utils.parseDOM(i, 'a', ret='href'), re.findall(r'">(.+?)</a></h5>', i), re.findall(r'<li .+?(\d{4})</li></a>', i)) for i in r]
+            r = [(i[0][0], i[1][0], i[2][0]) for i in r if len(i[0]) > 0 and len(i[1]) > 0 and len(i[2]) > 0]
+            url = [i[0] for i in r if cleantitle.match_alias(i[1], aliases) and cleantitle.match_year(i[2], year)][0]
+            url = self.base_link + url.replace('./?details=', '/?details=')
+            r = client.scrapePage(url).text #https://123watch.to/?details=284053-free-thor-ragnarok-movie
+            url = re.findall(r'<a href="(.+?)" class="follow-btn"><i class="fa fa-play"></i> Watch</a>', r)[0]
+            url = self.base_link + url.replace('./?watch=', '/?watch=')
+            html = client.scrapePage(url).text #https://123watch.to/?watch=thor-ragnarok-movie-hd-284053
+            links = client_utils.parseDOM(html, 'iframe', ret='src')
             for link in links:
                 try:
-                    if any(x in link for x in ['report-error.html', 'statcounter.com']):
-                        continue
                     for source in scrape_sources.process(hostDict, link):
                         if scrape_sources.check_host_limit(source['source'], self.results):
                             continue

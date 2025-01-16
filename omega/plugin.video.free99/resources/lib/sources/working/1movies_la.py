@@ -57,7 +57,7 @@ class source:
             search_url = self.base_link + self.search_link % cleantitle.get_utf8(title)
             r = client.scrapePage(search_url).text
             r = DOM(r, 'div', attrs={'class': 'ml-item'})
-            r = [(DOM(i, 'a', ret='href'), DOM(i, 'a', ret='title'), re.findall('<h2>[(](\d{4})[)]</h2>', i)) for i in r]
+            r = [(DOM(i, 'a', ret='href'), DOM(i, 'a', ret='title'), re.findall(r'<h2>[(](\d{4})[)]</h2>', i)) for i in r]
             r = [(i[0][0], i[1][0], i[2][0]) for i in r if len(i[0]) > 0 and len(i[1]) > 0 and len(i[2]) > 0]
             if 'tvshowtitle' in data:
                 check_season = 'season %s' % season
