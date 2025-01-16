@@ -16,10 +16,9 @@ try:
 except ImportError:
     from hashlib import md5
 
-from lib.constants import PLUGIN_URL, RESOURCE_URL
+from lib.constants import PLUGIN_URL, RESOURCE_URL, KODI_VERSION
 
 ADDON = xbmcaddon.Addon()
-KODI_VERSION = float(xbmcaddon.Addon('xbmc.addon').getAddonInfo('version')[:4])
 
 def getWindowProperty(prop):
     window = xbmcgui.Window(xbmcgui.getCurrentWindowId())
@@ -193,6 +192,16 @@ def thumbnail_hashes_get( path ):
         return json.load( hashes )
 
     return {}
+
+def quality_label( quality ):
+
+    """ Retrieves label based upon quality """
+
+    if quality >= 1080:
+        return '1080 (FHD)'
+    if quality >= 720:
+        return '720 (HD)'
+    return '480 (SD)'
 
 if six.PY3:
     xrange = range

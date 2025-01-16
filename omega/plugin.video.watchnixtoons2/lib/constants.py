@@ -12,8 +12,8 @@ PLUGIN_URL = sys.argv[0]
 PLUGIN_NAME = PLUGIN_URL.replace("plugin://","")
 PLUGIN_TITLE = 'WatchNixtoons2'
 
-# Fake user-agent to get past some cloudflare checks :(
-WNT2_USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36'
+# Fake user-agent to help get past some cloudflare checks :(
+WNT2_USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36'
 
 ADDON = xbmcaddon.Addon()
 
@@ -54,6 +54,10 @@ ADDON_ICON = ADDON.getAddonInfo('icon')
 ADDON_ICON_DICT = {'icon': ADDON_ICON, 'thumb': ADDON_ICON, 'poster': ADDON_ICON}
 RESOURCE_URL = 'special://home/addons/{0}resources/'.format(PLUGIN_NAME)
 ADDON_TRAKT_ICON = RESOURCE_URL + 'media/traktIcon.png'
+
+PLAYBACK_METHOD = ADDON.getSetting('playbackMethod')
+
+KODI_VERSION = float(xbmcaddon.Addon('xbmc.addon').getAddonInfo('version')[:4])
 
 # Initialized in 'actionResolve()'.
 MEDIA_HEADERS = None
