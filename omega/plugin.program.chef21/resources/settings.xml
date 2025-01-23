@@ -21,5 +21,6 @@
 	<setting id="saveadvanced" type="bool" label="Save Advanced Settings" default="false"/>	
 	<setting id="savemultiweather" type="bool" label="Save Multi-Weather Settings" default="true"/>
 	<setting id="savegismeteoweather" type="bool" label="Save Gismeteo Weather Settings" default="true"/>
+	<setting id="saveopenmeteo" type="bool" label="Save Open Meteo Weather Settings" default="true"/>	
     </category>
 </settings>
