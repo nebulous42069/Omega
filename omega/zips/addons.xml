@@ -148,32 +148,6 @@
             <fanart>fanart.jpg</fanart>
     </assets>
   </extension>
-</addon><addon id="plugin.program.autocompletion" name="AutoCompletion for virtual keyboard" version="3.0.1" provider-name="henryjfry">
-    <requires>
-        <import addon="xbmc.python" version="3.0.0" />
-        <import addon="script.module.simplejson" version="3.3.0" />
-        <import addon="script.module.autocompletion" version="1.0.0" />
-    </requires>
-    <extension point="xbmc.python.pluginsource" library="plugin.py" />
-    <extension point="xbmc.python.script" library="default.py">
-        <provides>executable</provides>
-    </extension>
-
-    <extension point="xbmc.addon.metadata">
-        <reuselanguageinvoker>true</reuselanguageinvoker>
-        <summary lang="en">AutoCompletion for the virtual keyboard (needs skin support)</summary>
-        <description lang="en">AutoCompletion for the virtual keyboard (needs skin support)</description>
-        <platform>all</platform>
-        <license>GNU GENERAL PUBLIC LICENSE Version 2.1, February 1999</license>
-        <source>https://github.com/phil65/plugin.program.autocompletion</source>
-        <assets>
-            <icon>resources/icon.png</icon>
-            <fanart>resources/fanart.jpg</fanart>
-            <screenshot>resources/screenshot-01.jpg</screenshot>
-            <screenshot>resources/screenshot-02.jpg</screenshot>
-            <screenshot>resources/screenshot-03.jpg</screenshot>
-        </assets>
-    </extension>
 </addon><addon id="plugin.program.chef21" name="[B][COLOR chartreuse]Chef Omega Wizard[/COLOR][/B]" version="484" provider-name="Diggz">
 	<requires>
 		<import addon="xbmc.python" version="3.0.1" />
@@ -1704,23 +1678,6 @@ Random updates by lolage.
         <platform>all</platform>
         <reuselanguageinvoker>false</reuselanguageinvoker>
         <source>https://</source>
-    </extension>
-</addon><addon id="script.module.autocompletion" name="AutoCompletion library" version="3.0.2.1" provider-name="henryjfry">
-    <requires>
-        <import addon="xbmc.python" version="3.0.0" />
-        <import addon="script.module.requests" version="2.9.1" />
-        <import addon="plugin.program.autocompletion" version="3.0.1" />		
-    </requires>
-    <extension point="xbmc.python.module" library="lib" />
-    <extension point="xbmc.addon.metadata">
-        <summary lang="en_GB">Module providing some AutoCompletion functions</summary>
-        <description lang="en_GB">Module providing some AutoCompletion functions</description>
-        <platform>all</platform>
-        <license>GPL-2.0-or-later</license>
-        <source>https://github.com/sualfred/script.module.autocompletion</source>
-        <assets>
-            <icon>resources/icon.png</icon>
-        </assets>
     </extension>
 </addon><addon id="script.module.pvr.artwork" name="PVR Artwork Module" version="2.1.4" provider-name="PvD">
     <requires>
@@ -3362,35 +3319,5 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
 			<fanart>resources/fanart.jpg</fanart>
 		</assets>
 		<news>- fix yahoo weather again</news>
-	</extension>
-</addon><addon id="weather.openmeteo" name="Open-Meteo" version="0.9.8" provider-name="OpenHT">
-	<requires>
-		<import addon="xbmc.python" version="3.0.0" />
-		<import addon="script.module.requests" version="2.27.1+matrix.1" />
-		<import addon="script.module.dateutil" version="2.8.1+matrix.1" />
-		<import addon="script.module.pytz" version="2023.3.0+matrix.1" />
-		<import addon="script.module.pil" version="1.1.7" />
-	</requires>
-	<extension point="xbmc.python.weather" library="default.py" />
-        <extension point="xbmc.service" library="service.py" />
-	<extension point="xbmc.addon.metadata">
-		<summary lang="en_GB">Weather forecast from Open-Meteo</summary>
-		<description lang="en_GB">Weather, maps, airquality and pollen forecast from open-meteo.com, rainviewer.com, weather.gc.ca and met.no</description>
-		<platform>all</platform>
-		<license>GPL-2.0-or-later</license>
-		<forum>https://forum.kodi.tv/forumdisplay.php?fid=155</forum>
-		<website>https://openht.org</website>
-		<email>support@openht.org</email>
-		<source>https://github.com/bkury/weather.openmeteo</source>
-		<assets>
-			<icon>resources/icon.png</icon>
-			<banner>resources/banner.png</banner>
-			<fanart>resources/fanart.jpg</fanart>
-			<screenshot>resources/screenshot1.jpg</screenshot>
-			<screenshot>resources/screenshot2.jpg</screenshot>
-			<screenshot>resources/screenshot3.jpg</screenshot>
-			<screenshot>resources/screenshot4.jpg</screenshot>
-			<screenshot>resources/screenshot5.jpg</screenshot>
-		</assets>
 	</extension>
 </addon></addons>
