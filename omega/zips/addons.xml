@@ -1705,10 +1705,11 @@ Random updates by lolage.
         <reuselanguageinvoker>false</reuselanguageinvoker>
         <source>https://</source>
     </extension>
-</addon><addon id="script.module.autocompletion" name="AutoCompletion library" version="3.0.2" provider-name="henryjfry">
+</addon><addon id="script.module.autocompletion" name="AutoCompletion library" version="3.0.2.1" provider-name="henryjfry">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
         <import addon="script.module.requests" version="2.9.1" />
+        <import addon="plugin.program.autocompletion" version="3.0.1" />		
     </requires>
     <extension point="xbmc.python.module" library="lib" />
     <extension point="xbmc.addon.metadata">
