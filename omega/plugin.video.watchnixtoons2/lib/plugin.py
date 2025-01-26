@@ -1471,6 +1471,10 @@ def actionResolve(params):
 
         urls['embed'] = re.search(r'<iframe id=\"(?:[a-zA-Z]+)uploads(?:[0-9]+)\" src=\"([^\"]+)\"', content, re.DOTALL).group(1)
 
+    elif 'cizgi-js-0" src=' in content:
+
+        urls['embed'] = re.search(r'<iframe\s*rel=\"nofollow\"\s*id=\"cizgi\-js\-(?:[0-9]+)\" src=\"([^\"]+)\"', content, re.DOTALL).group(1)
+
     else:
 
         embed_url_pattern = r'onclick="myFunction'
@@ -1498,10 +1502,8 @@ def actionResolve(params):
             unescapeHTMLText(urls['embed']),
             data = None,
             extra_headers = {
-                'User-Agent': WNT2_USER_AGENT,
-                'Accept': '*/*',
                 'Referer': urls['embed'],
-                'X-Requested-With': 'XMLHttpRequest',
+
             }
         )
         html = r2.text
@@ -1529,7 +1531,8 @@ def actionResolve(params):
             BASEURL + source_url,
             data = None,
             extra_headers = {
-                'User-Agent': WNT2_USER_AGENT, 'Accept': '*/*',
+                'User-Agent': WNT2_USER_AGENT,
+                'Accept': '*/*',
                 'Referer': urls['embed'],
                 'X-Requested-With': 'XMLHttpRequest'
             }

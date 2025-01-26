@@ -4,6 +4,8 @@ from time import time, sleep
 
 import requests
 
+from six.moves import urllib_parse
+
 from lib.constants import WNT2_USER_AGENT, BASEURL, PROPERTY_SESSION_COOKIE
 from lib.common import *
 
@@ -52,8 +54,6 @@ def request_helper(url, data=None, extra_headers=None):
         'Accept': 'text/html,application/xhtml+xml,application/xml,application/json;q=0.9,image/webp,*/*;q=0.8',
         'Accept-Language': 'en-US,en;q=0.5',
         'Cache-Control': 'no-cache',
-        'Pragma': 'no-cache',
-        'DNT': '1'
     }
 
     if extra_headers:
@@ -66,6 +66,9 @@ def request_helper(url, data=None, extra_headers=None):
         cookie_dict = dict(pair.split('=') for pair in cookie_property.split('; '))
     else:
         cookie_dict = None
+
+    uri = urllib_parse.urlparse(url)
+    domain = uri.scheme + '://' + uri.netloc
 
     start_time = time()
 
@@ -84,7 +87,7 @@ def request_helper(url, data=None, extra_headers=None):
         status = response.status_code
         if status != 200:
             if status == 403 and response.headers.get('server', '') == 'cloudflare':
-                rqs.mount(BASEURL, tls_adapters[i])
+                rqs.mount(domain, tls_adapters[i])
             i += 1
 
     # Store the session cookie(s), if any.

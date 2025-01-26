@@ -923,7 +923,7 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.sc19
         <fanart>resources/images/fanart.jpg</fanart>
     </assets>
   </extension>
-</addon><addon id="plugin.video.watchnixtoons2" name="WatchNixtoons2" version="0.13.0" provider-name="WNT2">
+</addon><addon id="plugin.video.watchnixtoons2" name="WatchNixtoons2" version="0.13.1" provider-name="WNT2">
     <requires>
         <import addon="script.module.requests" />
         <import addon="script.module.six" />
@@ -947,6 +947,10 @@ Random updates by lolage.
         <language>en</language>
         <platform lang="en">all</platform>
         <news>[COLOR orange][B]WatchNixtoons2[/B][/COLOR] - Cartoons &amp; Anime
+[B]0.13.1:[/B]
+- Update User Agent
+- Work around new video method
+
 [B]0.13.0:[/B]
 - Add functionality for m3u8 videos
 - Update User Agent
@@ -957,21 +961,7 @@ Random updates by lolage.
 - Update Thumbnail Hashes
 
 [B]0.12.6:[/B]
-- Fix recent and page meta for wcostream
-
-[B]0.12.5:[/B]
-- Fix recent on wcostream
-- Update Thumbnail Hashes
-
-[B]0.12.4:[/B]
-- Fix issue of chapters running after movie workaround if enabled
-- Update User Agent
-- Update Thumbnail Hashes
-
-[B]0.12.3:[/B]
-- Add option to play 1080p quality if available
-- Update User Agent
-- Update Thumbnail Hashes</news>
+- Fix recent and page meta for wcostream</news>
         <assets>
             <icon>icon.png</icon>
         </assets>
