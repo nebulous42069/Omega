@@ -55,29 +55,29 @@
         <setting id="bookmarks.auto" type="bool" label="Auto Resume" default="false" enable="!eq(-1,false)" subsetting="true" visible="eq(-1,true)" />
         <setting id="bookmarks.source" type="enum" label="Resume Point Source:" values="Local|Trakt" default="0" subsetting="true" visible="eq(-2,true)" />
         <setting type="lsep" label="When Playback Ends" />
-        <setting id="crefresh" type="bool" label="Force Container Refresh/Watched Status" default="false" />
+        <setting id="crefresh" type="bool" label="Force Container Refresh/Watched Status" default="true" />
         <setting type="lsep" label="Source Settings" />
         <setting id="hosts.mode" type="enum" label="Default Action" values="Dialog|Directory|Auto Play" default="1" />
         <setting id="progress.dialog" type="enum" label="Progress Dialog" values="Foreground|Background" default="0" />
         <setting id="sourcelist.linesplit" type="enum" label="Source List Appearance" values="Single line|Double line|Simple" default="1" />
-        <setting id="sourcelist.meta" type="bool" label="Enable Source List Metadata" default="false" />
-        <setting id="quality.artwork" type="bool" label="Enable Source List Artwork (Quality)" default="false" />
-        <setting id="sourcefilter.and" type="bool" label="Source Search With [and symbol] (on=symbol / off=word)" default="false" />
+        <setting id="sourcelist.meta" type="bool" label="Enable Source List Metadata" default="true" />
+        <setting id="quality.artwork" type="bool" label="Enable Source List Artwork (Quality)" default="true" />
+        <setting id="sourcefilter.and" type="bool" label="Source Search With [and symbol] (on=symbol / off=word)" default="true" />
         <setting id="providers.timeout" type="slider" label="Providers Timeout" default="60" range="10,60" option="int" />
         <setting id="preemptive.termination" type="bool" label="Enable Pre-Emptive Termination" default="false" />
         <setting id="preemptive.limit" type="slider" label="Pre-Emptive Limit" default="10" range="1,50" option="int" subsetting="true" enable="!eq(-1,false)" visible="eq(-1,true)" />
         <setting id="preemptive.type" type="enum" label="Pre-Emptive Based On:" values="Max Quality|Total Sources" default="0" subsetting="true" enable="!eq(-2,false)" visible="eq(-2,true)" />
-        <setting id="host.limit" type="bool" label="Enable Host Limit" default="true" />
+        <setting id="host.limit" type="bool" label="Enable Host Limit" default="false" />
         <setting id="host.count" type="slider" label="Host Limit Count" default="3" range="1,50" option="int" subsetting="true" enable="!eq(-1,false)" visible="eq(-1,true)" />
         <setting id="sort.provider" type="bool" label="Sort By Provider" default="true" />
-        <setting id="sort.hoster" type="bool" label="Sort By Host" default="false" />
+        <setting id="sort.hoster" type="bool" label="Sort By Host" default="true" />
         <setting id="quality.max" type="enum" label="Max Quality" values="4K|1080p|720p|SD" default="0" />
         <setting id="quality.min" type="enum" label="Min Quality" values="4K|1080p|720p|SD" default="3" />
         <setting id="autoplay.sd" type="bool" label="Autoplay SD Sources Only" default="false" />
         <setting id="remove.cam" type="bool" label="Remove CAM/SCR Sources" default="false" />
         <setting id="remove.hevc" type="bool" label="Remove HEVC Sources" default="false" />
         <setting id="remove.captcha" type="bool" label="Remove Pair/Captcha Sources" default="false" />
-        <setting id="remove.dupes" type="bool" label="Remove Duplicate Sources" default="true" />
+        <setting id="remove.dupes" type="bool" label="Remove Duplicate Sources" default="false" />
     </category>
 
     <category label="Account Settings">
@@ -151,10 +151,14 @@
         <setting id="provider.anymovies_co" type="bool" label="provider.anymovies_co" default="true" />
         <setting id="provider.bnwmovies_com" type="bool" label="provider.bnwmovies_com" default="true" />
         <setting id="provider.couchtuner_show" type="bool" label="provider.couchtuner_show" default="true" />
-        <setting id="provider.iwaatch_com" type="bool" label="provider.iwaatch_com" default="true" />
-        <setting type="lsep" label="Providers" />	
+        <setting id="provider.iwaatch_com" type="bool" label="provider.iwaatch_com" default="true" />	
         <setting id="provider.tubitv_com" type="bool" label="provider.tubitv_com" default="true" />
         <setting id="provider.tvmovieflix_com" type="bool" label="provider.tvmovieflix_com" default="true" />
+        <setting id="provider.projectfreetv_lol" type="bool" label="provider.projectfreetv_lol" default="true" />
+        <setting id="provider.sflixz_watch" type="bool" label="provider.sflixz_watch" default="true" />	
+        <setting id="provider.tvseries_video" type="bool" label="provider.tvseries_video" default="true" />
+        <setting id="provider.watchserieshd_stream" type="bool" label="provider.watchserieshd_stream" default="true" />
+        <setting id="provider.123movies_skin" type="bool" label="provider.123movies_skin" default="true" />		
     </category>
 
     <category label="Dev'ish Settings">
