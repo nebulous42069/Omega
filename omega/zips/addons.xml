@@ -923,11 +923,11 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.sc19
         <fanart>resources/images/fanart.jpg</fanart>
     </assets>
   </extension>
-</addon><addon id="plugin.video.watchnixtoons2" name="WatchNixtoons2" version="0.13.1" provider-name="WNT2">
+</addon><addon id="plugin.video.watchnixtoons2" name="WatchNixtoons2" version="0.13.2" provider-name="WNT2">
     <requires>
         <import addon="script.module.requests" />
         <import addon="script.module.six" />
-        <import addon="inputstream.adaptive" />
+        <import addon="script.module.inputstreamhelper" />
     </requires>
     <extension point="xbmc.python.pluginsource" library="default.py">
         <provides>video</provides>
@@ -947,6 +947,10 @@ Random updates by lolage.
         <language>en</language>
         <platform lang="en">all</platform>
         <news>[COLOR orange][B]WatchNixtoons2[/B][/COLOR] - Cartoons &amp; Anime
+[B]0.13.2:[/B]
+- Update Thumbnail Hashes
+- Better handling of inputstream
+
 [B]0.13.1:[/B]
 - Update User Agent
 - Work around new video method
@@ -3235,7 +3239,7 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
     </assets>
     <news>See changelog for latest changes</news>
   </extension>
-</addon><addon id="skin.xenonfree" version="7.1.1" name="[B][COLOR gold]Xenon Free[/COLOR][/B]  (Mid Power)" provider-name="Helly,bsoriano">
+</addon><addon id="skin.xenonfree" version="7.3" name="[B][COLOR gold]Xenon Free[/COLOR][/B]  (Mid Power)" provider-name="Helly,bsoriano">
   <requires>
     <import addon="xbmc.gui" version="5.17.0" />	
   </requires>

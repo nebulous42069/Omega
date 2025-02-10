@@ -765,7 +765,7 @@
     </include>
     <include name="DefaultInitialSetup">
         <onload>Skin.SetString(HomeItem.1.Label,Fix Skin Now)</onload>
-        <onload>Skin.SetString(HomeItem.1.Path,ActivateWindow(10001,"plugin://plugin.program.quickfixfree/",return))</onload>
+        <onload>Skin.SetString(HomeItem.1.Path,RunPlugin(plugin://script.module.xenonpluss/?mode=2))</onload>
         <onload>Skin.SetString(HomeItem.1.Sub,None)</onload>
         <onload>Skin.SetString(HomeItem.1.Addon,None)</onload>
         <onload>Skin.SetString(HomeItem.1.Widget,Weather)</onload>
@@ -1046,9 +1046,8 @@
                 <radioposy>8</radioposy>
                 <label></label>
                 <font></font>
-                <onclick>RunScript(script.globalsearch)</onclick>
+                <onclick>ActivateWindow(5001)</onclick>
                 <include condition="!String.IsEmpty(Skin.String(HomeTrans))">HomeTransparentEffect</include>
-                <visible>!Skin.HasSetting(DisableGlobalSearch) + Skin.HasSetting(FloorGlobalSearch)</visible>
             </control>
         </control>
 	</include>

@@ -6,7 +6,7 @@
 		<label2 />
 		<thumb />
         <icon>icons/weather2.png</icon>
-        <action>ActivateWindow(10001,"plugin://plugin.program.quickfixfree/",return)</action>
+        <action>ActivateWindow(weather)</action>
     </shortcut>
 	</shortcut>	
 </shortcuts>

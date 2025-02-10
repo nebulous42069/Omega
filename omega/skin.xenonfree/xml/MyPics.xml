@@ -81,7 +81,6 @@
                     <description>View As button</description>
                     <textwidth>352</textwidth>
                     <include>ButtonCommonValues</include>
-					<onclick>Runscript(script.skinvariables,action=buildviews,contentid=$VAR[Items_ViewMode_Switch],pluginname=$INFO[Container.PluginName])</onclick>
                     <label></label>
                 </control>
                 <control type="button" id="3">

@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 import re
 import sys
+
 import six
+import inputstreamhelper
 
 from itertools import chain
 from six.moves import urllib_parse
@@ -1631,29 +1633,34 @@ def actionResolve(params):
 
         if flags['m3u8']:
 
-            item.setPath(urls['stream'])
+            is_helper = inputstreamhelper.Helper( 'hls' )
 
-            # Disable Kodi's MIME-type request, since we already know what it is.
-            item.setContentLookup(False)
-            item.setMimeType('application/x-mpegURL')
-            if KODI_VERSION < 19:
-                item.setProperty('inputstreamaddon', 'inputstream.adaptive')
-            else:
-                item.setProperty('inputstream', 'inputstream.adaptive')
+            if is_helper.check_inputstream():
 
-            item.setProperty('inputstream.adaptive.stream_headers', '&'.join(key+'='+urllib_parse.quote_plus(val) for key, val in MEDIA_HEADERS.items()))
-            item.setProperty('inputstream.adaptive.stream_params', '&'.join(key+'='+urllib_parse.quote_plus(val) for key, val in MEDIA_HEADERS.items()))
-            item.setProperty('inputstream.adaptive.manifest_headers', '&'.join(key+'='+urllib_parse.quote_plus(val) for key, val in MEDIA_HEADERS.items()))
+                item.setPath(urls['stream'])
 
-            if KODI_VERSION < 22:
-                item.setProperty('inputstream.adaptive.manifest_type', 'hls')
-            item.setProperty('inputstream.adaptive.original_audio_language', 'en')
-            
-            if PLAYBACK_METHOD == '0':
-                item.setProperty('inputstream.adaptive.stream_selection_type', 'ask-quality')
-            else:
-                item.setProperty('inputstream.adaptive.stream_selection_type', 'adaptive')
-            #item.setProperty('inputstream.adaptive.config', '{"ssl_verify_peer":false}')
+                # Disable Kodi's MIME-type request, since we already know what it is.
+                item.setContentLookup(False)
+                item.setMimeType('application/x-mpegURL')
+
+                if KODI_VERSION >= 19:
+                    item.setProperty('inputstream', is_helper.inputstream_addon)
+                else:
+                    item.setProperty('inputstreamaddon', is_helper.inputstream_addon)
+
+                item.setProperty('inputstream.adaptive.stream_headers', '&'.join(key+'='+urllib_parse.quote_plus(val) for key, val in MEDIA_HEADERS.items()))
+                item.setProperty('inputstream.adaptive.stream_params', '&'.join(key+'='+urllib_parse.quote_plus(val) for key, val in MEDIA_HEADERS.items()))
+                item.setProperty('inputstream.adaptive.manifest_headers', '&'.join(key+'='+urllib_parse.quote_plus(val) for key, val in MEDIA_HEADERS.items()))
+
+                if KODI_VERSION < 22:
+                    item.setProperty('inputstream.adaptive.manifest_type', 'hls')
+                item.setProperty('inputstream.adaptive.original_audio_language', 'en')
+                
+                if PLAYBACK_METHOD == '0':
+                    item.setProperty('inputstream.adaptive.stream_selection_type', 'ask-quality')
+                else:
+                    item.setProperty('inputstream.adaptive.stream_selection_type', 'adaptive')
+                #item.setProperty('inputstream.adaptive.config', '{"ssl_verify_peer":false}')
         else:
             item.setPath(urls['stream'] + '|' + '&'.join(key+'='+urllib_parse.quote_plus(val) for key, val in MEDIA_HEADERS.items()))
             if media_head:

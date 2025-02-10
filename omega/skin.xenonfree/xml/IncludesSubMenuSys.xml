@@ -1470,7 +1470,7 @@
             <animation effect="slide" start="0,0" end="579,0" time="0" condition="String.IsEqual(Container($PARAM[Control]).NumItems,2)">conditional</animation>
             <animation effect="slide" start="0,0" end="724,0" time="0" condition="String.IsEqual(Container($PARAM[Control]).NumItems,1)">conditional</animation>
             <control type="image">
-                <left>25</left>
+                <left>30</left>
                 <top>0</top>
                 <width>62</width>
                 <height>52</height>
@@ -1479,7 +1479,7 @@
                 <visible>Integer.IsGreater(Container($PARAM[Control]).NumItems,0)</visible>
             </control>
             <control type="image">
-                <left>1836</left>
+                <left>1831</left>
                 <top>0</top>
                 <width>62</width>
                 <height>52</height>
@@ -1494,9 +1494,9 @@
             </control>
             <control type="image">
                 <left>84</left>
-                <top>12</top>
+                <top>2</top>
                 <width>30</width>
-                <height>30</height>
+                <height>50</height>
                 <texture>arrow-big-left.gif</texture>
                 <include>VisibleFadeEffect</include>
                 <visible>Control.HasFocus($PARAM[Control]) + Container($PARAM[Control]).HasPrevious</visible>
@@ -1505,9 +1505,9 @@
             </control>
             <control type="image">
                 <left>1810</left>
-                <top>12</top>
+                <top>2</top>
                 <width>30</width>
-                <height>30</height>
+                <height>50</height>
                 <texture>arrow-big-right.gif</texture>
                 <include>VisibleFadeEffect</include>
                 <visible>Control.HasFocus($PARAM[Control]) + Container($PARAM[Control]).HasNext</visible>
