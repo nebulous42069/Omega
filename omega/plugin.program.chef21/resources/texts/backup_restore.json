@@ -4,24 +4,24 @@
         "setting": "savefavs",
         "path": "user_path"
     },
-    "plugin.program.chef21": {
-        "name": "Chef Wizard",
+    "weather.openmeteo": {
+        "name": "Weather-Open Meteo",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "weather.gismeteo": {
+        "name": "Weather-Gismeteo",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "script.module.myaccounts": {
+        "name": "My Accounts",
         "setting": "savedata",
         "path": "data_path"
     },
     "plugin.video.youtube": {
         "name": "YouTube",
         "setting": "saveyoutube",
-        "path": "data_path"
-    },
-    "weather.multi2": {
-        "name": "Multi Weather",
-        "setting": "savemultiweather",
-        "path": "data_path"
-    },
-    "weather.gismeteo": {
-        "name": "Gismeteo Weather",
-        "setting": "savegismeteoweather",
         "path": "data_path"
     }
 }

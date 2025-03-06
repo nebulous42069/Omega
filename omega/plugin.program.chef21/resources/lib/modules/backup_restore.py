@@ -1,10 +1,10 @@
-import xbmc
-import xbmcgui
 import shutil
 import os
 import zipfile
 from zipfile import ZipFile
 from pathlib import Path
+import xbmc
+import xbmcgui
 from .addonvar import home, addon_profile, addon_path, setting, setting_set, translatePath, xbmcPath, addon_id, dp, local_string, addon_name, addon_icon, addon_fanart
 from .utils import add_dir
 
@@ -21,7 +21,7 @@ compression = zipfile.ZIP_DEFLATED
 def log(_text, _var):
     xbmc.log(f'{_text} = {str(_var)}', xbmc.LOGINFO)
 
-excludes = [p / 'addons/packages', p / 'addons/temp', p / 'userdata/Thumbnails', p / 'userdata/Database/Textures13.db', p / wizard_path]
+excludes = [p / 'addons/packages', p / 'addons/temp', p / 'userdata/Thumbnails', p / 'userdata/Database/Textures13.db', p / 'userdata/Database/Textures14.db', p / wizard_path]
 
 def from_keyboard():
     kb = xbmc.Keyboard('', 'Enter Backup Name', False)
@@ -49,22 +49,41 @@ def backup_build():
     xbmcgui.Dialog().notification(addon_name, 'Backup in progress, please wait!', addon_icon, 3000)
     for x in sorted(addons_dirs):
         for z in sorted([y for y in x.rglob('*') if y not in excludes]):
-            if '__pycache__' not in str(z):
-                zip_file.write(z, str(z.relative_to(p)), compress_type=compression)
+            try:
+                if '__pycache__' not in str(z):
+                    zip_file.write(z, str(z.relative_to(p)), compress_type=compression)
+            except Exception as e:
+                xbmc.log(f'Unable to compress file {str(z)}: {e}', xbmc.LOGINFO)
     for x in sorted(addons_files):
-        zip_file.write(x, str(x.relative_to(p)), compress_type=compression)
+        try:
+            zip_file.write(x, str(x.relative_to(p)), compress_type=compression)
+        except Exception as e:
+            xbmc.log(f'Unable to compress file {str(x)}: {e}', xbmc.LOGINFO)
     
     for x in sorted(media_dirs):
         for z in sorted([y for y in x.rglob('*') if y not in excludes]):
-            zip_file.write(z, str(z.relative_to(p)), compress_type=compression)
+            try:
+                zip_file.write(z, str(z.relative_to(p)), compress_type=compression)
+            except Exception as e:
+                xbmc.log(f'Unable to compress file {str(z)}: {e}', xbmc.LOGINFO)
     for x in sorted(media_files):
-        zip_file.write(x, str(x.relative_to(p)), compress_type=compression)
+        try:
+            zip_file.write(x, str(x.relative_to(p)), compress_type=compression)
+        except Exception as e:
+            xbmc.log(f'Unable to compress file {str(x)}: {e}', xbmc.LOGINFO)
 
     for x in sorted(userdata_dirs):
         for z in sorted([y for y in x.rglob('*') if y not in excludes]):
-            zip_file.write(z, str(z.relative_to(p)), compress_type=compression)
+            try:
+                zip_file.write(z, str(z.relative_to(p)), compress_type=compression)
+            except Exception as e:
+                xbmc.log(f'Unable to compress file {str(z)}: {e}', xbmc.LOGINFO)
     for x in sorted(userdata_files):
-        zip_file.write(x, str(x.relative_to(p)), compress_type=compression)    
+        try:
+            zip_file.write(x, str(x.relative_to(p)), compress_type=compression)
+        except Exception as e:
+            xbmc.log(f'Unable to compress file {str(x)}: {e}', xbmc.LOGINFO)
+    
     zip_file.close()
     xbmcgui.Dialog().ok('Backup', 'Backup Complete')
 
@@ -109,14 +128,24 @@ def restore_build(zippath):
         fresh_start_restore()
         if os.path.exists(zippath):
             dp.create('Restore', local_string(30034))  # Extracting files
-            dp.update(66, local_string(30034))
-            zf = ZipFile(zippath)
-            zf.extractall(path = home)
-            dp.update(100, local_string(30035))  # Done Extracting
-            zf.close()
-            xbmcgui.Dialog().ok('Restore', 'Restore Complete')
-            setting_set('firstrun', 'true')
-            os._exit(1)
+            counter = 1
+            with ZipFile(zippath, 'r') as z:
+                files = z.infolist()
+                for file in files:
+                    filename = file.filename
+                    filename_path = os.path.join(home, filename)
+                    progress_percentage = int(counter/len(files)*100)
+                    try:
+                        if not os.path.exists(filename_path) or 'Addons33.db' in filename:
+                            z.extract(file, home)
+                    except Exception as e:
+                        xbmc.log(f'Error extracting {filename} - {e}', xbmc.LOGINFO)
+                    dp.update(progress_percentage, f'{local_string(30034)}...\n{progress_percentage}%\n{filename}')
+                    counter += 1
+                dp.update(100, local_string(30035))  # Done Extracting
+                xbmcgui.Dialog().ok('Restore', 'Restore Complete')
+                setting_set('firstrun', 'true')
+                os._exit(1)
         else:
             xbmcgui.Dialog().ok('Restore', 'Backup Not Found')
     else:

@@ -5,7 +5,7 @@ import xbmc
 import xbmcaddon
 import xbmcgui
 from .skinSwitch import swapSkins
-from .addonvar import currSkin, user_path, db_path, addon_name, textures_db, advancedsettings_folder, advancedsettings_xml, dialog, dp, xbmcPath, packages, setting_set, addon_icon, local_string, addons_db
+from .addonvar import currSkin, user_path, db_path, addon_name, textures_db, advancedsettings_xml, dialog, dp, xbmcPath, packages, setting_set, addon_icon, local_string, addons_db
 from .whitelist import EXCLUDES_INSTALL, EXCLUDES_FRESH
 
 def purge_db(db):
@@ -30,6 +30,7 @@ def purge_db(db):
                 xbmc.log('Data from table `%s` cleared.' % table[0], xbmc.LOGDEBUG)
             except Exception as e:
                 xbmc.log("DB Remove Table `%s` Error: %s" % (table[0], str(e)), xbmc.LOGERROR)
+    conn.execute('VACUUM')
     conn.close()
     xbmc.log('%s DB Purging Complete.' % db, xbmc.LOGINFO)
 
@@ -41,14 +42,13 @@ def clear_thumbnails():
             xbmc.log('Failed to delete %s. Reason: %s' % (os.path.join(user_path, 'Thumbnails'), e), xbmc.LOGINFO)
             return
     try:
-        if os.path.exists(os.path.join(db_path, 'Textures13.db')):
-            os.unlink(os.path.join(db_path, 'Textures13.db'))
-    except:
         purge_db(textures_db)
+    except:
+        xbmc.log('%s DB Purging Failed.' % textures_db, xbmc.LOGINFO)
     xbmc.sleep(1000)
     xbmcgui.Dialog().ok(addon_name, local_string(30037))  # Thumbnails Deleted
 
-def advanced_settings():
+def advanced_settings(advancedsettings_folder):
     selection = xbmcgui.Dialog().select(local_string(30038), ['1GB Devices (E.g. 1st-3rd gen Firestick/Firestick Lite)','1.5GB Devices (E.g. 4k Firestick)','2GB+ Devices (E.g. Shield Pro/Shield Tube/FireTV Cube)','Default (Reset to Default)',local_string(30039)])  # Select Ram Size, Delete
     if selection==0:
         xml = os.path.join(advancedsettings_folder, '1_gb.xml')
@@ -62,6 +62,12 @@ def advanced_settings():
             os.unlink(advancedsettings_xml)
         xbmc.sleep(1000)
         dialog.ok(addon_name, local_string(30040))  # Advanced Settings Deleted
+        os._exit(1)
+    elif selection==4:
+        if os.path.exists(advancedsettings_xml):
+            os.unlink(advancedsettings_xml)
+        xbmc.sleep(1000)
+        dialog.ok(addon_name, local_string(30107))  # Advanced Settings Set
         os._exit(1)
     else:
         return
@@ -118,7 +124,7 @@ def fresh_start(standalone=False):
                     except:
                         xbmc.log('Unable to delete ' + name, xbmc.LOGINFO)
 
-    if not standalone:                
+    if not standalone:
         for root, dirs, files in os.walk(xbmcPath, topdown=True):
             dirs[:] = [d for d in dirs if d not in EXCLUDES_INSTALL]
             for name in files:
@@ -128,7 +134,7 @@ def fresh_start(standalone=False):
                     except:
                         xbmc.log('Unable to delete ' + name, xbmc.LOGINFO)
         dp.update(60, local_string(30043))
-        xbmc.sleep(100)    
+        xbmc.sleep(100)
         for root, dirs, files in os.walk(xbmcPath,topdown=True):
             dirs[:] = [d for d in dirs if d not in EXCLUDES_INSTALL]
             for name in dirs:
@@ -161,6 +167,13 @@ def clean_backups():
         except OSError:
             shutil.rmtree(file_path)
 
+def clear_packages_startup():
+    packages_dir = os.listdir(packages)
+    if len(packages_dir) == 0:
+        pass
+    else:
+        clear_packages()
+        
 def clear_packages():
     file_count = len([name for name in os.listdir(packages)])
     for filename in os.listdir(packages):

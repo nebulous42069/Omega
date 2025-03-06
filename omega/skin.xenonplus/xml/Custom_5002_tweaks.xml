@@ -138,9 +138,9 @@
 					<onclick>ActivateWindow(settings)</onclick>
 				</item>
 				<item>
-					<label>- [B]Kodi Advanced Settings[/B]</label>
+					<label>- [B]Advanced Settings[/B]</label>
 					<onclick>Dialog.Close(5002)</onclick>
-					<onclick>ActivateWindow(servicesettings,filecache.memorysize)</onclick>
+					<onclick>PlayMedia("plugin://plugin.program.chef21/?url=&amp;mode=29&amp;name=%5BB%5D%5BCOLOR+snow%5DAdvanced+Settings+K21%5B%2FCOLOR%5D%5B%2FB%5D&amp;icon=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.chef21%5Cresources%5Cicon.png&amp;fanart=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.chef21%5Cresources%5Cfanart.jpg&amp;description=%5BB%5D%5BCOLOR+snow%5DA+list+of+presets+to+set+the+cache+size+based+on+your+device%27s+RAM+size.%5B%2FCOLOR%5D%5B%2FB%5D&amp;name2=&amp;version=&amp;kodi=")</onclick>
 				</item>							
 				<item>
 					<label>- [B]Maintenance[/B]</label>
@@ -171,6 +171,11 @@
 					<onclick>Dialog.Close(5002)</onclick>
 					<onclick>PlayMedia(&quot;plugin://plugin.program.chef21/?url=&amp;mode=11&amp;name=%5BB%5D%5BCOLOR+snow%5DEdit+Whitelist%5B%2FCOLOR%5D%5B%2FB%5D&amp;icon=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.chef21%5Cresources%5Cicon.png&amp;fanart=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.chef21%5Cresources%5Cfanart.jpg&amp;description=%5BB%5D%5BCOLOR+snow%5DEdit+Whitelist%5B%2FCOLOR%5D%5B%2FB%5D&amp;name2=&amp;version=&quot;)</onclick>
 				</item>
+				<item>
+					<label>- [B]Restore Xenon Skin To Default Settings[/B]</label>
+					<onclick>Dialog.Close(5002)</onclick>
+					<onclick>RunPlugin(plugin://script.module.xenonpluss/?mode=2)</onclick>
+				</item>				
 				<item>
 					<label>- [B]Click Here For Available Fixes[/B]</label>
 					<onclick>Dialog.Close(5002)</onclick>
