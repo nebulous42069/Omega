@@ -172,6 +172,11 @@
 					<onclick>PlayMedia(&quot;plugin://plugin.program.chef21/?url=&amp;mode=11&amp;name=%5BB%5D%5BCOLOR+snow%5DEdit+Whitelist%5B%2FCOLOR%5D%5B%2FB%5D&amp;icon=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.chef21%5Cresources%5Cicon.png&amp;fanart=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.chef21%5Cresources%5Cfanart.jpg&amp;description=%5BB%5D%5BCOLOR+snow%5DEdit+Whitelist%5B%2FCOLOR%5D%5B%2FB%5D&amp;name2=&amp;version=&quot;)</onclick>
 				</item>
 				<item>
+					<label>- [B]Restore Xenon Skin To Default Settings[/B]</label>
+					<onclick>Dialog.Close(5002)</onclick>
+					<onclick>RunPlugin(plugin://script.module.xenonpluss/?mode=2)</onclick>
+				</item>				
+				<item>
 					<label>- [B]Click Here For Available Fixes[/B]</label>
 					<onclick>Dialog.Close(5002)</onclick>
 					<onclick>ActivateWindow(10001,&quot;plugin://plugin.program.quickfix/?description=Install%20a%20build.&amp;fanart=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.program.quickfix%5cresources%5cfanart.jpg&amp;icon=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.program.quickfix%5cresources%5cicon.png&amp;mode=1&amp;name=Click%20Here%20For%20Available%20Fixes&amp;name2&amp;url&amp;version&quot;,return)</onclick>
