@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- BINGIE -->
-<addon id="skin.diggzflix" version="420.1.0.3" name="[B][COLOR gold]DiggzFlix[/COLOR][/B]  (Mid Power)" provider-name="matke">
+<addon id="skin.diggzflix" version="421.1.0.3" name="[B][COLOR gold]DiggzFlix 2[/COLOR][/B]  (Mid Power)" provider-name="matke">
 	<requires>
 		<import version="5.17.0" addon="xbmc.gui"/>
 		<import addon="script.bingie.helper" version="1.1.2"/>
