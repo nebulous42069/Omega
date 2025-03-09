@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window id="2003">
+    <defaultcontrol always="true">9005</defaultcontrol>
+    <onload>SetFocus(9005)</onload>
+    <onload condition="Skin.HasSetting(ForceExtendedInfo) + System.HasAddon(script.extendedinfo)">Close</onload>
+    <onload>ClearProperty(FilePath,home)</onload>
+    <onload>ClearProperty(Header_Left_Text)</onload>
+    <onload>ClearProperty(Header_Center_Text)</onload>
+    <onload>ClearProperty(OSD_Menu,Home)</onload>
+    <onload>SetProperty(TMDbTemp,$INFO[Window(Home).Property(TMDbHelper.WidgetContainer)],Home)</onload>
+
+    <onunload>SetProperty(TMDbHelper.WidgetContainer,$INFO[Window(Home).Property(TMDbTemp)],Home)</onunload>
+    <onunload>ClearProperty(TMDbTemp,Home)</onunload>
+    <onunload>Skin.Reset(TMDbHelper.ForceWidgetContainer)</onunload>
+    <onunload>ClearProperty(FilePath,home)</onunload>
+    <onunload>ClearProperty(OSD_Menu,Home)</onunload>
+    <onload condition="Skin.HasSetting(ForceExtendedInfo) + System.HasAddon(script.extendedinfo) + [String.IsEqual(ListItem.DBType,movie) | Container.Content(movies)]">RunScript(script.extendedinfo,info=extendedinfo,dbid=$INFO[ListItem.DBID],name=$INFO[ListItem.Title])</onload>
+    <onload condition="Skin.HasSetting(ForceExtendedInfo) + System.HasAddon(script.extendedinfo) + [String.IsEqual(ListItem.DBType,tvshow) | Container.Content(tvshows)]">RunScript(script.extendedinfo,info=extendedtvinfo,dbid=$INFO[ListItem.DBID],name=$INFO[ListItem.TvShowTitle])</onload>
+    <onload condition="Skin.HasSetting(ForceExtendedInfo) + System.HasAddon(script.extendedinfo) + [String.IsEqual(ListItem.DBType,season) | Container.Content(seasons)]">RunScript(script.extendedinfo,info=seasoninfo,tvshow=$INFO[ListItem.TvShowTitle],season=$INFO[ListItem.Season],silent=True)</onload>
+   <onload condition="Skin.HasSetting(ForceExtendedInfo) + System.HasAddon(script.extendedinfo) + [String.IsEqual(ListItem.DBType,episode) | Container.Content(episodes)]">RunScript(script.extendedinfo,info=extendedepisodeinfo,dbid=$INFO[ListItem.DBID],tvshow=$INFO[ListItem.TvShowTitle],season=$INFO[ListItem.Season],episode=$INFO[ListItem.Episode],silent=True)</onload>
+<onload condition="String.IsEqual(Window(Home).Property(BaseWindow),InfoDialog)">ClearProperty(BaseWindow,Home)</onload>
+    <onload>ClearProperty(TrailerPlaying,Home)</onload>
+    <onunload>ClearProperty(TrailerPlaying,Home)</onunload>
+    <onload condition="[Container.Content(movies) | Container.Content(tvshows)] + !Player.HasVideo + Skin.HasSetting(EnableVideoInfoAutoplay)">AlarmClock(trailer_delay,PlayMedia($INFO[ListItem.Trailer],false,1),00:02,silent)</onload>
+    <onunload condition="System.HasAlarm(trailer_delay)">CancelAlarm(trailer_delay,true)</onunload>
+    <controls>
+      <include condition="Skin.HasSetting(SkinHelper.EnableExtraFanart)">fanart_multi</include>
+	<control type="button" id="9005">
+	 <visible allowhiddenfocus="true">false</visible>
+	    <onback condition="!String.IsEmpty(Window(home).Property(TrailerPlaying))">ClearProperty(TrailerPlaying,Home)</onback>
+	    <onback condition="!String.IsEmpty(Window(home).Property(TrailerPlaying))">Action(Stop)</onback>
+	    <onfocus condition="String.IsEqual(ListItem.Property(item.type),person)">SetFocus(9999)</onfocus>      
+            <onfocus condition="!Skin.HasSetting(UseExtendedInfoDialog)">SetFocus(8000)</onfocus>
+	    <onfocus condition="Control.IsVisible(87)">SetFocus(87)</onfocus>
+	    <onfocus condition="!Control.IsVisible(87) + Control.IsVisible(8)">SetFocus(8)</onfocus>
+	    <onfocus condition="!Control.IsVisible(87) + !Control.IsVisible(8)">SetFocus(9570,0)</onfocus>
+	    <ondown condition="Player.HasVideo">9570</ondown>
+	    <onup condition="Player.HasVideo">9570</onup>
+	    <onleft condition="Player.HasVideo">9570</onleft>
+	</control>
+        <control type="group">
+        <include>Global_Background</include>
+        <visible>ControlGroup(9000).HasFocus | Control.HasFocus(300)</visible>
+        </control>
+    <include condition="Skin.HasSetting(DisableNetflixVideoInfo) + !String.IsEqual(ListItem.Property(item.type),person)">DialogVideoInfo_Aura</include>
+    <include condition="!Skin.HasSetting(DisableNetflixVideoInfo) + !String.IsEqual(ListItem.Property(item.type),person)">DialogVideoInfo_Netflix</include>
+    <include condition="String.IsEqual(ListItem.Property(item.type),person)">DialogPersonInfo</include>
+
+    </controls>
+
+</window>

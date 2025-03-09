@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts>
+  <shortcut>
+    <defaultID>tvcategorieshub1</defaultID>
+    <label>$LOCALIZE[31829]</label> <!-- TV Lists -->
+    <label2>Custom item</label2>
+    <icon>special://skin/extras/icons/tv.png</icon>
+    <thumb>special://skin/extras/icons/clipboard.png</thumb>
+    <action>ActivateWindow(2114,return)</action>
+  </shortcut>
+  <shortcut>
+    <defaultID>tvaurahub</defaultID>
+    <label>$LOCALIZE[31827]</label> <!-- TV Aura Hub -->
+    <label2>Custom item</label2>
+    <icon>special://skin/extras/icons/tv.png</icon>
+    <thumb>special://skin/extras/icons/emby.png</thumb>
+    <action>ActivateWindow(3910,return)</action>
+  </shortcut>
+  <shortcut>
+    <defaultID>tvnetflixhub</defaultID>
+    <label>$LOCALIZE[31828]</label> <!-- TV Netflix Hub -->
+    <label2 />
+    <icon>special://skin/extras/icons/tv.png</icon>
+    <thumb />
+    <action>ActivateWindow(3810,return)</action>
+  </shortcut>
+  <shortcut>
+    <defaultID>tvgenrehub</defaultID>
+    <label>$LOCALIZE[31806]</label> <!-- Genres Hub -->
+    <label2>Custom item</label2>
+    <icon>special://skin/extras/icons/tv.png</icon>
+    <thumb>special://skin/media/exuary/genres.png</thumb>
+    <action>ActivateWindow(4020,return)</action>
+  </shortcut>
+  <shortcut>
+    <label>20387</label>
+    <label2>32014</label2>
+    <icon>DefaultRecentlyAddedEpisodes.png</icon>
+    <thumb />
+    <action>ActivateWindow(Videos,videodb://recentlyaddedepisodes/,return)</action>
+  </shortcut>
+  <shortcut>
+    <label>$LOCALIZE[626]</label>
+    <label2>32014</label2>
+    <icon>special://skin/extras/icons/timer.png</icon>
+    <thumb>special://skin/extras/icons/timer.png</thumb>
+    <action>ActivateWindow(Videos,videodb://inprogresstvshows/,return)</action>
+  </shortcut>
+  <shortcut>
+    <label>369</label>
+    <label2>20343</label2>
+    <icon>DefaultTVShowTitle.png</icon>
+    <thumb />
+    <action>ActivateWindow(Videos,videodb://tvshows/titles/,return)</action>
+  </shortcut>
+  <shortcut>
+    <label>$LOCALIZE[20388]</label>
+    <label2>20343</label2>
+    <icon>special://skin/extras/icons/musicvideo.png</icon>
+    <thumb />
+    <action>ActivateWindow(Videos,videodb://tvshows/studios/,return)</action>
+  </shortcut>
+  <shortcut>
+    <label>135</label>
+    <label2>20343</label2>
+    <icon>DefaultGenre.png</icon>
+    <thumb />
+    <action>ActivateWindow(Videos,videodb://tvshows/genres/,return)</action>
+  </shortcut>
+  <shortcut>
+    <label>562</label>
+    <label2>20343</label2>
+    <icon>DefaultYear.png</icon>
+    <thumb />
+    <action>ActivateWindow(Videos,videodb://tvshows/years/,return)</action>
+  </shortcut>
+  <shortcut>
+    <label>344</label>
+    <label2>20343</label2>
+    <icon>DefaultActor.png</icon>
+    <thumb />
+    <action>ActivateWindow(Videos,videodb://tvshows/actors/,return)</action>
+  </shortcut>
+</shortcuts>
