@@ -556,7 +556,7 @@
                         <visible>!String.IsEmpty(Skin.String(HomeItem.12.Path))</visible>
                     </item>
                     <item id="13">
-                        <description>Home Menu Item Thriteen</description>
+                        <description>Home Menu Item Thirteen</description>
                         <label>$INFO[Skin.String(HomeItem.13.Label)]</label>
                         <onclick>Skin.SetString($INFO[Window(Home).Property(UsrSelectBtn)].Label,$INFO[Skin.String(HomeItem.13.Label)])</onclick>
                         <onclick>Skin.SetString($INFO[Window(Home).Property(UsrSelectBtn)].Path,$INFO[Skin.String(HomeItem.13.Path)])</onclick>

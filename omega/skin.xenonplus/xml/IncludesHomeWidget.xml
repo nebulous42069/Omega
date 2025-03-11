@@ -51,7 +51,7 @@
         <value condition="String.IsEqual(Skin.String(HomeItem.12.WidgetLayout),Small)">$LOCALIZE[32025]</value>
 		<value condition="String.IsEqual(Skin.String(HomeItem.12.WidgetLayout),Large)">$LOCALIZE[32026]</value>
     </variable>
-	<variable name="UsrDefItemThriteenWidgetLayout">
+	<variable name="UsrDefItemThirteenWidgetLayout">
         <value condition="String.IsEqual(Skin.String(HomeItem.13.WidgetLayout),Small)">$LOCALIZE[32025]</value>
 		<value condition="String.IsEqual(Skin.String(HomeItem.13.WidgetLayout),Large)">$LOCALIZE[32026]</value>
     </variable>
