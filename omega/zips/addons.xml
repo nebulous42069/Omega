@@ -618,6 +618,26 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.cb20
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
+</addon><addon id="plugin.video.daddylive" name="DaddyLive" version="5.00" provider-name="FubuZ">
+    <requires>
+        <import addon="xbmc.python" version="3.0.0" />
+        <import addon="script.module.requests" />
+        <import addon="script.module.inputstreamhelper" />
+        <import addon="script.module.six" />
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="addon.py">
+        <provides>video</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en">Live Sports and TV</summary>
+		<description lang="en">Free streming of Live Sports and TV.</description>
+        <license>GPL-3.0</license>
+        <website>https://daddylive.sx/</website>
+        <assets>
+            <icon>resources/icon.png</icon>
+            <fanart>resources/fanart.jpg</fanart>
+        </assets>
+    </extension>
 </addon><addon id="plugin.video.fenlight" name="Fen Light" provider-name="Tikipeter" version="2.0.07">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />

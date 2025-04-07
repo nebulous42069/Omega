@@ -1,0 +1,10 @@
+v5.00:
+- Updated to new daddylive.mp url.
+- Updated to new video stream url.
+- Updated to new EPG schedule url.
+- Removed </span> tag from sport categories.
+- Changed addon icon and background.
+- Added a settings option to select a time zone (default is UTC+00).
+- Added a settings option to select 12-hour (AM/PM) or 24-hour format (HH:mm) (default is 12-hour).
+
+NOTE: The 2 new settings options allow users to set the EPG schedule time for the Live Sports category in their time zone and time format.
