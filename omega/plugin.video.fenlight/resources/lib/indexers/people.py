@@ -1,18 +1,11 @@
 # -*- coding: utf-8 -*-
-import os
 import sys
 from urllib.parse import unquote
 from apis.tmdb_api import tmdb_people_info
 from windows.base_window import open_window
 from indexers.images import Images
-from modules import kodi_utils
+from modules.kodi_utils import add_items, set_content, set_category, end_directory, build_url, make_listitem, get_icon, get_addon_fanart
 # logger = kodi_utils.logger
-
-get_icon, addon_fanart = kodi_utils.get_icon, kodi_utils.get_addon_fanart()
-add_items, set_content, set_category, end_directory = kodi_utils.add_items, kodi_utils.set_content, kodi_utils.set_category, kodi_utils.end_directory
-build_url, make_listitem = kodi_utils.build_url, kodi_utils.make_listitem
-tmdb_image_base = 'https://image.tmdb.org/t/p/%s%s'
-default_image = get_icon('genre_family')
 
 def tmdb_people(params):
 	return Images().run({'mode': 'tmdb_people_list_image_results', 'action': params['action'], 'page_no': 1})
@@ -37,8 +30,8 @@ def person_direct_search(key_id):
 			actor_id = int(item['id'])
 			actor_name = item['name']
 			image_path = item['profile_path']
-			if item['profile_path']: actor_image = tmdb_image_base % ('h632', item['profile_path'])
-			else: actor_image = default_image
+			if item['profile_path']: actor_image = 'https://image.tmdb.org/t/p/%s%s' % ('h632', item['profile_path'])
+			else: actor_image = icon
 			known_for_list = [i.get('title', 'NA') for i in item['known_for']]
 			known_for_list = [i for i in known_for_list if not i == 'NA']
 			known_for = '[B]Known for:[/B]\n%s' % '\n'.join(known_for_list) if known_for_list else ' '
@@ -46,10 +39,11 @@ def person_direct_search(key_id):
 			url = build_url(url_params)
 			listitem = make_listitem()
 			listitem.setLabel(actor_name)
-			listitem.setArt({'icon': actor_image, 'poster': actor_image, 'thumb': actor_image, 'fanart': addon_fanart, 'banner': actor_image})
+			listitem.setArt({'icon': actor_image, 'poster': actor_image, 'thumb': actor_image, 'fanart': fanart, 'banner': actor_image})
 			info_tag = listitem.getVideoInfoTag()
 			info_tag.setPlot(known_for)
 			yield (url, listitem, False)
+	icon, fanart = get_icon('genre_family'), get_addon_fanart()
 	try:
 		key_id = unquote(key_id)
 		data = tmdb_people_info(key_id)['results']

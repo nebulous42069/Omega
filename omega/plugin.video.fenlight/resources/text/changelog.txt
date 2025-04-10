@@ -1,5 +1,30 @@
 [COLOR darkgoldenrod]GOD BLESS HIM AND KEEP HIM SAFE.[/COLOR]
 
+[COLOR dodgerblue][B]Version 2.1.13[/B][/COLOR]
+- Couple of quick fixes for Person search in IvanBrandt's skins and cache cleaning.
+
+[COLOR dodgerblue][B]Version 2.1.11/12[/B][/COLOR]
+- [BUG] Fixed some random menus.
+- [BUG] Fixed info window for scrape results.
+- [BUG] Fixed Watchlist not showing for Next Episodes.
+- [CODE] Finished most code refactoring.
+
+[COLOR dodgerblue][B]Version 2.1.10[/B][/COLOR]
+- [REQUEST] Added ability for Fen Light to remember your reuselanguageinvoker state when updating.
+- [REQUEST] Added RPDb (Rating Posters) support. Enter your API in Settings->Accounts, then clear the meta cache.
+
+[COLOR dodgerblue][B]Version 2.1.07/08/09[/B][/COLOR]
+- [BUG] Quick fix for Movie sets and "More Like this" list.
+- [BUG] Quick fix for navigation lists not loading on new installs.
+- [BUG] Quick fix for incorrect detection of current skin name and font type.
+
+[COLOR dodgerblue][B]Version 2.1.01/02/03/04/05/06[/B][/COLOR]
+- [FEATURE] Adjusted Trakt token refresh to 24 hours.
+- [FEATURE] Added "Personal Lists" to My Lists. Here you can make personal lists that can be used on this instance of Fen Light. Movies or TV Shows supported.
+- [FEATURE] Added Settings->Content->Context Menu->"Context Menu Order" to change the order of Context Menu items for media displayed by Fen Light. Idea from Kodifitzwell.
+- [FEATURE] Added more flexibility for using external sources modules.
+- [CODE] Large refactoring of code.
+
 [COLOR dodgerblue][B]Version 2.0.07[/B][/COLOR]
 - Added support for Season and Episode items included in Trakt list contents (My Lists, Liked Lists).
 - Updated Trakt icon.

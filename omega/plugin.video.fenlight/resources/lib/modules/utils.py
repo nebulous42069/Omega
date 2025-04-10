@@ -7,6 +7,7 @@ import random
 import _strptime
 import unicodedata
 from html import unescape
+from queue import SimpleQueue
 from threading import Thread, activeCount
 from zipfile import ZipFile
 from importlib import import_module, reload as rel_module
@@ -14,6 +15,43 @@ from datetime import datetime, timedelta, date
 from modules.settings import max_threads
 from modules.kodi_utils import translate_path, sleep, show_busy_dialog, hide_busy_dialog, path_exists
 # from modules.kodi_utils import logger
+
+class TaskPool:
+	def __init__(self):
+		self._queue = SimpleQueue()
+
+	def _thread_target(self, queue, target):
+		while not queue.empty():
+			try: target(*queue.get())
+			except: pass
+
+	def tasks(self, _target, _list, _max_size=60):
+		[self._queue.put(tag) for tag in _list]
+		threads = [Thread(target=self._thread_target, args=(self._queue, _target)) for i in range(_max_size)]
+		[i.start() for i in threads]
+		return threads
+
+	def tasks_enumerate(self, _target, _list, _max_size=60):
+		[self._queue.put((p, tag)) for p, tag in enumerate(_list, 1)]
+		threads = [Thread(target=self._thread_target, args=(self._queue, _target)) for i in range(_max_size)]
+		[i.start() for i in threads]
+		return threads
+
+def make_thread_list(_target, _list):
+	_max_threads = max_threads()
+	for item in _list:
+		while activeCount() > _max_threads: sleep(1)
+		threaded_object = Thread(target=_target, args=(item,))
+		threaded_object.start()
+		yield threaded_object
+
+def make_thread_list_enumerate(_target, _list):
+	_max_threads = max_threads()
+	for count, item in enumerate(_list):
+		while activeCount() > _max_threads: sleep(1)
+		threaded_object = Thread(target=_target, args=(count, item))
+		threaded_object.start()
+		yield threaded_object
 
 def change_image_resolution(image, replace_res):
 	return re.sub(r'(w185|w300|w342|w780|w1280|h632|original)', replace_res, image)
@@ -29,30 +67,6 @@ def reload_module(location):
 
 def manual_module_import(location):
 	return import_module(location)
-
-def make_thread_list(_target, _list):
-	_max_threads = max_threads()
-	for item in _list:
-		while activeCount() > _max_threads: sleep(1)
-		threaded_object = Thread(target=_target, args=(item,))
-		threaded_object.start()
-		yield threaded_object
-
-def make_thread_list_multi_arg(_target, _list):
-	_max_threads = max_threads()
-	for item in _list:
-		while activeCount() > _max_threads: sleep(1)
-		threaded_object = Thread(target=_target, args=item)
-		threaded_object.start()
-		yield threaded_object
-
-def make_thread_list_enumerate(_target, _list):
-	_max_threads = max_threads()
-	for count, item in enumerate(_list):
-		while activeCount() > _max_threads: sleep(1)
-		threaded_object = Thread(target=_target, args=(count, item))
-		threaded_object.start()
-		yield threaded_object
 
 def chunks(item_list, limit):
 	"""

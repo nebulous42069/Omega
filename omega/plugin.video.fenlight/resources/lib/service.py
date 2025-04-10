@@ -16,20 +16,16 @@ def logger(heading, function):
 class SetAddonConstants:
 	def run(self):
 		logger('Fen Light', 'SetAddonConstants Service Starting')
-		import xbmcgui, xbmcaddon, xbmcvfs
-		addon_object = xbmcaddon.Addon('plugin.video.fenlight')
-		self.window = xbmcgui.Window(10000)
-		_info = addon_object.getAddonInfo
+		import xbmcaddon, xbmcvfs
+		window = xbmcgui.Window(10000)
+		_info = xbmcaddon.Addon('plugin.video.fenlight').getAddonInfo
 		addon_items = [('fenlight.addon_version', _info('version')),
 					('fenlight.addon_path', _info('path')),
 					('fenlight.addon_profile', xbmcvfs.translatePath(_info('profile'))),
 					('fenlight.addon_icon', xbmcvfs.translatePath(_info('icon'))),
 					('fenlight.addon_fanart', xbmcvfs.translatePath(_info('fanart')))]
-		for item in addon_items: self.set_property(*item)
+		for item in addon_items: window.setProperty(*item)
 		return logger('Fen Light', 'SetAddonConstants Service Finished')
-
-	def set_property(self, prop, value):
-		self.window.setProperty(prop, value)
 
 class DatabaseMaintenance:
 	def run(self):
@@ -55,9 +51,7 @@ class CustomFonts:
 		font_utils = FontUtils()
 		while not monitor.abortRequested():
 			font_utils.execute_custom_fonts()
-			if window.getProperty(pause_services_prop) == 'true' or is_playing(): sleep = 20
-			else: sleep = 10
-			wait_for_abort(sleep)
+			wait_for_abort(20)
 		try: del monitor
 		except: pass
 		try: del player
@@ -174,6 +168,29 @@ class AutoStart:
 			run_addon()
 		return logger('Fen Light', 'AutoStart Service Finished')
 
+class ReuseLanguageInvokerCheck:
+	def run(self):
+		logger('Fen Light', 'ReuseLanguageInvokerCheck Service Starting')
+		from caches.settings_cache import get_setting
+		current_addon_setting = get_setting('fenlight.reuse_language_invoker', None)
+		if current_addon_setting is None: return logger('Fen Light', 'ReuseLanguageInvokerCheck Service Error. No current setting detected. Finished')
+		import xbmcvfs
+		from xml.dom.minidom import parse as mdParse
+		addon_xml = xbmcvfs.translatePath('special://home/addons/plugin.video.fenlight/addon.xml')
+		root = mdParse(addon_xml)
+		invoker_instance = root.getElementsByTagName('reuselanguageinvoker')[0].firstChild
+		current_invoker_status = invoker_instance.data
+		if current_invoker_status != current_addon_setting:
+			from modules.kodi_utils import update_local_addons, disable_enable_addon, notification
+			notification('Language Invoker Mismatch. Restarting Addons')
+			invoker_instance.data = current_addon_setting
+			new_xml = str(root.toxml()).replace('<?xml version="1.0" ?>', '')
+			with open(addon_xml, 'w') as f: f.write(new_xml)
+			xbmc.executebuiltin('ActivateWindow(Home)', True)
+			update_local_addons()
+			disable_enable_addon()
+		return logger('Fen Light', 'ReuseLanguageInvokerCheck Service Finished')
+
 class FenLightMonitor(xbmc.Monitor):
 	def __init__ (self):
 		xbmc.Monitor.__init__(self)
@@ -183,6 +200,7 @@ class FenLightMonitor(xbmc.Monitor):
 		SetAddonConstants().run()
 		DatabaseMaintenance().run()
 		SyncSettings().run()
+		ReuseLanguageInvokerCheck().run()
 		Thread(target=CustomFonts().run).start()
 		Thread(target=TraktMonitor().run).start()
 		Thread(target=UpdateCheck().run).start()

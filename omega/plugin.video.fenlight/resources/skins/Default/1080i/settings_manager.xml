@@ -438,7 +438,7 @@
                       </item>
                       <item>
                           <visible>Container(2000).HasFocus(10)</visible>
-                          <visible>!String.EndsWith(Window(10000).Property(fenlight.default_addon_fanart),fenlight_fanart2.jpg)</visible>
+                          <visible>!String.EndsWith(Window(10000).Property(fenlight.default_addon_fanart),fenlightam_fanart.jpg)</visible>
                           <property name="setting_label">    - Restore Default Background Image</property>
                           <property name="setting_type">action</property>
                           <property name="setting_value">...</property>
@@ -744,6 +744,21 @@
                           <property name="setting_value">$INFO[Window(10000).Property(fenlight.widget_hide_next_page)]</property>
                           <property name="setting_description">Enable this and the "Next Page" item will be hidden in Fen Light widgets</property>
                           <onclick>RunPlugin(plugin://plugin.video.fenlight/?mode=settings_manager.set_boolean&amp;setting_id=widget_hide_next_page)</onclick>
+                      </item>
+        <!-- Context Menu -->
+                      <item>
+                          <visible>Container(2000).HasFocus(30)</visible>
+                          <property name="setting_label">Context Menu</property>
+                          <property name="setting_type">separator</property>
+                          <onclick>noop</onclick>
+                      </item>
+                      <item>
+                          <visible>Container(2000).HasFocus(30)</visible>
+                          <property name="setting_label">Context Menu Order</property>
+                          <property name="setting_type">action</property>
+                          <property name="setting_value">...</property>
+                          <property name="setting_description">Choose the order in which Context Menu items appear for Fen Light media items</property>
+                          <onclick>RunPlugin(plugin://plugin.video.fenlight/?mode=context_menu_order_choice)</onclick>
                       </item>
         <!-- General -->
                       <item>
@@ -1074,6 +1089,41 @@
                           <onclick>RunPlugin(plugin://plugin.video.fenlight/?mode=settings_manager.set_numeric&amp;setting_id=trakt.calendar_future_days)</onclick>
                       </item>
 <!-- ACCOUNTS 50 -->
+        <!-- External Scrapers -->
+                      <item>
+                          <visible>Container(2000).HasFocus(50)</visible>
+                          <property name="setting_label">External Scrapers</property>
+                          <property name="setting_type">separator</property>
+                          <onclick>noop</onclick>
+                      </item>
+                      <item>
+                          <visible>Container(2000).HasFocus(50)</visible>
+                          <property name="setting_label">Enable</property>
+                          <property name="setting_type">boolean</property>
+                          <property name="setting_value">$INFO[Window(10000).Property(fenlight.provider.external)]</property>
+                          <property name="setting_description">Enable this to use external scrapers. No support is provided when you choose to use external scrapers within Fen Light</property>
+                          <onclick>RunPlugin(plugin://plugin.video.fenlight/?mode=settings_manager.set_boolean&amp;setting_id=provider.external)</onclick>
+                      </item>
+                      <item>
+                          <visible>Container(2000).HasFocus(50)</visible>
+                          <visible>String.IsEqual(Window(10000).Property(fenlight.provider.external),true)</visible>
+                          <property name="setting_label">Choose External Scrapers Module</property>
+                          <property name="setting_type">action</property>
+                          <property name="setting_value">$INFO[Window(10000).Property(fenlight.external_scraper.name)]</property>
+                          <property name="setting_description">Choose the external scraper module to use within Fen Light. No support is provided when you choose to use external scrapers within Fen Light</property>
+                          <onclick>RunPlugin(plugin://plugin.video.fenlight/?mode=external_scraper_choice)</onclick>
+                      </item>
+                      <item>
+                          <visible>Container(2000).HasFocus(50)</visible>
+                          <visible>String.IsEqual(Window(10000).Property(fenlight.provider.external),true)</visible>
+                          <visible>!String.IsEqual(Window(10000).Property(fenlight.external_scraper.name),empty_setting)</visible>
+                          <property name="setting_label">Open External Scraper Settings</property>
+                          <property name="setting_type">action</property>
+                          <property name="setting_value">...</property>
+                          <property name="setting_description">Open the External Scraper settings. The settings of the module chosen above will be opened</property>
+                          <onclick>back</onclick>
+                          <onclick>RunPlugin(plugin://plugin.video.fenlight/?mode=open_external_scraper_settings)</onclick>
+                      </item>
         <!-- Trakt -->
                       <item>
                           <visible>Container(2000).HasFocus(50)</visible>
@@ -1133,10 +1183,10 @@
                           <property name="setting_description">Restore default Trakt Client Secret Key</property>
                           <onclick>RunPlugin(plugin://plugin.video.fenlight/?mode=settings_manager.restore_setting_default&amp;setting_id=trakt.secret)</onclick>
                       </item>
-        <!-- TMDb -->
+        <!-- TMDb API -->
                       <item>
                           <visible>Container(2000).HasFocus(50)</visible>
-                          <property name="setting_label">TMDb</property>
+                          <property name="setting_label">TMDb API</property>
                           <property name="setting_type">separator</property>
                           <onclick>noop</onclick>
                       </item>
@@ -1165,6 +1215,31 @@
                           <property name="setting_description">Test if your TMDb API is activated and working</property>
                           <onclick>RunPlugin(plugin://plugin.video.fenlight/?mode=tmdb_api_check_choice)</onclick>
                       </item>
+        <!-- TMDb Lists -->
+                      <item>
+                          <visible>Container(2000).HasFocus(50)</visible>
+                          <property name="setting_label">TMDb Lists</property>
+                          <property name="setting_type">separator</property>
+                          <onclick>noop</onclick>
+                      </item>
+                      <item>
+                          <visible>Container(2000).HasFocus(50)</visible>
+                          <visible>String.IsEqual(Window(10000).Property(fenlight.tmdb.token),empty_setting)</visible>
+                          <property name="setting_label">Authorize Account</property>
+                          <property name="setting_type">action</property>
+                          <property name="setting_value">...</property>
+                          <property name="setting_description">Authorize your TMDb account and use it within Fen Light for Lists</property>
+                          <onclick>RunPlugin(plugin://plugin.video.fenlight/?mode=tmdblist_api.authenticate)</onclick>
+                      </item>
+                      <item>
+                          <visible>Container(2000).HasFocus(50)</visible>
+                          <visible>!String.IsEqual(Window(10000).Property(fenlight.tmdb.token),empty_setting)</visible>
+                          <property name="setting_label">Revoke Account Authorization</property>
+                          <property name="setting_type">action</property>
+                          <property name="setting_value">$INFO[Window(10000).Property(fenlight.tmdb.account_id)]</property>
+                          <property name="setting_description">Revoke authorization of your TMDb account</property>
+                          <onclick>RunPlugin(plugin://plugin.video.fenlight/?mode=tmdblist_api.revoke_authentication)</onclick>
+                      </item>
         <!-- OMDb -->
                       <item>
                           <visible>Container(2000).HasFocus(50)</visible>
@@ -1180,40 +1255,29 @@
                           <property name="setting_description">Enter here your OMDb API key. This will allow you to utilize extra ratings information in Fen Lights Extras window</property>
                           <onclick>RunPlugin(plugin://plugin.video.fenlight/?mode=settings_manager.set_string&amp;setting_id=omdb_api)</onclick>
                       </item>
-        <!-- External Scrapers -->
+        <!-- RPDb -->
                       <item>
                           <visible>Container(2000).HasFocus(50)</visible>
-                          <property name="setting_label">External Scrapers</property>
+                          <property name="setting_label">RPDb (Ratings Posters)</property>
                           <property name="setting_type">separator</property>
                           <onclick>noop</onclick>
                       </item>
                       <item>
                           <visible>Container(2000).HasFocus(50)</visible>
-                          <property name="setting_label">Enable</property>
-                          <property name="setting_type">boolean</property>
-                          <property name="setting_value">$INFO[Window(10000).Property(fenlight.provider.external)]</property>
-                          <property name="setting_description">Enable this to use external scrapers. No support is provided when you choose to use external scrapers within Fen Light</property>
-                          <onclick>RunPlugin(plugin://plugin.video.fenlight/?mode=settings_manager.set_boolean&amp;setting_id=provider.external)</onclick>
+                          <property name="setting_label">API Key</property>
+                          <property name="setting_type">numeric</property>
+                          <property name="setting_value">$INFO[Window(10000).Property(fenlight.rpdb_api)]</property>
+                          <property name="setting_description">Enter here your RPDb API key. This will allow you to utilize posters that include built in ratings information when available</property>
+                          <onclick>RunPlugin(plugin://plugin.video.fenlight/?mode=settings_manager.set_string&amp;setting_id=rpdb_api)</onclick>
                       </item>
                       <item>
                           <visible>Container(2000).HasFocus(50)</visible>
-                          <visible>String.IsEqual(Window(10000).Property(fenlight.provider.external),true)</visible>
-                          <property name="setting_label">Choose External Scrapers Module</property>
+                          <visible>!String.IsEqual(Window(10000).Property(fenlight.rpdb_api),empty_setting)</visible>
+                          <property name="setting_label">Use RPDb Ratings Posters For...</property>
                           <property name="setting_type">action</property>
-                          <property name="setting_value">$INFO[Window(10000).Property(fenlight.external_scraper.name)]</property>
-                          <property name="setting_description">Choose the external scraper module to use within Fen Light. No support is provided when you choose to use external scrapers within Fen Light</property>
-                          <onclick>RunPlugin(plugin://plugin.video.fenlight/?mode=external_scraper_choice)</onclick>
-                      </item>
-                      <item>
-                          <visible>Container(2000).HasFocus(50)</visible>
-                          <visible>String.IsEqual(Window(10000).Property(fenlight.provider.external),true)</visible>
-                          <visible>!String.IsEqual(Window(10000).Property(fenlight.external_scraper.name),empty_setting)</visible>
-                          <property name="setting_label">Open External Scraper Settings</property>
-                          <property name="setting_type">action</property>
-                          <property name="setting_value">...</property>
-                          <property name="setting_description">Open the External Scraper settings. The settings of the module chosen above will be opened</property>
-                          <onclick>back</onclick>
-                          <onclick>RunPlugin(plugin://plugin.video.fenlight/?mode=open_external_scraper_settings)</onclick>
+                          <property name="setting_value">$INFO[Window(10000).Property(fenlight.rpdb_enabled_name)]</property>
+                          <property name="setting_description">Choose which media types utilize that Rated Posters provided by RPDb. Choices are None, Movies, TV Shows or Both</property>
+                          <onclick>RunPlugin(plugin://plugin.video.fenlight/?mode=settings_manager.set_from_list&amp;setting_id=rpdb_enabled)</onclick>
                       </item>
         <!-- Real Debrid -->
                       <item>

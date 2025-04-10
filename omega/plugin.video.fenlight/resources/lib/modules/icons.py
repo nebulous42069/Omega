@@ -72,7 +72,6 @@ pm_qrcode = 'ARyznQq'
 rd_qrcode = 'hjZliTu'
 trakt_qrcode = 'lMrS0mS'
 
-search_anime = 'nv2y3xo'
 search_history = 'y1DEuvk'
 search_imdb = 'z4C3PAx'
 search_movie = 'u8jgyN3'

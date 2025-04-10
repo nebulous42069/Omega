@@ -6,20 +6,18 @@ from apis.alldebrid_api import AllDebridAPI
 from apis.offcloud_api import OffcloudAPI
 from apis.easydebrid_api import EasyDebridAPI
 from apis.torbox_api import TorBoxAPI
-from modules import kodi_utils
-from modules.settings import enabled_debrids_check, authorized_debrid_check
-# logger = kodi_utils.logger
-
-show_busy_dialog, hide_busy_dialog, notification = kodi_utils.show_busy_dialog, kodi_utils.hide_busy_dialog, kodi_utils.notification
-debrid_list = [('Real-Debrid', 'rd'), ('Premiumize.me', 'pm'), ('AllDebrid', 'ad'), ('Offcloud', 'oc'), ('EasyDebrid', 'ed'), ('TorBox', 'tb')]
-debrid_list_modules = [('Real-Debrid', RealDebridAPI), ('Premiumize.me', PremiumizeAPI), ('AllDebrid', AllDebridAPI),
-						('Offcloud', OffcloudAPI), ('EasyDebrid', EasyDebridAPI), ('TorBox', TorBoxAPI)]
+from modules.kodi_utils import show_busy_dialog, hide_busy_dialog, notification
+from modules.settings import enabled_debrids_check
+# from modules.kodi_utils import logger
 
 def debrid_enabled():
-	return [i[0] for i in debrid_list if enabled_debrids_check(i[1])]
+	return [
+	i[0] for i in [('Real-Debrid', 'rd'), ('Premiumize.me', 'pm'), ('AllDebrid', 'ad'), ('Offcloud', 'oc'), ('EasyDebrid', 'ed'), ('TorBox', 'tb')] if enabled_debrids_check(i[1])]
 
 def manual_add_magnet_to_cloud(params):
 	show_busy_dialog()
+	debrid_list_modules = [('Real-Debrid', RealDebridAPI), ('Premiumize.me', PremiumizeAPI), ('AllDebrid', AllDebridAPI),
+							('Offcloud', OffcloudAPI), ('EasyDebrid', EasyDebridAPI), ('TorBox', TorBoxAPI)]
 	function = [i[1] for i in debrid_list_modules if i[0] == params['provider']][0]
 	result = function().create_transfer(params['magnet_url'])
 	function().clear_cache()

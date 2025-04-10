@@ -1,20 +1,7 @@
 # -*- coding: utf-8 -*-
-from caches.settings_cache import get_setting, set_setting
-from modules import kodi_utils
-# logger = kodi_utils.logger
-
-translate_path, get_property = kodi_utils.translate_path, kodi_utils.get_property
-download_directories_dict = {'movie': 'fenlight.movie_download_directory', 'episode': 'fenlight.tvshow_download_directory', 'thumb_url': 'fenlight.image_download_directory',
-							'image_url': 'fenlight.image_download_directory','image': 'fenlight.image_download_directory', 'premium': 'fenlight.premium_download_directory',
-							None: 'fenlight.premium_download_directory', 'None': False}
-results_window_numbers_dict = {'List': 2000, 'Rows': 2001, 'WideList': 2002}
-default_action_dict = {'0': 'play', '1': 'cancel', '2': 'pause'}
-paginate_dict = {True: 'fenlight.paginate.limit_widgets', False: 'fenlight.paginate.limit_addon'}
-nextep_sort_key_dict = {0: 'last_played', 1: 'first_aired', 2: 'name'}
-prescrape_scrapers_tuple = ('easynews', 'rd_cloud', 'pm_cloud', 'ad_cloud', 'oc_cloud', 'tb_cloud', 'folders')
-sort_to_top_dict = {'folders': 'fenlight.results.sort_folders_first', 'rd_cloud': 'fenlight.results.sort_rdcloud_first', 'pm_cloud': 'fenlight.results.sort_pmcloud_first',
-					'ad_cloud': 'fenlight.results.sort_adcloud_first', 'oc_cloud': 'fenlight.results.sort_occloud_first', 'tb_cloud': 'fenlight.results.sort_tbcloud_first'}
-internal_scrapers_clouds_list = [('rd', 'provider.rd_cloud'), ('pm', 'provider.pm_cloud'), ('ad', 'provider.ad_cloud'), ('oc', 'provider.oc_cloud'), ('tb', 'provider.tb_cloud')]
+from caches.settings_cache import get_setting, set_setting, default_setting_values
+from modules.kodi_utils import translate_path, get_property
+# from modules.kodi_utils import logger
 
 def tmdb_api_key():
 	return get_setting('fenlight.tmdb_api', '')
@@ -29,6 +16,7 @@ def trakt_user_active():
 	return get_setting('fenlight.trakt.user', 'empty_setting') not in ('empty_setting', '')
 
 def results_format():
+	results_window_numbers_dict = {'List': 2000, 'Rows': 2001, 'WideList': 2002}
 	window_format = str(get_setting('fenlight.results.list_format', 'List'))
 	if not window_format in results_window_numbers_dict:
 		window_format = 'List'
@@ -61,6 +49,9 @@ def tv_show_directory():
 	return translate_path(get_setting('fenlight.tv_shows_directory'))
 
 def download_directory(media_type):
+	download_directories_dict = {'movie': 'fenlight.movie_download_directory', 'episode': 'fenlight.tvshow_download_directory', 'thumb_url': 'fenlight.image_download_directory',
+								'image_url': 'fenlight.image_download_directory','image': 'fenlight.image_download_directory', 'premium': 'fenlight.premium_download_directory',
+								None: 'fenlight.premium_download_directory', 'None': False}
 	return translate_path(get_setting(download_directories_dict[media_type]))
 
 def show_unaired_watchlist():
@@ -80,7 +71,7 @@ def paginate(is_home):
 	else: return paginate_lists in (1, 3)
 
 def page_limit(is_home):	
-	return int(get_setting(paginate_dict[is_home], '20'))
+	return int(get_setting({True: 'fenlight.paginate.limit_widgets', False: 'fenlight.paginate.limit_addon'}[is_home], '20'))
 
 def quality_filter(setting):
 	return get_setting('fenlight.%s' % setting).split(', ')
@@ -122,7 +113,7 @@ def auto_nextep_settings(play_type):
 	scraper_time = int(get_setting('fenlight.results.timeout', '60')) + 20
 	if play_type == 'autoplay':
 		alert_method = int(get_setting('fenlight.autoplay_alert_method', '0'))
-		default_action = default_action_dict[get_setting('fenlight.autoplay_default_action', '1')]
+		default_action = {'0': 'play', '1': 'cancel', '2': 'pause'}[get_setting('fenlight.autoplay_default_action', '1')]
 	else: alert_method, default_action = '', ''
 	return {'scraper_time': scraper_time, 'window_percentage': window_percentage, 'alert_method': alert_method, 'default_action': default_action, 'use_chapters': use_chapters}
 
@@ -184,7 +175,7 @@ def tv_progress_location():
 	return int(get_setting('fenlight.tv_progress_location', '0'))
 
 def check_prescrape_sources(scraper, media_type):
-	if scraper in prescrape_scrapers_tuple: return get_setting('fenlight.check.%s' % scraper) == 'true'
+	if scraper in ('easynews', 'rd_cloud', 'pm_cloud', 'ad_cloud', 'oc_cloud', 'tb_cloud', 'folders'): return get_setting('fenlight.check.%s' % scraper) == 'true'
 	if get_setting('fenlight.check.%s' % scraper) == 'true' and auto_play(media_type): return True
 	else: return False
 
@@ -217,7 +208,7 @@ def results_sort_order():
 def active_internal_scrapers():
 	settings = ['provider.external', 'provider.easynews', 'provider.folders']
 	settings_append = settings.append
-	for item in internal_scrapers_clouds_list:
+	for item in [('rd', 'provider.rd_cloud'), ('pm', 'provider.pm_cloud'), ('ad', 'provider.ad_cloud'), ('oc', 'provider.oc_cloud'), ('tb', 'provider.tb_cloud')]:
 		if enabled_debrids_check(item[0]): settings_append(item[1])
 	active = [i.split('.')[1] for i in settings if get_setting('fenlight.%s' % i) == 'true']
 	return active
@@ -234,6 +225,8 @@ def provider_sort_ranks():
 			'torbox': tb_priority, 'rd_cloud': rd_priority, 'pm_cloud': pm_priority, 'ad_cloud': ad_priority, 'oc_cloud': oc_priority, 'tb_cloud': tb_priority, 'folders': 0}
 
 def sort_to_top(provider):
+	sort_to_top_dict = {'folders': 'fenlight.results.sort_folders_first', 'rd_cloud': 'fenlight.results.sort_rdcloud_first', 'pm_cloud': 'fenlight.results.sort_pmcloud_first',
+						'ad_cloud': 'fenlight.results.sort_adcloud_first', 'oc_cloud': 'fenlight.results.sort_occloud_first', 'tb_cloud': 'fenlight.results.sort_tbcloud_first'}
 	return get_setting(sort_to_top_dict[provider]) == 'true'
 
 def auto_resume(media_type):
@@ -330,7 +323,7 @@ def nextep_include_unaired():
 	return get_setting('fenlight.nextep.include_unaired', 'false') == 'true'
 
 def nextep_sort_key():
-	return nextep_sort_key_dict[int(get_setting('fenlight.nextep.sort_type', '0'))]
+	return {0: 'last_played', 1: 'first_aired', 2: 'name'}[int(get_setting('fenlight.nextep.sort_type', '0'))]
 
 def nextep_sort_direction():
 	return int(get_setting('fenlight.nextep.sort_order', '0')) == 0
@@ -340,3 +333,12 @@ def update_delay():
 
 def update_action():
 	return int(get_setting('fenlight.update.action', '2'))
+
+def cm_sort_order():
+	try: return {i: c for c, i in enumerate(get_setting('fenlight.context_menu.order').split(','))}
+	except: return {i: c for c, i in enumerate(default_setting_values('context_menu.order')['setting_default'].split(','))}
+
+def rpdb_api_key(media_type):
+	if int(get_setting('fenlight.rpdb_enabled', '0')) not in {'movie': (1, 3), 'tvshow': (2, 3)}[media_type]: return None
+	return get_setting('fenlight.rpdb_api')
+

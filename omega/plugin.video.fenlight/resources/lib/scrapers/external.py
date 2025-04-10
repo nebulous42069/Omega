@@ -10,20 +10,9 @@ from modules.debrid import RD_check, PM_check, AD_check, OC_check, ED_check ,TB_
 from modules.utils import clean_file_name
 # logger = kodi_utils.logger
 
-normalize, get_file_info, pack_enable_check = source_utils.normalize, source_utils.get_file_info, source_utils.pack_enable_check
-sleep, xbmc_monitor, get_property, set_property = kodi_utils.sleep, kodi_utils.xbmc_monitor, kodi_utils.get_property, kodi_utils.set_property
-notification, hide_busy_dialog = kodi_utils.notification, kodi_utils.hide_busy_dialog
-int_window_prop = 'fenlight.internal_results.%s'
-pack_display = '%s (%s)'
-pack_check = ('Season', 'Show')
-debrid_runners = {'Real-Debrid': ('Real-Debrid', RD_check), 'Premiumize.me': ('Premiumize.me', PM_check), 'AllDebrid': ('AllDebrid', AD_check),
-'Offcloud': ('Offcloud', OC_check), 'EasyDebrid': ('EasyDebrid', ED_check), 'TorBox': ('TorBox', TB_check)}
-sd_check = ('SD', 'CAM', 'TELE', 'SYNC')
-correct_pack_sizes = ('torrentio', 'knightcrawler', 'comet')
-
 class source:
 	def __init__(self, meta, source_dict, active_debrid, debrid_service, debrid_token, internal_scrapers, prescrape_sources, progress_dialog, disabled_ext_ignored=False):
-		self.monitor = xbmc_monitor()
+		self.monitor = kodi_utils.kodi_monitor()
 		self.scrape_provider = 'external'
 		self.progress_dialog = progress_dialog
 		self.meta = meta
@@ -36,7 +25,6 @@ class source:
 		self.internal_scrapers, self.prescrape_sources = internal_scrapers, prescrape_sources
 		self.internal_activated, self.internal_prescraped = len(self.internal_scrapers) > 0, len(self.prescrape_sources) > 0
 		self.processed_prescrape, self.threads_completed = False, False
-		self.sleep_time = 100
 		self.timeout = 60 if disabled_ext_ignored else int(get_setting('fenlight.results.timeout', '20'))
 		self.sources_total = self.sources_4k = self.sources_1080p = self.sources_720p = self.sources_sd = 0
 		self.final_total = self.final_4k = self.final_1080p = self.final_720p = self.final_sd = 0
@@ -44,14 +32,16 @@ class source:
 							('sources_sd', '', self._quality_length_sd), ('sources_total', '', self.quality_length_final))
 		self.count_tuple_final = (('final_4k', '4K', self._quality_length), ('final_1080p', '1080p', self._quality_length), ('final_720p', '720p', self._quality_length),
 									('final_sd', '', self._quality_length_sd), ('final_total', '', self.quality_length_final))
+		self.debrid_runners = {'Real-Debrid': ('Real-Debrid', RD_check), 'Premiumize.me': ('Premiumize.me', PM_check), 'AllDebrid': ('AllDebrid', AD_check),
+							'Offcloud': ('Offcloud', OC_check), 'EasyDebrid': ('EasyDebrid', ED_check), 'TorBox': ('TorBox', TB_check)}
 
 	def results(self, info):
 		if not self.source_dict: return
 		try:
 			self.media_type, self.tmdb_id, self.orig_title = info['media_type'], str(info['tmdb_id']), info['title']
 			self.season, self.episode, self.total_seasons = info['season'], info['episode'], info['total_seasons']
-			self.title, self.year = normalize(info['title']), info['year']
-			ep_name, aliases = normalize(info['ep_name']), info['aliases']
+			self.title, self.year = source_utils.normalize(info['title']), info['year']
+			ep_name, aliases = source_utils.normalize(info['ep_name']), info['aliases']
 			self.single_expiry, self.season_expiry, self.show_expiry = info['expiry_times']
 			if self.media_type == 'movie':
 				self.season_divider, self.show_divider = 0, 0
@@ -68,8 +58,8 @@ class source:
 
 	def get_sources(self):
 		def _scraperDialog():
-			hide_busy_dialog()
-			sleep(200)
+			kodi_utils.hide_busy_dialog()
+			kodi_utils.sleep(200)
 			start_time = time.time()
 			while not self.progress_dialog.iscanceled() and not self.monitor.abortRequested():
 				try:
@@ -82,16 +72,16 @@ class source:
 						len_alive_threads = len(alive_threads)
 						if len_alive_threads == 0 or percent >= 100: break
 					elif percent >= 100: break
-					sleep(self.sleep_time)
+					kodi_utils.sleep(100)
 				except: pass
 			return
 		def _background():
-			sleep(1500)
+			kodi_utils.sleep(1500)
 			end_time = time.time() + self.timeout
 			while time.time() < end_time:
 				alive_threads = [x for x in self.threads if x.is_alive()]
 				len_alive_threads = len(alive_threads)
-				sleep(1000)
+				kodi_utils.sleep(1000)
 				if len_alive_threads <= 5: return
 				if len(self.sources) >= 100 * len_alive_threads: return
 		self.threads = []
@@ -101,7 +91,7 @@ class source:
 			Thread(target=self.process_movie_threads).start()
 		else:
 			self.source_dict = [i for i in self.source_dict if i[1].hasEpisodes]
-			self.season_packs, self.show_packs = pack_enable_check(self.meta, self.season, self.episode)
+			self.season_packs, self.show_packs = source_utils.pack_enable_check(self.meta, self.season, self.episode)
 			if self.season_packs:
 				self.source_dict = [(i[0], i[1], '') for i in self.source_dict]
 				pack_capable = [i for i in self.source_dict if i[1].pack_capable]
@@ -129,7 +119,7 @@ class source:
 			provider, module = i[0], i[1]
 			try: pack_arg = i[2]
 			except: pack_arg = ''
-			if pack_arg: provider_display = pack_display % (i[0], i[2])
+			if pack_arg: provider_display = '%s (%s)' % (i[0], i[2])
 			else: provider_display = provider
 			threaded_object = Thread(target=self.get_episode_source, args=(provider, module, pack_arg), name=provider_display)
 			threaded_object.start()
@@ -149,7 +139,7 @@ class source:
 			self.sources.extend(sources)
 
 	def get_episode_source(self, provider, module, pack):
-		if pack in pack_check:
+		if pack in ('Season', 'Show'):
 			if pack == 'Show': s_check = ''
 			else: s_check = self.season
 			e_check = ''
@@ -203,7 +193,7 @@ class source:
 					line1 = ', '.join(remaining_debrids).upper()
 					percent = int((current_progress/float(timeout))*100)
 					self.progress_dialog.update_scraper(self.final_sd, self.final_720p, self.final_1080p, self.final_4k, self.final_total, line1, percent)
-					sleep(self.sleep_time)
+					kodi_utils.sleep(100)
 					if len(remaining_debrids) == 0: break
 					if percent >= 100: break
 				except: pass
@@ -213,7 +203,7 @@ class source:
 			results = list(_process_duplicates(results))
 			hash_list = list(set([i['hash'] for i in results]))
 			cached_hashes = query_local_cache(hash_list)
-			debrid_check_threads = [Thread(target=_process_cache_check, args=debrid_runners[item], name=item) for item in self.active_debrid]
+			debrid_check_threads = [Thread(target=_process_cache_check, args=self.debrid_runners[item], name=item) for item in self.active_debrid]
 			[i.start() for i in debrid_check_threads]
 			if self.background: [i.join() for i in debrid_check_threads]
 			else: _debrid_check_dialog()
@@ -229,12 +219,12 @@ class source:
 					if 'hash' in i:
 						_hash = i_get('hash').lower()
 						i['hash'] = str(_hash)
-					display_name = clean_file_name(normalize(i['name'].replace('html', ' ').replace('+', ' ').replace('-', ' ')))
-					if 'name_info' in i: quality, extraInfo = get_file_info(name_info=i_get('name_info'))
-					else: quality, extraInfo = get_file_info(url=i_get('url'))
+					display_name = clean_file_name(source_utils.normalize(i['name'].replace('html', ' ').replace('+', ' ').replace('-', ' ')))
+					if 'name_info' in i: quality, extraInfo = source_utils.get_file_info(name_info=i_get('name_info'))
+					else: quality, extraInfo = source_utils.get_file_info(url=i_get('url'))
 					try:
 						size = i_get('size')
-						if 'package' in i and provider not in correct_pack_sizes:
+						if 'package' in i and provider not in ('torrentio', 'knightcrawler', 'comet'):
 							if i_get('package') == 'season': divider = self.season_divider
 							else: divider = self.show_divider
 							size = float(size) / divider
@@ -258,11 +248,11 @@ class source:
 			self.process_quality_count(self.prescrape_sources)
 			self.processed_prescrape = True
 		for i in self.internal_scrapers:
-			win_property = get_property(int_window_prop % i)
+			win_property = kodi_utils.get_property('fenlight.internal_results.%s' % i)
 			if win_property in ('checked', '', None): continue
 			try: internal_sources = json.loads(win_property)
 			except: continue
-			set_property(int_window_prop % i, 'checked')
+			kodi_utils.set_property('fenlight.internal_results.%s' % i, 'checked')
 			self.all_internal_sources += internal_sources
 			self.processed_internal_scrapers_append(i)
 			self.process_quality_count(internal_sources)
@@ -272,7 +262,7 @@ class source:
 		return len([i for i in items if i['quality'] == quality])
 
 	def _quality_length_sd(self, items, dummy):
-		return len([i for i in items if i['quality'] in sd_check])
+		return len([i for i in items if i['quality'] in ('SD', 'CAM', 'TELE', 'SYNC')])
 
 	def quality_length_final(self, items, dummy):
 		return len(items)

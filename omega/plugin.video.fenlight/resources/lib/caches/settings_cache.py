@@ -4,44 +4,32 @@ from modules import kodi_utils
 from caches.base_cache import connect_database
 # logger = kodi_utils.logger
 
-numeric_input = kodi_utils.numeric_input
-kodi_dialog, ok_dialog, select_dialog, confirm_dialog = kodi_utils.kodi_dialog, kodi_utils.ok_dialog, kodi_utils.select_dialog, kodi_utils.confirm_dialog
-default_addon_fanart, get_property, set_property, notification = kodi_utils.addon_fanart(), kodi_utils.get_property, kodi_utils.set_property, kodi_utils.notification
-tmdb_default_api, trakt_default_id, trakt_default_secret = kodi_utils.tmdb_default_api, kodi_utils.trakt_default_id, kodi_utils.trakt_default_secret
-boolean_dict = {'true': 'false', 'false': 'true'}
-
-BASE_GET = 'SELECT setting_value from settings WHERE setting_id = ?'
-GET_MANY = 'SELECT setting_id, setting_value FROM settings WHERE setting_id in (%s)'
-GET_ALL = 'SELECT setting_id, setting_value FROM settings'
-BASE_SET = 'INSERT OR REPLACE INTO settings VALUES (?, ?, ?, ?)'
-BASE_DELETE = 'DELETE FROM settings WHERE setting_id = ?'
-CLEAR_SETTINGS = 'DELETE FROM settings'
-
 class SettingsCache:
 	def get(self, setting_id):
 		try:
 			dbcon = connect_database('settings_db')
 			setting_id = setting_id.replace('fenlight.', '')
-			setting_value = dbcon.execute(BASE_GET, (setting_id,)).fetchone()[0]
+			setting_value = dbcon.execute('SELECT setting_value from settings WHERE setting_id = ?', (setting_id,)).fetchone()[0]
 			self.set_memory_cache(setting_id, setting_value)
 		except: setting_value = None
 		return setting_value
 
 	def remove_setting(self, setting_id):
 		dbcon = connect_database('settings_db')
-		dbcon.execute(BASE_DELETE, (setting_id,))
+		dbcon.execute('DELETE FROM settings WHERE setting_id = ?', (setting_id,))
 
 	def get_many(self, settings_list):
 		try:
 			dbcon = connect_database('settings_db')
-			results = dict(dbcon.execute(GET_MANY % (', '.join('?' for _ in settings_list)), settings_list).fetchall())
+			results = dict(dbcon.execute('SELECT setting_id, setting_value FROM settings WHERE setting_id in (%s)' \
+										% (', '.join('?' for _ in settings_list)), settings_list).fetchall())
 			return results
 		except: results = {}
 		return results
 
 	def get_all(self):
 		dbcon = connect_database('settings_db')
-		try: all_settings = dict(dbcon.execute(GET_ALL).fetchall())
+		try: all_settings = dict(dbcon.execute('SELECT setting_id, setting_value FROM settings').fetchall())
 		except: all_settings = {}
 		return all_settings
 
@@ -50,27 +38,27 @@ class SettingsCache:
 		setting_info = default_setting_values(setting_id)
 		setting_type, setting_default = setting_info['setting_type'], setting_info['setting_default']
 		if setting_value is None: setting_value = setting_default
-		dbcon.execute(BASE_SET, (setting_id, setting_type, setting_default, setting_value))
+		dbcon.execute('INSERT OR REPLACE INTO settings VALUES (?, ?, ?, ?)', (setting_id, setting_type, setting_default, setting_value))
 		self.set_memory_cache(setting_id, setting_value)
 		if setting_type == 'action' and 'settings_options' in setting_info:
 			name_setting_id = '%s_name' % setting_id
 			name_setting_value = setting_info['settings_options'][setting_value]
-			dbcon.execute(BASE_SET, (name_setting_id, 'name', '', name_setting_value))
+			dbcon.execute('INSERT OR REPLACE INTO settings VALUES (?, ?, ?, ?)', (name_setting_id, 'name', '', name_setting_value))
 			self.set_memory_cache(name_setting_id, name_setting_value)
 
 	def set_many(self, settings_list):
 		dbcon = connect_database('settings_db')
-		dbcon.executemany(BASE_SET, settings_list)
+		dbcon.executemany('INSERT OR REPLACE INTO settings VALUES (?, ?, ?, ?)', settings_list)
 		for item in settings_list: self.set_memory_cache(item[0], item[3] or item[2])
 
 	def set_memory_cache(self, setting_id, setting_value):
-		set_property('fenlight.%s' % setting_id, setting_value)
+		kodi_utils.set_property('fenlight.%s' % setting_id, setting_value)
 
 	def delete_memory_cache(self, setting_id):
 		clear_property('fenlight.%s' % setting_id)
 
 	def setting_info(self, setting_id):
-		return [i for i in default_settings if i['setting_id'] == setting_id][0]
+		return [i for i in default_settings() if i['setting_id'] == setting_id][0]
 
 	def clean_database(self):
 		try:
@@ -85,7 +73,7 @@ def set_setting(setting_id, value):
 	settings_cache.set(setting_id, value)
 
 def get_setting(setting_id, fallback=''):
-	return get_property(setting_id) or settings_cache.get(setting_id) or fallback
+	return kodi_utils.get_property(setting_id) or settings_cache.get(setting_id) or fallback
 
 def get_many(settings_list):
 	return settings_cache.get_many(settings_list)
@@ -95,8 +83,9 @@ def sync_settings(params={}):
 	insert_list = []
 	insert_list_append = insert_list.append
 	currentsettings = settings_cache.get_all()
-	defaultsettings_ids = [i['setting_id'] for i in default_settings]
-	defaultsettings_names = [i['setting_id'] for i in default_settings if 'settings_options' in i]
+	d_settings = default_settings()
+	defaultsettings_ids = [i['setting_id'] for i in d_settings]
+	defaultsettings_names = [i['setting_id'] for i in d_settings if 'settings_options' in i]
 	defaultsettings_ids.extend(['%s_name' % i for i in defaultsettings_names])
 	try:
 		obsoletesettings_ids = [k for k, v in currentsettings.items() if not k in defaultsettings_ids]
@@ -105,7 +94,7 @@ def sync_settings(params={}):
 	except: pass
 	if currentsettings:
 		for k, v  in currentsettings.items(): settings_cache.set_memory_cache(k, v)
-	for item in default_settings:
+	for item in d_settings:
 		setting_id = item['setting_id']
 		if setting_id in currentsettings: continue
 		setting_type = item['setting_type']
@@ -116,24 +105,26 @@ def sync_settings(params={}):
 		insert_list_append((setting_id, setting_type, setting_default, setting_default))
 	if insert_list: settings_cache.set_many(insert_list)
 	settings_cache.clean_database()
-	if not silent: notification('Settings Cache Remade')
+	if not silent: kodi_utils.notification('Settings Cache Remade')
 
 def set_default(setting_ids):
 	if not isinstance(setting_ids, list): setting_ids = [setting_ids]
-	if not confirm_dialog(text='Are You Sure?', ok_label='Yes', cancel_label='No', default_control=11): return
+	if not kodi_utils.confirm_dialog(text='Are You Sure?', ok_label='Yes', cancel_label='No', default_control=11): return
 	for setting_id in setting_ids:
 		try: set_setting(setting_id, default_setting_values(setting_id)['setting_default'])
 		except: pass
 
 def set_boolean(params):
+	boolean_dict = {'true': 'false', 'false': 'true'}
 	setting = params['setting_id']
 	set_setting(setting, boolean_dict[get_setting('fenlight.%s' % setting)])
 
 def set_string(params):
 	current_value = get_setting('fenlight.%s' % params['setting_id'])
 	current_value = current_value.replace('empty_setting', '')
-	new_value = kodi_dialog().input('', defaultt=current_value)
-	if not new_value and not confirm_dialog(text='Enter Blank Value?', ok_label='Yes', cancel_label='Re-Enter Value', default_control=11): return set_string(params)
+	new_value = kodi_utils.kodi_dialog().input('', defaultt=current_value)
+	if not new_value and not kodi_utils.confirm_dialog(text='Enter Blank Value?', ok_label='Yes', cancel_label='Re-Enter Value', default_control=11):
+		return set_string(params)
 	set_setting(params['setting_id'], new_value)
 
 def set_numeric(params):
@@ -146,26 +137,26 @@ def set_numeric(params):
 		multiplier_values = [('Positive(+)', 1), ('Negative(-)', -1)]
 		list_items = [{'line1': item[0]} for item in multiplier_values]
 		kwargs = {'items': json.dumps(list_items), 'narrow_window': 'true', 'heading': 'Will this be a positive or negative number?'}
-		multiplier = select_dialog(multiplier_values, **kwargs)
+		multiplier = kodi_utils.select_dialog(multiplier_values, **kwargs)
 	else: multiplier = None
-	new_value = kodi_dialog().input('Range [B]%s - %s[/B].' % (min_value, max_value), type=numeric_input)
+	new_value = kodi_utils.kodi_dialog().input('Range [B]%s - %s[/B].' % (min_value, max_value), type=1)
 	if not new_value: return
 	if multiplier: new_value = str(int(float(new_value) * multiplier[1]))
 	if int(new_value) < min_value or int(new_value) > max_value:
-		ok_dialog(text='Please Choose Between the Range [B]%s - %s[/B].' % (min_value, max_value))
+		kodi_utils.ok_dialog(text='Please Choose Between the Range [B]%s - %s[/B].' % (min_value, max_value))
 		return set_numeric(params)
 	set_setting(setting_id, new_value)
 
 def set_path(params):
 	setting_id = params['setting_id']
 	browse_mode = int(default_setting_values(setting_id)['browse_mode'])
-	new_value = kodi_dialog().browse(browse_mode, '', '', defaultt=get_setting('fenlight.%s' % setting_id))
+	new_value = kodi_utils.kodi_dialog().browse(browse_mode, '', '', defaultt=get_setting('fenlight.%s' % setting_id))
 	set_setting(setting_id, new_value)
 
 def set_from_list(params):
 	setting_id = params['setting_id']
 	settings_list = [(v, k) for k, v in default_setting_values(setting_id)['settings_options'].items()]
-	new_value = select_dialog(settings_list, **{'items': json.dumps([{'line1': item[0]} for item in settings_list]), 'narrow_window': 'true'})
+	new_value = kodi_utils.select_dialog(settings_list, **{'items': json.dumps([{'line1': item[0]} for item in settings_list]), 'narrow_window': 'true'})
 	if not new_value: return
 	setting_value = new_value[1]
 	set_setting(setting_id, setting_value)
@@ -174,36 +165,38 @@ def set_source_folder_path(params):
 	setting_id = params['setting_id']
 	current_setting = get_setting('fenlight.%s' % setting_id)
 	if current_setting not in (None, 'None', ''):
-		if confirm_dialog(text='Enter Blank Value?', ok_label='Yes', cancel_label='Re-Enter Value', default_control=11): return set_setting(setting_id, 'None')
+		if kodi_utils.confirm_dialog(text='Enter Blank Value?', ok_label='Yes', cancel_label='Re-Enter Value', default_control=11):
+			return set_setting(setting_id, 'None')
 	return set_path(params)
 
 def restore_setting_default(params):
 	silent = params.get('silent', 'false') == 'true'
-	if not silent and not confirm_dialog(): return
+	if not silent and not kodi_utils.confirm_dialog(): return
 	try:
 		setting_id = params['setting_id']
 		setting_default = default_setting_values(setting_id)['setting_default']
 		set_setting(setting_id, setting_default)
 	except:
-		if not silent: ok_dialog(text='Error restoring default setting')
+		if not silent: kodi_utils.ok_dialog(text='Error restoring default setting')
 
 def default_setting_values(setting_id):
-	return next((i for i in default_settings if i['setting_id'] == setting_id), None)
+	return next((i for i in default_settings() if i['setting_id'] == setting_id), None)
 
-default_settings = [
+def default_settings():
+	return [
 #===============================================================================#
 #====================================GENERAL====================================#
 #===============================================================================#
 #==================== General
 {'setting_id': 'auto_start_fenlight', 'setting_type': 'boolean', 'setting_default': 'false'},
-{'setting_id': 'default_addon_fanart', 'setting_type': 'path', 'setting_default': default_addon_fanart, 'browse_mode': '2'},
+{'setting_id': 'default_addon_fanart', 'setting_type': 'path', 'setting_default': kodi_utils.addon_fanart(), 'browse_mode': '2'},
 {'setting_id': 'limit_concurrent_threads', 'setting_type': 'boolean', 'setting_default': 'false'},
 {'setting_id': 'max_threads', 'setting_type': 'action', 'setting_default': '60', 'min_value': '10', 'max_value': '250'},
 #==================== Manage Updates
 {'setting_id': 'update.action', 'setting_type': 'action', 'setting_default': '0', 'settings_options': {'0': 'Prompt', '1': 'Automatic', '2': 'Notification', '3': 'Off'}},
 {'setting_id': 'update.delay', 'setting_type': 'action', 'setting_default': '10', 'min_value': '10', 'max_value': '300'},
-{'setting_id': 'update.username', 'setting_type': 'string', 'setting_default': 'Tikipeter'},
-{'setting_id': 'update.location', 'setting_type': 'string', 'setting_default': 'tikipeter.github.io'},
+{'setting_id': 'update.username', 'setting_type': 'string', 'setting_default': 'FenlightAnonyMouse'},
+{'setting_id': 'update.location', 'setting_type': 'string', 'setting_default': 'FenlightAnonyMouse.github.io'},
 #==================== Watched Indicators
 {'setting_id': 'watched_indicators', 'setting_type': 'action', 'setting_default': '0', 'settings_options': {'0': 'Fen Light', '1': 'Trakt'}},
 #======+============= Trakt Cache
@@ -242,6 +235,9 @@ default_settings = [
 {'setting_id': 'widget_refresh_notification', 'setting_type': 'boolean', 'setting_default': 'true'},
 {'setting_id': 'widget_hide_watched', 'setting_type': 'boolean', 'setting_default': 'false'},
 {'setting_id': 'widget_hide_next_page', 'setting_type': 'boolean', 'setting_default': 'false'},
+#==================== Context Menu
+{'setting_id': 'context_menu.order', 'setting_type': 'string',
+'setting_default': 'extras,options,playback_options,browse_set_season,recommended,more_like_this,in_trakt_list,trakt_manager,personal_manager,favorites_manager,mark_watched,exit'},
 #==================== General
 {'setting_id': 'paginate.lists', 'setting_type': 'action', 'setting_default': '0', 'settings_options': {'0': 'Off', '1': 'Within Addon Only', '2': 'Widgets Only', '3': 'Both'}},
 {'setting_id': 'paginate.limit_addon', 'setting_type': 'action', 'setting_default': '20'},
@@ -264,6 +260,8 @@ default_settings = [
 {'setting_id': 'view.episodes', 'setting_type': 'string', 'setting_default': '55'},
 {'setting_id': 'view.episodes_single', 'setting_type': 'string', 'setting_default': '55'},
 {'setting_id': 'view.premium', 'setting_type': 'string', 'setting_default': '55'},
+
+
 #==================================================================================#
 #====================================SINGLE EPISODE LISTS====================================#
 #==================================================================================#
@@ -277,7 +275,7 @@ default_settings = [
 {'setting_id': 'nextep.sort_order', 'setting_type': 'action', 'setting_default': '0', 'settings_options': {'0': 'Descending', '1': 'Ascending'}},
 {'setting_id': 'nextep.limit_history', 'setting_type': 'boolean', 'setting_default': 'false'},
 {'setting_id': 'nextep.limit', 'setting_type': 'action', 'setting_default': '20', 'min_value': '1', 'max_value': '200'},
-{'setting_id': 'nextep.include_unwatched', 'setting_type': 'action', 'setting_default': '0', 'settings_options': {'0': 'None', '1': 'Watchlist', '2': 'Favorites', '3': 'Both'}},
+{'setting_id': 'nextep.include_unwatched', 'setting_type': 'action', 'setting_default': '0', 'settings_options': {'0': 'None', '1': 'Watchlist', '2': 'FenList', '3': 'Both'}},
 {'setting_id': 'nextep.include_airdate', 'setting_type': 'boolean', 'setting_default': 'false'},
 {'setting_id': 'nextep.airing_today', 'setting_type': 'boolean', 'setting_default': 'false'},
 {'setting_id': 'nextep.include_unaired', 'setting_type': 'boolean', 'setting_default': 'false'},
@@ -291,17 +289,23 @@ default_settings = [
 #=====================================================================================#
 #====================================ACCOUNTS====================================#
 #=====================================================================================#
-#==================== Trakt
-{'setting_id': 'trakt.user', 'setting_type': 'string', 'setting_default': 'empty_setting'},
-{'setting_id': 'trakt.client', 'setting_type': 'string', 'setting_default': trakt_default_id},
-{'setting_id': 'trakt.secret', 'setting_type': 'string', 'setting_default': trakt_default_secret},
-#==================== TMDb
-{'setting_id': 'tmdb_api', 'setting_type': 'string', 'setting_default': tmdb_default_api},
-#==================== OMDb
-{'setting_id': 'omdb_api', 'setting_type': 'string', 'setting_default': 'empty_setting'},
 #==================== External
 {'setting_id': 'provider.external', 'setting_type': 'boolean', 'setting_default': 'false'},
 {'setting_id': 'external_scraper.name', 'setting_type': 'string', 'setting_default': 'empty_setting'},
+#==================== Trakt
+{'setting_id': 'trakt.user', 'setting_type': 'string', 'setting_default': 'empty_setting'},
+{'setting_id': 'trakt.client', 'setting_type': 'string', 'setting_default': '1038ef327e86e7f6d39d80d2eb5479bff66dd8394e813c5e0e387af0f84d89fb'},
+{'setting_id': 'trakt.secret', 'setting_type': 'string', 'setting_default': '8d27a92e1d17334dae4a0590083a4f26401cb8f721f477a79fd3f218f8534fd1'},
+#==================== TMDb API
+{'setting_id': 'tmdb_api', 'setting_type': 'string', 'setting_default': 'b370b60447737762ca38457bd77579b3'},
+#==================== TMDb Lists
+{'setting_id': 'tmdb.token', 'setting_type': 'string', 'setting_default': 'empty_setting'},
+{'setting_id': 'tmdb.account_id', 'setting_type': 'string', 'setting_default': 'empty_setting'},
+#==================== OMDb
+{'setting_id': 'omdb_api', 'setting_type': 'string', 'setting_default': 'empty_setting'},
+#==================== RPDb
+{'setting_id': 'rpdb_api', 'setting_type': 'string', 'setting_default': 'empty_setting'},
+{'setting_id': 'rpdb_enabled', 'setting_type': 'action', 'setting_default': '0', 'settings_options': {'0': 'None', '1': 'Movies', '2': 'TV Shows', '3': 'Both'}},
 #==================== Real Debrid
 {'setting_id': 'rd.token', 'setting_type': 'string', 'setting_default': 'empty_setting'},
 {'setting_id': 'rd.enabled', 'setting_type': 'boolean', 'setting_default': 'false'},
@@ -451,6 +455,7 @@ default_settings = [
 #=========================================================================================#
 #======================================HIDDEN=============================================#
 #=========================================================================================#
+{'setting_id': 'reuse_language_invoker', 'setting_type': 'string', 'setting_default': 'true'},
 {'setting_id': 'widget_refresh_timer_name', 'setting_type': 'string', 'setting_default': 'Off'},
 {'setting_id': 'mpaa_region_display_name', 'setting_type': 'string', 'setting_default': 'United States'},
 {'setting_id': 'external_scraper.module', 'setting_type': 'string', 'setting_default': 'empty_setting'},
