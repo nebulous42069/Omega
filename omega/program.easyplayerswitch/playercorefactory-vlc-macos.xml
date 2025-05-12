@@ -1,0 +1,15 @@
+<playercorefactory>
+  <players>
+    <!-- VLC for OSX -->
+    <player name="VLC_OSX" type="ExternalPlayer" audio="false" video="true">
+      <filename>/Applications/VLC.app/Contents/MacOS/VLC</filename>
+      <args>--fullscreen "{1}"</args>
+      <hidexbmc>true</hidexbmc>
+      <playcountminimumtime>120</playcountminimumtime>
+    </player>
+  </players>
+  <rules action="prepend">
+    <!-- Force OSX player -->
+    <rule name="VLC on OSX" player="VLC_OSX"/>
+  </rules>
+</playercorefactory>

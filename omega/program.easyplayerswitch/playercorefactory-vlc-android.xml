@@ -1,0 +1,15 @@
+<playercorefactory>
+  <players>
+    <!-- VLC for Android -->
+    <player name="VLC_Android" type="ExternalPlayer" audio="false" video="true">
+      <filename>org.videolan.vlc</filename>
+      <args>--fullscreen "{1}"</args>
+      <hidexbmc>true</hidexbmc>
+      <playcountminimumtime>120</playcountminimumtime>
+    </player>
+  </players>
+  <rules action="prepend">
+    <!-- Force Android player -->
+    <rule name="VLC on Android" player="VLC_Android"/>
+  </rules>
+</playercorefactory>

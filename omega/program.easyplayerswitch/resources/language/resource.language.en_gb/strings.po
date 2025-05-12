@@ -1,0 +1,161 @@
+# Addon Name: Easy Player Switch
+# Addon id: plugin.video.easyplayerswitch
+# Addon version: 1.0.0
+# Addon Provider: ItalianSpaghettiGeeks
+msgid ""
+msgstr ""
+"Project-Id-Version: Easy Player Switch\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-03-14 12:00+0000\n"
+"PO-Revision-Date: 2025-03-14 12:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: English\n"
+"Language: en_GB\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# General
+msgctxt "#30000"
+msgid "Easy Player Switch"
+msgstr "Easy Player Switch"
+
+# Dialog messages
+msgctxt "#30001"
+msgid "Error"
+msgstr "Error"
+
+msgctxt "#30002"
+msgid "The VLC player isn't installed on your device!"
+msgstr "The VLC player isn't installed on your device!"
+
+msgctxt "#30003"
+msgid "Unsupported operating system!"
+msgstr "Unsupported operating system!"
+
+msgctxt "#30004"
+msgid "Switched to Kodi internal player."
+msgstr "Switched to Kodi internal player."
+
+msgctxt "#30005"
+msgid "Restart Required"
+msgstr "Restart Required"
+
+msgctxt "#30006"
+msgid "In order to apply player change, please restart Kodi!"
+msgstr "In order to apply player change, please restart Kodi!"
+
+msgctxt "#30007"
+msgid "Switched to %s."
+msgstr "Switched to %s."
+
+msgctxt "#30008"
+msgid "Downloading XML"
+msgstr "Downloading XML"
+
+msgctxt "#30009"
+msgid "Downloading from:\n%s"
+msgstr "Downloading from:\n%s"
+
+msgctxt "#30010"
+msgid "Invalid XML"
+msgstr "Invalid XML"
+
+msgctxt "#30011"
+msgid "The downloaded file doesn't appear to be valid XML. Please check the URL."
+msgstr "The downloaded file doesn't appear to be valid XML. Please check the URL."
+
+msgctxt "#30012"
+msgid "Custom XML downloaded successfully."
+msgstr "Custom XML downloaded successfully."
+
+msgctxt "#30013"
+msgid "HTTP Error: %d - %s"
+msgstr "HTTP Error: %d - %s"
+
+msgctxt "#30014"
+msgid "Access Forbidden - The server is refusing to allow the download."
+msgstr "Access Forbidden - The server is refusing to allow the download."
+
+msgctxt "#30015"
+msgid "Download Error"
+msgstr "Download Error"
+
+msgctxt "#30016"
+msgid "URL Error: %s"
+msgstr "URL Error: %s"
+
+msgctxt "#30017"
+msgid "Failed to download XML file: %s"
+msgstr "Failed to download XML file: %s"
+
+msgctxt "#30018"
+msgid "Enter direct URL of playercorefactory.xml file (filename included)"
+msgstr "Enter direct URL of playercorefactory.xml file (filename included)"
+
+msgctxt "#30019"
+msgid "Invalid URL"
+msgstr "Invalid URL"
+
+msgctxt "#30020"
+msgid "Please enter a valid URL starting with http:// or https://"
+msgstr "Please enter a valid URL starting with http:// or https://"
+
+msgctxt "#30021"
+msgid "Custom XML Downloaded"
+msgstr "Custom XML Downloaded"
+
+msgctxt "#30022"
+msgid "XML configuration has been downloaded. Do you want to apply it now?"
+msgstr "XML configuration has been downloaded. Do you want to apply it now?"
+
+msgctxt "#30023"
+msgid "Custom XML saved but not applied yet."
+msgstr "Custom XML saved but not applied yet."
+
+# Menu items
+msgctxt "#30024"
+msgid "Use VLC external player"
+msgstr "Use VLC external player"
+
+msgctxt "#30025"
+msgid "Remote custom playercorefactory.xml"
+msgstr "Remote custom playercorefactory.xml"
+
+msgctxt "#30026"
+msgid "Use Kodi internal player"
+msgstr "Use Kodi internal player"
+
+msgctxt "#30027"
+msgid "Actual player: %s"
+msgstr "Actual player: %s"
+
+msgctxt "#30028"
+msgid "Telegram: @ItalianSpaghettiGeeks"
+msgstr "Telegram: @ItalianSpaghettiGeeks"
+
+# New strings for local XML file
+msgctxt "#30029"
+msgid "Select a playercorefactory.xml file"
+msgstr "Select a playercorefactory.xml file"
+
+msgctxt "#30030"
+msgid "Selected file does not exist"
+msgstr "Selected file does not exist"
+
+msgctxt "#30031"
+msgid "Local XML file loaded successfully."
+msgstr "Local XML file loaded successfully."
+
+msgctxt "#30032"
+msgid "Failed to load XML file: %s"
+msgstr "Failed to load XML file: %s"
+
+msgctxt "#30033"
+msgid "Local custom playercorefactory.xml"
+msgstr "Local custom playercorefactory.xml"
+
+msgctxt "#30034"
+msgid "Custom player"
+msgstr "Custom player"

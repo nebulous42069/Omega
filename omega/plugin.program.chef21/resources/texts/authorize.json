@@ -1,5 +1,5 @@
 {
-    "Step 1-Install The Supported Addons You Use Here": {
+    "Step 1- Install The Supported Addons You Use Here": {
         "icon": "https://kodiapps.com/sharex/dllhost_2020-02-05_12-07-32.jpg",
         "items": [
             {
@@ -25,10 +25,6 @@
             {
                 "name": "Install Asgard (FREE AND DEBRID)",
                 "url": "installaddon(plugin.video.asgard)"
-            },			
-            {
-                "name": "Install Diggz Free99 (FREE)",
-                "url": "installaddon(plugin.video.free99)"
             },						
             {
                 "name": "Install The Crew (FREE AND DEBRID)",
@@ -40,16 +36,12 @@
             }			
         ]
     },
-    "Account Manager Logins (All In One)": {
-        "icon": "https://techwiser.com/wp-content/uploads/2020/09/trakt-logo.png",
+    "Step 2- Debrid Logins": {
+        "icon": "https://kodiapps.com/sharex/dllhost_2020-02-05_12-07-32.jpg",
         "items": [
             {
                 "name": "[COLOR blue]Authenticate Real Debrid[/COLOR]",
                 "url": "RunScript(script.module.accountmgr, action=realdebridAuth)"
-            },			
-            {
-                "name": "[COLOR blue]Authenticate TRAKT[/COLOR]",
-                "url": "RunScript(script.module.accountmgr, action=traktAuth)"
             },						
             {
                 "name": "[COLOR blue]Authenticate Premiumize[/COLOR]",
@@ -64,10 +56,6 @@
                 "url": "ActivateWindow(10001,plugin://script.module.acctview/?mode=realdebrid,return)"
             },
             {
-                "name": "[COLOR chartreuse]View Trakt Logins[/COLOR]",
-                "url": "ActivateWindow(10001,plugin://script.module.acctview/?mode=trakt,return)"
-            },
-            {
                 "name": "[COLOR chartreuse]View Premiumize logins[/COLOR]",
                 "url": "ActivateWindow(10001,plugin://script.module.acctview/?mode=premiumize,return)"
             },
@@ -80,109 +68,61 @@
                 "url": "RunScript(script.module.accountmgr, action=ReSyncAll)"
             },
             {
-                "name": "Re-Sync TRAKT Accounts",
-                "url": "RunScript(script.module.accountmgr, action=traktReSync)"
+                "name": "[COLOR orangered]Revoke And Reset All Logins[/COLOR]",
+                "url": "RunScript(script.module.accountmgr, action=resetSettings)"
             },
             {
-                "name": "[COLOR orange]Open Account Manager[/COLOR]",
+                "name": "[COLOR orange]Open Account Manager For More Options[/COLOR]",
                 "url": "addon.opensettings(script.module.accountmgr)"
             }			
         ]
     },
-    "Authorize Addons Seperately (Without Account Manager)": {
-        "icon": "https://kodiapps.com/sharex/dllhost_2020-02-05_12-07-32.jpg",
+    "Step 3- Authorize Trakt": {
+        "icon": "https://techwiser.com/wp-content/uploads/2020/09/trakt-logo.png",
         "items": [
-            {
-                "name": "<><> [COLOR blue][B]Debrid Logins[/B][/COLOR] <><>",
+			{
+                "name": "<><> [COLOR blue][B]Authorize The Addons You Use Here..[/B][/COLOR] <><>",
                 "url": ""
-            },
-            {
-                "name": "Authorize ResolveURL Real-Debrid",
-                "url": "RunPlugin(plugin://script.module.resolveurl/?mode=auth_rd)"
-            },
-            {
-                "name": "Authorize Seren Real Debrid",
-                "url": "RunPlugin(plugin://plugin.video.seren/?action=authRealDebrid)"
-            },
-            {
-                "name": "Authorize Umbrella Real Debrid",
-                "url": "RunPlugin(plugin://plugin.video.umbrella/?action=rd_Authorize)"
-            },
-            {
-                "name": "Authorize FEN Light Real Debrid",
-                "url": "RunPlugin(plugin://plugin.video.fenlight/?mode=real_debrid.authenticate)"
-            },			
-            {
-                "name": "Authorize FEN Real Debrid",
-                "url": "RunPlugin(plugin://plugin.video.fen/?mode=real_debrid.authenticate)"
-            },
-			{
-                "name": "Authorize EZRA Real Debrid",
-                "url": "RunScript(script.module.myaccounts, action=realdebridAuth)"
-            },
-            {
-                "name": "Authorize Realizer Cloud",
-                "url": "RunPlugin(plugin://plugin.video.realizerx/?action=authRealdebrid)"
-            },
-            {
-                "name": "Revoke ResolveURL Real-Debrid",
-                "url": "RunPlugin(plugin://script.module.resolveurl/?mode=reset_rd)"
-            },
-            {
-                "name": "Revoke Umbrella Real-Debrid",
-                "url": "RunPlugin(plugin://plugin.video.umbrella/?action=rd_Revoke)"
-            },
-            {
-                "name": "Revoke FEN Real-Debrid",
-                "url": "RunPlugin(plugin://plugin.video.fen/?mode=real_debrid.revoke_authentication)"
-            },
-			{
-                "name": "Revoke EZRA Real-Debrid",
-                "url": "RunScript(script.module.myaccounts, action=realdebridRevoke)"
-            },
-            {
-                "name": "Check If your VPN is compatible with Real Debrid",
-                "url": "ActivateWindow(10001,plugin://script.RealDebrid.vpn/,return)"
-            },
-			{
-                "name": "<><> [COLOR blue][B]Trakt Logins[/B][/COLOR] <><>",
-                "url": ""
-            },
-			{
-                "name": "Authorize Trakt Addon",
-                "url": "RunScript(script.trakt,action=auth_info)"
             },
             {
                 "name": "Authorize TMDBH Trakt",
                 "url": "RunScript(plugin.video.themoviedb.helper,authenticate_trakt)"
             },
             {
-                "name": "Authorize Seren Trakt",
-                "url": "RunPlugin(plugin://plugin.video.seren/?action=authTrakt)"
+                "name": "Authorize FEN Light Trakt",
+                "url": "RunPlugin(plugin://plugin.video.fenlight/?mode=trakt.trakt_authenticate)"
             },
             {
                 "name": "Authorize Umbrella Trakt",
                 "url": "RunPlugin(plugin://plugin.video.umbrella/?action=traktAuth)"
             },
             {
+                "name": "Authorize POV Trakt",
+                "url": "RunPlugin(plugin://plugin.video.pov/?mode=trakt.get_auth)"
+            },
+            {
+                "name": "Authorize Seren Trakt",
+                "url": "RunPlugin(plugin://plugin.video.seren/?action=authTrakt)"
+            },
+            {
                 "name": "Authorize FEN Trakt",
                 "url": "RunPlugin(plugin://plugin.video.fen/?mode=trakt.trakt_authenticate)"
             },
-			{
-                "name": "Authorize EZRA Trakt",
-                "url": "RunScript(script.module.myaccounts, action=traktAuth)"
+            {
+                "name": "Authorize Coalition Trakt",
+                "url": "RunPlugin(plugin://plugin.video.coalition/?mode=trakt.trakt_auth)"
             },
             {
-                "name": "Authorize Premiumizer Cloud Trakt",
-                "url": "RunPlugin(plugin://plugin.video.premiumizerx/?action=authTrakt)"
+                "name": "Authorize Chain Reaction Trakt",
+                "url": "RunPlugin(plugin://plugin.video.thechains?mode=205&url=www)"
+            },
+            {
+                "name": "Authorize Asgard Trakt",
+                "url": "RunPlugin(plugin://plugin.video.asgard?mode=157&url=False)"
             },
             {
                 "name": "Authorize The Crew Trakt",
                 "url": "RunPlugin(plugin://plugin.video.thecrew/?action=authTrakt)"
-            },
-            {
-                "name": "Authorize The Promise Trakt",
-                "url": "RunPlugin(plugin://plugin.video.thepromise/?action=authTrakt)"
             },
             {
                 "name": "Authorize Homelander Trakt",
@@ -192,177 +132,13 @@
                 "name": "Authorize Scrubs Trakt",
                 "url": "RunPlugin(plugin://plugin.video.scrubsv2/?action=auth_trakt)"
             },
-            {
-                "name": "Authorize Magic Dragon Trakt",
-                "url": "RunPlugin(plugin://plugin.video.magicdragon?mode=157&url=False)"
-            },
-            {
-                "name": "Authorize Asgard Trakt",
-                "url": "RunPlugin(plugin://plugin.video.asgard?mode=157&url=False)"
-            },
-            {
-                "name": "Authorize Kodiverse Trakt",
-                "url": "RunPlugin(plugin://plugin.video.KodiVerse?mode=157&url=False)"
-            },
-            {
-                "name": "Authorize The Chains Trakt",
-                "url": "RunPlugin(plugin://plugin.video.thechains?mode=157&url=False)"
-            },
-			{
-                "name": "Authorize Ghost Trakt",
-                "url": "RunPlugin(plugin://plugin.video.ghost?mode=157&url=False)"
-            },
-            {
-                "name": "Authorize Shadow Trakt",
-                "url": "RunPlugin(plugin://plugin.video.shadow?mode=157&url=False)"
-            },
-			{
-                "name": "Authorize Moria Trakt",
-                "url": "RunPlugin(plugin://plugin.video.moria/?action=authTrakt)"
-            },
-			{
-                "name": "Authorize METV Trakt",
-                "url": "RunPlugin(plugin://plugin.video.metv19?mode=157&url=False)"
-            },
-			{
-                "name": "Authorize Patriot Trakt",
-                "url": "RunPlugin(plugin://plugin.video.patriot?mode=157&url=False)"
-            },
-			{
-                "name": "Authorize Genocide Trakt",
-                "url": "RunPlugin(plugin://plugin.video.Genocide?mode=157&url=False)"
-            },
 			{
                 "name": "Authorize Black Lightning Trakt",
                 "url": "RunPlugin(plugin://plugin.video.blacklightning?mode=157&url=False)"
             },
 			{
-                "name": "Authorize 4K Trakt",
-                "url": "RunPlugin(plugin://plugin.video.4k?mode=157&url=False)"
-            },
-            {
-                "name": "Revoke Seren Trakt",
-                "url": "RunPlugin(plugin://plugin.video.seren/?action=revokeTrakt)"
-            },
-			{
-                "name": "Revoke EZRA Trakt",
-                "url": "RunScript(script.module.myaccounts, action=traktRevoke)"
-            },
-            {
-                "name": "Revoke Umbrella Trakt",
-                "url": "RunPlugin(plugin://plugin.video.umbrella/?action=traktRevoke)"
-            },
-            {
-                "name": "Revoke FEN Trakt",
-                "url": "RunPlugin(plugin://plugin.video.fen/?mode=trakt.trakt_revoke_authentication)"
-            },
-            {
-                "name": "<><> [COLOR blue][B]Premiumize Logins[/B][/COLOR] <><>",
-                "url": ""
-            },
-            {
-                "name": "Authorize ResolveURL Premiumize.me",
-                "url": "RunPlugin(plugin://script.module.resolveurl/?mode=auth_pm)"
-            },
-            {
-                "name": "Authorize Premiumizer Cloud",
-                "url": "RunPlugin(plugin://plugin.video.premiumizerx/?action=authPremiumize)"
-            },
-            {
-                "name": "Authorize Seren Premiumize",
-                "url": "RunPlugin(plugin://plugin.video.seren/?action=authPremiumize)"
-            },
-            {
-                "name": "Authorize Umbrella Premiumize",
-                "url": "RunPlugin(plugin://plugin.video.umbrella/?action=pm_Authorize)"
-            },
-            {
-                "name": "Authorize FEN Premiumize",
-                "url": "RunPlugin(plugin://plugin.video.fen/?mode=premiumize.authenticate)"
-            },
-			{
-                "name": "Authorize EZRA Premiumize",
-                "url": "RunScript(script.module.myaccounts, action=premiumizeAuth)"
-            },
-            {
-                "name": "Revoke ResolveURL Premiumize.me",
-                "url": "RunPlugin(plugin://script.module.resolveurl/?mode=reset_pm)"
-            },
-            {
-                "name": "Revoke Umbrella Premiumize.me",
-                "url": "RunPlugin(plugin://plugin.video.umbrella/?action=pm_Revoke)"
-            },
-			{
-                "name": "Revoke EZRA Premiumize.me",
-                "url": "RunScript(script.module.myaccounts, action=premiumizeRevoke)"
-            },
-            {
-                "name": "Revoke FEN Premiumize.me",
-                "url": "RunPlugin(plugin://plugin.video.fen/?mode=premiumize.revoke_authentication)"
-            },
-            {
-                "name": "<><> [COLOR blue][B]AllDebrid Logins[/B][/COLOR] <><>",
-                "url": ""
-            },
-            {
-                "name": "Authorize ResolveURL AllDebrid",
-                "url": "RunPlugin(plugin://script.module.resolveurl/?mode=auth_ad)"
-            },
-            {
-                "name": "Authorize Seren Alldebrid",
-                "url": "RunPlugin(plugin://plugin.video.seren/?action=authAllDebrid)"
-            },
-            {
-                "name": "Authorize Umbrella Alldebrid",
-                "url": "RunPlugin(plugin://plugin.video.umbrella/?action=ad_Authorize)"
-            },
-            {
-                "name": "Authorize FEN Alldebrid",
-                "url": "RunPlugin(plugin://plugin.video.fen/?mode=alldebrid.authenticate)"
-            },
-			{
-                "name": "Authorize EZRA Alldebrid",
-                "url": "RunScript(script.module.myaccounts, action=alldebridAuth)"
-            },
-            {
-                "name": "Revoke ResolveURL AllDebrid",
-                "url": "RunPlugin(plugin://script.module.resolveurl/?mode=reset_ad)"
-            },
-            {
-                "name": "Revoke FEN AllDebrid",
-                "url": "RunPlugin(plugin://plugin.video.fen/?mode=alldebrid.revoke_authentication)"
-            },
-			{
-                "name": "Revoke EZRA AllDebrid",
-                "url": "RunScript(script.module.myaccounts, action=alldebridRevoke)"
-            },
-            {
-                "name": "Revoke Umbrella AllDebrid",
-                "url": "RunPlugin(plugin://plugin.video.umbrella/?action=ad_Revoke)"
-            },
-            {
-                "name": "<><> [COLOR blue][B]LinkSnappy Logins[/B][/COLOR] <><>",
-                "url": ""
-            },
-            {
-                "name": "Authorize ResolveURL Link Snappy",
-                "url": "RunPlugin(plugin://script.module.resolveurl/?mode=auth_ls)"
-            },
-            {
-                "name": "Revoke ResolveURL Link Snappy",
-                "url": "RunPlugin(plugin://script.module.resolveurl/?mode=reset_ls)"
-            },
-            {
-                "name": "<><> [COLOR blue][B]DebridLink Logins[/B][/COLOR] <><>",
-                "url": ""
-            },
-            {
-                "name": "Authorize ResolveURL Debrid-Link.fr",
-                "url": "RunPlugin(plugin://script.module.resolveurl/?mode=auth_dl)"
-            },
-            {
-                "name": "Revoke ResolveURL Debrid-Link.fr",
-                "url": "RunPlugin(plugin://script.module.resolveurl/?mode=reset_dl)"
+                "name": "Authorize Kodi Library Trakt Addon",
+                "url": "RunScript(script.trakt,action=auth_info)"
             }
         ]
     }

@@ -1,0 +1,161 @@
+# Addon Name: Easy Player Switch
+# Addon id: plugin.video.easyplayerswitch
+# Addon version: 1.0.0
+# Addon Provider: ItalianSpaghettiGeeks
+msgid ""
+msgstr ""
+"Project-Id-Version: Easy Player Switch\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-03-14 12:00+0000\n"
+"PO-Revision-Date: 2025-03-14 12:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Italian\n"
+"Language: it_IT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# General
+msgctxt "#30000"
+msgid "Easy Player Switch"
+msgstr "Easy Player Switch"
+
+# Dialog messages
+msgctxt "#30001"
+msgid "Error"
+msgstr "Errore"
+
+msgctxt "#30002"
+msgid "The VLC player isn't installed on your device!"
+msgstr "Il player VLC non è installato sul tuo dispositivo!"
+
+msgctxt "#30003"
+msgid "Unsupported operating system!"
+msgstr "Sistema operativo non supportato!"
+
+msgctxt "#30004"
+msgid "Switched to Kodi internal player."
+msgstr "Passato al player interno di Kodi."
+
+msgctxt "#30005"
+msgid "Restart Required"
+msgstr "Riavvio Necessario"
+
+msgctxt "#30006"
+msgid "In order to apply player change, please restart Kodi!"
+msgstr "Per applicare il cambio di player, riavvia Kodi!"
+
+msgctxt "#30007"
+msgid "Switched to %s."
+msgstr "Passato a %s."
+
+msgctxt "#30008"
+msgid "Downloading XML"
+msgstr "Download XML"
+
+msgctxt "#30009"
+msgid "Downloading from:\n%s"
+msgstr "Download da:\n%s"
+
+msgctxt "#30010"
+msgid "Invalid XML"
+msgstr "XML non valido"
+
+msgctxt "#30011"
+msgid "The downloaded file doesn't appear to be valid XML. Please check the URL."
+msgstr "Il file scaricato non sembra essere un XML valido. Controlla l'URL."
+
+msgctxt "#30012"
+msgid "Custom XML downloaded successfully."
+msgstr "XML personalizzato scaricato con successo."
+
+msgctxt "#30013"
+msgid "HTTP Error: %d - %s"
+msgstr "Errore HTTP: %d - %s"
+
+msgctxt "#30014"
+msgid "Access Forbidden - The server is refusing to allow the download."
+msgstr "Accesso Negato - Il server rifiuta di permettere il download."
+
+msgctxt "#30015"
+msgid "Download Error"
+msgstr "Errore di Download"
+
+msgctxt "#30016"
+msgid "URL Error: %s"
+msgstr "Errore URL: %s"
+
+msgctxt "#30017"
+msgid "Failed to download XML file: %s"
+msgstr "Impossibile scaricare il file XML: %s"
+
+msgctxt "#30018"
+msgid "Enter direct URL of playercorefactory.xml file (filename included)"
+msgstr "Inserisci l'URL diretto del file playercorefactory.xml (incluso il nome del file)"
+
+msgctxt "#30019"
+msgid "Invalid URL"
+msgstr "URL non valido"
+
+msgctxt "#30020"
+msgid "Please enter a valid URL starting with http:// or https://"
+msgstr "Inserisci un URL valido che inizi con http:// o https://"
+
+msgctxt "#30021"
+msgid "Custom XML Downloaded"
+msgstr "XML personalizzato scaricato"
+
+msgctxt "#30022"
+msgid "XML configuration has been downloaded. Do you want to apply it now?"
+msgstr "La configurazione XML è stata scaricata. Vuoi applicarla ora?"
+
+msgctxt "#30023"
+msgid "Custom XML saved but not applied yet."
+msgstr "XML personalizzato salvato ma non ancora applicato."
+
+# Menu items
+msgctxt "#30024"
+msgid "Use VLC external player"
+msgstr "Usa player esterno VLC"
+
+msgctxt "#30025"
+msgid "Remote custom playercorefactory.xml"
+msgstr "Playercorefactory.xml personalizzato remoto"
+
+msgctxt "#30026"
+msgid "Use Kodi internal player"
+msgstr "Usa player interno Kodi"
+
+msgctxt "#30027"
+msgid "Actual player: %s"
+msgstr "Player attuale: %s"
+
+msgctxt "#30028"
+msgid "Telegram: @ItalianSpaghettiGeeks"
+msgstr "Telegram: @ItalianSpaghettiGeeks"
+
+# New strings for local XML file
+msgctxt "#30029"
+msgid "Select a playercorefactory.xml file"
+msgstr "Seleziona un file playercorefactory.xml"
+
+msgctxt "#30030"
+msgid "Selected file does not exist"
+msgstr "Il file selezionato non esiste"
+
+msgctxt "#30031"
+msgid "Local XML file loaded successfully."
+msgstr "File XML locale caricato con successo."
+
+msgctxt "#30032"
+msgid "Failed to load XML file: %s"
+msgstr "Impossibile caricare il file XML: %s"
+
+msgctxt "#30033"
+msgid "Local custom playercorefactory.xml"
+msgstr "Playercorefactory.xml personalizzato locale"
+
+msgctxt "#30034"
+msgid "Custom player"
+msgstr "Player personalizzato"

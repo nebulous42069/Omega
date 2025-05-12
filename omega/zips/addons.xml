@@ -60,7 +60,7 @@
              <icon>icon.png</icon>
         </assets>
     </extension>
-</addon><addon id="plugin.audio.dashradio" name="Litt Live Radio" version="421.3" provider-name="Diggz">
+</addon><addon id="plugin.audio.dashradio" name="Litt Live Radio" version="421.4" provider-name="Diggz">
 <requires>
   <import addon="xbmc.python" version="3.0.0" />
 </requires>
@@ -68,7 +68,7 @@
   <provides>audio</provides>
 </extension>
 <extension point="xbmc.addon.metadata">
-    <summary lang="en">Dash Radio</summary>
+    <summary lang="en">LITT Live Radio</summary>
     <description lang="en">Litt Live (stylized as LITT Live, formerly Dash Radio) is a digital radio broadcasting platform with over 80 radio stations. These stations are curated by DJs, radio personalities, musicians, etc. The platform includes partner stations curated by Snoop Dogg, Kylie Jenner, Lil Wayne, Tech N9ne, Borgore, B-Real of Cypress Hill, and others. Dash Radio has no subscription fees and is commercial-free.
 
 </description>
@@ -148,7 +148,7 @@
             <fanart>fanart.jpg</fanart>
     </assets>
   </extension>
-</addon><addon id="plugin.program.chef21" name="[B][COLOR chartreuse]Chef Omega Wizard[/COLOR][/B]" version="485" provider-name="Diggz">
+</addon><addon id="plugin.program.chef21" name="[B][COLOR chartreuse]Chef Omega Wizard[/COLOR][/B]" version="486" provider-name="Diggz">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0" />
 		<import addon="script.module.accountmgr" />
@@ -537,14 +537,14 @@ https://github.com/Vashiel/repository.adulthideout
 		<fanart>fanart.jpg</fanart>
   </assets>
   </extension>
-</addon><addon id="plugin.video.cb20" version="2.1.0" name="CB20 (Hidden Version)" provider-name="aitschti">
+</addon><addon id="plugin.video.cb20" version="2.2.2" name="CB20" provider-name="aitschti">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
         
         <import addon="inputstream.ffmpegdirect" version="20.0.0" />
     </requires>
     <extension point="xbmc.python.pluginsource" library="addon.py">
-        <provides />
+        <provides>video</provides>
     </extension>
     <extension point="xbmc.python.library" library="resources/lib/helperscript.py" />
     <extension point="xbmc.addon.metadata">
@@ -560,13 +560,13 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.cb20
         <license>GPL-3.0</license>
         <forum />
         <website />
-        <email>last5mins@yandex.com</email>
+        <email>burnermail2@posteo.de</email>
         <summary lang="en_GB">Chaturbate for Kodi 20+</summary>
         <summary lang="de_DE">Chaturbate für Kodi 20+</summary>
         <description lang="en_GB">Chaturbate streaming for Kodi 20+</description>
         <description lang="de_DE">Chaturbate streaming für Kodi 20+</description>
-        <disclaimer lang="en_GB">(c) 2024 aitschti</disclaimer>
-        <disclaimer lang="de_DE">(c) 2024 aitschti</disclaimer>
+        <disclaimer lang="en_GB">(c) 2025 aitschti</disclaimer>
+        <disclaimer lang="de_DE">(c) 2025 aitschti</disclaimer>
         <reuselanguageinvoker>false</reuselanguageinvoker>
     </extension>
 </addon><addon id="plugin.video.club.pornky.free" version="0.9.14" name="pornky.club (free)" provider-name="fr33p0rt">
@@ -798,14 +798,14 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.cb20
             <fanart>fanart.jpg</fanart>			
         </assets>
 	</extension>
-</addon><addon id="plugin.video.sc19" version="1.4.1" name="SC19 (Hidden Version)" provider-name="aitschti">
+</addon><addon id="plugin.video.sc19" version="1.5.3" name="SC19" provider-name="aitschti">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
         <import addon="inputstream.ffmpegdirect" version="19.0.0" />
     </requires>
     
     <extension point="xbmc.python.pluginsource" library="addon.py">
-        <provides />
+        <provides>video</provides>
     </extension>
     
     <extension point="xbmc.python.library" library="resources/lib/helperscript.py" />
@@ -823,13 +823,13 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.sc19
         <license>GPL-3.0</license>
         <forum />
         <website />
-        <email>last5mins@yandex.com</email>
+        <email>burnermail2@posteo.de</email>
         <summary lang="en_GB">Stripchat for Kodi 19/20/21</summary>
         <summary lang="de_DE">Stripchat für Kodi 19/20/21</summary>
         <description lang="en_GB">Stripchat streaming for Kodi 19/20/21</description>
         <description lang="de_DE">Stripchat streaming für Kodi 19/20/21</description>
-        <disclaimer lang="en_GB">(c) 2024 aitschti</disclaimer>
-        <disclaimer lang="de_DE">(c) 2024 aitschti</disclaimer>
+        <disclaimer lang="en_GB">(c) 2025 aitschti</disclaimer>
+        <disclaimer lang="de_DE">(c) 2025 aitschti</disclaimer>
         <reuselanguageinvoker>false</reuselanguageinvoker>
     </extension>
 </addon><addon id="plugin.video.showtime" name="Showtime" version="1.3" provider-name="mbebe">
@@ -1188,6 +1188,27 @@ Random updates by lolage.
 - Add IPv6 support for http server
 - Show total number of uploads, shorts and live videos in channel playlists
 - Add support for more chan</news></extension>
+</addon><addon id="program.easyplayerswitch" name="Easy Player Switch" provider-name="DigiTalking" version="1.1.0">
+    <requires>
+        <import addon="xbmc.python" version="3.0.0" />
+    </requires>
+    <extension point="xbmc.python.script" library="default.py">
+        <provides>executable</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <platform>all</platform>
+        <license>MIT</license>
+        <source>https://gitlab.com/personal4143605/easy-player-switch</source>
+        <summary lang="en_GB">Switch between VLC, custom player, and Kodi internal player easily.</summary>
+        <summary lang="it_IT">Cambia player facilmente scegliendo tra VLC, player personalizzato e player interno di Kodi.</summary>
+        <description lang="en_GB">This addon allows you to switch between VLC, custom player, and Kodi's internal player with a simple menu.</description>
+        <description lang="it_IT">Questo addon consente di cambiare player scegliendo VLC, player personalizzato e player interno di Kodi tramite un semplice menù.</description>
+        <platform>all</platform>
+        <assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.png</fanart>
+        </assets>
+    </extension>
 </addon><addon id="repository.709" name=" The[COLOR FF0C5EB4][B]7o9[/B][/COLOR]Repo" version="1.0.2" provider-name="Zaxxon709">
     <extension point="xbmc.addon.repository" name="The7o9Repo">
         <dir>
