@@ -23,14 +23,7 @@ def menuoptions():
     call = dialog.select('[B]Diggz Sports Website Browser[/B]', [
             '[B]The_TV_App Sports[/B]',
             '[B]SportsEast[/B]',
-            '[B]CrackStreams/MethStreams[/B]',
-            '[B]MrGamingStreams[/B]',
             '[B]Time4TV Sports[/B]',
-            '[B]SportsCart[/B]',
-            '[B]MarkyStreams[/B]',
-            '[B]TopStreams[/B]',
-            '[B]BuffStreams[/B]',
-            '[B]Rojadirecta[/B]',
         ]
     )
     # dialog.selectreturns
@@ -82,64 +75,8 @@ def function2(): # Sportseast
         return webbrowser.open(link)
 
 
-def function3(): # CrackStreams
-    link = 'https://methstreams.com/watch/'
-    if myplatform == 'android':
-        return xbmc.executebuiltin(mycommand % link)
-    else:
-        return webbrowser.open(link)
-
-
-def function4(): # MrGamingStreams
-    link = 'https://mrgamingstreams.com/'
-    if myplatform == 'android':
-        return xbmc.executebuiltin(mycommand % link)
-    else:
-        return webbrowser.open(link)
-
-
 def function5(): # Time4tv sports
     link = 'https://time4tv.top/schedule.php'
-    if myplatform == 'android':
-        return xbmc.executebuiltin(mycommand % link)
-    else:
-        return webbrowser.open(link)
-
-
-def function6(): # SportsCart
-    link = 'https://sportskart.xyz/schedule/'
-    if myplatform == 'android':
-        return xbmc.executebuiltin(mycommand % link)
-    else:
-        return webbrowser.open(link)
-
-
-def function7(): # MarkyStreams
-    link = 'https://markkystreams.com/'
-    if myplatform == 'android':
-        return xbmc.executebuiltin(mycommand % link)
-    else:
-        return webbrowser.open(link)
-
-
-def function8(): # TopStreams
-    link = 'https://topstreams.me/'
-    if myplatform == 'android':
-        return xbmc.executebuiltin(mycommand % link)
-    else:
-        return webbrowser.open(link)
-
-
-def function9(): # BuffStreams
-    link = 'https://buff-streams.net/'
-    if myplatform == 'android':
-        return xbmc.executebuiltin(mycommand % link)
-    else:
-        return webbrowser.open(link)
-
-
-def function10(): # Rojadirecta
-    link = 'https://rojadirecta.io/'
     if myplatform == 'android':
         return xbmc.executebuiltin(mycommand % link)
     else:

@@ -22,10 +22,7 @@ def menuoptions():
             '[B]The_TV_App[/B]',
             '[B]Daddy Live[/B]',
             '[B]Xumo Live[/B]',
-            '[B]Classic On Demand[/B]',
-            '[B]Squid TV[/B]',
             '[B]TV 24/7[/B]',
-            '[B]Mr. Game Streams Live TV[/B]',
             '[B]Time4Tv[/B]',         
         ]
     )
@@ -71,7 +68,7 @@ def function1(): # TV_App
 
 
 def function2(): # Daddylive
-    link = 'https://daddylive.watch/24-7-channels.php'
+    link = 'https://daddylive.dad/24-7-channels.php'
     if myplatform == 'android':
         return xbmc.executebuiltin(mycommand % link)
     else:
@@ -86,37 +83,15 @@ def function3(): # Xumo
         return webbrowser.open(link)
 
 
-def function4(): # Classic On Demand
-    link = 'https://webapp.airy.tv/on-demand/Sci%20Fi'
-    if myplatform == 'android':
-        return xbmc.executebuiltin(mycommand % link)
-    else:
-        return webbrowser.open(link)
-
-
-def function5(): # Squid TV
-    link = 'https://www.squidtv.net/'
-    if myplatform == 'android':
-        return xbmc.executebuiltin(mycommand % link)
-    else:
-        return webbrowser.open(link)
-
-
-def function6(): # tv 247
+def function4(): # tv 247
     link = 'https://tv247.us/all-channels/'
     if myplatform == 'android':
         return xbmc.executebuiltin(mycommand % link)
     else:
         return webbrowser.open(link)
-        
-def function7(): # Mr Gamestreams 247
-    link = 'https://mrgamingstreams.com/247-tv'
-    if myplatform == 'android':
-        return xbmc.executebuiltin(mycommand % link)
-    else:
-        return webbrowser.open(link)
 
-def function8(): # Time4tv
+
+def function5(): # Time4tv
     link = 'https://time4tv.top/tv-channels.php'
     if myplatform == 'android':
         return xbmc.executebuiltin(mycommand % link)
