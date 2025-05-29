@@ -164,7 +164,7 @@
 	
 	<variable name="Path_MyList">
         <value condition="!Skin.HasSetting(AddToWatchlist) + [Library.HasContent(Movies) | Library.HasContent(TVShows)]">plugin://script.bingie.widgets/?action=mylist&amp;mediatype=media&amp;limit=100&amp;reload=$INFO[Window(Home).Property(widgetreload)]</value>
-		<value condition="Skin.HasSetting(AddToWatchlist) | !Library.HasContent(Movies) + !Library.HasContent(TVShows)">plugin://plugin.video.themoviedb.helper?info=trakt_watchlist&amp;type=both&amp;widget=true&amp;reload=$INFO[Window(Home).Property(TMDbHelper.Widgets.Reload)])</value>
+		<value condition="Skin.HasSetting(AddToWatchlist) | !Library.HasContent(Movies) + !Library.HasContent(TVShows)">plugin://plugin.video.themoviedb.helper?info=trakt_watchlist&amp;type=both&amp;widget=true&amp;sort_by=added&amp;sort_how=desc&amp;reload=$INFO[Window(Home).Property(TMDbHelper.Widgets.Reload)])</value>
     </variable>
 	
 	<variable name="Path_CastInMovies">
@@ -364,7 +364,7 @@
     </variable>
 	
 	<variable name="DefWidgetName">
-		<value condition="Library.HasContent(Movies) | Library.HasContent(TVShows)">$LOCALIZE[31535] $VAR[ForCurrentProfileNameLabel]</value>
+		<value condition="Library.HasContent(Movies) | Library.HasContent(TVShows)">[CAPITALIZE]$LOCALIZE[13362][/CAPITALIZE] $VAR[ForCurrentProfileNameLabel]</value>
         <value condition="!Library.HasContent(Movies) + !Library.HasContent(TVShows)">$LOCALIZE[31337]</value>
     </variable>
 	
@@ -374,7 +374,7 @@
     </variable>
 	
 	<variable name="DefWidget1Name">
-		<value condition="Library.HasContent(Movies) | Library.HasContent(TVShows)">$LOCALIZE[31127]</value>
+		<value condition="Library.HasContent(Movies) | Library.HasContent(TVShows)">[CAPITALIZE]$LOCALIZE[20382][/CAPITALIZE]</value>
         <value condition="!Library.HasContent(Movies) + !Library.HasContent(TVShows)">$LOCALIZE[31328]</value>
     </variable>
 	
@@ -415,7 +415,7 @@
 	
 	<variable name="DefWidget5Name">
 		<value condition="Library.HasContent(Movies) | Library.HasContent(TVShows)">$ADDON[script.bingie.widgets 32011]</value>
-		<value condition="!Library.HasContent(Movies) + !Library.HasContent(TVShows)">$LOCALIZE[31707]</value>
+		<value condition="!Library.HasContent(Movies) + !Library.HasContent(TVShows)">$LOCALIZE[31443]</value>
     </variable>
 	
 </includes>

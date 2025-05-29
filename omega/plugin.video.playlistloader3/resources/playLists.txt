@@ -1,0 +1,56 @@
+[
+    {
+        "name": "The Loop",
+        "url": "https://loopaddon.uk/files/k19/epg2025/gameDay_epg.m3u",
+        "image": "special://home/addons/resource.images.skinicons.wide/resources/icons/loop.png",
+        "logos": "",
+        "epg": "",
+        "cache": 30,
+        "uuid": "5ad9f142-3a98-4fce-8e72-054fa1eb27a8"
+    },
+    {
+        "name": "Mad Titan",
+        "url": "https://magnetic.website/jet/playlist1.m3u8",
+        "image": "special://home/addons/resource.images.skinicons.wide/resources/icons/madtitan.png",
+        "logos": "",
+        "epg": "",
+        "cache": 30,
+        "uuid": "0c1130be-8414-49e3-a94e-97783622ca48"
+    },
+    {
+        "name": "Roxie Streams",
+        "url": "https://iptv-scraper-re.vercel.app/roxiestreams",
+        "image": "",
+        "logos": "",
+        "epg": "",
+        "cache": 0,
+        "uuid": "0c9c6c98-7ab0-4673-a3ef-18df5f98895e"
+    },
+    {
+        "name": "Stream BTW",
+        "url": "https://iptv-scraper-re.vercel.app/streambtw",
+        "image": "",
+        "logos": "",
+        "epg": "",
+        "cache": 0,
+        "uuid": "f4acb49f-6555-4ea2-8fee-7e4d1e682e67"
+    },
+    {
+        "name": "TV 24/7",
+        "url": "https://raw.githubusercontent.com/blakestrick/m3u/refs/heads/main/tv247-m3u4u.m3u",
+        "image": "special://home/addons/resource.images.skinicons.wide/resources/icons/tv247.png",
+        "logos": "",
+        "epg": "",
+        "cache": 0,
+        "uuid": "3087114e-4833-4872-992d-66077c94fab4"
+    },
+    {
+        "name": "MoveOnJoy",
+        "url": "special://home/addons/plugin.video.playlistloader3/resources/moveonjoy.m3u8",
+        "image": "special://home/addons/resource.images.skinicons.wide/resources/icons/chef.png",
+        "logos": "",
+        "epg": "",
+        "cache": 0,
+        "uuid": "24084545-f2be-4867-aa08-3e8f43bc345b"
+    }
+]

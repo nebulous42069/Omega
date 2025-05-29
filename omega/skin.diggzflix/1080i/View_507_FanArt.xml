@@ -27,9 +27,9 @@
                 <onleft>507</onleft>
                 <onright>507</onright>
 				<onback>ClearProperty(ListAnimation,home)</onback>
-                <viewtype label="31434">fanart</viewtype>
+                <viewtype label="20445">fanart</viewtype>
 				<include content="View_Forced">
-					<param name="viewtype" value="$LOCALIZE[31434]" />
+					<param name="viewtype" value="$LOCALIZE[20445]" />
 				</include>
                 <scrolltime tween="quadratic">400</scrolltime>
                 <focusposition>0</focusposition>
@@ -83,7 +83,7 @@
 						  <height>40</height>
 						  <width>1751</width>
 						  <font>bold40</font>
-						  <textcolor>$INFO[Skin.String(ViewDetailsListItemTextFocusColor)]</textcolor>
+						  <textcolor>$INFO[Skin.String(ViewDetailsTextColor)]</textcolor>
 						  <label>$VAR[ListDetails]</label>
 						  <include>Animation.TestOut</include>
 					</control>
@@ -92,7 +92,7 @@
 						  <height>40</height>
 						  <width>1751</width>
 						  <font>bold40</font>
-						  <textcolor>$INFO[Skin.String(ViewDetailsListItemTextFocusColor)]</textcolor>
+						  <textcolor>$INFO[Skin.String(ViewDetailsTextColor)]</textcolor>
 						  <label>$VAR[Details]</label>
 						  <include>Animation.TestIn</include>
 					</control>
@@ -101,7 +101,7 @@
 						<width>1751</width>
 						<height>115</height>
 						<label>$VAR[Plots]</label>
-						<textcolor>$INFO[Skin.String(ViewDetailsListItemTextFocusColor)]</textcolor>
+						<textcolor>$INFO[Skin.String(ViewDetailsTextColor)]</textcolor>
 						<align>justify</align>
 						<font>Reg30</font>
 					</control>

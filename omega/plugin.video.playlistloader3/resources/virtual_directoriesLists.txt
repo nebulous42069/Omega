@@ -1,0 +1,24 @@
+[
+    {
+        "name": "Diggz M3u Playlists",
+        "data": [
+            "5ad9f142-3a98-4fce-8e72-054fa1eb27a8",
+            "0c1130be-8414-49e3-a94e-97783622ca48",
+            "3087114e-4833-4872-992d-66077c94fab4",
+            "24084545-f2be-4867-aa08-3e8f43bc345b"
+        ],
+        "icon": "special://home/addons/resource.images.skinicons.wide/resources/icons/freelivetv.png",
+        "uuid": "8428beac-62d6-4142-8e4c-a20673119cb3"
+    },
+    {
+        "name": "Live Sports M3u",
+        "data": [
+            "5ad9f142-3a98-4fce-8e72-054fa1eb27a8",
+            "0c1130be-8414-49e3-a94e-97783622ca48",
+            "0c9c6c98-7ab0-4673-a3ef-18df5f98895e",
+            "f4acb49f-6555-4ea2-8fee-7e4d1e682e67"
+        ],
+        "icon": "special://home/addons/resource.images.skinicons.wide/resources/icons/sports.png",
+        "uuid": "d25cfc97-8b8f-4e63-b6e5-28fe2330da4d"
+    }
+]
