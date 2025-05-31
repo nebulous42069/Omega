@@ -1,0 +1,23 @@
+0.8
+-fix captcha,add year 2024,2025
+
+0.7
+- fix movies error
+
+0.6
+- fix urllib3 error
+
+0.5
+- fix categories
+
+0.4
+- fix tvshows
+
+0.3
+- fix captcha
+
+0.2
+- filters added
+
+0.1
+- initial version 

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+    <setting id="play" value="default" />
+    <setting id="proxyport" value="" />
+    
+    <setting id="fdata" value="" default="?g[]=&y[]=&r=&so="/>
+    <setting id="sdata" value="" default="?g[]=&r=&so="/>
+    
+    <setting id="fkatV" value="" default="?g[]="/>   
+    <setting id="fkatN" value="" default="all"/>	
+    <setting id="skatV" value="" default="?g[]="/>   
+    <setting id="skatN" value="" default="all"/>	
+    
+    <setting id="fratyV" value="" default="&r="/>   
+    <setting id="fratyN" value="" default="all"/>	
+    <setting id="sratyV" value="" default="&r="/>   
+    <setting id="sratyN" value="" default="all"/>
+    
+    <setting id="frokV" value="" default="&y[]="/>   
+    <setting id="frokN" value="" default="all"/>
+    <setting id="srokV" value="" default=""/>   
+    <setting id="srokN" value="" default="all"/>
+    
+    <setting id="fsortV" value="" default="&so="/>   
+    <setting id="fsortN" value="" default="newest first"/>
+    <setting id="ssortV" value="" default="&so="/>   
+    <setting id="ssortN" value="" default="newest first"/>
+
+</settings>
