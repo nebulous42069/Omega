@@ -126,22 +126,7 @@
                         <label>$INFO[ListItem.Label]</label>
                     </control>
                 </focusedlayout>
-                <content>
-				<item>
-					<label>Search TMDBH</label>
-					<onclick>Dialog.Close(5001)</onclick>					
-					<onclick>ActivateWindow(10025,"plugin://plugin.video.themoviedb.helper/?info=dir_multisearch&amp;tmdb_type=None",return)</onclick>
-				</item>
-				<item>
-					<label>Search Movie And TV Portal</label>
-					<onclick>Dialog.Close(5001)</onclick>					
-					<onclick>PlayMedia("plugin://script.extendedinfo?info=search_menu")</onclick>
-				</item>
-				<item>
-					<label>Search Trakt Lists</label>
-					<onclick>Dialog.Close(5001)</onclick>					
-					<onclick>ActivateWindow(10025,"plugin://plugin.video.themoviedb.helper/?info=trakt_searchlists&amp;tmdb_type=both",return)</onclick>
-				</item>				
+                <content>			
 				<item>
 					<label>Search Diggz Free99 Movies</label>
 					<onclick>Dialog.Close(5001)</onclick>

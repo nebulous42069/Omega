@@ -618,26 +618,6 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.cb20
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="plugin.video.daddylive" name="DaddyLive" version="5.00" provider-name="FubuZ">
-    <requires>
-        <import addon="xbmc.python" version="3.0.0" />
-        <import addon="script.module.requests" />
-        <import addon="script.module.inputstreamhelper" />
-        <import addon="script.module.six" />
-    </requires>
-    <extension point="xbmc.python.pluginsource" library="addon.py">
-        <provides>video</provides>
-    </extension>
-    <extension point="xbmc.addon.metadata">
-        <summary lang="en">Live Sports and TV</summary>
-		<description lang="en">Free streming of Live Sports and TV.</description>
-        <license>GPL-3.0</license>
-        <website>https://daddylive.sx/</website>
-        <assets>
-            <icon>resources/icon.png</icon>
-            <fanart>resources/fanart.jpg</fanart>
-        </assets>
-    </extension>
 </addon><addon id="plugin.video.fenlight" name="FenLightAM" provider-name="Tikipeter/AnonyMouse" version="2.1.13">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
@@ -954,33 +934,6 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.sc19
 		<fanart>fanart.jpg</fanart>
   </assets>
   </extension>
-</addon><addon id="plugin.video.tubitv" name="TubiTV" version="5.0.2" provider-name="Lunatixz,WonkoDerp,Liqianyu">
-  <requires>
-    <import addon="xbmc.python" version="3.0.1" />
-    <import addon="script.module.t1mlib" version="4.0.2" />
-    <import addon="script.module.requests" version="2.22.0" />
-    <import addon="inputstream.adaptive" version="2.6.0" />
-    <import addon="script.module.kodi-six" version="0.1.3.1" />
-  </requires>
-  <extension point="xbmc.python.pluginsource" library="default.py">
-        <provides>video</provides>
-  </extension>
-  <extension point="xbmc.service" library="pseudotv_recommended.py" />
-  <extension point="xbmc.addon.metadata">
-    <summary lang="en_GB">tubitv</summary>
-    <description lang="en_GB">Tubi TV has the largest library of FREE videos of hit and cult TV shows and films</description>
-    <disclaimer lang="en_GB">Feel free to use this script. For information visit the wiki.</disclaimer>
-    <platform>all</platform>
-    <language>en</language>
-    <license>GPL-2.0-or-later</license>
-    <forum>http://forum.kodi.tv/showthread.php?tid=</forum>
-    <website>http://www.tubitv.com/</website>
-    <news>v.5.0.2[CR]Workaround Fix Login</news>
-    <assets>
-        <icon>resources/images/icon.png</icon>
-        <fanart>resources/images/fanart.jpg</fanart>
-    </assets>
-  </extension>
 </addon><addon id="plugin.video.watchnixtoons2" name="WatchNixtoons2" version="0.13.3" provider-name="WNT2">
     <requires>
         <import addon="script.module.requests" />
@@ -1093,148 +1046,6 @@ Random updates by lolage.
         </assets>
     <platform>all</platform>
   </extension>
-</addon><addon id="plugin.video.youtube" name="YouTube" version="7.2.0+beta.2.unofficial.1" provider-name="anxdpanic, bromix, MoojMidge">
-    <requires>
-        <import addon="xbmc.python" version="3.0.0" />
-        <import addon="script.module.requests" version="2.27.1" />
-        <import addon="inputstream.adaptive" version="19.0.0" />
-        <import addon="script.module.inputstreamhelper" version="0.2.2" optional="true" />
-        <import addon="script.module.pysocks" optional="true" />
-    </requires>
-    <extension point="xbmc.python.pluginsource" library="resources/lib/plugin.py">
-        <provides>video</provides>
-    </extension>
-    <extension point="xbmc.service" library="resources/lib/service.py" />
-    <extension point="xbmc.python.module" library="resources/lib/" />
-    <extension point="xbmc.python.script" library="resources/lib/script.py">
-        <provides>executable</provides>
-    </extension>
-    <extension point="xbmc.addon.metadata">
-        <assets>
-            <icon>resources/media/icon.png</icon>
-            <fanart>resources/media/fanart.jpg</fanart>
-        </assets>
-        <platform>all</platform>
-        <license>GPL-2.0-only</license>
-        <forum>https://ytaddon.panicked.xyz/forum</forum>
-        <website>https://www.youtube.com</website>
-        <source>https://github.com/anxdpanic/plugin.video.youtube</source>
-        <reuselanguageinvoker>true</reuselanguageinvoker>
-        <summary lang="bg_BG">Добавка за YouTube</summary>
-        <summary lang="cs_CZ">Plugin pro YouTube</summary>
-        <summary lang="da_DK">Plugin til YouTube</summary>
-        <summary lang="de_DE">Plugin für YouTube</summary>
-        <summary lang="el_GR">Πρόσθετο YouTube</summary>
-        <summary lang="en_GB">Plugin for YouTube</summary>
-        <summary lang="eo">Aldonaĵo por YouTube</summary>
-        <summary lang="es_ES">Complemento para YouTube</summary>
-        <summary lang="es_MX">Complemento para YouTube</summary>
-        <summary lang="fi_FI">YouTube-lisäosa</summary>
-        <summary lang="fr_FR">Plugin pour YouTube</summary>
-        <summary lang="he_IL">תוסף עבור YouTube</summary>
-        <summary lang="hr_HR">Dodatak za YouTube</summary>
-        <summary lang="hu_HU">YouTube kiegészítő</summary>
-        <summary lang="id_ID">Pengaya untuk YouTube</summary>
-        <summary lang="it_IT">Plugin per YouTube</summary>
-        <summary lang="ko_KR">유튜브 플러그인</summary>
-        <summary lang="nb_NO">Tillegg for YouTube</summary>
-        <summary lang="nl_NL">Plugin voor YouTube</summary>
-        <summary lang="pl_PL">Wtyczka YouTube</summary>
-        <summary lang="pt_BR">Plugin para YouTube</summary>
-        <summary lang="ro_RO">Modul pentru YouTube</summary>
-        <summary lang="ru_RU">Видеодополнение YouTube</summary>
-        <summary lang="sk_SK">Doplnok pre YouTube</summary>
-        <summary lang="sv_SE">Plugin för YouTube</summary>
-        <summary lang="tr_TR">YouTube için eklenti</summary>
-        <summary lang="uk_UA">Додаток для YouTube</summary>
-        <summary lang="vi_VN">Plugin dành cho YouTube</summary>
-        <summary lang="zh_CN">油管插件</summary>
-        <summary lang="zh_TW">YouTube附加元件</summary>
-        <description lang="bg_BG">YouTube е един от най-големите уеб сайтове за споделяне на видео в целия свят.</description>
-        <description lang="cs_CZ">YouTube je jedna z největších webových stránek světa sdílející video.</description>
-        <description lang="da_DK">YouTube er et af verdens største videodelingswebsteder.</description>
-        <description lang="de_DE">YouTube ist eines der größten Video-Sharing-Websites der Welt.</description>
-        <description lang="el_GR">Το YouTube είναι μία από τις μεγαλύτερες ιστοσελίδες διαμοιρασμού βίντεο στον κόσμο.</description>
-        <description lang="en_GB">YouTube is one of the biggest video-sharing websites of the world.</description>
-        <description lang="es_ES">YouTube es uno de los sitios web para compartir vídeos más grandes del mundo.</description>
-        <description lang="es_MX">YouTube es uno de los más grandes sitios web de intercambio de videos del mundo.</description>
-        <description lang="fi_FI">YouTube on yksi maailman suurimmista videoiden jakosivustoista.</description>
-        <description lang="fr_FR">YouTube est l'un des plus grands sites de partage vidéos du monde.</description>
-        <description lang="he_IL">YouTube הוא אחד מאתרי שיתוף הווידאו הגדולים בעולם.</description>
-        <description lang="hr_HR">YouTube je jedna od najvećih stranica za dijeljenje video sadržaja na svijetu.</description>
-        <description lang="hu_HU">A YouTube világ egyik legnagyobb videómegosztó weboldala.</description>
-        <description lang="id_ID">YouTube adalah salah satu situs web berbagi video terbesar di dunia.</description>
-        <description lang="it_IT">YouTube è uno dei più grandi siti di condivisione video del mondo.</description>
-        <description lang="ko_KR">유튜브는 세상에서 가장 큰 동영상 공유 사이트 중의 하나입니다.</description>
-        <description lang="nb_NO">YouTube er en av verdens største nettsider for videodeling.</description>
-        <description lang="nl_NL">YouTube is een van de grootste videodelenwebsite in de hele wereld.</description>
-        <description lang="pl_PL">YouTube jest jednym z największych na świecie serwisów udostępniania wideo.</description>
-        <description lang="pt_BR">O YouTube é um dos maiores sites de compartilhamento de vídeos do mundo.</description>
-        <description lang="ro_RO">YouTube este unul dintre cele mai mari saituri de distribuire de videoclipuri din lume.</description>
-        <description lang="ru_RU">YouTube - популярнейший видеохостинговый сайт, предоставляющий пользователям услуги хранения, доставки и показа видео.</description>
-        <description lang="sk_SK">YouTube je jednou z najväčších stránok na zdieľanie videa na svete.</description>
-        <description lang="sv_SE">YouTube är en av de största videodelningssajterna i världen.</description>
-        <description lang="tr_TR">YouTube, dünya üzerindeki en büyük video paylaşma platformlarından birisidir.</description>
-        <description lang="uk_UA">YouTube є одним з найбільших відеохостингів в світі.</description>
-        <description lang="vi_VN">YouTube là một trong những trang web chia sẻ video lớn nhất trên thế giới.</description>
-        <description lang="zh_CN">油管是世界上最大的视频分享网站之一。</description>
-        <description lang="zh_TW">Youtube 是全世界最大的影片分享網站。</description>
-        <disclaimer lang="cs_CZ">Tento plugin není schválen společností Google</disclaimer>
-        <disclaimer lang="da_DK">Dette plugin er ikke godkendt af Google</disclaimer>
-        <disclaimer lang="de_DE">Dieses Plugin ist nicht von Google befürwortet</disclaimer>
-        <disclaimer lang="el_GR">Η παρούσα μικροεφαρμογή δεν έχει υϊοθετηθεί από την Google</disclaimer>
-        <disclaimer lang="en_GB">This plugin is not endorsed by Google</disclaimer>
-        <disclaimer lang="es_ES">Este add-on no está respaldado por Google</disclaimer>
-        <disclaimer lang="es_MX">Este complemento no está respaldado por Google</disclaimer>
-        <disclaimer lang="fi_FI">Google ei tue tätä lisäosaa</disclaimer>
-        <disclaimer lang="fr_FR">Ce module n'est pas validé par Google</disclaimer>
-        <disclaimer lang="hr_HR">Ovaj dodatak nije podržan od strane Googlea</disclaimer>
-        <disclaimer lang="id_ID">Plugin ini tidak didukung oleh Google</disclaimer>
-        <disclaimer lang="it_IT">Questo plugin non è approvato da Google</disclaimer>
-        <disclaimer lang="ko_KR">이 플러그인은 Google의 허가를 받지 않았습니다</disclaimer>
-        <disclaimer lang="nl_NL">Deze plug-in wordt niet door Google ondersteund</disclaimer>
-        <disclaimer lang="pl_PL">Ta wtyczka nie jest zatwierdzona przez Google</disclaimer>
-        <disclaimer lang="pt_BR">Este plugin não é recomendado pelo Google</disclaimer>
-        <disclaimer lang="ro_RO">Acest modul nu este susținut de Google</disclaimer>
-        <disclaimer lang="ru_RU">Плагин не поддерживается Google</disclaimer>
-        <disclaimer lang="sk_SK">Tento doplnok nie je schválený spoločnosťou Google</disclaimer>
-        <disclaimer lang="sv_SE">Detta plugin är inte godkänt av Google</disclaimer>
-        <disclaimer lang="tr_TR">Bu eklenti Google tarafından üretilmemiştir</disclaimer>
-        <disclaimer lang="uk_UA">Цей плагін не має відношення до компанії Google</disclaimer>
-        <disclaimer lang="vi_VN">Plugin này không được xác nhận bởi Google</disclaimer>
-        <disclaimer lang="zh_CN">此插件未被谷歌认可</disclaimer>
-        <disclaimer lang="zh_TW">此附加元件未由Google支持</disclaimer>
-    <news>## v7.2.0+beta.2
-### Fixed
-- Fix audio langauge fallback selection
-  - Also correctly distinguish between original vs default audio streams
-  - Respect Kodi Prefer default audio streams setting
-    - Applies to both default audio and original audio
-- Fix search context menu items for Next Page and New Search items
-- Fix lock acquire/release logic in My Subscriptions
-- Avoid potential player request loop
-- Revert using configured language settings for player requests
-- Fix missing message argument for InvalidGrant
-- Fix incorrectly trying to refresh access tokens when no refresh tokens exist
-- Fix issues with handling duplicated and unavailable items in lists
-- Fix issues with processing channel handles
-
-### Changed
-- Further improvements to fallback window handling to minimise crashes and loss of window history
-  - Enable intercepting and redirecting PlayMedia calls
-  - Improve handling of search keyboard input when navigating through window history
-    - Also allow bookmarks/favourites to be created for Quick Search
-    - Remove need to store search query in data cache
-    - Improve handling of searching for YouTube urls
-- Store modified date from player requests as publishedAt for local history
-- Update player request client details
-- Reorganise video item context menu
-
-### New
-- Allow channels and playlists to be played from Info dialog
-- Add IPv6 support for http server
-- Show total number of uploads, shorts and live videos in channel playlists
-- Add support for more chan</news></extension>
 </addon><addon id="program.easyplayerswitch" name="Easy Player Switch" provider-name="DigiTalking" version="1.1.0">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
@@ -1319,48 +1130,6 @@ Random updates by lolage.
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="repository.thecrew" name="[COLOR orchid]THE CREW REPO[/COLOR]" provider-name="The Crew" version="0.3.7">
-	<extension point="xbmc.addon.repository" name="The Crew">
-			<dir minversion="18.9.9">
-			<info compressed="false">https://raw.githubusercontent.com/thecrewwh/zips/master/matrix/_zip/addons.xml</info>
-			<checksum>https://raw.githubusercontent.com/thecrewwh/zips/master//matrix/_zip/addons.xml.md5</checksum>
-			<datadir zip="true">https://raw.githubusercontent.com/thecrewwh/zips/master//matrix/_zip</datadir>
-			</dir>
-			<dir>
-			<info compressed="false">https://raw.githubusercontent.com/Gujal00/smrzips/master/addons.xml</info>
-			<checksum>https://raw.githubusercontent.com/Gujal00/smrzips/master/addons.xml.md5</checksum>
-			<datadir zip="true">https://raw.githubusercontent.com/Gujal00/smrzips/master/zips/</datadir>
-			</dir>
-			<dir>
-			<info compressed="false">https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips/addons.xml</info>
-			<checksum>https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips/addons.xml.md5</checksum>
-			<datadir zip="true">https://raw.githubusercontent.com/unhingedthemes/zips/main/_zips/</datadir>
-			</dir>
-			<dir>
-			<info compressed="false">https://github.com/OldManJax/repository.animaniac/raw/master/addons.xml</info>
-			<checksum>https://github.com/OldManJax/repository.animaniac/raw/master/addons.xml.md5</checksum>
-			<datadir zip="true">https://github.com/OldManJax/repository.animaniac/raw/master/</datadir>
-			</dir>
-			<dir>
-			<info compressed="false">https://raw.githubusercontent.com/dobbelina/repository.dobbelina/master/addons.xml</info>
-			<checksum>https://raw.githubusercontent.com/dobbelina/repository.dobbelina/master/addons.xml.md5</checksum>
-			<datadir zip="true">https://raw.githubusercontent.com/dobbelina/repository.dobbelina/master/</datadir>
-			</dir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary lang="en">The Crew is a team of individuals that does what it can to provide others, you the best in entertainment.</summary>
-		<description lang="en">Many come, Many go. The true and dedicated are here. We here</description>
-		<platform>all</platform>
-		<license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
-		<disclaimer lang="en">The author of this addon do not host any of the content which is found and have no affiliation with any of the content providers. This addon simply searches websites for content. Use at your own risk!</disclaimer>
-		<assets>
-			<icon>icon.png</icon>
-			<fanart>fanart.jpg</fanart>
-			<screenshot>resources/art/ss/1.png</screenshot>
-			<screenshot>resources/art/ss/2.png</screenshot>
-			<screenshot>resources/art/ss/3.png</screenshot>
-		</assets>
-	</extension>
 </addon><addon id="repository.wod" name="Wrestling Repository" version="2.1" provider-name="WOD">
 	<extension point="xbmc.addon.repository" name="Wrestling Repository">
 		<dir>
@@ -1632,53 +1401,6 @@ Random updates by lolage.
 	<icon>icon.png</icon>
     </assets>
   </extension>
-</addon><addon id="script.extendedinfo" name="  [B][COLOR white]Extended Info-Diamond_MOD[/COLOR][/B]" version="420.8.94" provider-name="fryhenryj">
-	<requires>
-		<import addon="xbmc.python" version="3.0.0" />
-		<import addon="repository.jurialmunkey" version="2.2" optional="true" />
-		<import addon="plugin.video.youtube" version="6.8.11+matrix.1" />
-		<import addon="script.module.requests" version="2.25.1+matrix.1" />
-		<import addon="script.module.infotagger" version="0.0.1" optional="true" />
-		<import addon="script.skin.helper.service" version="1.1.3" />
-		<import addon="resource.images.studios.white" version="0.0.28" />
-		<import addon="script.module.pil" version="0.6.0" />
-		<import addon="script.module.musicbrainz" version="0.6.0" />
-		<import addon="script.module.arrow" version="1.0.3.1" />
-		<import addon="script.module.dateutil" version="2.8.1" />
-		<import addon="script.module.typing_extensions" version="3.7.4.3" />
-		<import addon="script.module.simplecache" version="1.0.0" />
-		<import addon="script.module.beautifulsoup4" version="4.6.3+matrix.1" />
-		<import addon="plugin.video.themoviedb.helper" version="4.4.6" />
-		<import addon="plugin.program.autocompletion" version="2.0.2" optional="true" />
-	</requires>
-	<extension point="xbmc.python.pluginsource" library="plugin.py">
-		<provides>video</provides>
-	</extension>
-	<extension point="xbmc.python.script" library="script.py" />
-	<extension point="kodi.context.item">
-		<menu id="kodi.core.main">
-		</menu>
-	</extension>
-	
-	<extension point="xbmc.python.library" library="service2.py" />
-	<extension point="xbmc.addon.metadata">
-		<reuselanguageinvoker>true</reuselanguageinvoker>
-		<platform>all</platform>
-		<summary>Diamond Info (EIM)</summary>
-		<description>This script offers various possibilities to display online content inside skins as well as a complete MovieDB browser including info dialogs for various media types. Needs skin implementation for lot of functions and Diamond Player for library functions.</description>
-		<assets>
-			<icon>icon.png</icon>
-			<fanart>fanart.jpg</fanart>
-			<screenshot>resources/screenshot1.jpg</screenshot>
-			<screenshot>resources/screenshot2.jpg</screenshot>
-			<screenshot>resources/screenshot3.jpg</screenshot>
-		</assets>
-		<news>6.2.3 - Fix TV Show trailers
-		6.2.2 - Added ability to search using the tvdb_id for "extendedepisodeinfo"
-		6.2.1 - Fix context menu now available for widgets pointing to Diamond Info's video addon items
-		6.2.0 - Added context menu force "player select" to the play button, available via "c" and long press "enter" button
-		</news>
-	</extension>
 </addon><addon id="script.ezmaintenanceplus" name="EZ Maintenance+" version="92023.01.09.0" provider-name="aenema, peno">
   <requires>
     <import addon="script.module.requests" version="1.0.0" />
@@ -1801,24 +1523,6 @@ Random updates by lolage.
 			<fanart />
 		</assets>
     </extension>
-</addon><addon id="script.module.xenonpluss" name="Xenon Plus Flavors" version="426" provider-name="Zaxxon709">
-	<requires>
-		<import addon="xbmc.python" version="3.0.0" />
-	</requires>
-	<extension point="xbmc.python.pluginsource" library="addon.py">
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary lang="en_GB">Diggz Xenon Plus Flavors</summary>
-		<description lang="en_GB">Kodi 21</description>
-		<disclaimer lang="en_GB">This Addon contains no content</disclaimer>
-		<language>en</language>
-		<platform>all</platform>
-		<license>GPL-2.0-or-later</license>
-		<forum />
-		<website /> 
-		<email />
-		<source />
-	</extension>
 </addon><addon id="script.moviequiz" name="Movie Quiz" version="2.0.0" provider-name="twinther, seveerekaj">
     <requires>
         <import addon="xbmc.python" version="3.0.1" />

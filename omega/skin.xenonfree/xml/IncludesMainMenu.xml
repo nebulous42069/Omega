@@ -775,7 +775,6 @@
         <onload>Skin.SetString(HomeItem.1.Display,Default)</onload>
         <onload>Skin.SetString(HomeItem.1.WidgetFormat,-)</onload>
 		<onload>Skin.SetString(HomeItem.1.WidgetLayout,Small)</onload>
-		<onload>ActivateWindow(2135)</onload>
     </include>
 	
 	
