@@ -457,7 +457,7 @@ msgid "[COLOR FFA0C12C]-- Disable ONLY if you do not use Trakt --[/COLOR]"
 msgstr ""
 
 msgctxt "#40094"
-msgid "[COLOR FFA0C12C]-- Enable to auto-sync supported add-ons at start-up --[/COLOR]"
+msgid "[COLOR FFA0C12C]-- Enable to auto-sync supported add-ons--[/COLOR]"
 msgstr ""
 
 msgctxt "#40097"
@@ -497,7 +497,7 @@ msgid "[COLOR FFA0C12C]-- Auto Backup data during authorization/sync actions--[/
 msgstr ""
 
 msgctxt "#40106"
-msgid "[COLOR FFA0C12C]-- Builders can add they own Custom Trakt keys here --[/COLOR]"
+msgid "[COLOR FFA0C12C]-- Builders can add their own Custom Trakt keys here --[/COLOR]"
 msgstr """
 
 msgctxt "#40107"
@@ -531,3 +531,39 @@ msgstr ""
 msgctxt "#40114"
 msgid "Total TV Watched = [B]%s[/B]"
 msgstr ""
+
+msgctxt "#40115"
+msgid "Offcloud UserID"
+msgstr ""
+
+msgctxt "#40116"
+msgid "TorBox API"
+msgstr ""
+
+msgctxt "#40117"
+msgid "-- Last Backup Completed --"
+msgstr ""
+
+msgctxt "#40118"
+msgid "[COLOR FFA0C12C] -- Authorization Help --[/COLOR]"
+msgstr ""
+
+msgctxt "#40119"
+msgid "[COLOR FFA0C12C]-- View Supported External Scrapers --[/COLOR]"
+msgstr ""
+
+msgctxt "#40120"
+msgid "[COLOR FFA0C12C]-- View Supported TorBox Add-ons --[/COLOR]"
+msgstr ""
+
+msgctxt "#40121"
+msgid "[COLOR FFA0C12C]-- View Supported Add-ons --[/COLOR]"
+msgstr ""
+
+msgctxt "#40122"
+msgid "[COLOR FFA0C12C]-- View Supported Easy Debrid Add-ons --[/COLOR]"
+msgstr ""
+
+
+
+
