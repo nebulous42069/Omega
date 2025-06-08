@@ -148,11 +148,11 @@
             <fanart>fanart.jpg</fanart>
     </assets>
   </extension>
-</addon><addon id="plugin.program.chef21" name="[B][COLOR chartreuse]Chef Omega Wizard[/COLOR][/B]" version="486" provider-name="Diggz">
+</addon><addon id="plugin.program.chef21" name="[B][COLOR chartreuse]Chef Omega Wizard[/COLOR][/B]" version="487" provider-name="Diggz">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0" />
 		<import addon="script.module.accountmgr" />
-		<import addon="script.module.acctview" />		
+		<import addon="script.module.acctview" />
 	</requires>
 	<extension point="xbmc.python.pluginsource" library="addon.py">
 		<provides>executable</provides>
