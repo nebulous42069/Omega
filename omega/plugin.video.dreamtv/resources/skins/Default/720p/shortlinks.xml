@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<window>
+	<animation effect="zoom" delay="0" time="1000" start="0" end="100" center="640,0">WindowOpen</animation>
+	<animation effect="zoom" delay="0" time="1000" start="100" end="0" center="640,720">WindowClose</animation>
+	
+    <defaultcontrol>201</defaultcontrol>
+	<zorder>2</zorder>
+	<coordinates>
+		<system>1</system>
+		<posx>0</posx>
+		<posy>0</posy>
+	</coordinates>
+    <controls>
+        <control type="image">
+            <description>Dialog Background</description>
+            <posx>200</posx>
+			<posy>125</posy>
+            <width>860</width>
+            <height>415</height>
+            <texture>tables_background.jpg</texture>
+            <aligny>center</aligny>
+        </control>
+		
+		<control type="image">
+			<description>Window Banner</description>
+			<posx>200</posx>
+            <posy>125</posy>
+            <width>860</width>
+            <height>100</height>
+			<texture>tables_header.jpg</texture>
+		</control>
+		
+		<control type="label" id="100">
+            <description>Caption</description>
+            <posx>56</posx>
+            <posy>490</posy>
+            <width>1120</width>
+            <height>50</height>
+            <font>tvg_font13</font>
+            <textcolor>FFFFFFFF</textcolor>
+            <aligny>center</aligny>
+            <align>center</align>
+			<scroll>true</scroll>
+        </control>
+		
+        <control type="textbox" id="200">
+            <posx>525</posx>
+            <posy>280</posy>
+            <width>700</width>
+            <height>300</height>
+            <pagecontrol>201</pagecontrol>
+            <font>font30</font>
+            <textcolor>FFFFFFFF</textcolor>
+        </control>
+		
+        <control type="textbox" id="300">
+            <posx>525</posx>
+            <posy>360</posy>
+            <width>700</width>
+            <height>300</height>
+            <pagecontrol>201</pagecontrol>
+            <font>font30</font>
+            <textcolor>FFFFFFFF</textcolor>
+        </control>
+		
+        <control type="label">
+                    <description>text</description>
+                    <posx>325</posx>
+                    <posy>280</posy>
+                    <width>200</width>
+                    <height>300</height>
+                    <label>M3U URL : </label>
+                    <textcolor>ffffffff</textcolor>
+                    <font>font30</font>
+        </control>
+        <control type="label">
+                    <description>text</description>
+                    <posx>325</posx>
+                    <posy>360</posy>
+                    <width>200</width>
+                    <height>300</height>
+                    <label>EPG URL  : </label>
+                    <textcolor>ffffffff</textcolor>
+                    <font>font30</font>
+        </control>
+    </controls>
+</window>

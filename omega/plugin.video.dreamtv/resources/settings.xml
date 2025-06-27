@@ -1,0 +1,10 @@
+<settings>
+    <category label="General">
+        <setting id="meta" type="bool" label="Enable Metadata" default="false"/>
+        <setting id="hidexxx" type="bool" label="Hide Adult Content" default="true"/>
+        <setting id="xxx_pwset" type="bool" label="Password Protect Adult Content" default="false"/>
+        <setting id="xxx_pw" type="text" label="Adult Content Password" option="hidden" default="321.G.rM" enable="!eq(-1,false)"/>
+        <setting id="dns_unblock" type="bool" label="DNS Unblock" default="false"/>
+		<setting id="dns_resolver" type="text" label="DNS Resolver" default="1.1.1.1" />
+    </category>
+</settings>
