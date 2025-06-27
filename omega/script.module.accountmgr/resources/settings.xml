@@ -25,20 +25,6 @@
 		<setting type="action" label="32316" option="close" action="RunScript(script.module.accountmgr, action=alldebridAcct)" visible="!eq(-2,)" />
 		<setting type="action" label="32319" option="close" action="RunScript(script.module.accountmgr, action=alldebridAuth)" visible="eq(-4,)" />
 
-		<setting type="lsep" label="Trakt" />
-		<setting id="trakt.token" type="text" visible="false" label="" default="" />
-		<setting id="trakt.refresh" type="text" visible="false" label="" default="" />
-		<setting id="trakt.expires" type="text" visible="false" label="" default="" />
-		<setting id="devuserkey.enabled" type="bool" visible="false" label="" default="false" />
-		<setting id="traktuserkey.enabled" type="bool" visible="eq(-1,false)" label="40090" default="false" />
-		<setting id="trakt.client.id" type="text" visible="eq(-1,true) + eq(4,)" label="40089" default="" />
-		<setting id="trakt.client.secret" type="text" visible="eq(-2,true)+ eq(3,)" label="40088" default="" />
-		<setting id="trakt.synclist" type="text" visible="false" label="" default="false" />
-		<setting type="action" label="Edit Sync List" option="close" action="RunScript(script.module.accountmgr, action=traktReSyncList)" visible="!eq(-8,) + eq(-1,true)" />
-		<setting type="action" label="Authorize" option="close" action="RunScript(script.module.accountmgr, action=traktAuth)" visible="eq(-9,) + eq(-2,false)" />
-		<setting id="trakt.username" type="text" default="" label="40062" enable="false" visible="!eq(-10,)" />
-		<setting type="action" label="32316" option="close" action="RunScript(script.module.accountmgr, action=traktAcct)" visible="!eq(-11,)" />
-
 		<setting type="lsep" label="TorBox" />
 		<setting id="torbox.enabled" type="bool" visible="true" label="Enable" default="false" />
 		<setting id="torbox.token" type="text" label="TorBox API Key" enable="false" default="" visible="eq(-1,true) + !eq(1,)" />
@@ -121,12 +107,6 @@
 		<setting type="action" label="Sync Add-ons" option="close" action="RunScript(script.module.accountmgr, action=alldebridReSync)"  visible="!eq(-2,)" />
 		<setting type="action" label="Revoke" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=addondebrid_ad&name=all)"  visible="!eq(-3,)" />
 
-		<setting type="lsep" label="Trakt" />
-		<setting id="trakt.username" label="" type="text" default="" visible="false" enable="false" />
-		<setting type="action" label="View Authorizations" option="close" action="ActivateWindow(10001,plugin://script.module.acctview/?mode=trakt,return)" visible="!eq(-1,)" />
-		<setting type="action" label="Sync Add-ons" option="close" action="RunScript(script.module.accountmgr, action=traktReSync)" visible="!eq(-2,)" />
-		<setting type="action" label="Revoke" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=addontrakt&name=all)" visible="!eq(-3,)" />
-
 		<setting type="lsep" label="TorBox" />
 		<setting id="torbox.enabled" type="bool" visible="false" label="" default="false" />
 		<setting id="torbox.token" label="" type="text" default="" visible="false" enable="false" />
@@ -195,13 +175,6 @@
 		<setting type="action" label="Restore Saved Data" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=restoredebrid_ad&name=all)"  visible="true" />
 		<setting type="action" label="Clear Saved Data" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=cleardebrid_ad&name=all)"  visible="true" />
 		<setting id="ad_backup_date" type="text" default="Date: 0000-00-00   Time: 00:00" label="40117" enable="false" visible="true" />
-
-		<setting type="lsep" label="Trakt" />
-		<setting id="trakt.username" label="" type="text" default="" visible="false" enable="false" />
-		<setting type="action" label="Backup Data" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=savetrakt_acctmgr&name=all)" visible="!eq(-1,)" />
-		<setting type="action" label="Restore Saved Data" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=restoretrakt&name=all)" visible="true" />
-		<setting type="action" label="Clear Saved Data" option="close" action="PlayMedia(plugin://script.module.acctview/?mode=cleartrakt&name=all)" visible="true" />
-		<setting id="tk_backup_date" type="text" default="Date: 0000-00-00   Time: 00:00" label="40117" enable="false" visible="true" />
 
 		<setting type="lsep" label="TorBox" />
 		<setting id="torbox.enabled" type="bool" visible="false" label="" default="false" />
@@ -283,7 +256,6 @@
 		<setting type="lsep" label="Auto-Sync Supported Add-ons" />
 		<setting label="40108" type="action" action="RunScript(script.module.accountmgr, action=ShowHelpServiceSync)" visible="true" />
       		<setting id="api.service" type="bool" visible="false" label="" default="" />
-      		<setting id="sync.tk.service"  type="bool" label="Trakt" visible="true" default="false"/>
       		<setting id="sync.rd.service"  type="bool" label="Real-Debrid" visible="true" default="false"/>
       		<setting id="sync.pm.service"  type="bool" label="Premiumize" visible="true" default="false"/>
       		<setting id="sync.ad.service"  type="bool" label="All-Debrid" visible="true" default="false"/>
@@ -296,11 +268,6 @@
       		<setting id="sync.ext.service" type="bool" label="External Scrapers" visible="true" default="false"/>
 	</category>
 	<category label="Advanced">
-		<setting type="lsep" label="Persistent Trakt Keys For Builders" />
-		<setting id="traktuserkey.enabled" type="bool" visible="false" label="" default="false" />
-		<setting id="devuserkey.enabled" type="bool" visible="eq(-1,false)" label="40107" default="false" />
-		<setting id="dev.client.id" type="text" option="hidden" visible="eq(-1,true)" label="40089" default="" />
-		<setting id="dev.client.secret" type="text" option="hidden" visible="eq(-2,true)" label="40088" default="" />
         	<setting label="40108" type="action" action="RunScript(script.module.accountmgr, action=ShowHelpCustom)" visible="true" />
 		<setting type="lsep" label="Restore All Add-ons To Default" />
 		<setting type="action" label="Restore To Default Settings" option="close" action="RunScript(script.module.accountmgr, action=resetSettings)" visible="true" />
@@ -309,7 +276,6 @@
 	<category label="Info">
 		<setting type="lsep" label="Supported Add-ons & Scrapers" />
 		<setting label="40099" type="action" action="RunScript(script.module.accountmgr, action=ShowSupported_Debrid)" />
-		<setting label="40098" type="action" action="RunScript(script.module.accountmgr, action=ShowSupported_Trakt)" />
 		<setting label="40120" type="action" action="RunScript(script.module.accountmgr, action=ShowSupported_Torbox)" />
 		<setting label="40122" type="action" action="RunScript(script.module.accountmgr, action=ShowSupported_Easydebrid)" />
 		<setting label="40100" type="action" action="RunScript(script.module.accountmgr, action=ShowSupported_Offcloud)" />
