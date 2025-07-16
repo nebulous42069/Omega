@@ -1,49 +1,6 @@
-<!-- Added iVue Fonts -->
 <?xml version="1.0" encoding="UTF-8"?>
 <fonts>
-    <fontset id="Default" idloc="31390">
-
-		<font>
-			<name>ivuefont12</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>25</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont13</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>30</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont14</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>33</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont16</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>35</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont30</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>42</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont45</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>45</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont_clock</name>
-			<filename>Roboto-Thin.ttf</filename>
-			<size>70</size>
-		</font>
+    <fontset id="Default" idloc="31390">
         <!-- Normal Fonts -->
         <font>
             <name>font10</name>
@@ -138,49 +95,7 @@
             <size>120</size>
         </font>
     </fontset>
-    <fontset id="Massive" idloc="15110">
-
-		<font>
-			<name>ivuefont12</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>25</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont13</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>30</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont14</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>33</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont16</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>35</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont30</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>42</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont45</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>45</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont_clock</name>
-			<filename>Roboto-Thin.ttf</filename>
-			<size>70</size>
-		</font>
+    <fontset id="Massive" idloc="15110">
         <!-- Normal Fonts -->
         <font>
             <name>font10</name>
@@ -255,13 +170,13 @@
         </font>
         <font>
             <name>font_MainMenu</name>
-            <filename>destructobeambb_reg.ttf</filename>
-            <size>60</size>
+            <filename>Roboto-Bold.ttf</filename>
+            <size>55</size>
         </font>
 		<font>
             <name>font_MainMenuUpper</name>
-            <filename>destructobeambb_reg.ttf</filename>
-            <size>60</size>
+            <filename>Roboto-Bold.ttf</filename>
+            <size>55</size>
 			<style>uppercase</style>
         </font>
         <font>
@@ -270,49 +185,7 @@
             <size>120</size>
         </font>
     </fontset>
-    <fontset id="DefaultNoCaps" idloc="31391">
-
-		<font>
-			<name>ivuefont12</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>25</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont13</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>30</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont14</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>33</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont16</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>35</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont30</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>42</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont45</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>45</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont_clock</name>
-			<filename>Roboto-Thin.ttf</filename>
-			<size>70</size>
-		</font>
+    <fontset id="DefaultNoCaps" idloc="31391">
         <!-- Normal Fonts -->
         <font>
             <name>font10</name>
@@ -388,12 +261,12 @@
         <font>
             <name>font_MainMenu</name>
             <filename>destructobeambb_reg.ttf</filename>
-            <size>60</size>
+            <size>55</size>
         </font>
 		<font>
             <name>font_MainMenuUpper</name>
             <filename>destructobeambb_reg.ttf</filename>
-            <size>60</size>
+            <size>55</size>
 			<style>uppercase</style>
         </font>
         <font>
@@ -402,49 +275,7 @@
             <size>120</size>
         </font>
     </fontset>
-    <fontset id="Arial" idloc="31392">
-
-		<font>
-			<name>ivuefont12</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>25</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont13</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>30</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont14</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>33</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont16</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>35</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont30</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>42</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont45</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>45</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont_clock</name>
-			<filename>Roboto-Thin.ttf</filename>
-			<size>70</size>
-		</font>
+    <fontset id="Arial" idloc="31392">
         <!-- Arial Font better for non English -->
         <font>
             <name>font10</name>
@@ -526,13 +357,13 @@
         </font>
         <font>
             <name>font_MainMenu</name>
-            <filename>destructobeambb_reg.ttf</filename>
+            <filename>arial.ttf</filename>
             <size>52</size>
             <style>bold</style>
         </font>
 		<font>
             <name>font_MainMenuUpper</name>
-            <filename>destructobeambb_reg.ttf</filename>
+            <filename>arial.ttf</filename>
             <size>52</size>
             <style>bold uppercase</style>
         </font>
@@ -543,49 +374,7 @@
             <style>bold</style>
         </font>
     </fontset>
-    <fontset id="LargeFont" idloc="31393" unicode="true">
-
-		<font>
-			<name>ivuefont12</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>25</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont13</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>30</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont14</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>33</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont16</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>35</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont30</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>42</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont45</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>45</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont_clock</name>
-			<filename>Roboto-Thin.ttf</filename>
-			<size>70</size>
-		</font>
+    <fontset id="LargeFont" idloc="31393" unicode="true">
         <!-- Normal Fonts -->
         <font>
             <name>font10</name>
@@ -660,12 +449,12 @@
         </font>
         <font>
             <name>font_MainMenu</name>
-            <filename>destructobeambb_reg.ttf</filename>
+            <filename>Massive.ttf</filename>
             <size>66</size>
         </font>
 		<font>
             <name>font_MainMenuUpper</name>
-            <filename>destructobeambb_reg.ttf</filename>
+            <filename>Massive.ttf</filename>
             <size>66</size>
 			<style>uppercase</style>
         </font>
@@ -675,49 +464,7 @@
             <size>129</size>
         </font>
     </fontset>
-    <fontset id="Ubuntu Normal" idloc="31270">
-
-		<font>
-			<name>ivuefont12</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>25</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont13</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>30</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont14</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>33</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont16</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>35</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont30</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>42</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont45</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>45</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont_clock</name>
-			<filename>Roboto-Thin.ttf</filename>
-			<size>70</size>
-		</font>
+    <fontset id="Ubuntu Normal" idloc="31270">
         <!-- Normal Fonts -->
         <font>
             <name>font10</name>
@@ -792,13 +539,13 @@
         </font>
         <font>
             <name>font_MainMenu</name>
-            <filename>destructobeambb_reg.ttf</filename>
-            <size>66</size>
+            <filename>Ubuntu-M.ttf</filename>
+            <size>60</size>
         </font>
 		<font>
             <name>font_MainMenuUpper</name>
-            <filename>destructobeambb_reg.ttf</filename>
-            <size>66</size>
+            <filename>Ubuntu-M.ttf</filename>
+            <size>60</size>
 			<style>uppercase</style>
         </font>
         <font>
@@ -807,49 +554,7 @@
             <size>129</size>
         </font>
     </fontset>
-    <fontset id="Ubuntu Bold" idloc="31271">
-
-		<font>
-			<name>ivuefont12</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>25</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont13</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>30</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont14</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>33</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont16</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>35</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont30</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>42</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont45</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>45</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont_clock</name>
-			<filename>Roboto-Thin.ttf</filename>
-			<size>70</size>
-		</font>
+    <fontset id="Ubuntu Bold" idloc="31271">
         <!-- Normal Fonts -->
         <font>
             <name>font10</name>
@@ -924,13 +629,13 @@
         </font>
         <font>
             <name>font_MainMenu</name>
-            <filename>destructobeambb_reg.ttf</filename>
-            <size>66</size>
+            <filename>Ubuntu-B.ttf</filename>
+            <size>60</size>
         </font>
 		<font>
             <name>font_MainMenuUpper</name>
-            <filename>destructobeambb_reg.ttf</filename>
-            <size>66</size>
+            <filename>Ubuntu-B.ttf</filename>
+            <size>60</size>
 			<style>uppercase</style>
         </font>
         <font>
@@ -939,517 +644,4 @@
             <size>129</size>
         </font>
     </fontset>
-	<fontset id="skin.confluence Default">
-
-		<font>
-			<name>ivuefont12</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>25</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont13</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>30</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont14</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>33</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont16</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>35</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont30</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>42</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont45</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>45</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont_clock</name>
-			<filename>Roboto-Thin.ttf</filename>
-			<size>70</size>
-		</font>
-		<!-- Normal Fonts -->
-		<font>
-			<name>font10</name>
-			<filename>skin.confluence/Roboto-Regular.ttf</filename>
-			<size>21.0</size>
-		</font>
-		<font>
-			<name>font12</name>
-			<filename>skin.confluence/Roboto-Regular.ttf</filename>
-			<size>25.0</size>
-		</font>
-		<font>
-			<name>font13</name>
-			<filename>skin.confluence/Roboto-Regular.ttf</filename>
-			<size>30.0</size>
-		</font>
-		<font>
-			<name>font14</name>
-			<filename>skin.confluence/Roboto-Regular.ttf</filename>
-			<size>33.0</size>
-		</font>
-		<font>
-			<name>font16</name>
-			<filename>skin.confluence/Roboto-Regular.ttf</filename>
-			<size>37.0</size>
-		</font>
-		<font>
-			<name>font30</name>
-			<filename>skin.confluence/Roboto-Regular.ttf</filename>
-			<size>45.0</size>
-		</font>
-		<font>
-			<name>fontContextMenu</name>
-			<filename>skin.confluence/Roboto-Regular.ttf</filename>
-			<size>27.0</size>
-		</font>
-		<!-- Title Fonts -->
-		<font>
-			<name>font10_title</name>
-			<filename>skin.confluence/Roboto-Bold.ttf</filename>
-			<size>18.0</size>
-		</font>
-		<font>
-			<name>font12_title</name>
-			<filename>skin.confluence/Roboto-Bold.ttf</filename>
-			<size>25.0</size>
-		</font>
-		<font>
-			<name>font13_title</name>
-			<filename>skin.confluence/Roboto-Bold.ttf</filename>
-			<size>30.0</size>
-		</font>
-		<font>
-			<name>font24_title</name>
-			<filename>skin.confluence/Roboto-Bold.ttf</filename>
-			<size>36.0</size>
-		</font>
-		<font>
-			<name>font28_title</name>
-			<filename>skin.confluence/Roboto-Bold.ttf</filename>
-			<size>42.0</size>
-		</font>
-		<font>
-			<name>font30_title</name>
-			<filename>skin.confluence/Roboto-Bold.ttf</filename>
-			<size>45.0</size>
-		</font>
-		<font>
-			<name>font35_title</name>
-			<filename>skin.confluence/Roboto-Bold.ttf</filename>
-			<size>52.0</size>
-		</font>
-		<font>
-			<name>font_MainMenu</name>
-			<filename>skin.confluence/Roboto-Bold.ttf</filename>
-			<size>60.0</size>
-		</font>
-		<font>
-			<name>WeatherTemp</name>
-			<filename>skin.confluence/Roboto-Bold.ttf</filename>
-			<size>120.0</size>
-		</font>
-	</fontset>
-	<fontset id="skin.confluence Massive">
-
-		<font>
-			<name>ivuefont12</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>25</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont13</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>30</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont14</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>33</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont16</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>35</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont30</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>42</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont45</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>45</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont_clock</name>
-			<filename>Roboto-Thin.ttf</filename>
-			<size>70</size>
-		</font>
-		<!-- Normal Fonts -->
-		<font>
-			<name>font10</name>
-			<filename>skin.confluence/Roboto-Regular.ttf</filename>
-			<size>21.0</size>
-		</font>
-		<font>
-			<name>font12</name>
-			<filename>skin.confluence/Roboto-Regular.ttf</filename>
-			<size>34.0</size>
-		</font>
-		<font>
-			<name>font13</name>
-			<filename>skin.confluence/Roboto-Regular.ttf</filename>
-			<size>37.0</size>
-		</font>
-		<font>
-			<name>font14</name>
-			<filename>skin.confluence/Roboto-Regular.ttf</filename>
-			<size>37.0</size>
-		</font>
-		<font>
-			<name>font16</name>
-			<filename>skin.confluence/Roboto-Regular.ttf</filename>
-			<size>37.0</size>
-		</font>
-		<font>
-			<name>font30</name>
-			<filename>skin.confluence/Roboto-Regular.ttf</filename>
-			<size>45.0</size>
-		</font>
-		<font>
-			<name>fontContextMenu</name>
-			<filename>skin.confluence/Roboto-Regular.ttf</filename>
-			<size>37.0</size>
-		</font>
-		<!-- Title Fonts -->
-		<font>
-			<name>font10_title</name>
-			<filename>skin.confluence/Roboto-Bold.ttf</filename>
-			<size>18.0</size>
-		</font>
-		<font>
-			<name>font12_title</name>
-			<filename>skin.confluence/Roboto-Bold.ttf</filename>
-			<size>25.0</size>
-		</font>
-		<font>
-			<name>font13_title</name>
-			<filename>skin.confluence/Roboto-Bold.ttf</filename>
-			<size>30.0</size>
-		</font>
-		<font>
-			<name>font24_title</name>
-			<filename>skin.confluence/Roboto-Bold.ttf</filename>
-			<size>36.0</size>
-		</font>
-		<font>
-			<name>font28_title</name>
-			<filename>skin.confluence/Roboto-Bold.ttf</filename>
-			<size>42.0</size>
-		</font>
-		<font>
-			<name>font30_title</name>
-			<filename>skin.confluence/Roboto-Bold.ttf</filename>
-			<size>45.0</size>
-		</font>
-		<font>
-			<name>font35_title</name>
-			<filename>skin.confluence/Roboto-Bold.ttf</filename>
-			<size>52.0</size>
-		</font>
-		<font>
-			<name>font_MainMenu</name>
-			<filename>skin.confluence/Roboto-Bold.ttf</filename>
-			<size>60.0</size>
-		</font>
-		<font>
-			<name>WeatherTemp</name>
-			<filename>skin.confluence/Roboto-Bold.ttf</filename>
-			<size>120.0</size>
-		</font>
-	</fontset>
-	<fontset id="skin.confluence DefaultNoCaps">
-
-		<font>
-			<name>ivuefont12</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>25</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont13</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>30</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont14</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>33</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont16</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>35</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont30</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>42</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont45</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>45</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont_clock</name>
-			<filename>Roboto-Thin.ttf</filename>
-			<size>70</size>
-		</font>
-		<!-- Normal Fonts -->
-		<font>
-			<name>font10</name>
-			<filename>skin.confluence/Roboto-Regular.ttf</filename>
-			<size>21.0</size>
-		</font>
-		<font>
-			<name>font12</name>
-			<filename>skin.confluence/Roboto-Regular.ttf</filename>
-			<size>25.0</size>
-		</font>
-		<font>
-			<name>font13</name>
-			<filename>skin.confluence/Roboto-Regular.ttf</filename>
-			<size>30.0</size>
-		</font>
-		<font>
-			<name>font14</name>
-			<filename>skin.confluence/Roboto-Regular.ttf</filename>
-			<size>33.0</size>
-		</font>
-		<font>
-			<name>font16</name>
-			<filename>skin.confluence/Roboto-Regular.ttf</filename>
-			<size>37.0</size>
-		</font>
-		<font>
-			<name>font30</name>
-			<filename>skin.confluence/Roboto-Regular.ttf</filename>
-			<size>45.0</size>
-		</font>
-		<font>
-			<name>fontContextMenu</name>
-			<filename>skin.confluence/Roboto-Regular.ttf</filename>
-			<size>27.0</size>
-		</font>
-		<!-- Title Fonts -->
-		<font>
-			<name>font10_title</name>
-			<filename>skin.confluence/Roboto-Bold.ttf</filename>
-			<size>18.0</size>
-		</font>
-		<font>
-			<name>font12_title</name>
-			<filename>skin.confluence/Roboto-Bold.ttf</filename>
-			<size>25.0</size>
-		</font>
-		<font>
-			<name>font13_title</name>
-			<filename>skin.confluence/Roboto-Bold.ttf</filename>
-			<size>30.0</size>
-		</font>
-		<font>
-			<name>font24_title</name>
-			<filename>skin.confluence/Roboto-Bold.ttf</filename>
-			<size>36.0</size>
-		</font>
-		<font>
-			<name>font28_title</name>
-			<filename>skin.confluence/Roboto-Bold.ttf</filename>
-			<size>42.0</size>
-		</font>
-		<font>
-			<name>font30_title</name>
-			<filename>skin.confluence/Roboto-Bold.ttf</filename>
-			<size>45.0</size>
-		</font>
-		<font>
-			<name>font35_title</name>
-			<filename>skin.confluence/Roboto-Bold.ttf</filename>
-			<size>52.0</size>
-		</font>
-		<font>
-			<name>font_MainMenu</name>
-			<filename>skin.confluence/Roboto-Bold.ttf</filename>
-			<size>60.0</size>
-		</font>
-		<font>
-			<name>WeatherTemp</name>
-			<filename>skin.confluence/Roboto-Bold.ttf</filename>
-			<size>120.0</size>
-		</font>
-	</fontset>
-	<fontset id="skin.confluence Arial">
-
-		<font>
-			<name>ivuefont12</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>25</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont13</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>30</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont14</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>33</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont16</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>35</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont30</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>42</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont45</name>
-			<filename>NotoSans-Regular.ttf</filename>
-			<size>45</size>
-			<style>lighten</style>
-		</font>
-		<font>
-			<name>ivuefont_clock</name>
-			<filename>Roboto-Thin.ttf</filename>
-			<size>70</size>
-		</font>
-		<!-- Arial Font better for non English -->
-		<font>
-			<name>font10</name>
-			<filename>skin.confluence/arial.ttf</filename>
-			<size>18.0</size>
-		</font>
-		<font>
-			<name>font12</name>
-			<filename>skin.confluence/arial.ttf</filename>
-			<size>22.0</size>
-		</font>
-		<font>
-			<name>font13</name>
-			<filename>skin.confluence/arial.ttf</filename>
-			<size>27.0</size>
-		</font>
-		<font>
-			<name>font14</name>
-			<filename>skin.confluence/arial.ttf</filename>
-			<size>30.0</size>
-		</font>
-		<font>
-			<name>font16</name>
-			<filename>skin.confluence/arial.ttf</filename>
-			<size>34.0</size>
-		</font>
-		<font>
-			<name>font30</name>
-			<filename>skin.confluence/arial.ttf</filename>
-			<size>42.0</size>
-		</font>
-		<font>
-			<name>fontContextMenu</name>
-			<filename>skin.confluence/arial.ttf</filename>
-			<size>24.0</size>
-		</font>
-		<!-- Title Fonts -->
-		<font>
-			<name>font10_title</name>
-			<filename>skin.confluence/arial.ttf</filename>
-			<size>15.0</size>
-			<style>bold</style>
-		</font>
-		<font>
-			<name>font12_title</name>
-			<filename>skin.confluence/arial.ttf</filename>
-			<size>22.0</size>
-			<style>bold</style>
-		</font>
-		<font>
-			<name>font13_title</name>
-			<filename>skin.confluence/arial.ttf</filename>
-			<size>27.0</size>
-			<style>bold</style>
-		</font>
-		<font>
-			<name>font24_title</name>
-			<filename>skin.confluence/arial.ttf</filename>
-			<size>33.0</size>
-			<style>bold</style>
-		</font>
-		<font>
-			<name>font28_title</name>
-			<filename>skin.confluence/arial.ttf</filename>
-			<size>39.0</size>
-			<style>bold</style>
-		</font>
-		<font>
-			<name>font30_title</name>
-			<filename>skin.confluence/arial.ttf</filename>
-			<size>42.0</size>
-			<style>bold</style>
-		</font>
-		<font>
-			<name>font35_title</name>
-			<filename>skin.confluence/arial.ttf</filename>
-			<size>49.0</size>
-			<style>bold</style>
-		</font>
-		<font>
-			<name>font_MainMenu</name>
-			<filename>skin.confluence/arial.ttf</filename>
-			<size>52.0</size>
-			<style>bold</style>
-		</font>
-		<font>
-			<name>WeatherTemp</name>
-			<filename>skin.confluence/arial.ttf</filename>
-			<size>120.0</size>
-			<style>bold</style>
-		</font>
-	</fontset>
 </fonts>

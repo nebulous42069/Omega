@@ -3124,7 +3124,7 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
 			<fanart>resources/fanart.jpg</fanart>
 		</assets>
 	</extension>
-</addon><addon id="skin.xenonburst" version="7.1.1" name="[B][COLOR gold]Xenon Burst[/COLOR][/B]  (Mid Power)" provider-name="Helly,bsoriano">
+</addon><addon id="skin.xenonburst" version="7.1.2" name="[B][COLOR gold]Xenon Burst[/COLOR][/B]  (Mid Power)" provider-name="Helly,bsoriano">
   <requires>
     <import addon="xbmc.gui" version="5.17.0" />	
   </requires>
@@ -3151,7 +3151,7 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
     </assets>
     <news>See changelog for latest changes</news>
   </extension>
-</addon><addon id="skin.xenonfree" version="7.5" name="[B][COLOR gold]Xenon Free[/COLOR][/B]  (Mid Power)" provider-name="Helly,bsoriano">
+</addon><addon id="skin.xenonfree" version="7.6" name="[B][COLOR gold]Xenon Free[/COLOR][/B]  (Mid Power)" provider-name="Helly,bsoriano">
   <requires>
     <import addon="xbmc.gui" version="5.17.0" />	
   </requires>
@@ -3178,7 +3178,7 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
     </assets>
     <news>See changelog for latest changes</news>
   </extension>
-</addon><addon id="skin.xenonplus" version="7.3" name="[B][COLOR gold]Xenon Plus[/COLOR][/B]  (Mid Power)" provider-name="Helly,bsoriano">
+</addon><addon id="skin.xenonplus" version="7.4" name="[B][COLOR gold]Xenon Plus[/COLOR][/B]  (Mid Power)" provider-name="Helly,bsoriano">
   <requires>
     <import addon="xbmc.gui" version="5.17.0" />	
   </requires>
