@@ -40,41 +40,9 @@
         "icon": "https://kodiapps.com/sharex/dllhost_2020-02-05_12-07-32.jpg",
         "items": [
             {
-                "name": "[COLOR blue]Authenticate Real Debrid[/COLOR]",
-                "url": "RunScript(script.module.accountmgr, action=realdebridAuth)"
-            },						
-            {
-                "name": "[COLOR blue]Authenticate Premiumize[/COLOR]",
-                "url": "RunScript(script.module.accountmgr, action=premiumizeAuth)"
-            },			
-            {
-                "name": "[COLOR blue]Authenticate All-Debrid[/COLOR]",
-                "url": "RunScript(script.module.accountmgr, action=alldebridAuth)"
-            },
-            {
-                "name": "[COLOR chartreuse]View Real Debrid logins[/COLOR]",
-                "url": "ActivateWindow(10001,plugin://script.module.acctview/?mode=realdebrid,return)"
-            },
-            {
-                "name": "[COLOR chartreuse]View Premiumize logins[/COLOR]",
-                "url": "ActivateWindow(10001,plugin://script.module.acctview/?mode=premiumize,return)"
-            },
-            {
-                "name": "[COLOR chartreuse]View All-Debrid Logins[/COLOR]",
-                "url": "ActivateWindow(10001,plugin://script.module.acctview/?mode=alldebrid,return)"
-            },			
-            {
-                "name": "Re-Sync Debrid Accounts",
-                "url": "RunScript(script.module.accountmgr, action=ReSyncAll)"
-            },
-            {
-                "name": "[COLOR orangered]Revoke And Reset All Logins[/COLOR]",
-                "url": "RunScript(script.module.accountmgr, action=resetSettings)"
-            },
-            {
-                "name": "[COLOR orange]Open Account Manager For More Options[/COLOR]",
-                "url": "addon.opensettings(script.module.accountmgr)"
-            }			
+                "name": "[COLOR blue]Authenticate Debrid With Debrid Manager[/COLOR]",
+                "url": "Addon.Opensettings(script.module.debridmgr)"
+            }
         ]
     },
     "Step 3- Authorize Trakt": {

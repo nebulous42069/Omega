@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+	<category label="Accounts">
+		<setting type="lsep" label="Real-Debrid" />
+		<setting id="realdebrid.token" label="40079" type="text" default="" visible="false" />
+		<setting id="realdebrid.username" label="32318" type="text" default="" visible="!eq(-1,)" enable="false" />
+		<setting id="realdebrid.expiry.notice" type="bool" label="40086" default="false" visible="!eq(-2,)" />
+		<setting type="action" label="32316" option="close" action="RunScript(script.module.debridmgr, action=realdebridAcct)" visible="!eq(-2,)" />
+		<setting type="action" label="32319" option="close" action="RunScript(script.module.debridmgr, action=realdebridAuth)" visible="eq(-4,)" />
+		<setting id="realdebrid.client_id" label="realdebrid client_id" type="text" default="" visible="false" />
+		<setting id="realdebrid.refresh" label="realdebrid refresh" type = "text" default="" visible="false" />
+		<setting id="realdebrid.secret" label="realdebrid secret" type = "text" default="" visible="false" />
+
+		<setting type="lsep" label="Premiumize" />
+		<setting id="premiumize.token" label="40078" type="text" default="" visible="false" />
+		<setting id="premiumize.username" label="32318" type="text" default="" visible="!eq(-1,)" enable="false" />
+		<setting id="premiumize.expiry.notice" type="bool" label="40086" default="false" visible="!eq(-2,)" />
+		<setting type="action" label="32316" option="close" action="RunScript(script.module.debridmgr, action=premiumizeAcct)" visible="!eq(-2,)" />
+		<setting type="action" label="32319" option="close" action="RunScript(script.module.debridmgr, action=premiumizeAuth)" visible="eq(-4,)" />
+
+		<setting type="lsep" label="All-Debrid" />
+		<setting id="alldebrid.token" label="40077" type="text" default="" visible="false" />
+		<setting id="alldebrid.username" label="32318" type="text" default="" visible="!eq(-1,)" enable="false" />
+		<setting id="alldebrid.expiry.notice" type="bool" label="40086" default="false" visible="!eq(-2,)" />
+		<setting type="action" label="32316" option="close" action="RunScript(script.module.debridmgr, action=alldebridAcct)" visible="!eq(-2,)" />
+		<setting type="action" label="32319" option="close" action="RunScript(script.module.debridmgr, action=alldebridAuth)" visible="eq(-4,)" />
+
+		<setting type="lsep" label="TorBox" />
+		<setting id="torbox.enabled" type="bool" visible="true" label="Enable" default="false" />
+		<setting id="torbox.token" type="text" label="TorBox API Key" enable="false" default="" visible="eq(-1,true) + !eq(1,)" />
+		<setting id="torbox.token" type="text" visible="false" label="" default="" />
+		<setting label="40118" type="action" action="RunScript(script.module.debridmgr, action=ShowHelpNonDebrid)" visible="eq(-1,) + eq(-3,true)" />
+		<setting type="action" label="32319" option="close" action="RunScript(script.module.debridmgr, action=torboxAuth)" visible="eq(-2,) + eq(-4,true)" />
+
+		<setting type="lsep" label="Easy Debrid" />
+		<setting id="easydebrid.enabled" type="bool" visible="true" label="Enable" default="false" />
+		<setting id="easydebrid.token" type="text" label="Easy Debrid API Key" enable="false" default="" visible="eq(-1,true) + !eq(1,)" />
+		<setting id="easydebrid.token" type="text" visible="false" label="" default="" />
+		<setting label="40118" type="action" action="RunScript(script.module.debridmgr, action=ShowHelpNonDebrid)" visible="eq(-1,) + eq(-3,true)" />
+		<setting type="action" label="32319" option="close" action="RunScript(script.module.debridmgr, action=easydebridAuth)" visible="eq(-2,) + eq(-4,true)" />
+
+		<setting type="lsep" label="OffCloud" />
+		<setting id="offcloud.enabled" type="bool" visible="true" label="Enable" default="false" />
+		<setting id="offcloud.userid" label="40115" type="text" default="" visible="false" />
+		<setting id="offcloud.user" type="text" label="Offcloud Username" enable="false" default="" visible="!eq(-1,) + eq(-2,true)" />
+		<setting id="offcloud.pass" type="text" label="Offcloud Password" enable="false" default="" visible="!eq(-2,) + eq(-3,true)" />
+		<setting label="40118" type="action" action="RunScript(script.module.debridmgr, action=ShowHelpNonDebrid)" visible="eq(-3,) + eq(-4,true)" />
+		<setting type="action" label="32319" option="close" action="RunScript(script.module.debridmgr, action=offcloudAuth)" visible="eq(-4,) + eq(-5,true)" />
+	</category>
+	<category label="Manage Accounts">
+		<setting type="sep"/>
+		<setting type="lsep" label="Manage Multiple Debrid Accounts" />
+		<setting id="debridall.enabled" type="bool" visible="true" label="Enable" default="false" />
+		<setting type="action" label="View Authorizations" option="close" action="ActivateWindow(10001,plugin://script.module.dbview/?mode=allaccts,return)" visible="eq(-1,true)" />
+		<setting type="action" label="Sync Add-ons" option="close" action="RunScript(script.module.debridmgr, action=ReSyncAll)" visible="eq(-2,true)" />
+		<setting type="action" label="Revoke" option="close" action="PlayMedia(plugin://script.module.dbview/?mode=revokeall&name=all)" visible="eq(-3,true)" />
+
+		<setting type="lsep" label="Real-Debrid" />
+		<setting id="realdebrid.username" label="" type="text" default="" visible="false" enable="false" />
+		<setting type="action" label="View Authorizations" option="close" action="ActivateWindow(10001,plugin://script.module.dbview/?mode=realdebrid,return)" visible="!eq(-1,)" />
+		<setting type="action" label="Sync Add-ons" option="close" action="RunScript(script.module.debridmgr, action=realdebridReSync)"  visible="!eq(-2,)" />
+		<setting type="action" label="Revoke" option="close" action="PlayMedia(plugin://script.module.dbview/?mode=addondebrid_rd&name=all)"  visible="!eq(-3,)" />
+
+		<setting type="lsep" label="Premiumize" />
+		<setting id="premiumize.username" label="" type="text" default="" visible="false" enable="false" />
+		<setting type="action" label="View Authorizations" option="close" action="ActivateWindow(10001,plugin://script.module.dbview/?mode=premiumize,return)" visible="!eq(-1,)" />
+		<setting type="action" label="Sync Add-ons" option="close" action="RunScript(script.module.debridmgr, action=premiumizeReSync)"  visible="!eq(-2,)" />
+		<setting type="action" label="Revoke" option="close" action="PlayMedia(plugin://script.module.dbview/?mode=addondebrid_pm&name=all)"  visible="!eq(-3,)" />
+	
+		<setting type="lsep" label="All-Debrid" />
+		<setting id="alldebrid.username" label="" type="text" default="" visible="false" enable="false" />
+		<setting type="action" label="View Authorizations" option="close" action="ActivateWindow(10001,plugin://script.module.dbview/?mode=alldebrid,return)" visible="!eq(-1,)" />
+		<setting type="action" label="Sync Add-ons" option="close" action="RunScript(script.module.debridmgr, action=alldebridReSync)"  visible="!eq(-2,)" />
+		<setting type="action" label="Revoke" option="close" action="PlayMedia(plugin://script.module.dbview/?mode=addondebrid_ad&name=all)"  visible="!eq(-3,)" />
+
+		<setting type="lsep" label="TorBox" />
+		<setting id="torbox.enabled" type="bool" visible="false" label="" default="false" />
+		<setting id="torbox.token" label="" type="text" default="" visible="false" enable="false" />
+		<setting type="action" label="View Authorizations" option="close" action="ActivateWindow(10001,plugin://script.module.dbview/?mode=torbox,return)" visible="!eq(-1,) + eq(-2,true)" />
+		<setting type="action" label="Sync Add-ons" option="close" action="RunScript(script.module.debridmgr, action=torboxReSync)"  visible="!eq(-2,) + eq(-3,true)" />
+		<setting type="action" label="Revoke" option="close" action="PlayMedia(plugin://script.module.dbview/?mode=addontb&name=all)"  visible="!eq(-3,) + eq(-4,true)" />
+
+		<setting type="lsep" label="Easy Debrid" />
+		<setting id="easydebrid.enabled" type="bool" visible="false" label="" default="false" />
+		<setting id="easydebrid.token" label="" type="text" default="" visible="false" enable="false" />
+		<setting type="action" label="View Authorizations" option="close" action="ActivateWindow(10001,plugin://script.module.dbview/?mode=easydebrid,return)" visible="!eq(-1,) + eq(-2,true)" />
+		<setting type="action" label="Sync Add-ons" option="close" action="RunScript(script.module.debridmgr, action=easydebridReSync)"  visible="!eq(-2,) + eq(-3,true)" />
+		<setting type="action" label="Revoke" option="close" action="PlayMedia(plugin://script.module.dbview/?mode=addoned&name=all)"  visible="!eq(-3,) + eq(-4,true)" />
+
+		<setting type="lsep" label="OffCloud" />
+		<setting id="offcloud.enabled" type="bool" visible="false" label="" default="false" />
+		<setting id="offcloud.token" label="" type="text" default="" visible="false" enable="false" />
+		<setting type="action" label="View Authorizations" option="close" action="ActivateWindow(10001,plugin://script.module.dbview/?mode=offcloud,return)" visible="!eq(-1,) + eq(-2,true)" />
+		<setting type="action" label="Sync Add-ons" option="close" action="RunScript(script.module.debridmgr, action=offcloudReSync)"  visible="!eq(-2,) + eq(-3,true)" />
+		<setting type="action" label="Revoke" option="close" action="PlayMedia(plugin://script.module.dbview/?mode=addonoffc&name=all)"  visible="!eq(-3,) + eq(-4,true)" />
+	</category>
+	<category label="Backup & Restore">
+        	<setting type="lsep" label="Backup & Restore Multiple Debrid Accounts" visible="eq(1,true)" />
+		<setting id="debridall.enabled" type="bool" visible="true" label="Enable" default="false" />
+		<setting type="action" label="Backup Data" option="close" action="PlayMedia(plugin://script.module.dbview/?mode=backupall&name=all)" visible="eq(-1,true)" />
+		<setting type="action" label="Restore Saved Data" option="close" action="PlayMedia(plugin://script.module.dbview/?mode=restoreall&name=all)" visible="eq(-2,true)" />
+		<setting type="action" label="Clear Saved Data" option="close" action="PlayMedia(plugin://script.module.dbview/?mode=clearall&name=all)" visible="eq(-3,true)" />
+
+		<setting type="lsep" label="Real-Debrid" />
+		<setting id="realdebrid.username" label="" type="text" default="" visible="false" />
+		<setting type="action" label="Backup Data" option="close" action="PlayMedia(plugin://script.module.dbview/?mode=savedebrid_acctmgr_rd&name=all)"  visible="!eq(-1,)" />
+		<setting type="action" label="Restore Saved Data" option="close" action="PlayMedia(plugin://script.module.dbview/?mode=restoredebrid_rd&name=all)"  visible="true" />
+		<setting type="action" label="Clear Saved Data" option="close" action="PlayMedia(plugin://script.module.dbview/?mode=cleardebrid_rd&name=all)" visible="true" />
+		<setting id="rd_backup_date" type="text" default="Date: 0000-00-00   Time: 00:00" label="40117" enable="false" visible="true" />
+
+		<setting type="lsep" label="Premiumize" />
+		<setting id="premiumize.username" label="" type="text" default="" visible="false" />
+		<setting type="action" label="Backup Data" option="close" action="PlayMedia(plugin://script.module.dbview/?mode=savedebrid_acctmgr_pm&name=all)"  visible="!eq(-1,)" />
+		<setting type="action" label="Restore Saved Data" option="close" action="PlayMedia(plugin://script.module.dbview/?mode=restoredebrid_pm&name=all)"  visible="true" />
+		<setting type="action" label="Clear Saved Data" option="close" action="PlayMedia(plugin://script.module.dbview/?mode=cleardebrid_pm&name=all)"  visible="true" />
+		<setting id="pm_backup_date" type="text" default="Date: 0000-00-00   Time: 00:00" label="40117" enable="false" visible="true" />
+
+		<setting type="lsep" label="All-Debrid" />
+		<setting id="alldebrid.username" label="" type="text" default="" visible="false" />
+		<setting type="action" label="Backup Data" option="close" action="PlayMedia(plugin://script.module.dbview/?mode=savedebrid_acctmgr_ad&name=all)"  visible="!eq(-1,)" />
+		<setting type="action" label="Restore Saved Data" option="close" action="PlayMedia(plugin://script.module.dbview/?mode=restoredebrid_ad&name=all)"  visible="true" />
+		<setting type="action" label="Clear Saved Data" option="close" action="PlayMedia(plugin://script.module.dbview/?mode=cleardebrid_ad&name=all)"  visible="true" />
+		<setting id="ad_backup_date" type="text" default="Date: 0000-00-00   Time: 00:00" label="40117" enable="false" visible="true" />
+
+		<setting type="lsep" label="TorBox" />
+		<setting id="torbox.enabled" type="bool" visible="false" label="" default="false" />
+		<setting id="torbox.token" label="" type="text" default="" visible="false" enable="false" />
+		<setting type="action" label="Backup Data" option="close" action="PlayMedia(plugin://script.module.dbview/?mode=save_tb_acctmgr&name=all)"  visible="!eq(-1,) + eq(-2,true)" />
+		<setting type="action" label="Restore Saved Data" option="close" action="PlayMedia(plugin://script.module.dbview/?mode=restoretb&name=all)"  visible="true" />
+		<setting type="action" label="Clear Saved Data" option="close" action="PlayMedia(plugin://script.module.dbview/?mode=cleartb&name=all)"  visible="true" />
+		<setting id="tb_backup_date" type="text" default="Date: 0000-00-00   Time: 00:00" label="40117" enable="false" visible="true" />
+
+		<setting type="lsep" label="Easy Debrid" />
+		<setting id="easydebrid.enabled" type="bool" visible="false" label="" default="false" />
+		<setting id="easydebrid.token" label="" type="text" default="" visible="false" enable="false" />
+		<setting type="action" label="Backup Data" option="close" action="PlayMedia(plugin://script.module.dbview/?mode=save_ed_acctmgr&name=all)"  visible="!eq(-1,) + eq(-2,true)" />
+		<setting type="action" label="Restore Saved Data" option="close" action="PlayMedia(plugin://script.module.dbview/?mode=restoreed&name=all)"  visible="true" />
+		<setting type="action" label="Clear Saved Data" option="close" action="PlayMedia(plugin://script.module.dbview/?mode=cleared&name=all)"  visible="true" />
+		<setting id="ed_backup_date" type="text" default="Date: 0000-00-00   Time: 00:00" label="40117" enable="false" visible="true" />
+
+		<setting type="lsep" label="OffCloud" />
+		<setting id="offcloud.enabled" type="bool" visible="false" label="" default="false" />
+		<setting id="offcloud.token" label="" type="text" default="" visible="false" enable="false" />
+		<setting type="action" label="Backup Data" option="close" action="PlayMedia(plugin://script.module.dbview/?mode=save_offc_acctmgr&name=all)"  visible="!eq(-1,) + eq(-2,true)" />
+		<setting type="action" label="Restore Saved Data" option="close" action="PlayMedia(plugin://script.module.dbview/?mode=restoreoffc&name=all)"  visible="true" />
+		<setting type="action" label="Clear Saved Data" option="close" action="PlayMedia(plugin://script.module.dbview/?mode=clearoffc&name=all)"  visible="true" />
+		<setting id="oc_backup_date" type="text" default="Date: 0000-00-00   Time: 00:00" label="40117" enable="false" visible="true" />
+	</category>
+	<category label="External Scrapers">
+		<setting type="lsep" label="CocoScrapers" />
+		<setting id="ext.providers.enabled" type="bool" visible="true" label="Enable" default="false" />
+		<setting id="ext.provider" label="" type="text" default="" visible="false" enable="false" />
+		<setting label="40121" type="action" action="RunScript(script.module.debridmgr, action=ShowSupported_Ext_Addons)" visible="eq(-2,true)"/>
+		<setting id="ext.provider" type="text" label="Enabled External Scraper:" enable="false" default="" visible="eq(-3,true) + !eq(-2,)" />
+		<setting type="action" label="Sync Add-ons" option="close" action="RunScript(script.module.debridmgr, action=extAuth)" visible="eq(-3,) + eq(-4,true)" />
+		<setting type="lsep" label="Manage Synced Data" />
+		<setting type="action" label="View Synced Data" option="close" action="ActivateWindow(10001,plugin://script.module.dbview/?mode=extproviders,return)" visible="!eq(-5,) + eq(-6,true)" />
+		<setting type="action" label="ReSync Add-ons" option="close" action="RunScript(script.module.debridmgr, action=extReSync)"  visible="!eq(-6,) + eq(-7,true)" />
+		<setting type="action" label="Revoke" option="close" action="PlayMedia(plugin://script.module.dbview/?mode=addonext&name=all)"  visible="!eq(-7,) + eq(-8,true)" />
+		<setting type="lsep" label="Backup & Restore" />
+		<setting type="action" label="Backup Data" option="close" action="PlayMedia(plugin://script.module.dbview/?mode=save_ext_acctmgr&name=all)"  visible="!eq(-9,) + eq(-10,true)" />
+		<setting type="action" label="Restore Saved Data" option="close" action="PlayMedia(plugin://script.module.dbview/?mode=restoreext&name=all)"  visible="eq(-11,true)" />
+		<setting type="action" label="Clear Saved Data" option="close" action="PlayMedia(plugin://script.module.dbview/?mode=clearext&name=all)"  visible="eq(-12,true)" />
+		<setting id="ext_backup_date" type="text" default="Date: 0000-00-00   Time: 00:00" label="40117" enable="false" visible="eq(-13,true)" />
+	</category>
+	<category label="Configure Backup">
+		<setting type="lsep" label="Auto-Backup Services After Authorization" />
+		<setting id="backupenable" type="bool" visible="true" label="Enable Auto-Backup" default="false" />
+		<setting type="lsep" label="40105" />
+		<setting type="lsep" label="Set Backup Directory" />
+		<setting type="action" label="Set Backup Directory" option="close" action="RunScript(script.module.debridmgr, action=SetBackupFolder)" />
+		<setting type="action" label="Reset Backup Directory" option="close" action="RunScript(script.module.debridmgr, action=ResetBackupFolder)" />
+		<setting type="lsep" label="Set Custom Backup Directory" />
+        	<setting id="backupfolder" type="text" label="-" default="special://profile/addon_data/script.module.debridmgr/" visible="true" />
+	</category>
+	<category label="Startup">
+		<setting type="lsep" label="Debrid Manager Update Notifications" />
+		<setting id="checkAddonUpdates" type="bool" label="Update Notification Service" default="true" />
+		<setting type="lsep" label="Auto-Sync Supported Add-ons" />
+		<setting label="40108" type="action" action="RunScript(script.module.debridmgr, action=ShowHelpServiceSync)" visible="true" />
+      		<setting id="api.service" type="bool" visible="false" label="" default="" />
+      		<setting id="sync.rd.service"  type="bool" label="Real-Debrid" visible="true" default="false"/>
+      		<setting id="sync.pm.service"  type="bool" label="Premiumize" visible="true" default="false"/>
+      		<setting id="sync.ad.service"  type="bool" label="All-Debrid" visible="true" default="false"/>
+      		<setting id="sync.torbox.service"  type="bool" label="TorBox" visible="true" default="false"/>
+      		<setting id="sync.easyd.service"  type="bool" label="Easy Debrid" visible="true" default="false"/>
+      		<setting id="sync.offc.service"  type="bool" label="OffCloud" visible="true" default="false"/>
+      		<setting id="sync.ext.service" type="bool" label="External Scrapers" visible="true" default="false"/>
+	</category>
+	<category label="Advanced">
+		<setting type="lsep" label="Restore All Add-ons To Default" />
+		<setting type="action" label="Restore To Default Settings" option="close" action="RunScript(script.module.debridmgr, action=resetSettings)" visible="true" />
+        	<setting label="40108" type="action" action="RunScript(script.module.debridmgr, action=ShowHelpRestore)" visible="true" />
+	</category>
+	<category label="Info">
+		<setting type="lsep" label="Supported Add-ons & Scrapers" />
+		<setting label="40099" type="action" action="RunScript(script.module.debridmgr, action=ShowSupported_Debrid)" />
+		<setting label="40120" type="action" action="RunScript(script.module.debridmgr, action=ShowSupported_Torbox)" />
+		<setting label="40122" type="action" action="RunScript(script.module.debridmgr, action=ShowSupported_Easydebrid)" />
+		<setting label="40100" type="action" action="RunScript(script.module.debridmgr, action=ShowSupported_Offcloud)" />
+		<setting label="40119" type="action" action="RunScript(script.module.debridmgr, action=ShowSupported_Ext)" />
+	</category>
+</settings>
