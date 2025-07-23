@@ -137,7 +137,7 @@ class MetaCache(BaseCache):
 					'clearlogo': meta['clearlogo'], 'landscape': meta['landscape'], 'discart': meta['discart'], 'fanart_added': True}
 		else: return None
 
-def cache_function(function, prop_string, url, expiration=96, json=True):
+def cache_function(function, prop_string, url, expiration=96, json=False):
 	metacache = MetaCache()
 	data = metacache.get_function(prop_string)
 	if data: return data

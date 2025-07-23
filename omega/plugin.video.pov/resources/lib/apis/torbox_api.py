@@ -5,6 +5,7 @@ from modules import kodi_utils
 # logger = kodi_utils.logger
 
 ls, get_setting = kodi_utils.local_string, kodi_utils.get_setting
+ip_url = 'https://api.ipify.org'
 base_url = 'https://api.torbox.app/v1/api'
 user_agent = 'POV for Kodi'
 timeout = 28.0
@@ -38,7 +39,7 @@ class TorBoxAPI:
 		url = '%s/%s' % (base_url, path) if not path.startswith('http') else path
 		try:
 			response = session.request(method, url, params=params, json=json, data=data, timeout=timeout)
-			result = response.json()
+			result = response.json() if 'json' in response.headers.get('Content-Type', '') else response.text
 			if not response.ok: response.raise_for_status()
 		except requests.exceptions.RequestException as e:
 			kodi_utils.logger('torbox error', str(e))
@@ -81,6 +82,10 @@ class TorBoxAPI:
 		url = self.explore % request_id
 		return self._get(url)
 
+	def nzb_info(self, request_id=''):
+		url = self.explore_usenet % request_id
+		return self._get(url)
+
 	def delete_torrent(self, request_id=''):
 		data = {'torrent_id': request_id, 'operation': 'delete'}
 		return self._post(self.remove, json=data)
@@ -94,18 +99,27 @@ class TorBoxAPI:
 		return self._post(self.remove_webdl, json=data)
 
 	def unrestrict_link(self, file_id):
+		try: user_ip = requests.get(ip_url, timeout=2.0).text
+		except: user_ip = ''
+		params = {'user_ip': user_ip} if user_ip else {}
 		torrent_id, file_id = file_id.split(',')
-		params = {'token': self.token, 'torrent_id': torrent_id, 'file_id': file_id}
+		params.update({'token': self.token, 'torrent_id': torrent_id, 'file_id': file_id})
 		return self._get(self.download, params=params)
 
 	def unrestrict_usenet(self, file_id):
+		try: user_ip = requests.get(ip_url, timeout=2.0).text
+		except: user_ip = ''
+		params = {'user_ip': user_ip} if user_ip else {}
 		usenet_id, file_id = file_id.split(',')
-		params = {'token': self.token, 'usenet_id': usenet_id, 'file_id': file_id}
+		params.update({'token': self.token, 'usenet_id': usenet_id, 'file_id': file_id})
 		return self._get(self.download_usenet, params=params)
 
 	def unrestrict_webdl(self, file_id):
+		try: user_ip = requests.get(ip_url, timeout=2.0).text
+		except: user_ip = ''
+		params = {'user_ip': user_ip} if user_ip else {}
 		webdl_id, file_id = file_id.split(',')
-		params = {'token': self.token, 'web_id': webdl_id, 'file_id': file_id}
+		params.update({'token': self.token, 'web_id': webdl_id, 'file_id': file_id})
 		return self._get(self.download_webdl, params=params)
 
 	def check_cache_single(self, hash):
@@ -173,6 +187,34 @@ class TorBoxAPI:
 			return torrent_files
 		except Exception:
 			if torrent_id: self.delete_torrent(torrent_id)
+			return None
+
+	def resolve_nzb(self, nzb_url, info_hash, store_to_cloud, title, season, episode):
+		from modules.source_utils import supported_video_extensions, seas_ep_filter, extras_filter
+		try:
+			extensions = supported_video_extensions()
+			extras_filtering_list = tuple(i for i in extras_filter() if not i in title.lower())
+			if not self.check_cache_single(info_hash): return None
+			nzb_id = self.create_transfer(nzb_url)
+			nzb_files = self.nzb_info(nzb_id)
+			selected_files = []
+			for i in nzb_files['files']:
+				link, filename, size = '%d,%d' % (nzb_id, i['id']), i['short_name'].lower(), i['size']
+				if filename.endswith('.m2ts'): raise Exception('_m2ts_check failed')
+				if not filename.endswith(tuple(extensions)): continue
+				if (seas_ep_filter(season, episode, filename)
+					if season else
+					not any(x in filename for x in extras_filtering_list)
+				): selected_files += [{'link': link, 'size': size}]
+			if not selected_files: return None
+			if not season: selected_files.sort(key=lambda k: k['size'], reverse=True)
+			file_key = next((i['link'] for i in selected_files), None)
+			file_url = self.unrestrict_usenet(file_key)
+			if not store_to_cloud: Thread(target=self.delete_usenet, args=(nzb_id,)).start()
+			return file_url
+		except Exception as e:
+			kodi_utils.logger('main exception', str(e))
+			if torrent_id: Thread(target=self.delete_usenet, args=(nzb_id,)).start()
 			return None
 
 	def usenet_search(self, query, season='', episode='', imdb=''):

@@ -26,16 +26,17 @@ def call_trakt(path, params=None, data=None, with_auth=True, method=None, pagina
 	if with_auth is True and (token := settings.trakt_token()):
 		headers['Authorization'] = 'Bearer %s' % token
 	if pagination: params['page'] = page
+	method = 'post' if data is not None else method or 'get'
 	try:
 		response = session.request(
-			'post' if data is not None else method or 'get',
+			method,
 			base_url % path,
 			params=None if data is not None else params,
 			data=json.dumps(data) if data else None,
 			headers=headers,
-			timeout=timeout ** 2 if not method in ('get', None) else timeout
+			timeout=timeout ** 2 if not method in ('get',) else timeout
 		)
-		result = response.json()
+		result = response.json() if 'json' in response.headers.get('Content-Type', '') else response.text
 		if not response.ok: response.raise_for_status()
 	except requests.exceptions.RequestException as e:
 		logger('trakt error', str(e))
@@ -67,8 +68,17 @@ def trakt_refresh():
 		set_setting('trakt.refresh', refresh)
 		set_setting('trakt.expires', str(expires))
 		return True
-	except Exception as e: logger('error in trakt_refresh', str(e))
+	except Exception as e: logger('trakt_refresh error', str(e))
 	return False
+
+def trakt_expires(func):
+	def wrapper(*args, **kwargs):
+		if get_setting('trakt.refresh', ''):
+			expires = float(get_setting('trakt.expires', '0'))
+			refresh = (expires - time.time()) // 3600 < 8
+			if refresh and trakt_refresh(): kodi_utils.sleep(1000)
+		return func(*args, **kwargs)
+	return wrapper
 
 def trakt_movies_trending(page_no):
 	string = 'trakt_movies_trending_%s' % page_no
@@ -312,7 +322,7 @@ def trakt_trending_popular_lists(list_type):
 	string = 'trakt_%s_user_lists' % list_type
 	path = 'lists/%s/%s' % (list_type, '%s')
 	url = {'path': path, 'params': {'limit': 100}}
-	return cache_object(get_trakt, string, url, False)
+	return cache_object(get_trakt, string, url, json=False)
 
 def trakt_get_lists(list_type):
 	if list_type == 'my_lists':
@@ -613,15 +623,6 @@ def trakt_get_activity():
 	url = {'path': 'sync/last_activities%s', 'with_auth': True, 'pagination': False}
 	return get_trakt(url)
 
-def trakt_expires(func):
-	def wrapper(*args, **kwargs):
-		if get_setting('trakt_user', ''):
-			expires = float(get_setting('trakt.expires', '0'))
-			refresh = (expires - time.time())//3600 < 8
-			if refresh and trakt_refresh(): kodi_utils.sleep(3000)
-		return func(*args, **kwargs)
-	return wrapper
-
 @trakt_expires
 def trakt_sync_activities(force_update=False):
 	def _get_timestamp(date_time):
@@ -678,51 +679,4 @@ def trakt_sync_activities(force_update=False):
 			trakt_cache.clear_trakt_list_contents_data(item)
 	else: trakt_cache.clear_trakt_list_contents_data('liked_lists')
 	return 'success'
-
-def set_auth(*args):
-	data = {'client_id': V2_API_KEY, 'client_secret': CLIENT_SECRET, 'code': ''}
-	response = call_trakt('oauth/device/code', data=data, with_auth=False)
-	data['code'] = response['device_code']
-	try:
-		qr_url = '&color=f00&data=%s' % requests.utils.quote('%s/%s' % (response['verification_url'], response['user_code']))
-		qr_icon = 'https://api.qrserver.com/v1/create-qr-code/?size=256x256&qzone=1%s' % qr_url
-	except: pass
-	line2 = '%s, %s' % (ls(32700) % response['verification_url'], ls(32701) % response['user_code'])
-	choices = [
-		('none', 'Use the QR Code to approve access at Trakt', 'Step 1: %s' % line2),
-		('approve', 'Access approved at Trakt', 'Step 2'), 
-		('cancel', 'Cancel', 'Cancel')
-	]
-	list_items = [{'line1': item[1], 'line2': item[2], 'icon': qr_icon} for item in choices]
-	kwargs = {'items': json.dumps(list_items), 'heading': 'Trakt', 'multi_line': 'true'}
-	choice = kodi_utils.select_dialog([i[0] for i in choices], **kwargs)
-	if choice != 'approve': return
-	response = call_trakt('oauth/device/token', data=data, with_auth=False)
-	expires = int(response['created_at']) + int(response['expires_in'])
-	refresh, token = response['refresh_token'], response['access_token']
-	kodi_utils.sleep(500)
-	session.headers['Authorization'] = 'Bearer %s' % token
-	username = call_trakt('users/me')['username']
-	set_setting('trakt_user', str(username))
-	set_setting('trakt.token', token)
-	set_setting('trakt.refresh', refresh)
-	set_setting('trakt.expires', str(expires))
-	set_setting('trakt_indicators_active', 'true')
-	set_setting('watched_indicators', '1')
-	kodi_utils.notification('%s: Trakt Authorization' % ls(32576))
-	kodi_utils.sleep(500)
-	trakt_sync_activities(force_update=True)
-	return True
-
-def del_auth(*args):
-	if not kodi_utils.confirm_dialog(): return
-	data = {'token': get_setting('trakt.token'), 'client_id': V2_API_KEY, 'client_secret': CLIENT_SECRET}
-	response = call_trakt('oauth/revoke', data=data, with_auth=False)
-	set_setting('trakt_user', '')
-	set_setting('trakt.token', '')
-	set_setting('trakt.refresh', '')
-	set_setting('trakt.expires', '')
-	set_setting('trakt_indicators_active', 'false')
-	set_setting('watched_indicators', '0')
-	kodi_utils.notification('%s: Trakt Authorization Revoke' % ls(32576))
 

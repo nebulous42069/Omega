@@ -3,7 +3,7 @@ from caches.meta_cache import MetaCache
 from modules.utils import jsondate_to_datetime, subtract_dates, make_thread_list
 # from modules.kodi_utils import logger
 
-movie_data, tvshow_data, english_translation = tmdb.movie_details, tmdb.tvshow_details, tmdb.english_translation
+movie_data, tvshow_data, tmdb_english_translation = tmdb.movie_details, tmdb.tvshow_details, tmdb.english_translation
 movie_external, tvshow_external, season_episodes_details = tmdb.movie_external_id, tmdb.tvshow_external_id, tmdb.season_episodes_details
 default_fanarttv_data, fanarttv_get, fanarttv_add = fanarttv.default_fanart_nometa, fanarttv.get, fanarttv.add
 subtract_dates_function, jsondate_to_datetime_function = subtract_dates, jsondate_to_datetime
@@ -189,7 +189,7 @@ def tvshow_meta_external_id(external_source, external_id):
 
 def english_translation(media_type, media_id, user_info):
 	key = 'title' if media_type == 'movie' else 'name'
-	translations = english_translation(media_type, media_id, user_info['tmdb_api'])
+	translations = tmdb_english_translation(media_type, media_id, user_info['tmdb_api'])
 	try: english = [i['data'][key] for i in translations if i['iso_639_1'] == 'en'][0]
 	except: english = ''
 	return english

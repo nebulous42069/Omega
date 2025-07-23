@@ -16,7 +16,7 @@ def call_simkl(url):
 	params = {'client_id': API_KEY} if API_KEY else None
 	try:
 		response = session.get(url, params=params, timeout=timeout)
-		result = response.json()
+		result = response.json() if 'json' in response.headers.get('Content-Type', '') else response.text
 		if not response.ok: response.raise_for_status()
 	except requests.exceptions.RequestException as e:
 		kodi_utils.logger('simkl error', str(e))
@@ -41,7 +41,7 @@ def summary(position, sid, collector, media='anime'):
 	try:
 		string = 'simkl_%s_id_%s' % (media, sid)
 		url = '%s/%s/%s?extended=full' % (base_url, media, sid)
-		result = cache_function(call_simkl, string, url, json=False)
+		result = cache_function(call_simkl, string, url)
 		if result is None: return
 		imdb = result.get('ids').get('imdb') if result.get('ids').get('imdb') else ''
 		tmdb = result.get('ids').get('tmdb') if result.get('ids').get('tmdb') else ''

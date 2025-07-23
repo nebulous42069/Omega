@@ -6,24 +6,8 @@
 msgid ""
 msgstr ""
 
-msgctxt "#32001"
-msgid "General"
-msgstr ""
-
-msgctxt "#32002"
-msgid "Show Next Episode Window"
-msgstr ""
-
 msgctxt "#32003"
 msgid "Databases"
-msgstr ""
-
-msgctxt "#32004"
-msgid "Show Window Before End (secs)"
-msgstr ""
-
-msgctxt "#32005"
-msgid "Show Window Before End (%)"
 msgstr ""
 
 msgctxt "#32006"
@@ -34,56 +18,12 @@ msgctxt "#32007"
 msgid "[B]Download Pack[/B]"
 msgstr ""
 
-msgctxt "#32008"
-msgid "Show TV Show Specials When Available"
-msgstr ""
-
-msgctxt "#32009"
-msgid "Flatten TV Show Seasons"
-msgstr ""
-
-msgctxt "#32010"
-msgid "Use Season Titles When Available"
-msgstr ""
-
-msgctxt "#32011"
-msgid "Priority (Lower Number Equals Higher Priority)"
-msgstr ""
-
-msgctxt "#32012"
-msgid "Use as Default Provider (Slow)"
-msgstr ""
-
-msgctxt "#32013"
-msgid "Never"
-msgstr ""
-
 msgctxt "#32014"
 msgid "Rescrape & Select Source"
 msgstr ""
 
-msgctxt "#32015"
-msgid "Always"
-msgstr ""
-
 msgctxt "#32016"
 msgid "[B]Add to Cloud[/B]"
-msgstr ""
-
-msgctxt "#32017"
-msgid "Auto Start POV when Kodi Starts"
-msgstr ""
-
-msgctxt "#32019"
-msgid "Paginate Lists When Possible"
-msgstr ""
-
-msgctxt "#32020"
-msgid "Max. Lists items"
-msgstr ""
-
-msgctxt "#32021"
-msgid "Jump To... List Navigation"
 msgstr ""
 
 msgctxt "#32022"
@@ -98,14 +38,6 @@ msgctxt "#32024"
 msgid "Disable"
 msgstr ""
 
-msgctxt "#32025"
-msgid "Ignore Articles When Sorting Lists"
-msgstr ""
-
-msgctxt "#32026"
-msgid "Open POV Extras When Selecting..."
-msgstr ""
-
 msgctxt "#32027"
 msgid "Off"
 msgstr ""
@@ -118,28 +50,8 @@ msgctxt "#32029"
 msgid "TV Shows"
 msgstr ""
 
-msgctxt "#32030"
-msgid "Both"
-msgstr ""
-
 msgctxt "#32031"
 msgid "Choose Files to Download"
-msgstr ""
-
-msgctxt "#32032"
-msgid "If Only One Season"
-msgstr ""
-
-msgctxt "#32033"
-msgid "Always"
-msgstr ""
-
-msgctxt "#32034"
-msgid "Watched Indicators"
-msgstr ""
-
-msgctxt "#32035"
-msgid "Watched Status Provider"
 msgstr ""
 
 msgctxt "#32036"
@@ -150,64 +62,8 @@ msgctxt "#32037"
 msgid "Trakt"
 msgstr ""
 
-msgctxt "#32038"
-msgid "Show Window Based On"
-msgstr ""
-
-msgctxt "#32039"
-msgid "Authorize Trakt for More options"
-msgstr ""
-
-msgctxt "#32040"
-msgid "Percentage Played"
-msgstr ""
-
-msgctxt "#32041"
-msgid "Time Remaining"
-msgstr ""
-
-msgctxt "#32042"
-msgid "Set Watched in Kodi Library when Watched in POV"
-msgstr ""
-
 msgctxt "#32043"
 msgid "Most Watched This Week"
-msgstr ""
-
-msgctxt "#32045"
-msgid "UTC (+/-)"
-msgstr ""
-
-msgctxt "#32046"
-msgid "Enable Content for Extras Lists"
-msgstr ""
-
-msgctxt "#32047"
-msgid "Refresh Data from Trakt Server every...(mins)"
-msgstr ""
-
-msgctxt "#32048"
-msgid "Attempt to Refresh Widgets After Refresh"
-msgstr ""
-
-msgctxt "#32049"
-msgid "Press Context Menu to Download Image..."
-msgstr ""
-
-msgctxt "#32050"
-msgid "Ignore All Filters When No Results Available"
-msgstr ""
-
-msgctxt "#32051"
-msgid "Login"
-msgstr ""
-
-msgctxt "#32052"
-msgid "Password"
-msgstr ""
-
-msgctxt "#32053"
-msgid "API Key (optional)"
 msgstr ""
 
 msgctxt "#32054"
@@ -218,32 +74,12 @@ msgctxt "#32055"
 msgid "Enable"
 msgstr ""
 
-msgctxt "#32056"
-msgid "Username"
-msgstr ""
-
-msgctxt "#32057"
-msgid "Authorize"
-msgstr ""
-
-msgctxt "#32058"
-msgid "Premium Expires Notification (days)"
-msgstr ""
-
 msgctxt "#32059"
 msgid "Remove Authorization"
 msgstr ""
 
-msgctxt "#32060"
-msgid "Add Resolved Torrents to Cloud"
-msgstr ""
-
 msgctxt "#32061"
 msgid "Premiumize"
-msgstr ""
-
-msgctxt "#32062"
-msgid "Customer ID"
 msgstr ""
 
 msgctxt "#32063"
@@ -256,10 +92,6 @@ msgstr ""
 
 msgctxt "#32065"
 msgid "User"
-msgstr ""
-
-msgctxt "#32066"
-msgid "Sort Type"
 msgstr ""
 
 msgctxt "#32067"
@@ -278,60 +110,16 @@ msgctxt "#32070"
 msgid "Easynews"
 msgstr ""
 
-msgctxt "#32071"
-msgid "Next Episodes"
-msgstr ""
-
-msgctxt "#32073"
-msgid "Include Unaired Episodes"
-msgstr ""
-
-msgctxt "#32074"
-msgid "Include Trakt Watchlist"
-msgstr ""
-
 msgctxt "#32075"
 msgid "Most Favorited This Week"
-msgstr ""
-
-msgctxt "#32076"
-msgid "Include Airdate in Title"
-msgstr ""
-
-msgctxt "#32077"
-msgid "Single Episode Airdate Format"
-msgstr ""
-
-msgctxt "#32078"
-msgid "Internet Speed (Mbit/s)"
-msgstr ""
-
-msgctxt "#32079"
-msgid "File Size (MB)"
 msgstr ""
 
 msgctxt "#32081"
 msgid "Trakt Calendar"
 msgstr ""
 
-msgctxt "#32082"
-msgid "Set Focus to Today's Date"
-msgstr ""
-
-msgctxt "#32083"
-msgid "Show Previous Days"
-msgstr ""
-
-msgctxt "#32084"
-msgid "Show Future Days"
-msgstr ""
-
 msgctxt "#32087"
 msgid "Trakt Cache"
-msgstr ""
-
-msgctxt "#32088"
-msgid "Use Episode Thumbnails For Background When Available"
 msgstr ""
 
 msgctxt "#32089"
@@ -360,30 +148,6 @@ msgstr ""
 
 msgctxt "#32099"
 msgid "AD Cloud"
-msgstr ""
-
-msgctxt "#32100"
-msgid "Site"
-msgstr ""
-
-msgctxt "#32101"
-msgid "UTC Time Offset"
-msgstr ""
-
-msgctxt "#32102"
-msgid "Exclude Adult Results"
-msgstr ""
-
-msgctxt "#32103"
-msgid "Show Results at Top"
-msgstr ""
-
-msgctxt "#32104"
-msgid "Check Before Full Search"
-msgstr ""
-
-msgctxt "#32106"
-msgid "Hash"
 msgstr ""
 
 msgctxt "#32107"
@@ -434,42 +198,6 @@ msgctxt "#32118"
 msgid "External Scrapers"
 msgstr ""
 
-msgctxt "#32120"
-msgid "Stop Search Early if Most Sources Finished"
-msgstr ""
-
-msgctxt "#32121"
-msgid "Check Year Before Search"
-msgstr ""
-
-msgctxt "#32122"
-msgid "API Version"
-msgstr ""
-
-msgctxt "#32123"
-msgid "Version 2"
-msgstr ""
-
-msgctxt "#32124"
-msgid "Version 3"
-msgstr ""
-
-msgctxt "#32125"
-msgid "Use Hoster Services"
-msgstr ""
-
-msgctxt "#32126"
-msgid "Use Torrent Services"
-msgstr ""
-
-msgctxt "#32127"
-msgid "Hosters Color"
-msgstr ""
-
-msgctxt "#32128"
-msgid "Torrents Color"
-msgstr ""
-
 msgctxt "#32129"
 msgid "All"
 msgstr ""
@@ -482,16 +210,8 @@ msgctxt "#32135"
 msgid "Scrape with Custom Values"
 msgstr ""
 
-msgctxt "#32136"
-msgid "Press Context Menu for Playback Options..."
-msgstr ""
-
 msgctxt "#32137"
 msgid "Default Scrapers"
-msgstr ""
-
-msgctxt "#32138"
-msgid "Results Color Highlights"
 msgstr ""
 
 msgctxt "#32139"
@@ -502,36 +222,8 @@ msgctxt "#32140"
 msgid "Display"
 msgstr ""
 
-msgctxt "#32141"
-msgid "Scraper Timeout"
-msgstr ""
-
 msgctxt "#32145"
 msgid "Set Language"
-msgstr ""
-
-msgctxt "#32146"
-msgid "Metadata"
-msgstr ""
-
-msgctxt "#32147"
-msgid "Extra Art (Powered by Fanart.tv)"
-msgstr ""
-
-msgctxt "#32148"
-msgid "Include Extra Art"
-msgstr ""
-
-msgctxt "#32149"
-msgid "TMDb Image Resolution"
-msgstr ""
-
-msgctxt "#32150"
-msgid "Sorting and Filtering"
-msgstr ""
-
-msgctxt "#32151"
-msgid "Results Sorting"
 msgstr ""
 
 msgctxt "#32152"
@@ -546,124 +238,20 @@ msgctxt "#32154"
 msgid "Filter by Quality"
 msgstr ""
 
-msgctxt "#32155"
-msgid "Include Pre-Release Results (CAM/SCR/TELE)"
-msgstr ""
-
-msgctxt "#32156"
-msgid "Include 3D Results"
-msgstr ""
-
 msgctxt "#32157"
 msgid "Filter by Provider"
-msgstr ""
-
-msgctxt "#32158"
-msgid "HDR Files Filter"
-msgstr ""
-
-msgctxt "#32159"
-msgid "Dolby Vision Files Filter"
 msgstr ""
 
 msgctxt "#32160"
 msgid "Display Uncached Torrents"
 msgstr ""
 
-msgctxt "#32161"
-msgid "Filter Results by Size"
-msgstr ""
-
-msgctxt "#32162"
-msgid "Include Results With Unknown Size"
-msgstr ""
-
-msgctxt "#32163"
-msgid "Extras"
-msgstr ""
-
-msgctxt "#32164"
-msgid "Exclude Non Acting Roles in Person Results"
-msgstr ""
-
-msgctxt "#32167"
-msgid "Internal Scrapers Color"
-msgstr ""
-
-msgctxt "#32168"
-msgid "External Scrapers Color"
-msgstr ""
-
 msgctxt "#32169"
 msgid "Filter Extra Info"
 msgstr ""
 
-msgctxt "#32171"
-msgid "Seconds"
-msgstr ""
-
-msgctxt "#32172"
-msgid "Filter Results by Name"
-msgstr ""
-
-msgctxt "#32173"
-msgid "Fanart.tv"
-msgstr ""
-
 msgctxt "#32174"
 msgid "Playback"
-msgstr ""
-
-msgctxt "#32175"
-msgid "Auto Play"
-msgstr ""
-
-msgctxt "#32176"
-msgid "Limit Quality"
-msgstr ""
-
-msgctxt "#32177"
-msgid "HEVC Files Filter"
-msgstr ""
-
-msgctxt "#32178"
-msgid "Autoplay Next Episode"
-msgstr ""
-
-msgctxt "#32179"
-msgid "Episodes Watched Before Still Watching Check (0=Off)"
-msgstr ""
-
-msgctxt "#32180"
-msgid "Become a VIP member at fanart.tv for many benefits"
-msgstr ""
-
-msgctxt "#32181"
-msgid "Automatically Resume Playback"
-msgstr ""
-
-msgctxt "#32182"
-msgid "Subtitles (Powered by opensubtitles.org)"
-msgstr ""
-
-msgctxt "#32183"
-msgid "Download Subtitles Action"
-msgstr ""
-
-msgctxt "#32184"
-msgid "Subtitle Language"
-msgstr ""
-
-msgctxt "#32185"
-msgid "Force Enable Local Subs"
-msgstr ""
-
-msgctxt "#32186"
-msgid "Check Playback Volume Before Start of Playback"
-msgstr ""
-
-msgctxt "#32187"
-msgid "Set Max. Percent Starting Volume (0-100)"
 msgstr ""
 
 msgctxt "#32188"
@@ -674,24 +262,12 @@ msgctxt "#32189"
 msgid "Exclude"
 msgstr ""
 
-msgctxt "#32190"
-msgid "Prefer (Autoplay)"
-msgstr ""
-
-msgctxt "#32191"
-msgid "Autoplay Only"
-msgstr ""
-
 msgctxt "#32192"
 msgid "Auto"
 msgstr ""
 
 msgctxt "#32193"
 msgid "Select"
-msgstr ""
-
-msgctxt "#32194"
-msgid "Single Episode Lists Title Format"
 msgstr ""
 
 msgctxt "#32197"
@@ -710,88 +286,16 @@ msgctxt "#32200"
 msgid "[B]MDBList Manager[/B]"
 msgstr ""
 
-msgctxt "#32201"
-msgid "TITLE: SxE - EPISODE"
-msgstr ""
-
-msgctxt "#32202"
-msgid "SxE - EPISODE"
-msgstr ""
-
 msgctxt "#32203"
 msgid "EPISODE"
-msgstr ""
-
-msgctxt "#32204"
-msgid "Highlight Results Based On"
-msgstr ""
-
-msgctxt "#32206"
-msgid "Real Debrid Color"
-msgstr ""
-
-msgctxt "#32207"
-msgid "Premiumize Color"
-msgstr ""
-
-msgctxt "#32208"
-msgid "All Debrid Color"
-msgstr ""
-
-msgctxt "#32209"
-msgid "Progress Color Highlights"
-msgstr ""
-
-msgctxt "#32210"
-msgid "Premium Files Directory"
-msgstr ""
-
-msgctxt "#32212"
-msgid "Offcloud Color"
-msgstr ""
-
-msgctxt "#32213"
-msgid "TorBox Color"
-msgstr ""
-
-msgctxt "#32214"
-msgid "EasyDebrid Color"
-msgstr ""
-
-msgctxt "#32215"
-msgid "List Default"
-msgstr ""
-
-msgctxt "#32216"
-msgid "Alphabetical"
-msgstr ""
-
-msgctxt "#32217"
-msgid "IMDb Rating"
 msgstr ""
 
 msgctxt "#32218"
 msgid "Popularity"
 msgstr ""
 
-msgctxt "#32219"
-msgid "Your Rating"
-msgstr ""
-
-msgctxt "#32220"
-msgid "Number Of Ratings"
-msgstr ""
-
 msgctxt "#32221"
 msgid "Release Date"
-msgstr ""
-
-msgctxt "#32222"
-msgid "Runtime"
-msgstr ""
-
-msgctxt "#32223"
-msgid "Date Added"
 msgstr ""
 
 msgctxt "#32224"
@@ -802,32 +306,8 @@ msgctxt "#32225"
 msgid "Descending"
 msgstr ""
 
-msgctxt "#32226"
-msgid "Recently Watched"
-msgstr ""
-
-msgctxt "#32227"
-msgid "Airdate"
-msgstr ""
-
 msgctxt "#32228"
 msgid "Title"
-msgstr ""
-
-msgctxt "#32229"
-msgid "Day-Month-Year"
-msgstr ""
-
-msgctxt "#32230"
-msgid "Year-Month-Day"
-msgstr ""
-
-msgctxt "#32231"
-msgid "Month-Day-Year"
-msgstr ""
-
-msgctxt "#32236"
-msgid "Easynews Color"
 msgstr ""
 
 msgctxt "#32240"
@@ -836,10 +316,6 @@ msgstr ""
 
 msgctxt "#32241"
 msgid "Quality"
-msgstr ""
-
-msgctxt "#32244"
-msgid "Debrid Cloud Color"
 msgstr ""
 
 msgctxt "#32246"
@@ -912,10 +388,6 @@ msgstr ""
 
 msgctxt "#32464"
 msgid "In Theaters"
-msgstr ""
-
-msgctxt "#32465"
-msgid "Hide Watched Items in Widgets"
 msgstr ""
 
 msgctxt "#32466"
@@ -1006,10 +478,6 @@ msgctxt "#32490"
 msgid "None Found"
 msgstr ""
 
-msgctxt "#32492"
-msgid "Navigation"
-msgstr ""
-
 msgctxt "#32494"
 msgid "Account Info"
 msgstr ""
@@ -1074,10 +542,6 @@ msgctxt "#32510"
 msgid "Set Views"
 msgstr ""
 
-msgctxt "#32511"
-msgid "Features"
-msgstr ""
-
 msgctxt "#32512"
 msgid "Clean Settings Files and Clear Caches"
 msgstr ""
@@ -1092,22 +556,6 @@ msgstr ""
 
 msgctxt "#32515"
 msgid "Sources Folders"
-msgstr ""
-
-msgctxt "#32516"
-msgid "Image Files Directory"
-msgstr ""
-
-msgctxt "#32519"
-msgid "Folders 1-5 Color"
-msgstr ""
-
-msgctxt "#32520"
-msgid "4K Results Color"
-msgstr ""
-
-msgctxt "#32521"
-msgid "1080P Results Color"
 msgstr ""
 
 msgctxt "#32524"
@@ -1158,10 +606,6 @@ msgctxt "#32538"
 msgid "Kodi"
 msgstr ""
 
-msgctxt "#32539"
-msgid "Enable Kodi Menu Caching"
-msgstr ""
-
 msgctxt "#32541"
 msgid "Single Random Play"
 msgstr ""
@@ -1180,110 +624,6 @@ msgstr ""
 
 msgctxt "#32547"
 msgid "Set view and then click here"
-msgstr ""
-
-msgctxt "#32548"
-msgid "Action"
-msgstr ""
-
-msgctxt "#32549"
-msgid "Adventure"
-msgstr ""
-
-msgctxt "#32550"
-msgid "Animation"
-msgstr ""
-
-msgctxt "#32551"
-msgid "Comedy"
-msgstr ""
-
-msgctxt "#32552"
-msgid "Crime"
-msgstr ""
-
-msgctxt "#32553"
-msgid "Documentary"
-msgstr ""
-
-msgctxt "#32554"
-msgid "Drama"
-msgstr ""
-
-msgctxt "#32555"
-msgid "Family"
-msgstr ""
-
-msgctxt "#32556"
-msgid "Kids"
-msgstr ""
-
-msgctxt "#32557"
-msgid "Mystery"
-msgstr ""
-
-msgctxt "#32558"
-msgid "Fantasy"
-msgstr ""
-
-msgctxt "#32559"
-msgid "History"
-msgstr ""
-
-msgctxt "#32560"
-msgid "Horror"
-msgstr ""
-
-msgctxt "#32561"
-msgid "Music"
-msgstr ""
-
-msgctxt "#32562"
-msgid "Romance"
-msgstr ""
-
-msgctxt "#32563"
-msgid "Science Fiction"
-msgstr ""
-
-msgctxt "#32564"
-msgid "TV Movie"
-msgstr ""
-
-msgctxt "#32565"
-msgid "Thriller"
-msgstr ""
-
-msgctxt "#32566"
-msgid "War"
-msgstr ""
-
-msgctxt "#32567"
-msgid "Western"
-msgstr ""
-
-msgctxt "#32568"
-msgid "News"
-msgstr ""
-
-msgctxt "#32569"
-msgid "Reality"
-msgstr ""
-
-msgctxt "#32570"
-msgid "Soap"
-msgstr ""
-
-msgctxt "#32571"
-msgid "Talk"
-msgstr ""
-
-msgctxt "#32572"
-msgid "War & Politics"
-msgstr ""
-
-msgctxt "#32573"
-msgid "Sci-Fi & Fantasy"
 msgstr ""
 
 msgctxt "#32574"
@@ -1314,20 +654,12 @@ msgctxt "#32580"
 msgid "Are you sure?"
 msgstr ""
 
-msgctxt "#32582"
-msgid "Quality, Provider, Size"
-msgstr ""
-
 msgctxt "#32583"
 msgid "Provider"
 msgstr ""
 
 msgctxt "#32584"
 msgid "Size"
-msgstr ""
-
-msgctxt "#32585"
-msgid "Manage Folder Scrapers"
 msgstr ""
 
 msgctxt "#32592"
@@ -1374,14 +706,6 @@ msgctxt "#32612"
 msgid "More from"
 msgstr ""
 
-msgctxt "#32613"
-msgid "Play Random"
-msgstr ""
-
-msgctxt "#32614"
-msgid "Close"
-msgstr ""
-
 msgctxt "#32615"
 msgid "Studio"
 msgstr ""
@@ -1392,10 +716,6 @@ msgstr ""
 
 msgctxt "#32617"
 msgid "Fanart"
-msgstr ""
-
-msgctxt "#32618"
-msgid "720P Results Color"
 msgstr ""
 
 msgctxt "#32619"
@@ -1492,10 +812,6 @@ msgstr ""
 
 msgctxt "#32646"
 msgid "[B]Options...[/B]"
-msgstr ""
-
-msgctxt "#32647"
-msgid "SD Results Color"
 msgstr ""
 
 msgctxt "#32648"
@@ -1630,14 +946,6 @@ msgctxt "#32692"
 msgid "No URL found for Download. Pick another Source: "
 msgstr ""
 
-msgctxt "#32693"
-msgid "Content"
-msgstr ""
-
-msgctxt "#32694"
-msgid "Sorting"
-msgstr ""
-
 msgctxt "#32697"
 msgid "Export List"
 msgstr ""
@@ -1770,10 +1078,6 @@ msgctxt "#32743"
 msgid "file"
 msgstr ""
 
-msgctxt "#32744"
-msgid "Tagged"
-msgstr ""
-
 msgctxt "#32746"
 msgid "[B]Browse Pack[/B]"
 msgstr ""
@@ -1842,10 +1146,6 @@ msgctxt "#32762"
 msgid "[B]Data Remaining:[/B] %s"
 msgstr ""
 
-msgctxt "#32764"
-msgid "Play"
-msgstr ""
-
 msgctxt "#32772"
 msgid "[B]Current Subscription:[/B]"
 msgstr ""
@@ -1872,10 +1172,6 @@ msgstr ""
 
 msgctxt "#32781"
 msgid "[B]Delete list[/B]"
-msgstr ""
-
-msgctxt "#32782"
-msgid "Size Sort Order"
 msgstr ""
 
 msgctxt "#32783"
@@ -1922,14 +1218,6 @@ msgctxt "#32793"
 msgid "No Subtitles Found"
 msgstr ""
 
-msgctxt "#32796"
-msgid "Directed"
-msgstr ""
-
-msgctxt "#32797"
-msgid "Biography"
-msgstr ""
-
 msgctxt "#32798"
 msgid "Images"
 msgstr ""
@@ -1942,20 +1230,12 @@ msgctxt "#32801"
 msgid "[B]Next Up:[/B]"
 msgstr ""
 
-msgctxt "#32802"
-msgid "Still watching?"
-msgstr ""
-
 msgctxt "#32807"
 msgid "Scrape with All Filters Ignored"
 msgstr ""
 
 msgctxt "#32808"
 msgid "Disable All Filters for Search?"
-msgstr ""
-
-msgctxt "#32811"
-msgid "Show Release Year in Listings"
 msgstr ""
 
 msgctxt "#32812"
@@ -1974,10 +1254,6 @@ msgctxt "#32816"
 msgid "Clearing"
 msgstr ""
 
-msgctxt "#32819"
-msgid "Sort Episodes Airing Today to Top"
-msgstr ""
-
 msgctxt "#32821"
 msgid "[I]Jump to %s Starting with '%s'[/I]"
 msgstr ""
@@ -1988,18 +1264,6 @@ msgstr ""
 
 msgctxt "#32824"
 msgid "Yes"
-msgstr ""
-
-msgctxt "#32825"
-msgid "BIRTHDAY"
-msgstr ""
-
-msgctxt "#32826"
-msgid "DIED"
-msgstr ""
-
-msgctxt "#32827"
-msgid "AGE"
 msgstr ""
 
 msgctxt "#32828"
@@ -2026,22 +1290,6 @@ msgctxt "#32833"
 msgid "Start Over"
 msgstr ""
 
-msgctxt "#32834"
-msgid "Limit Auto Play Quality"
-msgstr ""
-
-msgctxt "#32835"
-msgid "Filter Languages"
-msgstr ""
-
-msgctxt "#32836"
-msgid "Choose Languages To Include"
-msgstr ""
-
-msgctxt "#32838"
-msgid "Browse"
-msgstr ""
-
 msgctxt "#32839"
 msgid "OK"
 msgstr ""
@@ -2054,24 +1302,12 @@ msgctxt "#32841"
 msgid "Options"
 msgstr ""
 
-msgctxt "#32842"
-msgid "Plot"
-msgstr ""
-
 msgctxt "#32843"
 msgid "Male"
 msgstr ""
 
 msgctxt "#32844"
 msgid "Female"
-msgstr ""
-
-msgctxt "#32845"
-msgid "GENDER"
-msgstr ""
-
-msgctxt "#32846"
-msgid "Enable Scrollbars for Extras Lists"
 msgstr ""
 
 msgctxt "#32847"
@@ -2126,428 +1362,8 @@ msgctxt "#32860"
 msgid "False"
 msgstr ""
 
-msgctxt "#32861"
-msgid "Arabic"
-msgstr ""
-
-msgctxt "#32862"
-msgid "Bosnian"
-msgstr ""
-
-msgctxt "#32863"
-msgid "Bulgarian"
-msgstr ""
-
-msgctxt "#32864"
-msgid "Chinese"
-msgstr ""
-
-msgctxt "#32865"
-msgid "Croatian"
-msgstr ""
-
-msgctxt "#32866"
-msgid "Dutch"
-msgstr ""
-
-msgctxt "#32867"
-msgid "English"
-msgstr ""
-
-msgctxt "#32868"
-msgid "Finnish"
-msgstr ""
-
-msgctxt "#32869"
-msgid "French"
-msgstr ""
-
-msgctxt "#32870"
-msgid "German"
-msgstr ""
-
-msgctxt "#32871"
-msgid "Greek"
-msgstr ""
-
-msgctxt "#32872"
-msgid "Hebrew"
-msgstr ""
-
-msgctxt "#32873"
-msgid "Hindi"
-msgstr ""
-
-msgctxt "#32874"
-msgid "Hungarian"
-msgstr ""
-
-msgctxt "#32875"
-msgid "Icelandic"
-msgstr ""
-
-msgctxt "#32876"
-msgid "Italian"
-msgstr ""
-
-msgctxt "#32877"
-msgid "Japanese"
-msgstr ""
-
-msgctxt "#32878"
-msgid "Korean"
-msgstr ""
-
-msgctxt "#32879"
-msgid "Macedonian"
-msgstr ""
-
-msgctxt "#32880"
-msgid "Norwegian"
-msgstr ""
-
-msgctxt "#32881"
-msgid "Persian"
-msgstr ""
-
-msgctxt "#32882"
-msgid "Polish"
-msgstr ""
-
-msgctxt "#32883"
-msgid "Portuguese"
-msgstr ""
-
-msgctxt "#32884"
-msgid "Punjabi"
-msgstr ""
-
-msgctxt "#32885"
-msgid "Romanian"
-msgstr ""
-
-msgctxt "#32886"
-msgid "Russian"
-msgstr ""
-
-msgctxt "#32887"
-msgid "Serbian"
-msgstr ""
-
-msgctxt "#32888"
-msgid "Slovenian"
-msgstr ""
-
-msgctxt "#32889"
-msgid "Spanish"
-msgstr ""
-
-msgctxt "#32890"
-msgid "Swedish"
-msgstr ""
-
-msgctxt "#32891"
-msgid "Turkish"
-msgstr ""
-
-msgctxt "#32892"
-msgid "Ukrainian"
-msgstr ""
-
-msgctxt "#32893"
-msgid "Afghanistan"
-msgstr ""
-
-msgctxt "#32894"
-msgid "Albania"
-msgstr ""
-
-msgctxt "#32895"
-msgid "Algeria"
-msgstr ""
-
-msgctxt "#32896"
-msgid "Antarctica"
-msgstr ""
-
-msgctxt "#32897"
-msgid "Argentina"
-msgstr ""
-
-msgctxt "#32898"
-msgid "Armenia"
-msgstr ""
-
-msgctxt "#32899"
-msgid "Australia"
-msgstr ""
-
-msgctxt "#32900"
-msgid "Austria"
-msgstr ""
-
-msgctxt "#32901"
-msgid "Bangladesh"
-msgstr ""
-
-msgctxt "#32902"
-msgid "Belarus"
-msgstr ""
-
-msgctxt "#32903"
-msgid "Belgium"
-msgstr ""
-
-msgctxt "#32904"
-msgid "Brazil"
-msgstr ""
-
-msgctxt "#32905"
-msgid "Bulgaria"
-msgstr ""
-
-msgctxt "#32906"
-msgid "Cambodia"
-msgstr ""
-
-msgctxt "#32907"
-msgid "Canada"
-msgstr ""
-
-msgctxt "#32908"
-msgid "Chile"
-msgstr ""
-
-msgctxt "#32909"
-msgid "China"
-msgstr ""
-
-msgctxt "#32910"
-msgid "Croatia"
-msgstr ""
-
-msgctxt "#32911"
-msgid "Czech Republic"
-msgstr ""
-
-msgctxt "#32912"
-msgid "Denmark"
-msgstr ""
-
-msgctxt "#32913"
-msgid "Germany"
-msgstr ""
-
-msgctxt "#32914"
-msgid "France"
-msgstr ""
-
-msgctxt "#32915"
-msgid "Finland"
-msgstr ""
-
-msgctxt "#32916"
-msgid "Egypt"
-msgstr ""
-
-msgctxt "#32917"
-msgid "Greece"
-msgstr ""
-
-msgctxt "#32918"
-msgid "Hong Kong"
-msgstr ""
-
-msgctxt "#32919"
-msgid "Hungary"
-msgstr ""
-
-msgctxt "#32920"
-msgid "Iceland"
-msgstr ""
-
-msgctxt "#32921"
-msgid "India"
-msgstr ""
-
-msgctxt "#32922"
-msgid "Indonesia"
-msgstr ""
-
-msgctxt "#32923"
-msgid "Iran"
-msgstr ""
-
-msgctxt "#32924"
-msgid "Iraq"
-msgstr ""
-
-msgctxt "#32925"
-msgid "Ireland"
-msgstr ""
-
-msgctxt "#32926"
-msgid "Israel"
-msgstr ""
-
-msgctxt "#32927"
-msgid "Italy"
-msgstr ""
-
-msgctxt "#32928"
-msgid "Japan"
-msgstr ""
-
-msgctxt "#32929"
-msgid "Malaysia"
-msgstr ""
-
-msgctxt "#32930"
-msgid "Nepal"
-msgstr ""
-
-msgctxt "#32931"
-msgid "Netherlands"
-msgstr ""
-
-msgctxt "#32932"
-msgid "New Zealand"
-msgstr ""
-
-msgctxt "#32933"
-msgid "Norway"
-msgstr ""
-
-msgctxt "#32934"
-msgid "Pakistan"
-msgstr ""
-
-msgctxt "#32935"
-msgid "Paraguay"
-msgstr ""
-
-msgctxt "#32936"
-msgid "Peru"
-msgstr ""
-
-msgctxt "#32937"
-msgid "Philippines"
-msgstr ""
-
-msgctxt "#32938"
-msgid "Poland"
-msgstr ""
-
-msgctxt "#32939"
-msgid "Portugal"
-msgstr ""
-
-msgctxt "#32940"
-msgid "Puerto Rico"
-msgstr ""
-
-msgctxt "#32941"
-msgid "Romania"
-msgstr ""
-
-msgctxt "#32942"
-msgid "Russian Federation"
-msgstr ""
-
-msgctxt "#32943"
-msgid "Saudi Arabia"
-msgstr ""
-
-msgctxt "#32944"
-msgid "Serbia"
-msgstr ""
-
-msgctxt "#32945"
-msgid "Singapore"
-msgstr ""
-
-msgctxt "#32946"
-msgid "Slovakia"
-msgstr ""
-
-msgctxt "#32947"
-msgid "Slovenia"
-msgstr ""
-
-msgctxt "#32948"
-msgid "South Africa"
-msgstr ""
-
-msgctxt "#32949"
-msgid "Spain"
-msgstr ""
-
-msgctxt "#32950"
-msgid "Sri Lanka"
-msgstr ""
-
-msgctxt "#32951"
-msgid "Sweden"
-msgstr ""
-
-msgctxt "#32952"
-msgid "Switzerland"
-msgstr ""
-
-msgctxt "#32953"
-msgid "Thailand"
-msgstr ""
-
-msgctxt "#32954"
-msgid "Turkey"
-msgstr ""
-
-msgctxt "#32955"
-msgid "Ukraine"
-msgstr ""
-
-msgctxt "#32956"
-msgid "United Arab Emirates"
-msgstr ""
-
-msgctxt "#32957"
-msgid "United Kingdom"
-msgstr ""
-
-msgctxt "#32958"
-msgid "United States"
-msgstr ""
-
-msgctxt "#32959"
-msgid "Uruguay"
-msgstr ""
-
-msgctxt "#32960"
-msgid "Venezuela"
-msgstr ""
-
-msgctxt "#32961"
-msgid "Viet Nam"
-msgstr ""
-
-msgctxt "#32962"
-msgid "Yemen"
-msgstr ""
-
-msgctxt "#32963"
-msgid "Zimbabwe"
-msgstr ""
-
 msgctxt "#32964"
 msgid "Jump To..."
-msgstr ""
-
-msgctxt "#32965"
-msgid "None"
-msgstr ""
-
-msgctxt "#32970"
-msgid "Press BACK to Exit"
 msgstr ""
 
 msgctxt "#32971"

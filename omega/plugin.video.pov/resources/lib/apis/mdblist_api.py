@@ -21,7 +21,7 @@ def call_mdblist(url, params=None, json=None, method=None):
 	params['apikey'] = kodi_utils.get_setting('mdblist.token')
 	try:
 		response = session.request(method or 'get', url, params=params, json=json, timeout=timeout)
-		result = response.json()
+		result = response.json() if 'json' in response.headers.get('Content-Type', '') else response.text
 		if not response.ok: response.raise_for_status()
 	except requests.exceptions.RequestException as e:
 		kodi_utils.logger('mdblist error', str(e))
@@ -31,24 +31,24 @@ def mdb_searchlists(query):
 	query = requests.utils.quote(query)
 	string = 'mdb_searchlists_%s' % query
 	url = '%s/lists/search?query=%s' % (base_url, query)
-	return cache_object(call_mdblist, string, url, False, EXPIRES_1_HOURS)
+	return cache_object(call_mdblist, string, url, json=False, expiration=EXPIRES_1_HOURS)
 
 def mdb_userlists():
 	string = 'mdb_userlists'
 	url = '%s/lists/user' % base_url
-	return cache_object(call_mdblist, string, url, False, EXPIRES_1_HOURS)
+	return cache_object(call_mdblist, string, url, json=False, expiration=EXPIRES_1_HOURS)
 
 def mdb_toplists():
 	string = 'mdb_toplists'
 	url = '%s/lists/top' % base_url
-	return cache_object(call_mdblist, string, url, False)
+	return cache_object(call_mdblist, string, url, json=False)
 
 def mdb_media_info(imdb_id, media_type):
 	if not kodi_utils.get_setting('mdblist.token'): return
 	media_type = 'show' if media_type == 'tvshow' else 'movie'
 	string = 'mdb_%s_mediainfo_%s' % (media_type, imdb_id)
 	url = '%s/%s/%s/%s?append_to_response=review' % (base_url, 'imdb', media_type, imdb_id)
-	return cache_function(call_mdblist, string, url, json=False)
+	return cache_function(call_mdblist, string, url)
 
 def mdb_media_info_batch(items, provider, media_type):
 	url = '%s/%s/%s' % (base_url, provider, media_type)
@@ -59,7 +59,7 @@ def mdb_parentsguide(imdb_id, media_type):
 	url = 'https://www.mdblist.com/%s/%s' % (media_type, imdb_id)
 	string = 'mdb_%s_parentsguide_%s' % (media_type, imdb_id)
 	params = {'url': url, 'action': 'mdb_parentsguide'}
-	return cache_function(get_mdb, string, params, json=False)
+	return cache_function(get_mdb, string, params)
 
 def mdb_modify_list(list_id, data, action='add'):
 	if list_id: url = '%s/lists/%s/items/%s' % (base_url, list_id, action)

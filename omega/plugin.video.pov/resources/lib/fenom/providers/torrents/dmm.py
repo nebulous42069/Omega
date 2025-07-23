@@ -75,10 +75,6 @@ class source:
 				if self.undesirables and source_utils.remove_undesirables(name_info, self.undesirables): continue
 
 				url = 'magnet:?xt=urn:btih:%s&dn=%s' % (hash, name)
-				# if not self.episode_title: #filter for eps returned in movie query (rare but movie and show exists for Run in 2020)
-					# ep_strings = [r'[.-]s\d{2}e\d{2}([.-]?)', r'[.-]s\d{2}([.-]?)', r'[.-]season[.-]?\d{1,2}[.-]?']
-					# name_lower = name.lower()
-					# if any(re.search(item, name_lower) for item in ep_strings): continue
 
 				quality, info = source_utils.get_release_quality(name_info, url)
 				try:

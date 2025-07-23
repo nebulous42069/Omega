@@ -41,7 +41,7 @@
                 <textcolor>FFFFFFFF</textcolor>
                 <align>left</align>
                 <aligny>center</aligny>
-                <label>[UPPERCASE]$INFO[Window.Property(tikiskins.scrape_time),[B],[/B]] $ADDON[plugin.video.pov 32171][CR]$INFO[Window.Property(tikiskins.total_results),[B],[/B]] $ADDON[plugin.video.pov 32139] $INFO[Window.Property(tikiskins.filters_ignored)][/UPPERCASE]</label>
+                <label>[UPPERCASE]$INFO[Window.Property(tikiskins.scrape_time),[B],[/B]] Seconds[CR]$INFO[Window.Property(tikiskins.total_results),[B],[/B]] Results $INFO[Window.Property(tikiskins.filters_ignored)][/UPPERCASE]</label>
             </control>
         </control>
         <!-- List -->
@@ -525,7 +525,7 @@
                         <textcolor>FFCCCCCC</textcolor>
                         <align>left</align>
                         <aligny>center</aligny>
-                        <label>[UPPERCASE][COLOR $INFO[Container(2001).ListItem().Property(tikiskins.highlight)]][B]$ADDON[plugin.video.pov 32100]: [/B][/COLOR]$INFO[Container(2001).ListItem().Property(tikiskins.source_site)][/UPPERCASE]</label>
+                        <label>[UPPERCASE][COLOR $INFO[Container(2001).ListItem().Property(tikiskins.highlight)]][B]Site: [/B][/COLOR]$INFO[Container(2001).ListItem().Property(tikiskins.source_site)][/UPPERCASE]</label>
                     </control>
                     <control type="label">
                         <top>0</top>
@@ -535,7 +535,7 @@
                         <textcolor>FFCCCCCC</textcolor>
                         <align>right</align>
                         <aligny>center</aligny>
-                        <label>[UPPERCASE][COLOR $INFO[Container(2001).ListItem().Property(tikiskins.highlight)]][B]$ADDON[plugin.video.pov 32532]: [/B][/COLOR]$INFO[Container(2001).ListItem().Property(tikiskins.source_type)][/UPPERCASE]</label>
+                        <label>[UPPERCASE][COLOR $INFO[Container(2001).ListItem().Property(tikiskins.highlight)]][B]Hoster: [/B][/COLOR]$INFO[Container(2001).ListItem().Property(tikiskins.source_type)][/UPPERCASE]</label>
                     </control>
                     <control type="label">
                         <top>50</top>
@@ -545,7 +545,7 @@
                         <textcolor>FFCCCCCC</textcolor>
                         <align>left</align>
                         <aligny>center</aligny>
-                        <label>[UPPERCASE][COLOR $INFO[Container(2001).ListItem().Property(tikiskins.highlight)]][B]$ADDON[plugin.video.pov 32584]: [/B][/COLOR]$INFO[Container(2001).ListItem().Property(tikiskins.size_label)][/UPPERCASE]</label>
+                        <label>[UPPERCASE][COLOR $INFO[Container(2001).ListItem().Property(tikiskins.highlight)]][B]Size: [/B][/COLOR]$INFO[Container(2001).ListItem().Property(tikiskins.size_label)][/UPPERCASE]</label>
                     </control>
                     <control type="label">
                         <top>50</top>
@@ -555,7 +555,7 @@
                         <textcolor>FFCCCCCC</textcolor>
                         <align>right</align>
                         <aligny>center</aligny>
-                        <label>[UPPERCASE][COLOR $INFO[Container(2001).ListItem().Property(tikiskins.highlight)]][B]$ADDON[plugin.video.pov 32583]: [/B][/COLOR]$INFO[Container(2001).ListItem().Property(tikiskins.provider)][/UPPERCASE]</label>
+                        <label>[UPPERCASE][COLOR $INFO[Container(2001).ListItem().Property(tikiskins.highlight)]][B]Provider: [/B][/COLOR]$INFO[Container(2001).ListItem().Property(tikiskins.provider)][/UPPERCASE]</label>
                     </control>
                     <control type="label">
                         <top>100</top>
@@ -565,7 +565,7 @@
                         <textcolor>FFCCCCCC</textcolor>
                         <align>left</align>
                         <aligny>center</aligny>
-                        <label>[UPPERCASE][COLOR $INFO[Container(2001).ListItem().Property(tikiskins.highlight)]][B]$ADDON[plugin.video.pov 32106]: [/B][/COLOR]$INFO[Container(2001).ListItem().Property(tikiskins.hash)][/UPPERCASE]</label>
+                        <label>[UPPERCASE][COLOR $INFO[Container(2001).ListItem().Property(tikiskins.highlight)]][B]Hash: [/B][/COLOR]$INFO[Container(2001).ListItem().Property(tikiskins.hash)][/UPPERCASE]</label>
                     </control>
                     <control type="textbox">
                         <top>140</top>
@@ -575,7 +575,7 @@
                         <textcolor>FFCCCCCC</textcolor>
                         <align>left</align>
                         <aligny>top</aligny>
-                        <label>[UPPERCASE][COLOR $INFO[Container(2001).ListItem().Property(tikiskins.highlight)]][B]$ADDON[plugin.video.pov 32605]: [/B][/COLOR]$INFO[Container(2001).ListItem().Property(tikiskins.extra_info)][/UPPERCASE]</label>
+                        <label>[UPPERCASE][COLOR $INFO[Container(2001).ListItem().Property(tikiskins.highlight)]][B]Extra Info: [/B][/COLOR]$INFO[Container(2001).ListItem().Property(tikiskins.extra_info)][/UPPERCASE]</label>
                     </control>
                     <control type="textbox">
                         <top>235</top>
@@ -586,7 +586,7 @@
                         <textcolor>FFCCCCCC</textcolor>
                         <align>left</align>
                         <aligny>top</aligny>
-                        <label>[UPPERCASE][COLOR $INFO[Container(2001).ListItem().Property(tikiskins.highlight)]][B]$ADDON[plugin.video.pov 32228]: [/B][/COLOR]$INFO[Container(2001).ListItem().Property(tikiskins.name)][/UPPERCASE]</label>
+                        <label>[UPPERCASE][COLOR $INFO[Container(2001).ListItem().Property(tikiskins.highlight)]][B]Title: [/B][/COLOR]$INFO[Container(2001).ListItem().Property(tikiskins.name)][/UPPERCASE]</label>
                     </control>
                 </control>
                 <control type="image">

@@ -1,7 +1,7 @@
 import sys
 from apis.real_debrid_api import RealDebridAPI as Debrid
 from modules import kodi_utils
-from modules.source_utils import supported_video_extensions, source_warning
+from modules.source_utils import supported_video_extensions
 from modules.utils import clean_file_name, clean_title, normalize, jsondate_to_datetime
 # from modules.kodi_utils import logger
 
@@ -128,61 +128,6 @@ class Indexer(Debrid):
 			kodi_utils.hide_busy_dialog()
 			return kodi_utils.show_text(ls(32054).upper(), '\n\n'.join(body), font_size='large')
 		except: kodi_utils.hide_busy_dialog()
-
-	@source_warning
-	def set_auth(self):
-		import json, urllib.parse
-		from apis.real_debrid_api import base_url, auth_url, session, timeout
-		session.cookies.clear()
-		client_id = get_setting('rd.client_id') or 'X245A4XAIBGVM'
-		data = {'grant_type': 'http://oauth.net/grant_type/device/1.0', 'client_id': '', 'client_secret': '', 'code': ''}
-		url = '%sdevice/code?client_id=%s&new_credentials=yes' % (auth_url, client_id)
-		response = session.get(url, timeout=timeout)
-		result = response.json()
-		data['code'] = result['device_code']
-		try:
-			qr_url = '&data=%s' % urllib.parse.quote(result['direct_verification_url'])
-			qr_icon = 'https://api.qrserver.com/v1/create-qr-code/?size=256x256&qzone=1%s' % qr_url
-		except: pass
-		line2 = '%s, %s' % (ls(32700) % result['verification_url'], ls(32701) % result['user_code'])
-		choices = [
-			('none', 'Use the QR Code to approve access at Real-Debrid', 'Step 1: %s' % line2),
-			('approve', 'Access approved at Real-Debrid', 'Step 2'), 
-			('cancel', 'Cancel', 'Cancel')
-		]
-		list_items = [{'line1': item[1], 'line2': item[2], 'icon': qr_icon} for item in choices]
-		kwargs = {'items': json.dumps(list_items), 'heading': 'Real-Debrid', 'multi_line': 'true'}
-		choice = kodi_utils.select_dialog([i[0] for i in choices], **kwargs)
-		if choice != 'approve': return
-		url = '%sdevice/credentials?client_id=%s&code=%s' % (auth_url, client_id, data['code'])
-		response = session.get(url, timeout=timeout)
-		result = response.json()
-		data.update({'client_id': result['client_id'], 'client_secret': result['client_secret']})
-		url = '%stoken' % auth_url
-		response = session.post(url, data=data, timeout=timeout)
-		result = response.json()
-		client_id, secret = data['client_id'], data['client_secret']
-		token, refresh = result['access_token'], result['refresh_token']
-		kodi_utils.sleep(500) # from My Accounts
-		result = session.get(f"{base_url}user?auth_token={token}", timeout=timeout).json()
-		username = result['username']
-		set_setting('rd.username', str(username))
-		set_setting('rd.client_id', client_id)
-		set_setting('rd.token', token)
-		set_setting('rd.refresh', refresh)
-		set_setting('rd.secret', secret)
-		kodi_utils.notification('%s %s' % (ls(32576), ls(32054)))
-		return True
-
-	def del_auth(self):
-		if not kodi_utils.confirm_dialog(): return
-		set_setting('rd.username', '')
-		set_setting('rd.client_id', '')
-		set_setting('rd.token', '')
-		set_setting('rd.refresh', '')
-		set_setting('rd.secret', '')
-		self.clear_cache()
-		kodi_utils.notification('%s %s' % (ls(32576), ls(32059)))
 
 def resolve_rd(params):
 	url = params['url']

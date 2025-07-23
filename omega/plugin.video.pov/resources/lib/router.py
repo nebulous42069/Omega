@@ -32,7 +32,6 @@ class Router:
 		elif '_play' in mode or 'play_' in mode:
 			if mode == 'play_media':
 				from modules.sources import Sources
-				if 'params' in params: params = Sources.jsloads(params['params'])
 				Sources().playback_prep(params)
 			elif mode == 'media_play':
 				from modules.player import POVPlayer
@@ -78,7 +77,7 @@ class Router:
 			elif mode == 'extras_lists_choice':
 				dialogs.extras_lists_choice()
 			elif mode == 'random_choice':
-				dialogs.random_choice(params['tmdb_id'], params['poster'])
+				dialogs.random_choice(params['mode'], params)
 		elif 'trakt.' in mode:
 			if 'trakt_account_info' in mode:
 				from indexers.trakt import trakt_account_info
@@ -212,12 +211,6 @@ class Router:
 			elif mode == 'alldebrid.show_account_info':
 				from indexers.alldebrid import show_account_info
 				show_account_info()
-			elif mode == 'alldebrid.set_auth':
-				from indexers.alldebrid import set_auth
-				set_auth()
-			elif mode == 'alldebrid.del_auth':
-				from indexers.alldebrid import del_auth
-				del_auth()
 		elif 'premiumize' in mode:
 			from indexers.premiumize import Indexer
 			Indexer().run(params)
@@ -283,6 +276,9 @@ class Router:
 		elif mode == 'clean_databases':
 			from modules.cache_utils import clean_databases
 			clean_databases()
+		elif mode == 'clean_thumbnails':
+			from modules.thumbnails import thumb_cleaner
+			thumb_cleaner()
 		elif mode == 'manual_add_magnet_to_cloud':
 			from modules.debrid import manual_add_magnet_to_cloud
 			manual_add_magnet_to_cloud(params)
@@ -295,6 +291,9 @@ class Router:
 		elif mode == 'upload_logfile':
 			from modules.kodi_utils import upload_logfile
 			upload_logfile()
+		elif mode == 'myservices':
+			from modules.myservices import authorize
+			authorize(params['action'])
 		##FENOM modes###
 		elif mode == 'undesirablesInput':
 			from caches.undesirables_cache import undesirablesInput
@@ -303,8 +302,8 @@ class Router:
 			from caches.undesirables_cache import undesirablesUserRemove
 			undesirablesUserRemove()
 		elif mode == 'speedTest':
-			from fenom.speedtest import Magneto
-			Magneto().speedtest()
+			from fenom.speedtest import magneto
+			magneto()
 
 
 if __name__ == '__main__':

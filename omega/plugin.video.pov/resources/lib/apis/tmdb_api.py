@@ -23,10 +23,11 @@ session.mount('https://api.themoviedb.org', requests.adapters.HTTPAdapter(pool_m
 def get_tmdb(url, errors=True):
 	try:
 		response = session.get(url, timeout=timeout)
+		result = response.json() if 'json' in response.headers.get('Content-Type', '') else response.text
 		if not response.ok: response.raise_for_status()
 	except requests.exceptions.RequestException as e:
 		if errors: logger('tmdb error', str(e))
-	return response
+	return result
 
 def tmdb_keyword_id(query):
 	string = 'tmdb_keyword_id_%s' % query
@@ -54,7 +55,7 @@ def tmdb_media_videos(media_type, tmdb_id):
 def tmdb_movies_discover(query, page_no):
 	string = query % page_no
 	url = query % page_no
-	return cache_object(get_tmdb, string, url)
+	return cache_object(get_tmdb, string, url, json=False)
 
 def tmdb_movies_collection(collection_id):
 	string = 'tmdb_movies_collection_%s' % collection_id
@@ -156,7 +157,7 @@ def tmdb_movies_search_collections(query, page_no):
 
 def tmdb_tv_discover(query, page_no):
 	string = url = query % page_no
-	return cache_object(get_tmdb, string, url)
+	return cache_object(get_tmdb, string, url, json=False)
 
 def tmdb_tv_title_year(title, year=None):
 	if year:
@@ -245,7 +246,7 @@ def tmdb_tv_search(query, page_no):
 def tmdb_popular_people(page_no):
 	string = 'tmdb_popular_people_%s' % page_no
 	url = '%s/person/popular?api_key=%s&language=en-US&page=%s' % (base_url, tmdb_api_key(), page_no)
-	return cache_object(get_tmdb, string, url)
+	return cache_object(get_tmdb, string, url, False)
 
 def tmdb_people_full_info(actor_id, language=None):
 	if not language: language = get_language()
@@ -268,19 +269,19 @@ def get_dates(days, reverse=True):
 def movie_details(tmdb_id, language, tmdb_api=None):
 	try:
 		url = '%s/movie/%s?api_key=%s&language=%s&append_to_response=%s' % (base_url, tmdb_id, get_tmdb_api(tmdb_api), language, movies_append)
-		return get_tmdb(url).json()
+		return get_tmdb(url)
 	except: return None
 
 def tvshow_details(tmdb_id, language, tmdb_api=None):
 	try:
 		url = '%s/tv/%s?api_key=%s&language=%s&append_to_response=%s' % (base_url, tmdb_id, get_tmdb_api(tmdb_api), language, tvshows_append)
-		return get_tmdb(url).json()
+		return get_tmdb(url)
 	except: return None
 
 def season_episodes_details(tmdb_id, season_no, language, tmdb_api=None):
 	try:
 		url = '%s/tv/%s/season/%s?api_key=%s&language=%s&append_to_response=credits' % (base_url, tmdb_id, season_no, get_tmdb_api(tmdb_api), language)
-		return get_tmdb(url, False).json()
+		return get_tmdb(url, False)
 	except: return None
 
 def movie_external_id(external_source, external_id, tmdb_api=None):
@@ -327,7 +328,7 @@ def english_translation(media_type, tmdb_id, tmdb_api=None):
 	try:
 		string = 'english_translation_%s_%s' % (media_type, tmdb_id)
 		url = '%s/%s/%s/translations?api_key=%s' % (base_url, media_type, tmdb_id, get_tmdb_api(tmdb_api))
-		result = cache_function(get_tmdb, string, url, 8760)['']
+		result = cache_function(get_tmdb, string, url, EXPIRES_1_WEEK * 52)
 		try: result = result['translations']
 		except: result = None
 		return result
@@ -426,16 +427,11 @@ list_heading = 'TMDB Lists'
 def list_request(url, params=None, data=None, method=None):
 	access_token = get_setting('tmdb.token')
 	headers = {'Authorization': f"Bearer {access_token}"}
+	method = method or 'get'
+	list_timeout=timeout ** 2 if not method in ('get',) else timeout
 	try:
-		response = session.request(
-			method or 'get',
-			url,
-			params=params,
-			json=data,
-			headers=headers,
-			timeout=timeout ** 2 if not method in ('get', None) else timeout
-		)
-		result = response.json()
+		response = session.request(method, url, params=params, json=data, headers=headers, timeout=list_timeout)
+		result = response.json() if 'json' in response.headers.get('Content-Type', '') else response.text
 		if not response.ok: response.raise_for_status()
 	except requests.exceptions.RequestException as e:
 		logger('tmdb error', str(e))
@@ -617,83 +613,4 @@ def clear_tmdbl_cache(silent=False):
 		for i in tmdb_results: kodi_utils.clear_property(i)
 		return True
 	except: return False
-
-def convert_to_session_id(token=None):
-	if not token and not get_setting('tmdb.token'): return
-	read_token, access_token = get_setting('tmdb_read_token'), token or get_setting('tmdb.token')
-	headers = {'Authorization': f"Bearer {read_token}"}
-	data = {'access_token': access_token}
-	url = 'https://api.themoviedb.org/3/authentication/session/convert/4'
-	response = requests.post(url, data=data, headers=headers, timeout=timeout)
-	result = response.json()
-	if not result['success']: return
-	session_id = result['session_id']
-	params = {'session_id': session_id}
-	url = 'https://api.themoviedb.org/3/account'
-	response = requests.get(url, params=params, headers=headers, timeout=timeout)
-	result = response.json()
-	if not 'id' in result: return
-	username, session_account_id = str(result['username']), str(result['id'])
-	set_setting('tmdb.username', username)
-	set_setting('tmdb.session_id', session_id)
-	set_setting('tmdb.session_account_id', session_account_id)
-	return session_account_id, session_id
-
-def set_auth(*args):
-	read_token = get_setting('tmdb_read_token')
-	headers = {'Authorization': f"Bearer {read_token}"}
-	url = 'https://api.themoviedb.org/4/auth/request_token'
-	response = requests.post(url, headers=headers, timeout=timeout)
-	result = response.json()
-	if not result['success']: return
-	url = 'https://www.themoviedb.org/auth/access?request_token=%s' % result['request_token']
-	qr_url = '&data=%s' % requests.utils.quote(url)
-	qr_icon = 'https://api.qrserver.com/v1/create-qr-code/?size=256x256&qzone=1%s' % qr_url
-	tiny_url = 'http://tinyurl.com/api-create.php'
-	try: tiny_url = requests.get(tiny_url, params={'url': url}, timeout=timeout).text
-	except: pass
-	logger('tmdblist', '%s\n%s' % (tiny_url, url))
-	line2 = ls(32700) % tiny_url
-	choices = [
-		('none', 'Use the QR Code to approve access at TMDB', 'Step 1: %s' % line2),
-		('approve', 'Access approved at TMDB', 'Step 2'),
-		('cancel', 'Cancel', 'Cancel')
-	]
-	list_items = [{'line1': item[1], 'line2': item[2], 'icon': qr_icon} for item in choices]
-	kwargs = {'items': json.dumps(list_items), 'heading': list_heading, 'multi_line': 'true'}
-	choice = kodi_utils.select_dialog([i[0] for i in choices], **kwargs)
-	if choice != 'approve': return
-	data = {'request_token': result['request_token']}
-	url = 'https://api.themoviedb.org/4/auth/access_token'
-	response = requests.post(url, json=data, headers=headers, timeout=timeout)
-	result = response.json()
-	if not result['success']: return kodi_utils.notification(32574)
-	account_id, access_token = str(result['account_id']), str(result['access_token'])
-	set_setting('tmdb.account_id', account_id)
-	set_setting('tmdb.token', access_token)
-	kodi_utils.notification('%s %s' % (ls(32576), list_heading))
-	convert_to_session_id(access_token)
-
-def del_auth(*args):
-	if not kodi_utils.confirm_dialog(): return
-	read_token, access_token = get_setting('tmdb_read_token'), get_setting('tmdb.token')
-	headers = {'Authorization': f"Bearer {read_token}"}
-	data = {'access_token': access_token}
-	url = 'https://api.themoviedb.org/4/auth/access_token'
-	response = requests.delete(url, json=data, headers=headers, timeout=timeout)
-	result = response.json()
-	if not result['success']: return kodi_utils.notification(32574)
-	set_setting('tmdb.account_id', '')
-	set_setting('tmdb.token', '')
-	kodi_utils.notification('%s %s' % (ls(32576), list_heading))
-	clear_tmdbl_cache()
-	session_id = get_setting('tmdb.session_id')
-	data = {'session_id': session_id}
-	url = 'https://api.themoviedb.org/3/authentication/session'
-	response = requests.delete(url, json=data, headers=headers, timeout=timeout)
-	result = response.json()
-	if not result['success']: return
-	set_setting('tmdb.session_account_id', '')
-	set_setting('tmdb.session_id', '')
-	set_setting('tmdb.username', '')
 

@@ -97,7 +97,7 @@ class MainCache(BaseCache):
 
 main_cache = MainCache()
 
-def cache_object(function, string, url, json=True, expiration=24):
+def cache_object(function, string, url, json=False, expiration=24):
 	cache = main_cache.get(string)
 	if cache: return cache
 	if isinstance(url, list): args = tuple(url)

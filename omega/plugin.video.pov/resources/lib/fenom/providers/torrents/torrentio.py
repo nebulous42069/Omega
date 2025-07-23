@@ -8,7 +8,6 @@ import re, requests, queue
 #from fenom import client
 from fenom import source_utils
 
-#SERVER_ERROR = ('521 Origin Down', 'No results returned', 'Connection Time-out', 'Database maintenance')
 headers = {'User-Agent': 'Mozilla/5.0'}
 
 
@@ -22,8 +21,6 @@ class source:
 	def __init__(self):
 		self.language = ['en']
 		self.base_link = "https://torrentio.strem.fun"
-		# self.movieSearch_link = '/language=english/stream/movie/%s.json'
-		# self.tvSearch_link = '/language=english/stream/series/%s:%s:%s.json'
 		self.movieSearch_link = '/stream/movie/%s.json'
 		self.tvSearch_link = '/stream/series/%s:%s:%s.json'
 		self.min_seeders = 0
@@ -51,7 +48,6 @@ class source:
 			# log_utils.log('url = %s' % url)
 			try:
 				results = requests.get(url, headers=headers, timeout=self.timeout) # client.request(url, timeout=5)
-#				if not results or any(value in results for value in SERVER_ERROR): return sources
 				files = results.json()['streams'] # jsloads(results)['streams']
 			except: files = []
 			self._queue.put_nowait(files) # if seasons
@@ -119,7 +115,6 @@ class source:
 			season = data['season']
 			url = '%s%s' % (self.base_link, self.tvSearch_link % (imdb, season, data['episode']))
 #			results = requests.get(url, headers=headers, timeout=5) # client.request(url, timeout=5)
-#			if not results or any(value in results for value in SERVER_ERROR): return sources
 			files = self._queue.get(timeout=self.timeout + 1) # jsloads(results)['streams']
 			_INFO = re.compile(r'👤.*')
 			undesirables = source_utils.get_undesirables()

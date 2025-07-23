@@ -70,19 +70,11 @@ class source:
 
 		for file in files:
 			try:
-				if 'url' in file:
-					path = file['url'].split('/')
-					hash = path[path.index('playback') + 1]
+				if 'url' in file: hash = re.search(r'\b\w{40}\b', file['url']).group()
 				else: hash = file['infoHash']
 				file_title = file['description'].split('\n')
 				file_info = [x for x in file_title if _INFO.match(x)][0]
 				cached = 'CM+' if '⚡' in file['name'] else 'CM'
-				# try:
-					# index = file_title.index(file_info)
-					# if index == 1: combo = file_title[0].replace(' ', '.')
-					# else: combo = ''.join(file_title[0:2]).replace(' ', '.')
-					# if '🇷🇺' in file_title[index+1] and not any(value in combo for value in ('.en.', '.eng.', 'english')): continue
-				# except: pass
 
 				name = source_utils.clean_name(file_title[0])
 
@@ -92,10 +84,6 @@ class source:
 				if undesirables and source_utils.remove_undesirables(name_info, undesirables): continue
 
 				url = 'magnet:?xt=urn:btih:%s&dn=%s' % (hash, name) 
-				# if not episode_title: #filter for eps returned in movie query (rare but movie and show exists for Run in 2020)
-					# ep_strings = [r'(?:\.|\-)s\d{2}e\d{2}(?:\.|\-|$)', r'(?:\.|\-)s\d{2}(?:\.|\-|$)', r'(?:\.|\-)season(?:\.|\-)\d{1,2}(?:\.|\-|$)']
-					# name_lower = name.lower()
-					# if any(re.search(item, name_lower) for item in ep_strings): continue
 
 				try:
 					seeders = 0 # int(re.search(r'(\d+)', file_info).group(1))
@@ -138,19 +126,11 @@ class source:
 
 		for file in files:
 			try:
-				if 'url' in file:
-					path = file['url'].split('/')
-					hash = path[path.index('playback') + 1]
+				if 'url' in file: hash = re.search(r'\b\w{40}\b', file['url']).group()
 				else: hash = file['infoHash']
 				file_title = file['description'].split('\n')
 				file_info = [x for x in file_title if _INFO.match(x)][0]
 				cached = 'CM+' if '⚡' in file['name'] else 'CM'
-				# try:
-					# index = file_title.index(file_info)
-					# if index == 1: combo = file_title[0].replace(' ', '.')
-					# else: combo = ''.join(file_title[0:2]).replace(' ', '.')
-					# if '🇷🇺' in file_title[index+1] and not any(value in combo for value in ('.en.', '.eng.', 'english')): continue
-				# except: pass
 
 				name = source_utils.clean_name(file_title[0])
 

@@ -8,7 +8,7 @@ from modules.kodi_utils import notification, sleep, delete_file, rename_file
 # from modules.kodi_utils import logger
 
 base_url = 'https://rest.opensubtitles.org/search'
-user_agent = {'User-Agent': 'TemporaryUserAgent'}
+headers = {'User-Agent': 'TemporaryUserAgent'}
 timeout = 5.05
 
 class OpenSubtitlesAPI:
@@ -35,7 +35,7 @@ class OpenSubtitlesAPI:
 		return final_path
 
 	def _get(self, url, stream=False, retry=False):
-		response = requests.get(url, headers=user_agent, stream=stream, timeout=timeout)
+		response = requests.get(url, headers=headers, stream=stream, timeout=timeout)
 		if response.ok: return response
 		elif retry and response.status_code == 429:
 			notification(32740, 3000)

@@ -22,8 +22,9 @@ metadata_user_info, quality_filter, sort_to_top  = settings.metadata_user_info, 
 results_xml_style, results_xml_window_number = settings.results_xml_style, settings.results_xml_window_number
 debrid_enabled, debrid_type_enabled, debrid_valid_hosts = debrid.debrid_enabled, debrid.debrid_type_enabled, debrid.debrid_valid_hosts
 debrid_list, import_debrid, main_line = debrid.debrid_list, debrid.import_debrid, debrid.main_line
-resolve_cached_torrents, resolve_debrid = debrid.resolve_cached_torrents, debrid.resolve_debrid
-resolve_internal_sources, manual_add_magnet_to_cloud = debrid.resolve_internal_sources, debrid.manual_add_magnet_to_cloud
+resolve_debrid, resolve_internal_sources = debrid.resolve_debrid, debrid.resolve_internal_sources
+resolve_cached_torrents, resolve_cached_nzbs = debrid.resolve_cached_torrents, debrid.resolve_cached_nzbs
+manual_add_magnet_to_cloud, manual_add_nzb_to_cloud = debrid.manual_add_magnet_to_cloud, debrid.manual_add_nzb_to_cloud
 quality_ranks = {'4K': 1, '1080p': 2, '720p': 3, 'SD': 4, 'SCR': 5, 'CAM': 5, 'TELE': 5}
 cloud_scrapers, folder_scrapers = ('rd_cloud', 'pm_cloud', 'ad_cloud', 'oc_cloud', 'tb_cloud'), ('folder1', 'folder2', 'folder3', 'folder4', 'folder5')
 default_internal_scrapers = ('easynews', 'rd_cloud', 'pm_cloud', 'ad_cloud', 'oc_cloud', 'tb_cloud', 'folders')
@@ -31,10 +32,6 @@ av1_filter_key, hevc_filter_key, hdr_filter_key, dolby_vision_filter_key = '[B]A
 dialog_format, remaining_format = '[COLOR %s][B]%s[/B][/COLOR] 4K: %s | 1080p: %s | 720p: %s | SD: %s | Total: %s', ls(32676)
 
 class Sources():
-	@staticmethod
-	def jsloads(*args, **kwargs):
-		return json.loads(*args, **kwargs)
-
 	def __init__(self):
 		self.params = {}
 		self.clear_properties, self.filters_ignored, self.active_folders = True, False, False
@@ -550,7 +547,7 @@ class Sources():
 						elif self.progress_dialog and self.progress_dialog.iscanceled(): break
 						percent = int(((total_items := len(items))-count)/total_items*100)
 						name = item['name'].replace('.', ' ').replace('-', ' ').upper()
-						line1 = (item.get('scrape_provider'), item.get('cache_provider'), item.get('provider'))
+						line1 = item.get('scrape_provider'), item.get('cache_provider'), item.get('provider')
 						line1 = ' | '.join(i for i in line1 if i and i != 'external').upper()
 						line2 = ' | '.join(i for i in (item.get('size_label', ''), item.get('extraInfo', '')) if i)
 						if self.progress_dialog: self.progress_dialog.update(main_line % (line1, line2, name), percent)
@@ -587,12 +584,18 @@ class Sources():
 				if meta['media_type'] == 'movie': title, season, episode = self._get_search_title(meta), None, None
 				else: title, season, episode = meta['ep_name'], meta.get('custom_season') or meta.get('season'), meta.get('custom_episode') or meta.get('episode')
 				if cache_provider in ('Real-Debrid', 'Premiumize.me', 'AllDebrid', 'Offcloud', 'TorBox', 'EasyDebrid'):
-					url = resolve_cached_torrents(cache_provider, item['url'], item['hash'], title, season, episode)
+					if item['url'].startswith('magnet'):
+						url = resolve_cached_torrents(cache_provider, item['url'], item['hash'], title, season, episode)
+					else:
+						url = resolve_cached_nzbs(cache_provider, item['url'], item['hash'], title, season, episode)
 					return url
 				if 'Uncached' in cache_provider:
 					if confirm_dialog(text=ls(32831) % item['debrid'].upper()):
-						if not 'package' in item: title, season, episode  = None, None, None
-						manual_add_magnet_to_cloud({'provider': item['debrid'], 'magnet_url': item['url']})
+#						if not 'package' in item: title, season, episode  = None, None, None
+						if item['url'].startswith('magnet'):
+							manual_add_magnet_to_cloud({'provider': item['debrid'], 'magnet_url': item['url']})
+						else:
+							manual_add_nzb_to_cloud({'provider': item['debrid'], 'url': item['url'], 'name': item['name']})
 					return 'uncached'
 			if item.get('scrape_provider', None) in default_internal_scrapers:
 				url = resolve_internal_sources(item['scrape_provider'], item['id'], item['url_dl'], item.get('direct_debrid_link', False))

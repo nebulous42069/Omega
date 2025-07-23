@@ -17,11 +17,11 @@ class source:
 	hasEpisodes = True
 	_queue = queue.SimpleQueue()
 	def __init__(self):
-		params = '3f39d482-ed3f-4d91-a8c0-aa8cf7713f38/eyJpdiI6IktaSlRJNkRlbllYUnhGNTBtbjlIbXc9PSIsImVuY3J5cHRlZCI6ImZWRGlEaUxnZzVJWExaYlBlR2lMK1E9PSIsInR5cGUiOiJhaW9FbmNyeXB0In0'
+		params = '4ec23e77-bdff-4c55-81b9-d3c1044d81ff/eyJpdiI6IlAzeGQ1cFJXZHRWb1hMY3E3cGtHT2c9PSIsImVuY3J5cHRlZCI6IkVENE9LUGVqUVRqNWtVTjQzSE1YUWw4SjRhTHhyWXFuWnpBc3grL0E5Q1U9IiwidHlwZSI6ImFpb0VuY3J5cHQifQ'
 		self.language = ['en']
-		self.base_link = f"https://aiostreams.elfhosted.com/stremio/{params}"
-		self.movieSearch_link = '/stream/movie/%s.json'
-		self.tvSearch_link = '/stream/series/%s:%s:%s.json'
+		self.base_link = "https://aiostreams.elfhosted.com/stremio"
+		self.movieSearch_link = f"/{params}/stream/movie/%s.json"
+		self.tvSearch_link = f"/{params}/stream/series/%s:%s:%s.json"
 		self.min_seeders = 0
 
 	def sources(self, data, hostDict):
@@ -50,7 +50,9 @@ class source:
 			except: files = []
 			self._queue.put_nowait(files) # if seasons
 			self._queue.put_nowait(files) # if shows
-			_INFO = re.compile(r'📦.*')
+			_INFO = re.compile(r'💾.*')
+			undesirables = source_utils.get_undesirables()
+			check_foreign_audio = source_utils.check_foreign_audio()
 		except:
 			source_utils.scraper_error('AIOSTREAMS')
 			return sources
@@ -60,26 +62,18 @@ class source:
 				hash = file['infoHash']
 				file_title = file['description'].split('\n')
 				file_info = [x for x in file_title if _INFO.match(x)][0]
-				# try:
-					# index = file_title.index(file_info)
-					# if index == 1: combo = file_title[0].replace(' ', '.')
-					# else: combo = ''.join(file_title[0:2]).replace(' ', '.')
-					# if '🇷🇺' in file_title[index+1] and not any(value in combo for value in ('.en.', '.eng.', 'english')): continue
-				# except: pass
 
-				name = source_utils.clean_name(file_title[-1])
+				name = source_utils.clean_name(file_title[0])
 
 				if not source_utils.check_title(title, aliases, name.replace('.(Archie.Bunker', ''), hdlr, year): continue
 				name_info = source_utils.info_from_name(name, title, year, hdlr, episode_title)
+				if source_utils.remove_lang(name_info, check_foreign_audio): continue
+				if undesirables and source_utils.remove_undesirables(name_info, undesirables): continue
 
 				url = 'magnet:?xt=urn:btih:%s&dn=%s' % (hash, name) 
-				# if not episode_title: #filter for eps returned in movie query (rare but movie and show exists for Run in 2020)
-					# ep_strings = [r'(?:\.|\-)s\d{2}e\d{2}(?:\.|\-|$)', r'(?:\.|\-)s\d{2}(?:\.|\-|$)', r'(?:\.|\-)season(?:\.|\-)\d{1,2}(?:\.|\-|$)']
-					# name_lower = name.lower()
-					# if any(re.search(item, name_lower) for item in ep_strings): continue
 
 				try:
-					seeders = int(re.search(r'👥 (\d+)', file_info).group(0)[2:])
+					seeders = int(re.search(r'👤\s*(\d+)', file_info).group(1))
 					if self.min_seeders > seeders: continue
 				except: seeders = 0
 
@@ -110,7 +104,9 @@ class source:
 			url = '%s%s' % (self.base_link, self.tvSearch_link % (imdb, season, data['episode']))
 #			results = requests.get(url, timeout=7) # client.request(url, timeout=7)
 			files = self._queue.get(timeout=self.timeout + 1) # jsloads(results)['streams']
-			_INFO = re.compile(r'📦.*')
+			_INFO = re.compile(r'💾.*')
+			undesirables = source_utils.get_undesirables()
+			check_foreign_audio = source_utils.check_foreign_audio()
 		except:
 			source_utils.scraper_error('AIOSTREAMS')
 			return sources
@@ -120,14 +116,8 @@ class source:
 				hash = file['infoHash']
 				file_title = file['description'].split('\n')
 				file_info = [x for x in file_title if _INFO.match(x)][0]
-				# try:
-					# index = file_title.index(file_info)
-					# if index == 1: combo = file_title[0].replace(' ', '.')
-					# else: combo = ''.join(file_title[0:2]).replace(' ', '.')
-					# if '🇷🇺' in file_title[index+1] and not any(value in combo for value in ('.en.', '.eng.', 'english')): continue
-				# except: pass
 
-				name = source_utils.clean_name(file_title[-1])
+				name = source_utils.clean_name(file_title[0])
 
 				episode_start, episode_end = 0, 0
 				if not search_series:
@@ -144,10 +134,12 @@ class source:
 					package = 'show'
 
 				name_info = source_utils.info_from_name(name, title, year, season=season, pack=package)
+				if source_utils.remove_lang(name_info, check_foreign_audio): continue
+				if undesirables and source_utils.remove_undesirables(name_info, undesirables): continue
 
 				url = 'magnet:?xt=urn:btih:%s&dn=%s' % (hash, name)
 				try:
-					seeders = int(re.search(r'👥 (\d+)', file_info).group(0)[2:])
+					seeders = int(re.search(r'👤\s*(\d+)', file_info).group(1))
 					if self.min_seeders > seeders: continue
 				except: seeders = 0
 

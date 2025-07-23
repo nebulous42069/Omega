@@ -73,7 +73,7 @@ class source:
 		for file in files:
 			try:
 				if self.cache and not self.cache in file['name']: continue
-				if 'url' in file: hash = requests.utils.urlparse(file['url']).path.split('/')[3]
+				if 'url' in file: hash = re.search(r'\b\w{40}\b', file['url']).group()
 				else: hash = file['infoHash']
 				file_title = file['title'].split('\n')
 				file_info = [x for x in file_title if _INFO.match(x)][0]
@@ -140,7 +140,7 @@ class source:
 		for file in files:
 			try:
 				if self.cache and not self.cache in file['name']: continue
-				if 'url' in file: hash = requests.utils.urlparse(file['url']).path.split('/')[3]
+				if 'url' in file: hash = re.search(r'\b\w{40}\b', file['url']).group()
 				else: hash = file['infoHash']
 				file_title = file['title'].split('\n')
 				file_info = [x for x in file_title if _INFO.match(x)][0]

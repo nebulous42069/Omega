@@ -2,6 +2,15 @@
   [COLOR dodgerblue][B]CREDITS[/B][/COLOR]
 - Fen, Venom, Mr-Kodi.
 
+  [COLOR dodgerblue][B]Version 5.08[/B][/COLOR]
+- Added Use Usenet Services/Add Resolved Usenet to Cloud to TorBox settings.
+- Minor fixes.
+
+  [COLOR dodgerblue][B]Version 5.07[/B][/COLOR]
+- Changed aiostreams to include comet, mediafusion, torrentsdb, stremthru torz p2p.
+- Fixed Options... menu from widget.
+- Fixed torrentio cached results.
+- Added "Clean Stale Kodi Thumbnails" to Clean Settings Files and Clear Caches menu.
 
   [COLOR dodgerblue][B]Version 5.06[/B][/COLOR]
 - Added Settings/Sources/Test All Source Providers (Magneto).

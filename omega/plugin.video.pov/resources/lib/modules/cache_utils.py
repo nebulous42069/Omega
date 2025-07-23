@@ -155,6 +155,14 @@ def clear_cache(cache_type, silent=False):
 		if not _confirm(): return
 		from caches.trakt_cache import clear_all_trakt_cache_data
 		success = clear_all_trakt_cache_data()
+	elif cache_type == 'mdblist':
+		if not _confirm(): return
+		from apis.mdblist_api import clear_mdbl_cache
+		success = clear_mdbl_cache()
+	elif cache_type == 'tmdblist':
+		if not _confirm(): return
+		from apis.tmdb_api import clear_tmdbl_cache
+		success = clear_tmdbl_cache()
 	elif cache_type == 'imdb':
 		if not _confirm(): return
 		from apis.imdb_api import clear_imdb_cache

@@ -2,12 +2,12 @@ from threading import Thread
 from apis import real_debrid_api, premiumize_api, alldebrid_api, offcloud_api, torbox_api, easydebrid_api
 from caches.debrid_cache import DebridCache
 from modules.utils import make_thread_list
-from modules.settings import enabled_debrids_check, store_resolved_torrent_to_cloud
+from modules.settings import enabled_debrids_check, store_resolved_torrent_to_cloud, store_resolved_usenet_to_cloud
 from modules import kodi_utils
 # from modules.kodi_utils import logger
 
-ls, get_setting, ok_dialog = kodi_utils.local_string, kodi_utils.get_setting, kodi_utils.ok_dialog
-show_busy_dialog, hide_busy_dialog, notification = kodi_utils.show_busy_dialog, kodi_utils.hide_busy_dialog, kodi_utils.notification
+ls, get_setting, notification = kodi_utils.local_string, kodi_utils.get_setting, kodi_utils.notification
+show_busy_dialog, hide_busy_dialog = kodi_utils.show_busy_dialog, kodi_utils.hide_busy_dialog
 plswait_str, checking_debrid_str, remaining_debrid_str = ls(32577), ls(32578), ls(32579)
 main_line = '%s[CR]%s[CR]%s'
 
@@ -54,13 +54,20 @@ def manual_add_nzb_to_cloud(params):
 	result = function().create_transfer(params['url'], params['name'])
 	function().clear_cache()
 	hide_busy_dialog()
-	text = '%s...[CR][CR]%s' % (params['name'][:40], ls(32576) if result else ls(32575))
-	ok_dialog(heading=32733, text=text, top_space=True)
+	if result: notification(32576)
+	else: notification(32575)
 
 def resolve_cached_torrents(debrid_provider, item_url, _hash, title, season, episode):
 	debrid_function = import_debrid(debrid_provider)
 	store_to_cloud = store_resolved_torrent_to_cloud(debrid_provider)
 	try: url = debrid_function().resolve_magnet(item_url, _hash, store_to_cloud, title, season, episode)
+	except: url = None
+	return url
+
+def resolve_cached_nzbs(debrid_provider, item_url, _hash, title, season, episode):
+	debrid_function = import_debrid(debrid_provider)
+	store_to_cloud = store_resolved_usenet_to_cloud(debrid_provider)
+	try: url = debrid_function().resolve_nzb(item_url, _hash, store_to_cloud, title, season, episode)
 	except: url = None
 	return url
 

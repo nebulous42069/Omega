@@ -67,7 +67,7 @@
                         <textcolor>FFCCCCCC</textcolor>
                         <align>right</align>
                         <aligny>center</aligny>
-                        <label>[UPPERCASE][COLOR $INFO[Window.Property(tikiskins.results.info.highlight)]][B]$ADDON[plugin.video.pov 32583]: [/B][/COLOR]$INFO[Window.Property(tikiskins.results.info.provider)][/UPPERCASE]</label>
+                        <label>[UPPERCASE][COLOR $INFO[Window.Property(tikiskins.results.info.highlight)]][B]Provider: [/B][/COLOR]$INFO[Window.Property(tikiskins.results.info.provider)][/UPPERCASE]</label>
                     </control>
                     <control type="label">
                         <top>50</top>
@@ -77,7 +77,7 @@
                         <textcolor>FFCCCCCC</textcolor>
                         <align>right</align>
                         <aligny>center</aligny>
-                        <label>[UPPERCASE][COLOR $INFO[Window.Property(tikiskins.results.info.highlight)]][B]$ADDON[plugin.video.pov 32532]: [/B][/COLOR]$INFO[Window.Property(tikiskins.results.info.source_type)][/UPPERCASE]</label>
+                        <label>[UPPERCASE][COLOR $INFO[Window.Property(tikiskins.results.info.highlight)]][B]Hoster: [/B][/COLOR]$INFO[Window.Property(tikiskins.results.info.source_type)][/UPPERCASE]</label>
                     </control>
                     <control type="label">
                         <top>0</top>
@@ -87,7 +87,7 @@
                         <textcolor>FFCCCCCC</textcolor>
                         <align>left</align>
                         <aligny>center</aligny>
-                        <label>[UPPERCASE][COLOR $INFO[Window.Property(tikiskins.results.info.highlight)]][B]$ADDON[plugin.video.pov 32100]: [/B][/COLOR]$INFO[Window.Property(tikiskins.results.info.source_site)][/UPPERCASE]</label>
+                        <label>[UPPERCASE][COLOR $INFO[Window.Property(tikiskins.results.info.highlight)]][B]Site: [/B][/COLOR]$INFO[Window.Property(tikiskins.results.info.source_site)][/UPPERCASE]</label>
                     </control>
                     <control type="label">
                         <top>50</top>
@@ -97,7 +97,7 @@
                         <textcolor>FFCCCCCC</textcolor>
                         <align>left</align>
                         <aligny>center</aligny>
-                        <!--label>[UPPERCASE][COLOR $INFO[Window.Property(tikiskins.results.info.highlight)]][B]$ADDON[plugin.video.pov 32241]: [/B][/COLOR]$INFO[Window.Property(tikiskins.results.info.quality)][/UPPERCASE]</label-->
+                        <!--label>[UPPERCASE][COLOR $INFO[Window.Property(tikiskins.results.info.highlight)]][B]Quality: [/B][/COLOR]$INFO[Window.Property(tikiskins.results.info.quality)][/UPPERCASE]</label-->
                     </control>
                     <control type="label">
                         <top>50</top>
@@ -107,7 +107,7 @@
                         <textcolor>FFCCCCCC</textcolor>
                         <align>left</align>
                         <aligny>center</aligny>
-                        <label>[UPPERCASE][COLOR $INFO[Window.Property(tikiskins.results.info.highlight)]][B]$ADDON[plugin.video.pov 32584]: [/B][/COLOR]$INFO[Window.Property(tikiskins.results.info.size_label)][/UPPERCASE]</label>
+                        <label>[UPPERCASE][COLOR $INFO[Window.Property(tikiskins.results.info.highlight)]][B]Size: [/B][/COLOR]$INFO[Window.Property(tikiskins.results.info.size_label)][/UPPERCASE]</label>
                     </control>
                     <control type="label">
                         <top>100</top>
@@ -117,7 +117,7 @@
                         <textcolor>FFCCCCCC</textcolor>
                         <align>left</align>
                         <aligny>center</aligny>
-                        <label>[UPPERCASE][COLOR $INFO[Window.Property(tikiskins.results.info.highlight)]][B]$ADDON[plugin.video.pov 32106]: [/B][/COLOR]$INFO[Window.Property(tikiskins.results.info.hash)][/UPPERCASE]</label>
+                        <label>[UPPERCASE][COLOR $INFO[Window.Property(tikiskins.results.info.highlight)]][B]Hash: [/B][/COLOR]$INFO[Window.Property(tikiskins.results.info.hash)][/UPPERCASE]</label>
                     </control>
                     <control type="textbox">
                         <top>140</top>
@@ -127,7 +127,7 @@
                         <textcolor>FFCCCCCC</textcolor>
                         <align>left</align>
                         <aligny>top</aligny>
-                        <label>[UPPERCASE][COLOR $INFO[Window.Property(tikiskins.results.info.highlight)]][B]$ADDON[plugin.video.pov 32605]: [/B][/COLOR]$INFO[Window.Property(tikiskins.results.info.extra_info)][/UPPERCASE]</label>
+                        <label>[UPPERCASE][COLOR $INFO[Window.Property(tikiskins.results.info.highlight)]][B]Extra Info: [/B][/COLOR]$INFO[Window.Property(tikiskins.results.info.extra_info)][/UPPERCASE]</label>
                     </control>
                     <control type="textbox">
                         <top>235</top>
@@ -137,7 +137,7 @@
                         <textcolor>FFCCCCCC</textcolor>
                         <align>left</align>
                         <aligny>top</aligny>
-                        <label>[UPPERCASE][COLOR $INFO[Window.Property(tikiskins.results.info.highlight)]][B]$ADDON[plugin.video.pov 32228]: [/B][/COLOR]$INFO[Window.Property(tikiskins.results.info.name)][/UPPERCASE]</label>
+                        <label>[UPPERCASE][COLOR $INFO[Window.Property(tikiskins.results.info.highlight)]][B]Title: [/B][/COLOR]$INFO[Window.Property(tikiskins.results.info.name)][/UPPERCASE]</label>
                     </control>
                 </control>
             </control>

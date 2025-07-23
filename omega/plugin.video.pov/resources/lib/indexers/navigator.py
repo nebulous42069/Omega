@@ -137,11 +137,11 @@ class Navigator:
 		if tmdb_status:
 			self._add_item({'mode': 'build_movie_list', 'action': 'tmdb_watchlist'          , 'name': 'Movie Watchlist'        }, 'tmdb.png', '[B]TMDB:[/B] ')
 			self._add_item({'mode': 'build_tvshow_list', 'action': 'tmdb_watchlist'         , 'name': 'TV Show Watchlist'      }, 'tmdb.png', '[B]TMDB:[/B] ')
+			self._add_item({'mode': 'build_tmdb_list.get_tmdb_lists'                        , 'name': 'My Lists'               }, 'tmdb.png', '[B]TMDB:[/B] ')
 			self._add_item({'mode': 'build_movie_list', 'action': 'tmdb_favorite'           , 'name': 'Movie Favorite'         }, 'tmdb.png', '[B]TMDB:[/B] ')
 			self._add_item({'mode': 'build_tvshow_list', 'action': 'tmdb_favorite'          , 'name': 'TV Show Favorite'       }, 'tmdb.png', '[B]TMDB:[/B] ')
 			self._add_item({'mode': 'build_movie_list', 'action': 'tmdb_recommendations'    , 'name': 'Movie Recommendations'  }, 'tmdb.png', '[B]TMDB:[/B] ')
 			self._add_item({'mode': 'build_tvshow_list', 'action': 'tmdb_recommendations'   , 'name': 'TV Show Recommendations'}, 'tmdb.png', '[B]TMDB:[/B] ')
-			self._add_item({'mode': 'build_tmdb_list.get_tmdb_lists'                        , 'name': 'My Lists'               }, 'tmdb.png', '[B]TMDB:[/B] ')
 		if mdblist_status:
 			self._add_item({'mode': 'build_movie_list', 'action': 'mdblist_watchlist'       , 'name': mdb_m_str }, 'mdblist.png', m_n_ins)
 			self._add_item({'mode': 'build_tvshow_list', 'action': 'mdblist_watchlist'      , 'name': mdb_t_str }, 'mdblist.png', m_n_ins)
@@ -249,6 +249,7 @@ class Navigator:
 		cache_str, clca_str, clean_str, all_str, settings_str = ls(32524), ls(32497), ls(32526), ls(32525), ls(32247)
 		clean_set_cache_str = '%s %s %s' % (clean_str, ls(32247), ls(32524))
 		clean_databases_str = '%s %s' % (clean_str, ls(32003))
+		clean_thumbs_str = '%s %s' % (clean_str, 'Stale Kodi Thumbnails')
 		clean_all_str = '%s %s %s' % (clean_str, all_str, settings_str)
 		clear_all_str, clear_meta_str = clca_str % all_str, clca_str % ls(32527)
 		clear_list_str, clear_trakt_str = clca_str % ls(32501), clca_str % ls(32037)
@@ -260,6 +261,7 @@ class Navigator:
 		self._add_item({'mode': 'clean_settings',                            'name': clean_all_str      }, 'tools.png', clean_ins, False)
 		self._add_item({'mode': 'clean_settings_window_properties',          'name': clean_set_cache_str}, 'tools.png', clean_ins, False)
 		self._add_item({'mode': 'clean_databases',                           'name': clean_databases_str}, 'tools.png', clean_ins, False)
+		self._add_item({'mode': 'clean_thumbnails',                          'name': clean_thumbs_str   }, 'tools.png', clean_ins, False)
 		self._add_item({'mode': 'clear_all_cache',                           'name': clear_all_upper    }, 'tools.png', n_ins, False)
 		self._add_item({'mode': 'clear_cache', 'cache': 'meta',              'name': clear_meta_str     }, 'tools.png', n_ins, False)
 		self._add_item({'mode': 'clear_cache', 'cache': 'list',              'name': clear_list_str     }, 'tools.png', n_ins, False)

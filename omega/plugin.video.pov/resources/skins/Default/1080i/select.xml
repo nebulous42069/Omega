@@ -96,7 +96,7 @@
                     <ondown>11</ondown>
                     <onleft>2025</onleft>
                     <onright>2025</onright>
-                    <label>[B]$ADDON[plugin.video.pov 32839][/B]</label>
+                    <label>[B]OK[/B]</label>
                     <font>font12</font>
                     <textcolor>FFB7B4BB</textcolor>
                     <focusedcolor>$INFO[Window.Property(tikiskins.dialog.highlight)]</focusedcolor>
@@ -113,7 +113,7 @@
                     <ondown>10</ondown>
                     <onleft>2025</onleft>
                     <onright>2025</onright>
-                    <label>[B]$ADDON[plugin.video.pov 32840][/B]</label>
+                    <label>[B]Cancel[/B]</label>
                     <font>font12</font>
                     <textcolor>FFB7B4BB</textcolor>
                     <focusedcolor>$INFO[Window.Property(tikiskins.dialog.highlight)]</focusedcolor>

@@ -6,43 +6,43 @@ from modules.settings import get_art_provider, provider_sort_ranks, get_fanart_d
 
 backup_poster = translate_path('special://home/addons/plugin.video.pov/resources/media/box_office.png')
 backup_fanart = translate_path('special://home/addons/plugin.video.pov/fanart.png')
-media_folder = 'special://home/addons/plugin.video.pov/resources/skins/Default/media/%s'
-info_icons_dict = {
-					'easynews': translate_path(media_folder % 'providers/easynews.png'),
-					'alldebrid': translate_path(media_folder % 'providers/alldebrid.png'),
-					'real-debrid': translate_path(media_folder % 'providers/realdebrid.png'),
-					'premiumize': translate_path(media_folder % 'providers/premiumize.png'),
-					'offcloud': translate_path(media_folder % 'providers/offcloud.png'),
-					'torbox': translate_path(media_folder % 'providers/torbox.png'),
-					'easydebrid': translate_path(media_folder % 'providers/easydebrid.png'),
-					'ad_cloud': translate_path(media_folder % 'providers/alldebrid.png'),
-					'rd_cloud': translate_path(media_folder % 'providers/realdebrid.png'),
-					'pm_cloud': translate_path(media_folder % 'providers/premiumize.png'),
-					'oc_cloud': translate_path(media_folder % 'providers/offcloud.png'),
-					'tb_cloud': translate_path(media_folder % 'providers/torbox.png')}
-info_quality_dict = {
-					'4k': translate_path(media_folder % 'flags/4k.png'),
-					'1080p': translate_path(media_folder % 'flags/1080p.png'),
-					'720p': translate_path(media_folder % 'flags/720p.png'),
-					'sd': translate_path(media_folder % 'flags/sd.png'),
-					'cam': translate_path(media_folder % 'flags/sd.png'),
-					'tele': translate_path(media_folder % 'flags/sd.png'),
-					'scr': translate_path(media_folder % 'flags/sd.png')}
+media_folder = 'special://home/addons/plugin.video.pov/resources/%s'
+info_icons_dict, info_quality_dict = {
+	'folders': translate_path(media_folder % 'media/folder.png'),
+	'easynews': translate_path(media_folder % 'media/easynews.png'),
+	'alldebrid': translate_path(media_folder % 'media/alldebrid.png'),
+	'real-debrid': translate_path(media_folder % 'media/realdebrid.png'),
+	'premiumize': translate_path(media_folder % 'media/premiumize.png'),
+	'offcloud': translate_path(media_folder % 'media/offcloud.png'),
+	'torbox': translate_path(media_folder % 'media/torbox.png'),
+	'easydebrid': translate_path(media_folder % 'media/easydebrid.png'),
+	'ad_cloud': translate_path(media_folder % 'media/alldebrid.png'),
+	'rd_cloud': translate_path(media_folder % 'media/realdebrid.png'),
+	'pm_cloud': translate_path(media_folder % 'media/premiumize.png'),
+	'oc_cloud': translate_path(media_folder % 'media/offcloud.png'),
+	'tb_cloud': translate_path(media_folder % 'media/torbox.png')
+}, {
+	'4k': translate_path(media_folder % 'skins/Default/media/flags/4k.png'),
+	'1080p': translate_path(media_folder % 'skins/Default/media/flags/1080p.png'),
+	'720p': translate_path(media_folder % 'skins/Default/media/flags/720p.png'),
+	'sd': translate_path(media_folder % 'skins/Default/media/flags/sd.png'),
+	'cam': translate_path(media_folder % 'skins/Default/media/flags/sd.png'),
+	'tele': translate_path(media_folder % 'skins/Default/media/flags/sd.png'),
+	'scr': translate_path(media_folder % 'skins/Default/media/flags/sd.png')
+}
 extra_info_choices = (
-					('PACK', '[B]PACK[/B]'), ('DOLBY VISION', '[B]D/VISION[/B]'), ('HIGH DYNAMIC RANGE (HDR)', '[B]HDR[/B]'), ('HYBRID', '[B]HYBRID[/B]'), ('AV1', '[B]AV1[/B]'),
-					('HEVC (X265)', '[B]HEVC[/B]'), ('REMUX', 'REMUX'), ('BLURAY', 'BLURAY'), ('SDR', 'SDR'), ('3D', '3D'), ('DOLBY ATMOS', 'ATMOS'), ('DOLBY TRUEHD', 'TRUEHD'),
-					('DOLBY DIGITAL EX', 'DD-EX'), ('DOLBY DIGITAL PLUS', 'DD+'), ('DOLBY DIGITAL', 'DD'), ('DTS-HD MASTER AUDIO', 'DTS-HD MA'), ('DTS-X', 'DTS-X'),
-					('DTS-HD', 'DTS-HD'), ('DTS', 'DTS'), ('ADVANCED AUDIO CODING (AAC)', 'AAC'), ('MP3', 'MP3'), ('8 CHANNEL AUDIO', '8CH'), ('7 CHANNEL AUDIO', '7CH'),
-					('6 CHANNEL AUDIO', '6CH'), ('2 CHANNEL AUDIO', '2CH'), ('DVD SOURCE', 'DVD'), ('WEB SOURCE', 'WEB'), ('MULTIPLE LANGUAGES', 'MULTI-LANG'), ('SUBTITLES', 'SUBS'))
-quality_choices = ('4K', '1080P', '720P', 'SD', 'TELE', 'CAM', 'SCR')
+	('PACK', '[B]PACK[/B]'), ('DOLBY VISION', '[B]D/VISION[/B]'), ('HIGH DYNAMIC RANGE (HDR)', '[B]HDR[/B]'), ('HYBRID', '[B]HYBRID[/B]'), ('AV1', '[B]AV1[/B]'),
+	('HEVC (X265)', '[B]HEVC[/B]'), ('REMUX', 'REMUX'), ('BLURAY', 'BLURAY'), ('SDR', 'SDR'), ('3D', '3D'), ('DOLBY ATMOS', 'ATMOS'), ('DOLBY TRUEHD', 'TRUEHD'),
+	('DOLBY DIGITAL EX', 'DD-EX'), ('DOLBY DIGITAL PLUS', 'DD+'), ('DOLBY DIGITAL', 'DD'), ('DTS-HD MASTER AUDIO', 'DTS-HD MA'), ('DTS-X', 'DTS-X'),
+	('DTS-HD', 'DTS-HD'), ('DTS', 'DTS'), ('ADVANCED AUDIO CODING (AAC)', 'AAC'), ('MP3', 'MP3'), ('8 CHANNEL AUDIO', '8CH'), ('7 CHANNEL AUDIO', '7CH'),
+	('6 CHANNEL AUDIO', '6CH'), ('2 CHANNEL AUDIO', '2CH'), ('DVD SOURCE', 'DVD'), ('WEB SOURCE', 'WEB'), ('MULTIPLE LANGUAGES', 'MULTI-LANG'), ('SUBTITLES', 'SUBS')
+)
+quality_choices, pack_check = ('4K', '1080P', '720P', 'SD', 'TELE', 'CAM', 'SCR'), ('true', 'show', 'season')
 extra_info_str, down_file_str, browse_pack_str, down_pack_str, cloud_str = ls(32605), ls(32747), ls(32746), ls(32007), ls(32016)
 filter_str, clr_filter_str, filters_ignored, start_full_scrape = ls(32152), ls(32153), ls(32686), ls(32529)
 filter_quality, filter_provider, filter_title, filter_extraInfo = ls(32154), ls(32157), ls(32679), ls(32169)
-run_plugin_str = 'RunPlugin(%s)'
-pack_check = ('true', 'show', 'season')
-string = str
-upper = string.upper
-lower = string.lower
+run_plugin_str, ignored_str = 'RunPlugin(%s)', '[B][COLOR dodgerblue](%s)[/COLOR][/B]'
+string, upper, lower = str, str.upper, str.lower
 
 class SourceResults(BaseDialog):
 	def __init__(self, *args, **kwargs):
@@ -53,8 +53,7 @@ class SourceResults(BaseDialog):
 		self.meta = kwargs.get('meta')
 		self.info_highlights_dict = kwargs.get('scraper_settings')
 		self.prescrape = kwargs.get('prescrape')
-		if kwargs.get('filters_ignored'):
-			self.filters_ignored = '[B][COLOR dodgerblue](%s)[/COLOR][/B]' % filters_ignored
+		if kwargs.get('filters_ignored'): self.filters_ignored = ignored_str % filters_ignored
 		else: self.filters_ignored = ''
 		self.make_items()
 		self.set_properties()
@@ -73,7 +72,7 @@ class SourceResults(BaseDialog):
 
 	def get_provider_and_path(self, provider):
 		if provider in info_icons_dict: provider_path = info_icons_dict[provider]
-		else: provider, provider_path = 'folders', translate_path('special://home/addons/plugin.video.pov/resources/skins/Default/media/providers/folders.png')
+		else: provider, provider_path = 'folders', info_icons_dict['folders']
 		return provider, provider_path
 
 	def get_quality_and_path(self, quality):
@@ -126,7 +125,10 @@ class SourceResults(BaseDialog):
 					extra_info = get('extraInfo', '') or 'N/A'
 					extra_info = extra_info.rstrip('| ')
 					if scrape_provider == 'external':
-						source_site = upper(get('cache') if 'cache' in item else get('provider'))
+						if 'usenet' in source: source_site = get('tracker')
+						elif 'cache' in item: source_site = get('cache')
+						else: source_site = get('provider')
+						source_site = upper(source_site)
 						provider = upper(get('debrid', source_site).replace('.me', ''))
 						provider_lower = lower(provider)
 						provider_icon = self.get_provider_and_path(provider_lower)[1]
@@ -276,7 +278,7 @@ class ResultsInfo(BaseDialog):
 	def get_provider_and_path(self):
 		provider = lower(self.item.getProperty('tikiskins.provider'))
 		if provider in info_icons_dict: provider_path = info_icons_dict[provider]
-		else: provider_path = translate_path('special://home/addons/plugin.video.pov/resources/skins/Default/media/providers/folders.png')
+		else: provider_path = info_icons_dict['folders']
 		return provider, provider_path
 
 	def get_quality_and_path(self):
@@ -445,8 +447,8 @@ class ProgressMedia(BaseDialog):
 		self.poster_main, self.poster_backup, self.fanart_main, self.fanart_backup = get_art_provider()
 		self.title = self.meta['title']
 		self.year = str(self.meta['year'])
-		self.poster = self.meta.get(self.poster_main) or self.meta.get(self.poster_backup) or translate_path('special://home/addons/plugin.video.pov/resources/media/box_office.png')
-		self.fanart = self.meta.get(self.fanart_main) or self.meta.get(self.fanart_backup) or ''
+		self.poster = self.meta.get(self.poster_main) or self.meta.get(self.poster_backup) or backup_poster
+		self.fanart = self.meta.get(self.fanart_main) or self.meta.get(self.fanart_backup) or backup_fanart
 		self.clearlogo = self.meta['clearlogo'] if get_fanart_data() else self.meta['tmdblogo'] or ''
 
 	def set_properties(self):

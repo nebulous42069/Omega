@@ -144,26 +144,6 @@ class Indexer(Debrid):
 			return kodi_utils.show_text('TorBox'.upper(), '\n\n'.join(body), font_size='large')
 		except: kodi_utils.hide_busy_dialog()
 
-	def set_auth(self):
-		api_key = kodi_utils.dialog.input('TorBox API Key:')
-		if not api_key: return
-		from apis.torbox_api import base_url, session, timeout
-		session.cookies.clear()
-		headers= {'Authorization': f"Bearer {api_key}"}
-		result = session.get(f"{base_url}/user/me", headers=headers, timeout=timeout).json()
-		customer = result['data']['customer']
-		set_setting('tb.account_id', str(customer))
-		set_setting('tb.token', api_key)
-		kodi_utils.notification('%s %s' % (ls(32576), 'TorBox'))
-		return True
-
-	def del_auth(self):
-		if not kodi_utils.confirm_dialog(): return
-		set_setting('tb.token', '')
-		set_setting('tb.account_id', '')
-		self.clear_cache()
-		kodi_utils.notification('%s %s' % (ls(32576), ls(32059)))
-
 def resolve_tb(params):
 	file_id, media_type = params['url'], params['media_type']
 	if   media_type == 'usenet': resolved_link = Debrid().unrestrict_usenet(file_id)

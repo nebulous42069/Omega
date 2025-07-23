@@ -40,7 +40,7 @@
                 <textcolor>FFFFFFFF</textcolor>
                 <align>left</align>
                 <aligny>center</aligny>
-                <label>[UPPERCASE]$ADDON[plugin.video.pov 32970][/UPPERCASE]</label>
+                <label>[UPPERCASE]Press BACK to Exit[/UPPERCASE]</label>
             </control>
         </control>
         <control type="group">
@@ -60,16 +60,14 @@
                 <visible>!String.IsEmpty(Window.Property(tikiskins.source_progress.clearlogo))</visible>
                 <centerleft>50%</centerleft>
             </control>
-            <control type="label">
-                <top>70</top>
-                <height>20</height>
-                <align>center</align>
-                <aligny>center</aligny>
-                <font>font60</font>
-                <label>[B]$INFO[Window.Property(tikiskins.source_progress.title)][/B]</label>
+            <control type="image">
+                <top>-110</top>
+                <height>256</height>
+                <width max="480">auto</width>
+                <aspectratio>keep</aspectratio>
+                <texture>$INFO[Window.Property(tikiskins.source_progress.poster)]</texture>
                 <visible>String.IsEmpty(Window.Property(tikiskins.source_progress.clearlogo))</visible>
-                <textcolor>FFB7B4BB</textcolor>
-                <scroll>true</scroll>
+                <centerleft>50%</centerleft>
             </control>
             <control type="textbox" id="2000">
                 <top>235</top>

@@ -19,6 +19,9 @@ def results_xml_window_number(window_style=None):
 def store_resolved_torrent_to_cloud(debrid_service):
 	return get_setting('store_torrent.%s' % debrid_service.lower()) == 'true'
 
+def store_resolved_usenet_to_cloud(debrid_service):
+	return get_setting('store_usenet.%s' % debrid_service.lower()) == 'true'
+
 def enabled_debrids_check(debrid_service):
 	enabled = get_setting('%s.enabled' % debrid_service) == 'true'
 	if not enabled: return False

@@ -39,7 +39,7 @@
                 <textcolor>FFFFFFFF</textcolor>
                 <align>left</align>
                 <aligny>center</aligny>
-                <label>[UPPERCASE]$ADDON[plugin.video.pov 32022] $INFO[Window.Property(tikiskins.page_no)][/UPPERCASE]</label>
+                <label>[UPPERCASE]Page $INFO[Window.Property(tikiskins.page_no)][/UPPERCASE]</label>
             </control>
             <control type="label">
                 <left>350</left>

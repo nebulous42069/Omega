@@ -15,7 +15,7 @@ normalize, get_filename_match, get_file_info = source_utils.normalize, source_ut
 pack_display, format_line, total_format = '%s (%s)', '%s[CR]%s[CR]%s', '[COLOR %s][B]%s[/B][/COLOR]'
 int_format, ext_format = '[COLOR %s][B]Int: [/B][/COLOR]%s', '[COLOR %s][B]Ext: [/B][/COLOR]%s'
 ext_scr_format, unfinshed_import_format = '[COLOR %s][B]%s[/B][/COLOR]', '[COLOR red]+%s[/COLOR]'
-diag_format = '4K: %s | 1080p: %s | 720p: %s | SD: %s | %s: %s'
+diag_format, resolutions = '4K: %s | 1080p: %s | 720p: %s | SD: %s | %s: %s', '4K 1080p 720p SD'
 cached_debrids = {'Real-Debrid', 'AllDebrid', 'tidebrid', 'mfdebrid', 'cmdebrid'}
 season_display, show_display = ls(32537), ls(32089)
 pack_check = (season_display, show_display)
@@ -40,8 +40,8 @@ class source:
 		self.timeout = 30 if self.disabled_ignored else int(get_setting('scrapers.timeout.1', '10'))
 		self.meta = json.loads(get_property('pov_playback_meta'))
 		self.background = self.meta.get('background', False)
-		self.internal_sources_total, self.internal_resolutions = 0, dict.fromkeys('4K 1080p 720p sd'.split(), 0)
-		self.sources_total, self.resolutions = {'total': 0}, dict.fromkeys('4K 1080p 720p sd'.split(), 0)
+		self.internal_sources_total, self.internal_resolutions = 0, dict.fromkeys(resolutions.split(), 0)
+		self.sources_total, self.resolutions = {'total': 0}, dict.fromkeys(resolutions.split(), 0)
 
 	def results(self, info):
 		if not self.background:
@@ -162,7 +162,7 @@ class source:
 				if quality == '4K': self.internal_resolutions[quality] += 1
 				elif quality == '1080p': self.internal_resolutions[quality] += 1
 				elif quality == '720p': self.internal_resolutions[quality] += 1
-				else: self.internal_resolutions['sd'] += 1
+				else: self.internal_resolutions['SD'] += 1
 				self.internal_sources_total += 1
 		if self.internal_prescraped and not self.processed_prescrape:
 			_process_quality_count(self.prescrape_sources)
@@ -200,7 +200,7 @@ class Sources:
 	scrape_provider = 'external'
 	hostDict = {}
 	sources, cached_sources = [], []
-	sources_total, resolutions = {'total': 0}, dict.fromkeys('4K 1080p 720p sd'.split(), 0)
+	sources_total, resolutions = {'total': 0}, dict.fromkeys(resolutions.split(), 0)
 
 	def __init__(self, info, meta):
 		self.completed = False
@@ -292,6 +292,6 @@ class Sources:
 			if quality == '4K': self.resolutions[quality] += 1
 			elif quality == '1080p': self.resolutions[quality] += 1
 			elif quality == '720p': self.resolutions[quality] += 1
-			else: self.resolutions['sd'] += 1
+			else: self.resolutions['SD'] += 1
 			self.sources_total['total'] += 1
 

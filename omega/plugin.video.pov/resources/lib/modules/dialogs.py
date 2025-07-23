@@ -84,7 +84,7 @@ def random_choice(choice, meta):
 	meta, url_params = get_random_episode(tmdb_id, True if choice == 'play_random_continual' else False)
 	if not url_params: return {'pass': True}
 	url_params.update({'autoplay': 'True', 'background': 'false'})
-#	return kodi_utils.execute_builtin('RunPlugin(%s)' % build_url(url_params))
+#	return execute_builtin('RunPlugin(%s)' % build_url(url_params))
 	Sources().playback_prep(url_params)
 
 def trakt_manager_choice(params):
@@ -101,7 +101,7 @@ def trakt_manager_choice(params):
 	add_str, rem_str = 'Add to %s?' % choice, 'Remove from %s?' % choice
 	if   choice == 'Collection':
 		data = trakt_api.trakt_fetch_collection_watchlist('collection', params['media_type'])
-		action = 'remove' if params['tmdb_id'] in {str(i['media_ids']['tmdb']) for i in data} else 'add'
+		action = 'remove' if str(params['tmdb_id']) in {str(i['media_ids']['tmdb']) for i in data} else 'add'
 		data = {
 			i[0]: i[1] if i[0] == 'imdb' else int(i[1])
 			for i in (('imdb', params.get('imdb_id')), ('tmdb', params.get('tmdb_id')), ('tvdb', params.get('tvdb_id')))
@@ -114,7 +114,7 @@ def trakt_manager_choice(params):
 		else: trakt_api.add_to_collection(data)
 	elif choice == 'Watchlist':
 		data = trakt_api.trakt_fetch_collection_watchlist('watchlist', params['media_type'])
-		action = 'remove' if params['tmdb_id'] in {str(i['media_ids']['tmdb']) for i in data} else 'add'
+		action = 'remove' if str(params['tmdb_id']) in {str(i['media_ids']['tmdb']) for i in data} else 'add'
 		data = {
 			i[0]: i[1] if i[0] == 'imdb' else int(i[1])
 			for i in (('imdb', params.get('imdb_id')), ('tmdb', params.get('tmdb_id')), ('tvdb', params.get('tvdb_id')))
@@ -557,7 +557,7 @@ def options_menu(params, meta=None):
 		('clear_trakt_cache', ls(32497) % ls(32037), '') if watched_indicators == 1 else None,
 		('clear_media_cache', ls(32604) % (ls(32028) if meta['mediatype'] == 'movie' else ls(32029)), '', meta['poster']) if content in ('movie', 'tvshow') and meta else None,
 		('open_pov_settings', '%s %s %s' % (open_str, ls(32036), settings_str), ''),
-		('reload_widgets', ls(40001).replace('[B]', '').replace('[/B]', ''), '') if is_widget else None
+		('reload_widgets', 'POV: Refresh Widgets', '') if is_widget else None
 	)
 	listing = [item for item in listing if item]
 	list_items = list(_builder())

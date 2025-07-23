@@ -121,28 +121,3 @@ class Indexer(Debrid):
 			return kodi_utils.show_text('Offcloud'.upper(), '\n\n'.join(body), font_size='large')
 		except: kodi_utils.hide_busy_dialog()
 
-	def set_auth(self):
-		username = kodi_utils.dialog.input('Offcloud Email:')
-		password = kodi_utils.dialog.input('Offcloud Password:', option=2)
-		if not all((username, password)): return
-		from apis.offcloud_api import base_url, session, timeout
-		session.cookies.clear()
-		data = {'username': username, 'password': password}
-		result = session.post(f"{base_url}/login", json=data, timeout=timeout).json()
-		user_id = result.get('userId')
-		if not user_id: return kodi_utils.notification(32574)
-		result = session.post(f"{base_url}/key", timeout=timeout).json()
-		api_key = result.get('apiKey')
-		if not api_key: return kodi_utils.notification(32574)
-		set_setting('oc.account_id', str(user_id))
-		set_setting('oc.token', api_key)
-		kodi_utils.notification('%s %s' % (ls(32576), 'Offcloud'))
-		return True
-
-	def del_auth(self):
-		if not kodi_utils.confirm_dialog(): return
-		set_setting('oc.token', '')
-		set_setting('oc.account_id', '')
-		self.clear_cache()
-		kodi_utils.notification('%s %s' % (ls(32576), ls(32059)))
-

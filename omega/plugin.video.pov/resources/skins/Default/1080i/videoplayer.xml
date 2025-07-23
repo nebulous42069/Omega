@@ -26,7 +26,7 @@
                     <width max="1160">auto</width>
                     <height>20</height>
                     <font>font10</font>
-                    <label>[COLOR B3CCCCCC][B]$ADDON[plugin.video.pov 32970][/B][/COLOR]</label>
+                    <label>[COLOR B3CCCCCC][B]Press BACK to Exit[/B][/COLOR]</label>
                 </control>
             </control>
         </control>

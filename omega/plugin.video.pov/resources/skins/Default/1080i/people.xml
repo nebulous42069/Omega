@@ -82,7 +82,7 @@
                     <height>25</height>
                     <font>font14</font>
                     <textcolor>FFF1F1F1</textcolor>
-                    <label>[I]$INFO[Window.Property(tikiskins.person.gender),[B]$ADDON[plugin.video.pov 32845]: [/B]][/I]</label>
+                    <label>[I]$INFO[Window.Property(tikiskins.person.gender),[B]GENDER: [/B]][/I]</label>
                     <visible>!String.IsEmpty(Window.Property(tikiskins.person.gender))</visible>
                 </control>
                 <control type="label">
@@ -90,7 +90,7 @@
                     <height>25</height>
                     <font>font14</font>
                     <textcolor>FFF1F1F1</textcolor>
-                    <label>[I]$INFO[Window.Property(tikiskins.person.age),  •  [B]$ADDON[plugin.video.pov 32827]: [/B]][/I]</label>
+                    <label>[I]$INFO[Window.Property(tikiskins.person.age),  •  [B]AGE: [/B]][/I]</label>
                     <visible>!String.IsEmpty(Window.Property(tikiskins.person.age))</visible>
                 </control>
             </control>
@@ -105,7 +105,7 @@
                     <height>25</height>
                     <font>font14</font>
                     <textcolor>FFF1F1F1</textcolor>
-                    <label>[I]$INFO[Window.Property(tikiskins.person.birthday),[B]$ADDON[plugin.video.pov 32825]:[/B] ][/I]</label>
+                    <label>[I]$INFO[Window.Property(tikiskins.person.birthday),[B]BIRTHDAY:[/B] ][/I]</label>
                     <visible>!String.IsEmpty(Window.Property(tikiskins.person.birthday))</visible>
                 </control>
                 <control type="label">
@@ -113,7 +113,7 @@
                     <height>25</height>
                     <font>font14</font>
                     <textcolor>FFF1F1F1</textcolor>
-                    <label>[I]$INFO[Window.Property(tikiskins.person.deathday),  •  [B]$ADDON[plugin.video.pov 32826]:[/B] ][/I]</label>
+                    <label>[I]$INFO[Window.Property(tikiskins.person.deathday),  •  [B]DIED:[/B] ][/I]</label>
                     <visible>!String.IsEmpty(Window.Property(tikiskins.person.deathday))</visible>
                 </control>
             </control>
@@ -149,7 +149,7 @@
                         <onright>11</onright>
                         <onup>2053</onup>
                         <ondown>50</ondown>
-                        <label>$ADDON[plugin.video.pov 32798]</label>
+                        <label>Images</label>
                         <font>font14</font>
                         <textcolor>FFB7B4BB</textcolor>
                         <focusedcolor>FF302F2F</focusedcolor>
@@ -168,7 +168,7 @@
                         <onright>10</onright>
                         <onup>2053</onup>
                         <ondown>50</ondown>
-                        <label>$ADDON[plugin.video.pov 32744] $ADDON[plugin.video.pov 32798]</label>
+                        <label>Tagged Images</label>
                         <font>font14</font>
                         <textcolor>FFB7B4BB</textcolor>
                         <focusedcolor>FF302F2F</focusedcolor>
@@ -189,7 +189,7 @@
                         <textcolor>FFCCCCCC</textcolor>
                         <align>left</align>
                         <aligny>bottom</aligny>
-                        <label>[B]$ADDON[plugin.video.pov 32797][/B]</label>
+                        <label>[B]Biography[/B]</label>
                     </control>
                     <control type="button" id="50">
                         <animation effect="zoom" start="100" end="102" time="100" tween="sine" easing="inout" center="590,150">Focus</animation>
@@ -239,7 +239,7 @@
                         <height>20</height>
                         <font>font14</font>
                         <textcolor>FFCCCCCC</textcolor>
-                        <label>[B]$ADDON[plugin.video.pov 32028][/B] $INFO[Window.Property(tikiskins.person.more_from_movie.number)]</label>
+                        <label>[B]Movies[/B] $INFO[Window.Property(tikiskins.person.more_from_movie.number)]</label>
                         <visible>!Control.HasFocus(2050)</visible>
                     </control>
                     <control type="label">
@@ -247,7 +247,7 @@
                         <height>20</height>
                         <font>font14</font>
                         <textcolor>FFCCCCCC</textcolor>
-                        <label>[B]$ADDON[plugin.video.pov 32028][/B]  |  [I]$INFO[Container(2050).ListItem.Property(tikiskins.person.name)] • $INFO[Container(2050).ListItem.Property(tikiskins.person.release_date)] • $INFO[Container(2050).ListItem.Property(tikiskins.person.vote_average)][/I]</label>
+                        <label>[B]Movies[/B]  |  [I]$INFO[Container(2050).ListItem.Property(tikiskins.person.name)] • $INFO[Container(2050).ListItem.Property(tikiskins.person.release_date)] • $INFO[Container(2050).ListItem.Property(tikiskins.person.vote_average)][/I]</label>
                         <visible>Control.HasFocus(2050)</visible>
                     </control>
                     <control type="panel" id="2050">
@@ -360,7 +360,7 @@
                         <height>20</height>
                         <font>font14</font>
                         <textcolor>FFCCCCCC</textcolor>
-                        <label>[B]$ADDON[plugin.video.pov 32029][/B] $INFO[Window.Property(tikiskins.person.more_from_tvshow.number)]</label>
+                        <label>[B]TV Shows[/B] $INFO[Window.Property(tikiskins.person.more_from_tvshow.number)]</label>
                         <visible>!Control.HasFocus(2051)</visible>
                     </control>
                     <control type="label">
@@ -368,7 +368,7 @@
                         <height>20</height>
                         <font>font14</font>
                         <textcolor>FFCCCCCC</textcolor>
-                        <label>[B]$ADDON[plugin.video.pov 32029][/B]  |  [I]$INFO[Container(2051).ListItem.Property(tikiskins.person.name)] • $INFO[Container(2051).ListItem.Property(tikiskins.person.release_date)] • $INFO[Container(2051).ListItem.Property(tikiskins.person.vote_average)][/I]</label>
+                        <label>[B]TV Shows[/B]  |  [I]$INFO[Container(2051).ListItem.Property(tikiskins.person.name)] • $INFO[Container(2051).ListItem.Property(tikiskins.person.release_date)] • $INFO[Container(2051).ListItem.Property(tikiskins.person.vote_average)][/I]</label>
                         <visible>Control.HasFocus(2051)</visible>
                     </control>
                     <control type="panel" id="2051">
@@ -481,7 +481,7 @@
                         <height>20</height>
                         <font>font14</font>
                         <textcolor>FFCCCCCC</textcolor>
-                        <label>[B]$ADDON[plugin.video.pov 32531][/B] $INFO[Window.Property(tikiskins.person.imdb_videos.number)]</label>
+                        <label>[B]Videos[/B] $INFO[Window.Property(tikiskins.person.imdb_videos.number)]</label>
                         <visible>!Control.HasFocus(2052)</visible>
                     </control>
                     <control type="label">
@@ -489,7 +489,7 @@
                         <height>20</height>
                         <font>font14</font>
                         <textcolor>FFCCCCCC</textcolor>
-                        <label>[B]$ADDON[plugin.video.pov 32531][/B]  |  [I]$INFO[Container(2052).ListItem.Property(tikiskins.person.name)][/I]</label>
+                        <label>[B]Videos[/B]  |  [I]$INFO[Container(2052).ListItem.Property(tikiskins.person.name)][/I]</label>
                         <visible>Control.HasFocus(2052)</visible>
                     </control>
                     <control type="panel" id="2052">
@@ -602,7 +602,7 @@
                         <height>20</height>
                         <font>font14</font>
                         <textcolor>FFCCCCCC</textcolor>
-                        <label>[B]$ADDON[plugin.video.pov 32028] $ADDON[plugin.video.pov 32796][/B] $INFO[Window.Property(tikiskins.person.more_from_director.number)]</label>
+                        <label>[B]Movies Directed[/B] $INFO[Window.Property(tikiskins.person.more_from_director.number)]</label>
                         <visible>!Control.HasFocus(2053)</visible>
                     </control>
                     <control type="label">
@@ -610,7 +610,7 @@
                         <height>20</height>
                         <font>font14</font>
                         <textcolor>FFCCCCCC</textcolor>
-                        <label>[B]$ADDON[plugin.video.pov 32028] $ADDON[plugin.video.pov 32796][/B]  |  [I]$INFO[Container(2053).ListItem.Property(tikiskins.person.name)] • $INFO[Container(2053).ListItem.Property(tikiskins.person.release_date)] • $INFO[Container(2053).ListItem.Property(tikiskins.person.vote_average)][/I]</label>
+                        <label>[B]Movies Directed[/B]  |  [I]$INFO[Container(2053).ListItem.Property(tikiskins.person.name)] • $INFO[Container(2053).ListItem.Property(tikiskins.person.release_date)] • $INFO[Container(2053).ListItem.Property(tikiskins.person.vote_average)][/I]</label>
                         <visible>Control.HasFocus(2053)</visible>
                     </control>
                     <control type="panel" id="2053">
