@@ -245,7 +245,7 @@
 			<fanart>fanart.jpg</fanart>
 		</assets>
 	</extension>
-</addon><addon id="plugin.program.quickfix" name="Quick Fixes" version="4" provider-name="Diggz">
+</addon><addon id="plugin.program.quickfix" name="Quick Fixes" version="5" provider-name="Diggz">
 	<requires>
 		<import addon="xbmc.python" version="3.0.1" />
 	</requires>
