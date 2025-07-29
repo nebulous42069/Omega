@@ -26,13 +26,15 @@ class POVPlayer(kodi_utils.xbmc_player):
 	def __init__ (self):
 		kodi_utils.xbmc_player.__init__(self)
 		self.set_resume, self.set_watched, self.playback_event = 5, 90, None
-		self.media_marked, self.subs_searched, self.nextep_info_gathered = False, False, False
+		self.media_marked, self.nextep_info_gathered = False, False
+		self.subs_searched, self.stingers_checked = False, False
 		self.nextep_started, self.random_continual_started = False, False
 		self.autoplay_next_episode, self.play_random_continual = False, False
 		self.autoplay_nextep = settings.autoplay_next_episode()
 		self.autoscrape_next_episode = False
 		self.autoscrape_nextep = settings.autoscrape_next_episode()
 		self.volume_check = get_setting('volumecheck.enabled', 'false') == 'true'
+		self.stinger_check = int(get_setting('stingers.threshold', '10')) * 60
 
 	def run(self, url=None, media_type=None):
 		if not url: return
@@ -162,6 +164,9 @@ class POVPlayer(kodi_utils.xbmc_player):
 				kodi_utils.sleep(1000)
 				self.total_time, self.curr_time = self.getTotalTime(), self.getTime()
 				self.current_point = round(float(self.curr_time/self.total_time * 100), 1)
+				self.is_last_chapter = int(kodi_utils.get_infolabel('Player.Chapter')) == int(kodi_utils.get_infolabel('Player.ChapterCount'))
+				if self.media_type == 'movie' and self.is_last_chapter and not self.stingers_checked:
+					if self.curr_time > (self.total_time - self.stinger_check): self.run_stingers()
 				if self.current_point >= self.set_watched and not self.media_marked:
 					self.media_watched_marker()
 				if self.play_random_continual:
@@ -236,6 +241,14 @@ class POVPlayer(kodi_utils.xbmc_player):
 			season = self.season if self.media_type == 'episode' else None
 			episode = self.episode if self.media_type == 'episode' else None
 			Thread(target=Subtitles().get, args=(self.title, self.imdb_id, season, episode)).start()
+		except: pass
+
+	def run_stingers(self):
+		self.stingers_checked = True
+		try:
+			poster = self.meta.get('poster') or poster_empty
+			if not Stingers.stingers_enabled(): return
+			Thread(target=Stingers().run, args=(self.tmdb_id, poster)).start()
 		except: pass
 
 	def info_next_ep(self):
@@ -369,4 +382,23 @@ class Subtitles(kodi_utils.xbmc_player):
 		if subtitle: return self.setSubtitles(subtitle)
 		subtitle = _searched_subs()
 		if subtitle: return self.setSubtitles(subtitle)
+
+class Stingers:
+	stingers = {
+		'duringcreditsstinger': 'During Credit Scene',
+		'aftercreditsstinger': 'After Credit Scene'
+	}
+
+	@staticmethod
+	def stingers_enabled():
+		return get_setting('stingers.enable') == 'true'
+
+	def run(self, tmdb_id, poster):
+		if not tmdb_id: return
+		from apis.tmdb_api import movie_keywords
+		keywords = movie_keywords(tmdb_id) or []
+		keywords = [str(i['name']) for i in keywords]
+		if all((i in keywords for i in self.stingers.keys())): message = 'Dual Credit Scenes'
+		else: message = next((v for k, v in self.stingers.items() if k in keywords), None)
+		if message: kodi_utils.notification(message, time=5000, icon=poster)
 

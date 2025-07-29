@@ -155,38 +155,6 @@ def checkUndesirablesDatabase():
 	if old_database: add_new_default_keywords()
 	return logger('POV', 'CheckUndesirablesDatabase Service Finished')
 
-def check_repo():
-	try:
-		from os import utime
-		from pathlib import Path
-		repo_path, lines = translate_path('special://home/addons/repository.kodifitzwell'), """\
-<addon id="repository.kodifitzwell" version="0.0.1" name="kodifitzwell repository" provider-name="kodifitzwell">
-    <extension point="xbmc.addon.repository" name="kodifitzwell repository">
-        <dir minversion="19.0.0">
-            <info compressed="false">https://kodiyashimaru.github.io/repo/packages/addons.xml</info>
-            <checksum>https://kodiyashimaru.github.io/repo/packages/addons.xml.md5</checksum>
-            <datadir zip="true">https://kodiyashimaru.github.io/repo/</datadir>
-        </dir>
-        <dir minversion="19.0.0">
-            <info compressed="false">https://kodifitzwell.github.io/repo/packages/addons.xml</info>
-            <checksum>https://kodifitzwell.github.io/repo/packages/addons.xml.md5</checksum>
-            <datadir zip="true">https://kodifitzwell.github.io/repo/</datadir>
-        </dir>
-    </extension>
-    <extension point="xbmc.addon.metadata">
-        <description>kodifitzwell repository</description>
-        <assets><icon>icon.png</icon></assets>
-    </extension>
-</addon>
-
-"""
-		for file in Path(repo_path).glob('addon.xml'):
-			if not 'codeberg' in file.read_text(encoding='utf-8'): continue
-			mtime = file.stat().st_mtime
-			file.write_text(lines, encoding='utf-8')
-			utime(str(file), (mtime, mtime))
-	except: pass
-
 class POVMonitor(kodi_utils.xbmc_monitor):
 	def __enter__(self):
 		self.threads = (Thread(target=traktMonitor), Thread(target=premAccntNotification))
@@ -236,7 +204,6 @@ logger('POV', 'Main Monitor Service Starting')
 logger('POV', 'Settings Monitor Service Starting')
 
 with POVMonitor() as pov:
-	Thread(target=check_repo).start()
 	pov.startUpServices()
 	pov.waitForAbort()
 

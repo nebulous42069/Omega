@@ -324,6 +324,14 @@ def tvshow_title_year(title, year, tmdb_api=None):
 		else: return None
 	except: return None
 
+def movie_keywords(tmdb_id, tmdb_api=None):
+	try:
+		url = '%s/movie/%s/keywords?api_key=%s' % (base_url, tmdb_id, get_tmdb_api(tmdb_api))
+		result = get_tmdb(url)
+		result = result['keywords']
+		return result
+	except: return None
+
 def english_translation(media_type, tmdb_id, tmdb_api=None):
 	try:
 		string = 'english_translation_%s_%s' % (media_type, tmdb_id)

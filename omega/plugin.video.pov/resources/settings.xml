@@ -105,6 +105,8 @@
         <setting id="autoplay_quality_movie" label="Limit Auto Play Quality" type="action" default="SD, 720p, 1080p, 4K" visible="eq(-1,true)" action="RunPlugin(plugin://plugin.video.pov/?mode=set_quality_choice&amp;quality_setting=autoplay_quality_movie)" />
         <setting id="results_quality_movie" label="Limit Quality" type="action" default="SD, 720p, 1080p, 4K" visible="eq(-2,false)" action="RunPlugin(plugin://plugin.video.pov/?mode=set_quality_choice&amp;quality_setting=results_quality_movie)" />
         <setting id="auto_resume_movie" label="Automatically Resume Playback" type="enum" default="0" values="Never|Always|Autoplay Only" />
+        <setting id="stingers.enable" label="Enable Credit Scene Notification (Movie Stingers)" type="bool" default="false" />
+            <setting id="stingers.threshold" label="Notification Threshold (Minutes Remaining)" type="slider" default="10" option="int" range="1,1,10" subsetting="true" visible="eq(-1,true)" />
         <setting label="Episodes" type="lsep" />
         <setting id="autoscrape_next_episode" label="Autoscrape Next Episode (source select)" type="bool" default="false" />
         <setting id="auto_play_episode" label="Auto Play" type="bool" default="false" />
@@ -247,15 +249,16 @@
         <setting id="store_torrent.torbox" label="Add Resolved Torrents to Cloud" type="bool" default="false" visible="eq(-3,true)+!eq(-4,)" />
         <setting id="provider.torboxnews" label="Use Usenet Services" type="bool" default="false" visible="eq(-2,true)+eq(-4,true)+!eq(-5,)" />
         <setting id="store_usenet.torbox" label="Add Resolved Usenet to Cloud" type="bool" default="false" visible="eq(-3,true)+eq(-5,true)+!eq(-6,)" />
-        <setting id="provider.tb_cloud" label="Search TB Cloud" type="bool" default="false" visible="eq(-6,true)+!eq(-7,)" />
-            <setting id="tb_cloud.title_filter" label="Filter Results by Name" type="bool" default="false" subsetting="true" visible="eq(-1,true)+eq(-7,true)+!eq(-8,)" />
-            <setting id="check.tb_cloud" label="Check Before Full Search" type="bool" default="false" subsetting="true" visible="eq(-2,true)+eq(-8,true)+!eq(-9,)" />
-            <setting id="results.sort_tbcloud_first" label="Show Results at Top" type="bool" default="true" subsetting="true" visible="eq(-3,true)+eq(-9,true)+!eq(-10,)" />
-        <setting id="tb.sort" label="TorBox Usenet Search Sort" type="enum" default="0" values="Age|Size|Tracker" visible="eq(-10,true)+!eq(-11,)" />
-        <setting id="tb.priority" label="Priority (Lower Number Equals Higher Priority)" type="slider" default="9" option="int" range="1,1,10" visible="eq(-11,true)+!eq(-12,)" />
-        <setting id="tb.expires" label="Premium Expires Notification (days)" type="slider" default="0" option="int" range="0,1,7" visible="eq(-12,true)+!eq(-13,)" />
-        <setting label="Authorize" type="action" visible="eq(-14,)" option="close" action="RunPlugin(plugin://plugin.video.pov/?mode=myservices&amp;action=torbox)" />
-        <setting label="Remove Authorization" type="action" visible="!eq(-15,)" option="close" action="RunPlugin(plugin://plugin.video.pov/?mode=myservices&amp;action=torbox)" />
+        <setting id="tb.user_engines_only" label="Filter User Search Services Only" type="bool" default="false" visible="eq(-4,true)+eq(-6,true)+!eq(-7,)" />
+        <setting id="provider.tb_cloud" label="Search TB Cloud" type="bool" default="false" visible="eq(-7,true)+!eq(-8,)" />
+            <setting id="tb_cloud.title_filter" label="Filter Results by Name" type="bool" default="false" subsetting="true" visible="eq(-1,true)+eq(-8,true)+!eq(-9,)" />
+            <setting id="check.tb_cloud" label="Check Before Full Search" type="bool" default="false" subsetting="true" visible="eq(-2,true)+eq(-9,true)+!eq(-10,)" />
+            <setting id="results.sort_tbcloud_first" label="Show Results at Top" type="bool" default="true" subsetting="true" visible="eq(-3,true)+eq(-10,true)+!eq(-11,)" />
+        <setting id="tb.sort" label="TorBox Usenet Search Sort" type="enum" default="0" values="Age|Size|Tracker" visible="eq(-11,true)+!eq(-12,)" />
+        <setting id="tb.priority" label="Priority (Lower Number Equals Higher Priority)" type="slider" default="9" option="int" range="1,1,10" visible="eq(-12,true)+!eq(-13,)" />
+        <setting id="tb.expires" label="Premium Expires Notification (days)" type="slider" default="0" option="int" range="0,1,7" visible="eq(-13,true)+!eq(-14,)" />
+        <setting label="Authorize" type="action" visible="eq(-15,)" option="close" action="RunPlugin(plugin://plugin.video.pov/?mode=myservices&amp;action=torbox)" />
+        <setting label="Remove Authorization" type="action" visible="!eq(-16,)" option="close" action="RunPlugin(plugin://plugin.video.pov/?mode=myservices&amp;action=torbox)" />
         <!-- Offcloud -->
         <setting label="Offcloud" type="lsep" />
         <setting id="oc.token" label="oc token" type="text" default="" visible="false" />

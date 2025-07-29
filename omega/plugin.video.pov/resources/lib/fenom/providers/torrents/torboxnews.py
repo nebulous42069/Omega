@@ -4,7 +4,7 @@
 """
 
 #from json import loads as jsloads
-import requests, queue
+import hashlib, requests, queue
 #from fenom import client
 from fenom import source_utils
 from fenom.control import setting as getSetting
@@ -18,7 +18,9 @@ class source:
 	hasEpisodes = True
 	_queue = queue.SimpleQueue()
 	def __init__(self):
+		self.user_agent = 'POV for Kodi'
 		self.token = getSetting('tb.token')
+		self.user_engines_only = getSetting('tb.user_engines_only') == 'true'
 		self.language = ['en']
 		self.base_link = "https://search-api.torbox.app/usenet"
 		self.min_seeders = -2
@@ -45,7 +47,7 @@ class source:
 				hdlr = year
 			# log_utils.log('url = %s' % url)
 			try:
-				headers = {'Authorization': 'Bearer %s' % self.token}
+				headers = {'User-Agent': self.user_agent, 'Authorization': 'Bearer %s' % self.token}
 				results = requests.get(url, params=params, headers=headers, timeout=self.timeout)
 				files = results.json()['data']['nzbs']
 			except: files = []
@@ -59,7 +61,8 @@ class source:
 
 		for file in files:
 			try:
-				hash = file['hash']
+				if self.user_engines_only and not file['user_search']: continue
+				hash = file['hash'] or hashlib.md5(file['nzb'].encode('utf-8')).hexdigest()
 				file_title = file['raw_title']
 
 				name = source_utils.clean_name(file_title)
@@ -103,7 +106,7 @@ class source:
 			url = '%s/imdb:%s' % (self.base_link, imdb)
 			params = {'check_cache': 'true', 'check_owned': 'true', 'search_user_engines': 'true'}
 			params.update({'season': int(season), 'episode': int(data['episode'])})
-			headers = {'Authorization': 'Bearer %s' % self.token}
+			headers = {'User-Agent': self.user_agent, 'Authorization': 'Bearer %s' % self.token}
 #			results = requests.get(url, params=params, headers=headers, timeout=self.timeout)
 			files = self._queue.get(timeout=self.timeout + 1)
 			undesirables = source_utils.get_undesirables()
@@ -114,7 +117,8 @@ class source:
 
 		for file in files:
 			try:
-				hash = file['hash']
+				if self.user_engines_only and not file['user_search']: continue
+				hash = file['hash'] or hashlib.md5(file['nzb'].encode('utf-8')).hexdigest()
 				file_title = file['raw_title']
 
 				name = source_utils.clean_name(file_title)

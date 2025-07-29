@@ -16,8 +16,6 @@ class source:
 	hasEpisodes = True
 	_queue = queue.SimpleQueue()
 	def __init__(self):
-		dmmProblemKey, solution = get_secret()
-		self.params = {'dmmProblemKey': dmmProblemKey, 'solution': solution}
 		self.language = ['en']
 		self.base_link = "https://debridmediamanager.com"
 		self.movieSearch_link = '/api/torrents/movie?imdbId=%s'
@@ -57,7 +55,9 @@ class source:
 
 	def get_sources(self, url):
 		try:
-			results = requests.get(url, params=self.params, timeout=self.timeout)
+			dmmProblemKey, solution = get_secret()
+			params = {'dmmProblemKey': dmmProblemKey, 'solution': solution}
+			results = requests.get(url, params=params, timeout=self.timeout)
 			files = results.json()['results']
 			self.files += files
 		except:
@@ -165,12 +165,12 @@ class source:
 
 class DMMCache:
 	def __init__(self):
-		dmmProblemKey, solution = get_secret()
-		self.params = {'dmmProblemKey': dmmProblemKey, 'solution': solution}
 		self.availability_check_link = 'https://debridmediamanager.com/api/availability/check'
 
 	def check_cache(self, unchecked_hashes_chunk, imdb): # DMM API Allows max 100 hashes per request.
-		data = {**self.params, 'imdbId': imdb, 'hashes': [i for i in unchecked_hashes_chunk if len(i) == 40]}
+		dmmProblemKey, solution = get_secret()
+		data = {'dmmProblemKey': dmmProblemKey, 'solution': solution, 'imdbId': imdb}
+		data.update({'hashes': [i for i in unchecked_hashes_chunk if len(i) == 40]})
 		try:
 			results = requests.post(self.availability_check_link, json=data, timeout=6)
 			available_hashes = results.json()['available']

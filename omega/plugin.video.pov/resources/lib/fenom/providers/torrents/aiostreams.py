@@ -17,11 +17,11 @@ class source:
 	hasEpisodes = True
 	_queue = queue.SimpleQueue()
 	def __init__(self):
-		params = '4ec23e77-bdff-4c55-81b9-d3c1044d81ff/eyJpdiI6IlAzeGQ1cFJXZHRWb1hMY3E3cGtHT2c9PSIsImVuY3J5cHRlZCI6IkVENE9LUGVqUVRqNWtVTjQzSE1YUWw4SjRhTHhyWXFuWnpBc3grL0E5Q1U9IiwidHlwZSI6ImFpb0VuY3J5cHQifQ'
+		params = '/4ec23e77-bdff-4c55-81b9-d3c1044d81ff/eyJpdiI6IlAzeGQ1cFJXZHRWb1hMY3E3cGtHT2c9PSIsImVuY3J5cHRlZCI6IkVENE9LUGVqUVRqNWtVTjQzSE1YUWw4SjRhTHhyWXFuWnpBc3grL0E5Q1U9IiwidHlwZSI6ImFpb0VuY3J5cHQifQ'
 		self.language = ['en']
 		self.base_link = "https://aiostreams.elfhosted.com/stremio"
-		self.movieSearch_link = f"/{params}/stream/movie/%s.json"
-		self.tvSearch_link = f"/{params}/stream/series/%s:%s:%s.json"
+		self.movieSearch_link = f"{params}/stream/movie/%s.json"
+		self.tvSearch_link = f"{params}/stream/series/%s:%s:%s.json"
 		self.min_seeders = 0
 
 	def sources(self, data, hostDict):

@@ -456,6 +456,19 @@ class Extras(BaseDialog):
 			return '%s: %s' % (ls(32999), next_episode)
 		else: return ''
 
+	def get_stingers(self):
+		stingers = {
+			'duringcreditsstinger': 'During Credit Scene',
+			'aftercreditsstinger': 'After Credit Scene'
+		}
+		if not self.tmdb_id: return ''
+		keywords = tmdb_api.movie_keywords(self.tmdb_id) or []
+		keywords = [str(i['name']) for i in keywords]
+		if all((i in keywords for i in stingers.keys())): stinger = 'Dual Credit Scenes'
+		else: stinger = next((v for k, v in stingers.items() if k in keywords), None)
+		if stinger: stinger = '| [I]%s[/I]' % stinger
+		return stinger or ''
+
 	def make_tvshow_browse_params(self):
 		total_seasons = self.meta['total_seasons']
 		all_episodes = settings.default_all_episodes()
@@ -563,12 +576,14 @@ class Extras(BaseDialog):
 			self.progress = self.get_progress()
 			self.finish_watching = self.get_finish()
 			self.last_aired_episode, self.next_aired_episode, self.next_episode = '', '', ''
+			self.stingers = self.get_stingers()
 		else:
 			self.progress, self.finish_watching = '', ''
 			self.last_aired_episode = self.get_last_aired()
 			if self.status not in ('', 'Ended', 'Canceled'): self.next_aired_episode = self.get_next_aired()
 			else: self.next_aired_episode = ''
 			self.next_episode = self.get_next_episode()
+			self.stingers = ''
 
 	def set_properties(self):
 		self.setProperty('tikiskins.extras.media_type', self.media_type)
@@ -588,6 +603,7 @@ class Extras(BaseDialog):
 		self.setProperty('tikiskins.extras.last_aired_episode', self.last_aired_episode)
 		self.setProperty('tikiskins.extras.next_aired_episode', self.next_aired_episode)
 		self.setProperty('tikiskins.extras.next_episode', self.next_episode)
+		self.setProperty('tikiskins.extras.stingers', self.stingers)
 		self.setProperty('tikiskins.extras.enable_scrollbars', self.enable_scrollbars)
 
 class ShowTextMedia(BaseDialog):

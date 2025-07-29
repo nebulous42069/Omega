@@ -566,7 +566,7 @@
                         <textcolor>FFCCCCCC</textcolor>
                         <align>left</align>
                         <aligny>bottom</aligny>
-                        <label>[B]Plot[/B]</label>
+                        <label>[B]Plot[/B] $INFO[Window.Property(tikiskins.extras.stingers)]</label>
                     </control>
                     <control type="button" id="50">
                         <top>40</top>
