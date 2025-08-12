@@ -12,6 +12,7 @@ import urllib.request
 import urllib.parse
 import urllib.error
 import socket
+from datetime import datetime, timedelta
 
 # Config constants
 ADDON_NAME = "plugin.video.sc19"
@@ -242,13 +243,16 @@ def tool_fav_backup():
         xbmcgui.Dialog().ok("Backup Favourites", "Backup path is empty. Please set a valid path in settings menu under \"Favourites\" first.")  
         xbmcaddon.Addon(id=ADDON_NAME).openSettings()
     else:
-        if xbmcvfs.exists(source):
-            if xbmcvfs.copy(source, destination):
-                xbmcgui.Dialog().ok("Backup Favourites", "Backup of favourites to backup path succesful.")
+        # Ask for confirmation before backup
+        if xbmcgui.Dialog().yesno("Backup Favourites", "Do you really want to backup your favourites database?\nThis will overwrite any existing backup file.",
+                                  yeslabel="Yes, backup", nolabel="Cancel"):
+            if xbmcvfs.exists(source):
+                if xbmcvfs.copy(source, destination):
+                    xbmcgui.Dialog().ok("Backup Favourites", "Backup of favourites to backup path succesful.")
+                else:
+                    xbmcgui.Dialog().ok("Backup Favourites", "Something went wrong.")
             else:
-                xbmcgui.Dialog().ok("Backup Favourites", "Something went wrong.")
-        else:
-            xbmcgui.Dialog().ok("Backup Favourites", "Favourites file is empty. Nothing to backup.")
+                xbmcgui.Dialog().ok("Backup Favourites", "Favourites file is empty. Nothing to backup.")
 
 def tool_fav_restore():
     path = ADDON.getSetting('fav_path_backup')
@@ -260,12 +264,96 @@ def tool_fav_restore():
         xbmcaddon.Addon(id=ADDON_NAME).openSettings()
     else:
         if xbmcvfs.exists(source):
-            if xbmcvfs.copy(source, destination):
-                xbmcgui.Dialog().ok("Restore Favourites", "Restore of favourites succesful.")
-            else:
-                xbmcgui.Dialog().ok("Restore Favourites", "Something went wrong.")
+            # Ask for confirmation before restore
+            if xbmcgui.Dialog().yesno("Restore Favourites", "Do you really want to restore your favourites database?\nThis will overwrite your current favourites!", 
+                                      yeslabel="Yes, restore", nolabel="Cancel"):
+                if xbmcvfs.copy(source, destination):
+                    xbmcgui.Dialog().ok("Restore Favourites", "Restore of favourites succesful.")
+                else:
+                    xbmcgui.Dialog().ok("Restore Favourites", "Something went wrong.")
         else:
             xbmcgui.Dialog().ok("Restore Favourites", "No valid file found in restore location. Make a backup first or check location.")
+
+def format_timestamp_to_local(timestamp):
+    """Convert UTC timestamp to local time"""
+    try:
+        if not timestamp:
+            return "Unknown"
+            
+        # Create datetime object directly from ISO format
+        utc_time = datetime.fromisoformat(timestamp.replace('Z', '+00:00'))
+        
+        # Get local timezone offset
+        import time
+        offset = -time.timezone
+        if time.daylight:
+            offset = -time.altzone
+            
+        # Apply timezone offset
+        local_time = utc_time + timedelta(seconds=offset)
+        
+        # Format according to locale settings
+        local_format = "%Y-%m-%d %H:%M:%S"
+        if xbmc.getRegion('datelong') and xbmc.getRegion('time'):
+            local_format = f"{xbmc.getRegion('datelong')} {xbmc.getRegion('time')}"
+            
+        return local_time.strftime(local_format)
+        
+    except Exception as e:
+        xbmc.log(f"{ADDON_SHORTNAME}: Error in format_timestamp_to_local: {str(e)}", xbmc.LOGERROR)
+        return str(timestamp)
+
+def format_timestamp_relative(timestamp):
+    """Convert UTC timestamp to relative time difference"""
+    try:
+        if not timestamp:
+            return "Unknown"
+            
+        # Create datetime object from ISO format
+        utc_time = datetime.fromisoformat(timestamp.replace('Z', '+00:00'))
+        
+        # Get current time in UTC
+        now = datetime.now(utc_time.tzinfo)
+        
+        # Calculate time difference
+        diff = now - utc_time
+        
+        # Convert to total seconds
+        seconds = diff.total_seconds()
+        
+        # Less than an hour
+        if seconds < 3600:
+            minutes = int(seconds / 60)
+            return f"{minutes} {'minute' if minutes == 1 else 'minutes'} ago"
+            
+        # Less than a day
+        elif seconds < 86400:
+            hours = int(seconds / 3600)
+            return f"{hours} {'hour' if hours == 1 else 'hours'} ago"
+            
+        # Less than a week
+        elif seconds < 604800:
+            days = int(seconds / 86400)
+            return f"{days} {'day' if days == 1 else 'days'} ago"
+            
+        # Less than a month (approximately)
+        elif seconds < 2592000:
+            weeks = int(seconds / 604800)
+            return f"{weeks} {'week' if weeks == 1 else 'weeks'} ago"
+            
+        # Less than a year
+        elif seconds < 31536000:
+            months = int(seconds / 2592000)
+            return f"{months} {'month' if months == 1 else 'months'} ago"
+            
+        # More than a year
+        else:
+            years = int(seconds / 31536000)
+            return f"{years} {'year' if years == 1 else 'years'} ago"
+            
+    except Exception as e:
+        xbmc.log(f"{ADDON_SHORTNAME}: Error in format_timestamp_relative: {str(e)}", xbmc.LOGERROR)
+        return str(timestamp)
 
 def connect_favourites_db():
     "Connect to favourites database and create one, if it does not exist."
@@ -779,19 +867,17 @@ def play_actor(actor, genre="Stripchat"):
         if not data["cam"]["topic"] == "":
             bio = "Topic: " + data["cam"]["topic"] + "\n"
         
-        # alternative without resolution variants: hls_source = "https://b-{0}.doppiocdn.com/hls/{1}/{1}.m3u8".format(data["cam"]["viewServers"]["flashphoner-hls"],data["cam"]["streamName"])
         # variants hls_source = "https://edge-hls.doppiocdn.com/hls/{0}/master/{0}_auto.m3u8".format(data["cam"]["streamName"])
         # best only hls_source = "https://edge-hls.doppiocdn.com/hls/{0}/master/{0}.m3u8".format(data["cam"]["streamName"])
         hls_source = "https://edge-hls.doppiocdn.com/hls/{0}/master/{0}.m3u8".format(data["cam"]["streamName"])
         
         status = data["user"]["user"]["status"]
-        
-        statusts = data["user"]["user"]["statusChangedAt"]
         isLive = data["user"]["user"]["isLive"]
             
         # Not live (public)
         if isLive == False:
-            xbmcgui.Dialog().ok(STRINGS['not_live'], STRINGS['last_status'] + USER_STATES_NICE[status] + "\nTimestamp: " + statusts)  
+            statusts = data["user"]["user"]["statusChangedAt"]
+            xbmcgui.Dialog().ok(STRINGS['not_live'], "Status: " + USER_STATES_NICE["off"] + "\nLast broadcast: " + format_timestamp_relative(statusts))
             return
         # All other states
         if not status == "public":

@@ -574,11 +574,12 @@ https://github.com/Vashiel/repository.adulthideout
 		<fanart>fanart.jpg</fanart>
   </assets>
   </extension>
-</addon><addon id="plugin.video.cb20" version="2.2.2" name="CB20" provider-name="aitschti">
+</addon><addon id="plugin.video.cb20" version="2.2.4" name="CB20" provider-name="aitschti">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
         
         <import addon="inputstream.ffmpegdirect" version="20.0.0" />
+        <import addon="inputstream.adaptive" version="20.0.0" />
     </requires>
     <extension point="xbmc.python.pluginsource" library="addon.py">
         <provides>video</provides>
@@ -899,7 +900,7 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.cb20
             <fanart>fanart.jpg</fanart>			
         </assets>
 	</extension>
-</addon><addon id="plugin.video.sc19" version="1.5.3" name="SC19" provider-name="aitschti">
+</addon><addon id="plugin.video.sc19" version="1.5.4" name="SC19" provider-name="aitschti">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
         <import addon="inputstream.ffmpegdirect" version="19.0.0" />
