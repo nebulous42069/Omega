@@ -13,10 +13,7 @@ def menuoptions():
         function2,
         function3,
         function4,
-        function5,
-        function6,
-        function7,
-        function8,        
+        function5,        
     )
     call = dialog.select('[B]Diggz Website Browser[/B]', [
             '[B]The_TV_App[/B]',

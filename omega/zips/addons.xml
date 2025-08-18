@@ -193,7 +193,7 @@
     </assets>
     <platform>all</platform>
   </extension>
-</addon><addon id="plugin.program.livetv" name="Diggz Live TV Browser " version="420.5" provider-name="Diggz, JewBMX">
+</addon><addon id="plugin.program.livetv" name="Diggz Live TV Browser " version="420.6" provider-name="Diggz, JewBMX">
     <requires>
         <import addon="script.module.kodi-six" />
     </requires>
@@ -326,7 +326,7 @@
 				<screenshot />
 		</assets>
 	</extension>
-</addon><addon id="plugin.program.sports" name="Diggz Sports Browser " version="420.4" provider-name="Diggz, JewBMX">
+</addon><addon id="plugin.program.sports" name="Diggz Sports Browser " version="420.5" provider-name="Diggz, JewBMX">
     <requires>
         <import addon="script.module.kodi-six" />
     </requires>

@@ -12,13 +12,6 @@ def menuoptions():
         function1,
         function2,
         function3,
-        function4,
-        function5,
-        function6,
-        function7,
-        function8,
-        function9,
-        function10,
     )
     call = dialog.select('[B]Diggz Sports Website Browser[/B]', [
             '[B]The_TV_App Sports[/B]',
@@ -75,7 +68,7 @@ def function2(): # Sportseast
         return webbrowser.open(link)
 
 
-def function5(): # Time4tv sports
+def function3(): # Time4tv sports
     link = 'https://time4tv.top/schedule.php'
     if myplatform == 'android':
         return xbmc.executebuiltin(mycommand % link)
