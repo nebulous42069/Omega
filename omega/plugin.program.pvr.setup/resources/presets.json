@@ -1,0 +1,11 @@
+[
+  {
+    "name": "Setup The Loop PVR TV Guide",
+    "xml": "loop"
+  },
+  {
+    "name": "Setup Mad Titan PVR TV Guide",
+    "xml": "mt"
+  }
+  
+]

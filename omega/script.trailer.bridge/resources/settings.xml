@@ -1,0 +1,5 @@
+<settings>
+  <category label="TMDb">
+    <setting id="tmdb_api_key" type="text" label="TMDb API Key" default=""/>
+  </category>
+</settings>

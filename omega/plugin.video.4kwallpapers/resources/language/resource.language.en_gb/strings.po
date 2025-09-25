@@ -1,0 +1,14 @@
+msgid "General"
+msgstr "General"
+
+msgid "Download path"
+msgstr "Download path"
+
+msgid "Show 18+ categories"
+msgstr "Show 18+ categories"
+
+msgid "Use static thumbnails for categories (fastest)"
+msgstr "Use static thumbnails for categories (fastest)"
+
+msgid "Warm live thumbnails after open (if static is OFF)"
+msgstr "Warm live thumbnails after open (if static is OFF)"

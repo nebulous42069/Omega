@@ -1,0 +1,34 @@
+[
+  {
+    "name": "The Loop TV Guide",
+    "m3u": "https://loopaddon.uk/files/k19/epg2025/gameDay_epg.m3u",
+    "epg": "https://loopaddon.uk/files/k19/epg2025/final_epg.xml.gz",
+    "icon": "special://home/addons/plugin.video.the-loop/icon.png",
+    "fanart": "special://home/addons/plugin.video.the-loop/fanart.jpg"
+  },
+  {
+    "name": "Mad Titan TV Guide",
+    "m3u": "https://magnetic.website/jet/playlist1.m3u8",
+    "epg": "https://magnetic.website/jet/epg.xml",
+    "icon": "special://home/addons/plugin.video.madtitansports/icon.png",
+    "fanart": "special://home/addons/plugin.video.madtitansports/fanart.jpg"
+  },
+  {
+    "name": "Pluto TV Guide",
+    "m3u": "special://home/userdata/addon_data/plugin.program.iptv.merge/playlist.m3u8",
+    "epg": "special://home/userdata/addon_data/plugin.program.iptv.merge/epg.xml",
+    "icon": "special://home/addons/slyguy.pluto.tv.provider/icon.png",
+    "fanart": "special://home/addons/slyguy.pluto.tv.provider/fanart.jpg"
+  },
+  {
+    "name": "MoveONJoy TV Guide",
+    "m3u": "https://raw.githubusercontent.com/iptv-org/iptv/refs/heads/master/streams/us_moveonjoy.m3u",
+    "epg": "https://epgshare01.online/epgshare01/epg_ripper_US1.xml.gz"
+  },
+  {
+    "name": "Mr M2 TV Guide",
+    "m3u": "https://raw.githubusercontent.com/blakestrick/m3u/refs/heads/main/m2.m3u",
+    "epg": "https://epgshare01.online/epgshare01/epg_ripper_US1.xml.gz"
+  }
+
+]

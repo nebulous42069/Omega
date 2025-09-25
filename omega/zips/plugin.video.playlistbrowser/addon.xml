@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.video.playlistbrowser"
+       name="Diggz TV Guide Lite"
+       version="2.6.2"
+       provider-name="Diggz">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0"/>
+  </requires>
+
+  <extension point="xbmc.addon.metadata">
+    <summary>Browse multiple playlists with built-in EPG guide</summary>
+    <description>Configure M3U/JSON playlists and XMLTV EPGs; includes an in-add-on guide UI with logos/artwork.</description>
+    <platform>all</platform>
+    <assets>
+      <icon>resources/media/icon.png</icon>
+      <fanart>resources/media/fanart.png</fanart>
+    </assets>
+  </extension>
+
+  <extension point="xbmc.python.pluginsource" library="main.py">
+    <provides>video</provides>
+  </extension>
+</addon>

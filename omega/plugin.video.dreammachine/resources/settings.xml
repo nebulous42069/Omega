@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+   <category label="STB / MAC - Your Server">
+    <setting label="Portal" id="portal" type="text" visible="true" value="" />
+    <setting label="MAC" id="mac" type="text" visible="true" value="" />
+   </category>
+   <category label="Loonatics Server">
+    <setting id="selected" type="text" visible="false" value="]1-Personal" />
+    <setting id="userp" type="text" visible="false" value="" default="Loonatics"/>
+    <setting id="mac2" type="text" visible="false" value="00:1a:79:6c:43:86" />
+    <setting id="portal2" type="text" visible="false" value="http://portal.wag-iptv.de:8080/" />
+    <setting id="ser" type="text" visible="false" value="Kg4mJV4Z" />
+   </category>
+   <category label="Xtream - Your Server">
+    <setting label="Portal" id="portalxc" type="text" visible="true" value="" />
+    <setting label="Username" id="usernamexc" type="text" visible="true" value="" />
+    <setting label="Password" id="passxc" type="text" visible="true" value="" />
+   </category>
+   <category label="Xtream - Your List">
+    <setting id="user_server_list" type="text" label="Custom Server List URL" default="" />
+   </category>
+   <category label="Xtream Server Check">
+<setting id="server_check_mode" type="enum" label="Server Check Mode" default="0" values="Auto-check servers|Show original list" />
+   </category>
+   <category label="Cache Settings">
+      <setting id="cache_duration_enum" type="enum" label="Cache Duration" values="15 Minutes|30 Minutes|45 Minutes|1 Hour|2 Hours|4 Hours|12 Hours|24 Hours|48 Hours|72 Hours" default="6" />
+   </category>
+   <category label="Adult XXX">
+    <setting label="Adult Channels:" id="porn" type="bool" visible="true" value="true" />
+    <setting id="parental_control" type="bool" label="Enable Parental Control Popup" default="true" visible="true"/>
+    <setting id="parental_password" type="text" label="Parental Control Password" default="CnIg" option="hidden" visible="true"/>
+   </category>
+</settings>

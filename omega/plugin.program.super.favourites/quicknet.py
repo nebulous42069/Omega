@@ -1,4 +1,15 @@
 
+# --- Injected patch: define cache size from settings ---
+try:
+    import xbmcaddon
+    _ADDON = xbmcaddon.Addon()
+    level = int(_ADDON.getSetting('CACHE') or 0)
+except Exception:
+    level = 0
+CACHE_LEVEL_TO_MAX = [0, 100, 500, 1000]
+gCacheSize = CACHE_LEVEL_TO_MAX[max(0, min(level, len(CACHE_LEVEL_TO_MAX)-1))]
+# --- End patch ---
+
 #       Copyright (C) 2013-2014
 #       Sean Poyser (seanpoyser@gmail.com)
 #       Portions Copyright (c) 2020 John Moore
@@ -112,10 +123,10 @@ def addToCache(url, data):
 def createKey(url):
     try:
         from hashlib import md5
-        return md5(url).hexdigest()
+        return md5(url if isinstance(url,bytes) else str(url).encode('utf-8')).hexdigest()
     except:
-        import md5
-        return md5.new(url).hexdigest()
+
+        return md5(url if isinstance(url,bytes) else str(url).encode('utf-8') if isinstance(url if isinstance(url,bytes) else str(url).encode('utf-8'),bytes) else str(url if isinstance(url,bytes) else str(url).encode('utf-8')).encode('utf-8')).hexdigest()
 
         
 def purgeCache():

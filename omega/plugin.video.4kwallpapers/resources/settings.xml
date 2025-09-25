@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+  <category label="General">
+    <setting id="download_path"
+             type="folder"
+             label="Download folder"
+             default="special://home/addons/resource.images.skinbackgrounds.xenon/resources/custom"
+             allowempty="false" />
+    <setting id="use_static_thumbs"
+             type="bool"
+             label="Use static thumbnails for categories"
+             default="false" />
+  </category>
+</settings>

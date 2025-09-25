@@ -1,0 +1,22 @@
+<?xml version="4.9.31" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.video.yt.kiosk"
+       name="YouTube Kiosk"
+       version="4.9.21"
+       provider-name="Diggz">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+    <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en_GB">Minimal YouTube-style kiosk with hard-coded categories and search. No login required.</summary>
+    <description lang="en_GB">Browse Trending, Music, Gaming, News, Movies, Live, and Search. Plays via the official YouTube add-on if present.</description>
+    <platform>all</platform>
+    <reuselanguageinvoker>true</reuselanguageinvoker>
+    <assets>
+      <icon>resources/media/icon.png</icon>
+      <fanart>resources/media/fanart.jpg</fanart>
+    </assets>
+  </extension>
+</addon>

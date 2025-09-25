@@ -19,16 +19,8 @@
                 "url": "installaddon(plugin.video.pov)"
             },
             {
-                "name": "Install The Coalition (DEBRID ONLY)",
-                "url": "installaddon(plugin.video.coalition)"
-            },
-            {
-                "name": "Install Asgard (FREE AND DEBRID)",
-                "url": "installaddon(plugin.video.asgard)"
-            },						
-            {
-                "name": "Install The Crew (FREE AND DEBRID)",
-                "url": "installaddon(plugin.video.thecrew)"
+                "name": "Install Dradis (DEBRID ONLY)",
+                "url": "installaddon(plugin.video.dradis)"
             },
             {
                 "name": "Install Elementum (Free Torrents- VPN Required!!)",
@@ -69,24 +61,16 @@
                 "url": "RunPlugin(plugin://plugin.video.pov/?mode=trakt.get_auth)"
             },
             {
+                "name": "Authorize Dradis Trakt",
+                "url": "RunPlugin(plugin://plugin.video.dradis/?action=authorize&amp;query=trakt)"
+            },
+            {
                 "name": "Authorize Seren Trakt",
                 "url": "RunPlugin(plugin://plugin.video.seren/?action=authTrakt)"
             },
             {
-                "name": "Authorize FEN Trakt",
-                "url": "RunPlugin(plugin://plugin.video.fen/?mode=trakt.trakt_authenticate)"
-            },
-            {
-                "name": "Authorize Coalition Trakt",
-                "url": "RunPlugin(plugin://plugin.video.coalition/?mode=trakt.trakt_auth)"
-            },
-            {
                 "name": "Authorize Chain Reaction Trakt",
                 "url": "RunPlugin(plugin://plugin.video.thechains?mode=205&url=www)"
-            },
-            {
-                "name": "Authorize Asgard Trakt",
-                "url": "RunPlugin(plugin://plugin.video.asgard?mode=157&url=False)"
             },
             {
                 "name": "Authorize The Crew Trakt",

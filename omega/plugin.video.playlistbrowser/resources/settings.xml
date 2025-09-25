@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+  <category label="Start">
+    <setting id="START_MODE" type="enum" label="On open, show:" default="0" values="Choose Source|First Source - Channels|First Source - Guide (Now)|First Source - Guide by Channel" />
+  </category>
+
+  <category label="Global Options">
+    <setting id="REFRESH_EPG_ON_OPEN" type="bool" label="Refresh EPG when opening a source" default="false" />
+    <setting id="EPG_TTL_HOURS" type="number" label="EPG cache hours" default="6" />
+    <setting id="USE_LOGOS" type="bool" label="Use logos from M3U/EPG if available" default="true" />
+    <setting id="USE_EPG_LOGO_FALLBACK" type="bool" label="Fallback to EPG channel icons when M3U has no logo" default="true" />
+  </category>
+
+  <category label="Source 1">
+    <setting id="SRC1_NAME" type="text" label="Display name" default="Playlist 1" />
+    <setting id="SRC1_M3U_URL" type="text" label="M3U URL or path" default="" />
+    <setting id="SRC1_JSON_URL" type="text" label="JSON URL or path" default="" />
+    <setting id="SRC1_EPG_XML_URL" type="text" label="XMLTV EPG URL or path" default="" />
+  </category>
+
+  <category label="Source 2">
+    <setting id="SRC2_NAME" type="text" label="Display name" default="Playlist 2" />
+    <setting id="SRC2_M3U_URL" type="text" label="M3U URL or path" default="" />
+    <setting id="SRC2_JSON_URL" type="text" label="JSON URL or path" default="" />
+    <setting id="SRC2_EPG_XML_URL" type="text" label="XMLTV EPG URL or path" default="" />
+  </category>
+
+  <category label="Source 3">
+    <setting id="SRC3_NAME" type="text" label="Display name" default="Playlist 3" />
+    <setting id="SRC3_M3U_URL" type="text" label="M3U URL or path" default="" />
+    <setting id="SRC3_JSON_URL" type="text" label="JSON URL or path" default="" />
+    <setting id="SRC3_EPG_XML_URL" type="text" label="XMLTV EPG URL or path" default="" />
+  </category>
+
+  <category label="Appearance">
+    <setting id="COLOR_CHANNEL" type="text" label="Channel name color (hex, e.g. #A0C8FF)" default=""/>
+    <setting id="COLOR_EPG" type="text" label="Programme title color (hex, e.g. #FFD27F)" default=""/>
+    <setting id="COLOR_TIME" type="text" label="Time range color (hex, e.g. #B0FFA0)" default=""/>
+  </category>
+
+</settings>
+<category label="Source 4">
+    <setting id="SRC4_NAME" type="text" label="Display name" default="Playlist 3" />
+    <setting id="SRC4_M3U_URL" type="text" label="M3U URL or path" default="" />
+    <setting id="SRC4_JSON_URL" type="text" label="JSON URL or path" default="" />
+    <setting id="SRC4_EPG_XML_URL" type="text" label="XMLTV EPG URL or path" default="" />
+      <setting id="SRC4_REFRESH_ON_OPEN" type="bool" label="Refresh EPG on opening this source" default="false" />
+  </category>
+<category label="Source 5">
+    <setting id="SRC5_NAME" type="text" label="Display name" default="Playlist 3" />
+    <setting id="SRC5_M3U_URL" type="text" label="M3U URL or path" default="" />
+    <setting id="SRC5_JSON_URL" type="text" label="JSON URL or path" default="" />
+    <setting id="SRC5_EPG_XML_URL" type="text" label="XMLTV EPG URL or path" default="" />
+      <setting id="SRC5_REFRESH_ON_OPEN" type="bool" label="Refresh EPG on opening this source" default="false" />
+  </category>
+<category label="Source 6">
+    <setting id="SRC6_NAME" type="text" label="Display name" default="Playlist 3" />
+    <setting id="SRC6_M3U_URL" type="text" label="M3U URL or path" default="" />
+    <setting id="SRC6_JSON_URL" type="text" label="JSON URL or path" default="" />
+    <setting id="SRC6_EPG_XML_URL" type="text" label="XMLTV EPG URL or path" default="" />
+      <setting id="SRC6_REFRESH_ON_OPEN" type="bool" label="Refresh EPG on opening this source" default="false" />
+  </category>
+<category label="Source 7">
+    <setting id="SRC7_NAME" type="text" label="Display name" default="Playlist 3" />
+    <setting id="SRC7_M3U_URL" type="text" label="M3U URL or path" default="" />
+    <setting id="SRC7_JSON_URL" type="text" label="JSON URL or path" default="" />
+    <setting id="SRC7_EPG_XML_URL" type="text" label="XMLTV EPG URL or path" default="" />
+      <setting id="SRC7_REFRESH_ON_OPEN" type="bool" label="Refresh EPG on opening this source" default="false" />
+  </category>
+<category label="Source 8">
+    <setting id="SRC8_NAME" type="text" label="Display name" default="Playlist 3" />
+    <setting id="SRC8_M3U_URL" type="text" label="M3U URL or path" default="" />
+    <setting id="SRC8_JSON_URL" type="text" label="JSON URL or path" default="" />
+    <setting id="SRC8_EPG_XML_URL" type="text" label="XMLTV EPG URL or path" default="" />
+      <setting id="SRC8_REFRESH_ON_OPEN" type="bool" label="Refresh EPG on opening this source" default="false" />
+  </category>
+<category label="Source 9">
+    <setting id="SRC9_NAME" type="text" label="Display name" default="Playlist 3" />
+    <setting id="SRC9_M3U_URL" type="text" label="M3U URL or path" default="" />
+    <setting id="SRC9_JSON_URL" type="text" label="JSON URL or path" default="" />
+    <setting id="SRC9_EPG_XML_URL" type="text" label="XMLTV EPG URL or path" default="" />
+      <setting id="SRC9_REFRESH_ON_OPEN" type="bool" label="Refresh EPG on opening this source" default="false" />
+  </category>
+<category label="Source 10">
+    <setting id="SRC10_NAME" type="text" label="Display name" default="Playlist 3" />
+    <setting id="SRC10_M3U_URL" type="text" label="M3U URL or path" default="" />
+    <setting id="SRC10_JSON_URL" type="text" label="JSON URL or path" default="" />
+    <setting id="SRC10_EPG_XML_URL" type="text" label="XMLTV EPG URL or path" default="" />
+      <setting id="SRC10_REFRESH_ON_OPEN" type="bool" label="Refresh EPG on opening this source" default="false" />
+  </category>

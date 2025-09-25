@@ -148,7 +148,7 @@
             <fanart>fanart.jpg</fanart>
     </assets>
   </extension>
-</addon><addon id="plugin.program.chef21" name="[B][COLOR chartreuse]Chef Omega Wizard[/COLOR][/B]" version="488" provider-name="Diggz">
+</addon><addon id="plugin.program.chef21" name="[B][COLOR chartreuse]Chef Omega Wizard[/COLOR][/B]" version="489" provider-name="Diggz">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0" />
 		<import addon="script.module.debridmgr" />
@@ -245,6 +245,18 @@
 			<fanart>fanart.jpg</fanart>
 		</assets>
 	</extension>
+</addon><addon id="plugin.program.pvr.setup" name="PVR/EPG Quick Setup" version="1.3.6" provider-name="Diggz">
+    <requires>
+        <import addon="xbmc.python" version="3.0.0" />
+    </requires>
+    <extension point="xbmc.python.script" library="addon.py" />
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en_GB">One-click setup for Kodi PVR IPTV Simple</summary>
+        <platform>all</platform>
+    <assets>
+      <icon>icon.png</icon>
+    </assets>
+    </extension>
 </addon><addon id="plugin.program.quickfix" name="Quick Fixes" version="5" provider-name="Diggz">
 	<requires>
 		<import addon="xbmc.python" version="3.0.1" />
@@ -340,10 +352,10 @@
             <icon>resources/icon.png</icon>
         </assets>
     </extension>
-</addon><addon id="plugin.program.super.favourites" name="Super Favourites" version="420.2.3.7" provider-name="jmooremcc, spoyser">
+</addon><addon id="plugin.program.super.favourites" name="Super Favourites" version="2.4.0" provider-name="jmooremcc, spoyser, Diggz">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
-  </requires>
+  <import addon="script.module.metahandler" version="2.0.0" optional="true" /></requires>
 
 
   <extension point="xbmc.python.pluginsource" library="default.py">
@@ -374,6 +386,10 @@
     </assets>
 
     <news>
+2.4.0 September 2025
+     -Python fixes for Omega+
+	
+	
 2.3.7 September 2023
       -Fix reported glitch
 
@@ -509,6 +525,21 @@
 				<screenshot />
 		</assets>
 	</extension>
+</addon><addon id="plugin.video.4kwallpapers" name="Diggz 4K Wallpapers" version="1.2.16" provider-name="Diggz">
+  <requires>
+    <import addon="xbmc.python" version="3.0.1" />
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+    <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <description>Browse and download wallpapers from WallpapersCraft</description>
+    <platform>all</platform>
+    <assets>
+      <icon>icon.png</icon>
+      <fanart>fanart.jpg</fanart>
+    </assets>
+  </extension>
 </addon><addon id="plugin.video.adulthideout" name="AdultHideout (Hidden Version)" version="0.9.81-beta6" provider-name="Vashiel">
 	<requires>
 	
@@ -656,6 +687,29 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.cb20
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
+</addon><addon id="plugin.video.dreammachine" name="[COLOR blue]D[COLOR salmon]r[COLOR violet]e[COLOR yellow]a[COLOR orange]m[COLOR lime]M[COLOR red]a[COLOR blue]c[COLOR salmon]h[COLOR violet]i[COLOR yellow]n[COLOR orange]e[/COLOR]" version="25.8.22" provider-name="[COLOR springgreen]G[/COLOR] [COLOR magenta]I[/COLOR][COLOR violet]n[/COLOR][COLOR mediumorchid]c[/COLOR][COLOR orchid].[/COLOR]">
+    <requires>
+        <import addon="xbmc.python" version="3.0.0" />
+        <import addon="script.module.requests" />
+        <import addon="script.module.six" />
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>video</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <platform>all</platform>
+        <summary lang="en">Where dreams do come true ...</summary>
+        <description lang="en">Where dreams do come true ...</description>
+        <website />
+        <license>GPL 3.0</license>
+        <platform>all</platform>
+        <language>en</language>
+        <disclaimer lang="en">The author of this addon makes not responsible for the use of it</disclaimer>
+        <assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
+        </assets>
+    </extension>
 </addon><addon id="plugin.video.dreamtv" name="[COLOR blue]D[COLOR salmon]r[COLOR violet]e[COLOR yellow]a[COLOR orange]m[COLOR lime]T[COLOR red]v[/COLOR]" version="25.6.3" provider-name="[COLORorange]Mr[COLORyellow].[COLORblue]G[COLORyellow].[/COLOR]">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
@@ -793,6 +847,24 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.cb20
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
+</addon><addon id="plugin.video.playlistbrowser" name="Diggz TV Guide Lite" version="2.6.2" provider-name="Diggz">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0" />
+  </requires>
+
+  <extension point="xbmc.addon.metadata">
+    <summary>Browse multiple playlists with built-in EPG guide</summary>
+    <description>Configure M3U/JSON playlists and XMLTV EPGs; includes an in-add-on guide UI with logos/artwork.</description>
+    <platform>all</platform>
+    <assets>
+      <icon>resources/media/icon.png</icon>
+      <fanart>resources/media/fanart.png</fanart>
+    </assets>
+  </extension>
+
+  <extension point="xbmc.python.pluginsource" library="main.py">
+    <provides>video</provides>
+  </extension>
 </addon><addon id="plugin.video.playlistloader2" name="M3u Playlists" version="439" provider-name="Nux007, Publish3r, Silhouette2022">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
@@ -1120,6 +1192,23 @@ Random updates by lolage.
             <icon>icon.png</icon>
         </assets>
     <platform>all</platform>
+  </extension>
+</addon><addon id="plugin.video.yt.kiosk" name="YouTube Kiosk" version="4.9.21" provider-name="Diggz">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0" />
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+    <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en_GB">Minimal YouTube-style kiosk with hard-coded categories and search. No login required.</summary>
+    <description lang="en_GB">Browse Trending, Music, Gaming, News, Movies, Live, and Search. Plays via the official YouTube add-on if present.</description>
+    <platform>all</platform>
+    <reuselanguageinvoker>true</reuselanguageinvoker>
+    <assets>
+      <icon>resources/media/icon.png</icon>
+      <fanart>resources/media/fanart.jpg</fanart>
+    </assets>
   </extension>
 </addon><addon id="program.easyplayerswitch" name="Easy Player Switch" provider-name="DigiTalking" version="1.1.0">
     <requires>
@@ -1585,6 +1674,24 @@ Random updates by lolage.
 			<fanart />
 		</assets>
     </extension>
+</addon><addon id="script.module.xenon4k" name="Xenon 4K Flavors" version="427" provider-name="Zaxxon709">
+	<requires>
+		<import addon="xbmc.python" version="3.0.0" />
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="addon.py">
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Diggz Xenon Plus Flavors</summary>
+		<description lang="en_GB">Kodi 21</description>
+		<disclaimer lang="en_GB">This Addon contains no content</disclaimer>
+		<language>en</language>
+		<platform>all</platform>
+		<license>GPL-2.0-or-later</license>
+		<forum />
+		<website /> 
+		<email />
+		<source />
+	</extension>
 </addon><addon id="script.moviequiz" name="Movie Quiz" version="2.0.0" provider-name="twinther, seveerekaj">
     <requires>
         <import addon="xbmc.python" version="3.0.1" />
@@ -1762,6 +1869,16 @@ v1.0.1 (2019-08-06)
             <icon>resources/icon.png</icon>
         </assets>
     </extension>
+</addon><addon id="script.trailer.bridge" name="Trailer Bridge (TMDb → IMDb)" version="1.1.2" provider-name="Diggz">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0" />
+  </requires>
+  <extension point="xbmc.python.script" library="default.py" />
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en_GB">Bridges TMDb IDs or Titles to IMDb and launches IMDb Trailers.</summary>
+    <description lang="en_GB">Accepts IMDb id, TMDb id (movie/tv), or title/year; resolves IMDb id and plays via IMDb Trailers, or opens IMDb search as last resort.</description>
+    <platform>all</platform>
+  </extension>
 </addon><addon id="script.tv.show.next.aired" name="TV Show - Next Aired" version="8.0.3" provider-name="WayneD,marcelveldt and others">
 	<requires>
 		<import addon="xbmc.python" version="3.0.1" />
@@ -3177,6 +3294,33 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
 			<fanart>resources/fanart.jpg</fanart>
 		</assets>
 	</extension>
+</addon><addon id="skin.xenon4k" version="1.4" name="[B][COLOR gold]Xenon 4K[/COLOR][/B]  (Mid Power)" provider-name="Helly,bsoriano, Diggz">
+  <requires>
+    <import addon="xbmc.gui" version="5.17.0" />	
+  </requires>
+  <extension point="xbmc.gui.skin" debugging="false" effectslowdown=".5">
+    <res width="1920" height="1080" aspect="16:9" default="true" folder="xml" />
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">eXtended MOD of Confluence skin originally by Jezz_X and CCM by Mudislander.</summary>
+    <summary lang="en_US">eXtended MOD of Confluence skin originally by Jezz_X and CCM by Mudislander.</summary>
+    <description lang="en">Xenon is a MOD of Confluence to enable a greater degree of user customisation to the default skin (based by Mudislander's CCM).</description>
+    <description lang="en_US">Xenon is a MOD of Confluence to enable a greater degree of user customisation to the default skin (based by Mudislander's CCM).</description>
+    <disclaimer lang="en">You break it - You get to keep the pieces</disclaimer>
+    <disclaimer lang="en_US">You break it - You get to keep the pieces</disclaimer>
+    <platform>all</platform>
+	  <license>GNU General Public License version 2</license>
+	  <forum>https://forum.kodi.tv/showthread.php?tid=346302</forum>
+	  <website />
+	  <email />
+	  <source>https://github.com/bartolomesoriano/skin.xenon4k</source>
+    <assets>
+      <icon>resources/icon.png</icon>
+      <fanart>resources/fanart.jpg</fanart>
+	    <screenshot>resources/screenshot-01.jpg</screenshot>
+    </assets>
+    <news>See changelog for latest changes</news>
+  </extension>
 </addon><addon id="skin.xenonburst" version="7.1.2" name="[B][COLOR gold]Xenon Burst[/COLOR][/B]  (Mid Power)" provider-name="Helly,bsoriano">
   <requires>
     <import addon="xbmc.gui" version="5.17.0" />	

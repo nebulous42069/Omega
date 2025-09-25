@@ -1,0 +1,16 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: plugin.program.pvr.setup\n"
+"Language: en_GB\n"
+
+msgctxt "#30000"
+msgid "M3U playlist URL"
+msgstr "M3U playlist URL"
+
+msgctxt "#30001"
+msgid "XMLTV EPG URL"
+msgstr "XMLTV EPG URL"
+
+msgctxt "#30002"
+msgid "Channel logos URL (optional)"
+msgstr "Channel logos URL (optional)"

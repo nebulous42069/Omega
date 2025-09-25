@@ -1149,3 +1149,17 @@ def changeSkin(skin):
 
 if __name__ == '__main__':
     pass
+# --- Injected patch: utils.GetAddons ---
+def GetAddons():
+    try:
+        import xbmcvfs
+        base = xbmcvfs.translatePath('special://home/addons')
+        dirs, files = xbmcvfs.listdir(base)
+        return base, dirs, files
+    except Exception:
+        import os
+        base = os.getcwd()
+        dirs = [d for d in os.listdir(base) if os.path.isdir(os.path.join(base,d))]
+        files = [f for f in os.listdir(base) if os.path.isfile(os.path.join(base,f))]
+        return base, dirs, files
+# --- End patch ---

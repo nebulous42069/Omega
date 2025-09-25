@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.program.super.favourites" name="Super Favourites" version="420.2.3.7" provider-name="jmooremcc, spoyser">
+<?xml version='1.0' encoding='utf-8'?>
+<addon id="plugin.program.super.favourites" name="Super Favourites" version="2.4.0" provider-name="jmooremcc, spoyser, Diggz">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
-  </requires>
+  <import addon="script.module.metahandler" version="2.0.0" optional="true" /></requires>
 
 
   <extension point="xbmc.python.pluginsource" library="default.py">
@@ -33,6 +33,10 @@
     </assets>
 
     <news>
+2.4.0 September 2025
+     -Python fixes for Omega+
+	
+	
 2.3.7 September 2023
       -Fix reported glitch
 

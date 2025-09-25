@@ -66,14 +66,14 @@ class ContextMenu(xbmcgui.WindowXMLDialog):
 
         height = (line+spacer) + (nItem*line)
 
-        self.getControl(5001).setHeight(height)
+        self.getControl(5001).setHeight(int(round(height)))
             
         self.list = self.getControl(3000)
-        self.list.setHeight(height-spacer-(delta*line))
+        self.list.setHeight(int(round(height-spacer-(delta*line))))
 
-        newY = 360 - (height/2)
+        newY = 360 - (height//2)
 
-        self.getControl(5000).setPosition(self.getControl(5000).getX(), newY)
+        self.getControl(5000).setPosition(int(round(self.getControl(5000).getX())), int(round(newY)))
 
         self.params    = None
         self.paramList = []

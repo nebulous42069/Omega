@@ -62,10 +62,20 @@ def doSearch():
 	if searchstring:
 		params = {}
 		#TODO Fix import gui reference
-		import gui
-		ui = gui.GUI( "script-globalsearch-main.xml", CWD, "Default", searchstring=searchstring, params=params)
+
+		ui = launch_global_search()
 		ui.doModal()
 		del ui
 		sys.modules.clear()
 
 doSearch()
+# --- Injected patch: use external Global Search add-on ---
+def launch_global_search(query=None):
+    import xbmc
+    addon_id = 'script.globalsearch'
+    if query:
+        xbmc.executebuiltin('RunScript(%s,search=%s)' % (addon_id, query))
+    else:
+        xbmc.executebuiltin('RunAddon(%s)' % addon_id)
+    return True
+# --- End patch ---

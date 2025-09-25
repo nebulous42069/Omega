@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="script.trailer.bridge" name="Trailer Bridge (TMDb → IMDb)" version="1.1.2" provider-name="Diggz">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0"/>
+  </requires>
+  <extension point="xbmc.python.script" library="default.py" />
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en_GB">Bridges TMDb IDs or Titles to IMDb and launches IMDb Trailers.</summary>
+    <description lang="en_GB">Accepts IMDb id, TMDb id (movie/tv), or title/year; resolves IMDb id and plays via IMDb Trailers, or opens IMDb search as last resort.</description>
+    <platform>all</platform>
+  </extension>
+</addon>
