@@ -1930,7 +1930,28 @@
 								<onclick>SetProperty(SwapItemPlaylistContent,$INFO[Skin.String(HomeItem.1.PlaylistContent)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetFormat,$INFO[Skin.String(HomeItem.1.WidgetFormat)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetLayout,$INFO[Skin.String(HomeItem.1.WidgetLayout)],Home)</onclick>
-                                <onclick>ActivateWindow(1128)</onclick>
+                                
+								<onclick>SetProperty(SwapItemWidget1Name,$INFO[Skin.String(HomeItem.1.Widget1.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget1Widget,$INFO[Skin.String(HomeItem.1.Widget1.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Name,$INFO[Skin.String(HomeItem.1.Widget2.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Widget,$INFO[Skin.String(HomeItem.1.Widget2.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Name,$INFO[Skin.String(HomeItem.1.Widget3.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Widget,$INFO[Skin.String(HomeItem.1.Widget3.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Name,$INFO[Skin.String(HomeItem.1.Widget4.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Widget,$INFO[Skin.String(HomeItem.1.Widget4.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Name,$INFO[Skin.String(HomeItem.1.Widget5.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Widget,$INFO[Skin.String(HomeItem.1.Widget5.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Name,$INFO[Skin.String(HomeItem.1.Widget6.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Widget,$INFO[Skin.String(HomeItem.1.Widget6.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Name,$INFO[Skin.String(HomeItem.1.Widget7.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Widget,$INFO[Skin.String(HomeItem.1.Widget7.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Name,$INFO[Skin.String(HomeItem.1.Widget8.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Widget,$INFO[Skin.String(HomeItem.1.Widget8.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Name,$INFO[Skin.String(HomeItem.1.Widget9.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Widget,$INFO[Skin.String(HomeItem.1.Widget9.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Name,$INFO[Skin.String(HomeItem.1.Widget10.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Widget,$INFO[Skin.String(HomeItem.1.Widget10.Widget)],Home)</onclick>
+<onclick>ActivateWindow(1128)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.1.Label))</visible>
                             </control>
                             <control type="radiobutton" id="1208">
@@ -2127,7 +2148,28 @@
 								<onclick>SetProperty(SwapItemPlaylistContent,$INFO[Skin.String(HomeItem.2.PlaylistContent)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetFormat,$INFO[Skin.String(HomeItem.2.WidgetFormat)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetLayout,$INFO[Skin.String(HomeItem.2.WidgetLayout)],Home)</onclick>
-								<onclick>ActivateWindow(1128)</onclick>
+								
+								<onclick>SetProperty(SwapItemWidget1Name,$INFO[Skin.String(HomeItem.2.Widget1.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget1Widget,$INFO[Skin.String(HomeItem.2.Widget1.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Name,$INFO[Skin.String(HomeItem.2.Widget2.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Widget,$INFO[Skin.String(HomeItem.2.Widget2.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Name,$INFO[Skin.String(HomeItem.2.Widget3.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Widget,$INFO[Skin.String(HomeItem.2.Widget3.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Name,$INFO[Skin.String(HomeItem.2.Widget4.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Widget,$INFO[Skin.String(HomeItem.2.Widget4.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Name,$INFO[Skin.String(HomeItem.2.Widget5.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Widget,$INFO[Skin.String(HomeItem.2.Widget5.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Name,$INFO[Skin.String(HomeItem.2.Widget6.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Widget,$INFO[Skin.String(HomeItem.2.Widget6.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Name,$INFO[Skin.String(HomeItem.2.Widget7.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Widget,$INFO[Skin.String(HomeItem.2.Widget7.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Name,$INFO[Skin.String(HomeItem.2.Widget8.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Widget,$INFO[Skin.String(HomeItem.2.Widget8.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Name,$INFO[Skin.String(HomeItem.2.Widget9.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Widget,$INFO[Skin.String(HomeItem.2.Widget9.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Name,$INFO[Skin.String(HomeItem.2.Widget10.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Widget,$INFO[Skin.String(HomeItem.2.Widget10.Widget)],Home)</onclick>
+<onclick>ActivateWindow(1128)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.2.Label))</visible>
                             </control>
                             <control type="radiobutton" id="1218">
@@ -2324,7 +2366,28 @@
 								<onclick>SetProperty(SwapItemPlaylistContent,$INFO[Skin.String(HomeItem.3.PlaylistContent)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetFormat,$INFO[Skin.String(HomeItem.3.WidgetFormat)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetLayout,$INFO[Skin.String(HomeItem.3.WidgetLayout)],Home)</onclick>
-								<onclick>ActivateWindow(1128)</onclick>
+								
+								<onclick>SetProperty(SwapItemWidget1Name,$INFO[Skin.String(HomeItem.3.Widget1.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget1Widget,$INFO[Skin.String(HomeItem.3.Widget1.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Name,$INFO[Skin.String(HomeItem.3.Widget2.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Widget,$INFO[Skin.String(HomeItem.3.Widget2.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Name,$INFO[Skin.String(HomeItem.3.Widget3.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Widget,$INFO[Skin.String(HomeItem.3.Widget3.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Name,$INFO[Skin.String(HomeItem.3.Widget4.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Widget,$INFO[Skin.String(HomeItem.3.Widget4.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Name,$INFO[Skin.String(HomeItem.3.Widget5.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Widget,$INFO[Skin.String(HomeItem.3.Widget5.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Name,$INFO[Skin.String(HomeItem.3.Widget6.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Widget,$INFO[Skin.String(HomeItem.3.Widget6.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Name,$INFO[Skin.String(HomeItem.3.Widget7.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Widget,$INFO[Skin.String(HomeItem.3.Widget7.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Name,$INFO[Skin.String(HomeItem.3.Widget8.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Widget,$INFO[Skin.String(HomeItem.3.Widget8.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Name,$INFO[Skin.String(HomeItem.3.Widget9.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Widget,$INFO[Skin.String(HomeItem.3.Widget9.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Name,$INFO[Skin.String(HomeItem.3.Widget10.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Widget,$INFO[Skin.String(HomeItem.3.Widget10.Widget)],Home)</onclick>
+<onclick>ActivateWindow(1128)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.3.Label))</visible>
                             </control>
                             <control type="radiobutton" id="1228">
@@ -2521,7 +2584,28 @@
 								<onclick>SetProperty(SwapItemPlaylistContent,$INFO[Skin.String(HomeItem.4.PlaylistContent)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetFormat,$INFO[Skin.String(HomeItem.4.WidgetFormat)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetLayout,$INFO[Skin.String(HomeItem.4.WidgetLayout)],Home)</onclick>
-                                <onclick>ActivateWindow(1128)</onclick>
+                                
+								<onclick>SetProperty(SwapItemWidget1Name,$INFO[Skin.String(HomeItem.4.Widget1.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget1Widget,$INFO[Skin.String(HomeItem.4.Widget1.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Name,$INFO[Skin.String(HomeItem.4.Widget2.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Widget,$INFO[Skin.String(HomeItem.4.Widget2.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Name,$INFO[Skin.String(HomeItem.4.Widget3.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Widget,$INFO[Skin.String(HomeItem.4.Widget3.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Name,$INFO[Skin.String(HomeItem.4.Widget4.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Widget,$INFO[Skin.String(HomeItem.4.Widget4.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Name,$INFO[Skin.String(HomeItem.4.Widget5.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Widget,$INFO[Skin.String(HomeItem.4.Widget5.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Name,$INFO[Skin.String(HomeItem.4.Widget6.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Widget,$INFO[Skin.String(HomeItem.4.Widget6.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Name,$INFO[Skin.String(HomeItem.4.Widget7.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Widget,$INFO[Skin.String(HomeItem.4.Widget7.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Name,$INFO[Skin.String(HomeItem.4.Widget8.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Widget,$INFO[Skin.String(HomeItem.4.Widget8.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Name,$INFO[Skin.String(HomeItem.4.Widget9.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Widget,$INFO[Skin.String(HomeItem.4.Widget9.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Name,$INFO[Skin.String(HomeItem.4.Widget10.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Widget,$INFO[Skin.String(HomeItem.4.Widget10.Widget)],Home)</onclick>
+<onclick>ActivateWindow(1128)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.4.Label))</visible>
                             </control>
                             <control type="radiobutton" id="1238">
@@ -2718,7 +2802,28 @@
 								<onclick>SetProperty(SwapItemPlaylistContent,$INFO[Skin.String(HomeItem.5.PlaylistContent)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetFormat,$INFO[Skin.String(HomeItem.5.WidgetFormat)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetLayout,$INFO[Skin.String(HomeItem.5.WidgetLayout)],Home)</onclick>
-                                <onclick>ActivateWindow(1128)</onclick>
+                                
+								<onclick>SetProperty(SwapItemWidget1Name,$INFO[Skin.String(HomeItem.5.Widget1.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget1Widget,$INFO[Skin.String(HomeItem.5.Widget1.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Name,$INFO[Skin.String(HomeItem.5.Widget2.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Widget,$INFO[Skin.String(HomeItem.5.Widget2.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Name,$INFO[Skin.String(HomeItem.5.Widget3.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Widget,$INFO[Skin.String(HomeItem.5.Widget3.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Name,$INFO[Skin.String(HomeItem.5.Widget4.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Widget,$INFO[Skin.String(HomeItem.5.Widget4.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Name,$INFO[Skin.String(HomeItem.5.Widget5.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Widget,$INFO[Skin.String(HomeItem.5.Widget5.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Name,$INFO[Skin.String(HomeItem.5.Widget6.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Widget,$INFO[Skin.String(HomeItem.5.Widget6.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Name,$INFO[Skin.String(HomeItem.5.Widget7.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Widget,$INFO[Skin.String(HomeItem.5.Widget7.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Name,$INFO[Skin.String(HomeItem.5.Widget8.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Widget,$INFO[Skin.String(HomeItem.5.Widget8.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Name,$INFO[Skin.String(HomeItem.5.Widget9.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Widget,$INFO[Skin.String(HomeItem.5.Widget9.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Name,$INFO[Skin.String(HomeItem.5.Widget10.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Widget,$INFO[Skin.String(HomeItem.5.Widget10.Widget)],Home)</onclick>
+<onclick>ActivateWindow(1128)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.5.Label))</visible>
                             </control>
                             <control type="radiobutton" id="1248">
@@ -2915,7 +3020,28 @@
 								<onclick>SetProperty(SwapItemPlaylistContent,$INFO[Skin.String(HomeItem.6.PlaylistContent)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetFormat,$INFO[Skin.String(HomeItem.6.WidgetFormat)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetLayout,$INFO[Skin.String(HomeItem.6.WidgetLayout)],Home)</onclick>
-                                <onclick>ActivateWindow(1128)</onclick>
+                                
+								<onclick>SetProperty(SwapItemWidget1Name,$INFO[Skin.String(HomeItem.6.Widget1.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget1Widget,$INFO[Skin.String(HomeItem.6.Widget1.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Name,$INFO[Skin.String(HomeItem.6.Widget2.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Widget,$INFO[Skin.String(HomeItem.6.Widget2.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Name,$INFO[Skin.String(HomeItem.6.Widget3.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Widget,$INFO[Skin.String(HomeItem.6.Widget3.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Name,$INFO[Skin.String(HomeItem.6.Widget4.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Widget,$INFO[Skin.String(HomeItem.6.Widget4.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Name,$INFO[Skin.String(HomeItem.6.Widget5.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Widget,$INFO[Skin.String(HomeItem.6.Widget5.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Name,$INFO[Skin.String(HomeItem.6.Widget6.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Widget,$INFO[Skin.String(HomeItem.6.Widget6.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Name,$INFO[Skin.String(HomeItem.6.Widget7.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Widget,$INFO[Skin.String(HomeItem.6.Widget7.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Name,$INFO[Skin.String(HomeItem.6.Widget8.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Widget,$INFO[Skin.String(HomeItem.6.Widget8.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Name,$INFO[Skin.String(HomeItem.6.Widget9.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Widget,$INFO[Skin.String(HomeItem.6.Widget9.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Name,$INFO[Skin.String(HomeItem.6.Widget10.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Widget,$INFO[Skin.String(HomeItem.6.Widget10.Widget)],Home)</onclick>
+<onclick>ActivateWindow(1128)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.6.Label))</visible>
                             </control>
                             <control type="radiobutton" id="1258">
@@ -3112,7 +3238,28 @@
 								<onclick>SetProperty(SwapItemPlaylistContent,$INFO[Skin.String(HomeItem.7.PlaylistContent)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetFormat,$INFO[Skin.String(HomeItem.7.WidgetFormat)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetLayout,$INFO[Skin.String(HomeItem.7.WidgetLayout)],Home)</onclick>
-                                <onclick>ActivateWindow(1128)</onclick>
+                                
+								<onclick>SetProperty(SwapItemWidget1Name,$INFO[Skin.String(HomeItem.7.Widget1.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget1Widget,$INFO[Skin.String(HomeItem.7.Widget1.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Name,$INFO[Skin.String(HomeItem.7.Widget2.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Widget,$INFO[Skin.String(HomeItem.7.Widget2.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Name,$INFO[Skin.String(HomeItem.7.Widget3.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Widget,$INFO[Skin.String(HomeItem.7.Widget3.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Name,$INFO[Skin.String(HomeItem.7.Widget4.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Widget,$INFO[Skin.String(HomeItem.7.Widget4.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Name,$INFO[Skin.String(HomeItem.7.Widget5.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Widget,$INFO[Skin.String(HomeItem.7.Widget5.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Name,$INFO[Skin.String(HomeItem.7.Widget6.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Widget,$INFO[Skin.String(HomeItem.7.Widget6.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Name,$INFO[Skin.String(HomeItem.7.Widget7.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Widget,$INFO[Skin.String(HomeItem.7.Widget7.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Name,$INFO[Skin.String(HomeItem.7.Widget8.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Widget,$INFO[Skin.String(HomeItem.7.Widget8.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Name,$INFO[Skin.String(HomeItem.7.Widget9.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Widget,$INFO[Skin.String(HomeItem.7.Widget9.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Name,$INFO[Skin.String(HomeItem.7.Widget10.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Widget,$INFO[Skin.String(HomeItem.7.Widget10.Widget)],Home)</onclick>
+<onclick>ActivateWindow(1128)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.7.Label))</visible>
                             </control>
                             <control type="radiobutton" id="1268">
@@ -3309,7 +3456,28 @@
 								<onclick>SetProperty(SwapItemPlaylistContent,$INFO[Skin.String(HomeItem.8.PlaylistContent)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetFormat,$INFO[Skin.String(HomeItem.8.WidgetFormat)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetLayout,$INFO[Skin.String(HomeItem.8.WidgetLayout)],Home)</onclick>
-                                <onclick>ActivateWindow(1128)</onclick>
+                                
+								<onclick>SetProperty(SwapItemWidget1Name,$INFO[Skin.String(HomeItem.8.Widget1.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget1Widget,$INFO[Skin.String(HomeItem.8.Widget1.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Name,$INFO[Skin.String(HomeItem.8.Widget2.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Widget,$INFO[Skin.String(HomeItem.8.Widget2.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Name,$INFO[Skin.String(HomeItem.8.Widget3.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Widget,$INFO[Skin.String(HomeItem.8.Widget3.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Name,$INFO[Skin.String(HomeItem.8.Widget4.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Widget,$INFO[Skin.String(HomeItem.8.Widget4.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Name,$INFO[Skin.String(HomeItem.8.Widget5.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Widget,$INFO[Skin.String(HomeItem.8.Widget5.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Name,$INFO[Skin.String(HomeItem.8.Widget6.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Widget,$INFO[Skin.String(HomeItem.8.Widget6.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Name,$INFO[Skin.String(HomeItem.8.Widget7.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Widget,$INFO[Skin.String(HomeItem.8.Widget7.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Name,$INFO[Skin.String(HomeItem.8.Widget8.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Widget,$INFO[Skin.String(HomeItem.8.Widget8.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Name,$INFO[Skin.String(HomeItem.8.Widget9.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Widget,$INFO[Skin.String(HomeItem.8.Widget9.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Name,$INFO[Skin.String(HomeItem.8.Widget10.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Widget,$INFO[Skin.String(HomeItem.8.Widget10.Widget)],Home)</onclick>
+<onclick>ActivateWindow(1128)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.8.Label))</visible>
                             </control>
                             <control type="radiobutton" id="1278">
@@ -3506,7 +3674,28 @@
 								<onclick>SetProperty(SwapItemPlaylistContent,$INFO[Skin.String(HomeItem.9.PlaylistContent)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetFormat,$INFO[Skin.String(HomeItem.9.WidgetFormat)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetLayout,$INFO[Skin.String(HomeItem.9.WidgetLayout)],Home)</onclick>
-                                <onclick>ActivateWindow(1128)</onclick>
+                                
+								<onclick>SetProperty(SwapItemWidget1Name,$INFO[Skin.String(HomeItem.9.Widget1.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget1Widget,$INFO[Skin.String(HomeItem.9.Widget1.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Name,$INFO[Skin.String(HomeItem.9.Widget2.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Widget,$INFO[Skin.String(HomeItem.9.Widget2.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Name,$INFO[Skin.String(HomeItem.9.Widget3.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Widget,$INFO[Skin.String(HomeItem.9.Widget3.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Name,$INFO[Skin.String(HomeItem.9.Widget4.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Widget,$INFO[Skin.String(HomeItem.9.Widget4.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Name,$INFO[Skin.String(HomeItem.9.Widget5.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Widget,$INFO[Skin.String(HomeItem.9.Widget5.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Name,$INFO[Skin.String(HomeItem.9.Widget6.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Widget,$INFO[Skin.String(HomeItem.9.Widget6.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Name,$INFO[Skin.String(HomeItem.9.Widget7.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Widget,$INFO[Skin.String(HomeItem.9.Widget7.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Name,$INFO[Skin.String(HomeItem.9.Widget8.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Widget,$INFO[Skin.String(HomeItem.9.Widget8.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Name,$INFO[Skin.String(HomeItem.9.Widget9.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Widget,$INFO[Skin.String(HomeItem.9.Widget9.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Name,$INFO[Skin.String(HomeItem.9.Widget10.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Widget,$INFO[Skin.String(HomeItem.9.Widget10.Widget)],Home)</onclick>
+<onclick>ActivateWindow(1128)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.9.Label))</visible>
                             </control>
                             <control type="radiobutton" id="1288">
@@ -3703,7 +3892,28 @@
 								<onclick>SetProperty(SwapItemPlaylistContent,$INFO[Skin.String(HomeItem.10.PlaylistContent)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetFormat,$INFO[Skin.String(HomeItem.10.WidgetFormat)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetLayout,$INFO[Skin.String(HomeItem.10.WidgetLayout)],Home)</onclick>
-                                <onclick>ActivateWindow(1128)</onclick>
+                                
+								<onclick>SetProperty(SwapItemWidget1Name,$INFO[Skin.String(HomeItem.10.Widget1.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget1Widget,$INFO[Skin.String(HomeItem.10.Widget1.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Name,$INFO[Skin.String(HomeItem.10.Widget2.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Widget,$INFO[Skin.String(HomeItem.10.Widget2.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Name,$INFO[Skin.String(HomeItem.10.Widget3.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Widget,$INFO[Skin.String(HomeItem.10.Widget3.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Name,$INFO[Skin.String(HomeItem.10.Widget4.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Widget,$INFO[Skin.String(HomeItem.10.Widget4.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Name,$INFO[Skin.String(HomeItem.10.Widget5.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Widget,$INFO[Skin.String(HomeItem.10.Widget5.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Name,$INFO[Skin.String(HomeItem.10.Widget6.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Widget,$INFO[Skin.String(HomeItem.10.Widget6.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Name,$INFO[Skin.String(HomeItem.10.Widget7.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Widget,$INFO[Skin.String(HomeItem.10.Widget7.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Name,$INFO[Skin.String(HomeItem.10.Widget8.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Widget,$INFO[Skin.String(HomeItem.10.Widget8.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Name,$INFO[Skin.String(HomeItem.10.Widget9.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Widget,$INFO[Skin.String(HomeItem.10.Widget9.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Name,$INFO[Skin.String(HomeItem.10.Widget10.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Widget,$INFO[Skin.String(HomeItem.10.Widget10.Widget)],Home)</onclick>
+<onclick>ActivateWindow(1128)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.10.Label))</visible>
                             </control>
                             <control type="radiobutton" id="1298">
@@ -3900,7 +4110,28 @@
 								<onclick>SetProperty(SwapItemPlaylistContent,$INFO[Skin.String(HomeItem.11.PlaylistContent)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetFormat,$INFO[Skin.String(HomeItem.11.WidgetFormat)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetLayout,$INFO[Skin.String(HomeItem.11.WidgetLayout)],Home)</onclick>
-                                <onclick>ActivateWindow(1128)</onclick>
+                                
+								<onclick>SetProperty(SwapItemWidget1Name,$INFO[Skin.String(HomeItem.11.Widget1.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget1Widget,$INFO[Skin.String(HomeItem.11.Widget1.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Name,$INFO[Skin.String(HomeItem.11.Widget2.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Widget,$INFO[Skin.String(HomeItem.11.Widget2.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Name,$INFO[Skin.String(HomeItem.11.Widget3.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Widget,$INFO[Skin.String(HomeItem.11.Widget3.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Name,$INFO[Skin.String(HomeItem.11.Widget4.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Widget,$INFO[Skin.String(HomeItem.11.Widget4.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Name,$INFO[Skin.String(HomeItem.11.Widget5.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Widget,$INFO[Skin.String(HomeItem.11.Widget5.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Name,$INFO[Skin.String(HomeItem.11.Widget6.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Widget,$INFO[Skin.String(HomeItem.11.Widget6.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Name,$INFO[Skin.String(HomeItem.11.Widget7.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Widget,$INFO[Skin.String(HomeItem.11.Widget7.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Name,$INFO[Skin.String(HomeItem.11.Widget8.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Widget,$INFO[Skin.String(HomeItem.11.Widget8.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Name,$INFO[Skin.String(HomeItem.11.Widget9.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Widget,$INFO[Skin.String(HomeItem.11.Widget9.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Name,$INFO[Skin.String(HomeItem.11.Widget10.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Widget,$INFO[Skin.String(HomeItem.11.Widget10.Widget)],Home)</onclick>
+<onclick>ActivateWindow(1128)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.11.Label))</visible>
                             </control>
                             <control type="radiobutton" id="1308">
@@ -4097,7 +4328,28 @@
 								<onclick>SetProperty(SwapItemPlaylistContent,$INFO[Skin.String(HomeItem.12.PlaylistContent)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetFormat,$INFO[Skin.String(HomeItem.12.WidgetFormat)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetLayout,$INFO[Skin.String(HomeItem.12.WidgetLayout)],Home)</onclick>
-                                <onclick>ActivateWindow(1128)</onclick>
+                                
+								<onclick>SetProperty(SwapItemWidget1Name,$INFO[Skin.String(HomeItem.12.Widget1.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget1Widget,$INFO[Skin.String(HomeItem.12.Widget1.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Name,$INFO[Skin.String(HomeItem.12.Widget2.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Widget,$INFO[Skin.String(HomeItem.12.Widget2.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Name,$INFO[Skin.String(HomeItem.12.Widget3.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Widget,$INFO[Skin.String(HomeItem.12.Widget3.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Name,$INFO[Skin.String(HomeItem.12.Widget4.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Widget,$INFO[Skin.String(HomeItem.12.Widget4.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Name,$INFO[Skin.String(HomeItem.12.Widget5.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Widget,$INFO[Skin.String(HomeItem.12.Widget5.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Name,$INFO[Skin.String(HomeItem.12.Widget6.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Widget,$INFO[Skin.String(HomeItem.12.Widget6.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Name,$INFO[Skin.String(HomeItem.12.Widget7.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Widget,$INFO[Skin.String(HomeItem.12.Widget7.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Name,$INFO[Skin.String(HomeItem.12.Widget8.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Widget,$INFO[Skin.String(HomeItem.12.Widget8.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Name,$INFO[Skin.String(HomeItem.12.Widget9.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Widget,$INFO[Skin.String(HomeItem.12.Widget9.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Name,$INFO[Skin.String(HomeItem.12.Widget10.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Widget,$INFO[Skin.String(HomeItem.12.Widget10.Widget)],Home)</onclick>
+<onclick>ActivateWindow(1128)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.12.Label))</visible>
                             </control>
                             <control type="radiobutton" id="1318">
@@ -4294,7 +4546,28 @@
 								<onclick>SetProperty(SwapItemPlaylistContent,$INFO[Skin.String(HomeItem.13.PlaylistContent)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetFormat,$INFO[Skin.String(HomeItem.13.WidgetFormat)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetLayout,$INFO[Skin.String(HomeItem.13.WidgetLayout)],Home)</onclick>
-                                <onclick>ActivateWindow(1128)</onclick>
+                                
+								<onclick>SetProperty(SwapItemWidget1Name,$INFO[Skin.String(HomeItem.13.Widget1.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget1Widget,$INFO[Skin.String(HomeItem.13.Widget1.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Name,$INFO[Skin.String(HomeItem.13.Widget2.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Widget,$INFO[Skin.String(HomeItem.13.Widget2.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Name,$INFO[Skin.String(HomeItem.13.Widget3.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Widget,$INFO[Skin.String(HomeItem.13.Widget3.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Name,$INFO[Skin.String(HomeItem.13.Widget4.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Widget,$INFO[Skin.String(HomeItem.13.Widget4.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Name,$INFO[Skin.String(HomeItem.13.Widget5.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Widget,$INFO[Skin.String(HomeItem.13.Widget5.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Name,$INFO[Skin.String(HomeItem.13.Widget6.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Widget,$INFO[Skin.String(HomeItem.13.Widget6.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Name,$INFO[Skin.String(HomeItem.13.Widget7.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Widget,$INFO[Skin.String(HomeItem.13.Widget7.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Name,$INFO[Skin.String(HomeItem.13.Widget8.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Widget,$INFO[Skin.String(HomeItem.13.Widget8.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Name,$INFO[Skin.String(HomeItem.13.Widget9.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Widget,$INFO[Skin.String(HomeItem.13.Widget9.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Name,$INFO[Skin.String(HomeItem.13.Widget10.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Widget,$INFO[Skin.String(HomeItem.13.Widget10.Widget)],Home)</onclick>
+<onclick>ActivateWindow(1128)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.13.Label))</visible>
                             </control>
                             <control type="radiobutton" id="1328">
@@ -4491,7 +4764,28 @@
 								<onclick>SetProperty(SwapItemPlaylistContent,$INFO[Skin.String(HomeItem.14.PlaylistContent)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetFormat,$INFO[Skin.String(HomeItem.14.WidgetFormat)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetLayout,$INFO[Skin.String(HomeItem.14.WidgetLayout)],Home)</onclick>
-                                <onclick>ActivateWindow(1128)</onclick>
+                                
+								<onclick>SetProperty(SwapItemWidget1Name,$INFO[Skin.String(HomeItem.14.Widget1.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget1Widget,$INFO[Skin.String(HomeItem.14.Widget1.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Name,$INFO[Skin.String(HomeItem.14.Widget2.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Widget,$INFO[Skin.String(HomeItem.14.Widget2.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Name,$INFO[Skin.String(HomeItem.14.Widget3.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Widget,$INFO[Skin.String(HomeItem.14.Widget3.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Name,$INFO[Skin.String(HomeItem.14.Widget4.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Widget,$INFO[Skin.String(HomeItem.14.Widget4.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Name,$INFO[Skin.String(HomeItem.14.Widget5.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Widget,$INFO[Skin.String(HomeItem.14.Widget5.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Name,$INFO[Skin.String(HomeItem.14.Widget6.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Widget,$INFO[Skin.String(HomeItem.14.Widget6.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Name,$INFO[Skin.String(HomeItem.14.Widget7.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Widget,$INFO[Skin.String(HomeItem.14.Widget7.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Name,$INFO[Skin.String(HomeItem.14.Widget8.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Widget,$INFO[Skin.String(HomeItem.14.Widget8.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Name,$INFO[Skin.String(HomeItem.14.Widget9.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Widget,$INFO[Skin.String(HomeItem.14.Widget9.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Name,$INFO[Skin.String(HomeItem.14.Widget10.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Widget,$INFO[Skin.String(HomeItem.14.Widget10.Widget)],Home)</onclick>
+<onclick>ActivateWindow(1128)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.14.Label))</visible>
                             </control>
                             <control type="radiobutton" id="1338">
@@ -4688,7 +4982,28 @@
 								<onclick>SetProperty(SwapItemPlaylistContent,$INFO[Skin.String(HomeItem.15.PlaylistContent)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetFormat,$INFO[Skin.String(HomeItem.15.WidgetFormat)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetLayout,$INFO[Skin.String(HomeItem.15.WidgetLayout)],Home)</onclick>
-                                <onclick>ActivateWindow(1128)</onclick>
+                                
+								<onclick>SetProperty(SwapItemWidget1Name,$INFO[Skin.String(HomeItem.15.Widget1.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget1Widget,$INFO[Skin.String(HomeItem.15.Widget1.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Name,$INFO[Skin.String(HomeItem.15.Widget2.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Widget,$INFO[Skin.String(HomeItem.15.Widget2.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Name,$INFO[Skin.String(HomeItem.15.Widget3.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Widget,$INFO[Skin.String(HomeItem.15.Widget3.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Name,$INFO[Skin.String(HomeItem.15.Widget4.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Widget,$INFO[Skin.String(HomeItem.15.Widget4.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Name,$INFO[Skin.String(HomeItem.15.Widget5.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Widget,$INFO[Skin.String(HomeItem.15.Widget5.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Name,$INFO[Skin.String(HomeItem.15.Widget6.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Widget,$INFO[Skin.String(HomeItem.15.Widget6.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Name,$INFO[Skin.String(HomeItem.15.Widget7.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Widget,$INFO[Skin.String(HomeItem.15.Widget7.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Name,$INFO[Skin.String(HomeItem.15.Widget8.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Widget,$INFO[Skin.String(HomeItem.15.Widget8.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Name,$INFO[Skin.String(HomeItem.15.Widget9.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Widget,$INFO[Skin.String(HomeItem.15.Widget9.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Name,$INFO[Skin.String(HomeItem.15.Widget10.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Widget,$INFO[Skin.String(HomeItem.15.Widget10.Widget)],Home)</onclick>
+<onclick>ActivateWindow(1128)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.15.Label))</visible>
                             </control>
                             <control type="radiobutton" id="1348">

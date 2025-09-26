@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="skin.xenon4k"
-  version="1.4"
+  version="1.5"
   name="[B][COLOR gold]Xenon 4K[/COLOR][/B]  (Mid Power)"
   provider-name="Helly,bsoriano, Diggz">
   <requires>
@@ -9,7 +9,7 @@
   </requires>
   <extension
     point="xbmc.gui.skin"
-    debugging="false"
+    debugging="true"
     effectslowdown=".5">
     <res width="1920" height="1080" aspect="16:9" default="true" folder="xml" />
   </extension>

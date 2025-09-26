@@ -5,11 +5,30 @@
     <param name="idx" default="1" />
     <param name="listid" default="9051" />
     <definition>
+      <!-- Touch/mouse tap target: visible when the main menu item has focus, even while selector is hidden -->
+      <control type="button">
+        <left>0</left>
+        <top>540</top>
+        <width>1920</width>
+        <height>120</height>
+        <label></label>
+        <font></font>
+        <texturefocus>-</texturefocus>
+        <texturenofocus>-</texturenofocus>
+        <onclick>SetFocus($PARAM[listid],0)</onclick>
+        <!-- Optional: mouse hover also moves focus -->
+        <onfocus>SetFocus($PARAM[listid],0)</onfocus>
+        <!-- Show while active main menu item has focus, and only when selector doesn't already have focus -->
+        <visible>Container(9000).HasFocus($PARAM[idx]) + !Control.HasFocus($PARAM[listid])</visible>
+        <!-- Hide during playback to mirror row behavior -->
+        <visible>!Player.HasMedia</visible>
+      </control>
+
       <control type="group">
         <!-- Only the active menu's row is shown; keep visible while the row itself has focus -->
         <left>0</left>
         <top>570</top>
-        <zorder>7</zorder>
+        <zorder>8</zorder>
         <visible>Container(9000).HasFocus($PARAM[idx]) | Control.HasFocus($PARAM[listid])</visible>
         <!-- Hide during playback so it won't overlap OSD/NowPlaying -->
         <visible>!Player.HasMedia</visible>
