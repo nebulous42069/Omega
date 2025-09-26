@@ -3294,11 +3294,11 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
 			<fanart>resources/fanart.jpg</fanart>
 		</assets>
 	</extension>
-</addon><addon id="skin.xenon4k" version="1.5" name="[B][COLOR gold]Xenon 4K[/COLOR][/B]  (Mid Power)" provider-name="Helly,bsoriano, Diggz">
+</addon><addon id="skin.xenon4k" version="1.6" name="[B][COLOR gold]Xenon 4K[/COLOR][/B]  (Mid Power)" provider-name="Helly,bsoriano, Diggz">
   <requires>
     <import addon="xbmc.gui" version="5.17.0" />	
   </requires>
-  <extension point="xbmc.gui.skin" debugging="true" effectslowdown=".5">
+  <extension point="xbmc.gui.skin" debugging="false" effectslowdown=".5">
     <res width="1920" height="1080" aspect="16:9" default="true" folder="xml" />
   </extension>
   <extension point="xbmc.addon.metadata">
