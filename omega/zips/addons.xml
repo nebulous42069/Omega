@@ -752,7 +752,7 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.cb20
         </assets>
         <news>INFO: For latest changes see Changelog within Tools of add-on.</news>
     </extension>
-</addon><addon id="plugin.video.free99" version="1.8" name="[COLOR goldenrod]Free99[/COLOR]" provider-name="JewBMX, DIGGZ">
+</addon><addon id="plugin.video.free99" version="1.9" name="[COLOR goldenrod]Free99[/COLOR]" provider-name="JewBMX, DIGGZ">
     <requires>
         <import addon="script.module.six" />
         <import addon="script.module.kodi-six" />

@@ -146,25 +146,16 @@
         <setting type="lsep" label="Providers" />
         <setting id="providers.enableall" type="action" label="Enable ALL Providers" option="close" action="RunPlugin(plugin://plugin.video.free99/?action=enable_all)" />
         <setting id="providers.disableall" type="action" label="Disable ALL Providers" option="close" action="RunPlugin(plugin://plugin.video.free99/?action=disable_all)" />
-        <setting id="provider.1movies_la" type="bool" label="provider.1movies_la" default="true" />	
-        <setting id="provider.123movies_skin" type="bool" label="provider.123movies_skin" default="true" />		
         <setting id="provider.anymovies_co" type="bool" label="provider.anymovies_co" default="true" />
         <setting id="provider.bnwmovies_com" type="bool" label="provider.bnwmovies_com" default="true" />
-        <setting id="provider.bstsrs_one" type="bool" label="provider.bstsrs_one" default="true" />		
-        <setting id="provider.couchtuner_show" type="bool" label="provider.couchtuner_show" default="true" />
-        <setting id="provider.epxmovies_net" type="bool" label="provider.epxmovies_net" default="true" />
-        <setting id="provider.gomovies_sx" type="bool" label="provider.gomovies_sx" default="true" />
-        <setting id="provider.goojara_to" type="bool" label="provider.goojara_to" default="true" />		
-        <setting id="provider.iwaatch_com" type="bool" label="provider.iwaatch_com" default="true" />
-        <setting id="provider.levidia_ch" type="bool" label="provider.levidia_ch" default="true" />		
-        <setting id="provider.primewire_mx" type="bool" label="provider.primewire_mx" default="true" />
-        <setting id="provider.projectfreetv_cyou" type="bool" label="provider.projectfreetv_cyou" default="true" />
-        <setting id="provider.projectfreetv_lol" type="bool" label="provider.projectfreetv_lol" default="true" />
-        <setting id="provider.sflixz_watch" type="bool" label="provider.sflixz_watch" default="true" />		
-        <setting id="provider.tvmovieflix_com" type="bool" label="provider.tvmovieflix_com" default="true" />	
-        <setting id="provider.tvseries_video" type="bool" label="provider.tvseries_video" default="true" />
-        <setting id="provider.upmovies_net" type="bool" label="provider.upmovies_net" default="true" />		
-        <setting id="provider.watchserieshd_stream" type="bool" label="provider.watchserieshd_stream" default="true" />
+        <setting id="provider.tvseries_in" type="bool" label="provider.tvseries_in" default="true" />	
+        <setting id="provider.stagatv_com" type="bool" label="provider.stagatv_com" default="true" />
+        <setting id="provider.seriesloaded_ng" type="bool" label="provider.seriesloaded_ng" default="true" />		
+        <setting id="provider.my4hydra_top" type="bool" label="provider.my4hydra_top" default="true" />
+        <setting id="provider.fzmovies_live" type="bool" label="provider.fzmovies_live" default="true" />
+		<setting id="provider.hollymoviehd_cc" type="bool" label="hollymoviehd_cc" default="true" />
+		<setting id="provider.levidia_ch" type="bool" label="levidia_ch" default="true" />
+		<setting id="provider.naijavault_com" type="bool" label="naijavault_com" default="true" />
 		
     </category>
 
