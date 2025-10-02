@@ -145,7 +145,7 @@ def add_video(video_id, title, thumb=None):
         "banner": thumb,
         "fanart": f"special://home/addons/{ADDON.getAddonInfo('id')}/resources/media/fanart.jpg",
     })
-    play_url = f"plugin://plugin.video.youtube/play/?video_id={video_id}"
+    play_url = f"plugin://plugin.video.youtubek/play/?video_id={video_id}"
     xbmcplugin.addDirectoryItem(HANDLE, play_url, li, isFolder=False)
 
 # -------------------- YouTube JSON parsing --------------------

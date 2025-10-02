@@ -1,10 +1,11 @@
 <?xml version="4.9.31" encoding="UTF-8" standalone="yes"?>
 <addon id="plugin.video.yt.kiosk"
        name="YouTube Kiosk"
-       version="4.9.21"
+       version="4.9.22"
        provider-name="Diggz">
   <requires>
     <import addon="xbmc.python" version="3.0.0"/>
+	<import addon="plugin.video.youtubek" version="7.2.0.3"/>
   </requires>
   <extension point="xbmc.python.pluginsource" library="default.py">
     <provides>video</provides>
