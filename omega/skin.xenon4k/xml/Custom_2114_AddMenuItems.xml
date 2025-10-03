@@ -157,6 +157,14 @@
                 <visible>!String.IsEqual(Window.Property(MenuItemType),MainMenu)</visible>
                 <visible>!String.IsEqual(Window.Property(MenuItemType),EditMenu)</visible>
             </item>
+            <item>
+                <description>Change Name</description>
+                <label>Change Name</label>
+                <onclick>Skin.SetString($INFO[Window(Home).Property(UsrSelectBtn)].Label)</onclick>
+                <onclick>Container.Refresh(450)</onclick>
+                <onclick>SetFocus(450)</onclick>
+            </item>
+
                         <item>
                 <description>Browse Video Add-on Content</description>
                 <label>Browse Video Add-on Content</label>

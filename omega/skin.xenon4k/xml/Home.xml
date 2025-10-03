@@ -85,7 +85,6 @@
             <texturenofocus></texturenofocus>
             <onleft>9000</onleft>
             <onright>9000</onright>
-            <onup>21</onup>
             <ondown condition="Skin.HasSetting(LowerMainMenuBar)">9002</ondown>
             <ondown condition="!Skin.HasSetting(LowerMainMenuBar) + !Skin.HasSetting(DisableGlobalSearch) + !Skin.HasSetting(FloorGlobalSearch)">610</ondown>
             <ondown condition="!Skin.HasSetting(LowerMainMenuBar) + [Skin.HasSetting(DisableGlobalSearch) | Skin.HasSetting(FloorGlobalSearch)]">603</ondown>

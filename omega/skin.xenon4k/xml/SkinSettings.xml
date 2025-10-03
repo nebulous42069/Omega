@@ -18152,7 +18152,7 @@
                         <textoffsetx>30</textoffsetx>
                         <textwidth>1095</textwidth>
                         <label>$LOCALIZE[31493]</label>
-                        <onclick>ActivateWindow(2121)</onclick>
+                        <onclick>RunPlugin(plugin://script.module.xenon4k/?mode=2)</onclick>
                         <include>Button1</include>
                         <pulseonselect>false</pulseonselect>
                     </control>

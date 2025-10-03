@@ -150,8 +150,6 @@
     <onfocus condition="Control.IsVisible(80411)">SetFocus(80411,0)</onfocus>
     <onfocus condition="Control.IsVisible(80421)">SetFocus(80421,0)</onfocus>
     <onfocus condition="Control.IsVisible(80431)">SetFocus(80431,0)</onfocus>
-
-            <onup>21</onup>
 			<ondown>9091</ondown>
 			<animation effect="fade" start="100" end="0" time="480" condition="[Skin.HasSetting(ShowWidgetsOnFocus) + Control.HasFocus(9000)]">Conditional</animation>
             <visible>!Window.IsVisible(Favourites)</visible>
@@ -1685,7 +1683,6 @@
                 <height>360</height>
                 <onleft>$PARAM[Control]</onleft>
                 <onright>$PARAM[Control]</onright>
-                <onup>21</onup>
                 <ondown>9091</ondown>
                 <viewtype label="535">list</viewtype>
                 <scrolltime>200</scrolltime>
@@ -1873,7 +1870,6 @@
                 <height>428</height>
                 <onleft>$PARAM[Control]</onleft>
                 <onright>$PARAM[Control]</onright>
-                <onup>21</onup>
                 <ondown>9091</ondown>
                 <viewtype label="535">list</viewtype>
                 <scrolltime tween="cubic" easing="out">500</scrolltime>
@@ -2035,7 +2031,6 @@
                 <height>428</height>
                 <onleft>$PARAM[Control]</onleft>
                 <onright>$PARAM[Control]</onright>
-                <onup>21</onup>
                 <ondown>9091</ondown>
                 <viewtype label="535">list</viewtype>
                 <scrolltime tween="cubic" easing="out">500</scrolltime>
@@ -2198,7 +2193,6 @@
                 <height>360</height>
                 <onleft>$PARAM[Control]</onleft>
                 <onright>$PARAM[Control]</onright>
-                <onup>21</onup>
                 <ondown>9091</ondown>
                 <viewtype label="535">list</viewtype>
                 <scrolltime>200</scrolltime>
@@ -2349,7 +2343,6 @@
                 <height>428</height>
                 <onleft>$PARAM[Control]</onleft>
                 <onright>$PARAM[Control]</onright>
-                <onup>21</onup>
                 <ondown>9091</ondown>
                 <viewtype label="535">list</viewtype>
                 <scrolltime tween="cubic" easing="out">500</scrolltime>
@@ -2519,7 +2512,7 @@
         <definition>
             <control type="list" id="$PARAM[Control]">
                 <onclick condition="Skin.HasSetting(openinfoonwidgetclick) + [ String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.MediaType,movie) | String.IsEqual(ListItem.MediaType,tvshow) | String.IsEqual(ListItem.Property(tmdb_type),movie) | String.IsEqual(ListItem.Property(tmdb_type),tv) ]">Info</onclick>
-<animation effect="slide" start="0,0" end="810,0" time="0" condition="String.IsEqual(Container($PARAM[Control]).NumItems,1)">Conditional</animation>
+				<animation effect="slide" start="0,0" end="810,0" time="0" condition="String.IsEqual(Container($PARAM[Control]).NumItems,1)">Conditional</animation>
                 <animation effect="slide" start="0,0" end="675,0" time="0" condition="String.IsEqual(Container($PARAM[Control]).NumItems,2)">Conditional</animation>
                 <animation effect="slide" start="0,0" end="540,0" time="0" condition="String.IsEqual(Container($PARAM[Control]).NumItems,3)">Conditional</animation>
                 <animation effect="slide" start="0,0" end="405,0" time="0" condition="String.IsEqual(Container($PARAM[Control]).NumItems,4)">Conditional</animation>
@@ -2531,8 +2524,13 @@
                 <height>380</height>
                 <onleft>$PARAM[Control]</onleft>
                 <onright>$PARAM[Control]</onright>
-				<onup condition="Container.Content(movies) | Container.Content(tvshows) | !Container.Content(seasons) | !Container.Content(episodes) |  !Container.Content(musicvideos) | !Container.Content(files) | !Container.Content(addons) | !Container.Content() | !String.IsEmpty(ListItem.Trailer)">RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.IMDBNumber]&amp;tmdb=$INFO[ListItem.Property(tmdb_id)]&amp;tmdbshow=$INFO[ListItem.Property(tmdbshow_id)]&amp;dbtype=$INFO[ListItem.DBType]&amp;mediatype=$INFO[ListItem.MediaType]&amp;title=$INFO[ListItem.Title]&amp;tvshowtitle=$INFO[ListItem.TVShowTitle]&amp;year=$INFO[ListItem.Year])</onup>
-				<onup condition="String.IsEmpty(ListItem.Trailer)">21</onup>
+				<onup condition="String.IsEqual(ListItem.DBType,movie)">RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.IMDBNumber]&amp;tmdb=$INFO[ListItem.Property(tmdb_id)]&amp;tmdbshow=$INFO[ListItem.Property(tmdbshow_id)]&amp;dbtype=$INFO[ListItem.DBType]&amp;mediatype=$INFO[ListItem.MediaType]&amp;title=$INFO[ListItem.Title]&amp;tvshowtitle=$INFO[ListItem.TVShowTitle]&amp;year=$INFO[ListItem.Year])</onup>
+				<onup condition="String.IsEqual(ListItem.DBType,tvshow) + !String.IsEmpty(ListItem.IMDBNumber)">
+				RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.IMDBNumber]&amp;dbtype=$INFO[ListItem.DBType]&amp;title=$INFO[ListItem.TVShowTitle])</onup>
+				<onup condition="String.IsEqual(ListItem.DBType,tvshow) + String.IsEmpty(ListItem.IMDBNumber) + !String.IsEmpty(ListItem.UniqueID(imdb))">
+				RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.UniqueID(imdb)]&amp;dbtype=$INFO[ListItem.DBType]&amp;title=$INFO[ListItem.TVShowTitle])</onup>
+				<onup condition="String.IsEqual(ListItem.DBType,tvshow) + String.IsEmpty(ListItem.IMDBNumber) + String.IsEmpty(ListItem.UniqueID(imdb)) + !String.IsEmpty(ListItem.Property(tmdbshow_id))">
+				RunScript(script.trailer.bridge,?tmdbshow=$INFO[ListItem.Property(tmdbshow_id)]&amp;dbtype=$INFO[ListItem.DBType]&amp;title=$INFO[ListItem.TVShowTitle])</onup>
                 <ondown>9091</ondown>
 				<viewtype label="535">list</viewtype>
                 <scrolltime>200</scrolltime>
@@ -2839,6 +2837,7 @@
                 <height>442</height>
                 <texture border="5">RecentAddedBack.png</texture>
                 <include condition="!String.IsEmpty(Skin.String(HomeTrans))">HomeTransparentEffect</include>
+				<visible>Integer.IsGreater(Container($PARAM[Control]).NumItems,0)</visible>
             </control>
 			<control type="image">
                 <visible>$PARAM[embuaryinfonextaired]</visible>
@@ -2851,7 +2850,7 @@
             </control>
             <control type="list" id="$PARAM[Control]">
                 <onclick condition="Skin.HasSetting(openinfoonwidgetclick) + [ String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.MediaType,movie) | String.IsEqual(ListItem.MediaType,tvshow) | String.IsEqual(ListItem.Property(tmdb_type),movie) | String.IsEqual(ListItem.Property(tmdb_type),tv) ]">Info</onclick>
-<animation effect="slide" start="0,0" end="730,0" time="0" condition="String.IsEqual(Container($PARAM[Control]).NumItems,1)">Conditional</animation>
+				<animation effect="slide" start="0,0" end="730,0" time="0" condition="String.IsEqual(Container($PARAM[Control]).NumItems,1)">Conditional</animation>
                 <animation effect="slide" start="0,0" end="584,0" time="0" condition="String.IsEqual(Container($PARAM[Control]).NumItems,2)">Conditional</animation>
                 <animation effect="slide" start="0,0" end="438,0" time="0" condition="String.IsEqual(Container($PARAM[Control]).NumItems,3)">Conditional</animation>
                 <animation effect="slide" start="0,0" end="292,0" time="0" condition="String.IsEqual(Container($PARAM[Control]).NumItems,4)">Conditional</animation>
@@ -2862,7 +2861,13 @@
                 <height>540</height>
                 <onleft>$PARAM[Control]</onleft>
                 <onright>$PARAM[Control]</onright>
-                <onup>21</onup>
+				<onup condition="String.IsEqual(ListItem.DBType,movie)">RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.IMDBNumber]&amp;tmdb=$INFO[ListItem.Property(tmdb_id)]&amp;tmdbshow=$INFO[ListItem.Property(tmdbshow_id)]&amp;dbtype=$INFO[ListItem.DBType]&amp;mediatype=$INFO[ListItem.MediaType]&amp;title=$INFO[ListItem.Title]&amp;tvshowtitle=$INFO[ListItem.TVShowTitle]&amp;year=$INFO[ListItem.Year])</onup>
+				<onup condition="String.IsEqual(ListItem.DBType,tvshow) + !String.IsEmpty(ListItem.IMDBNumber)">
+				RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.IMDBNumber]&amp;dbtype=$INFO[ListItem.DBType]&amp;title=$INFO[ListItem.TVShowTitle])</onup>
+				<onup condition="String.IsEqual(ListItem.DBType,tvshow) + String.IsEmpty(ListItem.IMDBNumber) + !String.IsEmpty(ListItem.UniqueID(imdb))">
+				RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.UniqueID(imdb)]&amp;dbtype=$INFO[ListItem.DBType]&amp;title=$INFO[ListItem.TVShowTitle])</onup>
+				<onup condition="String.IsEqual(ListItem.DBType,tvshow) + String.IsEmpty(ListItem.IMDBNumber) + String.IsEmpty(ListItem.UniqueID(imdb)) + !String.IsEmpty(ListItem.Property(tmdbshow_id))">
+				RunScript(script.trailer.bridge,?tmdbshow=$INFO[ListItem.Property(tmdbshow_id)]&amp;dbtype=$INFO[ListItem.DBType]&amp;title=$INFO[ListItem.TVShowTitle])</onup>
                 <ondown>9091</ondown>
 				<viewtype label="535">list</viewtype>
                 <scrolltime tween="cubic" easing="out">500</scrolltime>
@@ -3142,7 +3147,6 @@
                 <height>390</height>
                 <onleft>PARAM[Control]</onleft>
                 <onright>PARAM[Control]</onright>
-                <onup>21</onup>
                 <ondown>9091</ondown>
 				<viewtype label="535">list</viewtype>
                 <scrolltime>200</scrolltime>
@@ -3584,6 +3588,7 @@
                 <texture border="5">RecentAddedBack.png</texture>
                 <include condition="!String.IsEmpty(Skin.String(HomeTrans))">HomeTransparentEffect</include>
 				<visible>!$PARAM[embuaryinfonextaired]</visible>
+				<visible>Integer.IsGreater(Container($PARAM[Control]).NumItems,0)</visible>
             </control>
 			<control type="image">
                 <left>-30</left>
@@ -3605,7 +3610,6 @@
                 <height>540</height>
                 <onleft>$PARAM[Control]</onleft>
                 <onright>$PARAM[Control]</onright>
-                <onup>21</onup>
                 <ondown>9091</ondown>
 				<viewtype label="535">list</viewtype>
                 <scrolltime tween="cubic" easing="out">500</scrolltime>
