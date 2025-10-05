@@ -498,7 +498,7 @@
     </menu>
   </extension>
 
-</addon><addon id="plugin.program.xenon2" name="Xenon 2 Flavors" version="4" provider-name="Diggz">
+</addon><addon id="plugin.program.xenon2" name="Xenon 2 Flavors" version="5" provider-name="Diggz">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0" />
 	</requires>
