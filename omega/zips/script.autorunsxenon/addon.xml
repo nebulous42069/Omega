@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <addon id="script.autorunsxenon"
        name="Autoruns Xenon"
-       version="17"
+       version="18"
        provider-name="fight night, Jon Bovi">
     <requires>
         <import addon="xbmc.python" version="3.0.1" />
@@ -16,7 +16,6 @@
 		<import addon="script.module.jurialmunkey" version="0.2.11" />
 		<import addon="script.module.infotagger" version="0.0.5" />
         <import addon="script.skinvariables" version="1.0.0" />
-		<import addon="script.module.debridmgr" />
     </requires>
     <extension point="xbmc.python.pluginsource" library="default.py">
         <provides>executable</provides>
