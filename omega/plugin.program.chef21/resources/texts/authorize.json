@@ -28,16 +28,7 @@
             }			
         ]
     },
-    "Step 2- Debrid Logins": {
-        "icon": "https://kodiapps.com/sharex/dllhost_2020-02-05_12-07-32.jpg",
-        "items": [
-            {
-                "name": "[COLOR blue]Authenticate Debrid With Debrid Manager[/COLOR]",
-                "url": "Addon.Opensettings(script.module.debridmgr)"
-            }
-        ]
-    },
-    "Step 3- Authorize Trakt": {
+    "Step 2- Authorize Debrid And Trakt": {
         "icon": "https://techwiser.com/wp-content/uploads/2020/09/trakt-logo.png",
         "items": [
 			{
@@ -45,51 +36,47 @@
                 "url": ""
             },
             {
-                "name": "Authorize TMDBH Trakt",
+                "name": "Authorize TMDBH Trakt -Not Saved-Please Re-Authorize",
                 "url": "RunScript(plugin.video.themoviedb.helper,authenticate_trakt)"
             },
             {
-                "name": "Authorize FEN Light Trakt",
-                "url": "RunPlugin(plugin://plugin.video.fenlight/?mode=trakt.trakt_authenticate)"
+                "name": "Authorize FEN Light Debrid And Trakt -Saved",
+                "url": "Addon.OpenSettings(plugin.video.fenlight)"
             },
             {
-                "name": "Authorize Umbrella Trakt",
-                "url": "RunPlugin(plugin://plugin.video.umbrella/?action=traktAuth)"
+                "name": "Authorize Umbrella Debrid And Trakt -Saved",
+                "url": "Addon.OpenSettings(plugin.video.umbrella)"
             },
             {
-                "name": "Authorize POV Trakt",
-                "url": "RunPlugin(plugin://plugin.video.pov/?mode=trakt.get_auth)"
+                "name": "Authorize POV Debrid And Trakt -Saved",
+                "url": "Addon.OpenSettings(plugin.video.pov)"
             },
             {
-                "name": "Authorize Dradis Trakt",
-                "url": "RunPlugin(plugin://plugin.video.dradis/?action=authorize&amp;query=trakt)"
+                "name": "Authorize Dradis Debrid And Trakt -Saved",
+                "url": "Addon.OpenSettings(plugin.video.dradis)"
             },
             {
-                "name": "Authorize Seren Trakt",
-                "url": "RunPlugin(plugin://plugin.video.seren/?action=authTrakt)"
+                "name": "Authorize Seren Debrid And Trakt -Saved",
+                "url": "Addon.OpenSettings(plugin.video.seren)"
             },
             {
-                "name": "Authorize Chain Reaction Trakt",
-                "url": "RunPlugin(plugin://plugin.video.thechains?mode=205&url=www)"
+                "name": "Authorize ResolveUrl Debrid -Saved",
+                "url": "Addon.OpenSettings(script.module.resolveurl)"
             },
             {
-                "name": "Authorize The Crew Trakt",
+                "name": "Authorize The Crew Trakt -Saved",
                 "url": "RunPlugin(plugin://plugin.video.thecrew/?action=authTrakt)"
             },
             {
-                "name": "Authorize Homelander Trakt",
+                "name": "Authorize Homelander Trakt -Saved",
                 "url": "RunPlugin(plugin://plugin.video.homelander/?action=authTrakt)"
             },
             {
-                "name": "Authorize Scrubs Trakt",
+                "name": "Authorize Scrubs Trakt -Not Saved",
                 "url": "RunPlugin(plugin://plugin.video.scrubsv2/?action=auth_trakt)"
             },
 			{
-                "name": "Authorize Black Lightning Trakt",
-                "url": "RunPlugin(plugin://plugin.video.blacklightning?mode=157&url=False)"
-            },
-			{
-                "name": "Authorize Kodi Library Trakt Addon",
+                "name": "Authorize Kodi Library Trakt Addon -Not Saved",
                 "url": "RunScript(script.trakt,action=auth_info)"
             }
         ]

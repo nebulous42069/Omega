@@ -14,8 +14,43 @@
         "setting": "savedata",
         "path": "data_path"
     },
-    "script.module.myaccounts": {
-        "name": "My Accounts",
+    "plugin.video.fenlight": {
+        "name": "Fen Light",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.seren": {
+        "name": "Seren",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.umbrella": {
+        "name": "Umbrella",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.pov": {
+        "name": "POV",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.dradis": {
+        "name": "Dradis",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "script.module.resolveurl": {
+        "name": "ResolveUrl",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.thecrew": {
+        "name": "The Crew",
+        "setting": "savedata",
+        "path": "data_path"
+    },
+    "plugin.video.homelander": {
+        "name": "Homelander",
         "setting": "savedata",
         "path": "data_path"
     },
