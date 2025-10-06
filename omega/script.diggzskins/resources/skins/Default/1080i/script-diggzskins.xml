@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window id="13000">
+    <defaultcontrol always="true">100</defaultcontrol>
+	<onload>SetFocus(100)</onload>
+    <allowoverlay>no</allowoverlay>
+    <controls>
+
+        <!-- Background image -->
+        <control type="image">
+            <left>0</left><top>0</top>
+            <width>1920</width><height>1080</height>
+            <texture>special://home/addons/script.diggzskins/resources/skins/Default/1080i/bg.jpg</texture>
+        </control>
+
+		<!-- Opaque backdrop to block the home screen -->
+		<control type="image">
+		  <left>0</left><top>0</top>
+		  <width>1920</width><height>1080</height>
+		  <texture>special://home/addons/script.diggzskins/resources/skins/Default/1080i/bg_black.png</texture>
+		</control>
+
+        <!-- Title -->
+        <control type="label" id="10">
+            <left>60</left><top>40</top>
+            <width>1800</width><height>90</height>
+            <font>dgz_title2</font>
+            <align>center</align>
+            <shadowcolor>FF000000</shadowcolor>
+            <textcolor>FFFFFFFF</textcolor>
+            <label>Diggz Skin Switcher</label>
+        </control>
+
+        <!-- Centered grid: 3 x 2 -->
+        <control type="panel" id="100">
+			<focusposition>0</focusposition>
+			<visible>true</visible>
+            <left>120</left>
+            <top>130</top>
+            <width>1680</width>
+            <height>900</height>
+            <onleft>100</onleft>
+            <onright>100</onright>
+            <onup>100</onup>
+            <ondown>100</ondown>
+            <scrolltime tween="cubic" easing="out">200</scrolltime>
+
+			<itemlayout width="560" height="440">
+			  <!-- Screenshot -->
+			  <control type="image">
+				<left>10</left><top>10</top>
+				<width>540</width><height>300</height>
+				<aspectratio>scale</aspectratio>
+				<texture>$INFO[ListItem.Art(thumb)]</texture>
+			  </control>
+
+			  <!-- NAME: single line, scroll; uses ListItem.Label -->
+			  <control type="label">
+				<top>320</top>
+				<width>560</width><height>44</height>
+				<align>center</align>
+				<font>dgz_name</font>
+				<scroll>true</scroll>
+				<wrapmultiline>false</wrapmultiline>
+				<label>$INFO[ListItem.Label]</label>
+			  </control>
+
+			  <!-- DESCRIPTION: stays under name -->
+			  <control type="textbox">
+				<left>0</left><top>364</top>
+				<width>560</width><height>72</height>
+				<align>center</align>
+				<font>dgz_desc</font>
+				<aligny>top</aligny>
+				<label>$INFO[ListItem.Label2]</label>
+				<autoscroll delay="2000" time="2000" repeat="5000">true</autoscroll>
+			  </control>
+			</itemlayout>
+
+
+            <focusedlayout width="560" height="440">
+                <!-- Thin border overlay (no glaze, center stays transparent) -->
+                <control type="image">
+                    <left>0</left><top>0</top>
+                    <width>560</width><height>320</height>
+                    <texture border="4">special://home/addons/script.diggzskins/resources/skins/Default/1080i/border_frame_4px.png</texture>
+                    <zorder>2</zorder>
+                </control>
+			    <control type="image">
+					<left>10</left><top>10</top>
+					<width>540</width><height>300</height>
+					<aspectratio>scale</aspectratio>
+					<texture>$INFO[ListItem.Art(thumb)]</texture>
+					<zorder>1</zorder>
+				</control>
+				  <control type="label">
+					<top>320</top>
+					<width>560</width><height>44</height>
+					<align>center</align>
+					<font>dgz_name</font>
+					<scroll>true</scroll>
+					<wrapmultiline>false</wrapmultiline>
+					<label>$INFO[ListItem.Label]</label>
+				  </control>
+
+				  <!-- DESCRIPTION -->
+				  <control type="textbox">
+					<left>0</left><top>364</top>
+					<width>560</width><height>72</height>
+					<align>center</align>
+					<font>dgz_desc</font>
+					<aligny>top</aligny>
+					<label>$INFO[ListItem.Label2]</label>
+					<autoscroll delay="2000" time="2000" repeat="5000">true</autoscroll>
+				  </control>
+            </focusedlayout>
+        </control>
+
+    </controls>
+</window>

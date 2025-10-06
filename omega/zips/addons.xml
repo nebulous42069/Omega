@@ -1674,21 +1674,16 @@ Random updates by lolage.
 		</assets>
 		<news>- fixed broken scrapers and added new ones</news>
 	</extension>
-</addon><addon id="script.diggzskins" name="Diggz Skin Switcher" version="421.22" provider-name="Diggz, Big thanks to FTV GURU!!">
+</addon><addon id="script.diggzskins" name="Diggz Skin Switcher" version="500.0.6" provider-name="Diggz">
   <requires>
     <import addon="xbmc.python" version="3.0.1" />
   </requires>
-  <extension point="xbmc.python.pluginsource" library="addon.py">
-        <provides>executable</provides>
-  </extension>
+  <extension point="xbmc.python.script" library="default.py" />
   <extension point="xbmc.addon.metadata">
+    <summary lang="en">Fullscreen Skin Gallery and Switcher for Kodi 21 (Omega)</summary>
+    <description lang="en">Browse curated skins with big screenshots</description>
     <platform>all</platform>
-    <summary lang="en">-</summary>
-    <description lang="en">Choose a flavor</description>
-    <disclaimer lang="en">.</disclaimer>
-    <language />
-    <platform>all</platform>
-    <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+    <license>MIT</license>
   </extension>
 </addon><addon id="script.diggzwiki" name="Diggz Wiki Forum" version="421" provider-name="Diggz">
   <requires>
@@ -3434,7 +3429,7 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
 			<fanart>resources/fanart.jpg</fanart>
 		</assets>
 	</extension>
-</addon><addon id="skin.xenon4k" name="[B][COLOR gold]Xenon 4K[/COLOR][/B]  (Mid Power)" provider-name="Helly,bsoriano, Diggz" version="1.8">
+</addon><addon id="skin.xenon4k" name="[B][COLOR gold]Xenon 4K[/COLOR][/B]  (Mid Power)" provider-name="Helly,bsoriano, Diggz" version="1.9">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0" />	
 	</requires>

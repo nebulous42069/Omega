@@ -1,0 +1,8 @@
+<fonts>
+  <fontset id="DGZ" unicode="true">
+    <font id="dgz_title" filename="special://home/addons/script.diggzskins/resources/fonts/Inter-SemiBold.ttf" size="85" style="bold" />
+    <font id="dgz_title2" filename="special://home/addons/script.diggzskins/resources/fonts/Inter-SemiBold.ttf" size="85" style="bold" />
+    <font id="dgz_name"  filename="special://home/addons/script.diggzskins/resources/fonts/Inter-SemiBold.ttf" size="30" style="bold" />
+    <font id="dgz_desc"  filename="special://home/addons/script.diggzskins/resources/fonts/Inter-Regular.ttf"   size="22" />
+  </fontset>
+</fonts>

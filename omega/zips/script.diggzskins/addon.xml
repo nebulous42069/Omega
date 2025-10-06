@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.diggzskins" 
-	     name="Diggz Skin Switcher" 
-	     version="421.22" 
-	     provider-name="Diggz, Big thanks to FTV GURU!!">
+<addon id="script.diggzskins"
+       name="Diggz Skin Switcher"
+       version="500.0.6"
+       provider-name="Diggz">
   <requires>
     <import addon="xbmc.python" version="3.0.1"/>
   </requires>
-  <extension point="xbmc.python.pluginsource" library="addon.py">
-        <provides>executable</provides>
-  </extension>
+  <extension point="xbmc.python.script" library="default.py" />
   <extension point="xbmc.addon.metadata">
+    <summary lang="en">Fullscreen Skin Gallery and Switcher for Kodi 21 (Omega)</summary>
+    <description lang="en">Browse curated skins with big screenshots</description>
     <platform>all</platform>
-    <summary lang="en">-</summary>
-    <description lang="en">Choose a flavor</description>
-    <disclaimer lang="en">.</disclaimer>
-    <language></language>
-    <platform>all</platform>
-    <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+    <license>MIT</license>
   </extension>
 </addon>
