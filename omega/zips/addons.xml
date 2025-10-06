@@ -1809,7 +1809,7 @@ Random updates by lolage.
 			<fanart />
 		</assets>
     </extension>
-</addon><addon id="script.module.xenon4k" name="Xenon 4K Flavors" version="427" provider-name="Zaxxon709">
+</addon><addon id="script.module.xenon4k" name="Xenon 4K Flavors" version="428" provider-name="Zaxxon709">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0" />
 	</requires>
