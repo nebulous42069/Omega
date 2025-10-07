@@ -12,6 +12,12 @@ import xbmcgui
 import xbmcplugin
 import xbmcvfs
 
+# Diggz source module
+try:
+    import resources.lib.diggz_source as diggz_source
+except Exception:
+    diggz_source = None
+
 # Robust import for scraper
 try:
     from resources.lib import wc_scraper as wc
@@ -192,6 +198,11 @@ def show_root():
     mi = xbmcgui.ListItem(label="My Wallpapers")
     mi.setArt({"icon": "DefaultFolder.png", "thumb": "DefaultFolder.png"})
     xbmcplugin.addDirectoryItem(HANDLE, _url(mode="my_wallpapers", dir=_get_download_dir()), mi, isFolder=True)
+    # Diggz Wallpapers source
+    di = xbmcgui.ListItem(label="Diggz Wallpapers")
+    di.setArt({"icon": "DefaultFolder.png", "thumb": "DefaultFolder.png"})
+    xbmcplugin.addDirectoryItem(HANDLE, _url(mode="diggz_root"), di, isFolder=True)
+
 
     # Categories (use cached/local art now; warm in background after opening)
     entries = _category_entries()
@@ -701,6 +712,71 @@ def import_folder(_params):
                                   xbmcgui.NOTIFICATION_INFO, 3500)
     xbmc.executebuiltin(f'Container.Update("{_url(mode="my_wallpapers", dir=dest_dir)}", replace)')
 
+
+
+# -------------------------------
+# Diggz Wallpapers integration
+# -------------------------------
+def diggz_root(_params):
+    if not diggz_source:
+        xbmcgui.Dialog().notification("4K Wallpapers", "Diggz source not available", xbmcgui.NOTIFICATION_ERROR, 3000)
+        xbmcplugin.endOfDirectory(HANDLE, cacheToDisc=False)
+        return
+    xbmcplugin.setContent(HANDLE, "files")
+    try:
+        cats = diggz_source.list_categories()
+    except Exception as e:
+        _log(f"Diggz list_categories failed: {e}")
+        xbmcgui.Dialog().notification("4K Wallpapers", "Failed to load Diggz categories", xbmcgui.NOTIFICATION_ERROR, 3000)
+        xbmcplugin.endOfDirectory(HANDLE, cacheToDisc=False)
+        return
+
+    for c in cats:
+        title = c.get("title") or "Folder"
+        href  = c.get("href") or ""
+        li = xbmcgui.ListItem(label=title)
+        li.setArt({"icon": "DefaultFolder.png", "thumb": "DefaultFolder.png"})
+        url = _url(mode="diggz_category", path=href, title=title)
+        xbmcplugin.addDirectoryItem(HANDLE, url, li, isFolder=True)
+    xbmcplugin.endOfDirectory(HANDLE, cacheToDisc=False)
+
+def list_diggz_category(params):
+    if not diggz_source:
+        xbmcgui.Dialog().notification("4K Wallpapers", "Diggz source not available", xbmcgui.NOTIFICATION_ERROR, 3000)
+        xbmcplugin.endOfDirectory(HANDLE, cacheToDisc=False)
+        return
+    path = params.get("path", "")
+    title = params.get("title", "Diggz")
+    xbmcplugin.setContent(HANDLE, "images")
+    try:
+        imgs = diggz_source.list_images(path)
+    except Exception as e:
+        _log(f"Diggz list_images failed: {e}")
+        xbmcgui.Dialog().notification("4K Wallpapers", "Failed to load images", xbmcgui.NOTIFICATION_ERROR, 3000)
+        xbmcplugin.endOfDirectory(HANDLE, cacheToDisc=False)
+        return
+
+    for it in imgs:
+        name = it.get("title") or "Wallpaper"
+        img  = it.get("img") or ""
+        thumb = it.get("thumb") or img
+        li = xbmcgui.ListItem(label=name)
+        art = {"thumb": thumb, "icon": thumb, "fanart": thumb, "poster": thumb}
+        li.setArt(art)
+        li.setInfo("image", {"title": name})
+        # Context menu: download
+        cm = [("Download", f'RunPlugin("{_url(mode="download_image", img=img, title=title, label=name, ref="diggz")}")')]
+        try:
+            li.addContextMenuItems(cm, replaceItems=False)
+        except Exception:
+            pass
+        # Clicking the item downloads immediately (consistent with add-on behavior)
+        url = _url(mode="download_image", img=img, title=title, label=name, ref="diggz")
+        xbmcplugin.addDirectoryItem(HANDLE, url, li, isFolder=False)
+
+    xbmcplugin.endOfDirectory(HANDLE, cacheToDisc=False)
+
+
 # -------------------------------
 # Router / Entry
 # -------------------------------
@@ -732,6 +808,10 @@ def router(params):
         import_folder(params)
     elif mode == "warm_thumbs":
         warm_thumbs(params)
+    elif mode == "diggz_root":
+        diggz_root(params)
+    elif mode == "diggz_category":
+        list_diggz_category(params)
     else:
         show_root()
 
@@ -740,3 +820,4 @@ if __name__ == "__main__":
     if len(sys.argv) > 2 and sys.argv[2]:
         qs = dict(up.parse_qsl(sys.argv[2][1:]))
     router(qs)
+
