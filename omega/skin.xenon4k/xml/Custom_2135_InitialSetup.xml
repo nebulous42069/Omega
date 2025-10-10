@@ -39,7 +39,6 @@
             <description>Close Window button</description>
             <left>740</left>
             <top>24</top>
-            <onclick>RunPlugin(plugin://script.module.xenon4k/?mode=2)</onclick>
             <include>DialogCloseButton</include>
             <onleft>10</onleft>
             <onright>10</onright>
@@ -53,7 +52,7 @@
             <height>160</height>
             <align>center</align>
             <aligny>center</aligny>
-            <label>OOPS, It seems you lost Xenon Skin Settings. Now your really F***ed!! -Just kidding... Click the button below to choose a skin option to restore..</label>
+            <label>OOPS, It seems you lost Xenon Skin Settings. Click to exit Kodi, then click Fix after Kodi Loads.</label>
             <font>font13</font>
 			<wrapmultiline>true</wrapmultiline>
         </control>
@@ -63,15 +62,16 @@
             <top>332</top>
             <width>300</width>
             <height>60</height>
-            <label>Fix Me Now</label>
+            <label>Fix Now</label>
             <font>font12_title</font>
             <textcolor>white</textcolor>
             <focusedcolor>white</focusedcolor>
             <align>center</align>
             <onup>11</onup>
             <ondown>11</ondown>
-            <onclick>Dialog.Close(2135)</onclick>
-            <onclick>RunPlugin(plugin://script.module.xenon4k/?mode=2)</onclick>
+            <onclick>Skin.SetBool(InitialSetUpRun)</onclick>
+			<onclick>RunPlugin(plugin://script.module.xenon4k/?mode=2)</onclick>
+			<onback>Skin.SetBool(InitialSetUpRun)</onback>
 			<onback>RunPlugin(plugin://script.module.xenon4k/?mode=2)</onback>
         </control>
     </controls>

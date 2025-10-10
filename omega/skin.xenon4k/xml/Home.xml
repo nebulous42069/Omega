@@ -18,7 +18,6 @@
 		SetFocus(9000,$INFO[Skin.String(InitialMenuItem)])
 	</onload>
     <onload condition="!Skin.HasSetting(Use.Skinshortcuts) + String.IsEmpty(Window.Property(ReturnHome))">SetProperty(ReturnHome,True)</onload>
-    <onload condition="String.IsEmpty(Skin.String(SkinFanart.Name)) + String.IsEmpty(Skin.String(AlternativeBackgroundPath)) + !Skin.HasSetting(DontAskBackgroundFanart) + Window.Previous(startup.xml)">ActivateWindow(1194)</onload>
 	<onload>RunScript(script.skinvariables,action=buildviews)</onload>
     
 	<!-- Build menu/submenus/widgets if skinshortcuts enabled -->
@@ -53,6 +52,7 @@
             <include condition="!String.IsEmpty(Skin.String(HomeTrans))">HomeTransparentEffect</include>
             <animation effect="fade" start="100" end="65" time="0" condition="String.IsEmpty(Skin.String(HomeTrans)) + Skin.String(HomeFloor,Transparent)">Conditional</animation>
             <visible>!String.IsEmpty(Skin.String(HomeFloor))</visible>
+            <visible>!Skin.HasSetting(LowerMainMenuBar)</visible>
         </control>
         
 		<!-- Top left info -->

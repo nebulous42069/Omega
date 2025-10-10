@@ -3137,7 +3137,7 @@
         <definition>
             <control type="list" id="$PARAM[Control]">
                 <onclick condition="Skin.HasSetting(openinfoonwidgetclick) + [ String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.MediaType,movie) | String.IsEqual(ListItem.MediaType,tvshow) | String.IsEqual(ListItem.Property(tmdb_type),movie) | String.IsEqual(ListItem.Property(tmdb_type),tv) ]">Info</onclick>
-<animation effect="slide" start="0,0" end="720,0" time="0" condition="String.IsEqual(Container($PARAM[Control]).NumItems,1)">Conditional</animation>
+				<animation effect="slide" start="0,0" end="720,0" time="0" condition="String.IsEqual(Container($PARAM[Control]).NumItems,1)">Conditional</animation>
                 <animation effect="slide" start="0,0" end="540,0" time="0" condition="String.IsEqual(Container($PARAM[Control]).NumItems,2)">Conditional</animation>
                 <animation effect="slide" start="0,0" end="360,0" time="0" condition="String.IsEqual(Container($PARAM[Control]).NumItems,3)">Conditional</animation>
 				<animation effect="slide" start="0,0" end="180,0" time="0" condition="String.IsEqual(Container($PARAM[Control]).NumItems,4)">Conditional</animation>
@@ -3165,7 +3165,7 @@
                         <top>15</top>
                         <width>330</width>
                         <height>232</height>
-                        <aspectratio>scale</aspectratio>
+                        <aspectratio>keep</aspectratio>
                         <texture background="true">$VAR[EpisodeThumbImage]</texture>
                         <bordertexture border="5">button-nofocus.png</bordertexture>
                         <include>TextureBorderWidgets</include>
@@ -3181,15 +3181,6 @@
                         <bordertexture border="5">button-nofocus.png</bordertexture>
                         <include>TextureBorderWidgets</include>
 						<visible>String.IsEqual(ListItem.DBType,tvshow)</visible>
-                    </control>
-                    <control type="image">
-                        <left>22</left>
-                        <top>22</top>
-                        <width>315</width>
-                        <height>218</height>
-                        <aspectratio align="center" aligny="bottom">keep</aspectratio>
-                        <texture>$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
-                        <visible>!Skin.HasSetting(DisableLogoArt) + String.IsEqual(ListItem.DBType,episode)</visible>
                     </control>
                     <control type="label">
                         <left>30</left>
@@ -3267,7 +3258,7 @@
                             <top>15</top>
                             <width>330</width>
                             <height>232</height>
-                            <aspectratio>scale</aspectratio>
+                            <aspectratio>keep</aspectratio>
                             <texture background="true">$VAR[EpisodeThumbImage]</texture>
                             <bordertexture border="5" colordiffuse="$VAR[MainColorOne]">folder-focus.png</bordertexture>
                             <include>TextureBorderWidgets</include>
@@ -3278,7 +3269,7 @@
                             <top>15</top>
                             <width>330</width>
                             <height>232</height>
-                            <aspectratio>scale</aspectratio>
+                            <aspectratio>keep</aspectratio>
                             <texture background="true">$VAR[EpisodeThumbImage]</texture>
                             <bordertexture border="5">button-nofocus.png</bordertexture>
                             <include>TextureBorderWidgets</include>
@@ -3309,16 +3300,7 @@
                             <include>TextureBorderWidgets</include>
                             <visible>!Control.HasFocus($PARAM[Control])</visible>
                         </control>
-					</control>					
-                    <control type="image">
-                        <left>22</left>
-                        <top>22</top>
-                        <width>315</width>
-                        <height>218</height>
-                        <aspectratio align="center" aligny="bottom">keep</aspectratio>
-                        <texture>$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
-                        <visible>!Skin.HasSetting(DisableLogoArt) + String.IsEqual(ListItem.DBType,episode)</visible>
-                    </control>
+					</control>
                     <control type="label">
                         <left>30</left>
                         <top>252</top>
@@ -3426,7 +3408,7 @@
                         <top>15</top>
                         <width>330</width>
                         <height>232</height>
-                        <aspectratio>scale</aspectratio>
+                        <aspectratio>keep</aspectratio>
                         <texture background="true">$VAR[EpisodeThumbImage]</texture>
                         <bordertexture border="5">button-nofocus.png</bordertexture>
                         <include>TextureBorderWidgets</include>
@@ -3486,7 +3468,7 @@
 				        <control type="image">
                             <width>330</width>
                             <height>232</height>
-                            <aspectratio>scale</aspectratio>
+                            <aspectratio>keep</aspectratio>
                             <texture background="true">$VAR[EpisodeThumbImage]</texture>
                             <bordertexture border="5" colordiffuse="$VAR[MainColorOne]">folder-focus.png</bordertexture>
                             <include>TextureBorderWidgets</include>
@@ -3495,7 +3477,7 @@
                         <control type="image">
                             <width>330</width>
                             <height>232</height>
-                            <aspectratio>scale</aspectratio>
+                            <aspectratio>keep</aspectratio>
                             <texture background="true">$VAR[EpisodeThumbImage]</texture>
                             <bordertexture border="5">button-nofocus.png</bordertexture>
                             <include>TextureBorderWidgets</include>
@@ -3601,7 +3583,7 @@
             </control>
             <control type="list" id="$PARAM[Control]">
                 <onclick condition="Skin.HasSetting(openinfoonwidgetclick) + [ String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.MediaType,movie) | String.IsEqual(ListItem.MediaType,tvshow) | String.IsEqual(ListItem.Property(tmdb_type),movie) | String.IsEqual(ListItem.Property(tmdb_type),tv) ]">Info</onclick>
-<animation effect="slide" start="0,0" end="675,0" time="0" condition="String.IsEqual(Container($PARAM[Control]).NumItems,1)">Conditional</animation>
+				<animation effect="slide" start="0,0" end="675,0" time="0" condition="String.IsEqual(Container($PARAM[Control]).NumItems,1)">Conditional</animation>
                 <animation effect="slide" start="0,0" end="450,0" time="0" condition="String.IsEqual(Container($PARAM[Control]).NumItems,2)">Conditional</animation>
                 <animation effect="slide" start="0,0" end="225,0" time="0" condition="String.IsEqual(Container($PARAM[Control]).NumItems,3)">Conditional</animation>
                 <left>60</left>
@@ -3620,7 +3602,7 @@
                         <top>15</top>
                         <width>420</width>
                         <height>322</height>
-                        <aspectratio>scale</aspectratio>
+                        <aspectratio>keep</aspectratio>
                         <texture background="true">$VAR[EpisodeThumbImage]</texture>
                         <bordertexture border="5">button-nofocus.png</bordertexture>
                         <include>TextureBorderWidgets</include>
@@ -3636,15 +3618,6 @@
                         <bordertexture border="5">button-nofocus.png</bordertexture>
                         <include>TextureBorderWidgets</include>
                         <visible>String.IsEqual(ListItem.DBType,tvshow)</visible>
-                    </control>
-                    <control type="image">
-                        <left>22</left>
-                        <top>22</top>
-                        <width>405</width>
-                        <height>308</height>
-                        <aspectratio align="center" aligny="bottom">keep</aspectratio>
-                        <texture>$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
-                        <visible>!Skin.HasSetting(DisableLogoArt) + String.IsEqual(ListItem.DBType,episode)</visible>
                     </control>
                     <control type="label">
                         <left>15</left>
@@ -3712,7 +3685,7 @@
                         <top>15</top>
                         <width>420</width>
                         <height>322</height>
-                        <aspectratio>scale</aspectratio>
+                        <aspectratio>keep</aspectratio>
                         <texture background="true">$VAR[EpisodeThumbImage]</texture>
                         <bordertexture border="5" colordiffuse="$VAR[MainColorOne]">folder-focus.png</bordertexture>
                         <include>TextureBorderWidgets</include>
@@ -3736,7 +3709,7 @@
                         <top>15</top>
                         <width>420</width>
                         <height>322</height>
-                        <aspectratio>scale</aspectratio>
+                        <aspectratio>keep</aspectratio>
                         <texture>$VAR[EpisodeThumbImage]</texture>
                         <bordertexture border="5">button-nofocus.png</bordertexture>
                         <include>TextureBorderWidgets</include>
@@ -3754,15 +3727,6 @@
                         <include>TextureBorderWidgets</include>
                         <visible>!Control.HasFocus($PARAM[Control])</visible>
                         <visible>String.IsEqual(ListItem.DBType,tvshow)</visible>
-                    </control>
-                    <control type="image">
-                        <left>22</left>
-                        <top>22</top>
-                        <width>405</width>
-                        <height>308</height>
-                        <aspectratio align="center" aligny="bottom">keep</aspectratio>
-                        <texture>$INFO[ListItem.Art(tvshow.clearlogo)]</texture>
-                        <visible>!Skin.HasSetting(DisableLogoArt) + String.IsEqual(ListItem.DBType,episode)</visible>
                     </control>
                     <control type="label">
                         <left>15</left>
