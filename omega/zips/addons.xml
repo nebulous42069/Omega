@@ -3427,7 +3427,7 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
 			<fanart>resources/fanart.jpg</fanart>
 		</assets>
 	</extension>
-</addon><addon id="skin.xenon4k" name="[B][COLOR gold]Xenon 4K[/COLOR][/B]  (Mid Power)" provider-name="Helly,bsoriano, Diggz" version="2.1">
+</addon><addon id="skin.xenon4k" name="[B][COLOR gold]Xenon 4K[/COLOR][/B]  (Mid Power)" provider-name="Helly,bsoriano, Diggz" version="2.2">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0" />
 		<import addon="script.skinshortcuts" version="2.0.1" />

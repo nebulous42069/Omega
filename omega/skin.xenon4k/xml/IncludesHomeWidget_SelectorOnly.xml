@@ -156,7 +156,13 @@
               <onclick>SetProperty(WidgetSet,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget)],Home)</onclick>
               <visible>!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget10.Widget))</visible>
             </item>
-          </content>
+          
+<item>
+  <label>Configure Widgets</label>
+  <onclick>SetProperty(UsrSelectBtn,HomeItem.$PARAM[idx],Home)</onclick>
+  <onclick>ActivateWindow(2140)</onclick>
+</item>
+</content>
         </control>
       </control>
       <control type="group">
@@ -271,7 +277,13 @@
               <onclick>SetProperty(WidgetSet,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget)],Home)</onclick>
               <visible>!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget10.Widget))</visible>
             </item>
-          </content>
+          
+<item>
+  <label>Configure Widgets</label>
+  <onclick>SetProperty(UsrSelectBtn,HomeItem.$PARAM[idx],Home)</onclick>
+  <onclick>ActivateWindow(2140)</onclick>
+</item>
+</content>
         </control>
       </control>
     </definition>
