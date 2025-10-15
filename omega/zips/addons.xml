@@ -1672,7 +1672,7 @@ Random updates by lolage.
 		</assets>
 		<news>- fixed broken scrapers and added new ones</news>
 	</extension>
-</addon><addon id="script.diggzskins" name="Diggz Skin Switcher" version="500.0.7" provider-name="Diggz">
+</addon><addon id="script.diggzskins" name="Diggz Skin Switcher" version="500.0.8" provider-name="Diggz">
   <requires>
     <import addon="xbmc.python" version="3.0.1" />
   </requires>
