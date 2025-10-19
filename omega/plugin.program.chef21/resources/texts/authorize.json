@@ -1,83 +1,445 @@
 {
-    "Step 1- Install The Supported Addons You Use Here": {
-        "icon": "https://kodiapps.com/sharex/dllhost_2020-02-05_12-07-32.jpg",
-        "items": [
-            {
-                "name": "Install FEN Light (DEBRID ONLY)",
-                "url": "installaddon(plugin.video.fenlight)"
-            },			
-            {
-                "name": "Install Seren (DEBRID ONLY)",
-                "url": "installaddon(plugin.video.seren)"
-            },
-            {
-                "name": "Install Umbrella (DEBRID ONLY)",
-                "url": "installaddon(plugin.video.umbrella)"
-            },
-            {
-                "name": "Install POV (DEBRID ONLY)",
-                "url": "installaddon(plugin.video.pov)"
-            },
-            {
-                "name": "Install Dradis (DEBRID ONLY)",
-                "url": "installaddon(plugin.video.dradis)"
-            },
-            {
-                "name": "Install Elementum (Free Torrents- VPN Required!!)",
-                "url": "installaddon(plugin.video.elementum)"
-            }			
-        ]
-    },
-    "Step 2- Authorize Debrid And Trakt": {
+    "Install And Authorize Addons": {
         "icon": "https://techwiser.com/wp-content/uploads/2020/09/trakt-logo.png",
         "items": [
-			{
+            {
                 "name": "<><> [COLOR blue][B]Authorize The Addons You Use Here..[/B][/COLOR] <><>",
                 "url": ""
             },
             {
-                "name": "Authorize TMDBH Trakt -Not Saved-Please Re-Authorize",
-                "url": "RunScript(plugin.video.themoviedb.helper,authenticate_trakt)"
+                "name": "The Movie Database Helper (TMDBH)",
+                "items": [
+                    {
+                        "name": "Authorize TMDBH Trakt",
+                        "url": "RunScript(plugin.video.themoviedb.helper,authenticate_trakt)"
+                    },
+                    {
+                        "name": "Revoke TMDBH Trakt",
+                        "url": "RunScript(plugin.video.themoviedb.helper,revoke_trakt)"
+                    },
+                    {
+                        "name": "Clear Trakt Data",
+                        "url": "RunScript(plugin.video.themoviedb.helper, invalidate_trakt_sync)"
+                    },
+                    {
+                        "name": "Open TMDBH Settings",
+                        "url": "addon.opensettings(plugin.video.themoviedb.helper)"
+                    }
+                ]
             },
             {
-                "name": "Authorize FEN Light Debrid And Trakt -Saved",
-                "url": "Addon.OpenSettings(plugin.video.fenlight)"
+                "name": "Fen Light AM",
+                "items": [
+                    {
+                        "name": "[B]Authorize[/B]",
+                        "items": [
+                            {
+                                "name": "Authorize Fen Light Trakt",
+                                "url": "RunPlugin(plugin://plugin.video.fenlight/?mode=trakt.trakt_authenticate)"
+                            },
+                            {
+                                "name": "Authorize Real Debrid",
+                                "url": "RunPlugin(plugin://plugin.video.fenlight/?mode=real_debrid.authenticate)"
+                            },
+                            {
+                                "name": "Authorize Premiumize",
+                                "url": "RunPlugin(plugin://plugin.video.fenlight/?mode=premiumize.authenticate)"
+                            },
+                            {
+                                "name": "Authorize AllDebrid",
+                                "url": "RunPlugin(plugin://plugin.video.fenlight/?mode=alldebrid.authenticate)"
+                            },
+                            {
+                                "name": "Authorize Offcloud",
+                                "url": "RunPlugin(plugin://plugin.video.fenlight/?mode=offcloud.authenticate)"
+                            },
+                            {
+                                "name": "Authorize TorBox",
+                                "url": "RunPlugin(plugin://plugin.video.fenlight/?mode=torbox.authenticate)"
+                            },
+                            {
+                                "name": "Authorize EasyDebrid",
+                                "url": "RunPlugin(plugin://plugin.video.fenlight/?mode=easydebrid.authenticate)"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "[B]Revoke[/B]",
+                        "items": [
+                            {
+                                "name": "Revoke Fen Light Trakt",
+                                "url": "RunPlugin(plugin://plugin.video.fenlight/?mode=trakt.trakt_revoke_authentication)"
+                            },
+                            {
+                                "name": "Revoke Real Debrid",
+                                "url": "RunPlugin(plugin://plugin.video.fenlight/?mode=real_debrid.revoke_authentication)"
+                            },
+                            {
+                                "name": "Revoke Premiumize",
+                                "url": "RunPlugin(plugin://plugin.video.fenlight/?mode=premiumize.revoke_authentication)"
+                            },
+                            {
+                                "name": "Revoke AllDebrid",
+                                "url": "RunPlugin(plugin://plugin.video.fenlight/?mode=alldebrid.revoke_authentication)"
+                            },
+                            {
+                                "name": "Revoke Offcloud",
+                                "url": "RunPlugin(plugin://plugin.video.fenlight/?mode=offcloud.revoke_authentication)"
+                            },
+                            {
+                                "name": "Revoke TorBox",
+                                "url": "RunPlugin(plugin://plugin.video.fenlight/?mode=torbox.revoke_authentication)"
+                            },
+                            {
+                                "name": "Revoke EasyDebrid",
+                                "url": "RunPlugin(plugin://plugin.video.fenlight/?mode=easydebrid.revoke_authentication)"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Open Fen Light Settings",
+                        "url": "RunPlugin(plugin://plugin.video.fenlight/?mode=open_settings)"
+                    }
+                ]
             },
             {
-                "name": "Authorize Umbrella Debrid And Trakt -Saved",
-                "url": "Addon.OpenSettings(plugin.video.umbrella)"
+                "name": "Seren",
+                "items": [
+                    {
+                        "name": "[B]Authorize[/B]",
+                        "items": [
+                            {
+                                "name": "Authorize Seren Trakt",
+                                "url": "RunPlugin(plugin://plugin.video.seren/?action=authTrakt)"
+                            },
+                            {
+                                "name": "Authorize Real Debrid",
+                                "url": "RunPlugin(plugin://plugin.program.chef21/?mode=125&provider=realdebrid)"
+                            },
+                            {
+                                "name": "Authorize Premiumize",
+                                "url": "RunPlugin(plugin://plugin.program.chef21/?mode=125&provider=premiumize)"
+                            },
+                            {
+                                "name": "Authorize All Debrid",
+                                "url": "RunPlugin(plugin://plugin.program.chef21/?mode=125&provider=alldebrid)"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "[B]Revoke[/B]",
+                        "items": [
+                            {
+                                "name": "Revoke Seren Trakt",
+                                "url": "RunPlugin(plugin://plugin.video.seren/?action=revokeTrakt)"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Open Seren Settings",
+                        "url": "Addon.OpenSettings(plugin.video.seren)"
+                    }
+                ]
             },
             {
-                "name": "Authorize POV Debrid And Trakt -Saved",
-                "url": "Addon.OpenSettings(plugin.video.pov)"
+                "name": "Umbrella",
+                "items": [
+                    {
+                        "name": "[B]Authorize[/B]",
+                        "items": [
+                            {
+                                "name": "Authorize Umbrella Trakt",
+                                "url": "RunPlugin(plugin://plugin.video.umbrella/?action=traktAuth)"
+                            },
+                            {
+                                "name": "Authorize Real Debrid",
+                                "url": "RunPlugin(plugin://plugin.video.umbrella/?action=rd_Authorize)"
+                            },
+                            {
+                                "name": "Authorize Premiumize",
+                                "url": "RunPlugin(plugin://plugin.video.umbrella/?action=pm_Authorize)"
+                            },
+                            {
+                                "name": "Authorize All Debrid",
+                                "url": "RunPlugin(plugin://plugin.video.umbrella/?action=ad_Authorize)"
+                            },
+                            {
+                                "name": "Authorize OffCloud",
+                                "url": "RunPlugin(plugin://plugin.video.umbrella/?action=oc_Authorize&query=9.0)"
+                            },
+                            {
+                                "name": "Authorize TorBox",
+                                "url": "RunPlugin(plugin://plugin.video.umbrella/?action=tb_Authorize)"
+                            },
+                            {
+                                "name": "Authorize EasyDebrid",
+                                "url": "RunPlugin(plugin://plugin.video.umbrella/?action=ed_Authorize&query=9.0)"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "[B]Revoke[/B]",
+                        "items": [
+                            {
+                                "name": "Revoke Umbrella Trakt",
+                                "url": "RunPlugin(plugin://plugin.video.umbrella/?action=traktRevoke)"
+                            },
+                            {
+                                "name": "Revoke Real Debrid",
+                                "url": "RunPlugin(plugin://plugin.video.umbrella/?action=rd_Revoke)"
+                            },
+                            {
+                                "name": "Revoke Premiumize",
+                                "url": "RunPlugin(plugin://plugin.video.umbrella/?action=pm_Revoke)"
+                            },
+                            {
+                                "name": "Revoke All Debrid",
+                                "url": "RunPlugin(plugin://plugin.video.umbrella/?action=ad_Revoke)"
+                            },
+                            {
+                                "name": "Revoke OffCloud",
+                                "url": "RunPlugin(plugin://plugin.video.umbrella/?action=oc_Deauthorize&query=9.0)"
+                            },
+                            {
+                                "name": "Revoke TorBox",
+                                "url": "RunPlugin(plugin://plugin.video.umbrella/?action=tb_Revoke)"
+                            },
+                            {
+                                "name": "Revoke EasyDebrid",
+                                "url": "RunPlugin(plugin://plugin.video.umbrella/?action=ed_Deauthorize&query=9.0)"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Open Umbrella Settings",
+                        "url": "Addon.OpenSettings(plugin.video.umbrella)"
+                    }
+                ]
             },
             {
-                "name": "Authorize Dradis Debrid And Trakt -Saved",
-                "url": "Addon.OpenSettings(plugin.video.dradis)"
+                "name": "POV",
+                "items": [
+                    {
+                        "name": "[B]Authorize[/B]",
+                        "items": [
+                            {
+                                "name": "Authorize Trakt",
+                                "url": "RunPlugin(plugin://plugin.video.pov/?mode=myservices&action=trakt)"
+                            },
+                            {
+                                "name": "Authorize Real Debrid",
+                                "url": "RunPlugin(plugin://plugin.video.pov/?mode=myservices&action=realdebrid)"
+                            },
+                            {
+                                "name": "Authorize Debrider",
+                                "url": "RunPlugin(plugin://plugin.video.pov/?mode=myservices&action=debrider)"
+                            },
+                            {
+                                "name": "Authorize Premiumize",
+                                "url": "RunPlugin(plugin://plugin.video.pov/?mode=myservices&action=premiumize)"
+                            },
+                            {
+                                "name": "Authorize AllDebrid",
+                                "url": "RunPlugin(plugin://plugin.video.pov/?mode=myservices&action=alldebrid)"
+                            },
+                            {
+                                "name": "Authorize Offcloud",
+                                "url": "RunPlugin(plugin://plugin.video.pov/?mode=myservices&action=offcloud)"
+                            },
+                            {
+                                "name": "Authorize TorBox",
+                                "url": "RunPlugin(plugin://plugin.video.pov/?mode=myservices&action=torbox)"
+                            },
+                            {
+                                "name": "Authorize EasyDebrid",
+                                "url": "RunPlugin(plugin://plugin.video.pov/?mode=myservices&action=easydebrid)"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "[B]Revoke[/B]",
+                        "items": [
+                            {
+                                "name": "Remove Trakt Authorization",
+                                "url": "RunPlugin(plugin://plugin.video.pov/?mode=myservices&action=trakt)"
+                            },
+                            {
+                                "name": "Remove Real Debrid",
+                                "url": "RunPlugin(plugin://plugin.video.pov/?mode=myservices&action=realdebrid)"
+                            },
+                            {
+                                "name": "Remove Premiumize Authorization",
+                                "url": "RunPlugin(plugin://plugin.video.pov/?mode=myservices&action=premiumize)"
+                            },
+                            {
+                                "name": "Remove AllDebrid Authorization",
+                                "url": "RunPlugin(plugin://plugin.video.pov/?mode=myservices&action=alldebrid)"
+                            },
+                            {
+                                "name": "Remove Debrider Authorization",
+                                "url": "RunPlugin(plugin://plugin.video.pov/?mode=myservices&action=debrider)"
+                            },
+                            {
+                                "name": "Remove Offcloud Authorization",
+                                "url": "RunPlugin(plugin://plugin.video.pov/?mode=myservices&action=offcloud)"
+                            },
+                            {
+                                "name": "Remove TorBox Authorization",
+                                "url": "RunPlugin(plugin://plugin.video.pov/?mode=myservices&action=torbox)"
+                            },
+                            {
+                                "name": "Remove EasyDebrid Authorization",
+                                "url": "RunPlugin(plugin://plugin.video.pov/?mode=myservices&action=easydebrid)"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Open POV Settings",
+                        "url": "Addon.OpenSettings(plugin.video.pov)"
+                    }
+                ]
             },
             {
-                "name": "Authorize Seren Debrid And Trakt -Saved",
-                "url": "Addon.OpenSettings(plugin.video.seren)"
+                "name": "Dradis",
+                "items": [
+                    {
+                        "name": "[B]Authorize[/B]",
+                        "items": [
+                            {
+                                "name": "Authorize Dradis Trakt",
+                                "url": "RunPlugin(plugin://plugin.video.dradis/?action=authorize&query=trakt)"
+                            },
+                            {
+                                "name": "Authorize Real Debrid",
+                                "url": "RunPlugin(plugin://plugin.video.dradis/?action=authorize&query=realdebrid)"
+                            },
+                            {
+                                "name": "Authorize Premiumize",
+                                "url": "RunPlugin(plugin://plugin.video.dradis/?action=authorize&query=premiumize)"
+                            },
+                            {
+                                "name": "Authorize Easy Debrid",
+                                "url": "RunPlugin(plugin://plugin.video.dradis/?action=authorize&query=easydebrid)"
+                            },
+                            {
+                                "name": "Authorize AllDebrid",
+                                "url": "RunPlugin(plugin://plugin.video.dradis/?action=authorize&query=alldebrid)"
+                            },
+                            {
+                                "name": "Authorize Offcloud",
+                                "url": "RunPlugin(plugin://plugin.video.dradis/?action=authorize&query=offcloud)"
+                            },
+                            {
+                                "name": "Authorize TorBox",
+                                "url": "RunPlugin(plugin://plugin.video.dradis/?action=authorize&query=torbox)"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "[B]Revoke[/B]",
+                        "items": [
+                            {
+                                "name": "Revoke Dradis Trakt",
+                                "url": "RunPlugin(plugin://plugin.video.dradis/?action=authorize&query=trakt)"
+                            },
+                            {
+                                "name": "Revoke Real Debrid",
+                                "url": "RunPlugin(plugin://plugin.video.dradis/?action=authorize&query=realdebrid)"
+                            },
+                            {
+                                "name": "Revoke Premiumize",
+                                "url": "RunPlugin(plugin://plugin.video.dradis/?action=authorize&query=premiumize)"
+                            },
+                            {
+                                "name": "Revoke Easy Debrid",
+                                "url": "RunPlugin(plugin://plugin.video.dradis/?action=authorize&query=easydebrid)"
+                            },
+                            {
+                                "name": "Revoke AllDebrid",
+                                "url": "RunPlugin(plugin://plugin.video.dradis/?action=authorize&query=alldebrid)"
+                            },
+                            {
+                                "name": "Revoke Offcloud",
+                                "url": "RunPlugin(plugin://plugin.video.dradis/?action=authorize&query=offcloud)"
+                            },
+                            {
+                                "name": "Revoke TorBox",
+                                "url": "RunPlugin(plugin://plugin.video.dradis/?action=authorize&query=torbox)"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Open Dradis Settings",
+                        "url": "Addon.OpenSettings(plugin.video.dradis)"
+                    }
+                ]
             },
             {
-                "name": "Authorize ResolveUrl Debrid -Saved",
-                "url": "Addon.OpenSettings(script.module.resolveurl)"
-            },
-            {
-                "name": "Authorize The Crew Trakt -Saved",
-                "url": "RunPlugin(plugin://plugin.video.thecrew/?action=authTrakt)"
-            },
-            {
-                "name": "Authorize Homelander Trakt -Saved",
-                "url": "RunPlugin(plugin://plugin.video.homelander/?action=authTrakt)"
-            },
-            {
-                "name": "Authorize Scrubs Trakt -Not Saved",
-                "url": "RunPlugin(plugin://plugin.video.scrubsv2/?action=auth_trakt)"
-            },
-			{
-                "name": "Authorize Kodi Library Trakt Addon -Not Saved",
-                "url": "RunScript(script.trakt,action=auth_info)"
+                "name": "ResolveURL for Crew, Homelander, And Others",
+                "items": [
+                    {
+                        "name": "[B]Authorize[/B]",
+                        "items": [
+                            {
+                                "name": "Authorize Real Debrid",
+                                "url": "RunPlugin(plugin://script.module.resolveurl/?mode=auth_rd)"
+                            },
+                            {
+                                "name": "Authorize Premiumize",
+                                "url": "RunPlugin(plugin://script.module.resolveurl/?mode=auth_pm)"
+                            },
+                            {
+                                "name": "Authorize All Debrid",
+                                "url": "RunPlugin(plugin://script.module.resolveurl/?mode=auth_ad)"
+                            },
+                            {
+                                "name": "Authorize Debrid Link",
+                                "url": "RunPlugin(plugin://script.module.resolveurl/?mode=auth_dl)"
+                            },
+                            {
+                                "name": "Authorize Link Snappy",
+                                "url": "RunPlugin(plugin://script.module.resolveurl/?mode=auth_ls)"
+                            },
+                            {
+                                "name": "Authorize CocoLeach",
+                                "url": "RunPlugin(plugin://script.module.resolveurl/?mode=auth_cl)"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "[B]Revoke[/B]",
+                        "items": [
+                            {
+                                "name": "Revoke Real Debrid",
+                                "url": "RunPlugin(plugin://script.module.resolveurl/?mode=reset_rd)"
+                            },
+                            {
+                                "name": "Revoke Premiumize",
+                                "url": "RunPlugin(plugin://script.module.resolveurl/?mode=reset_pm)"
+                            },
+                            {
+                                "name": "Revoke All Debrid",
+                                "url": "RunPlugin(plugin://script.module.resolveurl/?mode=reset_ad)"
+                            },
+                            {
+                                "name": "Revoke Debrid Link",
+                                "url": "RunPlugin(plugin://script.module.resolveurl/?mode=reset_dl)"
+                            },
+                            {
+                                "name": "Revoke Link Snappy",
+                                "url": "RunPlugin(plugin://script.module.resolveurl/?mode=reset_ls)"
+                            },
+                            {
+                                "name": "Revoke CocoLeach",
+                                "url": "RunPlugin(plugin://script.module.resolveurl/?mode=reset_cl)"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Open ResolveURL Settings",
+                        "url": "Addon.OpenSettings(script.module.resolveurl)"
+                    }
+                ]
             }
         ]
     }
