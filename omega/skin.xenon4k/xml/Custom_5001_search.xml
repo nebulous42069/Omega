@@ -167,22 +167,12 @@
 					<label>Search POV</label>
 					<onclick>Dialog.Close(5001)</onclick>					
 					<onclick>ActivateWindow(10025,"plugin://plugin.video.pov/?iconImage=search.png&amp;mode=navigator.search&amp;name=32450",return)</onclick>
-				</item>								
-				<item>
-					<label>Search The Coalition</label>
-					<onclick>Dialog.Close(5001)</onclick>					
-					<onclick>ActivateWindow(10025,"plugin://plugin.video.coalition/?iconImage=search.png&amp;mode=navigator.search&amp;name=32450",return)</onclick>
 				</item>
 				<item>
 					<label>Search The Crew </label>
 					<onclick>Dialog.Close(5001)</onclick>					
 					<onclick>ActivateWindow(10025,"plugin://plugin.video.thecrew/?action=searchNavigator",return)</onclick>
 				</item>
-				<item>
-					<label>Search Asgard</label>
-					<onclick>Dialog.Close(5001)</onclick>					
-					<onclick>ActivateWindow(10025,"plugin://plugin.video.asgard/?all_w=%7b%7d&amp;data=%20&amp;dates=%20&amp;description=Search&amp;eng_name=%20&amp;episode=%20&amp;fanart=https%3a%2f%2fmylostsoulspace.co.uk%2fimages%2fasg%2ffanart.jpg&amp;fav_status=false&amp;heb_name=%20&amp;iconimage=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.video.asgard%5cresources%5cartwork%2fbasic.png&amp;id=%20&amp;image_master&amp;isr=0&amp;last_id&amp;mode=5&amp;mypass&amp;name=%5bCOLOR%20goldenrod%5dAsgard%20General%20Search%5b%2fCOLOR%5d&amp;original_title=%20&amp;search_db&amp;season=%20&amp;show_original_year=%20&amp;tmdbid=%20&amp;url=www&amp;video_data=%7b%22title%22%3a%20%22%5bCOLOR%20goldenrod%5dAsgard%20General%20Search%5b%2fCOLOR%5d%22%2c%20%22mediatype%22%3a%20%22movie%22%2c%20%22TVshowtitle%22%3a%20%22%22%2c%20%22season%22%3a%200%2c%20%22episode%22%3a%200%2c%20%22OriginalTitle%22%3a%20%22%20%22%2c%20%22rating%22%3a%20%220%22%2c%20%22plot%22%3a%20%22Search%22%2c%20%22Tag%22%3a%20%22None%22%2c%20%22id%22%3a%20%22%20%22%7d",return)</onclick>
-				</item>				
 				<item>
 					<label>Search For Addons</label>
 					<onclick>Dialog.Close(5001)</onclick>					

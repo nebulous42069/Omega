@@ -249,13 +249,11 @@
 		<value>$INFO[Container.ListItem.Art(thumb)]</value>
 	</variable>
 	<variable name="HomeWidgetFanArtVar">
-        <value condition="String.IsEqual(ListItem.DBType,episode) + !String.IsEmpty(ListItem.Art(thumb))">$INFO[ListItem.Art(thumb)]</value>
-		<value condition="String.IsEqual(ListItem.DBType,episode) + !String.IsEmpty(ListItem.Art(tvshow.fanart))">$INFO[ListItem.Art(tvshow.fanart)]</value>
-		<value condition="String.IsEqual(ListItem.DBType,episode) + !String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.Art(fanart)]</value>
-		<value condition="!String.IsEmpty(ListItem.Art(landscape))">$INFO[ListItem.Art(landscape)]</value>
-		<value condition="String.IsEmpty(ListItem.Art(landscape)) + !String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.Art(fanart)]</value>
-		<value condition="!String.IsEmpty(ListItem.Thumb)">$INFO[ListItem.Thumb]</value>
-        <value>$INFO[ListItem.Icon]</value>
+		<value condition="!String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.Art(fanart)]</value>
+		<value condition="!String.IsEmpty(ListItem.Property(Fanart)) + !Skin.HasSetting(weatherfanart.multi)">$INFO[ListItem.Property(Fanart)]</value>
+		<value condition="!String.IsEmpty(ListItem.Property(WeatherMultiFanart)) + Skin.HasSetting(weatherfanart.multi)">$INFO[ListItem.Property(WeatherMultiFanart)]</value>
+		<value condition="!String.IsEmpty(ListItem.Property(Fanart))">$INFO[ListItem.Property(Fanart)]</value>
+		<value>$INFO[ListItem.Art(thumb)]</value>
 	</variable>
 	<variable name="HomeWidgetLandscapeVar">
 		<value condition="!String.IsEmpty(ListItem.Art(landscape))">$INFO[ListItem.Art(landscape)]</value>
