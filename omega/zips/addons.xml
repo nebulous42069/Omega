@@ -1,5 +1,41 @@
 <?xml version='1.0' encoding='utf-8'?>
-<addons><addon id="context.trailer.play" name="Context Trailer Play" provider-name="[COLORpurple]• [COLORorchid]Tech [COLORdarkorchid]E [COLORplum]Coyote [COLORpurple]•[/COLOR]" version="22.5.8">
+<addons><addon id="Insert-Swap-Kodi-Favourites" name="Insert/Swap Kodi Favourites" version="1.2" provider-name="M-Borsch,MB-K@DI">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0" />
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+    <provides>executable</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <news>
+      [COLOR lavender][B]Insert/Swap Kodi Favourites[/B][/COLOR]
+      [B]1.2:[/B]
+      - Add ability to change the Thumbnail size settings.
+      [B]1.1:[/B]
+      - Add ability to change the label Font size settings.     
+      [B]1.0:[/B]
+      - Initial release with configuration option to set to swap or insert.
+    </news>
+    <summary>
+Reorder your Favourites made easy!
+    </summary>
+    <description lang="en">
+Lets you reorder the entries in your [B]Favourites[/B] by either "swapping" or "inserting".
+
+Select "A" then "B" 
+   Swap: "A" will be placed where "B" is and vice versa.
+  Insert: "A" will be placed in front/after "B" in the list.
+
+Set this option in the configuration screen.
+
+Use this to quickly and easily organize your Favourites.
+    </description>
+    <platform>all</platform>
+    <assets>
+        <icon>icon.png</icon>
+    </assets>
+  </extension>
+</addon><addon id="context.trailer.play" name="Context Trailer Play" provider-name="[COLORpurple]• [COLORorchid]Tech [COLORdarkorchid]E [COLORplum]Coyote [COLORpurple]•[/COLOR]" version="22.5.8">
     <requires>
         <import addon="script.module.requests" version="2.19.1" />
         <import addon="plugin.video.youtube" version="6.2.0" />
