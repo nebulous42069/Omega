@@ -153,27 +153,27 @@
                             },
                             {
                                 "name": "Authorize Real Debrid",
-                                "url": "RunPlugin(plugin://plugin.video.umbrella/?action=rd_Authorize)"
+                                "url": "RunPlugin(plugin://plugin.program.chef21/?mode=126&provider=realdebrid)"
                             },
                             {
                                 "name": "Authorize Premiumize",
-                                "url": "RunPlugin(plugin://plugin.video.umbrella/?action=pm_Authorize)"
+                                "url": "RunPlugin(plugin://plugin.program.chef21/?mode=126&provider=premiumize)"
                             },
                             {
                                 "name": "Authorize All Debrid",
-                                "url": "RunPlugin(plugin://plugin.video.umbrella/?action=ad_Authorize)"
+                                "url": "RunPlugin(plugin://plugin.program.chef21/?mode=126&provider=alldebrid))"
                             },
                             {
                                 "name": "Authorize OffCloud",
-                                "url": "RunPlugin(plugin://plugin.video.umbrella/?action=oc_Authorize&query=9.0)"
+                                "url": "RunPlugin(plugin://plugin.program.chef21/?mode=126&provider=offcloud)"
                             },
                             {
                                 "name": "Authorize TorBox",
-                                "url": "RunPlugin(plugin://plugin.video.umbrella/?action=tb_Authorize)"
+                                "url": "RunPlugin(plugin://plugin.program.chef21/?mode=126&provider=torbox)"
                             },
                             {
                                 "name": "Authorize EasyDebrid",
-                                "url": "RunPlugin(plugin://plugin.video.umbrella/?action=ed_Authorize&query=9.0)"
+                                "url": "RunPlugin(plugin://plugin.program.chef21/?mode=126&provider=easydebrid)"
                             }
                         ]
                     },

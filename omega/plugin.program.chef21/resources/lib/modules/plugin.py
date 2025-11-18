@@ -164,6 +164,11 @@ def router(paramstring):
         from .seren_tools import enable_and_auth
         provider = p.get_params().get('provider')  # Params already parsed at top
         enable_and_auth(provider)
+        
+    elif mode == 126:
+        from .umbrella_tools import enable_and_auth
+        provider = p.get_params().get('provider')  # Params already parsed at top
+        enable_and_auth(provider)
 
 
         
