@@ -59,7 +59,8 @@ class EasyDebridAPI:
 				if not torrent_files: return None
 			else:
 				if self._m2ts_check(torrent_files): return None
-				torrent_files = [i for i in torrent_files if not any(x in i['filename'] for x in extras())]
+				extras_filter = extras()
+				torrent_files = [i for i in torrent_files if not any(x in i['filename'] for x in extras_filter)]
 				torrent_files.sort(key=lambda k: k['size'], reverse=True)
 			file_url = torrent_files[0]['url']
 			return self.add_headers_to_url(file_url)
@@ -69,8 +70,9 @@ class EasyDebridAPI:
 		try:
 			extensions = supported_video_extensions()
 			torrent = self.add_magnet(magnet_url)
+			files = torrent['files']
 			torrent_files = [{'link': item['url'], 'filename': item['filename'], 'size': item['size']} \
-							for item in torrent['files'] if item['filename'].lower().endswith(tuple(extensions))]
+							for item in files if item['filename'].lower().endswith(tuple(extensions))]
 			return torrent_files or None
 		except: return None
 

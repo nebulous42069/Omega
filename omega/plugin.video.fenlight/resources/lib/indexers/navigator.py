@@ -1,13 +1,8 @@
 # -*- coding: utf-8 -*-
 import sys
-import json
-from urllib.parse import unquote
-from caches.main_cache import main_cache
 from caches.navigator_cache import navigator_cache as nc
 from caches.settings_cache import get_setting, set_setting
-from modules.utils import make_thread_list_enumerate
-from modules import meta_lists as ml, kodi_utils as k, settings as s
-from modules.watched_status import get_recently_watched
+from modules import kodi_utils as k, settings as s
 # logger = k.logger
 
 class Navigator:
@@ -16,7 +11,7 @@ class Navigator:
 		self.params_get = self.params.get
 		self.category_name = self.params_get('name', 'Fen Light')
 		self.list_name = self.params_get('action', 'RootList')
-		self.is_home = k.home()
+		self.is_external = k.external()
 		self.make_listitem = k.make_listitem
 		self.build_url = k.build_url
 		self.add_item = k.add_item
@@ -28,6 +23,7 @@ class Navigator:
 		def _process():
 			for count, item in enumerate(browse_list):
 				try:
+					url = self.build_url(item)
 					cm_items = [
 					('[B]Move[/B]', self.run_plugin % self.build_url({'mode': 'menu_editor.move', 'active_list': self.list_name, 'position': count})),
 					('[B]Remove[/B]', self.run_plugin % self.build_url({'mode': 'menu_editor.remove', 'active_list': self.list_name, 'position': count})),
@@ -35,23 +31,24 @@ class Navigator:
 					('[B]Restore Menu[/B]', self.run_plugin % self.build_url({'mode': 'menu_editor.restore', 'active_list': self.list_name, 'position': count})),
 					('[B]Check for New Menu Items[/B]', self.run_plugin % self.build_url({'mode': 'menu_editor.update', 'active_list': self.list_name, 'position': count})),
 					('[B]Reload Menu[/B]', self.run_plugin % self.build_url({'mode': 'menu_editor.reload', 'active_list': self.list_name, 'position': count})),
-					('[B]Browse Removed items[/B]', self.run_plugin % self.build_url({'mode': 'menu_editor.browse', 'active_list': self.list_name, 'position': count}))]
+					('[B]Browse Removed items[/B]', self.run_plugin % self.build_url({'mode': 'menu_editor.browse', 'active_list': self.list_name, 'position': count})),
+					('[B]Add to Shortcut Folder[/B]', self.run_plugin % self.build_url({'mode': 'menu_editor.shortcut_folder_add_known', 'url': url}))]
 					icon = item.get('iconImage', '')
 					if not icon.startswith('http'):
 						icon = self.get_icon(icon)
 						item['iconImage'] = icon
-					url = self.build_url(item)
 					listitem = self.make_listitem()
 					listitem.setLabel(item.get('name', ''))
 					listitem.setArt({'icon': icon, 'poster': icon, 'thumb': icon, 'fanart': self.fanart, 'banner': icon, 'landscape': icon})
-					info_tag = listitem.getVideoInfoTag()
+					info_tag = listitem.getVideoInfoTag(True)
 					info_tag.setPlot(' ')
-					if not self.is_home: listitem.addContextMenuItems(cm_items)
+					if not self.is_external: listitem.addContextMenuItems(cm_items)
 					yield ((url, listitem, True), count)
 				except: pass
 		if self.params_get('full_list', 'false') == 'true': browse_list = nc.get_main_lists(self.list_name)[0]
 		else: browse_list = nc.currently_used_list(self.list_name)
-		k.add_items(int(sys.argv[1]), [i[0] for i in sorted(list(_process()), key=lambda k: k[1])])
+		results = sorted(list(_process()), key=lambda k: k[1])
+		k.add_items(int(sys.argv[1]), [i[0] for i in results])
 		self.end_directory()
 
 	def discover(self):
@@ -103,14 +100,15 @@ class Navigator:
 
 	def favorites(self):
 		self.add({'mode': 'build_movie_list', 'action': 'favorites_movies', 'name': 'Movies'}, 'Movies', 'movies')
-		self.add({'mode': 'build_tvshow_list', 'action': 'favorites_tvshows', 'name': 'TV Shows'}, 'TV Shows', 'tv')
-		self.add({'mode': 'favorite_people', 'isFolder': 'false', 'name': 'People'}, 'People', 'genre_family')
+		self.add({'mode': 'build_tvshow_list', 'action': 'favorites_tvshows', 'name': 'TV Shows'}, 'TV Shows', 'tv'),
+		self.add({'mode': 'build_tvshow_list', 'action': 'favorites_anime', 'is_anime_list': 'true', 'name': 'Anime'}, 'Anime', 'anime'),
+		self.add({'mode': 'favorite_people', 'isFolder': 'false', 'name': 'People'}, 'People', 'empty_person')
 		self.end_directory()
 
 	def my_content(self):
-		if s.trakt_user_active(): self.add({'mode': 'navigator.trakt_lists_personal'}, 'Trakt Lists (Personal)', 'trakt')
-		self.add({'mode': 'navigator.trakt_lists_public'}, 'Trakt Lists (Public)', 'trakt')
-		# if get_setting('fenlight.tmdb.account_id') not in ('', None, 'empty_setting'): self.add({'mode': 'tmdblist.get_tmdb_lists'}, 'TMDb Lists', 'tmdb')
+		if s.trakt_user_active(): self.add({'mode': 'navigator.trakt_lists_personal'}, 'Trakt Lists', 'trakt')
+		self.add({'mode': 'navigator.trakt_lists_public'}, 'Trakt Public Lists', 'trakt')
+		if s.tmdblist_user_active(): self.add({'mode': 'tmdblist.get_tmdb_lists'}, 'TMDb Lists', 'tmdb')
 		self.add({'mode': 'personal_lists.get_personal_lists'}, 'Personal Lists', 'lists')
 		self.add({'mode': 'navigator.discover_contents', 'media_type': 'movie', 'show_new': 'false'}, 'Discover Lists (Movies)', 'movies')
 		self.add({'mode': 'navigator.discover_contents', 'media_type': 'tvshow', 'show_new': 'false'}, 'Discover Lists (TV Shows)', 'tv')
@@ -137,7 +135,8 @@ class Navigator:
 		self.add({'mode': 'navigator.build_random_lists', 'menu_type': 'tvshow'}, 'Random TV Show Lists', 'tv')
 		self.add({'mode': 'navigator.build_random_lists', 'menu_type': 'anime'}, 'Random Anime Lists', 'anime')
 		self.add({'mode': 'navigator.build_random_lists', 'menu_type': 'because_you_watched'}, 'Random Because You Watched', 'because_you_watched')
-		self.add({'mode': 'navigator.build_random_lists', 'menu_type': 'personal_lists'}, 'Random Personal Lists', 'list')
+		if s.tmdblist_user_active(): self.add({'mode': 'navigator.build_random_lists', 'menu_type': 'tmdb_lists'}, 'Random TMDb Lists', 'tmdb')
+		self.add({'mode': 'navigator.build_random_lists', 'menu_type': 'personal_lists'}, 'Random Personal Lists', 'lists')
 		if s.trakt_user_active():
 			self.add({'mode': 'navigator.build_random_lists', 'menu_type': 'trakt_personal'}, 'Random Trakt Lists (Personal)', 'trakt')
 			self.add({'mode': 'navigator.build_random_lists', 'menu_type': 'trakt_public'}, 'Random Trakt Lists (Public)', 'trakt')
@@ -181,11 +180,17 @@ class Navigator:
 		self.end_directory()
 
 	def search(self):
-		self.add({'mode': 'navigator.search_history', 'action': 'movie', 'name': 'Search History Movies'}, 'Movies', 'search_movie')
-		self.add({'mode': 'navigator.search_history', 'action': 'tvshow', 'name': 'Search History TV Shows'}, 'TV Shows', 'search_tv')
-		self.add({'mode': 'navigator.search_history', 'action': 'people', 'name': 'Search History People'}, 'People', 'search_people')
-		self.add({'mode': 'navigator.search_history', 'action': 'tmdb_keyword_movie', 'name': 'Search History Keywords (Movies)'}, 'Keywords (Movies)', 'search_tmdb')
-		self.add({'mode': 'navigator.search_history', 'action': 'tmdb_keyword_tvshow', 'name': 'Search History Keywords (TV Shows)'}, 'Keywords (TV Shows)', 'search_tmdb')
+		self.add({'mode': 'navigator.search_history', 'action': 'movie', 'name': 'Search History Movies'}, 'Movies', 'movies')
+		self.add({'mode': 'navigator.search_history', 'action': 'tvshow', 'name': 'Search History TV Shows'}, 'TV Shows', 'tv')
+		self.add({'mode': 'navigator.search_history', 'action': 'anime', 'name': 'Search History Anime'}, 'Anime', 'anime')
+		self.add({'mode': 'navigator.search_history', 'action': 'tvshow_anime', 'name': 'Search History TV Show & Anime'}, 'TV Show & Anime', 'tv_anime')
+		self.add({'mode': 'navigator.search_history', 'action': 'people', 'name': 'Search History People'}, 'People', 'people')
+		self.add({'mode': 'navigator.search_history', 'action': 'tmdb_keyword_movie', 'name': 'Search History Keywords (Movies)'}, 'Keywords (Movies)', 'tmdb')
+		self.add({'mode': 'navigator.search_history', 'action': 'tmdb_keyword_tvshow', 'name': 'Search History Keywords (TV Shows)'}, 'Keywords (TV Shows)', 'tmdb')
+		self.add({'mode': 'navigator.search_history', 'action': 'trakt_lists'}, 'Search Trakt User Lists', 'trakt')
+		if s.easynews_authorized():
+			self.add({'mode': 'navigator.search_history', 'action': 'easynews_video'}, 'Search Easynews Videos', 'easynews')
+			self.add({'mode': 'navigator.search_history', 'action': 'easynews_image'}, 'Search Easynews Images', 'easynews')
 		self.end_directory()
 
 	def downloads(self):
@@ -208,7 +213,7 @@ class Navigator:
 		self.add({'mode': 'navigator.shortcut_folders'}, 'Shortcut Folders Manager', 'settings2')
 		self.add({'mode': 'navigator.maintenance'}, 'Database & Cache Maintenance', 'settings2')
 		self.add({'mode': 'navigator.update_utils'}, 'Update Utilities', 'settings2')
-		self.add({'mode': 'toggle_language_invoker', 'isFolder': 'false'}, 'Toggle Language Invoker (ADVANCED!!)', 'settings2')
+		self.add({'mode': 'language_invoker_choice', 'isFolder': 'false'}, 'Toggle Language Invoker (ADVANCED!!)', 'settings2')
 		self.end_directory()
 
 	def maintenance(self):
@@ -221,6 +226,7 @@ class Navigator:
 		self.add({'mode': 'clear_cache', 'cache': 'main', 'isFolder': 'false'}, 'Clear Main Cache', 'settings')
 		self.add({'mode': 'clear_cache', 'cache': 'meta', 'isFolder': 'false'}, 'Clear Meta Cache', 'settings')
 		self.add({'mode': 'clear_cache', 'cache': 'list', 'isFolder': 'false'}, 'Clear Lists Cache', 'settings')
+		self.add({'mode': 'clear_cache', 'cache': 'tmdb_list', 'isFolder': 'false'}, 'Clear TMDb Personal List Cache', 'settings')
 		self.add({'mode': 'clear_cache', 'cache': 'trakt', 'isFolder': 'false'}, 'Clear Trakt Cache', 'settings')
 		self.add({'mode': 'clear_cache', 'cache': 'imdb', 'isFolder': 'false'}, 'Clear IMDb Cache', 'settings')
 		self.add({'mode': 'clear_cache', 'cache': 'internal_scrapers', 'isFolder': 'false'}, 'Clear Internal Scrapers Cache', 'settings')
@@ -260,73 +266,103 @@ class Navigator:
 
 	def certifications(self):
 		menu_type = self.params_get('menu_type')
-		if menu_type == 'movie': mode, action, certifications = 'build_movie_list', 'tmdb_movies_certifications', ml.movie_certifications
+		if menu_type == 'movie': from modules.meta_lists import movie_certifications as function
+		else: from modules.meta_lists import tvshow_certifications as function
+		menu_type = self.params_get('menu_type')
+		if menu_type == 'movie': mode, action = 'build_movie_list', 'tmdb_movies_certifications'
 		else:
-			mode, certifications = 'build_tvshow_list', ml.tvshow_certifications
+			mode = 'build_tvshow_list'
 			if menu_type == 'tvshow': action = 'trakt_tv_certifications'
 			else: action = 'trakt_anime_certifications'
-		for i in certifications(): self.add({'mode': mode, 'action': action, 'key_id': i['id'], 'name': i['name']}, i['name'], 'certifications')
+		for i in function(): self.add({'mode': mode, 'action': action, 'key_id': i['id'], 'name': i['name']}, i['name'], 'certifications')
 		self.end_directory()
 
 	def languages(self):
+		from modules.meta_lists import languages as function
 		menu_type = self.params_get('menu_type')
 		if menu_type == 'movie': mode, action = 'build_movie_list', 'tmdb_movies_languages'
 		else: mode, action = 'build_tvshow_list', 'tmdb_tv_languages'
-		for i in ml.languages(): self.add({'mode': mode, 'action': action, 'key_id': i['id'], 'name': i['name']}, i['name'], 'languages')
+		for i in function(): self.add({'mode': mode, 'action': action, 'key_id': i['id'], 'name': i['name']}, i['name'], 'languages')
 		self.end_directory()
 
 	def years(self):
 		menu_type = self.params_get('menu_type')
-		if menu_type == 'movie': years, mode, action = ml.years_movies, 'build_movie_list', 'tmdb_movies_year'
+		if menu_type == 'movie':
+			from modules.meta_lists import years_movies as function
+			mode, action = 'build_movie_list', 'tmdb_movies_year'
 		else:
 			mode = 'build_tvshow_list'
-			if menu_type == 'tvshow': years, action = ml.years_tvshows, 'tmdb_tv_year'
-			else: years, action = ml.years_anime, 'tmdb_anime_year'
-		for i in years(): self.add({'mode': mode, 'action': action, 'key_id': i['id'], 'name': i['name']}, i['name'], 'calender')
+			if menu_type == 'tvshow':
+				from modules.meta_lists import years_tvshows as function
+				action = 'tmdb_tv_year'
+			else:
+				from modules.meta_lists import years_anime as function
+				action = 'tmdb_anime_year'
+		for i in function(): self.add({'mode': mode, 'action': action, 'key_id': i['id'], 'name': i['name']}, i['name'], 'calender')
 		self.end_directory()
 
 	def decades(self):
 		menu_type = self.params_get('menu_type')
-		if menu_type == 'movie': decades, mode, action = ml.decades_movies, 'build_movie_list', 'tmdb_movies_decade'
+		if menu_type == 'movie':
+			from modules.meta_lists import decades_movies as function
+			mode, action = 'build_movie_list', 'tmdb_movies_decade'
 		else:
 			mode = 'build_tvshow_list'
-			if menu_type == 'tvshow': decades, action = ml.decades_tvshows, 'tmdb_tv_decade'
-			else: decades, action = ml.decades_anime, 'tmdb_anime_decade'
-		for i in decades(): self.add({'mode': mode, 'action': action, 'key_id': i['id'], 'name': i['name']}, i['name'], 'calendar_decades')
+			if menu_type == 'tvshow':
+				from modules.meta_lists import decades_tvshows as function
+				action = 'tmdb_tv_decade'
+			else:
+				from modules.meta_lists import decades_anime as function
+				action = 'tmdb_anime_decade'
+		for i in function(): self.add({'mode': mode, 'action': action, 'key_id': i['id'], 'name': i['name']}, i['name'], 'calendar_decades')
 		self.end_directory()
 
 	def networks(self):
 		menu_type = self.params_get('menu_type')
 		if menu_type == 'movie': return
-		mode, action, networks = 'build_tvshow_list', 'tmdb_tv_networks', sorted(ml.networks(), key=lambda k: k['name'])
-		for i in networks: self.add({'mode': mode, 'action': action, 'key_id': i['id'], 'name': i['name']}, i['name'], i['icon'])
+		from modules.meta_lists import networks as function
+		mode, action = 'build_tvshow_list', 'tmdb_tv_networks'
+		for i in sorted(function(), key=lambda k: k['name']):
+			self.add({'mode': mode, 'action': action, 'key_id': i['id'], 'name': i['name']}, i['name'], 'networks')
 		self.end_directory()
 
 	def providers(self):
 		menu_type = self.params_get('menu_type')
-		image_insert = 'https://image.tmdb.org/t/p/original/%s'
-		if menu_type == 'movie': mode, action, providers = 'build_movie_list', 'tmdb_movies_providers', ml.watch_providers_movies()
+		if menu_type == 'movie':
+			from modules.meta_lists import watch_providers_movies as function
+			mode, action = 'build_movie_list', 'tmdb_movies_providers'
 		else:
-			mode, providers = 'build_tvshow_list', ml.watch_providers_tvshows()
+			from modules.meta_lists import watch_providers_tvshows as function
+			mode = 'build_tvshow_list'
 			if menu_type == 'tvshow': action = 'tmdb_tv_providers'
 			else: action = 'tmdb_anime_providers'
-		for i in providers: self.add({'mode': mode, 'action': action, 'key_id': i['id'], 'name': i['name']}, i['name'], image_insert % i['icon'], original_image=True)
+		for i in function(): self.add({'mode': mode, 'action': action, 'key_id': i['id'], 'name': i['name']}, i['name'], 'providers')
 		self.end_directory()
 
 	def genres(self):
 		menu_type = self.params_get('menu_type')
-		if menu_type == 'movie': genre_list, mode, action = ml.movie_genres, 'build_movie_list', 'tmdb_movies_genres'
+		if menu_type == 'movie':
+			from modules.meta_lists import movie_genres as function
+			mode, action = 'build_movie_list', 'tmdb_movies_genres'
 		else:
 			mode = 'build_tvshow_list'
-			if menu_type == 'tvshow': genre_list, action = ml.tvshow_genres, 'tmdb_tv_genres'
-			else: genre_list, action = ml.anime_genres, 'tmdb_anime_genres'
-		for i in genre_list(): self.add({'mode': mode, 'action': action, 'key_id': i['id'], 'name': i['name']}, i['name'], i['icon'])
+			if menu_type == 'tvshow':
+				from modules.meta_lists import tvshow_genres as function
+				action = 'tmdb_tv_genres'
+			else:
+				from modules.meta_lists import anime_genres as function
+				action = 'tmdb_anime_genres'
+		for i in function(): self.add({'mode': mode, 'action': action, 'key_id': i['id'], 'name': i['name']}, i['name'], 'genres')#, i['icon'])
 		self.end_directory()
 
 	def search_history(self):
+		from urllib.parse import unquote
+		from caches.main_cache import main_cache
 		search_mode_dict = {
 		'movie': ('movie_queries', {'mode': 'search.get_key_id', 'media_type': 'movie', 'isFolder': 'false'}),
 		'tvshow': ('tvshow_queries', {'mode': 'search.get_key_id', 'media_type': 'tv_show', 'isFolder': 'false'}),
+		'anime': ('anime_queries', {'mode': 'search.get_key_id', 'media_type': 'anime', 'isFolder': 'false'}),
+		'tvshow_anime': ('tvshow_anime_queries', {'mode': 'search.get_key_id', 'media_type': 'tvshow_anime', 'isFolder': 'false'}),
 		'people': ('people_queries', {'mode': 'search.get_key_id', 'search_type': 'people', 'isFolder': 'false'}),
 		'tmdb_keyword_movie': ('keyword_tmdb_movie_queries', {'mode': 'search.get_key_id', 'search_type': 'tmdb_keyword', 'media_type': 'movie', 'isFolder': 'false'}),
 		'tmdb_keyword_tvshow': ('keyword_tmdb_tvshow_queries', {'mode': 'search.get_key_id', 'search_type': 'tmdb_keyword', 'media_type': 'tvshow', 'isFolder': 'false'}),
@@ -336,7 +372,7 @@ class Navigator:
 		setting_id, action_dict = search_mode_dict[self.list_name]
 		url_params = dict(action_dict)
 		data = main_cache.get(setting_id) or []
-		self.add(action_dict, '[B]NEW SEARCH...[/B]', 'search_new')
+		self.add(action_dict, '[B]NEW SEARCH...[/B]', 'new')
 		for i in data:
 			try:
 				key_id = unquote(i)
@@ -344,7 +380,7 @@ class Navigator:
 				url_params['setting_id'] = setting_id
 				cm_items = [('[B]Remove from history[/B]', 'RunPlugin(%s)' % self.build_url({'mode': 'search.remove', 'setting_id':setting_id, 'key_id': key_id})),
 							('[B]Clear All History[/B]', 'RunPlugin(%s)' % self.build_url({'mode': 'search.clear_all', 'setting_id':setting_id, 'refresh': 'true'}))]
-				self.add(url_params, key_id, 'search_history', cm_items=cm_items)
+				self.add(url_params, key_id, 'calender', cm_items=cm_items)
 			except: pass
 		self.category_name = self.params_get('name') or 'History'
 		self.end_directory()
@@ -357,7 +393,8 @@ class Navigator:
 		mode = 'build_movie_list' if media_type == 'movie' else 'build_tvshow_list'
 		action = 'tmdb_movie_keyword_results' if media_type == 'movie' else 'tmdb_tv_keyword_results'
 		data = tmdb_keywords_by_query(key_id, page_no)
-		for item in data['results']:
+		results = data['results']
+		for item in results:
 			name = item['name'].upper()
 			self.add({'mode': mode, 'action': action, 'key_id': item['id'], 'iconImage': 'tmdb', 'category_name': name}, name, iconImage='tmdb')
 		if data['total_pages'] > page_no:
@@ -386,11 +423,11 @@ class Navigator:
 				name = i[0]
 				convert_sr = '[B]Remove Random[/B]' if '[COLOR red][RANDOM][/COLOR]' in name else '[B]Make Random[/B]'
 				cm_items = [('[B]Rename[/B]', self.run_plugin % self.build_url({'mode': 'menu_editor.shortcut_folder_rename'})),
-							('[B]Delete Shortcut Folder[/B]' , self.run_plugin % self.build_url({'mode': 'menu_editor.shortcut_folder_delete'})),
-							('[B]Make New Shortcut Folder[/B]' , self.run_plugin % self.build_url({'mode': 'menu_editor.shortcut_folder_make'})),
+							('[B]Delete Folder[/B]' , self.run_plugin % self.build_url({'mode': 'menu_editor.shortcut_folder_delete'})),
+							('[B]Make New Folder[/B]' , self.run_plugin % self.build_url({'mode': 'menu_editor.shortcut_folder_make'})),
 							(convert_sr , self.run_plugin % self.build_url({'mode': 'menu_editor.shortcut_folder_convert', 'name': name}))]
 				self.add({'mode': 'navigator.build_shortcut_folder_contents', 'name': name, 'iconImage': 'folder'}, name, 'folder', cm_items=cm_items)
-		else: self.add({'mode': 'menu_editor.shortcut_folder_make', 'isFolder': 'false'}, '[I]Make New Shortcut Folder...[/I]', 'new')
+		else: self.add({'mode': 'menu_editor.shortcut_folder_make', 'isFolder': 'false'}, '[I]Make New Folder...[/I]', 'new')
 		self.category_name = 'Shortcut Folders'
 		self.end_directory()
 
@@ -406,7 +443,10 @@ class Navigator:
 			for count, item in enumerate(contents):
 				item_get = item.get
 				iconImage = item_get('iconImage', None)
-				if iconImage: icon, original_image = iconImage, True if iconImage.startswith('http') else False
+				icon = iconImage
+				if iconImage:
+					if iconImage.startswith('http') or 'plugin.video.fenlight' in iconImage: original_image = True
+					else: original_image = False
 				else: icon, original_image = folder_icon, False
 				cm_items = [
 				('[B]Move[/B]', self.run_plugin % self.build_url({'mode': 'menu_editor.shortcut_folder_edit', 'active_list': list_name, 'position': count, 'action': 'move'})),
@@ -466,12 +506,15 @@ class Navigator:
 		self.end_directory()
 
 	def because_you_watched(self):
+		from modules.watched_status import get_recently_watched
+		from modules.episode_tools import single_last_watched_episodes
 		recommend_type = s.recommend_service()
 		menu_type = self.params_get('menu_type')
 		if menu_type == 'movie':
 			mode, action, media_type = 'build_movie_list', 'tmdb_movies_recommendations' if recommend_type == 0 else 'imdb_more_like_this', 'movie'
 		else: mode, action, media_type = 'build_tvshow_list', 'tmdb_tv_recommendations' if recommend_type == 0 else 'imdb_more_like_this', 'episode'
-		recently_watched = get_recently_watched(media_type, short_list=0)
+		recently_watched = get_recently_watched(media_type)
+		if media_type == 'episode': recently_watched = single_last_watched_episodes(recently_watched)
 		for item in recently_watched:
 			if media_type == 'movie': name, tmdb_id = item['title'], item['media_id']
 			else: name, tmdb_id = '%s - %sx%s' % (item['title'], str(item['season']), str(item['episode'])), item['media_ids']['tmdb']
@@ -486,11 +529,13 @@ class Navigator:
 		'tvshow': ('Random TV Show Lists', nc.random_tvshow_lists),
 		'anime': ('Random Anime Lists', nc.random_anime_lists),
 		'because_you_watched': ('Random Because You Watched Lists', nc.random_because_you_watched_lists),
+		'tmdb_lists': ('Random TMDb Lists', nc.random_tmdb_lists),
 		'personal_lists': ('Random Personal Lists', nc.random_personal_lists),
 		'trakt_personal': ('Random Trakt Lists (Personal)', nc.random_trakt_lists_personal),
 		'trakt_public': ('Random Trakt Lists (Public)', nc.random_trakt_lists_public)}
 		self.category_name, function = random_list_dict[self.params_get('menu_type')]
-		for item in function(): self.add(item, item['name'], item['iconImage'])
+		func = function()
+		for item in func: self.add(item, item['name'], item['iconImage'])
 		self.end_directory()
 
 	def add(self, url_params, list_name, iconImage='folder', original_image=False, cm_items=[]):
@@ -504,9 +549,15 @@ class Navigator:
 		listitem = self.make_listitem()
 		listitem.setLabel(list_name)
 		listitem.setArt({'icon': icon, 'poster': icon, 'thumb': icon, 'fanart': self.fanart, 'banner': icon, 'landscape': icon})
-		info_tag = listitem.getVideoInfoTag()
+		info_tag = listitem.getVideoInfoTag(True)
 		info_tag.setPlot(' ')
-		if cm_items and not self.is_home: listitem.addContextMenuItems(cm_items)
+		if not self.is_external:
+			if isFolder:
+				url_params.update({'iconImage': iconImage, 'name': list_name})
+				folder_item = ('[B]Add to Shortcut Folder[/B]', self.run_plugin % self.build_url({'mode': 'menu_editor.shortcut_folder_add_known', 'url': self.build_url(url_params)}))
+				if cm_items: cm_items.append(folder_item)
+				else: cm_items = [folder_item]
+			listitem.addContextMenuItems(cm_items)
 		self.add_item(int(sys.argv[1]), url, listitem, isFolder)
 
 	def end_directory(self):

@@ -24,8 +24,9 @@ def tb_cloud():
 			except: pass
 	icon, fanart = kodi_utils.get_icon('torbox'), kodi_utils.get_addon_fanart()
 	torrents_folders, usenets_folders = TorBox.user_cloud(), TorBox.user_cloud_usenet()
-	folders_torrents = [{**i, 'media_type': 'torrent'} for i in torrents_folders['data'] if i['download_finished']]
-	folders_usenets = [{**i, 'media_type': 'usenet'} for i in usenets_folders['data'] if i['download_finished']]
+	t_data, u_data = torrents_folders['data'], usenets_folders['data']
+	folders_torrents = [{**i, 'media_type': 'torrent'} for i in t_data if i['download_finished']]
+	folders_usenets = [{**i, 'media_type': 'usenet'} for i in u_data if i['download_finished']]
 	folders = folders_torrents + folders_usenets
 	folders.sort(key=lambda k: k['updated_at'], reverse=True)
 	handle = int(sys.argv[1])
@@ -56,7 +57,8 @@ def browse_tb_cloud(folder_id, media_type):
 			except: pass
 	if media_type == 'torrent': files = TorBox.user_cloud_info(folder_id)
 	else: files = TorBox.user_cloud_info_usenet(folder_id)
-	video_files = [{**i, 'media_type': media_type} for i in files['data']['files'] if i['short_name'].lower().endswith(tuple(supported_video_extensions()))]
+	data_files = files['data']['files']
+	video_files = [{**i, 'media_type': media_type} for i in data_files if i['short_name'].lower().endswith(tuple(supported_video_extensions()))]
 	icon, fanart = kodi_utils.get_icon('torbox'), kodi_utils.get_addon_fanart()
 	handle = int(sys.argv[1])
 	kodi_utils.add_items(handle, list(_builder()))

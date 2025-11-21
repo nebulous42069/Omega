@@ -1,20 +1,31 @@
 # -*- coding: utf-8 -*-
 # TRUMP WON
 import xbmc, xbmcgui, xbmcplugin, xbmcvfs, xbmcaddon
+import os
 from urllib.parse import urlencode, unquote
-from modules import icons
+
+def random_valid_type_check():
+	return {'build_movie_list': 'movie', 'build_tvshow_list': 'tvshow', 'build_season_list': 'season', 'build_episode_list': 'episode',
+	'build_in_progress_episode': 'single_episode', 'build_recently_watched_episode': 'single_episode', 'build_next_episode': 'single_episode',
+	'build_my_calendar': 'single_episode', 'build_trakt_lists': 'trakt_list',
+	'trakt.list.build_trakt_list': 'trakt_list', 'build_trakt_lists_contents': 'trakt_list', 'personal_lists.build_personal_list': 'personal_list',
+	'build_personal_lists_contents': 'personal_list', 'tmdblist.build_tmdb_list': 'tmdb_list', 'build_tmdb_lists_contents': 'tmdb_list'}
+
+def random_episodes_check():
+	return {'build_in_progress_episode': 'episode.progress', 'build_recently_watched_episode': 'episode.recently_watched',
+	'build_next_episode': 'episode.next', 'build_my_calendar': 'episode.trakt'}
 
 def extras_button_label_values():
 	return {'movie':
 				{'movies_play': 'Playback', 'show_trailers': 'Trailer', 'show_images': 'Images',  'show_extrainfo': 'Extra Info', 'show_genres': 'Genres',
 				'show_director': 'Director', 'show_options': 'Options', 'show_recommended': 'Recommended', 'show_more_like_this': 'More Like This',
-				'show_trakt_manager': 'Trakt Manager', 'playback_choice': 'Playback Options', 'show_favorites_manager': 'Favorites Manager', 'show_plot': 'Plot',
-				'show_keywords': 'Keywords', 'show_in_trakt_lists': 'In Trakt Lists', 'close_all': 'Close All Dialogs'},
+				'show_trakt_manager': 'Trakt Lists', 'show_personallists_manager': 'Personal Lists', 'show_tmdb_manager': 'TMDb Lists', 'show_favorites_manager': 'Favorites Lists',
+				'playback_choice': 'Playback Options', 'show_plot': 'Plot', 'show_keywords': 'Keywords', 'show_in_trakt_lists': 'In Trakt Lists', 'close_all': 'Close All Dialogs'},
 			'tvshow':
 				{'tvshow_browse': 'Browse', 'show_trailers': 'Trailer', 'show_images': 'Images', 'show_extrainfo': 'Extra Info', 'show_genres': 'Genres',
 				'play_nextep': 'Play Next', 'show_options': 'Options', 'show_recommended': 'Recommended', 'show_more_like_this': 'More Like This',
-				'show_trakt_manager': 'Trakt Manager', 'play_random_episode': 'Play Random', 'show_favorites_manager': 'Favorites Manager', 'show_plot': 'Plot',
-				'show_keywords': 'Keywords', 'show_in_trakt_lists': 'In Trakt Lists', 'close_all': 'Close All Dialogs'}}
+				'show_trakt_manager': 'Trakt Lists', 'show_personallists_manager': 'Personal Lists', 'show_tmdb_manager': 'TMDb Lists', 'show_favorites_manager': 'Favorites Lists',
+				'play_random_episode': 'Play Random', 'show_plot': 'Plot', 'show_keywords': 'Keywords', 'show_in_trakt_lists': 'In Trakt Lists', 'close_all': 'Close All Dialogs'}}
 
 def video_extensions():
 	return ('m4v', '3g2', '3gp', 'nsv', 'tp', 'ts', 'ty', 'pls', 'rm', 'rmvb', 'mpd', 'ifo', 'mov', 'qt', 'divx', 'xvid', 'bivx', 'vob', 'nrg', 'img', 'iso', 'udf', 'pva',
@@ -25,18 +36,6 @@ def video_extensions():
 def image_extensions():
 	return ('jpg', 'jpeg', 'jpe', 'jif', 'jfif', 'jfi', 'bmp', 'dib', 'png', 'gif', 'webp', 'tiff', 'tif',
 					'psd', 'raw', 'arw', 'cr2', 'nrw', 'k25', 'jp2', 'j2k', 'jpf', 'jpx', 'jpm', 'mj2')
-
-def nextpage():
-	return img_url(icons.nextpage)
-
-def nextpage_landscape():
-	return img_url(icons.nextpage_landscape)
-
-def empty_poster():
-	return img_url(icons.box_office)
-
-def img_url(insert):
-	return 'https://i.imgur.com/%s.png' % insert
 
 def kodi_progress_background():
 	return xbmcgui.DialogProgressBG()
@@ -50,7 +49,7 @@ def get_infolabel(label):
 def kodi_actor():
 	return xbmc.Actor
 
-def translatePath(_path):
+def translate_path(_path):
 	return xbmcvfs.translatePath(_path)
 
 def kodi_monitor():
@@ -72,16 +71,20 @@ def addon_path():
 	return get_property('fenlight.addon_path') or addon_info('path')
 
 def addon_profile():
-	return get_property('fenlight.addon_profile') or translatePath(addon_info('profile'))
+	return get_property('fenlight.addon_profile') or translate_path(addon_info('profile'))
 
 def addon_icon():
-	return get_property('fenlight.addon_icon') or addon_info('icon')
+	return get_property('fenlight.addon_icon') or translate_path(addon_info('icon'))
+
+def addon_icon_mini():
+	return get_property('fenlight.addon_icon_mini') or os.path.join(addon_info('path'), 'resources', 'media', 'addon_icons', 'minis',
+														os.path.basename(translate_path(addon_info('icon'))))
 
 def addon_fanart():
-	return get_property('fenlight.addon_fanart') or addon_info('fanart')
+	return get_property('fenlight.addon_fanart') or translate_path(addon_info('fanart'))
 
-def get_icon(image_name):
-	return 'https://i.imgur.com/%s.png' % getattr(icons, image_name, 'I1JJhji')
+def get_icon(image_name, image_folder='icons'):
+	return translate_path('special://home/addons/plugin.video.fenlight/resources/media/%s/%s.png' % (image_folder, image_name))
 
 def get_addon_fanart():
 	return get_property('fenlight.default_addon_fanart') or addon_fanart()
@@ -89,14 +92,14 @@ def get_addon_fanart():
 def build_url(url_params):
 	return 'plugin://plugin.video.fenlight/?%s' % urlencode(url_params)
 
-def add_dir(url_params, list_name, handle, iconImage='folder', fanartImage=None, isFolder=True):
-	fanart = fanartImage or get_addon_fanart()
-	icon = get_icon(iconImage)
+def add_dir(handle, url_params, list_name, icon_image='folder', fanart_image=None, isFolder=True):
+	fanart = fanart_image or get_addon_fanart()
+	icon = get_icon(icon_image)
 	url = build_url(url_params)
 	listitem = make_listitem()
 	listitem.setLabel(list_name)
 	listitem.setArt({'icon': icon, 'poster': icon, 'thumb': icon, 'fanart': fanart, 'banner': fanart})
-	info_tag = listitem.getVideoInfoTag()
+	info_tag = listitem.getVideoInfoTag(True)
 	info_tag.setPlot(' ')
 	add_item(handle, url, listitem, isFolder)
 
@@ -134,13 +137,17 @@ def set_view_mode(view_type, content='files', is_external=None):
 		execute_builtin('Container.SetViewMode(%s)' % view_id)
 	except: return
 
+def random_integer(start=1, end=1000000):
+	from random import randint
+	return randint(start, end)
+
 def remove_keys(dict_item, dict_removals):
 	for k in dict_removals: dict_item.pop(k, None)
 	return dict_item
 
 def append_path(_path):
 	import sys
-	sys.path.append(translatePath(_path))
+	sys.path.append(translate_path(_path))
 
 def logger(heading, function):
 	xbmc.log('###%s###: %s' % (heading, function), 1)
@@ -214,9 +221,6 @@ def make_directory(path):
 def make_directories(path):
 	xbmcvfs.mkdirs(path)
 
-def translate_path(path):
-	return translatePath(path)
-
 def sleep(time):
 	return xbmc.sleep(time)
 
@@ -272,14 +276,6 @@ def reload_skin():
 def kodi_refresh():
 	execute_builtin('UpdateLibrary(video,special://skin/foo)')
 
-def refresh_widgets(show_notification='false'):
-	set_property('fenlight.refresh_widgets', 'true')
-	sleep(250)
-	run_plugin({'mode': 'kodi_refresh'}, block=True)
-	if show_notification == 'true': notification('Widgets Refreshed', 2500)
-	sleep(5000)
-	clear_property('fenlight.refresh_widgets')
-
 def run_plugin(params, block=False):
 	if isinstance(params, dict): params = build_url(params)
 	return execute_builtin('RunPlugin(%s)' % params, block)
@@ -332,7 +328,9 @@ def get_jsonrpc(request):
 
 def jsonrpc_get_directory(directory, properties=['title', 'file', 'thumbnail']):
 	command = {'jsonrpc': '2.0', 'id': 1, 'method': 'Files.GetDirectory', 'params': {'directory': directory, 'media': 'files', 'properties': properties}}
-	try: results = [i for i in get_jsonrpc(command).get('files') if i['file'].startswith('plugin://') and i['filetype'] == 'directory']
+	try:
+		files = get_jsonrpc(command).get('files')
+		results = [i for i in files if i['file'].startswith('plugin://') and i['filetype'] == 'directory']
 	except: results = None
 	return results
 
@@ -423,31 +421,15 @@ def focus_index(index):
 	try: current_window.getControl(focus_id).selectItem(index)
 	except: pass
 
-def get_all_icon_vars(include_values=False):
-	if include_values: return [(k, v) for k, v in vars(icons).items() if not k.startswith('__')]
-	else: return [k for k, v in vars(icons).items() if not k.startswith('__')]
-
-def toggle_language_invoker():
-	from xml.dom.minidom import parse as mdParse
-	from caches.settings_cache import set_setting
-	close_all_dialog()
-	addon_xml = translate_path('special://home/addons/plugin.video.fenlight/addon.xml')
-	root = mdParse(addon_xml)
-	invoker_instance = root.getElementsByTagName('reuselanguageinvoker')[0].firstChild
-	current_invoker_setting = invoker_instance.data
-	new_value = {'true': 'false', 'false': 'true'}[current_invoker_setting]
-	if not confirm_dialog(text='Turn [B]Reuse Langauage Invoker[/B] %s?' % ('On' if new_value == 'true' else 'Off')): return
-	invoker_instance.data = new_value
-	new_xml = str(root.toxml()).replace('<?xml version="1.0" ?>', '')
-	with open(addon_xml, 'w') as f: f.write(new_xml)
-	set_setting('reuse_language_invoker', new_value)
-	execute_builtin('ActivateWindow(Home)', True)
-	update_local_addons()
-	disable_enable_addon()
+def get_all_icon_vars():
+	icon_items = list_dirs(translate_path('special://home/addons/plugin.video.fenlight/resources/media/icons'))[1]
+	icon_items = [i.replace('.png', '') for i in icon_items]
+	return icon_items
 
 def upload_logfile(params):
 	import json
 	import requests
+	from modules.utils import copy2clip, make_qrcode
 	log_files = [('Current Kodi Log', 'kodi.log'), ('Previous Kodi Log', 'kodi.old.log')]
 	list_items = [{'line1': i[0]} for i in log_files]
 	kwargs = {'items': json.dumps(list_items), 'heading': 'Choose Which Log File to Upload', 'narrow_window': 'true'}
@@ -465,11 +447,17 @@ def upload_logfile(params):
 		response = requests.post('%s%s' % (url, 'documents'), data=text.encode('utf-8', errors='ignore'), headers={'User-Agent': UserAgent}).json()
 		if 'key' in response:
 			user_code = response['key']
-			try:
-				from modules.utils import copy2clip
-				copy2clip('%s%s' % (url, user_code))
-			except: pass
-			ok_dialog(text='%s%s' % (url, user_code))
+			url = '%s%s' % (url, user_code)
+			copy2clip(url)
+			qr_code = make_qrcode(url) or ''
+			progressDialog = progress_dialog(heading='Kodi Log Uploader', icon=qr_code)
+			count, success = 20, None
+			while not progressDialog.iscanceled() and count >= 0 and success == None:
+				try:
+					count -= 1
+					progressDialog.update('Share or Access with this url: [B]%s[/B][CR]Or Access using this QR Code' % url, count)
+					sleep(2500)
+				except: success = False
 		else: ok_dialog(text='Error. Log Upload Failed')
 	except: ok_dialog(text='Error. Log Upload Failed')
 	hide_busy_dialog()

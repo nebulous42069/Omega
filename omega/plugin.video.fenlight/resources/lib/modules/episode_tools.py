@@ -3,12 +3,12 @@ import sys
 import json
 import random
 from datetime import date
-from modules import kodi_utils
 from modules.sources import Sources
-from modules.settings import date_offset, watched_indicators
+from modules.settings import date_offset, watched_indicators, ignore_articles, playback_integer
 from modules.metadata import episodes_meta, all_episodes_meta
 from modules.watched_status import get_next_episodes, get_hidden_progress_items, watched_info_episode, get_next
 from modules.utils import adjust_premiered_date, get_datetime, make_thread_list, title_key
+from modules import kodi_utils
 # logger = kodi_utils.logger
 
 class EpisodeTools:
@@ -38,7 +38,7 @@ class EpisodeTools:
 			self.meta.update({'media_type': 'episode', 'rootname': display_name, 'season': season, 'ep_name': ep_data['title'], 'ep_thumb': ep_data.get('thumb', None),
 							'episode': episode, 'premiered': airdate, 'plot': ep_data['plot']})
 			url_params = {'media_type': 'episode', 'tmdb_id': self.meta_get('tmdb_id'), 'tvshowtitle': self.meta_get('rootname'), 'season': season,
-						'episode': episode, 'background': 'true', 'nextep_settings': self.nextep_settings, 'play_type': play_type}
+						'episode': episode, 'background': 'true', 'nextep_settings': self.nextep_settings, 'play_type': play_type, 'playback_integer': playback_integer()}
 			if play_type == 'autoscrape_nextep': url_params['prescrape'] = 'false'
 			if custom_title: url_params['custom_title'] = custom_title
 			if 'custom_year' in self.meta: url_params['custom_year'] = self.meta_get('custom_year')
@@ -50,7 +50,8 @@ class EpisodeTools:
 			adjust_hours, current_date = date_offset(), get_datetime()
 			tmdb_id = self.meta_get('tmdb_id')
 			tmdb_key = str(tmdb_id)
-			episodes_data = [i for i in all_episodes_meta(self.meta) if i['premiered'] and adjust_premiered_date(i['premiered'], adjust_hours)[0] <= current_date]
+			ep_meta = all_episodes_meta(self.meta)
+			episodes_data = [i for i in ep_meta if i['premiered'] and adjust_premiered_date(i['premiered'], adjust_hours)[0] <= current_date]
 			if continual:
 				episode_list = []
 				try:
@@ -76,8 +77,8 @@ class EpisodeTools:
 			except: premiered = chosen_episode['premiered']
 			self.meta.update({'media_type': 'episode', 'rootname': display_name, 'season': season, 'ep_name': ep_name, 'ep_thumb': ep_thumb,
 							'episode': episode, 'premiered': premiered, 'plot': plot})
-			url_params = {'mode': 'playback.media', 'media_type': 'episode', 'tmdb_id': tmdb_id, 'tvshowtitle': self.meta_get('rootname'), 'season': season, 'episode': episode,
-						'autoplay': 'true'}
+			url_params = {'media_type': 'episode', 'tmdb_id': tmdb_id, 'tvshowtitle': self.meta_get('rootname'),
+						'season': season, 'episode': episode, 'playback_integer': playback_integer(), 'autoplay': 'true'}
 			if continual: url_params['random_continual'] = 'true'
 			else: url_params['random'] = 'true'
 			if not first_run:
@@ -107,13 +108,13 @@ def build_next_episode_manager():
 		try:
 			listitem = make_listitem()
 			tmdb_id, title = item['media_ids']['tmdb'], item['title']
-			if int(tmdb_id) in hidden_list: display, action = 'Unhide [B]%s[/B] [COLOR=red][HIDDEN][/COLOR]' % title, 'unhide'
-			else: display, action = 'Hide [B]%s[/B]' % title, 'hide'
-			url_params = {'mode': mode, 'action': action, 'media_type': 'shows', 'media_id': tmdb_id, 'section': 'progress_watched'}
+			if int(tmdb_id) in hidden_list: display, action = 'Undrop [B]%s[/B] [COLOR=red][DROPPED][/COLOR]' % title, 'undrop'
+			else: display, action = 'Drop [B]%s[/B]' % title, 'drop'
+			url_params = {'mode': mode, 'action': action, 'media_type': 'shows', 'media_id': tmdb_id, 'section': 'dropped'}
 			url = build_url(url_params)
 			listitem.setLabel(display)
 			listitem.setArt({'poster': icon, 'fanart': addon_fanart, 'icon': icon})
-			info_tag = listitem.getVideoInfoTag()
+			info_tag = listitem.getVideoInfoTag(True)
 			info_tag.setPlot(' ')
 			append({'listitem': (url, listitem, False), 'sort_title': title})
 		except: pass
@@ -128,9 +129,16 @@ def build_next_episode_manager():
 	else: icon, mode = kodi_utils.get_icon('trakt'), 'trakt.hide_unhide_progress_items'
 	threads = list(make_thread_list(_process, show_list))
 	[i.join() for i in threads]
-	item_list = sorted(list_items, key=lambda k: (title_key(k['sort_title'])), reverse=False)
+	item_list = sorted(list_items, key=lambda k: (title_key(k['sort_title'], ignore_articles())), reverse=False)
 	item_list = [i['listitem'] for i in item_list]
 	kodi_utils.add_items(handle, item_list)
 	kodi_utils.set_content(handle, '')
 	kodi_utils.end_directory(handle, cacheToDisc=False)
 	kodi_utils.set_view_mode('view.main', '')
+
+def single_last_watched_episodes(data):
+	seen = set()
+	seen_add = seen.add
+	return sorted([i for i in sorted(data, key=lambda x: (x['last_played'], x['media_ids']['tmdb'], x['season'], x['episode']), reverse=True)
+				if not (i['media_ids']['tmdb'] in seen or seen_add(i['media_ids']['tmdb']))],
+				key=lambda x: (x['last_played'], x['media_ids']['tmdb'], x['season'], x['episode']), reverse=True)

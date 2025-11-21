@@ -11,14 +11,14 @@ from modules.utils import clean_file_name
 # logger = kodi_utils.logger
 
 class source:
-	def __init__(self, meta, source_dict, active_debrid, debrid_service, debrid_token, internal_scrapers, prescrape_sources, progress_dialog, disabled_ext_ignored=False):
+	def __init__(self, meta, source_dict, active_debrid, external_cache_check, internal_scrapers, prescrape_sources, progress_dialog, disabled_ext_ignored=False):
 		self.monitor = kodi_utils.kodi_monitor()
 		self.scrape_provider = 'external'
 		self.progress_dialog = progress_dialog
+		self.external_cache_check = external_cache_check
 		self.meta = meta
 		self.background = self.meta.get('background', False)
 		self.active_debrid = active_debrid
-		self.debrid_service, self.debrid_token = debrid_service, debrid_token
 		self.source_dict, self.host_dict = source_dict, []
 		self.sources, self.all_internal_sources, self.processed_internal_scrapers = [], [], []
 		self.processed_internal_scrapers_append = self.processed_internal_scrapers.append
@@ -45,14 +45,13 @@ class source:
 			self.single_expiry, self.season_expiry, self.show_expiry = info['expiry_times']
 			if self.media_type == 'movie':
 				self.season_divider, self.show_divider = 0, 0
-				self.data = {'imdb': info['imdb_id'], 'title': self.title, 'aliases': aliases, 'year': self.year,
-				'debrid_service': self.debrid_service, 'debrid_token': self.debrid_token}
+				self.data = {'imdb': info['imdb_id'], 'title': self.title, 'aliases': aliases, 'year': self.year}
 			else:
 				try: self.season_divider = [int(x['episode_count']) for x in self.meta['season_data'] if int(x['season_number']) == int(self.meta['season'])][0]
 				except: self.season_divider = 1
 				self.show_divider = int(self.meta['total_aired_eps'])
 				self.data = {'imdb': info['imdb_id'], 'tvdb': info['tvdb_id'], 'tvshowtitle': self.title, 'aliases': aliases,'year': self.year,
-							'title': ep_name, 'season': str(self.season), 'episode': str(self.episode), 'debrid_service': self.debrid_service, 'debrid_token': self.debrid_token}
+							'title': ep_name, 'season': str(self.season), 'episode': str(self.episode)}
 		except: return []
 		return self.get_sources()
 
@@ -86,9 +85,7 @@ class source:
 				if len(self.sources) >= 100 * len_alive_threads: return
 		self.threads = []
 		self.threads_append = self.threads.append
-		if self.media_type == 'movie':
-			self.source_dict = [i for i in self.source_dict if i[1].hasMovies]
-			Thread(target=self.process_movie_threads).start()
+		if self.media_type == 'movie': Thread(target=self.process_movie_threads).start()
 		else:
 			self.source_dict = [i for i in self.source_dict if i[1].hasEpisodes]
 			self.season_packs, self.show_packs = source_utils.pack_enable_check(self.meta, self.season, self.episode)
@@ -99,6 +96,7 @@ class source:
 					self.source_dict.extend([(i[0], i[1], 'Season') for i in pack_capable])
 					if self.show_packs: self.source_dict.extend([(i[0], i[1], 'Show') for i in pack_capable])
 					random.shuffle(self.source_dict)
+					self.source_dict.sort(key=lambda k: k[2])
 			Thread(target=self.process_episode_threads).start()
 		if self.background: _background()
 		else: _scraperDialog()
@@ -137,6 +135,7 @@ class source:
 		if sources:
 			if not self.background: self.process_quality_count(sources)
 			self.sources.extend(sources)
+		del module
 
 	def get_episode_source(self, provider, module, pack):
 		if pack in ('Season', 'Show'):
@@ -163,6 +162,7 @@ class source:
 			elif pack == 'Show': sources = [i for i in sources if i['last_season'] >= self.season]
 			if not self.background: self.process_quality_count(sources)
 			self.sources.extend(sources)
+		del module
 
 	def process_results(self, results):
 		def _process_duplicates(all_results):
@@ -174,15 +174,19 @@ class source:
 					if url not in unique_urls:
 						unique_urls_add(url)
 						if 'hash' in provider:
-							if provider['hash'] not in unique_hashes:
+							_hash = provider['hash']
+							if len(_hash) == 40 and _hash not in unique_hashes:
 								unique_hashes_add(provider['hash'])
 								yield provider
 						else: yield provider
 				except: yield provider
 		def _process_cache_check(provider, function):
-			cached = function(hash_list, cached_hashes)
+			if provider in ('Real-Debrid', 'AllDebrid'):
+				if self.external_cache_check: cached = function(hash_list, cached_hashes, self.data, self.active_debrid)
+				else: cached = hash_list
+			else: cached = function(hash_list, cached_hashes)
 			if not self.background: self.process_quality_count_final([i for i in results if i['hash'] in cached])
-			final_results.extend([dict(i, **{'cache_provider': provider if i['hash'] in cached else 'Uncached %s' % provider, 'debrid':provider}) for i in results])
+			final_results.extend([dict(i, **{'cache_provider': provider if i['hash'] in cached else 'Uncached %s' % provider, 'debrid': provider}) for i in results])
 		def _debrid_check_dialog():
 			self.progress_dialog.reset_is_cancelled()
 			start_time, timeout = time.time(), 20
@@ -224,7 +228,7 @@ class source:
 					else: quality, extraInfo = source_utils.get_file_info(url=i_get('url'))
 					try:
 						size = i_get('size')
-						if 'package' in i and provider not in ('torrentio', 'knightcrawler', 'comet'):
+						if 'package' in i and provider not in ('torrentio', 'comet', 'knightcrawler', 'mediafusion', 'selfhosted'):
 							if i_get('package') == 'season': divider = self.season_divider
 							else: divider = self.show_divider
 							size = float(size) / divider

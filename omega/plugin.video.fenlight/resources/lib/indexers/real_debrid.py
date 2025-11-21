@@ -25,11 +25,13 @@ def rd_cloud():
 				listitem.setLabel(display)
 				listitem.addContextMenuItems(cm)
 				listitem.setArt({'icon': icon, 'poster': icon, 'thumb': icon, 'fanart': fanart, 'banner': icon})
-				info_tag = listitem.getVideoInfoTag()
+				info_tag = listitem.getVideoInfoTag(True)
 				info_tag.setPlot(' ')
 				yield (url, listitem, True)
 			except: pass
-	try: cloud_files = [i for i in RealDebrid.user_cloud() if i['status'] == 'downloaded']
+	try:
+		cloud = RealDebrid.user_cloud()
+		cloud_files = [i for i in cloud if i['status'] == 'downloaded']
 	except: cloud_files = []
 	icon, fanart = kodi_utils.get_icon('realdebrid'), kodi_utils.get_addon_fanart()
 	handle = int(sys.argv[1])
@@ -59,11 +61,13 @@ def rd_downloads():
 				listitem.setLabel(display)
 				listitem.addContextMenuItems(cm)
 				listitem.setArt({'icon': icon, 'poster': icon, 'thumb': icon, 'fanart': fanart, 'banner': icon})
-				info_tag = listitem.getVideoInfoTag()
+				info_tag = listitem.getVideoInfoTag(True)
 				info_tag.setPlot(' ')
 				yield (url, listitem, True)
 			except: pass
-	try: downloads = [i for i in RealDebrid.downloads() if i['download'].lower().endswith(tuple(supported_video_extensions()))]
+	try:
+		downs = RealDebrid.downloads()
+		downloads = [i for i in downs if i['download'].lower().endswith(tuple(supported_video_extensions()))]
 	except: downloads = []
 	icon, fanart = kodi_utils.get_icon('realdebrid'), kodi_utils.get_addon_fanart()
 	handle = int(sys.argv[1])
@@ -90,14 +94,15 @@ def browse_rd_cloud(folder_id):
 				listitem.setLabel(display)
 				listitem.addContextMenuItems(cm)
 				listitem.setArt({'icon': icon, 'poster': icon, 'thumb': icon, 'fanart': fanart, 'banner': icon})
-				info_tag = listitem.getVideoInfoTag()
+				info_tag = listitem.getVideoInfoTag(True)
 				info_tag.setPlot(' ')
 				yield (url, listitem, False)
 			except: pass
 	icon, fanart = kodi_utils.get_icon('realdebrid'), kodi_utils.get_addon_fanart()
 	handle = int(sys.argv[1])
 	cloud_files = RealDebrid.user_cloud_info(folder_id)
-	files = [i for i in cloud_files['files'] if i['selected'] == 1 and i['path'].lower().endswith(tuple(supported_video_extensions()))]
+	c_files = cloud_files['files']
+	files = [i for i in c_files if i['selected'] == 1 and i['path'].lower().endswith(tuple(supported_video_extensions()))]
 	file_info = [dict(i, **{'url_link': cloud_files['links'][idx]}) for idx, i in enumerate(files)]
 	pack_info = sorted(file_info, key=lambda k: k['path'])
 	kodi_utils.add_items(handle, list(_builder()))

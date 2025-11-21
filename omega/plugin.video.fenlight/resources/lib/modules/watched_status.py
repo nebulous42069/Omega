@@ -2,13 +2,12 @@
 from datetime import datetime
 from threading import Thread
 from apis.trakt_api import trakt_watched_status_mark, trakt_official_status, trakt_progress, trakt_get_hidden_items
-from caches.base_cache import connect_database, database, get_timestamp
-from caches.main_cache import main_cache, cache_object
+from caches.base_cache import connect_database, database
 from caches.trakt_cache import clear_trakt_collection_watchlist_data
 from modules.kodi_utils import kodi_progress_background, sleep, get_video_database_path, notification, kodi_refresh
 from modules.utils import get_datetime, adjust_premiered_date, sort_for_article, make_thread_list
 from modules import metadata, settings
-# logger = kodi_utils.logger
+# from modules.kodi_utils import logger
 
 def get_database(watched_indicators=None):
 	return connect_database({0: 'watched_db', 1: 'trakt_db'}[watched_indicators or settings.watched_indicators()])
@@ -36,17 +35,30 @@ def get_database(watched_indicators=None):
 
 def get_hidden_progress_items(watched_indicators):
 	try:
-		if watched_indicators == 0: return main_cache.get('fenlight_hidden_progress_items') or []
-		else: return trakt_get_hidden_items('progress_watched')
+		if watched_indicators == 0:
+			watched_db = get_database()
+			watched_info = watched_db.execute('SELECT status FROM watched_status WHERE db_type = ?', ('hidden_progress_items',)).fetchone()[0]
+			return eval(watched_info) or []
+		else: return trakt_get_hidden_items('dropped')
 	except: return []
 
+def update_hidden_progress(media_id):
+	watched_indicators = settings.watched_indicators()
+	current_hidden = get_hidden_progress_items(watched_indicators)
+	new_hidden = [i for i in current_hidden if i != int(media_id)]
+	if new_hidden == current_hidden: return
+	if watched_indicators == 0: function = hide_unhide_progress_items
+	else: from apis.trakt_api import hide_unhide_progress_items as function
+	function({'action': 'undrop', 'media_type': 'shows', 'media_id': media_id, 'section': 'dropped', 'refresh': 'false'})
+
 def hide_unhide_progress_items(params):
-	action, media_id = params['action'], int(params.get('media_id', '0'))
-	current_items = main_cache.get('fenlight_hidden_progress_items') or []
-	if action == 'hide': current_items.append(media_id)
+	action, media_id, refresh = params['action'], int(params.get('media_id', '0')), params.get('refresh', 'true') == 'true'
+	current_items = get_hidden_progress_items(0) or []
+	if action == 'drop': current_items.append(media_id)
 	else: current_items.remove(media_id)
-	main_cache.set('fenlight_hidden_progress_items', current_items, 1825)
-	return kodi_refresh()
+	watched_db = get_database()
+	watched_info = watched_db.execute('INSERT OR REPLACE INTO watched_status VALUES (?, ?, ?)', ('hidden_progress_items', 'hidden', repr(current_items),))
+	if refresh: kodi_refresh()
 
 def get_last_played_value(watched_indicators):
 	if watched_indicators == 0: return datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -76,8 +88,12 @@ def active_tvshows_information(status_type):
 	results_append = results.append
 	watched_indicators = settings.watched_indicators()
 	watched_info = watched_info_tvshow()
+	if status_type == 'progress':
+		hidden_items = get_hidden_progress_items(settings.watched_indicators())
+		for k in hidden_items: watched_info.pop(str(k), None)
 	api_key, mpaa_region = settings.tmdb_api_key(), settings.mpaa_region()
-	data = [v for k, v in watched_info.items()]
+	watched_items = watched_info.items()
+	data = [v for k, v in watched_items]
 	progress_location = settings.tv_progress_location()
 	if status_type == 'watched': include_other = progress_location in (0, 2)
 	else: include_other = progress_location in (1, 2)
@@ -195,6 +211,9 @@ def get_progress_status_all_episode(progress_info, season, episode):
 	try: percent = str(round(float(progress_info[season][episode]['resume_point'])))
 	except: percent = None
 	return percent
+
+def get_resume_seconds(progress, duration):
+	return float(int(float(progress)/100 * duration))
 
 def clear_local_bookmarks():
 	try:
@@ -348,6 +367,7 @@ def mark_episode(params):
 		elif not trakt_watched_status_mark(action, media_type, tmdb_id, tvdb_id, season, episode): return notification('Error')
 		clear_trakt_collection_watchlist_data('watchlist', 'tvshow')
 	watched_status_mark(watched_indicators, media_type, tmdb_id, action, season, episode, title)
+	update_hidden_progress(tmdb_id)
 	refresh_container(refresh)
 
 def watched_status_mark(watched_indicators, media_type='', media_id='', action='', season='', episode='', title=''):
@@ -416,50 +436,46 @@ def get_in_progress_movies(dummy_arg, page_no):
 	dbcon = get_database()
 	data = dbcon.execute('SELECT media_id, title, last_played FROM progress WHERE db_type = ?', ('movie',)).fetchall()
 	data = [{'media_id': i[0], 'title': i[1], 'last_played': i[2]} for i in data if not i[0] == '']
-	if settings.lists_sort_order('progress') == 0: data = sort_for_article(data, 'title')
+	if settings.lists_sort_order('progress') == 0: data = sort_for_article(data, 'title', settings.ignore_articles())
 	else: data = sorted(data, key=lambda x: x['last_played'], reverse=True)
 	return data
 
 def get_in_progress_tvshows(dummy_arg, page_no):
 	# results = cache_watched_tvshow_status(active_tvshows_information, 'progress')
 	results = active_tvshows_information('progress')
-	hidden_items = get_hidden_progress_items(settings.watched_indicators())
-	results = [i for i in results if not int(i['media_id']) in hidden_items]
-	if settings.lists_sort_order('progress') == 0: results = sort_for_article(results, 'title')
+	if settings.lists_sort_order('progress') == 0: results = sort_for_article(results, 'title', settings.ignore_articles())
 	else: results = sorted(results, key=lambda x: x['last_played'], reverse=True)
 	return results
 
 def get_in_progress_episodes():
 	dbcon = get_database()
 	data = dbcon.execute('SELECT media_id, season, episode, resume_point, last_played, title FROM progress WHERE db_type = ?', ('episode',)).fetchall()
-	if settings.lists_sort_order('progress') == 0: data = sort_for_article(data, 5)
-	else: data.sort(key=lambda k: k[4], reverse=True)
-	episode_list = [{'media_ids': {'tmdb': i[0]}, 'season': int(i[1]), 'episode': int(i[2]), 'resume_point': float(i[3])} for i in data]
+	episode_list = [{'media_ids': {'tmdb': i[0]}, 'season': int(i[1]), 'episode': int(i[2]), 'resume_point': float(i[3]), 'date': i[4], 'title': i[5]} for i in data]
+	if settings.lists_sort_order('progress') == 0: episode_list = sort_for_article(episode_list, 'title', settings.ignore_articles())
+	else: episode_list.sort(key=lambda k: k['date'], reverse=True)
 	return episode_list
 
 def get_watched_items(media_type, page_no):
 	if media_type == 'tvshow': results = active_tvshows_information('watched')
 	else: results = [v for k,v in watched_info_movie().items()]
-	if settings.lists_sort_order('watched') == 0: results = sort_for_article(results, 'title')
+	if settings.lists_sort_order('watched') == 0: results = sort_for_article(results, 'title', settings.ignore_articles())
 	else: results = sorted(results, key=lambda x: x['last_played'], reverse=True)
 	return results
 
-def get_recently_watched(media_type, short_list=1):
+def get_recently_watched(media_type, short_list=0):
 	watched_indicators = settings.watched_indicators()
 	if media_type == 'movie':
-		data = sorted([v for k,v in watched_info_movie().items()], key=lambda x: x['last_played'], reverse=True)
+		watched_movies = watched_info_movie().items()
+		data = sorted([v for k,v in watched_movies], key=lambda x: x['last_played'], reverse=True)
+		if short_list: data = data[:20]
+	elif media_type == 'tvshow':
+		watched_tvshows = watched_info_tvshow().items()
+		data = sorted([v for k,v in watched_tvshows], key=lambda x: x['last_played'], reverse=True)
 		if short_list: data = data[:20]
 	else:
 		dbcon = get_database(watched_indicators)
-		if short_list:
-			data = dbcon.execute('SELECT media_id, season, episode, title, last_played FROM watched WHERE db_type = ? ORDER BY last_played DESC', ('episode',)).fetchall()
-			data = [{'media_ids': {'tmdb': int(i[0])}, 'season': int(i[1]), 'episode': int(i[2]), 'title': i[3], 'last_played': i[4]}
-						for i in data][:20]
-		else:
-			seen = set()
-			seen_add = seen.add
-			data = dbcon.execute('SELECT media_id, season, episode, title, last_played FROM watched WHERE db_type = ?', ('episode',)).fetchall()
-			data = sorted([{'media_ids': {'tmdb': int(i[0])}, 'season': int(i[1]), 'episode': int(i[2]), 'title': i[3], 'last_played': i[4]}
-						for i in sorted(data, key=lambda x: (x[4], x[0], x[1], x[2]), reverse=True) if not (i[0] in seen or seen_add(i[0]))],
-						key=lambda x: (x['last_played'], x['media_ids']['tmdb'], x['season'], x['episode']), reverse=True)
+		data = dbcon.execute('SELECT media_id, season, episode, title, last_played FROM watched WHERE db_type = ? ORDER BY last_played DESC', ('episode',)).fetchall()
+		data = [{'media_ids': {'tmdb': int(i[0])}, 'season': int(i[1]), 'episode': int(i[2]), 'title': i[3], 'last_played': i[4]}
+					for i in data]
+		if short_list: data = data[:20]
 	return data

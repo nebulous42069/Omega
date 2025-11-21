@@ -6,7 +6,7 @@ from os import path
 from caches.settings_cache import get_setting, set_setting
 from modules.utils import string_alphanum_to_num, unzip
 from modules import kodi_utils 
-# logger = kodi_utils.logger
+logger = kodi_utils.logger
 
 def get_location(insert=''):
 	return 'https://github.com/%s/%s/raw/main/packages/%s' % (get_setting('fenlight.update.username'), get_setting('update.location'), insert)
@@ -64,7 +64,8 @@ def rollback_check():
 	results = requests.get(url)
 	kodi_utils.hide_busy_dialog()
 	if results.status_code != 200: return kodi_utils.ok_dialog(heading='Fen Light Updater', text='Error rolling back.[CR]Please install rollback manually')
-	results = [i['name'].split('-')[1].replace('.zip', '') for i in results.json() if 'plugin.video.fenlight' in i['name'] \
+	j_results = results.json()
+	results = [i['name'].split('-')[1].replace('.zip', '') for i in j_results if 'plugin.video.fenlight' in i['name'] \
 				and not i['name'].split('-')[1].replace('.zip', '') == current_version]
 	if not results: return kodi_utils.ok_dialog(heading='Fen Light Updater', text='No previous versions found.[CR]Please install rollback manually')
 	results.sort(reverse=True)

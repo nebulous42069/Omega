@@ -12,6 +12,7 @@ class MenuEditor:
 		self.active_list = params.get('active_list')
 		self.position = int(params.get('position', '0'))
 		self.action = params.get('action')
+		self.url = params.get('url', None)
 		try: self.list_name = self.main_list_name_dict[self.active_list]
 		except: self.list_name = params.get('name')
 
@@ -123,7 +124,8 @@ class MenuEditor:
 
 	def shortcut_folder_delete(self):
 		if not kodi_utils.confirm_dialog(): return kodi_utils.notification('Cancelled', 1500)
-		main_menu_items_list = [(i, navigator_cache.currently_used_list(i)) for i in navigator_cache.main_menus]
+		main_menus = navigator_cache.main_menus
+		main_menu_items_list = [(i, navigator_cache.currently_used_list(i)) for i in main_menus]
 		self._db_execute('delete', self.name, list_type='shortcut_folder')
 		self._remove_active_shortcut_folder(main_menu_items_list, self.name)
 
@@ -136,11 +138,8 @@ class MenuEditor:
 		self._db_execute('make_new_shortcut_folder', new_folder_name, list_items)
 
 	def shortcut_folder_convert(self):
-		random_valid_type_check = {'build_movie_list': 'movie', 'build_tvshow_list': 'tvshow', 'build_season_list': 'season', 'build_episode_list': 'episode',
-		'build_in_progress_episode': 'single_episode', 'build_recently_watched_episode': 'single_episode', 'build_next_episode': 'single_episode',
-		'build_my_calendar': 'single_episode', 'build_trakt_lists': 'trakt_list', 'trakt.list.build_trakt_list': 'trakt_list', 'build_trakt_lists_contents': 'trakt_list'}
 		list_items = navigator_cache.get_shortcut_folder_contents(self.name)
-		valid_random_items = [i for i in list_items if i.get('mode').replace('random.', '') in random_valid_type_check]
+		valid_random_items = [i for i in list_items if i.get('mode').replace('random.', '') in kodi_utils.random_valid_type_check()]
 		make_random = '[COLOR red][RANDOM][/COLOR]' not in self.name
 		if make_random:
 			if not valid_random_items: return kodi_utils.notification('No random supported items in this list', 5000)
@@ -157,13 +156,40 @@ class MenuEditor:
 		name, icon = browsed_result['label'], self._get_icon_var(browsed_result['thumbnail'])
 		menu_name = self._get_external_name_input(name) or name
 		icon_choice = self._icon_select(default_icon=icon)
-		menu_item.update({'name': menu_name, 'iconImage': icon_choice})
+		menu_item.update({'name': menu_name, 'iconImage': icon_choice, 'full_list': 'false'})
 		if list_items:
 			position = self._menu_select(list_items, menu_name, multi_line='true', position_list=True)
 			if position == None: return kodi_utils.notification('Cancelled', 1500)
 		else: position = 0
 		list_items.insert(position, menu_item)
 		self._db_execute('set', choice_name, list_items, 'shortcut_folder')
+
+	def shortcut_folder_add_known(self):
+		file = self.url
+		menu_item = self._get_menu_item(file)
+		name, icon = menu_item['name'], menu_item['iconImage']
+		menu_name = self._get_external_name_input(name) or name
+		icon_choice = self._icon_select(default_icon=icon)
+		menu_item.update({'name': menu_name, 'iconImage': icon_choice, 'full_list': 'false'})
+		folders = navigator_cache.get_shortcut_folders()
+		if folders:
+			items = [{'line1': i[0]} for i in folders]
+			kwargs = {'heading': 'Select Shortcut Folder', 'items': json.dumps(items), 'narrow_window': 'true'}
+			choice = kodi_utils.select_dialog(folders, **kwargs)
+			if choice == None: return
+			choice_name, list_items = choice
+		else:
+			kodi_utils.ok_dialog(heading='Shortcut Folders', text='Please make a Shortcut Folder first')
+			choice_name = kodi_utils.kodi_dialog().input('')
+			if not choice_name: return
+			self._db_execute('make_new_shortcut_folder', choice_name, list_type='shortcut_folder')
+			list_items = []
+		if list_items:
+			position = self._menu_select(list_items, menu_name, multi_line='true', position_list=True)
+			if position == None: return kodi_utils.notification('Cancelled', 1500)
+		else: position = 0
+		list_items.insert(position, menu_item)
+		self._db_execute('set', choice_name, list_items, 'shortcut_folder', refresh=False)
 
 	def _menu_select(self, choice_items, menu_name, heading='', multi_line='false', position_list=False):
 		def _builder():
@@ -181,6 +207,7 @@ class MenuEditor:
 		return kodi_utils.select_dialog(index_list, **kwargs)
 
 	def _icon_select(self, default_icon=''):
+		if default_icon.startswith('http') or 'plugin.video.fenlight' in default_icon: return default_icon
 		all_icons = kodi_utils.get_all_icon_vars()
 		if default_icon:
 			try:
@@ -242,10 +269,10 @@ class MenuEditor:
 
 	def _get_icon_var(self, icon_path):
 		try:
-			all_icons = kodi_utils.get_all_icon_vars(include_values=True)
+			all_icons = kodi_utils.get_all_icon_vars()
 			icon_value = unquote(icon_path)
 			icon_value = icon_value.replace('image://', '').replace('.png/', '').replace('.png', '')
-			icon_value = icon_value.split('/')[-1]
-			icon_var = [i[0] for i in all_icons if i[1] == icon_value][0]
+			icon_value = icon_value.split(kodi_utils.translate_path('special://home/addons/plugin.video.fenlight/resources/media/icons/'))[1]
+			icon_var = [i for i in all_icons if i == icon_value][0]
 		except: icon_var = 'folder'
 		return icon_var

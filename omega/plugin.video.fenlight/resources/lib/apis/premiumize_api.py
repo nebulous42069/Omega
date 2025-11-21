@@ -7,9 +7,9 @@ from threading import Thread
 from urllib.parse import urlencode
 from caches.main_cache import cache_object
 from caches.settings_cache import get_setting, set_setting
-from modules.utils import copy2clip
+from modules.utils import copy2clip, make_qrcode
 from modules.source_utils import supported_video_extensions, seas_ep_filter, extras
-from modules.kodi_utils import sleep, ok_dialog, progress_dialog, get_icon, notification
+from modules.kodi_utils import sleep, ok_dialog, progress_dialog, notification
 # logger = kodi_utils.logger
 
 class PremiumizeAPI:
@@ -23,10 +23,11 @@ class PremiumizeAPI:
 		url = 'https://www.premiumize.me/token'
 		response = self._post(url, data)
 		user_code = response['user_code']
-		try: copy2clip(user_code)
-		except: pass
-		content = 'Authorize Debrid Services[CR]Navigate to: [B]%s[/B][CR]Enter the following code: [B]%s[/B]' % (response.get('verification_uri'), user_code)
-		progressDialog = progress_dialog('Premiumize Authorize', get_icon('pm_qrcode'))
+		auth_url = response.get('verification_uri')
+		qr_code = make_qrcode(auth_url) or ''
+		copy2clip(auth_url)
+		content = 'Authorize Debrid Services[CR]Navigate to: [B]%s[/B][CR]Enter the following code: [B]%s[/B]' % (auth_url, user_code)
+		progressDialog = progress_dialog('Premiumize Authorize', qr_code)
 		progressDialog.update(content, 0)
 		device_code = response['device_code']
 		expires_in = int(response['expires_in'])
@@ -93,9 +94,11 @@ class PremiumizeAPI:
 			extensions = supported_video_extensions()
 			result = self.instant_transfer(magnet_url)
 			if not 'status' in result or result['status'] != 'success': return None
-			valid_results = [i for i in result.get('content') if any(i.get('path').lower().endswith(x) for x in extensions) and not i.get('link', '') == '']
+			content = result.get('content')
+			valid_results = [i for i in content if any(i.get('path').lower().endswith(x) for x in extensions) and not i.get('link', '') == '']
 			if len(valid_results) == 0: return
 			if season:
+				extras_filter = extras()
 				episode_title = re.sub(r'[^A-Za-z0-9-]+', '.', title.replace('\'', '').replace('&', 'and').replace('%', '.percent')).lower()
 				for item in valid_results:
 					if seas_ep_filter(season, episode, item['path'].split('/')[-1]): append(item)
@@ -103,7 +106,7 @@ class PremiumizeAPI:
 					for i in correct_files:
 						compare_link = seas_ep_filter(season, episode, i['path'], split=True)
 						compare_link = re.sub(episode_title, '', compare_link)
-						if not any(x in compare_link for x in extras()):
+						if not any(x in compare_link for x in extras_filter):
 							file_url = i['link']
 							break
 			else:
@@ -191,17 +194,15 @@ class PremiumizeAPI:
 
 	def _get(self, url, data={}):
 		if self.token in ('empty_setting', ''): return None
-		headers = {'User-Agent': 'Fen Light for Kodi', 'Authorization': 'Bearer %s' % self.token}
 		url = 'https://www.premiumize.me/api/' + url
-		response = requests.get(url, data=data, headers=headers, timeout=20).text
+		response = requests.get(url, data=data, headers=self.headers(), timeout=20).text
 		try: return json.loads(response)
 		except: return response
 
 	def _post(self, url, data={}):
 		if self.token in ('empty_setting', '') and not 'token' in url: return None
-		headers = {'User-Agent': 'Fen Light for Kodi', 'Authorization': 'Bearer %s' % self.token}
 		if not 'token' in url: url = 'https://www.premiumize.me/api/' + url
-		response = requests.post(url, data=data, headers=headers, timeout=20).text
+		response = requests.post(url, data=data, headers=self.headers(), timeout=20).text
 		try: return json.loads(response)
 		except: return response
 

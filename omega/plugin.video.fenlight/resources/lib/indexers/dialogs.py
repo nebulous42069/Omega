@@ -1,56 +1,122 @@
 # -*- coding: utf-8 -*-
-import re
 import json
-from windows.base_window import open_window
-from caches.base_cache import refresh_cached_data
-from caches.episode_groups_cache import episode_groups_cache
 from caches.settings_cache import get_setting, set_setting, set_default, default_setting_values
-from indexers.personal_lists import get_all_personal_lists, make_new_personal_list
-from modules.downloader import manager
-from modules.source_utils import clear_scrapers_cache, get_aliases_titles, make_alias_dict, audio_filter_choices, source_filters
-from modules.utils import get_datetime, title_key, adjust_premiered_date, append_module_to_syspath, manual_module_import, get_current_timestamp
-from modules import kodi_utils, settings, metadata
+from modules import kodi_utils, settings
 # logger = kodi_utils.logger
+
+def list_display_order_choice(params):
+	from modules.meta_lists import list_display_choices
+	list_type = params['list_type']
+	info = list_display_choices(list_type)
+	choices = info['choices']
+	list_items = [{'line1': i[0]} for i in choices]
+	kwargs = {'items': json.dumps(list_items), 'narrow_window': 'true'}
+	choice = kodi_utils.select_dialog(choices, **kwargs)
+	if choice == None: return
+	set_setting('%s.list_sort_name' % info['setting'], choice[0])
+	set_setting('%s.list_sort' % info['setting'], choice[1])
+
+def language_invoker_choice(params):
+	from xml.dom.minidom import parse as mdParse
+	kodi_utils.close_all_dialog()
+	addon_xml = kodi_utils.translate_path('special://home/addons/plugin.video.fenlight/addon.xml')
+	root = mdParse(addon_xml)
+	invoker_instance = root.getElementsByTagName('reuselanguageinvoker')[0].firstChild
+	current_invoker_setting = invoker_instance.data
+	new_value = {'true': 'false', 'false': 'true'}[current_invoker_setting]
+	if not kodi_utils.confirm_dialog(text='Turn [B]Reuse Langauage Invoker[/B] %s?' % ('On' if new_value == 'true' else 'Off')): return
+	invoker_instance.data = new_value
+	new_xml = str(root.toxml()).replace('<?xml version="1.0" ?>', '')
+	with open(addon_xml, 'w') as f: f.write(new_xml)
+	set_setting('reuse_language_invoker', new_value)
+	kodi_utils.execute_builtin('ActivateWindow(Home)', True)
+	kodi_utils.update_local_addons()
+	kodi_utils.disable_enable_addon()
+
+def addon_icon_choice(params):
+	import os
+	from xml.dom.minidom import parse as mdParse
+	addon_xml = kodi_utils.translate_path('special://home/addons/plugin.video.fenlight/addon.xml')
+	root = mdParse(addon_xml)
+	icon_instance = root.getElementsByTagName('icon')[0].firstChild
+	icons_path = 'special://home/addons/plugin.video.fenlight/resources/media/addon_icons'
+	all_icons = kodi_utils.list_dirs(kodi_utils.translate_path(icons_path))[1]
+	all_icons.sort()
+	list_items = [{'line1': i, 'icon': kodi_utils.translate_path(os.path.join(icons_path, i))} for i in all_icons]
+	kwargs = {'items': json.dumps(list_items), 'heading': 'Choose New Icon Image'}
+	new_icon = kodi_utils.select_dialog(all_icons, **kwargs)
+	if new_icon == None: return
+	new_icon_path = 'resources/media/addon_icons/%s' % new_icon
+	if not kodi_utils.confirm_dialog(text='Set New Icon?'): return
+	icon_instance.data = new_icon_path
+	new_xml = str(root.toxml()).replace('<?xml version="1.0" ?>', '')
+	with open(addon_xml, 'w') as f: f.write(new_xml)
+	set_setting('addon_icon_choice', new_icon_path)
+	set_setting('addon_icon_choice_name', new_icon)
+	kodi_utils.execute_builtin('ActivateWindow(Home)', True)
+	kodi_utils.update_local_addons()
+	kodi_utils.disable_enable_addon()
+
+def context_menu_default_choice(params):
+	confirm = kodi_utils.confirm_dialog(heading='Context Menu', text='Would you like to RESET your Context Menu to default?')
+	if not confirm: return
+	set_setting('context_menu.order', default_setting_values('context_menu.order')['setting_default'])
+	return kodi_utils.ok_dialog(text='Context Menu set to Default.')
 
 def context_menu_order_choice(params):
 	options = {'extras': 'Extras', 'options': 'Options', 'playback_options': 'Playback Options', 'browse_set_season': 'Browse Movie Set/TV Season',
 	'recommended': 'Browse Recommended', 'more_like_this': 'Browse More Like This', 'in_trakt_list': 'In Trakt Lists', 'trakt_manager':'Trakt Lists Manager',
-	'personal_manager': 'Personal Lists Manager', 'favorites_manager': 'Favorites Manager', 'mark_watched': 'Mark Watched/Unwatched', 'exit': 'Exit List'}
+	'personal_manager': 'Personal Lists Manager', 'tmdb_manager': 'TMDb Lists Manager', 'favorites_manager': 'Favorites Manager',
+	'mark_watched': 'Mark Watched/Unwatched', 'exit': 'Exit List', 'refresh': 'Refresh Widgets', 'reload': 'Reload Widgets'}
+	default_control = params.get('default_control') or 11
 	current_settings = settings.cm_sort_order()
 	current_settings = sorted(current_settings, key=current_settings.get)
 	default_settings = default_setting_values('context_menu.order')['setting_default'].split(',')
-	if current_settings != default_settings and params.get('first_check_completed', 'false') != 'true':
-		if not kodi_utils.confirm_dialog(heading='Context Menu Order', text='Would you like to RESET your Context Menu to default or EDIT the order?',
-						ok_label='Edit Menu', cancel_label='Default'):
-			set_setting('context_menu.order', ','.join(default_settings))
-			kodi_utils.ok_dialog(text='Context Menu set to Default.')
-			params['first_check_completed'] = 'true'
-			return context_menu_order_choice(params)
-	params['first_check_completed'] = 'true'
-	choices = [(options[i], i, current_settings.index(i)) for i in current_settings]
+	removed_settings = [i for i in default_settings if not i in current_settings]
+	if removed_settings:
+		action_edit = kodi_utils.confirm_dialog(heading='Context Menu Order', text='Would you like to RE-ADD a removed item or EDIT current items?',
+						ok_label='Edit Current', cancel_label='Re-Add Removed', default_control=default_control)
+	else: action_edit = True
+	if action_edit == None: return
+	current_choices = [(options[i], i, current_settings.index(i)) for i in current_settings]
+	removed_choices = [(options[i], i) for i in removed_settings]
+	choices = current_choices if action_edit else removed_choices
 	list_items = [{'line1': i[0]} for i in choices]
-	kwargs = {'items': json.dumps(list_items), 'narrow_window': 'true', 'heading': 'Choose Item to Move...'}
+	kwargs = {'items': json.dumps(list_items), 'narrow_window': 'true', 'heading': 'Choose Item to Edit...'}
 	choice = kodi_utils.select_dialog(choices, **kwargs)
-	if choice == None: return
-	current_position = choice[2]
-	if kodi_utils.confirm_dialog(heading='Context Menu Order', text='Would you like to DISABLE this item or MOVE it in the order?', ok_label='Disable', cancel_label='Edit Order'):
-		current_settings.remove(choice[1])
-		set_setting('context_menu.order', ','.join(current_settings))
-		return context_menu_order_choice(params)
-	choices.remove(choice)
-	list_items = [{'line1': 'Place below [B]%s[/B]' % i[0]} for i in choices]
+	if choice == None:
+		if removed_settings: return context_menu_order_choice(params)
+		return
+	current_name = choice[1]
+	if action_edit:
+		current_position = choice[2]
+		params['default_control'] = 10
+		remove_choice = kodi_utils.confirm_dialog(heading='Context Menu Order', text='Would you like to REMOVE this item or MOVE it in the order?',
+												ok_label='Remove', cancel_label='Edit Order')
+		if remove_choice == None: return context_menu_order_choice(params)
+		if remove_choice:
+			current_settings.remove(choice[1])
+			set_setting('context_menu.order', ','.join(current_settings))
+			return context_menu_order_choice(params)
+		current_choices.remove(choice)
+	else:
+		current_position = None
+		params['default_control'] = 11
+	list_items = [{'line1': 'Place below [B]%s[/B]' % i[0]} for i in current_choices]
 	list_items.insert(0, {'line1': 'Place at Top of List'})
 	kwargs = kwargs = {'items': json.dumps(list_items), 'heading': 'Move %s to New Position' % choice[0], 'narrow_window': 'true'}
 	choice = kodi_utils.select_dialog([list_items.index(i) for i in list_items], **kwargs)
 	if choice == None: return context_menu_order_choice(params)
-	current_settings.insert(choice, current_settings.pop(current_position))
+	if action_edit: current_settings.remove(current_name)
+	current_settings.insert(choice, current_name)
 	set_setting('context_menu.order', ','.join(current_settings))
 	return context_menu_order_choice(params)
 
-def personal_lists_choice(params):
+def personallists_manager_choice(params):
+	from indexers.personal_lists import get_all_personal_lists, make_new_personal_list, new_list_check
 	icon = params.get('icon', None) or kodi_utils.get_icon('lists')
 	list_type = params['list_type']
-	all_lists = get_all_personal_lists()
+	all_lists = get_all_personal_lists(get_setting('fenlight.personal_list.list_sort', '0'))
 	choices = []
 	if not all_lists: action = 'add_new'
 	else:
@@ -60,31 +126,90 @@ def personal_lists_choice(params):
 		action = kodi_utils.select_dialog([i[1] for i in choices], **kwargs)
 		if action == None: return
 	if action == 'add_new':
-		list_name, sort_order = make_new_personal_list({'refresh': 'false'})
+		list_name, author = make_new_personal_list({'external_creation': 'true'})
 		if not list_name: return kodi_utils.notification('Error Creating List', 3000)
 		action = 'add'
 	else:
-		choices = [('%s [I](x%02d)[/I]' % (i['name'], i['total']), i['name']) for i in all_lists]
+		new_template, normal_template = '[COLOR FF008EB2]%s [I](x%02d)[/I][/COLOR]', '%s [I](x%02d)[/I]'
+		choices = [((new_template if new_list_check(i['seen']) else normal_template) % (i['name'], i['total']), (i['name'], i['author'])) for i in all_lists]
 		list_items = [{'line1': i[0]} for i in choices]
 		kwargs = {'items': json.dumps(list_items), 'narrow_window': 'true'}
-		list_name = kodi_utils.select_dialog([i[1] for i in choices], **kwargs)
-		if list_name == None: return
+		try:list_name, author = kodi_utils.select_dialog([i[1] for i in choices], **kwargs)
+		except: return
 	if action == 'add': new_contents = {'media_id': params['tmdb_id'], 'title': params['title'], 'type': list_type,
 										'release_date': params['premiered'], 'date_added': params['current_time']}
 	else: new_contents = params['tmdb_id']
 	from caches.personal_lists_cache import personal_lists_cache
-	result = personal_lists_cache.add_remove_list_item(action, new_contents, list_name)
+	result = personal_lists_cache.add_remove_list_item(list_name, author, action, new_contents)
 	kodi_utils.notification(result, 3000)
 	if action == 'remove' and any([kodi_utils.path_check(list_name) or kodi_utils.external()]): kodi_utils.kodi_refresh()
 
-def preferred_autoplay_choice(params):
+def tmdblists_manager_choice(params):
+	from indexers.tmdb_lists import get_all_tmdb_lists, make_new_tmdb_list, add_to_tmdb_list, remove_from_tmdb_list, check_item_status
+	icon = params.get('icon', None) or kodi_utils.get_icon('tmdb')
+	all_lists = get_all_tmdb_lists('0')
+	choices = []
+	if not all_lists: action = 'add_new'
+	else:
+		choices = [('Add To TMDb List...', 'add'), ('Remove From TMDb List...', 'remove'), ('Add To [B]NEW[/B] TMDb List...', 'add_new')]
+		list_items = [{'line1': item[0], 'icon': icon} for item in choices]
+		kwargs = {'items': json.dumps(list_items), 'heading': 'TMDb Lists Manager'}
+		action = kodi_utils.select_dialog([i[1] for i in choices], **kwargs)
+		if action == None: return
+	if action == 'add_new':
+		list_id = make_new_tmdb_list({'external_creation': 'true'})
+		if not list_id: return kodi_utils.notification('Error Creating List')
+		action = 'add'
+	else:
+		choices = [('%s [I](x%02d)[/I]' % (i['name'], i['number_of_items']), i['id']) for i in all_lists]
+		list_items = [{'line1': i[0]} for i in choices]
+		kwargs = {'items': json.dumps(list_items), 'narrow_window': 'true'}
+		list_id = kodi_utils.select_dialog([i[1] for i in choices], **kwargs)
+		if list_id == None: return
+	new_contents = {'items': [{'media_type': params['media_type'], 'media_id': params['tmdb_id']}]}
+	item_in_list = check_item_status(list_id, params['media_type'], params['tmdb_id'])
+	if action == 'add':
+		if item_in_list: return kodi_utils.notification('Item already in List')
+		add_to_tmdb_list(list_id, new_contents)
+	else:
+		if not item_in_list: return kodi_utils.notification('Item not in List')
+		remove_from_tmdb_list(list_id, new_contents)
+	from caches.tmdb_lists import tmdb_lists_cache
+	tmdb_lists_cache.clear_list(list_id)
+	tmdb_lists_cache.clear_all_lists()
+	kodi_utils.notification('Success', 3000)
+	if action == 'remove' and any([kodi_utils.path_check(str(list_id)) or kodi_utils.external()]): kodi_utils.kodi_refresh()
+
+def favorites_manager_choice(params):
+	from caches.favorites_cache import favorites_cache
+	media_type, tmdb_id, title = params.get('media_type'), params.get('tmdb_id'), params.get('title')
+	current_favorites = favorites_cache.get_favorites(media_type)
+	people_favorite = media_type == 'people'
+	current_favorite = any(i['tmdb_id'] == tmdb_id for i in current_favorites)
+	if current_favorite:
+		function, text = favorites_cache.delete_favourite, 'Remove From Favorites?'
+		param_refresh = params.get('refresh', None)
+		if param_refresh == None: refresh = any(i in kodi_utils.folder_path() for i in ('action=favorites_movies', 'action=favorites_tvshows', 'action=favorites_anime'))
+		else: refresh = param_refresh == 'true'
+	else: function, text, refresh = favorites_cache.set_favourite, 'Add To Favorites?', False
+	heading = title.split('|')[0] if people_favorite else title
+	if not kodi_utils.confirm_dialog(heading=heading, text=text): return
+	success = function(media_type, tmdb_id, title)
+	if success:
+		if refresh: kodi_utils.kodi_refresh()
+		kodi_utils.notification('Success', 3500)
+	else: kodi_utils.notification('Error', 3500)
+	if people_favorite and success: return text
+
+def preferred_filters_choice(params):
+	from modules.source_utils import source_filters, include_exclude_filters
 	def _default_choices():
 		return [{'name': '1st Sort', 'value': 'Choose 1st Sort Param'}, {'name': '2nd Sort', 'value': 'Choose 2nd Sort Param'},
 				{'name': '3rd Sort', 'value': 'Choose 3rd Sort Param'}, {'name': '4th Sort', 'value': 'Choose 4th Sort Param'},
 				{'name': '5th Sort', 'value': 'Choose 5th Sort Param'}]
 	def _beginning_choices():
 		defaults = _default_choices()
-		for count, item in enumerate(settings.preferred_autoplay()): defaults[count]['value'] = item
+		for count, item in enumerate(auto_settings): defaults[count]['value'] = item
 		return defaults
 	def _rechoose_checker(choice):
 		if choice['value'].startswith('Choose'): return (choice, True)
@@ -97,8 +222,12 @@ def preferred_autoplay_choice(params):
 			choices[choice_index] = new_default
 		return (new_default, clear_choice)
 	def _param_choices(choice):
-		used_filters = [i['value'] for i in choices if not i['value'].startswith('Choose')]
-		unused_filters = [i for i in filters_choice if not i[1] in used_filters]
+		filter_keys = include_exclude_filters()
+		disabled_filters = [v for k, v in filter_keys.items() if settings.filter_status(k) == 1]
+		s_filters = source_filters()
+		filters_choice = [(i[0], i[1].replace('[B]', '').replace('[/B]', '')) for i in s_filters]
+		filters_choice = [i for i in filters_choice if not i[1] in disabled_filters]
+		unused_filters = [i for i in filters_choice if not i[1] in auto_settings]
 		param_list_items = [{'line1': i[0], 'line2': i[1]} for i in unused_filters]
 		param_kwargs = {'items': json.dumps(param_list_items), 'multi_line': 'true', 'heading': 'Choose Sort to Top Params for Autoplay', 'narrow_window': 'true'}
 		param_choice = kodi_utils.select_dialog(unused_filters, **param_kwargs)
@@ -107,20 +236,21 @@ def preferred_autoplay_choice(params):
 		return choice
 	def _make_settings():
 		new_settings = [i['value'] for i in choices if not i['value'].startswith('Choose')]
-		if not new_settings: set_setting('preferred_autoplay', 'empty_setting')
-		else: set_setting('preferred_autoplay', ', '.join(new_settings))
-	filters_choice = [(i[0], i[1].replace('[B]', '').replace('[/B]', '')) for i in source_filters()]
+		if not new_settings: set_setting('filter.preferred_filters', 'empty_setting')
+		else: set_setting('filter.preferred_filters', ', '.join(new_settings))
+	auto_settings = settings.preferred_filters()
 	choices = params.get('choices') or _beginning_choices()
 	list_items = [{'line1': i['name'], 'line2': i['value']} for i in choices]
 	kwargs = {'items': json.dumps(list_items), 'multi_line': 'true', 'heading': 'Choose Sort to Top Params for Autoplay', 'narrow_window': 'true'}
 	choice = kodi_utils.select_dialog(choices, **kwargs)
 	if choice == None: return _make_settings()
 	choice, ask_params = _rechoose_checker(choice)
-	if not ask_params: return preferred_autoplay_choice({'choices': choices})
+	if not ask_params: return preferred_filters_choice({'choices': choices})
 	param_choice = _param_choices(choice)
-	if not param_choice: return preferred_autoplay_choice({'choices': choices})
+	if not param_choice: return preferred_filters_choice({'choices': choices})
 	choices[choices.index(choice)] = param_choice
-	return preferred_autoplay_choice({'choices': choices})
+	_make_settings()
+	return preferred_filters_choice({'choices': choices})
 
 def tmdb_api_check_choice(params):
 	from apis.tmdb_api import movie_details
@@ -145,8 +275,33 @@ def widget_refresh_timer_choice(params):
 	set_setting('widget_refresh_timer', choice['value'])
 	set_setting('widget_refresh_timer_name', choice['name'])
 
+def limit_number_quality_choice(params):
+	choices = [{'name': 'OFF', 'value': '0'}]
+	choices.extend([{'name': '%sx Per Quality' % i, 'value': str(i)} for i in range(1,5)])
+	choices.extend([{'name': '%sx Per Quality' % i, 'value': str(i)} for i in range(5,205,5)])
+	list_items = [{'line1': i['name']} for i in choices]
+	kwargs = {'items': json.dumps(list_items), 'narrow_window': 'true'}
+	choice = kodi_utils.select_dialog(choices, **kwargs)
+	if choice == None: return
+	set_setting('results.limit_number_quality', choice['value'])
+	set_setting('results.limit_number_quality_name', choice['name'])
+
+def limit_number_total_choice(params):
+	choices = [{'name': 'OFF', 'value': '0'}]
+	choices.extend([{'name': '%sx Total Results' % i, 'value': str(i)} for i in range(1,10)])
+	choices.extend([{'name': '%sx Total Results' % i, 'value': str(i)} for i in range(10,1000,5)])
+	list_items = [{'line1': i['name']} for i in choices]
+	kwargs = {'items': json.dumps(list_items), 'narrow_window': 'true'}
+	choice = kodi_utils.select_dialog(choices, **kwargs)
+	if choice == None: return
+	set_setting('results.limit_number_total', choice['value'])
+	set_setting('results.limit_number_total_name', choice['name'])
+
 def external_scraper_choice(params):
-	try: results = kodi_utils.jsonrpc_get_addons('xbmc.python.module')
+	from modules.utils import append_module_to_syspath, manual_function_import
+	try:
+		results = kodi_utils.jsonrpc_get_addons('xbmc.python.module')
+		results = [i for i in results if kodi_utils.addon_enabled(i['addonid'])]
 	except: return
 	list_items = [{'line1': i['name'], 'icon': i['thumbnail']} for i in results]
 	kwargs = {'items': json.dumps(list_items)}
@@ -157,12 +312,8 @@ def external_scraper_choice(params):
 	try:
 		append_module_to_syspath('special://home/addons/%s/lib' % module_id)
 		main_folder_name = module_id.split('.')[-1]
-		for item in ('sources_%s' % main_folder_name, 'sources', 'providers_%s' % main_folder_name, 'providers'):
-			try: import_success = manual_module_import('%s.%s' % (main_folder_name, item))
-			except: import_success = None
-			if import_success:
-				success = True
-				break
+		sourceDict = manual_function_import(main_folder_name, 'sources')(specified_folders=['torrents'])
+		success = True
 	except: pass
 	if success:
 		try:
@@ -176,6 +327,7 @@ def external_scraper_choice(params):
 		return external_scraper_choice(params)
 
 def audio_filters_choice(params={}):
+	from modules.source_utils import audio_filter_choices
 	icon = kodi_utils.get_icon('audio')
 	audio_filters = audio_filter_choices()
 	list_items = [{'line1': item[0], 'line2': item[1], 'icon': icon} for item in audio_filters]
@@ -230,21 +382,37 @@ def random_choice(params):
 
 def trakt_manager_choice(params):
 	if not settings.trakt_user_active(): return kodi_utils.notification('No Active Trakt Account', 3500)
+	tmdb_id, tvdb_id, imdb_id, media_type = params['tmdb_id'], params['tvdb_id'], params['imdb_id'], params['media_type']
 	icon = params.get('icon', None) or kodi_utils.get_icon('trakt')
-	choices = [('Add To Trakt List...', 'add'), ('Remove From Trakt List...', 'remove')]
+	choices = [('Add to [B]Watchlist[/B]', 'add_watchlist'), ('Remove from [B]Watchlist[/B]', 'remove_watchlist'),
+				('Add to [B]Collection[/B]', 'add_collection'), ('Remove from [B]Collection[/B]', 'remove_collection'),
+				('Add To [B]Personal List[/B]...', 'add'), ('Remove from [B]Personal List[/B]...', 'remove')]
 	list_items = [{'line1': item[0], 'icon': icon} for item in choices]
 	kwargs = {'items': json.dumps(list_items), 'heading': 'Trakt Lists Manager'}
 	choice = kodi_utils.select_dialog([i[1] for i in choices], **kwargs)
 	if choice == None: return
-	from apis.trakt_api import trakt_add_remove_from_list
-	params['action'] = choice
-	trakt_add_remove_from_list(params)
+	from apis import trakt_api
+	if media_type == 'movie': key, media_key, media_id = ('movies', 'tmdb', int(tmdb_id))
+	else:
+		key = 'shows'
+		media_ids = [(tmdb_id, 'tmdb'), (imdb_id, 'imdb'), (tvdb_id, 'tvdb')]
+		media_id, media_key = next(item for item in media_ids if item[0] not in ('None', None, ''))
+		if media_id in (tmdb_id, tvdb_id): media_id = int(media_id)
+	data = {key: [{'ids': {media_key: media_id}}]}
+	if choice == 'add_watchlist': return trakt_api.add_to_watchlist(data)
+	if choice == 'remove_watchlist': return trakt_api.remove_from_watchlist(data)
+	if choice == 'add_collection': return trakt_api.add_to_collection(data)
+	if choice == 'remove_collection': return trakt_api.remove_from_collection(data)
+	selected = trakt_api.get_trakt_list_selection(['personal'])
+	if selected == None: return
+	trakt_api.add_to_list(selected['user'], selected['slug'], data) if choice == 'add' else trakt_api.remove_from_list(selected['user'], selected['slug'], data)
 
 def episode_groups_choice(params):
+	from modules.metadata import episode_groups
 	episode_group_types = {1: 'Original Air Date', 2: 'Absolute', 3: 'DVD', 4: 'Digital', 5: 'Story Arc', 6: 'Production', 7: 'TV'}
 	meta = params.get('meta')
-	poster = params.get('poster') or empty_poster()
-	groups = metadata.episode_groups(meta['tmdb_id'])
+	poster = params.get('poster') or kodi_utils.get_icon('box_office')
+	groups = episode_groups(meta['tmdb_id'])
 	if not groups:
 		kodi_utils.notification('No Episode Groups to choose from.')
 		return None
@@ -255,6 +423,8 @@ def episode_groups_choice(params):
 	return choice
 
 def assign_episode_group_choice(params):
+	from caches.episode_groups_cache import episode_groups_cache
+	from modules import metadata
 	tmdb_id = params['meta']['tmdb_id']
 	current_group = episode_groups_cache.get(tmdb_id)
 	if current_group:
@@ -271,6 +441,10 @@ def assign_episode_group_choice(params):
 	kodi_utils.notification('Success', 2000)
 
 def playback_choice(params):
+	from modules.utils import get_datetime
+	from modules.debrid import debrid_for_ext_cache_check
+	from modules.source_utils import get_aliases_titles, make_alias_dict
+	from modules import metadata
 	media_type, season, episode = params.get('media_type'), params.get('season', ''), params.get('episode', '')
 	episode_id = params.get('episode_id', None)
 	meta = params.get('meta')
@@ -279,13 +453,16 @@ def playback_choice(params):
 	if not isinstance(meta, dict):
 		function = metadata.movie_meta if media_type == 'movie' else metadata.tvshow_meta
 		meta = function('tmdb_id', meta, settings.tmdb_api_key(), settings.mpaa_region(), get_datetime())
-	poster = meta.get('poster') or empty_poster()
+	poster = meta.get('poster') or kodi_utils.get_icon('box_office')
 	aliases = get_aliases_titles(make_alias_dict(meta, meta['title']))
+	check_cache_status, check_cache_toggle =  ('OFF', 'false') if settings.external_cache_check() else ('ON', 'true')
 	items = [{'line': 'Select Source', 'function': 'scrape'},
-			{'line': 'Rescrape & Select Source', 'function': 'clear_and_rescrape'},
-			{'line': 'Scrape with DEFAULT External Scrapers', 'function': 'scrape_with_default'},
-			{'line': 'Scrape with ALL External Scrapers', 'function': 'scrape_with_disabled'},
-			{'line': 'Scrape With All Filters Ignored', 'function': 'scrape_with_filters_ignored'}]
+			{'line': 'Rescrape & Select Source', 'function': 'clear_and_rescrape'}]
+	if debrid_for_ext_cache_check():
+		items.append({'line': 'Rescrape with External Cache Check [B]%s[/B]' % check_cache_status, 'function': 'rescrape_external_cache_check'})
+	items.extend([{'line': 'Clear Debrid Cache & Show Results', 'function': 'clear_debrid_cache_and_show'},
+				{'line': 'Scrape with ALL External Scrapers', 'function': 'scrape_with_disabled'},
+				{'line': 'Scrape With All Filters Ignored', 'function': 'scrape_with_filters_ignored'}])
 	if media_type == 'episode': items.append({'line': 'Scrape with Custom Episode Groups Value', 'function': 'scrape_with_episode_group'})
 	if aliases: items.append({'line': 'Scrape with an Alias', 'function': 'scrape_with_aliases'})
 	items.append({'line': 'Scrape with Custom Values', 'function': 'scrape_with_custom_values'})
@@ -301,16 +478,25 @@ def playback_choice(params):
 		ExternalCache().delete_cache_single(media_type, str(meta['tmdb_id']))
 		kodi_utils.hide_busy_dialog()
 	if choice == 'scrape':
-		if media_type == 'movie': play_params = {'mode': 'playback.media', 'media_type': 'movie', 'tmdb_id': meta['tmdb_id'], 'autoplay': 'false'}
-		else: play_params = {'mode': 'playback.media', 'media_type': 'episode', 'tmdb_id': meta['tmdb_id'], 'season': season, 'episode': episode, 'autoplay': 'false'}
+		if media_type == 'movie': play_params = {'mode': 'playback.media', 'media_type': 'movie', 'tmdb_id': meta['tmdb_id'], 'autoplay': 'false', 'prescrape': 'false'}
+		else: play_params = {'mode': 'playback.media', 'media_type': 'episode', 'tmdb_id': meta['tmdb_id'],
+							'season': season, 'episode': episode, 'autoplay': 'false', 'prescrape': 'false'}
 	elif choice == 'clear_and_rescrape':
-		if media_type == 'movie': play_params = {'mode': 'playback.media', 'media_type': 'movie', 'tmdb_id': meta['tmdb_id'], 'autoplay': 'false'}
-		else: play_params = {'mode': 'playback.media', 'media_type': 'episode', 'tmdb_id': meta['tmdb_id'], 'season': season, 'episode': episode, 'autoplay': 'false'}
-	elif choice == 'scrape_with_default':
+		if media_type == 'movie': play_params = {'mode': 'playback.media', 'media_type': 'movie', 'tmdb_id': meta['tmdb_id'], 'autoplay': 'false', 'prescrape': 'false'}
+		else: play_params = {'mode': 'playback.media', 'media_type': 'episode', 'tmdb_id': meta['tmdb_id'],
+							'season': season, 'episode': episode, 'autoplay': 'false', 'prescrape': 'false'}
+	elif choice == 'rescrape_external_cache_check':
 		if media_type == 'movie': play_params = {'mode': 'playback.media', 'media_type': 'movie', 'tmdb_id': meta['tmdb_id'],
-												'default_ext_only': 'true', 'prescrape': 'false', 'autoplay': 'false'}
-		else: play_params = {'mode': 'playback.media', 'media_type': 'episode', 'tmdb_id': meta['tmdb_id'], 'season': season,
-							'episode': episode, 'default_ext_only': 'true', 'prescrape': 'false', 'autoplay': 'false'}
+												'external_cache_check': check_cache_toggle, 'prescrape': 'false'}
+		else:
+			play_params = {'mode': 'playback.media', 'media_type': 'episode', 'tmdb_id': meta['tmdb_id'], 'season': season, 'episode': episode,
+							'external_cache_check': check_cache_toggle, 'prescrape': 'false'}
+	elif choice == 'clear_debrid_cache_and_show':
+		from caches.debrid_cache import debrid_cache
+		debrid_cache.clear_cache()	
+		if media_type == 'movie': play_params = {'mode': 'playback.media', 'media_type': 'movie', 'tmdb_id': meta['tmdb_id'], 'autoplay': 'false', 'prescrape': 'false'}
+		else: play_params = {'mode': 'playback.media', 'media_type': 'episode', 'tmdb_id': meta['tmdb_id'],
+							'season': season, 'episode': episode, 'autoplay': 'false', 'prescrape': 'false'}
 	elif choice == 'scrape_with_disabled':
 		if media_type == 'movie': play_params = {'mode': 'playback.media', 'media_type': 'movie', 'tmdb_id': meta['tmdb_id'],
 												'disabled_ext_ignored': 'true', 'prescrape': 'false', 'autoplay': 'false'}
@@ -371,28 +557,24 @@ def playback_choice(params):
 				if settings.autoplay_next_episode(): _process_params('', 'true', 'disable_autoplay_next_episode')
 		all_choice = kodi_utils.confirm_dialog(heading=meta.get('rootname', ''), text='Scrape with ALL External Scrapers?', ok_label='Yes', cancel_label='No')
 		if all_choice == None: return kodi_utils.notification('Cancelled', 2500)
-		if not all_choice:
-			default_choice = kodi_utils.confirm_dialog(heading=meta.get('rootname', ''), text='Scrape with DEFAULT External Scrapers?', ok_label='Yes', cancel_label='No')
-			if default_choice == None: return kodi_utils.notification('Cancelled', 2500)
-			if default_choice: _process_params('', 'true', 'default_ext_only')
-		else:  _process_params('', 'true', 'disabled_ext_ignored')
+		if all_choice: _process_params('', 'true', 'disabled_ext_ignored')
 		disable_filters_choice = kodi_utils.confirm_dialog(heading=meta.get('rootname', ''), text='Disable All Filters for Search?', ok_label='Yes', cancel_label='No')
 		if disable_filters_choice == None: return kodi_utils.notification('Cancelled', 2500)
 		if disable_filters_choice:
 			_process_params('', 'true', 'ignore_scrape_filters')
 			kodi_utils.set_property('fs_filterless_search', 'true')
-	else:
-		from modules.metadata import episodes_meta
-		episodes_data = episodes_meta(orig_season, meta)
+	else: episodes_data = metadata.episodes_meta(orig_season, meta)
 	from modules.sources import Sources
+	play_params['playback_integer'] = settings.playback_integer()
 	Sources().playback_prep(play_params)
 
 def set_quality_choice(params):
 	quality_setting = params.get('setting_id')
 	icon = params.get('icon', None) or ''
-	dl = ['Include SD', 'Include 720p', 'Include 1080p', 'Include 4K']
-	fl = ['SD', '720p', '1080p', '4K']
-	try: preselect = [fl.index(i) for i in get_setting('fenlight.%s' % quality_setting).split(', ')]
+	dl = ['Include 4K', 'Include 1080p', 'Include 720p', 'Include SD']
+	fl = ['4K', '1080p', '720p', 'SD']
+	q_setting = get_setting('fenlight.%s' % quality_setting).split(', ')
+	try: preselect = [fl.index(i) for i in q_setting]
 	except: preselect = []
 	list_items = [{'line1': item, 'icon': icon} for item in dl]
 	kwargs = {'items': json.dumps(list_items), 'multi_choice': 'true', 'preselect': preselect}
@@ -410,7 +592,7 @@ def extras_buttons_choice(params):
 		for _type in ('movie', 'tvshow'):
 			setting_id_base = 'extras.%s.button' % _type
 			for item in range(10, 18):
-				setting_id = setting_id_base + str(item)
+				setting_id = 'extras.%s.button%s' % (_type, item)
 				try:
 					button_action = get_setting('fenlight.%s' % setting_id)
 					button_label = extras_button_label_values[_type][button_action]
@@ -431,9 +613,7 @@ def extras_buttons_choice(params):
 		choice = kodi_utils.select_dialog(choices, **kwargs)
 		if choice == None:
 			if button_dict != orig_button_dict:
-				for k, v in button_dict.items():
-					set_setting(k, v['button_action'])
-				return kodi_utils.ok_dialog(text='Success')
+				for k, v in button_dict.items(): set_setting(k, v['button_action'])
 			return
 		media_type = choice[1]
 		if 'restore' in media_type:
@@ -444,7 +624,7 @@ def extras_buttons_choice(params):
 			if restore_type in ('tvshow', 'both'):
 				for item in [(i, default_setting_values(i)['setting_default']) for i in ('extras.tvshow.button%s' % i for i in range(10,18))]:
 					set_setting(item[0], item[1])
-			return kodi_utils.ok_dialog(text='Success')
+			return extras_buttons_choice({})
 	choices = [('[B]%s[/B]   |   %s' % (v['button_name'], v['button_label']), v['button_name'], v['button_label'], k) for k, v in button_dict.items() if media_type in k]
 	list_items = [{'line1': i[0]} for i in choices]
 	kwargs = {'items': json.dumps(list_items), 'heading': 'Choose Button to Set', 'narrow_window': 'true'}
@@ -482,7 +662,8 @@ def set_language_filter_choice(params):
 	lang_choices = language_choices()
 	if include_none == 'false': lang_choices.pop('None')
 	dl, fl = list(lang_choices.keys()), list(lang_choices.values())
-	try: preselect = [fl.index(i) for i in get_setting('fenlight.%s' % filter_setting_id).split(', ')]
+	set_filter = get_setting('fenlight.%s' % filter_setting_id).split(', ')
+	try: preselect = [fl.index(i) for i in set_filter]
 	except: preselect = []
 	list_items = [{'line1': item} for item in dl]
 	kwargs = {'items': json.dumps(list_items), 'multi_choice': multi_choice, 'preselect': preselect}
@@ -498,7 +679,8 @@ def enable_scrapers_choice(params={}):
 	scrapers = ['external', 'easynews', 'rd_cloud', 'pm_cloud', 'ad_cloud', 'oc_cloud', 'tb_cloud', 'folders']
 	cloud_scrapers = {'rd_cloud': 'rd.enabled', 'pm_cloud': 'pm.enabled', 'ad_cloud': 'ad.enabled', 'oc_cloud': 'oc.enabled', 'tb_cloud': 'tb.enabled'}
 	scraper_names = ['EXTERNAL SCRAPERS', 'EASYNEWS', 'RD CLOUD', 'PM CLOUD', 'AD CLOUD', 'OC CLOUD', 'TB CLOUD', 'FOLDERS 1-5']
-	preselect = [scrapers.index(i) for i in settings.active_internal_scrapers()]
+	set_scrapers = settings.active_internal_scrapers()
+	preselect = [scrapers.index(i) for i in set_scrapers]
 	list_items = [{'line1': item, 'icon': icon} for item in scraper_names]
 	kwargs = {'items': json.dumps(list_items), 'multi_choice': 'true', 'preselect': preselect}
 	choice = kodi_utils.select_dialog(scrapers, **kwargs)
@@ -508,6 +690,7 @@ def enable_scrapers_choice(params={}):
 		if i in cloud_scrapers and i in choice: set_setting(cloud_scrapers[i], 'true')
 
 def sources_folders_choice(params):
+	from windows.base_window import open_window
 	return open_window(('windows.settings_manager', 'SettingsManagerFolders'), 'settings_manager_folders.xml')
 
 def results_sorting_choice(params={}):
@@ -522,6 +705,7 @@ def results_sorting_choice(params={}):
 		set_setting('results.sort_order', choice[1])
 
 def results_format_choice(params={}):
+	from windows.base_window import open_window
 	choice = open_window(('windows.sources', 'SourcesChoice'), 'sources_choice.xml')
 	if choice: set_setting('results.list_format', choice)
 
@@ -536,27 +720,6 @@ def clear_favorites_choice(params={}):
 	favorites_cache.clear_favorites(media_type)
 	kodi_utils.notification('Success', 3000)
 
-def favorites_choice(params):
-	from caches.favorites_cache import favorites_cache
-	media_type, tmdb_id, title = params.get('media_type'), params.get('tmdb_id'), params.get('title')
-	current_favorites = favorites_cache.get_favorites(media_type)
-	people_favorite = media_type == 'people'
-	current_favorite = any(i['tmdb_id'] == tmdb_id for i in current_favorites)
-	if current_favorite:
-		function, text = favorites_cache.delete_favourite, 'Remove From Favorites?'
-		param_refresh = params.get('refresh', None)
-		if param_refresh == None: refresh = any(i in kodi_utils.folder_path() for i in ('action=favorites_movies', 'action=favorites_tvshows'))
-		else: refresh = param_refresh == 'true'
-	else: function, text, refresh = favorites_cache.set_favourite, 'Add To Favorites?', False
-	heading = title.split('|')[0] if people_favorite else title
-	if not kodi_utils.confirm_dialog(heading=heading, text=text): return
-	success = function(media_type, tmdb_id, title)
-	if success:
-		if refresh: kodi_utils.kodi_refresh()
-		kodi_utils.notification('Success', 3500)
-	else: kodi_utils.notification('Error', 3500)
-	if people_favorite and success: return text
-
 def scraper_color_choice(params):
 	setting = params.get('setting_id')
 	current_setting, original_highlight = get_setting('fenlight.%s' % setting), default_setting_values(setting)['setting_default']
@@ -567,7 +730,18 @@ def scraper_color_choice(params):
 	chosen_color = color_choice({'current_setting': current_setting})
 	if chosen_color: set_setting(setting, chosen_color)
 
+def personal_list_unseen_color_choice(params):
+	setting = 'personal_list.unseen_highlight'
+	current_setting, original_highlight = get_setting('fenlight.%s' % setting), default_setting_values(setting)['setting_default']
+	if current_setting != original_highlight:
+		action = kodi_utils.confirm_dialog(text='Set new Highlight or Restore Default Highlight?', ok_label='Set New', cancel_label='Restore Default', default_control=10)
+		if action == None: return
+		if not action: return set_setting(setting, original_highlight)
+	chosen_color = color_choice({'current_setting': current_setting})
+	if chosen_color: set_setting(setting, chosen_color)
+
 def color_choice(params):
+	from windows.base_window import open_window
 	return open_window(('windows.color', 'SelectColor'), 'color.xml', current_setting=params.get('current_setting', None))
 
 def mpaa_region_choice(params={}):
@@ -584,6 +758,9 @@ def mpaa_region_choice(params={}):
 	delete_meta_cache(silent=True)
 
 def options_menu_choice(params, meta=None):
+	from caches.episode_groups_cache import episode_groups_cache
+	from modules.utils import get_datetime
+	from modules import metadata
 	params_get = params.get
 	tmdb_id, content, poster = params_get('tmdb_id', None), params_get('content', None), params_get('poster', None)
 	is_external, from_extras = params_get('is_external') in (True, 'True', 'true'), params_get('from_extras', 'false') == 'true'
@@ -603,8 +780,9 @@ def options_menu_choice(params, meta=None):
 	if from_extras:
 		if menu_type in ('movie', 'episode'): listing_append(('Playback Options', 'Scrapers Options', 'playback_choice'))
 		if settings.trakt_user_active(): listing_append(('Trakt Lists Manager', '', 'trakt_manager'))
-		listing_append(('Personal Lists Manager', '', 'personal_lists_choice'))
-		listing_append(('Favorites Manager', '', 'favorites_choice'))
+		listing_append(('Personal Lists Manager', '', 'personallists_manager_choice'))
+		listing_append(('TMDb Lists Manager', '', 'tmdblists_manager_choice'))
+		listing_append(('Favorites Manager', '', 'favorites_manager_choice'))
 	if menu_type == 'tvshow': listing_append(('Play Random', 'Based On %s' % rootname, 'random'))
 	if menu_type in ('tvshow', 'season'):
 		listing_append(('Assign an Episode Group to %s' % rootname, 'Currently %s' % episode_groups_cache.get(tmdb_id).get('name', 'None'), 'episode_group'))
@@ -612,9 +790,11 @@ def options_menu_choice(params, meta=None):
 		base_str1, base_str2, on_str, off_str = '%s%s', 'Currently: [B]%s[/B]', 'On', 'Off'
 		if settings.auto_play(content): autoplay_status, autoplay_toggle, quality_setting = on_str, 'false', 'autoplay_quality_%s' % content
 		else: autoplay_status, autoplay_toggle, quality_setting = off_str, 'true', 'results_quality_%s' % content
-		active_int_scrapers = [i.replace('_', '') for i in settings.active_internal_scrapers()]
+		set_active = settings.active_internal_scrapers()
+		active_int_scrapers = [i.replace('_', '') for i in set_active]
 		current_scrapers_status = ', '.join([i for i in active_int_scrapers]) if len(active_int_scrapers) > 0 else 'N/A'
 		current_quality_status =  ', '.join(settings.quality_filter(quality_setting))
+		autoplay_next_status, autoplay_next_toggle = (on_str, 'false') if settings.autoplay_next_episode() else (off_str, 'true')
 		listing_append((base_str1 % ('Auto Play', ' (%s)' % content), base_str2 % autoplay_status, 'toggle_autoplay'))
 		if menu_type == 'episode' or menu_type in single_ep_list:
 			if autoplay_status == on_str:
@@ -626,7 +806,7 @@ def options_menu_choice(params, meta=None):
 		listing_append((base_str1 % ('Quality Limit', ' (%s)' % content), base_str2 % current_quality_status, 'set_quality'))
 		listing_append((base_str1 % ('', 'Enable Scrapers'), base_str2 % current_scrapers_status, 'enable_scrapers'))
 		if menu_type == 'episode' or menu_type in single_ep_list:
-			listing_append(('Assign an Episode Group to %s' % rootname, 'Currently %s' % episode_groups_cache.get(tmdb_id).get('name', 'None'), 'episode_group'))
+			listing_append(('Assign an Episode Group to %s' % rootname, base_str2 % episode_groups_cache.get(tmdb_id).get('name', 'None'), 'episode_group'))
 	if not from_extras:
 		if menu_type in ('movie', 'tvshow'):
 			listing_append(('Re-Cache %s Info' % ('Movies' if menu_type == 'movie' else 'TV Shows'), 'Clear %s Cache' % rootname, 'clear_media_cache'))
@@ -642,11 +822,14 @@ def options_menu_choice(params, meta=None):
 	choice = kodi_utils.select_dialog([i[2] for i in listing], **kwargs)
 	if choice == None: return
 	if choice == 'clear_media_cache':
+		from caches.base_cache import refresh_cached_data
 		kodi_utils.close_all_dialog()
 		return refresh_cached_data(meta)
 	if choice == 'clear_scrapers_cache':
+		from modules.source_utils import clear_scrapers_cache
 		return clear_scrapers_cache()
 	if choice == 'open_download_manager':
+		from modules.downloader import manager
 		kodi_utils.close_all_dialog()
 		return manager()
 	if choice == 'open_tools':
@@ -667,11 +850,14 @@ def options_menu_choice(params, meta=None):
 		return random_choice({'meta': meta, 'poster': poster})
 	if choice == 'trakt_manager':
 		return trakt_manager_choice({'tmdb_id': tmdb_id, 'imdb_id': imdb_id, 'tvdb_id': tvdb_id or 'None', 'media_type': content, 'icon': poster})
-	if choice == 'personal_lists_choice':
-		return personal_lists_choice({'list_type': content, 'tmdb_id': tmdb_id, 'title': title,
+	if choice == 'personallists_manager_choice':
+		from modules.utils import get_current_timestamp
+		return personallists_manager_choice({'list_type': content, 'tmdb_id': tmdb_id, 'title': title,
 							'premiered': meta_get('premiered'), 'current_time': get_current_timestamp(), 'icon': poster})
-	if choice == 'favorites_choice':
-		return favorites_choice({'media_type': content if content in ('movie', 'tvshow') else 'tvshow', 'tmdb_id': tmdb_id, 'title': title})
+	if choice == 'favorites_manager_choice':
+		return favorites_manager_choice({'media_type': content if content in ('movie', 'tvshow') else 'tvshow', 'tmdb_id': tmdb_id, 'title': title})
+	if choice == 'tmdblists_manager_choice':
+		return tmdblists_manager_choice({'media_type': content if content in ('movie', 'movies') else 'tv', 'tmdb_id': tmdb_id, 'icon': poster})
 	if choice == 'toggle_autoplay':
 		set_setting('auto_play_%s' % content, autoplay_toggle)
 	elif choice == 'toggle_autoplay_next':
@@ -687,6 +873,9 @@ def options_menu_choice(params, meta=None):
 	options_menu_choice(params, meta=meta)
 
 def extras_menu_choice(params):
+	from windows.base_window import open_window
+	from modules.utils import get_datetime
+	from modules import metadata
 	stacked = params.get('stacked', 'false') == 'true'
 	if not stacked: kodi_utils.show_busy_dialog()
 	media_type = params['media_type']
@@ -702,6 +891,8 @@ def open_movieset_choice(params):
 	return window_function({'mode': 'build_movie_list', 'action': 'tmdb_movies_sets', 'key_id': params['key_id'], 'name': params['name']})
 
 def media_extra_info_choice(params):
+	from modules.utils import adjust_premiered_date
+	from modules.source_utils import get_aliases_titles, make_alias_dict
 	media_type, meta = params.get('media_type'), params.get('meta')
 	extra_info, listings = meta.get('extra_info', None), []
 	append = listings.append
@@ -754,4 +945,5 @@ def media_extra_info_choice(params):
 	return '[CR][CR]'.join(listings)
 
 def discover_choice(params):
+	from windows.base_window import open_window
 	open_window(('windows.discover', 'Discover'), 'discover.xml', media_type=params['media_type'])

@@ -104,13 +104,15 @@ class TorBoxAPI:
 		try:
 			file_url, match, torrent_id = None, False, None
 			extensions = supported_video_extensions()
-			extras_filtering_list = tuple(i for i in extras() if not i in title.lower())
+			extras_filter = extras()
+			extras_filtering_list = tuple(i for i in extras_filter if not i in title.lower())
 			torrent = self.add_magnet(magnet_url)
 			if not torrent['success']: return None
 			torrent_id = torrent['data']['torrent_id']
 			torrent_files = self.torrent_info(torrent_id)
+			files = torrent_files['data']['files']
 			selected_files = [{'url': '%d,%d' % (torrent_id, item['id']), 'filename': item['short_name'], 'size': item['size']} \
-							for item in torrent_files['data']['files'] if item['short_name'].lower().endswith(tuple(extensions))]
+							for item in files if item['short_name'].lower().endswith(tuple(extensions))]
 			if not selected_files: return None
 			if season:
 				selected_files = [i for i in selected_files if seas_ep_filter(season, episode, i['filename'])]
@@ -136,8 +138,9 @@ class TorBoxAPI:
 			if not torrent['success']: return None
 			torrent_id = torrent['data']['torrent_id']
 			torrent_files = self.torrent_info(torrent_id)
+			files = torrent_files['data']['files']
 			torrent_files = [{'link': '%d,%d' % (torrent_id, item['id']), 'filename': item['short_name'], 'size': item['size']} \
-							for item in torrent_files['data']['files'] if item['short_name'].lower().endswith(tuple(extensions))]
+							for item in files if item['short_name'].lower().endswith(tuple(extensions))]
 			Thread(target=self.delete_torrent, args=(torrent_id,)).start()
 			return torrent_files or None
 		except Exception:

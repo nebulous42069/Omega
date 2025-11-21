@@ -35,7 +35,7 @@ def runner(params):
 		if not chosen_list: return
 		show_package = json.loads(params['source']).get('package') == 'show'
 		meta  = json.loads(chosen_list[0].get('meta'))
-		image = meta.get('poster') or kodi_utils.empty_poster()
+		image = meta.get('poster') or kodi_utils.get_icon('box_office')
 		default_name = '%s (%s)' % (clean_file_name(get_title(meta)), get_year(meta))
 		default_foldername = kodi_utils.kodi_dialog().input('Title', defaultt=default_name)
 		multi_downloads = []
@@ -111,7 +111,7 @@ class Downloader:
 			self.title = clean_file_name(get_title(self.meta))
 			self.year = get_year(self.meta)
 			self.season = get_season(self.meta)
-			self.image = self.meta_get('poster') or kodi_utils.empty_poster()
+			self.image = self.meta_get('poster') or kodi_utils.get_icon('box_office')
 			self.name = self.params_get('name')
 		else:
 			self.meta, self.name, self.year, self.season = None, None, None, None
@@ -386,7 +386,7 @@ def viewer(params):
 				listitem = kodi_utils.make_listitem()
 				listitem.setLabel(clean_file_name(normalize(path)))
 				listitem.setArt({'fanart': fanart})
-				info_tag = listitem.getVideoInfoTag()
+				info_tag = listitem.getVideoInfoTag(True)
 				info_tag.setPlot(' ')
 				yield (url, listitem, info[1])
 			except: pass

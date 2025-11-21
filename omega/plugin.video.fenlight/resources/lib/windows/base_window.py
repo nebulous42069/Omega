@@ -263,7 +263,8 @@ class FontUtils:
 		else: self.skin_font_info = self.default_font_info()
 		for item in ((21, False, 'font10'), (26, False, 'font12'), (30, False, 'font13'), (33, False, 'font14'), (38, False, 'font16'), (60, True, 'font60')):
 			replacement_values_append(self.match_font(*item))
-		for item in kodi_utils.list_dirs(kodi_utils.translate_path('special://home/addons/plugin.video.fenlight/resources/skins/Default/1080i/'))[1]:
+		skin_files = kodi_utils.list_dirs(kodi_utils.translate_path('special://home/addons/plugin.video.fenlight/resources/skins/Default/1080i/'))[1]
+		for item in skin_files:
 			self.replace_font(item, replacement_values)
 		kodi_utils.set_property('fenlight.current_skin', self.current_skin)
 		kodi_utils.set_property('fenlight.current_font', self.current_font)
@@ -273,7 +274,9 @@ class FontUtils:
 		skin_folder = None
 		try:
 			skin_folder = mdParse(kodi_utils.translate_path('special://skin/addon.xml')).getElementsByTagName('extension')[0].getElementsByTagName('res')[0].getAttribute('folder')
-			if not skin_folder: skin_folder = [i for i in kodi_utils.list_dirs(kodi_utils.translate_path('special://skin'))[0] if i in folder_options][0]
+			if not skin_folder:
+				s_folder = kodi_utils.list_dirs(kodi_utils.translate_path('special://skin'))[0]
+				skin_folder = [i for i in s_folder if i in folder_options][0]
 		except: pass
 		return skin_folder
 
@@ -303,7 +306,8 @@ class FontUtils:
 			all_fonts = mdParse(skin_font_xml).getElementsByTagName('fontset')
 			try: fontset = [i for i in all_fonts if i.getAttribute('id').lower() == self.current_font.lower()][0]
 			except: fontset = all_fonts[0]
-			for item in fontset.getElementsByTagName('font'):
+			font_element = fontset.getElementsByTagName('font')
+			for item in font_element:
 				try: name = item.getElementsByTagName('name')[0].firstChild.data
 				except: continue
 				try: size = int(item.getElementsByTagName('size')[0].firstChild.data)

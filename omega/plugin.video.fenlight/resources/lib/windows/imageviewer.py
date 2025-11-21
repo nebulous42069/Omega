@@ -2,9 +2,9 @@
 import json
 from windows.base_window import BaseDialog
 from indexers.people import person_data_dialog
-from indexers.dialogs import favorites_choice
+from indexers.dialogs import favorites_manager_choice
 from modules.settings import download_directory
-from modules.kodi_utils import addon_fanart, get_icon, nextpage, select_dialog
+from modules.kodi_utils import addon_fanart, get_icon, select_dialog
 # from modules.kodi_utils import logger
 
 
@@ -14,7 +14,7 @@ class ThumbImageViewer(BaseDialog):
 		self.window_id = 2000
 		self.current_page = 1
 		self.selected = None
-		self.backup_thumbnail = get_icon('genre_family')
+		self.backup_thumbnail = get_icon('empty_person')
 		self.list_items = kwargs.get('list_items')
 		self.next_page_params = kwargs.get('next_page_params')
 		self.ImagesInstance = kwargs.get('ImagesInstance')
@@ -61,7 +61,7 @@ class ThumbImageViewer(BaseDialog):
 					actor_id = chosen_listitem.getProperty('actor_id')
 					actor_image = chosen_listitem.getProperty('actor_image') or chosen_listitem.getProperty('path')
 					title = '%s|%s|%s' % (chosen_listitem.getProperty('actor_name'), chosen_listitem.getProperty('thumb'), actor_image)
-					action = favorites_choice({'media_type': 'people', 'tmdb_id': actor_id, 'title': title, 'refresh': 'false'})
+					action = favorites_manager_choice({'media_type': 'people', 'tmdb_id': actor_id, 'title': title, 'refresh': 'false'})
 					if in_favorites and action == 'Remove From Favorites?': self.reset_after_favorite_delete(position)
 				else:#exit_image
 					return self.close()
@@ -108,7 +108,7 @@ class ThumbImageViewer(BaseDialog):
 	def make_next_page(self):
 		try:
 			listitem = self.make_listitem()
-			listitem.setProperties({'name': 'Next Page (%s) >>' % str(self.current_page + 1), 'thumb': nextpage(), 'next_page_item': 'true'})
+			listitem.setProperties({'name': 'Next Page (%s) >>' % str(self.current_page + 1), 'thumb': get_icon('nextpage'), 'next_page_item': 'true'})
 			self.list_items.append(listitem)
 		except: pass
 
@@ -137,7 +137,7 @@ class ImageViewer(BaseDialog):
 		self.all_images = kwargs.get('all_images')
 		self.index = kwargs.get('index')
 		self.scroll_ids = (self.left_action, self.right_action)
-		self.backup_thumbnail = get_icon('genre_family')
+		self.backup_thumbnail = get_icon('empty_person')
 		self.set_properties()
 		self.make_items()
 

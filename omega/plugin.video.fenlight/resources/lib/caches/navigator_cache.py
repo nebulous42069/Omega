@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 from caches.base_cache import connect_database
 from modules.kodi_utils import get_property, set_property, clear_property
-from modules.kodi_utils import logger
+# from modules.kodi_utils import logger
 
 class NavigatorCache:
 	root_list = [
 	{'name': 'Movies', 'mode': 'navigator.main', 'action': 'MovieList', 'iconImage': 'movies'},
 	{'name': 'TV Shows', 'mode': 'navigator.main', 'action': 'TVShowList', 'iconImage': 'tv'},
 	{'name': 'Anime', 'mode': 'navigator.main', 'action': 'AnimeList', 'iconImage': 'anime'},
-	{'name': 'People', 'mode': 'navigator.people', 'iconImage': 'genre_family'},
+	{'name': 'People', 'mode': 'navigator.people', 'iconImage': 'empty_person'},
 	{'name': 'Search', 'mode': 'navigator.search', 'iconImage': 'search'},
 	{'name': 'Discover', 'mode': 'navigator.discover', 'iconImage': 'discover'},
 	{'name': 'Random Lists', 'mode': 'navigator.random_lists', 'iconImage': 'random'},
@@ -63,6 +63,7 @@ class NavigatorCache:
 	{'name': 'Certifications', 'mode': 'navigator.certifications', 'menu_type': 'tvshow', 'random_support': 'true', 'iconImage': 'certifications'},
 	{'name': 'Because You Watched...', 'mode': 'navigator.because_you_watched', 'menu_type': 'tvshow', 'iconImage': 'because_you_watched'},
 	{'name': 'Watched', 'mode': 'build_tvshow_list', 'action': 'watched_tvshows', 'iconImage': 'watched_1'},
+	{'name': 'Recently Watched', 'mode': 'build_tvshow_list', 'action': 'recent_watched_tvshows', 'iconImage': 'watched_recent'},
 	{'name': 'In Progress', 'mode': 'build_tvshow_list', 'action': 'in_progress_tvshows', 'iconImage': 'in_progress_tvshow'},
 	{'name': 'Recently Watched Episodes', 'mode': 'build_recently_watched_episode', 'iconImage': 'watched_recent'},
 	{'name': 'In Progress Episodes', 'mode': 'build_in_progress_episode', 'iconImage': 'player'},
@@ -83,7 +84,14 @@ class NavigatorCache:
 	{'name': 'Anime Years', 'mode': 'navigator.years', 'menu_type': 'anime', 'random_support': 'true', 'iconImage': 'calender'},
 	{'name': 'Anime Decades', 'mode': 'navigator.decades', 'menu_type': 'anime', 'random_support': 'true', 'iconImage': 'calendar_decades'},
 	{'name': 'Anime Certifications', 'mode': 'navigator.certifications', 'menu_type': 'anime', 'random_support': 'true', 'iconImage': 'certifications'},
+	{'name': 'Anime Watched', 'mode': 'build_tvshow_list', 'action': 'watched_tvshows', 'is_anime_list': 'true', 'iconImage': 'watched_1'},
+	{'name': 'Anime Recently Watched', 'mode': 'build_tvshow_list', 'action': 'recent_watched_tvshows', 'is_anime_list': 'true', 'iconImage': 'watched_recent'},
+	{'name': 'Anime In Progress', 'mode': 'build_tvshow_list', 'action': 'in_progress_tvshows', 'is_anime_list': 'true', 'iconImage': 'in_progress_tvshow'},
+	{'name': 'Anime Recently Watched Episodes', 'mode': 'build_recently_watched_episode', 'is_anime_list': 'true', 'iconImage': 'watched_recent'},
+	{'name': 'Anime In Progress Episodes', 'mode': 'build_in_progress_episode', 'is_anime_list': 'true', 'iconImage': 'player'},
+	{'name': 'Anime Next Episodes', 'mode': 'build_next_episode', 'iconImage': 'next_episodes', 'is_anime_list': 'true'}
 					]
+
 	main_menus = {'RootList': root_list, 'MovieList': movie_list, 'TVShowList': tvshow_list, 'AnimeList': anime_list}
 	
 	def get_main_lists(self, list_name):
@@ -155,29 +163,33 @@ class NavigatorCache:
 
 	def rebuild_database(self):
 		dbcon = connect_database('navigator_db')
-		for list_name, list_contents in NavigatorCache.main_menus.items(): self.set_list(list_name, 'default', list_contents)
+		main_items = NavigatorCache.main_menus.items()
+		for list_name, list_contents in main_items: self.set_list(list_name, 'default', list_contents)
 
 	def _get_list_prop(self, list_type):
 		return {'default': 'fenlight_%s_default', 'edited': 'fenlight_%s_edited', 'shortcut_folder': 'fenlight_%s_shortcut_folder'}[list_type]
 	
 	def random_movie_lists(self):
+		m_list = NavigatorCache.movie_list
 		movie_random_converts = {'navigator.genres': 'tmdb_movies_genres', 'navigator.providers': 'tmdb_movies_providers',  'navigator.languages': 'tmdb_movies_languages',
 								'navigator.years': 'tmdb_movies_year', 'navigator.decades': 'tmdb_movies_decade', 'navigator.certifications': 'tmdb_movies_certifications'}
 		return [dict(i, **{'mode': 'random.build_movie_list', 'action': i.get('action') or movie_random_converts[i['mode']],
-							'random': 'true', 'name': 'Movies Random %s' % i['name'], 'menu_type': 'movie'}) for i in NavigatorCache.movie_list if 'random_support' in i]
+							'random': 'true', 'name': 'Movies Random %s' % i['name'], 'menu_type': 'movie'}) for i in m_list if 'random_support' in i]
 	
 	def random_tvshow_lists(self):
+		t_list = NavigatorCache.tvshow_list
 		tvshow_random_converts = {'navigator.genres': 'tmdb_tv_genres', 'navigator.providers': 'tmdb_tv_providers', 'navigator.networks': 'tmdb_tv_networks',
 								'navigator.languages': 'tmdb_tv_languages', 'navigator.years': 'tmdb_tv_year', 'navigator.decades': 'tmdb_tv_decade',
 								'navigator.certifications': 'trakt_tv_certifications'}
 		return [dict(i, **{'mode': 'random.build_tvshow_list', 'action': i.get('action') or tvshow_random_converts[i['mode']],
-							'random': 'true', 'name': 'TV Shows Random %s' % i['name'], 'menu_type': 'tvshow'}) for i in NavigatorCache.tvshow_list if 'random_support' in i]
+							'random': 'true', 'name': 'TV Shows Random %s' % i['name'], 'menu_type': 'tvshow'}) for i in t_list if 'random_support' in i]
 	
 	def random_anime_lists(self):
+		a_list = NavigatorCache.anime_list
 		anime_random_converts = {'navigator.genres': 'tmdb_anime_genres', 'navigator.providers': 'tmdb_anime_providers', 'navigator.years': 'tmdb_anime_year',
 								'navigator.decades': 'tmdb_anime_decade', 'navigator.certifications': 'trakt_anime_certifications'}
 		return [dict(i, **{'mode': 'random.build_tvshow_list', 'action': i.get('action') or anime_random_converts[i['mode']],
-							'random': 'true', 'name': i['name'].replace('Anime', 'Anime Random'), 'menu_type': 'tvshow'}) for i in NavigatorCache.anime_list if 'random_support' in i]
+							'random': 'true', 'name': i['name'].replace('Anime', 'Anime Random'), 'menu_type': 'tvshow'}) for i in a_list if 'random_support' in i]
 
 	def random_because_you_watched_lists(self):
 		return [
@@ -185,9 +197,15 @@ class NavigatorCache:
 			{'mode': 'random.build_tvshow_list', 'action': 'because_you_watched', 'name': 'Random Because You Watched TV Shows', 'iconImage': 'tv', 'random': 'true'},
 				]
 	
+	def random_tmdb_lists(self):
+		return [
+			{'mode': 'tmdblist.get_tmdb_lists', 'name': 'Random Shuffled TMDb Lists (All)', 'iconImage': 'tmdb', 'random': 'true', 'shuffle': 'true'},
+			{'mode': 'random.build_tmdb_lists', 'name': 'Random TMDb Lists (Single)', 'iconImage': 'tmdb', 'random': 'true'}
+				]
+	
 	def random_personal_lists(self):
 		return [
-			{'mode': 'personal_lists.get_personal_lists', 'name': 'Random Personal Lists (All)', 'iconImage': 'lists', 'random': 'true'},
+			{'mode': 'personal_lists.get_personal_lists', 'name': 'Random Shuffled Personal Lists (All)', 'iconImage': 'lists', 'random': 'true', 'shuffle': 'true'},
 			{'mode': 'random.build_personal_lists', 'name': 'Random Personal Lists (Single)', 'iconImage': 'lists', 'random': 'true'}
 				]
 
@@ -201,9 +219,11 @@ class NavigatorCache:
 			'iconImage': 'movies', 'random': 'true'},
 			{'mode': 'random.build_tvshow_list', 'action': 'trakt_recommendations', 'new_page': 'shows', 'name': 'Random Trakt Recommended TV Shows',
 			'iconImage': 'tv', 'random': 'true'},
-			{'mode': 'trakt.list.get_trakt_lists', 'list_type': 'my_lists', 'name': 'Random Trakt My Lists (All)', 'iconImage': 'trakt', 'random': 'true'},
+			{'mode': 'trakt.list.get_trakt_lists', 'list_type': 'my_lists', 'name': 'Random Shuffled Trakt My Lists (All)',
+			'iconImage': 'trakt', 'random': 'true', 'shuffle': 'true'},
 			{'mode': 'random.build_trakt_lists', 'list_type': 'my_lists', 'name': 'Random Trakt My Lists (Single)', 'iconImage': 'trakt', 'random': 'true'},
-			{'mode': 'trakt.list.get_trakt_lists', 'list_type': 'liked_lists', 'name': 'Random Trakt Liked Lists (All)', 'iconImage': 'trakt', 'random': 'true'},
+			{'mode': 'trakt.list.get_trakt_lists', 'list_type': 'liked_lists', 'name': 'Random Shuffled Trakt Liked Lists (All)',
+			'iconImage': 'trakt', 'random': 'true', 'shuffle': 'true'},
 			{'mode': 'random.build_trakt_lists', 'list_type': 'liked_lists', 'name': 'Random Trakt Liked Lists (Single)', 'iconImage': 'trakt', 'random': 'true'},
 				]
 

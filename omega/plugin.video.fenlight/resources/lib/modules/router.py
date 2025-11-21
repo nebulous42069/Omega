@@ -21,6 +21,9 @@ def routing(sys):
 	elif 'personal_lists.' in mode:
 		from indexers import personal_lists
 		exec('personal_lists.%s(params)' % mode.split('.')[1])
+	elif 'tmdblist.' in mode:
+		from indexers import tmdb_lists
+		exec('tmdb_lists.%s(params)' % mode.split('.')[1])
 	elif 'easynews.' in mode:
 		from indexers import easynews
 		exec('easynews.%s(params)' % mode.split('.')[1])
@@ -37,9 +40,6 @@ def routing(sys):
 	elif 'custom_key.' in mode:
 		from modules import custom_keys
 		exec('custom_keys.%s()' % mode.split('custom_key.')[1])
-	elif 'tmdblist.' in mode:
-		from indexers import tmdb_lists
-		exec('tmdb_lists.%s(params)' % mode.split('.')[1])
 	elif 'trakt.' in mode:
 		if '.list' in mode:
 			from indexers import trakt_lists
@@ -163,7 +163,7 @@ def routing(sys):
 			ad_cloud(_get('id', None))
 		elif mode == 'alldebrid.browse_ad_cloud':
 			from indexers.alldebrid import browse_ad_cloud
-			browse_ad_cloud(_get('folder'))
+			browse_ad_cloud(_get('id'))
 		elif mode == 'alldebrid.resolve_ad':
 			from indexers.alldebrid import resolve_ad
 			resolve_ad(params)
@@ -280,8 +280,8 @@ def routing(sys):
 		from modules.kodi_utils import kodi_refresh
 		kodi_refresh()
 	elif mode == 'refresh_widgets':
-		from modules.kodi_utils import refresh_widgets
-		refresh_widgets(_get('show_notification', 'false'))
+		from indexers.random_lists import refresh_widgets
+		refresh_widgets()
 	elif mode == 'person_data_dialog':
 		from indexers.people import person_data_dialog
 		person_data_dialog(params)
@@ -294,9 +294,6 @@ def routing(sys):
 	elif mode == 'upload_logfile':
 		from modules.kodi_utils import upload_logfile
 		upload_logfile(params)
-	elif mode == 'toggle_language_invoker':
-		from modules.kodi_utils import toggle_language_invoker
-		toggle_language_invoker()
 	elif mode == 'downloader':
 		from modules.downloader import runner
 		runner(params)

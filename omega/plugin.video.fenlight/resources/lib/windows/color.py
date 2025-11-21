@@ -43,7 +43,8 @@ class SelectColor(BaseDialog):
 
 	def make_menu(self):
 		def builder():
-			for count, item in enumerate(color_palette()):
+			c_palette = color_palette()
+			for count, item in enumerate(c_palette):
 				try:
 					listitem = self.make_listitem()
 					listitem.setProperty('highlight', item)

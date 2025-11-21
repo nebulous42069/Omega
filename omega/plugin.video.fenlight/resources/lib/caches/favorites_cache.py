@@ -19,7 +19,8 @@ class FavoritesCache:
 
 	def get_favorites(self, media_type):
 		dbcon = connect_database('favorites_db')
-		return [{'tmdb_id': str(i[0]), 'title': str(i[1])} for i in dbcon.execute('SELECT tmdb_id, title FROM favourites WHERE db_type=?', (media_type,)).fetchall()]
+		favorites = dbcon.execute('SELECT tmdb_id, title FROM favourites WHERE db_type=?', (media_type,)).fetchall()
+		return [{'tmdb_id': str(i[0]), 'title': str(i[1])} for i in favorites]
 
 	def clear_favorites(self, media_type):
 		dbcon = connect_database('favorites_db')
