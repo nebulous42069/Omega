@@ -23,12 +23,19 @@
   {
     "name": "MoveONJoy TV Guide",
     "m3u": "https://raw.githubusercontent.com/iptv-org/iptv/refs/heads/master/streams/us_moveonjoy.m3u",
-    "epg": "https://epgshare01.online/epgshare01/epg_ripper_US1.xml.gz"
+    "epg": "https://s.id/d9EPG"
   },
   {
     "name": "Mr M2 TV Guide",
     "m3u": "https://raw.githubusercontent.com/blakestrick/m3u/refs/heads/main/m2.m3u",
-    "epg": "https://epgshare01.online/epgshare01/epg_ripper_US1.xml.gz"
+    "epg": "https://s.id/d9EPG"
+  },
+  {
+    "name": "Doms List",
+    "m3u": "https://s.id/d9Base",
+    "epg": "https://s.id/d9EPG",
+    "icon": "special://home/addons/plugin.video.madtitansports/icon.png",
+    "fanart": "special://home/addons/plugin.video.madtitansports/fanart.jpg"
   }
 
 ]
