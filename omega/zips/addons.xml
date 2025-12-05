@@ -2027,6 +2027,24 @@ v1.0.1 (2019-08-06)
 		<website>http://github.com/marcelveldt/script.tv.show.next.aired</website>
 		<source>https://github.com/marcelveldt/script.tv.show.next.aired.git</source>
 	</extension>
+</addon><addon id="script.xenon.casthelper" name="Xenon Cast Helper" version="1.0.0" provider-name="Diggz">
+
+    <requires>
+        
+        <import addon="xbmc.python" version="3.0.0" />
+    </requires>
+
+    
+    <extension point="xbmc.service" library="service.py" start="login" />
+
+    <extension point="xbmc.addon.metadata">
+        <summary>Fetch cast info for home widgets and expose it to the Xenon skin.</summary>
+        <description>
+            Watches the focused home widgets, uses TMDb IDs to fetch cast, and exposes
+            the first N actors as Window(Home).Property(MyCast.X.*) for the skin to use.
+        </description>
+        <platform>all</platform>
+    </extension>
 </addon><addon id="service.autosubs" name="AutoSubs" version="1.1.2" provider-name="amet,schumi2004,juokelis, Diggz">
   <requires>
     <import addon="xbmc.python" version="3.0.1" />

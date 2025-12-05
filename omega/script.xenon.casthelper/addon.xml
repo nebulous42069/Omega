@@ -1,0 +1,22 @@
+<addon id="script.xenon.casthelper"
+       name="Xenon Cast Helper"
+       version="1.0.0"
+       provider-name="Diggz">
+
+    <requires>
+        <!-- Python 3 for Matrix/Nexus/Omega -->
+        <import addon="xbmc.python" version="3.0.0" />
+    </requires>
+
+    <!-- Background service -->
+    <extension point="xbmc.service" library="service.py" start="login" />
+
+    <extension point="xbmc.addon.metadata">
+        <summary>Fetch cast info for home widgets and expose it to the Xenon skin.</summary>
+        <description>
+            Watches the focused home widgets, uses TMDb IDs to fetch cast, and exposes
+            the first N actors as Window(Home).Property(MyCast.X.*) for the skin to use.
+        </description>
+        <platform>all</platform>
+    </extension>
+</addon>

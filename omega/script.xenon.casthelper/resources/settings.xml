@@ -1,0 +1,21 @@
+<settings>
+    <category label="TMDb Cast Helper">
+        <setting id="tmdb_api_key"
+                 type="text"
+                 label="TMDb API key"
+                 default=""
+                 option="hidden" />
+
+        <setting id="language"
+                 type="text"
+                 label="TMDb language (e.g. en-US)"
+                 default="en-US" />
+
+        <setting id="max_cast"
+                 type="number"
+                 label="Max cast members"
+                 default="5"
+                 range="1,10"
+                 step="1" />
+    </category>
+</settings>
