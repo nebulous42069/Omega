@@ -14,13 +14,6 @@
     "fanart": "special://home/addons/plugin.video.madtitansports/fanart.jpg"
   },
   {
-    "name": "Pluto TV Guide",
-    "m3u": "special://home/userdata/addon_data/plugin.program.iptv.merge/playlist.m3u8",
-    "epg": "special://home/userdata/addon_data/plugin.program.iptv.merge/epg.xml",
-    "icon": "special://home/addons/slyguy.pluto.tv.provider/icon.png",
-    "fanart": "special://home/addons/slyguy.pluto.tv.provider/fanart.jpg"
-  },
-  {
     "name": "MoveONJoy TV Guide",
     "m3u": "https://raw.githubusercontent.com/iptv-org/iptv/refs/heads/master/streams/us_moveonjoy.m3u",
     "epg": "https://s.id/d9EPG"

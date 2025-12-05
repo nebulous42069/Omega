@@ -1,5 +1,9 @@
 [
   {
+    "name": "Setup Diggz Pick",
+    "xml": "dguide"
+  },
+  {
     "name": "Setup The Loop PVR TV Guide",
     "xml": "loop"
   },

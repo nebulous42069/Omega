@@ -4,9 +4,9 @@
     <include file="Defaults.xml" />
     <include file="IncludesDialogSelect.xml" />
     <include file="IncludesVariables.xml" />
-    
-<include file="script-skinviewtypes-includes.xml" />
-<include file="IncludesMainMenu.xml" />
+	<include file="Includes_VideoLyrics.xml" />    
+	<include file="script-skinviewtypes-includes.xml" />
+	<include file="IncludesMainMenu.xml" />
     <include file="IncludesMenuContentItems.xml" />
     <include file="IncludesSubMenuSys.xml" />
 	<include file="IncludesHomeWidget_SelectorOnly.xml" />

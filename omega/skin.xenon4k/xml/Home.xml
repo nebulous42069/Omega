@@ -119,6 +119,145 @@
         <!-- Addon set below menu -->
 		<include condition="!Skin.HasSetting(Use.Skinshortcuts)">HomeAddonsDisplay</include>
 		<include condition="Skin.HasSetting(Use.Skinshortcuts)">SkinshortcutsAddonsDisplay</include>
+        <!-- Widget info overlay for movie / tvshow widgets -->
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8000</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8001</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8002</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8003</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8004</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8005</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8006</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8007</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8008</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8009</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8010</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8011</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8012</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8013</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8014</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8015</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8016</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8017</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8018</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8019</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8020</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8021</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8022</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8023</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8024</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8025</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8026</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8027</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8028</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8029</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8030</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8031</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8032</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8033</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8034</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8035</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8036</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8037</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8038</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8039</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8040</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8041</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8042</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8043</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8044</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8045</param>
+        </include>
         
 		<!-- RSS Feed / 5 next songs -->
 		<include>HomeRSS</include>

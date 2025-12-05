@@ -1,26 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-	<defaultcontrol>15</defaultcontrol>
-    <onload condition="String.IsEqual(ListItem.DBType,movie)">RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.IMDBNumber]&amp;tmdb=$INFO[ListItem.Property(tmdb_id)]&amp;tmdbshow=$INFO[ListItem.Property(tmdbshow_id)]&amp;dbtype=$INFO[ListItem.DBType]&amp;mediatype=$INFO[ListItem.MediaType]&amp;title=$INFO[ListItem.Title]&amp;tvshowtitle=$INFO[ListItem.TVShowTitle]&amp;year=$INFO[ListItem.Year]&amp;windowed=1)</onload>
-	<!-- TV SHOWS: series IMDb id → plugin; else UniqueID(imdb); else bridge via tmdbshow -->
-	<onload condition="String.IsEqual(ListItem.DBType,tvshow) + !String.IsEmpty(ListItem.IMDBNumber)">
-	  RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.IMDBNumber]&amp;dbtype=$INFO[ListItem.DBType]&amp;title=$INFO[ListItem.TVShowTitle]&amp;windowed=1)</onload>
-	<onload condition="String.IsEqual(ListItem.DBType,tvshow) + String.IsEmpty(ListItem.IMDBNumber) + !String.IsEmpty(ListItem.UniqueID(imdb))">
-	  RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.UniqueID(imdb)]&amp;dbtype=$INFO[ListItem.DBType]&amp;title=$INFO[ListItem.TVShowTitle]&amp;windowed=1)</onload>
-	<onload condition="String.IsEqual(ListItem.DBType,tvshow) + String.IsEmpty(ListItem.IMDBNumber) + String.IsEmpty(ListItem.UniqueID(imdb)) + !String.IsEmpty(ListItem.Property(tmdbshow_id))">
-	  RunScript(script.trailer.bridge,?tmdbshow=$INFO[ListItem.Property(tmdbshow_id)]&amp;dbtype=$INFO[ListItem.DBType]&amp;title=$INFO[ListItem.TVShowTitle]&amp;windowed=1)
-	</onload>
-
-	<!-- EPISODES: prefer series IMDb id via TVShow.IMDBNumber; fallback UniqueID(imdb); else bridge -->
-	<onload condition="String.IsEqual(ListItem.DBType,episode) + !String.IsEmpty(ListItem.TVShow.IMDBNumber)">
-	  RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.TVShow.IMDBNumber]&amp;dbtype=$INFO[ListItem.DBType]&amp;title=$INFO[ListItem.TVShowTitle]&amp;windowed=1)</onload>
-	<onload condition="String.IsEqual(ListItem.DBType,episode) + String.IsEmpty(ListItem.TVShow.IMDBNumber) + !String.IsEmpty(ListItem.UniqueID(imdb))">
-	  RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.UniqueID(imdb)]&amp;dbtype=$INFO[ListItem.DBType]&amp;title=$INFO[ListItem.TVShowTitle]&amp;windowed=1)</onload>
-	<onload condition="String.IsEqual(ListItem.DBType,episode) + String.IsEmpty(ListItem.TVShow.IMDBNumber) + String.IsEmpty(ListItem.UniqueID(imdb)) + !String.IsEmpty(ListItem.Property(tmdbshow_id))">
-	  RunScript(script.trailer.bridge,?tmdbshow=$INFO[ListItem.Property(tmdbshow_id)]&amp;dbtype=$INFO[ListItem.DBType]&amp;title=$INFO[ListItem.TVShowTitle]&amp;windowed=1)
-	</onload>
-	<!-- Put these at the same <window> level as your other <onload> lines -->
-	<onload condition="!Control.IsVisible(15)">SetFocus(8)</onload>   <!-- focus Play (id 8) when Trailer is hidden -->
+	<defaultcontrol>8</defaultcontrol>
 
 	<coordinates>
 		<left>0</left>

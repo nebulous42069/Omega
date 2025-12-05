@@ -63,6 +63,522 @@
         <value condition="String.IsEqual(Skin.String(HomeItem.15.WidgetLayout),Small)">$LOCALIZE[32025]</value>
 		<value condition="String.IsEqual(Skin.String(HomeItem.15.WidgetLayout),Large)">$LOCALIZE[32026]</value>
     </variable>
+
+    <!-- Bottom info panel for video widgets (movies / tvshows) -->
+    <include name="WidgetVideoInfoPanel">
+        <param name="Control" default="8000" />
+        <definition>
+            <control type="group">
+                <depth>DepthHeader</depth>
+
+                <!-- Only when setting is enabled -->
+                <visible>Skin.HasSetting(HomeWidgetInfoPanel)</visible>
+
+                <!-- Only when that widget list has focus -->
+                <visible>Control.HasFocus($PARAM[Control])</visible>
+
+				<!-- Only for video widgets (movie / tvshow / episode / TMDbH items with a tmdb_id) -->
+				<visible>
+					String.IsEqual(Container($PARAM[Control]).ListItem.DBType,movie) |
+					String.IsEqual(Container($PARAM[Control]).ListItem.DBType,tvshow) |
+					String.IsEqual(Container($PARAM[Control]).ListItem.DBType,episode) |
+					!String.IsEmpty(Container($PARAM[Control]).ListItem.Property(tmdb_id)) |
+					!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.TMDB_Id))
+				</visible>
+
+                <include>VisibleFadeEffect</include>
+
+                <!-- Bottom half of the screen -->
+                <left>0</left>
+                <top>500</top>
+                <width>1920</width>
+                <height>570</height>
+
+                <!-- Panel background -->
+                <control type="image">
+                    <left>-30</left>
+                    <top>5</top>
+                    <width>1975</width>
+                    <height>560</height>
+                    <texture border="5">colors/black.png</texture>
+					<colordiffuse>D0000000</colordiffuse>
+                </control>
+                <!-- Extra darkening overlay on top of the background -->
+                <control type="image">
+                    <left>-30</left>
+                    <top>0</top>
+                    <width>1980</width>
+                    <height>590</height>
+                    <!-- C0 = ~75% opaque black; bump to D0/E0 if you want it even darker -->
+                    <texture border="5">RecentAddedBack.png</texture>
+                </control>
+				
+				<control type="grouplist">
+					<description>MPAA Rating Flagging Images</description>
+					<left>700</left>
+					<top>40</top>
+					<width>1200</width>
+					<align>right</align>
+					<itemgap>0</itemgap>
+					<orientation>horizontal</orientation>
+					<include>VideoMPAAFlaggingConditions</include>
+				</control>
+			
+				<!-- Vertical info block above poster -->
+				<control type="grouplist">
+					<left>25</left>          <!-- aligned with poster left -->
+					<top>5</top>            <!-- above poster top (which is 60) -->
+					<width>550</width>
+					<height>120</height>
+					<orientation>vertical</orientation>
+					<itemgap>2</itemgap>
+
+					<!-- Year -->
+					<control type="label">
+						<width>350</width>
+						<height>24</height>
+						<label>Year: $INFO[Window(Home).Property(MyInfo.Year)]</label>
+						<font>font12</font>
+						<textcolor>grey2</textcolor>
+						<shadowcolor>black</shadowcolor>
+						<visible>!String.IsEmpty(Window(Home).Property(MyInfo.Year))</visible>
+					</control>
+
+					<!-- Genre -->
+					<control type="label">
+						<width>550</width>
+						<height>24</height>
+						<label>Genre: $INFO[Window(Home).Property(MyInfo.Genres)]</label>
+						<font>font12</font>
+						<textcolor>grey2</textcolor>
+						<shadowcolor>black</shadowcolor>
+						<scroll>true</scroll>
+						<scrollspeed>40</scrollspeed>      <!-- pixels per second; tweak to taste -->
+						<scrollsuffix>   •   </scrollsuffix> <!-- optional gap between loops -->
+						<visible>!String.IsEmpty(Window(Home).Property(MyInfo.Genres))</visible>
+					</control>
+
+					<!-- Rating -->
+					<control type="label">
+						<width>350</width>
+						<height>24</height>
+						<label>Rating: $INFO[Window(Home).Property(MyInfo.Rating)]</label>
+						<font>font12</font>
+						<textcolor>grey2</textcolor>
+						<shadowcolor>black</shadowcolor>
+						<visible>!String.IsEmpty(Window(Home).Property(MyInfo.Rating))</visible>
+					</control>
+
+					<!-- Director -->
+					<control type="label">
+						<width>350</width>
+						<height>24</height>
+						<label>Director: $INFO[Window(Home).Property(MyInfo.Director)]</label>
+						<font>font12</font>
+						<textcolor>grey2</textcolor>
+						<shadowcolor>black</shadowcolor>
+						<scroll>true</scroll>
+						<scrollspeed>40</scrollspeed>      <!-- pixels per second; tweak to taste -->
+						<scrollsuffix>   •   </scrollsuffix> <!-- optional gap between loops -->
+						<visible>!String.IsEmpty(Window(Home).Property(MyInfo.Director))</visible>
+					</control>
+				</control>
+
+
+                <!-- Poster on left (same style as widget posters) -->
+                <control type="image">
+                    <left>19</left>
+                    <top>110</top>
+                    <width>260</width>
+                    <height>390</height>
+                    <aspectratio>keep</aspectratio>
+                    <texture background="true">$VAR[VideoThumbImage]</texture>
+                    <bordertexture border="5">button-nofocus.png</bordertexture>
+                    <include>TextureBorderWidgets</include>
+                </control>
+
+                <!-- ClearLogo (preferred over text title) -->
+                <control type="image">
+                    <left>610</left>
+                    <top>30</top>
+                    <width>700</width>
+                    <height>80</height>
+                    <aspectratio>keep</aspectratio>
+					<align>left</align>
+					<aligny>center</aligny>
+                    <texture background="true">$INFO[Container($PARAM[Control]).ListItem.Art(clearlogo)]</texture>
+                    <!-- Only show if we actually have a clearlogo -->
+                    <visible>!String.IsEmpty(Container($PARAM[Control]).ListItem.Art(clearlogo))</visible>
+                </control>
+				<!-- Studio / Network logo -->
+				<control type="image">
+					<left>1620</left>
+					<top>10</top>
+					<width>120</width>
+					<height>120</height>
+					<aspectratio>keep</aspectratio>
+					<!-- Use TMDb logo if available, else studio resource pack -->
+					<texture background="true" fallback="button-nofocus.pn">$VAR[WidgetStudioLogo]</texture>
+					<!-- Only bother drawing if we have *either* TMDb logo or a studio name -->
+					<visible>!String.IsEmpty(Window(Home).Property(MyInfo.StudioLogo)) | !String.IsEmpty(Window(Home).Property(MyInfo.Studio))</visible>							 
+				</control>
+				<control type="image">
+					<left>1360</left>
+					<top>10</top>
+					<width>220</width>
+					<height>120</height>
+					<aspectratio>keep</aspectratio>
+					<texture>trailer.gif</texture>						 
+				</control>
+				
+                <!-- Title (fallback when no clearlogo artwork) -->
+                <control type="label">
+                    <left>710</left>
+                    <top>30</top>
+                    <width>700</width>
+                    <height>80</height>
+                    <label>$INFO[Container($PARAM[Control]).ListItem.Title]</label>
+                    <font>font24_title</font>
+                    <textcolor>white</textcolor>
+                    <shadowcolor>black</shadowcolor>
+					<scroll>true</scroll>
+					<scrollspeed>40</scrollspeed>      <!-- pixels per second; tweak to taste -->
+					<scrollsuffix>   •   </scrollsuffix> <!-- optional gap between loops -->
+                    <!-- Only show when no clearlogo is available -->
+                    <visible>String.IsEmpty(Container($PARAM[Control]).ListItem.Art(clearlogo))</visible>
+                </control>
+
+				<!-- Plot -->
+				<control type="textbox">
+					<left>290</left>
+					<top>120</top>
+					<width>1620</width>
+					<height>200</height>
+					<label>$INFO[Container($PARAM[Control]).ListItem.Plot]</label>
+					<font>font14</font>
+					<textcolor>white</textcolor>
+					<shadowcolor>black</shadowcolor>
+					<autoscroll delay="4000" time="2000" repeat="8000">true</autoscroll>
+				</control>
+
+				<!-- Cast label -->
+				<control type="label">
+					<left>240</left>
+					<top>450</top>
+					<width>1500</width>
+					<height>30</height>
+					<label>Cast</label>
+					<font>font12_title</font>
+					<textcolor>white</textcolor>
+					<shadowcolor>black</shadowcolor>
+					<!-- show label if we have at least one helper cast OR fallback cast text -->
+					<visible>!String.IsEmpty(Window(Home).Property(MyCast.1.Name)) |
+							 (!String.IsEmpty(Container($PARAM[Control]).ListItem.Cast)
+							  + String.IsEmpty(Window(Home).Property(MyCast.1.Name)))</visible>
+				</control>
+
+				<!-- Cast row driven by script.xenon.casthelper (MyCast.*) -->
+				<control type="group">
+					<left>320</left>
+					<top>320</top>
+					<height>200</height>
+					<!-- only if helper has at least one actor -->
+					<visible>!String.IsEmpty(Window(Home).Property(MyCast.1.Name))</visible>
+
+					<!-- ===== Actor 1 ===== -->
+					<control type="group">
+						<left>0</left>
+						<top>0</top>
+						<width>300</width>
+						<height>200</height>
+						<visible>!String.IsEmpty(Window(Home).Property(MyCast.1.Name))</visible>
+
+						<!-- Real thumb -->
+						<control type="image">
+							<left>30</left>
+							<top>0</top>
+							<width>300</width>
+							<height>180</height>
+							<aspectratio>keep</aspectratio>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.1.Thumb))</visible>
+							<texture background="true">$INFO[Window(Home).Property(MyCast.1.Thumb)]</texture>
+						</control>
+
+						<!-- Fallback icon only while there is no thumb -->
+						<control type="image">
+							<left>30</left>
+							<top>0</top>
+							<width>300</width>
+							<height>180</height>
+							<aspectratio>keep</aspectratio>
+							<visible>String.IsEmpty(Window(Home).Property(MyCast.1.Thumb))</visible>
+							<texture>defaultactor.png</texture>
+						</control>
+
+						<control type="label">
+							<top>185</top>
+							<width>350</width>
+							<height>25</height>
+							<align>center</align>
+							<label>$INFO[Window(Home).Property(MyCast.1.Name)]</label>
+							<font>font11</font>
+							<textcolor>white</textcolor>
+							<shadowcolor>black</shadowcolor>
+						</control>
+						<control type="label">
+							<top>210</top>
+							<width>350</width>
+							<height>20</height>
+							<align>center</align>
+							<label>$INFO[Window(Home).Property(MyCast.1.Role)]</label>
+							<font>font10</font>
+							<scroll>true</scroll>
+							<scrollspeed>40</scrollspeed>      <!-- pixels per second; tweak to taste -->
+							<scrollsuffix>   •   </scrollsuffix> <!-- optional gap between loops -->
+							<textcolor>grey</textcolor>
+							<shadowcolor>black</shadowcolor>
+						</control>						
+					</control>
+
+					<!-- ===== Actor 2 ===== -->
+					<control type="group">
+						<left>300</left>
+						<top>0</top>
+						<width>300</width>
+						<height>200</height>
+						<visible>!String.IsEmpty(Window(Home).Property(MyCast.2.Name))</visible>
+
+						<!-- Real thumb -->
+						<control type="image">
+							<left>30</left>
+							<top>0</top>
+							<width>300</width>
+							<height>180</height>
+							<aspectratio>keep</aspectratio>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.2.Thumb))</visible>
+							<texture background="true">$INFO[Window(Home).Property(MyCast.2.Thumb)]</texture>
+						</control>
+
+						<!-- Fallback icon only while there is no thumb -->
+						<control type="image">
+							<left>30</left>
+							<top>0</top>
+							<width>300</width>
+							<height>180</height>
+							<aspectratio>keep</aspectratio>
+							<visible>String.IsEmpty(Window(Home).Property(MyCast.2.Thumb))</visible>
+							<texture>defaultactor.png</texture>
+						</control>
+
+						<control type="label">
+							<top>185</top>
+							<width>350</width>
+							<height>25</height>
+							<align>center</align>
+							<label>$INFO[Window(Home).Property(MyCast.2.Name)]</label>
+							<font>font11</font>
+							<textcolor>white</textcolor>
+							<shadowcolor>black</shadowcolor>
+						</control>
+						<control type="label">
+							<top>210</top>
+							<width>350</width>
+							<height>20</height>
+							<align>center</align>
+							<label>$INFO[Window(Home).Property(MyCast.2.Role)]</label>
+							<font>font10</font>
+							<scroll>true</scroll>
+							<scrollspeed>40</scrollspeed>      <!-- pixels per second; tweak to taste -->
+							<scrollsuffix>   •   </scrollsuffix> <!-- optional gap between loops -->
+							<textcolor>grey</textcolor>
+							<shadowcolor>black</shadowcolor>
+						</control>						
+					</control>
+
+					<!-- ===== Actor 3 ===== -->
+					<control type="group">
+						<left>600</left>
+						<top>0</top>
+						<width>300</width>
+						<height>200</height>
+						<visible>!String.IsEmpty(Window(Home).Property(MyCast.3.Name))</visible>
+
+						<!-- Real thumb -->
+						<control type="image">
+							<left>30</left>
+							<top>0</top>
+							<width>300</width>
+							<height>180</height>
+							<aspectratio>keep</aspectratio>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.3.Thumb))</visible>
+							<texture background="true">$INFO[Window(Home).Property(MyCast.3.Thumb)]</texture>
+						</control>
+
+						<!-- Fallback icon only while there is no thumb -->
+						<control type="image">
+							<left>30</left>
+							<top>0</top>
+							<width>300</width>
+							<height>180</height>
+							<aspectratio>keep</aspectratio>
+							<visible>String.IsEmpty(Window(Home).Property(MyCast.3.Thumb))</visible>
+							<texture>defaultactor.png</texture>
+						</control>
+
+						<control type="label">
+							<top>185</top>
+							<width>350</width>
+							<height>25</height>
+							<align>center</align>
+							<label>$INFO[Window(Home).Property(MyCast.3.Name)]</label>
+							<font>font11</font>
+							<textcolor>white</textcolor>
+							<shadowcolor>black</shadowcolor>
+						</control>
+						<control type="label">
+							<top>210</top>
+							<width>350</width>
+							<height>20</height>
+							<align>center</align>
+							<label>$INFO[Window(Home).Property(MyCast.3.Role)]</label>
+							<font>font10</font>
+							<scroll>true</scroll>
+							<scrollspeed>40</scrollspeed>      <!-- pixels per second; tweak to taste -->
+							<scrollsuffix>   •   </scrollsuffix> <!-- optional gap between loops -->
+							<textcolor>grey</textcolor>
+							<shadowcolor>black</shadowcolor>
+						</control>						
+					</control>
+
+					<!-- ===== Actor 4 ===== -->
+					<control type="group">
+						<left>900</left>
+						<top>0</top>
+						<width>300</width>
+						<height>200</height>
+						<visible>!String.IsEmpty(Window(Home).Property(MyCast.4.Name))</visible>
+
+						<!-- Real thumb -->
+						<control type="image">
+							<left>30</left>
+							<top>0</top>
+							<width>300</width>
+							<height>180</height>
+							<aspectratio>keep</aspectratio>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.4.Thumb))</visible>
+							<texture background="true">$INFO[Window(Home).Property(MyCast.4.Thumb)]</texture>
+						</control>
+
+						<!-- Fallback icon only while there is no thumb -->
+						<control type="image">
+							<left>30</left>
+							<top>0</top>
+							<width>300</width>
+							<height>180</height>
+							<aspectratio>keep</aspectratio>
+							<visible>String.IsEmpty(Window(Home).Property(MyCast.4.Thumb))</visible>
+							<texture>defaultactor.png</texture>
+						</control>
+
+						<control type="label">
+							<top>185</top>
+							<width>350</width>
+							<height>25</height>
+							<align>center</align>
+							<label>$INFO[Window(Home).Property(MyCast.4.Name)]</label>
+							<font>font11</font>
+							<textcolor>white</textcolor>
+							<shadowcolor>black</shadowcolor>
+						</control>
+						<control type="label">
+							<top>210</top>
+							<width>350</width>
+							<height>20</height>
+							<align>center</align>
+							<label>$INFO[Window(Home).Property(MyCast.4.Role)]</label>
+							<font>font10</font>
+							<scroll>true</scroll>
+							<scrollspeed>40</scrollspeed>      <!-- pixels per second; tweak to taste -->
+							<scrollsuffix>   •   </scrollsuffix> <!-- optional gap between loops -->
+							<textcolor>grey</textcolor>
+							<shadowcolor>black</shadowcolor>
+						</control>						
+					</control>
+
+					<!-- ===== Actor 5 ===== -->
+					<control type="group">
+						<left>1200</left>
+						<top>0</top>
+						<width>300</width>
+						<height>200</height>
+						<visible>!String.IsEmpty(Window(Home).Property(MyCast.5.Name))</visible>
+
+						<!-- Real thumb -->
+						<control type="image">
+							<left>30</left>
+							<top>0</top>
+							<width>300</width>
+							<height>180</height>
+							<aspectratio>keep</aspectratio>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.5.Thumb))</visible>
+							<texture background="true">$INFO[Window(Home).Property(MyCast.5.Thumb)]</texture>
+						</control>
+
+						<!-- Fallback icon only while there is no thumb -->
+						<control type="image">
+							<left>30</left>
+							<top>0</top>
+							<width>300</width>
+							<height>180</height>
+							<aspectratio>keep</aspectratio>
+							<visible>String.IsEmpty(Window(Home).Property(MyCast.5.Thumb))</visible>
+							<texture>defaultactor.png</texture>
+						</control>
+
+						<control type="label">
+							<top>185</top>
+							<width>350</width>
+							<height>25</height>
+							<align>center</align>
+							<label>$INFO[Window(Home).Property(MyCast.5.Name)]</label>
+							<font>font11</font>
+							<textcolor>white</textcolor>
+							<shadowcolor>black</shadowcolor>
+						</control>
+						<control type="label">
+							<top>210</top>
+							<width>350</width>
+							<height>20</height>
+							<align>center</align>
+							<label>$INFO[Window(Home).Property(MyCast.5.Role)]</label>
+							<font>font10</font>
+							<scroll>true</scroll>
+							<scrollspeed>40</scrollspeed>      <!-- pixels per second; tweak to taste -->
+							<scrollsuffix>   •   </scrollsuffix> <!-- optional gap between loops -->
+							<textcolor>grey</textcolor>
+							<shadowcolor>black</shadowcolor>
+						</control>						
+					</control>
+				</control>
+
+				<!-- Fallback: plain text cast if helper has nothing -->
+				<control type="label">
+					<left>360</left>
+					<top>420</top>
+					<width>1500</width>
+					<height>30</height>
+					<label>$INFO[Container($PARAM[Control]).ListItem.Cast]</label>
+					<font>font12</font>
+					<textcolor>white</textcolor>
+					<shadowcolor>black</shadowcolor>
+					<visible>String.IsEmpty(Window(Home).Property(MyCast.1.Name))
+							 + !String.IsEmpty(Container($PARAM[Control]).ListItem.Cast)</visible>
+				</control>
+
+            </control>
+        </definition>
+    </include>
+
 	
 	<include name="HomeWidgetDisplay">
         <control type="group" id="9003">
@@ -155,8 +671,7 @@
             <visible>!Window.IsVisible(Favourites)</visible>
             <include>VisibleFadeEffect</include>
             <animation effect="fade" time="225" delay="1000">WindowOpen</animation>
-            <animation effect="fade" time="150">WindowClose</animation>
-			
+            <animation effect="fade" time="150">WindowClose</animation>		
 			<!-- Recent movies -->
 			<control type="group">
 			    <visible>Library.HasContent(Movies) + String.IsEqual(Container(9000).ListItem.Property(WidgetSet),RecentMovies)</visible>
@@ -3126,7 +3641,7 @@
                     </control>
                 </focusedlayout>
                 <include>$PARAM[Content]</include>
-            </control>
+            </control>		
         </definition>
     </include>
 	
@@ -5004,6 +5519,10 @@
     <include name="CustomWidgetContent500">
         <content target="videos" limit="500">$INFO[Container(9000).ListItem.Property(WidgetSet)]</content>
     </include>
+	<variable name="WidgetStudioLogo">
+		<value condition="!String.IsEmpty(Window(Home).Property(MyInfo.Studio))">resource://resource.images.studios.coloured/$INFO[Window(Home).Property(MyInfo.Studio)].png</value>
+		<value condition="!String.IsEmpty(Window(Home).Property(MyInfo.StudioLogo))">$INFO[Window(Home).Property(MyInfo.StudioLogo)]</value>		
+	</variable>
 	<!-- Put in IncludesHomeWidget.xml (above the selector) -->
 	<variable name="ActiveMenuIndex">
 	  <value condition="Integer.IsEqual(Window(Home).Property(MenuIndex),1)">1</value>

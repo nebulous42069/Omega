@@ -340,6 +340,19 @@
                                 <onclick>Skin.ToggleSetting(ShowWidgetsOnFocus)</onclick>
                                 <selected>Skin.HasSetting(ShowWidgetsOnFocus)</selected>
                             </control>
+                            <control type="radiobutton" id="1023">
+                                <description>Show widget video info panel</description>
+                                <width>1125</width>
+                                <height>60</height>
+                                <font>font13</font>
+                                <textcolor>grey2</textcolor>
+                                <focusedcolor>white</focusedcolor>
+                                <!-- you can swap this to a LOCALIZE id later if you want -->
+                                <label>Show widget info under posters</label>
+                                <include>MenuButton</include>
+                                <onclick>Skin.ToggleSetting(HomeWidgetInfoPanel)</onclick>
+                                <selected>Skin.HasSetting(HomeWidgetInfoPanel)</selected>
+                            </control>
                             <control type="button" id="104">
                                 <description>Main Colour One</description>
                                 <width>1125</width>
