@@ -3287,7 +3287,7 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
 			<fanart>resources/fanart.jpg</fanart>
 		</assets>
 	</extension>
-</addon><addon id="weather.multi" name="Multi Weather" version="1.0.5" provider-name="ronie">
+</addon><addon id="weather.multi" name="Multi Weather" version="1.0.6" provider-name="ronie">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0" />
 		<import addon="script.openweathermap.maps" version="1.0.4" />
