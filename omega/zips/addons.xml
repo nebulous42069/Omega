@@ -1685,7 +1685,7 @@ Random updates by lolage.
             <icon>icon.png</icon>
         </assets>
     </extension>
-</addon><addon id="script.module.accountmgr" version="4.1" name="Account Manager Testing" provider-name="Zaxxon709, Diggz">
+</addon><addon id="script.module.accountmgr" version="4.2" name="Account Manager Testing" provider-name="Zaxxon709, Diggz">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0" />
 		<import addon="script.module.requests" version="2.19.1" />
@@ -3287,12 +3287,13 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
 			<fanart>resources/fanart.jpg</fanart>
 		</assets>
 	</extension>
-</addon><addon id="weather.multi2" name="Multi Weather 2" version="420" provider-name="ronie">
+</addon><addon id="weather.multi" name="Multi Weather" version="1.0.5" provider-name="ronie">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0" />
 		<import addon="script.openweathermap.maps" version="1.0.4" />
 		<import addon="script.module.requests" version="2.22.0+matrix.1" />
 		<import addon="script.module.dateutil" version="2.8.1+matrix.1" />
+		<import addon="script.module.beautifulsoup4" version="4.8.2+matrix.1" />
 	</requires>
 	<extension point="xbmc.python.weather" library="default.py" />
 	<extension point="xbmc.addon.metadata">
@@ -3301,11 +3302,11 @@ v1.0.0 - schumi2004,CaTz, Mafarricos
 		<platform>all</platform>
 		<license>GPL-2.0-only</license>
 		<forum>https://forum.kodi.tv/showthread.php?tid=352028</forum>
-		<source>https://gitlab.com/ronie/weather.multi2/</source>
+		<source>https://gitlab.com/ronie/weather.multi/</source>
 		<assets>
 			<icon>resources/icon.png</icon>
 			<fanart>resources/fanart.jpg</fanart>
 		</assets>
-		<news>- fix yahoo weather again</news>
+		<news>- New Version</news>
 	</extension>
 </addon></addons>

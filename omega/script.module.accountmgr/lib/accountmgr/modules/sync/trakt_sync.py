@@ -67,17 +67,27 @@ def _expires_epoch_int(expires_raw):
         return 0
 
 
-def _oauth_blob(access_token, refresh_token, expires_at_epoch, expires_in=86400):
+def _oauth_blob(access_token, refresh_token, expires_at_epoch):
     """
     TMDb Helper + script.trakt store Trakt auth as a JSON blob.
-    Old code used expires_in=7776000 and created_at=expires_at (wrong).
-    This generates a sane blob: created_at = expires_at - expires_in.
+
+    Important: we should not guess token lifetime (e.g. hardcoding 86400).
+    Instead, build a blob that resolves to the *actual* expiry moment we already have.
+
+      created_at = now
+      expires_in = max(0, expires_at - now)
+
+    Many addons derive expiry as: created_at + expires_in. With the math above, that equals expires_at.
+    This avoids early refresh and refresh-token rotation that can wipe shared auth across addons.
     """
     now = int(time.time())
-    if expires_at_epoch > 0:
-        created_at = max(0, int(expires_at_epoch) - int(expires_in))
-    else:
-        created_at = now
+    expires_in = 0
+
+    try:
+        if expires_at_epoch and int(expires_at_epoch) > 0:
+            expires_in = max(0, int(expires_at_epoch) - now)
+    except Exception:
+        expires_in = 0
 
     payload = {
         "access_token": access_token,
@@ -85,7 +95,7 @@ def _oauth_blob(access_token, refresh_token, expires_at_epoch, expires_in=86400)
         "expires_in": int(expires_in),
         "refresh_token": refresh_token,
         "scope": "public",
-        "created_at": int(created_at),
+        "created_at": int(now),
     }
     return json.dumps(payload, separators=(",", ":"))
 

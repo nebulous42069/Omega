@@ -20,12 +20,34 @@ timeout = 60*5
 
 def startup_tk_sync():
         try:
-                if str(var.chk_accountmgr_tk) != '': #Skip sync if Trakt is not authorized
-                        from accountmgr.modules.sync import trakt_sync
-                        trakt_sync.Auth().trakt_auth() #Sync Trakt
+                # Skip if Trakt is not authorized
+                if str(var.chk_accountmgr_tk) == '':
+                        return
+
+                # Read current AccountMgr token state
+                token = accountmgr.getSetting("trakt.token") or ''
+                expires_raw = accountmgr.getSetting("trakt.expires") or ''
+                expires_at = 0
+                try:
+                        expires_at = int(float(expires_raw)) if expires_raw else 0
+                except Exception:
+                        expires_at = 0
+
+                if not token:
+                        return
+
+                # If expired (or about to), refresh first so we distribute the *new* refresh token
+                # before other addons race and rotate it out from under each other.
+                if expires_at and time.time() >= (expires_at - 600):
+                        from accountmgr.modules.auth.trakt import Trakt
+                        Trakt().refresh_token()
+                        return
+
+                from accountmgr.modules.sync import trakt_sync
+                trakt_sync.Auth().trakt_auth() # Sync Trakt
         except:
                 xbmc.log('%s: Startup Trakt Sync Failed!' % var.amgr, xbmc.LOGINFO)
-        
+
 def startup_rd_sync():
         try:
                 if str(var.chk_accountmgr_tk_rd) != '': #Skip sync if Real-Debrid is not authorized
