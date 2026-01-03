@@ -341,7 +341,6 @@ def getCurrentMeta():
     infoLabels.append('tagline')
     infoLabels.append('title')
     infoLabels.append('originaltitle')
-    infoLabels.append('label')
     infoLabels.append('writer')
     infoLabels.append('director')
     infoLabels.append('year')

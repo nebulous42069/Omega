@@ -2832,6 +2832,13 @@ def addDir(label, mode, index=-1, path = '', cmd = '', thumbnail='', isFolder=Tr
 
 
     if infolabels and len(infolabels) > 0:
+        # Kodi Omega+ complains if we pass non-video infolabels like 'label' via setInfo().
+        # 'label' is the ListItem label, not a Video InfoTag field.
+        try:
+            infolabels.pop('label', None)
+            infolabels.pop('Label', None)
+        except Exception:
+            pass
         liz.setInfo(type='Video', infoLabels=infolabels)
         
     if len(fanart) == 0:
