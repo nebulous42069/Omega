@@ -14,58 +14,13 @@
         "setting": "savedata",
         "path": "data_path"
     },
-    "plugin.video.fenlight": {
-        "name": "Fen Light",
+    "weather.multi": {
+        "name": "Weather-MultiWeather",
         "setting": "savedata",
         "path": "data_path"
     },
-    "plugin.video.themoviedb.helper": {
-        "name": "TMDBH",
-        "setting": "savedata",
-        "path": "data_path"
-    },
-    "plugin.video.seren": {
-        "name": "Seren",
-        "setting": "savedata",
-        "path": "data_path"
-    },
-    "plugin.video.umbrella": {
-        "name": "Umbrella",
-        "setting": "savedata",
-        "path": "data_path"
-    },
-    "plugin.video.pov": {
-        "name": "POV",
-        "setting": "savedata",
-        "path": "data_path"
-    },
-    "plugin.video.dradis": {
-        "name": "Dradis",
-        "setting": "savedata",
-        "path": "data_path"
-    },
-    "script.module.resolveurl": {
-        "name": "ResolveUrl",
-        "setting": "savedata",
-        "path": "data_path"
-    },
-    "plugin.video.thecrew": {
-        "name": "The Crew",
-        "setting": "savedata",
-        "path": "data_path"
-    },
-    "plugin.video.homelander": {
-        "name": "Homelander",
-        "setting": "savedata",
-        "path": "data_path"
-    },
-    "plugin.video.free99": {
-        "name": "Free99",
-        "setting": "savedata",
-        "path": "data_path"
-    },
-    "plugin.video.scubsv2": {
-        "name": "Scrubs",
+    "script.module.accountmgr": {
+        "name": "Account Manager",
         "setting": "savedata",
         "path": "data_path"
     },

@@ -228,7 +228,8 @@
 					<width>220</width>
 					<height>120</height>
 					<aspectratio>keep</aspectratio>
-					<texture>trailer.gif</texture>						 
+					<texture>trailer.gif</texture>
+					<visible>!String.IsEmpty(Container($PARAM[Control]).ListItem.Trailer)</visible>
 				</control>
 				
                 <!-- Title (fallback when no clearlogo artwork) -->
@@ -259,22 +260,6 @@
 					<textcolor>white</textcolor>
 					<shadowcolor>black</shadowcolor>
 					<autoscroll delay="4000" time="2000" repeat="8000">true</autoscroll>
-				</control>
-
-				<!-- Cast label -->
-				<control type="label">
-					<left>240</left>
-					<top>450</top>
-					<width>1500</width>
-					<height>30</height>
-					<label>Cast</label>
-					<font>font12_title</font>
-					<textcolor>white</textcolor>
-					<shadowcolor>black</shadowcolor>
-					<!-- show label if we have at least one helper cast OR fallback cast text -->
-					<visible>!String.IsEmpty(Window(Home).Property(MyCast.1.Name)) |
-							 (!String.IsEmpty(Container($PARAM[Control]).ListItem.Cast)
-							  + String.IsEmpty(Window(Home).Property(MyCast.1.Name)))</visible>
 				</control>
 
 				<!-- Cast row driven by script.xenon.casthelper (MyCast.*) -->
