@@ -8,6 +8,9 @@ import time
 import ast
 import requests
 from requests.compat import urlparse
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
 
 import xbmcgui
 import xbmcplugin
@@ -18,6 +21,7 @@ import inputstreamhelper
 
 from resources.lib.brotlipython import brotlidec
 import json
+import html as html_lib
 
 if six.PY3:
     basestring = str
@@ -101,7 +105,7 @@ def add_item(url, name, image, mode, itemcount=1, page=1,fanart=FANART, infoLabe
     if not infoLabels:
         infoLabels={'title': name}    
     list_item.setInfo(type="video", infoLabels=infoLabels)    
-    list_item.setArt({'thumb': image, 'poster': image, 'banner': image, 'fanart': fanart})
+    list_item.setArt({'thumb': image, 'icon': image, 'poster': image, 'banner': image, 'landscape': image, 'fanart': fanart})
     
     if contextmenu:
         out=contextmenu
@@ -281,7 +285,17 @@ def ListMovies(url, pg):
 		href = href.replace('/shows/view/', '/shows/play/')
 
 		img = parseDOM(item,'img', ret="data-src")
+		if not img:
+			img = parseDOM(item,'img', ret="src")
+		if not img:
+			img = parseDOM(item,'img', ret="data-original")
 		img = img[0] if img else ikona
+		img = html_lib.unescape(img) if isinstance(img, str) else img
+		if isinstance(img, str):
+			if img.startswith("//"):
+				img = "https:" + img
+			elif img.startswith("/") and not img.startswith("http"):
+				img = "https://www.lookmovie2.to" + img
 
 		year = re.findall('year">([^<]+)<',item)
 		year = year[0] if year else ''
@@ -689,9 +703,9 @@ def router(paramstring):
 			ff = mode.split(':')[1]
 			if 'rok' in ff:
 				dd='year:'
-				label = [str(x) for x in xrange(1913,2026)][::-1]#.insert(0,'all')
+				label = [str(x) for x in xrange(1913,2027)][::-1]#.insert(0,'all')
 				label.insert(0,'all')
-				value =  ['&y[]='+str(x) for x in xrange(1913,2026)][::-1]
+				value =  ['&y[]='+str(x) for x in xrange(1913,2027)][::-1]
 				value.insert(0,'&y[]=')
 			elif 'raty' in ff:
 				dd= 'rating:'

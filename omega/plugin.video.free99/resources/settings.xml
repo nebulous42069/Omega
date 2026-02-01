@@ -153,7 +153,6 @@
         <setting id="provider.seriesloaded_ng" type="bool" label="provider.seriesloaded_ng" default="true" />		
         <setting id="provider.my4hydra_top" type="bool" label="provider.my4hydra_top" default="true" />
         <setting id="provider.fzmovies_live" type="bool" label="provider.fzmovies_live" default="true" />
-		<setting id="provider.hollymoviehd_cc" type="bool" label="hollymoviehd_cc" default="true" />
 		<setting id="provider.levidia_ch" type="bool" label="levidia_ch" default="true" />
 		<setting id="provider.naijavault_com" type="bool" label="naijavault_com" default="true" />
 		
