@@ -29,6 +29,13 @@
     "epg": "https://s.id/d9EPG",
     "icon": "special://home/addons/plugin.video.madtitansports/icon.png",
     "fanart": "special://home/addons/plugin.video.madtitansports/fanart.jpg"
+  },
+  {
+    "name": "TV APP",
+    "m3u": "https://tvpass.org/playlist/m3u",
+    "epg": "https://tvpass.org/epg.xml",
+    "icon": "special://home/addons/plugin.video.madtitansports/icon.png",
+    "fanart": "special://home/addons/plugin.video.madtitansports/fanart.jpg"
   }
 
 ]

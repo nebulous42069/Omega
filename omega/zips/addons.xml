@@ -862,7 +862,7 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.cb20
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="plugin.video.playlistbrowser" name="Diggz TV Guide Lite" version="2.6.3" provider-name="Diggz">
+</addon><addon id="plugin.video.playlistbrowser" name="Diggz TV Guide Lite" version="2.6.4" provider-name="Diggz">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
   </requires>
