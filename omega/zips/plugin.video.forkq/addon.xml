@@ -1,4 +1,4 @@
-<addon id="plugin.video.forkq" name="[COLORyellow]Fork-Q[/COLOR]" version="8.4.3" provider-name="">
+<addon id="plugin.video.forkq" name="[COLORyellow]Fork-Q[/COLOR]" version="8.4.4" provider-name="">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
 		<import addon="script.module.resolveurl"/>
@@ -7,7 +7,7 @@
         <import addon="inputstream.adaptive" version="2.6.0"/>
     </requires>
 	 <extension point="xbmc.python.pluginsource" library="main.py">
-    <provides>video</provides>
+    <provides></provides>
   </extension>
   <extension point="xbmc.addon.metadata">
     <summary lang="en"></summary>
