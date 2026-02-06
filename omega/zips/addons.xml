@@ -745,6 +745,28 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.cb20
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
+</addon><addon id="plugin.video.forkq" name="[COLORyellow]Fork-Q[/COLOR]" version="8.4.3" provider-name="">
+    <requires>
+        <import addon="xbmc.python" version="3.0.0" />
+		<import addon="script.module.resolveurl" />
+		<import addon="script.module.requests" />
+        <import addon="script.module.inputstreamhelper" />
+        <import addon="inputstream.adaptive" version="2.6.0" />
+    </requires>
+	 <extension point="xbmc.python.pluginsource" library="main.py">
+    <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en" />
+	<description lang="en_GB">No Streams Are Stored Locally-All Are Available Freely On The Internet</description>
+    <platform>all</platform>
+    <language>en</language>
+    <license>GPL-2.0-or-later</license>
+	<assets>
+		<icon>icon.png</icon>
+		<fanart>fanart.jpg</fanart>
+  </assets>
+  </extension>
 </addon><addon id="plugin.video.free99" version="2.0" name="[COLOR goldenrod]Free99[/COLOR]" provider-name="JewBMX, DIGGZ">
     <requires>
         <import addon="script.module.six" />
