@@ -750,7 +750,7 @@ class Router:
                 else:
                     xbmcgui.Dialog().notification('Debrid Manager', 'No External Providers  Data to Restore!', amgr_icon, 3000)
                     xbmc.sleep(3000)
-                    xbmc.executebuiltin('Dialog.lLose(all,true)')
+                    xbmc.executebuiltin('Dialog.Close(all,true)')
                     xbmc.executebuiltin('Addon.OpenSettings(script.module.debridmgr)')
             except:
                 xbmc.log('%s: Router.py Restore External Providers Failed!' % var.amgr, xbmc.LOGINFO)

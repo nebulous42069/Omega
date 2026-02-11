@@ -17,6 +17,10 @@ from resources.libs.common.config import CONFIG
 translatePath = xbmcvfs.translatePath
 addons = translatePath('special://home/addons/')
 
+addon_id = 'script.module.debridmgr'
+addon = xbmcaddon.Addon(addon_id)
+setting = addon.getSetting
+
 def debrid_menu():
     from resources.libs import debridit_rd
     for debrid in debridit_rd.ORDER:
@@ -226,8 +230,11 @@ def ext_menu():
 
                 if not auser:
                     directory.add_file('{0} - [COLOR red]No Scraper Synced[/COLOR]'.format(name), {'name': ext}, icon=icon, description='Your External Provider Authorizations', fanart=fanart, themeit=CONFIG.THEME3)
+                elif setting("ext.provider") == 'Magneto':
+                        directory.add_file('{0} - [COLOR springgreen]Magneto Scrapers Synced[/COLOR]'.format(name), {'name': ext}, icon=icon, description='Your External Provider Authorizations', fanart=fanart, themeit=CONFIG.THEME3)
                 else:
-                    directory.add_file('{0} - [COLOR springgreen]CocoScrapers Synced[/COLOR]'.format(name), {'name': ext}, icon=icon, description='Your External Provider Authorizations', fanart=fanart, themeit=CONFIG.THEME3)
+                    if setting("ext.provider") == 'CocoScrapers':
+                        directory.add_file('{0} - [COLOR springgreen]CocoScrapers Synced[/COLOR]'.format(name), {'name': ext}, icon=icon, description='Your External Provider Authorizations', fanart=fanart, themeit=CONFIG.THEME3)
                 if name == 'Fen Light':
                     directory.add_file('[COLOR blue]Open [COLOR dodgerblue]{0}[/COLOR] Settings[/COLOR]'.format('Fen Light'), {'mode': 'opensettings_fenlt', 'name': 'Fen Light'}, icon=icon, fanart=fanart, menu=menu)
                 else:

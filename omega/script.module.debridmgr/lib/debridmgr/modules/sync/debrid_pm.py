@@ -64,7 +64,7 @@ class Auth:
                                 else:
                                     from debridmgr.modules.db import debrid_db
                                     debrid_db.disable_fenlt_ad()
-                                vatr.remake_settings()
+                                var.remake_settings()
         except:
                 xbmc.log('%s: Fen Light Premiumize Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
@@ -164,6 +164,38 @@ class Auth:
         except:
                 xbmc.log('%s: POV Premiumize Failed!' % var.amgr, xbmc.LOGINFO)
                 pass                
+
+     #The Gears PM
+        try:
+                if xbmcvfs.exists(var.chk_gears) and xbmcvfs.exists(var.chkset_gears):
+                        chk_auth_gears = xbmcaddon.Addon('plugin.video.gears').getSetting("premiumize.token")
+                        if not str(var.chk_debridmgr_tk_pm) == str(chk_auth_gears) or str(chk_auth_gears) == '':
+                                
+                                addon = xbmcaddon.Addon("plugin.video.gears")
+                                addon.setSetting("premiumize.username", your_pm_username)
+                                addon.setSetting("premiumize.token", your_pm_token)
+
+                                enabled_pm = ("true")
+                                addon.setSetting("premiumize.enable", enabled_pm)
+        except:
+                xbmc.log('%s: The Gears Premiumize Failed!' % var.amgr, xbmc.LOGINFO)
+                pass
+
+     #Chains Genocide PM
+        try:
+                if xbmcvfs.exists(var.chk_genocide) and xbmcvfs.exists(var.chkset_genocide):
+                        chk_auth_genocide = xbmcaddon.Addon('plugin.video.genocide').getSetting("premiumize.token")
+                        if not str(var.chk_debridmgr_tk_pm) == str(chk_auth_genocide) or str(chk_auth_genocide) == '':
+                                
+                                addon = xbmcaddon.Addon("plugin.video.genocide")
+                                addon.setSetting("premiumize.username", your_pm_username)
+                                addon.setSetting("premiumize.token", your_pm_token)
+
+                                enabled_pm = ("true")
+                                addon.setSetting("premiumize.enable", enabled_pm)
+        except:
+                xbmc.log('%s: Genocide Premiumize Failed!' % var.amgr, xbmc.LOGINFO)
+                pass
             
      #Dradis PM
         try:
@@ -250,6 +282,73 @@ class Auth:
                                         addon.setSetting("alldebrid.enabled", enabled_ad)
         except:
                 xbmc.log('%s: Seren Premiumize Failed!' % var.amgr, xbmc.LOGINFO)
+                pass
+
+     #Otaku PM
+        try:
+                if xbmcvfs.exists(var.chk_otaku) and not xbmcvfs.exists(var.otaku_ud):
+                        os.mkdir(var.otaku_ud)
+                        xbmcvfs.copy(os.path.join(var.otaku), os.path.join(var.chkset_otaku))
+                        
+                if xbmcvfs.exists(var.chk_otaku) and not xbmcvfs.exists(var.chkset_otaku):
+                        xbmcvfs.copy(os.path.join(var.otaku), os.path.join(var.chkset_otaku))
+
+                if xbmcvfs.exists(var.chk_otaku) and xbmcvfs.exists(var.chkset_otaku):
+                        chk_auth_otaku = xbmcaddon.Addon('plugin.video.otaku').getSetting("premiumize.token")
+                        if not str(var.chk_debridmgr_tk_pm) == str(chk_auth_otaku) or str(chk_auth_otaku) == '':
+                                
+                                addon = xbmcaddon.Addon("plugin.video.otaku")
+                                addon.setSetting("premiumize.username", your_pm_username)
+                                addon.setSetting("premiumize.token", your_pm_token)
+
+                                enabled_pm = ("true")
+                                addon.setSetting("premiumize.enabled", enabled_pm)
+        except:
+                xbmc.log('%s: Otaku Premiumize Failed!' % var.amgr, xbmc.LOGINFO)
+                pass
+
+     #Otaku Testing PM
+        try:
+                if xbmcvfs.exists(var.chk_otakut) and not xbmcvfs.exists(var.otakut_ud):
+                        os.mkdir(var.otakut_ud)
+                        xbmcvfs.copy(os.path.join(var.otakut), os.path.join(var.chkset_otakut))
+                        
+                if xbmcvfs.exists(var.chk_otakut) and not xbmcvfs.exists(var.chkset_otakut):
+                        xbmcvfs.copy(os.path.join(var.otakut), os.path.join(var.chkset_otakut))
+
+                if xbmcvfs.exists(var.chk_otakut) and xbmcvfs.exists(var.chkset_otakut):
+                        chk_auth_otakut = xbmcaddon.Addon('plugin.video.otaku.testing').getSetting("premiumize.token")
+                        if not str(var.chk_debridmgr_tk_pm) == str(chk_auth_otakut) or str(chk_auth_otakut) == '':
+                                
+                                addon = xbmcaddon.Addon("plugin.video.otaku.testing")
+                                addon.setSetting("premiumize.username", your_pm_username)
+                                addon.setSetting("premiumize.token", your_pm_token)
+
+                                enabled_pm = ("true")
+                                addon.setSetting("premiumize.enabled", enabled_pm)
+        except:
+                xbmc.log('%s: Otaku Testing Premiumize Failed!' % var.amgr, xbmc.LOGINFO)
+                pass
+
+     #Premiumizer PM
+        try:
+                if xbmcvfs.exists(var.chk_premx) and not xbmcvfs.exists(var.premx_ud):
+                        os.mkdir(var.premx_ud)
+                        xbmcvfs.copy(os.path.join(var.premx), os.path.join(var.chkset_premx))
+                        
+                if xbmcvfs.exists(var.chk_premx) and not xbmcvfs.exists(var.chkset_premx):
+                        xbmcvfs.copy(os.path.join(var.premx), os.path.join(var.chkset_premx))
+
+                if xbmcvfs.exists(var.chk_premx) and xbmcvfs.exists(var.chkset_premx):
+                        chk_auth_premx = xbmcaddon.Addon('plugin.video.premiumizerx').getSetting("premiumize.token")
+                        if not str(var.chk_debridmgr_tk_pm) == str(chk_auth_premx) or str(chk_auth_premx) == '':
+                                
+                                addon = xbmcaddon.Addon("plugin.video.premiumizerx")
+                                addon.setSetting("premiumize.status", 'Authorized')
+                                addon.setSetting("premiumize.token", your_pm_token)
+                                addon.setSetting("premiumize.refresh", '315360000')
+        except:
+                xbmc.log('%s: Premiumizer Premiumize Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
             
     #All Accounts PM

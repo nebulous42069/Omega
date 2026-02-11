@@ -3,7 +3,7 @@
         "icon": "https://techwiser.com/wp-content/uploads/2020/09/trakt-logo.png",
         "items": [
             {
-                "name": "[COLOR chartreuse]Step 1 - Install The Supported Addons You Use Here[/COLOR]",
+                "name": "- Install The Supported Addons You Use Here",
                 "items": [
             {
                 "name": "Install FEN Light (DEBRID ONLY)",
@@ -30,10 +30,6 @@
                 "url": "installaddon(plugin.video.thecrew)"
             },
             {
-                "name": "Install Homelander (DEBRID ONLY)",
-                "url": "installaddon(plugin.video.homelander)"
-            },
-            {
                 "name": "Install Diggz Free99 (FREE)",
                 "url": "installaddon(plugin.video.free99)"
             },
@@ -44,57 +40,57 @@
                 ]
             },
             {
-                "name": "- Use Account Manager to Authorize All Addons (TESTING)",
+                "name": "- Use Debrid Manager to Authorize Debrid Addons",
                 "items": [
                     {
-                        "name": "Open Account Manager",
-                        "url": "Addon.OpenSettings(script.module.accountmgr)"
+                        "name": "Open Debrid Manager",
+                        "url": "Addon.OpenSettings(script.module.debridmgr)"
                     }
                 ]
             },
             {
-                "name": "- Manually Authorize Addons",
+                "name": "- Authorize Trakt Accounts",
                 "items": [
             {
-                "name": "TMDBH Settings",
-                "url": "addon.opensettings(plugin.video.themoviedb.helper)"
+                "name": "TMDBH Trakt",
+                "url": "RunScript(plugin.video.themoviedb.helper,authenticate_trakt)"
             },		
             {
-                "name": "Fen Light AM Settings",
+                "name": "Fen Light AM Trakt",
                 "url": "RunPlugin(plugin://plugin.video.fenlight/?mode=open_settings)"
             },			
             {
-                "name": "Seren Settings",
-                "url": "Addon.OpenSettings(plugin.video.seren)"
+                "name": "Seren Trakt",
+                "url": "RunPlugin(plugin://plugin.video.seren/?action=authTrakt)"
             },
             {
-                "name": "Umbrella Settings",
-                "url": "Addon.OpenSettings(plugin.video.umbrella)"
+                "name": "Umbrella Trakt",
+                "url": "RunPlugin(plugin://plugin.video.umbrella/?action=traktAuth)"
             },
             {
-                "name": "POV Settings",
-                "url": "Addon.OpenSettings(plugin.video.pov)"
-            },
-            {
-                "name": "Dradis Settings",
-                "url": "Addon.OpenSettings(plugin.video.dradis)"
+                "name": "POV Trakt",
+                "url": "RunPlugin(plugin://plugin.video.pov/?mode=myservices)"
             },						
             {
-                "name": "ResolveURL Settings",
-                "url": "Addon.OpenSettings(script.module.resolveurl)"
+                "name": "The Crew Trakt",
+                "url": "RunPlugin(plugin://plugin.video.thecrew/?action=authTrakt)"
             },
             {
-                "name": "The Crew Settings",
-                "url": "Addon.OpenSettings(plugin.video.thecrew)"
+                "name": "Everstream Trakt (FREE)",
+                "url": "RunPlugin(plugin://plugin.video.everstream/?action=authTrakt)"
             },
             {
-                "name": "Diggz Free99 Settings",
+                "name": "Diggz Free99 Trakt",
                 "url": "Addon.OpenSettings(plugin.video.fre99)"
             },
             {
-                "name": "Elementum Settings",
+                "name": "Elementum Trakt",
                 "url": "Addon.OpenSettings(plugin.video.elementum)"
-            }	
+            },
+            {
+                "name": "Kodi Trakt Addon",
+                "url": "RunScript(script.trakt,action=auth_info)"
+            }			
                 ]
             }
         ]

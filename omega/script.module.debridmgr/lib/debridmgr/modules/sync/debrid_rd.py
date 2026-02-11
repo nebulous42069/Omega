@@ -183,6 +183,44 @@ class Auth:
         except:
                 xbmc.log('%s: POV Real-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
+
+     #The Gears RD
+        try:
+                if xbmcvfs.exists(var.chk_gears) and xbmcvfs.exists(var.chkset_gears):
+                        chk_auth_gears = xbmcaddon.Addon('plugin.video.gears').getSetting("realdebrid.token")
+                        if not str(var.chk_debridmgr_tk_rd) == str(chk_auth_gears) or str(chk_auth_gears) == '':
+
+                                addon = xbmcaddon.Addon("plugin.video.gears")
+                                addon.setSetting("realdebrid.username", your_rd_username)
+                                addon.setSetting("realdebrid.token", your_rd_token)
+                                addon.setSetting("realdebrid.client_id", your_rd_client_id)
+                                addon.setSetting("realdebrid.refresh", your_rd_refresh)
+                                addon.setSetting("realdebrid.secret", your_rd_secret)
+                                
+                                enabled_rd = ("true")
+                                addon.setSetting("realdebrid.enable", enabled_rd)
+        except:
+                xbmc.log('%s: The Gears Real-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
+                pass
+
+     #Chains Genocide RD
+        try:
+                if xbmcvfs.exists(var.chk_genocide) and xbmcvfs.exists(var.chkset_genocide):
+                        chk_auth_genocide = xbmcaddon.Addon('plugin.video.genocide').getSetting("realdebrid.token")
+                        if not str(var.chk_debridmgr_tk_rd) == str(chk_auth_genocide) or str(chk_auth_genocide) == '':
+
+                                addon = xbmcaddon.Addon("plugin.video.genocide")
+                                addon.setSetting("realdebrid.username", your_rd_username)
+                                addon.setSetting("realdebrid.token", your_rd_token)
+                                addon.setSetting("realdebrid.client_id", your_rd_client_id)
+                                addon.setSetting("realdebrid.refresh", your_rd_refresh)
+                                addon.setSetting("realdebrid.secret", your_rd_secret)
+                                
+                                enabled_rd = ("true")
+                                addon.setSetting("realdebrid.enable", enabled_rd)
+        except:
+                xbmc.log('%s: Genocide Real-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
+                pass
             
      #Dradis RD
         try:
@@ -280,6 +318,58 @@ class Auth:
                 xbmc.log('%s: Seren Real-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
+     #Otaku RD
+        try:
+                if xbmcvfs.exists(var.chk_otaku) and not xbmcvfs.exists(var.otaku_ud):
+                        os.mkdir(var.otaku_ud)
+                        xbmcvfs.copy(os.path.join(var.otaku), os.path.join(var.chkset_otaku))
+                        
+                if xbmcvfs.exists(var.chk_otaku) and not xbmcvfs.exists(var.chkset_otaku):
+                        xbmcvfs.copy(os.path.join(var.otaku), os.path.join(var.chkset_otaku))
+
+                if xbmcvfs.exists(var.chk_otaku) and xbmcvfs.exists(var.chkset_otaku):
+                        chk_auth_otaku = xbmcaddon.Addon('plugin.video.otaku').getSetting("rd.auth")
+                        if not str(var.chk_debridmgr_tk_rd) == str(chk_auth_otaku) or str(chk_auth_otaku) == '':
+                        
+                                addon = xbmcaddon.Addon("plugin.video.otaku")
+                                addon.setSetting("rd.username", your_rd_username)
+                                addon.setSetting("rd.auth", your_rd_token)
+                                addon.setSetting("rd.client_id", your_rd_client_id)
+                                addon.setSetting("rd.refresh", your_rd_refresh)
+                                addon.setSetting("rd.secret", your_rd_secret)
+                                
+                                enabled_rd = ("true")
+                                addon.setSetting("realdebrid.enabled", enabled_rd)
+        except:
+                xbmc.log('%s: Otaku Real-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
+                pass
+
+     #Otaku Testing RD
+        try:
+                if xbmcvfs.exists(var.chk_otakut) and not xbmcvfs.exists(var.otakut_ud):
+                        os.mkdir(var.otakut_ud)
+                        xbmcvfs.copy(os.path.join(var.otakut), os.path.join(var.chkset_otakut))
+                        
+                if xbmcvfs.exists(var.chk_otakut) and not xbmcvfs.exists(var.chkset_otakut):
+                        xbmcvfs.copy(os.path.join(var.otakut), os.path.join(var.chkset_otakut))
+
+                if xbmcvfs.exists(var.chk_otakut) and xbmcvfs.exists(var.chkset_otakut):
+                        chk_auth_otakut = xbmcaddon.Addon('plugin.video.otaku.testing').getSetting("realdebrid.token")
+                        if not str(var.chk_debridmgr_tk_rd) == str(chk_auth_otakut) or str(chk_auth_otakut) == '':
+                        
+                                addon = xbmcaddon.Addon("plugin.video.otaku.testing")
+                                addon.setSetting("realdebrid.username", your_rd_username)
+                                addon.setSetting("realdebrid.token", your_rd_token)
+                                addon.setSetting("realdebrid.client_id", your_rd_client_id)
+                                addon.setSetting("realdebrid.refresh", your_rd_refresh)
+                                addon.setSetting("realdebrid.secret", your_rd_secret)
+                                
+                                enabled_rd = ("true")
+                                addon.setSetting("realdebrid.enabled", enabled_rd)
+        except:
+                xbmc.log('%s: Otaku Testing Real-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
+                pass
+            
      #Realizer RD
         try:
 

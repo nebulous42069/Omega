@@ -48,10 +48,9 @@ def connect_ext(conn, setting):
         xbmc.log('%s: Ext_db Auth Failed!' % var.amgr, xbmc.LOGINFO)
         pass
 
-
-    
-#################### Auth Fen Light External Provider ###################
-def auth_fenlt_ext():
+ 
+#################### Auth Fen Light Coco External Provider ###################
+def auth_fenlt_ext_coco():
     try:
         # Create database connection
         conn = create_conn(var.fenlt_settings_db)
@@ -60,7 +59,20 @@ def auth_fenlt_ext():
             connect_ext(conn, ('CocoScrapers Module', 'external_scraper.name'))
             connect_ext(conn, ('script.module.cocoscrapers', 'external_scraper.module'))
     except:
-        xbmc.log('%s: Easy_db Fen Light Auth Failed!' % var.amgr, xbmc.LOGINFO)
+        xbmc.log('%s: Ext_db Fen Light Coco Auth Failed!' % var.amgr, xbmc.LOGINFO)
+        pass
+
+#################### Auth Fen Light Magneto External Provider ###################
+def auth_fenlt_ext_mag():
+    try:
+        # Create database connection
+        conn = create_conn(var.fenlt_settings_db)
+        with conn:
+            connect_ext(conn, ('true', 'provider.external'))
+            connect_ext(conn, ('Magneto Module', 'external_scraper.name'))
+            connect_ext(conn, ('script.module.magneto', 'external_scraper.module'))
+    except:
+        xbmc.log('%s: Ext_db Fen Light Magneto Auth Failed!' % var.amgr, xbmc.LOGINFO)
         pass
 
 ######################### Revoke Fen Light External Provider #########################

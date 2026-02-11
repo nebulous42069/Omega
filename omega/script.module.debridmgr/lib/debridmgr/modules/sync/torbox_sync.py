@@ -77,6 +77,38 @@ class Auth:
                 xbmc.log('%s: POV TorBox Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
+    #The Gears
+        try:
+                if xbmcvfs.exists(var.chk_gears) and xbmcvfs.exists(var.chkset_gears):
+                        chk_auth_gears = xbmcaddon.Addon('plugin.video.gears').getSetting("torbox.token")
+                        if not str(var.chk_debridmgr_tb) == str(chk_auth_gears) or str(chk_auth_gears) == '':
+
+                                addon = xbmcaddon.Addon("plugin.video.gears")
+                                addon.setSetting("torbox.token", your_token)
+                                addon.setSetting("torbox.username", your_acct_id)
+                                addon.setSetting("torbox.enable", 'true')
+                                addon.setSetting("torbox.expires", '0')
+
+        except:
+                xbmc.log('%s: The Gears TorBox Failed!' % var.amgr, xbmc.LOGINFO)
+                pass
+
+    #Chains Genocide
+        try:
+                if xbmcvfs.exists(var.chk_genocide) and xbmcvfs.exists(var.chkset_genocide):
+                        chk_auth_genocide = xbmcaddon.Addon('plugin.video.genocide').getSetting("torbox.token")
+                        if not str(var.chk_debridmgr_tb) == str(chk_auth_genocide) or str(chk_auth_genocide) == '':
+
+                                addon = xbmcaddon.Addon("plugin.video.genocide")
+                                addon.setSetting("torbox.token", your_token)
+                                addon.setSetting("torbox.username", your_acct_id)
+                                addon.setSetting("torbox.enable", 'true')
+                                addon.setSetting("torbox.expires", '0')
+
+        except:
+                xbmc.log('%s: Genocide TorBox Failed!' % var.amgr, xbmc.LOGINFO)
+                pass
+            
     #Dradis
         try:
                 if xbmcvfs.exists(var.chk_dradis) and xbmcvfs.exists(var.chkset_dradis):
@@ -111,5 +143,25 @@ class Auth:
                                 addon.setSetting("tb.enabled", 'true')
         except:
                 xbmc.log('%s: Otaku TorBox Failed!' % var.amgr, xbmc.LOGINFO)
+                pass
+
+     #Otaku Testing
+        try:
+                if xbmcvfs.exists(var.chk_otakut) and not xbmcvfs.exists(var.otakut_ud):
+                        os.mkdir(var.otakut_ud)
+                        xbmcvfs.copy(os.path.join(var.otakut), os.path.join(var.chkset_otakut))
+                        
+                if xbmcvfs.exists(var.chk_otakut) and not xbmcvfs.exists(var.chkset_otakut):
+                        xbmcvfs.copy(os.path.join(var.otakut), os.path.join(var.chkset_otakut))
+
+                if xbmcvfs.exists(var.chk_otakut) and xbmcvfs.exists(var.chkset_otakut):
+                        chk_auth_otakut = xbmcaddon.Addon('plugin.video.otaku.testing').getSetting("torbox.token")
+                        if not str(var.chk_debridmgr_tb) == str(chk_auth_otakut) or str(chk_auth_otakut) == '':
+                        
+                                addon = xbmcaddon.Addon("plugin.video.otaku.testing")
+                                addon.setSetting("torbox.token", your_token)
+                                addon.setSetting("torbox.enabled", 'true')
+        except:
+                xbmc.log('%s: Otaku Testing TorBox Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 

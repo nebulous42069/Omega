@@ -69,7 +69,7 @@ class Auth:
                                 else:
                                     from debridmgr.modules.db import debrid_db
                                     debrid_db.disable_fenlt_rd()
-                                var.remkae_settings()
+                                var.remake_settings()
         except:
                 xbmc.log('%s: Fen Light All-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
@@ -169,6 +169,38 @@ class Auth:
         except:
                 xbmc.log('%s: POV All-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass                
+
+     #The Gears AD
+        try:
+                if xbmcvfs.exists(var.chk_gears) and xbmcvfs.exists(var.chkset_gears):
+                        chk_auth_gears = xbmcaddon.Addon('plugin.video.gears').getSetting("alldebrid.token")
+                        if not str(var.chk_debridmgr_tk_ad) == str(chk_auth_gears) or str(chk_auth_gears) == '':
+
+                                addon = xbmcaddon.Addon("plugin.video.gears")
+                                addon.setSetting("alldebrid.username", your_ad_username)
+                                addon.setSetting("alldebrid.token", your_ad_token)
+
+                                enabled_ad = ("true")
+                                addon.setSetting("alldebrid.enable", enabled_ad)
+        except:
+                xbmc.log('%s: The Gears All-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
+                pass
+
+     #Chains Genocide AD
+        try:
+                if xbmcvfs.exists(var.chk_genocide) and xbmcvfs.exists(var.chkset_genocide):
+                        chk_auth_genocide = xbmcaddon.Addon('plugin.video.genocide').getSetting("alldebrid.token")
+                        if not str(var.chk_debridmgr_tk_ad) == str(chk_auth_genocide) or str(chk_auth_genocide) == '':
+
+                                addon = xbmcaddon.Addon("plugin.video.genocide")
+                                addon.setSetting("alldebrid.username", your_ad_username)
+                                addon.setSetting("alldebrid.token", your_ad_token)
+
+                                enabled_ad = ("true")
+                                addon.setSetting("alldebrid.enable", enabled_ad)
+        except:
+                xbmc.log('%s: Genocide All-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
+                pass
             
      #Dradis AD
         try:
@@ -255,6 +287,52 @@ class Auth:
                                         addon.setSetting("premiumize.enabled", enabled_pm)
         except:
                 xbmc.log('%s: Seren All-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
+                pass
+
+      #Otaku AD
+        try:
+                if xbmcvfs.exists(var.chk_otaku) and not xbmcvfs.exists(var.otaku_ud):
+                        os.mkdir(var.otaku_ud)
+                        xbmcvfs.copy(os.path.join(var.otaku), os.path.join(var.chkset_otaku))
+                        
+                if xbmcvfs.exists(var.chk_otaku) and not xbmcvfs.exists(var.chkset_otaku):
+                        xbmcvfs.copy(os.path.join(var.otaku), os.path.join(var.chkset_otaku))
+                        
+                if xbmcvfs.exists(var.chk_otaku) and xbmcvfs.exists(var.chkset_otaku):
+                        chk_auth_otaku = xbmcaddon.Addon('plugin.video.otaku').getSetting("alldebrid.apikey")
+                        if not str(var.chk_debridmgr_tk_ad) == str(chk_auth_otaku) or str(chk_auth_otaku) == '':
+
+                                addon = xbmcaddon.Addon("plugin.video.otaku")
+                                addon.setSetting("alldebrid.username", your_ad_username)
+                                addon.setSetting("alldebrid.apikey", your_ad_token)
+
+                                enabled_ad = ("true")
+                                addon.setSetting("alldebrid.enabled", enabled_ad)
+        except:
+                xbmc.log('%s: Otaku All-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
+                pass
+
+      #Otaku Testing AD
+        try:
+                if xbmcvfs.exists(var.chk_otakut) and not xbmcvfs.exists(var.otakut_ud):
+                        os.mkdir(var.otakut_ud)
+                        xbmcvfs.copy(os.path.join(var.otakut), os.path.join(var.chkset_otakut))
+                        
+                if xbmcvfs.exists(var.chk_otakut) and not xbmcvfs.exists(var.chkset_otakut):
+                        xbmcvfs.copy(os.path.join(var.otakut), os.path.join(var.chkset_otakut))
+                        
+                if xbmcvfs.exists(var.chk_otakut) and xbmcvfs.exists(var.chkset_otakut):
+                        chk_auth_otakut = xbmcaddon.Addon('plugin.video.otaku.testing').getSetting("alldebrid.token")
+                        if not str(var.chk_debridmgr_tk_ad) == str(chk_auth_otakut) or str(chk_auth_otakut) == '':
+
+                                addon = xbmcaddon.Addon("plugin.video.otaku.testing")
+                                addon.setSetting("alldebrid.username", your_ad_username)
+                                addon.setSetting("alldebrid.token", your_ad_token)
+
+                                enabled_ad = ("true")
+                                addon.setSetting("alldebrid.enabled", enabled_ad)
+        except:
+                xbmc.log('%s: Otaku Testing All-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
             
     #All Accounts AD

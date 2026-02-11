@@ -1,0 +1,287 @@
+<settings version="2">
+    <setting id="titlelanguage" default="true">1</setting>
+    <setting id="searchhistory" default="true">0</setting>
+    <setting id="showchangelog">1</setting>
+    <setting id="general.smart.scroll.enable" default="true">false</setting>
+    <setting id="smart.scroll.direction" default="true">0</setting>
+    <setting id="interface.watchlist.data" default="true">true</setting>
+    <setting id="interface.cleantitles" default="true">false</setting>
+    <setting id="interface.content_type" default="true">false</setting>
+    <setting id="interface.viewtype" default="true">false</setting>
+    <setting id="interface.viewidswitch" default="true">false</setting>
+    <setting id="interface.addon.view" default="true">Default</setting>
+    <setting id="interface.show.view" default="true">Default</setting>
+    <setting id="interface.episode.view" default="true">Default</setting>
+    <setting id="interface.addon.view.id" default="true">0</setting>
+    <setting id="interface.show.view.id" default="true">0</setting>
+    <setting id="interface.episode.view.id" default="true">0</setting>
+    <setting id="browser.api" default="true">mal</setting>
+    <setting id="override.meta.api" default="true">false</setting>
+    <setting id="meta.api" default="true">simkl</setting>
+    <setting id="override.meta.notify" default="true">false</setting>
+    <setting id="interface.perpage.general.anilist" default="true">20</setting>
+    <setting id="interface.perpage.general.mal" default="true">20</setting>
+    <setting id="interface.perpage.watchlist" default="true">100</setting>
+    <setting id="interface.check.updates" default="true">5</setting>
+    <setting id="divflavors.dubonly" default="true">false</setting>
+    <setting id="divflavors.showdub" default="true">false</setting>
+    <setting id="contentyear.bool" default="true">false</setting>
+    <setting id="contentyear.menu" default="true">0</setting>
+    <setting id="contentseason.bool" default="true">false</setting>
+    <setting id="contentseason.menu" default="true">0</setting>
+    <setting id="contentformat.bool" default="true">false</setting>
+    <setting id="contentformat.menu" default="true">0</setting>
+    <setting id="contentstatus.bool" default="true">false</setting>
+    <setting id="contentstatus.menu.anilist" default="true">0</setting>
+    <setting id="contentstatus.menu.mal" default="true">0</setting>
+    <setting id="contentrating.bool" default="true">false</setting>
+    <setting id="contentrating.menu.mal" default="true">0</setting>
+    <setting id="contentorigin.bool" default="true">false</setting>
+    <setting id="contentorigin.menu" default="true">0</setting>
+    <setting id="contentgenre.bool" default="true">false</setting>
+    <setting id="jz.dub" default="true">false</setting>
+    <setting id="jz.dub.api" default="true">1</setting>
+    <setting id="jz.filler" default="true">false</setting>
+    <setting id="interface.icons" default="true">colouredv2</setting>
+    <setting id="general.dialog" default="true">0</setting>
+    <setting id="general.malposters" default="true">false</setting>
+    <setting id="interface.fanart.disable" default="true">false</setting>
+    <setting id="interface.clearlogo.disable" default="true">false</setting>
+    <setting id="widget.hide.nextpage" default="true">false</setting>
+    <setting id="widgets.delay" default="true">1000</setting>
+    <setting id="download.location" default="true" />
+    <setting id="provider.nyaa" default="true">true</setting>
+    <setting id="provider.nyaaalt" default="true">false</setting>
+    <setting id="provider.animetosho" default="true">true</setting>
+    <setting id="animetosho.paging" default="true">1</setting>
+    <setting id="embed.config" default="true">doodstream,filelions,filemoon,hd-1,hd-2,hd-3,iga,kwik,megaf,moonf,mp4upload,mp4u,mycloud,noads,noadsalt,swish,streamtape,streamwish,vidcdn,vidhide,vidplay,vidstream,yourupload,zto</setting>
+    <setting id="provider.animepahe" default="true">true</setting>
+    <setting id="provider.animix" default="true">true</setting>
+    <setting id="provider.animixalt" default="true">false</setting>
+    <setting id="provider.aniwave" default="true">true</setting>
+    <setting id="provider.hianime" default="true">true</setting>
+    <setting id="provider.hianimealt" default="true">false</setting>
+    <setting id="general.autotrynext" default="true">true</setting>
+    <setting id="general.timeout" default="true">20</setting>
+    <setting id="general.terminate.oncloud" default="true">false</setting>
+    <setting id="general.terminate.onlocal" default="true">false</setting>
+    <setting id="show.uncached" default="true">true</setting>
+    <setting id="uncached.autoruninforground" default="true">true</setting>
+    <setting id="uncached.autoruninbackground" default="true">false</setting>
+    <setting id="uncached.autoskipuncached" default="true">false</setting>
+    <setting id="realdebrid.cloudInspection" default="true">true</setting>
+    <setting id="premiumize.cloudInspection" default="true">true</setting>
+    <setting id="alldebrid.cloudInspection" default="true">true</setting>
+    <setting id="torbox.cloudInspection" default="true">true</setting>
+    <setting id="provider.localfiles" default="true">true</setting>
+    <setting id="folder.location" default="true" />
+    <setting id="general.smartplay" default="true">true</setting>
+    <setting id="general.playstyle.movie">1</setting>
+    <setting id="general.playstyle.episode">1</setting>
+    <setting id="general.kodi_language" default="true">false</setting>
+    <setting id="general.audio" default="true">0</setting>
+    <setting id="general.subtitles" default="true">1</setting>
+    <setting id="general.subtitles.type" default="true">true</setting>
+    <setting id="subtitles.types" default="true">0</setting>
+    <setting id="general.subtitles.keyword" default="true">true</setting>
+    <setting id="subtitles.keywords" default="true">1</setting>
+    <setting id="subtitles.customkeyword" default="true" />
+    <setting id="general.dubsubtitles" default="true">false</setting>
+    <setting id="playlist.unaired" default="true">false</setting>
+    <setting id="smartplay.skipintrodialog" default="true">true</setting>
+    <setting id="skipintro.aniskip.enable" default="true">true</setting>
+    <setting id="skipintro.aniskip.auto" default="true">false</setting>
+    <setting id="skipintro.aniskip.offset" default="true">-3</setting>
+    <setting id="skipintro.time" default="true">80</setting>
+    <setting id="skipintro.delay" default="true">2</setting>
+    <setting id="skipintro.duration" default="true">2</setting>
+    <setting id="smartplay.playingnextdialog" default="true">true</setting>
+    <setting id="skipoutro.aniskip.enable" default="true">true</setting>
+    <setting id="skipoutro.aniskip.auto" default="true">false</setting>
+    <setting id="skipoutro.aniskip.offset" default="true">-3</setting>
+    <setting id="playingnext.time" default="true">120</setting>
+    <setting id="playingnext.defaultaction" default="true">0</setting>
+    <setting id="general.maxResolution" default="true">4</setting>
+    <setting id="general.minResolution" default="true">0</setting>
+    <setting id="general.disable265" default="true">false</setting>
+    <setting id="general.disablebatch" default="true">false</setting>
+    <setting id="general.fileFilter" default="true">0</setting>
+    <setting id="general.webspeed" default="true">20</setting>
+    <setting id="general.movie.maxGB" default="true">10</setting>
+    <setting id="general.movie.minGB" default="true">0</setting>
+    <setting id="general.episode.maxGB" default="true">10</setting>
+    <setting id="general.episode.minGB" default="true">0</setting>
+    <setting id="general.release_title_filter.enabled" default="true">false</setting>
+    <setting id="general.release_title_filter.selection" default="true">0</setting>
+    <setting id="general.release_title_filter.logic" default="true">0</setting>
+    <setting id="general.release_title_filter.value1" default="true" />
+    <setting id="general.release_title_filter.value2" default="true" />
+    <setting id="general.release_title_filter.value3" default="true" />
+    <setting id="general.release_title_filter.value4" default="true" />
+    <setting id="general.release_title_filter.value5" default="true" />
+    <setting id="general.release_title_filter.exclude1" default="true">false</setting>
+    <setting id="general.release_title_filter.exclude2" default="true">false</setting>
+    <setting id="general.release_title_filter.exclude3" default="true">false</setting>
+    <setting id="general.release_title_filter.exclude4" default="true">false</setting>
+    <setting id="general.release_title_filter.exclude5" default="true">false</setting>
+    <setting id="general.source" default="true">0</setting>
+    <setting id="search.adult" default="true">false</setting>
+    <setting id="realdebrid.enabled" default="true">false</setting>
+    <setting id="realdebrid.username" default="true" />
+    <setting id="realdebrid.auth.status" default="true" />
+    <setting id="realdebrid.autodelete" default="true">true</setting>
+    <setting id="premiumize.enabled" default="true">false</setting>
+    <setting id="premiumize.username" default="true" />
+    <setting id="premiumize.auth.status" default="true" />
+    <setting id="premiumize.addToCloud" default="true">false</setting>
+    <setting id="premiumize.autodelete" default="true">true</setting>
+    <setting id="premiumize.threshold" default="true">750</setting>
+    <setting id="alldebrid.enabled" default="true">false</setting>
+    <setting id="alldebrid.username" default="true" />
+    <setting id="alldebrid.auth.status" default="true" />
+    <setting id="alldebrid.autodelete" default="true">true</setting>
+    <setting id="debridlink.enabled" default="true">false</setting>
+    <setting id="debridlink.username" default="true" />
+    <setting id="debridlink.auth.status" default="true" />
+    <setting id="debridlink.autodelete" default="true">true</setting>
+    <setting id="torbox.enabled" default="true">false</setting>
+    <setting id="torbox.username" default="true" />
+    <setting id="torbox.auth.status" default="true" />
+    <setting id="torbox.autodelete" default="true">true</setting>
+    <setting id="easydebrid.enabled" default="true">false</setting>
+    <setting id="easydebrid.username" default="true" />
+    <setting id="easydebrid.auth.status" default="true" />
+    <setting id="watchlist.update.enabled" default="true">false</setting>
+    <setting id="watchlist.update.flavor" default="true">MAL</setting>
+    <setting id="watchlist.update.percent" default="true">80</setting>
+    <setting id="watchlist.sync.enabled" default="true">true</setting>
+    <setting id="anilist.enabled" default="true">false</setting>
+    <setting id="anilist.username" default="true" />
+    <setting id="anilist.sort" default="true">3</setting>
+    <setting id="anilist.order" default="true">0</setting>
+    <setting id="kitsu.enabled" default="true">false</setting>
+    <setting id="kitsu.username" default="true" />
+    <setting id="kitsu.authvar" default="true" />
+    <setting id="kitsu.password" default="true" />
+    <setting id="kitsu.sort" default="true">3</setting>
+    <setting id="kitsu.order" default="true">0</setting>
+    <setting id="mal.enabled" default="true">false</setting>
+    <setting id="mal.username" default="true" />
+    <setting id="mal.sort" default="true">3</setting>
+    <setting id="mal.order" default="true">0</setting>
+    <setting id="simkl.enabled" default="true">false</setting>
+    <setting id="simkl.username" default="true" />
+    <setting id="simkl.sort" default="true">3</setting>
+    <setting id="simkl.order" default="true">0</setting>
+    <setting id="trakt.enabled" default="true">false</setting>
+    <setting id="menu.mainmenu.config" default="true">last_watched,watch_history,airing_calendar,airing_last_season,airing_this_season,airing_next_season,trending,popular,voted,favourites,top_100,genres,search,tools</setting>
+    <setting id="menu.submenu.config" default="true">trending_last_year,trending_this_year,trending_last_season,trending_this_season,all_time_trending,popular_last_year,popular_this_year,popular_last_season,popular_this_season,all_time_popular,voted_last_year,voted_this_year,voted_last_season,voted_this_season,all_time_voted,favourites_last_year,favourites_this_year,favourites_last_season,favourites_this_season,all_time_favourites</setting>
+    <setting id="menu.genres.config" default="true">genres//,genre_action,genre_adventure,genre_comedy,genre_drama,genre_ecchi,genre_fantasy,genre_horror,genre_shoujo,genre_mecha,genre_music,genre_mystery,genre_psychological,genre_romance,genre_sci_fi,genre_slice_of_life,genre_sports,genre_supernatural,genre_thriller</setting>
+    <setting id="movie.mainmenu.config" default="true">last_watched_movie,watch_history_movie,airing_last_season_movie,airing_this_season_movie,airing_next_season_movie,trending_movie,popular_movie,voted_movie,favourites_movie,top_100_movie,genres_movie,search_history_movie</setting>
+    <setting id="movie.submenu.config" default="true">trending_last_year_movie,trending_this_year_movie,trending_last_season_movie,trending_this_season_movie,all_time_trending_movie,popular_last_year_movie,popular_this_year_movie,popular_last_season_movie,popular_this_season_movie,all_time_popular_movie,voted_last_year_movie,voted_this_year_movie,voted_last_season_movie,voted_this_season_movie,all_time_voted_movie,favourites_last_year_movie,favourites_this_year_movie,favourites_last_season_movie,favourites_this_season_movie,all_time_favourites_movie</setting>
+    <setting id="movie.genres.config" default="true">genres_movie//,genre_action_movie,genre_adventure_movie,genre_comedy_movie,genre_drama_movie,genre_ecchi_movie,genre_fantasy_movie,genre_horror_movie,genre_shoujo_movie,genre_mecha_movie,genre_music_movie,genre_mystery_movie,genre_psychological_movie,genre_romance_movie,genre_sci_fi_movie,genre_slice_of_life_movie,genre_sports_movie,genre_supernatural_movie,genre_thriller_movie</setting>
+    <setting id="tv_show.mainmenu.config" default="true">last_watched_tv_show,watch_history_tv_show,airing_last_season_tv_show,airing_this_season_tv_show,airing_next_season_tv_show,trending_tv_show,popular_tv_show,voted_tv_show,favourites_tv_show,top_100_tv_show,genres_tv_show,search_history_tv_show</setting>
+    <setting id="tv_show.submenu.config" default="true">trending_last_year_tv_show,trending_this_year_tv_show,trending_last_season_tv_show,trending_this_season_tv_show,all_time_trending_tv_show,popular_last_year_tv_show,popular_this_year_tv_show,popular_last_season_tv_show,popular_this_season_tv_show,all_time_popular_tv_show,voted_last_year_tv_show,voted_this_year_tv_show,voted_last_season_tv_show,voted_this_season_tv_show,all_time_voted_tv_show,favourites_last_year_tv_show,favourites_this_year_tv_show,favourites_last_season_tv_show,favourites_this_season_tv_show,all_time_favourites_tv_show</setting>
+    <setting id="tv_show.genres.config" default="true">genres_tv_show//,genre_action_tv_show,genre_adventure_tv_show,genre_comedy_tv_show,genre_drama_tv_show,genre_ecchi_tv_show,genre_fantasy_tv_show,genre_horror_tv_show,genre_shoujo_tv_show,genre_mecha_tv_show,genre_music_tv_show,genre_mystery_tv_show,genre_psychological_tv_show,genre_romance_tv_show,genre_sci_fi_tv_show,genre_slice_of_life_tv_show,genre_sports_tv_show,genre_supernatural_tv_show,genre_thriller_tv_show</setting>
+    <setting id="tv_short.mainmenu.config" default="true">last_watched_tv_short,watch_history_tv_short,airing_last_season_tv_short,airing_this_season_tv_short,airing_next_season_tv_short,trending_tv_short,popular_tv_short,voted_tv_short,favourites_tv_short,top_100_tv_short,genres_tv_short,search_history_tv_short</setting>
+    <setting id="tv_short.submenu.config" default="true">trending_last_year_tv_short,trending_this_year_tv_short,trending_last_season_tv_short,trending_this_season_tv_short,all_time_trending_tv_short,popular_last_year_tv_short,popular_this_year_tv_short,popular_last_season_tv_short,popular_this_season_tv_short,all_time_popular_tv_short,voted_last_year_tv_short,voted_this_year_tv_short,voted_last_season_tv_short,voted_this_season_tv_short,all_time_voted_tv_short,favourites_last_year_tv_short,favourites_this_year_tv_short,favourites_last_season_tv_short,favourites_this_season_tv_short,all_time_favourites_tv_short</setting>
+    <setting id="tv_short.genres.config" default="true">genres_tv_short//,genre_action_tv_short,genre_adventure_tv_short,genre_comedy_tv_short,genre_drama_tv_short,genre_ecchi_tv_short,genre_fantasy_tv_short,genre_horror_tv_short,genre_shoujo_tv_short,genre_mecha_tv_short,genre_music_tv_short,genre_mystery_tv_short,genre_psychological_tv_short,genre_romance_tv_short,genre_sci_fi_tv_short,genre_slice_of_life_tv_short,genre_sports_tv_short,genre_supernatural_tv_short,genre_thriller_tv_short</setting>
+    <setting id="special.mainmenu.config" default="true">last_watched_special,watch_history_special,airing_last_season_special,airing_this_season_special,airing_next_season_special,trending_special,popular_special,voted_special,favourites_special,top_100_special,genres_special,search_history_special</setting>
+    <setting id="special.submenu.config" default="true">trending_last_year_special,trending_this_year_special,trending_last_season_special,trending_this_season_special,all_time_trending_special,popular_last_year_special,popular_this_year_special,popular_last_season_special,popular_this_season_special,all_time_popular_special,voted_last_year_special,voted_this_year_special,voted_last_season_special,voted_this_season_special,all_time_voted_special,favourites_last_year_special,favourites_this_year_special,favourites_last_season_special,favourites_this_season_special,all_time_favourites_special</setting>
+    <setting id="special.genres.config" default="true">genres_special//,genre_action_special,genre_adventure_special,genre_comedy_special,genre_drama_special,genre_ecchi_special,genre_fantasy_special,genre_horror_special,genre_shoujo_special,genre_mecha_special,genre_music_special,genre_mystery_special,genre_psychological_special,genre_romance_special,genre_sci_fi_special,genre_slice_of_life_special,genre_sports_special,genre_supernatural_special,genre_thriller_special</setting>
+    <setting id="ova.mainmenu.config" default="true">last_watched_ova,watch_history_ova,airing_last_season_ova,airing_this_season_ova,airing_next_season_ova,trending_ova,popular_ova,voted_ova,favourites_ova,top_100_ova,genres_ova,search_history_ova</setting>
+    <setting id="ova.submenu.config" default="true">trending_last_year_ova,trending_this_year_ova,trending_last_season_ova,trending_this_season_ova,all_time_trending_ova,popular_last_year_ova,popular_this_year_ova,popular_last_season_ova,popular_this_season_ova,all_time_popular_ova,voted_last_year_ova,voted_this_year_ova,voted_last_season_ova,voted_this_season_ova,all_time_voted_ova,favourites_last_year_ova,favourites_this_year_ova,favourites_last_season_ova,favourites_this_season_ova,all_time_favourites_ova</setting>
+    <setting id="ova.genres.config" default="true">genres_ova//,genre_action_ova,genre_adventure_ova,genre_comedy_ova,genre_drama_ova,genre_ecchi_ova,genre_fantasy_ova,genre_horror_ova,genre_shoujo_ova,genre_mecha_ova,genre_music_ova,genre_mystery_ova,genre_psychological_ova,genre_romance_ova,genre_sci_fi_ova,genre_slice_of_life_ova,genre_sports_ova,genre_supernatural_ova,genre_thriller_ova</setting>
+    <setting id="ona.mainmenu.config" default="true">last_watched_ona,watch_history_ona,airing_last_season_ona,airing_this_season_ona,airing_next_season_ona,trending_ona,popular_ona,voted_ona,favourites_ona,top_100_ona,genres_ona,search_history_ona</setting>
+    <setting id="ona.submenu.config" default="true">trending_last_year_ona,trending_this_year_ona,trending_last_season_ona,trending_this_season_ona,all_time_trending_ona,popular_last_year_ona,popular_this_year_ona,popular_last_season_ona,popular_this_season_ona,all_time_popular_ona,voted_last_year_ona,voted_this_year_ona,voted_last_season_ona,voted_this_season_ona,all_time_voted_ona,favourites_last_year_ona,favourites_this_year_ona,favourites_last_season_ona,favourites_this_season_ona,all_time_favourites_ona</setting>
+    <setting id="ona.genres.config" default="true">genres_ona//,genre_action_ona,genre_adventure_ona,genre_comedy_ona,genre_drama_ona,genre_ecchi_ona,genre_fantasy_ona,genre_horror_ona,genre_shoujo_ona,genre_mecha_ona,genre_music_ona,genre_mystery_ona,genre_psychological_ona,genre_romance_ona,genre_sci_fi_ona,genre_slice_of_life_ona,genre_sports_ona,genre_supernatural_ona,genre_thriller_ona</setting>
+    <setting id="music.mainmenu.config" default="true">last_watched_music,watch_history_music,airing_last_season_music,airing_this_season_music,airing_next_season_music,trending_music,popular_music,voted_music,favourites_music,top_100_music,genres_music,search_history_music</setting>
+    <setting id="music.submenu.config" default="true">trending_last_year_music,trending_this_year_music,trending_last_season_music,trending_this_season_music,all_time_trending_music,popular_last_year_music,popular_this_year_music,popular_last_season_music,popular_this_season_music,all_time_popular_music,voted_last_year_music,voted_this_year_music,voted_last_season_music,voted_this_season_music,all_time_voted_music,favourites_last_year_music,favourites_this_year_music,favourites_last_season_music,favourites_this_season_music,all_time_favourites_music</setting>
+    <setting id="music.genres.config" default="true">genres_music//,genre_action_music,genre_adventure_music,genre_comedy_music,genre_drama_music,genre_ecchi_music,genre_fantasy_music,genre_horror_music,genre_shoujo_music,genre_mecha_music,genre_music_music,genre_mystery_music,genre_psychological_music,genre_romance_music,genre_sci_fi_music,genre_slice_of_life_music,genre_sports_music,genre_supernatural_music,genre_thriller_music</setting>
+    <setting id="context.otaku.testing.findrecommendations" default="true">true</setting>
+    <setting id="context.otaku.testing.findrelations" default="true">true</setting>
+    <setting id="context.otaku.testing.getwatchorder" default="true">true</setting>
+    <setting id="context.otaku.testing.rescrape" default="true">true</setting>
+    <setting id="context.otaku.testing.sourceselect" default="true">true</setting>
+    <setting id="context.otaku.testing.logout" default="true">true</setting>
+    <setting id="context.otaku.testing.deletefromdatabase" default="true">false</setting>
+    <setting id="context.otaku.testing.watchlist" default="true">true</setting>
+    <setting id="context.otaku.testing.markedaswatched" default="true">true</setting>
+    <setting id="context.otaku.testing.fanartselect" default="true">false</setting>
+    <setting id="inputstreamadaptive.enabled" default="true">true</setting>
+    <setting id="reuselanguageinvoker.status" default="true">Disabled</setting>
+    <setting id="fs_enable" default="true">false</setting>
+    <setting id="fs_url" default="true">http://localhost:8191/v1</setting>
+    <setting id="fs_timeout" default="true">60</setting>
+    <setting id="ms_enable" default="true">false</setting>
+    <setting id="ms_url" default="true">http://localhost:4000/</setting>
+    <setting id="ipv6.status" default="true">Enabled</setting>
+    <setting id="http2.status" default="true">Enabled</setting>
+    <setting id="otaku.version">5.2.46</setting>
+    <setting id="fanart.all" default="true" />
+    <setting id="fanart.mal_ids" default="true" />
+    <setting id="fanart.selections" default="true" />
+    <setting id="DMIndex" default="true" />
+    <setting id="last_played_source" default="true">0</setting>
+    <setting id="last_watched_series" default="true">0</setting>
+    <setting id="addon.last_watched" default="true" />
+    <setting id="alldebrid.token" default="true" />
+    <setting id="anilist.authvar" default="true" />
+    <setting id="anilist.password" default="true" />
+    <setting id="anilist.refresh" default="true" />
+    <setting id="anilist.titles" default="true" />
+    <setting id="anilist.token" default="true" />
+    <setting id="anilist.userid" default="true" />
+    <setting id="aniwave.skipintro.end" default="true">0</setting>
+    <setting id="aniwave.skipintro.start" default="true">0</setting>
+    <setting id="aniwave.skipoutro.end" default="true">0</setting>
+    <setting id="aniwave.skipoutro.start" default="true">0</setting>
+    <setting id="best_match" default="true">true</setting>
+    <setting id="debridlink.expiry" default="true">0</setting>
+    <setting id="debridlink.refresh" default="true" />
+    <setting id="debridlink.token" default="true" />
+    <setting id="easydebrid.token" default="true" />
+    <setting id="first_time">false</setting>
+    <setting id="format" default="true" />
+    <setting id="general.fuzzy" default="true">0</setting>
+    <setting id="hianime.skipintro.end" default="true">0</setting>
+    <setting id="hianime.skipintro.start" default="true">0</setting>
+    <setting id="hianime.skipoutro.end" default="true">0</setting>
+    <setting id="hianime.skipoutro.start" default="true">0</setting>
+    <setting id="interface.show_last_watched" default="true">true</setting>
+    <setting id="interface.show_watch_history" default="true">true</setting>
+    <setting id="kitsu.expiry" default="true">0</setting>
+    <setting id="kitsu.refresh" default="true" />
+    <setting id="kitsu.titles" default="true" />
+    <setting id="kitsu.token" default="true" />
+    <setting id="kitsu.userid" default="true" />
+    <setting id="mal.authvar" default="true" />
+    <setting id="mal.expiry" default="true">0</setting>
+    <setting id="mal.password" default="true" />
+    <setting id="mal.refresh" default="true" />
+    <setting id="mal.titles" default="true" />
+    <setting id="mal.token" default="true" />
+    <setting id="mal.userid" default="true" />
+    <setting id="premiumize.token" default="true" />
+    <setting id="provider.gogo" default="true">true</setting>
+    <setting id="provider.gogoalt" default="true">true</setting>
+    <setting id="realdebrid.client_id" default="true" />
+    <setting id="realdebrid.expiry" default="true">0</setting>
+    <setting id="realdebrid.refresh" default="true" />
+    <setting id="realdebrid.secret" default="true" />
+    <setting id="realdebrid.token" default="true" />
+    <setting id="regex.question" default="true">true</setting>
+    <setting id="resolve_season" default="true" />
+    <setting id="simkl.authvar" default="true" />
+    <setting id="simkl.password" default="true" />
+    <setting id="simkl.refresh" default="true" />
+    <setting id="simkl.titles" default="true" />
+    <setting id="simkl.token" default="true" />
+    <setting id="simkl.userid" default="true" />
+    <setting id="torbox.token" default="true" />
+    <setting id="update.time.1">1757855853</setting>
+    <setting id="update.time.30">1757156234</setting>
+    <setting id="update.time.7">1757855846</setting>
+    <setting id="version" default="true" />
+    <setting id="general.playstyle.episodes" default="true">0</setting>
+</settings>

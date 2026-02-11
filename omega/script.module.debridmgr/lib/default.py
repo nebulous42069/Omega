@@ -26,7 +26,9 @@ debridmgr = xbmcaddon.Addon('script.module.debridmgr')
 xmls = translatePath('special://home/addons/script.module.debridmgr/resources/xmls/')
 addon_path = xbmcvfs.translatePath('special://home/addons/')
 coco = 'repository.cocoscrapers'
-plugin_id = 'script.module.cocoscrapers'
+mag = 'repository.kodifitzwell'
+coco_plugin_id = 'script.module.cocoscrapers'
+mag_plugin_id = 'script.module.magneto'
 
 amgr_icon = joinPath(os.path.join(xbmcaddon.Addon('script.module.debridmgr').getAddonInfo('path'), 'resources', 'icons'), 'debridmgr.png')
 rd_icon = joinPath(os.path.join(xbmcaddon.Addon('script.module.debridmgr').getAddonInfo('path'), 'resources', 'icons'), 'realdebrid.png')
@@ -213,46 +215,98 @@ elif action == 'offcloudReSync':
         xbmc.sleep(1000)
         notification('Debrid Manager', 'Sync Complete!', icon=offcloud_icon)
 
-#External Providers
-elif action == 'extAuth': #Sync external providers with installed add-ons
-        if not os.path.exists(var.chk_coco):
-                scrapers = control.yesnoDialog('No external scrapers are installed!\nWould you like to install the package now?', heading=addonInfo('name'), nolabel='No', yeslabel='Yes' )
-                if scrapers:
-                        shutil.copytree(os.path.join(xmls, coco), os.path.join(addon_path, coco), dirs_exist_ok=True)
-                        xbmc.executebuiltin('UpdateLocalAddons')
-                        clicked = False
-                        xbmc.executebuiltin('EnableAddon(repository.cocoscrapers)')
-                        if xbmc.getCondVisibility('Window.IsTopMost(yesnodialog)') and not clicked:
-                                xbmc.executebuiltin('SendClick(yesnodialog, 11)')
-                                clicked = True
-                        xbmc.sleep(1000)
-                        install_addon(plugin_id)
-                        notification('Debrid Manager', 'CocoScrapers Installed!', icon=amgr_icon)
+#Change External Providers Package
+elif action == 'extAuth':
+        selection = xbmcgui.Dialog().select('Choose scraper package', ['Coco Scrapers','Magneto Scrapers'])  # Select External Scraper
+        if selection==0:
+                if not os.path.exists(var.chk_coco):
+                        scrapers = control.yesnoDialog('The CocoScraper package is NOT installed!\nWould you like to install the package now?', heading=addonInfo('name'), nolabel='No', yeslabel='Yes' )
+                        if scrapers:
+                                shutil.copytree(os.path.join(xmls, coco), os.path.join(addon_path, coco), dirs_exist_ok=True)
+                                xbmc.executebuiltin('UpdateLocalAddons')
+                                clicked = False
+                                xbmc.executebuiltin('EnableAddon(repository.cocoscrapers)')
+                                if xbmc.getCondVisibility('Window.IsTopMost(yesnodialog)') and not clicked:
+                                        xbmc.executebuiltin('SendClick(yesnodialog, 11)')
+                                        clicked = True
+                                xbmc.sleep(3000)
+                                install_addon(coco_plugin_id)
+                                if os.path.exists(var.chk_coco):
+                                        notification('Debrid Manager', 'CocoScrapers Installed!', icon=amgr_icon)
+                                else:
+                                        xbmc.executebuiltin('PlayMedia(plugin://script.module.dbview/?mode=addonext_failed&name=all)')
+                                        xbmc.executebuiltin('Container.Refresh()')
+                                        notification('Debrid Manager', 'CocoScrapers Install Failed!', icon=amgr_icon)
+                                        quit()
+                                from debridmgr.modules.sync import ext_sync
+                                debridmgr.setSetting("ext.provider", "CocoScrapers")
+                                notification('Debrid Manager', 'Sync in progress, please wait!', icon=amgr_icon)
+                                xbmc.sleep(8000)
+                                control.function_monitor(ext_sync.Auth_Coco().ext_auth)
+                                control.setSetting('sync.ext.service', 'true')
+                                notification('Debrid Manager', 'Sync Complete!', icon=amgr_icon)
+                        else:
+                                xbmc.executebuiltin('Dialog.Close(all,true)')
+                                xbmc.executebuiltin("Addon.openSettings(script.module.debridmgr)")
+                else:
                         from debridmgr.modules.sync import ext_sync
                         debridmgr.setSetting("ext.provider", "CocoScrapers")
                         notification('Debrid Manager', 'Sync in progress, please wait!', icon=amgr_icon)
                         xbmc.sleep(3000)
-                        control.function_monitor(ext_sync.Auth().ext_auth)
+                        control.function_monitor(ext_sync.Auth_Coco().ext_auth)
+                        control.setSetting('sync.ext.service', 'true')
+                        notification('Debrid Manager', 'Sync Complete!', icon=amgr_icon)
+
+        elif selection==1:
+                if not os.path.exists(var.chk_mag):
+                        scrapers = control.yesnoDialog('The Magneto Scraper package is NOT installed!\nWould you like to install the package now?', heading=addonInfo('name'), nolabel='No', yeslabel='Yes' )
+                        if scrapers:
+                                shutil.copytree(os.path.join(xmls, mag), os.path.join(addon_path, mag), dirs_exist_ok=True)
+                                xbmc.executebuiltin('UpdateLocalAddons')
+                                clicked = False
+                                xbmc.executebuiltin('EnableAddon(repository.kodifitzwell)')
+                                if xbmc.getCondVisibility('Window.IsTopMost(yesnodialog)') and not clicked:
+                                        xbmc.executebuiltin('SendClick(yesnodialog, 11)')
+                                        clicked = True
+                                xbmc.sleep(3000)
+                                install_addon(mag_plugin_id)
+                                if os.path.exists(var.chk_mag):
+                                        notification('Debrid Manager', 'Magneto Installed!', icon=amgr_icon)
+                                else:
+                                        xbmc.executebuiltin('PlayMedia(plugin://script.module.dbview/?mode=addonext_failed&name=all)')
+                                        xbmc.executebuiltin('Container.Refresh()')
+                                        notification('Debrid Manager', 'Magneto Install Failed!', icon=amgr_icon)
+                                        quit()  
+                                from debridmgr.modules.sync import ext_sync
+                                debridmgr.setSetting("ext.provider", "Magneto")
+                                notification('Debrid Manager', 'Sync in progress, please wait!', icon=amgr_icon)
+                                xbmc.sleep(8000)
+                                control.function_monitor(ext_sync.Auth_Mag().ext_auth)
+                                control.setSetting('sync.ext.service', 'true')
+                                notification('Debrid Manager', 'Sync Complete!', icon=amgr_icon)
+                        else:
+                                xbmc.executebuiltin('Dialog.Close(all,true)')
+                                xbmc.executebuiltin("Addon.openSettings(script.module.debridmgr)")
+                else:
+                        from debridmgr.modules.sync import ext_sync
+                        debridmgr.setSetting("ext.provider", "Magneto")
+                        notification('Debrid Manager', 'Sync in progress, please wait!', icon=amgr_icon)
+                        xbmc.sleep(3000)
+                        control.function_monitor(ext_sync.Auth_Mag().ext_auth)
                         control.setSetting('sync.ext.service', 'true')
                         xbmc.sleep(1000)
                         notification('Debrid Manager', 'Sync Complete!', icon=amgr_icon)
-                else:
-                        xbmc.executebuiltin('Dialog.Close(all,true)')
-                        xbmc.executebuiltin("Addon.openSettings(script.module.debridmgr)")
         else:
-                from debridmgr.modules.sync import ext_sync
-                debridmgr.setSetting("ext.provider", "CocoScrapers")
-                notification('Debrid Manager', 'Sync in progress, please wait!', icon=amgr_icon)
-                xbmc.sleep(3000)
-                control.function_monitor(ext_sync.Auth().ext_auth)
-                control.setSetting('sync.ext.service', 'true')
-                xbmc.sleep(1000)
-                notification('Debrid Manager', 'Sync Complete!', icon=amgr_icon)
+                quit()
+                
 elif action == 'extReSync':                              
         notification('Debrid Manager', 'Sync in progress, please wait!', icon=amgr_icon)
         xbmc.sleep(3000)
         from debridmgr.modules.sync import ext_sync
-        control.function_monitor(ext_sync.Auth().ext_auth)
+        if control.setting("ext.provider") == 'CocoScrapers':
+                control.function_monitor(ext_sync.Auth_Coco().ext_auth)
+        if control.setting("ext.provider") == 'Magneto':
+                control.function_monitor(ext_sync.Auth_Mag().ext_auth)
         xbmc.sleep(1000)
         notification('Debrid Manager', 'Sync Complete!', icon=amgr_icon)
         

@@ -73,6 +73,34 @@ class Auth:
         except:
                 xbmc.log('%s: POV OffCloud Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
+
+     #The Gears
+        try:
+                if xbmcvfs.exists(var.chk_gears) and xbmcvfs.exists(var.chkset_gears):
+                        chk_auth_gears = xbmcaddon.Addon('plugin.video.gears').getSetting("realdebrid.token")
+                        if not str(var.chk_debridmgr_offc) == str(chk_auth_gears) or str(chk_auth_gears) == '':
+
+                                addon = xbmcaddon.Addon("plugin.video.gears")
+                                addon.setSetting("offcloud.username", your_username)
+                                addon.setSetting("offcloud.token", your_token)
+                                addon.setSetting("offcloud.enabled", "true")
+        except:
+                xbmc.log('%s: The Gears OffCloud Failed!' % var.amgr, xbmc.LOGINFO)
+                pass
+
+     #Chains Genocide
+        try:
+                if xbmcvfs.exists(var.chk_genocide and xbmcvfs.exists(var.chkset_genocide):
+                        chk_auth_gears = xbmcaddon.Addon('plugin.video.genocide').getSetting("realdebrid.token")
+                        if not str(var.chk_debridmgr_offc) == str(chk_auth_genocide) or str(chk_auth_genocide) == '':
+
+                                addon = xbmcaddon.Addon("plugin.video.genocide")
+                                addon.setSetting("offcloud.username", your_username)
+                                addon.setSetting("offcloud.token", your_token)
+                                addon.setSetting("offcloud.enabled", "true")
+        except:
+                xbmc.log('%s: Genocide OffCloud Failed!' % var.amgr, xbmc.LOGINFO)
+                pass
             
      #Dradis
         try:

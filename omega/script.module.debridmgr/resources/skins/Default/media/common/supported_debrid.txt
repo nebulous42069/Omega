@@ -1,14 +1,18 @@
 
 1.  Fen & Fen Light
 2.  Umbrella
-3.  POV                  
-4.  Dradis
-5.  Coalition
-6.  Seren
-7.  Realizer
-8.  Premiumizer
-9.  All Accounts
-10. ResolveURL Supported Add-ons			
+3.  POV
+4.  The Gears
+5.  Chains Genocide                  
+6.  Dradis
+7.  Coalition
+8.  Seren
+9.  Otaku
+10. Otaku Testing
+11. Realizer
+12. Premiumizer
+13. All Accounts
+14. ResolveURL Supported Add-ons			
 						
 						
 						

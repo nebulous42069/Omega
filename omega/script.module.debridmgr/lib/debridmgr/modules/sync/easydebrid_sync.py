@@ -75,6 +75,38 @@ class Auth:
                 xbmc.log('%s: POV Easy Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
+    #The Gears
+        try:
+                if xbmcvfs.exists(var.chk_gears) and xbmcvfs.exists(var.chkset_gears):
+                        chk_auth_gears = xbmcaddon.Addon('plugin.video.gears').getSetting("easydebrid.token")
+                        if not str(var.chk_debridmgr_ed) == str(chk_auth_gears) or str(chk_auth_gears) == '':
+
+                                addon = xbmcaddon.Addon("plugin.video.gears")
+                                addon.setSetting("easydebrid.token", your_token)
+                                addon.setSetting("easydebrid.username", your_acct_id)
+                                addon.setSetting("easydebrid.enable", 'true')
+                                addon.setSetting("easydebrid.expires", '0')
+
+        except:
+                xbmc.log('%s: The Gears Easy Debrid Failed!' % var.amgr, xbmc.LOGINFO)
+                pass
+
+    #Chains Genocide
+        try:
+                if xbmcvfs.exists(var.chk_genocide) and xbmcvfs.exists(var.chkset_genocide):
+                        chk_auth_genocide = xbmcaddon.Addon('plugin.video.genocide').getSetting("easydebrid.token")
+                        if not str(var.chk_debridmgr_ed) == str(chk_auth_genocide) or str(chk_auth_genocide) == '':
+
+                                addon = xbmcaddon.Addon("plugin.video.genocide")
+                                addon.setSetting("easydebrid.token", your_token)
+                                addon.setSetting("easydebrid.username", your_acct_id)
+                                addon.setSetting("easydebrid.enable", 'true')
+                                addon.setSetting("easydebrid.expires", '0')
+
+        except:
+                xbmc.log('%s: Genocide Easy Debrid Failed!' % var.amgr, xbmc.LOGINFO)
+                pass
+            
     #Dradis
         try:
                 if xbmcvfs.exists(var.chk_dradis) and xbmcvfs.exists(var.chkset_dradis):
@@ -89,5 +121,51 @@ class Auth:
 
         except:
                 xbmc.log('%s: Dradis Easy Debrid Failed!' % var.amgr, xbmc.LOGINFO)
+                pass
+
+     #Otaku
+        try:
+                if xbmcvfs.exists(var.chk_otaku) and not xbmcvfs.exists(var.otaku_ud):
+                        os.mkdir(var.otaku_ud)
+                        xbmcvfs.copy(os.path.join(var.otaku), os.path.join(var.chkset_otaku))
+                        
+                if xbmcvfs.exists(var.chk_otaku) and not xbmcvfs.exists(var.chkset_otaku):
+                        xbmcvfs.copy(os.path.join(var.otaku), os.path.join(var.chkset_otaku))
+
+                if xbmcvfs.exists(var.chk_otaku) and xbmcvfs.exists(var.chkset_otaku):
+                        chk_auth_otaku = xbmcaddon.Addon('plugin.video.otaku').getSetting("easydebrid.token")
+                        if not str(var.chk_debridmgr_tk_pm) == str(chk_auth_otaku) or str(chk_auth_otaku) == '':
+                                
+                                addon = xbmcaddon.Addon("plugin.video.otaku")
+                                addon.setSetting("easydebrid.username", your_pm_username)
+                                addon.setSetting("easydebrid.token", your_pm_token)
+
+                                enabled_pm = ("true")
+                                addon.setSetting("easydebrid.enabled", enabled_pm)
+        except:
+                xbmc.log('%s: Otaku Easy Debrid Failed!' % var.amgr, xbmc.LOGINFO)
+                pass
+
+     #Otaku Testing
+        try:
+                if xbmcvfs.exists(var.chk_otakut) and not xbmcvfs.exists(var.otakut_ud):
+                        os.mkdir(var.otakut_ud)
+                        xbmcvfs.copy(os.path.join(var.otakut), os.path.join(var.chkset_otakut))
+                        
+                if xbmcvfs.exists(var.chk_otakut) and not xbmcvfs.exists(var.chkset_otakut):
+                        xbmcvfs.copy(os.path.join(var.otakut), os.path.join(var.chkset_otakut))
+
+                if xbmcvfs.exists(var.chk_otakut) and xbmcvfs.exists(var.chkset_otakut):
+                        chk_auth_otakut = xbmcaddon.Addon('plugin.video.otaku.testing').getSetting("easydebrid.token")
+                        if not str(var.chk_debridmgr_tk_pm) == str(chk_auth_otakut) or str(chk_auth_otakut) == '':
+                                
+                                addon = xbmcaddon.Addon("plugin.video.otaku.testing")
+                                addon.setSetting("easydebrid.username", your_pm_username)
+                                addon.setSetting("easydebrid.token", your_pm_token)
+
+                                enabled_pm = ("true")
+                                addon.setSetting("easydebrid.enabled", enabled_pm)
+        except:
+                xbmc.log('%s: Otaku Testing Easy Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
