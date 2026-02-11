@@ -1,0 +1,123 @@
+[COLOR orchid][B]version 2.0.6[/B][/COLOR]
+
+* [COLOR orange]Fixed[/COLOR]: scrapers (in module 2.1.1), added some
+
+* [COLOR orchid]Extra[/COLOR]: Bumped version to 2.0.6/module to 2.1.1
+
+
+
+
+[COLOR orchid][B]version 2.0.6[/B][/COLOR]
+
+* [COLOR green]Added[/COLOR]: holiday/christmas movies menu item will be shown automagically in december
+
+* [COLOR orange]Fixed[/COLOR]: scraper (in module 2.0.9)
+* [COLOR orange]Fixed[/COLOR]: IMDB changes
+* [COLOR orange]Fixed[/COLOR]: Core code changes because of change from IMDB to TMDB
+* [COLOR orange]Fixed[/COLOR]: pagination with lists in TMDB
+* [COLOR orange]Fixed[/COLOR]: continue watching in movies AND tvshows
+* [COLOR orange]Fixed[/COLOR]: bug in caching
+
+* [COLOR cyan]Changed[/COLOR]: Movies: rearranged menuoptions, removed IMDB
+* [COLOR cyan]Changed[/COLOR]: several language strings (English/Dutch)
+* [COLOR cyan]Changed[/COLOR]: a lot of code, tmdb has a different way of doing things
+
+* [COLOR orchid]Extra[/COLOR]: Bumped version to 2.0.6/module to 2.1.0
+
+* [COLOR red]Removed[/COLOR]: A LOT of obsolete IMDB code and links
+* [COLOR red]Removed[/COLOR]: Hidecinema option in settings
+
+
+[COLOR orchid][B]version 2.0.5[/B][/COLOR]
+
+* [COLOR green]Added[/COLOR]: Silent boot option
+
+* [COLOR orange]Fixed[/COLOR]: language strings in settings (English/Dutch)
+* [COLOR orange]Fixed[/COLOR]: OSMC support and bug fixes
+
+* [COLOR cyan]Changed[/COLOR]: settings: viewtypes
+
+* [COLOR orchid]Extra[/COLOR]: Bumped version to 2.0.5/module to 2.0.8
+
+
+[COLOR orchid][B]version 2.0.4[/B][/COLOR]
+
+* [COLOR orange]Fixed[/COLOR]: bug in service, several code changes cleanup
+* [COLOR orange]Fixed[/COLOR]: bug in Calendar, cleanup code
+* [COLOR orange]Fixed[/COLOR]: bug in Movies, not showing clearart and clearlogo
+* [COLOR orange]Fixed[/COLOR]: bug in Search in Movies
+* [COLOR orange]Fixed[/COLOR]: bug in multiple scrapers
+
+* [COLOR orchid]Extra[/COLOR]: Bumped version to 2.0.4/module to 2.0.7
+
+
+[COLOR orchid][B]version 2.0.3[/B][/COLOR]
+
+* [COLOR green]Added[/COLOR]: check for scrapers (back again)
+* [COLOR green]Added[/COLOR]: bool to distinguish widget or addon window, refresh for styles is way better
+
+* [COLOR orange]Fixed[/COLOR]: bug in the service
+* [COLOR orange]Fixed[/COLOR]: bug in monitor when quitting Kodi prevented cleanup of system sources
+* [COLOR orange]Fixed[/COLOR]: bug in library when adding new tvshows (thnx to WCB)
+* [COLOR orange]Fixed[/COLOR]: bug in clearart and clearlogo showing in movies (when available)
+* [COLOR orange]Fixed[/COLOR]: bug in settings, cleaned some lines that were too long
+* [COLOR orange]Fixed[/COLOR]: bug with background when hovering over movies/TVShows in widgets
+* [COLOR orange]Fixed[/COLOR]: bug where same info got pulled twice (e.g. year, mpaa in movies)
+* [COLOR orange]Fixed[/COLOR]: trailers for movies and tvshows in Android
+* [COLOR orange]Fixed[/COLOR]: multiple scrapers
+* [COLOR orange]Fixed[/COLOR]: a LOT of code and introduced global class
+
+* [COLOR blue]Updated[/COLOR]: fanart, clearlogo, clearart, banner, discart etc. in movies
+
+* [COLOR cyan]Changed[/COLOR]: conversion message with version numbers
+
+* [COLOR orchid]Extra[/COLOR]: Bumped version to 2.0.3/module to 2.0.6
+* [COLOR orchid]Extra[/COLOR]: Complete overhaul of all language strings en/UK, en/US and translation nl/NL
+
+
+
+[COLOR orchid][B]version 2.0.2[/B][/COLOR]
+
+* [COLOR orange]Fixed[/COLOR]: bugs in listings
+* [COLOR orchid]Extra[/COLOR]: Cleaned up code
+* [COLOR orchid]Extra[/COLOR]: Bumped module version to 2.0.5
+
+[COLOR orchid][B]version 2.0.1[/B][/COLOR]
+
+* [COLOR orange]Fixed[/COLOR]: bug in library
+* [COLOR orchid]Extra[/COLOR]: Cleaned up code
+
+
+[COLOR orchid][B]version 2.0.0[/B][/COLOR]
+
+* [COLOR green]Added[/COLOR]: Clearer dialog text in settings
+* [COLOR green]Added[/COLOR]: OpenSubtitles username and password (needed) option in settings
+* [COLOR green]Added[/COLOR]: Clearart, hdclearart, clearlogo and discart
+* [COLOR green]Added[/COLOR]: Changelog, fixed LogViewer.xml, fixed artwork, bumped artwork version
+* [COLOR green]Added[/COLOR]: Check and conversion for database
+
+* [COLOR blue]Updated[/COLOR]: Dependency to python version 3
+* [COLOR blue]Updated[/COLOR]: Changed from TVDB to TMDB
+* [COLOR blue]Updated[/COLOR]: Changed the client
+
+* [COLOR orange]Fixed[/COLOR]: and cleaned up the settings menu
+* [COLOR orange]Fixed[/COLOR]: art when using widgets
+* [COLOR orange]Fixed[/COLOR]: language strings to new directory names
+* [COLOR orange]Fixed[/COLOR]: python dependencies in addon.xml, bumped to 3.0.0
+* [COLOR orange]Fixed[/COLOR]: broken lists in tvshows and movies
+* [COLOR orange]Fixed[/COLOR]: caching
+* [COLOR orange]Fixed[/COLOR]: indicators (working with tmdb)
+* [COLOR orange]Fixed[/COLOR]: Resume playing (which needed a change to the bookmarks.db)
+* [COLOR orange]Fixed[/COLOR]: playing trailers (when available) without yt key
+* [COLOR orange]Fixed[/COLOR]: pagination IMDB lists
+* [COLOR orange]Fixed[/COLOR]: Bug with "Show unaired Seasons/episodes" setting not opening any seasons
+
+* [COLOR cyan]Changed[/COLOR]: Browse series workings
+* [COLOR cyan]Changed[/COLOR]: Bookmarks, all old bookmarks/resumepoints will be gone.
+
+* [COLOR red]Removed[/COLOR]: Startup = "startup" from plugin - deprecated since v18
+* [COLOR red]Removed[/COLOR]: Metahandlers
+* [COLOR red]Removed[/COLOR]: Module MetaData
+* [COLOR red]Removed[/COLOR]: A lot of pre-matrix code
+
+* [COLOR orchid]Extra[/COLOR]: Cleaned up a lot of code

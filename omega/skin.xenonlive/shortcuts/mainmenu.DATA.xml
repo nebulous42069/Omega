@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts>
+    <shortcut>
+        <defaultID>weather</defaultID>
+        <label>$LOCALIZE[8]</label>
+		<label2 />
+		<thumb />
+        <icon>icons/weather2.png</icon>
+        <action>ActivateWindow(weather)</action>
+    </shortcut>
+</shortcuts>

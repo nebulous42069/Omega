@@ -12,7 +12,7 @@ ADDON = xbmcaddon.Addon()
 HOME_WINDOW_ID = 10000
 
 # Widget container IDs used by your skin
-WIDGET_IDS = list(range(8000, 8046))  # 8000–8045, adjust if needed
+WIDGET_IDS = list(range(8000, 8046)) + [int(f"{i}1") for i in range(8000, 8046)]  # 8000–8045 poster; 80001–80451 thumb
 
 TMDB_API_BASE = "https://api.themoviedb.org/3"
 TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p"
@@ -100,6 +100,19 @@ def build_image_url(path, size="w185"):
     if not path:
         return ""
     return "%s/%s%s" % (TMDB_IMAGE_BASE, size, path)
+
+
+
+def wrap_image_url(url: str) -> str:
+    """
+    Kodi loads remote images more reliably via the image:// protocol (cached/encoded).
+    Returns an empty string if url is empty.
+    """
+    if not url:
+        return ""
+    # Encode EVERYTHING (including : and /) for image://
+    encoded = urllib.parse.quote(url, safe="")
+    return f"image://{encoded}/"
 
 
 def fetch_cast_and_info_from_tmdb(api_key, language, tmdb_id, media_type, max_cast):
@@ -256,7 +269,7 @@ def fetch_cast_and_info_from_tmdb(api_key, language, tmdb_id, media_type, max_ca
             logo_path = comp.get("logo_path") or ""
             if logo_path:
                 studio = comp.get("name") or ""
-                studio_logo = build_image_url(logo_path, size="w185")
+                studio_logo = wrap_image_url(build_image_url(logo_path, size="w185"))
                 break
     except Exception as e:
         log("Error parsing studio info: %s" % e)
@@ -272,7 +285,7 @@ def fetch_cast_and_info_from_tmdb(api_key, language, tmdb_id, media_type, max_ca
                 network = n.get("name") or ""
                 logo_path = n.get("logo_path") or ""
                 if logo_path:
-                    network_logo = build_image_url(logo_path, size="w185")
+                    network_logo = wrap_image_url(build_image_url(logo_path, size="w185"))
     except Exception as e:
         log("Error parsing network info: %s" % e)
 
@@ -385,6 +398,20 @@ def run():
             if xbmc.getCondVisibility("Window.IsVisible(home)"):
                 widget_id = get_focused_widget()
                 if widget_id:
+                    # Skip episode items: TMDb IDs for episodes often resolve to the parent show and give "wrong" info.
+                    dbtype = xbmc.getInfoLabel(f"Container({widget_id}).ListItem.DBType").lower()
+                    season = xbmc.getInfoLabel(f"Container({widget_id}).ListItem.Season")
+                    episode = xbmc.getInfoLabel(f"Container({widget_id}).ListItem.Episode")
+
+                    if dbtype == "episode" or season or episode:
+                        clear_cast_properties()
+                        clear_info_properties()
+                        last_tmdb_id = None
+                        last_media_type = None
+                        if monitor.waitForAbort(0.7):
+                            break
+                        continue
+
                     tmdb_id, media_type = get_tmdb_id_for_widget(widget_id)
 
                     if tmdb_id and (tmdb_id != last_tmdb_id or media_type != last_media_type):

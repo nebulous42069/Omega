@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+  <!-- EXACT submenu-themed selector rows (no custom textures, all via SubMenu* includes) -->
+  <include name="HomeWidgetSelectorRow">
+    <param name="idx" default="1" />
+    <param name="listid" default="9051" />
+    <param name="listidL" default="9151" />
+    <definition>
+      <!-- Touch/mouse tap target: visible when the main menu item has focus, even while selector is hidden -->
+      <control type="button">
+        <left>0</left>
+        <top>540</top>
+        <width>1920</width>
+        <height>120</height>
+        <label></label>
+        <font></font>
+        <texturefocus>-</texturefocus>
+        <texturenofocus>-</texturenofocus>
+        <onclick>SetFocus($PARAM[listid],0)</onclick>
+        <!-- Optional: mouse hover also moves focus -->
+        <onfocus>SetFocus($PARAM[listid],0)</onfocus>
+        <!-- Show while active main menu item has focus, and only when selector doesn't already have focus -->
+        <visible>Container(9000).HasFocus($PARAM[idx]) + !Control.HasFocus($PARAM[listid])</visible>
+        <!-- Hide during playback to mirror row behavior -->
+        <visible>!Player.HasMedia</visible>
+		<visible>!Skin.HasSetting(LowerMainMenuBar)</visible>
+      </control>
+      <control type="button">
+        <left>0</left>
+        <top>777</top>
+        <width>1920</width>
+        <height>120</height>
+        <label></label>
+        <font></font>
+        <texturefocus>-</texturefocus>
+        <texturenofocus>-</texturenofocus>
+        <onclick>SetFocus($PARAM[listid],0)</onclick>
+        <!-- Optional: mouse hover also moves focus -->
+        <onfocus>SetFocus($PARAM[listidL],0)</onfocus>
+        <!-- Show while active main menu item has focus, and only when selector doesn't already have focus -->
+        <visible>Container(9000).HasFocus($PARAM[idx]) + !Control.HasFocus($PARAM[listidL])</visible>
+        <!-- Hide during playback to mirror row behavior -->
+        <visible>!Player.HasMedia</visible>
+		<visible>Skin.HasSetting(LowerMainMenuBar)</visible>
+      </control>
+
+      <control type="group">
+        <!-- Only the active menu's row is shown; keep visible while the row itself has focus -->
+        <left>0</left>
+        <top>570</top>
+        <zorder>8</zorder>
+        <visible>Container(9000).HasFocus($PARAM[idx]) | Control.HasFocus($PARAM[listid])</visible>
+        <!-- Hide during playback so it won't overlap OSD/NowPlaying -->
+        <visible>!Player.HasMedia</visible>
+		<visible>!Skin.HasSetting(LowerMainMenuBar)</visible>
+
+        <!-- End caps / arrows positioned via the skin's submenu helper -->
+		<visible>Control.HasFocus($PARAM[listid])</visible>
+        <include content="SubMenuPositionImages2">
+          <param name="Control">$PARAM[listid]</param>
+        </include>
+
+        <!-- Selector list: inherits exact submenu bounds/layout via skin's own includes -->
+        <control type="list" id="$PARAM[listid]">
+          <!-- Use the skin's submenu common values (same left/top/width/height/scroll) -->
+          <onup condition="Skin.HasSetting(LowerMainMenuBar)">9002</onup>
+          <onup condition="!Skin.HasSetting(LowerMainMenuBar)">9003</onup>
+          <ondown>9000</ondown>
+			<!-- Hide until focused (but keep control visible for routing) -->
+			<alpha>0</alpha>
+			<animation effect="fade" start="0" end="100" time="200" condition="Control.HasFocus($PARAM[listid])">Conditional</animation>
+
+          <include>SubMenuCommonValues</include>
+
+          <onleft>$PARAM[listid]</onleft>
+          <onright>$PARAM[listid]</onright>
+
+
+          <!-- Override navigation so UP goes to widget row and DOWN to main menu -->
+
+          <!-- Apply the skin's submenu item/focus look exactly -->
+          <include content="SubMenuCommonLayout">
+            <!-- pass through default visibility param used for highlight overlay -->
+            <param name="visibility">Control.HasFocus($PARAM[listid])</param>
+          </include>
+
+          <!-- Content: up to 10 widget buttons (only show buttons that have widgets set) -->
+          <content>
+            <item>
+              <label>$INFO[Skin.String(HomeItem.$PARAM[idx].Widget1.Name)]</label>
+              <onclick>Skin.SetString(HomeItem.$PARAM[idx].Widget,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget1.Widget)])</onclick>
+              <onclick>Skin.SetString(HomeItem.$PARAM[idx].ActiveWidget,Widget1)</onclick>
+              <onclick condition="!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget1.WidgetFormat))">Skin.SetString(HomeItem.$PARAM[idx].WidgetFormat,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget1.WidgetFormat)])</onclick>
+              <onclick condition="!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget1.WidgetLayout))">Skin.SetString(HomeItem.$PARAM[idx].WidgetLayout,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget1.WidgetLayout)])</onclick>
+              <onclick>SetProperty(WidgetSet,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget)],Home)</onclick>
+              <visible>!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget1.Widget))</visible>
+            </item>
+            <item>
+              <label>$INFO[Skin.String(HomeItem.$PARAM[idx].Widget2.Name)]</label>
+              <onclick>Skin.SetString(HomeItem.$PARAM[idx].Widget,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget2.Widget)])</onclick>
+              <onclick>Skin.SetString(HomeItem.$PARAM[idx].ActiveWidget,Widget2)</onclick>
+              <onclick condition="!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget2.WidgetFormat))">Skin.SetString(HomeItem.$PARAM[idx].WidgetFormat,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget2.WidgetFormat)])</onclick>
+              <onclick condition="!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget2.WidgetLayout))">Skin.SetString(HomeItem.$PARAM[idx].WidgetLayout,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget2.WidgetLayout)])</onclick>
+              <onclick>SetProperty(WidgetSet,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget)],Home)</onclick>
+              <visible>!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget2.Widget))</visible>
+            </item>
+            <item>
+              <label>$INFO[Skin.String(HomeItem.$PARAM[idx].Widget3.Name)]</label>
+              <onclick>Skin.SetString(HomeItem.$PARAM[idx].Widget,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget3.Widget)])</onclick>
+              <onclick>Skin.SetString(HomeItem.$PARAM[idx].ActiveWidget,Widget3)</onclick>
+              <onclick condition="!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget3.WidgetFormat))">Skin.SetString(HomeItem.$PARAM[idx].WidgetFormat,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget3.WidgetFormat)])</onclick>
+              <onclick condition="!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget3.WidgetLayout))">Skin.SetString(HomeItem.$PARAM[idx].WidgetLayout,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget3.WidgetLayout)])</onclick>
+              <onclick>SetProperty(WidgetSet,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget)],Home)</onclick>
+              <visible>!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget3.Widget))</visible>
+            </item>
+            <item>
+              <label>$INFO[Skin.String(HomeItem.$PARAM[idx].Widget4.Name)]</label>
+              <onclick>Skin.SetString(HomeItem.$PARAM[idx].Widget,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget4.Widget)])</onclick>
+              <onclick>Skin.SetString(HomeItem.$PARAM[idx].ActiveWidget,Widget4)</onclick>
+              <onclick condition="!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget4.WidgetFormat))">Skin.SetString(HomeItem.$PARAM[idx].WidgetFormat,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget4.WidgetFormat)])</onclick>
+              <onclick condition="!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget4.WidgetLayout))">Skin.SetString(HomeItem.$PARAM[idx].WidgetLayout,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget4.WidgetLayout)])</onclick>
+              <onclick>SetProperty(WidgetSet,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget)],Home)</onclick>
+              <visible>!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget4.Widget))</visible>
+            </item>
+            <item>
+              <label>$INFO[Skin.String(HomeItem.$PARAM[idx].Widget5.Name)]</label>
+              <onclick>Skin.SetString(HomeItem.$PARAM[idx].Widget,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget5.Widget)])</onclick>
+              <onclick>Skin.SetString(HomeItem.$PARAM[idx].ActiveWidget,Widget5)</onclick>
+              <onclick condition="!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget5.WidgetFormat))">Skin.SetString(HomeItem.$PARAM[idx].WidgetFormat,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget5.WidgetFormat)])</onclick>
+              <onclick condition="!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget5.WidgetLayout))">Skin.SetString(HomeItem.$PARAM[idx].WidgetLayout,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget5.WidgetLayout)])</onclick>
+              <onclick>SetProperty(WidgetSet,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget)],Home)</onclick>
+              <visible>!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget5.Widget))</visible>
+            </item>
+            <item>
+              <label>$INFO[Skin.String(HomeItem.$PARAM[idx].Widget6.Name)]</label>
+              <onclick>Skin.SetString(HomeItem.$PARAM[idx].Widget,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget6.Widget)])</onclick>
+              <onclick>Skin.SetString(HomeItem.$PARAM[idx].ActiveWidget,Widget6)</onclick>
+              <onclick condition="!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget6.WidgetFormat))">Skin.SetString(HomeItem.$PARAM[idx].WidgetFormat,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget6.WidgetFormat)])</onclick>
+              <onclick condition="!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget6.WidgetLayout))">Skin.SetString(HomeItem.$PARAM[idx].WidgetLayout,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget6.WidgetLayout)])</onclick>
+              <onclick>SetProperty(WidgetSet,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget)],Home)</onclick>
+              <visible>!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget6.Widget))</visible>
+            </item>
+            <item>
+              <label>$INFO[Skin.String(HomeItem.$PARAM[idx].Widget7.Name)]</label>
+              <onclick>Skin.SetString(HomeItem.$PARAM[idx].Widget,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget7.Widget)])</onclick>
+              <onclick>Skin.SetString(HomeItem.$PARAM[idx].ActiveWidget,Widget7)</onclick>
+              <onclick condition="!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget7.WidgetFormat))">Skin.SetString(HomeItem.$PARAM[idx].WidgetFormat,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget7.WidgetFormat)])</onclick>
+              <onclick condition="!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget7.WidgetLayout))">Skin.SetString(HomeItem.$PARAM[idx].WidgetLayout,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget7.WidgetLayout)])</onclick>
+              <onclick>SetProperty(WidgetSet,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget)],Home)</onclick>
+              <visible>!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget7.Widget))</visible>
+            </item>
+            <item>
+              <label>$INFO[Skin.String(HomeItem.$PARAM[idx].Widget8.Name)]</label>
+              <onclick>Skin.SetString(HomeItem.$PARAM[idx].Widget,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget8.Widget)])</onclick>
+              <onclick>Skin.SetString(HomeItem.$PARAM[idx].ActiveWidget,Widget8)</onclick>
+              <onclick condition="!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget8.WidgetFormat))">Skin.SetString(HomeItem.$PARAM[idx].WidgetFormat,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget8.WidgetFormat)])</onclick>
+              <onclick condition="!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget8.WidgetLayout))">Skin.SetString(HomeItem.$PARAM[idx].WidgetLayout,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget8.WidgetLayout)])</onclick>
+              <onclick>SetProperty(WidgetSet,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget)],Home)</onclick>
+              <visible>!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget8.Widget))</visible>
+            </item>
+            <item>
+              <label>$INFO[Skin.String(HomeItem.$PARAM[idx].Widget9.Name)]</label>
+              <onclick>Skin.SetString(HomeItem.$PARAM[idx].Widget,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget9.Widget)])</onclick>
+              <onclick>Skin.SetString(HomeItem.$PARAM[idx].ActiveWidget,Widget9)</onclick>
+              <onclick condition="!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget9.WidgetFormat))">Skin.SetString(HomeItem.$PARAM[idx].WidgetFormat,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget9.WidgetFormat)])</onclick>
+              <onclick condition="!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget9.WidgetLayout))">Skin.SetString(HomeItem.$PARAM[idx].WidgetLayout,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget9.WidgetLayout)])</onclick>
+              <onclick>SetProperty(WidgetSet,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget)],Home)</onclick>
+              <visible>!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget9.Widget))</visible>
+            </item>
+            <item>
+              <label>$INFO[Skin.String(HomeItem.$PARAM[idx].Widget10.Name)]</label>
+              <onclick>Skin.SetString(HomeItem.$PARAM[idx].Widget,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget10.Widget)])</onclick>
+              <onclick>Skin.SetString(HomeItem.$PARAM[idx].ActiveWidget,Widget10)</onclick>
+              <onclick condition="!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget10.WidgetFormat))">Skin.SetString(HomeItem.$PARAM[idx].WidgetFormat,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget10.WidgetFormat)])</onclick>
+              <onclick condition="!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget10.WidgetLayout))">Skin.SetString(HomeItem.$PARAM[idx].WidgetLayout,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget10.WidgetLayout)])</onclick>
+              <onclick>SetProperty(WidgetSet,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget)],Home)</onclick>
+              <visible>!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget10.Widget))</visible>
+            </item>
+          
+<item>
+  <label>Configure Widgets</label>
+  <onclick>SetProperty(UsrSelectBtn,HomeItem.$PARAM[idx],Home)</onclick>
+  <onclick>ActivateWindow(2140)</onclick>
+</item>
+</content>
+        </control>
+      </control>
+      <control type="group">
+        <!-- Only the active menu's row is shown; keep visible while the row itself has focus -->
+        <left>0</left>
+        <top>807</top>
+        <zorder>8</zorder>
+        <visible>Container(9000).HasFocus($PARAM[idx]) | Control.HasFocus($PARAM[listidL])</visible>
+        <!-- Hide during playback so it won't overlap OSD/NowPlaying -->
+        <visible>!Player.HasMedia</visible>
+		<visible>Skin.HasSetting(LowerMainMenuBar)</visible>
+
+        <!-- End caps / arrows positioned via the skin's submenu helper -->
+		<visible>Control.HasFocus($PARAM[listidL])</visible>
+        <include content="SubMenuPositionImages2">
+          <param name="Control">$PARAM[listidL]</param>
+        </include>
+
+        <!-- Selector list: inherits exact submenu bounds/layout via skin's own includes -->
+        <control type="list" id="$PARAM[listidL]">
+          <!-- Use the skin's submenu common values (same left/top/width/height/scroll) -->
+          <onup condition="Skin.HasSetting(LowerMainMenuBar)">9002</onup>
+          <onup condition="!Skin.HasSetting(LowerMainMenuBar)">9003</onup>
+          <ondown>9000</ondown>
+			<!-- Hide until focused (but keep control visible for routing) -->
+			<alpha>0</alpha>
+			<animation effect="fade" start="0" end="100" time="200" condition="Control.HasFocus($PARAM[listidL])">Conditional</animation>
+
+          <include>SubMenuCommonValues</include>
+
+          <onleft>$PARAM[listidL]</onleft>
+          <onright>$PARAM[listidL]</onright>
+
+
+          <!-- Override navigation so UP goes to widget row and DOWN to main menu -->
+
+          <!-- Apply the skin's submenu item/focus look exactly -->
+          <include content="SubMenuCommonLayout">
+            <!-- pass through default visibility param used for highlight overlay -->
+            <param name="visibility">Control.HasFocus($PARAM[listidL])</param>
+          </include>
+
+          <!-- Content: up to 10 widget buttons (only show buttons that have widgets set) -->
+          <content>
+            <item>
+              <label>$INFO[Skin.String(HomeItem.$PARAM[idx].Widget1.Name)]</label>
+              <onclick>Skin.SetString(HomeItem.$PARAM[idx].Widget,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget1.Widget)])</onclick>
+              <onclick>Skin.SetString(HomeItem.$PARAM[idx].ActiveWidget,Widget1)</onclick>
+              <onclick condition="!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget1.WidgetFormat))">Skin.SetString(HomeItem.$PARAM[idx].WidgetFormat,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget1.WidgetFormat)])</onclick>
+              <onclick condition="!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget1.WidgetLayout))">Skin.SetString(HomeItem.$PARAM[idx].WidgetLayout,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget1.WidgetLayout)])</onclick>
+              <onclick>SetProperty(WidgetSet,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget)],Home)</onclick>
+              <visible>!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget1.Widget))</visible>
+            </item>
+            <item>
+              <label>$INFO[Skin.String(HomeItem.$PARAM[idx].Widget2.Name)]</label>
+              <onclick>Skin.SetString(HomeItem.$PARAM[idx].Widget,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget2.Widget)])</onclick>
+              <onclick>Skin.SetString(HomeItem.$PARAM[idx].ActiveWidget,Widget2)</onclick>
+              <onclick condition="!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget2.WidgetFormat))">Skin.SetString(HomeItem.$PARAM[idx].WidgetFormat,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget2.WidgetFormat)])</onclick>
+              <onclick condition="!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget2.WidgetLayout))">Skin.SetString(HomeItem.$PARAM[idx].WidgetLayout,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget2.WidgetLayout)])</onclick>
+              <onclick>SetProperty(WidgetSet,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget)],Home)</onclick>
+              <visible>!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget2.Widget))</visible>
+            </item>
+            <item>
+              <label>$INFO[Skin.String(HomeItem.$PARAM[idx].Widget3.Name)]</label>
+              <onclick>Skin.SetString(HomeItem.$PARAM[idx].Widget,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget3.Widget)])</onclick>
+              <onclick>Skin.SetString(HomeItem.$PARAM[idx].ActiveWidget,Widget3)</onclick>
+              <onclick condition="!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget3.WidgetFormat))">Skin.SetString(HomeItem.$PARAM[idx].WidgetFormat,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget3.WidgetFormat)])</onclick>
+              <onclick condition="!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget3.WidgetLayout))">Skin.SetString(HomeItem.$PARAM[idx].WidgetLayout,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget3.WidgetLayout)])</onclick>
+              <onclick>SetProperty(WidgetSet,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget)],Home)</onclick>
+              <visible>!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget3.Widget))</visible>
+            </item>
+            <item>
+              <label>$INFO[Skin.String(HomeItem.$PARAM[idx].Widget4.Name)]</label>
+              <onclick>Skin.SetString(HomeItem.$PARAM[idx].Widget,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget4.Widget)])</onclick>
+              <onclick>Skin.SetString(HomeItem.$PARAM[idx].ActiveWidget,Widget4)</onclick>
+              <onclick condition="!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget4.WidgetFormat))">Skin.SetString(HomeItem.$PARAM[idx].WidgetFormat,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget4.WidgetFormat)])</onclick>
+              <onclick condition="!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget4.WidgetLayout))">Skin.SetString(HomeItem.$PARAM[idx].WidgetLayout,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget4.WidgetLayout)])</onclick>
+              <onclick>SetProperty(WidgetSet,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget)],Home)</onclick>
+              <visible>!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget4.Widget))</visible>
+            </item>
+            <item>
+              <label>$INFO[Skin.String(HomeItem.$PARAM[idx].Widget5.Name)]</label>
+              <onclick>Skin.SetString(HomeItem.$PARAM[idx].Widget,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget5.Widget)])</onclick>
+              <onclick>Skin.SetString(HomeItem.$PARAM[idx].ActiveWidget,Widget5)</onclick>
+              <onclick condition="!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget5.WidgetFormat))">Skin.SetString(HomeItem.$PARAM[idx].WidgetFormat,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget5.WidgetFormat)])</onclick>
+              <onclick condition="!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget5.WidgetLayout))">Skin.SetString(HomeItem.$PARAM[idx].WidgetLayout,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget5.WidgetLayout)])</onclick>
+              <onclick>SetProperty(WidgetSet,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget)],Home)</onclick>
+              <visible>!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget5.Widget))</visible>
+            </item>
+            <item>
+              <label>$INFO[Skin.String(HomeItem.$PARAM[idx].Widget6.Name)]</label>
+              <onclick>Skin.SetString(HomeItem.$PARAM[idx].Widget,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget6.Widget)])</onclick>
+              <onclick>Skin.SetString(HomeItem.$PARAM[idx].ActiveWidget,Widget6)</onclick>
+              <onclick condition="!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget6.WidgetFormat))">Skin.SetString(HomeItem.$PARAM[idx].WidgetFormat,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget6.WidgetFormat)])</onclick>
+              <onclick condition="!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget6.WidgetLayout))">Skin.SetString(HomeItem.$PARAM[idx].WidgetLayout,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget6.WidgetLayout)])</onclick>
+              <onclick>SetProperty(WidgetSet,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget)],Home)</onclick>
+              <visible>!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget6.Widget))</visible>
+            </item>
+            <item>
+              <label>$INFO[Skin.String(HomeItem.$PARAM[idx].Widget7.Name)]</label>
+              <onclick>Skin.SetString(HomeItem.$PARAM[idx].Widget,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget7.Widget)])</onclick>
+              <onclick>Skin.SetString(HomeItem.$PARAM[idx].ActiveWidget,Widget7)</onclick>
+              <onclick condition="!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget7.WidgetFormat))">Skin.SetString(HomeItem.$PARAM[idx].WidgetFormat,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget7.WidgetFormat)])</onclick>
+              <onclick condition="!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget7.WidgetLayout))">Skin.SetString(HomeItem.$PARAM[idx].WidgetLayout,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget7.WidgetLayout)])</onclick>
+              <onclick>SetProperty(WidgetSet,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget)],Home)</onclick>
+              <visible>!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget7.Widget))</visible>
+            </item>
+            <item>
+              <label>$INFO[Skin.String(HomeItem.$PARAM[idx].Widget8.Name)]</label>
+              <onclick>Skin.SetString(HomeItem.$PARAM[idx].Widget,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget8.Widget)])</onclick>
+              <onclick>Skin.SetString(HomeItem.$PARAM[idx].ActiveWidget,Widget8)</onclick>
+              <onclick condition="!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget8.WidgetFormat))">Skin.SetString(HomeItem.$PARAM[idx].WidgetFormat,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget8.WidgetFormat)])</onclick>
+              <onclick condition="!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget8.WidgetLayout))">Skin.SetString(HomeItem.$PARAM[idx].WidgetLayout,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget8.WidgetLayout)])</onclick>
+              <onclick>SetProperty(WidgetSet,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget)],Home)</onclick>
+              <visible>!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget8.Widget))</visible>
+            </item>
+            <item>
+              <label>$INFO[Skin.String(HomeItem.$PARAM[idx].Widget9.Name)]</label>
+              <onclick>Skin.SetString(HomeItem.$PARAM[idx].Widget,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget9.Widget)])</onclick>
+              <onclick>Skin.SetString(HomeItem.$PARAM[idx].ActiveWidget,Widget9)</onclick>
+              <onclick condition="!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget9.WidgetFormat))">Skin.SetString(HomeItem.$PARAM[idx].WidgetFormat,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget9.WidgetFormat)])</onclick>
+              <onclick condition="!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget9.WidgetLayout))">Skin.SetString(HomeItem.$PARAM[idx].WidgetLayout,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget9.WidgetLayout)])</onclick>
+              <onclick>SetProperty(WidgetSet,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget)],Home)</onclick>
+              <visible>!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget9.Widget))</visible>
+            </item>
+            <item>
+              <label>$INFO[Skin.String(HomeItem.$PARAM[idx].Widget10.Name)]</label>
+              <onclick>Skin.SetString(HomeItem.$PARAM[idx].Widget,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget10.Widget)])</onclick>
+              <onclick>Skin.SetString(HomeItem.$PARAM[idx].ActiveWidget,Widget10)</onclick>
+              <onclick condition="!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget10.WidgetFormat))">Skin.SetString(HomeItem.$PARAM[idx].WidgetFormat,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget10.WidgetFormat)])</onclick>
+              <onclick condition="!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget10.WidgetLayout))">Skin.SetString(HomeItem.$PARAM[idx].WidgetLayout,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget10.WidgetLayout)])</onclick>
+              <onclick>SetProperty(WidgetSet,$INFO[Skin.String(HomeItem.$PARAM[idx].Widget)],Home)</onclick>
+              <visible>!String.IsEmpty(Skin.String(HomeItem.$PARAM[idx].Widget10.Widget))</visible>
+            </item>
+          
+<item>
+  <label>Configure Widgets</label>
+  <onclick>SetProperty(UsrSelectBtn,HomeItem.$PARAM[idx],Home)</onclick>
+  <onclick>ActivateWindow(2140)</onclick>
+</item>
+</content>
+        </control>
+      </control>
+    </definition>
+  </include>
+
+  <!-- Selector host: both routers + 15 rows -->
+  <include name="HomeWidgetSelector">
+    <definition>
+      <!-- Focus routers for UP from main menu -->
+      <control type="button" id="9090">
+	  <left>-4000</left><top>-4000</top><width>1</width><height>1</height>
+	  <onfocus condition="Player.HasMedia + Control.IsVisible(604)">SetFocus(604)</onfocus>
+<onfocus condition="Container(9000).HasFocus(1) + Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9151) + Integer.IsGreater(Container(9151).NumItems,0) + !Player.HasMedia">SetFocus(9151,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(1) + !Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9051) + Integer.IsGreater(Container(9051).NumItems,0) + !Player.HasMedia">SetFocus(9051,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(1) + [!Control.IsVisible(9151) + Skin.HasSetting(LowerMainMenuBar) | !Control.IsVisible(9051) + !Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9151).NumItems,0) + Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9051).NumItems,0) + !Skin.HasSetting(LowerMainMenuBar)] + !Player.HasMedia">SetFocus(9003)</onfocus>
+<onfocus condition="Container(9000).HasFocus(2) + Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9152) + Integer.IsGreater(Container(9152).NumItems,0) + !Player.HasMedia">SetFocus(9152,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(2) + !Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9052) + Integer.IsGreater(Container(9052).NumItems,0) + !Player.HasMedia">SetFocus(9052,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(2) + [!Control.IsVisible(9152) + Skin.HasSetting(LowerMainMenuBar) | !Control.IsVisible(9052) + !Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9152).NumItems,0) + Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9052).NumItems,0) + !Skin.HasSetting(LowerMainMenuBar)] + !Player.HasMedia">SetFocus(9003)</onfocus>
+<onfocus condition="Container(9000).HasFocus(3) + Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9153) + Integer.IsGreater(Container(9153).NumItems,0) + !Player.HasMedia">SetFocus(9153,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(3) + !Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9053) + Integer.IsGreater(Container(9053).NumItems,0) + !Player.HasMedia">SetFocus(9053,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(3) + [!Control.IsVisible(9153) + Skin.HasSetting(LowerMainMenuBar) | !Control.IsVisible(9053) + !Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9153).NumItems,0) + Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9053).NumItems,0) + !Skin.HasSetting(LowerMainMenuBar)] + !Player.HasMedia">SetFocus(9003)</onfocus>
+<onfocus condition="Container(9000).HasFocus(4) + Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9154) + Integer.IsGreater(Container(9154).NumItems,0) + !Player.HasMedia">SetFocus(9154,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(4) + !Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9054) + Integer.IsGreater(Container(9054).NumItems,0) + !Player.HasMedia">SetFocus(9054,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(4) + [!Control.IsVisible(9154) + Skin.HasSetting(LowerMainMenuBar) | !Control.IsVisible(9054) + !Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9154).NumItems,0) + Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9054).NumItems,0) + !Skin.HasSetting(LowerMainMenuBar)] + !Player.HasMedia">SetFocus(9003)</onfocus>
+<onfocus condition="Container(9000).HasFocus(5) + Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9155) + Integer.IsGreater(Container(9155).NumItems,0) + !Player.HasMedia">SetFocus(9155,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(5) + !Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9055) + Integer.IsGreater(Container(9055).NumItems,0) + !Player.HasMedia">SetFocus(9055,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(5) + [!Control.IsVisible(9155) + Skin.HasSetting(LowerMainMenuBar) | !Control.IsVisible(9055) + !Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9155).NumItems,0) + Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9055).NumItems,0) + !Skin.HasSetting(LowerMainMenuBar)] + !Player.HasMedia">SetFocus(9003)</onfocus>
+<onfocus condition="Container(9000).HasFocus(6) + Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9156) + Integer.IsGreater(Container(9156).NumItems,0) + !Player.HasMedia">SetFocus(9156,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(6) + !Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9056) + Integer.IsGreater(Container(9056).NumItems,0) + !Player.HasMedia">SetFocus(9056,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(6) + [!Control.IsVisible(9156) + Skin.HasSetting(LowerMainMenuBar) | !Control.IsVisible(9056) + !Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9156).NumItems,0) + Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9056).NumItems,0) + !Skin.HasSetting(LowerMainMenuBar)] + !Player.HasMedia">SetFocus(9003)</onfocus>
+<onfocus condition="Container(9000).HasFocus(7) + Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9157) + Integer.IsGreater(Container(9157).NumItems,0) + !Player.HasMedia">SetFocus(9157,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(7) + !Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9057) + Integer.IsGreater(Container(9057).NumItems,0) + !Player.HasMedia">SetFocus(9057,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(7) + [!Control.IsVisible(9157) + Skin.HasSetting(LowerMainMenuBar) | !Control.IsVisible(9057) + !Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9157).NumItems,0) + Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9057).NumItems,0) + !Skin.HasSetting(LowerMainMenuBar)] + !Player.HasMedia">SetFocus(9003)</onfocus>
+<onfocus condition="Container(9000).HasFocus(8) + Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9158) + Integer.IsGreater(Container(9158).NumItems,0) + !Player.HasMedia">SetFocus(9158,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(8) + !Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9058) + Integer.IsGreater(Container(9058).NumItems,0) + !Player.HasMedia">SetFocus(9058,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(8) + [!Control.IsVisible(9158) + Skin.HasSetting(LowerMainMenuBar) | !Control.IsVisible(9058) + !Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9158).NumItems,0) + Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9058).NumItems,0) + !Skin.HasSetting(LowerMainMenuBar)] + !Player.HasMedia">SetFocus(9003)</onfocus>
+<onfocus condition="Container(9000).HasFocus(9) + Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9159) + Integer.IsGreater(Container(9159).NumItems,0) + !Player.HasMedia">SetFocus(9159,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(9) + !Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9059) + Integer.IsGreater(Container(9059).NumItems,0) + !Player.HasMedia">SetFocus(9059,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(9) + [!Control.IsVisible(9159) + Skin.HasSetting(LowerMainMenuBar) | !Control.IsVisible(9059) + !Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9159).NumItems,0) + Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9059).NumItems,0) + !Skin.HasSetting(LowerMainMenuBar)] + !Player.HasMedia">SetFocus(9003)</onfocus>
+<onfocus condition="Container(9000).HasFocus(10) + Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9160) + Integer.IsGreater(Container(9160).NumItems,0) + !Player.HasMedia">SetFocus(9160,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(10) + !Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9060) + Integer.IsGreater(Container(9060).NumItems,0) + !Player.HasMedia">SetFocus(9060,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(10) + [!Control.IsVisible(9160) + Skin.HasSetting(LowerMainMenuBar) | !Control.IsVisible(9060) + !Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9160).NumItems,0) + Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9060).NumItems,0) + !Skin.HasSetting(LowerMainMenuBar)] + !Player.HasMedia">SetFocus(9003)</onfocus>
+<onfocus condition="Container(9000).HasFocus(11) + Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9161) + Integer.IsGreater(Container(9161).NumItems,0) + !Player.HasMedia">SetFocus(9161,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(11) + !Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9061) + Integer.IsGreater(Container(9061).NumItems,0) + !Player.HasMedia">SetFocus(9061,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(11) + [!Control.IsVisible(9161) + Skin.HasSetting(LowerMainMenuBar) | !Control.IsVisible(9061) + !Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9161).NumItems,0) + Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9061).NumItems,0) + !Skin.HasSetting(LowerMainMenuBar)] + !Player.HasMedia">SetFocus(9003)</onfocus>
+<onfocus condition="Container(9000).HasFocus(12) + Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9162) + Integer.IsGreater(Container(9162).NumItems,0) + !Player.HasMedia">SetFocus(9162,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(12) + !Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9062) + Integer.IsGreater(Container(9062).NumItems,0) + !Player.HasMedia">SetFocus(9062,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(12) + [!Control.IsVisible(9162) + Skin.HasSetting(LowerMainMenuBar) | !Control.IsVisible(9062) + !Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9162).NumItems,0) + Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9062).NumItems,0) + !Skin.HasSetting(LowerMainMenuBar)] + !Player.HasMedia">SetFocus(9003)</onfocus>
+<onfocus condition="Container(9000).HasFocus(13) + Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9163) + Integer.IsGreater(Container(9163).NumItems,0) + !Player.HasMedia">SetFocus(9163,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(13) + !Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9063) + Integer.IsGreater(Container(9063).NumItems,0) + !Player.HasMedia">SetFocus(9063,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(13) + [!Control.IsVisible(9163) + Skin.HasSetting(LowerMainMenuBar) | !Control.IsVisible(9063) + !Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9163).NumItems,0) + Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9063).NumItems,0) + !Skin.HasSetting(LowerMainMenuBar)] + !Player.HasMedia">SetFocus(9003)</onfocus>
+<onfocus condition="Container(9000).HasFocus(14) + Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9164) + Integer.IsGreater(Container(9164).NumItems,0) + !Player.HasMedia">SetFocus(9164,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(14) + !Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9064) + Integer.IsGreater(Container(9064).NumItems,0) + !Player.HasMedia">SetFocus(9064,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(14) + [!Control.IsVisible(9164) + Skin.HasSetting(LowerMainMenuBar) | !Control.IsVisible(9064) + !Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9164).NumItems,0) + Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9064).NumItems,0) + !Skin.HasSetting(LowerMainMenuBar)] + !Player.HasMedia">SetFocus(9003)</onfocus>
+<onfocus condition="Container(9000).HasFocus(15) + Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9165) + Integer.IsGreater(Container(9165).NumItems,0) + !Player.HasMedia">SetFocus(9165,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(15) + !Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9065) + Integer.IsGreater(Container(9065).NumItems,0) + !Player.HasMedia">SetFocus(9065,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(15) + [!Control.IsVisible(9165) + Skin.HasSetting(LowerMainMenuBar) | !Control.IsVisible(9065) + !Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9165).NumItems,0) + Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9065).NumItems,0) + !Skin.HasSetting(LowerMainMenuBar)] + !Player.HasMedia">SetFocus(9003)</onfocus>
+</control>
+      <control type="button" id="9091">
+		<left>-4000</left><top>-4000</top><width>1</width><height>1</height>
+        <onfocus condition="Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(700)">SetFocus(700)</onfocus>
+        <onfocus condition="Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(701)">SetFocus(701)</onfocus>
+        <onfocus condition="Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(702)">SetFocus(702)</onfocus>
+        <onfocus condition="Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(703)">SetFocus(703)</onfocus>
+        <onfocus condition="Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(704)">SetFocus(704)</onfocus>
+        <onfocus condition="Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(705)">SetFocus(705)</onfocus>
+        <onfocus condition="Player.HasMedia">SetFocus(9003)</onfocus>
+<onfocus condition="Container(9000).HasFocus(1) + Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9151) + Integer.IsGreater(Container(9151).NumItems,0)">SetFocus(9151,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(1) + !Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9051) + Integer.IsGreater(Container(9051).NumItems,0)">SetFocus(9051,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(1) + [!Control.IsVisible(9151) + Skin.HasSetting(LowerMainMenuBar) | !Control.IsVisible(9051) + !Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9151).NumItems,0) + Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9051).NumItems,0) + !Skin.HasSetting(LowerMainMenuBar)]">SetFocus(9000)</onfocus>
+<onfocus condition="Container(9000).HasFocus(2) + Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9152) + Integer.IsGreater(Container(9152).NumItems,0)">SetFocus(9152,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(2) + !Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9052) + Integer.IsGreater(Container(9052).NumItems,0)">SetFocus(9052,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(2) + [!Control.IsVisible(9152) + Skin.HasSetting(LowerMainMenuBar) | !Control.IsVisible(9052) + !Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9152).NumItems,0) + Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9052).NumItems,0) + !Skin.HasSetting(LowerMainMenuBar)]">SetFocus(9000)</onfocus>
+<onfocus condition="Container(9000).HasFocus(3) + Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9153) + Integer.IsGreater(Container(9153).NumItems,0)">SetFocus(9153,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(3) + !Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9053) + Integer.IsGreater(Container(9053).NumItems,0)">SetFocus(9053,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(3) + [!Control.IsVisible(9153) + Skin.HasSetting(LowerMainMenuBar) | !Control.IsVisible(9053) + !Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9153).NumItems,0) + Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9053).NumItems,0) + !Skin.HasSetting(LowerMainMenuBar)]">SetFocus(9000)</onfocus>
+<onfocus condition="Container(9000).HasFocus(4) + Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9154) + Integer.IsGreater(Container(9154).NumItems,0)">SetFocus(9154,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(4) + !Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9054) + Integer.IsGreater(Container(9054).NumItems,0)">SetFocus(9054,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(4) + [!Control.IsVisible(9154) + Skin.HasSetting(LowerMainMenuBar) | !Control.IsVisible(9054) + !Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9154).NumItems,0) + Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9054).NumItems,0) + !Skin.HasSetting(LowerMainMenuBar)]">SetFocus(9000)</onfocus>
+<onfocus condition="Container(9000).HasFocus(5) + Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9155) + Integer.IsGreater(Container(9155).NumItems,0)">SetFocus(9155,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(5) + !Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9055) + Integer.IsGreater(Container(9055).NumItems,0)">SetFocus(9055,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(5) + [!Control.IsVisible(9155) + Skin.HasSetting(LowerMainMenuBar) | !Control.IsVisible(9055) + !Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9155).NumItems,0) + Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9055).NumItems,0) + !Skin.HasSetting(LowerMainMenuBar)]">SetFocus(9000)</onfocus>
+<onfocus condition="Container(9000).HasFocus(6) + Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9156) + Integer.IsGreater(Container(9156).NumItems,0)">SetFocus(9156,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(6) + !Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9056) + Integer.IsGreater(Container(9056).NumItems,0)">SetFocus(9056,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(6) + [!Control.IsVisible(9156) + Skin.HasSetting(LowerMainMenuBar) | !Control.IsVisible(9056) + !Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9156).NumItems,0) + Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9056).NumItems,0) + !Skin.HasSetting(LowerMainMenuBar)]">SetFocus(9000)</onfocus>
+<onfocus condition="Container(9000).HasFocus(7) + Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9157) + Integer.IsGreater(Container(9157).NumItems,0)">SetFocus(9157,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(7) + !Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9057) + Integer.IsGreater(Container(9057).NumItems,0)">SetFocus(9057,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(7) + [!Control.IsVisible(9157) + Skin.HasSetting(LowerMainMenuBar) | !Control.IsVisible(9057) + !Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9157).NumItems,0) + Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9057).NumItems,0) + !Skin.HasSetting(LowerMainMenuBar)]">SetFocus(9000)</onfocus>
+<onfocus condition="Container(9000).HasFocus(8) + Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9158) + Integer.IsGreater(Container(9158).NumItems,0)">SetFocus(9158,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(8) + !Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9058) + Integer.IsGreater(Container(9058).NumItems,0)">SetFocus(9058,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(8) + [!Control.IsVisible(9158) + Skin.HasSetting(LowerMainMenuBar) | !Control.IsVisible(9058) + !Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9158).NumItems,0) + Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9058).NumItems,0) + !Skin.HasSetting(LowerMainMenuBar)]">SetFocus(9000)</onfocus>
+<onfocus condition="Container(9000).HasFocus(9) + Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9159) + Integer.IsGreater(Container(9159).NumItems,0)">SetFocus(9159,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(9) + !Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9059) + Integer.IsGreater(Container(9059).NumItems,0)">SetFocus(9059,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(9) + [!Control.IsVisible(9159) + Skin.HasSetting(LowerMainMenuBar) | !Control.IsVisible(9059) + !Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9159).NumItems,0) + Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9059).NumItems,0) + !Skin.HasSetting(LowerMainMenuBar)]">SetFocus(9000)</onfocus>
+<onfocus condition="Container(9000).HasFocus(10) + Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9160) + Integer.IsGreater(Container(9160).NumItems,0)">SetFocus(9160,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(10) + !Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9060) + Integer.IsGreater(Container(9060).NumItems,0)">SetFocus(9060,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(10) + [!Control.IsVisible(9160) + Skin.HasSetting(LowerMainMenuBar) | !Control.IsVisible(9060) + !Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9160).NumItems,0) + Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9060).NumItems,0) + !Skin.HasSetting(LowerMainMenuBar)]">SetFocus(9000)</onfocus>
+<onfocus condition="Container(9000).HasFocus(11) + Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9161) + Integer.IsGreater(Container(9161).NumItems,0)">SetFocus(9161,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(11) + !Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9061) + Integer.IsGreater(Container(9061).NumItems,0)">SetFocus(9061,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(11) + [!Control.IsVisible(9161) + Skin.HasSetting(LowerMainMenuBar) | !Control.IsVisible(9061) + !Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9161).NumItems,0) + Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9061).NumItems,0) + !Skin.HasSetting(LowerMainMenuBar)]">SetFocus(9000)</onfocus>
+<onfocus condition="Container(9000).HasFocus(12) + Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9162) + Integer.IsGreater(Container(9162).NumItems,0)">SetFocus(9162,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(12) + !Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9062) + Integer.IsGreater(Container(9062).NumItems,0)">SetFocus(9062,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(12) + [!Control.IsVisible(9162) + Skin.HasSetting(LowerMainMenuBar) | !Control.IsVisible(9062) + !Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9162).NumItems,0) + Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9062).NumItems,0) + !Skin.HasSetting(LowerMainMenuBar)]">SetFocus(9000)</onfocus>
+<onfocus condition="Container(9000).HasFocus(13) + Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9163) + Integer.IsGreater(Container(9163).NumItems,0)">SetFocus(9163,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(13) + !Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9063) + Integer.IsGreater(Container(9063).NumItems,0)">SetFocus(9063,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(13) + [!Control.IsVisible(9163) + Skin.HasSetting(LowerMainMenuBar) | !Control.IsVisible(9063) + !Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9163).NumItems,0) + Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9063).NumItems,0) + !Skin.HasSetting(LowerMainMenuBar)]">SetFocus(9000)</onfocus>
+<onfocus condition="Container(9000).HasFocus(14) + Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9164) + Integer.IsGreater(Container(9164).NumItems,0)">SetFocus(9164,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(14) + !Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9064) + Integer.IsGreater(Container(9064).NumItems,0)">SetFocus(9064,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(14) + [!Control.IsVisible(9164) + Skin.HasSetting(LowerMainMenuBar) | !Control.IsVisible(9064) + !Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9164).NumItems,0) + Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9064).NumItems,0) + !Skin.HasSetting(LowerMainMenuBar)]">SetFocus(9000)</onfocus>
+<onfocus condition="Container(9000).HasFocus(15) + Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9165) + Integer.IsGreater(Container(9165).NumItems,0)">SetFocus(9165,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(15) + !Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(9065) + Integer.IsGreater(Container(9065).NumItems,0)">SetFocus(9065,0)</onfocus>
+<onfocus condition="Container(9000).HasFocus(15) + [!Control.IsVisible(9165) + Skin.HasSetting(LowerMainMenuBar) | !Control.IsVisible(9065) + !Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9165).NumItems,0) + Skin.HasSetting(LowerMainMenuBar) | Integer.IsEqual(Container(9065).NumItems,0) + !Skin.HasSetting(LowerMainMenuBar)]">SetFocus(9000)</onfocus>
+</control>
+
+      <!-- 15 rows -->
+      <include content="HomeWidgetSelectorRow"><param name="idx">1</param><param name="listid">9051</param><param name="listidL">9151</param></include>
+      <include content="HomeWidgetSelectorRow"><param name="idx">2</param><param name="listid">9052</param><param name="listidL">9152</param></include>
+      <include content="HomeWidgetSelectorRow"><param name="idx">3</param><param name="listid">9053</param><param name="listidL">9153</param></include>
+      <include content="HomeWidgetSelectorRow"><param name="idx">4</param><param name="listid">9054</param><param name="listidL">9154</param></include>
+      <include content="HomeWidgetSelectorRow"><param name="idx">5</param><param name="listid">9055</param><param name="listidL">9155</param></include>
+      <include content="HomeWidgetSelectorRow"><param name="idx">6</param><param name="listid">9056</param><param name="listidL">9156</param></include>
+      <include content="HomeWidgetSelectorRow"><param name="idx">7</param><param name="listid">9057</param><param name="listidL">9157</param></include>
+      <include content="HomeWidgetSelectorRow"><param name="idx">8</param><param name="listid">9058</param><param name="listidL">9158</param></include>
+      <include content="HomeWidgetSelectorRow"><param name="idx">9</param><param name="listid">9059</param><param name="listidL">9159</param></include>
+      <include content="HomeWidgetSelectorRow"><param name="idx">10</param><param name="listid">9060</param><param name="listidL">9160</param></include>
+      <include content="HomeWidgetSelectorRow"><param name="idx">11</param><param name="listid">9061</param><param name="listidL">9161</param></include>
+      <include content="HomeWidgetSelectorRow"><param name="idx">12</param><param name="listid">9062</param><param name="listidL">9162</param></include>
+      <include content="HomeWidgetSelectorRow"><param name="idx">13</param><param name="listid">9063</param><param name="listidL">9163</param></include>
+      <include content="HomeWidgetSelectorRow"><param name="idx">14</param><param name="listid">9064</param><param name="listidL">9164</param></include>
+      <include content="HomeWidgetSelectorRow"><param name="idx">15</param><param name="listid">9065</param><param name="listidL">9165</param></include>
+    </definition>
+  </include>
+</includes>

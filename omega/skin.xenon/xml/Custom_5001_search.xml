@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<window type="dialog" id="5001">
+	
+	<defaultcontrol>450</defaultcontrol>
+    <coordinates>
+        <left>352</left>
+        <top>112</top>
+    </coordinates>
+    <include>dialogeffect</include>
+    <depth>DepthDialog+</depth>
+    <controls>
+        <control type="group">
+            <animation effect="slide" start="0,0" end="0,69" time="0" condition="!Integer.IsGreater(Container(450).NumItems,4)">Conditional</animation>
+            <animation effect="slide" start="0,0" end="0,69" time="0" condition="!Integer.IsGreater(Container(450).NumItems,6)">Conditional</animation>
+            <control type="image">
+                <description>background image</description>
+                <left>0</left>
+                <top>0</top>
+                <width>1275</width>
+                <height>890</height>
+                <texture border="40">$VAR[SelectBack]</texture>
+                <visible>Integer.IsGreater(Container(450).NumItems,4)</visible>
+            </control>
+            <control type="image">
+                <description>background image</description>
+                <left>0</left>
+                <top>0</top>
+                <width>1275</width>
+                <height>411</height>
+                <texture border="40">$VAR[SelectBack]</texture>
+                <visible>!Integer.IsGreater(Container(450).NumItems,4)</visible>
+            </control>
+            <control type="image">
+                <description>Dialog Header image</description>
+                <left>60</left>
+                <top>24</top>
+                <width>1155</width>
+                <height>60</height>
+                <texture>$VAR[DialogPath]dialogheader.png</texture>
+            </control>
+            <control type="label" id="1">
+                <description>header label</description>
+                <left>60</left>
+                <top>30</top>
+                <width>1155</width>
+                <height>45</height>
+                <font>font13_title</font>
+                <label>Diggz Custom Search</label>
+                <align>center</align>
+                <aligny>center</aligny>
+                <textcolor>selected</textcolor>
+                <shadowcolor>black</shadowcolor>
+            </control>
+            <control type="button">
+                <description>Close Window button</description>
+                <left>1100</left>
+                <top>24</top>
+                <onclick>PreviousMenu</onclick>
+                <include>DialogCloseButton</include>
+                <onleft>450</onleft>
+                <onright>450</onright>
+                <onup>450</onup>
+                <ondown>450</ondown>
+            </control>
+            <control type="list" id="450">
+                <left>30</left>
+                <top>100</top>
+                <width>825</width>
+                <height>760</height>
+                <onup>450</onup>
+                <ondown>450</ondown>
+                <onleft>7</onleft>
+                <onright>61</onright>
+                <pagecontrol>61</pagecontrol>
+                <scrolltime>200</scrolltime>
+                <itemlayout height="69" width="825">
+                    <control type="image">
+                        <left>0</left>
+                        <top>0</top>
+                        <width>825</width>
+                        <height>60</height>
+                        <texture border="5">button-nofocus.png</texture>
+                    </control>
+                    <control type="label">
+                        <left>30</left>
+                        <top>0</top>
+                        <width>765</width>
+                        <height>60</height>
+                        <font>font13</font>
+                        <textcolor>grey2</textcolor>
+                        <selectedcolor>selected</selectedcolor>
+                        <align>left</align>
+                        <aligny>center</aligny>
+                        <label>$INFO[ListItem.Label]</label>
+                    </control>
+                </itemlayout>
+                <focusedlayout height="69" width="825">
+                    <control type="image">
+                        <left>0</left>
+                        <top>0</top>
+                        <width>825</width>
+                        <height>60</height>
+                        <texture border="5">button-nofocus.png</texture>
+                        <visible>!Control.HasFocus(450)</visible>
+                        <include>VisibleFadeEffect</include>
+                    </control>
+                    <control type="image">
+                        <left>0</left>
+                        <top>0</top>
+                        <width>825</width>
+                        <height>60</height>
+                        <texture border="5" colordiffuse="$VAR[MainColorOne]">$VAR[SelectButton2]</texture>
+                        <visible>Control.HasFocus(450)</visible>
+                        <include>VisibleFadeEffect</include>
+                    </control>
+                    <control type="label">
+                        <left>30</left>
+                        <top>0</top>
+                        <width>765</width>
+                        <height>60</height>
+                        <font>font13</font>
+                        <textcolor>white</textcolor>
+                        <selectedcolor>selected</selectedcolor>
+                        <align>left</align>
+                        <aligny>center</aligny>
+                        <label>$INFO[ListItem.Label]</label>
+                    </control>
+                </focusedlayout>
+                <content>
+				<item>
+					<label>Search Youtube</label>
+					<onclick>Dialog.Close(5001)</onclick>
+					<onclick>ActivateWindow(10025,"plugin://plugin.video.yt.kiosk/?action=browse&amp;kind=search",return)</onclick>
+				</item>
+				<item>
+					<label>Search TMDBH</label>
+					<onclick>Dialog.Close(5001)</onclick>					
+					<onclick>ActivateWindow(10025,"plugin://plugin.video.themoviedb.helper/?info=dir_multisearch&amp;tmdb_type=None",return)</onclick>
+				</item>
+				<item>
+					<label>Search Movie And TV Portal</label>
+					<onclick>Dialog.Close(5001)</onclick>					
+					<onclick>PlayMedia("plugin://script.extendedinfo?info=search_menu")</onclick>
+				</item>
+				<item>
+					<label>Search Trakt Lists</label>
+					<onclick>Dialog.Close(5001)</onclick>					
+					<onclick>ActivateWindow(10025,"plugin://plugin.video.themoviedb.helper/?info=trakt_searchlists&amp;tmdb_type=both",return)</onclick>
+				</item>				
+				<item>
+					<label>Search Fen Light</label>
+					<onclick>Dialog.Close(5001)</onclick>
+					<onclick>ActivateWindow(10025,"plugin://plugin.video.fenlight/?iconImage=https%3a%2f%2fi.imgur.com%2fowsADQ4.png&amp;mode=navigator.search&amp;name=Search",return)</onclick>
+				</item>
+				<item>
+					<label>Search Seren</label>
+					<onclick>Dialog.Close(5001)</onclick>					
+					<onclick>ActivateWindow(10025,"plugin://plugin.video.seren/?action=searchMenu",return)</onclick>
+				</item>				
+				<item>
+					<label>Search Umbrella</label>
+					<onclick>Dialog.Close(5001)</onclick>					
+					<onclick>ActivateWindow(10025,"plugin://plugin.video.umbrella/?action=tools_searchNavigator&amp;folderName=Search",return)</onclick>
+				</item>
+				
+				<item>
+					<label>Search POV</label>
+					<onclick>Dialog.Close(5001)</onclick>					
+					<onclick>ActivateWindow(10025,"plugin://plugin.video.pov/?iconImage=search.png&amp;mode=navigator.search&amp;name=32450",return)</onclick>
+				</item>
+				<item>
+					<label>Search The Crew </label>
+					<onclick>Dialog.Close(5001)</onclick>					
+					<onclick>ActivateWindow(10025,"plugin://plugin.video.thecrew/?action=searchNavigator",return)</onclick>
+				</item>
+				<item>
+					<label>Search For Addons</label>
+					<onclick>Dialog.Close(5001)</onclick>					
+					<onclick>ActivateWindow(10040,"addons://search/",return)</onclick>
+				</item>				
+				<item>
+					<label>Search Live TV And Sports</label>
+					<onclick>Dialog.Close(5001)</onclick>					
+					<onclick>ActivateWindow(10025,"plugin://plugin.program.super.favourites/?content_type&amp;fanart=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.program.super.favourites%5cfanart.jpg&amp;image=special%3a%2f%2fhome%2faddons%2fresource.images.skinicons.wide%2fresources%2ficons%2fsearch.png&amp;label=Search%20Channels&amp;mode=400&amp;path=special%3a%2f%2fprofile%2faddon_data%2fplugin.program.super.favourites%2fSuper%20Favourites%5cSearch%20Channels",return)</onclick>
+				</item>
+				<item>
+					<label>Search Music Artists</label>
+					<onclick>Dialog.Close(5001)</onclick>					
+					<onclick>ActivateWindow(10502,"plugin://plugin.audio.mp3streams/?iconimage=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.audio.mp3streams%5cart%2fsearchartists.jpg&amp;list=search%20artists%3c%3eurl%3c%3eC%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.audio.mp3streams%5cart%2fsearchartists.jpg&amp;mode=24&amp;name=Search%20Artists&amp;type&amp;url=url",return)</onclick>
+				</item>				
+				<item>
+					<label>Search Music Albums</label>
+					<onclick>Dialog.Close(5001)</onclick>					
+					<onclick>ActivateWindow(10502,"plugin://plugin.audio.mp3streams/?iconimage=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.audio.mp3streams%5cart%2fsearchalbums.jpg&amp;list=search%20albums%3c%3eurl%3c%3eC%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.audio.mp3streams%5cart%2fsearchalbums.jpg&amp;mode=24&amp;name=Search%20Albums&amp;type&amp;url=url",return)</onclick>
+				</item>
+				<item>
+					<label>Search Songs</label>
+					<onclick>Dialog.Close(5001)</onclick>					
+					<onclick>ActivateWindow(10502,"plugin://plugin.audio.mp3streams/?iconimage=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.audio.mp3streams%5cart%2fsearchsongs.jpg&amp;list=search%20songs%3c%3eurl%3c%3eC%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.audio.mp3streams%5cart%2fsearchsongs.jpg&amp;mode=24&amp;name=Search%20Songs&amp;type&amp;url=url",return)</onclick>
+				</item>
+				<item>
+					<label>Search Radio Stations</label>
+					<onclick>Dialog.Close(5001)</onclick>					
+					<onclick>ActivateWindow(10502,"plugin://plugin.audio.radio_de_light/?description=Sender%20suchen&amp;fanart&amp;iconimage=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.audio.radio_de_light%5cicon.png&amp;mode=3&amp;name=Search%20Radio%20Stations&amp;url=-",return)</onclick>
+				</item>
+                </content>
+            </control>
+            <control type="scrollbar" id="61">
+                <left>855</left>
+                <top>98</top>
+                <width>38</width>
+                <height>696</height>
+                <texturesliderbackground border="0,14,0,14">ScrollBarV.png</texturesliderbackground>
+                <texturesliderbar border="0,14,0,14">ScrollBarV_bar.png</texturesliderbar>
+                <texturesliderbarfocus border="0,14,0,14" colordiffuse="$VAR[MainColorOne]">ScrollBarV_bar_focus.png</texturesliderbarfocus>
+                <textureslidernib colordiffuse="$VAR[MainColorOne]">ScrollBarNib.png</textureslidernib>
+                <textureslidernibfocus colordiffuse="$VAR[MainColorOne]">ScrollBarNib.png</textureslidernibfocus>
+                <onleft>450</onleft>
+                <onright>90</onright>
+                <ondown>61</ondown>
+                <onup>61</onup>
+                <showonepage>false</showonepage>
+                <orientation>vertical</orientation>
+                <visible>Control.IsVisible(450)</visible>
+            </control>
+            <control type="group">
+                <control type="label">
+                    <description>number of files/pages in list text label</description>
+                    <left>888</left>
+                    <top>735</top>
+                    <width>360</width>
+                    <height>52</height>
+                    <font>font12</font>
+                    <align>center</align>
+                    <aligny>center</aligny>
+                    <textcolor>grey</textcolor>
+                    <label>([COLOR=$VAR[MainColorOne]]$INFO[Container(450).NumItems][/COLOR]) $LOCALIZE[31025] - $LOCALIZE[31024] ([COLOR=$VAR[MainColorOne]]$INFO[Container(450).CurrentPage]/$INFO[Container(450).NumPages][/COLOR])</label>
+                    <animation effect="slide" start="0,0" end="0,-138" time="0" condition="!Integer.IsGreater(Container(450).NumItems,4)">Conditional</animation>
+                    <animation effect="slide" start="0,0" end="0,-138" time="0" condition="!Integer.IsGreater(Container(450).NumItems,6)">Conditional</animation>
+                    <animation effect="slide" start="0,0" end="0,-138" time="0" condition="!Integer.IsGreater(Container(450).NumItems,8)">Conditional</animation>
+                </control>
+                <control type="grouplist" id="90">
+                    <left>918</left>
+                    <top>150</top>
+                    <onleft>450</onleft>
+                    <onright>450</onright>
+                    <control type="button" id="7">
+                        <description>Cancel button</description>
+                        <width>300</width>
+                        <height>60</height>
+                        <label>222</label>
+                        <font>font12_title</font>
+                        <textcolor>white</textcolor>
+                        <focusedcolor>white</focusedcolor>
+                        <align>center</align>
+                        <onclick>PreviousMenu</onclick>
+                    </control>
+                </control>
+            </control>
+        </control>
+    </controls>
+</window>

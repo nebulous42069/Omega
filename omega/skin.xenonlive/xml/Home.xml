@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <defaultcontrol>9000</defaultcontrol>
+    
+	<include condition="!Skin.HasSetting(InitialSetUpRun)">DefaultInitialSetup</include>
+    
+	<onload condition="!String.IsEmpty(Window(Home).Property(MenuItemSelected))">ClearProperty(MenuItemSelected,Home)</onload>
+    <onload condition="!String.IsEmpty(Window(Home).Property(MenuItemActive))">ClearProperty(MenuItemActive,Home)</onload>
+    <onload condition="!String.IsEmpty(Window(Home).Property(SubMenuBackground))">ClearProperty(SubMenuBackground,Home)</onload>
+    <onload condition="!String.IsEmpty(Window(Home).Property(MenuBackground))">ClearProperty(MenuBackground,Home)</onload>
+    <onload condition="Skin.HasSetting(HolidayEffects) + System.Date(1-6,11-23)">Skin.Reset(HolidayEffects)</onload>
+    <onload condition="String.IsEmpty(Window.Property(PingAlarmSet)) + Skin.HasSetting(EnablePingWOL) + Skin.String(WOLPingTimer) + Skin.String(PingMacAddr)">AlarmClock(WOLPingAlarm,WakeOnLan($INFO[Skin.String(PingMacAddr)]),$INFO[Skin.String(WOLPingTimer)]:00,silent,loop)</onload>
+    <onload condition="Skin.HasSetting(EnablePingWOL) + Skin.String(WOLPingTimer) + Skin.String(PingMacAddr)">SetProperty(PingAlarmSet,1)</onload>
+    <onload condition="System.HasAddon(script.favourites) + Skin.HasSetting(EnableScriptFavourites)">RunScript(script.favourites)</onload>
+    <onload condition="!Skin.HasSetting(DisableSlideShowArt)">RunScript(script.artistslideshow, daemon=True)</onload>
+    <onload condition="!String.IsEmpty(Weather.Plugin) + !Weather.IsFetched">Weather.Refresh</onload>
+	<onload condition="!Skin.HasSetting(Use.Skinshortcuts) + String.IsEmpty(Window.Property(ReturnHome))">
+		SetFocus(9000,$INFO[Skin.String(InitialMenuItem)])
+	</onload>
+    <onload condition="!Skin.HasSetting(Use.Skinshortcuts) + String.IsEmpty(Window.Property(ReturnHome))">SetProperty(ReturnHome,True)</onload>
+	<onload>RunScript(script.skinvariables,action=buildviews)</onload>
+    
+	<!-- Build menu/submenus/widgets if skinshortcuts enabled -->
+	<onload condition="System.AddonIsEnabled(script.skinshortcuts) + Skin.HasSetting(Use.SkinShortcuts)">RunScript(script.skinshortcuts,type=buildxml&amp;mainmenuID=9000&amp;group=mainmenu|powermenu&amp;levels=2)</onload>
+	
+    <onload>SetProperty(MenuItemActive,ItemOne,Home)</onload>
+<onload>SetProperty(WidgetSet,$INFO[Skin.String(HomeItem.1.Widget)],Home)</onload>
+<onload>SetProperty(MenuIndex,1,Home)</onload>
+<controls>
+        
+		<!-- Hidden list for video node statistics - uses service.library.data.provider -->
+		<include condition="Skin.HasSetting(EnableHomeStats) + Skin.HasSetting(EnableScriptStats) + System.HasAddon(service.library.data.provider)">VideoNodeStatsList</include>
+		
+		<!-- Hidden fadelabel for widget extra fanart -->
+		<include condition="Skin.HasSetting(EnableExtraFanart)">HomeWidgetExtraFanart</include>
+		
+		<!-- Global background -->
+		<include>CommonBackground</include>
+        <!-- Background effects -->
+		<include condition="Skin.HasSetting(EnableRainDropEffect) | Skin.HasSetting(HolidayEffects)">AnimatedBackgroundEffect</include>
+        <!-- Floor -->
+		<control type="image">
+            <depth>DepthFloor</depth>
+            <left>-30</left>
+            <top></top>
+            <bottom>0</bottom>
+            <width>1980</width>
+            <height>380</height>
+            <texture>floor.png</texture>
+            <animation effect="slide" time="200" condition="Window.Previous(Home)">WindowOpen</animation>
+            <animation effect="slide" time="200" condition="Window.Next(Home)">WindowClose</animation>
+            <include condition="!String.IsEmpty(Skin.String(HomeTrans))">HomeTransparentEffect</include>
+            <animation effect="fade" start="100" end="65" time="0" condition="String.IsEmpty(Skin.String(HomeTrans)) + Skin.String(HomeFloor,Transparent)">Conditional</animation>
+            <visible>!String.IsEmpty(Skin.String(HomeFloor))</visible>
+            <visible>!Skin.HasSetting(LowerMainMenuBar)</visible>
+        </control>
+        
+		<!-- Top left info -->
+		<include>TopLeftInfo</include>
+        
+		<!-- Now Playing info -->
+		<!-- Music Info -->
+        <include>NowPlayingMusic</include>
+        <!-- LiveTV Info -->
+        <include>NowPlayingPVR</include>
+        <!-- Video Info -->
+        <include>NowPlayingVideo</include>
+        
+		<!-- Suggested Media Info -->
+        <include>HomeSuggestedMedia</include>
+		
+		<!-- Widgets -->
+        <include>HomeWidgetDisplay</include>
+        <include>HomeWidgetSelector</include>
+        
+		<control type="button" id="9013">
+            <description>Hidden Button to pass through navigation when widgets are disabled</description>
+            <left>-30</left>
+            <top>-30</top>
+            <width>1</width>
+            <height>1</height>
+            <label></label>
+            <font></font>
+            <texturefocus></texturefocus>
+            <texturenofocus></texturenofocus>
+            <onleft>9000</onleft>
+            <onright>9000</onright>
+            <ondown condition="Skin.HasSetting(LowerMainMenuBar)">9002</ondown>
+            <ondown condition="!Skin.HasSetting(LowerMainMenuBar) + !Skin.HasSetting(DisableGlobalSearch) + !Skin.HasSetting(FloorGlobalSearch)">610</ondown>
+            <ondown condition="!Skin.HasSetting(LowerMainMenuBar) + [Skin.HasSetting(DisableGlobalSearch) | Skin.HasSetting(FloorGlobalSearch)]">603</ondown>
+            <visible>false</visible>
+        </control>
+        
+		<!-- Player controls for now playing media -->
+		<include>NowPlayingMediaControls</include>
+        
+		<!-- Menu and Submenu -->
+		<control type="group">
+            <depth>DepthMenu</depth>
+            <top>600</top>
+            <animation effect="slide" start="0,0" end="0,-45" time="0" condition="!String.IsEmpty(Skin.String(MenuLAF))">Conditional</animation>
+            <animation effect="slide" start="0,0" end="0,240" time="0" condition="Skin.HasSetting(LowerMainMenuBar)">Conditional</animation>
+            <animation type="WindowOpen" reversible="false">
+                <effect type="zoom" start="80" end="100" center="960,540" easing="out" tween="back" time="225" />
+                <effect type="fade" start="0" end="100" time="225" />
+            </animation>
+            <animation type="WindowClose" reversible="false">
+                <effect type="zoom" start="100" end="80" center="960,540" easing="in" tween="back" time="225" />
+                <effect type="fade" start="100" end="0" time="225" />
+            </animation>
+            <!-- Submenu -->
+			<include condition="!Skin.HasSetting(Use.Skinshortcuts)">HomeSubMenuControl</include>
+			<include condition="Skin.HasSetting(Use.Skinshortcuts)">SkinShortcutsSubMenu</include>
+            <!-- Menu -->
+			<include condition="Skin.HasSetting(WrapAroundHomeMenu)">WrapHomeMainMenu</include>
+            <include condition="!Skin.HasSetting(WrapAroundHomeMenu)">FixedHomeMainMenu</include>
+        </control>
+		
+        <!-- Addon set below menu -->
+		<include condition="!Skin.HasSetting(Use.Skinshortcuts)">HomeAddonsDisplay</include>
+		<include condition="Skin.HasSetting(Use.Skinshortcuts)">SkinshortcutsAddonsDisplay</include>
+        <!-- Widget info overlay for movie / tvshow widgets -->
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8000</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8001</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8002</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8003</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8004</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8005</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8006</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8007</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8008</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8009</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8010</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8011</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8012</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8013</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8014</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8015</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8016</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8017</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8018</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8019</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8020</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8021</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8022</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8023</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8024</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8025</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8026</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8027</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8028</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8029</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8030</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8031</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8032</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8033</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8034</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8035</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8036</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8037</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8038</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8039</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8040</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8041</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8042</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8043</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8044</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">8045</param>
+        </include>
+        <!-- Widget info overlay for THUMB widget format (controls use id suffix 1) -->
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80001</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80011</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80021</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80031</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80041</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80051</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80061</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80071</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80081</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80091</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80101</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80111</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80121</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80131</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80141</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80151</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80161</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80171</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80181</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80191</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80201</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80211</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80221</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80231</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80241</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80251</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80261</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80271</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80281</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80291</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80301</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80311</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80321</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80331</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80341</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80351</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80361</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80371</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80381</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80391</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80401</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80411</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80421</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80431</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80441</param>
+        </include>
+        <include content="WidgetVideoInfoPanel">
+            <param name="Control">80451</param>
+        </include>
+
+        
+		<!-- RSS Feed / 5 next songs -->
+		<include>HomeRSS</include>
+		
+        <!-- Bottom left buttons: Power, Favorite, Search -->
+		<include>HomeBottomButtons</include>
+		
+		<!-- Header info: Clock and Date -->
+        <control type="group">
+            <depth>DepthHeader</depth>
+            <include>Clock</include>
+            <include>Date</include>
+        </control>
+		
+    </controls>
+</window>
