@@ -1114,7 +1114,7 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.sc19
         <disclaimer lang="de_DE">(c) 2025 aitschti</disclaimer>
         <reuselanguageinvoker>false</reuselanguageinvoker>
     </extension>
-</addon><addon id="plugin.video.seren" version="4.0" name="Seren" provider-name="Nixgates">
+</addon><addon id="plugin.video.seren" version="4.0.1" name="Seren" provider-name="Nixgates">
     <requires>
         <import addon="xbmc.addon" version="17.9.910" />
         <import addon="xbmc.python" version="3.0.0" />
