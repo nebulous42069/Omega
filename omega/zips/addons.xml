@@ -2554,7 +2554,7 @@ Random updates by lolage.
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="script.module.xenon" name="Xenon Updater" version="429" provider-name="Zaxxon709">
+</addon><addon id="script.module.xenon" name="Xenon Skin Updater" version="430" provider-name="Zaxxon709">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0" />
 	</requires>
@@ -2590,7 +2590,7 @@ Random updates by lolage.
 		<email />
 		<source />
 	</extension>
-</addon><addon id="script.module.xenonlive" name="Xenon Live Updater" version="429" provider-name="Zaxxon709">
+</addon><addon id="script.module.xenonlive" name="Xenon Live Skin Fix" version="430" provider-name="Zaxxon709">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0" />
 	</requires>

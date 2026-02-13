@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.module.xenon" name="Xenon Updater" version="429" provider-name="Zaxxon709">
+<addon id="script.module.xenon" name="Xenon Skin Updater" version="430" provider-name="Zaxxon709">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0"/>
 	</requires>
