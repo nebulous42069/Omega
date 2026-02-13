@@ -931,10 +931,10 @@ def list_favorites():
             desc = current.get('desc','') or ''
             plot = f"{epg_title}  ({tstart}-{tstop})\n{desc}"
         else:
-            noepg = _apply_color('(No current EPG)', 'COLOR_EPG')
-            label = f"{title_col}  {noepg}"
-            label2 = noepg
-            plot = 'No current EPG'
+            # No current EPG: show only the channel name (no extra '(No current EPG)' text)
+            label = f"{title_col}"
+            label2 = ''
+            plot = ''
 
         li = xbmcgui.ListItem(label=label)
         li.setLabel2(label2)
@@ -1104,10 +1104,10 @@ def show_guide_now(src_idx: int):
             desc = current.get('desc', '') or ''
             plot = f"{epg_title}  ({tstart}-{tstop})\n{desc}"
         else:
-            noepg = _apply_color('(No current EPG)', 'COLOR_EPG')
-            label = f"{title_col}  {noepg}"
-            label2 = noepg
-            plot = 'No current EPG'
+            # No current EPG: show only the channel name (no extra '(No current EPG)' text)
+            label = f"{title_col}"
+            label2 = ''
+            plot = ''
 
         li = xbmcgui.ListItem(label=label)
         li.setLabel2(label2)
@@ -1167,10 +1167,10 @@ def list_channels_by_group(src_idx: int, group_name: str):
             label2 = label_epg
             plot = f"{epg_title}  ({tstart}-{tstop})\n{current.get('desc','') or ''}"
         else:
-            noepg = _apply_color('(No current EPG)', 'COLOR_EPG')
-            label = f"{title_col}  {noepg}"
-            label2 = noepg
-            plot = 'No current EPG'
+            # No current EPG: show only the channel name (no extra '(No current EPG)' text)
+            label = f"{title_col}"
+            label2 = ''
+            plot = ''
 
         li = xbmcgui.ListItem(label=label)
         li.setLabel2(label2)
