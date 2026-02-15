@@ -389,7 +389,7 @@ Use this to quickly and easily organize your Favourites.
 			<fanart>fanart.jpg</fanart>
 		</assets>
 	</extension>
-</addon><addon id="plugin.program.pvr.setup" name="PVR/EPG Quick Setup" version="1.3.7" provider-name="Diggz">
+</addon><addon id="plugin.program.pvr.setup" name="PVR/EPG Quick Setup" version="1.3.8" provider-name="Diggz">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
     </requires>
@@ -998,7 +998,7 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.cb20
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="plugin.video.playlistbrowser" name="Diggz TV Guide Lite" version="2.6.5" provider-name="Diggz">
+</addon><addon id="plugin.video.playlistbrowser" name="Diggz TV Guide Lite" version="2.6.6" provider-name="Diggz">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
   </requires>

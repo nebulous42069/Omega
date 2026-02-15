@@ -1,6 +1,10 @@
 [
   {
     "name": "Setup Diggz Pick",
+    "xml": "tvapp"
+  },
+  {
+    "name": "Setup Doms Guide",
     "xml": "dguide"
   },
   {
