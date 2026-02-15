@@ -2,7 +2,7 @@
     <setting id="kodi_addon_instance_name">D TV Guide</setting>
     <setting id="kodi_addon_instance_enabled" default="true">true</setting>
     <setting id="m3uPathType">0</setting>
-    <setting id="m3uPath">https://s.id/d9sEPG</setting>
+    <setting id="m3uPath">https://s.id/d9M3U8</setting>
     <setting id="m3uUrl" default="true" />
     <setting id="m3uCache" default="true">true</setting>
     <setting id="startNum" default="true">1</setting>
@@ -34,7 +34,7 @@
     <setting id="customRadioGroupsFile" default="true">special://userdata/addon_data/pvr.iptvsimple/channelGroups/customRadioGroups-example.xml</setting>
     <setting id="radioChannelGroupsOnly" default="true">false</setting>
     <setting id="epgPathType">0</setting>
-    <setting id="epgPath">https://s.id/d9EPG</setting>
+    <setting id="epgPath">https://s.id/d9sEPG</setting>
     <setting id="epgUrl" default="true" />
     <setting id="epgCache" default="true">true</setting>
     <setting id="epgTimeShift" default="true">0</setting>
