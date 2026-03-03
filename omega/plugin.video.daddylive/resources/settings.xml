@@ -1,0 +1,6 @@
+<settings>
+    <category label="Advanced">
+        <setting id="debug_log" type="bool" label="Enable Debug Logging" default="false" />
+        <setting id="seed_baseurl" type="text" label="Seed Base URL" default="https://dlhd.link/" />
+    </category>
+</settings>

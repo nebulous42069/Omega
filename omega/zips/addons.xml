@@ -858,6 +858,28 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.cb20
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
+</addon><addon id="plugin.video.daddylive" name="DaddyLive v3" version="1.2.3" provider-name="Guenole84">
+    <requires>
+        <import addon="xbmc.python" version="3.0.0" />
+        <import addon="script.module.requests" />
+        <import addon="script.module.inputstreamhelper" />
+        <import addon="inputstream.ffmpegdirect" />
+        <import addon="script.module.six" />
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="addon.py">
+        <provides>video</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en">Live TV and Sports</summary>
+        <description lang="en">Live TV and Sports</description>
+        <platform>all</platform>
+        <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+        <assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
+        </assets>
+        <news>v1.2.3: Ajout aux favoris depuis le schedule (appui long sur une chaîne)</news>
+    </extension>
 </addon><addon id="plugin.video.dreammachine" name="[COLOR blue]D[COLOR salmon]r[COLOR violet]e[COLOR yellow]a[COLOR orange]m[COLOR lime]M[COLOR red]a[COLOR blue]c[COLOR salmon]h[COLOR violet]i[COLOR yellow]n[COLOR orange]e[/COLOR]" version="25.8.22" provider-name="[COLOR springgreen]G[/COLOR] [COLOR magenta]I[/COLOR][COLOR violet]n[/COLOR][COLOR mediumorchid]c[/COLOR][COLOR orchid].[/COLOR]">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
