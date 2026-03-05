@@ -1,6 +1,13 @@
 <settings>
-    <category label="Advanced">
-        <setting id="debug_log" type="bool" label="Enable Debug Logging" default="false" />
+    <category label="Général">
+        <setting id="time_format" type="enum" label="Format heure" values="12h|24h" default="0" />
+        <setting id="cache_ttl" type="enum" label="Durée cache chaînes" values="30 min|1 h|2 h|6 h|12 h" default="1" />
+    </category>
+    <category label="Lecture">
+        <setting id="seg_proxy" type="text" label="Proxy segments (http://...)" default="" />
+    </category>
+    <category label="Réseau">
+        <setting id="custom_dns" type="text" label="DNS custom (IP serveur DNS)" default="" />
         <setting id="seed_baseurl" type="text" label="Seed Base URL" default="https://dlhd.link/" />
     </category>
 </settings>

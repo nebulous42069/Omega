@@ -31,7 +31,7 @@ import tempfile
 import concurrent.futures
 from http.server import HTTPServer, ThreadingHTTPServer, BaseHTTPRequestHandler
 from urllib.parse import urlencode, unquote, parse_qsl, quote_plus, urlparse, urljoin
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 import time
 import calendar
 import xbmc
@@ -42,8 +42,6 @@ import xbmcaddon
 
 _KODI_TEMP = xbmcvfs.translatePath('special://temp/')
 os.makedirs(_KODI_TEMP, exist_ok=True)
-
-DADDYLIVE_PROXY_CACHE = {} 
 
 addon_url = sys.argv[0]
 addon_handle = int(sys.argv[1])
@@ -76,8 +74,6 @@ IPTV_ORG_API = 'https://iptv-org.github.io/api/channels.json'
 IPTV_ORG_INDEX_CACHE = os.path.join(_KODI_TEMP, 'daddylive_iptv_org_idx2.json')
 IPTV_ORG_TVG_CACHE = os.path.join(_KODI_TEMP, 'daddylive_iptv_org_tvg.json')
 IPTV_ORG_TTL = 7 * 24 * 3600  # refresh index every 7 days
-_EPG_BEST_CACHE_FILE = os.path.join(_KODI_TEMP, 'daddylive_epg_best.json')
-_EPG_BEST_TTL = 1800  # 30 minutes
 _XMLTV_FR_URL = 'https://epgshare01.online/epgshare01/epg_ripper_FR1.xml.gz'
 _XMLTV_FR_CACHE_FILE = os.path.join(_KODI_TEMP, 'daddylive_xmltv_fr.xml.gz')
 _XMLTV_FR_TTL = 4 * 3600   # re-download every 4 hours
@@ -95,10 +91,143 @@ _FAILED_CHANNEL_TTL = 600  # 10 minutes — channels with no valid content
 _IMAGE_PLACEHOLDER_DOMAINS = ('fluxpro.ai', 'iuimg.com')
 _PREMIUM_KEY_RX = re.compile(r'^premium(\d+)$')
 _M3U8_ENDLIST = b'#EXTM3U\n#EXT-X-VERSION:3\n#EXT-X-TARGETDURATION:4\n#EXT-X-ENDLIST\n'
+# L1: _MEDIA_SEQ_RX was a less-specific duplicate of _SEQ_RX (both matched the same tag).
+# Removed _MEDIA_SEQ_RX; its single usage at _handle_m3u8 now uses _SEQ_RX instead.
 _SEQ_RX = re.compile(r'#EXT-X-MEDIA-SEQUENCE:(\d+)')
-_MEDIA_SEQ_RX = re.compile(r'MEDIA-SEQUENCE:(\d+)')
 _FAV_PROBE_TS_FILE = os.path.join(_KODI_TEMP, 'daddylive_fav_probe_ts')
 _PAGE_CACHE_FILE = os.path.join(_KODI_TEMP, 'daddylive_page_cache.json')
+
+
+def _aes128_cbc_decrypt(data, key, iv):
+    """AES-128-CBC decrypt. Tries pycryptodome, cryptography, Windows CryptoAPI."""
+    # Backend 1: pycryptodome
+    try:
+        from Crypto.Cipher import AES
+        c = AES.new(key, AES.MODE_CBC, iv)
+        dec = c.decrypt(data)
+        log('[StreamProxy] AES: pycryptodome')
+        pad = dec[-1] if dec else 0
+        if 0 < pad <= 16 and dec[-pad:] == bytes([pad] * pad):
+            return dec[:-pad]
+        return dec
+    except ImportError:
+        pass
+    except Exception as e:
+        log(f'[StreamProxy] AES pycryptodome error: {e}')
+    # Backend 2: cryptography package
+    try:
+        from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
+        from cryptography.hazmat.backends import default_backend
+        c = Cipher(algorithms.AES(key), modes.CBC(iv), backend=default_backend())
+        d = c.decryptor()
+        dec = d.update(data) + d.finalize()
+        log('[StreamProxy] AES: cryptography')
+        pad = dec[-1] if dec else 0
+        if 0 < pad <= 16 and dec[-pad:] == bytes([pad] * pad):
+            return dec[:-pad]
+        return dec
+    except ImportError:
+        pass
+    except Exception as e:
+        log(f'[StreamProxy] AES cryptography error: {e}')
+    # Backend 3: Windows CryptoAPI — explicit argtypes to avoid marshaling errors
+    try:
+        import ctypes
+        _adv = ctypes.WinDLL('advapi32', use_last_error=True)
+        _H = ctypes.c_size_t  # HCRYPTPROV / HCRYPTKEY = ULONG_PTR (pointer-sized)
+        _adv.CryptAcquireContextW.restype = ctypes.c_int
+        _adv.CryptAcquireContextW.argtypes = [
+            ctypes.POINTER(_H), ctypes.c_wchar_p, ctypes.c_wchar_p,
+            ctypes.c_uint, ctypes.c_uint]
+        _adv.CryptImportKey.restype = ctypes.c_int
+        _adv.CryptImportKey.argtypes = [
+            _H, ctypes.c_char_p, ctypes.c_uint, _H, ctypes.c_uint, ctypes.POINTER(_H)]
+        _adv.CryptSetKeyParam.restype = ctypes.c_int
+        _adv.CryptSetKeyParam.argtypes = [_H, ctypes.c_uint, ctypes.c_char_p, ctypes.c_uint]
+        _adv.CryptDecrypt.restype = ctypes.c_int
+        _adv.CryptDecrypt.argtypes = [
+            _H, _H, ctypes.c_int, ctypes.c_uint,
+            ctypes.c_char_p, ctypes.POINTER(ctypes.c_uint)]
+        _adv.CryptDestroyKey.restype = ctypes.c_int
+        _adv.CryptDestroyKey.argtypes = [_H]
+        _adv.CryptReleaseContext.restype = ctypes.c_int
+        _adv.CryptReleaseContext.argtypes = [_H, ctypes.c_uint]
+        _prov = _H(0)
+        _key_h = _H(0)
+        # PROV_RSA_AES=24, CRYPT_VERIFYCONTEXT=0xF0000000
+        if not _adv.CryptAcquireContextW(ctypes.byref(_prov), None, None, 24, 0xF0000000):
+            log(f'[StreamProxy] AES WinCryptoAPI AcquireCtx err={ctypes.get_last_error()}')
+        else:
+            # PLAINTEXTKEYBLOB: BLOBHEADER(8B) + DWORD cbKeySize(4B) + key(16B) = 28B
+            # BLOBHEADER: bType=8, bVersion=2, reserved=0, aiKeyAlg=0x660E (CALG_AES_128)
+            # 0x660E = ALG_CLASS_DATA_ENCRYPT|ALG_TYPE_BLOCK|ALG_SID_AES_128 (NOT 0x6610=AES-256)
+            _blob = struct.pack('<BBHII', 8, 2, 0, 0x660E, 16) + bytes(key)
+            if not _adv.CryptImportKey(_prov.value, _blob, len(_blob), 0, 0, ctypes.byref(_key_h)):
+                log(f'[StreamProxy] AES WinCryptoAPI ImportKey err={ctypes.get_last_error()}')
+                _adv.CryptReleaseContext(_prov.value, 0)
+            else:
+                _adv.CryptSetKeyParam(_key_h.value, 1, bytes(iv), 0)  # KP_IV=1
+                _buf = ctypes.create_string_buffer(bytes(data), len(data))
+                _buf_len = ctypes.c_uint(len(data))
+                # fFinal=0: skip PKCS#7 validation (HLS segments may use non-standard padding)
+                # strip padding manually, same as pycryptodome/cryptography backends
+                if _adv.CryptDecrypt(_key_h.value, 0, 0, 0, _buf, ctypes.byref(_buf_len)):
+                    dec = bytes(_buf.raw[:_buf_len.value])
+                    _adv.CryptDestroyKey(_key_h.value)
+                    _adv.CryptReleaseContext(_prov.value, 0)
+                    pad = dec[-1] if dec else 0
+                    if 0 < pad <= 16 and dec[-pad:] == bytes([pad] * pad):
+                        result = dec[:-pad]
+                    else:
+                        result = dec
+                    log('[StreamProxy] AES: WinCryptoAPI')
+                    return result
+                log(f'[StreamProxy] AES WinCryptoAPI CryptDecrypt err={ctypes.get_last_error()}')
+                _adv.CryptDestroyKey(_key_h.value)
+                _adv.CryptReleaseContext(_prov.value, 0)
+    except Exception as e:
+        log(f'[StreamProxy] AES WinCryptoAPI error: {e}')
+    log('[StreamProxy] AES: no backend — streaming encrypted data (will not play)')
+    return data
+
+
+def _fetch_stream_key(key_id, channel_key, state, key_cache, force_refresh=False):
+    """Fetch AES-128 decryption key from CDN, caching result per session.
+
+    force_refresh=True: bypass CHEVY's server-side cache (used on stale key retry).
+    Adds Cache-Control: no-cache headers + ?_nc=<ts> URL cache-buster so CHEVY
+    re-fetches from the upstream CDN key server instead of serving cached bytes.
+    """
+    if key_id in key_cache and not force_refresh:
+        return key_cache[key_id]
+    try:
+        ts = int(time.time())
+        fp = _compute_fingerprint()
+        nonce = _compute_pow_nonce(channel_key, state['channel_salt'], key_id, ts)
+        auth_sig = _compute_auth_sig(channel_key, state['channel_salt'], key_id, ts, fp)
+        url = f'{CHEVY_LOOKUP}/key/{channel_key}/{key_id}'
+        hdrs = {
+            'User-Agent': _AUTH_UA,
+            'Referer': PLAYER_REFERER,
+            'Authorization': f'Bearer {state["auth_token"]}',
+            'X-Key-Timestamp': str(ts),
+            'X-Key-Nonce': str(nonce),
+            'X-Key-Path': auth_sig,
+            'X-Fingerprint': fp,
+        }
+        if force_refresh:
+            # Bust CHEVY's URL-based cache and signal it to re-fetch from upstream
+            url += f'?_nc={ts}'
+            hdrs['Cache-Control'] = 'no-cache'
+            hdrs['Pragma'] = 'no-cache'
+        r = _get_session().get(url, headers=hdrs, timeout=3)
+        key = r.content
+        log(f'[StreamProxy] key {key_id}: {len(key)}B fetched force={force_refresh}')
+        key_cache[key_id] = key
+        return key
+    except Exception as e:
+        log(f'[StreamProxy] key {key_id} fetch error: {e}')
+        return None
 
 
 def _is_placeholder(url):
@@ -195,34 +324,73 @@ LANG_NAMES = {
 # EPlayer auth — UA/screen/tz/lang values used for fingerprint computation
 _AUTH_UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36'
 
+_SEG_HEADERS = {
+    'User-Agent': _AUTH_UA,
+    'Accept': '*/*',
+    'Accept-Language': 'en-US,en;q=0.9',
+    'Accept-Encoding': 'gzip, deflate, br',
+    'Origin': 'https://www.ksohls.ru',
+    'Referer': PLAYER_REFERER,
+    'Sec-Fetch-Dest': 'empty',
+    'Sec-Fetch-Mode': 'cors',
+    'Sec-Fetch-Site': 'cross-site',
+}
+
 # Thread-safe state store: channel_key → {auth_token, channel_salt, m3u8_url, fetched_at}
 _proxy_lock = threading.Lock()
 _channel_creds = {}
 # Stall tracker: channel_key → {seq: last_seq, count: consecutive_same_seq}
 _m3u8_stall = {}
 _m3u8_timeouts = {}  # channel_key → consecutive timeout count
+_last_sent_seq = {}  # channel_key → last seq number sent to player (for HLS polling throttle)
+_sent_seg_urls = {}  # channel_key → set of CDN segment URLs already sent (dedup sliding window)
+_last_media_seq_out = {}  # channel_key → last MEDIA-SEQUENCE sent to player (enforce monotonic)
+_seg_url_to_channel = {}  # CDN segment URL → channel_key, for download-time dedup tracking
 _stall_lock = threading.Lock()
 _seg_semaphore = threading.Semaphore(2)  # max 2 concurrent segment downloads
 _proxy_abort = threading.Event()  # set on Kodi shutdown to unblock sleeping handler threads
 _probe_lock = threading.Lock()
+_epg_bg_lock = threading.Lock()
+
+
+def _do_cleanup_caches():
+    """Perform one cache-cleanup pass (called at start and every 300s)."""
+    now = time.time()
+    # DNS cache: TTL 30 min
+    with _dns_cache_lock:
+        stale = [h for h, (_, ts) in list(_dns_cache.items()) if now - ts > 1800]
+        for h in stale:
+            del _dns_cache[h]
+    # Channel creds: purge entries older than 10 min
+    with _proxy_lock:
+        stale = [k for k, v in list(_channel_creds.items()) if now - v.get('fetched_at', 0) > 600]
+        for k in stale:
+            del _channel_creds[k]
+            _m3u8_stall.pop(k, None)
+            _last_sent_seq.pop(k, None)
+    # C1: cap _sent_seg_urls to last 200 entries per channel; evict _seg_url_to_channel
+    # for channels no longer in _channel_creds
+    with _stall_lock:
+        with _proxy_lock:
+            active_keys = set(_channel_creds.keys())
+        for ch_key in list(_sent_seg_urls.keys()):
+            urls = _sent_seg_urls[ch_key]
+            if len(urls) > 200:
+                # Keep only the last 200 — rebuild from a sorted slice is not possible
+                # on a plain set, so replace with a new set of the last 200 items added.
+                _sent_seg_urls[ch_key] = set(list(urls)[-200:])
+        dead_urls = [u for u, ch in list(_seg_url_to_channel.items()) if ch not in active_keys]
+        for u in dead_urls:
+            del _seg_url_to_channel[u]
 
 
 def _cleanup_caches():
     """Background thread: purge stale entries every 5 minutes. Exits on Kodi abort."""
     monitor = xbmc.Monitor()
+    # L7: run cleanup once immediately before entering the wait loop
+    _do_cleanup_caches()
     while not monitor.waitForAbort(300):
-        now = time.time()
-        # DNS cache: TTL 30 min
-        with _dns_cache_lock:
-            stale = [h for h, (_, ts) in list(_dns_cache.items()) if now - ts > 1800]
-            for h in stale:
-                del _dns_cache[h]
-        # Channel creds: purge entries older than 10 min
-        with _proxy_lock:
-            stale = [k for k, v in list(_channel_creds.items()) if now - v.get('fetched_at', 0) > 600]
-            for k in stale:
-                del _channel_creds[k]
-                _m3u8_stall.pop(k, None)
+        _do_cleanup_caches()
 
 
 def _dns_resolve(hostname, dns_server, port=53, timeout=2):
@@ -276,8 +444,21 @@ def _dns_resolve(hostname, dns_server, port=53, timeout=2):
 _dns_cache = {}  # host -> (ip, timestamp)
 _dns_cache_lock = threading.Lock()
 _original_getaddrinfo = socket.getaddrinfo
+
+_server_key_cache = {}          # channel_id -> (server_key, timestamp)
+_server_key_cache_lock = threading.Lock()
+_SERVER_KEY_TTL = 600           # 10 min
 _active_dns = None  # set by _apply_custom_dns after reachability check
 _DNS_FALLBACK = '8.8.8.8'
+
+_tls = threading.local()
+
+
+def _get_session():
+    """Return per-thread requests.Session (created on first use)."""
+    if not hasattr(_tls, 'session'):
+        _tls.session = requests.Session()
+    return _tls.session
 
 
 def _patched_getaddrinfo(host, port, family=0, type=0, proto=0, flags=0):
@@ -386,17 +567,22 @@ def _fetch_auth_credentials(channel_id, max_attempts=3):
     url = f'https://www.ksohls.ru/premiumtv/daddyhd.php?id={channel_id}'
     for attempt in range(max_attempts):
         try:
-            r = requests.get(url, headers={
+            r = _get_session().get(url, headers={
                 'User-Agent': _AUTH_UA,
                 'Referer': get_active_base(),
             }, timeout=4)
+            if r.status_code in (502, 503, 504):
+                log(f'[EPlayerAuth] Server error {r.status_code} (attempt {attempt+1}/{max_attempts})')
+                if attempt < max_attempts - 1:
+                    time.sleep(1.5)
+                continue
             auth_token = _extract_credential(r.text, 'authToken')
             channel_salt = _extract_credential(r.text, 'channelSalt')
             if auth_token and channel_salt:
                 return auth_token, channel_salt
-            log(f'[EPlayerAuth] Credentials not found (attempt {attempt+1}/3), page snippet: {r.text[:200]}')
+            log(f'[EPlayerAuth] Credentials not found (attempt {attempt+1}/{max_attempts}), snippet: {r.text[:200]}')
         except Exception as e:
-            log(f'[EPlayerAuth] fetch error (attempt {attempt+1}/3): {e}')
+            log(f'[EPlayerAuth] fetch error (attempt {attempt+1}/{max_attempts}): {e}')
         if attempt < max_attempts - 1:
             time.sleep(1)
     return None, None
@@ -415,9 +601,13 @@ def _set_channel_state(channel_key, auth_token, channel_salt, m3u8_url):
     }
     with _proxy_lock:
         _channel_creds[channel_key] = state
-    # Reset stall/timeout counters — fresh session, stale counts must not carry over
-    _m3u8_stall.pop(channel_key, None)
-    _m3u8_timeouts.pop(channel_key, None)
+    # Reset stall/timeout/throttle/dedup counters — fresh session, stale counts must not carry over
+    with _stall_lock:
+        _m3u8_stall.pop(channel_key, None)
+        _m3u8_timeouts.pop(channel_key, None)
+        _last_sent_seq.pop(channel_key, None)
+        _sent_seg_urls.pop(channel_key, None)
+        _last_media_seq_out.pop(channel_key, None)
     # Persist to temp file so other plugin processes can read the state
     try:
         with open(_state_file(channel_key), 'w') as f:
@@ -448,6 +638,18 @@ def _get_channel_state(channel_key):
     return {}
 
 
+def _refresh_channel_creds(cid, max_attempts=3):
+    """Fetch fresh auth credentials + CDN URL, update channel state.
+    Returns updated state dict on success, or None on failure."""
+    at, cs = _fetch_auth_credentials(cid, max_attempts=max_attempts)
+    if not (at and cs):
+        return None
+    channel_key = f'premium{cid}'
+    url = resolve_stream_url(cid)
+    _set_channel_state(channel_key, at, cs, url)
+    return _get_channel_state(channel_key)
+
+
 class _EPlayerProxyHandler(BaseHTTPRequestHandler):
     """Local HTTP proxy that:
     - GET /m3u8/<channel_key>  → fetches live m3u8, rewrites key URIs to /key/...
@@ -474,6 +676,10 @@ class _EPlayerProxyHandler(BaseHTTPRequestHandler):
         if m:
             self._handle_m3u8(m.group(1))
             return
+        m = re.match(r'^/stream/([^/?]+)', self.path)
+        if m:
+            self._handle_stream(m.group(1))
+            return
         m = re.match(r'^/key/([^/]+)/(\d+)', self.path)
         if m:
             self._handle_key(m.group(1), m.group(2))
@@ -497,11 +703,7 @@ class _EPlayerProxyHandler(BaseHTTPRequestHandler):
             if m:
                 cid = m.group(1)
                 log(f'[EPlayerProxy] No state for {channel_key}, fetching credentials for id={cid}')
-                auth_token, channel_salt = _fetch_auth_credentials(cid)
-                if auth_token and channel_salt:
-                    m3u8_url = resolve_stream_url(cid)
-                    _set_channel_state(channel_key, auth_token, channel_salt, m3u8_url)
-                    state = _get_channel_state(channel_key)
+                state = _refresh_channel_creds(cid)
         if not state or not state.get('m3u8_url'):
             self.send_response(503)
             self.end_headers()
@@ -519,7 +721,7 @@ class _EPlayerProxyHandler(BaseHTTPRequestHandler):
             for _m3u8_attempt in range(2):
                 try:
                     _tout = 5 if _m3u8_attempt > 0 else 3
-                    r = requests.get(state['m3u8_url'], headers=m3u8_hdrs, timeout=_tout)
+                    r = _get_session().get(state['m3u8_url'], headers=m3u8_hdrs, timeout=_tout)
                     with _stall_lock:
                         _m3u8_timeouts.pop(channel_key, None)  # reset on success
                     break
@@ -558,14 +760,20 @@ class _EPlayerProxyHandler(BaseHTTPRequestHandler):
                 m = _PREMIUM_KEY_RX.match(channel_key)
                 if m:
                     cid = m.group(1)
-                    auth_token, channel_salt = _fetch_auth_credentials(cid)
-                    if auth_token and channel_salt:
-                        m3u8_url = resolve_stream_url(cid)
-                        _set_channel_state(channel_key, auth_token, channel_salt, m3u8_url)
-                        state = _get_channel_state(channel_key)
+                    state = _refresh_channel_creds(cid)
+                    if state:
                         m3u8_hdrs['Authorization'] = f'Bearer {state["auth_token"]}'
-                        r = requests.get(state['m3u8_url'], headers=m3u8_hdrs, timeout=3)
-                        log(f'[EPlayerProxy] m3u8 after re-auth: status={r.status_code}')
+                        try:
+                            r = _get_session().get(state['m3u8_url'], headers=m3u8_hdrs, timeout=3)
+                            log(f'[EPlayerProxy] m3u8 after re-auth: status={r.status_code}')
+                        except Exception as _reauth_e:
+                            log(f'[EPlayerProxy] m3u8 re-auth fetch failed: {_reauth_e}')
+                            self.send_response(200)
+                            self.send_header('Content-Type', 'application/vnd.apple.mpegurl')
+                            self.send_header('Content-Length', str(len(_M3U8_ENDLIST)))
+                            self.end_headers()
+                            self.wfile.write(_M3U8_ENDLIST)
+                            return
                     if r.status_code != 200:
                         log(f'[EPlayerProxy] {channel_key}: CDN {r.status_code} after re-auth — ending stream')
                         _mark_channel_failed(channel_key)
@@ -580,7 +788,7 @@ class _EPlayerProxyHandler(BaseHTTPRequestHandler):
             if r.status_code in (502, 503):
                 log(f'[EPlayerProxy] m3u8 {r.status_code} for {channel_key}, retrying')
                 time.sleep(1)
-                r = requests.get(state['m3u8_url'], headers=m3u8_hdrs, timeout=3)
+                r = _get_session().get(state['m3u8_url'], headers=m3u8_hdrs, timeout=3)
 
             content = r.text
             if r.status_code == 200:
@@ -607,7 +815,7 @@ class _EPlayerProxyHandler(BaseHTTPRequestHandler):
                         return
                     _png_reauth_ok = False
                     try:
-                        _refetch = requests.get(state['m3u8_url'], headers=m3u8_hdrs, timeout=5)
+                        _refetch = _get_session().get(state['m3u8_url'], headers=m3u8_hdrs, timeout=5)
                         if _refetch.status_code == 200 and '#EXTM3U' in _refetch.text:
                             _rf_segs = [l.strip() for l in _refetch.text.splitlines()
                                         if l.strip() and not l.strip().startswith('#')]
@@ -622,14 +830,11 @@ class _EPlayerProxyHandler(BaseHTTPRequestHandler):
                     if not _png_reauth_ok and _png_cid_m:
                         _png_cid = _png_cid_m.group(1)
                         log(f'[EPlayerProxy] {channel_key}: re-authing to get fresh CDN')
-                        _pat, _pcs = _fetch_auth_credentials(_png_cid, max_attempts=1)
-                        if _pat and _pcs:
-                            _purl = resolve_stream_url(_png_cid)
-                            _set_channel_state(channel_key, _pat, _pcs, _purl)
-                            state = _get_channel_state(channel_key)
+                        state = _refresh_channel_creds(_png_cid, max_attempts=1)
+                        if state:
                             m3u8_hdrs['Authorization'] = f'Bearer {state["auth_token"]}'
                             try:
-                                _pr = requests.get(state['m3u8_url'], headers=m3u8_hdrs, timeout=5)
+                                _pr = _get_session().get(state['m3u8_url'], headers=m3u8_hdrs, timeout=5)
                                 if _pr.status_code == 200 and '#EXTM3U' in _pr.text:
                                     _pr_segs = [l.strip() for l in _pr.text.splitlines()
                                                 if l.strip() and not l.strip().startswith('#')]
@@ -656,7 +861,7 @@ class _EPlayerProxyHandler(BaseHTTPRequestHandler):
                 if _content_filt is not None and _remaining < _all_seg_count:
                     log(f'[EPlayerProxy] {channel_key}: filtered image segments, {_remaining} video segs remain')
                     content = _content_filt
-            seq_m = _MEDIA_SEQ_RX.search(content)
+            seq_m = _SEQ_RX.search(content)
             seq = seq_m.group(1) if seq_m else '?'
             log(f'[EPlayerProxy] m3u8 fetched seq={seq} status={r.status_code}')
 
@@ -710,7 +915,7 @@ class _EPlayerProxyHandler(BaseHTTPRequestHandler):
                                 if _proxy_abort.is_set():
                                     return
                                 try:
-                                    _r2 = requests.get(state['m3u8_url'], headers=m3u8_hdrs, timeout=5)
+                                    _r2 = _get_session().get(state['m3u8_url'], headers=m3u8_hdrs, timeout=5)
                                     if _r2.status_code == 200:
                                         content = _r2.text
                                         log(f'[EPlayerProxy] stall: CDN re-fetched after wait')
@@ -730,21 +935,119 @@ class _EPlayerProxyHandler(BaseHTTPRequestHandler):
 
             # Rewrite segment URLs so Kodi fetches them via the proxy
             # (segments need Origin/Referer headers that Kodi doesn't send)
-            # Also handle relative segment URLs using m3u8_url as base
+            # Also handle relative segment URLs using m3u8_url as base.
+            # Two-pass safe dedup: remove CDN segments already sent (sliding window replay fix).
+            # When no new segments (CDN hasn't advanced), serve an empty live playlist to avoid
+            # a backward MEDIA-SEQUENCE jump that would confuse the player.
             _m3u8_base = state['m3u8_url'].split('?')[0].rsplit('/', 1)[0] + '/'
-            seg_lines = []
-            for line in content.splitlines():
-                stripped = line.strip()
-                if stripped and not stripped.startswith('#'):
-                    if stripped.startswith('http://') or stripped.startswith('https://'):
-                        abs_seg = stripped
-                    else:
-                        abs_seg = urljoin(_m3u8_base, stripped)
-                    encoded = quote_plus(abs_seg)
-                    seg_lines.append(f'http://127.0.0.1:{port}/seg/{encoded}')
+            # Pass 1: collect absolute CDN URLs and count new ones (not yet sent)
+            _pl_lines = content.splitlines()
+            _pl_segs = []
+            for _line in _pl_lines:
+                _s = _line.strip()
+                if _s and not _s.startswith('#'):
+                    _pl_segs.append(_s if _s.startswith('http') else urljoin(_m3u8_base, _s))
+
+            # Pre-check: if ALL CDN segments are already downloaded, wait 2s and re-fetch CDN once.
+            # This reduces latency between CDN advancing and player receiving new content,
+            # preventing buffer starvation from thin dedup output.
+            with _stall_lock:
+                _pre_sent = _sent_seg_urls.get(channel_key, set())
+                _all_pre_sent = bool(_pl_segs) and all(u in _pre_sent for u in _pl_segs)
+            if _all_pre_sent:
+                _proxy_abort.wait(timeout=2)
+                if _proxy_abort.is_set():
+                    return
+                try:
+                    _rp = _get_session().get(state['m3u8_url'], headers=m3u8_hdrs, timeout=3)
+                    if _rp.status_code == 200:
+                        _cp = _rp.text
+                        _cfp, _, _ = _apply_m3u8_filter(_cp)
+                        if _cfp is not None:
+                            _cp = _cfp
+                        content = _cp
+                        _pl_lines = content.splitlines()
+                        _pl_segs = [
+                            _s if _s.startswith('http') else urljoin(_m3u8_base, _s)
+                            for _l in _pl_lines for _s in [_l.strip()]
+                            if _s and not _s.startswith('#')
+                        ]
+                except Exception:
+                    pass
+
+            with _stall_lock:
+                _already_sent = _sent_seg_urls.get(channel_key, set())
+                _new_count = sum(1 for u in _pl_segs if u not in _already_sent)
+                _apply_dedup = _new_count >= 1
+                _cdnseq_m = _SEQ_RX.search(content)
+                _cdn_media_seq = int(_cdnseq_m.group(1)) if _cdnseq_m else 0
+                if _apply_dedup:
+                    # Pass 2: build deduplicated playlist.
+                    # Segments are tracked at DOWNLOAD-TIME (in _handle_segment), not here.
+                    # _already_sent = segments the player has ACTUALLY downloaded.
+                    # Not-yet-downloaded segments from previous playlists appear as "new" here,
+                    # giving the player a naturally thicker buffer without re-serving old content.
+                    seg_lines = []
+                    _dedup_removed_start = 0
+                    _found_first_kept = False
+                    _prev_removed = False
+                    _seg_idx = 0
+                    for _line in _pl_lines:
+                        _s = _line.strip()
+                        if _s and not _s.startswith('#'):
+                            abs_seg = _pl_segs[_seg_idx]
+                            _seg_idx += 1
+                            if abs_seg in _already_sent:
+                                # Already downloaded — remove from playlist
+                                if seg_lines and seg_lines[-1].strip().startswith('#EXTINF'):
+                                    seg_lines.pop()
+                                if not _found_first_kept:
+                                    _dedup_removed_start += 1
+                                _prev_removed = True
+                                log(f'[EPlayerProxy] dedup skip {channel_key} {abs_seg[-40:]}')
+                            else:
+                                # Not yet downloaded — keep in playlist
+                                if _prev_removed and _found_first_kept:
+                                    seg_lines.append('#EXT-X-DISCONTINUITY')
+                                _found_first_kept = True
+                                _prev_removed = False
+                                # Map URL→channel so /seg/ handler can track download completion
+                                _seg_url_to_channel[abs_seg] = channel_key
+                                seg_lines.append(f'http://127.0.0.1:{port}/seg/{quote_plus(abs_seg)}')
+                        else:
+                            seg_lines.append(_line)
+                    _adjusted_seq = _cdn_media_seq + _dedup_removed_start
+                    # Enforce monotonically non-decreasing MEDIA-SEQUENCE
+                    _prev_out_seq = _last_media_seq_out.get(channel_key, 0)
+                    _final_media_seq = max(_adjusted_seq, _prev_out_seq)
+                    _last_media_seq_out[channel_key] = _final_media_seq
+                    content = '\n'.join(seg_lines)
+                    content = _SEQ_RX.sub(f'#EXT-X-MEDIA-SEQUENCE:{_final_media_seq}', content)
                 else:
-                    seg_lines.append(line)
-            content = '\n'.join(seg_lines)
+                    # No new segments: all CDN segments already downloaded by the player.
+                    # Serving them again would cause duplicate-segment freeze in ffmpegdirect.
+                    # Instead, serve a valid empty live playlist — the player waits TARGET-DURATION
+                    # and re-polls. Safe with download-time tracking (no parallel-thread race).
+                    _tgt_m = re.search(r'#EXT-X-TARGETDURATION:(\d+)', content)
+                    _tgt_dur = _tgt_m.group(1) if _tgt_m else '5'
+                    _prev_out_seq = _last_media_seq_out.get(channel_key, _cdn_media_seq)
+                    content = (
+                        '#EXTM3U\n'
+                        '#EXT-X-VERSION:3\n'
+                        f'#EXT-X-TARGETDURATION:{_tgt_dur}\n'
+                        f'#EXT-X-MEDIA-SEQUENCE:{_prev_out_seq}\n'
+                    )
+                    log(f'[EPlayerProxy] dedup: all segs sent for {channel_key}, empty live pl seq={_prev_out_seq}')
+
+            # HLS polling throttle: if seq unchanged since last response, wait 2s
+            # so Kodi doesn't hammer the CDN before it updates its playlist.
+            with _stall_lock:
+                _prev_seq = _last_sent_seq.get(channel_key)
+                _last_sent_seq[channel_key] = seq
+            if seq != '?' and seq == _prev_seq:
+                _proxy_abort.wait(timeout=2)
+                if _proxy_abort.is_set():
+                    return
 
             body = content.encode('utf-8')
             self.send_response(200)
@@ -757,6 +1060,472 @@ class _EPlayerProxyHandler(BaseHTTPRequestHandler):
             self.send_response(502)
             self.end_headers()
 
+    def _handle_stream(self, channel_key):
+        """Serve HLS as a continuous MPEG-TS byte stream.
+        Acts as an internal HLS client (URL-based segment tracking like hls.js):
+        each unique CDN segment URL is downloaded and forwarded exactly once — no looping."""
+        state = _get_channel_state(channel_key)
+        if not state or not state.get('m3u8_url'):
+            m = _PREMIUM_KEY_RX.match(channel_key)
+            if m:
+                cid = m.group(1)
+                state = _refresh_channel_creds(cid)
+        if not state or not state.get('m3u8_url'):
+            self.send_response(503)
+            self.end_headers()
+            return
+
+        log(f'[StreamProxy] {channel_key}: TS stream started')
+        try:
+            self.send_response(200)
+            self.send_header('Content-Type', 'video/MP2T')
+            self.end_headers()
+        except Exception as e:
+            log(f'[StreamProxy] {channel_key}: header error: {e}')
+            return
+
+        seen_seqs = set()   # dedup by sequence number — blocks URL-rotated same-content
+        seen_urls = set()   # dedup by URL — blocks seq-renumbered same-content
+        key_cache = {}
+        _STALL_TIMEOUT = 12
+        _stall_wait = _STALL_TIMEOUT   # reduced after URL switch to catch fast CDN propagation
+        _segs_since_stall = 3          # tracks stability; <3 = keep reduced timeout
+        _last_content_time = time.time()   # last time content was queued successfully
+        _stall_retries = 0
+        _stall_epoch_start = 0.0       # when current continuous stall epoch began (0 = not stalling)
+        _aes_fail_streak = 0           # consecutive AES decrypt failures (key rotation detector)
+        _STALL_EPOCH_MAX = 75.0        # give up after 75s of continuous stalling
+
+        # Proactive background re-auth: starts at STALL_TIMEOUT/2 so credentials
+        # are ready when the stall fires, avoiding a blocking 5-7s delay during playback.
+        _reauth_event = threading.Event()
+        _reauth_cache = [None]   # [(at, cs, new_url)] or [None]
+        _reauth_started_at = [0.0]
+
+        def _bg_reauth():
+            cm = _PREMIUM_KEY_RX.match(channel_key)
+            if not cm:
+                _reauth_event.set()
+                return
+            try:
+                cid = cm.group(1)
+                at, cs = _fetch_auth_credentials(cid)
+                if at and cs:
+                    nu = resolve_stream_url(cid)
+                    _reauth_cache[0] = (at, cs, nu)
+            except Exception:
+                pass
+            _reauth_event.set()
+
+        # Segment buffer: absorbs CDN delivery jitter (9-18s gaps between bursts)
+        import queue as _q
+        _seg_q = _q.Queue(maxsize=10)  # ~55s buffer at 5.5s/seg
+        _client_gone = threading.Event()
+
+        # Null TS packet (PID 0x1FFF): keeps Kodi's HTTP connection alive during CDN gaps
+        _NULL_PKT = bytes([0x47, 0x1F, 0xFF, 0x10]) + bytes(184)
+
+        # Pre-buffer: emit null packets until Kodi's buffer is deep enough.
+        # Wait at least 6s (Kodi needs time to negotiate), and up to 12s if the
+        # queue has fewer than 3 segments (so Kodi starts with ≥19s of buffer).
+        _PRE_BUFFER_SECS = 6.0
+        _PRE_BUFFER_MAX = 12.0
+        _stream_start = time.time()
+
+        def _sender():
+            """Sender thread.
+            Phase 1 — Pre-buffer: emit null packets until queue has ≥3 segments,
+              giving the fetcher time to accumulate a head-start.
+            Phase 2 — Throttled: send segments at 1× real-time pace. Between
+              segments the sender waits seg_dur seconds (emitting null packets),
+              which lets the fetcher run ahead and keep the queue filled.
+              CDN gaps of up to queue_depth × seg_dur seconds are then covered
+              by real segments from the queue rather than null-packet freezes.
+            """
+            _bps = 250000   # default ~2 Mbps; updated from real segments
+            _BURST_INTERVAL = 0.02   # 50 Hz null burst rate
+
+            # Phase 1: pre-buffer — null packets only, no real content.
+            while (time.time() - _stream_start < _PRE_BUFFER_SECS
+                   or (_seg_q.qsize() < 3 and time.time() - _stream_start < _PRE_BUFFER_MAX)):
+                if _client_gone.is_set() or _proxy_abort.is_set():
+                    return
+                try:
+                    self.wfile.write(_NULL_PKT)
+                    self.wfile.flush()
+                except (BrokenPipeError, OSError, ConnectionResetError):
+                    log(f'[StreamProxy] {channel_key}: client disconnected (pre-buffer)')
+                    _client_gone.set()
+                    return
+                time.sleep(0.04)
+
+            # Phase 2: throttled send loop.
+            # _pace_clock = real-time moment when next segment may be sent.
+            _pace_clock = None
+            while not _client_gone.is_set() and not _proxy_abort.is_set():
+
+                # Pace wait: hold for seg_dur seconds between segments so the
+                # fetcher can get ahead and fill the queue.
+                # Send null packets during the wait to keep Kodi's connection alive.
+                if _pace_clock is not None:
+                    while not _client_gone.is_set() and not _proxy_abort.is_set():
+                        remaining = _pace_clock - time.time()
+                        if remaining <= 0:
+                            break
+                        time.sleep(min(remaining, _BURST_INTERVAL))
+                        n = max(1, int(_bps * _BURST_INTERVAL / 188))
+                        try:
+                            self.wfile.write(_NULL_PKT * n)
+                            self.wfile.flush()
+                        except (BrokenPipeError, OSError, ConnectionResetError):
+                            _client_gone.set()
+                            break
+
+                if _client_gone.is_set() or _proxy_abort.is_set():
+                    break
+
+                # Get next segment (may block further if CDN gap exceeds queue depth)
+                try:
+                    item = _seg_q.get(timeout=_BURST_INTERVAL)
+                except _q.Empty:
+                    n = max(1, int(_bps * _BURST_INTERVAL / 188))
+                    try:
+                        self.wfile.write(_NULL_PKT * n)
+                        self.wfile.flush()
+                    except (BrokenPipeError, OSError, ConnectionResetError):
+                        _client_gone.set()
+                    continue
+
+                if item is None:
+                    _seg_q.task_done()
+                    break
+
+                seg_body, seg_dur = item
+                _bps = max(12500, len(seg_body) / max(seg_dur, 0.1))
+
+                try:
+                    self.wfile.write(seg_body)
+                    self.wfile.flush()
+                except (BrokenPipeError, OSError, ConnectionResetError):
+                    log(f'[StreamProxy] {channel_key}: client disconnected')
+                    _client_gone.set()
+                    _seg_q.task_done()
+                    return
+
+                # Advance pace clock by seg_dur + 0.3s.
+                # The 0.3s delta lets the fetcher run slightly ahead, building a
+                # small queue buffer to absorb CDN delivery jitter.
+                # Kept low (300ms) to avoid visible PCR drift in Kodi.
+                # If we fell behind (CDN gap), reset to now (no catch-up rush).
+                now = time.time()
+                _pace_clock = max(now, _pace_clock or now) + seg_dur + 0.5
+
+                _seg_q.task_done()
+
+        _sender_t = threading.Thread(target=_sender, daemon=True)
+        _sender_t.start()
+        seg_proxy_url = addon.getSetting('seg_proxy').strip()
+        seg_proxies = {'http': seg_proxy_url, 'https': seg_proxy_url} if seg_proxy_url else None
+        seg_hdrs = dict(_SEG_HEADERS)
+
+        try:
+            while not _proxy_abort.is_set() and not _client_gone.is_set():
+                state = _get_channel_state(channel_key)
+                if not state:
+                    break
+
+                m3u8_hdrs = {
+                    'User-Agent': _AUTH_UA,
+                    'Referer': PLAYER_REFERER,
+                    'Authorization': f'Bearer {state["auth_token"]}',
+                    'X-Channel-Key': channel_key,
+                    'X-User-Agent': _AUTH_UA,
+                    'Cache-Control': 'no-cache',
+                    'Pragma': 'no-cache',
+                }
+
+                # Fetch CDN m3u8
+                content = None
+                try:
+                    r = _get_session().get(state['m3u8_url'], headers=m3u8_hdrs, timeout=5)
+                    if r.status_code == 200:
+                        content = r.text
+                    elif r.status_code in (403, 404):
+                        log(f'[StreamProxy] m3u8 {r.status_code}, re-authing')
+                        cm = _PREMIUM_KEY_RX.match(channel_key)
+                        if cm:
+                            _refresh_channel_creds(cm.group(1))
+                        _proxy_abort.wait(timeout=1)
+                        continue
+                    elif r.status_code in (502, 503):
+                        _proxy_abort.wait(timeout=2)
+                        continue
+                except Exception as e:
+                    log(f'[StreamProxy] m3u8 fetch error: {e}')
+                    if _stall_epoch_start == 0.0:
+                        _stall_epoch_start = time.time()
+                    elif time.time() - _stall_epoch_start >= _STALL_EPOCH_MAX:
+                        log(f'[StreamProxy] {channel_key}: CDN unreachable >{int(_STALL_EPOCH_MAX)}s — ending stream')
+                        _mark_channel_failed(channel_key)
+                        break
+                    _proxy_abort.wait(timeout=2)
+                    continue
+
+                if not content:
+                    _proxy_abort.wait(timeout=2)
+                    continue
+
+                if '#EXT-X-ENDLIST' in content:
+                    log(f'[StreamProxy] {channel_key}: EXT-X-ENDLIST — ending stream')
+                    _mark_channel_failed(channel_key)
+                    break
+
+                # Filter placeholder image segments
+                filtered, remaining, total = _apply_m3u8_filter(content)
+                if remaining == 0:
+                    log(f'[StreamProxy] {channel_key}: all {total} segs are placeholders, waiting')
+                    _proxy_abort.wait(timeout=3)
+                    _ph_now = time.time()
+                    _ph_gap = _ph_now - _last_content_time
+                    if _ph_gap >= _stall_wait and _PREMIUM_KEY_RX.match(channel_key):
+                        if _stall_epoch_start == 0.0:
+                            _stall_epoch_start = _ph_now
+                        _ph_stall_total = _ph_now - _stall_epoch_start
+                        log(f'[StreamProxy] {channel_key}: placeholder stall {int(_ph_gap)}s epoch={int(_ph_stall_total)}s')
+                        if _ph_stall_total >= _STALL_EPOCH_MAX:
+                            log(f'[StreamProxy] {channel_key}: placeholder frozen >{int(_STALL_EPOCH_MAX)}s — ending stream')
+                            _mark_channel_failed(channel_key)
+                            break
+                        if _ph_now - _reauth_started_at[0] > _stall_wait:
+                            _reauth_started_at[0] = _ph_now
+                            _reauth_event.clear()
+                            _reauth_cache[0] = None
+                            threading.Thread(target=_bg_reauth, daemon=True).start()
+                        _reauth_event.wait(timeout=8)
+                        result = _reauth_cache[0]
+                        _reauth_cache[0] = None
+                        if result:
+                            at, cs, new_url = result
+                            _set_channel_state(channel_key, at, cs, new_url)
+                            _last_content_time = time.time()
+                    continue
+                if filtered:
+                    content = filtered
+
+                tgt_m = re.search(r'#EXT-X-TARGETDURATION:(\d+)', content)
+                tgt_dur = float(tgt_m.group(1)) if tgt_m else 6.0
+
+                # Parse AES-128 key info
+                current_key_id = None
+                current_iv = None
+                seq_m = _SEQ_RX.search(content)
+                base_seq = int(seq_m.group(1)) if seq_m else 0
+                for _line in content.splitlines():
+                    if _line.strip().startswith('#EXT-X-KEY:'):
+                        _uri_m = re.search(r'URI="([^"]+)"', _line)
+                        _iv_m = re.search(r'IV=0x([0-9a-fA-F]+)', _line)
+                        if _uri_m:
+                            _km = re.search(r'/key/[^/]+/(\d+)', _uri_m.group(1))
+                            if _km:
+                                current_key_id = _km.group(1)
+                        if _iv_m:
+                            current_iv = bytes.fromhex(_iv_m.group(1).zfill(32))
+                        break
+
+                # Parse segment URLs and per-segment EXTINF durations
+                m3u8_base = state['m3u8_url'].split('?')[0].rsplit('/', 1)[0] + '/'
+                segs = []
+                seg_dur_map = {}
+                _last_inf = tgt_dur
+                for _sl in content.splitlines():
+                    _sl = _sl.strip()
+                    if _sl.startswith('#EXTINF:'):
+                        try:
+                            _last_inf = float(_sl[8:].split(',')[0])
+                        except Exception:
+                            _last_inf = tgt_dur
+                    elif _sl and not _sl.startswith('#'):
+                        _su = _sl if _sl.startswith('http') else urljoin(m3u8_base, _sl)
+                        segs.append(_su)
+                        seg_dur_map[_su] = _last_inf
+                        _last_inf = tgt_dur
+
+                # Stall detection: trigger only if no content queued for _STALL_TIMEOUT seconds.
+                seq_str = str(base_seq)
+                _now = time.time()
+                _gap = _now - _last_content_time
+
+                # Proactive re-auth: start as soon as CDN is 1.5× a segment overdue,
+                # so credentials are ready when the stall fires (avoids blocking buffer drain).
+                if (_gap >= max(_last_inf * 1.5, _stall_wait * 0.3)
+                        and _PREMIUM_KEY_RX.match(channel_key)
+                        and _now - _reauth_started_at[0] > _stall_wait):
+                    _reauth_started_at[0] = _now
+                    _reauth_event.clear()
+                    _reauth_cache[0] = None
+                    threading.Thread(target=_bg_reauth, daemon=True).start()
+
+                if _gap >= _stall_wait:
+                    # Track total continuous stall duration; give up after _STALL_EPOCH_MAX seconds.
+                    if _stall_epoch_start == 0.0:
+                        _stall_epoch_start = time.time()
+                    _stall_total = time.time() - _stall_epoch_start
+                    log(f'[StreamProxy] stall {int(_gap)}s seq={seq_str} retry={_stall_retries} epoch={int(_stall_total)}s')
+                    if _stall_total >= _STALL_EPOCH_MAX:
+                        log(f'[StreamProxy] {channel_key}: CDN frozen >{int(_STALL_EPOCH_MAX)}s — ending stream')
+                        _mark_channel_failed(channel_key)
+                        break
+                    # Wait for background re-auth (should be nearly done after STALL_TIMEOUT/2 head-start)
+                    _reauth_event.wait(timeout=8)
+                    result = _reauth_cache[0]
+                    _reauth_cache[0] = None
+                    if result:
+                        at, cs, new_url = result
+                        old_url = state.get('m3u8_url', '')
+                        _set_channel_state(channel_key, at, cs, new_url)
+                        if new_url != old_url:
+                            _last_content_time = time.time()
+                            _stall_retries = 0
+                            # CDN may take 5-15s to propagate the new URL.
+                            # Reduce next stall threshold so we retry sooner instead of waiting full 12s.
+                            _stall_wait = 7.0
+                            _segs_since_stall = 0   # need 3 stable segs before restoring 12s timeout
+                            _reauth_event.clear()
+                            _reauth_cache[0] = None
+                            _reauth_started_at[0] = time.time()
+                            threading.Thread(target=_bg_reauth, daemon=True).start()
+                            continue   # re-auth OK → fetch new m3u8 immediately
+                        else:
+                            _stall_retries += 1
+                            _stall_wait = 7.0
+                            _segs_since_stall = 0
+                            _last_content_time = time.time()
+                            # Don't block for a second reauth — CDN may already have
+                            # the next seg ready. Start bg-reauth for next cycle and
+                            # immediately re-poll the M3U8.
+                            _reauth_event.clear()
+                            _reauth_cache[0] = None
+                            _reauth_started_at[0] = time.time()
+                            threading.Thread(target=_bg_reauth, daemon=True).start()
+                            continue
+                    # No reauth result yet — don't sleep, just re-poll M3U8 immediately
+                    continue
+
+                # Dual dedup: skip if seq seen (URL rotation) OR url seen (seq renumbering)
+                new_segs = [(i, u) for i, u in enumerate(segs)
+                            if (base_seq + i) not in seen_seqs and u not in seen_urls]
+                if not new_segs:
+                    _proxy_abort.wait(timeout=tgt_dur / 2)
+                    continue
+
+                _stall_retries = 0
+                log(f'[StreamProxy] {channel_key}: seq={seq_str} {len(new_segs)} new seg(s)')
+
+                # Download and stream each new segment
+                for seg_idx, seg_url in new_segs:
+                    if _proxy_abort.is_set():
+                        return
+                    seg_seq = base_seq + seg_idx
+
+                    # IV: explicit or sequence-derived
+                    iv = current_iv
+                    if current_key_id and iv is None:
+                        iv = seg_seq.to_bytes(16, 'big')
+
+                    # Download with optional proxy fallback
+                    # Only retry with proxy if one is configured; avoids double-wait on CDN timeout.
+                    body = None
+                    _max_seg_attempts = 2 if seg_proxies else 1
+                    for attempt in range(_max_seg_attempts):
+                        cur_proxies = seg_proxies if attempt == 1 else None
+                        try:
+                            sr = _get_session().get(seg_url, headers=seg_hdrs, timeout=(3, 5),
+                                                   proxies=cur_proxies)
+                            ct = sr.headers.get('Content-Type', '')
+                            if sr.status_code == 200 and 'html' not in ct.lower():
+                                body = sr.content
+                                break
+                            elif sr.status_code == 404:
+                                seen_seqs.add(seg_seq)
+                                seen_urls.add(seg_url)
+                                log(f'[StreamProxy] seg 404 (expired): {seg_url[-50:]}')
+                                break
+                            elif sr.status_code == 429 and attempt == 0 and seg_proxies:
+                                continue
+                            else:
+                                log(f'[StreamProxy] seg {sr.status_code}: {seg_url[-50:]}')
+                                break
+                        except Exception as e:
+                            log(f'[StreamProxy] seg error: {e}')
+                        if attempt == 0:
+                            time.sleep(0.1)
+
+                    if body is None:
+                        continue
+
+                    # Decrypt if AES-128 encrypted
+                    if current_key_id and iv:
+                        key = _fetch_stream_key(current_key_id, channel_key, state, key_cache)
+                        if key:
+                            _raw = body
+                            body = _aes128_cbc_decrypt(body, key, iv)
+                            # TS sync byte check: 0x47 = valid MPEG-TS
+                            # If wrong, the CDN rotated the key value → purge cache and retry
+                            if body and body[0] != 0x47 and current_key_id in key_cache:
+                                log(f'[StreamProxy] stale key {current_key_id}, re-fetching (cache-bust)')
+                                del key_cache[current_key_id]
+                                key = _fetch_stream_key(current_key_id, channel_key, state, key_cache,
+                                                        force_refresh=True)
+                                if key:
+                                    body = _aes128_cbc_decrypt(_raw, key, iv)
+                            # Still corrupt after retry → drop (sender will emit null packets)
+                            if body and body[0] != 0x47:
+                                seen_seqs.add(seg_seq)
+                                seen_urls.add(seg_url)
+                                _aes_fail_streak += 1
+                                log(f'[StreamProxy] AES mismatch, drop seq={seg_seq} (streak={_aes_fail_streak})')
+                                # M9: always force stall detection on AES mismatch (was if >= 1, always true)
+                                log(f'[StreamProxy] AES key rotated — forcing stall')
+                                _last_content_time = time.time() - _stall_wait
+                                continue
+
+                    seen_seqs.add(seg_seq)
+                    seen_urls.add(seg_url)
+                    seg_dur = seg_dur_map.get(seg_url, tgt_dur)
+
+                    # Enqueue real segment with duration (sender uses dur for bitrate estimate)
+                    while not _client_gone.is_set() and not _proxy_abort.is_set():
+                        try:
+                            _seg_q.put((body, seg_dur), timeout=0.5)
+                            break
+                        except _q.Full:
+                            pass
+                    if _client_gone.is_set():
+                        return
+                    # Log after put so q reflects actual queue depth (including this segment)
+                    log(f'[StreamProxy] seg ok {len(body)}B dur={seg_dur:.1f}s first={body[:4].hex()} q={_seg_q.qsize()}')
+                    # Reset stall timer only on successful delivery to queue
+                    _last_content_time = time.time()
+                    _stall_retries = 0
+                    _stall_epoch_start = 0.0   # content flowing — reset stall epoch
+                    _aes_fail_streak = 0
+                    # Restore normal timeout only after 3 consecutive segs (CDN stable again)
+                    if _stall_wait < _STALL_TIMEOUT:
+                        _segs_since_stall += 1
+                        if _segs_since_stall >= 3:
+                            _stall_wait = _STALL_TIMEOUT
+
+                # Brief pause before next CDN poll
+                _proxy_abort.wait(timeout=0.5)
+        finally:
+            # H3: ensure sender always receives sentinel to unblock it on any exit path
+            log(f'[StreamProxy] {channel_key}: stream ended')
+            try:
+                _seg_q.put(None, timeout=2)
+            except Exception:
+                pass
+        _sender_t.join(timeout=10)
+
     def _handle_key(self, channel_key, key_id):
         state = _get_channel_state(channel_key)
         if not state or not state.get('channel_salt'):
@@ -764,11 +1533,7 @@ class _EPlayerProxyHandler(BaseHTTPRequestHandler):
             m = _PREMIUM_KEY_RX.match(channel_key)
             if m:
                 cid = m.group(1)
-                auth_token, channel_salt = _fetch_auth_credentials(cid)
-                if auth_token and channel_salt:
-                    m3u8_url = resolve_stream_url(cid)
-                    _set_channel_state(channel_key, auth_token, channel_salt, m3u8_url)
-                    state = _get_channel_state(channel_key)
+                state = _refresh_channel_creds(cid)
         if not state or not state.get('channel_salt'):
             self.send_response(503)
             self.end_headers()
@@ -779,7 +1544,7 @@ class _EPlayerProxyHandler(BaseHTTPRequestHandler):
             nonce = _compute_pow_nonce(channel_key, state['channel_salt'], key_id, ts)
             auth_sig = _compute_auth_sig(channel_key, state['channel_salt'], key_id, ts, fp)
             key_url = f'{CHEVY_LOOKUP}/key/{channel_key}/{key_id}'
-            r = requests.get(key_url, headers={
+            r = _get_session().get(key_url, headers={
                 'User-Agent': _AUTH_UA,
                 'Referer': PLAYER_REFERER,
                 'Authorization': f'Bearer {state["auth_token"]}',
@@ -832,7 +1597,7 @@ class _EPlayerProxyHandler(BaseHTTPRequestHandler):
 
             if is_manifest:
                 port = _actual_proxy_port or M3U8_PROXY_PORT
-                base = raw_url.split('?')[0].rsplit('/', 1)[0] + '/'
+                base = r.url.split('?')[0].rsplit('/', 1)[0] + '/'  # use final URL after redirect
                 enc_orig = quote_plus(origin)
                 seg_lines = []
                 for line in r.text.splitlines():
@@ -866,18 +1631,8 @@ class _EPlayerProxyHandler(BaseHTTPRequestHandler):
 
     def _handle_segment(self, encoded_url):
         seg_url = unquote(encoded_url)
-        log(f'[EPlayerProxy] seg req: {seg_url[8:70]}')
-        seg_hdrs = {
-            'User-Agent': _AUTH_UA,
-            'Accept': '*/*',
-            'Accept-Language': 'en-US,en;q=0.9',
-            'Accept-Encoding': 'gzip, deflate, br',
-            'Origin': 'https://www.ksohls.ru',
-            'Referer': PLAYER_REFERER,
-            'Sec-Fetch-Dest': 'empty',
-            'Sec-Fetch-Mode': 'cors',
-            'Sec-Fetch-Site': 'cross-site',
-        }
+        log(f'[EPlayerProxy] seg req: {seg_url[8:80]}')
+        seg_hdrs = dict(_SEG_HEADERS)
         body = None
         seg_proxy_url = addon.getSetting('seg_proxy').strip()
         proxies = {'http': seg_proxy_url, 'https': seg_proxy_url} if seg_proxy_url else None
@@ -885,8 +1640,8 @@ class _EPlayerProxyHandler(BaseHTTPRequestHandler):
             for attempt in range(2):
                 current_proxies = proxies if attempt == 1 else None
                 try:
-                    r = requests.get(seg_url, headers=seg_hdrs, timeout=(3, 5),
-                                     proxies=current_proxies)
+                    r = _get_session().get(seg_url, headers=seg_hdrs, timeout=(3, 5),
+                                          proxies=current_proxies)
                     ct = r.headers.get('Content-Type', '')
                     if r.status_code == 200 and 'html' not in ct.lower():
                         body = r.content
@@ -917,6 +1672,11 @@ class _EPlayerProxyHandler(BaseHTTPRequestHandler):
         try:
             if body is not None:
                 log(f'[EPlayerProxy] seg ok: {len(body)}B')
+                # Mark this segment as downloaded so the m3u8 dedup won't include it again
+                _ch = _seg_url_to_channel.get(seg_url)
+                if _ch:
+                    with _stall_lock:
+                        _sent_seg_urls.setdefault(_ch, set()).add(seg_url)
                 self.send_response(200)
                 self.send_header('Content-Type', 'video/mp2t')
                 self.send_header('Content-Length', str(len(body)))
@@ -938,27 +1698,6 @@ class _EPlayerProxyHandler(BaseHTTPRequestHandler):
         pass
 
 
-class _M3U8ProxyHandler(BaseHTTPRequestHandler):
-    def do_GET(self):
-        target = unquote(self.path.lstrip('/'))
-        try:
-            r = requests.get(target, headers={'User-Agent': UA}, timeout=15)
-            body = r.content
-            self.send_response(200)
-            self.send_header('Content-Type', 'application/octet-stream')
-            self.send_header('Content-Length', str(len(body)))
-            self.end_headers()
-            self.wfile.write(body)
-        except Exception as e:
-            self.send_response(500)
-            self.end_headers()
-    def do_HEAD(self):
-        self.send_response(200)
-        self.send_header('Content-Type', 'application/octet-stream')
-        self.end_headers()
-    def log_message(self, fmt, *args):
-        pass
-
 def _serve_until_abort(server):
     """Run the HTTP server until Kodi signals shutdown. Exits within ~0.5s of abort."""
     monitor = xbmc.Monitor()
@@ -974,6 +1713,9 @@ def _ensure_m3u8_proxy():
     global _actual_proxy_port
     if _actual_proxy_port is not None:
         return
+    # H5: clear the abort event so handler threads started in this session are not
+    # immediately unblocked by a stale set() from a previous proxy session.
+    _proxy_abort.clear()
     for port in range(M3U8_PROXY_PORT, M3U8_PROXY_PORT + 20):
         try:
             server = ThreadingHTTPServer(('127.0.0.1', port), _EPlayerProxyHandler)
@@ -1011,7 +1753,10 @@ def _ensure_m3u8_proxy():
 
 EXTRA_CHANNELS_DATA = {}
 
+_log_rotated = False  # M4: ensure log rotation happens at most once per session
+
 def log(msg):
+    global _log_rotated
     logpath = xbmcvfs.translatePath('special://logpath/')
     filename = 'daddylive.log'
     log_file = os.path.join(logpath, filename)
@@ -1022,6 +1767,17 @@ def log(msg):
             _msg = f'\n    {repr(msg)}'
         if not os.path.exists(log_file):
             with open(log_file, 'w', encoding='utf-8'):
+                pass
+        # M4: rotate log if it exceeds 2 MB (keep last 500 lines), at most once per session
+        if not _log_rotated:
+            try:
+                if os.path.getsize(log_file) > 2 * 1024 * 1024:
+                    with open(log_file, 'r', encoding='utf-8', errors='replace') as _rf:
+                        _lines = _rf.readlines()
+                    with open(log_file, 'w', encoding='utf-8') as _wf:
+                        _wf.writelines(_lines[-500:])
+                    _log_rotated = True
+            except Exception:
                 pass
         with open(log_file, 'a', encoding='utf-8') as f:
             line = '[{} {}]: {}'.format(datetime.now().date(), str(datetime.now().time())[:8], _msg)
@@ -1074,8 +1830,18 @@ def _load_page_cache():
 
 def _save_page_cache(cache):
     try:
-        with open(_PAGE_CACHE_FILE, 'w', encoding='utf-8') as f:
-            json.dump(cache, f)
+        _dir = os.path.dirname(_PAGE_CACHE_FILE)
+        fd, tmp_path = tempfile.mkstemp(dir=_dir)
+        try:
+            with os.fdopen(fd, 'w', encoding='utf-8') as f:
+                json.dump(cache, f)
+            os.replace(tmp_path, _PAGE_CACHE_FILE)
+        except Exception:
+            try:
+                os.unlink(tmp_path)
+            except Exception:
+                pass
+            raise
     except Exception as e:
         log(f"[fetch_via_proxy] Failed to save page cache: {e}")
 
@@ -1094,6 +1860,8 @@ def fetch_via_proxy(url, headers=None, use_cache=True):
     resp_text = ''
     for attempt in range(2):
         for verify_ssl in ([True, False] if attempt == 0 else [False]):
+            if not verify_ssl:
+                log(f'[fetch_via_proxy] SSL verify disabled for retry: {url[:60]}')
             try:
                 resp_text = requests.get(url, headers=headers, timeout=8,
                                          verify=verify_ssl, allow_redirects=True).text
@@ -1127,14 +1895,6 @@ def normalize_origin(url):
     except:
         return SEED_BASEURL
 
-def resolve_active_baseurl(seed):
-    try:
-        _ = fetch_via_proxy(seed, headers={'User-Agent': UA})
-        return normalize_origin(seed)
-    except Exception as e:
-        log(f'Active base resolve failed, using seed. Error: {e}')
-        return normalize_origin(seed)
-
 _active_base_cache = None
 
 def get_active_base():
@@ -1160,11 +1920,6 @@ def get_active_base():
         base += '/'
     _active_base_cache = base
     return base
-
-def set_active_base(new_base: str):
-    if not new_base.endswith('/'):
-        new_base += '/'
-    addon.setSetting('active_baseurl', new_base)
 
 def abs_url(path: str) -> str:
     return urljoin(get_active_base(), path.lstrip('/'))
@@ -1273,19 +2028,20 @@ def closeDir():
 def getKodiversion():
     try:
         return int(xbmc.getInfoLabel("System.BuildVersion")[:2])
-    except:
+    except Exception:
         return 18
 
 def Main_Menu():
     menu = [
         ['[B][COLOR gold]LIVE SPORTS SCHEDULE[/COLOR][/B]', 'sched', None],
         ['[B][COLOR gold]LIVE TV CHANNELS[/COLOR][/B]', 'live_tv', None],
-        ['[B][COLOR gold]LIVE TV PAR LANGUE[/COLOR][/B]', 'lang_menu', None],
+        ['[B][COLOR gold]LIVE TV BY LANGUAGE[/COLOR][/B]', 'lang_menu', None],
         ['[B][COLOR gold]FAVORITE LIVE TV CHANNELS[/COLOR][/B]', 'favorites', None],
         ['[B][COLOR gold]EXTRA CHANNELS / VODS[/COLOR][/B]', 'extra_channels',
          'https://images-ext-1.discordapp.net/external/fUzDq2SD022-veHyDJTHKdYTBzD9371EnrUscXXrf0c/%3Fsize%3D4096/https/cdn.discordapp.com/icons/1373713080206495756/1fe97e658bc7fb0e8b9b6df62259c148.png?format=webp&quality=lossless'],
         ['[B][COLOR gold]SEARCH EVENTS SCHEDULE[/COLOR][/B]', 'search', None],
         ['[B][COLOR gold]SEARCH LIVE TV CHANNELS[/COLOR][/B]', 'search_channels', None],
+        ['[B][COLOR gold]SEARCH CHANNEL BY NUMBER[/COLOR][/B]', 'search_by_number', None],
         ['[B][COLOR lime]EXPORT M3U / CONFIGURE PVR[/COLOR][/B]', 'export_m3u', None],
         ['[B][COLOR red]DIAGNOSTICS[/COLOR][/B]', 'diagnostics', None],
         ['[B][COLOR cyan]DADDYLIVE CHAT[/COLOR][/B]', 'chat', None],
@@ -1311,22 +2067,10 @@ def run_diagnostics():
     # 0. Configuration summary
     lines.append('[B]0. Configuration[/B]')
     lines.append(info(f'Base active : {get_active_base()}'))
-    lines.append(info(f'Seed URL    : {SEED_BASEURL}'))
     dns = addon.getSetting('custom_dns').strip()
     lines.append(info(f'DNS custom  : {dns or "(non configuré)"}'))
     seg_proxy = addon.getSetting('seg_proxy').strip()
     lines.append(info(f'Proxy segs  : {seg_proxy or "(non configuré)"}'))
-    lines.append(info(f'ffmpegdirect: {addon.getSetting("use_ffmpegdirect")}'))
-    if os.path.exists(IPTV_ORG_INDEX_CACHE):
-        age_h = int((time.time() - os.path.getmtime(IPTV_ORG_INDEX_CACHE)) / 3600)
-        try:
-            with open(IPTV_ORG_INDEX_CACHE, 'r', encoding='utf-8') as _f:
-                _idx = json.load(_f)
-            lines.append(info(f'iptv-org    : {len(_idx)} entrées, mis à jour il y a {age_h}h'))
-        except Exception:
-            lines.append(info('iptv-org    : cache corrompu'))
-    else:
-        lines.append(info('iptv-org    : pas encore téléchargé'))
     lines.append('')
 
     # 1. Channel list
@@ -1474,73 +2218,116 @@ def run_diagnostics():
 
     # 7. CDN — état des serveurs chevy
     lines.append('')
-    lines.append(f'[B]7. CDN — Serveurs {CHEVY_LOOKUP}[/B]')
-    try:
-        rh = requests.get(f'{CHEVY_LOOKUP}/health',
-                          headers={'User-Agent': UA, 'Referer': PLAYER_REFERER},
-                          timeout=6)
-        if rh.status_code == 200:
-            hdata = rh.json()
-            top_status = hdata.get('status', 'ok')
-            workers = hdata.get('workers', {})
-            pool_ex = workers.get('poolExhausted', False)
-            pending = workers.get('pendingHeirs', 0)
-            daemon = hdata.get('daemon', {})
-            using_fb = daemon.get('using_fallback', False)
-            connected = daemon.get('connected', False)
-            favorites_count = daemon.get('favorites_count', 0)
-            # Pool exhausted but favorites worker present = still serving traffic
-            globally_ko = (top_status != 'ok') or (pool_ex and favorites_count == 0 and not connected)
-            pool_label = 'EXHAUSTED' if pool_ex else 'OK'
-            fav_label_str = f'favorites:{favorites_count}'
-            if globally_ko:
-                lines.append(ko(f'Pool {pool_label} — {fav_label_str} — CDN KO'))
-            elif pool_ex:
-                lines.append(info(f'Pool {pool_label} (fallback via {fav_label_str}) — pendingHeirs:{pending}'))
-            else:
-                lines.append(ok(f'Pool {pool_label} — {fav_label_str} — pendingHeirs:{pending}'))
-            lines.append(info(f'Daemon connecté : {connected} — using_fallback:{using_fb}'))
-            # Per-server status: KO only if globally down
-            servers = workers.get('servers', {})
-            for sk, sdata in sorted(servers.items()):
-                deaths = sdata.get('deaths', 0)
-                avg_life = sdata.get('avgLife', '?')
-                if globally_ko:
-                    lines.append(ko(f'  {sk:<12} deaths:{deaths} — avgLife:{avg_life}s'))
-                else:
-                    lines.append(ok(f'  {sk:<12} deaths:{deaths} — avgLife:{avg_life}s (via favorites)'))
-            # Honeypot & rate limits
-            hp = hdata.get('honeypot', {})
-            bans = hp.get('active_bans', 0)
-            banned_sample = hp.get('banned_ips_sample', [])
-            lines.append(info(f'Honeypot bans : {bans}' + (f' — {banned_sample[:3]}' if banned_sample else '')))
-            rl = hdata.get('rate_limits', {})
-            lines.append(info(f'Rate limits   : auth={rl.get("auth_tracked_ips",0)} ch={rl.get("channel_tracked_ips",0)}'))
-            sl = hdata.get('server_locator', {})
-            lines.append(info(f'Locator cache : {sl.get("cache_size",0)} entrées — hit rate {sl.get("hit_rate_percent","?")}%'))
-            sess = hdata.get('sessions', {}).get('active', 0)
-            lines.append(info(f'Sessions actives : {sess}'))
-        else:
-            lines.append(ko(f'Health endpoint : HTTP {rh.status_code}'))
-    except Exception as e:
-        lines.append(ko(f'{type(e).__name__}: {str(e)[:80]}'))
+    lines.append('[B]7. CDN — État[/B]')
 
-    # Local CDN cache summary
+    # 7a. Health summary (compact)
+    try:
+        _rh = requests.get(f'{CHEVY_LOOKUP}/health',
+                           headers={'User-Agent': UA, 'Referer': PLAYER_REFERER},
+                           timeout=6)
+        if _rh.status_code == 200:
+            _hd = _rh.json()
+            _wk = _hd.get('workers', {})
+            _dm = _hd.get('daemon', {})
+            _pool_ok = (_hd.get('status', '?') == 'ok') and not _wk.get('poolExhausted', False)
+            _fav_ct = len(_wk.get('favorites', []))
+            _pending = _wk.get('pendingHeirs', 0)
+            _connected = _dm.get('connected', False)
+            _using_fb = _dm.get('using_fallback', False)
+            _bans = _hd.get('honeypot', {}).get('active_bans', 0)
+            _sl = _hd.get('server_locator', {})
+            _sess = _hd.get('sessions', {}).get('active', 0)
+            _rl = _hd.get('rate_limits', {})
+            _pool_str = 'OK' if _pool_ok else 'EXHAUSTED'
+            _fb_str = ' [fallback]' if _using_fb else ''
+            _daemon_str = 'connecté' if _connected else 'DÉCO'
+            _health_line = f'Pool {_pool_str} — {_fav_ct} favorites — {_pending} heirs — daemon {_daemon_str}{_fb_str}'
+            lines.append(ok(_health_line) if (_pool_ok and _connected) else ko(_health_line))
+            _bans_str = f' | Bans: {_bans}' if _bans else ''
+            _rl_str = f' | RL auth:{_rl.get("auth_tracked_ips",0)} ch:{_rl.get("channel_tracked_ips",0)}'
+            lines.append(info(f'Locator: {_sl.get("cache_size",0)} entrées — hit {_sl.get("hit_rate_percent","?")}% | Sessions: {_sess}{_bans_str}{_rl_str}'))
+        else:
+            lines.append(ko(f'Health HTTP {_rh.status_code}'))
+            _hd = {}
+    except Exception as _e7:
+        lines.append(ko(f'Health: {type(_e7).__name__}: {str(_e7)[:60]}'))
+
+    # 7b. Per-CDN freshness (seq + âge playlist + latence + drop)
+    lines.append('')
+    _CDN_DEFAULTS = {'ddy6': '773', 'nfs': '77', 'wind': '464', 'zeko': '116'}
+    _cdn_probe = dict(_CDN_DEFAULTS)
+    if os.path.exists(_CDN_CACHE_FILE):
+        try:
+            with open(_CDN_CACHE_FILE, 'r') as _cf:
+                for _ck2, _sk2 in sorted(json.load(_cf).items()):
+                    if _sk2 not in _cdn_probe:
+                        _cdn_probe[_sk2] = _ck2.replace('premium', '')
+        except Exception:
+            pass
+
+    _now_ts = time.time()
+    _ph = {'User-Agent': UA, 'Referer': PLAYER_REFERER}
+    for _sk3, _cid3 in sorted(_cdn_probe.items()):
+        try:
+            _mr = requests.get(f'{CHEVY_PROXY}/proxy/{_sk3}/premium{_cid3}/mono.css',
+                               headers=_ph, timeout=6)
+            if _mr.status_code != 200:
+                lines.append(ko(f'  {_sk3:<8} HTTP {_mr.status_code}  MORT'))
+                continue
+            _mb = _mr.text
+            _seq3 = (re.search(r'#EXT-X-MEDIA-SEQUENCE:(\d+)', _mb) or
+                     type('', (), {'group': lambda s, i: '?'})()).group(1)
+            _nseg3 = len(re.findall(r'#EXTINF:', _mb))
+            _tgt3 = int((re.search(r'#EXT-X-TARGETDURATION:(\d+)', _mb) or
+                         type('', (), {'group': lambda s, i: '6'})()).group(1))
+            # Playlist age
+            _age_str3, _vivant = '?', False
+            _dt3_m = re.search(r'#EXT-X-PROGRAM-DATE-TIME:(\S+)', _mb)
+            if _dt3_m:
+                try:
+                    _dt3 = datetime.fromisoformat(_dt3_m.group(1).replace('Z', '+00:00'))
+                    _age3 = int(_now_ts - _dt3.timestamp())
+                    _lag3 = _age3 - _nseg3 * _tgt3  # age of the last segment
+                    _age_str3 = f'{_age3 // 60}min' if _age3 >= 60 else f'{_age3}s'
+                    _vivant = _lag3 < 60
+                except Exception:
+                    pass
+            # Uploader stats
+            _lat3 = _drop3 = ''
+            _rt3_m = re.search(r'uploader-runtime: ([^\n]+)', _mb)
+            if _rt3_m:
+                _lm3 = re.search(r'latency=(\d+)ms', _rt3_m.group(1))
+                _dm3 = re.search(r'drop=([\d.]+%)', _rt3_m.group(1))
+                if _lm3: _lat3 = f'lat={_lm3.group(1)}ms'
+                if _dm3: _drop3 = f'drop={_dm3.group(1)}'
+            _parts3 = [f'seq={_seq3}', f'{_nseg3} segs']
+            if _lat3:   _parts3.append(_lat3)
+            if _drop3:  _parts3.append(_drop3)
+            _parts3.append(f'âge={_age_str3}')
+            _det3 = '  '.join(_parts3)
+            if _vivant:
+                lines.append(ok(f'  {_sk3:<8} {_det3}  VIVANT'))
+            else:
+                lines.append(ko(f'  {_sk3:<8} {_det3}  GELÉ'))
+        except Exception as _ex3:
+            lines.append(ko(f'  {_sk3:<8} ERROR: {str(_ex3)[:60]}'))
+
+    # 7c. Cache CDN local summary
     lines.append('')
     if os.path.exists(_CDN_CACHE_FILE):
-        age_m = int((time.time() - os.path.getmtime(_CDN_CACHE_FILE)) / 60)
         try:
-            with open(_CDN_CACHE_FILE, 'r') as _f:
-                _cdn = json.load(_f)
-            _sk_counts = {}
-            for _sk in _cdn.values():
-                _sk_counts[_sk] = _sk_counts.get(_sk, 0) + 1
-            _summary = ', '.join(f'{k}:{v}' for k, v in sorted(_sk_counts.items(), key=lambda x: -x[1]))
-            lines.append(info(f'Cache CDN local : {len(_cdn)} ch, âge {age_m}min — {_summary}'))
+            _age_m2 = int((time.time() - os.path.getmtime(_CDN_CACHE_FILE)) / 60)
+            with open(_CDN_CACHE_FILE, 'r') as _f2:
+                _cdn2 = json.load(_f2)
+            _sk_c2 = {}
+            for _sv2 in _cdn2.values():
+                _sk_c2[_sv2] = _sk_c2.get(_sv2, 0) + 1
+            _sum2 = ', '.join(f'{k}:{v}' for k, v in sorted(_sk_c2.items(), key=lambda x: -x[1]))
+            lines.append(info(f'Cache local: {len(_cdn2)} ch, âge {_age_m2}min — {_sum2}'))
         except Exception:
-            lines.append(info('Cache CDN local : corrompu'))
+            lines.append(info('Cache CDN local: corrompu'))
     else:
-        lines.append(info('Cache CDN local : non généré (ouvrir "LIVE TV PAR CDN" d\'abord)'))
+        lines.append(info('Cache CDN local: non encore généré (se remplit automatiquement via ProbeBackground)'))
 
     msg = '\n'.join(lines)
     log(f'[Diagnostics]\n{msg}')
@@ -1647,7 +2434,7 @@ def TransList(categ, channels):
         channel_id = str(channel.get('channel_id', '')).strip()
         if not channel_id:
             continue
-        label = _ch_label(channel_title, channel_id, dead_cids)
+        label = f'{_ch_label(channel_title, channel_id, dead_cids)} ({channel_id})'
         fav_label = '★ Retirer des favoris' if channel_id in fav_ids else '☆ Ajouter aux favoris'
         ctx = [(fav_label, 'RunPlugin(%s)' % build_url({'mode': 'toggle_fav', 'cid': channel_id, 'name': channel_title}))]
         addDir(label, build_url({'mode': 'trLinks', 'trData': json.dumps({'channels': [{'channel_name': channel_title, 'channel_id': channel_id}]})}), False, context_menu=ctx)
@@ -1673,7 +2460,7 @@ def getSource(trData):
 def get_favorites():
     try:
         return json.loads(addon.getSetting('favorites') or '[]')
-    except:
+    except Exception:
         return []
 
 def save_favorites(favs):
@@ -1691,6 +2478,17 @@ def toggle_favorite(cid, name):
         save_favorites(favs)
         xbmcgui.Dialog().notification('DaddyLive v3', f'Ajouté aux favoris : {name}', ICON, 2000)
     xbmc.executebuiltin('Container.Refresh')
+
+
+_KNOWN_CDNS = [
+    ('Auto — Player direct (lovecdn / ligapk)',  '__anyplayer__'),
+    ('Auto — CHEVY (CDN géré par serveur)',       None),
+    ('Manuel — zeko',                            'zeko'),
+    ('Manuel — wind',                            'wind'),
+    ('Manuel — ddy6',                            'ddy6'),
+    ('Manuel — nfs',                             'nfs'),
+    ('Manuel — StreamPage (enviromentalspace)',   '__streampage__'),
+]
 
 def list_favorites():
     favs = get_favorites()
@@ -1712,9 +2510,9 @@ def list_favorites():
         pass
     ev_map = _build_current_events_map()
     # EPG (epgshare01 XMLTV) has priority over the DaddyLive sports schedule
-    xmltv_programs = _fetch_xmltv_fr_epg([(f['id'], f['name']) for f in favs])
+    xmltv_programs = _fetch_xmltv_background([(f['id'], f['name']) for f in favs])
     ev_map.update(xmltv_programs)
-    addDir('[B][COLOR cyan]Vérifier les chaînes[/COLOR][/B]', build_url({'mode': 'probe_favorites'}), False)
+    addDir('[B][COLOR cyan]Check Channels[/COLOR][/B]', build_url({'mode': 'probe_favorites'}), False)
     for fav in sorted(favs, key=lambda x: x['name'].lower()):
         cid = fav['id']
         name = fav['name']
@@ -1736,8 +2534,9 @@ def _normalize_ch_name(name):
 
 # Pass 1 — mots de langue/pays (≥3 car.) présents n'importe où dans le nom
 _NAME_TO_LANG = {
+    # Adjectifs de langue
     'arabic': 'ara', 'arab': 'ara',
-    'english': 'eng', 'british': 'eng',
+    'english': 'eng', 'british': 'eng', 'scottish': 'eng', 'welsh': 'eng', 'irish': 'eng',
     'french': 'fra',
     'german': 'deu', 'deutsch': 'deu',
     'spanish': 'spa',
@@ -1763,6 +2562,9 @@ _NAME_TO_LANG = {
     'serbian': 'srp',
     'bulgarian': 'bul',
     'hungarian': 'hun',
+    'slovenian': 'slv',
+    'albanian': 'sqi',
+    'ukrainian': 'ukr',
     'malay': 'msa', 'malaysian': 'msa',
     'indonesian': 'ind',
     'chinese': 'zho',
@@ -1770,11 +2572,16 @@ _NAME_TO_LANG = {
     'korean': 'kor',
     'thai': 'tha',
     'vietnamese': 'vie',
-    # Noms de pays
+    'australian': 'eng', 'canadian': 'eng',
+    'egyptian': 'ara', 'moroccan': 'ara', 'algerian': 'ara', 'tunisian': 'ara',
+    'lebanese': 'ara', 'iraqi': 'ara', 'jordanian': 'ara', 'kuwaiti': 'ara',
+    'bahraini': 'ara', 'omani': 'ara', 'qatari': 'ara', 'saudi': 'ara',
+    'emirati': 'ara', 'syrian': 'ara', 'libyan': 'ara', 'yemeni': 'ara',
+    # Noms de pays Europe
     'france': 'fra',
     'usa': 'eng', 'america': 'eng', 'american': 'eng',
     'germany': 'deu',
-    'spain': 'spa',
+    'spain': 'spa', 'espana': 'spa',
     'italy': 'ita',
     'portugal': 'por',
     'netherlands': 'nld',
@@ -1805,6 +2612,35 @@ _NAME_TO_LANG = {
     'norway': 'nor',
     'denmark': 'dan',
     'finland': 'fin',
+    # Noms de pays manquants (formes substantif)
+    'bulgaria': 'bul',
+    'serbia': 'srp',
+    'croatia': 'hrv',
+    'cyprus': 'ell',
+    'ukraine': 'ukr',
+    'slovenia': 'slv',
+    'albania': 'sqi',
+    'scotland': 'eng', 'ireland': 'eng', 'wales': 'eng',
+    'australia': 'eng', 'canada': 'eng',
+    # Pays arabes
+    'qatar': 'ara',
+    'egypt': 'ara',
+    'morocco': 'ara',
+    'algeria': 'ara',
+    'tunisia': 'ara',
+    'lebanon': 'ara',
+    'iraq': 'ara',
+    'jordan': 'ara',
+    'kuwait': 'ara',
+    'bahrain': 'ara',
+    'oman': 'ara',
+    'uae': 'ara',
+    'syria': 'ara',
+    'libya': 'ara',
+    'sudan': 'ara',
+    'yemen': 'ara',
+    # Noms de pays en français (chaînes Canal+/beIN)
+    'afrique': 'fra',   # Canal+ Sport Afrique → français
 }
 
 # Pass 1 — codes ISO 2 lettres, vérifiés UNIQUEMENT comme dernier mot du nom
@@ -1816,10 +2652,15 @@ _CODE_TO_LANG = {
     'be': 'fra', 'ch': 'deu', 'at': 'deu',
     'se': 'swe', 'no': 'nor', 'dk': 'dan', 'fi': 'fin',
     'hr': 'hrv', 'rs': 'srp', 'bg': 'bul', 'hu': 'hun',
-    'sk': 'slk', 'cz': 'ces',
+    'sk': 'slk', 'cz': 'ces', 'si': 'slv', 'al': 'sqi',
+    'ua': 'ukr', 'ie': 'eng', 'nz': 'eng', 'za': 'eng',
     'pk': 'urd', 'mx': 'spa', 'br': 'por',
     'my': 'msa', 'cn': 'zho', 'jp': 'jpn', 'kr': 'kor',
     'th': 'tha', 'vn': 'vie',
+    'eg': 'ara', 'ma': 'ara', 'dz': 'ara', 'tn': 'ara',
+    'lb': 'ara', 'qa': 'ara', 'iq': 'ara', 'jo': 'ara',
+    'kw': 'ara', 'bh': 'ara', 'om': 'ara', 'sy': 'ara',
+    'cy': 'ell',
 }
 
 
@@ -1853,6 +2694,8 @@ def _get_iptv_org_index():
     try:
         log('[iptv-org] Fetching channels database...')
         r = requests.get(IPTV_ORG_API, timeout=30)
+        size_kb = len(r.content) // 1024
+        log(f'[iptv-org] Downloaded {size_kb} KB (encoding: {r.headers.get("Content-Encoding", "none")})')
         index = {}
         tvg_index = {}  # normalized_name → tvg_id (e.g. "BBCOne.uk")
         for ch in r.json():
@@ -1919,23 +2762,6 @@ def _lookup_lang(name, index):
     return None
 
 
-def _get_iptv_org_tvg_index():
-    """Return normalized_name → iptv-org tvg_id (e.g. 'BBCOne.uk'). Built alongside lang index."""
-    if os.path.exists(IPTV_ORG_TVG_CACHE):
-        try:
-            with open(IPTV_ORG_TVG_CACHE, 'r', encoding='utf-8') as f:
-                return json.load(f)
-        except Exception:
-            pass
-    # Trigger rebuild (downloads channels.json and saves both caches)
-    _get_iptv_org_index()
-    try:
-        with open(IPTV_ORG_TVG_CACHE, 'r', encoding='utf-8') as f:
-            return json.load(f)
-    except Exception:
-        return {}
-
-
 def _channel_name_to_tvg_id(name, tvg_index):
     """Map a DaddyLive channel name to an iptv-org tvg_id using progressive name stripping."""
     norm = _normalize_ch_name(name)
@@ -1959,48 +2785,6 @@ def _channel_name_to_tvg_id(name, tvg_index):
         if base_no_num != base and base_no_num in tvg_index:
             return tvg_index[base_no_num]
     return None
-
-
-def _fetch_epg_best_programs(tvg_ids):
-    """Return {tvg_id: current_program_title} for the given tvg_ids, cached 30 min."""
-    if not tvg_ids:
-        return {}
-    now_ts = time.time()
-    # Load per-channel cache
-    cached = {}
-    try:
-        if os.path.exists(_EPG_BEST_CACHE_FILE):
-            with open(_EPG_BEST_CACHE_FILE, 'r', encoding='utf-8') as f:
-                cached = json.load(f)
-    except Exception:
-        pass
-    to_fetch = [tid for tid in tvg_ids if now_ts - cached.get(tid, {}).get('ts', 0) > _EPG_BEST_TTL]
-    if to_fetch:
-        today = time.strftime('%Y-%m-%d', time.gmtime())
-        params = '&'.join('channels[]=' + quote_plus(tid) for tid in to_fetch)
-        url = f'https://epg.best/api/programmes?date={today}&{params}&per_page=200'
-        try:
-            resp = requests.get(url, timeout=10, headers={'User-Agent': UA})
-            data = resp.json()
-            for tvg_id, programs in data.get('data', {}).items():
-                prog_now = ''
-                for prog in programs:
-                    if prog.get('start_utc', 0) <= now_ts <= prog.get('stop_utc', 0):
-                        prog_now = prog.get('title', '')
-                        break
-                cached[tvg_id] = {'ts': now_ts, 'program': prog_now}
-            # Mark IDs that returned no data (avoid re-fetching)
-            for tid in to_fetch:
-                if tid not in cached:
-                    cached[tid] = {'ts': now_ts, 'program': ''}
-        except Exception as e:
-            log(f'[epg.best] error: {e}')
-        try:
-            with open(_EPG_BEST_CACHE_FILE, 'w', encoding='utf-8') as f:
-                json.dump(cached, f)
-        except Exception:
-            pass
-    return {tid: cached[tid]['program'] for tid in tvg_ids if cached.get(tid, {}).get('program')}
 
 
 def _fetch_xmltv_fr_epg(cid_name_pairs):
@@ -2089,16 +2873,15 @@ def _fetch_xmltv_fr_epg(cid_name_pairs):
             pass
         return {}
 
-    # Parse timestamps helper
+    # Parse timestamps helper (uses datetime/timezone/timedelta imported at module level)
     def _parse_xmltv_ts(s):
         s = s.strip()
         main = s[:14]
         tz = s[15:] if len(s) > 14 else '+0000'
-        from datetime import datetime as _dt, timezone as _tz, timedelta as _td
-        dt = _dt.strptime(main, '%Y%m%d%H%M%S')
+        dt = datetime.strptime(main, '%Y%m%d%H%M%S')
         sign = 1 if tz[0] == '+' else -1
         h, m = int(tz[1:3]), int(tz[3:5])
-        return (_dt(*dt.timetuple()[:6]) - _td(hours=h*sign, minutes=m*sign)).replace(tzinfo=_tz.utc).timestamp()
+        return (datetime(*dt.timetuple()[:6]) - timedelta(hours=h*sign, minutes=m*sign)).replace(tzinfo=timezone.utc).timestamp()
 
     # Scan programmes for matching XMLTV IDs
     target_xmltv = set(cid_to_xmltv.values())
@@ -2128,9 +2911,39 @@ def _fetch_xmltv_fr_epg(cid_name_pairs):
     return {cid: prog_cache[cid] for cid, _ in cid_name_pairs if prog_cache.get(cid)}
 
 
+def _fetch_xmltv_background(cid_name_pairs):
+    """Retourne le cache EPG existant sans bloquer, lance un refresh background si périmé."""
+    cached = {}
+    try:
+        if os.path.exists(_XMLTV_PROG_CACHE):
+            with open(_XMLTV_PROG_CACHE, 'r', encoding='utf-8') as f:
+                prog_cache = json.load(f)
+            cached = {cid: prog_cache[cid] for cid, _ in cid_name_pairs if prog_cache.get(cid)}
+    except Exception:
+        pass
+
+    cache_fresh = (os.path.exists(_XMLTV_PROG_CACHE) and
+                   time.time() - os.path.getmtime(_XMLTV_PROG_CACHE) < _XMLTV_PROG_TTL)
+    if not cache_fresh:
+        if _epg_bg_lock.acquire(blocking=False):
+            def _run():
+                try:
+                    log('[EPGBackground] Starting XMLTV refresh...')
+                    _fetch_xmltv_fr_epg(cid_name_pairs)
+                    log('[EPGBackground] Done — refreshing container')
+                    xbmc.executebuiltin('Container.Refresh')
+                except Exception as e:
+                    log(f'[EPGBackground] Error: {e}')
+                finally:
+                    _epg_bg_lock.release()
+            threading.Thread(target=_run, daemon=True).start()
+
+    return cached
+
+
 def list_by_language():
     """Show language folders for all 24/7 channels."""
-    xbmcgui.Dialog().notification('DaddyLive', 'Chargement base langue...', ICON, 2000)
+    xbmcgui.Dialog().notification('DaddyLive', 'Loading language index...', ICON, 2000)
     ch_list = channels()
     if not ch_list:
         closeDir()
@@ -2219,13 +3032,15 @@ def _refresh_favorites_debounced():
     """Trigger Container.Refresh at most once every _FAV_REFRESH_DEBOUNCE seconds."""
     try:
         try:
-            last_ts = float(open(_FAV_REFRESH_TS_FILE).read().strip())
+            with open(_FAV_REFRESH_TS_FILE) as _f:
+                last_ts = float(_f.read().strip())
         except Exception:
             last_ts = 0
         now = time.time()
         if now - last_ts < _FAV_REFRESH_DEBOUNCE:
             return
-        open(_FAV_REFRESH_TS_FILE, 'w').write(str(now))
+        with open(_FAV_REFRESH_TS_FILE, 'w') as _f:
+            _f.write(str(now))
         xbmc.executebuiltin('Container.Refresh')
         log('[FailedCache] Container.Refresh triggered (channel marked KO)')
     except Exception:
@@ -2296,7 +3111,8 @@ def _probe_favorites_background(favs, force=False):
         if not force:
             # Cooldown persisted in a file so it survives across Kodi plugin invocations
             try:
-                last_ts = float(open(_FAV_PROBE_TS_FILE).read().strip())
+                with open(_FAV_PROBE_TS_FILE) as _f:
+                    last_ts = float(_f.read().strip())
             except Exception:
                 last_ts = 0
             elapsed = now - last_ts
@@ -2305,7 +3121,8 @@ def _probe_favorites_background(favs, force=False):
                 return
         # Mark probe as started immediately to avoid race between concurrent addon invocations
         try:
-            open(_FAV_PROBE_TS_FILE, 'w').write(str(now))
+            with open(_FAV_PROBE_TS_FILE, 'w') as _f:
+                _f.write(str(now))
         except Exception:
             pass
 
@@ -2331,7 +3148,7 @@ def _probe_favorites_background(favs, force=False):
                 if not sk or sk == 'unknown':
                     # Try live lookup — quick, already cached by chevy
                     try:
-                        resp = requests.get(
+                        resp = _get_session().get(
                             f'{CHEVY_LOOKUP}/server_lookup?channel_id={channel_key}',
                             headers={'User-Agent': UA, 'Referer': PLAYER_REFERER},
                             timeout=3
@@ -2341,20 +3158,32 @@ def _probe_favorites_background(favs, force=False):
                         sk = 'unknown'
                 if sk == 'unknown':
                     log(f'[ProbeBackground] {channel_key}: no server key — skipped')
-                    return cid, None  # skip — no server key
+                    return cid, sk, None  # skip — no server key
                 url = f'{CHEVY_PROXY}/proxy/{sk}/{channel_key}/mono.css'
                 ok = _probe_hls_url(url)
                 log(f'[ProbeBackground] {channel_key} ({sk}): {"OK" if ok else "KO" if ok is False else "skip"}')
-                return cid, ok
+                return cid, sk, ok
 
             with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
                 results = list(executor.map(probe_one, favs))
 
-            n_ok = sum(1 for _, ok in results if ok is True)
-            n_ko = sum(1 for _, ok in results if ok is False)
-            n_skip = sum(1 for _, ok in results if ok is None)
+            # Persist discovered server keys back into the CDN cache
+            try:
+                updated_cdn = dict(cdn_map)
+                for cid, sk, _ in results:
+                    if sk and sk != 'unknown':
+                        updated_cdn[cid] = sk
+                if updated_cdn != cdn_map:
+                    with open(_CDN_CACHE_FILE, 'w') as _wf:
+                        json.dump(updated_cdn, _wf)
+            except Exception as _ce:
+                log(f'[ProbeBackground] CDN cache write failed: {_ce}')
+
+            n_ok = sum(1 for _, _sk, ok in results if ok is True)
+            n_ko = sum(1 for _, _sk, ok in results if ok is False)
+            n_skip = sum(1 for _, _sk, ok in results if ok is None)
             changed = False
-            for cid, ok in results:
+            for cid, _sk, ok in results:
                 channel_key = f'premium{cid}'
                 if ok is False:
                     _mark_channel_failed(channel_key)
@@ -2410,52 +3239,6 @@ def _ch_label(name, cid, dead_cids, cdn_name=None):
         suffix = f' ({cdn_name})' if cdn_name else ''
         return f'[COLOR red]{name}{suffix}[/COLOR]'
     return name
-
-def _get_cdn_map(ch_list):
-    """Return {channel_id: server_key} for all channels, using a 1-hour file cache."""
-    try:
-        if os.path.exists(_CDN_CACHE_FILE) and time.time() - os.path.getmtime(_CDN_CACHE_FILE) < _CDN_CACHE_TTL:
-            with open(_CDN_CACHE_FILE, 'r') as f:
-                cached = json.load(f)
-            log(f'[CDN] Loaded cdn_map from cache ({len(cached)} channels)')
-            return cached
-    except Exception:
-        pass
-
-    cid_list = []
-    for href, name in ch_list:
-        cid_m = re.search(r'id=(\d+)', href)
-        cid = cid_m.group(1) if cid_m else None
-        if cid:
-            cid_list.append((cid, href, name))
-
-    def fetch_sk(item):
-        cid, href, name = item
-        channel_key = f'premium{cid}'
-        try:
-            resp = requests.get(
-                f'{CHEVY_LOOKUP}/server_lookup?channel_id={channel_key}',
-                headers={'User-Agent': UA, 'Referer': PLAYER_REFERER},
-                timeout=4
-            )
-            return cid, resp.json().get('server_key', 'unknown')
-        except Exception:
-            return cid, 'unknown'
-
-    cdn_map = {}
-    with concurrent.futures.ThreadPoolExecutor(max_workers=25) as executor:
-        for cid, sk in executor.map(fetch_sk, cid_list):
-            cdn_map[cid] = sk
-
-    try:
-        with open(_CDN_CACHE_FILE, 'w') as f:
-            json.dump(cdn_map, f)
-    except Exception:
-        pass
-
-    log(f'[CDN] Built fresh cdn_map ({len(cdn_map)} channels)')
-    return cdn_map
-
 
 def list_gen():
     chData = channels()
@@ -2641,16 +3424,12 @@ def pvr_setup():
         xbmcgui.Dialog().ok('DaddyLive — Export M3U', msg)
 
 
-def show_adult():
-    """Return True if adult content is enabled in settings"""
-    return addon.getSettingBool('show_adult')
-
 def _probe_hls_url(url):
     """Quick check: returns True if CDN responds with a live HLS playlist (any segments).
     Returns None (inconclusive) for auth errors (403/407) — CDN reachable but requires auth.
     Returns False for definitive failures (404, 5xx, HTML content, no segments)."""
     try:
-        r = requests.get(url, headers={'User-Agent': UA, 'Referer': PLAYER_REFERER}, timeout=3)
+        r = _get_session().get(url, headers={'User-Agent': UA, 'Referer': PLAYER_REFERER}, timeout=3)
         if r.status_code in (403, 407):
             return None  # CDN requires auth — inconclusive, don't mark as KO
         if r.status_code != 200:
@@ -2666,147 +3445,183 @@ def _probe_hls_url(url):
         _segs = [l.strip() for l in content.splitlines()
                  if l.strip() and not l.strip().startswith('#')]
         return len(_segs) > 0  # CDN is reachable and serving a playlist
+    except requests.Timeout:
+        return None   # timeout = inconclusive, ne pas marquer mort
     except Exception:
         return False
 
 
-def get_player6_stream(channel_id):
-    """Fetch fallback stream URL from Player 6 (tv-bu1.blogspot.com).
-    Returns a direct HLS URL or None if unavailable."""
+
+_AP_SKIP_HOSTS = ('sstatic', 'histats', 'adsco', 'fidget', 'chatango',
+                  'facebook.com', 'google.com', 'ksohls.ru')
+_AP_M3U8_RX = re.compile(r'''["'](https?://[^\s"'<>]+\.m3u8[^"']*)["']''')
+_AP_IFRAME_RX = re.compile(r'''<iframe[^>]+src=["'](https?://[^"']{10,200})["']''')
+_AP_STREAM_URL_RX = re.compile(r'''streamUrl\s*:\s*["'](https?:[^"']+)["']''')
+_AP_PATHS = ('stream', 'cast', 'watch', 'plus', 'casting', 'player')
+
+
+def _try_player_page(channel_id, player_url, watch_url, sess):
+    """Try to extract a stream URL from a single player page.
+    Returns URL string on success, None otherwise."""
     try:
-        blogspot_url = f'https://tv-bu1.blogspot.com/p/e1.html?id={channel_id}a'
-        log(f'[Player6] Fetching: {blogspot_url}')
-        r = requests.get(blogspot_url, headers={'User-Agent': UA}, timeout=4)
+        r = sess.get(player_url, headers={'User-Agent': UA, 'Referer': watch_url}, timeout=8)
         if r.status_code != 200:
-            log(f'[Player6] HTTP {r.status_code}')
+            log(f'[AnyPlayer] HTTP {r.status_code}: {player_url}')
             return None
-        html_page = r.text
+        html = r.text
 
-        # Find the iframe src injected for this channel id
-        m = re.search(
-            r'id\s*===\s*"' + re.escape(str(channel_id)) + r'a"[^<]{0,600}'
-            r'<iframe[^>]+src="([^"]+)"',
-            html_page, re.DOTALL
-        )
-        if not m:
-            log(f'[Player6] No entry for channel {channel_id}a')
+        # ── ksohls.ru guard: same CDN as CHEVY — no point retrying ──────────
+        if 'ksohls.ru' in html:
+            log(f'[AnyPlayer] ksohls.ru (=CHEVY) — skip: {player_url}')
             return None
 
-        iframe_src = m.group(1)
-        log(f'[Player6] iframe src: {iframe_src}')
-
-        # Case 1: r-strm.blogspot.com with ?s=<direct_url> parameter
-        ms = re.search(r'[?&]s=(https?://[^&"\'>\s]+)', iframe_src)
+        # ── Provider: superdinamico.com → edg.ligapk.com (token-free) ───────
+        ms = re.search(r'''<iframe[^>]+src=["'](https://[^"']+\.superdinamico\.com/embed\.php[^"']*)["']''', html)
         if ms:
-            stream_url = ms.group(1)
-            log(f'[Player6] Direct URL from ?s= param: {stream_url}')
-            return stream_url
-
-        # Case 2: hoofoot.ru — JW Player page with file: "..." URL
-        if 'hoofoot.ru' in iframe_src:
-            r2 = requests.get(iframe_src, headers={'User-Agent': UA}, timeout=8)
-            mf = re.search(r'["\']?file["\']?\s*:\s*["\']([^"\']+)["\']', r2.text)
-            if mf:
-                stream_url = mf.group(1)
-                log(f'[Player6] hoofoot.ru stream: {stream_url}')
-                return stream_url
-
-        # Case 3: r-strm.blogspot.com sub-page — fetch and extract JW Player or iframe
-        if 'r-strm.blogspot.com' in iframe_src:
-            r2 = requests.get(iframe_src, headers={'User-Agent': UA}, timeout=8)
-            # JW Player file
-            mf = re.search(r'["\']?file["\']?\s*:\s*["\']([^"\']+)["\']', r2.text)
-            if mf:
-                return mf.group(1)
-            # Inner iframe with ?s= param
-            mi = re.search(r'<iframe[^>]+src="([^"]*[?&]s=https?://[^"]+)"', r2.text)
-            if mi:
-                ms2 = re.search(r'[?&]s=(https?://[^&"\'>\s]+)', mi.group(1))
+            r2 = sess.get(ms.group(1), headers={'User-Agent': UA, 'Referer': player_url}, timeout=8)
+            if r2.status_code == 200:
+                ms2 = re.search(r'get_stream\.php\?id=([a-f0-9]{32})', r2.text)
                 if ms2:
-                    return ms2.group(1)
+                    url = f'https://edg.ligapk.com/exemple.php?id={ms2.group(1)}'
+                    log(f'[AnyPlayer] superdinamico/ligapk: {url}')
+                    return url
+            log(f'[AnyPlayer] superdinamico embed failed (HTTP {r2.status_code})')
 
-        log(f'[Player6] Could not extract direct URL from {iframe_src}')
+        # ── Provider: lovecdn.ru → lovetier.bz → streamUrl ──────────────────
+        ml = re.search(r'<iframe[^>]+src="(https://lovecdn\.ru/[^"]+)"', html)
+        if ml:
+            ms_name = re.search(r'[?&]stream=([^&"\'>\s]+)', ml.group(1))
+            if ms_name:
+                lt_url = f'https://lovetier.bz/player/{ms_name.group(1)}'
+                r2 = sess.get(lt_url, headers={'User-Agent': UA, 'Referer': ml.group(1)}, timeout=8)
+                if r2.status_code == 200:
+                    m3 = re.search(r'streamUrl\s*:\s*"(https?:[^"]+)"', r2.text)
+                    if m3:
+                        url = m3.group(1).replace('\\/', '/')
+                        log(f'[AnyPlayer] lovecdn/lovetier: {url[:80]}')
+                        return url
+                log(f'[AnyPlayer] lovecdn/lovetier failed (HTTP {r2.status_code})')
+
+        # ── Generic: direct .m3u8 URL in page source ────────────────────────
+        mm = _AP_M3U8_RX.search(html)
+        if mm:
+            log(f'[AnyPlayer] direct m3u8: {mm.group(1)[:80]}')
+            return mm.group(1)
+
+        # ── Generic: scan iframes for .m3u8 or streamUrl ────────────────────
+        for iframe_url in _AP_IFRAME_RX.findall(html):
+            if any(skip in iframe_url for skip in _AP_SKIP_HOSTS):
+                continue
+            log(f'[AnyPlayer] scanning iframe: {iframe_url[:80]}')
+            try:
+                ri = sess.get(iframe_url, headers={'User-Agent': UA, 'Referer': player_url}, timeout=8)
+                if ri.status_code != 200:
+                    continue
+                mi = _AP_M3U8_RX.search(ri.text)
+                if mi:
+                    log(f'[AnyPlayer] iframe m3u8: {mi.group(1)[:80]}')
+                    return mi.group(1)
+                mi2 = _AP_STREAM_URL_RX.search(ri.text)
+                if mi2:
+                    url = mi2.group(1).replace('\\/', '/')
+                    log(f'[AnyPlayer] iframe streamUrl: {url[:80]}')
+                    return url
+            except Exception as e:
+                log(f'[AnyPlayer] iframe error {iframe_url[:60]}: {e}')
+
         return None
 
     except Exception as e:
-        log(f'[Player6] Error for channel {channel_id}: {e}')
+        log(f'[AnyPlayer] error for {player_url}: {e}')
         return None
 
 
+def get_any_player_stream(channel_id):
+    """Try all player pages (stream, cast, watch, plus, casting, player) in order.
+    Applies auto-detection on each: superdinamico/ligapk, lovecdn/lovetier,
+    direct .m3u8, generic iframe scan. Skips pages using ksohls.ru (=CHEVY).
+    Returns the first working stream URL, or None if all fail."""
+    watch_url = abs_url(f'watch.php?id={channel_id}')
+    sess = _get_session()
+    for path in _AP_PATHS:
+        player_url = abs_url(f'{path}/stream-{channel_id}.php')
+        log(f'[AnyPlayer] Trying {path}/stream-{channel_id}.php')
+        url = _try_player_page(channel_id, player_url, watch_url, sess)
+        if url:
+            return url
+    log(f'[AnyPlayer] no stream found for id={channel_id}')
+    return None
+
+
 def get_stream_page_url(channel_id):
-    """For channels not in the chevy CDN, extract m3u8 via stellarthread player chain.
-    Chain: stream-{id}.php → wikisport.club/court/{fid} → stellarthread.com/wiki.php?live={fid}
-    The md5 token in the URL is IP-based, so it will work from Kodi (same IP as this request).
+    """Fetch auth credentials via stream-{id}.php → enviromentalspace.cyou player.
+    Returns (auth_token, channel_salt) or (None, None).
+    The stream-{id}.php page now embeds an enviromentalspace.cyou player that has
+    the same XOR-encoded authToken/channelSalt as ksohls.ru — usable with CHEVY proxy.
     """
     try:
         watch_url = abs_url(f'watch.php?id={channel_id}')
         stream_url_page = abs_url(f'stream/stream-{channel_id}.php')
 
-        # Step 1: fetch the stream page with the correct Referer
         r = requests.get(stream_url_page, headers={
             'User-Agent': UA,
             'Referer': watch_url,
         }, timeout=12)
         if r.status_code != 200:
-            log(f'[StreamPage] stream page HTTP {r.status_code} for id={channel_id}')
-            return None
+            log(f'[StreamPage] HTTP {r.status_code} for id={channel_id}')
+            return None, None
 
-        # Step 2: find wikisport.club iframe src
-        mw = re.search(r'src="(https://wikisport\.club/[^"]+)"', r.text)
-        if not mw:
-            log(f'[StreamPage] no wikisport iframe for id={channel_id}')
-            return None
-        wikisport_url = mw.group(1)
+        # Find any premiumtv player iframe (enviromentalspace.cyou or similar)
+        mp = re.search(r'<iframe[^>]+src="(https?://[^"]+premiumtv[^"]+)"', r.text)
+        if not mp:
+            log(f'[StreamPage] no premiumtv iframe for id={channel_id}')
+            return None, None
+        player_url = mp.group(1)
+        log(f'[StreamPage] player URL: {player_url[:80]}')
 
-        # Step 3: fetch wikisport page to get fid
-        r2 = requests.get(wikisport_url, headers={
+        r2 = requests.get(player_url, headers={
             'User-Agent': UA,
             'Referer': stream_url_page,
         }, timeout=8)
-        mf = re.search(r'fid\s*=\s*"([^"]+)"', r2.text)
-        if not mf:
-            log(f'[StreamPage] no fid in wikisport page')
-            return None
-        fid = mf.group(1)
-
-        # Step 4: fetch stellarthread wiki.php to get the URL
-        stellar_url = f'https://stellarthread.com/wiki.php?player=desktop&live={fid}'
-        r3 = requests.get(stellar_url, headers={
-            'User-Agent': UA,
-            'Referer': wikisport_url,
-        }, timeout=8)
-        if r3.status_code != 200:
-            log(f'[StreamPage] stellarthread HTTP {r3.status_code}')
-            return None
-
-        # Step 5: extract URL from char array in ettgHtplrU() function
-        m3 = re.search(r'return\(\[(.+?)\]\.join\(', r3.text)
-        if not m3:
-            log(f'[StreamPage] no char array found in stellarthread page')
-            return None
-        chars = re.findall(r'"(.*?)"', m3.group(1))
-        m3u8_url = ''.join(chars).replace('\\/', '/')
-
-        if 'm3u8' in m3u8_url and m3u8_url.startswith('https://'):
-            log(f'[StreamPage] Got URL for channel {channel_id}: {m3u8_url[:70]}')
-            return m3u8_url
-        return None
+        auth_token = _extract_credential(r2.text, 'authToken')
+        channel_salt = _extract_credential(r2.text, 'channelSalt')
+        if auth_token and channel_salt:
+            log(f'[StreamPage] Got credentials for channel {channel_id}')
+            return auth_token, channel_salt
+        log(f'[StreamPage] no credentials in player page for id={channel_id}')
+        return None, None
     except Exception as e:
         log(f'[StreamPage] Error for channel {channel_id}: {e}')
-        return None
+        return None, None
 
 
-def resolve_stream_url(channel_id):
+def resolve_stream_url(channel_id, forced_key=None):
     channel_key = f'premium{channel_id}'
+    if forced_key:
+        log(f'[resolve_stream_url] Forced CDN for {channel_id}: {forced_key}')
+        if forced_key == 'top1/cdn':
+            return f'{CHEVY_PROXY}/proxy/top1/cdn/{channel_key}/mono.css'
+        return f'{CHEVY_PROXY}/proxy/{forced_key}/{channel_key}/mono.css'
+    # Session cache
+    with _server_key_cache_lock:
+        cached = _server_key_cache.get(channel_id)
+        if cached and time.time() - cached[1] < _SERVER_KEY_TTL:
+            server_key = cached[0]
+            log(f'[resolve_stream_url] cache hit for {channel_id}: {server_key}')
+            if server_key == 'top1/cdn':
+                return f'{CHEVY_PROXY}/proxy/top1/cdn/{channel_key}/mono.css'
+            return f'{CHEVY_PROXY}/proxy/{server_key}/{channel_key}/mono.css'
     server_key = 'zeko'
     for attempt in range(2):
         try:
-            resp = requests.get(
+            resp = _get_session().get(
                 f'{CHEVY_LOOKUP}/server_lookup?channel_id={channel_key}',
                 headers={'User-Agent': UA, 'Referer': PLAYER_REFERER},
                 timeout=4
             )
             server_key = resp.json().get('server_key', 'zeko')
+            with _server_key_cache_lock:
+                _server_key_cache[channel_id] = (server_key, time.time())
             break
         except Exception as e:
             log(f'[resolve_stream_url] server_lookup failed (attempt {attempt+1}): {e}')
@@ -2833,73 +3648,94 @@ def PlayStream(link):
         log(f'[PlayStream] Channel ID: {channel_id}')
         channel_key = f'premium{channel_id}'
 
-        # Reuse cached credentials if fresh (< 5 min), otherwise resolve CDN URL and
-        # fetch auth in parallel to minimise spinner time before setResolvedUrl.
-        cached = _get_channel_state(channel_key)
-        auth_is_fresh = (cached and cached.get('auth_token')
-                         and (time.time() - cached.get('fetched_at', 0)) < 300)
-        use_player6 = False
-        if auth_is_fresh:
-            real_m3u8_url = resolve_stream_url(channel_id)
-            auth_token = cached['auth_token']
-            channel_salt = cached['channel_salt']
-            log(f'[PlayStream] Reusing cached credentials for {channel_key}')
-        else:
-            # Resolve CDN URL and fetch auth simultaneously
-            with concurrent.futures.ThreadPoolExecutor(max_workers=2) as _ex:
-                _fut_resolve = _ex.submit(resolve_stream_url, channel_id)
-                _fut_auth = _ex.submit(_fetch_auth_credentials, channel_id)
-                real_m3u8_url = _fut_resolve.result()
-                auth_token, channel_salt = _fut_auth.result()
-        log(f'[PlayStream] Primary M3U8 URL: {real_m3u8_url}')
+        # CDN selection dialog
+        cdn_idx = xbmcgui.Dialog().select(
+            f'CDN \u2014 ch.{channel_id}',
+            [label for label, _ in _KNOWN_CDNS]
+        )
+        if cdn_idx < 0:
+            xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem())
+            return
+        _, forced_cdn = _KNOWN_CDNS[cdn_idx]
 
-        # Probe primary CDN — if it's down (returns HTML), try Player 6 fallback
-        if not _probe_hls_url(real_m3u8_url):
-            log('[PlayStream] Primary CDN probe failed, trying Player 6 fallback')
-            player6_url = get_player6_stream(channel_id)
-            if player6_url:
-                log(f'[PlayStream] Player 6 fallback URL: {player6_url}')
-                real_m3u8_url = player6_url
-                use_player6 = True
+        use_player6 = False
+        auth_token, channel_salt = None, None
+
+        if forced_cdn == '__anyplayer__':
+            ap_result = get_any_player_stream(channel_id)
+            if not ap_result:
+                xbmcgui.Dialog().notification('DaddyLive', f'Aucun player disponible (ch.{channel_id})', ICON, 4000)
+                xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem())
+                return
+            real_m3u8_url = ap_result
+            log(f'[PlayStream] AnyPlayer URL: {real_m3u8_url}')
+            use_player6 = True
+
+        elif forced_cdn == '__streampage__':
+            # StreamPage uses enviromentalspace.cyou auth + CHEVY CDN (TS proxy path)
+            auth_token, channel_salt = get_stream_page_url(channel_id)
+            if not auth_token:
+                xbmcgui.Dialog().notification('DaddyLive', f'StreamPage indisponible (ch.{channel_id})', ICON, 4000)
+                xbmcplugin.setResolvedUrl(addon_handle, False, xbmcgui.ListItem())
+                return
+            real_m3u8_url = resolve_stream_url(channel_id)
+            log(f'[PlayStream] StreamPage auth OK, CDN: {real_m3u8_url}')
+
+        else:
+            # CHEVY path — reuse cached credentials if fresh (< 5 min), otherwise
+            # resolve CDN URL and fetch auth in parallel to minimise spinner time.
+            cached = _get_channel_state(channel_key)
+            auth_is_fresh = (cached and cached.get('auth_token')
+                             and (time.time() - cached.get('fetched_at', 0)) < 300)
+            if auth_is_fresh:
+                real_m3u8_url = resolve_stream_url(channel_id, forced_cdn)
+                auth_token = cached['auth_token']
+                channel_salt = cached['channel_salt']
+                log(f'[PlayStream] Reusing cached credentials for {channel_key}')
             else:
-                log('[PlayStream] Player 6 unavailable, using primary CDN anyway')
-                _mark_channel_failed(channel_key)
-                xbmcgui.Dialog().notification('DaddyLive', f'CDN indisponible (ch.{channel_id}) — tentative en cours…', ICON, 4000)
+                with concurrent.futures.ThreadPoolExecutor(max_workers=2) as _ex:
+                    _fut_resolve = _ex.submit(resolve_stream_url, channel_id, forced_cdn)
+                    _fut_auth = _ex.submit(_fetch_auth_credentials, channel_id)
+                    real_m3u8_url = _fut_resolve.result()
+                    auth_token, channel_salt = _fut_auth.result()
+            log(f'[PlayStream] Primary M3U8 URL: {real_m3u8_url}')
 
         if use_player6:
-            # stellarthread/sanwalyaarpya streams require Origin header — proxy via /raw/
+            # lovecdn.ru (beautifulpeople.*) works fine direct — adding Origin headers breaks it.
+            # Only sanwalyaarpya.com requires a specific Origin (stellarthread.com).
             if 'sanwalyaarpya.com' in real_m3u8_url:
                 _ensure_m3u8_proxy()
                 encoded_origin = quote_plus('https://stellarthread.com')
                 encoded_url = quote_plus(real_m3u8_url)
                 m3u8_url = f'http://127.0.0.1:{_actual_proxy_port or M3U8_PROXY_PORT}/raw/{encoded_origin}/{encoded_url}'
-                log(f'[PlayStream] Using raw proxy for stellarthread stream')
+                log(f'[PlayStream] Using raw proxy for Player6 (stellarthread origin)')
             else:
                 m3u8_url = real_m3u8_url
-            log('[PlayStream] Using Player 6 stream directly')
+                log(f'[PlayStream] Using Player 6 stream directly')
         else:
             if auth_token and channel_salt:
                 log(f'[PlayStream] Got auth credentials for {channel_key}')
                 _set_channel_state(channel_key, auth_token, channel_salt, real_m3u8_url)
                 _ensure_m3u8_proxy()
-                m3u8_url = f'http://127.0.0.1:{_actual_proxy_port or M3U8_PROXY_PORT}/m3u8/{channel_key}'
-                log(f'[PlayStream] Using auth proxy: {m3u8_url}')
+                m3u8_url = f'http://127.0.0.1:{_actual_proxy_port or M3U8_PROXY_PORT}/stream/{channel_key}'
+                log(f'[PlayStream] Using TS stream proxy: {m3u8_url}')
             else:
                 log('[PlayStream] Auth credentials unavailable, falling back to direct URL')
                 xbmcgui.Dialog().notification('DaddyLive', f'Authentification impossible (ch.{channel_id})', ICON, 4000)
                 m3u8_url = real_m3u8_url
 
+        _is_ts_proxy = not use_player6 and f'/stream/{channel_key}' in m3u8_url
         liz = xbmcgui.ListItem(f'Channel {channel_id}', path=m3u8_url)
         liz.setContentLookup(False)
-        liz.setMimeType('application/vnd.apple.mpegurl')
-        if addon.getSetting('use_ffmpegdirect') != 'false':
-            liz.setProperty('inputstream', 'inputstream.ffmpegdirect')
-            liz.setProperty('inputstream.ffmpegdirect.manifest_type', 'hls')
-            liz.setProperty('inputstream.ffmpegdirect.is_realtime_stream', 'true')
+        if _is_ts_proxy:
+            # TS byte stream — use Kodi's native VideoPlayer (no inputstream needed)
+            liz.setMimeType('video/MP2T')
+        else:
+            liz.setMimeType('application/vnd.apple.mpegurl')
         liz.setProperty('IsPlayable', 'true')
 
         xbmcplugin.setResolvedUrl(addon_handle, True, liz)
-        log(f'[PlayStream] Stream started ({"Player6" if use_player6 else "primary CDN"})')
+        log(f'[PlayStream] Stream started ({"Player6" if use_player6 else "TS proxy" if _is_ts_proxy else "direct"})')
 
     except Exception as e:
         log(f'[PlayStream] Error: {e}')
@@ -2964,15 +3800,43 @@ def Search_Channels():
             addDir(title, build_url({'mode': 'play', 'url': abs_url(href)}), False)
     closeDir()
 
+def Search_Channel_By_Number():
+    keyboard = xbmcgui.Dialog().input("Channel number", type=xbmcgui.INPUT_NUMERIC)
+    if not keyboard or not keyboard.strip():
+        xbmcplugin.endOfDirectory(addon_handle, False)
+        return
+    channel_id = keyboard.strip().lstrip('0') or '0'
+    if not channel_id.isdigit():
+        xbmcgui.Dialog().notification('DaddyLive', 'Numéro invalide', ICON, 3000)
+        xbmcplugin.endOfDirectory(addon_handle, False)
+        return
+
+    # Look up channel name from the channel list
+    ch_name = f'Channel {channel_id}'
+    for href, name in channels():
+        m = re.search(r'id=(\d+)', href)
+        if m and m.group(1) == channel_id:
+            ch_name = name
+            break
+
+    fav_ids = {f['id'] for f in get_favorites()}
+    fav_label = '★ Retirer des favoris' if channel_id in fav_ids else '☆ Ajouter aux favoris'
+    ctx = [(fav_label, 'RunPlugin(%s)' % build_url({'mode': 'toggle_fav', 'cid': channel_id, 'name': ch_name}))]
+    dead_cids = _get_dead_cids()
+    label = f'{_ch_label(ch_name, channel_id, dead_cids)} ({channel_id})'
+    addDir(label, build_url({'mode': 'play', 'url': abs_url(f'watch.php?id={channel_id}')}), False, context_menu=ctx)
+    closeDir()
+
+
 def load_extra_channels(force_reload=False):
     global EXTRA_CHANNELS_DATA
-    CACHE_EXPIRY = 24 * 60 * 60
+    _LOCAL_CACHE_EXPIRY = 24 * 60 * 60  # L5: renamed from CACHE_EXPIRY to avoid shadowing module-level name
 
     saved = addon.getSetting('extra_channels_cache')
     if saved and not force_reload:
         try:
             saved_data = json.loads(saved)
-            if time.time() - saved_data.get('timestamp', 0) < CACHE_EXPIRY:
+            if time.time() - saved_data.get('timestamp', 0) < _LOCAL_CACHE_EXPIRY:
                 EXTRA_CHANNELS_DATA = saved_data.get('channels', {})
                 if EXTRA_CHANNELS_DATA:
                     return EXTRA_CHANNELS_DATA
@@ -2982,7 +3846,8 @@ def load_extra_channels(force_reload=False):
     try:
         resp = requests.get(EXTRA_M3U8_URL, headers={'User-Agent': UA}, timeout=10).text
     except Exception as e:
-        xbmcgui.Dialog().ok("Error", f"Failed to fetch extra channels: {e}")
+        log(f'[load_extra_channels] Network error: {e}')
+        xbmcgui.Dialog().notification('DaddyLive', 'Extra channels unavailable', ICON, 3000)
         return {}
 
     categories = {}
@@ -3097,8 +3962,7 @@ def ExtraChannels_List(category=None, search=None):
             continue
 
         for item in streams:
-            if category and cat != category:
-                continue
+            # L6: removed redundant inner `if category and cat != category` check (already filtered above)
             if search and search.lower() not in item['title'].lower():
                 continue
 
@@ -3164,7 +4028,13 @@ def ExtraChannels_Play(url, name='Extra Channel', logo=ICON):
         logo = logo or ICON
         liz = xbmcgui.ListItem(name, path=url)
         liz.setArt({'thumb': logo, 'icon': logo, 'fanart': FANART})
-        liz.setInfo('video', {'title': name, 'plot': name})
+        if getKodiversion() < 20:
+            liz.setInfo('video', {'title': name, 'plot': name})
+        else:
+            _infotag = liz.getVideoInfoTag()
+            _infotag.setMediaType('video')
+            _infotag.setTitle(name)
+            _infotag.setPlot(name)
 
         if '.m3u8' in url.lower():
             liz.setProperty('inputstream', 'inputstream.adaptive')
@@ -3189,8 +4059,7 @@ def ExtraChannels_Play(url, name='Extra Channel', logo=ICON):
         xbmcgui.Dialog().notification("Daddylive", "Failed to play channel", ICON, 3000)
 
 
-if not params.get('mode'): 
-    load_extra_channels()
+if not params.get('mode'):
     Main_Menu()
 else:
     mode = params.get('mode')
@@ -3211,6 +4080,8 @@ else:
             Search_Events()
         elif servType == 'search_channels':
             Search_Channels()
+        elif servType == 'search_by_number':
+            Search_Channel_By_Number()
         elif servType == 'diagnostics':
             run_diagnostics()
             xbmcplugin.endOfDirectory(addon_handle, False)
@@ -3218,8 +4089,10 @@ else:
             pvr_setup()
             xbmcplugin.endOfDirectory(addon_handle, False)
         elif servType == 'chat':
-            import webbrowser
-            webbrowser.open('https://daddylivehd.chatango.com/')
+            try:
+                xbmc.executebuiltin('StartAndroidActivity("", "android.intent.action.VIEW", "", "https://daddylivehd.chatango.com/")')
+            except Exception:
+                xbmcgui.Dialog().ok('DaddyLive Chat', 'Open: https://daddylivehd.chatango.com/')
             xbmcplugin.endOfDirectory(addon_handle, False)
 
     elif mode == 'showChannels':
@@ -3249,7 +4122,7 @@ else:
     elif mode == 'probe_favorites':
         favs = get_favorites()
         if favs:
-            xbmcgui.Dialog().notification('DaddyLive', f'Vérification de {len(favs)} chaînes…', ICON, 2000)
+            xbmcgui.Dialog().notification('DaddyLive', f'Checking {len(favs)} channels…', ICON, 2000)
             _probe_favorites_background(favs, force=True)
         xbmcplugin.endOfDirectory(addon_handle, False)
 
