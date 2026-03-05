@@ -858,7 +858,7 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.cb20
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="plugin.video.daddylive" name="DaddyLive v3" version="1.2.3" provider-name="Guenole84">
+</addon><addon id="plugin.video.daddylive" name="DaddyLive v3" version="1.3.3" provider-name="Guenole84">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
         <import addon="script.module.requests" />
@@ -878,7 +878,7 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.cb20
             <icon>icon.png</icon>
             <fanart>fanart.jpg</fanart>
         </assets>
-        <news>v1.2.3: Ajout aux favoris depuis le schedule (appui long sur une chaîne)</news>
+        <news>v1.3.3: get_any_player_stream() itère sur tous les players (lovecdn/ligapk/générique) ; menu CDN renommé Auto/Manuel</news>
     </extension>
 </addon><addon id="plugin.video.dreammachine" name="[COLOR blue]D[COLOR salmon]r[COLOR violet]e[COLOR yellow]a[COLOR orange]m[COLOR lime]M[COLOR red]a[COLOR blue]c[COLOR salmon]h[COLOR violet]i[COLOR yellow]n[COLOR orange]e[/COLOR]" version="25.8.22" provider-name="[COLOR springgreen]G[/COLOR] [COLOR magenta]I[/COLOR][COLOR violet]n[/COLOR][COLOR mediumorchid]c[/COLOR][COLOR orchid].[/COLOR]">
     <requires>
