@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- BINGIE -->
+<window id="1109">
+    <defaultcontrol always="true">77777</defaultcontrol>
+    <menucontrol>900</menucontrol>
+	<onload condition="!ControlGroup(77777).HasFocus()">SetFocus(101)</onload>
+	<onunload condition="!ControlGroup(77777).HasFocus()">SetFocus(1007, 0)</onunload>
+	<onunload condition="!String.IsEmpty(Window(Home).Property(BaseWindow)) + String.IsEmpty(Window(Home).Property(ListItem.TVShowID)) + !Player.HasVideo">AlarmClock(loadinfo,Action(Info),00:00,silent)</onunload>
+	<onunload condition="!ControlGroup(77777).HasFocus()">SetFocus(101)</onunload>
+	<onunload>ClearProperty(KeepSuggestions)</onunload>
+    <backgroundcolor>$VAR[BingiePanelColor]</backgroundcolor>
+    <include>CustomBingieWinProps</include>
+    <onload condition="String.IsEmpty(Skin.String(CustomSearchTerm))">SetProperty(CustomSearch,1,home)</onload>
+	<onload condition="String.IsEmpty(Window.Property(SearchPosterAnimation))">SetProperty(SearchPosterAnimation,1)</onload>
+	<onload>ClearProperty(CurrentSearchWidgetID,Home)</onload>
+    <include>BingieViews_WindowOpen_Fade</include>
+	<controls>
+	<control type="group">
+		<visible>!Window.IsActive(DialogVideoInfo.xml)</visible>
+		<include>Animation_Right_Home</include>
+		<include>HideWindowOnStartupAndDialogInfoLoad</include>
+		<include>Defs_TMDbBingieHelper_Loader</include>
+        <!-- Now Playing -->
+        <include>NowPlayingBackground</include>
+        <!-- Hidden Submenu -->
+        <include condition="!Skin.HasSetting(DisableAllSubmenus)">hiddenSubmenu</include>
+		
+        <!-- ########## Left Layout ########## -->
+		<!-- VirtualKeyboardLabel -->
+		<control type="group">
+			<include>SearchSuggestionsAnim</include>		
+            <control type="label">
+				<top>11</top>
+				<left>137</left>
+                <width>auto</width>
+				<font>Reg32</font>
+                <label>$LOCALIZE[31230]</label>
+				<visible>Skin.HasSetting(EnableBingieSearchFullKeyboard) + !$EXP[IsActualKeyboardActive]</visible>				
+            </control>
+		</control>
+        <!-- Pseudo-Keyboard Layout -->
+        <control type="grouplist" id="9000">
+            <include>SearchSuggestionsAnim</include>
+            <visible>!$EXP[IsActualKeyboardActive]</visible>
+            <top>80</top>
+            <include>No_Circular_Left</include>
+            <left>65</left>
+            <height>500</height>
+            <orientation>vertical</orientation>
+            <itemgap>-10</itemgap>
+            <defaultcontrol>101</defaultcontrol>
+            <onup condition="Skin.HasSetting(EnableBingieSearchFullKeyboard)">Skin.SetString(CustomSearchTerm)</onup>
+			<onup condition="Skin.HasSetting(EnableBingieSearchFullKeyboard)">SetProperty(CustomSearch,1,home)</onup>
+            <ondown>1007</ondown>
+            <onright condition="!Integer.IsGreater(Container(77777).NumItems,0)">9900</onright>
+			<onback>900</onback>
+            <onback>SetFocus(900,$INFO[Window(Home).Property(menupos)])</onback>
+            <!-- Space / Backspace Row -->
+            <include content="SearchKeyboardRow">
+                <param name="id" value="1000" />
+                <param name="onleft" value="SetFocus(900,$INFO[Window(Home).Property(menupos)])" />
+                <param name="onright" value="77777" />
+                <param name="row_include" value="SearchKeyboardRow_BackspaceAndSpace_Row" />
+            </include>
+            <!-- First Row -->
+            <include content="SearchKeyboardRow">
+                <param name="id" value="1001" />
+                <param name="onleft" value="SetFocus(900,$INFO[Window(Home).Property(menupos)])" />
+                <param name="onright" value="77777" />
+                <param name="row_include" value="SearchKeyboardRow_First_Row" />
+            </include>
+            <!-- Second Row -->
+            <include content="SearchKeyboardRow">
+                <param name="id" value="1002" />
+                <param name="onleft" value="SetFocus(900,$INFO[Window(Home).Property(menupos)])" />
+                <param name="onright" value="77777" />
+                <param name="row_include" value="SearchKeyboardRow_Second_Row" />
+            </include>
+            <!-- Third Row -->
+            <include content="SearchKeyboardRow">
+                <param name="id" value="1003" />
+                <param name="onleft" value="SetFocus(900,$INFO[Window(Home).Property(menupos)])" />
+                <param name="onright" value="77777" />
+                <param name="row_include" value="SearchKeyboardRow_Third_Row" />
+            </include>
+            <!-- Fourth Row -->
+            <include content="SearchKeyboardRow">
+                <param name="id" value="1004" />
+                <param name="onleft" value="SetFocus(900,$INFO[Window(Home).Property(menupos)])" />
+                <param name="onright" value="77777" />
+                <param name="row_include" value="SearchKeyboardRow_Fourth_Row" />
+            </include>
+            <!-- Fifth Row -->
+            <include content="SearchKeyboardRow">
+                <param name="id" value="1005" />
+                <param name="onleft" value="SetFocus(900,$INFO[Window(Home).Property(menupos)])" />
+                <param name="onright" value="77777" />
+                <param name="row_include" value="SearchKeyboardRow_Fifth_Row" />
+            </include>
+            <!-- Sixth Row -->
+            <include content="SearchKeyboardRow">
+                <param name="id" value="1006" />
+                <param name="onleft" value="SetFocus(900,$INFO[Window(Home).Property(menupos)])" />
+                <param name="onright" value="77777" />
+                <param name="row_include" value="SearchKeyboardRow_Sixth_Row" />
+            </include>
+        </control>
+
+        <!-- Auto-Complete & Static Suggestions List -->
+        <include content="Search_Suggestions_Container">
+            <include>No_Circular_Left</include>
+            <include>SearchSuggestionsAnim</include>
+            <param name="id" value="1007" />
+            <param name="top" value="605" />
+            <param name="width" value="421" />
+            <param name="height" value="910" />
+            <param name="onitemfocus" value="SetProperty(SuggestionPath,$ESCINFO[ListItem.Property(path)])" />
+            <param name="onitemfocus2" value="SetProperty(CustomSearch,1,home)" />
+            <onleft>SetProperty(KeepSuggestions,1)</onleft>
+            <onfocus>ClearProperty(KeepSuggestions)</onfocus>
+            <onclick condition="!String.IsEmpty(Skin.String(CustomSearchTerm))">Skin.SetString(CustomSearchTerm,$INFO[ListItem.Label])</onclick>
+            <onclick condition="String.IsEmpty(Skin.String(CustomSearchTerm))">noop</onclick>
+            <visible>!$EXP[IsActualKeyboardActive]</visible>          
+            <content>plugin://plugin.program.autocompletion?info=autocomplete&amp;&amp;id=$INFO[Skin.String(CustomSearchTerm)]</content>
+			<include condition="[Library.HasContent(Movies) | Library.HasContent(TVShows)] + !Skin.HasSetting(DisableSearchSuggestions)">Search_Suggestions_Content</include>
+			<include condition="!Library.HasContent(Movies) + !Library.HasContent(TVShows) + !Skin.HasSetting(DisableSearchSuggestions)">Search_Suggestions_Content_2</include>
+        </include>
+
+        <!--- ########## Right Layout ########## -->
+        <control type="group" id="9900">
+            <left>652</left>
+            <top>32</top>
+            <height>70</height>
+            <width>1215</width>
+            <onleft>9000</onleft>
+            <onback>9000</onback>
+            <ondown condition="Integer.IsGreater(Container(77777).NumItems,0)">77777</ondown>
+            <ondown condition="!Integer.IsGreater(Container(77777).NumItems,0)">9000</ondown>
+			<!-- Search Term -->
+			<control type="multiimage">
+                <width>100%</width>
+                <height>32</height>
+                <top>22</top>
+				<left>0</left>
+                <include>widget_header_leftalign</include>
+                <aspectratio align="left">keep</aspectratio>
+                <imagepath background="true">spinner/widgets_busy_loader/</imagepath>
+                <timeperimage>85</timeperimage>
+                <colordiffuse>$INFO[Skin.String(WidgetSpinnerTextureColor)]</colordiffuse>
+                <fadetime>0</fadetime>
+                <visible>[Container(5041).IsUpdating | Container(5042).IsUpdating | Container(5043).IsUpdating | Container(5044).IsUpdating | Container(5045).IsUpdating | Container(5046).IsUpdating | Container(5047).IsUpdating | Container(5048).IsUpdating | 
+			Container(5049).IsUpdating | Container(5050).IsUpdating | Container(5051).IsUpdating | Container(5052).IsUpdating | Container(5053).IsUpdating | Container(5054).IsUpdating | Container(5055).IsUpdating | Container(5056).IsUpdating | Container(5057).IsUpdating | Container(5058).IsUpdating | Container(5059).IsUpdating | Container(5060).IsUpdating] + !String.IsEmpty(Skin.String(CustomSearchTerm))</visible>
+            </control>
+			<control type="multiimage">
+                <width>100%</width>
+                <height>32</height>
+                <top>18</top>
+				<left>0</left>
+                <include>widget_header_leftalign</include>
+                <aspectratio align="left">keep</aspectratio>
+                <imagepath background="true">spinner/widgets_busy_loader/</imagepath>
+                <timeperimage>85</timeperimage>
+                <colordiffuse>$INFO[Skin.String(WidgetSpinnerTextureColor)]</colordiffuse>
+                <fadetime>0</fadetime>
+                <visible>!String.IsEmpty(Window.Property(SearchPosterAnimation)) + [Container(500).IsUpdating + Control.IsVisible(500)]</visible>
+            </control>
+            <control type="label" id="987">
+                <visible>!$EXP[IsActualKeyboardActive]</visible>
+                <top>5</top>
+                <width>1130</width>
+                <height>70</height>
+                <font>Reg42</font>
+                <align>left</align>
+                <aligny>top</aligny>
+                <textcolor>$INFO[Skin.String(ViewDetailsTextColor)]</textcolor>
+                <label>$VAR[SearchString]</label>
+				<animation effect="slide" end="50" time="0" condition="[Container(5041).IsUpdating | Container(5042).IsUpdating | Container(5043).IsUpdating | Container(5044).IsUpdating | Container(5045).IsUpdating | Container(5046).IsUpdating | Container(5047).IsUpdating | Container(5048).IsUpdating | 
+				Container(5049).IsUpdating | Container(5050).IsUpdating | Container(5051).IsUpdating | Container(5052).IsUpdating | Container(5053).IsUpdating | Container(5054).IsUpdating | Container(5055).IsUpdating | Container(5056).IsUpdating | Container(5057).IsUpdating | Container(5058).IsUpdating | Container(5059).IsUpdating | Container(5060).IsUpdating] + !String.IsEmpty(Skin.String(CustomSearchTerm)) | !String.IsEmpty(Window.Property(SearchPosterAnimation)) + [Container(500).IsUpdating + Control.IsVisible(500)]">Conditional</animation>
+            </control>
+        </control>
+		
+        <!-- Initial Msg / No Results Label -->
+        <control type="label">
+            <top>280</top>
+            <left>620</left>
+            <width>1220</width>
+            <height>auto</height>
+            <font>Reg42</font>
+            <align>center</align>
+            <aligny>top</aligny>
+            <wrapmultiline>true</wrapmultiline>
+            <textcolor>$INFO[Skin.String(BingiePrimaryTextColor)]</textcolor>
+            <label>$VAR[EmptySearchResultsString]</label>
+            <visible>!Container(77777).IsUpdating + !Integer.IsGreater(Container(77777).NumItems,0)</visible>
+        </control>
+		
+		<!-- Results -->
+		<control type="grouplist" id="77777">
+            <top>107</top>
+            <left>645</left>
+			<include>Fixed_Focus_Bottom</include>
+            <itemgap>1</itemgap>
+            <orientation>vertical</orientation>
+            <pagecontrol>666</pagecontrol>
+            <onright>666</onright>
+            <onup>noop</onup>
+			<ondown>noop</ondown>
+            <onleft condition="String.IsEmpty(Skin.String(CustomSearchTerm)) + !String.IsEmpty(Window.Property(SuggestionPath))">1007</onleft>
+			<onleft condition="!String.IsEmpty(Skin.String(CustomSearchTerm))">11</onleft>
+            <onback condition="String.IsEmpty(Skin.String(CustomSearchTerm)) + !String.IsEmpty(Window.Property(SuggestionPath))">1007</onback>
+			<onback condition="!String.IsEmpty(Skin.String(CustomSearchTerm))">11</onback>
+			<include condition="Library.HasContent(Movies) | Library.HasContent(TVShows)">skinshortcuts-template-search</include>
+			<include condition="!Library.HasContent(Movies) + !Library.HasContent(TVShows)">skinshortcuts-template-tmdbsearch</include>
+			<!-- Suggestions Result -->
+            <include content="SearchResultWidget">
+                <param name="id" value="500" />
+                <param name="layout">PosterPanelBingie</param>
+                <param name="layoutwidth">search_widget_thumb_width</param>
+                <param name="orientation" value="vertical" />
+                <param name="allow_showinfo_onclick" value="true" />
+                <param name="visibility" value="String.IsEmpty(Skin.String(CustomSearchTerm)) + !String.IsEmpty(Window.Property(SuggestionPath))" />
+                <onleft>1007</onleft>
+                <visible>ControlGroup(77777).HasFocus() | Control.HasFocus(1007) | [Control.HasFocus(900) + !String.IsEmpty(Window.Property(KeepSuggestions))]</visible>
+                <content browse="never" limit="100" target="videos">$INFO[Window.Property(SuggestionPath)]</content>
+            </include>
+        </control>
+		
+	</control>
+        <include content="Dim_Overlay">
+            <param name="visibility" value="$EXP[IsMainMenuOpened]" />
+        </include>
+        <!-- Main Menu -->
+        <include>BingieSideBladeMainMenu</include>
+		<!-- Snow Effect -->
+        <include condition="Skin.HasSetting(EnableSnowAnimation)">SnowAnimation</include>
+		<control type="videowindow">
+            <visible>!String.IsEmpty(Window(Home).Property(PlaySearchTrailer))</visible>
+        </control>
+	</controls>
+</window>

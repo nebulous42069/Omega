@@ -1,0 +1,361 @@
+<settings>
+    
+	<!-- widget style -->	
+	<setting id="$VAR[catnum]widgetstyle" value="poster" label="$LOCALIZE[20021]" icon="special://skin/extras/viewthumbs/widget_poster.jpg" condition="" description=""/>
+	<setting id="$VAR[catnum]widgetstyle" value="landscape" label="$LOCALIZE[31576]" condition="" icon="special://skin/extras/viewthumbs/widget_landscape.jpg" description=""/>
+	<setting id="$VAR[catnum]widgetstyle" value="square" label="$LOCALIZE[31554]" condition="" icon="special://skin/extras/viewthumbs/widget_square.jpg" description=""/>
+	
+	<!-- Search Widgets Layout-->
+	<setting id="layout" value="PosterPanelBingie" label="$LOCALIZE[20021]" condition="" icon="" description=""/>
+	<setting id="layout" value="ThumbsViewBingie" label="$LOCALIZE[31576]" condition="" icon="" description=""/>
+	<setting id="layout" value="SquarePosterPanelBingie" label="$LOCALIZE[31554]" condition="" icon="" description=""/>
+	
+	<!-- widgetsortby categories -->
+    <setting id="$VAR[catnum]widgetsortby" value="default" label="$LOCALIZE[571]"/>
+	<setting id="$VAR[catnum]widgetsortby" value="userpreference" label="$LOCALIZE[19349]"/>
+	<setting id="$VAR[catnum]widgetsortby" value="label" label="$LOCALIZE[21899]"/>
+    <setting id="$VAR[catnum]widgetsortby" value="random" label="$LOCALIZE[590]"/>
+	<setting id="$VAR[catnum]widgetsortby" value="dateadded" label="$LOCALIZE[570]"/>
+	<setting id="$VAR[catnum]widgetsortby" value="lastplayed" label="$LOCALIZE[568]"/>
+	<setting id="$VAR[catnum]widgetsortby" value="playcount" label="$LOCALIZE[567]"/>
+    <setting id="$VAR[catnum]widgetsortby" value="year" label="$LOCALIZE[562]"/>
+	<setting id="$VAR[catnum]widgetsortby" value="rating" label="$LOCALIZE[563]"/>
+    <setting id="$VAR[catnum]widgetsortby" value="userrating" label="$LOCALIZE[38018]"/>
+    <setting id="$VAR[catnum]widgetsortby" value="votes" label="$LOCALIZE[205]"/>
+	<setting id="$VAR[catnum]widgetsortby" value="genre" label="$LOCALIZE[515]"/>
+	<setting id="$VAR[catnum]widgetsortby" value="country" label="$LOCALIZE[574]"/>
+	<setting id="$VAR[catnum]widgetsortby" value="studio" label="$LOCALIZE[572]"/>
+	<setting id="$VAR[catnum]widgetsortby" value="playlist" label="$LOCALIZE[559]"/>
+	<setting id="$VAR[catnum]widgetsortby" value="episodenumber" label="$LOCALIZE[31342]"/>
+	<setting id="$VAR[catnum]widgetsortby" value="season" label="$LOCALIZE[20373]"/>
+	<setting id="$VAR[catnum]widgetsortby" value="totalepisodes" label="$LOCALIZE[31341]"/>
+	<setting id="$VAR[catnum]widgetsortby" value="tvshowstatus" label="$LOCALIZE[31292]"/>
+	<setting id="$VAR[catnum]widgetsortby" value="title" label="$LOCALIZE[556]"/>
+	<setting id="$VAR[catnum]widgetsortby" value="track" label="$LOCALIZE[554]"/>
+	<setting id="$VAR[catnum]widgetsortby" value="time" label="$LOCALIZE[555]"/>
+	<setting id="$VAR[catnum]widgetsortby" value="artist" label="$LOCALIZE[557]"/>
+	<setting id="$VAR[catnum]widgetsortby" value="album" label="$LOCALIZE[558]"/>
+	<setting id="$VAR[catnum]widgetsortby" value="date" label="$LOCALIZE[552]"/>
+	
+	<!-- widgetsortorder -->
+    <setting id="$VAR[catnum]widgetsortorder" value="ascending" label="$LOCALIZE[21430]"/>
+    <setting id="$VAR[catnum]widgetsortorder" value="descending" label="$LOCALIZE[21431]"/>
+	
+	<!-- Widget Limit Categories -->
+    <setting id="$VAR[catnum]widgetlimit" value="$INFO[Skin.String(WidgetsGlobalLimit)]" label="$LOCALIZE[571]" condition="Window.IsActive(1106)"/>
+    <setting id="$VAR[catnum]widgetlimit" value="5" label="5" condition="Window.IsActive(1106)"/>
+    <setting id="$VAR[catnum]widgetlimit" value="10" label="10" condition="Window.IsActive(1106)"/>
+    <setting id="$VAR[catnum]widgetlimit" value="15" label="15" condition="Window.IsActive(1106)"/>
+    <setting id="$VAR[catnum]widgetlimit" value="20" label="20" condition="Window.IsActive(1106)"/>
+    <setting id="$VAR[catnum]widgetlimit" value="25" label="25" condition="Window.IsActive(1106)"/>
+    <setting id="$VAR[catnum]widgetlimit" value="30" label="30" condition="Window.IsActive(1106)"/>
+    <setting id="$VAR[catnum]widgetlimit" value="50" label="50" condition="Window.IsActive(1106)"/>
+    <setting id="$VAR[catnum]widgetlimit" value="75" label="75" condition="Window.IsActive(1106)"/>
+    <setting id="$VAR[catnum]widgetlimit" value="100" label="100" condition="Window.IsActive(1106)"/>
+    <setting id="$VAR[catnum]widgetlimit" value="150" label="150" condition="Window.IsActive(1106)"/>
+    <setting id="$VAR[catnum]widgetlimit" value="200" label="200" condition="Window.IsActive(1106)"/>
+	
+	<!-- Widget Limit -->
+	<setting id="widgetlimit" value="$INFO[Skin.String(WidgetsGlobalLimit)]" label="$LOCALIZE[571]"/>
+    <setting id="widgetlimit" value="$NUMBER[5]" label="$NUMBER[5]"/>
+    <setting id="widgetlimit" value="$NUMBER[10]" label="$NUMBER[10]"/>
+    <setting id="widgetlimit" value="$NUMBER[15]" label="$NUMBER[15]"/>
+    <setting id="widgetlimit" value="$NUMBER[20]" label="$NUMBER[20]"/>
+    <setting id="widgetlimit" value="$NUMBER[25]" label="$NUMBER[25]"/>
+    <setting id="widgetlimit" value="$NUMBER[30]" label="$NUMBER[30]"/>
+    <setting id="widgetlimit" value="$NUMBER[50]" label="$NUMBER[50]"/>
+    <setting id="widgetlimit" value="$NUMBER[75]" label="$NUMBER[75]"/>
+    <setting id="widgetlimit" value="$NUMBER[100]" label="$NUMBER[100]"/>
+    <setting id="widgetlimit" value="$NUMBER[150]" label="$NUMBER[150]"/>
+    <setting id="widgetlimit" value="$NUMBER[200]" label="$NUMBER[200]"/>
+	
+	<!-- Widget Target -->
+    <setting id="$VAR[catnum]widgettarget" value="videos" label="$LOCALIZE[3]"/>
+    <setting id="$VAR[catnum]widgettarget" value="music" label="$LOCALIZE[2]"/>
+	<setting id="$VAR[catnum]widgettarget" value="programs" label="$LOCALIZE[0]"/>
+    <setting id="$VAR[catnum]widgettarget" value="pictures" label="$LOCALIZE[1]"/>
+	<setting id="$VAR[catnum]widgettarget" value="tvguide" label="$LOCALIZE[4]"/>
+
+    <!-- media flags -->
+	<setting id="mediaflagsstyle" value="large_color" label="$LOCALIZE[31090]" icon="special://skin/extras/viewthumbs/flags_large_color.jpg" description="">
+        <onselect condition="Window.IsActive(MyVideoNav.xml)">ReloadSkin()</onselect>
+    </setting>
+	<setting id="mediaflagsstyle" value="large" label="$LOCALIZE[31269]" icon="special://skin/extras/viewthumbs/flags_large.jpg" description="">
+        <onselect condition="Window.IsActive(MyVideoNav.xml)">ReloadSkin()</onselect>
+    </setting>
+	<setting id="mediaflagsstyle" value="disabled" label="$LOCALIZE[1223]" condition="" icon="" description="">
+        <onselect condition="Window.IsActive(MyVideoNav.xml)">ReloadSkin()</onselect>
+    </setting>
+
+    <!-- OSD media flags -->
+	<setting id="osdmediaflagsstyle" value="large_color" label="$LOCALIZE[31090]" condition="" icon="special://skin/extras/viewthumbs/flags_large_color.jpg" description=""/>
+	<setting id="osdmediaflagsstyle" value="large" label="$LOCALIZE[31269]" condition="" icon="special://skin/extras/viewthumbs/flags_large.jpg" description=""/>
+
+    <!-- Guide rows -->
+    <setting id="GuideRows" value="7" label="7 [LOWERCASE]$LOCALIZE[455][/LOWERCASE]" condition="" icon="" description="">
+        <onselect condition="Window.IsActive(MyPVRGuide.xml)">ReloadSkin()</onselect>
+    </setting>
+    <setting id="GuideRows" value="8" label="8 [LOWERCASE]$LOCALIZE[455][/LOWERCASE]" condition="" icon="" description="">
+        <onselect condition="Window.IsActive(MyPVRGuide.xml)">ReloadSkin()</onselect>
+    </setting>
+    <setting id="GuideRows" value="9" label="9 [LOWERCASE]$LOCALIZE[455][/LOWERCASE]" condition="" icon="" description="">
+        <onselect condition="Window.IsActive(MyPVRGuide.xml)">ReloadSkin()</onselect>
+    </setting>
+	
+	<!-- Guide Logo/Number Channel Visibility - multiselect -->
+    <setting id="logonumber_visibility" value="||MULTISELECT||" label="" condition="" icon="" description="">
+        <option id="TVGuideChannelLogo" label="$LOCALIZE[31560]" condition=""/>
+        <option id="TVGuideChannelNumber" label="$LOCALIZE[31499]" condition=""/>
+    </setting>
+
+    <!-- Global Background -->
+	<setting id="CustomBackgroundSetting" value="special://skin/extras/media/backgrounds/background.jpg" label="Bingie" condition="" icon="special://skin/extras/media/backgrounds/background.jpg" description=""/>
+
+	<!-- Trailer source -->
+    <setting id="trailersource" value="youtube" label="$LOCALIZE[31062]"/>
+    <setting id="trailersource" value="imdb" label="$LOCALIZE[31248]"/>
+
+    <!--Home Screens Auto Trailer Interval-->
+    <setting id="main_auto_trailer_interval" value="3" label="3 $LOCALIZE[31231]" condition="" icon="" description=""/>
+    <setting id="main_auto_trailer_interval" value="4" label="4 $LOCALIZE[31231]" condition="" icon="" description=""/>
+    <setting id="main_auto_trailer_interval" value="5" label="5 $LOCALIZE[31231]" condition="" icon="" description=""/>
+    <setting id="main_auto_trailer_interval" value="6" label="6 $LOCALIZE[31231]" condition="" icon="" description=""/>
+    <setting id="main_auto_trailer_interval" value="7" label="7 $LOCALIZE[31231]" condition="" icon="" description=""/>
+    <setting id="main_auto_trailer_interval" value="8" label="8 $LOCALIZE[31231]" condition="" icon="" description=""/>
+    <setting id="main_auto_trailer_interval" value="9" label="9 $LOCALIZE[31231]" condition="" icon="" description=""/>
+    <setting id="main_auto_trailer_interval" value="10" label="10 $LOCALIZE[31231]" condition="" icon="" description=""/>
+
+    <!-- Video Library Auto-Trailer Interval -->
+    <setting id="details_auto_trailer_interval" value="3" label="3 $LOCALIZE[31231]" condition="" icon="" description=""/>
+    <setting id="details_auto_trailer_interval" value="4" label="4 $LOCALIZE[31231]" condition="" icon="" description=""/>
+    <setting id="details_auto_trailer_interval" value="5" label="5 $LOCALIZE[31231]" condition="" icon="" description=""/>
+    <setting id="details_auto_trailer_interval" value="6" label="6 $LOCALIZE[31231]" condition="" icon="" description=""/>
+    <setting id="details_auto_trailer_interval" value="7" label="7 $LOCALIZE[31231]" condition="" icon="" description=""/>
+    <setting id="details_auto_trailer_interval" value="8" label="8 $LOCALIZE[31231]" condition="" icon="" description=""/>
+    <setting id="details_auto_trailer_interval" value="9" label="9 $LOCALIZE[31231]" condition="" icon="" description=""/>
+    <setting id="details_auto_trailer_interval" value="10" label="10 $LOCALIZE[31231]" condition="" icon="" description=""/>
+
+    <!--Thumbs Up Rate Value-->
+    <setting id="ThumbsUpRateValue" value="6" label="6" condition="" icon="" description=""/>
+    <setting id="ThumbsUpRateValue" value="7" label="7" condition="" icon="" description=""/>
+    <setting id="ThumbsUpRateValue" value="8" label="8" condition="" icon="" description=""/>
+    <setting id="ThumbsUpRateValue" value="9" label="9" condition="" icon="" description=""/>
+    <setting id="ThumbsUpRateValue" value="10" label="10" condition="" icon="" description=""/>
+
+    <!--Thumbs Down Rate Value-->
+    <setting id="ThumbsDownRateValue" value="1" label="1" condition="" icon="" description=""/>
+    <setting id="ThumbsDownRateValue" value="2" label="2" condition="" icon="" description=""/>
+    <setting id="ThumbsDownRateValue" value="3" label="3" condition="" icon="" description=""/>
+    <setting id="ThumbsDownRateValue" value="4" label="4" condition="" icon="" description=""/>
+    <setting id="ThumbsDownRateValue" value="5" label="5" condition="" icon="" description=""/>
+
+    <!-- Random fanart delay -->
+    <setting id="RandomFanartDelay" value="5" label="5 $LOCALIZE[31231]" condition="" icon="" description=""/>
+    <setting id="RandomFanartDelay" value="10" label="10 $LOCALIZE[31231]" condition="" icon="" description=""/>
+    <setting id="RandomFanartDelay" value="15" label="15 $LOCALIZE[31231]" condition="" icon="" description=""/>
+    <setting id="RandomFanartDelay" value="20" label="20 $LOCALIZE[31231]" condition="" icon="" description=""/>
+    <setting id="RandomFanartDelay" value="30" label="30 $LOCALIZE[31231]" condition="" icon="" description=""/>
+    <setting id="RandomFanartDelay" value="40" label="40 $LOCALIZE[31231]" condition="" icon="" description=""/>
+    <setting id="RandomFanartDelay" value="50" label="50 $LOCALIZE[31231]" condition="" icon="" description=""/>
+    <setting id="RandomFanartDelay" value="60" label="60 $LOCALIZE[31231]" condition="" icon="" description=""/>
+
+    <!-- Extra fanart delay -->
+    <setting id="extrafanartdelay" value="5" label="5 $LOCALIZE[31231]" condition="" icon="" description=""/>
+    <setting id="extrafanartdelay" value="10" label="10 $LOCALIZE[31231]" condition="" icon="" description=""/>
+    <setting id="extrafanartdelay" value="15" label="15 $LOCALIZE[31231]" condition="" icon="" description=""/>
+    <setting id="extrafanartdelay" value="20" label="20 $LOCALIZE[31231]" condition="" icon="" description=""/>
+    <setting id="extrafanartdelay" value="30" label="30 $LOCALIZE[31231]" condition="" icon="" description=""/>
+	<setting id="extrafanartdelay" value="40" label="40 $LOCALIZE[31231]" condition="" icon="" description=""/>
+	<setting id="extrafanartdelay" value="50" label="50 $LOCALIZE[31231]" condition="" icon="" description=""/>
+    <setting id="extrafanartdelay" value="60" label="60 $LOCALIZE[31231]" condition="" icon="" description=""/>
+
+    <!-- artist logo -->
+    <setting id="MusicArtistLogo" value="enabled" label="$LOCALIZE[31125]" condition="" icon="" description=""/>
+    <setting id="MusicArtistLogo" value="osd" label="$LOCALIZE[31216]" condition="!Skin.HasSetting(UseBingieOSD)" icon="" description=""/>
+	<setting id="MusicArtistLogo" value="disabled" label="$LOCALIZE[1223]" condition="" icon="" description=""/>
+
+    <!-- clearlogo location -->
+    <setting id="ClearLogoLocation" value="topleft" label="$LOCALIZE[31329]" condition="" icon="" description=""/>
+    <setting id="ClearLogoLocation" value="topcenter" label="$LOCALIZE[31330]" condition="" icon="" description=""/>
+    <setting id="ClearLogoLocation" value="topright" label="$LOCALIZE[31331]" condition="" icon="" description=""/>
+
+    <!--Thumbs Border Focused Size-->
+    <setting id="thumbsborder_focused" value="4" label="4 $LOCALIZE[31298]" condition="" icon="" description="" />
+    <setting id="thumbsborder_focused" value="5" label="5 $LOCALIZE[31298]" condition="" icon="" description=""/>
+	<setting id="thumbsborder_focused" value="6" label="6 $LOCALIZE[31298]" condition="" icon="" description=""/>
+
+    <!-- Default Color Palette -->
+    <setting id="defaultcolorpalette" value="basic" label="$ADDON[script.skin.helper.colorpicker 32142]" condition="" icon="special://skin/extras/viewthumbs/defaultcolorpalette_basic.jpg" description=""/>
+    <setting id="defaultcolorpalette" value="rainbow" label="$ADDON[script.skin.helper.colorpicker 32143]" condition="" icon="special://skin/extras/viewthumbs/defaultcolorpalette_rainbow.jpg" description=""/>
+    <setting id="defaultcolorpalette" value="material-design" label="$ADDON[script.skin.helper.colorpicker 32144]" condition="" icon="special://skin/extras/viewthumbs/defaultcolorpalette_material-design.jpg" description=""/>
+    <setting id="defaultcolorpalette" value="webcolors" label="$ADDON[script.skin.helper.colorpicker 32145]" condition="" icon="special://skin/extras/viewthumbs/defaultcolorpalette_webcolors.jpg" description=""/>
+
+    <!-- Volume Indicator Style -->
+    <setting id="volumestyle" value="modern" label="$LOCALIZE[31228]" condition="" icon="special://skin/extras/viewthumbs/volumestyle_modern.jpg" description=""/>
+    <setting id="volumestyle" value="classic" label="$LOCALIZE[31210]" condition="" icon="special://skin/extras/viewthumbs/volumestyle_classic.jpg" description=""/>
+	
+	<!-- display tags on widgets -->
+    <setting id="$VAR[catnum]Widgets_DisplayTags" value="enable" label="$LOCALIZE[305]" condition="" icon="" description=""/>
+	<setting id="$VAR[catnum]Widgets_DisplayTags" value="disable" label="$LOCALIZE[1223]" condition="" icon="" description=""/>
+
+    <!-- display tags in Views -->
+	<setting id="Views_DisplayTags" value="enable" label="$LOCALIZE[31489]" condition="" icon="" description=""/>
+	<setting id="Views_DisplayTags" value="episodes" label="$LOCALIZE[31511]" condition="" icon="" description=""/>
+	<setting id="Views_DisplayTags" value="music" label="$LOCALIZE[31293]" condition="" icon="" description=""/>
+	<setting id="Views_DisplayTags" value="both" label="$LOCALIZE[31294]" condition="" icon="" description=""/>
+	<setting id="Views_DisplayTags" value="disable" label="$LOCALIZE[1223]" condition="" icon="" description=""/>
+	
+	<!-- Landscape Sublabel -->
+	<setting id="LandscapeSublabel" value="genre" label="$LOCALIZE[515]" condition="" icon="" description=""/>
+	<setting id="LandscapeSublabel" value="tagline" label="$LOCALIZE[202]" condition="" icon="" description=""/>
+	<setting id="LandscapeSublabel" value="studio" label="$LOCALIZE[572]" condition="" icon="" description=""/>
+	
+	<!-- air date - multiselect -->
+    <setting id="air_date" value="||MULTISELECT||" label="" condition="" icon="" description="">
+        <option id="AirDateMovies" label="$LOCALIZE[342]" condition=""/>
+		<option id="AirDateShows" label="$LOCALIZE[31566]" condition=""/>
+		<option id="AirDateSeasons" label="$LOCALIZE[33054]" condition=""/>
+        <option id="AirDateEpisodes" label="$LOCALIZE[20360]" condition=""/>	
+    </setting>
+	
+	<!-- display tags in Views -->
+    <setting id="force_tags" value="true" label="$LOCALIZE[305]" condition="" icon="" description=""/>
+	<setting id="force_tags" value="false" label="$LOCALIZE[1223]" condition="" icon="" description=""/>
+
+    <!-- display info in Poster Row View -->
+    <setting id="View_DisplayInfo" value="small" label="$LOCALIZE[571]" condition="" icon="" description=""/>
+    <setting id="View_DisplayInfo" value="small_delayed" label="$LOCALIZE[31117]" condition="" icon="" description=""/>
+	<setting id="View_DisplayInfo" value="disable" label="$LOCALIZE[1223]" condition="" icon="" description=""/>
+	
+	<!-- splash screen -->
+	<setting id="splash_screen" value="bingie_default" label="$LOCALIZE[31152]" condition="" icon="" description=""/>
+	<setting id="splash_screen" value="bingie_image" label="$LOCALIZE[31041]" condition="" icon="" description=""/>
+	<setting id="splash_screen" value="none" label="$LOCALIZE[231]" condition="" icon="" description=""/>
+	
+	<!-- scrollbar visibility -->
+	<setting id="scrollbar_visibility" value="" label="$LOCALIZE[571]" condition="" icon="" description=""/>
+    <setting id="scrollbar_visibility" value="always_show" label="$LOCALIZE[31125]" condition="" icon="" description=""/>
+    <setting id="scrollbar_visibility" value="always_hide" label="$LOCALIZE[31067]" condition="" icon="" description=""/>
+	
+	<!-- ratings to show on home - multiselect -->
+    <setting id="ratings" value="||MULTISELECT||" label="" condition="" icon="" description="">
+        <option id="ratings_IMDB" label="$LOCALIZE[31357]" condition=""/>
+        <option id="ratings_Top250" label="$LOCALIZE[31244]" condition=""/>
+        <option id="ratings_RT" label="$LOCALIZE[31116]" condition=""/>
+        <option id="ratings_RTAudience" label="$LOCALIZE[31104]" condition=""/>
+        <option id="ratings_TMdb" label="$LOCALIZE[31295]" condition=""/>
+		<option id="ratings_Trakt" label="$LOCALIZE[31483]" condition=""/>
+        <option id="ratings_Metacritic" label="$LOCALIZE[31124]" condition=""/>
+		<option id="ratings_Letterboxd" label="$LOCALIZE[31140]" condition=""/>
+        <option id="ratings_Oscar" label="$LOCALIZE[31482]" condition=""/>
+		<option id="ratings_GoldenGlobe" label="$LOCALIZE[31502]" condition=""/>
+		<option id="ratings_Emmy" label="$LOCALIZE[31494]" condition=""/>
+    </setting>
+	
+	<!-- details row -->
+    <setting id="details_row" value="||MULTISELECT||" label="" condition="" icon="" description="">
+        <option id="details_row_thumbs" label="$LOCALIZE[31417]" condition=""/>
+        <option id="details_row_new" label="$LOCALIZE[842]" condition=""/>
+        <option id="details_row_rating" label="$LOCALIZE[563]" condition=""/>
+        <option id="details_row_year" label="$LOCALIZE[345]" condition=""/>
+        <option id="details_row_mpaa" label="$LOCALIZE[31145]" condition=""/>
+		<option id="details_row_duration" label="$LOCALIZE[31146]" condition=""/>
+        <option id="details_row_resolution" label="$LOCALIZE[169]" condition=""/>
+        <option id="details_row_audio" label="$LOCALIZE[292]" condition=""/>
+		<option id="details_row_status" label="$LOCALIZE[31292]" condition=""/>
+    </setting>
+
+    <!-- options to show in videoinfo - multiselect -->
+    <setting id="videoinfo_buttons" value="||MULTISELECT||" label="" condition="" icon="" description="">
+	    <option id="videoinfo_button_myrating" label="$LOCALIZE[31433]" condition="Skin.HasSetting(UseBingieInfoDialog)"/>
+		<option id="videoinfo_button_play_beginning" label="$LOCALIZE[31195]" condition=""/>
+		<option id="videoinfo_button_play_next" label="$LOCALIZE[31549]" condition="[Library.HasContent(Movies) | Library.HasContent(TVShows)]"/>
+		<option id="videoinfo_button_play_next_tmdb" label="$LOCALIZE[31528]" condition=""/>
+        <option id="videoinfo_button_trailer" label="$LOCALIZE[31480]" condition=""/>
+		<option id="videoinfo_button_trailersandmore" label="$LOCALIZE[31247]" condition="Skin.HasSetting(UseBingieInfoDialog)"/>
+        <option id="videoinfo_button_mylist" label="$LOCALIZE[31534]" condition="!Skin.HasSetting(UseBingieInfoDialog) + [Library.HasContent(Movies) | Library.HasContent(TVShows)]"/>
+		<option id="videoinfo_button_mylist" label="$LOCALIZE[31086]" condition="Skin.HasSetting(UseBingieInfoDialog) + [Library.HasContent(Movies) | Library.HasContent(TVShows)]"/>
+		<option id="videoinfo_button_favorites" label="$LOCALIZE[31126]" condition="!Skin.HasSetting(UseBingieInfoDialog)"/>
+		<option id="videoinfo_button_favorites" label="$LOCALIZE[31155]" condition="Skin.HasSetting(UseBingieInfoDialog)"/>
+		<option id="videoinfo_button_trakt" label="$LOCALIZE[31153]" condition="!Skin.HasSetting(UseBingieInfoDialog)"/>
+		<option id="videoinfo_button_trakt" label="$LOCALIZE[31148]" condition="Skin.HasSetting(UseBingieInfoDialog)"/>
+        <option id="videoinfo_button_plot" label="$LOCALIZE[31420]" condition="Skin.HasSetting(UseBingieInfoDialog)"/>
+        <option id="videoinfo_button_cast" label="$LOCALIZE[31246]" condition="Skin.HasSetting(UseBingieInfoDialog)"/>
+		<option id="videoinfo_button_moreinfo" label="$LOCALIZE[31187]" condition="!Skin.HasSetting(UseBingieInfoDialog)"/>
+		<option id="videoinfo_button_wikipedia" label="$LOCALIZE[31094]" condition="Skin.HasSetting(UseBingieInfoDialog)"/>
+        <option id="videoinfo_button_similar" label="$LOCALIZE[31458]" condition=""/>
+		<option id="videoinfo_button_versions" label="$LOCALIZE[40013]" condition="[Library.HasContent(Movies) | Library.HasContent(TVShows)]"/>
+        <option id="videoinfo_button_artwork" label="$LOCALIZE[13511]"  condition=""/>
+        <option id="videoinfo_button_refresh" label="$LOCALIZE[184]" condition=""/>
+    </setting>
+
+    <!-- details to show in videoinfo - multiselect -->
+    <setting id="videoinfo_details" value="||MULTISELECT||" label="" condition="" icon="" description="">
+        <option id="videoinfo_details_cast" label="$LOCALIZE[206]" condition=""/>
+        <option id="videoinfo_details_director" label="$LOCALIZE[20339]" condition=""/>
+		<option id="videoinfo_details_writer" label="$LOCALIZE[20417]" condition=""/>
+        <option id="videoinfo_details_creator" label="$LOCALIZE[31530]" condition=""/>
+        <option id="videoinfo_details_genre" label="$LOCALIZE[135]" condition=""/>
+    </setting>
+
+    <!-- Show/Hide OSD Buttons - multiselect -->
+    <setting id="bingie_osd_buttons" value="||MULTISELECT||" label="" condition="" icon="" description="">	 
+		<option id="bingie_osd_buttons_back" label="$LOCALIZE[13012]" condition=""/>
+		<option id="bingie_osd_buttons_record" label="$LOCALIZE[264]" condition="PVR.HasTVChannels | PVR.HasRadioChannels"/>
+        <option id="bingie_osd_buttons_subtitles" label="$LOCALIZE[287]" condition=""/>
+		<option id="bingie_osd_buttons_audio" label="$LOCALIZE[13396]" condition=""/>
+        <option id="bingie_osd_buttons_video" label="$LOCALIZE[13395]" condition=""/>
+		<option id="bingie_osd_buttons_bookmarks" label="$LOCALIZE[298]" condition=""/>
+		<option id="bingie_osd_buttons_channellist" label="$LOCALIZE[10700]" condition="PVR.HasTVChannels | PVR.HasRadioChannels"/>
+		<option id="bingie_osd_buttons_pvrguide" label="$LOCALIZE[10702]" condition="PVR.HasTVChannels | PVR.HasRadioChannels"/>
+		<option id="bingie_osd_buttons_play_beginning" label="$LOCALIZE[12021]" condition=""/>		
+		<option id="bingie_osd_buttons_playlist" label="$LOCALIZE[559]" condition=""/>
+		<option id="bingie_osd_buttons_viz" label="$LOCALIZE[250]" condition=""/>
+		<option id="bingie_osd_buttons_lyrics" label="$LOCALIZE[24013]" condition="System.HasAddon(script.cu.lrclyrics)"/>
+		<option id="bingie_osd_buttons_info" label="$LOCALIZE[19033]" condition=""/>
+    </setting>
+	
+	<!-- Footer Visibility - multiselect -->
+    <setting id="footer_visibility" value="||MULTISELECT||" label="" condition="" icon="" description="">
+        <option id="EnableFooterBarOnSpotlight" label="$LOCALIZE[31178]" condition=""/>
+        <option id="EnableFooterBarOnWidgets" label="$LOCALIZE[31180]" condition=""/>
+        <option id="HideMediaFlagsTrailer" label="$LOCALIZE[31278]" condition=""/>
+		<option id="DisableFooterBarOnViews" label="$LOCALIZE[31324]" condition=""/>
+		<option id="DisableRatingsPlotCritics" label="$LOCALIZE[31198]" condition=""/>		
+    </setting>
+	
+	<!-- Top250 Sublabel Visibility - multiselect -->
+    <setting id="top250_visibility" value="||MULTISELECT||" label="" condition="" icon="" description="">
+        <option id="EnableTop250" label="$LOCALIZE[31284]" condition=""/>
+        <option id="EnableSpotlightTop250" label="$LOCALIZE[31322]" condition=""/>
+        <option id="EnableTop250Info" label="$LOCALIZE[31320]" condition=""/>	
+    </setting>
+
+    <!-- general header options -->   
+    <setting id="general_header" value="time" label="$LOCALIZE[31503]" condition="" icon="" description=""/>
+    <setting id="general_header" value="-weather" label="$LOCALIZE[400]" condition="" icon="" description=""/>
+	<setting id="general_header" value="-weathclock" label="$LOCALIZE[31503] + $LOCALIZE[400]" condition="" icon="" description=""/>
+	<setting id="general_header" value="disable" label="$LOCALIZE[1223]" condition="" icon="" description=""/>
+
+    <!-- home header options -->    
+    <setting id="home_header" value="time" label="$LOCALIZE[31503]" condition="" icon="" description=""/>
+    <setting id="home_header" value="-weather" label="$LOCALIZE[400]" condition="" icon="" description=""/>
+	<setting id="home_header" value="-weathclock" label="$LOCALIZE[31503] + $LOCALIZE[400]" condition="" icon="" description=""/>
+    <setting id="home_header" value="disable" label="$LOCALIZE[1223]" condition="" icon="" description=""/>
+
+    <!-- custom header for submenu -->
+    <setting id="customsubmenuheader" value="None" label="$LOCALIZE[16018]" icon="" condition="" description=""/>
+    <setting id="customsubmenuheader" value="" label="$LOCALIZE[1034] $LOCALIZE[571,(,)]" icon="" condition="" description=""/>
+    <setting id="customsubmenuheader" value="mainmenu" label="$LOCALIZE[31978]" icon="" condition="" description=""/>
+    <setting id="customsubmenuheader" value="||PROMPTSTRING||" label="$LOCALIZE[31979]" icon="" condition="" description=""/>
+
+    <!-- music background -->
+    <setting id="MusicBackground" value="special://skin/resources/fanart.jpg" label="$LOCALIZE[571]" condition="" icon="special://skin/resources/fanart.jpg"/>
+	
+	<!--mpaa style-->
+	<setting id="mpaa_style" value="default" label="$LOCALIZE[571]" condition="" icon="" description=""/>
+	<setting id="mpaa_style" value="color_mpaa" label="$LOCALIZE[31303]" condition="" icon="" description=""/>
+	<setting id="mpaa_style" value="color_fixed_mpaa" label="$LOCALIZE[31299]" condition="" icon="" description=""/>
+	<setting id="mpaa_style" value="uk_mpaa" label="$LOCALIZE[31306]" condition="" icon="" description=""/>
+
+</settings>

@@ -2,6 +2,9 @@
 <window>
     <include>Animation_Fullscreen_Media</include>
     <onload>ClearProperty(OSDRelaunchFullscreen,Home)</onload>
+	<onunload condition="String.IsEqual(Window(Home).Property(ReturnToContextMenuAfterTrailer),true)">AlarmClock(ReturnTrailerContextMenu,Action(ContextMenu),00:01,silent)</onunload>
+	<onunload condition="String.IsEqual(Window(Home).Property(ReturnToContextMenuAfterTrailer),true)">AlarmClock(ReturnTrailerContextFocus,SetFocus(8002),00:03,silent)</onunload>
+	<onunload condition="String.IsEqual(Window(Home).Property(ReturnToContextMenuAfterTrailer),true)">ClearProperty(ReturnToContextMenuAfterTrailer,Home)</onunload>
     <controls>
         <control type="grouplist" id="0">
             <orientation>vertical</orientation>

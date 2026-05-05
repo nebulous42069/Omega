@@ -5,6 +5,7 @@
             <visible>Control.IsVisible(724)</visible>
             <include>VisibleFadeEffect</include>
             <control type="list" id="724">
+				<visible>$EXP[Exp_View_724]</visible>
                 <left>510</left>
                 <top>660</top>
                 <width>870</width>

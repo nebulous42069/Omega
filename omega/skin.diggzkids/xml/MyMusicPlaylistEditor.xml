@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-    <defaultcontrol always="true">6</defaultcontrol>
+    <defaultcontrol>6</defaultcontrol>
     <menucontrol>9000</menucontrol>
     <views>50</views>
     <controls>
@@ -183,6 +183,7 @@
                 <orientation>vertical</orientation>
             </control>
             <control type="list" id="50">
+				<visible>$EXP[Exp_View_50]</visible>
                 <left>75</left>
                 <top>150</top>
                 <width>600</width>

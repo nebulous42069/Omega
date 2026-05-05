@@ -50,16 +50,13 @@
                 <height>600</height>
                 <texture border="5">button-nofocus.png</texture>
             </control>
-            <control type="multiimage">
+            <control type="image">
                 <left>8</left>
                 <top>8</top>
                 <width>1020</width>
                 <height>585</height>
-                <aspectratio>scale</aspectratio>
-                <imagepath background="true">$VAR[CommonMenuItemBackground]</imagepath>
-                <include>BackgroundTimePerImage</include>
-                <randomize>true</randomize>
-                <fadetime>1000</fadetime>
+                <aspectratio>keep</aspectratio>
+                <texture>$INFO[ListItem.Icon]</texture>
                 <visible>!Player.HasVideo</visible>
             </control>
             <control type="videowindow">
@@ -263,6 +260,7 @@
                 </control>
             </control>
             <control type="list" id="50">
+				<visible>$EXP[Exp_View_50]</visible>
                 <left>105</left>
                 <top>128</top>
                 <width>585</width>
@@ -550,18 +548,15 @@
                 <aspectratio>keep</aspectratio>
                 <visible>!String.IsEmpty(Listitem.Icon)</visible>
             </control>
-            <control type="multiimage">
+            <control type="image">
                 <left>338</left>
                 <top>8</top>
                 <width>465</width>
                 <height>261</height>
-                <aspectratio>scale</aspectratio>
-                <imagepath background="true">$VAR[CommonMenuItemBackground]</imagepath>
-                <include>BackgroundTimePerImage</include>
-                <randomize>true</randomize>
-                <fadetime>1000</fadetime>
+                <aspectratio>keep</aspectratio>
+                <texture>$INFO[ListItem.Icon]</texture>
                 <visible>!Player.HasVideo</visible>
-            </control>
+            </control>			
             <control type="videowindow">
                 <left>338</left>
                 <top>8</top>
@@ -1156,18 +1151,15 @@
                     <height>660</height>
                     <texture>$VAR[DialogPath]ContentPanel.png</texture>
                 </control>
-                <control type="multiimage">
+                <control type="image">
                     <posx>8</posx>
                     <posy>8</posy>
                     <width>1170</width>
                     <height>645</height>
-                    <aspectratio>scale</aspectratio>
-                    <imagepath background="true">$VAR[CommonMenuItemBackground]</imagepath>
-                    <include>BackgroundTimePerImage</include>
-                    <randomize>true</randomize>
-                    <fadetime>1000</fadetime>
+                    <aspectratio>keep</aspectratio>
+                    <texture>$INFO[ListItem.Icon]</texture>
                     <visible>!Player.HasVideo</visible>
-                </control>
+                </control>				
                 <control type="videowindow">
                     <posx>8</posx>
                     <posy>8</posy>

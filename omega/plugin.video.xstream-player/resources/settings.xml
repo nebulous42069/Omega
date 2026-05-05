@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+    <category label="General settings">
+        <setting label="Interface Language" type="labelenum" id="interface_language" default="English" values="English|Hrvatski|Deutsch|Français|Español|Italiano|Português|Русский|Polski|Arabian|Čeština|Nederlands|Ελληνικά|Magyar|Română|Svenska"/>
+        <setting label="Active PVR Profile" type="labelenum" id="active_pvr_profile" default="Profile 1" values="Profile 1|Profile 2|Profile 3|Profile 4|Profile 5|Profile 6|Profile 7|Profile 8|Profile 9|Profile 10" visible="false"/>
+        <setting type="lsep" label="Pagination"/>
+        <setting label="Live TV items per page" type="labelenum" id="pagination_live" default="50" values="10|25|50|100|250|500|Unlimited"/>
+        <setting label="Movies items per page" type="labelenum" id="pagination_movie" default="50" values="10|25|50|100|250|500|Unlimited"/>
+        <setting label="Series items per page" type="labelenum" id="pagination_series" default="50" values="10|25|50|100|250|500|Unlimited"/>
+        <setting label="M3U classic playlist items per page" type="labelenum" id="pagination_m3u_classic" default="50" values="10|25|50|100|250|500|Unlimited"/>
+        <setting type="lsep" label="Miscellaneous"/>
+        <setting label="Live TV sort order" type="labelenum" id="sort_order_live" default="Provider order" values="Provider order|A-Z"/>
+        <setting label="Movies sort order" type="labelenum" id="sort_order_movie" default="Provider order" values="Provider order|A-Z|Newest first"/>
+        <setting label="Series sort order" type="labelenum" id="sort_order_series" default="Provider order" values="Provider order|A-Z|Newest first"/>
+        <setting label="Show profile contents directly when only one profile is active" type="bool" id="single_profile_direct_mode" default="true"/>
+        <setting label="Warn about insecure (HTTP) connections" type="bool" id="warn_http" default="false"/>
+        <setting label="Show content counts in subcategories" type="bool" id="show_content_counts" default="true"/>
+    </category>
+    <category label="Profiles - Xtream, M3U">
+        <setting type="lsep" label="Profile 1"/>
+        <setting label="Show in main menu" type="bool" id="profile_1_enabled" default="true"/>
+        <setting label="Profile name" type="text" id="profile_1_name" default="Profile 1"/>
+        <setting label="Source type" type="labelenum" id="profile_1_source_type" default="Xtream Codes" values="M3U|Xtream Codes"/>
+        <setting label="M3U playlist URL" type="text" id="profile_1_m3u" default="" enable="eq(-1,0)"/>
+        <setting label="Xtream server URL" type="text" id="profile_1_xtream_url" default="" enable="eq(-2,1)"/>
+        <setting label="Xtream username" type="text" id="profile_1_xtream_username" default="" enable="eq(-3,1)"/>
+        <setting label="Xtream password" type="text" id="profile_1_xtream_password" default="" enable="eq(-4,1)"/>
+        <setting label="EPG URL for M3U" type="text" id="profile_1_epg_m3u" default="" enable="eq(-5,0)"/>
+        <setting label="EPG URL for Xtream" type="text" id="profile_1_epg_xtream" default="" enable="eq(-6,1)"/>
+        <setting label="Load TV, Movies, Series" type="action" id="profile_1_load_content" action="RunPlugin(plugin://plugin.video.xstream-player/?mode=manage_load_content&amp;pnum=1)"/>
+        <setting label="Manage Content" type="action" id="profile_1_manage_content" action="RunPlugin(plugin://plugin.video.xstream-player/?mode=manage_content_select&amp;pnum=1)"/>
+
+        <setting type="lsep" label="Profile 2"/>
+        <setting label="Show in main menu" type="bool" id="profile_2_enabled" default="false"/>
+        <setting label="Profile name" type="text" id="profile_2_name" default="Profile 2"/>
+        <setting label="Source type" type="labelenum" id="profile_2_source_type" default="Xtream Codes" values="M3U|Xtream Codes"/>
+        <setting label="M3U playlist URL" type="text" id="profile_2_m3u" default="" enable="eq(-1,0)"/>
+        <setting label="Xtream server URL" type="text" id="profile_2_xtream_url" default="" enable="eq(-2,1)"/>
+        <setting label="Xtream username" type="text" id="profile_2_xtream_username" default="" enable="eq(-3,1)"/>
+        <setting label="Xtream password" type="text" id="profile_2_xtream_password" default="" enable="eq(-4,1)"/>
+        <setting label="EPG URL for M3U" type="text" id="profile_2_epg_m3u" default="" enable="eq(-5,0)"/>
+        <setting label="EPG URL for Xtream" type="text" id="profile_2_epg_xtream" default="" enable="eq(-6,1)"/>
+        <setting label="Load TV, Movies, Series" type="action" id="profile_2_load_content" action="RunPlugin(plugin://plugin.video.xstream-player/?mode=manage_load_content&amp;pnum=2)"/>
+        <setting label="Manage Content" type="action" id="profile_2_manage_content" action="RunPlugin(plugin://plugin.video.xstream-player/?mode=manage_content_select&amp;pnum=2)"/>
+
+        <setting type="lsep" label="Profile 3"/>
+        <setting label="Show in main menu" type="bool" id="profile_3_enabled" default="false"/>
+        <setting label="Profile name" type="text" id="profile_3_name" default="Profile 3"/>
+        <setting label="Source type" type="labelenum" id="profile_3_source_type" default="Xtream Codes" values="M3U|Xtream Codes"/>
+        <setting label="M3U playlist URL" type="text" id="profile_3_m3u" default="" enable="eq(-1,0)"/>
+        <setting label="Xtream server URL" type="text" id="profile_3_xtream_url" default="" enable="eq(-2,1)"/>
+        <setting label="Xtream username" type="text" id="profile_3_xtream_username" default="" enable="eq(-3,1)"/>
+        <setting label="Xtream password" type="text" id="profile_3_xtream_password" default="" enable="eq(-4,1)"/>
+        <setting label="EPG URL for M3U" type="text" id="profile_3_epg_m3u" default="" enable="eq(-5,0)"/>
+        <setting label="EPG URL for Xtream" type="text" id="profile_3_epg_xtream" default="" enable="eq(-6,1)"/>
+        <setting label="Load TV, Movies, Series" type="action" id="profile_3_load_content" action="RunPlugin(plugin://plugin.video.xstream-player/?mode=manage_load_content&amp;pnum=3)"/>
+        <setting label="Manage Content" type="action" id="profile_3_manage_content" action="RunPlugin(plugin://plugin.video.xstream-player/?mode=manage_content_select&amp;pnum=3)"/>
+
+        <setting type="lsep" label="Profile 4"/>
+        <setting label="Show in main menu" type="bool" id="profile_4_enabled" default="false"/>
+        <setting label="Profile name" type="text" id="profile_4_name" default="Profile 4"/>
+        <setting label="Source type" type="labelenum" id="profile_4_source_type" default="Xtream Codes" values="M3U|Xtream Codes"/>
+        <setting label="M3U playlist URL" type="text" id="profile_4_m3u" default="" enable="eq(-1,0)"/>
+        <setting label="Xtream server URL" type="text" id="profile_4_xtream_url" default="" enable="eq(-2,1)"/>
+        <setting label="Xtream username" type="text" id="profile_4_xtream_username" default="" enable="eq(-3,1)"/>
+        <setting label="Xtream password" type="text" id="profile_4_xtream_password" default="" enable="eq(-4,1)"/>
+        <setting label="EPG URL for M3U" type="text" id="profile_4_epg_m3u" default="" enable="eq(-5,0)"/>
+        <setting label="EPG URL for Xtream" type="text" id="profile_4_epg_xtream" default="" enable="eq(-6,1)"/>
+        <setting label="Load TV, Movies, Series" type="action" id="profile_4_load_content" action="RunPlugin(plugin://plugin.video.xstream-player/?mode=manage_load_content&amp;pnum=4)"/>
+        <setting label="Manage Content" type="action" id="profile_4_manage_content" action="RunPlugin(plugin://plugin.video.xstream-player/?mode=manage_content_select&amp;pnum=4)"/>
+
+        <setting type="lsep" label="Profile 5"/>
+        <setting label="Show in main menu" type="bool" id="profile_5_enabled" default="false"/>
+        <setting label="Profile name" type="text" id="profile_5_name" default="Profile 5"/>
+        <setting label="Source type" type="labelenum" id="profile_5_source_type" default="Xtream Codes" values="M3U|Xtream Codes"/>
+        <setting label="M3U playlist URL" type="text" id="profile_5_m3u" default="" enable="eq(-1,0)"/>
+        <setting label="Xtream server URL" type="text" id="profile_5_xtream_url" default="" enable="eq(-2,1)"/>
+        <setting label="Xtream username" type="text" id="profile_5_xtream_username" default="" enable="eq(-3,1)"/>
+        <setting label="Xtream password" type="text" id="profile_5_xtream_password" default="" enable="eq(-4,1)"/>
+        <setting label="EPG URL for M3U" type="text" id="profile_5_epg_m3u" default="" enable="eq(-5,0)"/>
+        <setting label="EPG URL for Xtream" type="text" id="profile_5_epg_xtream" default="" enable="eq(-6,1)"/>
+        <setting label="Load TV, Movies, Series" type="action" id="profile_5_load_content" action="RunPlugin(plugin://plugin.video.xstream-player/?mode=manage_load_content&amp;pnum=5)"/>
+        <setting label="Manage Content" type="action" id="profile_5_manage_content" action="RunPlugin(plugin://plugin.video.xstream-player/?mode=manage_content_select&amp;pnum=5)"/>
+
+        <setting type="lsep" label="Profile 6"/>
+        <setting label="Show in main menu" type="bool" id="profile_6_enabled" default="false"/>
+        <setting label="Profile name" type="text" id="profile_6_name" default="Profile 6"/>
+        <setting label="Source type" type="labelenum" id="profile_6_source_type" default="Xtream Codes" values="M3U|Xtream Codes"/>
+        <setting label="M3U playlist URL" type="text" id="profile_6_m3u" default="" enable="eq(-1,0)"/>
+        <setting label="Xtream server URL" type="text" id="profile_6_xtream_url" default="" enable="eq(-2,1)"/>
+        <setting label="Xtream username" type="text" id="profile_6_xtream_username" default="" enable="eq(-3,1)"/>
+        <setting label="Xtream password" type="text" id="profile_6_xtream_password" default="" enable="eq(-4,1)"/>
+        <setting label="EPG URL for M3U" type="text" id="profile_6_epg_m3u" default="" enable="eq(-5,0)"/>
+        <setting label="EPG URL for Xtream" type="text" id="profile_6_epg_xtream" default="" enable="eq(-6,1)"/>
+        <setting label="Load TV, Movies, Series" type="action" id="profile_6_load_content" action="RunPlugin(plugin://plugin.video.xstream-player/?mode=manage_load_content&amp;pnum=6)"/>
+        <setting label="Manage Content" type="action" id="profile_6_manage_content" action="RunPlugin(plugin://plugin.video.xstream-player/?mode=manage_content_select&amp;pnum=6)"/>
+
+        <setting type="lsep" label="Profile 7"/>
+        <setting label="Show in main menu" type="bool" id="profile_7_enabled" default="false"/>
+        <setting label="Profile name" type="text" id="profile_7_name" default="Profile 7"/>
+        <setting label="Source type" type="labelenum" id="profile_7_source_type" default="Xtream Codes" values="M3U|Xtream Codes"/>
+        <setting label="M3U playlist URL" type="text" id="profile_7_m3u" default="" enable="eq(-1,0)"/>
+        <setting label="Xtream server URL" type="text" id="profile_7_xtream_url" default="" enable="eq(-2,1)"/>
+        <setting label="Xtream username" type="text" id="profile_7_xtream_username" default="" enable="eq(-3,1)"/>
+        <setting label="Xtream password" type="text" id="profile_7_xtream_password" default="" enable="eq(-4,1)"/>
+        <setting label="EPG URL for M3U" type="text" id="profile_7_epg_m3u" default="" enable="eq(-5,0)"/>
+        <setting label="EPG URL for Xtream" type="text" id="profile_7_epg_xtream" default="" enable="eq(-6,1)"/>
+        <setting label="Load TV, Movies, Series" type="action" id="profile_7_load_content" action="RunPlugin(plugin://plugin.video.xstream-player/?mode=manage_load_content&amp;pnum=7)"/>
+        <setting label="Manage Content" type="action" id="profile_7_manage_content" action="RunPlugin(plugin://plugin.video.xstream-player/?mode=manage_content_select&amp;pnum=7)"/>
+
+        <setting type="lsep" label="Profile 8"/>
+        <setting label="Show in main menu" type="bool" id="profile_8_enabled" default="false"/>
+        <setting label="Profile name" type="text" id="profile_8_name" default="Profile 8"/>
+        <setting label="Source type" type="labelenum" id="profile_8_source_type" default="Xtream Codes" values="M3U|Xtream Codes"/>
+        <setting label="M3U playlist URL" type="text" id="profile_8_m3u" default="" enable="eq(-1,0)"/>
+        <setting label="Xtream server URL" type="text" id="profile_8_xtream_url" default="" enable="eq(-2,1)"/>
+        <setting label="Xtream username" type="text" id="profile_8_xtream_username" default="" enable="eq(-3,1)"/>
+        <setting label="Xtream password" type="text" id="profile_8_xtream_password" default="" enable="eq(-4,1)"/>
+        <setting label="EPG URL for M3U" type="text" id="profile_8_epg_m3u" default="" enable="eq(-5,0)"/>
+        <setting label="EPG URL for Xtream" type="text" id="profile_8_epg_xtream" default="" enable="eq(-6,1)"/>
+        <setting label="Load TV, Movies, Series" type="action" id="profile_8_load_content" action="RunPlugin(plugin://plugin.video.xstream-player/?mode=manage_load_content&amp;pnum=8)"/>
+        <setting label="Manage Content" type="action" id="profile_8_manage_content" action="RunPlugin(plugin://plugin.video.xstream-player/?mode=manage_content_select&amp;pnum=8)"/>
+
+        <setting type="lsep" label="Profile 9"/>
+        <setting label="Show in main menu" type="bool" id="profile_9_enabled" default="false"/>
+        <setting label="Profile name" type="text" id="profile_9_name" default="Profile 9"/>
+        <setting label="Source type" type="labelenum" id="profile_9_source_type" default="Xtream Codes" values="M3U|Xtream Codes"/>
+        <setting label="M3U playlist URL" type="text" id="profile_9_m3u" default="" enable="eq(-1,0)"/>
+        <setting label="Xtream server URL" type="text" id="profile_9_xtream_url" default="" enable="eq(-2,1)"/>
+        <setting label="Xtream username" type="text" id="profile_9_xtream_username" default="" enable="eq(-3,1)"/>
+        <setting label="Xtream password" type="text" id="profile_9_xtream_password" default="" enable="eq(-4,1)"/>
+        <setting label="EPG URL for M3U" type="text" id="profile_9_epg_m3u" default="" enable="eq(-5,0)"/>
+        <setting label="EPG URL for Xtream" type="text" id="profile_9_epg_xtream" default="" enable="eq(-6,1)"/>
+        <setting label="Load TV, Movies, Series" type="action" id="profile_9_load_content" action="RunPlugin(plugin://plugin.video.xstream-player/?mode=manage_load_content&amp;pnum=9)"/>
+        <setting label="Manage Content" type="action" id="profile_9_manage_content" action="RunPlugin(plugin://plugin.video.xstream-player/?mode=manage_content_select&amp;pnum=9)"/>
+
+        <setting type="lsep" label="Profile 10"/>
+        <setting label="Show in main menu" type="bool" id="profile_10_enabled" default="false"/>
+        <setting label="Profile name" type="text" id="profile_10_name" default="Profile 10"/>
+        <setting label="Source type" type="labelenum" id="profile_10_source_type" default="Xtream Codes" values="M3U|Xtream Codes"/>
+        <setting label="M3U playlist URL" type="text" id="profile_10_m3u" default="" enable="eq(-1,0)"/>
+        <setting label="Xtream server URL" type="text" id="profile_10_xtream_url" default="" enable="eq(-2,1)"/>
+        <setting label="Xtream username" type="text" id="profile_10_xtream_username" default="" enable="eq(-3,1)"/>
+        <setting label="Xtream password" type="text" id="profile_10_xtream_password" default="" enable="eq(-4,1)"/>
+        <setting label="EPG URL for M3U" type="text" id="profile_10_epg_m3u" default="" enable="eq(-5,0)"/>
+        <setting label="EPG URL for Xtream" type="text" id="profile_10_epg_xtream" default="" enable="eq(-6,1)"/>
+        <setting label="Load TV, Movies, Series" type="action" id="profile_10_load_content" action="RunPlugin(plugin://plugin.video.xstream-player/?mode=manage_load_content&amp;pnum=10)"/>
+        <setting label="Manage Content" type="action" id="profile_10_manage_content" action="RunPlugin(plugin://plugin.video.xstream-player/?mode=manage_content_select&amp;pnum=10)"/>
+    </category>
+    <category label="Add-on groups">
+        <setting type="lsep" label="Add-on groups"/>
+        <setting label="Enable group 1" type="bool" id="ag_1_enabled" default="true"/>
+        <setting label="Rename group" type="text" id="ag_1_name" default="Addon group 1" enable="eq(-1,true)"/>
+        <setting label="Select add-ons" type="action" id="ag_1_select" action="RunPlugin(plugin://plugin.video.xstream-player/?mode=select_ag_addons&amp;group=1)" enable="eq(-2,true)"/>
+        <setting type="lsep" label="Add-on groups"/>
+        <setting label="Enable group 2" type="bool" id="ag_2_enabled" default="false"/>
+        <setting label="Rename group" type="text" id="ag_2_name" default="Addon group 2" enable="eq(-1,true)"/>
+        <setting label="Select add-ons" type="action" id="ag_2_select" action="RunPlugin(plugin://plugin.video.xstream-player/?mode=select_ag_addons&amp;group=2)" enable="eq(-2,true)"/>
+        <setting type="lsep" label="Add-on groups"/>
+        <setting label="Enable group 3" type="bool" id="ag_3_enabled" default="false"/>
+        <setting label="Rename group" type="text" id="ag_3_name" default="Addon group 3" enable="eq(-1,true)"/>
+        <setting label="Select add-ons" type="action" id="ag_3_select" action="RunPlugin(plugin://plugin.video.xstream-player/?mode=select_ag_addons&amp;group=3)" enable="eq(-2,true)"/>
+        <setting type="lsep" label="Add-on groups"/>
+        <setting label="Enable group 4" type="bool" id="ag_4_enabled" default="false"/>
+        <setting label="Rename group" type="text" id="ag_4_name" default="Addon group 4" enable="eq(-1,true)"/>
+        <setting label="Select add-ons" type="action" id="ag_4_select" action="RunPlugin(plugin://plugin.video.xstream-player/?mode=select_ag_addons&amp;group=4)" enable="eq(-2,true)"/>
+        <setting type="lsep" label="Add-on groups"/>
+        <setting label="Enable group 5" type="bool" id="ag_5_enabled" default="false"/>
+        <setting label="Rename group" type="text" id="ag_5_name" default="Addon group 5" enable="eq(-1,true)"/>
+        <setting label="Select add-ons" type="action" id="ag_5_select" action="RunPlugin(plugin://plugin.video.xstream-player/?mode=select_ag_addons&amp;group=5)" enable="eq(-2,true)"/>
+    </category>
+    <category label="Playback and buffer">
+        <setting type="lsep" label="TV Shows - Series"/>
+        <setting label="Auto play next episode" type="bool" id="series_autoplay_next" default="true"/>
+        <setting label="Show Up Next prompt" type="bool" id="series_upnext_enabled" default="true" enable="System.HasAddon(service.upnext)"/>
+        <setting label="Install Up Next add-on" type="action" id="install_upnext_action" action="RunPlugin(plugin://plugin.video.xstream-player/?mode=install_upnext)"/>
+        <setting label="Up Next settings" type="action" id="upnext_settings_action" action="RunPlugin(plugin://plugin.video.xstream-player/?mode=open_upnext_settings)" enable="System.HasAddon(service.upnext)"/>
+        <setting type="lsep" label="Playback"/>
+        <setting label="Stream timeout (seconds)" type="slider" id="stream_timeout" default="15" range="5,1,60"/>
+        <setting label="Custom User-Agent" type="text" id="custom_user_agent" default=""/>
+        <setting label="Use InputStream Adaptive" type="bool" id="use_inputstream_adaptive" default="false"/>
+        <setting type="lsep" label="Buffer"/>
+        <setting label="Enable buffering" type="bool" id="buffer_fix_enabled" default="true"/>
+        <setting label="Buffer size (MB)" type="labelenum" id="buffer_size_mb" default="100" values="20|50|100|200|500" enable="eq(-1,true)"/>
+        <setting label="Read factor (fill rate)" type="labelenum" id="buffer_read_factor" default="20" values="4|10|20|50" enable="eq(-2,true)"/>
+    </category>
+    <category label="PVR and EPG">
+        <setting type="lsep" label="PVR Configuration"/>
+        <setting label="Enable PVR Favorites" type="bool" id="pvr_favorites_enabled" default="true"/>
+        <setting type="bool" id="pvr_fav_saved_state" default="" visible="false"/>
+        <setting label="Open PVR Client Settings" type="action" id="open_pvr_settings" action="Addon.OpenSettings(pvr.iptvsimple)" option="close"/>
+        <setting type="lsep"/>
+        <setting type="lsep" label="EPG Settings"/>
+        <setting label="Auto-detect EPG from Xtream" type="bool" id="auto_epg" default="true"/>
+        <setting label="Show EPG info in Live TV" type="bool" id="show_epg_live" default="true"/>
+        <setting label="EPG language priority (e.g. hr, en)" type="text" id="epg_language" default=""/>
+        <setting label="EPG cache duration (hours)" type="number" id="epg_refresh" default="4"/>
+        <setting label="Force refresh EPG on startup" type="bool" id="epg_force_refresh_startup" default="false"/>
+        <setting label="EPG timezone (hours)" type="slider" id="epg_offset" default="0" range="-12,1,12"/>
+        <setting label="EPG past days limit" type="number" id="epg_past_days" default="3"/>
+        <setting label="Replay days back" type="number" id="replay_days" default="7"/>
+        <setting label="EPG refresh interval (hours)" type="number" id="pvr_epg_refresh" default="12"/>
+        <setting type="lsep"/>
+        <setting type="lsep" label="Catchup / Replay"/>
+        <setting label="Enable catchup" type="bool" id="pvr_catchup_enabled" default="true"/>
+        <setting label="Catchup days" type="labelenum" id="pvr_catchup_days" default="7" values="1|3|5|7|14"/>
+        <setting type="lsep"/>
+        <setting type="lsep" label="PVR Sync"/>
+        <setting label="Auto sync Live TV with PVR" type="bool" id="auto_sync_pvr" default="true"/>
+        <setting label="Ensure PVR client is enabled on launch" type="bool" id="pvr_reload_on_launch" default="false"/>
+        <setting type="lsep" label="PVR OSD navigation"/>
+        <setting label="Enable left/right OSD navigation" type="bool" id="pvr_osd_navigation" default="true"/>
+        <setting label="Left press - Show channels" type="bool" id="pvr_left_channels" default="true" enable="eq(-1,true)"/>
+        <setting label="Right press - Show guide" type="bool" id="pvr_right_guide" default="true" enable="eq(-2,true)"/>
+        <setting type="lsep"/>
+        <setting type="lsep" label="Data refresh"/>
+        <setting label="Auto data refresh" type="bool" id="auto_refresh_enabled" default="true"/>
+        <setting label="Auto refresh interval" type="labelenum" id="auto_refresh_interval" default="24" values="12|24|48|Never"/>
+        <setting label="Clear all cache on refresh" type="bool" id="clear_cache_on_refresh" default="true"/>
+    </category>
+    <category label="Metadata">
+        <setting type="lsep" label="Provider Metadata - Movies"/>
+        <setting label="Enable provider metadata for movies" type="bool" id="provider_movie_enabled" default="true"/>
+        <setting label="Use provider description" type="bool" id="provider_movie_plot" default="true" enable="eq(-1,true)"/>
+        <setting label="Use provider poster" type="bool" id="provider_movie_posters" default="true" enable="eq(-2,true)"/>
+        <setting label="Use provider ratings" type="bool" id="provider_movie_ratings" default="true" enable="eq(-3,true)"/>
+        <setting label="Use provider cast" type="bool" id="provider_movie_cast" default="true" enable="eq(-4,true)"/>
+        <setting label="Use provider genre" type="bool" id="provider_movie_genre" default="true" enable="eq(-5,true)"/>
+        <setting label="Use provider duration" type="bool" id="provider_movie_duration" default="true" enable="eq(-6,true)"/>
+        <setting type="lsep" label="Provider Metadata - Series"/>
+        <setting label="Enable provider metadata for series" type="bool" id="provider_series_enabled" default="true"/>
+        <setting label="Use provider description" type="bool" id="provider_series_plot" default="true" enable="eq(-1,true)"/>
+        <setting label="Use provider poster" type="bool" id="provider_series_posters" default="true" enable="eq(-2,true)"/>
+        <setting label="Use provider ratings" type="bool" id="provider_series_ratings" default="true" enable="eq(-3,true)"/>
+        <setting label="Use provider cast" type="bool" id="provider_series_cast" default="true" enable="eq(-4,true)"/>
+        <setting label="Use provider genre" type="bool" id="provider_series_genre" default="true" enable="eq(-5,true)"/>
+        <setting label="Use provider duration" type="bool" id="provider_series_duration" default="true" enable="eq(-6,true)"/>
+        <setting type="lsep" label="TMDB Metadata"/>
+        <setting label="Enable TMDB metadata" type="bool" id="tmdb_enabled" default="false"/>
+        <setting label="TMDB API key" type="text" id="tmdb_api_key" default="" enable="eq(-1,true)"/>
+        <setting label="Use TMDB description/info" type="bool" id="tmdb_plot" default="true" enable="eq(-2,true)"/>
+        <setting label="Use TMDB poster" type="bool" id="tmdb_posters" default="true" enable="eq(-3,true)"/>
+        <setting label="Use TMDB ratings" type="bool" id="tmdb_ratings" default="true" enable="eq(-4,true)"/>
+        <setting label="Use TMDB cast" type="bool" id="tmdb_cast" default="true" enable="eq(-5,true)"/>
+        <setting label="Use TMDB duration/runtime" type="bool" id="tmdb_duration" default="true" enable="eq(-6,true)"/>
+    </category>
+    <category label="Parental control">
+        <setting type="lsep" label="Adult content"/>
+        <setting label="Hide adult categories" type="bool" id="hide_adult_categories" default="true"/>
+        <setting type="lsep" label="PIN lock"/>
+        <setting label="Enable parental control" type="bool" id="enable_parental_control" default="false"/>
+        <setting label="PIN code" type="text" id="parental_pin" default="0000" enable="eq(-1,true)" option="hidden"/>
+        <setting type="lsep" label="PIN required for" enable="eq(-2,true)"/>
+        <setting label="Lock settings" type="bool" id="parental_lock_settings" default="true" enable="eq(-3,true)"/>
+        <setting label="Lock tools" type="bool" id="parental_lock_tools" default="true" enable="eq(-4,true)"/>
+        <setting label="Lock adult Live TV" type="bool" id="parental_lock_adult_live" default="true" enable="eq(-5,true)"/>
+        <setting label="Lock adult movies" type="bool" id="parental_lock_adult_movies" default="true" enable="eq(-6,true)"/>
+        <setting label="Lock adult series" type="bool" id="parental_lock_adult_series" default="true" enable="eq(-7,true)"/>
+    </category>
+    <category label="Backup and restore">
+        <setting label="Save profile and data backup" type="action" id="backup_profiles" action="RunPlugin(plugin://plugin.video.xstream-player/?mode=backup_settings)"/>
+        <setting label="Restore profiles and data" type="action" id="restore_profiles" action="RunPlugin(plugin://plugin.video.xstream-player/?mode=restore_settings)"/>
+        <setting type="lsep" label="Backup location"/>
+        <setting label="User preset location" type="action" id="change_backup_folder" action="RunPlugin(plugin://plugin.video.xstream-player/?mode=change_backup_folder)"/>
+        <setting label="Current backup path" type="text" id="backup_folder_display" default="" enable="false"/>
+        <setting label="View full backup path" type="action" id="view_backup_path" action="RunPlugin(plugin://plugin.video.xstream-player/?mode=view_backup_path)"/>
+    </category>
+    <category label="Updates">
+        <setting label="Current version" type="text" id="current_version_display" default="" enable="false"/>
+        <setting label="Rollback to previous version" type="action" id="revert_version_btn" action="RunPlugin(plugin://plugin.video.xstream-player/?mode=revert_version)" option="close"/>
+        <setting label="Check for updates" type="action" id="check_update_btn" action="RunPlugin(plugin://plugin.video.xstream-player/?mode=check_update)" option="close"/>
+        <setting label="Auto check interval" type="labelenum" id="update_check_interval" default="On Startup" values="Never|On Startup|Daily|Weekly|Monthly"/>
+        <setting label="Show changelog after update" type="bool" id="show_changelog_on_update" default="true"/>
+        <setting label="Show changelog" type="action" id="view_changelog_btn" action="RunPlugin(plugin://plugin.video.xstream-player/?mode=view_changelog)" option="close"/>
+        <setting label="Update available" type="text" id="update_available" default="false" visible="false"/>
+        <setting label="Update version" type="text" id="update_version" default="" visible="false"/>
+        <setting label="Last check date" type="text" id="last_update_check" default="" visible="false"/>
+        <setting label="Last seen version" type="text" id="last_seen_version" default="0.0.0" visible="false"/>
+        <setting label="Last PVR Profile" type="text" id="last_pvr_profile" default="" visible="false"/>
+        <!-- Profile Load Settings (hidden, managed via Load TV, Movies, Series action) -->
+        <setting label="Profile 1 Load Live" type="bool" id="profile_1_load_live" default="true" visible="false"/>
+        <setting label="Profile 1 Load Movies" type="bool" id="profile_1_load_movies" default="true" visible="false"/>
+        <setting label="Profile 1 Load Series" type="bool" id="profile_1_load_series" default="true" visible="false"/>
+        <setting label="Profile 2 Load Live" type="bool" id="profile_2_load_live" default="true" visible="false"/>
+        <setting label="Profile 2 Load Movies" type="bool" id="profile_2_load_movies" default="true" visible="false"/>
+        <setting label="Profile 2 Load Series" type="bool" id="profile_2_load_series" default="true" visible="false"/>
+        <setting label="Profile 3 Load Live" type="bool" id="profile_3_load_live" default="true" visible="false"/>
+        <setting label="Profile 3 Load Movies" type="bool" id="profile_3_load_movies" default="true" visible="false"/>
+        <setting label="Profile 3 Load Series" type="bool" id="profile_3_load_series" default="true" visible="false"/>
+        <setting label="Profile 4 Load Live" type="bool" id="profile_4_load_live" default="true" visible="false"/>
+        <setting label="Profile 4 Load Movies" type="bool" id="profile_4_load_movies" default="true" visible="false"/>
+        <setting label="Profile 4 Load Series" type="bool" id="profile_4_load_series" default="true" visible="false"/>
+        <setting label="Profile 5 Load Live" type="bool" id="profile_5_load_live" default="true" visible="false"/>
+        <setting label="Profile 5 Load Movies" type="bool" id="profile_5_load_movies" default="true" visible="false"/>
+        <setting label="Profile 5 Load Series" type="bool" id="profile_5_load_series" default="true" visible="false"/>
+        <setting label="Profile 6 Load Live" type="bool" id="profile_6_load_live" default="true" visible="false"/>
+        <setting label="Profile 6 Load Movies" type="bool" id="profile_6_load_movies" default="true" visible="false"/>
+        <setting label="Profile 6 Load Series" type="bool" id="profile_6_load_series" default="true" visible="false"/>
+        <setting label="Profile 7 Load Live" type="bool" id="profile_7_load_live" default="true" visible="false"/>
+        <setting label="Profile 7 Load Movies" type="bool" id="profile_7_load_movies" default="true" visible="false"/>
+        <setting label="Profile 7 Load Series" type="bool" id="profile_7_load_series" default="true" visible="false"/>
+        <setting label="Profile 8 Load Live" type="bool" id="profile_8_load_live" default="true" visible="false"/>
+        <setting label="Profile 8 Load Movies" type="bool" id="profile_8_load_movies" default="true" visible="false"/>
+        <setting label="Profile 8 Load Series" type="bool" id="profile_8_load_series" default="true" visible="false"/>
+        <setting label="Profile 9 Load Live" type="bool" id="profile_9_load_live" default="true" visible="false"/>
+        <setting label="Profile 9 Load Movies" type="bool" id="profile_9_load_movies" default="true" visible="false"/>
+        <setting label="Profile 9 Load Series" type="bool" id="profile_9_load_series" default="true" visible="false"/>
+        <setting label="Profile 10 Load Live" type="bool" id="profile_10_load_live" default="true" visible="false"/>
+        <setting label="Profile 10 Load Movies" type="bool" id="profile_10_load_movies" default="true" visible="false"/>
+        <setting label="Profile 10 Load Series" type="bool" id="profile_10_load_series" default="true" visible="false"/>
+    </category>
+</settings>

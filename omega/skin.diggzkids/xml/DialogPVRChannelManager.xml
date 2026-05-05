@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-    <defaultcontrol always="true">20</defaultcontrol>
+    <defaultcontrol>20</defaultcontrol>
     <coordinates>
         <left>120</left>
         <top>98</top>

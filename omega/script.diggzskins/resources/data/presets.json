@@ -1,58 +1,27 @@
 [
   {
-    "name": "[B][COLOR gold]Diggz Xenon 4K[/COLOR][/B]",
-    "description": "",
-    "screenshot": "https://raw.githubusercontent.com/Buildtexts69/omegabuilds/refs/heads/main/X2/x4k.png",
-    "id": "skin.xenon4k"
+    "name": "[B][COLOR gold]Diggz Xenon[/COLOR][/B]",
+    "description": "(FREE OR DEBRID)",
+    "screenshot": "https://raw.githubusercontent.com/Buildtexts69/omegabuilds/refs/heads/main/X2/xenon.png",
+    "id": "skin.xenon"
   },
   {
     "name": "[B][COLOR gold]Diggz Xenon 2[/COLOR][/B]",
-    "description": "",
+    "description": "(FREE OR DEBRID)",
     "screenshot": "https://raw.githubusercontent.com/Buildtexts69/omegabuilds/refs/heads/main/X2/x2.png",
     "id": "skin.xenon2"
   },
   {
     "name": "[B][COLOR gold]Eminence[/COLOR][/B]",
-    "description": "",
+    "description": "(FREE OR DEBRID)",
     "screenshot": "https://raw.githubusercontent.com/Buildtexts69/omegabuilds/refs/heads/main/X2/eminence.png",
     "id": "skin.eminence.2.mod"
   },
   {
-    "name": "[B][COLOR gold]Fentastic[/COLOR][/B]",
-    "description": "",
-    "screenshot": "https://raw.githubusercontent.com/Buildtexts69/omegabuilds/refs/heads/main/X2/fentastic.png",
-    "id": "skin.eminence.2.fen"
-  },
-  {
-    "name": "[B][COLOR gold]DiggzFlix[/COLOR][COLOR red] 2[/COLOR][/B]",
-    "description": "NO Touchscreen",
-    "screenshot": "https://raw.githubusercontent.com/Buildtexts69/omegabuilds/refs/heads/main/X2/diggzflix2.png",
-    "id": "skin.diggzflix"
-  },
-  {
     "name": "[B][COLOR gold]DiggzFlix[/COLOR][/B]",
-    "description": "NO Touchscreen",
-    "screenshot": "https://raw.githubusercontent.com/Buildtexts69/omegabuilds/refs/heads/main/X2/diggzflix.png",
-    "id": "skin.auraflix"
-  },
-  {
-    "name": "[B][COLOR gold]UmbrellaFlix[/COLOR][/B]",
-    "description": "NO Touchscreen",
-    "screenshot": "https://raw.githubusercontent.com/Buildtexts69/omegabuilds/refs/heads/main/X2/Umbrellaflix.png",
-    "video": "https://www.youtube.com/watch?v=8NwFeY4U4mM",
-    "id": "skin.umbrellaflix"
-  },
-  {
-    "name": "[B][COLOR gold]SerenFlix[/COLOR][/B]",
-    "description": "NO Touchscreen",
-    "screenshot": "https://raw.githubusercontent.com/Buildtexts69/omegabuilds/refs/heads/main/X2/serenflix.png",
-    "id": "skin.serenflix"
-  },
-  {
-    "name": "[B][COLOR gold]FenFlix[/COLOR][/B]",
-    "description": "NO Touchscreen",
-    "screenshot": "https://raw.githubusercontent.com/Buildtexts69/omegabuilds/refs/heads/main/X2/fenflix.png",
-    "id": "skin.povflix"
+    "description": "(FREE OR DEBRID) NO Touchscreen",
+    "screenshot": "https://raw.githubusercontent.com/Buildtexts69/omegabuilds/refs/heads/main/X2/diggzflix2.png",
+    "id": "skin.diggzflix2"
   },
   {
     "name": "[B][COLOR gold]ArcticFlix[/COLOR][/B]",

@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
     id="skin.eminence.2.mod"
-    version="421.3.0.4"
+    version="422.3.0.4"
     name="[B][COLOR gold]Eminence[/COLOR][/B]  (Mid Power)"
     provider-name="Diggz">
     <requires>
         <import addon="xbmc.gui" version="5.17.0"/>
         <import addon="script.skinshortcuts" version="1.0.0" />
         <import addon="plugin.video.themoviedb.helper" version="4.4.0" />
-        <import addon="script.image.resource.select" version="0.0.5" />
-        <import addon="resource.images.weatherfanart.single" version="0.0.6"/>		
+        <import addon="script.image.resource.select" version="0.0.5" />	
     </requires>
     <extension point="xbmc.gui.skin" effectslowdown="1.00" debugging="false">
         <res width="1920" height="1080" aspect="16:9" default="true" folder="16x9" />

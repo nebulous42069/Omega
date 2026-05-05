@@ -1,0 +1,106 @@
+<settings version="2">
+    <setting id="series_autoplay_next" default="true">true</setting>
+    <setting id="series_upnext_enabled" default="true">true</setting>
+    <setting id="active_pvr_profile" default="true">Profile 1</setting>
+    <setting id="profile_1_name" default="true">Profile 1</setting>
+    <setting id="profile_1_source_type" default="true">Xtream Codes</setting>
+    <setting id="profile_1_m3u" default="true" />
+    <setting id="profile_1_xtream_url" default="true" />
+    <setting id="profile_1_xtream_username" default="true" />
+    <setting id="profile_1_xtream_password" default="true" />
+    <setting id="profile_1_epg_m3u" default="true" />
+    <setting id="profile_1_epg_xtream" default="true" />
+    <setting id="profile_1_enabled" default="true">true</setting>
+    <setting id="profile_2_enabled" default="true">false</setting>
+    <setting id="profile_2_name" default="true">Profile 2</setting>
+    <setting id="profile_2_source_type" default="true">Xtream Codes</setting>
+    <setting id="profile_2_m3u" default="true" />
+    <setting id="profile_2_xtream_url" default="true" />
+    <setting id="profile_2_xtream_username" default="true" />
+    <setting id="profile_2_xtream_password" default="true" />
+    <setting id="profile_2_epg_m3u" default="true" />
+    <setting id="profile_2_epg_xtream" default="true" />
+    <setting id="profile_3_enabled" default="true">false</setting>
+    <setting id="profile_3_name" default="true">Profile 3</setting>
+    <setting id="profile_3_source_type" default="true">Xtream Codes</setting>
+    <setting id="profile_3_m3u" default="true" />
+    <setting id="profile_3_xtream_url" default="true" />
+    <setting id="profile_3_xtream_username" default="true" />
+    <setting id="profile_3_xtream_password" default="true" />
+    <setting id="profile_3_epg_m3u" default="true" />
+    <setting id="profile_3_epg_xtream" default="true" />
+    <setting id="profile_4_enabled" default="true">false</setting>
+    <setting id="profile_4_name" default="true">Profile 4</setting>
+    <setting id="profile_4_source_type" default="true">Xtream Codes</setting>
+    <setting id="profile_4_m3u" default="true" />
+    <setting id="profile_4_xtream_url" default="true" />
+    <setting id="profile_4_xtream_username" default="true" />
+    <setting id="profile_4_xtream_password" default="true" />
+    <setting id="profile_4_epg_m3u" default="true" />
+    <setting id="profile_4_epg_xtream" default="true" />
+    <setting id="profile_5_enabled" default="true">false</setting>
+    <setting id="profile_5_name" default="true">Profile 5</setting>
+    <setting id="profile_5_source_type" default="true">Xtream Codes</setting>
+    <setting id="profile_5_m3u" default="true" />
+    <setting id="profile_5_xtream_url" default="true" />
+    <setting id="profile_5_xtream_username" default="true" />
+    <setting id="profile_5_xtream_password" default="true" />
+    <setting id="profile_5_epg_m3u" default="true" />
+    <setting id="profile_5_epg_xtream" default="true" />
+    <setting id="profile_6_enabled" default="true">false</setting>
+    <setting id="profile_6_name" default="true">Profile 6</setting>
+    <setting id="profile_6_source_type" default="true">Xtream Codes</setting>
+    <setting id="profile_6_m3u" default="true" />
+    <setting id="profile_6_xtream_url" default="true" />
+    <setting id="profile_6_xtream_username" default="true" />
+    <setting id="profile_6_xtream_password" default="true" />
+    <setting id="profile_6_epg_m3u" default="true" />
+    <setting id="profile_6_epg_xtream" default="true" />
+    <setting id="profile_7_enabled" default="true">false</setting>
+    <setting id="profile_7_name" default="true">Profile 7</setting>
+    <setting id="profile_7_source_type" default="true">Xtream Codes</setting>
+    <setting id="profile_7_m3u" default="true" />
+    <setting id="profile_7_xtream_url" default="true" />
+    <setting id="profile_7_xtream_username" default="true" />
+    <setting id="profile_7_xtream_password" default="true" />
+    <setting id="profile_7_epg_m3u" default="true" />
+    <setting id="profile_7_epg_xtream" default="true" />
+    <setting id="profile_8_enabled" default="true">false</setting>
+    <setting id="profile_8_name" default="true">Profile 8</setting>
+    <setting id="profile_8_source_type" default="true">Xtream Codes</setting>
+    <setting id="profile_8_m3u" default="true" />
+    <setting id="profile_8_xtream_url" default="true" />
+    <setting id="profile_8_xtream_username" default="true" />
+    <setting id="profile_8_xtream_password" default="true" />
+    <setting id="profile_8_epg_m3u" default="true" />
+    <setting id="profile_8_epg_xtream" default="true" />
+    <setting id="profile_9_enabled" default="true">false</setting>
+    <setting id="profile_9_name" default="true">Profile 9</setting>
+    <setting id="profile_9_source_type" default="true">Xtream Codes</setting>
+    <setting id="profile_9_m3u" default="true" />
+    <setting id="profile_9_xtream_url" default="true" />
+    <setting id="profile_9_xtream_username" default="true" />
+    <setting id="profile_9_xtream_password" default="true" />
+    <setting id="profile_9_epg_m3u" default="true" />
+    <setting id="profile_9_epg_xtream" default="true" />
+    <setting id="profile_10_enabled" default="true">false</setting>
+    <setting id="profile_10_name" default="true">Profile 10</setting>
+    <setting id="profile_10_source_type" default="true">Xtream Codes</setting>
+    <setting id="profile_10_m3u" default="true" />
+    <setting id="profile_10_xtream_url" default="true" />
+    <setting id="profile_10_xtream_username" default="true" />
+    <setting id="profile_10_xtream_password" default="true" />
+    <setting id="profile_10_epg_m3u" default="true" />
+    <setting id="profile_10_epg_xtream" default="true" />
+    <setting id="stream_timeout" default="true">15</setting>
+    <setting id="custom_user_agent" default="true" />
+    <setting id="use_inputstream_adaptive" default="true">false</setting>
+    <setting id="auto_epg" default="true">true</setting>
+    <setting id="show_epg_live" default="true">true</setting>
+    <setting id="epg_language" default="true" />
+    <setting id="epg_force_refresh_startup" default="true">false</setting>
+    <setting id="epg_refresh" default="true">4</setting>
+    <setting id="epg_offset" default="true">0</setting>
+    <setting id="epg_past_days" default="true">3</setting>
+    <setting id="replay_days" default="true">7</setting>
+</settings>

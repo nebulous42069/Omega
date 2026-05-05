@@ -4,6 +4,7 @@ import json
 import xbmc
 import xbmcgui
 import xbmcvfs
+import sys
 
 ADDON_ID = "script.diggzskins"
 ADDON_PATH = xbmcvfs.translatePath("special://home/addons/%s" % ADDON_ID)
@@ -238,4 +239,8 @@ def run():
     del w
 
 if __name__ == "__main__":
-    run()
+    if len(sys.argv) > 1:
+        addonid = sys.argv[1]
+        switch_skin(addonid)
+    else:
+        run()

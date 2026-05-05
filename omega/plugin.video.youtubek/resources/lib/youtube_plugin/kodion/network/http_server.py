@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 
-    Copyright (C) 2018-2018 plugin.video.youtubek
+    Copyright (C) 2018-2025 plugin.video.youtubek
 
     SPDX-License-Identifier: GPL-2.0-only
     See LICENSES/GPL-2.0-only for more information.
@@ -13,14 +13,24 @@ import os
 import re
 import socket
 from collections import deque
-from errno import ECONNABORTED, ECONNREFUSED, ECONNRESET
+from errno import (
+    ECONNABORTED,
+    ECONNREFUSED,
+    ECONNRESET,
+    EPIPE,
+    EPROTOTYPE,
+    ESHUTDOWN,
+)
 from functools import partial
 from io import open
 from json import dumps as json_dumps, loads as json_loads
 from select import select
 from textwrap import dedent
 
+from urllib3.exceptions import HTTPError
+
 from .requests import BaseRequestsClass
+from .. import logging
 from ..compatibility import (
     BaseHTTPRequestHandler,
     TCPServer,
@@ -29,17 +39,17 @@ from ..compatibility import (
     urlsplit,
     urlunsplit,
     xbmc,
-    xbmcgui,
     xbmcvfs,
 )
 from ..constants import (
-    ADDON_ID,
     LICENSE_TOKEN,
     LICENSE_URL,
     PATHS,
     TEMP_PATH,
 )
-from ..utils import parse_and_redact_uri, wait
+from ..utils.convert_format import fix_subtitle_stream
+from ..utils.methods import wait
+from ..utils.redact import parse_and_redact_uri
 
 
 class HTTPServer(ThreadingMixIn, TCPServer):
@@ -66,9 +76,8 @@ class HTTPServer(ThreadingMixIn, TCPServer):
                    and not wfile.closed
                    and not select((), (wfile,), (), 0.1)[1]):
                 pass
-            if handler._close_all or wfile.closed:
-                return
-            handler.finish()
+            if not handler._close_all and not wfile.closed:
+                handler.finish()
 
     def server_close(self):
         request_handler = self.RequestHandlerClass
@@ -101,6 +110,8 @@ class HTTPServer(ThreadingMixIn, TCPServer):
 
 
 class RequestHandler(BaseHTTPRequestHandler, object):
+    log = logging.getLogger(__name__)
+
     protocol_version = 'HTTP/1.1'
     server_version = 'plugin.video.youtubek/1.0'
 
@@ -114,6 +125,15 @@ class RequestHandler(BaseHTTPRequestHandler, object):
     server_priority_list = {
         'stream_ids': deque(),
         'server_lists': {},
+    }
+
+    SWALLOWED_ERRORS = {
+        ECONNABORTED,
+        ECONNREFUSED,
+        ECONNRESET,
+        EPIPE,
+        EPROTOTYPE,
+        ESHUTDOWN,
     }
 
     def __init__(self, request, client_address, server):
@@ -156,10 +176,13 @@ class RequestHandler(BaseHTTPRequestHandler, object):
         try:
             super(RequestHandler, self).handle_one_request()
             return
-        except OSError as exc:
+        except (HTTPError, OSError) as exc:
             self.close_connection = True
-            if exc.errno not in {ECONNABORTED, ECONNREFUSED, ECONNRESET}:
-                raise exc
+            self.log.exception('Request failed')
+            if (isinstance(exc, HTTPError)
+                    or getattr(exc, 'errno', None) in self.SWALLOWED_ERRORS):
+                return
+            raise exc
 
     def ip_address_status(self, ip_address):
         is_whitelisted = ip_address in self.whitelist_ips
@@ -204,24 +227,22 @@ class RequestHandler(BaseHTTPRequestHandler, object):
             'log_uri': log_uri,
         }
 
-        if not path['path'].startswith(PATHS.PING):
-            msg = ('HTTPServer - {method}'
-                   '\n\tPath:        |{path}|'
-                   '\n\tParams:      |{params}|'
-                   '\n\tAddress:     |{client_ip}|'
-                   '\n\tWhitelisted: {is_whitelisted}'
-                   '\n\tLocal range: {is_local}'
-                   '\n\tStatus:      {status}'
-                   .format(method=method,
-                           path=path['path'],
-                           params=path['log_params'],
+        if not path['path'].startswith(PATHS.PING) and self.log.verbose_logging:
+            self.log.debug(('{status}',
+                            'Method:      {method!r}',
+                            'Path:        {path[path]!r}',
+                            'Params:      {path[log_params]!r}',
+                            'Address:     {client_ip!r}',
+                            'Whitelisted: {is_whitelisted}',
+                            'Local range: {is_local}'),
+                           status=('Allowed' if ip_allowed else 'Blocked'),
+                           method=method,
+                           path=path,
                            client_ip=client_ip,
                            is_whitelisted=is_whitelisted,
                            is_local=('Undetermined'
                                      if is_local is None else
-                                     is_local),
-                           status='Allowed' if ip_allowed else 'Blocked'))
-            self._context.log_debug(msg)
+                                     is_local))
         return ip_allowed, path
 
     # noinspection PyPep8Naming
@@ -262,14 +283,14 @@ class RequestHandler(BaseHTTPRequestHandler, object):
                 self.send_header('Content-Length', str(file_size))
                 self.end_headers()
 
-                with open(file_path, 'rb', buffering=self.chunk_size) as f:
+                with open(file_path, mode='rb', buffering=self.chunk_size) as f:
                     while 1:
                         file_chunk = f.read()
                         if not file_chunk:
                             break
                         self.wfile.write(file_chunk)
             except IOError:
-                response = ('File Not Found: |{uri}| -> |{file_path}|'
+                response = ('File Not Found: {uri!r} -> {file_path!r}'
                             .format(uri=path['log_uri'], file_path=file_path))
                 self.send_error(404, response)
 
@@ -327,7 +348,7 @@ class RequestHandler(BaseHTTPRequestHandler, object):
 
             if updated:
                 # Successfully updated
-                updated = localize('api.config.updated') % ', '.join(updated)
+                updated = localize('api.config.updated', ', '.join(updated))
             else:
                 # No changes, not updated
                 updated = localize('api.config.not_updated')
@@ -361,29 +382,47 @@ class RequestHandler(BaseHTTPRequestHandler, object):
             params = path['params']
             original_path = params.pop('__path', empty)[0] or '/videoplayback'
             request_servers = params.pop('__host', empty)
-            stream_id = (params.pop('__id', empty)[0],
-                         params.get('itag', empty)[0])
-            ids = self.server_priority_list['stream_ids']
-            server_lists = self.server_priority_list['server_lists']
-            if stream_id in ids:
-                priority_list = server_lists[stream_id]['list']
-                if priority_list:
-                    request_servers.sort(
-                        key=partial(self._sort_servers,
-                                    _len=len(priority_list),
-                                    _index=priority_list.index),
-                        reverse=True,
-                    )
-            else:
-                ids.append(stream_id)
-                if len(ids) > 5:
-                    old_id = ids.popleft()
-                    del server_lists[old_id]
+            stream_id = params.pop('__id', empty)
+            method = params.pop('__method', empty)[0] or 'POST'
+            if original_path == '/videoplayback':
+                stream_id += params.get('itag', empty)
+                stream_id = tuple(stream_id)
+                stream_type = params.get('mime', empty)[0]
+                if stream_type:
+                    stream_type = tuple(stream_type.split('/'))
+                else:
+                    stream_type = (None, None)
+                ids = self.server_priority_list['stream_ids']
+                server_lists = self.server_priority_list['server_lists']
+                if stream_id in ids:
+                    priority_list = server_lists[stream_id]['list']
+                    if priority_list:
+                        request_servers.sort(
+                            key=partial(self._sort_servers,
+                                        _len=len(priority_list),
+                                        _index=priority_list.index),
+                            reverse=True,
+                        )
+                else:
+                    ids.append(stream_id)
+                    if len(ids) > 5:
+                        old_id = ids.popleft()
+                        del server_lists[old_id]
+                    priority_list = []
+                    server_lists[stream_id] = {
+                        'started': False,
+                        'list': priority_list,
+                    }
+            elif original_path == '/api/timedtext':
+                stream_id = tuple(stream_id)
+                stream_type = (params.get('type', ['track'])[0],
+                               params.get('fmt', empty)[0],
+                               params.get('kind', empty)[0])
                 priority_list = []
-                server_lists[stream_id] = {
-                    'started': False,
-                    'list': priority_list,
-                }
+            else:
+                stream_id = tuple(stream_id)
+                stream_type = (None, None)
+                priority_list = []
 
             headers = params.pop('__headers', empty)[0]
             if headers:
@@ -393,15 +432,51 @@ class RequestHandler(BaseHTTPRequestHandler, object):
             else:
                 headers = self.headers
 
+            byte_range = headers.get('Range')
+            client = headers.get('X-YouTube-Client-Name')
+            if self.log.debugging:
+                if 'c' in params:
+                    if client:
+                        client = '%s (%s)' % (
+                            client,
+                            params.get('c', empty)[0],
+                        )
+                    else:
+                        client = params.get('c', empty)[0]
+
+                clen = params.get('clen', empty)[0]
+                duration = params.get('dur', empty)[0]
+                if (not byte_range
+                        or not clen
+                        or not duration
+                        or not byte_range.startswith('bytes=')):
+                    timestamp = ''
+                else:
+                    try:
+                        timestamp = ' (~%.2fs)' % (
+                                float(duration)
+                                *
+                                next(map(int, byte_range[6:].split('-')))
+                                /
+                                int(clen)
+                        )
+                    except (IndexError, StopIteration, ValueError):
+                        timestamp = ''
+            else:
+                timestamp = ''
+
             original_query_str = urlencode(params, doseq=True)
 
             stream_redirect = settings.httpd_stream_redirect()
 
-            log_msg = ('HTTPServer - Stream proxy response {success}'
-                       '\n\tServer: |{server}|'
-                       '\n\tTarget: |{target}|'
-                       '\n\tStatus: |{status}|'
-                       '\n\tReason: |{reason}|')
+            log_msg = ('Stream proxy response {success}',
+                       'Stream: {stream_id} - {stream_type}',
+                       'Method: {method!r}',
+                       'Server: {server!r}',
+                       'Target: {target!r}',
+                       'Status: {status} {reason}',
+                       'Client: {client}',
+                       'Range:  {byte_range!r}{timestamp}')
 
             response = None
             server = None
@@ -438,71 +513,106 @@ class RequestHandler(BaseHTTPRequestHandler, object):
                     break
 
                 headers['Host'] = server
-                with self.requests.request(
-                        stream_url,
-                        method='GET',
-                        headers=headers,
-                        allow_redirects=False,
-                        stream=True
-                ) as response:
-                    if response is None:
-                        status = -1
-                        reason = 'Failed'
-                    else:
-                        while response.is_redirect:
-                            request = response.next
-                            if not request:
-                                break
+                response = self.requests.request(
+                    stream_url,
+                    method=method,
+                    headers=headers,
+                    allow_redirects=False,
+                    stream=True,
+                    cache=False,
+                )
+                if response is None:
+                    self.log.log(
+                        level=logging.WARNING,
+                        msg=log_msg,
+                        success='not OK',
+                        stream_id=stream_id,
+                        stream_type=stream_type,
+                        method=method,
+                        server=server,
+                        target=target,
+                        status=-1,
+                        reason='Failed',
+                        client=client,
+                        byte_range=byte_range,
+                        timestamp=timestamp,
+                    )
+                    break
+                with response:
+                    while response.is_redirect:
+                        request = response.next
+                        if not request:
+                            break
 
-                            target = urlsplit(request.url).hostname
-                            if (target.endswith('googlevideo.com')
-                                    and 'Authorization' in headers):
-                                _headers = (
-                                    ('Authorization', headers['Authorization']),
-                                    ('Host', target),
-                                )
-                            else:
-                                _headers = (
-                                    ('Host', target),
-                                )
-                            request.headers.update(_headers)
-
-                            response = self.requests.request(
-                                prepared_request=request,
-                                allow_redirects=False,
-                                stream=True,
+                        target = urlsplit(request.url).hostname
+                        if (target.endswith('googlevideo.com')
+                                and 'Authorization' in headers):
+                            _headers = (
+                                ('Authorization', headers['Authorization']),
+                                ('Host', target),
+                                ('Referer', response.url)
                             )
-                            if response is None:
-                                break
-                        status = response.status_code
-                        reason = response.reason
+                        else:
+                            _headers = (
+                                ('Host', target),
+                                ('Referer', response.url)
+                            )
+                        request.headers.update(_headers)
+
+                        response = self.requests.request(
+                            prepared_request=request,
+                            allow_redirects=False,
+                            stream=True,
+                            cache=False,
+                        )
+                        if response is None:
+                            break
+                    status = response.status_code
+                    reason = response.reason
 
                     if 100 <= status < 400:
                         success = True
-                        log_level = context.LOGDEBUG
+                        log_level = logging.DEBUG
                         if server not in priority_list:
                             priority_list.append(server)
                     else:
                         success = False
-                        log_level = context.LOGWARNING
+                        log_level = logging.WARNING
                         if server in priority_list:
                             priority_list.remove(server)
 
-                    context.log(
-                        log_msg.format(
-                            success='OK' if success else 'not OK',
-                            server=server,
-                            target=target,
-                            status=status,
-                            reason=reason,
-                        ),
-                        log_level=log_level
+                    self.log.log(
+                        level=log_level,
+                        msg=log_msg,
+                        success=('OK' if success else 'not OK'),
+                        stream_id=stream_id,
+                        stream_type=stream_type,
+                        method=method,
+                        server=server,
+                        target=target,
+                        status=status,
+                        reason=reason,
+                        client=client,
+                        byte_range=byte_range,
+                        timestamp=timestamp,
                     )
 
                     if not success:
                         continue
 
                     self.send_response(status)
+                    if status == 200:
+                        content = response.content
+                        if stream_type[0] == 'track':
+                            content = fix_subtitle_stream(stream_type, content)
+                        response.headers['Content-Length'] = len(content)
+                        if 'Content-Encoding' in response.headers:
+                            del response.headers['Content-Encoding']
+                        if 'Transfer-Encoding' in response.headers:
+                            del response.headers['Transfer-Encoding']
+                        self.send_header('Connection', 'close')
+                    else:
+                        content = None
                     for header, value in response.headers.items():
                         self.send_header(header, value)
                     self.end_headers()
@@ -514,13 +624,16 @@ class RequestHandler(BaseHTTPRequestHandler, object):
                         pass
                     if self._close_all or wfile.closed:
                         break
-                    wfile.write(
-                        response.raw.read(
-                            amt=None,
-                            decode_content=False,
-                            cache_content=False,
+                    if content:
+                        wfile.write(content)
+                    else:
+                        wfile.write(
+                            response.raw.read(
+                                amt=None,
+                                decode_content=False,
+                                cache_content=False,
+                            )
                         )
-                    )
                 break
 
         else:
@@ -550,7 +663,7 @@ class RequestHandler(BaseHTTPRequestHandler, object):
                 self.send_header('Content-Length', str(file_size))
                 self.end_headers()
             except IOError:
-                response = ('File Not Found: |{uri}| -> |{file_path}|'
+                response = ('File Not Found: {uri!r} -> {file_path!r}'
                             .format(uri=path['log_uri'], file_path=file_path))
                 self.send_error(404, response)
 
@@ -567,17 +680,15 @@ class RequestHandler(BaseHTTPRequestHandler, object):
             self.send_error(403)
             return
 
-        empty = [None]
-
         if path['path'].startswith(PATHS.DRM):
-            home = xbmcgui.Window(10000)
+            ui = self._context.get_ui()
 
-            lic_url = home.getProperty('-'.join((ADDON_ID, LICENSE_URL)))
+            lic_url = ui.get_property(LICENSE_URL)
             if not lic_url:
                 self.send_error(404)
                 return
 
-            lic_token = home.getProperty('-'.join((ADDON_ID, LICENSE_TOKEN)))
+            lic_token = ui.get_property(LICENSE_TOKEN)
             if not lic_token:
                 self.send_error(403)
                 return
@@ -596,7 +707,8 @@ class RequestHandler(BaseHTTPRequestHandler, object):
                                              method='POST',
                                              headers=li_headers,
                                              data=post_data,
-                                             stream=True)
+                                             stream=True,
+                                             cache=False)
             if response is None:
                 self.send_error(500)
                 return
@@ -618,9 +730,9 @@ class RequestHandler(BaseHTTPRequestHandler, object):
                               re.MULTILINE)
             if match:
                 authorized_types = match.group('authorized_types').split(',')
-                self._context.log_debug('HTTPServer - Found authorized formats'
-                                        '\n\tFormats: {auth_fmts}'
-                                        .format(auth_fmts=authorized_types))
+                self.log.debug(('Found authorized formats',
+                                'Formats: %s'),
+                               authorized_types)
 
                 fmt_to_px = {
                     'SD': (1280 * 528) - 1,
@@ -905,15 +1017,11 @@ def get_http_server(address, port, context):
         server = HTTPServer((address, port), RequestHandler)
         return server
     except socket.error as exc:
-        context.log_error('HTTPServer - Failed to start'
-                          '\n\tAddress:  |{address}:{port}|'
-                          '\n\tResponse: {response}'
-                          .format(address=address, port=port, response=exc))
-        xbmcgui.Dialog().notification(context.get_name(),
-                                      str(exc),
-                                      context.get_icon(),
-                                      time=5000,
-                                      sound=False)
+        logging.exception(('Failed to start',
+                           'Address:  {address}:{port}'),
+                          address=address,
+                          port=port)
+        context.get_ui().show_notification(str(exc), audible=False)
         return None
 
 
@@ -928,24 +1036,23 @@ def httpd_status(context, address=None):
     ))
     if not RequestHandler.requests:
         RequestHandler.requests = BaseRequestsClass(context=context)
-    response = RequestHandler.requests.request(url)
-    if response is None:
-        result = None
-    else:
-        result = response.status_code
-        if result == 204:
-            return True
+    result = None
+    response = RequestHandler.requests.request(url, cache=False)
+    if response is not None:
+        with response:
+            result = response.status_code
+            if result == 204:
+                return True
 
-    context.log_debug('HTTPServer - Ping'
-                      '\n\tAddress:  |{netloc}|'
-                      '\n\tResponse: {response}'
-                      .format(netloc=netloc,
-                              response=result or 'failed'))
+    logging.debug(('Ping',
+                   'Address:  {netloc!r}',
+                   'Response: {response}'),
+                  netloc=netloc,
+                  response=(result or 'failed'))
     return False
 
 
 def get_client_ip_address(context):
-    ip_address = None
     url = urlunsplit((
         'http',
         get_connect_address(context, as_netloc=True),
@@ -955,12 +1062,16 @@ def get_client_ip_address(context):
     ))
     if not RequestHandler.requests:
         RequestHandler.requests = BaseRequestsClass(context=context)
-    response = RequestHandler.requests.request(url)
-    if response is not None and response.status_code == 200:
+    response = RequestHandler.requests.request(url, cache=False)
+    if response is None:
+        return None
+    with response:
+        if response.status_code != 200:
+            return None
         response_json = response.json()
-        if response_json:
-            ip_address = response_json.get('ip')
-    return ip_address
+    if response_json:
+        return response_json.get('ip')
+    return None
 
 
 def get_connect_address(context, as_netloc=False, address=None):
@@ -988,30 +1099,21 @@ def get_connect_address(context, as_netloc=False, address=None):
                 sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
             if hasattr(socket, 'SO_REUSEPORT'):
                 sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
-    except socket.error as exc:
-        context.log_error('HTTPServer'
-                          ' - get_connect_address failed to create socket'
-                          '\n\tException: {exc!r}'
-                          .format(exc=exc))
+    except socket.error:
+        logging.exception('Failed to create socket')
         connect_address = xbmc.getIPAddress()
     else:
         sock.settimeout(0)
         try:
             sock.connect((broadcast_address, 0))
-        except socket.error as exc:
-            context.log_error('HTTPServer'
-                              ' - get_connect_address failed connect'
-                              '\n\tException: {exc!r}'
-                              .format(exc=exc))
+        except socket.error:
+            logging.exception('Failed to connect')
             connect_address = xbmc.getIPAddress()
         else:
             try:
                 connect_address = sock.getsockname()[0]
-            except socket.error as exc:
-                context.log_error('HTTPServer'
-                                  ' - get_connect_address failed to get address'
-                                  '\n\tException: {exc!r}'
-                                  .format(exc=exc))
+            except socket.error:
+                logging.exception('No address')
                 connect_address = xbmc.getIPAddress()
         finally:
             sock.close()

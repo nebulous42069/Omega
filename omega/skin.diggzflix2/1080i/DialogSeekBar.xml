@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- BINGIE -->
+<window>
+    <visible>Window.IsActive(fullscreenvideo)</visible>
+    <visible>Window.IsActive(videoosd) | [Player.ShowInfo + !Window.IsActive(videoosd)] | Player.Seeking | Player.DisplayAfterSeek | !String.IsEmpty(Player.SeekNumeric) | [Player.Paused + !Player.Caching] | Player.Forwarding | Player.Rewinding</visible>
+	<zorder>0</zorder>
+	<controls>
+			
+        <control type="group">	
+
+			<!-- background -->
+			<control type="image">
+				<visible>!Skin.HasSetting(UseBingieOSD) + Window.IsActive(videoosd) + Skin.HasSetting(EnableOSDInfo)</visible>
+				<animation effect="fade" time="350">Visible</animation>
+				<animation effect="fade" time="350">Hidden</animation>
+				<width>100%</width>
+				<height>100%</height>
+				<texture background="true">diffuse/panel2.png</texture>
+				<colordiffuse>b3000000</colordiffuse>
+			</control>			
+
+			<!-- Vignette Mask -->
+			<control type="image">
+				<width>100%</width>
+				<height>290</height>
+				<texture background="true" flipy="true">overlays/osd_gradient.png</texture>
+				<visible>[Window.IsActive(OSDVideoSettings) | Window.IsActive(OSDAudioSettings) | Window.IsActive(OSDSubtitleSettings) | Window.IsActive(videobookmarks) | Window.IsActive(pvrchannelguide)] + Skin.HasSetting(UseBingieOSD)</visible>
+			</control>			
+		
+			<!--Info Panel-->
+            <include>OSDInfoPanel</include>	
+			
+			<!-- CLEAR LOGO or Clearart on PAUSE -->
+			<control type="group">
+				<top>0</top>
+				<left>0</left>
+				<height>100%</height>
+				<width>100%</width>
+				<visible>Player.Paused + System.IdleTime(3) + String.IsEmpty(Window(Home).Property(DialogMPAATopBar))</visible>
+				<visible>![Control.IsVisible(552233) | Window.IsActive(OSDVideoSettings) | Window.IsActive(OSDAudioSettings) | Window.IsActive(OSDSubtitleSettings) | Window.IsActive(subtitlesearch) | Window.IsActive(sliderdialog) | Window.IsVisible(VideoOSDBookmarks.xml)]</visible>
+				<animation delay="1000" time="300" effect="fade">Visible</animation>
+				<animation delay="0" time="300" effect="fade">Hidden</animation>
+				<!-- background -->
+				<control type="image">
+					<width>100%</width>
+					<height>100%</height>
+					<texture background="true">diffuse/panel2.png</texture>
+					<colordiffuse>b3000000</colordiffuse>
+				</control>	
+				<control type="grouplist">
+					<top>345</top>
+					<left>130</left>
+					<height>530</height>
+					<width>70%</width>
+					<orientation>vertical</orientation>
+					<itemgap>10</itemgap>
+					<usecontrolcoords>true</usecontrolcoords>
+					<!-- ClearLogo on Pause -->
+					<control type="image" id="111">
+						<top>100</top>
+						<width>490</width>
+						<height>190</height>
+						<fadetime>200</fadetime>
+						<texture background="true">$VAR[VideoPlayerClearLogo]</texture>
+						<aspectratio align="left" aligny="center">keep</aspectratio>
+						<visible>!String.IsEmpty(Control.GetLabel(111))</visible>
+					</control>
+					<!-- Title -->
+					<control type="label">
+						<top>187</top>
+						<width>auto</width>
+						<height>70</height>
+						<align>left</align>
+						<aligny>center</aligny>
+						<font>Reg60</font>
+						<textcolor>$INFO[Skin.String(BingieOSDLabelTextColor)]</textcolor>
+						<label>[B]$VAR[OSDLabel4][/B]</label>
+						<scroll>false</scroll>
+						<wrapmultiline>true</wrapmultiline>
+						<visible>!Control.IsVisible(111)</visible>
+					</control>
+					<!-- Sublabel -->
+					<control type="label">
+						<width>auto</width>
+						<font>Reg32</font>
+						<textcolor>$INFO[Skin.String(BingieOSDSubLabelTextColor)]</textcolor>
+						<label>$VAR[OSDLabel5]</label>
+						<scroll>false</scroll>
+					</control>
+				</control>
+			</control>
+
+            <!--OSD Panel-->
+            <control type="group">
+                <visible>!Player.FrameAdvance + !Window.IsActive(sliderdialog) + !Window.IsActive(script-upnext-upnext.xml) + !Window.IsVisible(playerprocessinfo)</visible>
+                <visible>[Window.IsActive(visualisation) | Window.IsActive(fullscreenvideo)] + !Player.HasGame</visible>
+                <include condition="!Skin.HasSetting(UseBingieOSD)">OSDPanelModern</include>
+                <include condition="Skin.HasSetting(UseBingieOSD)">OSDPanelBingie</include>
+            </control>
+			
+        </control>
+        <include condition="Skin.HasSetting(DebugGrid) | Skin.HasSetting(DebugInfo)">DebugInfo</include>
+    </controls>
+</window>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+  <category label="General">
+    <setting id="pair_google_drive_action" type="action" label="Pair Google Drive now" action="RunPlugin(plugin://service.kodi.favourites.sync/?action=pair_google_drive)"/>
+    <setting id="sync_on_startup" type="bool" label="Sync on Kodi startup" default="true"/>
+  </category>
+  <category label="Google OAuth">
+    <setting id="oauth_refresh_token" type="text" label="OAuth refresh token" default=""/>
+    <setting id="oauth_refresh_secret" type="text" label="OAuth refresh secret cache" default="" visible="false"/>
+    <setting id="oauth_access_token" type="text" label="OAuth access token cache" default=""/>
+    <setting id="oauth_access_token_expires_at" type="text" label="OAuth access token expiry cache" default=""/>
+    <setting id="oauth_scope" type="text" label="OAuth granted scope cache" default=""/>
+    <setting id="oauth_bridge_url" type="text" label="OAuth bridge URL" default="https://auth-bridge-rho.vercel.app"/>
+    <setting id="upload_local_changes" type="bool" label="Allow uploading newer local favourites.xml" default="true" visible="false"/>
+    <setting id="log_verbose" type="bool" label="Enable verbose logging" default="false" visible="false"/>
+    <setting id="pair_on_next_startup" type="bool" label="Launch Google Drive pairing on next Kodi startup" default="false" visible="false"/>
+    <setting id="remote_mode" type="text" label="Remote mode: appdata, drive_file, or file_id" default="appdata" visible="false"/>
+    <setting id="drive_file_id" type="text" label="Drive file ID (used in file_id mode)" default="" visible="false"/>
+    <setting id="drive_folder_id" type="text" label="Drive folder ID (used in drive_file mode)" default="" visible="false"/>
+    <setting id="remote_filename" type="text" label="Remote filename" default="favourites.xml" visible="false"/>
+  </category>
+</settings>

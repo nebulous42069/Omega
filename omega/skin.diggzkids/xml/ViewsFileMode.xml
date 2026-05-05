@@ -5,6 +5,7 @@
             <visible>Control.IsVisible(50)</visible>
             <include>VisibleFadeEffect</include>
             <control type="list" id="50">
+				<visible>$EXP[Exp_View_50]</visible>
                 <left>105</left>
                 <top>117</top>
                 <width>1035</width>
@@ -317,6 +318,7 @@
             <visible>Control.IsVisible(500)</visible>
             <include>VisibleFadeEffect</include>
             <control type="panel" id="500">
+				<visible>$EXP[Exp_View_500]</visible>
                 <left>135</left>
                 <top>120</top>
                 <width>1620</width>
@@ -610,7 +612,7 @@
             <visible>Control.IsVisible(505)</visible>
             <include>VisibleFadeEffect</include>
             <control type="panel" id="505">
-                <visible>Container.Content(TVShows) | Container.Content(Files)</visible>
+                <visible>$EXP[Exp_View_505]</visible>
                 <left>142</left>
                 <top>120</top>
                 <width>1620</width>
@@ -787,6 +789,7 @@
             <visible>Control.IsVisible(51)</visible>
             <include>VisibleFadeEffect</include>
             <control type="list" id="51">
+				<visible>$EXP[Exp_View_51]</visible>
                 <left>142</left>
                 <top>117</top>
                 <width>1620</width>

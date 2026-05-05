@@ -2,7 +2,7 @@
 """
 
     Copyright (C) 2014-2016 bromix (plugin.video.youtubek)
-    Copyright (C) 2016-2018 plugin.video.youtubek
+    Copyright (C) 2016-2025 plugin.video.youtubek
 
     SPDX-License-Identifier: GPL-2.0-only
     See LICENSES/GPL-2.0-only for more information.
@@ -12,7 +12,7 @@ from __future__ import absolute_import, division, unicode_literals
 
 import os
 
-from ..logger import Logger
+from .. import logging
 from ..compatibility import (
     parse_qsl,
     quote,
@@ -23,96 +23,136 @@ from ..compatibility import (
     urlsplit,
 )
 from ..constants import (
+    ACTION,
+    ADDON_ID_PARAM,
+    BOOL_FROM_STR,
+    CHANNEL_ID,
+    CHANNEL_IDS,
+    CLIP,
+    CONTEXT_MENU,
+    END,
+    FANART_TYPE,
+    HIDE_CHANNELS,
+    HIDE_FOLDERS,
+    HIDE_LIVE,
+    HIDE_MEMBERS,
+    HIDE_NEXT_PAGE,
+    HIDE_PLAYLISTS,
+    HIDE_PROGRESS,
+    HIDE_SEARCH,
+    HIDE_SHORTS,
+    HIDE_VIDEOS,
+    INCOGNITO,
+    ITEMS_PER_PAGE,
+    ITEM_FILTER,
+    KEYMAP,
+    LIVE,
+    ORDER,
+    PAGE,
     PATHS,
+    PLAYLIST_ID,
+    PLAYLIST_IDS,
+    PLAYLIST_ITEM_ID,
     PLAY_FORCE_AUDIO,
     PLAY_PROMPT_QUALITY,
     PLAY_PROMPT_SUBTITLES,
     PLAY_STRM,
     PLAY_TIMESHIFT,
-    PLAY_WITH,
-    VALUE_FROM_STR,
+    PLAY_USING,
+    SCREENSAVER,
+    SEEK,
+    START,
+    SUBSCRIPTION_ID,
+    VIDEO_ID,
+    VIDEO_IDS,
     WINDOW_CACHE,
     WINDOW_FALLBACK,
     WINDOW_REPLACE,
     WINDOW_RETURN,
 )
-from ..json_store import AccessManager
 from ..sql_store import (
     BookmarksList,
     DataCache,
     FeedHistory,
     FunctionCache,
     PlaybackHistory,
+    RequestCache,
     SearchHistory,
     WatchLaterList,
 )
-from ..utils import current_system_version
+from ..utils.system_version import current_system_version
 
 
-class AbstractContext(Logger):
+class AbstractContext(object):
+    log = logging.getLogger(__name__)
+
     _initialized = False
     _addon = None
     _settings = None
 
-    _BOOL_PARAMS = {
+    _BOOL_PARAMS = frozenset((
+        CONTEXT_MENU,
+        KEYMAP,
         PLAY_FORCE_AUDIO,
         PLAY_PROMPT_SUBTITLES,
         PLAY_PROMPT_QUALITY,
         PLAY_STRM,
         PLAY_TIMESHIFT,
-        PLAY_WITH,
+        PLAY_USING,
         'confirmed',
-        'clip',
+        CLIP,
         'enable',
-        'hide_folders',
-        'hide_live',
-        'hide_next_page',
-        'hide_playlists',
-        'hide_progress',
-        'hide_search',
-        'hide_shorts',
-        'hide_videos',
-        'incognito',
+        HIDE_CHANNELS,
+        HIDE_FOLDERS,
+        HIDE_LIVE,
+        HIDE_MEMBERS,
+        HIDE_NEXT_PAGE,
+        HIDE_PLAYLISTS,
+        HIDE_PROGRESS,
+        HIDE_SEARCH,
+        HIDE_SHORTS,
+        HIDE_VIDEOS,
+        INCOGNITO,
         'location',
         'logged_in',
         'resume',
-        'screensaver',
+        SCREENSAVER,
         WINDOW_CACHE,
         WINDOW_FALLBACK,
         WINDOW_REPLACE,
         WINDOW_RETURN,
-    }
-    _INT_PARAMS = {
-        'fanart_type',
+    ))
+    _INT_PARAMS = frozenset((
+        FANART_TYPE,
         'filtered',
-        'items_per_page',
-        'live',
+        ITEMS_PER_PAGE,
+        LIVE,
         'next_page_token',
-        'page',
+        PAGE,
         'refresh',
-    }
-    _INT_BOOL_PARAMS = {
+    ))
+    _INT_BOOL_PARAMS = frozenset((
         'refresh',
-    }
-    _FLOAT_PARAMS = {
-        'end',
+    ))
+    _FLOAT_PARAMS = frozenset((
+        END,
         'recent_days',
-        'seek',
-        'start',
-    }
-    _LIST_PARAMS = {
-        'channel_ids',
+        SEEK,
+        START,
+    ))
+    _LIST_PARAMS = frozenset((
+        CHANNEL_IDS,
         'exclude',
-        'item_filter',
-        'playlist_ids',
-        'video_ids',
-    }
-    _STRING_PARAMS = {
+        ITEM_FILTER,
+        PLAYLIST_IDS,
+        VIDEO_IDS,
+    ))
+    _STRING_PARAMS = frozenset((
         'api_key',
-        'action',
-        'addon_id',
+        ACTION,
+        ADDON_ID_PARAM,
         'category_label',
-        'channel_id',
+        CHANNEL_ID,
         'client_id',
         'client_secret',
         'click_tracking',
@@ -120,35 +160,41 @@ class AbstractContext(Logger):
         'item',
         'item_id',
         'item_name',
-        'order',
+        ORDER,
         'page_token',
         'parent_id',
         'playlist',  # deprecated
-        'playlist_id',
+        PLAYLIST_ITEM_ID,
+        PLAYLIST_ID,
         'q',
         'rating',
         'reload_path',
         'search_type',
-        'subscription_id',
+        SUBSCRIPTION_ID,
         'uri',
         'videoid',  # deprecated
-        'video_id',
+        VIDEO_ID,
         'visitor',
-    }
-    _STRING_BOOL_PARAMS = {
+    ))
+    _STRING_BOOL_PARAMS = frozenset((
+        'logged_in',
         'reload_path',
-    }
+    ))
+    _STRING_INT_PARAMS = frozenset((
+    ))
     _NON_EMPTY_STRING_PARAMS = set()
 
     def __init__(self, path='/', params=None, plugin_id=''):
         self._access_manager = None
         self._uuid = None
+        self._api_store = None
 
         self._bookmarks_list = None
         self._data_cache = None
         self._feed_history = None
         self._function_cache = None
         self._playback_history = None
+        self._requests_cache = None
         self._search_history = None
         self._watch_later_list = None
 
@@ -158,11 +204,13 @@ class AbstractContext(Logger):
         self._plugin_icon = None
         self._version = 'UNKNOWN'
 
+        self._param_string = ''
         self._params = params or {}
-        self.parse_params(self._params)
+        if params:
+            self.parse_params(params)
 
         self._uri = None
-        self._path = path
+        self._path = None
         self._path_parts = []
         self.set_path(path, force=True)
 
@@ -178,13 +226,16 @@ class AbstractContext(Logger):
     def get_language():
         raise NotImplementedError()
 
-    def get_language_name(self, lang_id=None):
+    @classmethod
+    def get_language_name(cls, lang_id=None):
         raise NotImplementedError()
 
-    def get_player_language(self):
+    @classmethod
+    def get_player_language(cls):
         raise NotImplementedError()
 
-    def get_subtitle_language(self):
+    @classmethod
+    def get_subtitle_language(cls):
         raise NotImplementedError()
 
     def get_region(self):
@@ -192,67 +243,94 @@ class AbstractContext(Logger):
 
     def get_playback_history(self):
         uuid = self.get_uuid()
-        if not self._playback_history or self._playback_history.uuid != uuid:
+        playback_history = self._playback_history
+        if not playback_history or playback_history.uuid != uuid:
             filepath = (self.get_data_path(), uuid, 'history.sqlite')
-            self._playback_history = PlaybackHistory(filepath)
-        return self._playback_history
+            playback_history = PlaybackHistory(filepath)
+            self._playback_history = playback_history
+        return playback_history
 
     def get_feed_history(self):
         uuid = self.get_uuid()
-        if not self._feed_history or self._feed_history.uuid != uuid:
+        feed_history = self._feed_history
+        if not feed_history or feed_history.uuid != uuid:
             filepath = (self.get_data_path(), uuid, 'feeds.sqlite')
-            self._feed_history = FeedHistory(filepath)
-        return self._feed_history
+            feed_history = FeedHistory(filepath)
+            self._feed_history = feed_history
+        return feed_history
 
     def get_data_cache(self):
         uuid = self.get_uuid()
-        if not self._data_cache or self._data_cache.uuid != uuid:
+        data_cache = self._data_cache
+        if not data_cache or data_cache.uuid != uuid:
             filepath = (self.get_data_path(), uuid, 'data_cache.sqlite')
-            self._data_cache = DataCache(
+            data_cache = DataCache(
                 filepath,
                 max_file_size_mb=self.get_settings().cache_size() / 2,
             )
-        return self._data_cache
+            self._data_cache = data_cache
+        return data_cache
 
     def get_function_cache(self):
         uuid = self.get_uuid()
-        if not self._function_cache or self._function_cache.uuid != uuid:
+        function_cache = self._function_cache
+        if not function_cache or function_cache.uuid != uuid:
             filepath = (self.get_data_path(), uuid, 'cache.sqlite')
-            self._function_cache = FunctionCache(
+            function_cache = FunctionCache(
                 filepath,
                 max_file_size_mb=self.get_settings().cache_size() / 2,
             )
-        return self._function_cache
+            self._function_cache = function_cache
+        return function_cache
+
+    def get_requests_cache(self):
+        uuid = self.get_uuid()
+        requests_cache = self._requests_cache
+        if not requests_cache or requests_cache.uuid != uuid:
+            filepath = (self.get_data_path(), uuid, 'requests_cache.sqlite')
+            requests_cache = RequestCache(
+                filepath,
+                max_file_size_mb=self.get_settings().requests_cache_size(),
+            )
+            self._requests_cache = requests_cache
+        return requests_cache
 
     def get_search_history(self):
         uuid = self.get_uuid()
-        if not self._search_history or self._search_history.uuid != uuid:
+        search_history = self._search_history
+        if not search_history or search_history.uuid != uuid:
             filepath = (self.get_data_path(), uuid, 'search.sqlite')
-            self._search_history = SearchHistory(
+            search_history = SearchHistory(
                 filepath,
                 max_item_count=self.get_settings().get_search_history_size(),
             )
-        return self._search_history
+            self._search_history = search_history
+        return search_history
 
     def get_bookmarks_list(self):
         uuid = self.get_uuid()
-        if not self._bookmarks_list or self._bookmarks_list.uuid != uuid:
+        bookmarks_list = self._bookmarks_list
+        if not bookmarks_list or bookmarks_list.uuid != uuid:
             filepath = (self.get_data_path(), uuid, 'bookmarks.sqlite')
-            self._bookmarks_list = BookmarksList(filepath)
-        return self._bookmarks_list
+            bookmarks_list = BookmarksList(filepath)
+            self._bookmarks_list = bookmarks_list
+        return bookmarks_list
 
     def get_watch_later_list(self):
         uuid = self.get_uuid()
-        if not self._watch_later_list or self._watch_later_list.uuid != uuid:
+        watch_later_list = self._watch_later_list
+        if not watch_later_list or watch_later_list.uuid != uuid:
             filepath = (self.get_data_path(), uuid, 'watch_later.sqlite')
-            self._watch_later_list = WatchLaterList(filepath)
-        return self._watch_later_list
+            watch_later_list = WatchLaterList(filepath)
+            self._watch_later_list = watch_later_list
+        return watch_later_list
 
     def get_uuid(self):
         uuid = self._uuid
-        if uuid:
-            return uuid
-        return self.reload_access_manager(get_uuid=True)
+        if not uuid:
+            uuid = self.get_access_manager().get_current_user_id()
+            self._uuid = uuid
+        return uuid
 
     def get_access_manager(self):
         access_manager = self._access_manager
@@ -260,16 +338,19 @@ class AbstractContext(Logger):
             return access_manager
         return self.reload_access_manager()
 
-    def reload_access_manager(self, get_uuid=False):
-        access_manager = AccessManager(self)
-        self._access_manager = access_manager
-        uuid = access_manager.get_current_user_id()
-        self._uuid = uuid
-        if get_uuid:
-            return uuid
-        return access_manager
+    def reload_access_manager(self):
+        raise NotImplementedError()
 
-    def get_playlist_player(self):
+    def get_api_store(self):
+        api_store = self._api_store
+        if api_store:
+            return api_store
+        return self.reload_api_store()
+
+    def reload_api_store(self):
+        raise NotImplementedError()
+
+    def get_playlist_player(self, playlist_type=None):
         raise NotImplementedError()
 
     def get_ui(self):
@@ -286,7 +367,8 @@ class AbstractContext(Logger):
                    run=False,
                    play=None,
                    window=None,
-                   command=False):
+                   command=False,
+                   **kwargs):
         if isinstance(path, (list, tuple)):
             uri = self.create_path(*path, is_uri=True)
         elif path:
@@ -307,9 +389,12 @@ class AbstractContext(Logger):
                 if isinstance(params, dict):
                     params = params.items()
                 params = urlencode([
-                    (('%' + param, ','.join([quote(item) for item in value]))
-                     if len(value) > 1 else
-                     (param, value[0]))
+                    (
+                        ('%' + param,
+                         ','.join([quote(item) for item in value]))
+                        if len(value) > 1 else
+                        (param, value[0])
+                    )
                     if value and isinstance(value, (list, tuple)) else
                     (param, value)
                     for param, value in params
@@ -317,27 +402,65 @@ class AbstractContext(Logger):
             uri = '?'.join((uri, params))
 
         command = 'command://' if command else ''
+
+        if window:
+            if not isinstance(window, dict):
+                window = {}
+            if window.setdefault('refresh', False):
+                method = 'Container.Refresh('
+                if not window.setdefault('replace', False):
+                    uri = ''
+                history_replace = False
+                window_return = False
+            elif window.setdefault('update', False):
+                method = 'Container.Update('
+                history_replace = window.setdefault('replace', False)
+                window_return = False
+            else:
+                history_replace = False
+                window_name = window.setdefault('name', 'Videos')
+                if window.setdefault('replace', False):
+                    method = 'ReplaceWindow(%s,' % window_name
+                    window_return = window.setdefault('return', False)
+                else:
+                    method = 'ActivateWindow(%s,' % window_name
+                    window_return = window.setdefault('return', True)
+            return ''.join((
+                command,
+                method,
+                uri,
+                ',return' if window_return else '',
+                ',replace' if history_replace else '',
+                ')'
+            ))
+
+        kwargs = ',' + ','.join([
+            '%s=%s' % (kwarg, value)
+            if value is not None else
+            kwarg
+            for kwarg, value in kwargs.items()
+        ]) if kwargs else ''
+
         if run:
-            return ''.join((command, 'RunPlugin(', uri, ')'))
+            return ''.join((
+                command,
+                'RunAddon('
+                if run == 'addon' else
+                'RunScript('
+                if run == 'script' else
+                'RunPlugin(',
+                uri,
+                kwargs,
+                ')'
+            ))
         if play is not None:
             return ''.join((
                 command,
                 'PlayMedia(',
                 uri,
-                ',playlist_type_hint=', str(play), ')',
-            ))
-        if window:
-            if not isinstance(window, dict):
-                window = {}
-            window_replace = window.setdefault('replace', False)
-            window_return = window.setdefault('return', True)
-            return ''.join((
-                command,
-                'ReplaceWindow(Videos,'
-                if window_replace else
-                'ActivateWindow(Videos,',
-                uri,
-                ',return)' if window_return else ')',
+                kwargs,
+                ',playlist_type_hint=', str(play),
+                ')',
             ))
         return uri
 
@@ -347,11 +470,16 @@ class AbstractContext(Logger):
     @staticmethod
     def create_path(*args, **kwargs):
         include_parts = kwargs.get('parts')
+        parser = kwargs.get('parser')
         parts = [
-            part for part in [
+            parser(part[6:-1])
+            if parser and part.startswith('$INFO[') else
+            part
+            for part in [
                 to_str(arg).strip('/').replace('\\', '/').replace('//', '/')
                 for arg in args
-            ] if part
+            ]
+            if part
         ]
         if parts:
             path = '/'.join(parts).join(('/', '/'))
@@ -361,8 +489,13 @@ class AbstractContext(Logger):
                 parts = []
             elif path.startswith(PATHS.GOTO_PAGE):
                 parts = parts[2:]
-                if parts and parts[0].isnumeric():
-                    parts = parts[1:]
+                if parts:
+                    try:
+                        int(parts[0])
+                    except (TypeError, ValueError):
+                        pass
+                    else:
+                        parts = parts[1:]
         else:
             return ('/', parts) if include_parts else '/'
 
@@ -379,7 +512,11 @@ class AbstractContext(Logger):
             path = unquote(path[0])
             if parts is None:
                 path = path.split('/')
-                path, parts = self.create_path(*path, parts=True)
+                path, parts = self.create_path(
+                    *path,
+                    parts=True,
+                    parser=kwargs.get('parser')
+                )
         else:
             path, parts = self.create_path(*path, parts=True)
 
@@ -388,25 +525,34 @@ class AbstractContext(Logger):
         if kwargs.get('update_uri', True):
             self.update_uri()
 
+    def get_original_params(self):
+        return self._param_string
+
     def get_params(self):
         return self._params
 
     def get_param(self, name, default=None):
         return self._params.get(name, default)
 
-    def parse_uri(self, uri, update=False):
+    def pop_param(self, name, default=None):
+        return self._params.pop(name, default)
+
+    def parse_uri(self, uri, parse_params=True, update=False):
         uri = urlsplit(uri)
         path = uri.path
-        params = self.parse_params(
-            dict(parse_qsl(uri.query, keep_blank_values=True)),
-            update=False,
-        )
-        if update:
-            self._params = params
-            self.set_path(path)
+        if parse_params:
+            params = self.parse_params(
+                dict(parse_qsl(uri.query, keep_blank_values=True)),
+                update=False,
+            )
+            if update:
+                self._params = params
+                self.set_path(path)
+        else:
+            params = uri.query
         return path, params
 
-    def parse_params(self, params, update=True):
+    def parse_params(self, params, update=True, parser=None):
         to_delete = []
         output = self._params if update else {}
 
@@ -416,10 +562,15 @@ class AbstractContext(Logger):
                 value = unquote(value)
             try:
                 if param in self._BOOL_PARAMS:
-                    parsed_value = VALUE_FROM_STR.get(str(value), False)
+                    parsed_value = BOOL_FROM_STR.get(
+                        str(value),
+                        bool(value)
+                        if param in self._STRING_BOOL_PARAMS else
+                        False
+                    )
                 elif param in self._INT_PARAMS:
                     parsed_value = int(
-                        (VALUE_FROM_STR.get(str(value), value) or 0)
+                        (BOOL_FROM_STR.get(str(value), value) or 0)
                         if param in self._INT_BOOL_PARAMS else
                         value
                     )
@@ -432,11 +583,19 @@ class AbstractContext(Logger):
                         [unquote(val) for val in value.split(',') if val]
                     )
                 elif param in self._STRING_PARAMS:
-                    parsed_value = to_str(value)
+                    if parser and value.startswith('$INFO['):
+                        parsed_value = parser(value[6:-1])
+                    else:
+                        parsed_value = value
                     if param in self._STRING_BOOL_PARAMS:
-                        parsed_value = VALUE_FROM_STR.get(
+                        parsed_value = BOOL_FROM_STR.get(
                             parsed_value, parsed_value
                         )
+                    elif param in self._STRING_INT_PARAMS:
+                        try:
+                            parsed_value = int(parsed_value)
+                        except (TypeError, ValueError):
+                            pass
                     # process and translate deprecated parameters
                     elif param == 'action':
                         if parsed_value in {'play_all', 'play_video'}:
@@ -445,27 +604,24 @@ class AbstractContext(Logger):
                             continue
                     elif param == 'videoid':
                         to_delete.append(param)
-                        param = 'video_id'
+                        param = VIDEO_ID
                     elif params == 'playlist':
                         to_delete.append(param)
-                        param = 'playlist_id'
+                        param = PLAYLIST_ID
                 elif param in self._NON_EMPTY_STRING_PARAMS:
-                    parsed_value = to_str(value)
-                    parsed_value = VALUE_FROM_STR.get(
-                        parsed_value, parsed_value
-                    )
+                    parsed_value = BOOL_FROM_STR.get(value, value)
                     if not parsed_value:
                         raise ValueError
                 else:
-                    self.log_debug('Unknown parameter - |{0}: {1!r}|'.format(
-                        param, value
-                    ))
+                    self.log.debug('Unknown parameter {param!r}: {value!r}',
+                                   param=param,
+                                   value=value)
                     to_delete.append(param)
                     continue
             except (TypeError, ValueError):
-                self.log_error('Invalid parameter value - |{0}: {1}|'.format(
-                    param, value
-                ))
+                self.log.exception('Invalid value for {param!r}: {value!r}',
+                                   param=param,
+                                   value=value)
                 to_delete.append(param)
                 continue
 
@@ -523,7 +679,7 @@ class AbstractContext(Logger):
     def get_settings(self, refresh=False):
         raise NotImplementedError()
 
-    def localize(self, text_id, default_text=None):
+    def localize(self, text_id, args=None, default_text=None):
         raise NotImplementedError()
 
     def apply_content(self,
@@ -543,35 +699,26 @@ class AbstractContext(Logger):
                 wait=False,
                 wait_for=None,
                 wait_for_set=True,
-                block_ui=False):
+                block_ui=None):
         raise NotImplementedError()
 
     @staticmethod
     def sleep(timeout=None):
         raise NotImplementedError()
 
-    @staticmethod
-    def get_infobool(name):
-        raise NotImplementedError()
-
-    @staticmethod
-    def get_infolabel(name):
-        raise NotImplementedError()
-
-    @staticmethod
-    def get_listitem_property(detail_name):
-        raise NotImplementedError()
-
-    @staticmethod
-    def get_listitem_info(detail_name):
-        raise NotImplementedError()
-
     def tear_down(self):
         pass
 
-    def wakeup(self, target, timeout=None):
+    def ipc_exec(self, target, timeout=None, payload=None, raise_exc=False):
         raise NotImplementedError()
 
-    @staticmethod
-    def is_plugin_folder(folder_name=None):
+    def is_plugin_folder(self, folder_name=None):
+        raise NotImplementedError()
+
+    def refresh_requested(self, force=False, on=False, off=False, params=None):
+        raise NotImplementedError
+
+    def parse_item_ids(self,
+                       uri=None,
+                       from_listitem=True):
         raise NotImplementedError()

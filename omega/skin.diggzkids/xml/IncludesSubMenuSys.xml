@@ -1470,9 +1470,9 @@
             <animation effect="slide" start="0,0" end="579,0" time="0" condition="String.IsEqual(Container($PARAM[Control]).NumItems,2)">conditional</animation>
             <animation effect="slide" start="0,0" end="724,0" time="0" condition="String.IsEqual(Container($PARAM[Control]).NumItems,1)">conditional</animation>
             <control type="image">
-                <left>40</left>
+                <left>30</left>
                 <top>0</top>
-                <width>52</width>
+                <width>62</width>
                 <height>52</height>
                 <texture border="0,0,0,3" flipx="true">HomeSubEnd.png</texture>
                 <include condition="!String.IsEmpty(Skin.String(HomeTrans))">HomeTransparentEffect</include>
@@ -1481,7 +1481,7 @@
             <control type="image">
                 <left>1831</left>
                 <top>0</top>
-                <width>52</width>
+                <width>62</width>
                 <height>52</height>
                 <texture border="0,0,0,3">HomeSubEnd.png</texture>
                 <include condition="!String.IsEmpty(Skin.String(HomeTrans))">HomeTransparentEffect</include>
@@ -1493,22 +1493,77 @@
                 <visible>Integer.IsGreater(Container($PARAM[Control]).NumItems,0)</visible>
             </control>
             <control type="image">
-                <left>62</left>
-                <top>8</top>
+                <left>84</left>
+                <top>2</top>
                 <width>30</width>
-                <height>30</height>
-                <texture>arrow-big-left.png</texture>
+                <height>50</height>
+                <texture>arrow-big-left.gif</texture>
                 <include>VisibleFadeEffect</include>
                 <visible>Control.HasFocus($PARAM[Control]) + Container($PARAM[Control]).HasPrevious</visible>
                 <visible>Integer.IsGreater(Container($PARAM[Control]).NumItems,0)</visible>
                 <include>VisibleFadeEffect</include>
             </control>
             <control type="image">
-                <left>1831</left>
-                <top>8</top>
+                <left>1810</left>
+                <top>2</top>
                 <width>30</width>
-                <height>30</height>
-                <texture>arrow-big-right.png</texture>
+                <height>50</height>
+                <texture>arrow-big-right.gif</texture>
+                <include>VisibleFadeEffect</include>
+                <visible>Control.HasFocus($PARAM[Control]) + Container($PARAM[Control]).HasNext</visible>
+                <visible>Integer.IsGreater(Container($PARAM[Control]).NumItems,5)</visible>
+                <include>VisibleFadeEffect</include>
+            </control>
+        </definition>
+    </include>
+    <include name="SubMenuPositionImages2">
+        <param name="Control" default="9000" />
+        <definition>
+            <animation effect="slide" start="0,0" end="145,0" time="0" condition="String.IsEqual(Container($PARAM[Control]).NumItems,5)">conditional</animation>
+            <animation effect="slide" start="0,0" end="290,0" time="0" condition="String.IsEqual(Container($PARAM[Control]).NumItems,4)">conditional</animation>
+            <animation effect="slide" start="0,0" end="434,0" time="0" condition="String.IsEqual(Container($PARAM[Control]).NumItems,3)">conditional</animation>
+            <animation effect="slide" start="0,0" end="579,0" time="0" condition="String.IsEqual(Container($PARAM[Control]).NumItems,2)">conditional</animation>
+            <animation effect="slide" start="0,0" end="724,0" time="0" condition="String.IsEqual(Container($PARAM[Control]).NumItems,1)">conditional</animation>
+            <control type="image">
+                <left>30</left>
+                <top>0</top>
+                <width>62</width>
+                <height>52</height>
+                <texture border="0,0,0,3" flipx="true" flipy="true">HomeSubEnd.png</texture>
+                <include condition="!String.IsEmpty(Skin.String(HomeTrans))">HomeTransparentEffect</include>
+                <visible>Integer.IsGreater(Container($PARAM[Control]).NumItems,0)</visible>
+            </control>
+            <control type="image">
+                <left>1831</left>
+                <top>0</top>
+                <width>62</width>
+                <height>52</height>
+                <texture border="0,0,0,3" flipy="true">HomeSubEnd.png</texture>
+                <include condition="!String.IsEmpty(Skin.String(HomeTrans))">HomeTransparentEffect</include>
+                <animation effect="slide" start="0,0" end="-290,0" time="0" condition="String.IsEqual(Container($PARAM[Control]).NumItems,5)">conditional</animation>
+                <animation effect="slide" start="0,0" end="-579,0" time="0" condition="String.IsEqual(Container($PARAM[Control]).NumItems,4)">conditional</animation>
+                <animation effect="slide" start="0,0" end="-868,0" time="0" condition="String.IsEqual(Container($PARAM[Control]).NumItems,3)">conditional</animation>
+                <animation effect="slide" start="0,0" end="-1158,0" time="0" condition="String.IsEqual(Container($PARAM[Control]).NumItems,2)">conditional</animation>
+                <animation effect="slide" start="0,0" end="-1448,0" time="0" condition="String.IsEqual(Container($PARAM[Control]).NumItems,1)">conditional</animation>
+                <visible>Integer.IsGreater(Container($PARAM[Control]).NumItems,0)</visible>
+            </control>
+            <control type="image">
+                <left>84</left>
+                <top>2</top>
+                <width>30</width>
+                <height>50</height>
+                <texture>arrow-big-left.gif</texture>
+                <include>VisibleFadeEffect</include>
+                <visible>Control.HasFocus($PARAM[Control]) + Container($PARAM[Control]).HasPrevious</visible>
+                <visible>Integer.IsGreater(Container($PARAM[Control]).NumItems,0)</visible>
+                <include>VisibleFadeEffect</include>
+            </control>
+            <control type="image">
+                <left>1810</left>
+                <top>2</top>
+                <width>30</width>
+                <height>50</height>
+                <texture>arrow-big-right.gif</texture>
                 <include>VisibleFadeEffect</include>
                 <visible>Control.HasFocus($PARAM[Control]) + Container($PARAM[Control]).HasNext</visible>
                 <visible>Integer.IsGreater(Container($PARAM[Control]).NumItems,5)</visible>

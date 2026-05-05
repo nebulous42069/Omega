@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="plugin.program.truncatetables"
+version="1.0.1"
+name="Truncate Tables"
+provider-name="The Cleaner">
+<requires>
+  <import addon="xbmc.python" version="3.0.0"/>
+</requires>
+<extension point="xbmc.python.pluginsource" library="main.py">
+  <provides>executable</provides>
+</extension>
+<extension point="xbmc.addon.metadata">
+  <summary lang="en_GB">Clears addons database tables.  Backing up addons33.db is recommended.</summary>
+  <description lang="en_GB">Clears addons database tables.  Backing up addons33.db is recommended.</description>
+  <disclaimer lang="en_GB">Clears addons database tables.  Backing up addons33.db is recommended.</disclaimer>
+  <license>GPL-3.0-only</license>
+  <assets>
+    <icon>icon.png</icon>
+  </assets>
+  <news></news>
+</extension>
+</addon>

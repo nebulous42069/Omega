@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window type="dialog">
-    <defaultcontrol always="true">100</defaultcontrol>
+    <defaultcontrol>100</defaultcontrol>
     <include>dialogeffect</include>
     <visible>Player.HasMedia + Window.IsActive(PlayerControls) + !Window.IsActive(FullscreenVideo) + !Window.IsActive(Visualisation)</visible>
     <coordinates>
@@ -18,7 +18,7 @@
         <control type="group" id="100">
             <left>38</left>
             <top>243</top>
-            <defaultcontrol always="true">603</defaultcontrol>
+            <defaultcontrol>603</defaultcontrol>
             <visible>!VideoPlayer.Content(LiveTV)</visible>
             <control type="radiobutton" id="600">
                 <left>0</left>
@@ -240,7 +240,7 @@
         <control type="group" id="100">
             <left>38</left>
             <top>243</top>
-            <defaultcontrol always="true">700</defaultcontrol>
+            <defaultcontrol>700</defaultcontrol>
             <visible>VideoPlayer.Content(LiveTV)</visible>
             <control type="radiobutton" id="701">
                 <left>0</left>

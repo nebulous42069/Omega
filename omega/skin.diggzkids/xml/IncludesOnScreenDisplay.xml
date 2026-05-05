@@ -2100,4 +2100,15 @@
 		<value condition="Skin.String(OSDTimeout,fifteen)">15 $LOCALIZE[31940]</value>
 		<value condition="Skin.String(OSDTimeout,twenty)">20 $LOCALIZE[31940]</value>
     </variable>
+		<variable name="OSDHideLabel">
+        <value condition="String.IsEmpty(Skin.String(autoclosevideoosd))">3 $LOCALIZE[31940]</value>
+		<value condition="Skin.String(autoclosevideoosd,2)">2 $LOCALIZE[31940]</value>
+		<value condition="Skin.String(autoclosevideoosd,3)">3 $LOCALIZE[31940]</value>
+		<value condition="Skin.String(autoclosevideoosd,4)">4 $LOCALIZE[31940]</value>
+		<value condition="Skin.String(autoclosevideoosd,5)">5 $LOCALIZE[31940]</value>
+		<value condition="Skin.String(autoclosevideoosd,6)">6 $LOCALIZE[31940]</value>
+		<value condition="Skin.String(autoclosevideoosd,10)">10 $LOCALIZE[31940]</value>
+		<value condition="Skin.String(autoclosevideoosd,15)">15 $LOCALIZE[31940]</value>
+		<value condition="Skin.String(autoclosevideoosd,20)">20 $LOCALIZE[31940]</value>
+    </variable>
 </includes>

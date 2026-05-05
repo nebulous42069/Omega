@@ -627,6 +627,7 @@ class GlobalVariables:
             19: 119,
             20: 121,
             21: 131,
+            22: 144,
         }
 
         if (db_version := kodi_myvideos_version_map.get(self.KODI_VERSION)) is None:

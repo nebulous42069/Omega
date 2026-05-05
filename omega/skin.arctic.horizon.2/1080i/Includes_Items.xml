@@ -195,11 +195,9 @@
             <param name="sliceid" value="5202" />
             <param name="label" value="$LOCALIZE[20410]" />
             <param name="icon" value="special://skin/extras/icons/videoplay.png" />
-            <param name="visible" value="!String.IsEmpty(ListItem.Trailer) | !String.IsEmpty(Container(99950).ListItem.Trailer)" />
-            <onclick condition="String.IsEmpty(ListItem.Trailer)">PlayMedia($ESCINFO[Container(99950).ListItem.Trailer],False,1)</onclick>
-            <onclick condition="!String.IsEmpty(ListItem.Trailer)">PlayMedia($ESCINFO[ListItem.Trailer],False,1)</onclick>
-            <onclick condition="String.IsEmpty(ListItem.Trailer)">SetProperty(HasTrailer,$INFO[Container(99950).ListItem.Trailer],Home)</onclick>
-            <onclick condition="!String.IsEmpty(ListItem.Trailer)">SetProperty(HasTrailer,$INFO[ListItem.Trailer],Home)</onclick>
+            <param name="visible" value="$EXP[Exp_HasIMDbTrailer]" />
+            <onclick>PlayMedia($VAR[Path_IMDb_Trailer],False,1)</onclick>
+            <onclick>SetProperty(HasTrailer,$VAR[Path_IMDb_Trailer],Home)</onclick>
             <onclick>SetFocus(7001)</onclick>
             <include content="OSD_Button_HintLabel">
                 <param name="label">$LOCALIZE[20410]</param>
@@ -318,13 +316,13 @@
             <param name="id" value="5007" />
             <param name="groupid" value="5107" />
             <param name="sliceid" value="5207" />
-            <param name="label" value="YouTube" />
-            <param name="icon" value="special://skin/extras/icons/youtube.png" />
+            <param name="label" value="IMDb Trailers" />
+            <param name="icon" value="special://home/addons/plugin.video.imdb.trailers/icon.png" />
             <onclick>Dialog.Close(musicinformation)</onclick>
             <onclick>Dialog.Close(songinformation)</onclick>
-            <onclick>ActivateWindow(videos,$VAR[Path_Youtube_Query,plugin://plugin.video.youtube/kodion/search/query/?q=,],return)</onclick>
+            <onclick>ActivateWindow(videos,$VAR[Path_Youtube_Query,plugin://plugin.video.imdb.trailers/?action=search_word&amp;keyword=,],return)</onclick>
             <include content="OSD_Button_HintLabel">
-                <param name="label">YouTube</param>
+                <param name="label">IMDb Trailers</param>
             </include>
         </include>
         <include content="OSD_Button">
@@ -773,23 +771,25 @@
                 <itemgap>$PARAM[itemgap]</itemgap>
                 <include content="Items_QuickNav_Button">
                     <param name="itemgap" value="$PARAM[itemgap]" />
+                    <param name="icon" value="special://skin/extras/icons/videoplay.png" />
+                    <param name="id" value="02" />
+                    <param name="visible" value="$EXP[Exp_HasIMDbTrailer]" />
+                    <onclick>SetProperty(ReturnToContextMenuAfterTrailer,true,Home)</onclick>
+                    <onclick>PlayMedia($VAR[Path_IMDb_Trailer],False,1)</onclick>
+                    <onclick>AlarmClock(TrailerCloseQuickNav,Close,00:01,silent)</onclick>
+                    <onclick>AlarmClock(TrailerCloseDialogs,Dialog.Close(all,true),00:01,silent)</onclick>
+                    <onclick>AlarmClock(TrailerFullScreen,ActivateWindow(fullscreenvideo),00:02,silent)</onclick>
+                    <onup>$PARAM[onup]</onup>
+                    <ondown>$PARAM[ondown]</ondown>
+                </include>
+                <include content="Items_QuickNav_Button">
+                    <param name="itemgap" value="$PARAM[itemgap]" />
                     <param name="icon" value="special://skin/extras/icons/quote.png" />
                     <param name="id" value="01" />
                     <onup>$PARAM[onup]</onup>
                     <ondown>$PARAM[ondown]</ondown>
                     <onclick>SetFocus(50)</onclick>
                     <onclick>ActivateWindow(1113)</onclick>
-                </include>
-                <include content="Items_QuickNav_Button">
-                    <param name="itemgap" value="$PARAM[itemgap]" />
-                    <param name="icon" value="special://skin/extras/icons/search.png" />
-                    <param name="id" value="02" />
-                    <onclick>SetProperty(CustomSearchTerm,$ESCINFO[Container(99950).ListItem.Property(base_title)],Home)</onclick>
-                    <onclick>SetProperty(ReplaceWindow,1114,Home)</onclick>
-                    <onup>$PARAM[onup]</onup>
-                    <ondown>$PARAM[ondown]</ondown>
-                    <onclick condition="!Window.IsActive(1114)">ActivateWindow(1114)</onclick>
-                    <onclick condition="Window.IsActive(1114)">ReplaceWindow(1197)</onclick>
                 </include>
                 <include content="Items_QuickNav_Button">
                     <param name="itemgap" value="$PARAM[itemgap]" />
@@ -1467,7 +1467,7 @@
             <onclick>Skin.ToggleSetting(Info.DisableYoutube)</onclick>
             <selected>!Skin.HasSetting(Info.DisableYoutube)</selected>
             <visible>!Skin.HasSetting(Recommendations.UseLocal)</visible>
-            <label>Youtube</label>
+            <label>IMDb Trailers</label>
         </include>
         <include content="Dialog_Settings_Button">
             <param name="id" value="8016" />

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <window type="dialog" id="2117">
-    <defaultcontrol always="true">450</defaultcontrol>
+    <defaultcontrol>450</defaultcontrol>
     <coordinates>
         <left>352</left>
         <top>112</top>

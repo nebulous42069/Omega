@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window id="1194">
-    <defaultcontrol always="true">611</defaultcontrol>
+    <defaultcontrol>611</defaultcontrol>
     <coordinates>
         <left>472</left>
         <top>330</top>
@@ -48,9 +48,9 @@
                     <focusedcolor>white</focusedcolor>
                     <align>center</align>
                     <onclick>Skin.SetString(SkinFanart.Name,Skin Backgrounds - Xenon)</onclick>
-                    <onclick>Skin.SetString(SkinFanart.Path,resource://resource.images.skinbackgrounds.diggzkidz/)</onclick>
+                    <onclick>Skin.SetString(SkinFanart.Path,resource://resource.images.skinbackgrounds.xenon/)</onclick>
                     <onclick>Skin.SetString(SkinFanart.Ext,.jpg)</onclick>
-                    <onclick condition="!System.HasAddon(resource.images.skinbackgrounds.diggzkidz)">InstallAddon(resource.images.skinbackgrounds.diggzkidz)</onclick>
+                    <onclick condition="!System.HasAddon(resource.images.skinbackgrounds.xenon)">InstallAddon(resource.images.skinbackgrounds.xenon)</onclick>
                     <onclick>SetProperty(UpdateFanart,True)</onclick>
                 </control>
                 <control type="button" id="610">
@@ -101,7 +101,7 @@
                 <itemgap>0</itemgap>
                 <orientation>horizontal</orientation>
                 <control type="button" id="610">
-                    <visible>System.HasAddon(resource.images.skinbackgrounds.diggzkidz) + !String.IsEmpty(Skin.String(SkinFanart.Path))</visible>
+                    <visible>System.HasAddon(resource.images.skinbackgrounds.xenon) + !String.IsEmpty(Skin.String(SkinFanart.Path))</visible>
                     <description>OK button</description>
                     <width>300</width>
                     <height>60</height>

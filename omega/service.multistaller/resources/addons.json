@@ -1,0 +1,42 @@
+{
+    "Addon1": {
+            "plugin_id": "inputstream.adaptive"
+    },
+    "Addon2": {
+            "plugin_id": "inputstream.helper"
+    },
+    "Addon3": {
+            "plugin_id": "script.module.six"
+    },
+    "Addon4": {
+            "plugin_id": "script.module.kodi-six"
+    },
+    "Addon5": {
+            "plugin_id": "inputstream.rtmp"
+    },
+    "Addon6": {
+            "plugin_id": "visualization.waveform"
+    },
+    "Addon7": {
+            "plugin_id": "script.favourites"
+    },
+    "Addon8": {
+            "plugin_id": "resource.images.studios.white"
+    },
+    "Addon9": {
+            "plugin_id": "script.module.jurialmunkey"
+    },
+    "Addon10": {
+            "plugin_id": "script.module.infotagger"
+    },
+    "Addon11": {
+            "plugin_id": "script.skinvariables"
+    },
+    "Addon12": {
+            "plugin_id": "resource.images.studios.coloured"
+    },
+    },
+    "Addon13": {
+            "plugin_id": "script.wikipedia"
+    }
+}

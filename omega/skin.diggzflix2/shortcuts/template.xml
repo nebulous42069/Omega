@@ -1,0 +1,767 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+    <other include="widget3002">
+        <condition tag="property" attribute="name|widgetPath" />
+        <property name="widgetid" tag="mainmenuid" />
+        <controls>
+        </controls>
+    </other>
+    <submenuOther include="Widgets" level="1">
+		<condition tag="property" attribute="name|list" />
+        <property name="submenuid" tag="property" attribute="name|submenuVisibility" />
+		<property name="widgetTarget" tag="property" attribute="name|widgetTarget" />
+		<property name="widgetTarget">videos</property>
+        <property name="contentStyle">normal</property>
+		<property name="container">fixedlist</property>
+		<property name="position">horizontal</property>
+		<property name="width">100%</property>
+		<property name="height">341</property>
+        <property name="widgetPath" tag="property" attribute="name|list" />
+        <property name="widgetPath"/>
+        <property name="widgetName" tag="label" />
+        <property name="widgetTags" tag="property" attribute="name|widgetTags" value="enable">WidgetTagOverlayEnable</property>
+        <property name="widgetTags" tag="property" attribute="name|widgetTags" value="disable">WidgetTagOverlayDisable</property>
+        <property name="widgetTags">WidgetTagOverlayDisable</property>
+        <property name="widgetStyle" tag="property" attribute="name|widgetstyle" />
+        <property name="widgetStyle">default</property>
+        <property name="widgetSortBy" tag="property" attribute="name|widgetSortBy" />
+        <property name="widgetSortOrder" tag="property" attribute="name|widgetSortOrder" />
+        <property name="widgetLimit" tag="property" attribute="name|widgetLimit" />
+        <property name="widgetLimit">$INFO[Skin.String(WidgetsGlobalLimit)]</property>	
+		<property name="mainmenuid" tag="property" attribute="name|mainmenuid" />	
+			<property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[1]">1</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[2]">2</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[3]">3</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[4]">4</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[5]">5</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[6]">6</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[7]">7</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[8]">8</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[9]">9</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[10]">10</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[11]">11</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[12]">12</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[13]">13</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[14]">14</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[15]">15</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[16]">16</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[17]">17</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[18]">18</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[19]">19</property>
+            <property name="widgetid">20</property>       
+        <controls>           
+			<include content="widget_header_multi" condition="$PYTHON['true' if widgetPath else 'false']">
+                <param name="widgetid" value="$PYTHON[int(mainmenuid)]$PYTHON[int(widgetid) + 3002]" />
+                <param name="submenuid" value="$SKINSHORTCUTS[submenuid]" />
+                <param name="widgetName" value="$SKINSHORTCUTS[widgetName]" />
+            </include>
+            <include content="widget_base" condition="$PYTHON['true' if widgetPath else 'false']">
+                <param name="contentStyle" value="$SKINSHORTCUTS[contentStyle]" />
+                <param name="widgetid" value="$PYTHON[int(mainmenuid)]$PYTHON[int(widgetid) + 3002]" />
+				<param name="container" value="$SKINSHORTCUTS[container]" />
+				<param name="position" value="$SKINSHORTCUTS[position]" />
+				<param name="width" value="$SKINSHORTCUTS[width]" />
+				<param name="height" value="$SKINSHORTCUTS[height]" />
+                <param name="widgetName" value="$SKINSHORTCUTS[widgetName]" />
+                <param name="submenuid" value="$SKINSHORTCUTS[submenuid]" />
+                <param name="widgetTags" value="$SKINSHORTCUTS[widgetTags]" />
+                <param name="widgetTarget" value="$SKINSHORTCUTS[widgetTarget]" />
+                <param name="widgetPath" value="$SKINSHORTCUTS[widgetPath]" />
+                <param name="widgetStyle" value="widget_layout_$SKINSHORTCUTS[widgetStyle]" />
+                <param name="widgetSortBy" value="$SKINSHORTCUTS[widgetSortBy]" />
+                <param name="widgetSortOrder" value="$SKINSHORTCUTS[widgetSortOrder]" />
+                <param name="widgetLimit" value="$SKINSHORTCUTS[widgetLimit]" />
+            </include>			
+        </controls>         
+    </submenuOther>
+	<submenu include="search" name="searchmenu">
+        <controls>
+            <skinshortcuts insert="searchlist">items</skinshortcuts>
+        </controls>
+        <items insert="searchlist">         
+			
+			<property name="path" tag="property" attribute="name|list" value="DefaultSearch-Movies">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22</property>
+            <property name="path2" tag="property" attribute="name|list" value="DefaultSearch-Movies">%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</property>
+
+            <property name="path" tag="property" attribute="name|list" value="DefaultSearch-TvShows">videodb://tvshows/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22</property>
+            <property name="path2" tag="property" attribute="name|list" value="DefaultSearch-TvShows">%22%5D%7D%5D%7D%2C%22type%22%3A%22tvshows%22%7D</property>
+
+            <property name="path" tag="property" attribute="name|list" value="DefaultSearch-Episodes">videodb://tvshows/titles/-1/-1/-1/-1/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22</property>
+            <property name="path2" tag="property" attribute="name|list" value="DefaultSearch-Episodes">%22%5D%7D%5D%7D%2C%22type%22%3A%22episodes%22%7D</property>
+
+            <property name="path" tag="property" attribute="name|list" value="DefaultSearch-Tags">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22tag%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22</property>
+            <property name="path2" tag="property" attribute="name|list" value="DefaultSearch-Tags">%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</property>
+
+            <property name="path" tag="property" attribute="name|list" value="DefaultSearch-Genres">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22</property>
+            <property name="path2" tag="property" attribute="name|list" value="DefaultSearch-Genres">%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</property>
+
+            <property name="path" tag="property" attribute="name|list" value="DefaultSearch-Year">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22</property>
+            <property name="path2" tag="property" attribute="name|list" value="DefaultSearch-Year">%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</property>
+
+            <property name="path" tag="property" attribute="name|list" value="DefaultSearch-Studio">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22studio%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22</property>
+            <property name="path2" tag="property" attribute="name|list" value="DefaultSearch-Studio">%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</property>
+
+            <property name="path" tag="property" attribute="name|list" value="DefaultSearch-Country">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22country%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22</property>
+            <property name="path2" tag="property" attribute="name|list" value="DefaultSearch-Country">%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</property>
+
+            <property name="path" tag="property" attribute="name|list" value="DefaultSearch-Actor">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22</property>
+            <property name="path2" tag="property" attribute="name|list" value="DefaultSearch-Actor">%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</property>
+
+            <property name="path" tag="property" attribute="name|list" value="DefaultSearch-Director">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22director%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22</property>
+            <property name="path2" tag="property" attribute="name|list" value="DefaultSearch-Director">%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</property>
+
+            <property name="path" tag="property" attribute="name|list" value="DefaultSearch-Albums">musicdb://albums/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22album%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22</property>
+            <property name="path2" tag="property" attribute="name|list" value="DefaultSearch-Albums">%22%5D%7D%5D%7D%2C%22type%22%3A%22albums%22%7D</property>
+
+            <property name="path" tag="property" attribute="name|list" value="DefaultSearch-Artists">musicdb://artists/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22artist%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22</property>
+            <property name="path2" tag="property" attribute="name|list" value="DefaultSearch-Artists">%22%5D%7D%5D%7D%2C%22type%22%3A%22artists%22%7D</property>
+
+            <property name="path" tag="property" attribute="name|list" value="DefaultSearch-Songs">musicdb://songs/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22</property>
+            <property name="path2" tag="property" attribute="name|list" value="DefaultSearch-Songs">%22%5D%7D%5D%7D%2C%22type%22%3A%22songs%22%7D</property>
+
+            <property name="path" tag="property" attribute="name|list" value="DefaultSearch-MusicVideos">videodb://musicvideos/titles/?xsp=%7b%22order%22%3a%7b%22direction%22%3a%22ascending%22%2c%22ignorefolders%22%3a0%2c%22method%22%3a%22sorttitle%22%7d%2c%22rules%22%3a%7b%22and%22%3a%5b%7b%22field%22%3a%22title%22%2c%22operator%22%3a%22contains%22%2c%22value%22%3a%5b%22</property>
+            <property name="path2" tag="property" attribute="name|list" value="DefaultSearch-MusicVideos">%22%5d%7d%5d%7d%2c%22type%22%3a%22musicvideos%22%7d</property>
+
+            <property name="path" tag="property" attribute="name|list" value="DefaultSearch-MusicVideoArtists">videodb://musicvideos/titles/?xsp=%7b%22order%22%3a%7b%22direction%22%3a%22ascending%22%2c%22ignorefolders%22%3a0%2c%22method%22%3a%22sorttitle%22%7d%2c%22rules%22%3a%7b%22and%22%3a%5b%7b%22field%22%3a%22artist%22%2c%22operator%22%3a%22contains%22%2c%22value%22%3a%5b%22</property>
+            <property name="path2" tag="property" attribute="name|list" value="DefaultSearch-MusicVideoArtists">%22%5d%7d%5d%7d%2c%22type%22%3a%22musicvideos%22%7d</property>
+			
+            <property name="path" tag="property" attribute="name|list" value="DefaultSearch-Youtube">plugin://plugin.video.youtube/search/?q=</property>
+            <property name="path2" tag="property" attribute="name|list" value="DefaultSearch-Youtube">&amp;search_type=notvalid</property>
+			
+			<property name="path" tag="property" attribute="name|list"/>
+			
+			<property name="label" tag="label" />   
+			
+			<property name="widgetTarget" tag="property" attribute="name|widgetTarget" />
+			<property name="widgetTarget">videos</property>
+
+            <property name="widgetLimit" tag="property" attribute="name|widgetLimit"/>
+			<property name="widgetLimit">$INFO[Skin.String(WidgetsGlobalLimit)]</property>
+			
+			<property name="widgetTags" tag="property" attribute="name|widgetTags" value="enable">WidgetTagOverlayEnable</property>
+			<property name="widgetTags" tag="property" attribute="name|widgetTags" value="disable">WidgetTagOverlayDisable</property>
+			<property name="widgetTags">WidgetTagOverlayDisable</property>
+			
+			<property name="layout" tag="property" attribute="name|layout" />
+            <property name="layout">PosterPanelBingie</property>	
+			<property name="layoutwidth" tag="property" attribute="name|layout" value="PosterPanelBingie">295</property>
+			<property name="layoutwidth" tag="property" attribute="name|layout" value="SquarePosterPanelBingie">295</property>
+			<property name="layoutwidth" tag="property" attribute="name|layout" value="ThumbsViewBingie">393</property>
+			<property name="layoutwidth">295</property>
+			<property name="layoutheight" tag="property" attribute="name|layout" value="PosterPanelBingie">420</property>
+			<property name="layoutheight" tag="property" attribute="name|layout" value="SquarePosterPanelBingie">295</property>
+			<property name="layoutheight" tag="property" attribute="name|layout" value="ThumbsViewBingie">231</property>
+			<property name="layoutheight">420</property>
+			<property name="height" tag="property" attribute="name|layout" value="PosterPanelBingie">975</property>						
+			<property name="height" tag="property" attribute="name|layout" value="SquarePosterPanelBingie">975</property>
+			<property name="height" tag="property" attribute="name|layout" value="ThumbsViewBingie">975</property>
+			<property name="height">975</property>
+
+            <property name="id" tag="property" attribute="name|id" value="$NUMBER[1]">1</property>
+            <property name="id" tag="property" attribute="name|id" value="$NUMBER[2]">2</property>
+            <property name="id" tag="property" attribute="name|id" value="$NUMBER[3]">3</property>
+            <property name="id" tag="property" attribute="name|id" value="$NUMBER[4]">4</property>
+            <property name="id" tag="property" attribute="name|id" value="$NUMBER[5]">5</property>
+            <property name="id" tag="property" attribute="name|id" value="$NUMBER[6]">6</property>
+            <property name="id" tag="property" attribute="name|id" value="$NUMBER[7]">7</property>
+            <property name="id" tag="property" attribute="name|id" value="$NUMBER[8]">8</property>
+            <property name="id" tag="property" attribute="name|id" value="$NUMBER[9]">9</property>
+            <property name="id" tag="property" attribute="name|id" value="$NUMBER[10]">10</property>
+            <property name="id" tag="property" attribute="name|id" value="$NUMBER[11]">11</property>
+            <property name="id" tag="property" attribute="name|id" value="$NUMBER[12]">12</property>
+            <property name="id" tag="property" attribute="name|id" value="$NUMBER[13]">13</property>
+            <property name="id" tag="property" attribute="name|id" value="$NUMBER[14]">14</property>
+            <property name="id" tag="property" attribute="name|id" value="$NUMBER[15]">15</property>
+            <property name="id" tag="property" attribute="name|id" value="$NUMBER[16]">16</property>
+            <property name="id" tag="property" attribute="name|id" value="$NUMBER[17]">17</property>
+            <property name="id" tag="property" attribute="name|id" value="$NUMBER[18]">18</property>
+            <property name="id" tag="property" attribute="name|id" value="$NUMBER[19]">19</property>
+            <property name="id">20</property>
+            <controls>
+                <include content="Object_SearchList_Template">
+                    <param name="id" value="$PYTHON[int(id) + 5040]" />
+                    <param name="groupid" value="$PYTHON[int(id) + 7540]" />
+                    <param name="path" value="$SKINSHORTCUTS[path]" />
+					<param name="path2" value="$SKINSHORTCUTS[path2]" />
+                    <param name="label" value="$SKINSHORTCUTS[label]" />
+                    <param name="widgetLimit" value="$SKINSHORTCUTS[widgetLimit]" />
+					<param name="layout" value="$SKINSHORTCUTS[layout]" />
+					<param name="layoutwidth" value="$SKINSHORTCUTS[layoutwidth]" />
+					<param name="layoutheight" value="$SKINSHORTCUTS[layoutheight]" />
+					<param name="height" value="$SKINSHORTCUTS[height]" />
+					<param name="widgetTags" value="$SKINSHORTCUTS[widgetTags]" />
+					<param name="widgetTarget" value="$SKINSHORTCUTS[widgetTarget]" />
+                </include>
+            </controls>
+        </items>
+    </submenu>
+	<submenu include="tmdbsearch" name="tmdbsearchmenu">
+        <controls>
+            <skinshortcuts insert="tmdbsearchlist">items</skinshortcuts>
+        </controls>
+        <items insert="tmdbsearchlist">         
+			
+			<property name="path" tag="property" attribute="name|list" value="DefaultSearch-Movies">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22</property>
+            <property name="path2" tag="property" attribute="name|list" value="DefaultSearch-Movies">%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</property>
+
+            <property name="path" tag="property" attribute="name|list" value="DefaultSearch-TvShows">videodb://tvshows/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22</property>
+            <property name="path2" tag="property" attribute="name|list" value="DefaultSearch-TvShows">%22%5D%7D%5D%7D%2C%22type%22%3A%22tvshows%22%7D</property>
+
+            <property name="path" tag="property" attribute="name|list" value="DefaultSearch-Episodes">videodb://tvshows/titles/-1/-1/-1/-1/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22</property>
+            <property name="path2" tag="property" attribute="name|list" value="DefaultSearch-Episodes">%22%5D%7D%5D%7D%2C%22type%22%3A%22episodes%22%7D</property>
+
+            <property name="path" tag="property" attribute="name|list" value="DefaultSearch-Tags">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22tag%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22</property>
+            <property name="path2" tag="property" attribute="name|list" value="DefaultSearch-Tags">%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</property>
+
+            <property name="path" tag="property" attribute="name|list" value="DefaultSearch-Genres">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22genre%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22</property>
+            <property name="path2" tag="property" attribute="name|list" value="DefaultSearch-Genres">%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</property>
+
+            <property name="path" tag="property" attribute="name|list" value="DefaultSearch-Year">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22year%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22</property>
+            <property name="path2" tag="property" attribute="name|list" value="DefaultSearch-Year">%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</property>
+
+            <property name="path" tag="property" attribute="name|list" value="DefaultSearch-Studio">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22studio%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22</property>
+            <property name="path2" tag="property" attribute="name|list" value="DefaultSearch-Studio">%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</property>
+
+            <property name="path" tag="property" attribute="name|list" value="DefaultSearch-Country">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22country%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%5B%22</property>
+            <property name="path2" tag="property" attribute="name|list" value="DefaultSearch-Country">%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</property>
+
+            <property name="path" tag="property" attribute="name|list" value="DefaultSearch-Actor">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22actor%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22</property>
+            <property name="path2" tag="property" attribute="name|list" value="DefaultSearch-Actor">%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</property>
+
+            <property name="path" tag="property" attribute="name|list" value="DefaultSearch-Director">videodb://movies/titles/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22director%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22</property>
+            <property name="path2" tag="property" attribute="name|list" value="DefaultSearch-Director">%22%5D%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</property>
+
+            <property name="path" tag="property" attribute="name|list" value="DefaultSearch-Albums">musicdb://albums/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22album%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22</property>
+            <property name="path2" tag="property" attribute="name|list" value="DefaultSearch-Albums">%22%5D%7D%5D%7D%2C%22type%22%3A%22albums%22%7D</property>
+
+            <property name="path" tag="property" attribute="name|list" value="DefaultSearch-Artists">musicdb://artists/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22artist%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22</property>
+            <property name="path2" tag="property" attribute="name|list" value="DefaultSearch-Artists">%22%5D%7D%5D%7D%2C%22type%22%3A%22artists%22%7D</property>
+
+            <property name="path" tag="property" attribute="name|list" value="DefaultSearch-Songs">musicdb://songs/?xsp=%7B%22order%22%3A%7B%22direction%22%3A%22ascending%22%2C%22ignorefolders%22%3A0%2C%22method%22%3A%22sorttitle%22%7D%2C%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22title%22%2C%22operator%22%3A%22contains%22%2C%22value%22%3A%5B%22</property>
+            <property name="path2" tag="property" attribute="name|list" value="DefaultSearch-Songs">%22%5D%7D%5D%7D%2C%22type%22%3A%22songs%22%7D</property>
+
+            <property name="path" tag="property" attribute="name|list" value="DefaultSearch-MusicVideos">videodb://musicvideos/titles/?xsp=%7b%22order%22%3a%7b%22direction%22%3a%22ascending%22%2c%22ignorefolders%22%3a0%2c%22method%22%3a%22sorttitle%22%7d%2c%22rules%22%3a%7b%22and%22%3a%5b%7b%22field%22%3a%22title%22%2c%22operator%22%3a%22contains%22%2c%22value%22%3a%5b%22</property>
+            <property name="path2" tag="property" attribute="name|list" value="DefaultSearch-MusicVideos">%22%5d%7d%5d%7d%2c%22type%22%3a%22musicvideos%22%7d</property>
+
+            <property name="path" tag="property" attribute="name|list" value="DefaultSearch-MusicVideoArtists">videodb://musicvideos/titles/?xsp=%7b%22order%22%3a%7b%22direction%22%3a%22ascending%22%2c%22ignorefolders%22%3a0%2c%22method%22%3a%22sorttitle%22%7d%2c%22rules%22%3a%7b%22and%22%3a%5b%7b%22field%22%3a%22artist%22%2c%22operator%22%3a%22contains%22%2c%22value%22%3a%5b%22</property>
+            <property name="path2" tag="property" attribute="name|list" value="DefaultSearch-MusicVideoArtists">%22%5d%7d%5d%7d%2c%22type%22%3a%22musicvideos%22%7d</property>
+			
+            <property name="path" tag="property" attribute="name|list" value="DefaultSearch-Youtube">plugin://plugin.video.youtube/search/?q=</property>
+            <property name="path2" tag="property" attribute="name|list" value="DefaultSearch-Youtube">&amp;search_type=notvalid</property>
+			
+			<property name="path" tag="property" attribute="name|list"/>
+			
+			<property name="label" tag="label" />   
+			
+			<property name="widgetTarget" tag="property" attribute="name|widgetTarget" />
+			<property name="widgetTarget">videos</property>
+
+            <property name="widgetLimit" tag="property" attribute="name|widgetLimit"/>
+			<property name="widgetLimit">$INFO[Skin.String(WidgetsGlobalLimit)]</property>
+			
+			<property name="widgetTags" tag="property" attribute="name|widgetTags" value="enable">WidgetTagOverlayEnable</property>
+			<property name="widgetTags" tag="property" attribute="name|widgetTags" value="disable">WidgetTagOverlayDisable</property>
+			<property name="widgetTags">WidgetTagOverlayDisable</property>
+			
+			<property name="layout" tag="property" attribute="name|layout" />
+            <property name="layout">PosterPanelBingie</property>	
+			<property name="layoutwidth" tag="property" attribute="name|layout" value="PosterPanelBingie">295</property>
+			<property name="layoutwidth" tag="property" attribute="name|layout" value="SquarePosterPanelBingie">295</property>
+			<property name="layoutwidth" tag="property" attribute="name|layout" value="ThumbsViewBingie">393</property>
+			<property name="layoutwidth">295</property>
+			<property name="layoutheight" tag="property" attribute="name|layout" value="PosterPanelBingie">420</property>
+			<property name="layoutheight" tag="property" attribute="name|layout" value="SquarePosterPanelBingie">295</property>
+			<property name="layoutheight" tag="property" attribute="name|layout" value="ThumbsViewBingie">231</property>
+			<property name="layoutheight">420</property>
+			<property name="height" tag="property" attribute="name|layout" value="PosterPanelBingie">975</property>						
+			<property name="height" tag="property" attribute="name|layout" value="SquarePosterPanelBingie">975</property>
+			<property name="height" tag="property" attribute="name|layout" value="ThumbsViewBingie">975</property>
+			<property name="height">975</property>
+
+            <property name="id" tag="property" attribute="name|id" value="$NUMBER[1]">1</property>
+            <property name="id" tag="property" attribute="name|id" value="$NUMBER[2]">2</property>
+            <property name="id" tag="property" attribute="name|id" value="$NUMBER[3]">3</property>
+            <property name="id" tag="property" attribute="name|id" value="$NUMBER[4]">4</property>
+            <property name="id" tag="property" attribute="name|id" value="$NUMBER[5]">5</property>
+            <property name="id" tag="property" attribute="name|id" value="$NUMBER[6]">6</property>
+            <property name="id" tag="property" attribute="name|id" value="$NUMBER[7]">7</property>
+            <property name="id" tag="property" attribute="name|id" value="$NUMBER[8]">8</property>
+            <property name="id" tag="property" attribute="name|id" value="$NUMBER[9]">9</property>
+            <property name="id" tag="property" attribute="name|id" value="$NUMBER[10]">10</property>
+            <property name="id" tag="property" attribute="name|id" value="$NUMBER[11]">11</property>
+            <property name="id" tag="property" attribute="name|id" value="$NUMBER[12]">12</property>
+            <property name="id" tag="property" attribute="name|id" value="$NUMBER[13]">13</property>
+            <property name="id" tag="property" attribute="name|id" value="$NUMBER[14]">14</property>
+            <property name="id" tag="property" attribute="name|id" value="$NUMBER[15]">15</property>
+            <property name="id" tag="property" attribute="name|id" value="$NUMBER[16]">16</property>
+            <property name="id" tag="property" attribute="name|id" value="$NUMBER[17]">17</property>
+            <property name="id" tag="property" attribute="name|id" value="$NUMBER[18]">18</property>
+            <property name="id" tag="property" attribute="name|id" value="$NUMBER[19]">19</property>
+            <property name="id">20</property>
+            <controls>
+                <include content="Object_SearchList_Template">
+                    <param name="id" value="$PYTHON[int(id) + 5040]" />
+                    <param name="groupid" value="$PYTHON[int(id) + 7540]" />
+                    <param name="path" value="$SKINSHORTCUTS[path]" />
+					<param name="path2" value="$SKINSHORTCUTS[path2]" />
+                    <param name="label" value="$SKINSHORTCUTS[label]" />
+                    <param name="widgetLimit" value="$SKINSHORTCUTS[widgetLimit]" />
+					<param name="layout" value="$SKINSHORTCUTS[layout]" />
+					<param name="layoutwidth" value="$SKINSHORTCUTS[layoutwidth]" />
+					<param name="layoutheight" value="$SKINSHORTCUTS[layoutheight]" />
+					<param name="height" value="$SKINSHORTCUTS[height]" />
+					<param name="widgetTags" value="$SKINSHORTCUTS[widgetTags]" />
+					<param name="widgetTarget" value="$SKINSHORTCUTS[widgetTarget]" />
+                </include>
+            </controls>
+        </items>
+    </submenu>
+	<submenu include="moviehub" name="moviehub">
+        <controls>
+            <skinshortcuts insert="moviehub">items</skinshortcuts>
+        </controls>
+        <items insert="moviehub">       
+        <property name="submenuid" tag="property" attribute="name|submenuVisibility" />       
+		<property name="widgetTarget" tag="property" attribute="name|widgetTarget" />
+		<property name="widgetTarget">videos</property>
+        <property name="contentStyle">normal</property>
+		<property name="container">fixedlist</property>
+		<property name="position">horizontal</property>
+		<property name="width">100%</property>
+		<property name="height">341</property>
+        <property name="widgetPath" tag="property" attribute="name|list" />
+        <property name="widgetPath"/>
+        <property name="widgetName" tag="label" />
+        <property name="widgetTags" tag="property" attribute="name|widgetTags" value="enable">WidgetTagOverlayEnable</property>
+        <property name="widgetTags" tag="property" attribute="name|widgetTags" value="disable">WidgetTagOverlayDisable</property>
+        <property name="widgetTags">WidgetTagOverlayDisable</property>
+        <property name="widgetStyle" tag="property" attribute="name|widgetstyle" />
+        <property name="widgetStyle">default</property>
+        <property name="widgetSortBy" tag="property" attribute="name|widgetSortBy" />
+        <property name="widgetSortOrder" tag="property" attribute="name|widgetSortOrder" />
+        <property name="widgetLimit" tag="property" attribute="name|widgetLimit" />
+        <property name="widgetLimit">$INFO[Skin.String(WidgetsGlobalLimit)]</property>	
+			<property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[1]">1</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[2]">2</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[3]">3</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[4]">4</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[5]">5</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[6]">6</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[7]">7</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[8]">8</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[9]">9</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[10]">10</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[11]">11</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[12]">12</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[13]">13</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[14]">14</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[15]">15</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[16]">16</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[17]">17</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[18]">18</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[19]">19</property>
+            <property name="widgetid">20</property>       
+        <controls>           
+            <include content="widget_base" condition="$PYTHON['true' if widgetPath else 'false']">
+                <param name="contentStyle" value="$SKINSHORTCUTS[contentStyle]" />
+                <param name="widgetid" value="$PYTHON[int(widgetid) + 6040]" />
+				<param name="container" value="$SKINSHORTCUTS[container]" />
+				<param name="position" value="$SKINSHORTCUTS[position]" />
+				<param name="width" value="$SKINSHORTCUTS[width]" />
+				<param name="height" value="$SKINSHORTCUTS[height]" />
+                <param name="widgetName" value="$SKINSHORTCUTS[widgetName]" />
+                <param name="submenuid" value="$SKINSHORTCUTS[submenuid]" />
+                <param name="widgetTags" value="$SKINSHORTCUTS[widgetTags]" />
+                <param name="widgetTarget" value="$SKINSHORTCUTS[widgetTarget]" />
+                <param name="widgetPath" value="$SKINSHORTCUTS[widgetPath]" />
+                <param name="widgetStyle" value="widget_layout_$SKINSHORTCUTS[widgetStyle]" />
+                <param name="widgetSortBy" value="$SKINSHORTCUTS[widgetSortBy]" />
+                <param name="widgetSortOrder" value="$SKINSHORTCUTS[widgetSortOrder]" />
+                <param name="widgetLimit" value="$SKINSHORTCUTS[widgetLimit]" />
+            </include>
+			<include content="widget_header_multi" condition="$PYTHON['true' if widgetPath else 'false']">
+                <param name="widgetid" value="$PYTHON[int(widgetid) + 6040]" />
+                <param name="submenuid" value="$SKINSHORTCUTS[submenuid]" />
+                <param name="widgetName" value="$SKINSHORTCUTS[widgetName]" />
+            </include>			
+        </controls>  
+		</items>		
+	 </submenu>
+	 <submenu include="tvshowhub" name="tvshowhub">
+        <controls>
+            <skinshortcuts insert="tvshowhub">items</skinshortcuts>
+        </controls>
+        <items insert="tvshowhub">       
+        <property name="submenuid" tag="property" attribute="name|submenuVisibility" />       
+		<property name="widgetTarget" tag="property" attribute="name|widgetTarget" />
+		<property name="widgetTarget">videos</property>
+        <property name="contentStyle">normal</property>
+		<property name="container">fixedlist</property>
+		<property name="position">horizontal</property>
+		<property name="width">100%</property>
+		<property name="height">341</property>
+        <property name="widgetPath" tag="property" attribute="name|list" />
+        <property name="widgetPath"/>
+        <property name="widgetName" tag="label" />
+        <property name="widgetTags" tag="property" attribute="name|widgetTags" value="enable">WidgetTagOverlayEnable</property>
+        <property name="widgetTags" tag="property" attribute="name|widgetTags" value="disable">WidgetTagOverlayDisable</property>
+        <property name="widgetTags">WidgetTagOverlayDisable</property>
+        <property name="widgetStyle" tag="property" attribute="name|widgetstyle" />
+        <property name="widgetStyle">default</property>
+        <property name="widgetSortBy" tag="property" attribute="name|widgetSortBy" />
+        <property name="widgetSortOrder" tag="property" attribute="name|widgetSortOrder" />
+        <property name="widgetLimit" tag="property" attribute="name|widgetLimit" />
+        <property name="widgetLimit">$INFO[Skin.String(WidgetsGlobalLimit)]</property>	
+			<property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[1]">1</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[2]">2</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[3]">3</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[4]">4</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[5]">5</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[6]">6</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[7]">7</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[8]">8</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[9]">9</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[10]">10</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[11]">11</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[12]">12</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[13]">13</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[14]">14</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[15]">15</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[16]">16</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[17]">17</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[18]">18</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[19]">19</property>
+            <property name="widgetid">20</property>       
+        <controls>           
+            <include content="widget_base" condition="$PYTHON['true' if widgetPath else 'false']">
+                <param name="contentStyle" value="$SKINSHORTCUTS[contentStyle]" />
+                <param name="widgetid" value="$PYTHON[int(widgetid) + 6050]" />
+				<param name="container" value="$SKINSHORTCUTS[container]" />
+				<param name="position" value="$SKINSHORTCUTS[position]" />
+				<param name="width" value="$SKINSHORTCUTS[width]" />
+				<param name="height" value="$SKINSHORTCUTS[height]" />
+                <param name="widgetName" value="$SKINSHORTCUTS[widgetName]" />
+                <param name="submenuid" value="$SKINSHORTCUTS[submenuid]" />
+                <param name="widgetTags" value="$SKINSHORTCUTS[widgetTags]" />
+                <param name="widgetTarget" value="$SKINSHORTCUTS[widgetTarget]" />
+                <param name="widgetPath" value="$SKINSHORTCUTS[widgetPath]" />
+                <param name="widgetStyle" value="widget_layout_$SKINSHORTCUTS[widgetStyle]" />
+                <param name="widgetSortBy" value="$SKINSHORTCUTS[widgetSortBy]" />
+                <param name="widgetSortOrder" value="$SKINSHORTCUTS[widgetSortOrder]" />
+                <param name="widgetLimit" value="$SKINSHORTCUTS[widgetLimit]" />
+            </include>
+			<include content="widget_header_multi" condition="$PYTHON['true' if widgetPath else 'false']">
+                <param name="widgetid" value="$PYTHON[int(widgetid) + 6050]" />
+                <param name="submenuid" value="$SKINSHORTCUTS[submenuid]" />
+                <param name="widgetName" value="$SKINSHORTCUTS[widgetName]" />
+            </include>			
+        </controls>  
+		</items>		
+	 </submenu>
+	 <submenu include="newhub" name="newhub">
+        <controls>
+            <skinshortcuts insert="newhub">items</skinshortcuts>
+        </controls>
+        <items insert="newhub">       
+        <property name="submenuid" tag="property" attribute="name|submenuVisibility" />       
+		<property name="widgetTarget" tag="property" attribute="name|widgetTarget" />
+		<property name="widgetTarget">videos</property>
+        <property name="contentStyle">normal</property>
+		<property name="container">fixedlist</property>
+		<property name="position">horizontal</property>
+		<property name="width">100%</property>
+		<property name="height">341</property>
+        <property name="widgetPath" tag="property" attribute="name|list" />
+        <property name="widgetPath"/>
+        <property name="widgetName" tag="label" />
+        <property name="widgetTags" tag="property" attribute="name|widgetTags" value="enable">WidgetTagOverlayEnable</property>
+        <property name="widgetTags" tag="property" attribute="name|widgetTags" value="disable">WidgetTagOverlayDisable</property>
+        <property name="widgetTags">WidgetTagOverlayDisable</property>
+        <property name="widgetStyle" tag="property" attribute="name|widgetstyle" />
+        <property name="widgetStyle">default</property>
+        <property name="widgetSortBy" tag="property" attribute="name|widgetSortBy" />
+        <property name="widgetSortOrder" tag="property" attribute="name|widgetSortOrder" />
+        <property name="widgetLimit" tag="property" attribute="name|widgetLimit" />
+        <property name="widgetLimit">$INFO[Skin.String(WidgetsGlobalLimit)]</property>	
+			<property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[1]">1</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[2]">2</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[3]">3</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[4]">4</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[5]">5</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[6]">6</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[7]">7</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[8]">8</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[9]">9</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[10]">10</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[11]">11</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[12]">12</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[13]">13</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[14]">14</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[15]">15</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[16]">16</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[17]">17</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[18]">18</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[19]">19</property>
+            <property name="widgetid">20</property>       
+        <controls>           
+            <include content="widget_base" condition="$PYTHON['true' if widgetPath else 'false']">
+                <param name="contentStyle" value="$SKINSHORTCUTS[contentStyle]" />
+                <param name="widgetid" value="$PYTHON[int(widgetid) + 6050]" />
+				<param name="container" value="$SKINSHORTCUTS[container]" />
+				<param name="position" value="$SKINSHORTCUTS[position]" />
+				<param name="width" value="$SKINSHORTCUTS[width]" />
+				<param name="height" value="$SKINSHORTCUTS[height]" />
+                <param name="widgetName" value="$SKINSHORTCUTS[widgetName]" />
+                <param name="submenuid" value="$SKINSHORTCUTS[submenuid]" />
+                <param name="widgetTags" value="$SKINSHORTCUTS[widgetTags]" />
+                <param name="widgetTarget" value="$SKINSHORTCUTS[widgetTarget]" />
+                <param name="widgetPath" value="$SKINSHORTCUTS[widgetPath]" />
+                <param name="widgetStyle" value="widget_layout_$SKINSHORTCUTS[widgetStyle]" />
+                <param name="widgetSortBy" value="$SKINSHORTCUTS[widgetSortBy]" />
+                <param name="widgetSortOrder" value="$SKINSHORTCUTS[widgetSortOrder]" />
+                <param name="widgetLimit" value="$SKINSHORTCUTS[widgetLimit]" />
+            </include>
+			<include content="widget_header_multi" condition="$PYTHON['true' if widgetPath else 'false']">
+                <param name="widgetid" value="$PYTHON[int(widgetid) + 6050]" />
+                <param name="submenuid" value="$SKINSHORTCUTS[submenuid]" />
+                <param name="widgetName" value="$SKINSHORTCUTS[widgetName]" />
+            </include>			
+        </controls>  
+		</items>		
+	 </submenu>
+	 <submenu include="musichub" name="musichub">
+        <controls>
+            <skinshortcuts insert="musichub">items</skinshortcuts>
+        </controls>
+        <items insert="musichub">       
+        <property name="submenuid" tag="property" attribute="name|submenuVisibility" />       
+		<property name="widgetTarget" tag="property" attribute="name|widgetTarget" />
+		<property name="widgetTarget">music</property>
+        <property name="contentStyle">normal</property>
+		<property name="container">fixedlist</property>
+		<property name="position">horizontal</property>
+		<property name="width">100%</property>
+		<property name="height">341</property>
+        <property name="widgetPath" tag="property" attribute="name|list" />
+        <property name="widgetPath"/>
+        <property name="widgetName" tag="label" />
+        <property name="widgetTags" tag="property" attribute="name|widgetTags" value="enable">WidgetTagOverlayEnable</property>
+        <property name="widgetTags" tag="property" attribute="name|widgetTags" value="disable">WidgetTagOverlayDisable</property>
+        <property name="widgetTags">WidgetTagOverlayDisable</property>
+        <property name="widgetStyle" tag="property" attribute="name|widgetstyle" />
+        <property name="widgetStyle">square</property>
+        <property name="widgetSortBy" tag="property" attribute="name|widgetSortBy" />
+        <property name="widgetSortOrder" tag="property" attribute="name|widgetSortOrder" />
+        <property name="widgetLimit" tag="property" attribute="name|widgetLimit" />
+        <property name="widgetLimit">$INFO[Skin.String(WidgetsGlobalLimit)]</property>	
+			<property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[1]">1</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[2]">2</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[3]">3</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[4]">4</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[5]">5</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[6]">6</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[7]">7</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[8]">8</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[9]">9</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[10]">10</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[11]">11</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[12]">12</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[13]">13</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[14]">14</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[15]">15</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[16]">16</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[17]">17</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[18]">18</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[19]">19</property>
+            <property name="widgetid">20</property>       
+        <controls>           
+            <include content="widget_base" condition="$PYTHON['true' if widgetPath else 'false']">
+                <param name="contentStyle" value="$SKINSHORTCUTS[contentStyle]" />
+                <param name="widgetid" value="$PYTHON[int(widgetid) + 6060]" />
+				<param name="container" value="$SKINSHORTCUTS[container]" />
+				<param name="position" value="$SKINSHORTCUTS[position]" />
+				<param name="width" value="$SKINSHORTCUTS[width]" />
+				<param name="height" value="$SKINSHORTCUTS[height]" />
+                <param name="widgetName" value="$SKINSHORTCUTS[widgetName]" />
+                <param name="submenuid" value="$SKINSHORTCUTS[submenuid]" />
+                <param name="widgetTags" value="$SKINSHORTCUTS[widgetTags]" />
+                <param name="widgetTarget" value="$SKINSHORTCUTS[widgetTarget]" />
+                <param name="widgetPath" value="$SKINSHORTCUTS[widgetPath]" />
+                <param name="widgetStyle" value="widget_layout_$SKINSHORTCUTS[widgetStyle]" />
+                <param name="widgetSortBy" value="$SKINSHORTCUTS[widgetSortBy]" />
+                <param name="widgetSortOrder" value="$SKINSHORTCUTS[widgetSortOrder]" />
+                <param name="widgetLimit" value="$SKINSHORTCUTS[widgetLimit]" />
+            </include>
+			<include content="widget_header_multi" condition="$PYTHON['true' if widgetPath else 'false']">
+                <param name="widgetid" value="$PYTHON[int(widgetid) + 6060]" />
+                <param name="submenuid" value="$SKINSHORTCUTS[submenuid]" />
+                <param name="widgetName" value="$SKINSHORTCUTS[widgetName]" />
+            </include>			
+        </controls>  
+		</items>		
+	 </submenu>
+	 <submenu include="customhub" name="customhub">
+        <controls>
+            <skinshortcuts insert="customhub">items</skinshortcuts>
+        </controls>
+        <items insert="customhub">       
+        <property name="submenuid" tag="property" attribute="name|submenuVisibility" />       
+		<property name="widgetTarget" tag="property" attribute="name|widgetTarget" />
+		<property name="widgetTarget">videos</property>
+        <property name="contentStyle">normal</property>
+		<property name="container">fixedlist</property>
+		<property name="position">horizontal</property>
+		<property name="width">100%</property>
+		<property name="height">341</property>
+        <property name="widgetPath" tag="property" attribute="name|list" />
+        <property name="widgetPath"/>
+        <property name="widgetName" tag="label" />
+        <property name="widgetTags" tag="property" attribute="name|widgetTags" value="enable">WidgetTagOverlayEnable</property>
+        <property name="widgetTags" tag="property" attribute="name|widgetTags" value="disable">WidgetTagOverlayDisable</property>
+        <property name="widgetTags">WidgetTagOverlayDisable</property>
+        <property name="widgetStyle" tag="property" attribute="name|widgetstyle" />
+        <property name="widgetStyle">default</property>
+        <property name="widgetSortBy" tag="property" attribute="name|widgetSortBy" />
+        <property name="widgetSortOrder" tag="property" attribute="name|widgetSortOrder" />
+        <property name="widgetLimit" tag="property" attribute="name|widgetLimit" />
+        <property name="widgetLimit">$INFO[Skin.String(WidgetsGlobalLimit)]</property>	
+			<property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[1]">1</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[2]">2</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[3]">3</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[4]">4</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[5]">5</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[6]">6</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[7]">7</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[8]">8</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[9]">9</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[10]">10</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[11]">11</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[12]">12</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[13]">13</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[14]">14</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[15]">15</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[16]">16</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[17]">17</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[18]">18</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[19]">19</property>
+            <property name="widgetid">20</property>       
+        <controls>           
+            <include content="widget_base" condition="$PYTHON['true' if widgetPath else 'false']">
+                <param name="contentStyle" value="$SKINSHORTCUTS[contentStyle]" />
+                <param name="widgetid" value="$PYTHON[int(widgetid) + 6070]" />
+				<param name="container" value="$SKINSHORTCUTS[container]" />
+				<param name="position" value="$SKINSHORTCUTS[position]" />
+				<param name="width" value="$SKINSHORTCUTS[width]" />
+				<param name="height" value="$SKINSHORTCUTS[height]" />
+                <param name="widgetName" value="$SKINSHORTCUTS[widgetName]" />
+                <param name="submenuid" value="$SKINSHORTCUTS[submenuid]" />
+                <param name="widgetTags" value="$SKINSHORTCUTS[widgetTags]" />
+                <param name="widgetTarget" value="$SKINSHORTCUTS[widgetTarget]" />
+                <param name="widgetPath" value="$SKINSHORTCUTS[widgetPath]" />
+                <param name="widgetStyle" value="widget_layout_$SKINSHORTCUTS[widgetStyle]" />
+                <param name="widgetSortBy" value="$SKINSHORTCUTS[widgetSortBy]" />
+                <param name="widgetSortOrder" value="$SKINSHORTCUTS[widgetSortOrder]" />
+                <param name="widgetLimit" value="$SKINSHORTCUTS[widgetLimit]" />
+            </include>
+			<include content="widget_header_multi" condition="$PYTHON['true' if widgetPath else 'false']">
+                <param name="widgetid" value="$PYTHON[int(widgetid) + 6070]" />
+                <param name="submenuid" value="$SKINSHORTCUTS[submenuid]" />
+                <param name="widgetName" value="$SKINSHORTCUTS[widgetName]" />
+            </include>			
+        </controls>  
+		</items>		
+	 </submenu>
+	 <submenu include="mylisthub" name="mylisthub">
+        <controls>
+            <skinshortcuts insert="mylisthub">items</skinshortcuts>
+        </controls>
+        <items insert="mylisthub">       
+        <property name="submenuid" tag="property" attribute="name|submenuVisibility" />       
+		<property name="widgetTarget" tag="property" attribute="name|widgetTarget" />
+		<property name="widgetTarget">videos</property>
+        <property name="contentStyle">normal</property>
+		<property name="container">panel</property>
+		<property name="position">vertical</property>
+		<property name="width">1804</property>
+		<property name="height">474</property>
+        <property name="widgetPath" tag="property" attribute="name|list" />
+        <property name="widgetPath"/>
+        <property name="widgetName" tag="label" />
+        <property name="widgetTags" tag="property" attribute="name|widgetTags" value="enable">WidgetTagOverlayEnable</property>
+        <property name="widgetTags" tag="property" attribute="name|widgetTags" value="disable">WidgetTagOverlayDisable</property>
+        <property name="widgetTags">WidgetTagOverlayDisable</property>
+        <property name="widgetStyle" tag="property" attribute="name|widgetstyle" />
+        <property name="widgetStyle">default</property>
+        <property name="widgetSortBy" tag="property" attribute="name|widgetSortBy" />
+        <property name="widgetSortOrder" tag="property" attribute="name|widgetSortOrder" />
+        <property name="widgetLimit" tag="property" attribute="name|widgetLimit" />
+        <property name="widgetLimit">$INFO[Skin.String(WidgetsGlobalLimit)]</property>	
+			<property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[1]">1</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[2]">2</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[3]">3</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[4]">4</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[5]">5</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[6]">6</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[7]">7</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[8]">8</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[9]">9</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[10]">10</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[11]">11</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[12]">12</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[13]">13</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[14]">14</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[15]">15</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[16]">16</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[17]">17</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[18]">18</property>
+            <property name="widgetid" tag="property" attribute="name|id" value="$NUMBER[19]">19</property>
+            <property name="widgetid">20</property>       
+        <controls>           
+            <include content="widget_base" condition="$PYTHON['true' if widgetPath else 'false']">
+                <param name="contentStyle" value="$SKINSHORTCUTS[contentStyle]" />
+                <param name="widgetid" value="1520" />
+				<param name="container" value="$SKINSHORTCUTS[container]" />
+				<param name="position" value="$SKINSHORTCUTS[position]" />
+				<param name="width" value="$SKINSHORTCUTS[width]" />
+				<param name="height" value="$SKINSHORTCUTS[height]" />
+                <param name="widgetName" value="$SKINSHORTCUTS[widgetName]" />
+                <param name="submenuid" value="$SKINSHORTCUTS[submenuid]" />
+                <param name="widgetTags" value="$SKINSHORTCUTS[widgetTags]" />
+                <param name="widgetTarget" value="$SKINSHORTCUTS[widgetTarget]" />
+                <param name="widgetPath" value="$SKINSHORTCUTS[widgetPath]" />
+                <param name="widgetStyle" value="widget_layout_$SKINSHORTCUTS[widgetStyle]" />
+                <param name="widgetSortBy" value="$SKINSHORTCUTS[widgetSortBy]" />
+                <param name="widgetSortOrder" value="$SKINSHORTCUTS[widgetSortOrder]" />
+                <param name="widgetLimit" value="$SKINSHORTCUTS[widgetLimit]" />
+            </include>		
+        </controls>  
+		</items>		
+	 </submenu>
+	 	<submenu include="somethinghub" name="somethinghub">
+        <controls>
+            <skinshortcuts insert="somethinghub">items</skinshortcuts>
+        </controls>
+        <items insert="somethinghub">
+            <property name="label" tag="label" />			
+            <property name="widgetpath" tag="property" attribute="name|list"/>			
+			<property name="widgetTarget" tag="property" attribute="name|widgetTarget" />
+			<property name="widgetTarget">videos</property>
+			<property name="widgetSortBy" tag="property" attribute="name|widgetSortBy" />
+			<property name="widgetSortBy">userpreference</property>
+			<property name="widgetSortOrder" tag="property" attribute="name|widgetSortOrder" />
+            <property name="widgetlimit" tag="property" attribute="name|widgetlimit"/>
+			<property name="widgetlimit">20</property>			
+            <controls>
+                <include content="Object_Something_Template">
+                    <param name="widgetid" value="1510" />
+                    <param name="widgetpath" value="$SKINSHORTCUTS[widgetpath]" />
+                    <param name="label" value="$SKINSHORTCUTS[label]" />
+					<param name="widgetSortBy" value="$SKINSHORTCUTS[widgetSortBy]" />
+					<param name="widgetSortOrder" value="$SKINSHORTCUTS[widgetSortOrder]" />
+                    <param name="widgetlimit" value="$SKINSHORTCUTS[widgetlimit]" />
+					<param name="widgetTarget" value="$SKINSHORTCUTS[widgetTarget]" />
+                </include>
+            </controls>
+        </items>
+    </submenu>
+</template>

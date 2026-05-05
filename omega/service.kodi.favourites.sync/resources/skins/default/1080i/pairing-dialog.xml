@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+  <coordinates>
+    <left>385</left>
+    <top>315</top>
+  </coordinates>
+  <controls>
+    <animation type="WindowOpen" reversible="false">
+      <effect type="zoom" start="80" end="100" center="960,540" delay="160" tween="back" time="240" />
+      <effect type="fade" delay="160" end="100" time="240" />
+    </animation>
+    <animation type="WindowClose" reversible="false">
+      <effect type="zoom" start="100" end="80" center="960,540" easing="in" tween="back" time="240" />
+      <effect type="fade" start="100" end="0" time="240" />
+    </animation>
+    <control type="image">
+      <left>-1920</left>
+      <top>-1080</top>
+      <width>5760</width>
+      <height>3240</height>
+      <animation effect="fade" start="0" end="100" time="300">WindowOpen</animation>
+      <animation effect="fade" start="100" end="0" time="200">WindowClose</animation>
+      <texture colordiffuse="E6000000">../media/pixel.png</texture>
+    </control>
+    <control type="image">
+      <left>0</left>
+      <top>0</top>
+      <width>1150</width>
+      <height>450</height>
+      <texture colordiffuse="FF101418" border="2">../media/pixel.png</texture>
+    </control>
+    <control type="image">
+      <left>10</left>
+      <top>10</top>
+      <width>1130</width>
+      <height>430</height>
+      <texture colordiffuse="FF1B2129" border="2">../media/pixel.png</texture>
+    </control>
+    <control type="image">
+      <left>0</left>
+      <top>0</top>
+      <width>1150</width>
+      <height>70</height>
+      <texture colordiffuse="FF147A96" border="2">../media/pixel.png</texture>
+    </control>
+    <control type="label" id="1000">
+      <textoffsetx>20</textoffsetx>
+      <left>0</left>
+      <top>0</top>
+      <width>1150</width>
+      <height>70</height>
+      <font>font30_title</font>
+      <align>left</align>
+      <aligny>center</aligny>
+      <textcolor>FFFFFFFF</textcolor>
+      <shadowcolor>CC000000</shadowcolor>
+      <label>Kodi Favourites Sync</label>
+    </control>
+    <control type="image" id="1001">
+      <left>20</left>
+      <top>90</top>
+      <width>340</width>
+      <height>340</height>
+      <aspectratio aligny="center" align="center">keep</aspectratio>
+    </control>
+    <control type="textbox" id="1002">
+      <left>380</left>
+      <top>100</top>
+      <width>720</width>
+      <height>340</height>
+      <font>font16</font>
+      <align>left</align>
+      <aligny>top</aligny>
+      <textcolor>FFF3F7FA</textcolor>
+      <shadowcolor>CC000000</shadowcolor>
+    </control>
+    <control type="button" id="1005">
+      <left>820</left>
+      <top>352</top>
+      <width>260</width>
+      <height>72</height>
+      <font>font12_title</font>
+      <textcolor>FFFFFFFF</textcolor>
+      <focusedcolor>FFFFFFFF</focusedcolor>
+      <label>222</label>
+      <align>center</align>
+      <aligny>center</aligny>
+    </control>
+  </controls>
+</window>

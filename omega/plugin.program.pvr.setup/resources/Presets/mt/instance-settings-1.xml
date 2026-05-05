@@ -3,7 +3,7 @@
     <setting id="kodi_addon_instance_enabled" default="true">true</setting>
     <setting id="m3uPathType" default="true">1</setting>
     <setting id="m3uPath" default="true" />
-    <setting id="m3uUrl">https://magnetic.website/jet/playlist1.m3u8</setting>
+    <setting id="m3uUrl">https://magnetic.website/jet/playlists/titan.m3u8</setting>
     <setting id="m3uCache" default="true">true</setting>
     <setting id="startNum" default="true">1</setting>
     <setting id="numberByOrder" default="true">false</setting>
@@ -35,7 +35,7 @@
     <setting id="radioChannelGroupsOnly" default="true">false</setting>
     <setting id="epgPathType" default="true">1</setting>
     <setting id="epgPath" default="true" />
-    <setting id="epgUrl">https://magnetic.website/jet/epg.xml</setting>
+    <setting id="epgUrl">https://magnetic.website/jet/epg/merged_epg.xml</setting>
     <setting id="epgCache" default="true">true</setting>
     <setting id="epgTimeShift" default="true">0</setting>
     <setting id="epgTSOverride" default="true">false</setting>

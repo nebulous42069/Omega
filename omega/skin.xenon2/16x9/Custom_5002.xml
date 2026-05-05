@@ -467,7 +467,9 @@
 						<texturenofocus />
 						<include>ButtonInfoDialogsCommonValues</include>
 						<label></label>
-						<visible>!String.IsEmpty(ListItem.Trailer) + ![String.StartsWith(Container.FolderPath,plugin://) + String.Contains(Container.FolderPath,trailer)]</visible>
+						<onclick condition="Player.HasVideo">PlayerControl(Stop)</onclick>
+						<onclick condition="!Player.HasVideo">RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.IMDBNumber]&amp;tmdb=$INFO[ListItem.Property(tmdb_id)]&amp;tmdbshow=$INFO[ListItem.Property(tmdbshow_id)]&amp;dbtype=$INFO[ListItem.DBType]&amp;mediatype=$INFO[ListItem.MediaType]&amp;title=$INFO[ListItem.Title]&amp;tvshowtitle=$INFO[ListItem.TVShowTitle]&amp;year=$INFO[ListItem.Year]&amp;windowed=1)</onclick>
+						<visible>!String.IsEqual(ListItem.DBTYPE,episode)</visible>
 					</control>
 					<control type="button" id="911">
 						<description>Search Trailer</description>
@@ -476,9 +478,9 @@
 						<texturenofocus />
 						<include>ButtonInfoDialogsCommonValues</include>
 						<label></label>
-						<onclick>Action(close)</onclick>
-						<onclick>RunScript(script.embuary.helper,action=goto,path='"plugin://plugin.video.youtube/kodion/search/query/?q=$INFO[ListItem.Title]&amp;search_type=videos"',target=videos)</onclick>
-						<visible>System.AddonIsEnabled(plugin.video.youtube) + System.AddonIsEnabled(script.embuary.helper) + String.IsEqual(ListItem.DBType,movie) + !Control.IsVisible(11)</visible>
+						<onclick condition="Player.HasVideo">PlayerControl(Stop)</onclick>
+						<onclick condition="!Player.HasVideo">RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.IMDBNumber]&amp;tmdb=$INFO[ListItem.Property(tmdb_id)]&amp;tmdbshow=$INFO[ListItem.Property(tmdbshow_id)]&amp;dbtype=$INFO[ListItem.DBType]&amp;mediatype=$INFO[ListItem.MediaType]&amp;title=$INFO[ListItem.Title]&amp;tvshowtitle=$INFO[ListItem.TVShowTitle]&amp;year=$INFO[ListItem.Year]&amp;windowed=1)</onclick>
+						<visible>!String.IsEqual(ListItem.DBTYPE,episode)</visible>
 					</control>
 					<control type="togglebutton" id="7">
 						<description>Set rating</description>

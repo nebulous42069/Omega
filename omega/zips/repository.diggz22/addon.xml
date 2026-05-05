@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.diggz22" name="Diggz 22 Repository" version="1" provider-name="Diggz">
+    <extension point="xbmc.addon.repository" name="Diggz Repository">
+        <dir minversion="21.90.0" maxversion="22.9.9">
+            <info compressed="false">https://raw.githubusercontent.com/nebulous42069/22/master/22/zips/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/nebulous42069/22/master/22/zips/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/nebulous42069/22/master/22/zips/</datadir>
+        </dir>		
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary>Diggz Repository</summary>
+        <description>Diggz Kodi Repository.</description>
+        <disclaimer></disclaimer>
+        <platform>all</platform>
+        <assets>
+            <icon>icon.png</icon>
+        </assets>
+    </extension>
+</addon>

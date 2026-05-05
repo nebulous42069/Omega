@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BINGIE -->
+<window>
+    <defaultcontrol always="true">52</defaultcontrol>
+	
+    <controls>
+        <control type="group">
+			<include>animation_window_open_close</include>
+            <!--Global Background-->
+            <include>GlobalBackground</include>
+			<!-- Now Playing -->
+			<include>NowPlayingBackground</include>
+            <include>Header</include>
+
+            <!-- window title -->
+            <control type="label" id="2">
+                <visible>false</visible>
+            </control>
+
+            <!-- Who's watching -->
+            <control type="label">
+                <posy>122</posy>
+                <align>center</align>
+                <font>Reg75</font>
+                <textcolor>$INFO[Skin.String(HeaderTextColor)]</textcolor>
+                <label>DiggzFlix Options</label>
+            </control>
+            
+            <!--Login Screen-->
+            <control type="group">
+                <control type="list" id="52">
+                    <orientation>horizontal</orientation>
+					<animation effect="slide" end="150" condition="Integer.IsEqual(Container(52).NumItems,4)">Conditional</animation>
+					<animation effect="slide" end="300" condition="Integer.IsEqual(Container(52).NumItems,3)">Conditional</animation>
+					<animation effect="slide" end="450" condition="Integer.IsEqual(Container(52).NumItems,2)">Conditional</animation>
+					<animation effect="slide" end="600" condition="Integer.IsEqual(Container(52).NumItems,1)">Conditional</animation>
+                    <top>302</top>
+					<left>240</left>
+                    <width>1800</width>
+                    <height>500</height>
+                    <onleft>52</onleft>
+                    <onright>52</onright>
+                    <ondown>10034</ondown>
+					<onback>ActivateWindow(Home)</onback>
+                    <scrolltime tween="cubic" easing="out">500</scrolltime>
+                    <itemlayout height="320" width="300">
+						<control type="image">
+							<animation effect="fade" start="100" end="50" time="0" condition="true">Conditional</animation> 
+                            <posx>4</posx>
+                            <posy>4</posy>
+                            <width>240</width>
+                            <height>240</height>
+                            <texture background="true" fallback="defaultactor.png">$INFO[Listitem.Icon]</texture>
+                            <aspectratio align="center" aligny="center" scalediffuse="true">scale</aspectratio>
+                        </control>
+                        <control type="label">
+							<animation effect="fade" start="100" end="50" time="0" condition="true">Conditional</animation> 
+                            <align>center</align>
+							<posx>3</posx>
+                            <posy>267</posy>
+                            <width>240</width>
+                            <height>50</height>
+                            <textcolor fallback="white">$INFO[Skin.String(GeneralTextColor)]</textcolor>
+                            <label>$INFO[ListItem.Label]</label>
+                            <font>Reg32</font>
+                            <aligny>center</aligny>
+                        </control>
+					</itemlayout>
+                    <focusedlayout height="320" width="300">
+                        <control type="group">                            
+							 <control type="image">
+								<visible>Control.HasFocus(52)</visible>
+                                <align>left</align>
+                                <aligny>top</aligny>
+                                <width>248</width>
+                                <height>248</height>
+                                <aspectratio align="center" aligny="center" scalediffuse="true">scale</aspectratio>
+                                <bordertexture colordiffuse="$INFO[Skin.String(ViewDetailsBorderFocusColor)]">diffuse/panel2.png</bordertexture>
+                                <bordersize>4</bordersize>
+                                <texture background="true" fallback="defaultactor.png">$INFO[Listitem.Icon]</texture>
+                            </control>
+							<control type="image">
+								<visible>!Control.HasFocus(52)</visible>
+								<animation effect="fade" start="100" end="50" time="0" condition="!Control.HasFocus(52)">Conditional</animation> 
+                                <align>left</align>
+                                <aligny>top</aligny>
+                                <width>248</width>
+                                <height>248</height>
+                                <aspectratio align="center" aligny="center" scalediffuse="true">scale</aspectratio>
+                                <bordersize>4</bordersize>
+                                <texture background="true" fallback="defaultactor.png">$INFO[Listitem.Icon]</texture>
+                            </control>
+                            <control type="label">
+                                <align>center</align>
+								<posx>3</posx>
+                                <posy>267</posy>
+                                <width>240</width>
+                                <height>50</height>
+                                <textcolor fallback="white">$INFO[Skin.String(GeneralTextColor)]</textcolor>
+                                <label>$INFO[ListItem.Label]</label>
+                                <font>Reg32</font>
+                                <aligny>center</aligny>
+                            </control>
+                        </control>
+                    </focusedlayout>
+                    <content>
+                        <!-- EDIT THESE STATIC SHORTCUTS.
+                             Change each label/icon/onclick to whatever you want.
+                             Keep <icon> because the layouts below use $INFO[ListItem.Icon].
+                             Escape ampersands in paths/actions as &amp; if you use them. -->
+                        <item id="1">
+                            <label>FREE Setup</label>
+                            <icon>special://home\addons\resource.images.skinicons.wide\resources\icons\free.png</icon>
+                            <onclick>ActivateWindow(10025,"plugin://plugin.program.super.favourites/?content_type=video&amp;fanart=special%3a%2f%2fhome%2faddons%2fplugin.video.tmdb.bingie.helper%2ffanart.jpg&amp;image=special%3a%2f%2fhome%2faddons%2fresource.images.skinicons.wide%2fresources%2ficons%2ftrakt.png&amp;label=Xenon%20Free%20Trakt&amp;mode=400&amp;path=special%3a%2f%2fhome%5cuserdata%5caddon_data%5cplugin.program.super.favourites%5cSuper%20Favourites%5cXenon%20Free%20Trakt",return)</onclick>
+                        </item>
+                        <item id="2">
+                            <label>Debrid Setup</label>
+                            <icon>special://home\addons\resource.images.skinicons.wide\resources\icons\debridtrakt.gif</icon>
+                            <onclick>ActivateWindow(10025,"plugin://plugin.program.super.favourites/?content_type=video&amp;fanart=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.program.super.favourites%5cfanart.jpg&amp;image=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.program.super.favourites%5cicon.png&amp;label=Debrid%20Setup&amp;mode=400&amp;path=special%3a%2f%2fhome%5cuserdata%5caddon_data%5cplugin.program.super.favourites%5cSuper%20Favourites%5cDebrid%20Setup",return)</onclick>
+                        </item>
+                    </content>
+                </control>
+            </control>
+						
+			<!-- Surprise Me -->
+			<control type="group">
+			<width>272</width>
+			<posx>-4</posx>
+			<control type="button" id="10034">
+                <posx>828</posx>
+                <bottom>340</bottom>
+                <width>272</width>
+                <height>64</height>
+                <onup>52</onup>
+				<ondown>10035</ondown>
+				<onback>ActivateWindow(Home)</onback>
+				<align>center</align>
+				<aligny>top</aligny>
+				<font>Reg32</font>
+				<textoffsetx>60</textoffsetx>
+				<textoffsety>8</textoffsety>
+				<textcolor>white</textcolor>
+				<focusedcolor>black</focusedcolor>
+                <texturefocus border="10" colordiffuse="$INFO[Skin.String(ViewDetailsBorderFocusColor)]">diffuse/panel-spot.png</texturefocus>
+                <texturenofocus border="10" colordiffuse="FF595959">diffuse/panel-spot.png</texturenofocus>
+                <onclick>RunAddOn(script.diggzskins)</onclick>
+            </control>
+			<control type="image">
+				<visible>Control.HasFocus(10034)</visible>
+				<posx>848</posx>
+                <bottom>353</bottom>
+				<width>37</width>
+				<height>37</height>
+				<texture>shortcuts/logonsomething.png</texture>
+			</control>
+			<control type="image">
+				<visible>!Control.HasFocus(10034)</visible>
+				<posx>848</posx>
+                <bottom>353</bottom>
+				<width>37</width>
+				<height>37</height>
+				<texture>shortcuts/something.png</texture>
+			</control>
+			<control type="label">
+				<posx>900</posx>
+                <bottom>348</bottom>
+				<width>185</width>
+				<height>50</height>
+				<label>Switch Skin</label>
+				<font>surprise</font>
+				<textcolor>$VAR[LogonColor]</textcolor>
+				<scroll>true</scroll>
+			</control>
+			</control>
+        </control>
+    </controls>
+</window>

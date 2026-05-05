@@ -3835,7 +3835,13 @@
 		<condition tag="property" attribute="name|widgetStyle">Extended Compact Panel</condition>
 		<match>any</match>
 		<controls>
-			<onup condition="!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Control.IsVisible(90010) + Skin.HasSetting(centermainmenu)">PlayMedia("$INFO[ListItem.Trailer]")</onup>
+			<onup condition="String.IsEqual(ListItem.DBType,movie)">RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.IMDBNumber]&amp;tmdb=$INFO[ListItem.Property(tmdb_id)]&amp;tmdbshow=$INFO[ListItem.Property(tmdbshow_id)]&amp;dbtype=$INFO[ListItem.DBType]&amp;mediatype=$INFO[ListItem.MediaType]&amp;title=$INFO[ListItem.Title]&amp;tvshowtitle=$INFO[ListItem.TVShowTitle]&amp;year=$INFO[ListItem.Year])</onup>
+			<onup condition="String.IsEqual(ListItem.DBType,tvshow) + !String.IsEmpty(ListItem.IMDBNumber)">
+			RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.IMDBNumber]&amp;dbtype=$INFO[ListItem.DBType]&amp;title=$INFO[ListItem.TVShowTitle])</onup>
+			<onup condition="String.IsEqual(ListItem.DBType,tvshow) + String.IsEmpty(ListItem.IMDBNumber) + !String.IsEmpty(ListItem.UniqueID(imdb))">
+			RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.UniqueID(imdb)]&amp;dbtype=$INFO[ListItem.DBType]&amp;title=$INFO[ListItem.TVShowTitle])</onup>
+			<onup condition="String.IsEqual(ListItem.DBType,tvshow) + String.IsEmpty(ListItem.IMDBNumber) + String.IsEmpty(ListItem.UniqueID(imdb)) + !String.IsEmpty(ListItem.Property(tmdbshow_id))">
+			RunScript(script.trailer.bridge,?tmdbshow=$INFO[ListItem.Property(tmdbshow_id)]&amp;dbtype=$INFO[ListItem.DBType]&amp;title=$INFO[ListItem.TVShowTitle])</onup>
 			<onup condition="!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Control.IsVisible(90020) + !Skin.HasSetting(centermainmenu)">90020</onup>			
 			<onup condition="String.IsEqual(Skin.String(MainMenu.Layout),vertical) + [Control.IsVisible(9027) | System.HasMediaDVD]">9020</onup>
 			<onup condition="String.IsEqual(Skin.String(MainMenu.Layout),vertical) + ![Control.IsVisible(9027) | System.HasMediaDVD]">9000</onup>

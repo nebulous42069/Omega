@@ -1,0 +1,184 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: GIPTV Lang\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-12-27 23:30+0000\n"
+"PO-Revision-Date: 2025-12-27 23:50+0000\n"
+"Last-Translator: Enoch Abiodun\n"
+"Language-Team: Russian (Russia)\n"
+"Language: ru-RU\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10 >= 2 && "
+"n%10<=4 &&(n%100<10||n%100 >= 20)? 1 : 2);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz\n"
+"X-Loco-Source-Locale: en-IE\n"
+"X-Loco-Project-Id: 181750\n"
+"X-Loco-Status: Translated\n"
+"X-Loco-Api-Version: 1.0.29 20250919-1"
+
+#: loco:69506cb32c44ae5680097c62
+msgctxt "#30000"
+msgid "Account Details"
+msgstr "Данные учетной записи"
+
+#: loco:69506cb32c44ae5680097c63
+msgctxt "#30001"
+msgid "Server URL (e.g., http://yourserver.xyz:port)"
+msgstr "URL сервера (например, http://вашсервер.xyz:порт)"
+
+#: loco:69506cb32c44ae5680097c64
+msgctxt "#30002"
+msgid "Username"
+msgstr "Имя пользователя"
+
+#: loco:69506cb32c44ae5680097c65
+msgctxt "#30003"
+msgid "Password"
+msgstr "Пароль"
+
+#: loco:69506cb32c44ae5680097c66
+msgctxt "#30004"
+msgid "Server 1 URL (e.g., http://yourserver.xyz:port)"
+msgstr "URL сервера 1 (например, http://вашсервер.xyz:порт)"
+
+#: loco:69506cb32c44ae5680097c67
+msgctxt "#30005"
+msgid "Server 2 URL (e.g., http://yourserver.xyz:port)"
+msgstr "URL сервера 2 (например, http://вашсервер.xyz:порт)"
+
+#: loco:69506cb32c44ae5680097c68
+msgctxt "#30006"
+msgid "<--- Exit (Without Saving) --->"
+msgstr "<--- Выход (без сохранения) --->"
+
+#: loco:69506cb32c44ae5680097c69
+msgctxt "#30051"
+msgid "Select an Account"
+msgstr "Выберите учетную запись"
+
+#: loco:69506cb32c44ae5680097c6a
+msgctxt "#32310"
+msgid "General Settings"
+msgstr "Основные настройки"
+
+#: loco:69506cb32c44ae5680097c6b
+msgctxt "#32311"
+msgid "Extra Settings"
+msgstr "Дополнительные настройки"
+
+#: loco:69506cb32c44ae5680097c6c
+msgctxt "#32314"
+msgid "Server"
+msgstr "Сервер"
+
+#: loco:69506cb32c44ae5680097c6d
+msgctxt "#32315"
+msgid "Server 1"
+msgstr "Сервер 1"
+
+#: loco:69506cb32c44ae5680097c6e
+msgctxt "#32316"
+msgid "Server 2"
+msgstr "Сервер 2"
+
+#: loco:69506cb32c44ae5680097c6f
+msgctxt "#30052"
+msgid "EPG Data"
+msgstr "Данные EPG"
+
+#: loco:69506cb32c44ae5680097c70
+msgctxt "#30053"
+msgid "TMDB Data"
+msgstr "Данные TMDB"
+
+#: loco:69506cb32c44ae5680097c71
+msgctxt "#30054"
+msgid "Cache Data"
+msgstr "Кэш-данные"
+
+#: loco:69506cb32c44ae5680097c72
+msgctxt "#30056"
+msgid "Auto Rebuild Index (...on Startup)"
+msgstr "Автоматическая перестройка индекса (при запуске)"
+
+#: loco:69506cb32c44ae5680097c73
+msgctxt "#30057"
+msgid "Auto Build EPG Cache (...on Startup)"
+msgstr "Автоматическое создание кэша EPG (при запуске)"
+
+#: loco:69506cb32c44ae5680097c74
+msgctxt "#30058"
+msgid "Manual Index"
+msgstr "Ручной индекс"
+
+#: loco:69506cb32c44ae5680097c75
+msgctxt "#30055"
+msgid "Clear Cache Data"
+msgstr "Очистить кэш"
+
+#: loco:69506cb32c44ae5680097c76
+msgctxt "#30999"
+msgid ""
+"Turn these features off for better performance (Only when Cache is turned "
+"off)"
+msgstr ""
+"Отключите эти функции для лучшей производительности (только при выключенном "
+"кэше)"
+
+#: loco:69506cb32c44ae5680097c77
+msgctxt "#31000"
+msgid ""
+"New Features!!! (EXPERIMENTS for now will be fine tuning so just chill and "
+"enjoy I'm working on it!!!)"
+msgstr ""
+"Новые функции!!! (ПОКА ЭКСПЕРИМЕНТЫ — будут дорабатываться, просто "
+"расслабьтесь и наслаждайтесь!)"
+
+#: loco:69506cb32c44ae5680097c78
+msgctxt "#30998"
+msgid "Turn these features on for better performance:"
+msgstr "Включите эти функции для лучшей производительности:"
+
+#: loco:69506cb32c44ae5680097c79
+msgctxt "#32317"
+msgid "On"
+msgstr "Вкл"
+
+#: loco:69506cb32c44ae5680097c7a
+msgctxt "#32318"
+msgid "Off"
+msgstr "Выкл"
+
+msgctxt "#31002"
+msgid "-----------------------------------"
+msgstr "-----------------------------------"
+
+msgctxt "#31003"
+msgid "Buffer Size"
+msgstr "Размер буфера"
+
+msgctxt "#31004"
+msgid "EPG Offset(in minutes)"
+msgstr "Смещение EPG (минуты)"
+
+msgctxt "#31005"
+msgid "EPG Url"
+msgstr "URL EPG"
+
+msgctxt "#31006"
+msgid "Xtream Parameters"
+msgstr "Параметры Xtream"
+
+msgctxt "#31007"
+msgid "Catchup Offset(in minutes)"
+msgstr "Смещение catch-up (минуты)"
+
+msgctxt "#31008"
+msgid "Stream Format"
+msgstr "Формат потока"
+
+msgctxt "#31009"
+msgid "Clear EPG URL"
+msgstr "Очистить URL EPG"

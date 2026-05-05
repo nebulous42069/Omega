@@ -5,7 +5,9 @@
 	<controls>
 		<control type="button" id="9013">
 			<include>HiddenObject</include>
-			<onclick>PlayMedia("$INFO[ListItem.Trailer]")</onclick>
+			<onclick condition="Player.HasVideo">PlayerControl(Stop)</onclick>
+			<onclick condition="!Player.HasVideo">RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.IMDBNumber]&amp;tmdb=$INFO[ListItem.Property(tmdb_id)]&amp;tmdbshow=$INFO[ListItem.Property(tmdbshow_id)]&amp;dbtype=$INFO[ListItem.DBType]&amp;mediatype=$INFO[ListItem.MediaType]&amp;title=$INFO[ListItem.Title]&amp;tvshowtitle=$INFO[ListItem.TVShowTitle]&amp;year=$INFO[ListItem.Year]&amp;windowed=1)</onclick>
+			<visible>!String.IsEqual(ListItem.DBTYPE,episode)</visible>
 			<onup>Dialog.Close(1113)</onup>
 			<ondown>Dialog.Close(1113)</ondown>
 			<onleft>Dialog.Close(1113)</onleft>

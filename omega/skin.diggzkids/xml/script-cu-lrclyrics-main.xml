@@ -1,67 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
+    <allowoverlay>yes</allowoverlay>
     <coordinates>
-        <left>450</left>
-        <top>90</top>
+        <left>0</left>
+        <top>0</top>
     </coordinates>
-    <include>dialogeffect</include>
     <controls>
+        <!-- Core CU LRC group: required lists and labels -->
         <control type="group">
-            <depth>DepthSideBlade</depth>
-            <control type="image">
-                <description>background image</description>
-                <left>0</left>
-                <top>0</top>
-                <width>1020</width>
-                <height>705</height>
-                <colordiffuse>BBFFFFFF</colordiffuse>
-                <texture border="40">$VAR[DialogPath]DialogBack2.png</texture>
-            </control>
-            <control type="image">
-                <description>Dialog Header image</description>
-                <left>60</left>
-                <top>24</top>
-                <width>900</width>
-                <height>60</height>
-                <texture>$VAR[DialogPath]dialogheader.png</texture>
-            </control>
-            <control type="button">
-                <description>Close Window button</description>
-                <left>845</left>
-                <top>24</top>
-                <onclick>PreviousMenu</onclick>
-                <include>DialogCloseButton</include>
-            </control>
-            <control type="label">
-                <description>header label</description>
-                <left>60</left>
-                <top>30</top>
-                <width>900</width>
-                <height>45</height>
-                <label>$INFO[MusicPlayer.Artist] - $INFO[MusicPlayer.Title]</label>
-                <font>font13_title</font>
-                <align>center</align>
-                <aligny>center</aligny>
-                <textcolor>selected</textcolor>
-                <shadowcolor>black</shadowcolor>
-                <visible>!Control.IsVisible(120)</visible>
-            </control>
-            <control type="label" id="2">
-                <description>Pick label</description>
-                <left>60</left>
-                <top>30</top>
-                <width>900</width>
-                <height>45</height>
-                <label>31203</label>
-                <font>font13_title</font>
-                <align>center</align>
-                <aligny>center</aligny>
-                <textcolor>selected</textcolor>
-                <shadowcolor>black</shadowcolor>
-                <visible>Control.IsVisible(120) + !Control.IsVisible(110)</visible>
-            </control>
-            <!-- ** Required ** Do not change <id> or <type> (Smooth scrolling list for lyrics) -->
+            <!-- Hidden list that CU LRC fills with lyric lines -->
             <control type="list" id="110">
+                <visible>false</visible>
                 <left>45</left>
                 <top>90</top>
                 <width>930</width>
@@ -95,26 +44,14 @@
                         <aligny>center</aligny>
                         <align>center</align>
                         <shadowcolor>black</shadowcolor>
-                        <textcolor>white</textcolor>
-                        <selectedcolor>selected</selectedcolor>
-                        <label>$INFO[ListItem.Label]</label>
-                        <visible>!Control.HasFocus(110)</visible>
-                    </control>
-                    <control type="label">
-                        <left>0</left>
-                        <top>0</top>
-                        <width>930</width>
-                        <height>38</height>
-                        <font>font13</font>
-                        <aligny>center</aligny>
-                        <align>center</align>
-                        <shadowcolor>black</shadowcolor>
                         <textcolor>selected</textcolor>
                         <label>$INFO[ListItem.Label]</label>
                         <visible>Control.HasFocus(110)</visible>
                     </control>
                 </focusedlayout>
             </control>
+
+            <!-- Pager for list 110 (only visible if you ever show list 110) -->
             <control type="label">
                 <left>540</left>
                 <top>630</top>
@@ -140,8 +77,10 @@
                 <showonepage>true</showonepage>
                 <visible>Control.IsVisible(110)</visible>
             </control>
-            <!-- ** Required ** Do not change <id> or <type> (Song Chooser if it gets it wrong) -->
+
+            <!-- Legacy chooser list (no longer used by CU LRC, keep hidden) -->
             <control type="list" id="120">
+                <visible>false</visible>
                 <left>45</left>
                 <top>90</top>
                 <width>930</width>
@@ -152,56 +91,9 @@
                 <ondown>120</ondown>
                 <pagecontrol>121</pagecontrol>
                 <scrolltime>200</scrolltime>
-                <itemlayout height="60">
-                    <control type="image">
-                        <left>0</left>
-                        <top>0</top>
-                        <width>930</width>
-                        <height>62</height>
-                        <texture border="5">MenuItemNF.png</texture>
-                    </control>
-                    <control type="label">
-                        <left>15</left>
-                        <top>0</top>
-                        <width>900</width>
-                        <height>60</height>
-                        <font>font13</font>
-                        <align>left</align>
-                        <aligny>center</aligny>
-                        <selectedcolor>selected</selectedcolor>
-                        <label>$INFO[ListItem.Label]</label>
-                    </control>
-                </itemlayout>
-                <focusedlayout height="60">
-                    <control type="image">
-                        <left>0</left>
-                        <top>0</top>
-                        <width>930</width>
-                        <height>62</height>
-                        <visible>!Control.HasFocus(120)</visible>
-                        <texture border="5">MenuItemNF.png</texture>
-                    </control>
-                    <control type="image">
-                        <left>0</left>
-                        <top>0</top>
-                        <width>930</width>
-                        <height>62</height>
-                        <visible>Control.HasFocus(120)</visible>
-                        <texture border="5" colordiffuse="$VAR[MainColorOne]">$VAR[SelectMenuItem]</texture>
-                    </control>
-                    <control type="label">
-                        <left>15</left>
-                        <top>0</top>
-                        <width>900</width>
-                        <height>60</height>
-                        <font>font13</font>
-                        <align>left</align>
-                        <aligny>center</aligny>
-                        <selectedcolor>selected</selectedcolor>
-                        <label>$INFO[ListItem.Label]</label>
-                    </control>
-                </focusedlayout>
             </control>
+
+            <!-- Pager for 120 (hidden) -->
             <control type="label">
                 <left>540</left>
                 <top>630</top>
@@ -212,7 +104,7 @@
                 <align>right</align>
                 <textcolor>grey2</textcolor>
                 <label>$INFO[Container(120).CurrentPage, ( $LOCALIZE[31024] ]$INFO[Container(120).NumPages,/, )]</label>
-                <visible>Control.IsVisible(121)</visible>
+                <visible>false</visible>
             </control>
             <control type="spincontrol" id="121">
                 <description>Next page button</description>
@@ -225,24 +117,14 @@
                 <ondown>120</ondown>
                 <onup>120</onup>
                 <showonepage>true</showonepage>
-                <visible>Control.IsVisible(120)</visible>
-            </control>
-            <control type="label">
-                <description>Scraper label</description>
-                <left>60</left>
-                <top>630</top>
-                <width>900</width>
-                <height>45</height>
-                <label>$LOCALIZE[31205] - $INFO[Control.GetLabel(200)]</label>
-                <font>font12_title</font>
-                <aligny>center</aligny>
-                <textcolor>grey2</textcolor>
-                <shadowcolor>black</shadowcolor>
+                <visible>false</visible>
             </control>
             <control type="label" id="200">
-                <description>Scraper label</description>
                 <visible>false</visible>
             </control>
         </control>
+
+        <!-- Aeon Nox VideoLyrics mod -->
+        <include>VideoLyrics</include>
     </controls>
 </window>

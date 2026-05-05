@@ -1,0 +1,182 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: GIPTV Lang\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-12-27 23:30+0000\n"
+"PO-Revision-Date: 2025-12-28 00:31+0000\n"
+"Last-Translator: Enoch Abiodun\n"
+"Language-Team: Croatian (Croatia)\n"
+"Language: hr-HR\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10 >= 2 && "
+"n%10<=4 &&(n%100<10||n%100 >= 20)? 1 : 2;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz\n"
+"X-Loco-Source-Locale: en-IE\n"
+"X-Loco-Project-Id: 181750\n"
+"X-Loco-Status: Translated\n"
+"X-Loco-Api-Version: 1.0.29 20250919-1"
+
+#: loco:69506cb32c44ae5680097c62
+msgctxt "#30000"
+msgid "Account Details"
+msgstr "Podaci o računu"
+
+#: loco:69506cb32c44ae5680097c63
+msgctxt "#30001"
+msgid "Server URL (e.g., http://yourserver.xyz:port)"
+msgstr "URL poslužitelja (npr. http://vasposluzitelj.xyz:port)"
+
+#: loco:69506cb32c44ae5680097c64
+msgctxt "#30002"
+msgid "Username"
+msgstr "Korisničko ime"
+
+#: loco:69506cb32c44ae5680097c65
+msgctxt "#30003"
+msgid "Password"
+msgstr "Lozinka"
+
+#: loco:69506cb32c44ae5680097c66
+msgctxt "#30004"
+msgid "Server 1 URL (e.g., http://yourserver.xyz:port)"
+msgstr "URL poslužitelja 1 (npr. http://vasposluzitelj.xyz:port)"
+
+#: loco:69506cb32c44ae5680097c67
+msgctxt "#30005"
+msgid "Server 2 URL (e.g., http://yourserver.xyz:port)"
+msgstr "URL poslužitelja 2 (npr. http://vasposluzitelj.xyz:port)"
+
+#: loco:69506cb32c44ae5680097c68
+msgctxt "#30006"
+msgid "<--- Exit (Without Saving) --->"
+msgstr "<--- Izlaz (bez spremanja) --->"
+
+#: loco:69506cb32c44ae5680097c69
+msgctxt "#30051"
+msgid "Select an Account"
+msgstr "Odaberite račun"
+
+#: loco:69506cb32c44ae5680097c6a
+msgctxt "#32310"
+msgid "General Settings"
+msgstr "Opće postavke"
+
+#: loco:69506cb32c44ae5680097c6b
+msgctxt "#32311"
+msgid "Extra Settings"
+msgstr "Dodatne postavke"
+
+#: loco:69506cb32c44ae5680097c6c
+msgctxt "#32314"
+msgid "Server"
+msgstr "Poslužitelj"
+
+#: loco:69506cb32c44ae5680097c6d
+msgctxt "#32315"
+msgid "Server 1"
+msgstr "Poslužitelj 1"
+
+#: loco:69506cb32c44ae5680097c6e
+msgctxt "#32316"
+msgid "Server 2"
+msgstr "Poslužitelj 2"
+
+#: loco:69506cb32c44ae5680097c6f
+msgctxt "#30052"
+msgid "EPG Data"
+msgstr "EPG podaci"
+
+#: loco:69506cb32c44ae5680097c70
+msgctxt "#30053"
+msgid "TMDB Data"
+msgstr "TMDB podaci"
+
+#: loco:69506cb32c44ae5680097c71
+msgctxt "#30054"
+msgid "Cache Data"
+msgstr "Podaci predmemorije"
+
+#: loco:69506cb32c44ae5680097c72
+msgctxt "#30056"
+msgid "Auto Rebuild Index (...on Startup)"
+msgstr "Automatska izgradnja indeksa (...pri pokretanju)"
+
+#: loco:69506cb32c44ae5680097c73
+msgctxt "#30057"
+msgid "Auto Build EPG Cache (...on Startup)"
+msgstr "Automatska izgradnja EPG predmemorije (...pri pokretanju)"
+
+#: loco:69506cb32c44ae5680097c74
+msgctxt "#30058"
+msgid "Manual Index"
+msgstr "Ručni indeks"
+
+#: loco:69506cb32c44ae5680097c75
+msgctxt "#30055"
+msgid "Clear Cache Data"
+msgstr "Obriši predmemoriju"
+
+#: loco:69506cb32c44ae5680097c76
+msgctxt "#30999"
+msgid ""
+"Turn these features off for better performance (Only when Cache is turned "
+"off)"
+msgstr ""
+"Isključite ove značajke za bolje performanse (samo kada je predmemorija "
+"isključena)"
+
+#: loco:69506cb32c44ae5680097c77
+msgctxt "#31000"
+msgid ""
+"New Features!!! (EXPERIMENTS for now will be fine tuning so just chill and "
+"enjoy I'm working on it!!!)"
+msgstr "Nove značajke!!! (EKSPERIMENTALNO – još se dorađuje)"
+
+#: loco:69506cb32c44ae5680097c78
+msgctxt "#30998"
+msgid "Turn these features on for better performance:"
+msgstr "Uključite ove značajke za bolje performanse:"
+
+#: loco:69506cb32c44ae5680097c79
+msgctxt "#32317"
+msgid "On"
+msgstr "Uključeno"
+
+#: loco:69506cb32c44ae5680097c7a
+msgctxt "#32318"
+msgid "Off"
+msgstr "Isključeno"
+
+msgctxt "#31002"
+msgid "-----------------------------------"
+msgstr "-----------------------------------"
+
+msgctxt "#31003"
+msgid "Buffer Size"
+msgstr "Veličina buffera"
+
+msgctxt "#31004"
+msgid "EPG Offset(in minutes)"
+msgstr "EPG pomak (minute)"
+
+msgctxt "#31005"
+msgid "EPG Url"
+msgstr "EPG URL"
+
+msgctxt "#31006"
+msgid "Xtream Parameters"
+msgstr "Xtream parametri"
+
+msgctxt "#31007"
+msgid "Catchup Offset(in minutes)"
+msgstr "Catch-up pomak (minute)"
+
+msgctxt "#31008"
+msgid "Stream Format"
+msgstr "Format streama"
+
+msgctxt "#31009"
+msgid "Clear EPG URL"
+msgstr "Obriši EPG URL"

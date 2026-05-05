@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-    <defaultcontrol always="true">9000</defaultcontrol>
+    <defaultcontrol>9000</defaultcontrol>
     <include condition="!Skin.HasSetting(InitialSetUpRun)">DefaultInitialSetup</include>
     <controls>
         <include>CommonBackground</include>
@@ -148,13 +148,6 @@
                     </control>
                 </focusedlayout>
                 <content>
-                    <item id="1">
-                        <label>$LOCALIZE[166] $LOCALIZE[5]</label>
-                        <label2>31437</label2>
-                        <onclick>ActivateWindow(SkinSettings)</onclick>
-                        <icon>Xonfluence_Logo.png</icon>
-                        <visible>!Skin.HasSetting(HideSkinSettings)</visible>
-                    </item>
                     <item id="2">
                         <label>14200</label>
                         <label2>31430</label2>

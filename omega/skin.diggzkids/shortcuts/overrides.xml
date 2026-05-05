@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <overrides>
+
+	<override action="ActivateWindow(favourites)">
+		<action>ActivateWindow(favouritesbrowser)</action>
+	</override>
 	<!-- Do not share menu as other skins use custom language strings that do not work -->
 	<doNotShareMenu />
 
@@ -32,7 +36,7 @@
     </override>
     <override action="start_favourites">
 		<action>Skin.SetString(FocusedMenu.Background,$INFO[Container(9000).ListItem.Property(Background)])</action>
-		<action>ActivateWindow(FavouritesBrowser)</action>
+		<action>ActivateWindow(favouritesbrowser)</action>
 	</override>	
 	
 	<!-- Warning to Remove/Disable Settings -->

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-    <defaultcontrol always="true">100</defaultcontrol>
+    <defaultcontrol>100</defaultcontrol>
     <onload condition="!VideoPlayer.Content(LiveTV)">SetFocus(202)</onload>
     <include>dialogeffect</include>
     <depth>DepthOSD</depth>
@@ -84,6 +84,18 @@
                 <onclick>PlayerControl(Next)</onclick>
                 <visible>VideoPlayer.Content(LiveTV)</visible>
             </control>
+            <control type="radiobutton" id="304">
+                <label>31351</label>
+                <label2>208</label2>
+                <font></font>
+                <include content="OSDButtonAlt">
+                    <param name="Size" value="73" />
+                    <param name="Texture" value="nomute" />
+                    <param name="AltTexture" value="osdmute" />
+                    <param name="Selected" value="Player.Muted" />
+                </include>
+                <onclick>mute</onclick>
+            </control>			
             <control type="radiobutton" id="302">
                 <label>210</label>
                 <font></font>
@@ -105,7 +117,7 @@
                 <onclick>$VAR[VolumeStepDown]</onclick>
                 <onclick>VolumeDown</onclick>
                 <visible>Skin.HasSetting(EnableVolumeButtons)</visible>
-            </control>
+            </control>			
             <control type="radiobutton" id="200">
                 <label>210</label>
                 <font></font>

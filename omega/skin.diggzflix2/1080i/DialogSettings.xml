@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BINGIE -->
+<window>
+    <defaultcontrol always="true">5</defaultcontrol>
+    <controls>
+	    <!--Dialog Overlay-->
+		<control type="group">
+			<visible>!Window.IsActive(fullscreenvideo) + !Window.IsActive(visualisation)</visible>
+			<include>DialogOverlayExtra</include>
+			<animation effect="fade" time="250" start="0" end="100" reversible="false">WindowOpen</animation>
+			<animation effect="fade" time="250" start="100" end="0" reversible="false">WindowClose</animation>
+        </control>
+		<!-- osd setings background -->
+		<control type="image">
+			<include>FullscreenDimensions</include>
+			<texture background="true">diffuse/panel2.png</texture>
+			<colordiffuse>b3000000</colordiffuse>
+			<visible>Window.IsActive(fullscreenvideo) | Window.IsActive(visualisation)</visible>
+			<animation effect="fade" time="250" start="0" end="100" reversible="false">WindowOpen</animation>
+			<animation effect="fade" time="250" start="100" end="0" reversible="false">WindowClose</animation>
+		</control>
+        <control type="group">
+		    <animation type="WindowOpen">
+				<effect type="slide" start="1920" end="1000" time="250" tween="cubic" easing="inout" />
+			</animation>
+			<animation type="WindowClose">
+				<effect type="slide" start="1000" end="1920" time="250" tween="cubic" easing="inout" />
+			</animation>			
+            <left>0</left>
+            <top>0</top>
+            <height>100%</height>
+            <width>850</width>
+            <visible>!Window.IsActive(sliderdialog) + !Window.IsActive(script.pseudotv.TVOverlay.xml)</visible>
+            <!--Panel-->
+            <control type="image">
+                <width>1000</width>
+                <height>100%</height>
+                <texture background="true" colordiffuse="$INFO[Skin.String(SideBladePanelColor)]">diffuse/panel2.png</texture>
+            </control>
+
+            <control type="grouplist">
+			<animation time="0" effect="slide" start="0" end="0,48" condition="!Control.IsVisible(28) + !Control.IsVisible(29) + !Control.IsVisible(30)">Conditional</animation>
+                <left>60</left>
+                <orientation>vertical</orientation>
+                <height>1000</height>
+                <width>800</width>
+                <align>center</align>
+                <itemgap>25</itemgap>
+                <onleft>back</onleft>
+                <!--Header-->
+                <control type="label" id="2">
+                    <description>Heading</description>
+                    <width>100%</width>
+                    <font>Bold42</font>
+                    <textcolor>$INFO[Skin.String(HeaderTextColor)]</textcolor>
+                    <align>left</align>
+                    <height>52</height>
+                    <label>$LOCALIZE[20333]</label>
+                </control>
+
+                <!-- templates -->
+                <control type="grouplist" id="5">
+                    <description>Control Area</description>
+                    <width>800</width>
+                    <height>670</height>
+                    <orientation>vertical</orientation>
+                    <itemgap>0</itemgap>
+                    <onup>5</onup>
+                    <ondown>5</ondown>
+                    <onleft>8002</onleft>
+                    <onright>8002</onright>
+                    <scrolltime tween="cubic" easing="out">500</scrolltime>
+                </control>
+
+                <control type="button" id="7">
+                    <description>button template</description>
+                    <width>100%</width>
+                    <height>60</height>
+                    <align>left</align>
+                    <textoffsetx>20</textoffsetx>
+                    <texturenofocus></texturenofocus>
+                    <include>DialogButton</include>
+                </control>
+                <control type="radiobutton" id="8">
+                    <description>radiobutton template</description>
+                    <width>100%</width>
+                    <height>60</height>
+                    <align>left</align>
+                    <textoffsetx>20</textoffsetx>
+                    <include>DialogButton</include>
+                    <radioposx>689</radioposx>
+                </control>
+                <control type="spincontrolex" id="9">
+                    <description>spincontrol template</description>
+                    <width>100%</width>
+                    <height>60</height>
+                    <align>left</align>
+                    <textoffsetx>20</textoffsetx>
+                    <include>DialogButton</include>
+					<spinposx>17</spinposx>
+                </control>
+                <control type="image" id="11">
+                    <description>separator image</description>
+                    <width>100%</width>
+                    <height>3</height>
+                    <texture></texture>
+                </control>
+                <control type="edit" id="12">
+                    <description>edit template</description>
+                    <width>100%</width>
+                    <height>60</height>
+                    <align>left</align>
+                    <textoffsetx>20</textoffsetx>
+                    <include>DialogButton</include>
+                </control>
+                <control type="sliderex" id="13">
+                    <description>slider template</description>
+                    <width>100%</width>
+                    <height>60</height>
+                    <align>left</align>
+                    <textoffsetx>20</textoffsetx>
+                    <include>DialogButton</include>
+                </control>
+                <control type="label" id="14">
+                    <description>label template</description>
+                    <width>100%</width>
+                    <height>90</height>
+                    <align>left</align>
+                    <textoffsetx>20</textoffsetx>
+                    <font>Bold32</font>
+                </control>
+
+                <!--Button Group-->
+				<control type="group" id="8002">
+                <control type="grouplist">				
+                    <orientation>horizontal</orientation>
+                    <itemgap>2</itemgap>
+                    <onup>5</onup>
+					<left>-9</left>
+                    <control type="button" id="28">
+                        <description>OK</description>
+						<width>302</width>
+                        <label>$LOCALIZE[186]</label>
+                        <include>DialogButtonOther</include>
+                        <animation effect="fade" start="100" end="75" time="0" condition="!Control.IsEnabled(28)">Conditional</animation>
+                    </control>
+                    <control type="button" id="29">
+                        <visible>!Window.IsActive(fullscreenvideo)</visible>
+                        <description>Cancel</description>
+						<width>302</width>
+                        <label>$LOCALIZE[222]</label>
+                        <include>DialogButtonOther</include>
+                        <animation effect="fade" start="100" end="75" time="0" condition="!Control.IsEnabled(29)">Conditional</animation>
+                    </control>
+                    <control type="button" id="30">
+                        <description>Clear</description>
+                        <label/>
+						<width>302</width>
+                        <include>DialogButtonOther</include>
+                        <animation effect="fade" start="100" end="75" time="0" condition="!Control.IsEnabled(6)">Conditional</animation>
+                    </control>
+                </control>
+				</control>
+            </control>
+
+        </control>
+    </controls>
+</window>

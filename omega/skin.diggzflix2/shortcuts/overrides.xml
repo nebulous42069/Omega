@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BINGIE -->
+<overrides>
+
+	<doNotShareMenu />
+	
+	<groupings>
+
+		<!-- Common items -->
+		<node label="32029">
+			<shortcut label="137" grouping="32029" icon="shortcuts/search.png">ActivateWindow(1109,return)</shortcut>
+			<shortcut label="10000" grouping="32029" icon="shortcuts/home.png">ActivateWindow(home,return)</shortcut>			
+			<shortcut label="31227" grouping="32029" icon="shortcuts/new.png">ActivateWindow(1112,return)</shortcut>
+			<shortcut label="31566" grouping="32029" icon="shortcuts/tv.png">ActivateWindow(1110,return)</shortcut>
+			<shortcut label="342" grouping="32029" icon="shortcuts/clapperboard.png">ActivateWindow(1111,return)</shortcut>
+			<shortcut label="31025" grouping="32029" icon="shortcuts/categories.png">ActivateWindow(1119,return)</shortcut>
+			<shortcut label="31534" grouping="32029" icon="shortcuts/mylist.png">ActivateWindow(1114,return)</shortcut>
+			<shortcut label="31385" grouping="32029" icon="shortcuts/something.png">ActivateWindow(1118,return)</shortcut>
+			<shortcut label="31252" grouping="32029" icon="shortcuts/widget.png">ActivateWindow(1113,return)</shortcut>
+			<shortcut label="32022" grouping="32029" icon="shortcuts/antenna.png" condition="PVR.HasTVChannels | PVR.HasRadioChannels">ActivateWindow(1116,return)</shortcut>
+			<shortcut label="2" grouping="32029" icon="shortcuts/music.png" condition="Library.HasContent(music)">ActivateWindow(1120,return)</shortcut>				
+			<shortcut label="12600" grouping="32029" icon="shortcuts/weather.png">ActivateWindow(Weather)</shortcut>					
+		</node>
+
+		<!-- Video library-->
+		<node label="32030">
+			<content>video</content>
+			<node label="32040">
+				<content>playlist-video</content>
+			</node>			
+			<node label="32010">
+				<shortcut label="1037" type="32014" icon="DefaultAddonVideo.png">ActivateWindow(Videos,Addons,return)</shortcut>
+				<content>addon-video</content>
+			</node>
+			<node label="32075">
+				<content>videosources</content>
+				<content>upnp-video</content>
+			</node>
+		</node>
+		
+		<!-- Music -->
+		<node label="32031" condition="Library.HasContent(music)">
+            <content>music</content>
+			<node label="32040">
+				<content>playlist-audio</content>
+			</node>
+			<node label="32011">
+				<shortcut label="1038" type="32019" icon="defaultaddonmusic.png">ActivateWindow(MusicLibrary,Addons,return)</shortcut>
+				<content>addon-audio</content>
+			</node>
+			<node label="32075">
+				<content>musicsources</content>
+				<content>upnp-music</content>
+			</node>
+		</node>
+		
+		<!-- Live TV -->
+		<node label="32017" condition="PVR.HasTVChannels | PVR.HasRadioChannels">
+			<node label="32017" condition="PVR.HasTVChannels">
+				<content>pvr</content>
+				<node label="19023">
+					<content>pvr-tv</content>
+				</node>
+			</node>
+			<node label="32087" condition="PVR.HasRadioChannels">
+				<content>radio</content>
+				<node label="19024">
+					<content>pvr-radio</content>
+				</node>
+			</node>
+		</node>
+		
+		<!-- Pictures -->
+		<node label="32020">
+			<shortcut label="10002" grouping="32029" icon="defaultaddonpicture.png">ActivateWindow(Pictures,return)</shortcut>
+			<shortcut label="1039" grouping="32029" icon="defaultpicture.png">ActivateWindow(Pictures,Addons,return)</shortcut>
+			<content>picturesources</content>
+		</node>
+		
+		<!-- Games -->
+		<node label="10821">
+            <shortcut label="10821" grouping="32029" icon="defaultaddongame.png">ActivateWindow(Games,return)</shortcut>
+        </node>
+		
+        <!-- Addons -->
+        <node label="32007">
+			<node label="32009">
+				<shortcut label="10001" type="32021" icon="defaultaddonprogram.png">ActivateWindow(Programs,Addons,return)</shortcut>
+                <shortcut label="20244" grouping="32029" icon="defaultaddonprogram.png" condition="System.Platform.Android">ActivateWindow(Programs,androidapp://sources/apps/,return)</shortcut>
+				<content>addon-program</content>
+			</node>
+			<node label="32010">
+				<shortcut label="1037" type="32014" icon="defaultaddonvideo.png">ActivateWindow(Videos,Addons,return)</shortcut>
+				<content>addon-video</content>
+			</node>
+			<node label="32011">
+				<shortcut label="1038" type="32019" icon="defaultaddonmusic.png">ActivateWindow(MusicLibrary,Addons,return)</shortcut>
+				<content>addon-audio</content>
+			</node>
+			<node label="32012">
+				<shortcut label="1039" type="32020" icon="defaultaddonpicture.png">ActivateWindow(Pictures,Addons,return)</shortcut>
+				<content>addon-image</content>
+			</node>
+		</node>
+
+		<!-- Favourites-->	
+		<node label="32006">
+			<shortcut label="10134" grouping="32029" icon="defaultaddonfavourites.png">ActivateWindow(FavouritesBrowser)</shortcut>
+			<content>favourite</content>
+		</node>		
+		
+		<!-- xbmc commands -->
+		<node label="32054">
+			<shortcut label="20077" icon="common/skin-settings.png">ActivateWindow(SkinSettings)</shortcut>
+			<shortcut label="10004" icon="common/settings1.png">ActivateWindow(Settings)</shortcut>
+			<shortcut label="20126" icon="common/lock.png">System.LogOff</shortcut>
+            <shortcut label="31501" icon="common/reload-skin.png">ReloadSkin</shortcut>
+			<shortcut label="13012" icon="common/exit1.png">Quit</shortcut>
+			<shortcut label="13015" icon="common/shutdown1.png">Shutdown</shortcut>
+			<shortcut label="13013" icon="common/reboot1.png">Reset</shortcut>
+			<shortcut label="13010" icon="common/hybernate.png">Hibernate</shortcut>
+			<shortcut label="20045" icon="common/mastermode.png">Mastermode</shortcut>
+			<shortcut label="13016" icon="common/shutdown1.png">Powerdown</shortcut>
+			<shortcut label="13011" icon="common/sleep.png">Suspend</shortcut>
+			<shortcut label="600" icon="common/rip-cd.png">RipCD</shortcut>
+			<shortcut label="360" icon="common/screensaver.png">ActivateScreensaver</shortcut>
+			<shortcut label="13014" icon="common/minimize.png">Minimize</shortcut>
+			<shortcut label="32046" icon="common/update-video.png">UpdateLibrary(video)</shortcut>
+			<shortcut label="32047" icon="common/update-audio.png">UpdateLibrary(music)</shortcut>
+			<shortcut label="32055" icon="common/clean-video.png">CleanLibrary(video)</shortcut>
+			<shortcut label="32056" icon="common/clean-audio.png">CleanLibrary(music)</shortcut>
+			<shortcut label="20150" icon="common/shutdown-timer.png">AlarmClock(shutdowntimer,Shutdown())</shortcut>
+			<shortcut label="20151" icon="common/cancel-timer.png">CancelAlarm(shutdowntimer)</shortcut>
+			<shortcut label="14092" icon="common/toggle-debug.png">Skin.ToggleDebug</shortcut>
+            <shortcut label="24034" icon="common/check-updates.png">UpdateAddonRepos</shortcut>
+            <shortcut label="14111" icon="common/toggle-debug.png">ActivateWindow(eventlog)</shortcut>
+			<shortcut label="31217" icon="common/android.png" condition="System.Platform.Linux">RebootToAndroid</shortcut>
+		</node>
+		
+		<!-- customsearch -->
+		<node label="137">
+			<shortcut label="342" type="571" icon="">DefaultSearch-Movies</shortcut>
+			<shortcut label="31566" type="571" icon="">DefaultSearch-TvShows</shortcut>
+			<shortcut label="20360" type="571" icon="">DefaultSearch-Episodes</shortcut>
+			<shortcut label="20459" type="571" icon="">DefaultSearch-Tags</shortcut>
+			<shortcut label="135" type="571" icon="">DefaultSearch-Genres</shortcut>
+			<shortcut label="345" type="571" icon="">DefaultSearch-Year</shortcut>
+			<shortcut label="572" type="571" icon="">DefaultSearch-Studio</shortcut>
+			<shortcut label="574" type="571" icon="">DefaultSearch-Country</shortcut>
+			<shortcut label="20337" type="571" icon="">DefaultSearch-Actor</shortcut>
+			<shortcut label="20339" type="571" icon="">DefaultSearch-Director</shortcut>
+			<shortcut label="132" type="571" icon="">DefaultSearch-Albums</shortcut>
+			<shortcut label="133" type="571" icon="">DefaultSearch-Artists</shortcut>
+			<shortcut label="134" type="571" icon="">DefaultSearch-Songs</shortcut>
+			<shortcut label="20389" type="571" icon="">DefaultSearch-MusicVideos</shortcut>
+			<shortcut label="31206" type="571" icon="">DefaultSearch-MusicVideoArtists</shortcut>
+			<shortcut label="31062" type="571" icon="">DefaultSearch-Youtube</shortcut>
+			<shortcut label="31183" type="571" icon="">$VAR[SearchTMDBMovies]</shortcut>
+			<shortcut label="31165" type="571" icon="">$VAR[SearchTMDBShows]</shortcut>
+			<shortcut label="31234" type="571" icon="">$VAR[SearchTMDBCollections]</shortcut>
+			<shortcut label="31363" type="571" icon="">$VAR[SearchTMDBPeople]</shortcut>
+			<shortcut label="31110" type="571" icon="">$VAR[SearchTMDBAll]</shortcut>
+		</node>
+		
+	</groupings>
+    
+    <widget-groupings>
+
+		<content>widgets</content>
+		<node label="32030">
+			<content>video</content>
+			<node label="32040">
+				<content>playlist-video</content>
+			</node>
+			<node label="32010">
+				<content>addon-video</content>
+			</node>
+			<node label="32075">
+				<content>videosources</content>
+			</node>
+		</node>
+		<node label="32031">
+			<content>music</content>
+			<node label="32040">
+				<content>playlist-audio</content>
+			</node>
+			<node label="32011">
+				<content>addon-audio</content>
+			</node>
+			<node label="32075">
+				<content>musicsources</content>
+			</node>
+		</node>
+		<node label="32020">
+			<content>picturesources</content>
+		</node>
+		<node label="32007">
+			<node label="32010">
+				<content>addon-video</content>
+			</node>
+			<node label="32011">
+				<content>addon-audio</content>
+			</node>
+			<node label="32012">
+				<content>addon-image</content>
+			</node>
+            <node label="32009">
+				<content>addon-program-plugin</content>
+			</node>
+			<shortcut label="10001" type="32021" icon="defaultaddonprogram.png" widget="addon" widgetType="program" widgetTarget="programs">addons://sources/executable</shortcut>
+			<shortcut label="1037" type="32014" icon="defaultaddonvideo.png" widget="addon" widgetType="video" widgetTarget="video">addons://sources/video</shortcut>
+			<shortcut label="1038" type="32019" icon="defaultaddonmusic.png" widget="addon" widgetType="music" widgetTarget="music">addons://sources/audio</shortcut>
+			<shortcut label="1039" type="32020" icon="defaultaddonpicture.png" widget="addon" widgetType="picture" widgetTarget="pictures">addons://sources/image</shortcut>
+		</node>
+	</widget-groupings>
+
+	<!-- Action Overrides -->
+	<!-- SubMenu-->
+	<override action="submenu">
+		<condition>true</condition>
+		<action>SetFocus(4444,0)</action>
+	</override>
+
+	<!-- MainMenu -->
+	<!-- On Window Transition -> Do action and flush widget props -->
+	<override action="globaloverride" group="mainmenu">
+		<action>::ACTION::</action>
+		<action>SetProperty(flushWidgetProps,1,Home)</action>
+	</override>
+	<!-- If Clicked Currently Loaded Shortcut -> Close Menu and Refocus Widgets -->
+	<override action="globaloverride" group="mainmenu">
+		<condition>$EXP[IsKnownMenuEntryPath]</condition>
+		<action>ClearProperty(ShowViewSubMenu,Home)</action>
+		<action>SetFocus($VAR[MenuEntryOverrideFocus])</action>
+	</override>
+	
+	<override action="RebootToAndroid">
+        <action>System.ExecWait("/usr/sbin/rebootfromnand")</action>
+        <action>Reset()</action>
+    </override>
+
+	<!-- Power Menu -->
+	<groupoverride group="powermenu" condition="Window.IsActive(DialogButtonMenu.xml)">Close</groupoverride>
+	
+	<!-- Default Widgets Set for Search -->
+    <propertydefault labelID="20360" group="searchmenu" property="layout">ThumbsViewBingie</propertydefault>
+	<propertydefault labelID="20360" group="searchmenu" property="widgetTags">enable</propertydefault>
+
+</overrides>
+
+

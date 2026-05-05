@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BINGIE -->
+<includes>
+    <include name="View_523_Bingie_Main_Landscape">
+        <control type="group">
+            <include>FullscreenDimensions</include>
+            <visible>Control.IsVisible(523)</visible>
+            <include>animation_view_change</include>
+
+            <include content="Bingie_Main_Spotlight_Section">
+                <param name="id" value="523" />
+            </include>
+
+            <!-- View 523 -->
+            <control type="group">
+				<visible>!Window.IsActive(DialogVideoInfo.xml)</visible>
+				<include>Animation_Right_Home</include>
+                <left>131</left>
+                <top>560</top>
+                <width>1660</width>
+                <!-- Content Header -->
+                <control type="label">
+                    <include condition="Skin.HasSetting(EnableRatings)">FooterON</include>
+					<include condition="!Skin.HasSetting(EnableRatings)">FooterOFF</include>
+                    <height>40</height>
+					<posx>8</posx>
+					<top>4</top>
+                    <font>Bold31</font>
+                    <align>left</align>
+                    <textcolor>$INFO[Skin.String(BingieHeaderTextColor)]</textcolor>
+                    <label>$VAR[BingieMainContentHeader]</label>
+                    <visible>Integer.IsGreater(Container(523).NumItems,0)</visible>
+					<visible>!Container.Content(episodes) + !Container.Content(seasons)</visible>
+					<visible>!Skin.HasSetting(View523_HideHeader)</visible>
+                </control>
+
+                <include content="Bingie_Main_Landscape_View">
+                    <param name="containerType" value="panel" />
+                </include>
+            </control>
+			
+		   <!-- scrollbar -->
+            <control type="group">
+                <control type="scrollbar" id="60">
+					<texturesliderbackground border="5" colordiffuse="$INFO[Skin.String(ScrollbarBackgroundColor)]">scrollbar/texturesliderbar_small.png</texturesliderbackground>
+					<texturesliderbar colordiffuse="$INFO[Skin.String(ScrollbarUnfocusedColor)]" border="5">scrollbar/texturesliderbar_small.png</texturesliderbar>
+					<texturesliderbarfocus colordiffuse="$INFO[Skin.String(ScrollbarFocusedColor)]" border="5">scrollbar/texturesliderbar_small.png</texturesliderbarfocus>
+					<textureslidernib colordiffuse="$INFO[Skin.String(ScrollbarUnfocusedColor)]">scrollbar/texturesliderbar_nib.png</textureslidernib>
+					<textureslidernibfocus colordiffuse="$INFO[Skin.String(ScrollbarFocusedColor)]">scrollbar/texturesliderbar_nib.png</textureslidernibfocus>
+                    <visible>Control.IsVisible(523) + Integer.IsGreater(Container.NumItems,0)</visible>
+                    <width>10</width>
+					<height>466</height>
+                    <right>0</right>
+                    <bottom>0</bottom>
+                    <onleft>523</onleft>
+                    <orientation>vertical</orientation>
+                    <animation effect="fade" start="0" end="100" time="400" condition="[Control.HasFocus(60) | String.IsEqual(Skin.String(scrollbar_visibility),always_show)]">Conditional</animation>
+                    <animation effect="fade" start="100" end="0" time="400" condition="![Control.HasFocus(60) | String.IsEqual(Skin.String(scrollbar_visibility),always_show)]">Conditional</animation>
+                </control>
+            </control>
+        </control>
+    </include>
+
+    <!-- Container -->
+    <include name="Bingie_Main_Landscape_View">
+        <control type="$PARAM[containerType]" id="523">
+            <viewtype label="31018">Bingie Landscape</viewtype>
+            <include content="View_Forced">
+                <param name="viewtype" value="$LOCALIZE[31018]" />
+            </include>
+            <focusedposition>0</focusedposition>
+            <top>46</top>
+            <width>1672</width>
+            <height>474</height>
+            <orientation>vertical</orientation>
+            <itemgap>0</itemgap>
+            <preloaditems>4</preloaditems>
+            <pagecontrol>60</pagecontrol>
+            <include>ScrollTime</include>
+            <onright>60</onright>
+			<onleft>9000</onleft>
+            <onup>523</onup>
+            <ondown>523</ondown>
+			<onback>CancelAlarm(preview_delay,silent)</onback>
+			<onback condition="!Player.HasAudio + $EXP[IsPlayingUnrecognizedContent] + [String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow)] + Skin.HasSetting(View523_DetailsAutoTrailer)">PlayerControl(Stop)</onback>
+            <onback>ClearProperty(HideNowPlaying)</onback>
+			<itemlayout height="339" width="418">
+                <control type="group">
+                    <width>419</width>
+                    <height>242</height>
+                    <include>ThumbsViewItemBingieLayout</include>
+					<control type="image">
+						<!-- fallback logo image -->
+						<height>242</height>
+						<bottom>-68</bottom>
+						<left>0</left>
+						<bordersize>82</bordersize>
+						<texture background="true">$VAR[ClearLogoFallback]</texture>
+						<aspectratio scalediffuse="false" align="center" aligny="center">keep</aspectratio>
+						<visible>String.IsEmpty(Listitem.Art(landscape)) + String.IsEmpty(ListItem.Property(landscape)) + !String.IsEqual(ListItem.DBTYPE,episode) + !String.IsEqual(ListItem.Property(DBTYPE),episode) + !Container.Content(episodes) + !String.IsEqual(ListItem.DBTYPE,season) + !String.IsEqual(ListItem.Property(DBTYPE),season)</visible>
+						<visible>String.IsEmpty(ListItem.Property(defaultID))</visible>
+					</control>
+						<control type="label">
+							<!--Label-->
+							<left>8</left>
+							<right>8</right>
+							<bottom>-47</bottom>
+							<height>61</height>
+							<include condition="Skin.HasSetting(ThumbsLabelAlignmentCenter)">align_center</include>
+							<align>left</align>
+							<aligny>center</aligny>
+							<label>[B]$VAR[ThumbListDetails_2][/B]</label>
+							<font>Reg26</font>
+							<textcolor>$INFO[Skin.String(TagOverlaysTextColor)]</textcolor>
+						</control>
+						<control type="label">
+							<!--Label-->
+							<left>8</left>
+							<right>8</right>
+							<bottom>-81</bottom>
+							<height>61</height>
+							<include condition="Skin.HasSetting(ThumbsLabelAlignmentCenter)">align_center</include>
+							<align>left</align>
+							<aligny>center</aligny>
+							<label>$VAR[ThumbListDetails_3]</label>
+							<font>tagsecrow</font>
+							<textcolor>$INFO[Skin.String(TagOverlaysTextColor)]</textcolor>
+							<animation effect="fade" start="0" end="70" time="0" condition="true">Conditional</animation>
+							<visible>!String.IsEqual(ListItem.Label,..)</visible>
+							<visible>!String.Contains(ListItem.Label,$LOCALIZE[33078])</visible>
+						</control>
+                </control>
+            </itemlayout>
+            <focusedlayout height="339" width="418">
+                <control type="group">
+                    <width>419</width>
+                    <height>242</height>
+                    <include>ThumbsViewBingieLayoutFocus</include>
+					<control type="image">
+						<!-- fallback logo image -->
+						<height>242</height>
+						<bottom>-68</bottom>
+						<left>0</left>
+						<bordersize>82</bordersize>
+						<texture background="true">$VAR[ClearLogoFallback]</texture>
+						<aspectratio scalediffuse="false" align="center" aligny="center">keep</aspectratio>
+						<visible>String.IsEmpty(Listitem.Art(landscape)) + String.IsEmpty(ListItem.Property(landscape)) + !String.IsEqual(ListItem.DBTYPE,episode) + !String.IsEqual(ListItem.Property(DBTYPE),episode) + !Container.Content(episodes) + !String.IsEqual(ListItem.DBTYPE,season) + !String.IsEqual(ListItem.Property(DBTYPE),season)</visible>
+						<visible>String.IsEmpty(ListItem.Property(defaultID))</visible>
+					</control>
+						<control type="label">
+							<!--Label-->
+							<left>8</left>
+							<right>8</right>
+							<bottom>-47</bottom>
+							<height>61</height>
+							<include condition="Skin.HasSetting(ThumbsLabelAlignmentCenter)">align_center</include>
+							<align>left</align>
+							<aligny>center</aligny>
+							<label>[B]$VAR[ThumbListDetails_2][/B]</label>
+							<font>Reg26</font>
+							<scroll>true</scroll>
+							<textcolor>$INFO[Skin.String(TagOverlaysTextColor)]</textcolor>
+						</control>
+						<control type="label">
+							<!--Label-->
+							<left>8</left>
+							<right>8</right>
+							<bottom>-81</bottom>
+							<height>61</height>
+							<include condition="Skin.HasSetting(ThumbsLabelAlignmentCenter)">align_center</include>
+							<align>left</align>
+							<aligny>center</aligny>
+							<label>$VAR[ThumbListDetails_3]</label>
+							<font>tagsecrow</font>
+							<scroll>true</scroll>
+							<textcolor>$INFO[Skin.String(TagOverlaysTextColor)]</textcolor>
+							<animation effect="fade" start="0" end="70" time="0" condition="true">Conditional</animation>
+							<visible>!String.IsEqual(ListItem.Label,..)</visible>
+							<visible>!String.Contains(ListItem.Label,$LOCALIZE[33078])</visible>
+						</control>
+                    <include>LibraryAutoTrailerStopButton</include>
+						<include content="LibraryAutoTrailerStartButton" condition="Skin.HasSetting(View523_DetailsAutoTrailer)">
+							<param name="interval" value="$INFO[Skin.String(details_auto_trailer_interval)]" />
+						</include>
+                </control>
+            </focusedlayout>
+        </control>
+    </include>
+</includes>

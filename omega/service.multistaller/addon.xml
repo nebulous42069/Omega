@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="service.multistaller" name="Multi Installer" version="420" provider-name="Zaxxon709">
+	<requires>
+		<import addon="xbmc.python" version="3.0.0"/>
+	</requires>
+	<extension point="xbmc.service" library="autoexec.py">
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en_GB">Automatically install addons when Kodi starts.</summary>
+		<description lang="en_GB">Automatically install addons when Kodi starts.</description>
+		<platform>all</platform>
+		<license>GNU GENERAL PUBLIC LICENSE Version 2</license>
+	</extension>
+</addon>

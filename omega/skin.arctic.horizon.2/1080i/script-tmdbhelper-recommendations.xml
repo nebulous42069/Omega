@@ -144,7 +144,7 @@
                 <include content="Widget_Poster" condition="!Skin.HasSetting(Info.DisableYoutube)">
                     <param name="groupid">5120</param>
                     <param name="id">5020</param>
-                    <param name="label">$LOCALIZE[10025]</param>
+                    <param name="label">IMDb Trailers</param>
                     <param name="include">List_Landscape_Row</param>
                     <param name="icon">$INFO[ListItem.Icon]</param>
                     <param name="altvisible">String.IsEmpty(Window.Property(List_Main_Visible))</param>

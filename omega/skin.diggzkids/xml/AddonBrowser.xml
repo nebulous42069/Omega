@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-    <defaultcontrol always="true">50</defaultcontrol>
+    <defaultcontrol>50</defaultcontrol>
     <menucontrol>9000</menucontrol>
     <views>50,51,550,551</views>
     <onunload>ClearProperty(SideBladeOpen)</onunload>
@@ -41,9 +41,9 @@
                 <width>375</width>
                 <height>900</height>
                 <onfocus condition="String.IsEmpty(Window.Property(SideBladeOpen))">SetProperty(SideBladeOpen,True)</onfocus>
-                <onleft>50</onleft>
+                <onleft>SetFocus($VAR[ActiveListId])</onleft>
                 <onright>ClearProperty(SideBladeOpen)</onright>
-                <onright>50</onright>
+                <onright>SetFocus($VAR[ActiveListId])</onright>
                 <onup>9000</onup>
                 <ondown>9000</ondown>
                 <onback>ClearProperty(SideBladeOpen)</onback>
@@ -61,6 +61,7 @@
                     <description>View As button</description>
                     <textwidth>352</textwidth>
                     <include>ButtonCommonValues</include>
+					<onclick>Runscript(script.skinvariables,action=buildviews,contentid=$VAR[Items_ViewMode_Switch],pluginname=$INFO[Container.PluginName])</onclick>
                     <label></label>
                 </control>
                 <control type="button" id="3">

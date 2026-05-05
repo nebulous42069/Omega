@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog">
+    <defaultcontrol always="true">1000</defaultcontrol>
+    <controls>
+        <control type="group">
+            <posx>460</posx>
+            <posy>180</posy>
+            <width>1000</width>
+            <height>700</height>
+
+            <control type="image">
+                <posx>0</posx>
+                <posy>0</posy>
+                <width>1000</width>
+                <height>700</height>
+                <texture border="0">giptv_common/white.png</texture>
+                <colordiffuse>FF2A2A2A</colordiffuse>
+            </control>
+
+            <control type="image">
+                <posx>0</posx>
+                <posy>0</posy>
+                <width>1000</width>
+                <height>700</height>
+                <texture>white.png</texture>
+                <colordiffuse>FF1E1E1E</colordiffuse>
+            </control>
+
+            <control type="label">
+                <posx>40</posx>
+                <posy>30</posy>
+                <width>920</width>
+                <height>50</height>
+                <font>font16</font>
+                <textcolor>FFFFFFFF</textcolor>
+                <label>$INFO[Window.Property(menu_title)]</label>
+            </control>
+
+            <control type="image">
+                <posx>40</posx>
+                <posy>90</posy>
+                <width>920</width>
+                <height>2</height>
+                <texture>white.png</texture>
+                <colordiffuse>55FFFFFF</colordiffuse>
+            </control>
+
+            <control type="list" id="1000">
+                <posx>40</posx>
+                <posy>100</posy>
+                <width>920</width>
+                <height>560</height>
+                <onup>1000</onup>
+                <ondown>1000</ondown>
+
+                <itemlayout height="60" width="920">
+                    <control type="label">
+                        <posx>20</posx>
+                        <posy>12</posy>
+                        <width>800</width>
+                        <height>36</height>
+                        <font>font14</font>
+                        <textcolor>CCFFFFFF</textcolor>
+                        <label>$INFO[ListItem.Label]</label>
+                    </control>
+                </itemlayout>
+
+                <focusedlayout height="60" width="920">
+                    <control type="image">
+                        <posx>0</posx>
+                        <posy>0</posy>
+                        <width>920</width>
+                        <height>60</height>
+                        <texture>white.png</texture>
+                        <colordiffuse>FF2A82DA</colordiffuse>
+                    </control>
+                    <control type="label">
+                        <posx>20</posx>
+                        <posy>12</posy>
+                        <width>800</width>
+                        <height>36</height>
+                        <font>font14</font>
+                        <textcolor>FFFFFFFF</textcolor>
+                        <label>[B]$INFO[ListItem.Label][/B]</label>
+                    </control>
+                </focusedlayout>
+            </control>
+        </control>
+    </controls>
+</window>

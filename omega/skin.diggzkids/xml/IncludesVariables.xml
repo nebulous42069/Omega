@@ -1,5 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <includes>
+	<variable name="StudioIconVar">
+		<value condition="ListItem.IsCollection">overlays/set.png</value>
+		<value condition="!String.IsEmpty(ListItem.Studio)">$INFO[ListItem.Studio,resource://resource.images.studios.coloured/,.png]</value>
+		<value condition="Container.Content(studios)">$INFO[ListItem.Label,resource://resource.images.studios.coloured/,.png]</value>
+		<value condition="!String.StartsWith(ListItem.Icon,Default)">$INFO[ListItem.Icon]</value>
+		<value>$INFO[ListItem.Icon,views/list/]</value>
+	</variable>
+	<variable name="Items_ViewMode_Switch">
+        <value condition="!String.IsEmpty(Container.Content)">$INFO[Container.Content]</value>
+        <value>videos</value>
+    </variable>
+	<variable name="ActiveListId">
+  <value condition="Control.IsVisible(50) + Control.IsEnabled(50)">50</value>
+  <value condition="Control.IsVisible(51) + Control.IsEnabled(51)">51</value>
+  <value condition="Control.IsVisible(500) + Control.IsEnabled(500)">500</value>
+  <value condition="Control.IsVisible(501) + Control.IsEnabled(501)">501</value>
+  <value condition="Control.IsVisible(503) + Control.IsEnabled(503)">503</value>
+  <value condition="Control.IsVisible(504) + Control.IsEnabled(504)">504</value>
+  <value condition="Control.IsVisible(505) + Control.IsEnabled(505)">505</value>
+  <value condition="Control.IsVisible(506) + Control.IsEnabled(506)">506</value>
+  <value condition="Control.IsVisible(507) + Control.IsEnabled(507)">507</value>
+  <value condition="Control.IsVisible(508) + Control.IsEnabled(508)">508</value>
+  <value condition="Control.IsVisible(509) + Control.IsEnabled(509)">509</value>
+  <value condition="Control.IsVisible(510) + Control.IsEnabled(510)">510</value>
+  <value condition="Control.IsVisible(511) + Control.IsEnabled(511)">511</value>
+  <value condition="Control.IsVisible(512) + Control.IsEnabled(512)">512</value>
+  <value condition="Control.IsVisible(513) + Control.IsEnabled(513)">513</value>
+  <value condition="Control.IsVisible(514) + Control.IsEnabled(514)">514</value>
+  <value condition="Control.IsVisible(515) + Control.IsEnabled(515)">515</value>
+  <value condition="Control.IsVisible(532) + Control.IsEnabled(532)">532</value>
+  <value condition="Control.IsVisible(550) + Control.IsEnabled(550)">550</value>
+  <value condition="Control.IsVisible(551) + Control.IsEnabled(551)">551</value>
+  <value condition="Control.IsVisible(560) + Control.IsEnabled(560)">560</value>
+  <value condition="Control.IsVisible(570) + Control.IsEnabled(570)">570</value>
+  <value condition="Control.IsVisible(724) + Control.IsEnabled(724)">724</value>
+  <value condition="Control.IsVisible(732) + Control.IsEnabled(732)">732</value>
+  <value condition="Control.IsVisible(5010) + Control.IsEnabled(5010)">5010</value>
+  <value condition="Control.IsVisible(5040) + Control.IsEnabled(5040)">5040</value>
+  <value condition="Control.IsVisible(5060) + Control.IsEnabled(5060)">5060</value>
+</variable>
     <variable name="HomeMenuItemBackground" type="text">
         <value condition="String.IsEqual(Container(9000).ListItem.Property(HiLiteItem),Videos) + String.IsEqual(Container(9000).ListItem.Property(Background),Database) + !String.IsEmpty(Skin.String(UsrMovieFanArtDir)) + !Skin.HasSetting(EnableFanartScript)">$INFO[Skin.String(UsrMovieFanArtDir)]</value>
         <value condition="String.IsEqual(Container(9000).ListItem.Property(HiLiteItem),Videos) + String.IsEqual(Container(9000).ListItem.Property(Background),Database) + !String.IsEmpty(Window(Home).Property(script.grab.Fanart.Video.Fanart)) + Skin.HasSetting(EnableFanartScript)">$INFO[Window(Home).Property(script.grab.Fanart.Video.Fanart)]</value>

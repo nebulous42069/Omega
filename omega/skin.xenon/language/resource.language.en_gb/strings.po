@@ -2616,7 +2616,7 @@ msgctxt "#32010"
 msgid "Hide shadow behind seekbar"
 msgstr ""
 
-msgctxt "#32011"
+msgctxt "#34011"
 msgid "Enable CPU temperature display"
 msgstr ""
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-    <defaultcontrol always="true">50</defaultcontrol>
+    <defaultcontrol>50</defaultcontrol>
     <menucontrol>9000</menucontrol>
     <onunload>ClearProperty(SideBladeOpen)</onunload>
     <controls>
@@ -458,9 +458,9 @@
                 <width>375</width>
                 <height>975</height>
                 <onfocus condition="String.IsEmpty(Window.Property(SideBladeOpen))">SetProperty(SideBladeOpen,True)</onfocus>
-                <onleft>50</onleft>
+                <onleft>SetFocus($VAR[ActiveListId])</onleft>
                 <onright>ClearProperty(SideBladeOpen)</onright>
-                <onright>50</onright>
+                <onright>SetFocus($VAR[ActiveListId])</onright>
                 <onup>9000</onup>
                 <ondown>9000</ondown>
                 <onback>ClearProperty(SideBladeOpen)</onback>
@@ -483,8 +483,8 @@
                         <top>0</top>
                         <font></font>
                         <include>ButtonCommonValues</include>
-                        <onleft>50</onleft>
-                        <onright>50</onright>
+                        <onleft>SetFocus($VAR[ActiveListId])</onleft>
+                        <onright>SetFocus($VAR[ActiveListId])</onright>
                         <onup>200</onup>
                         <ondown>302</ondown>
                         <onback>50</onback>

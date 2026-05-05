@@ -1,17 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-    <defaultcontrol always="true">50</defaultcontrol>
+    <defaultcontrol>50</defaultcontrol>
     <menucontrol>9000</menucontrol>
-    <views>504,50,51,500,732,724,550,551,560,501,508,503,515,505,511</views>
-    <include condition="!Skin.HasSetting(DisableTVTunes)">LoadTvTunes</include>
+    <views>50,51,500,732,724,550,551,560,501,508,504,503,515,505,511</views>
     <onload condition="!Skin.HasSetting(DisableTVNextAired)">RunScript(script.tv.show.next.aired,backend=True,silent=True)</onload>
+	<onload condition="Control.IsVisible(51)">SetFocus(51)</onload>
+	<onload condition="Control.IsVisible(500)">SetFocus(500)</onload>
+	<onload condition="Control.IsVisible(732)">SetFocus(732)</onload>
+	<onload condition="Control.IsVisible(724)">SetFocus(724)</onload>
+	<onload condition="Control.IsVisible(550)">SetFocus(550)</onload>
+	<onload condition="Control.IsVisible(551)">SetFocus(551)</onload>
+	<onload condition="Control.IsVisible(560)">SetFocus(560)</onload>
+	<onload condition="Control.IsVisible(501)">SetFocus(501)</onload>
+	<onload condition="Control.IsVisible(508)">SetFocus(508)</onload>
+	<onload condition="Control.IsVisible(504)">SetFocus(504)</onload>
+	<onload condition="Control.IsVisible(503)">SetFocus(503)</onload>
+	<onload condition="Control.IsVisible(515)">SetFocus(515)</onload>
+	<onload condition="Control.IsVisible(505)">SetFocus(505)</onload>
+	<onload condition="Control.IsVisible(511)">SetFocus(511)</onload>
+
+
     <onunload>ClearProperty(SideBladeOpen)</onunload>
     <controls>
         <include>CommonBackground</include>
         <include condition="Skin.HasSetting(ShowExtraFanArt)">FanArtExtraThumbs</include>
         <include>ContentPanelBackgrounds</include>
         <control type="group">
-            <include>Window_OpenClose_Animation</include>
             <!-- view id = 50 -->
             <include>CommonRootView</include>
             <!-- view id = 51 -->
@@ -67,9 +81,9 @@
                 <width>375</width>
                 <height>975</height>
                 <onfocus condition="String.IsEmpty(Window.Property(SideBladeOpen))">SetProperty(SideBladeOpen,True)</onfocus>
-                <onleft>50</onleft>
+                <onleft>SetFocus($VAR[ActiveListId])</onleft>
                 <onright>ClearProperty(SideBladeOpen)</onright>
-                <onright>50</onright>
+                <onright>SetFocus($VAR[ActiveListId])</onright>
                 <onup>9000</onup>
                 <ondown>9000</ondown>
                 <onback>ClearProperty(SideBladeOpen)</onback>
@@ -87,6 +101,7 @@
                     <description>View As button</description>
                     <textwidth>352</textwidth>
                     <include>ButtonCommonValues</include>
+					<onclick>Runscript(script.skinvariables,action=buildviews,contentid=$VAR[Items_ViewMode_Switch],pluginname=$INFO[Container.PluginName])</onclick>
                     <label></label>
                 </control>
                 <control type="button" id="3">

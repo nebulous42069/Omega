@@ -2,7 +2,7 @@
 <window>
     <menucontrol>9000</menucontrol>
     <onunload>ClearProperty(SideBladeOpen)</onunload>
-    <defaultcontrol always="true">4000</defaultcontrol>
+    <defaultcontrol>4000</defaultcontrol>
     <controls>
         <!-- live image background -->
         <control type="image">

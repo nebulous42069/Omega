@@ -1008,7 +1008,9 @@
                 <description>Trailer Button</description>
                 <width>68</width>
                 <height>68</height>
-                <onclick>PlayMedia("$INFO[ListItem.Trailer]")</onclick>
+				<onclick condition="Player.HasVideo">PlayerControl(Stop)</onclick>
+				<onclick condition="!Player.HasVideo">RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.IMDBNumber]&amp;tmdb=$INFO[ListItem.Property(tmdb_id)]&amp;tmdbshow=$INFO[ListItem.Property(tmdbshow_id)]&amp;dbtype=$INFO[ListItem.DBType]&amp;mediatype=$INFO[ListItem.MediaType]&amp;title=$INFO[ListItem.Title]&amp;tvshowtitle=$INFO[ListItem.TVShowTitle]&amp;year=$INFO[ListItem.Year]&amp;windowed=1)</onclick>
+				<visible>!String.IsEqual(ListItem.DBTYPE,episode)</visible>
                 <textureradioonfocus>FloorButtons/FloorTrailer.png</textureradioonfocus>
                 <textureradioonnofocus>FloorButtons/FloorTrailer.png</textureradioonnofocus>
                 <textureradioofffocus>FloorButtons/FloorTrailer.png</textureradioofffocus>

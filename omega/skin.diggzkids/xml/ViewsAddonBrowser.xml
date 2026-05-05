@@ -14,7 +14,7 @@
                 <onup>550</onup>
                 <ondown>550</ondown>
                 <viewtype label="$LOCALIZE[31033]">info</viewtype>
-                <visible>Window.IsVisible(AddonBrowser) | Container.Content(Addons)</visible>
+                <visible>$EXP[Exp_View_550]</visible>
                 <pagecontrol>60</pagecontrol>
                 <scrolltime>200</scrolltime>
                 <itemlayout height="60" width="870">
@@ -229,7 +229,7 @@
                 <onup>551</onup>
                 <ondown>551</ondown>
                 <viewtype label="$LOCALIZE[31033] 2">biginfo</viewtype>
-                <visible>Window.IsVisible(AddonBrowser) | Container.Content(Addons)</visible>
+                <visible>$EXP[Exp_View_551]</visible>
                 <pagecontrol>60</pagecontrol>
                 <scrolltime>200</scrolltime>
                 <itemlayout height="279" width="290">

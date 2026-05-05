@@ -323,7 +323,7 @@
                                 <font>font13</font>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
-                                <label>$LOCALIZE[32011]</label>
+                                <label>Enable CPU Temperature Display</label>
                                 <include>MenuButton</include>
                                 <onclick>Skin.ToggleSetting(HideCPUTemp)</onclick>
                                 <selected>!Skin.HasSetting(HideCPUTemp)</selected>
@@ -335,7 +335,7 @@
                                 <font>font13</font>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
-                                <label>$LOCALIZE[32015]</label>
+                                <label>Hide widgets until focused</label>
                                 <include>MenuButton</include>
                                 <onclick>Skin.ToggleSetting(ShowWidgetsOnFocus)</onclick>
                                 <selected>Skin.HasSetting(ShowWidgetsOnFocus)</selected>
@@ -481,7 +481,7 @@
                                 <font>font13</font>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
-                                <label>$LOCALIZE[32008]</label>
+                                <label>Show larger seekbar when rewinding or forwarding </label>
                                 <include>MenuButton</include>
                                 <onclick condition="!Skin.HasSetting(StandardSeekBar) + !Skin.HasSetting(HidePopupSeekBar)">Skin.SetBool(HidePopupSeekBar)</onclick>
 								<onclick>Skin.ToggleSetting(StandardSeekBar)</onclick>
@@ -845,7 +845,7 @@
                                 <font>font13</font>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
-                                <label>$LOCALIZE[32003]</label>
+                                <label>Show main menu in all caps</label>
                                 <onclick>Skin.ToggleSetting(MainMenuAllCaps)</onclick>
                                 <selected>Skin.HasSetting(MainMenuAllCaps)</selected>
                                 <include>MenuButton</include>
@@ -991,7 +991,7 @@
                                 <font>font13</font>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
-                                <label>$LOCALIZE[32036]</label>
+                                <label>Show widget fanart/extra fanart</label>
                                 <onclick>Skin.ToggleSetting(ShowWidgetFanart)</onclick>
                                 <selected>Skin.HasSetting(ShowWidgetFanart)</selected>
                                 <include>MenuButton</include>
@@ -1140,7 +1140,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label> - $LOCALIZE[32034]</label>
+                                <label> - Slower automatic scrolling</label>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
                                 <include>MenuButton</include>
@@ -1383,7 +1383,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label>  - $LOCALIZE[32032]</label>
+                                <label>  - Duration of OSD intro</label>
                                 <label2>[COLOR=selected]$VAR[IntroOSDTimeoutLabel][/COLOR]</label2>
                                 <textcolor>grey</textcolor>
                                 <focusedcolor>white</focusedcolor>
@@ -1398,7 +1398,7 @@
                                 <font>font13</font>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
-                                <label>  - $LOCALIZE[32009]</label>
+                                <label>  - Show seekbar with intro</label>
                                 <include>MenuButton</include>
                                 <onclick>Skin.ToggleSetting(ShowSeekBarIntro)</onclick>
                                 <selected>Skin.HasSetting(ShowSeekBarIntro)</selected>
@@ -1446,7 +1446,7 @@
                                 <font>font13</font>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
-                                <label> - $LOCALIZE[32010]</label>
+                                <label> - Hide shadow behind seekbar</label>
                                 <include>MenuButton</include>
                                 <onclick>Skin.ToggleSetting(HideShadowSeekBar)</onclick>
                                 <selected>Skin.HasSetting(HideShadowSeekBar)</selected>
@@ -1459,7 +1459,7 @@
                                 <font>font13</font>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
-                                <label>$LOCALIZE[32012]</label>
+                                <label>Show chapter/cutlist markers on seekbar</label>
                                 <include>MenuButton</include>
                                 <onclick>Skin.ToggleSetting(ShowCutlist)</onclick>
                                 <selected>Skin.HasSetting(ShowCutlist)</selected>
@@ -1471,7 +1471,7 @@
                                 <font>font13</font>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
-                                <label>$LOCALIZE[32013]</label>
+                                <label>Show End time on OSD</label>
                                 <include>MenuButton</include>
                                 <onclick>Skin.ToggleSetting(ShowEndTimeOSD)</onclick>
                                 <selected>Skin.HasSetting(ShowEndTimeOSD)</selected>
@@ -1896,7 +1896,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label> - $LOCALIZE[32024]</label>
+                                <label> - Widget Layout</label>
                                 <label2>[COLOR=grey2]$VAR[UsrDefItemOneWidgetLayout][/COLOR]</label2>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
@@ -2114,7 +2114,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label> - $LOCALIZE[32024]</label>
+                                <label> - Widget Layout</label>
                                 <label2>[COLOR=grey2]$VAR[UsrDefItemTwoWidgetLayout][/COLOR]</label2>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
@@ -2332,7 +2332,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label> - $LOCALIZE[32024]</label>
+                                <label> - Widget Layout</label>
                                 <label2>[COLOR=grey2]$VAR[UsrDefItemThreeWidgetLayout][/COLOR]</label2>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
@@ -2550,7 +2550,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label> - $LOCALIZE[32024]</label>
+                                <label> - Widget Layout</label>
                                 <label2>[COLOR=grey2]$VAR[UsrDefItemFourWidgetLayout][/COLOR]</label2>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
@@ -2768,7 +2768,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label> - $LOCALIZE[32024]</label>
+                                <label> - Widget Layout</label>
                                 <label2>[COLOR=grey2]$VAR[UsrDefItemFiveWidgetLayout][/COLOR]</label2>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
@@ -2986,7 +2986,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label> - $LOCALIZE[32024]</label>
+                                <label> - Widget Layout</label>
                                 <label2>[COLOR=grey2]$VAR[UsrDefItemSixWidgetLayout][/COLOR]</label2>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
@@ -3204,7 +3204,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label> - $LOCALIZE[32024]</label>
+                                <label> - Widget Layout</label>
                                 <label2>[COLOR=grey2]$VAR[UsrDefItemSevenWidgetLayout][/COLOR]</label2>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
@@ -3422,7 +3422,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label> - $LOCALIZE[32024]</label>
+                                <label> - Widget Layout</label>
                                 <label2>[COLOR=grey2]$VAR[UsrDefItemEightWidgetLayout][/COLOR]</label2>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
@@ -3640,7 +3640,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label> - $LOCALIZE[32024]</label>
+                                <label> - Widget Layout</label>
                                 <label2>[COLOR=grey2]$VAR[UsrDefItemNineWidgetLayout][/COLOR]</label2>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
@@ -3858,7 +3858,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label> - $LOCALIZE[32024]</label>
+                                <label> - Widget Layout</label>
                                 <label2>[COLOR=grey2]$VAR[UsrDefItemTenWidgetLayout][/COLOR]</label2>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
@@ -4076,7 +4076,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label> - $LOCALIZE[32024]</label>
+                                <label> - Widget Layout</label>
                                 <label2>[COLOR=grey2]$VAR[UsrDefItemElevenWidgetLayout][/COLOR]</label2>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
@@ -4294,7 +4294,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label> - $LOCALIZE[32024]</label>
+                                <label> - Widget Layout</label>
                                 <label2>[COLOR=grey2]$VAR[UsrDefItemTwelveWidgetLayout][/COLOR]</label2>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
@@ -4512,7 +4512,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label> - $LOCALIZE[32024]</label>
+                                <label> - Widget Layout</label>
                                 <label2>[COLOR=grey2]$VAR[UsrDefItemThirteenWidgetLayout][/COLOR]</label2>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
@@ -4730,7 +4730,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label> - $LOCALIZE[32024]</label>
+                                <label> - Widget Layout</label>
                                 <label2>[COLOR=grey2]$VAR[UsrDefItemFourteenWidgetLayout][/COLOR]</label2>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
@@ -4948,7 +4948,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label> - $LOCALIZE[32024]</label>
+                                <label> - Widget Layout</label>
                                 <label2>[COLOR=grey2]$VAR[UsrDefItemFifteenWidgetLayout][/COLOR]</label2>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
@@ -17468,7 +17468,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label>$LOCALIZE[32004]</label>
+                                <label>Enable favourites script</label>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
                                 <include>MenuButton</include>
@@ -17480,7 +17480,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label>$LOCALIZE[32005]</label>
+                                <label>Enable video nodes stats script</label>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
                                 <include>MenuButton</include>
@@ -17660,7 +17660,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label>32043</label>
+                                <label>Enable use of extended info script</label>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
                                 <include>MenuButton</include>
@@ -17672,7 +17672,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label> - $LOCALIZE[32044]</label>
+                                <label> - Configure Extended Info</label>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
                                 <include>MenuButton</include>
@@ -17684,7 +17684,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label> - $LOCALIZE[32045]</label>
+                                <label> - Open Extended Info for video dialogs</label>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
                                 <include>MenuButton</include>
@@ -18165,7 +18165,7 @@
                         <textoffsetx>30</textoffsetx>
                         <textwidth>1095</textwidth>
                         <label>$LOCALIZE[31493]</label>
-                        <onclick>RunPlugin(plugin://script.module.xenon/?mode=2)</onclick>
+                        <onclick>RunPlugin(plugin://script.module.xenon4k/?mode=2)</onclick>
                         <include>Button1</include>
                         <pulseonselect>false</pulseonselect>
                     </control>

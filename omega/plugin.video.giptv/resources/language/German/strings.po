@@ -1,0 +1,183 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: GIPTV Lang\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-12-27 23:30+0000\n"
+"PO-Revision-Date: 2025-12-27 23:50+0000\n"
+"Last-Translator: Enoch Abiodun\n"
+"Language-Team: German (Germany)\n"
+"Language: de-DE\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz\n"
+"X-Loco-Source-Locale: en-IE\n"
+"X-Loco-Project-Id: 181750\n"
+"X-Loco-Status: Translated\n"
+"X-Loco-Api-Version: 1.0.29 20250919-1"
+
+#: loco:69506cb32c44ae5680097c62
+msgctxt "#30000"
+msgid "Account Details"
+msgstr "Kontodaten"
+
+#: loco:69506cb32c44ae5680097c63
+msgctxt "#30001"
+msgid "Server URL (e.g., http://yourserver.xyz:port)"
+msgstr "Server-URL (z. B. http://deinserver.xyz:port)"
+
+#: loco:69506cb32c44ae5680097c64
+msgctxt "#30002"
+msgid "Username"
+msgstr "Benutzername"
+
+#: loco:69506cb32c44ae5680097c65
+msgctxt "#30003"
+msgid "Password"
+msgstr "Passwort"
+
+#: loco:69506cb32c44ae5680097c66
+msgctxt "#30004"
+msgid "Server 1 URL (e.g., http://yourserver.xyz:port)"
+msgstr "Server-1-URL (z. B. http://deinserver.xyz:port)"
+
+#: loco:69506cb32c44ae5680097c67
+msgctxt "#30005"
+msgid "Server 2 URL (e.g., http://yourserver.xyz:port)"
+msgstr "Server-2-URL (z. B. http://deinserver.xyz:port)"
+
+#: loco:69506cb32c44ae5680097c68
+msgctxt "#30006"
+msgid "<--- Exit (Without Saving) --->"
+msgstr "<--- Beenden (ohne Speichern) --->"
+
+#: loco:69506cb32c44ae5680097c69
+msgctxt "#30051"
+msgid "Select an Account"
+msgstr "Konto auswählen"
+
+#: loco:69506cb32c44ae5680097c6a
+msgctxt "#32310"
+msgid "General Settings"
+msgstr "Allgemeine Einstellungen"
+
+#: loco:69506cb32c44ae5680097c6b
+msgctxt "#32311"
+msgid "Extra Settings"
+msgstr "Zusätzliche Einstellungen"
+
+#: loco:69506cb32c44ae5680097c6c
+msgctxt "#32314"
+msgid "Server"
+msgstr "Server"
+
+#: loco:69506cb32c44ae5680097c6d
+msgctxt "#32315"
+msgid "Server 1"
+msgstr "Server 1"
+
+#: loco:69506cb32c44ae5680097c6e
+msgctxt "#32316"
+msgid "Server 2"
+msgstr "Server 2"
+
+#: loco:69506cb32c44ae5680097c6f
+msgctxt "#30052"
+msgid "EPG Data"
+msgstr "EPG-Daten"
+
+#: loco:69506cb32c44ae5680097c70
+msgctxt "#30053"
+msgid "TMDB Data"
+msgstr "TMDB-Daten"
+
+#: loco:69506cb32c44ae5680097c71
+msgctxt "#30054"
+msgid "Cache Data"
+msgstr "Cache-Daten"
+
+#: loco:69506cb32c44ae5680097c72
+msgctxt "#30056"
+msgid "Auto Rebuild Index (...on Startup)"
+msgstr "Index automatisch neu erstellen (...beim Start)"
+
+#: loco:69506cb32c44ae5680097c73
+msgctxt "#30057"
+msgid "Auto Build EPG Cache (...on Startup)"
+msgstr "EPG-Cache automatisch erstellen (...beim Start)"
+
+#: loco:69506cb32c44ae5680097c74
+msgctxt "#30058"
+msgid "Manual Index"
+msgstr "Manueller Index"
+
+#: loco:69506cb32c44ae5680097c75
+msgctxt "#30055"
+msgid "Clear Cache Data"
+msgstr "Cache-Daten löschen"
+
+#: loco:69506cb32c44ae5680097c76
+msgctxt "#30999"
+msgid ""
+"Turn these features off for better performance (Only when Cache is turned "
+"off)"
+msgstr ""
+"Diese Funktionen für bessere Leistung deaktivieren (nur wenn der Cache "
+"deaktiviert ist)"
+
+#: loco:69506cb32c44ae5680097c77
+msgctxt "#31000"
+msgid ""
+"New Features!!! (EXPERIMENTS for now will be fine tuning so just chill and "
+"enjoy I'm working on it!!!)"
+msgstr ""
+"Neue Funktionen!!! (EXPERIMENTELL – Feinabstimmung folgt, entspann dich und "
+"genieße es, ich arbeite daran!!!)"
+
+#: loco:69506cb32c44ae5680097c78
+msgctxt "#30998"
+msgid "Turn these features on for better performance:"
+msgstr "Diese Funktionen für bessere Leistung aktivieren:"
+
+#: loco:69506cb32c44ae5680097c79
+msgctxt "#32317"
+msgid "On"
+msgstr "Ein"
+
+#: loco:69506cb32c44ae5680097c7a
+msgctxt "#32318"
+msgid "Off"
+msgstr "Aus"
+
+msgctxt "#31002"
+msgid "-----------------------------------"
+msgstr "-----------------------------------"
+
+msgctxt "#31003"
+msgid "Buffer Size"
+msgstr "Puffergröße"
+
+msgctxt "#31004"
+msgid "EPG Offset(in minutes)"
+msgstr "EPG-Versatz (Minuten)"
+
+msgctxt "#31005"
+msgid "EPG Url"
+msgstr "EPG-URL"
+
+msgctxt "#31006"
+msgid "Xtream Parameters"
+msgstr "Xtream-Parameter"
+
+msgctxt "#31007"
+msgid "Catchup Offset(in minutes)"
+msgstr "Catch-up-Versatz (Minuten)"
+
+msgctxt "#31008"
+msgid "Stream Format"
+msgstr "Streamformat"
+
+msgctxt "#31009"
+msgid "Clear EPG URL"
+msgstr "EPG-URL löschen"

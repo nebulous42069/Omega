@@ -22,29 +22,21 @@
                 "url": "installaddon(plugin.video.pov)"
             },
             {
-                "name": "Install Dradis (DEBRID ONLY)",
-                "url": "installaddon(plugin.video.dradis)"
-            },						
+                "name": "Install Salts Redux (Debrid ONLY)",
+                "url": "installaddon(plugin.video.sallts)"
+            },			
             {
                 "name": "Install The Crew (Debrid ONLY)",
                 "url": "installaddon(plugin.video.thecrew)"
-            },
-            {
-                "name": "Install Diggz Free99 (FREE)",
-                "url": "installaddon(plugin.video.free99)"
-            },
-            {
-                "name": "Install Elementum (Free Torrents- VPN Required!!)",
-                "url": "installaddon(plugin.video.elementum)"
             }
                 ]
             },
             {
-                "name": "- Use Debrid Manager to Authorize Debrid Addons",
+                "name": "- Use Account Manager to Authorize Your Debrid Account",
                 "items": [
                     {
-                        "name": "Open Debrid Manager",
-                        "url": "Addon.OpenSettings(script.module.debridmgr)"
+                        "name": "Open Account Manager",
+                        "url": "Addon.OpenSettings(script.module.acctmgr)"
                     }
                 ]
             },
@@ -70,22 +62,14 @@
             {
                 "name": "POV Trakt",
                 "url": "RunPlugin(plugin://plugin.video.pov/?mode=myservices)"
-            },						
+            },
+            {
+                "name": "Salts Redux Trakt",
+                "url": "RunPlugin(plugin://plugin.video.sallts/?mode=myservices"
+            },			
             {
                 "name": "The Crew Trakt",
                 "url": "RunPlugin(plugin://plugin.video.thecrew/?action=authTrakt)"
-            },
-            {
-                "name": "Everstream Trakt (FREE)",
-                "url": "RunPlugin(plugin://plugin.video.everstream/?action=authTrakt)"
-            },
-            {
-                "name": "Diggz Free99 Trakt",
-                "url": "Addon.OpenSettings(plugin.video.fre99)"
-            },
-            {
-                "name": "Elementum Trakt",
-                "url": "Addon.OpenSettings(plugin.video.elementum)"
             },
             {
                 "name": "Kodi Trakt Addon",

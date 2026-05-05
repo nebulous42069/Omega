@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings version="2">
+    <section id="general">
+        <group id="view_mode" label="View Mode">
+            <setting id="fixed_view_mode" type="boolean" label="Fix view mode (use numbers below)">
+                <default>false</default>
+            </setting>
+            <setting id="albums_view_mode" type="string" label="Albums view mode number">
+                <default>513</default>
+            </setting>
+            <setting id="songs_view_mode" type="string" label="Songs view mode number">
+                <default>506</default>
+            </setting>
+        </group>
+        <group id="browsing" label="Browsing">
+            <setting id="page_size" type="integer" label="Results per page" min="10" max="100" step="10">
+                <default>40</default>
+            </setting>
+        </group>
+        <group id="network" label="Network">
+            <setting id="request_timeout" type="integer" label="Request timeout (seconds)" min="5" max="60" step="5">
+                <default>15</default>
+            </setting>
+            <setting id="cache_hours" type="integer" label="Cache lifetime (hours, 0 = off)" min="0" max="72" step="1">
+                <default>6</default>
+            </setting>
+        </group>
+    </section>
+</settings>

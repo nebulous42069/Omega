@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<builds>
+
+  <!-- Inline categories: one XML file contains every category and build. -->
+  <category id="touchscreen" name="Touchscreen Builds">
+    <build>
+      <name>My Touchscreen Build</name>
+      <version>1.0</version>
+      <url>https://example.com/my-touchscreen-build.zip</url>
+      <icon>https://example.com/icon.png</icon>
+      <fanart>https://example.com/fanart.jpg</fanart>
+      <description>Touchscreen-friendly Kodi build.</description>
+    </build>
+  </category>
+
+  <category id="no-touchscreen" name="No Touchscreen Builds">
+    <build>
+      <name>My Standard Build</name>
+      <version>1.0</version>
+      <url>https://example.com/my-standard-build.zip</url>
+      <icon>https://example.com/icon.png</icon>
+      <fanart>https://example.com/fanart.jpg</fanart>
+      <description>Standard non-touchscreen Kodi build.</description>
+    </build>
+  </category>
+
+  <!-- External category XML files are also supported. -->
+  <category id="android" name="Android Builds">
+    <url>https://example.com/android-builds.xml</url>
+    <icon>https://example.com/android-icon.png</icon>
+    <fanart>https://example.com/fanart.jpg</fanart>
+    <description>Loads builds from a separate Android XML.</description>
+  </category>
+
+  <category id="windows" name="Windows Builds">
+    <url>https://example.com/windows-builds.xml</url>
+    <icon>https://example.com/windows-icon.png</icon>
+    <fanart>https://example.com/fanart.jpg</fanart>
+    <description>Loads builds from a separate Windows XML.</description>
+  </category>
+
+  <!-- Optional: old root-level build entries still work and appear below categories. -->
+  <build>
+    <name>Uncategorized Build</name>
+    <version>1.0</version>
+    <url>https://example.com/uncategorized-build.zip</url>
+    <icon>https://example.com/icon.png</icon>
+    <fanart>https://example.com/fanart.jpg</fanart>
+    <description>Still supported for backwards compatibility.</description>
+  </build>
+
+</builds>

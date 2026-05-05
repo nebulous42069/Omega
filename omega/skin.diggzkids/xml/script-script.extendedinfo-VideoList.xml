@@ -3,7 +3,7 @@
     <menucontrol>9000</menucontrol>
     <onunload>ClearProperty(SideBladeOpen)</onunload>
     <views>500</views>
-    <defaultcontrol always="true">500</defaultcontrol>
+    <defaultcontrol>500</defaultcontrol>
     <controls>
         <!-- live image background -->
         <control type="image">
@@ -80,6 +80,7 @@
                 <!--<visible>String.IsEmpty(Window.Property(alt_layout))</visible>-->
                 <include>VisibleFadeEffect</include>
                 <control type="panel" id="500">
+					<visible>$EXP[Exp_View_500]</visible>
                     <left>105</left>
                     <top>117</top>
                     <width>1158</width>

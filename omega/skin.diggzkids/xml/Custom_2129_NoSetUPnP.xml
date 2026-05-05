@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <window type="dialog" id="2129">
-    <defaultcontrol always="true">10</defaultcontrol>
+    <defaultcontrol>10</defaultcontrol>
     <coordinates>
         <left>502</left>
         <top>345</top>

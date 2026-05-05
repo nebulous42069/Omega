@@ -3,7 +3,7 @@
 	
 	<onunload>ClearProperty(CustomSelectExtraFanartCycleRate,skinsettings)</onunload>
 	
-	<defaultcontrol always="true">450</defaultcontrol>
+	<defaultcontrol>450</defaultcontrol>
     <coordinates>
         <left>352</left>
         <top>112</top>

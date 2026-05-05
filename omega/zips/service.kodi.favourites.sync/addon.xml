@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="service.kodi.favourites.sync"
+       name="Kodi Favourites Sync"
+       version="0.2.36"
+       provider-name="Codex">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0"/>
+  </requires>
+  <extension point="xbmc.service" library="service.py" start="startup"/>
+  <extension point="xbmc.python.script" library="sync_now.py"/>
+  <extension point="xbmc.python.script" library="pair_google_drive.py"/>
+  <extension point="xbmc.python.pluginsource" library="plugin.py"/>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en_GB">Sync Kodi favourites.xml with Google Drive</summary>
+    <description lang="en_GB">A minimal background service add-on that syncs Kodi favourites.xml with Google Drive using OAuth refresh tokens.</description>
+    <assets>
+      <icon>resources/icon.png</icon>
+      <fanart>resources/fanart.jpg</fanart>
+    </assets>
+    <platform>all</platform>
+    <license>MIT</license>
+    <source>https://example.invalid/service.kodi.favourites.sync</source>
+    <news>v0.2.36
+- Stop using `datetime.strptime` for Google Drive timestamps so Shield startup sync does not crash while parsing remote modified times
+
+v0.2.35
+- Log the full Python traceback for sync failures so intermittent Shield startup errors are diagnosable from Kodi logs
+
+v0.2.34
+- Refine the packaged README with the simplified user-facing intro and explicit bridge key-deletion notes
+
+v0.2.33
+- Rewrite the packaged README to focus on the OAuth bridge security model and shipped addon behavior
+
+v0.2.32
+- Add bridge refresh-secret support so startup token refresh uses a second device secret instead of a public refresh endpoint
+
+v0.2.31
+- Replace the add-on fanart with the provided artwork, resized into Kodi's JPEG fanart format
+
+v0.2.30
+- Restore hidden internal settings and harden setting reads so Android startup sync does not crash after UI cleanup
+
+v0.2.29
+- Simplify the General settings page to only Pair Google Drive now and Sync on Kodi startup
+
+v0.2.28
+- Replace the add-on icon with the provided Favourites Sync artwork
+
+v0.2.27
+- Move Pair Google Drive to the top of the General settings section for faster setup
+
+v0.2.26
+- Remove the visible Remote Storage settings category so normal users stay on the supported appdata sync path
+
+v0.2.25
+- Replace blank placeholder artwork with a real add-on icon and fanart for Kodi UI
+
+v0.2.23
+- Repackage the last known-good Android behavior from the 0.2.15 code path as a newer update so Kodi can install the stable rollback cleanly
+
+v0.2.22
+- Roll back to the pre-experiment sync behavior used before the post-download UI refresh tests on Android
+
+v0.2.21
+- Roll back the post-download UI refresh experiment and restore the previously stable sync behavior on Android
+
+v0.2.20
+- Harden the download path on Android so a non-callable timestamp or local metadata refresh issue cannot abort a successful remote favourites download
+
+v0.2.19
+- Make the post-download skin reload fully non-blocking and switch to the simpler `ReloadSkin` builtin form so download syncs still succeed even if UI refresh is unsupported
+
+v0.2.18
+- Retry the post-download skin reload with a defensive builtin check so Android builds that expose no callable builtin API fall back safely
+
+v0.2.17
+- Revert the experimental post-download skin reload after it caused a runtime error on Android
+
+v0.2.16
+- Try a best-effort Kodi skin reload after downloading a newer remote favourites.xml so favourites may refresh without a second reboot
+
+v0.2.15
+- Log the effective upload toggle at sync start so Kodi UI/state mismatches are visible in the log
+
+v0.2.14
+- Log the granted OAuth scope string at sync start so Drive app-data scope mismatches are visible in Kodi logs
+
+v0.2.13
+- Use Kodi's native string settings API when available so claimed OAuth tokens actually persist on newer builds
+
+v0.2.12
+- Add targeted pairing and token persistence logging so Kodi-side OAuth handoff failures are visible in the log
+
+v0.2.11
+- Improve QR dialog readability with brighter text, better spacing, and wrapped URL display
+
+v0.2.10
+- Bundle a local skin texture for the pairing dialog so the modal background does not depend on Kodi skin assets
+
+v0.2.9
+- Make the pairing QR dialog fully opaque so it reads as a proper modal over Kodi settings
+
+v0.2.8
+- Add a self-contained pairing dialog background so the QR modal stays readable on Kodi skins without bundled dialog textures
+
+v0.2.7
+- Rework the Kodi QR dialog layout using a proven dialog window structure and local QR image file rendering
+
+v0.2.6
+- Send the pairing creation request as explicit JSON so the Vercel bridge parses Kodi requests correctly
+
+v0.2.5
+- Show a Kodi QR pairing dialog so users can scan the Vercel sign-in link from their phone
+- Stop auto-opening the system browser during pairing
+- Fix pairing progress updates for Kodi builds that only accept the older DialogProgress signature
+
+v0.2.4
+- Route the Google Drive pairing action through RunPlugin for better compatibility on Kodi/macOS
+- Add a startup fallback toggle to launch pairing on the next Kodi start if direct triggering is unavailable
+
+v0.2.3
+- Add a Kodi settings action button to start Google Drive pairing directly from the add-on UI</news>
+  </extension>
+</addon>

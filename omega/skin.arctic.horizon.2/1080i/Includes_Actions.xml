@@ -62,8 +62,11 @@
     </include>
 
     <include name="Action_Row_OnDown">
-        <ondown condition="$EXP[Exp_AlphabetTypes_Only] + !Skin.HasSetting(DisableAlphabetScrollbar)">65</ondown>
-        <ondown condition="!$EXP[Exp_AlphabetTypes_Only] | Skin.HasSetting(DisableAlphabetScrollbar)">60</ondown>
+        <ondown condition="Skin.String(Rows.OnDown,Trailer) + System.HasAddon(plugin.video.imdb.trailers) + !String.IsEmpty(ListItem.Property(imdb_id))">PlayMedia(plugin://plugin.video.imdb.trailers/?action=play_id&amp;imdb=$INFO[ListItem.Property(imdb_id)],playlist_type_hint=1)</ondown>
+        <ondown condition="Skin.String(Rows.OnDown,Trailer) + System.HasAddon(plugin.video.imdb.trailers) + String.IsEmpty(ListItem.Property(imdb_id)) + !String.IsEmpty(ListItem.UniqueId(imdb))">PlayMedia(plugin://plugin.video.imdb.trailers/?action=play_id&amp;imdb=$INFO[ListItem.UniqueId(imdb)],playlist_type_hint=1)</ondown>
+        <ondown condition="Skin.String(Rows.OnDown,Trailer) + System.HasAddon(plugin.video.imdb.trailers) + String.IsEmpty(ListItem.Property(imdb_id)) + String.IsEmpty(ListItem.UniqueId(imdb)) + !String.IsEmpty(ListItem.IMDBNumber) + String.StartsWith(ListItem.IMDBNumber,tt)">PlayMedia(plugin://plugin.video.imdb.trailers/?action=play_id&amp;imdb=$INFO[ListItem.IMDBNumber],playlist_type_hint=1)</ondown>
+        <ondown condition="!Skin.String(Rows.OnDown,Trailer) + $EXP[Exp_AlphabetTypes_Only] + !Skin.HasSetting(DisableAlphabetScrollbar)">65</ondown>
+        <ondown condition="!Skin.String(Rows.OnDown,Trailer) + [!$EXP[Exp_AlphabetTypes_Only] | Skin.HasSetting(DisableAlphabetScrollbar)]">60</ondown>
     </include>
 
     <include name="Action_Row_Recommendations_OnDown">

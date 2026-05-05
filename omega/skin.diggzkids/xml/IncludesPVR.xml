@@ -112,9 +112,9 @@
                 <width>375</width>
                 <height>900</height>
                 <onfocus condition="String.IsEmpty(Window.Property(SideBladeOpen))">SetProperty(SideBladeOpen,True)</onfocus>
-                <onleft>50</onleft>
+                <onleft>SetFocus($VAR[ActiveListId])</onleft>
                 <onright>ClearProperty(SideBladeOpen)</onright>
-                <onright>50</onright>
+                <onright>SetFocus($VAR[ActiveListId])</onright>
                 <onup>9000</onup>
                 <ondown>9000</ondown>
                 <onback>ClearProperty(SideBladeOpen)</onback>

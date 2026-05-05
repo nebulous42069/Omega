@@ -13,9 +13,9 @@
             <control type="image">
                 <description>Cover image</description>
                 <left>30</left>
-                <top>58</top>
+                <top>68</top>
                 <width>195</width>
-                <height>402</height>
+                <height>442</height>
                 <aspectratio aligny="bottom">keep</aspectratio>
                 <texture fallback="DefaultAlbumCover.png">$INFO[Player.Art(thumb)]</texture>
                 <bordertexture border="8">ThumbBorder.png</bordertexture>
@@ -24,7 +24,7 @@
             <control type="label">
                 <description>Album Label</description>
                 <left>255</left>
-                <top>300</top>
+                <top>398</top>
                 <height>38</height>
                 <width>1500</width>
                 <label>$INFO[MusicPlayer.Artist,, - ]$INFO[MusicPlayer.Album]$INFO[musicplayer.discnumber, - $LOCALIZE[427]:]</label>
@@ -37,7 +37,7 @@
             <control type="label">
                 <description>Title label</description>
                 <left>255</left>
-                <top>328</top>
+                <top>428</top>
                 <height>45</height>
                 <width>1500</width>
                 <label>$INFO[Player.Title]</label>
@@ -50,7 +50,7 @@
             <control type="label">
                 <description>Time Label</description>
                 <left>255</left>
-                <top>360</top>
+                <top>465</top>
                 <height>45</height>
                 <width>450</width>
                 <label>$INFO[Player.Time][COLOR=$VAR[MainColorOne]] / [/COLOR]$INFO[Player.Duration]</label>
@@ -214,8 +214,8 @@
 	<include name="NowPlayingVideo">
 	    <control type="group">
             <depth>DepthMenu</depth>
-            <left>0</left>
-            <top>45</top>
+            <left>85</left>
+            <top>108</top>
             <visible>Player.HasVideo + !Skin.HasSetting(HideNowPlayingInfo)</visible>
             <include>VisibleFadeEffect</include>
             <include>Window_OpenClose_Animation</include>
@@ -227,9 +227,9 @@
                 <control type="image">
                     <description>Cover image</description>
                     <left>30</left>
-                    <top>68</top>
-                    <width>225</width>
-                    <height>450</height>
+                    <top>330</top>
+                    <width>175</width>
+                    <height>175</height>
                     <aspectratio aligny="bottom">keep</aspectratio>
                     <texture fallback="DefaultVideoCover.png">$VAR[StreamingVideoIcon]</texture>
                     <bordertexture border="8">ThumbBorder.png</bordertexture>
@@ -237,7 +237,7 @@
                 </control>
                 <control type="label">
                     <description>Title label</description>
-                    <left>285</left>
+                    <left>210</left>
                     <top>428</top>
                     <height>45</height>
                     <width>1500</width>
@@ -250,7 +250,7 @@
                 </control>
                 <control type="label">
                     <description>Time Label</description>
-                    <left>285</left>
+                    <left>210</left>
                     <top>465</top>
                     <height>45</height>
                     <width>450</width>
@@ -336,10 +336,10 @@
                 <visible>VideoPlayer.Content(Movies)</visible>
                 <control type="image">
                     <description>Cover image</description>
-                    <left>60</left>
-                    <top>403</top>
-                    <width>214</width>
-                    <height>120</height>
+                    <left>72</left>
+                    <top>313</top>
+                    <width>154</width>
+                    <height>200</height>
                     <aspectratio>scale</aspectratio>
                     <texture fallback="DefaultVideoCover.png">$INFO[Player.Art(thumb)]</texture>
                     <bordertexture border="8">ThumbBorder.png</bordertexture>
@@ -360,7 +360,7 @@
                 </control>
                 <control type="label">
                     <description>Title label</description>
-                    <left>285</left>
+                    <left>235</left>
                     <top>428</top>
                     <height>45</height>
                     <width>1500</width>
@@ -373,7 +373,7 @@
                 </control>
                 <control type="label">
                     <description>Time Label</description>
-                    <left>285</left>
+                    <left>245</left>
                     <top>465</top>
                     <height>45</height>
                     <width>450</width>
@@ -390,9 +390,9 @@
                 <visible>VideoPlayer.Content(Episodes)</visible>
                 <control type="image">
                     <description>Cover image</description>
-                    <left>60</left>
-                    <top>403</top>
-                    <width>214</width>
+                    <left>45</left>
+                    <top>390</top>
+                    <width>180</width>
                     <height>120</height>
                     <aspectratio>scale</aspectratio>
                     <texture fallback="DefaultVideoCover.png">$INFO[Player.Art(thumb)]</texture>
@@ -401,9 +401,9 @@
                 </control>
                 <control type="label">
                     <description>TV Show Season Ep Label</description>
-                    <left>285</left>
-                    <top>398</top>
-                    <height>38</height>
+                    <left>235</left>
+                    <top>390</top>
+                    <height>45</height>
                     <width>1500</width>
                     <label>$INFO[VideoPlayer.TVShowTitle] ($INFO[VideoPlayer.Season,$LOCALIZE[20373] , - ]$INFO[VideoPlayer.episode,$LOCALIZE[20359] ,])</label>
                     <align>left</align>
@@ -414,7 +414,7 @@
                 </control>
                 <control type="label">
                     <description>Title label</description>
-                    <left>285</left>
+                    <left>235</left>
                     <top>428</top>
                     <height>45</height>
                     <width>1500</width>
@@ -427,7 +427,7 @@
                 </control>
                 <control type="label">
                     <description>Time Label</description>
-                    <left>285</left>
+                    <left>245</left>
                     <top>465</top>
                     <height>45</height>
                     <width>450</width>
@@ -446,8 +446,8 @@
 	    <control type="group">
             <depth>DepthMenu-</depth>
             <description>Controls for currently playing media</description>
-            <left>840r</left>
-            <top>530</top>
+            <left>818r</left>
+            <top>570</top>
             <animation effect="slide" start="0,0" end="0,-45" time="0" condition="!String.IsEmpty(Skin.String(MenuLAF))">Conditional</animation>
             <animation effect="slide" start="0,0" end="0,240" time="0" condition="Skin.HasSetting(LowerMainMenuBar)">Conditional</animation>
             <animation effect="slide" start="0,0" end="-150,0" time="225" condition="!Player.HasMedia + Skin.HasSetting(EnableHomeStats)">conditional</animation>
@@ -462,6 +462,18 @@
                 <effect type="fade" start="100" end="0" time="225" />
             </animation>
             <visible>String.IsEmpty(Window(Videos).Property(PlayingBackgroundMedia))</visible>
+            <control type="image">
+                <description>Background End image</description>
+                <left>1</left>
+                <top>0</top>
+                <width>52</width>
+                <height>52</height>
+                <colordiffuse>CCFFFFFF</colordiffuse>
+                <texture flipy="true" border="0,5,0,0" flipx="true">HomeSubEnd.png</texture>
+                <include condition="!String.IsEmpty(Skin.String(HomeTrans))">HomeTransparentEffect</include>
+				<visible>Player.HasMedia</visible>				
+                <animation effect="slide" start="0,0" end="172,0" time="0" condition="Skin.HasSetting(DisableGlobalSearch) | Skin.HasSetting(FloorGlobalSearch)">Conditional</animation>
+            </control>
             <control type="radiobutton" id="610">
                 <colordiffuse>CCFFFFFF</colordiffuse>
                 <description>Global Search</description>
@@ -504,7 +516,7 @@
                     <description>Background image</description>
                     <left>0</left>
                     <top>0</top>
-                    <width>445</width>
+                    <width>382</width>
                     <height>52</height>
                     <texture flipy="true" border="0,5,0,0">HomeSubNF.png</texture>
                     <include condition="!String.IsEmpty(Skin.String(HomeTrans))">HomeTransparentEffect</include>
@@ -783,19 +795,19 @@
                 <left>608</left>
                 <top>0</top>
                 <height>52</height>
-                <width>50</width>
-                <textwidth>22</textwidth>
+                <width>210</width>
+                <textwidth>225</textwidth>
                 <textoffsetx>15</textoffsetx>
                 <align>left</align>
                 <aligny>center</aligny>
                 <font>font12</font>
                 <textcolor>grey2</textcolor>
                 <focusedcolor>white</focusedcolor>
-                <texturefocus flipy="true" border="1" colordiffuse="$VAR[MainColorOne]">HomeSubFO.png</texturefocus>
-                <texturenofocus flipy="true" border="1">HomeSubNF.png</texturenofocus>
+                <texturefocus flipy="true" border="5" colordiffuse="$VAR[MainColorOne]">HomeSubFO.png</texturefocus>
+                <texturenofocus flipy="true" border="5">HomeSubNF.png</texturenofocus>
                 <include condition="!String.IsEmpty(Skin.String(HomeTrans))">HomeTransparentEffect</include>
                 <pulseonselect>false</pulseonselect>
-                <label></label>
+                <label>31008</label>
                 <onclick>fullscreen</onclick>
                 <textureradioonfocus>GoFullscreen.png</textureradioonfocus>
                 <textureradioonnofocus>GoFullscreen.png</textureradioonnofocus>

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
-    <defaultcontrol always="true">9000</defaultcontrol>
-    <include condition="!Skin.HasSetting(InitialSetUpRun)">DefaultInitialSetup</include>
+    <defaultcontrol>9000</defaultcontrol>
+    <include condition="!Skin.HasSetting(InitialSetUpRun)">DefaultInitialSetup</include>				
     <onload condition="Skin.HasSetting(HideSkinSettings)">PreviousMenu</onload>
     <onload condition="System.HasAddon(script.favourites)">RunScript(script.favourites)</onload>
-    <onload condition="String.IsEqual(Container(9011).Position,0) + !String.IsEqual(Skin.String(InitialMenuPosi),0)">Control.Move(9011,$INFO[Skin.String(InitialMenuPosi)])</onload>
+	<onload condition="!String.IsEmpty(Skin.String(InitialMenuPosi))">
+		Control.Move(9011,$INFO[Skin.String(InitialMenuPosi)])
+	</onload>
     <onunload condition="Skin.HasSetting(EnableFanartScript)">RunScript(script.grab.fanart,mode=random,refresh=$INFO[Skin.String(FanArtCycleRate)])</onunload>
-    <onunload>RunScript(script.skinshortcuts,type=buildxml&amp;mainmenuID=9000&amp;group=mainmenu|powermenu&amp;levels=2)</onunload>
 	<include>UnloadsScripts</include>
     <controls>
         <include>CommonBackground</include>
@@ -150,22 +151,14 @@
                     <item id="2">
                         <label>31282</label>
                         <label2>31025</label2>
-						<visible>!Skin.HasSetting(Use.SkinShortcuts)</visible>
-                    </item>
-					<item id="8">
-                        <label>31282</label>
-                        <label2>31112</label2>
-						<visible>Skin.HasSetting(Use.SkinShortcuts)</visible>
                     </item>
                     <item id="3">
                         <label>1034</label>
                         <label2>31113</label2>
-						<visible>!Skin.HasSetting(Use.SkinShortcuts)</visible>
                     </item>
                     <item id="4">
                         <label>24000</label>
                         <label2>31996</label2>
-						<visible>!Skin.HasSetting(Use.SkinShortcuts)</visible>
                     </item>
                     <item id="5">
                         <label>33068</label>
@@ -221,72 +214,6 @@
             </control>
             <control type="group" id="9010">
                 <defaultcontrol>8001</defaultcontrol>
-				<control type="group">
-				    <visible>Container(9000).Hasfocus(8)</visible>
-                    <left>435</left>
-                    <top>95</top>
-                    <width>1125</width>
-                    <height>795</height>
-					<control type="grouplist" id="9801">
-						<onleft>9000</onleft>
-                        <onright>9861</onright>
-                        <onup>9199</onup>
-                        <ondown>9199</ondown>
-                        <width>1125</width>
-                        <height>720</height>
-                        <itemgap>-1</itemgap>
-                        <pagecontrol>9861</pagecontrol>
-                        <control type="button" id="980101">
-                            <description>Customize Home menu</description>
-                            <width>1125</width>
-                            <height>60</height>
-                            <font>font13</font>
-                            <textcolor>grey2</textcolor>
-                            <focusedcolor>white</focusedcolor>
-                            <label>$LOCALIZE[32049]</label>
-                            <onclick>RunScript(script.skinshortcuts,type=manage&amp;group=mainmenu)</onclick>
-                            <include>MenuButton</include>
-                        </control>
-						<control type="button" id="980102">
-                            <description>Customize Power menu</description>
-                            <width>1125</width>
-                            <height>60</height>
-                            <font>font13</font>
-                            <textcolor>grey2</textcolor>
-                            <focusedcolor>white</focusedcolor>
-                            <label>$LOCALIZE[32050]</label>
-                            <onclick>RunScript(script.skinshortcuts,type=manage&amp;group=powermenu)</onclick>
-                            <include>MenuButton</include>
-                        </control>
-						<control type="radiobutton" id="980103">
-                            <description>Enable choosing default menu item</description>
-                            <width>1125</width>
-                            <height>60</height>
-                            <font>font13</font>
-                            <textcolor>grey2</textcolor>
-                            <focusedcolor>white</focusedcolor>
-                            <label>$LOCALIZE[32051]</label>
-                            <include>MenuButton</include>
-                            <onclick>Skin.ToggleSetting(Enable.DefaultMenu)</onclick>
-                            <selected>Skin.HasSetting(Enable.DefaultMenu)</selected>
-                        </control>
-					</control>
-                    <control type="scrollbar" id="9861">
-                        <left>1155</left>
-                        <top>0</top>
-                        <width>38</width>
-                        <height>720</height>
-                        <texturesliderbackground border="0,14,0,14">ScrollBarV.png</texturesliderbackground>
-                        <texturesliderbar border="0,14,0,14">ScrollBarV_bar.png</texturesliderbar>
-                        <texturesliderbarfocus border="0,14,0,14" colordiffuse="$VAR[MainColorOne]">ScrollBarV_bar_focus.png</texturesliderbarfocus>
-                        <textureslidernib colordiffuse="$VAR[MainColorOne]">ScrollBarNib.png</textureslidernib>
-                        <textureslidernibfocus colordiffuse="$VAR[MainColorOne]">ScrollBarNib.png</textureslidernibfocus>
-                        <onleft>9801</onleft>
-                        <onright>800</onright>
-                        <showonepage>false</showonepage>
-                        <orientation>vertical</orientation>
-                    </control>					
-				</control>
                 <control type="group">
                     <visible>Container(9000).Hasfocus(1)</visible>
                     <left>435</left>
@@ -396,11 +323,11 @@
                                 <font>font13</font>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
-                                <label>$LOCALIZE[32011]</label>
+                                <label>Enable CPU Temperature Display</label>
                                 <include>MenuButton</include>
                                 <onclick>Skin.ToggleSetting(HideCPUTemp)</onclick>
                                 <selected>!Skin.HasSetting(HideCPUTemp)</selected>
-                            </control>
+                            </control>							
 							<control type="radiobutton" id="1022">
                                 <description>Hide widgets until focused</description>
                                 <width>1125</width>
@@ -408,10 +335,23 @@
                                 <font>font13</font>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
-                                <label>$LOCALIZE[32015]</label>
+                                <label>Hide widgets until focused</label>
                                 <include>MenuButton</include>
                                 <onclick>Skin.ToggleSetting(ShowWidgetsOnFocus)</onclick>
                                 <selected>Skin.HasSetting(ShowWidgetsOnFocus)</selected>
+                            </control>
+                            <control type="radiobutton" id="1023">
+                                <description>Show widget video info panel</description>
+                                <width>1125</width>
+                                <height>60</height>
+                                <font>font13</font>
+                                <textcolor>grey2</textcolor>
+                                <focusedcolor>white</focusedcolor>
+                                <!-- you can swap this to a LOCALIZE id later if you want -->
+                                <label>Show widget info under posters</label>
+                                <include>MenuButton</include>
+                                <onclick>Skin.ToggleSetting(HomeWidgetInfoPanel)</onclick>
+                                <selected>Skin.HasSetting(HomeWidgetInfoPanel)</selected>
                             </control>
                             <control type="button" id="104">
                                 <description>Main Colour One</description>
@@ -496,19 +436,6 @@
                                 <onclick>Skin.ToggleSetting(HideNextSongsInfo)</onclick>
                                 <selected>!Skin.HasSetting(HideNextSongsInfo)</selected>
                             </control>
-                            <control type="radiobutton" id="111">
-                                <description>Party Mode with Saver</description>
-                                <width>1125</width>
-                                <height>60</height>
-                                <font>font13</font>
-                                <textcolor>grey2</textcolor>
-                                <focusedcolor>white</focusedcolor>
-                                <label>$LOCALIZE[31138]</label>
-                                <include>MenuButton</include>
-                                <onclick>Skin.ToggleSetting(AutoPartySaver)</onclick>
-                                <selected>Skin.HasSetting(AutoPartySaver)</selected>
-                                <enable>Library.HasContent(Music)</enable>
-                            </control>
                             <control type="radiobutton" id="112">
                                 <width>1125</width>
                                 <height>60</height>
@@ -554,7 +481,7 @@
                                 <font>font13</font>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
-                                <label>$LOCALIZE[32008]</label>
+                                <label>Show larger seekbar when rewinding or forwarding </label>
                                 <include>MenuButton</include>
                                 <onclick condition="!Skin.HasSetting(StandardSeekBar) + !Skin.HasSetting(HidePopupSeekBar)">Skin.SetBool(HidePopupSeekBar)</onclick>
 								<onclick>Skin.ToggleSetting(StandardSeekBar)</onclick>
@@ -855,38 +782,11 @@
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
                                 <include>MenuButton</include>
-                                <onclick>Control.Move(9011,1)</onclick>
-                                <onclick>Skin.SetString(InitialMenuPosi,$INFO[Container(9011).Position])</onclick>
-                                <onclick condition="String.IsEqual(Container(9011).Position,0)+String.IsEmpty(Skin.String(MenuLAF))">Skin.SetString(InitialMenuItem,-1)</onclick>
-                                <onclick condition="String.IsEqual(Container(9011).Position,1)+String.IsEmpty(Skin.String(MenuLAF))">Skin.SetString(InitialMenuItem,0)</onclick>
-                                <onclick condition="String.IsEqual(Container(9011).Position,2)+String.IsEmpty(Skin.String(MenuLAF))">Skin.SetString(InitialMenuItem,1)</onclick>
-                                <onclick condition="String.IsEqual(Container(9011).Position,3)+String.IsEmpty(Skin.String(MenuLAF))">Skin.SetString(InitialMenuItem,2)</onclick>
-                                <onclick condition="String.IsEqual(Container(9011).Position,4)+String.IsEmpty(Skin.String(MenuLAF))">Skin.SetString(InitialMenuItem,3)</onclick>
-                                <onclick condition="String.IsEqual(Container(9011).Position,5)+String.IsEmpty(Skin.String(MenuLAF))">Skin.SetString(InitialMenuItem,4)</onclick>
-                                <onclick condition="String.IsEqual(Container(9011).Position,6)+String.IsEmpty(Skin.String(MenuLAF))">Skin.SetString(InitialMenuItem,5)</onclick>
-                                <onclick condition="String.IsEqual(Container(9011).Position,7)+String.IsEmpty(Skin.String(MenuLAF))">Skin.SetString(InitialMenuItem,6)</onclick>
-                                <onclick condition="String.IsEqual(Container(9011).Position,8)+String.IsEmpty(Skin.String(MenuLAF))">Skin.SetString(InitialMenuItem,7)</onclick>
-                                <onclick condition="String.IsEqual(Container(9011).Position,9)+String.IsEmpty(Skin.String(MenuLAF))">Skin.SetString(InitialMenuItem,8)</onclick>
-                                <onclick condition="String.IsEqual(Container(9011).Position,10)+String.IsEmpty(Skin.String(MenuLAF))">Skin.SetString(InitialMenuItem,9)</onclick>
-                                <onclick condition="String.IsEqual(Container(9011).Position,11)+String.IsEmpty(Skin.String(MenuLAF))">Skin.SetString(InitialMenuItem,10)</onclick>
-                                <onclick condition="String.IsEqual(Container(9011).Position,12)+String.IsEmpty(Skin.String(MenuLAF))">Skin.SetString(InitialMenuItem,11)</onclick>
-                                <onclick condition="String.IsEqual(Container(9011).Position,13)+String.IsEmpty(Skin.String(MenuLAF))">Skin.SetString(InitialMenuItem,12)</onclick>
-                                <onclick condition="String.IsEqual(Container(9011).Position,14)+String.IsEmpty(Skin.String(MenuLAF))">Skin.SetString(InitialMenuItem,-2)</onclick>
-                                <onclick condition="String.IsEqual(Container(9011).Position,0)+!String.IsEmpty(Skin.String(MenuLAF))">Skin.SetString(InitialMenuItem,-2)</onclick>
-                                <onclick condition="String.IsEqual(Container(9011).Position,1)+!String.IsEmpty(Skin.String(MenuLAF))">Skin.SetString(InitialMenuItem,-1)</onclick>
-                                <onclick condition="String.IsEqual(Container(9011).Position,2)+!String.IsEmpty(Skin.String(MenuLAF))">Skin.SetString(InitialMenuItem,0)</onclick>
-                                <onclick condition="String.IsEqual(Container(9011).Position,3)+!String.IsEmpty(Skin.String(MenuLAF))">Skin.SetString(InitialMenuItem,1)</onclick>
-                                <onclick condition="String.IsEqual(Container(9011).Position,4)+!String.IsEmpty(Skin.String(MenuLAF))">Skin.SetString(InitialMenuItem,2)</onclick>
-                                <onclick condition="String.IsEqual(Container(9011).Position,5)+!String.IsEmpty(Skin.String(MenuLAF))">Skin.SetString(InitialMenuItem,3)</onclick>
-                                <onclick condition="String.IsEqual(Container(9011).Position,6)+!String.IsEmpty(Skin.String(MenuLAF))">Skin.SetString(InitialMenuItem,4)</onclick>
-                                <onclick condition="String.IsEqual(Container(9011).Position,7)+!String.IsEmpty(Skin.String(MenuLAF))">Skin.SetString(InitialMenuItem,5)</onclick>
-                                <onclick condition="String.IsEqual(Container(9011).Position,8)+!String.IsEmpty(Skin.String(MenuLAF))">Skin.SetString(InitialMenuItem,6)</onclick>
-                                <onclick condition="String.IsEqual(Container(9011).Position,9)+!String.IsEmpty(Skin.String(MenuLAF))">Skin.SetString(InitialMenuItem,7)</onclick>
-                                <onclick condition="String.IsEqual(Container(9011).Position,10)+!String.IsEmpty(Skin.String(MenuLAF))">Skin.SetString(InitialMenuItem,8)</onclick>
-                                <onclick condition="String.IsEqual(Container(9011).Position,11)+!String.IsEmpty(Skin.String(MenuLAF))">Skin.SetString(InitialMenuItem,9)</onclick>
-                                <onclick condition="String.IsEqual(Container(9011).Position,12)+!String.IsEmpty(Skin.String(MenuLAF))">Skin.SetString(InitialMenuItem,10)</onclick>
-                                <onclick condition="String.IsEqual(Container(9011).Position,13)+!String.IsEmpty(Skin.String(MenuLAF))">Skin.SetString(InitialMenuItem,11)</onclick>
-                                <onclick condition="String.IsEqual(Container(9011).Position,14)+!String.IsEmpty(Skin.String(MenuLAF))">Skin.SetString(InitialMenuItem,12)</onclick>
+								<onclick>Control.Move(9011,1)</onclick>
+								<onclick>Skin.SetString(InitialMenuPosi,$INFO[Container(9011).Position])</onclick>
+								<onclick>Skin.SetString(InitialMenuItem,$INFO[Container(9011).Position])</onclick>
+								<onclick>Skin.SetString(InitialMenuLabel,$INFO[Container(9011).ListItem.Label])</onclick>
+								<onclick>Notification(Default focus saved,$INFO[Container(9011).ListItem.Label],1600,DefaultIconInfo.png)</onclick>
                             </control>
                             <control type="radiobutton" id="137">
                                 <description>lower menu bar</description>
@@ -945,7 +845,7 @@
                                 <font>font13</font>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
-                                <label>$LOCALIZE[32003]</label>
+                                <label>Show main menu in all caps</label>
                                 <onclick>Skin.ToggleSetting(MainMenuAllCaps)</onclick>
                                 <selected>Skin.HasSetting(MainMenuAllCaps)</selected>
                                 <include>MenuButton</include>
@@ -995,18 +895,6 @@
                                 <label>31089</label>
                                 <onclick>Skin.ToggleSetting(HideTVRecordingInfo)</onclick>
                                 <selected>!Skin.HasSetting(HideTVRecordingInfo)</selected>
-                                <include>MenuButton</include>
-                            </control>
-                            <control type="radiobutton" id="146">
-                                <description>enable stats bar</description>
-                                <width>1125</width>
-                                <height>60</height>
-                                <font>font13</font>
-                                <textcolor>grey2</textcolor>
-                                <focusedcolor>white</focusedcolor>
-                                <label>$LOCALIZE[31073]</label>
-                                <onclick>Skin.ToggleSetting(EnableHomeStats)</onclick>
-                                <selected>Skin.HasSetting(EnableHomeStats)</selected>
                                 <include>MenuButton</include>
                             </control>
                             <control type="button" id="147">
@@ -1084,6 +972,18 @@
                                 <onclick condition="Skin.String(CustomWidgets,100)">Skin.SetString(CustomWidgets,500)</onclick>								
                                 <onclick condition="Skin.String(CustomWidgets,500)">Skin.Reset(CustomWidgets)</onclick>
                             </control>
+                            <control type="radiobutton" id="1519">
+                                <width>1125</width>
+                                <height>60</height>
+                                <font>font13</font>
+                                <label>Open info on widget click (movies & TV shows)</label>
+                                <textcolor>grey2</textcolor>
+                                <focusedcolor>white</focusedcolor>
+                                <include>MenuButton</include>
+                                <onclick>Skin.ToggleSetting(OpenInfoOnWidgetClick)</onclick>
+                                <selected>Skin.HasSetting(OpenInfoOnWidgetClick)</selected>
+                            </control>
+
 							<control type="radiobutton" id="1511">
                                 <description>Show widget fanart</description>
                                 <width>1125</width>
@@ -1091,7 +991,7 @@
                                 <font>font13</font>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
-                                <label>$LOCALIZE[32036]</label>
+                                <label>Show widget fanart/extra fanart</label>
                                 <onclick>Skin.ToggleSetting(ShowWidgetFanart)</onclick>
                                 <selected>Skin.HasSetting(ShowWidgetFanart)</selected>
                                 <include>MenuButton</include>
@@ -1240,7 +1140,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label> - $LOCALIZE[32034]</label>
+                                <label> - Slower automatic scrolling</label>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
                                 <include>MenuButton</include>
@@ -1454,6 +1354,18 @@
                             <height>720</height>
                             <itemgap>-1</itemgap>
                             <pagecontrol>2065</pagecontrol>
+							<control type="button" id="177">
+                                <description>Hide OSD</description>
+                                <width>1125</width>
+                                <height>60</height>
+                                <font>font13</font>
+                                <label>Auto Hide OSD</label>
+                                <label2>[COLOR=selected]$VAR[OSDHideLabel][/COLOR]</label2>
+                                <textcolor>grey</textcolor>
+                                <focusedcolor>white</focusedcolor>
+                                <include>MenuButton</include>
+                                <onclick>ActivateWindow(2139)</onclick>
+                            </control>							
                             <control type="radiobutton" id="178">
                                 <description>OSD Start Media Intro</description>
                                 <width>1125</width>
@@ -1471,7 +1383,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label>  - $LOCALIZE[32032]</label>
+                                <label>  - Duration of OSD intro</label>
                                 <label2>[COLOR=selected]$VAR[IntroOSDTimeoutLabel][/COLOR]</label2>
                                 <textcolor>grey</textcolor>
                                 <focusedcolor>white</focusedcolor>
@@ -1486,7 +1398,7 @@
                                 <font>font13</font>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
-                                <label>  - $LOCALIZE[32009]</label>
+                                <label>  - Show seekbar with intro</label>
                                 <include>MenuButton</include>
                                 <onclick>Skin.ToggleSetting(ShowSeekBarIntro)</onclick>
                                 <selected>Skin.HasSetting(ShowSeekBarIntro)</selected>
@@ -1534,7 +1446,7 @@
                                 <font>font13</font>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
-                                <label> - $LOCALIZE[32010]</label>
+                                <label> - Hide shadow behind seekbar</label>
                                 <include>MenuButton</include>
                                 <onclick>Skin.ToggleSetting(HideShadowSeekBar)</onclick>
                                 <selected>Skin.HasSetting(HideShadowSeekBar)</selected>
@@ -1547,7 +1459,7 @@
                                 <font>font13</font>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
-                                <label>$LOCALIZE[32012]</label>
+                                <label>Show chapter/cutlist markers on seekbar</label>
                                 <include>MenuButton</include>
                                 <onclick>Skin.ToggleSetting(ShowCutlist)</onclick>
                                 <selected>Skin.HasSetting(ShowCutlist)</selected>
@@ -1559,7 +1471,7 @@
                                 <font>font13</font>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
-                                <label>$LOCALIZE[32013]</label>
+                                <label>Show End time on OSD</label>
                                 <include>MenuButton</include>
                                 <onclick>Skin.ToggleSetting(ShowEndTimeOSD)</onclick>
                                 <selected>Skin.HasSetting(ShowEndTimeOSD)</selected>
@@ -1628,7 +1540,7 @@
                                 <include>MenuButton</include>
                                 <onclick>Skin.ToggleSetting(ShowFullScreenClock)</onclick>
                                 <selected>Skin.HasSetting(ShowFullScreenClock)</selected>
-                            </control>
+                            </control>							
                         </control>
                         <control type="scrollbar" id="2065">
                             <left>1155</left>
@@ -1725,18 +1637,6 @@
                                 <onclick condition="Skin.String(PowerBtnAction,Menu)">Skin.SetString(PowerBtnAction,Settings)</onclick>
                                 <include>MenuButton</include>
                                 <enable>!Skin.HasSetting(HideHomePowerBtn)</enable>
-                            </control>
-                            <control type="button" id="193">
-                                <width>1125</width>
-                                <height>60</height>
-                                <font>font13</font>
-                                <label>$LOCALIZE[31065]</label>
-                                <label2>[COLOR=selected]$VAR[FavBtnLabel][/COLOR]</label2>
-                                <textcolor>grey</textcolor>
-                                <focusedcolor>white</focusedcolor>
-                                <include>MenuButton</include>
-                                <onclick>SetProperty(UsrSelectBtn,UsrFavBtnCmd,Home)</onclick>
-                                <onclick>ActivateWindow(2119)</onclick>
                             </control>
                             <control type="radiobutton" id="194">
                                 <width>1125</width>
@@ -1966,6 +1866,17 @@
                                 <onclick>ActivateWindow(2118)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.1.Label))</visible>
                             </control>
+							<control type="button" id="12045">
+                                <width>1125</width>
+                                <height>60</height>
+                                <font>font13</font>
+								<label> - Configure Widgets</label>
+                                <textcolor>grey2</textcolor>
+                                <focusedcolor>white</focusedcolor>
+								<include>MenuButton</include>
+								<onclick>SetProperty(UsrSelectBtn,HomeItem.1,Home)</onclick>
+								<onclick>ActivateWindow(2140)</onclick>
+							</control>
                             <control type="button" id="1205">
                                 <width>1125</width>
                                 <height>60</height>
@@ -1985,7 +1896,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label> - $LOCALIZE[32024]</label>
+                                <label> - Widget Layout</label>
                                 <label2>[COLOR=grey2]$VAR[UsrDefItemOneWidgetLayout][/COLOR]</label2>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
@@ -2032,7 +1943,28 @@
 								<onclick>SetProperty(SwapItemPlaylistContent,$INFO[Skin.String(HomeItem.1.PlaylistContent)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetFormat,$INFO[Skin.String(HomeItem.1.WidgetFormat)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetLayout,$INFO[Skin.String(HomeItem.1.WidgetLayout)],Home)</onclick>
-                                <onclick>ActivateWindow(1128)</onclick>
+                                
+								<onclick>SetProperty(SwapItemWidget1Name,$INFO[Skin.String(HomeItem.1.Widget1.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget1Widget,$INFO[Skin.String(HomeItem.1.Widget1.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Name,$INFO[Skin.String(HomeItem.1.Widget2.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Widget,$INFO[Skin.String(HomeItem.1.Widget2.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Name,$INFO[Skin.String(HomeItem.1.Widget3.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Widget,$INFO[Skin.String(HomeItem.1.Widget3.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Name,$INFO[Skin.String(HomeItem.1.Widget4.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Widget,$INFO[Skin.String(HomeItem.1.Widget4.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Name,$INFO[Skin.String(HomeItem.1.Widget5.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Widget,$INFO[Skin.String(HomeItem.1.Widget5.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Name,$INFO[Skin.String(HomeItem.1.Widget6.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Widget,$INFO[Skin.String(HomeItem.1.Widget6.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Name,$INFO[Skin.String(HomeItem.1.Widget7.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Widget,$INFO[Skin.String(HomeItem.1.Widget7.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Name,$INFO[Skin.String(HomeItem.1.Widget8.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Widget,$INFO[Skin.String(HomeItem.1.Widget8.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Name,$INFO[Skin.String(HomeItem.1.Widget9.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Widget,$INFO[Skin.String(HomeItem.1.Widget9.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Name,$INFO[Skin.String(HomeItem.1.Widget10.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Widget,$INFO[Skin.String(HomeItem.1.Widget10.Widget)],Home)</onclick>
+<onclick>ActivateWindow(1128)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.1.Label))</visible>
                             </control>
                             <control type="radiobutton" id="1208">
@@ -2040,7 +1972,7 @@
                                 <height>60</height>
                                 <font>font13</font>
                                 <align>left</align>
-                                <label> - $LOCALIZE[31944]</label>
+                                <label> - [COLOR chartreuse]Disable This Menu[/COLOR]</label>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
                                 <include>MenuButton</include>
@@ -2152,6 +2084,17 @@
                                 <onclick>ActivateWindow(2118)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.2.Label))</visible>
                             </control>
+							<control type="button" id="12046">
+                                <width>1125</width>
+                                <height>60</height>
+                                <font>font13</font>
+								<label> - Configure Widgets</label>
+                                <textcolor>grey2</textcolor>
+                                <focusedcolor>white</focusedcolor>
+								<include>MenuButton</include>
+								<onclick>SetProperty(UsrSelectBtn,HomeItem.2,Home)</onclick>
+								<onclick>ActivateWindow(2140)</onclick>
+							</control>
                             <control type="button" id="1215">
                                 <width>1125</width>
                                 <height>60</height>
@@ -2171,7 +2114,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label> - $LOCALIZE[32024]</label>
+                                <label> - Widget Layout</label>
                                 <label2>[COLOR=grey2]$VAR[UsrDefItemTwoWidgetLayout][/COLOR]</label2>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
@@ -2218,7 +2161,28 @@
 								<onclick>SetProperty(SwapItemPlaylistContent,$INFO[Skin.String(HomeItem.2.PlaylistContent)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetFormat,$INFO[Skin.String(HomeItem.2.WidgetFormat)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetLayout,$INFO[Skin.String(HomeItem.2.WidgetLayout)],Home)</onclick>
-								<onclick>ActivateWindow(1128)</onclick>
+								
+								<onclick>SetProperty(SwapItemWidget1Name,$INFO[Skin.String(HomeItem.2.Widget1.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget1Widget,$INFO[Skin.String(HomeItem.2.Widget1.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Name,$INFO[Skin.String(HomeItem.2.Widget2.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Widget,$INFO[Skin.String(HomeItem.2.Widget2.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Name,$INFO[Skin.String(HomeItem.2.Widget3.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Widget,$INFO[Skin.String(HomeItem.2.Widget3.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Name,$INFO[Skin.String(HomeItem.2.Widget4.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Widget,$INFO[Skin.String(HomeItem.2.Widget4.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Name,$INFO[Skin.String(HomeItem.2.Widget5.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Widget,$INFO[Skin.String(HomeItem.2.Widget5.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Name,$INFO[Skin.String(HomeItem.2.Widget6.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Widget,$INFO[Skin.String(HomeItem.2.Widget6.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Name,$INFO[Skin.String(HomeItem.2.Widget7.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Widget,$INFO[Skin.String(HomeItem.2.Widget7.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Name,$INFO[Skin.String(HomeItem.2.Widget8.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Widget,$INFO[Skin.String(HomeItem.2.Widget8.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Name,$INFO[Skin.String(HomeItem.2.Widget9.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Widget,$INFO[Skin.String(HomeItem.2.Widget9.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Name,$INFO[Skin.String(HomeItem.2.Widget10.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Widget,$INFO[Skin.String(HomeItem.2.Widget10.Widget)],Home)</onclick>
+<onclick>ActivateWindow(1128)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.2.Label))</visible>
                             </control>
                             <control type="radiobutton" id="1218">
@@ -2226,7 +2190,7 @@
                                 <height>60</height>
                                 <font>font13</font>
                                 <align>left</align>
-                                <label> - $LOCALIZE[31944]</label>
+                                <label> - [COLOR chartreuse]Disable This Menu[/COLOR]</label>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
                                 <include>MenuButton</include>
@@ -2338,6 +2302,17 @@
                                 <onclick>ActivateWindow(2118)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.3.Label))</visible>
                             </control>
+							<control type="button" id="12047">
+                                <width>1125</width>
+                                <height>60</height>
+                                <font>font13</font>
+								<label> - Configure Widgets</label>
+                                <textcolor>grey2</textcolor>
+                                <focusedcolor>white</focusedcolor>
+								<include>MenuButton</include>
+								<onclick>SetProperty(UsrSelectBtn,HomeItem.3,Home)</onclick>
+								<onclick>ActivateWindow(2140)</onclick>
+							</control>
                             <control type="button" id="1225">
                                 <width>1125</width>
                                 <height>60</height>
@@ -2357,7 +2332,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label> - $LOCALIZE[32024]</label>
+                                <label> - Widget Layout</label>
                                 <label2>[COLOR=grey2]$VAR[UsrDefItemThreeWidgetLayout][/COLOR]</label2>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
@@ -2404,7 +2379,28 @@
 								<onclick>SetProperty(SwapItemPlaylistContent,$INFO[Skin.String(HomeItem.3.PlaylistContent)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetFormat,$INFO[Skin.String(HomeItem.3.WidgetFormat)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetLayout,$INFO[Skin.String(HomeItem.3.WidgetLayout)],Home)</onclick>
-								<onclick>ActivateWindow(1128)</onclick>
+								
+								<onclick>SetProperty(SwapItemWidget1Name,$INFO[Skin.String(HomeItem.3.Widget1.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget1Widget,$INFO[Skin.String(HomeItem.3.Widget1.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Name,$INFO[Skin.String(HomeItem.3.Widget2.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Widget,$INFO[Skin.String(HomeItem.3.Widget2.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Name,$INFO[Skin.String(HomeItem.3.Widget3.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Widget,$INFO[Skin.String(HomeItem.3.Widget3.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Name,$INFO[Skin.String(HomeItem.3.Widget4.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Widget,$INFO[Skin.String(HomeItem.3.Widget4.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Name,$INFO[Skin.String(HomeItem.3.Widget5.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Widget,$INFO[Skin.String(HomeItem.3.Widget5.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Name,$INFO[Skin.String(HomeItem.3.Widget6.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Widget,$INFO[Skin.String(HomeItem.3.Widget6.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Name,$INFO[Skin.String(HomeItem.3.Widget7.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Widget,$INFO[Skin.String(HomeItem.3.Widget7.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Name,$INFO[Skin.String(HomeItem.3.Widget8.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Widget,$INFO[Skin.String(HomeItem.3.Widget8.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Name,$INFO[Skin.String(HomeItem.3.Widget9.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Widget,$INFO[Skin.String(HomeItem.3.Widget9.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Name,$INFO[Skin.String(HomeItem.3.Widget10.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Widget,$INFO[Skin.String(HomeItem.3.Widget10.Widget)],Home)</onclick>
+<onclick>ActivateWindow(1128)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.3.Label))</visible>
                             </control>
                             <control type="radiobutton" id="1228">
@@ -2412,7 +2408,7 @@
                                 <height>60</height>
                                 <font>font13</font>
                                 <align>left</align>
-                                <label> - $LOCALIZE[31944]</label>
+                                <label> - [COLOR chartreuse]Disable This Menu[/COLOR]</label>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
                                 <include>MenuButton</include>
@@ -2524,6 +2520,17 @@
                                 <onclick>ActivateWindow(2118)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.4.Label))</visible>
                             </control>
+							<control type="button" id="12048">
+                                <width>1125</width>
+                                <height>60</height>
+                                <font>font13</font>
+								<label> - Configure Widgets</label>
+                                <textcolor>grey2</textcolor>
+                                <focusedcolor>white</focusedcolor>
+								<include>MenuButton</include>
+								<onclick>SetProperty(UsrSelectBtn,HomeItem.4,Home)</onclick>
+								<onclick>ActivateWindow(2140)</onclick>
+							</control>
                             <control type="button" id="1235">
                                 <width>1125</width>
                                 <height>60</height>
@@ -2543,7 +2550,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label> - $LOCALIZE[32024]</label>
+                                <label> - Widget Layout</label>
                                 <label2>[COLOR=grey2]$VAR[UsrDefItemFourWidgetLayout][/COLOR]</label2>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
@@ -2590,7 +2597,28 @@
 								<onclick>SetProperty(SwapItemPlaylistContent,$INFO[Skin.String(HomeItem.4.PlaylistContent)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetFormat,$INFO[Skin.String(HomeItem.4.WidgetFormat)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetLayout,$INFO[Skin.String(HomeItem.4.WidgetLayout)],Home)</onclick>
-                                <onclick>ActivateWindow(1128)</onclick>
+                                
+								<onclick>SetProperty(SwapItemWidget1Name,$INFO[Skin.String(HomeItem.4.Widget1.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget1Widget,$INFO[Skin.String(HomeItem.4.Widget1.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Name,$INFO[Skin.String(HomeItem.4.Widget2.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Widget,$INFO[Skin.String(HomeItem.4.Widget2.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Name,$INFO[Skin.String(HomeItem.4.Widget3.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Widget,$INFO[Skin.String(HomeItem.4.Widget3.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Name,$INFO[Skin.String(HomeItem.4.Widget4.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Widget,$INFO[Skin.String(HomeItem.4.Widget4.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Name,$INFO[Skin.String(HomeItem.4.Widget5.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Widget,$INFO[Skin.String(HomeItem.4.Widget5.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Name,$INFO[Skin.String(HomeItem.4.Widget6.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Widget,$INFO[Skin.String(HomeItem.4.Widget6.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Name,$INFO[Skin.String(HomeItem.4.Widget7.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Widget,$INFO[Skin.String(HomeItem.4.Widget7.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Name,$INFO[Skin.String(HomeItem.4.Widget8.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Widget,$INFO[Skin.String(HomeItem.4.Widget8.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Name,$INFO[Skin.String(HomeItem.4.Widget9.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Widget,$INFO[Skin.String(HomeItem.4.Widget9.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Name,$INFO[Skin.String(HomeItem.4.Widget10.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Widget,$INFO[Skin.String(HomeItem.4.Widget10.Widget)],Home)</onclick>
+<onclick>ActivateWindow(1128)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.4.Label))</visible>
                             </control>
                             <control type="radiobutton" id="1238">
@@ -2598,7 +2626,7 @@
                                 <height>60</height>
                                 <font>font13</font>
                                 <align>left</align>
-                                <label> - $LOCALIZE[31944]</label>
+                                <label> - [COLOR chartreuse]Disable This Menu[/COLOR]</label>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
                                 <include>MenuButton</include>
@@ -2710,6 +2738,17 @@
                                 <onclick>ActivateWindow(2118)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.5.Label))</visible>
                             </control>
+							<control type="button" id="12049">
+                                <width>1125</width>
+                                <height>60</height>
+                                <font>font13</font>
+								<label> - Configure Widgets</label>
+                                <textcolor>grey2</textcolor>
+                                <focusedcolor>white</focusedcolor>
+								<include>MenuButton</include>
+								<onclick>SetProperty(UsrSelectBtn,HomeItem.5,Home)</onclick>
+								<onclick>ActivateWindow(2140)</onclick>
+							</control>
                             <control type="button" id="1245">
                                 <width>1125</width>
                                 <height>60</height>
@@ -2729,7 +2768,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label> - $LOCALIZE[32024]</label>
+                                <label> - Widget Layout</label>
                                 <label2>[COLOR=grey2]$VAR[UsrDefItemFiveWidgetLayout][/COLOR]</label2>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
@@ -2776,7 +2815,28 @@
 								<onclick>SetProperty(SwapItemPlaylistContent,$INFO[Skin.String(HomeItem.5.PlaylistContent)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetFormat,$INFO[Skin.String(HomeItem.5.WidgetFormat)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetLayout,$INFO[Skin.String(HomeItem.5.WidgetLayout)],Home)</onclick>
-                                <onclick>ActivateWindow(1128)</onclick>
+                                
+								<onclick>SetProperty(SwapItemWidget1Name,$INFO[Skin.String(HomeItem.5.Widget1.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget1Widget,$INFO[Skin.String(HomeItem.5.Widget1.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Name,$INFO[Skin.String(HomeItem.5.Widget2.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Widget,$INFO[Skin.String(HomeItem.5.Widget2.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Name,$INFO[Skin.String(HomeItem.5.Widget3.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Widget,$INFO[Skin.String(HomeItem.5.Widget3.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Name,$INFO[Skin.String(HomeItem.5.Widget4.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Widget,$INFO[Skin.String(HomeItem.5.Widget4.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Name,$INFO[Skin.String(HomeItem.5.Widget5.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Widget,$INFO[Skin.String(HomeItem.5.Widget5.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Name,$INFO[Skin.String(HomeItem.5.Widget6.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Widget,$INFO[Skin.String(HomeItem.5.Widget6.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Name,$INFO[Skin.String(HomeItem.5.Widget7.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Widget,$INFO[Skin.String(HomeItem.5.Widget7.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Name,$INFO[Skin.String(HomeItem.5.Widget8.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Widget,$INFO[Skin.String(HomeItem.5.Widget8.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Name,$INFO[Skin.String(HomeItem.5.Widget9.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Widget,$INFO[Skin.String(HomeItem.5.Widget9.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Name,$INFO[Skin.String(HomeItem.5.Widget10.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Widget,$INFO[Skin.String(HomeItem.5.Widget10.Widget)],Home)</onclick>
+<onclick>ActivateWindow(1128)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.5.Label))</visible>
                             </control>
                             <control type="radiobutton" id="1248">
@@ -2784,7 +2844,7 @@
                                 <height>60</height>
                                 <font>font13</font>
                                 <align>left</align>
-                                <label> - $LOCALIZE[31944]</label>
+                                <label> - [COLOR chartreuse]Disable This Menu[/COLOR]</label>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
                                 <include>MenuButton</include>
@@ -2896,6 +2956,17 @@
                                 <onclick>ActivateWindow(2118)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.6.Label))</visible>
                             </control>
+							<control type="button" id="12050">
+                                <width>1125</width>
+                                <height>60</height>
+                                <font>font13</font>
+								<label> - Configure Widgets</label>
+                                <textcolor>grey2</textcolor>
+                                <focusedcolor>white</focusedcolor>
+								<include>MenuButton</include>
+								<onclick>SetProperty(UsrSelectBtn,HomeItem.6,Home)</onclick>
+								<onclick>ActivateWindow(2140)</onclick>
+							</control>
                             <control type="button" id="1255">
                                 <width>1125</width>
                                 <height>60</height>
@@ -2915,7 +2986,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label> - $LOCALIZE[32024]</label>
+                                <label> - Widget Layout</label>
                                 <label2>[COLOR=grey2]$VAR[UsrDefItemSixWidgetLayout][/COLOR]</label2>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
@@ -2962,7 +3033,28 @@
 								<onclick>SetProperty(SwapItemPlaylistContent,$INFO[Skin.String(HomeItem.6.PlaylistContent)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetFormat,$INFO[Skin.String(HomeItem.6.WidgetFormat)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetLayout,$INFO[Skin.String(HomeItem.6.WidgetLayout)],Home)</onclick>
-                                <onclick>ActivateWindow(1128)</onclick>
+                                
+								<onclick>SetProperty(SwapItemWidget1Name,$INFO[Skin.String(HomeItem.6.Widget1.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget1Widget,$INFO[Skin.String(HomeItem.6.Widget1.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Name,$INFO[Skin.String(HomeItem.6.Widget2.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Widget,$INFO[Skin.String(HomeItem.6.Widget2.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Name,$INFO[Skin.String(HomeItem.6.Widget3.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Widget,$INFO[Skin.String(HomeItem.6.Widget3.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Name,$INFO[Skin.String(HomeItem.6.Widget4.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Widget,$INFO[Skin.String(HomeItem.6.Widget4.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Name,$INFO[Skin.String(HomeItem.6.Widget5.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Widget,$INFO[Skin.String(HomeItem.6.Widget5.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Name,$INFO[Skin.String(HomeItem.6.Widget6.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Widget,$INFO[Skin.String(HomeItem.6.Widget6.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Name,$INFO[Skin.String(HomeItem.6.Widget7.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Widget,$INFO[Skin.String(HomeItem.6.Widget7.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Name,$INFO[Skin.String(HomeItem.6.Widget8.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Widget,$INFO[Skin.String(HomeItem.6.Widget8.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Name,$INFO[Skin.String(HomeItem.6.Widget9.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Widget,$INFO[Skin.String(HomeItem.6.Widget9.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Name,$INFO[Skin.String(HomeItem.6.Widget10.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Widget,$INFO[Skin.String(HomeItem.6.Widget10.Widget)],Home)</onclick>
+<onclick>ActivateWindow(1128)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.6.Label))</visible>
                             </control>
                             <control type="radiobutton" id="1258">
@@ -2970,7 +3062,7 @@
                                 <height>60</height>
                                 <font>font13</font>
                                 <align>left</align>
-                                <label> - $LOCALIZE[31944]</label>
+                                <label> - [COLOR chartreuse]Disable This Menu[/COLOR]</label>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
                                 <include>MenuButton</include>
@@ -3082,6 +3174,17 @@
                                 <onclick>ActivateWindow(2118)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.7.Label))</visible>
                             </control>
+							<control type="button" id="12051">
+                                <width>1125</width>
+                                <height>60</height>
+                                <font>font13</font>
+								<label> - Configure Widgets</label>
+                                <textcolor>grey2</textcolor>
+                                <focusedcolor>white</focusedcolor>
+								<include>MenuButton</include>
+								<onclick>SetProperty(UsrSelectBtn,HomeItem.7,Home)</onclick>
+								<onclick>ActivateWindow(2140)</onclick>
+							</control>
                             <control type="button" id="1265">
                                 <width>1125</width>
                                 <height>60</height>
@@ -3101,7 +3204,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label> - $LOCALIZE[32024]</label>
+                                <label> - Widget Layout</label>
                                 <label2>[COLOR=grey2]$VAR[UsrDefItemSevenWidgetLayout][/COLOR]</label2>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
@@ -3148,7 +3251,28 @@
 								<onclick>SetProperty(SwapItemPlaylistContent,$INFO[Skin.String(HomeItem.7.PlaylistContent)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetFormat,$INFO[Skin.String(HomeItem.7.WidgetFormat)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetLayout,$INFO[Skin.String(HomeItem.7.WidgetLayout)],Home)</onclick>
-                                <onclick>ActivateWindow(1128)</onclick>
+                                
+								<onclick>SetProperty(SwapItemWidget1Name,$INFO[Skin.String(HomeItem.7.Widget1.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget1Widget,$INFO[Skin.String(HomeItem.7.Widget1.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Name,$INFO[Skin.String(HomeItem.7.Widget2.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Widget,$INFO[Skin.String(HomeItem.7.Widget2.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Name,$INFO[Skin.String(HomeItem.7.Widget3.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Widget,$INFO[Skin.String(HomeItem.7.Widget3.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Name,$INFO[Skin.String(HomeItem.7.Widget4.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Widget,$INFO[Skin.String(HomeItem.7.Widget4.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Name,$INFO[Skin.String(HomeItem.7.Widget5.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Widget,$INFO[Skin.String(HomeItem.7.Widget5.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Name,$INFO[Skin.String(HomeItem.7.Widget6.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Widget,$INFO[Skin.String(HomeItem.7.Widget6.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Name,$INFO[Skin.String(HomeItem.7.Widget7.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Widget,$INFO[Skin.String(HomeItem.7.Widget7.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Name,$INFO[Skin.String(HomeItem.7.Widget8.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Widget,$INFO[Skin.String(HomeItem.7.Widget8.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Name,$INFO[Skin.String(HomeItem.7.Widget9.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Widget,$INFO[Skin.String(HomeItem.7.Widget9.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Name,$INFO[Skin.String(HomeItem.7.Widget10.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Widget,$INFO[Skin.String(HomeItem.7.Widget10.Widget)],Home)</onclick>
+<onclick>ActivateWindow(1128)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.7.Label))</visible>
                             </control>
                             <control type="radiobutton" id="1268">
@@ -3156,7 +3280,7 @@
                                 <height>60</height>
                                 <font>font13</font>
                                 <align>left</align>
-                                <label> - $LOCALIZE[31944]</label>
+                                <label> - [COLOR chartreuse]Disable This Menu[/COLOR]</label>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
                                 <include>MenuButton</include>
@@ -3268,6 +3392,17 @@
                                 <onclick>ActivateWindow(2118)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.8.Label))</visible>
                             </control>
+							<control type="button" id="12052">
+                                <width>1125</width>
+                                <height>60</height>
+                                <font>font13</font>
+								<label> - Configure Widgets</label>
+                                <textcolor>grey2</textcolor>
+                                <focusedcolor>white</focusedcolor>
+								<include>MenuButton</include>
+								<onclick>SetProperty(UsrSelectBtn,HomeItem.8,Home)</onclick>
+								<onclick>ActivateWindow(2140)</onclick>
+							</control>
                             <control type="button" id="1275">
                                 <width>1125</width>
                                 <height>60</height>
@@ -3287,7 +3422,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label> - $LOCALIZE[32024]</label>
+                                <label> - Widget Layout</label>
                                 <label2>[COLOR=grey2]$VAR[UsrDefItemEightWidgetLayout][/COLOR]</label2>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
@@ -3334,7 +3469,28 @@
 								<onclick>SetProperty(SwapItemPlaylistContent,$INFO[Skin.String(HomeItem.8.PlaylistContent)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetFormat,$INFO[Skin.String(HomeItem.8.WidgetFormat)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetLayout,$INFO[Skin.String(HomeItem.8.WidgetLayout)],Home)</onclick>
-                                <onclick>ActivateWindow(1128)</onclick>
+                                
+								<onclick>SetProperty(SwapItemWidget1Name,$INFO[Skin.String(HomeItem.8.Widget1.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget1Widget,$INFO[Skin.String(HomeItem.8.Widget1.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Name,$INFO[Skin.String(HomeItem.8.Widget2.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Widget,$INFO[Skin.String(HomeItem.8.Widget2.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Name,$INFO[Skin.String(HomeItem.8.Widget3.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Widget,$INFO[Skin.String(HomeItem.8.Widget3.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Name,$INFO[Skin.String(HomeItem.8.Widget4.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Widget,$INFO[Skin.String(HomeItem.8.Widget4.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Name,$INFO[Skin.String(HomeItem.8.Widget5.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Widget,$INFO[Skin.String(HomeItem.8.Widget5.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Name,$INFO[Skin.String(HomeItem.8.Widget6.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Widget,$INFO[Skin.String(HomeItem.8.Widget6.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Name,$INFO[Skin.String(HomeItem.8.Widget7.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Widget,$INFO[Skin.String(HomeItem.8.Widget7.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Name,$INFO[Skin.String(HomeItem.8.Widget8.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Widget,$INFO[Skin.String(HomeItem.8.Widget8.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Name,$INFO[Skin.String(HomeItem.8.Widget9.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Widget,$INFO[Skin.String(HomeItem.8.Widget9.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Name,$INFO[Skin.String(HomeItem.8.Widget10.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Widget,$INFO[Skin.String(HomeItem.8.Widget10.Widget)],Home)</onclick>
+<onclick>ActivateWindow(1128)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.8.Label))</visible>
                             </control>
                             <control type="radiobutton" id="1278">
@@ -3342,7 +3498,7 @@
                                 <height>60</height>
                                 <font>font13</font>
                                 <align>left</align>
-                                <label> - $LOCALIZE[31944]</label>
+                                <label> - [COLOR chartreuse]Disable This Menu[/COLOR]</label>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
                                 <include>MenuButton</include>
@@ -3454,6 +3610,17 @@
                                 <onclick>ActivateWindow(2118)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.9.Label))</visible>
                             </control>
+							<control type="button" id="12053">
+                                <width>1125</width>
+                                <height>60</height>
+                                <font>font13</font>
+								<label> - Configure Widgets</label>
+                                <textcolor>grey2</textcolor>
+                                <focusedcolor>white</focusedcolor>
+								<include>MenuButton</include>
+								<onclick>SetProperty(UsrSelectBtn,HomeItem.9,Home)</onclick>
+								<onclick>ActivateWindow(2140)</onclick>
+							</control>
                             <control type="button" id="1285">
                                 <width>1125</width>
                                 <height>60</height>
@@ -3473,7 +3640,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label> - $LOCALIZE[32024]</label>
+                                <label> - Widget Layout</label>
                                 <label2>[COLOR=grey2]$VAR[UsrDefItemNineWidgetLayout][/COLOR]</label2>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
@@ -3520,7 +3687,28 @@
 								<onclick>SetProperty(SwapItemPlaylistContent,$INFO[Skin.String(HomeItem.9.PlaylistContent)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetFormat,$INFO[Skin.String(HomeItem.9.WidgetFormat)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetLayout,$INFO[Skin.String(HomeItem.9.WidgetLayout)],Home)</onclick>
-                                <onclick>ActivateWindow(1128)</onclick>
+                                
+								<onclick>SetProperty(SwapItemWidget1Name,$INFO[Skin.String(HomeItem.9.Widget1.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget1Widget,$INFO[Skin.String(HomeItem.9.Widget1.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Name,$INFO[Skin.String(HomeItem.9.Widget2.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Widget,$INFO[Skin.String(HomeItem.9.Widget2.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Name,$INFO[Skin.String(HomeItem.9.Widget3.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Widget,$INFO[Skin.String(HomeItem.9.Widget3.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Name,$INFO[Skin.String(HomeItem.9.Widget4.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Widget,$INFO[Skin.String(HomeItem.9.Widget4.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Name,$INFO[Skin.String(HomeItem.9.Widget5.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Widget,$INFO[Skin.String(HomeItem.9.Widget5.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Name,$INFO[Skin.String(HomeItem.9.Widget6.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Widget,$INFO[Skin.String(HomeItem.9.Widget6.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Name,$INFO[Skin.String(HomeItem.9.Widget7.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Widget,$INFO[Skin.String(HomeItem.9.Widget7.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Name,$INFO[Skin.String(HomeItem.9.Widget8.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Widget,$INFO[Skin.String(HomeItem.9.Widget8.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Name,$INFO[Skin.String(HomeItem.9.Widget9.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Widget,$INFO[Skin.String(HomeItem.9.Widget9.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Name,$INFO[Skin.String(HomeItem.9.Widget10.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Widget,$INFO[Skin.String(HomeItem.9.Widget10.Widget)],Home)</onclick>
+<onclick>ActivateWindow(1128)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.9.Label))</visible>
                             </control>
                             <control type="radiobutton" id="1288">
@@ -3528,7 +3716,7 @@
                                 <height>60</height>
                                 <font>font13</font>
                                 <align>left</align>
-                                <label> - $LOCALIZE[31944]</label>
+                                <label> - [COLOR chartreuse]Disable This Menu[/COLOR]</label>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
                                 <include>MenuButton</include>
@@ -3640,6 +3828,17 @@
                                 <onclick>ActivateWindow(2118)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.10.Label))</visible>
                             </control>
+							<control type="button" id="12054">
+                                <width>1125</width>
+                                <height>60</height>
+                                <font>font13</font>
+								<label> - Configure Widgets</label>
+                                <textcolor>grey2</textcolor>
+                                <focusedcolor>white</focusedcolor>
+								<include>MenuButton</include>
+								<onclick>SetProperty(UsrSelectBtn,HomeItem.10,Home)</onclick>
+								<onclick>ActivateWindow(2140)</onclick>
+							</control>
                             <control type="button" id="1295">
                                 <width>1125</width>
                                 <height>60</height>
@@ -3659,7 +3858,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label> - $LOCALIZE[32024]</label>
+                                <label> - Widget Layout</label>
                                 <label2>[COLOR=grey2]$VAR[UsrDefItemTenWidgetLayout][/COLOR]</label2>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
@@ -3706,7 +3905,28 @@
 								<onclick>SetProperty(SwapItemPlaylistContent,$INFO[Skin.String(HomeItem.10.PlaylistContent)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetFormat,$INFO[Skin.String(HomeItem.10.WidgetFormat)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetLayout,$INFO[Skin.String(HomeItem.10.WidgetLayout)],Home)</onclick>
-                                <onclick>ActivateWindow(1128)</onclick>
+                                
+								<onclick>SetProperty(SwapItemWidget1Name,$INFO[Skin.String(HomeItem.10.Widget1.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget1Widget,$INFO[Skin.String(HomeItem.10.Widget1.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Name,$INFO[Skin.String(HomeItem.10.Widget2.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Widget,$INFO[Skin.String(HomeItem.10.Widget2.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Name,$INFO[Skin.String(HomeItem.10.Widget3.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Widget,$INFO[Skin.String(HomeItem.10.Widget3.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Name,$INFO[Skin.String(HomeItem.10.Widget4.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Widget,$INFO[Skin.String(HomeItem.10.Widget4.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Name,$INFO[Skin.String(HomeItem.10.Widget5.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Widget,$INFO[Skin.String(HomeItem.10.Widget5.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Name,$INFO[Skin.String(HomeItem.10.Widget6.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Widget,$INFO[Skin.String(HomeItem.10.Widget6.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Name,$INFO[Skin.String(HomeItem.10.Widget7.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Widget,$INFO[Skin.String(HomeItem.10.Widget7.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Name,$INFO[Skin.String(HomeItem.10.Widget8.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Widget,$INFO[Skin.String(HomeItem.10.Widget8.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Name,$INFO[Skin.String(HomeItem.10.Widget9.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Widget,$INFO[Skin.String(HomeItem.10.Widget9.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Name,$INFO[Skin.String(HomeItem.10.Widget10.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Widget,$INFO[Skin.String(HomeItem.10.Widget10.Widget)],Home)</onclick>
+<onclick>ActivateWindow(1128)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.10.Label))</visible>
                             </control>
                             <control type="radiobutton" id="1298">
@@ -3714,7 +3934,7 @@
                                 <height>60</height>
                                 <font>font13</font>
                                 <align>left</align>
-                                <label> - $LOCALIZE[31944]</label>
+                                <label> - [COLOR chartreuse]Disable This Menu[/COLOR]</label>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
                                 <include>MenuButton</include>
@@ -3826,6 +4046,17 @@
                                 <onclick>ActivateWindow(2118)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.11.Label))</visible>
                             </control>
+							<control type="button" id="12055">
+                                <width>1125</width>
+                                <height>60</height>
+                                <font>font13</font>
+								<label> - Configure Widgets</label>
+                                <textcolor>grey2</textcolor>
+                                <focusedcolor>white</focusedcolor>
+								<include>MenuButton</include>
+								<onclick>SetProperty(UsrSelectBtn,HomeItem.11,Home)</onclick>
+								<onclick>ActivateWindow(2140)</onclick>
+							</control>
                             <control type="button" id="1305">
                                 <width>1125</width>
                                 <height>60</height>
@@ -3845,7 +4076,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label> - $LOCALIZE[32024]</label>
+                                <label> - Widget Layout</label>
                                 <label2>[COLOR=grey2]$VAR[UsrDefItemElevenWidgetLayout][/COLOR]</label2>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
@@ -3892,7 +4123,28 @@
 								<onclick>SetProperty(SwapItemPlaylistContent,$INFO[Skin.String(HomeItem.11.PlaylistContent)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetFormat,$INFO[Skin.String(HomeItem.11.WidgetFormat)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetLayout,$INFO[Skin.String(HomeItem.11.WidgetLayout)],Home)</onclick>
-                                <onclick>ActivateWindow(1128)</onclick>
+                                
+								<onclick>SetProperty(SwapItemWidget1Name,$INFO[Skin.String(HomeItem.11.Widget1.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget1Widget,$INFO[Skin.String(HomeItem.11.Widget1.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Name,$INFO[Skin.String(HomeItem.11.Widget2.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Widget,$INFO[Skin.String(HomeItem.11.Widget2.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Name,$INFO[Skin.String(HomeItem.11.Widget3.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Widget,$INFO[Skin.String(HomeItem.11.Widget3.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Name,$INFO[Skin.String(HomeItem.11.Widget4.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Widget,$INFO[Skin.String(HomeItem.11.Widget4.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Name,$INFO[Skin.String(HomeItem.11.Widget5.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Widget,$INFO[Skin.String(HomeItem.11.Widget5.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Name,$INFO[Skin.String(HomeItem.11.Widget6.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Widget,$INFO[Skin.String(HomeItem.11.Widget6.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Name,$INFO[Skin.String(HomeItem.11.Widget7.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Widget,$INFO[Skin.String(HomeItem.11.Widget7.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Name,$INFO[Skin.String(HomeItem.11.Widget8.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Widget,$INFO[Skin.String(HomeItem.11.Widget8.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Name,$INFO[Skin.String(HomeItem.11.Widget9.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Widget,$INFO[Skin.String(HomeItem.11.Widget9.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Name,$INFO[Skin.String(HomeItem.11.Widget10.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Widget,$INFO[Skin.String(HomeItem.11.Widget10.Widget)],Home)</onclick>
+<onclick>ActivateWindow(1128)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.11.Label))</visible>
                             </control>
                             <control type="radiobutton" id="1308">
@@ -3900,7 +4152,7 @@
                                 <height>60</height>
                                 <font>font13</font>
                                 <align>left</align>
-                                <label> - $LOCALIZE[31944]</label>
+                                <label> - [COLOR chartreuse]Disable This Menu[/COLOR]</label>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
                                 <include>MenuButton</include>
@@ -4012,6 +4264,17 @@
                                 <onclick>ActivateWindow(2118)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.12.Label))</visible>
                             </control>
+							<control type="button" id="12056">
+                                <width>1125</width>
+                                <height>60</height>
+                                <font>font13</font>
+								<label> - Configure Widgets</label>
+                                <textcolor>grey2</textcolor>
+                                <focusedcolor>white</focusedcolor>
+								<include>MenuButton</include>
+								<onclick>SetProperty(UsrSelectBtn,HomeItem.12,Home)</onclick>
+								<onclick>ActivateWindow(2140)</onclick>
+							</control>
                             <control type="button" id="1315">
                                 <width>1125</width>
                                 <height>60</height>
@@ -4031,7 +4294,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label> - $LOCALIZE[32024]</label>
+                                <label> - Widget Layout</label>
                                 <label2>[COLOR=grey2]$VAR[UsrDefItemTwelveWidgetLayout][/COLOR]</label2>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
@@ -4078,7 +4341,28 @@
 								<onclick>SetProperty(SwapItemPlaylistContent,$INFO[Skin.String(HomeItem.12.PlaylistContent)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetFormat,$INFO[Skin.String(HomeItem.12.WidgetFormat)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetLayout,$INFO[Skin.String(HomeItem.12.WidgetLayout)],Home)</onclick>
-                                <onclick>ActivateWindow(1128)</onclick>
+                                
+								<onclick>SetProperty(SwapItemWidget1Name,$INFO[Skin.String(HomeItem.12.Widget1.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget1Widget,$INFO[Skin.String(HomeItem.12.Widget1.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Name,$INFO[Skin.String(HomeItem.12.Widget2.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Widget,$INFO[Skin.String(HomeItem.12.Widget2.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Name,$INFO[Skin.String(HomeItem.12.Widget3.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Widget,$INFO[Skin.String(HomeItem.12.Widget3.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Name,$INFO[Skin.String(HomeItem.12.Widget4.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Widget,$INFO[Skin.String(HomeItem.12.Widget4.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Name,$INFO[Skin.String(HomeItem.12.Widget5.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Widget,$INFO[Skin.String(HomeItem.12.Widget5.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Name,$INFO[Skin.String(HomeItem.12.Widget6.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Widget,$INFO[Skin.String(HomeItem.12.Widget6.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Name,$INFO[Skin.String(HomeItem.12.Widget7.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Widget,$INFO[Skin.String(HomeItem.12.Widget7.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Name,$INFO[Skin.String(HomeItem.12.Widget8.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Widget,$INFO[Skin.String(HomeItem.12.Widget8.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Name,$INFO[Skin.String(HomeItem.12.Widget9.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Widget,$INFO[Skin.String(HomeItem.12.Widget9.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Name,$INFO[Skin.String(HomeItem.12.Widget10.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Widget,$INFO[Skin.String(HomeItem.12.Widget10.Widget)],Home)</onclick>
+<onclick>ActivateWindow(1128)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.12.Label))</visible>
                             </control>
                             <control type="radiobutton" id="1318">
@@ -4086,7 +4370,7 @@
                                 <height>60</height>
                                 <font>font13</font>
                                 <align>left</align>
-                                <label> - $LOCALIZE[31944]</label>
+                                <label> - [COLOR chartreuse]Disable This Menu[/COLOR]</label>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
                                 <include>MenuButton</include>
@@ -4198,6 +4482,17 @@
                                 <onclick>ActivateWindow(2118)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.13.Label))</visible>
                             </control>
+							<control type="button" id="12057">
+                                <width>1125</width>
+                                <height>60</height>
+                                <font>font13</font>
+								<label> - Configure Widgets</label>
+                                <textcolor>grey2</textcolor>
+                                <focusedcolor>white</focusedcolor>
+								<include>MenuButton</include>
+								<onclick>SetProperty(UsrSelectBtn,HomeItem.13,Home)</onclick>
+								<onclick>ActivateWindow(2140)</onclick>
+							</control>
                             <control type="button" id="1325">
                                 <width>1125</width>
                                 <height>60</height>
@@ -4217,7 +4512,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label> - $LOCALIZE[32024]</label>
+                                <label> - Widget Layout</label>
                                 <label2>[COLOR=grey2]$VAR[UsrDefItemThirteenWidgetLayout][/COLOR]</label2>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
@@ -4264,7 +4559,28 @@
 								<onclick>SetProperty(SwapItemPlaylistContent,$INFO[Skin.String(HomeItem.13.PlaylistContent)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetFormat,$INFO[Skin.String(HomeItem.13.WidgetFormat)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetLayout,$INFO[Skin.String(HomeItem.13.WidgetLayout)],Home)</onclick>
-                                <onclick>ActivateWindow(1128)</onclick>
+                                
+								<onclick>SetProperty(SwapItemWidget1Name,$INFO[Skin.String(HomeItem.13.Widget1.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget1Widget,$INFO[Skin.String(HomeItem.13.Widget1.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Name,$INFO[Skin.String(HomeItem.13.Widget2.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Widget,$INFO[Skin.String(HomeItem.13.Widget2.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Name,$INFO[Skin.String(HomeItem.13.Widget3.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Widget,$INFO[Skin.String(HomeItem.13.Widget3.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Name,$INFO[Skin.String(HomeItem.13.Widget4.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Widget,$INFO[Skin.String(HomeItem.13.Widget4.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Name,$INFO[Skin.String(HomeItem.13.Widget5.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Widget,$INFO[Skin.String(HomeItem.13.Widget5.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Name,$INFO[Skin.String(HomeItem.13.Widget6.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Widget,$INFO[Skin.String(HomeItem.13.Widget6.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Name,$INFO[Skin.String(HomeItem.13.Widget7.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Widget,$INFO[Skin.String(HomeItem.13.Widget7.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Name,$INFO[Skin.String(HomeItem.13.Widget8.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Widget,$INFO[Skin.String(HomeItem.13.Widget8.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Name,$INFO[Skin.String(HomeItem.13.Widget9.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Widget,$INFO[Skin.String(HomeItem.13.Widget9.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Name,$INFO[Skin.String(HomeItem.13.Widget10.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Widget,$INFO[Skin.String(HomeItem.13.Widget10.Widget)],Home)</onclick>
+<onclick>ActivateWindow(1128)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.13.Label))</visible>
                             </control>
                             <control type="radiobutton" id="1328">
@@ -4272,7 +4588,7 @@
                                 <height>60</height>
                                 <font>font13</font>
                                 <align>left</align>
-                                <label> - $LOCALIZE[31944]</label>
+                                <label> - [COLOR chartreuse]Disable This Menu[/COLOR]</label>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
                                 <include>MenuButton</include>
@@ -4384,6 +4700,17 @@
                                 <onclick>ActivateWindow(2118)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.14.Label))</visible>
                             </control>
+							<control type="button" id="12058">
+                                <width>1125</width>
+                                <height>60</height>
+                                <font>font13</font>
+								<label> - Configure Widgets</label>
+                                <textcolor>grey2</textcolor>
+                                <focusedcolor>white</focusedcolor>
+								<include>MenuButton</include>
+								<onclick>SetProperty(UsrSelectBtn,HomeItem.14,Home)</onclick>
+								<onclick>ActivateWindow(2140)</onclick>
+							</control>
                             <control type="button" id="1335">
                                 <width>1125</width>
                                 <height>60</height>
@@ -4403,7 +4730,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label> - $LOCALIZE[32024]</label>
+                                <label> - Widget Layout</label>
                                 <label2>[COLOR=grey2]$VAR[UsrDefItemFourteenWidgetLayout][/COLOR]</label2>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
@@ -4450,7 +4777,28 @@
 								<onclick>SetProperty(SwapItemPlaylistContent,$INFO[Skin.String(HomeItem.14.PlaylistContent)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetFormat,$INFO[Skin.String(HomeItem.14.WidgetFormat)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetLayout,$INFO[Skin.String(HomeItem.14.WidgetLayout)],Home)</onclick>
-                                <onclick>ActivateWindow(1128)</onclick>
+                                
+								<onclick>SetProperty(SwapItemWidget1Name,$INFO[Skin.String(HomeItem.14.Widget1.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget1Widget,$INFO[Skin.String(HomeItem.14.Widget1.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Name,$INFO[Skin.String(HomeItem.14.Widget2.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Widget,$INFO[Skin.String(HomeItem.14.Widget2.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Name,$INFO[Skin.String(HomeItem.14.Widget3.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Widget,$INFO[Skin.String(HomeItem.14.Widget3.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Name,$INFO[Skin.String(HomeItem.14.Widget4.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Widget,$INFO[Skin.String(HomeItem.14.Widget4.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Name,$INFO[Skin.String(HomeItem.14.Widget5.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Widget,$INFO[Skin.String(HomeItem.14.Widget5.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Name,$INFO[Skin.String(HomeItem.14.Widget6.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Widget,$INFO[Skin.String(HomeItem.14.Widget6.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Name,$INFO[Skin.String(HomeItem.14.Widget7.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Widget,$INFO[Skin.String(HomeItem.14.Widget7.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Name,$INFO[Skin.String(HomeItem.14.Widget8.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Widget,$INFO[Skin.String(HomeItem.14.Widget8.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Name,$INFO[Skin.String(HomeItem.14.Widget9.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Widget,$INFO[Skin.String(HomeItem.14.Widget9.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Name,$INFO[Skin.String(HomeItem.14.Widget10.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Widget,$INFO[Skin.String(HomeItem.14.Widget10.Widget)],Home)</onclick>
+<onclick>ActivateWindow(1128)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.14.Label))</visible>
                             </control>
                             <control type="radiobutton" id="1338">
@@ -4458,7 +4806,7 @@
                                 <height>60</height>
                                 <font>font13</font>
                                 <align>left</align>
-                                <label> - $LOCALIZE[31944]</label>
+                                <label> - [COLOR chartreuse]Disable This Menu[/COLOR]</label>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
                                 <include>MenuButton</include>
@@ -4570,6 +4918,17 @@
                                 <onclick>ActivateWindow(2118)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.15.Label))</visible>
                             </control>
+							<control type="button" id="12059">
+                                <width>1125</width>
+                                <height>60</height>
+                                <font>font13</font>
+								<label> - Configure Widgets</label>
+                                <textcolor>grey2</textcolor>
+                                <focusedcolor>white</focusedcolor>
+								<include>MenuButton</include>
+								<onclick>SetProperty(UsrSelectBtn,HomeItem.15,Home)</onclick>
+								<onclick>ActivateWindow(2140)</onclick>
+							</control>
                             <control type="button" id="1345">
                                 <width>1125</width>
                                 <height>60</height>
@@ -4589,7 +4948,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label> - $LOCALIZE[32024]</label>
+                                <label> - Widget Layout</label>
                                 <label2>[COLOR=grey2]$VAR[UsrDefItemFifteenWidgetLayout][/COLOR]</label2>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
@@ -4636,7 +4995,28 @@
 								<onclick>SetProperty(SwapItemPlaylistContent,$INFO[Skin.String(HomeItem.15.PlaylistContent)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetFormat,$INFO[Skin.String(HomeItem.15.WidgetFormat)],Home)</onclick>
 								<onclick>SetProperty(SwapItemWidgetLayout,$INFO[Skin.String(HomeItem.15.WidgetLayout)],Home)</onclick>
-                                <onclick>ActivateWindow(1128)</onclick>
+                                
+								<onclick>SetProperty(SwapItemWidget1Name,$INFO[Skin.String(HomeItem.15.Widget1.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget1Widget,$INFO[Skin.String(HomeItem.15.Widget1.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Name,$INFO[Skin.String(HomeItem.15.Widget2.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget2Widget,$INFO[Skin.String(HomeItem.15.Widget2.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Name,$INFO[Skin.String(HomeItem.15.Widget3.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget3Widget,$INFO[Skin.String(HomeItem.15.Widget3.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Name,$INFO[Skin.String(HomeItem.15.Widget4.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget4Widget,$INFO[Skin.String(HomeItem.15.Widget4.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Name,$INFO[Skin.String(HomeItem.15.Widget5.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget5Widget,$INFO[Skin.String(HomeItem.15.Widget5.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Name,$INFO[Skin.String(HomeItem.15.Widget6.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget6Widget,$INFO[Skin.String(HomeItem.15.Widget6.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Name,$INFO[Skin.String(HomeItem.15.Widget7.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget7Widget,$INFO[Skin.String(HomeItem.15.Widget7.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Name,$INFO[Skin.String(HomeItem.15.Widget8.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget8Widget,$INFO[Skin.String(HomeItem.15.Widget8.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Name,$INFO[Skin.String(HomeItem.15.Widget9.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget9Widget,$INFO[Skin.String(HomeItem.15.Widget9.Widget)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Name,$INFO[Skin.String(HomeItem.15.Widget10.Name)],Home)</onclick>
+								<onclick>SetProperty(SwapItemWidget10Widget,$INFO[Skin.String(HomeItem.15.Widget10.Widget)],Home)</onclick>
+<onclick>ActivateWindow(1128)</onclick>
                                 <visible>!String.IsEmpty(Skin.String(HomeItem.15.Label))</visible>
                             </control>
                             <control type="radiobutton" id="1348">
@@ -4644,7 +5024,7 @@
                                 <height>60</height>
                                 <font>font13</font>
                                 <align>left</align>
-                                <label> - $LOCALIZE[31944]</label>
+                                <label> - [COLOR chartreuse]Disable This Menu[/COLOR]</label>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
                                 <include>MenuButton</include>
@@ -4696,6 +5076,21 @@
                             <param name="Label">$LOCALIZE[31336]$LOCALIZE[31156]</param>
                         </include>
                         <content>
+                            <item id="11">
+                                <label>$VAR[UsersSubSelectOneName] $LOCALIZE[31291]</label>
+                            </item>
+                            <item id="12">
+                                <label>$VAR[UsersSubSelectTwoName] $LOCALIZE[31291]</label>
+                            </item>
+                            <item id="13">
+                                <label>$VAR[UsersSubSelectThreeName] $LOCALIZE[31291]</label>
+                            </item>
+                            <item id="14">
+                                <label>$VAR[UsersSubSelectFourName] $LOCALIZE[31291]</label>
+                            </item>
+                            <item id="15">
+                                <label>$VAR[UsersSubSelectFiveName] $LOCALIZE[31291]</label>
+                            </item>							
                             <item id="1">
                                 <label>$VAR[UsersSubVideosName] $LOCALIZE[31291]</label>
                             </item>
@@ -4720,26 +5115,11 @@
                             <item id="8">
                                 <label>$VAR[UsersSubLiveTVName] $LOCALIZE[31291]</label>
                             </item>
-                            <item id="9">
-                                <label>$VAR[UsersSubRadioName] $LOCALIZE[31291]</label>
-                            </item>
                             <item id="10">
                                 <label>$VAR[UsersSubSettingsName] $LOCALIZE[31291]</label>
-                            </item>
-                            <item id="11">
-                                <label>$VAR[UsersSubSelectOneName] $LOCALIZE[31291]</label>
-                            </item>
-                            <item id="12">
-                                <label>$VAR[UsersSubSelectTwoName] $LOCALIZE[31291]</label>
-                            </item>
-                            <item id="13">
-                                <label>$VAR[UsersSubSelectThreeName] $LOCALIZE[31291]</label>
-                            </item>
-                            <item id="14">
-                                <label>$VAR[UsersSubSelectFourName] $LOCALIZE[31291]</label>
-                            </item>
-                            <item id="15">
-                                <label>$VAR[UsersSubSelectFiveName] $LOCALIZE[31291]</label>
+                            </item>							
+                            <item id="9">
+                                <label>$VAR[UsersSubRadioName] $LOCALIZE[31291]</label>
                             </item>
                         </content>
                     </control>
@@ -16508,18 +16888,6 @@
                             <param name="Label">$LOCALIZE[31336]$LOCALIZE[31156]</param>
                         </include>
                         <content>
-                            <item id="1">
-                                <label>$LOCALIZE[31091]</label>
-                            </item>
-                            <item id="2">
-                                <label>$LOCALIZE[31147]</label>
-                            </item>
-                            <item id="3">
-                                <label>$LOCALIZE[31920]</label>
-                            </item>
-                            <item id="4">
-                                <label>$LOCALIZE[31921]</label>
-                            </item>
                             <item id="5">
                                 <label>$LOCALIZE[31276]</label>
                             </item>
@@ -16528,9 +16896,6 @@
                             </item>
                             <item id="7">
                                 <label>$LOCALIZE[31304]</label>
-                            </item>
-                            <item id="8">
-                                <label>$LOCALIZE[31935]</label>
                             </item>
                             <item id="9">
                                 <label>$LOCALIZE[31455]</label>
@@ -17103,7 +17468,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label>$LOCALIZE[32004]</label>
+                                <label>Enable favourites script</label>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
                                 <include>MenuButton</include>
@@ -17115,7 +17480,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label>$LOCALIZE[32005]</label>
+                                <label>Enable video nodes stats script</label>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
                                 <include>MenuButton</include>
@@ -17295,7 +17660,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label>32043</label>
+                                <label>Enable use of extended info script</label>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
                                 <include>MenuButton</include>
@@ -17307,7 +17672,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label> - $LOCALIZE[32044]</label>
+                                <label> - Configure Extended Info</label>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
                                 <include>MenuButton</include>
@@ -17319,7 +17684,7 @@
                                 <width>1125</width>
                                 <height>60</height>
                                 <font>font13</font>
-                                <label> - $LOCALIZE[32045]</label>
+                                <label> - Open Extended Info for video dialogs</label>
                                 <textcolor>grey2</textcolor>
                                 <focusedcolor>white</focusedcolor>
                                 <include>MenuButton</include>
@@ -17800,7 +18165,7 @@
                         <textoffsetx>30</textoffsetx>
                         <textwidth>1095</textwidth>
                         <label>$LOCALIZE[31493]</label>
-                        <onclick>ActivateWindow(2121)</onclick>
+                        <onclick>RunPlugin(plugin://script.module.xenon4k/?mode=2)</onclick>
                         <include>Button1</include>
                         <pulseonselect>false</pulseonselect>
                     </control>

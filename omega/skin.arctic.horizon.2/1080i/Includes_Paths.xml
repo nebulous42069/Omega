@@ -250,6 +250,20 @@
         <value condition="!String.IsEmpty(Container(99950).ListItem.Property(Director.10.name)) + !String.IsEmpty(Container(99950).ListItem.Property(Director.10.job)) + String.IsEqual(Container(99950).ListItem.Property(Director.10.job),Director)">$INFO[Container(99950).ListItem.Property(Director.10.name)]</value>
         <value condition="!String.IsEmpty(Container(99950).ListItem.Property(Director.1.name))">$INFO[Container(99950).ListItem.Property(Director.1.name)]</value>
     </variable>
+    <variable name="Path_IMDb_Trailer_Season">
+        <value condition="[String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)] + !String.IsEmpty(ListItem.Season)">&amp;season=$INFO[ListItem.Season]</value>
+        <value condition="[String.IsEqual(Container(99950).ListItem.DBType,season) | String.IsEqual(Container(99950).ListItem.DBType,episode)] + !String.IsEmpty(Container(99950).ListItem.Season)">&amp;season=$INFO[Container(99950).ListItem.Season]</value>
+    </variable>
+
+    <variable name="Path_IMDb_Trailer">
+        <value condition="!String.IsEmpty(ListItem.Property(imdb_id))">plugin://plugin.video.imdb.trailers/?action=play_id&amp;imdb=$INFO[ListItem.Property(imdb_id)]$VAR[Path_IMDb_Trailer_Season]</value>
+        <value condition="!String.IsEmpty(ListItem.UniqueID(imdb))">plugin://plugin.video.imdb.trailers/?action=play_id&amp;imdb=$INFO[ListItem.UniqueID(imdb)]$VAR[Path_IMDb_Trailer_Season]</value>
+        <value condition="!String.IsEmpty(ListItem.IMDBNumber) + String.StartsWith(ListItem.IMDBNumber,tt)">plugin://plugin.video.imdb.trailers/?action=play_id&amp;imdb=$INFO[ListItem.IMDBNumber]$VAR[Path_IMDb_Trailer_Season]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(imdb_id))">plugin://plugin.video.imdb.trailers/?action=play_id&amp;imdb=$INFO[Container(99950).ListItem.Property(imdb_id)]$VAR[Path_IMDb_Trailer_Season]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.UniqueID(imdb))">plugin://plugin.video.imdb.trailers/?action=play_id&amp;imdb=$INFO[Container(99950).ListItem.UniqueID(imdb)]$VAR[Path_IMDb_Trailer_Season]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.IMDBNumber) + String.StartsWith(Container(99950).ListItem.IMDBNumber,tt)">plugin://plugin.video.imdb.trailers/?action=play_id&amp;imdb=$INFO[Container(99950).ListItem.IMDBNumber]$VAR[Path_IMDb_Trailer_Season]</value>
+    </variable>
+
     <variable name="Path_Youtube_Query">
         <value condition="[String.IsEqual(ListItem.DBType,set) | ListItem.IsCollection] + !String.IsEmpty(ListItem.Set)">$INFO[ListItem.Set]</value>
         <value condition="String.IsEqual(ListItem.DBType,movie) + !String.IsEmpty(ListItem.Title)">$INFO[ListItem.Title]$INFO[ListItem.Year, ,] Movie</value>
@@ -270,7 +284,7 @@
     </variable>
 
     <variable name="Path_Youtube">
-        <value>$VAR[Path_Youtube_Query,plugin://plugin.video.youtube/search/?q=,&amp;search_type=notvalid]</value>
+        <value>$VAR[Path_Youtube_Query,plugin://plugin.video.imdb.trailers/?action=search_word&amp;keyword=,]</value>
     </variable>
 
     <variable name="Path_Wikipedia_Title">

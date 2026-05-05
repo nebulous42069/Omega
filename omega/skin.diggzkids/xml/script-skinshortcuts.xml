@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <window>
-	<defaultcontrol always="true">90010</defaultcontrol>
+	<defaultcontrol>90010</defaultcontrol>
 	<onload>ClearProperty(DefaultMenuPosition,Home)</onload>
 	<onload>ClearProperty(skinshortcuts-Widget,Home)</onload>
 	<onunload>ClearProperty(skinshortcuts-Widget,Home)</onunload>

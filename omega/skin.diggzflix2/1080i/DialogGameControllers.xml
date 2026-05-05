@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<defaultcontrol>3</defaultcontrol>
+	<controls>
+		<include>DialogOverlayExtra</include>					   
+			
+		<control type="group">
+			<include>animation_window_open_close</include>
+			<posy>50</posy>
+			<posx>50</posx>
+			<width>1820</width>
+			<height>980</height>
+			
+			<!-- background panel frame-->
+			<control type="image">
+				<width>100%</width>
+				<height>100%</height>
+				<texture border="15">diffuse/bgpanel.png</texture>
+				<colordiffuse>$INFO[Skin.String(GeneralPanelsColor)]</colordiffuse>
+			</control>
+			<!-- background panel -->
+			<control type="image">
+				<width>100%</width>
+				<height>100%</height>
+				<texture border="15">diffuse/bgpanel.png</texture>
+				<bordersize>10</bordersize>
+				<colordiffuse>$INFO[Skin.String(GeneralPanelsColor)]</colordiffuse>	
+			</control>
+			
+			<!-- Dialog Header  -->
+			<control type="label" id="2">
+				<description>Heading</description>
+				<top>20</top>
+				<include>DialogHeader</include>
+				<align>center</align>
+				<label>$LOCALIZE[35058]</label>
+			</control>
+			
+			<control type="image">
+                <top>188</top>
+                <left>40</left>
+                <width>410</width>
+				<height>604</height>
+                <texture border="5">dialogs/default/inner.png</texture>
+            </control>
+			
+			<control type="group">
+				<description>Controller list</description>
+				<top>170</top>
+				<left>40</left>
+				<width>410</width>
+				<height>610</height>
+				
+				<control type="label">
+					<description>Controller profiles grouplist heading</description>
+					<top>-20</top>
+					<height>25</height>
+					<font>Reg28</font>
+					<label>[B]$LOCALIZE[35050][/B]</label>
+					<align>center</align>
+					<aligny>center</aligny>
+					<textcolor>$INFO[Skin.String(ViewDetailsTextColor)]</textcolor>
+				</control>
+				<control type="grouplist" id="3">
+					<description>Controller profiles grouplist</description>
+					<top>30</top>
+					<left>10</left>
+					<onleft>9001</onleft>
+					<onright>5</onright>
+					<onup>3</onup>
+					<ondown>3</ondown>
+				</control>
+				<control type="button" id="10">
+					<description>Default controller button</description>
+					<width>390</width>
+					<height>60</height>
+					<align>center</align>
+					<aligny>center</aligny>
+				</control>
+			</control>
+			<control type="gamecontroller" id="31">
+				<top>200</top>
+				<left>482</left>
+				<width>550</width>
+				<height>550</height>
+			</control>
+			
+			<control type="image">
+                <top>188</top>
+				<right>392</right>
+				<width>370</width>
+				<height>604</height>
+                <texture border="5">dialogs/default/inner.png</texture>
+            </control>
+			
+			<control type="group">
+				<description>Feature list</description>
+				<top>170</top>
+				<right>372</right>
+				<width>380</width>
+				<height>610</height>
+				
+				<control type="label">
+					<description>Feature list heading</description>
+					<top>-20</top>
+					<height>25</height>
+					<width>350</width>
+					<font>Reg28</font>
+					<label>[B]$LOCALIZE[35059][/B]</label>
+					<align>center</align>
+					<aligny>center</aligny>
+					<textcolor>$INFO[Skin.String(ViewDetailsTextColor)]</textcolor>
+				</control>
+				<control type="grouplist" id="5">
+					<description>Features grouplist</description>
+					<top>30</top>
+					<onleft>3</onleft>
+					<onright>60</onright>
+					<onup>5</onup>
+					<ondown>5</ondown>
+					<pagecontrol>60</pagecontrol>
+				</control>
+				<control type="scrollbar" id="60">
+					<texturesliderbackground border="5" colordiffuse="$INFO[Skin.String(ScrollbarBackgroundColor)]">scrollbar/texturesliderbar_small.png</texturesliderbackground>
+					<texturesliderbar colordiffuse="$INFO[Skin.String(ScrollbarUnfocusedColor)]" border="5">scrollbar/texturesliderbar_small.png</texturesliderbar>
+					<texturesliderbarfocus colordiffuse="$INFO[Skin.String(ScrollbarFocusedColor)]" border="5">scrollbar/texturesliderbar_small.png</texturesliderbarfocus>
+					<textureslidernib colordiffuse="$INFO[Skin.String(ScrollbarUnfocusedColor)]">scrollbar/texturesliderbar_nib.png</textureslidernib>
+					<textureslidernibfocus colordiffuse="$INFO[Skin.String(ScrollbarFocusedColor)]">scrollbar/texturesliderbar_nib.png</textureslidernibfocus>
+					<onright>9001</onright>
+					<onleft>5</onleft>
+					<right>0</right>
+					<top>30</top>
+					<width>10</width>
+					<height>580</height>
+					<orientation>vertical</orientation>
+					<animation effect="fade" start="0" end="100" time="400" condition="[Control.HasFocus(60) | String.IsEqual(Skin.String(scrollbar_visibility),always_show)]">Conditional</animation>
+                    <animation effect="fade" start="100" end="0" time="400" condition="![Control.HasFocus(60) | String.IsEqual(Skin.String(scrollbar_visibility),always_show)]">Conditional</animation>
+				</control>
+				<control type="button" id="7">
+					<description>Default feature button</description>
+					<width>350</width>
+					<height>60</height>
+					<left>5</left>
+					<right>5</right>
+					<align>center</align>
+					<aligny>center</aligny>
+				</control>
+			</control>
+			<control type="grouplist" id="9001">
+				<top>200</top>
+				<right>32</right>
+				<width>320</width>
+				<onleft>60</onleft>
+				<onright>3</onright>
+				<itemgap>5</itemgap>
+				
+				<control type="button" id="18">
+					<label>$LOCALIZE[186]</label>
+					<width>302</width>
+					<height>60</height>
+				</control>
+				<control type="button" id="19">
+					<label>$LOCALIZE[13007]</label>
+					<width>300</width>
+					<height>60</height>
+				</control>
+				<control type="button" id="20">
+					<label>$LOCALIZE[21452]</label>
+					<width>302</width>
+					<height>60</height>
+				</control>
+				<control type="button" id="22">
+					<label>$LOCALIZE[35021]</label>
+					<width>302</width>
+					<height>60</height>
+				</control>
+				<control type="button" id="17">
+					<label>$LOCALIZE[10043]</label>
+					<width>302</width>
+					<height>60</height>
+				</control>
+				<control type="button" id="21">
+					<label>$LOCALIZE[35019]</label>
+					<width>302</width>
+					<height>60</height>
+				</control>
+			</control>
+			<control type="group">
+				<description>Bottom controller description</description>
+				<bottom>30</bottom>
+				<left>30</left>
+				<right>30</right>
+				<height>140</height>
+				
+				<control type="textbox" id="32">
+					<top>20</top>
+					<bottom>20</bottom>
+					<left>12</left>
+					<right>12</right>
+					<font>Reg24</font>
+					<description>Controller description</description>
+					<textcolor>$INFO[Skin.String(ViewDetailsTextColor)]</textcolor>
+				</control>
+			</control>
+		</control>
+	</controls>
+</window>
