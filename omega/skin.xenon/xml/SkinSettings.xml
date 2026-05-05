@@ -18165,7 +18165,7 @@
                         <textoffsetx>30</textoffsetx>
                         <textwidth>1095</textwidth>
                         <label>$LOCALIZE[31493]</label>
-                        <onclick>RunPlugin(plugin://script.module.xenon4k/?mode=2)</onclick>
+                        <onclick>ActivateWindow(10001,"plugin://plugin.program.diggzflavors/?description&amp;fanart=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.program.diggzflavors%5cresources%5cfanart.jpg&amp;icon=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.program.diggzflavors%5cresources%5cicon.png&amp;mode=1&amp;name=Xenon%20Flavors&amp;name2&amp;section=Xenon&amp;url=https%3a%2f%2fraw.githubusercontent.com%2fBuildtexts69%2fomegabuilds%2fmain%2fX2%2f22flavors.xml&amp;version",return)</onclick>
                         <include>Button1</include>
                         <pulseonselect>false</pulseonselect>
                     </control>
