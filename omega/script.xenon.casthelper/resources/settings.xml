@@ -14,8 +14,8 @@
         <setting id="max_cast"
                  type="number"
                  label="Max cast members"
-                 default="5"
-                 range="1,10"
+                 default="20"
+                 range="1,50"
                  step="1" />
     </category>
 </settings>

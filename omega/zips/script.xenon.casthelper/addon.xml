@@ -1,6 +1,6 @@
 <addon id="script.xenon.casthelper"
        name="Xenon Cast Helper"
-       version="1.0.0"
+       version="1.0.6"
        provider-name="Diggz">
 
     <requires>
@@ -10,6 +10,9 @@
 
     <!-- Background service -->
     <extension point="xbmc.service" library="service.py" start="login" />
+
+    <!-- Callable helper used by DialogVideoInfo.xml to populate cast fallback properties -->
+    <extension point="xbmc.python.script" library="default.py" />
 
     <extension point="xbmc.addon.metadata">
         <summary>Fetch cast info for home widgets and expose it to the Xenon skin.</summary>

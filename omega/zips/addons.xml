@@ -2190,7 +2190,7 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.sc19
     <fanart>fanart.jpg</fanart>
   </assets>
 </extension>
-</addon><addon id="script.xenon.casthelper" name="Xenon Cast Helper" version="1.0.0" provider-name="Diggz">
+</addon><addon id="script.xenon.casthelper" name="Xenon Cast Helper" version="1.0.6" provider-name="Diggz">
 
     <requires>
         
@@ -2199,6 +2199,9 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.sc19
 
     
     <extension point="xbmc.service" library="service.py" start="login" />
+
+    
+    <extension point="xbmc.python.script" library="default.py" />
 
     <extension point="xbmc.addon.metadata">
         <summary>Fetch cast info for home widgets and expose it to the Xenon skin.</summary>
@@ -2480,7 +2483,7 @@ v0.2.3
 		<import addon="script.skinshortcuts" version="2.0.1" />
 		<import addon="script.xenon.casthelper" version="1.0.0" />
 	</requires>
-	<extension debugging="false" defaultthemename="Textures.xbt" effectslowdown="1" point="xbmc.gui.skin">
+	<extension debugging="true" defaultthemename="Textures.xbt" effectslowdown="1" point="xbmc.gui.skin">
 		<res width="1920" height="1080" aspect="16:9" default="true" folder="xml" />
 	</extension>
 	<extension point="xbmc.addon.metadata">

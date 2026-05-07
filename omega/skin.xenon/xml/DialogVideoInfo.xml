@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <window>
-	<defaultcontrol>8</defaultcontrol>
+	<defaultcontrol always="true">8</defaultcontrol>
 
 	<coordinates>
 		<left>0</left>
@@ -9,11 +9,36 @@
 	<include>dialogeffect</include>
 	<depth>DepthDialog+</depth>
 	
+	<onload>ClearProperty(DVI.ShowCast,home)</onload>
+	<onload>ClearProperty(DVI.PersonTmdbId,home)</onload>
+	<onload condition="![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + String.IsEqual(ListItem.DBType,movie)">SetProperty(DVI.OriginTmdbType,movie,home)</onload>
+	<onload condition="![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + String.IsEqual(ListItem.DBType,tvshow)">SetProperty(DVI.OriginTmdbType,tv,home)</onload>
+	<onload condition="![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + String.IsEqual(ListItem.DBType,episode)">SetProperty(DVI.OriginTmdbType,tv,home)</onload>
+	<onload condition="![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + !String.IsEmpty(ListItem.DBID)">SetProperty(DVI.OriginDbid,$INFO[ListItem.DBID],home)</onload>
+	<onload condition="![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + !String.IsEmpty(ListItem.UniqueID(tmdb))">SetProperty(DVI.OriginTmdbId,$INFO[ListItem.UniqueID(tmdb)],home)</onload>
+	<onload condition="![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + String.IsEmpty(ListItem.UniqueID(tmdb)) + !String.IsEmpty(ListItem.Property(tmdb_id))">SetProperty(DVI.OriginTmdbId,$INFO[ListItem.Property(tmdb_id)],home)</onload>
+	<onload condition="[String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + !String.IsEmpty(ListItem.Property(TMDb_ID))">SetProperty(DVI.PersonTmdbId,$INFO[ListItem.Property(TMDb_ID)],home)</onload>
+	<onload condition="[String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + String.IsEmpty(ListItem.Property(TMDb_ID)) + !String.IsEmpty(ListItem.Property(tmdb_id))">SetProperty(DVI.PersonTmdbId,$INFO[ListItem.Property(tmdb_id)],home)</onload>
+	<onunload>ClearProperty(DVI.ShowCast,home)</onunload>
+	<onunload>ClearProperty(DVI.PersonTmdbId,home)</onunload>
+	
 	<onload condition="System.AddonIsEnabled(script.extendedinfo) + Skin.HasSetting(AutoExtendedInfo)">Dialog.Close(all)</onload>
 	<onload condition="System.AddonIsEnabled(script.extendedinfo) + Skin.HasSetting(AutoExtendedInfo) + String.IsEqual(ListItem.DBType,movie)">RunScript(script.extendedinfo,info=extendedinfo,dbid=$INFO[ListItem.DBID],id=$INFO[ListItem.UniqueID(tmdb)],imdb_id=$INFO[ListItem.IMDBNumber],name=$INFO[Listitem.Title])</onload>
 	<onload condition="System.AddonIsEnabled(script.extendedinfo) + Skin.HasSetting(AutoExtendedInfo) + String.IsEqual(ListItem.DBType,tvshow)">RunScript(script.extendedinfo,info=extendedtvinfo,dbid=$INFO[ListItem.DBID],id=$INFO[ListItem.UniqueID(tmdb)],tvdb_id=$INFO[ListItem.UniqueID(tvdb)],name=$INFO[Listitem.Title])</onload>
 	<onload condition="System.AddonIsEnabled(script.extendedinfo) + Skin.HasSetting(AutoExtendedInfo) + String.IsEqual(ListItem.DBType,season)">RunScript(script.extendedinfo,info=seasoninfo,tvshow=$INFO[Listitem.TVShowTitle],season=$INFO[ListItem.Season])</onload>
 	<onload condition="System.AddonIsEnabled(script.extendedinfo) + Skin.HasSetting(AutoExtendedInfo) + String.IsEqual(ListItem.DBType,episode)">RunScript(script.extendedinfo,info=extendedepisodeinfo,tvshow=$INFO[Listitem.TVShowTitle],season=$INFO[ListItem.Season],episode=$INFO[ListItem.Episode])</onload>
+	<onload condition="System.HasAddon(script.xenon.casthelper) + ![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)]">RunScript(script.xenon.casthelper,mode=videoinfo,tmdb=$INFO[ListItem.UniqueID(tmdb)],tmdbprop=$INFO[ListItem.Property(tmdb_id)],tmdbshow=$INFO[ListItem.Property(tmdbshow_id)],imdb=$INFO[ListItem.IMDBNumber],dbtype=$INFO[ListItem.DBType],season=$INFO[ListItem.Season],episode=$INFO[ListItem.Episode])</onload>
+	<!-- Normal video-info pages should always land on a stable focusable control.
+	     This also prevents Back from falling through to a stale TMDb person DialogVideoInfo instance underneath. -->
+	<onload condition="![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + !String.IsEqual(Window(Home).Property(DVI.ReturnToCast),true)">SetFocus(8)</onload>
+	<!-- When returning from a TMDb person page, reopen the original movie/show info and focus Play/Browse rather than the Cast row.
+	     Focusing Cast again can leave the person page underneath and causes Back to loop between the two dialogs. -->
+	<onload condition="![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + String.IsEqual(Window(Home).Property(DVI.ReturnToCast),true)">ClearProperty(DVI.ShowCast,home)</onload>
+	<onload condition="![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + String.IsEqual(Window(Home).Property(DVI.ReturnToCast),true)">SetFocus(8)</onload>
+	<onload condition="![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + String.IsEqual(Window(Home).Property(DVI.ReturnToCast),true)">ClearProperty(DVI.ReturnToCast,home)</onload>
+	<!-- Person pages need a static initial focus for remote navigation.
+	     The dynamic TMDb credit rows may not have content yet during onload. -->
+	<onload condition="[String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)]">SetFocus(8005)</onload>
 	
 	<controls>
 		<control type="group">
@@ -70,7 +95,7 @@
 					<itemgap>3</itemgap>
 					<orientation>horizontal</orientation>
 					<include>VisibleFadeEffect</include>
-					<visible>!Control.IsVisible(50) + [String.IsEqual(ListItem.DBTYPE,movie) | String.IsEqual(ListItem.DBTYPE,episode) | String.IsEqual(ListItem.DBTYPE,musicvideo)] + !Control.HasFocus(15)</visible>
+					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + !Control.IsVisible(50) + [String.IsEqual(ListItem.DBTYPE,movie) | String.IsEqual(ListItem.DBTYPE,episode) | String.IsEqual(ListItem.DBTYPE,musicvideo)] + !Control.HasFocus(15)</visible>
 					<include>VideoCodecFlaggingConditions</include>
 					<include>AudioCodecFlaggingConditions</include>
 					<include>AudioChannelsFlaggingConditions</include>
@@ -81,7 +106,7 @@
 				<control type="group">
 					<top>135</top>
 					<left>200</left>
-					<visible>Control.HasFocus(15)</visible>
+					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + Control.HasFocus(15)</visible>
 					<include>VisibleFadeEffect</include>
 					<control type="image">
 						<description>Border</description>
@@ -121,7 +146,7 @@
 					</control>
 				</control>
 				<control type="group">
-					<visible>[!String.IsEqual(ListItem.DBTYPE,tvshow) + !String.IsEqual(ListItem.DBTYPE,episode) + !String.IsEqual(ListItem.DBTYPE,musicvideo)] + ![Control.HasFocus(12) | Control.HasFocus(15)]</visible>
+					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + [!String.IsEqual(ListItem.DBTYPE,tvshow) + !String.IsEqual(ListItem.DBTYPE,episode) + !String.IsEqual(ListItem.DBTYPE,musicvideo)] + ![Control.HasFocus(12) | Control.HasFocus(15)]</visible>
 					<top>135</top>
 					<left>60</left>
 					<include>VisibleFadeEffect</include>
@@ -145,6 +170,7 @@
 						<colordiffuse>AAFFFFFF</colordiffuse>
 					</control>
 					<control type="list" id="49">
+						<onfocus>ClearProperty(DVI.ShowCast,home)</onfocus>
 						<left>435</left>
 						<top>-6</top>
 						<width>975</width>
@@ -153,7 +179,7 @@
 						<onright>49</onright>
 						<onup>9000</onup>
 						<ondown>61</ondown>
-						<pagecontrol></pagecontrol>
+						<pagecontrol/>
 						<scrolltime>200</scrolltime>
 						<itemlayout height="45">
 							<control type="label">
@@ -327,7 +353,7 @@
 					</control>
 				</control>
 				<control type="group">
-					<visible>String.IsEqual(ListItem.DBTYPE,tvshow) + !Control.HasFocus(12) + !Control.HasFocus(15)</visible>
+					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + String.IsEqual(ListItem.DBTYPE,tvshow) + !Control.HasFocus(12) + !Control.HasFocus(15)</visible>
 					<top>135</top>
 					<left>60</left>
 					<include>VisibleFadeEffect</include>
@@ -351,6 +377,7 @@
 						<colordiffuse>AAFFFFFF</colordiffuse>
 					</control>
 					<control type="list" id="49">
+						<onfocus>ClearProperty(DVI.ShowCast,home)</onfocus>
 						<left>435</left>
 						<top>30</top>
 						<width>975</width>
@@ -359,7 +386,7 @@
 						<onright>49</onright>
 						<onup>9000</onup>
 						<ondown>61</ondown>
-						<pagecontrol></pagecontrol>
+						<pagecontrol/>
 						<scrolltime>200</scrolltime>
 						<itemlayout height="45">
 							<control type="label">
@@ -496,7 +523,7 @@
 					</control>
 				</control>
 				<control type="group">
-					<visible>String.IsEqual(ListItem.DBTYPE,episode) + !Control.HasFocus(12)</visible>
+					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + String.IsEqual(ListItem.DBTYPE,episode) + !Control.HasFocus(12)</visible>
 					<top>135</top>
 					<left>60</left>
 					<include>VisibleFadeEffect</include>
@@ -521,6 +548,7 @@
 						<texture background="true" flipy="true" diffuse="diffuse_mirror2.png">$INFO[ListItem.Icon]</texture>
 					</control>
 					<control type="list" id="49">
+						<onfocus>ClearProperty(DVI.ShowCast,home)</onfocus>
 						<left>585</left>
 						<top>0</top>
 						<width>825</width>
@@ -529,7 +557,7 @@
 						<onright>49</onright>
 						<onup>9000</onup>
 						<ondown>61</ondown>
-						<pagecontrol></pagecontrol>
+						<pagecontrol/>
 						<scrolltime>200</scrolltime>
 						<itemlayout height="45">
 							<control type="label">
@@ -694,7 +722,7 @@
 					</control>
 				</control>
 				<control type="group">
-					<visible>String.IsEqual(ListItem.DBTYPE,musicvideo) + !Control.HasFocus(12)</visible>
+					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + String.IsEqual(ListItem.DBTYPE,musicvideo) + !Control.HasFocus(12)</visible>
 					<top>135</top>
 					<left>60</left>
 					<include>VisibleFadeEffect</include>
@@ -709,6 +737,7 @@
 						<texture background="true">$INFO[ListItem.Icon]</texture>
 					</control>
 					<control type="list" id="49">
+						<onfocus>ClearProperty(DVI.ShowCast,home)</onfocus>
 						<left>585</left>
 						<top>30</top>
 						<width>825</width>
@@ -717,7 +746,7 @@
 						<onright>49</onright>
 						<onup>9000</onup>
 						<ondown>61</ondown>
-						<pagecontrol></pagecontrol>
+						<pagecontrol/>
 						<scrolltime>200</scrolltime>
 						<itemlayout height="45">
 							<control type="label">
@@ -843,6 +872,63 @@
 						<texture>separator.png</texture>
 					</control>
 				</control>
+				<control type="label">
+					<right>250</right>
+					<top>720</top>
+					<width>600</width>
+					<height>45</height>
+					<font>font14_title</font>
+					<textcolor>grey2</textcolor>
+					<shadowcolor>black</shadowcolor>
+					<scroll>true</scroll>
+					<align>right</align>
+					<aligny>center</aligny>
+					<label>[COLOR=$VAR[MainColorOne]]$LOCALIZE[207][/COLOR]$INFO[Container(400).CurrentPage, ( $LOCALIZE[31024] ]$INFO[Container(400).NumPages,/, )]</label>
+					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + Control.IsVisible(400) + !Control.HasFocus(15)</visible>
+				</control>
+				<control type="label">
+					<right>250</right>
+					<top>720</top>
+					<width>600</width>
+					<height>45</height>
+					<font>font14_title</font>
+					<textcolor>grey2</textcolor>
+					<shadowcolor>black</shadowcolor>
+					<scroll>true</scroll>
+					<align>right</align>
+					<aligny>center</aligny>
+					<label>[COLOR=$VAR[MainColorOne]]$LOCALIZE[206][/COLOR]$INFO[Container(50).CurrentPage, ( $LOCALIZE[31024] ]$INFO[Container(50).NumPages,/, )]</label>
+					<visible>false</visible>
+				</control>
+				<control type="label">
+					<right>250</right>
+					<top>720</top>
+					<width>600</width>
+					<height>45</height>
+					<font>font14_title</font>
+					<textcolor>grey2</textcolor>
+					<shadowcolor>black</shadowcolor>
+					<scroll>true</scroll>
+					<align>right</align>
+					<aligny>center</aligny>
+					<label>[COLOR=$VAR[MainColorOne]]$LOCALIZE[206][/COLOR]$INFO[Container(5050).CurrentPage, ( $LOCALIZE[31024] ]$INFO[Container(5050).NumPages,/, )]</label>
+					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + [Control.HasFocus(5505) | Control.HasFocus(5050) | String.IsEqual(Window(Home).Property(DVI.ShowCast),true)] + !String.IsEmpty(Window(Home).Property(MyCast.1.Name)) + !Control.HasFocus(15)</visible>
+				</control>
+				<control type="spincontrol" id="61">
+					<description>Next page button</description>
+						<onfocus>ClearProperty(DVI.ShowCast,home)</onfocus>
+					<left>180r</left>
+					<top>650</top>
+					<subtype>page</subtype>
+					<font/>
+					<onleft>61</onleft>
+					<onright>61</onright>
+					<ondown>9000</ondown>
+					<onup>49</onup>
+					<textcolor/>
+					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + !Control.HasFocus(15)</visible>
+					<showonepage>true</showonepage>
+				</control>
 				<control type="textbox" id="400">
 					<description>Description Value for Movies</description>
 					<left>60</left>
@@ -856,11 +942,787 @@
 					<label>$VAR[VideoDescription]</label>
 					<include condition="Skin.HasSetting(AutoScroll) + !Skin.HasSetting(AutoScroll.Slow)">StandardAutoScroll</include>
 					<include condition="Skin.HasSetting(AutoScroll) + Skin.HasSetting(AutoScroll.Slow)">SlowerAutoScroll</include>
-					<visible>!Control.IsVisible(50) + !Control.HasFocus(15)</visible>
+					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + ![Control.HasFocus(5505) | Control.HasFocus(50) | Control.HasFocus(5050) | String.IsEqual(Window(Home).Property(DVI.ShowCast),true)] + !Control.HasFocus(15)</visible>
 				</control>
+				<control type="panel" id="50">
+					<description>Kodi built-in cast row disabled; CastHelper row 5050 is used for TMDb person lookups</description>
+					<onfocus>SetProperty(DVI.ShowCast,true,home)</onfocus>
+					<left>60</left>
+					<top>750</top>
+					<width>1810</width>
+					<height>220</height>
+					<onleft>9000</onleft>
+					<onright>50</onright>
+					<onup>61</onup>
+					<ondown>9000</ondown>
+					<onclick condition="System.HasAddon(script.xenon.casthelper) + System.HasAddon(plugin.video.themoviedb.helper)">RunScript(script.xenon.casthelper,mode=openperson,person='$ESCINFO[ListItem.Label]',tmdb=$INFO[Window(Home).Property(DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(DVI.OriginTmdbType)])</onclick>
+					<onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[ListItem.Label]')</onclick>
+					<oninfo condition="System.HasAddon(script.xenon.casthelper) + System.HasAddon(plugin.video.themoviedb.helper)">RunScript(script.xenon.casthelper,mode=openperson,person='$ESCINFO[ListItem.Label]',tmdb=$INFO[Window(Home).Property(DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(DVI.OriginTmdbType)])</oninfo>
+					<oninfo condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[ListItem.Label]')</oninfo>
+					<visible>false</visible>
+					<viewtype label="">list</viewtype>
+					<pagecontrol>61</pagecontrol>
+					<scrolltime>200</scrolltime>
+					<orientation>horizontal</orientation>
+					<itemlayout height="220" width="200">
+						<control type="image">
+							<left>8</left>
+							<top>0</top>
+							<width>184</width>
+							<height>220</height>
+							<texture border="5">button-nofocus.png</texture>
+						</control>
+						<control type="image">
+							<left>18</left>
+							<top>10</top>
+							<width>164</width>
+							<height>164</height>
+							<aspectratio>scale</aspectratio>
+							<texture background="true">$INFO[ListItem.Icon]</texture>
+						</control>
+						<control type="label">
+							<description>Actor Name</description>
+							<left>12</left>
+							<top>176</top>
+							<width>176</width>
+							<height>24</height>
+							<font>font12</font>
+							<align>center</align>
+							<aligny>center</aligny>
+							<textcolor>white</textcolor>
+							<selectedcolor>white</selectedcolor>
+							<scroll>true</scroll>
+							<label>$INFO[ListItem.Label]</label>
+						</control>
+						<control type="label">
+							<description>Actor Role</description>
+							<left>12</left>
+							<top>198</top>
+							<width>176</width>
+							<height>20</height>
+							<font>font10</font>
+							<align>center</align>
+							<aligny>center</aligny>
+							<textcolor>grey2</textcolor>
+							<selectedcolor>white</selectedcolor>
+							<scroll>true</scroll>
+							<label>$INFO[ListItem.Label2]</label>
+							<visible>!String.IsEmpty(ListItem.Label2)</visible>
+						</control>
+					</itemlayout>
+					<focusedlayout height="220" width="200">
+						<control type="image">
+							<left>8</left>
+							<top>0</top>
+							<width>184</width>
+							<height>220</height>
+							<visible>!Control.HasFocus(50) + !Control.HasFocus(5050)</visible>
+							<texture border="5">button-nofocus.png</texture>
+						</control>
+						<control type="image">
+							<left>8</left>
+							<top>0</top>
+							<width>184</width>
+							<height>220</height>
+							<visible>Control.HasFocus(50) | Control.HasFocus(5050)</visible>
+							<texture border="5" colordiffuse="$VAR[MainColorOne]">$VAR[SelectButton2]</texture>
+						</control>
+						<control type="image">
+							<left>18</left>
+							<top>10</top>
+							<width>164</width>
+							<height>164</height>
+							<aspectratio>scale</aspectratio>
+							<texture background="true">$INFO[ListItem.Icon]</texture>
+						</control>
+						<control type="label">
+							<description>Actor Name</description>
+							<left>12</left>
+							<top>176</top>
+							<width>176</width>
+							<height>24</height>
+							<font>font12</font>
+							<align>center</align>
+							<aligny>center</aligny>
+							<textcolor>white</textcolor>
+							<selectedcolor>white</selectedcolor>
+							<scroll>true</scroll>
+							<label>$INFO[ListItem.Label]</label>
+						</control>
+						<control type="label">
+							<description>Actor Role</description>
+							<left>12</left>
+							<top>198</top>
+							<width>176</width>
+							<height>20</height>
+							<font>font10</font>
+							<align>center</align>
+							<aligny>center</aligny>
+							<textcolor>grey2</textcolor>
+							<selectedcolor>white</selectedcolor>
+							<scroll>true</scroll>
+							<label>$INFO[ListItem.Label2]</label>
+							<visible>!String.IsEmpty(ListItem.Label2)</visible>
+						</control>
+					</focusedlayout>
+				</control>
+				<control type="panel" id="5050">
+					<description>CastHelper cast row. Actor clicks are routed through script.xenon.casthelper mode=openperson so the original DialogVideoInfo is closed before TMDb Helper opens the person page.</description>
+					<onfocus>SetProperty(DVI.ShowCast,true,home)</onfocus>
+					<left>60</left>
+					<top>750</top>
+					<width>1810</width>
+					<height>220</height>
+					<onleft>9000</onleft>
+					<onright>5050</onright>
+					<onup>61</onup>
+					<ondown>9000</ondown>
+					<onback>ClearProperty(DVI.ShowCast,home)</onback>
+					<onback>Dialog.Close(all,true)</onback>
+					<onclick condition="System.HasAddon(script.xenon.casthelper) + System.HasAddon(plugin.video.themoviedb.helper)">RunScript(script.xenon.casthelper,mode=openperson,person='$ESCINFO[ListItem.Label]',tmdb=$INFO[Window(Home).Property(DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(DVI.OriginTmdbType)])</onclick>
+					<onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[ListItem.Label]')</onclick>
+					<oninfo condition="System.HasAddon(script.xenon.casthelper) + System.HasAddon(plugin.video.themoviedb.helper)">RunScript(script.xenon.casthelper,mode=openperson,person='$ESCINFO[ListItem.Label]',tmdb=$INFO[Window(Home).Property(DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(DVI.OriginTmdbType)])</oninfo>
+					<oninfo condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[ListItem.Label]')</oninfo>
+					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + [Control.HasFocus(5505) | Control.HasFocus(5050) | String.IsEqual(Window(Home).Property(DVI.ShowCast),true)] + !String.IsEmpty(Window(Home).Property(MyCast.1.Name)) + !Control.HasFocus(15)</visible>
+					<viewtype label="">list</viewtype>
+					<pagecontrol>61</pagecontrol>
+					<scrolltime>200</scrolltime>
+					<orientation>horizontal</orientation>
+					<itemlayout height="220" width="200">
+						<control type="image">
+							<left>8</left>
+							<top>0</top>
+							<width>184</width>
+							<height>220</height>
+							<texture border="5">button-nofocus.png</texture>
+						</control>
+						<control type="image">
+							<left>18</left>
+							<top>10</top>
+							<width>164</width>
+							<height>164</height>
+							<aspectratio>scale</aspectratio>
+							<texture background="true">$INFO[ListItem.Icon]</texture>
+						</control>
+						<control type="label">
+							<description>Actor Name</description>
+							<left>12</left>
+							<top>176</top>
+							<width>176</width>
+							<height>24</height>
+							<font>font12</font>
+							<align>center</align>
+							<aligny>center</aligny>
+							<textcolor>white</textcolor>
+							<selectedcolor>white</selectedcolor>
+							<scroll>true</scroll>
+							<label>$INFO[ListItem.Label]</label>
+						</control>
+						<control type="label">
+							<description>Actor Role</description>
+							<left>12</left>
+							<top>198</top>
+							<width>176</width>
+							<height>20</height>
+							<font>font10</font>
+							<align>center</align>
+							<aligny>center</aligny>
+							<textcolor>grey2</textcolor>
+							<selectedcolor>white</selectedcolor>
+							<scroll>true</scroll>
+							<label>$INFO[ListItem.Label2]</label>
+							<visible>!String.IsEmpty(ListItem.Label2)</visible>
+						</control>
+					</itemlayout>
+					<focusedlayout height="220" width="200">
+						<control type="image">
+							<left>8</left>
+							<top>0</top>
+							<width>184</width>
+							<height>220</height>
+							<visible>!Control.HasFocus(50) + !Control.HasFocus(5050)</visible>
+							<texture border="5">button-nofocus.png</texture>
+						</control>
+						<control type="image">
+							<left>8</left>
+							<top>0</top>
+							<width>184</width>
+							<height>220</height>
+							<visible>Control.HasFocus(50) | Control.HasFocus(5050)</visible>
+							<texture border="5" colordiffuse="$VAR[MainColorOne]">$VAR[SelectButton2]</texture>
+						</control>
+						<control type="image">
+							<left>18</left>
+							<top>10</top>
+							<width>164</width>
+							<height>164</height>
+							<aspectratio>scale</aspectratio>
+							<texture background="true">$INFO[ListItem.Icon]</texture>
+						</control>
+						<control type="label">
+							<description>Actor Name</description>
+							<left>12</left>
+							<top>176</top>
+							<width>176</width>
+							<height>24</height>
+							<font>font12</font>
+							<align>center</align>
+							<aligny>center</aligny>
+							<textcolor>white</textcolor>
+							<selectedcolor>white</selectedcolor>
+							<scroll>true</scroll>
+							<label>$INFO[ListItem.Label]</label>
+						</control>
+						<control type="label">
+							<description>Actor Role</description>
+							<left>12</left>
+							<top>198</top>
+							<width>176</width>
+							<height>20</height>
+							<font>font10</font>
+							<align>center</align>
+							<aligny>center</aligny>
+							<textcolor>grey2</textcolor>
+							<selectedcolor>white</selectedcolor>
+							<scroll>true</scroll>
+							<label>$INFO[ListItem.Label2]</label>
+							<visible>!String.IsEmpty(ListItem.Label2)</visible>
+						</control>
+					</focusedlayout>
+					<content>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.1.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.1.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.1.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.1.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.2.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.2.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.2.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.2.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.3.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.3.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.3.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.3.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.4.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.4.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.4.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.4.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.5.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.5.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.5.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.5.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.6.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.6.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.6.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.6.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.7.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.7.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.7.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.7.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.8.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.8.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.8.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.8.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.9.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.9.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.9.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.9.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.10.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.10.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.10.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.10.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.11.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.11.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.11.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.11.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.12.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.12.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.12.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.12.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.13.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.13.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.13.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.13.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.14.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.14.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.14.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.14.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.15.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.15.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.15.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.15.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.16.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.16.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.16.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.16.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.17.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.17.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.17.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.17.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.18.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.18.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.18.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.18.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.19.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.19.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.19.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.19.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.20.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.20.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.20.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.20.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.21.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.21.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.21.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.21.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.22.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.22.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.22.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.22.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.23.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.23.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.23.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.23.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.24.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.24.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.24.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.24.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.25.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.25.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.25.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.25.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.26.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.26.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.26.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.26.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.27.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.27.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.27.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.27.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.28.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.28.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.28.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.28.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.29.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.29.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.29.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.29.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.30.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.30.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.30.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.30.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.31.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.31.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.31.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.31.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.32.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.32.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.32.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.32.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.33.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.33.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.33.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.33.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.34.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.34.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.34.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.34.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.35.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.35.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.35.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.35.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.36.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.36.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.36.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.36.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.37.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.37.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.37.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.37.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.38.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.38.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.38.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.38.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.39.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.39.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.39.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.39.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.40.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.40.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.40.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.40.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.41.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.41.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.41.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.41.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.42.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.42.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.42.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.42.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.43.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.43.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.43.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.43.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.44.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.44.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.44.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.44.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.45.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.45.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.45.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.45.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.46.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.46.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.46.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.46.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.47.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.47.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.47.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.47.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.48.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.48.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.48.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.48.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.49.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.49.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.49.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.49.Name))</visible>
+						</item>
+						<item>
+							<label>$INFO[Window(Home).Property(MyCast.50.Name)]</label>
+							<label2>$INFO[Window(Home).Property(MyCast.50.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(MyCast.50.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(MyCast.50.Name))</visible>
+						</item>
+					</content>
+				</control>
+
+				<!-- TMDb Helper person/actor information layout -->
+				<control type="group">
+					<description>TMDb Helper Person Info</description>
+					<visible>[String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)]</visible>
+					<include>VisibleFadeEffect</include>
+
+					<!-- Hidden focus target used by onback from person controls. It reopens the original video info item instead of letting TMDb Helper loop back to the same person DialogVideoInfo page. -->
+					<control type="button" id="8899">
+						<description>Return to original video info from TMDb person page</description>
+						<left>-2000</left>
+						<top>-2000</top>
+						<width>1</width>
+						<height>1</height>
+						<label></label>
+						<!-- Use CastHelper to close the current TMDb person dialog first, then reopen the original title.
+						     Doing both directly in XML leaves the person DialogVideoInfo underneath and Back loops between dialogs. -->
+						<onfocus condition="System.HasAddon(script.xenon.casthelper) + !String.IsEmpty(Window(Home).Property(DVI.OriginTmdbId))">RunScript(script.xenon.casthelper,mode=returnorigin,tmdb=$INFO[Window(Home).Property(DVI.OriginTmdbId)],tmdb_type=$INFO[Window(Home).Property(DVI.OriginTmdbType)])</onfocus>
+						<onfocus condition="System.HasAddon(script.xenon.casthelper) + String.IsEmpty(Window(Home).Property(DVI.OriginTmdbId)) + !String.IsEmpty(Window(Home).Property(DVI.OriginDbid))">RunScript(script.xenon.casthelper,mode=returnorigin,dbid=$INFO[Window(Home).Property(DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(DVI.OriginTmdbType)])</onfocus>
+						<onfocus condition="String.IsEmpty(Window(Home).Property(DVI.OriginTmdbId)) + String.IsEmpty(Window(Home).Property(DVI.OriginDbid))">Dialog.Close(all,true)</onfocus>
+					</control>
+
+					<!-- Top person page. This stays on the first remote page and gives the credits room to grow below. -->
+					<control type="group">
+						<description>Person biography and facts page</description>
+						<include>VisibleFadeEffect</include>
+						<!-- Keep this page focusable while the credits page is active; fade it instead of hiding it so remote Up from 8500 can return to the facts list. -->
+						<animation effect="fade" start="100" end="0" time="120" condition="Control.HasFocus(8500) | Control.HasFocus(8600)">Conditional</animation>
+						<control type="image">
+							<left>60</left>
+							<top>110</top>
+							<width>360</width>
+							<height>540</height>
+							<aspectratio>scale</aspectratio>
+							<bordertexture border="5">button-nofocus.png</bordertexture>
+							<bordersize>4</bordersize>
+							<texture background="true">$INFO[ListItem.Thumb]</texture>
+						</control>
+						<control type="image">
+							<left>68</left>
+							<top>118</top>
+							<width>344</width>
+							<height>524</height>
+							<aspectratio>scale</aspectratio>
+							<texture background="true">$INFO[ListItem.Icon]</texture>
+							<visible>String.IsEmpty(ListItem.Thumb)</visible>
+						</control>
+						<control type="label">
+							<left>455</left>
+							<top>108</top>
+							<width>1405</width>
+							<height>56</height>
+							<font>font35_title</font>
+							<textcolor>selected</textcolor>
+							<shadowcolor>black</shadowcolor>
+							<scroll>true</scroll>
+							<label>$INFO[ListItem.Label]</label>
+						</control>
+						<control type="list" id="8005">
+							<description>Person facts</description>
+							<left>455</left>
+							<top>170</top>
+							<width>1405</width>
+							<height>260</height>
+							<onleft>8005</onleft>
+							<onright>8005</onright>
+							<onup>8005</onup>
+							<ondown>8500</ondown>
+							<onback>8899</onback>
+							<pagecontrol/>
+							<scrolltime>200</scrolltime>
+							<itemlayout height="36">
+								<control type="label"><left>0</left><top>0</top><width>230</width><height>36</height><font>font14</font><align>right</align><aligny>center</aligny><textcolor>$VAR[MainColorOne]</textcolor><label>$INFO[ListItem.Label]</label></control>
+								<control type="label"><left>250</left><top>0</top><width>1110</width><height>36</height><font>font14</font><align>left</align><aligny>center</aligny><textcolor>white</textcolor><scroll>true</scroll><label>$INFO[ListItem.Label2]</label></control>
+							</itemlayout>
+							<focusedlayout height="36">
+								<control type="image"><left>0</left><top>0</top><width>1360</width><height>36</height><visible>Control.HasFocus(8005)</visible><texture colordiffuse="$VAR[MainColorOne]">$VAR[SelectMenuItem]</texture></control>
+								<control type="label"><left>0</left><top>0</top><width>230</width><height>36</height><font>font14</font><align>right</align><aligny>center</aligny><textcolor>$VAR[MainColorOne]</textcolor><label>$INFO[ListItem.Label]</label></control>
+								<control type="label"><left>250</left><top>0</top><width>1110</width><height>36</height><font>font14</font><align>left</align><aligny>center</aligny><textcolor>white</textcolor><scroll>true</scroll><label>$INFO[ListItem.Label2]</label></control>
+							</focusedlayout>
+							<content>
+								<item><label>Born:</label><label2>$INFO[ListItem.Property(Born)]</label2><visible>!String.IsEmpty(ListItem.Property(Born))</visible></item>
+								<item><label>Birthday:</label><label2>$INFO[ListItem.Property(Birthday)]</label2><visible>!String.IsEmpty(ListItem.Property(Birthday))</visible></item>
+								<item><label>Age:</label><label2>$INFO[ListItem.Property(Age)]</label2><visible>!String.IsEmpty(ListItem.Property(Age))</visible></item>
+								<item><label>Died:</label><label2>$INFO[ListItem.Property(Deathday)]</label2><visible>!String.IsEmpty(ListItem.Property(Deathday))</visible></item>
+								<item><label>Known For:</label><label2>$INFO[ListItem.Property(Known_For)]</label2><visible>!String.IsEmpty(ListItem.Property(Known_For))</visible></item>
+								<item><label>Department:</label><label2>$INFO[ListItem.Property(Department)]</label2><visible>!String.IsEmpty(ListItem.Property(Department))</visible></item>
+								<item><label>Job:</label><label2>$INFO[ListItem.Property(Job)]</label2><visible>!String.IsEmpty(ListItem.Property(Job))</visible></item>
+								<item><label>Role:</label><label2>$INFO[ListItem.Property(Role)]</label2><visible>!String.IsEmpty(ListItem.Property(Role))</visible></item>
+								<item><label>Aliases:</label><label2>$INFO[ListItem.Property(Aliases)]</label2><visible>!String.IsEmpty(ListItem.Property(Aliases))</visible></item>
+								<item><label>Movie Credits:</label><label2>$INFO[ListItem.Property(numitems.tmdb.movies.cast)] cast / $INFO[ListItem.Property(numitems.tmdb.movies.crew)] crew / $INFO[ListItem.Property(numitems.tmdb.movies.total)] total</label2><visible>!String.IsEmpty(ListItem.Property(numitems.tmdb.movies.total))</visible></item>
+								<item><label>TV Credits:</label><label2>$INFO[ListItem.Property(numitems.tmdb.tvshows.cast)] cast / $INFO[ListItem.Property(numitems.tmdb.tvshows.crew)] crew / $INFO[ListItem.Property(numitems.tmdb.tvshows.total)] total</label2><visible>!String.IsEmpty(ListItem.Property(numitems.tmdb.tvshows.total))</visible></item>
+							</content>
+						</control>
+						<control type="image"><left>455</left><top>440</top><width>1405</width><height>6</height><aspectratio>stretch</aspectratio><texture>separator.png</texture></control>
+						<control type="label"><left>455</left><top>452</top><width>1405</width><height>38</height><font>font16_title</font><textcolor>$VAR[MainColorOne]</textcolor><label>Biography</label></control>
+						<control type="textbox" id="8400"><left>455</left><top>492</top><width>1405</width><height>210</height><font>font14</font><align>justify</align><textcolor>white</textcolor><label>$INFO[ListItem.Property(Biography)]</label><visible>!String.IsEmpty(ListItem.Property(Biography))</visible></control>
+						<control type="textbox" id="8401"><left>455</left><top>492</top><width>1405</width><height>210</height><font>font14</font><align>justify</align><textcolor>white</textcolor><label>$INFO[ListItem.Plot]</label><visible>String.IsEmpty(ListItem.Property(Biography)) + !String.IsEmpty(ListItem.Plot)</visible></control>
+						<control type="label"><left>60</left><top>714</top><width>1800</width><height>42</height><font>font14_title</font><align>center</align><aligny>center</aligny><textcolor>grey2</textcolor><label>Press Down for movie and TV credits</label><visible>Control.HasFocus(8005)</visible></control>
+					</control>
+
+					<!-- Credit rows live lower on the first page, then slide up when focused. Kodi calls this UI; I call it controlled falling. -->
+					<control type="group">
+						<description>Scrollable person credits page</description>
+						<animation effect="slide" start="0,0" end="0,-680" time="220" condition="Control.HasFocus(8500) | Control.HasFocus(8600)">Conditional</animation>
+						<control type="label">
+							<left>60</left>
+							<top>790</top>
+							<width>1810</width>
+							<height>38</height>
+							<font>font16_title</font>
+							<textcolor>$VAR[MainColorOne]</textcolor>
+							<label>Movies as Cast</label>
+							<visible>!String.IsEmpty(ListItem.Property(numitems.tmdb.movies.cast)) | !String.IsEmpty(ListItem.Property(Movie.Cast.1.Title))</visible>
+						</control>
+						<control type="panel" id="8500">
+							<description>Person movie cast credits from TMDb Helper</description>
+							<left>60</left>
+							<top>832</top>
+							<width>1810</width>
+							<height>330</height>
+							<onleft>8500</onleft>
+							<onright>8500</onright>
+							<onup>8005</onup>
+							<ondown>8600</ondown>
+							<onback>8899</onback>
+							<onclick condition="System.HasAddon(plugin.video.themoviedb.helper) + !String.IsEmpty(Container(8500).ListItem.Property(TMDb_ID))">RunScript(plugin.video.themoviedb.helper,add_tmdb=$INFO[Container(8500).ListItem.Property(TMDb_ID)],tmdb_type=movie,call_auto=1190)</onclick>
+							<onclick condition="System.HasAddon(plugin.video.themoviedb.helper) + String.IsEmpty(Container(8500).ListItem.Property(TMDb_ID)) + !String.IsEmpty(Container(8500).ListItem.Property(tmdb_id))">RunScript(plugin.video.themoviedb.helper,add_tmdb=$INFO[Container(8500).ListItem.Property(tmdb_id)],tmdb_type=movie,call_auto=1190)</onclick>
+							<onclick condition="System.HasAddon(plugin.video.themoviedb.helper) + String.IsEmpty(Container(8500).ListItem.Property(TMDb_ID)) + String.IsEmpty(Container(8500).ListItem.Property(tmdb_id)) + !String.IsEmpty(Container(8500).ListItem.UniqueID(tmdb))">RunScript(plugin.video.themoviedb.helper,add_tmdb=$INFO[Container(8500).ListItem.UniqueID(tmdb)],tmdb_type=movie,call_auto=1190)</onclick>
+							<visible>!String.IsEmpty(ListItem.Property(numitems.tmdb.movies.cast)) | !String.IsEmpty(ListItem.Property(Movie.Cast.1.Title))</visible>
+							<orientation>horizontal</orientation>
+							<scrolltime>200</scrolltime>
+							<itemlayout height="330" width="248">
+								<control type="image">
+									<left>8</left><top>0</top><width>232</width><height>330</height>
+									<texture border="5">button-nofocus.png</texture>
+								</control>
+								<control type="image"><left>33</left><top>10</top><width>182</width><height>250</height><aspectratio>scale</aspectratio><texture background="true">$INFO[ListItem.Art(poster)]</texture><visible>!String.IsEmpty(ListItem.Art(poster))</visible></control>
+								<control type="image"><left>33</left><top>10</top><width>182</width><height>250</height><aspectratio>scale</aspectratio><texture background="true">$INFO[ListItem.Icon]</texture><visible>String.IsEmpty(ListItem.Art(poster)) + !String.IsEmpty(ListItem.Icon)</visible></control>
+								<control type="image"><left>33</left><top>10</top><width>182</width><height>250</height><aspectratio>scale</aspectratio><texture background="true">$INFO[ListItem.Thumb]</texture><visible>String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Icon) + !String.IsEmpty(ListItem.Thumb)</visible></control>
+								<control type="image"><left>33</left><top>10</top><width>182</width><height>250</height><aspectratio>scale</aspectratio><texture background="true">$INFO[ListItem.Art(fanart)]</texture><visible>String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Icon) + String.IsEmpty(ListItem.Thumb) + !String.IsEmpty(ListItem.Art(fanart))</visible></control>
+								<control type="image"><left>33</left><top>10</top><width>182</width><height>250</height><aspectratio>scale</aspectratio><texture background="true">DefaultVideo.png</texture><visible>String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Icon) + String.IsEmpty(ListItem.Thumb) + String.IsEmpty(ListItem.Art(fanart))</visible></control>
+								<control type="label"><left>14</left><top>264</top><width>220</width><height>36</height><font>font12</font><align>center</align><aligny>center</aligny><textcolor>white</textcolor><scroll>true</scroll><label>$INFO[ListItem.Label]</label></control>
+								<control type="label"><left>14</left><top>300</top><width>220</width><height>26</height><font>font11</font><align>center</align><aligny>center</aligny><textcolor>grey2</textcolor><scroll>true</scroll><label>$INFO[ListItem.Property(Character)]</label><visible>!String.IsEmpty(ListItem.Property(Character))</visible></control>
+								<control type="label"><left>14</left><top>300</top><width>220</width><height>26</height><font>font11</font><align>center</align><aligny>center</aligny><textcolor>grey2</textcolor><scroll>true</scroll><label>$INFO[ListItem.Label2]</label><visible>String.IsEmpty(ListItem.Property(Character)) + !String.IsEmpty(ListItem.Label2)</visible></control>
+							</itemlayout>
+							<focusedlayout height="330" width="248">
+								<control type="image">
+									<left>8</left><top>0</top><width>232</width><height>330</height>
+									<texture border="5" colordiffuse="$VAR[MainColorOne]">$VAR[SelectButton2]</texture>
+								</control>
+								<control type="image"><left>33</left><top>10</top><width>182</width><height>250</height><aspectratio>scale</aspectratio><texture background="true">$INFO[ListItem.Art(poster)]</texture><visible>!String.IsEmpty(ListItem.Art(poster))</visible></control>
+								<control type="image"><left>33</left><top>10</top><width>182</width><height>250</height><aspectratio>scale</aspectratio><texture background="true">$INFO[ListItem.Icon]</texture><visible>String.IsEmpty(ListItem.Art(poster)) + !String.IsEmpty(ListItem.Icon)</visible></control>
+								<control type="image"><left>33</left><top>10</top><width>182</width><height>250</height><aspectratio>scale</aspectratio><texture background="true">$INFO[ListItem.Thumb]</texture><visible>String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Icon) + !String.IsEmpty(ListItem.Thumb)</visible></control>
+								<control type="image"><left>33</left><top>10</top><width>182</width><height>250</height><aspectratio>scale</aspectratio><texture background="true">$INFO[ListItem.Art(fanart)]</texture><visible>String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Icon) + String.IsEmpty(ListItem.Thumb) + !String.IsEmpty(ListItem.Art(fanart))</visible></control>
+								<control type="image"><left>33</left><top>10</top><width>182</width><height>250</height><aspectratio>scale</aspectratio><texture background="true">DefaultVideo.png</texture><visible>String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Icon) + String.IsEmpty(ListItem.Thumb) + String.IsEmpty(ListItem.Art(fanart))</visible></control>
+								<control type="label"><left>14</left><top>264</top><width>220</width><height>36</height><font>font12</font><align>center</align><aligny>center</aligny><textcolor>white</textcolor><scroll>true</scroll><label>$INFO[ListItem.Label]</label></control>
+								<control type="label"><left>14</left><top>300</top><width>220</width><height>26</height><font>font11</font><align>center</align><aligny>center</aligny><textcolor>selected</textcolor><scroll>true</scroll><label>$INFO[ListItem.Property(Character)]</label><visible>!String.IsEmpty(ListItem.Property(Character))</visible></control>
+								<control type="label"><left>14</left><top>300</top><width>220</width><height>26</height><font>font11</font><align>center</align><aligny>center</aligny><textcolor>selected</textcolor><scroll>true</scroll><label>$INFO[ListItem.Label2]</label><visible>String.IsEmpty(ListItem.Property(Character)) + !String.IsEmpty(ListItem.Label2)</visible></control>
+							</focusedlayout>
+							<content>plugin://plugin.video.themoviedb.helper/?info=stars_in_movies&amp;tmdb_id=$INFO[Window(Home).Property(DVI.PersonTmdbId)]&amp;tmdb_type=person&amp;limit=30</content>
+						</control>
+						<control type="label">
+							<left>60</left>
+							<top>1180</top>
+							<width>1810</width>
+							<height>38</height>
+							<font>font16_title</font>
+							<textcolor>$VAR[MainColorOne]</textcolor>
+							<label>TV Shows as Cast</label>
+							<visible>!String.IsEmpty(ListItem.Property(numitems.tmdb.tvshows.cast)) | !String.IsEmpty(ListItem.Property(TVShow.Cast.1.Title))</visible>
+						</control>
+						<control type="panel" id="8600">
+							<description>Person TV cast credits from TMDb Helper</description>
+							<left>60</left>
+							<top>1222</top>
+							<width>1810</width>
+							<height>330</height>
+							<onleft>8600</onleft>
+							<onright>8600</onright>
+							<onup>8500</onup>
+							<ondown>8600</ondown>
+							<onback>8899</onback>
+							<onclick condition="System.HasAddon(plugin.video.themoviedb.helper) + !String.IsEmpty(Container(8600).ListItem.Property(TMDb_ID))">RunScript(plugin.video.themoviedb.helper,add_tmdb=$INFO[Container(8600).ListItem.Property(TMDb_ID)],tmdb_type=tv,call_auto=1190)</onclick>
+							<onclick condition="System.HasAddon(plugin.video.themoviedb.helper) + String.IsEmpty(Container(8600).ListItem.Property(TMDb_ID)) + !String.IsEmpty(Container(8600).ListItem.Property(tmdb_id))">RunScript(plugin.video.themoviedb.helper,add_tmdb=$INFO[Container(8600).ListItem.Property(tmdb_id)],tmdb_type=tv,call_auto=1190)</onclick>
+							<onclick condition="System.HasAddon(plugin.video.themoviedb.helper) + String.IsEmpty(Container(8600).ListItem.Property(TMDb_ID)) + String.IsEmpty(Container(8600).ListItem.Property(tmdb_id)) + !String.IsEmpty(Container(8600).ListItem.UniqueID(tmdb))">RunScript(plugin.video.themoviedb.helper,add_tmdb=$INFO[Container(8600).ListItem.UniqueID(tmdb)],tmdb_type=tv,call_auto=1190)</onclick>
+							<visible>!String.IsEmpty(ListItem.Property(numitems.tmdb.tvshows.cast)) | !String.IsEmpty(ListItem.Property(TVShow.Cast.1.Title))</visible>
+							<orientation>horizontal</orientation>
+							<scrolltime>200</scrolltime>
+							<itemlayout height="330" width="248">
+								<control type="image">
+									<left>8</left><top>0</top><width>232</width><height>330</height>
+									<texture border="5">button-nofocus.png</texture>
+								</control>
+								<control type="image"><left>33</left><top>10</top><width>182</width><height>250</height><aspectratio>scale</aspectratio><texture background="true">$INFO[ListItem.Art(poster)]</texture><visible>!String.IsEmpty(ListItem.Art(poster))</visible></control>
+								<control type="image"><left>33</left><top>10</top><width>182</width><height>250</height><aspectratio>scale</aspectratio><texture background="true">$INFO[ListItem.Icon]</texture><visible>String.IsEmpty(ListItem.Art(poster)) + !String.IsEmpty(ListItem.Icon)</visible></control>
+								<control type="image"><left>33</left><top>10</top><width>182</width><height>250</height><aspectratio>scale</aspectratio><texture background="true">$INFO[ListItem.Thumb]</texture><visible>String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Icon) + !String.IsEmpty(ListItem.Thumb)</visible></control>
+								<control type="image"><left>33</left><top>10</top><width>182</width><height>250</height><aspectratio>scale</aspectratio><texture background="true">$INFO[ListItem.Art(fanart)]</texture><visible>String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Icon) + String.IsEmpty(ListItem.Thumb) + !String.IsEmpty(ListItem.Art(fanart))</visible></control>
+								<control type="image"><left>33</left><top>10</top><width>182</width><height>250</height><aspectratio>scale</aspectratio><texture background="true">DefaultVideo.png</texture><visible>String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Icon) + String.IsEmpty(ListItem.Thumb) + String.IsEmpty(ListItem.Art(fanart))</visible></control>
+								<control type="label"><left>14</left><top>264</top><width>220</width><height>36</height><font>font12</font><align>center</align><aligny>center</aligny><textcolor>white</textcolor><scroll>true</scroll><label>$INFO[ListItem.Label]</label></control>
+								<control type="label"><left>14</left><top>300</top><width>220</width><height>26</height><font>font11</font><align>center</align><aligny>center</aligny><textcolor>grey2</textcolor><scroll>true</scroll><label>$INFO[ListItem.Property(Character)]</label><visible>!String.IsEmpty(ListItem.Property(Character))</visible></control>
+								<control type="label"><left>14</left><top>300</top><width>220</width><height>26</height><font>font11</font><align>center</align><aligny>center</aligny><textcolor>grey2</textcolor><scroll>true</scroll><label>$INFO[ListItem.Label2]</label><visible>String.IsEmpty(ListItem.Property(Character)) + !String.IsEmpty(ListItem.Label2)</visible></control>
+							</itemlayout>
+							<focusedlayout height="330" width="248">
+								<control type="image">
+									<left>8</left><top>0</top><width>232</width><height>330</height>
+									<texture border="5" colordiffuse="$VAR[MainColorOne]">$VAR[SelectButton2]</texture>
+								</control>
+								<control type="image"><left>33</left><top>10</top><width>182</width><height>250</height><aspectratio>scale</aspectratio><texture background="true">$INFO[ListItem.Art(poster)]</texture><visible>!String.IsEmpty(ListItem.Art(poster))</visible></control>
+								<control type="image"><left>33</left><top>10</top><width>182</width><height>250</height><aspectratio>scale</aspectratio><texture background="true">$INFO[ListItem.Icon]</texture><visible>String.IsEmpty(ListItem.Art(poster)) + !String.IsEmpty(ListItem.Icon)</visible></control>
+								<control type="image"><left>33</left><top>10</top><width>182</width><height>250</height><aspectratio>scale</aspectratio><texture background="true">$INFO[ListItem.Thumb]</texture><visible>String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Icon) + !String.IsEmpty(ListItem.Thumb)</visible></control>
+								<control type="image"><left>33</left><top>10</top><width>182</width><height>250</height><aspectratio>scale</aspectratio><texture background="true">$INFO[ListItem.Art(fanart)]</texture><visible>String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Icon) + String.IsEmpty(ListItem.Thumb) + !String.IsEmpty(ListItem.Art(fanart))</visible></control>
+								<control type="image"><left>33</left><top>10</top><width>182</width><height>250</height><aspectratio>scale</aspectratio><texture background="true">DefaultVideo.png</texture><visible>String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Icon) + String.IsEmpty(ListItem.Thumb) + String.IsEmpty(ListItem.Art(fanart))</visible></control>
+								<control type="label"><left>14</left><top>264</top><width>220</width><height>36</height><font>font12</font><align>center</align><aligny>center</aligny><textcolor>white</textcolor><scroll>true</scroll><label>$INFO[ListItem.Label]</label></control>
+								<control type="label"><left>14</left><top>300</top><width>220</width><height>26</height><font>font11</font><align>center</align><aligny>center</aligny><textcolor>selected</textcolor><scroll>true</scroll><label>$INFO[ListItem.Property(Character)]</label><visible>!String.IsEmpty(ListItem.Property(Character))</visible></control>
+								<control type="label"><left>14</left><top>300</top><width>220</width><height>26</height><font>font11</font><align>center</align><aligny>center</aligny><textcolor>selected</textcolor><scroll>true</scroll><label>$INFO[ListItem.Label2]</label><visible>String.IsEmpty(ListItem.Property(Character)) + !String.IsEmpty(ListItem.Label2)</visible></control>
+							</focusedlayout>
+							<content>plugin://plugin.video.themoviedb.helper/?info=stars_in_tvshows&amp;tmdb_id=$INFO[Window(Home).Property(DVI.PersonTmdbId)]&amp;tmdb_type=person&amp;limit=30</content>
+						</control>
+					</control>
+				</control>
+
 				<control type="grouplist" id="9000">
+					<onback>ClearProperty(DVI.ShowCast,home)</onback>
+					<onback>Dialog.Close(all,true)</onback>
+					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)]</visible>
 				<control type="togglebutton" id="15">
                     <description>Play/Stop Trailer Windowed</description>
+						<onback>ClearProperty(DVI.ShowCast,home)</onback>
+						<onback>Dialog.Close(all,true)</onback>
+						<onfocus>ClearProperty(DVI.ShowCast,home)</onfocus>
                     <include>ButtonInfoDialogsCommonValues</include>
                     <include>NormalButton</include>
                     <include>AltButton</include>
@@ -873,6 +1735,9 @@
                 </control>
 				<control type="togglebutton" id="8">
 						<description>Play/browse to Show</description>
+						<onback>ClearProperty(DVI.ShowCast,home)</onback>
+						<onback>Dialog.Close(all,true)</onback>
+						<onfocus>ClearProperty(DVI.ShowCast,home)</onfocus>
 						<include>ButtonInfoDialogsCommonValues</include>
 						<label>208</label>
 						<include>NormalButton</include>
@@ -889,7 +1754,8 @@
 					<orientation>horizontal</orientation>
 					<onleft>9000</onleft>
 					<onright>9000</onright>
-					<onup>50</onup>
+					<onup condition="Control.IsVisible(5050)">5050</onup>
+					<onup>5050</onup>
 					<ondown>49</ondown>
 					
 					
@@ -897,6 +1763,9 @@
     					
 					<control type="button" id="1227">
 						<description>Special Features button</description>
+						<onback>ClearProperty(DVI.ShowCast,home)</onback>
+						<onback>Dialog.Close(all,true)</onback>
+						<onfocus>ClearProperty(DVI.ShowCast,home)</onfocus>
 						<label>$LOCALIZE[31054]</label>
 						<include>ButtonInfoDialogsCommonValues</include>
 						<include>NormalButton</include>
@@ -906,6 +1775,9 @@
 					</control>
 					<control type="button" id="1228">
 						<description>Library Editor</description>
+						<onback>ClearProperty(DVI.ShowCast,home)</onback>
+						<onback>Dialog.Close(all,true)</onback>
+						<onfocus>ClearProperty(DVI.ShowCast,home)</onfocus>
 						<include>ButtonInfoDialogsCommonValues</include>
 						<include>NormalButton</include>
 						<include>AltButton</include>
@@ -913,8 +1785,20 @@
 						<onclick>RunScript(script.libraryeditor,DBID=$INFO[ListItem.DBID])</onclick>
 						<visible>System.HasAddon(script.libraryeditor) + !String.IsEmpty(ListItem.DBID) + !Container.Content(Seasons)</visible>
 					</control>
+					<control type="button" id="5505">
+						<description>Cast</description>
+						<onback>ClearProperty(DVI.ShowCast,home)</onback>
+						<onback>Dialog.Close(all,true)</onback>
+							<onfocus>SetProperty(DVI.ShowCast,true,home)</onfocus>
+						<include>ButtonInfoDialogsCommonValues</include>
+						<label>206</label>
+						<onclick condition="!String.IsEmpty(Window(Home).Property(MyCast.1.Name))">SetFocus(5050)</onclick>
+					</control>
 					<control type="button" id="106">
 						<description>ExtendedInfo</description>
+						<onback>ClearProperty(DVI.ShowCast,home)</onback>
+						<onback>Dialog.Close(all,true)</onback>
+						<onfocus>ClearProperty(DVI.ShowCast,home)</onfocus>
 						<include>ButtonInfoDialogsCommonValues</include>
 						<label>31204</label>
 						<onclick>PreviousMenu</onclick>
@@ -926,6 +1810,9 @@
 					</control>
 					<control type="button" id="132">
 						<description>Options (Context Menu)</description>
+						<onback>ClearProperty(DVI.ShowCast,home)</onback>
+						<onback>Dialog.Close(all,true)</onback>
+						<onfocus>ClearProperty(DVI.ShowCast,home)</onfocus>
 						<include>ButtonInfoDialogsCommonValues</include>
 						<label>Options</label>
 						<onclick>PreviousMenu</onclick>
@@ -935,6 +1822,9 @@
     
 					<control type="button" id="107">
 						<description>MoreInfo</description>
+						<onback>ClearProperty(DVI.ShowCast,home)</onback>
+						<onback>Dialog.Close(all,true)</onback>
+						<onfocus>ClearProperty(DVI.ShowCast,home)</onfocus>
 						<include>ButtonInfoDialogsCommonValues</include>
 						<label>22082</label>
 						<onclick>PreviousMenu</onclick>
@@ -943,6 +1833,9 @@
 						<visible>Skin.HasSetting(EnableCustomVideoInfoScript)</visible>
 					</control><control type="button" id="7">
 						<description>Set my rating</description>
+						<onback>ClearProperty(DVI.ShowCast,home)</onback>
+						<onback>Dialog.Close(all,true)</onback>
+						<onfocus>ClearProperty(DVI.ShowCast,home)</onfocus>
 						<include>ButtonInfoDialogsCommonValues</include>
 						<label>38023</label>
 						<visible>Control.IsEnabled(7)</visible>
@@ -957,6 +1850,9 @@
 					</control>-->
 					<control type="button" id="102">
 						<description>Fetch TvTunes stuff</description>
+						<onback>ClearProperty(DVI.ShowCast,home)</onback>
+						<onback>Dialog.Close(all,true)</onback>
+						<onfocus>ClearProperty(DVI.ShowCast,home)</onfocus>
 						<include>ButtonInfoDialogsCommonValues</include>
 						<label>31127</label>
 						<onclick>RunScript(script.tvtunes,mode=solo)</onclick>
