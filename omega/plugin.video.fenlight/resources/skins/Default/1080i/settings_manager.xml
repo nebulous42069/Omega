@@ -1432,7 +1432,7 @@
                       </item>
                       <item>
                           <visible>Container(2000).HasFocus(50)</visible>
-                          <visible>!String.IsEqual(Window(10000).Property(fenlight.trakt.client),c787278de2e4bba0a92125433e89e0d71d89a09a2f9c44dd69c2f13c8e8eef06)</visible>
+                          <visible>!String.IsEqual(Window(10000).Property(fenlight.trakt.client),866fef94af9061297379e289ae2322eaf9ee9dd9ebc1d857f6df5f9b2dcdf747)</visible>
                           <property name="setting_label">    - Restore Default Client ID Key</property>
                           <property name="setting_type">action</property>
                           <property name="setting_value">...</property>
@@ -1449,7 +1449,7 @@
                       </item>
                       <item>
                           <visible>Container(2000).HasFocus(50)</visible>
-                          <visible>!String.IsEqual(Window(10000).Property(fenlight.trakt.secret),72012ed0e523e642b62e3137207dc6208b6b5b0405f7d17d57d3b31567d6a59c)</visible>
+                          <visible>!String.IsEqual(Window(10000).Property(fenlight.trakt.secret),c5dd61b3fb5f59a19dbeedde7bd19937b82ceac0035ead70f672fc0301d486f7)</visible>
                           <property name="setting_label">    - Restore Default Client Secret Key</property>
                           <property name="setting_type">action</property>
                           <property name="setting_value">...</property>
@@ -1473,7 +1473,7 @@
                       </item>
                       <item>
                           <visible>Container(2000).HasFocus(50)</visible>
-                          <visible>!String.IsEqual(Window(10000).Property(fenlight.tmdb_api),b14c2656f72e5bab233def36928a202b)</visible>
+                          <visible>!String.IsEqual(Window(10000).Property(fenlight.tmdb_api),3d000491a0f37d4962d02bdb062af037)</visible>
                           <property name="setting_label">    - Restore Default TMDb API Key</property>
                           <property name="setting_type">action</property>
                           <property name="setting_value">...</property>
@@ -1482,7 +1482,7 @@
                       </item>
                       <item>
                           <visible>Container(2000).HasFocus(50)</visible>
-                          <visible>!String.IsEqual(Window(10000).Property(fenlight.tmdb_api),b14c2656f72e5bab233def36928a202b)</visible>
+                          <visible>!String.IsEqual(Window(10000).Property(fenlight.tmdb_api),3d000491a0f37d4962d02bdb062af037)</visible>
                           <property name="setting_label">Test API Key...</property>
                           <property name="setting_type">action</property>
                           <property name="setting_value">...</property>
