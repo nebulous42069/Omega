@@ -66,7 +66,7 @@
                     <left>355</left>
                     <width max="1210">auto</width>
                     <height>30</height>
-                    <font>font67_bold</font> <!-- FENLIGHT_60_BOLD -->
+                    <font>lyr15b</font> <!-- FENLIGHT_60_BOLD -->
                     <textcolor>FFCCCCCC</textcolor>
                     <align>center</align>
                     <aligny>top</aligny>
@@ -346,7 +346,7 @@
                     <left>355</left>
                     <width max="1210">auto</width>
                     <height>30</height>
-                    <font>font67_bold</font> <!-- FENLIGHT_60_BOLD -->
+                    <font>lyr15b</font> <!-- FENLIGHT_60_BOLD -->
                     <textcolor>FFCCCCCC</textcolor>
                     <align>center</align>
                     <aligny>bottom</aligny>
@@ -617,7 +617,7 @@
                     <left>355</left>
                     <width max="1210">auto</width>
                     <height>30</height>
-                    <font>font67_bold</font> <!-- FENLIGHT_60_BOLD -->
+                    <font>lyr15b</font> <!-- FENLIGHT_60_BOLD -->
                     <textcolor>FFCCCCCC</textcolor>
                     <align>center</align>
                     <aligny>top</aligny>

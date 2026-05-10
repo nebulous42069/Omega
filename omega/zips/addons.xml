@@ -855,7 +855,7 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.cb20
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="plugin.video.fenlight" name="FenLightAM-No Block" provider-name="AnonyMouse" version="23.2.03">
+</addon><addon id="plugin.video.fenlight" name="FenLightAM-No Block" provider-name="AnonyMouse" version="24.2.03">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
         <import addon="script.module.pil" version="1.1.7" />

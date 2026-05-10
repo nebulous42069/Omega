@@ -12,8 +12,7 @@ class TMDbListAPI:
 	def __init__(self):
 		self.base_url = 'https://api.themoviedb.org/4'
 		self.base_url_v3 = 'https://api.themoviedb.org/3'
-		self.read_access_token = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiMTRjMjY1NmY3MmU1YmFiMjMzZGVmMzY5MjhhMjAyYiIsIm5iZiI6MTc3NzU3Mzk1Mi41MjMsInN1YiI6IjY5ZjNhMDQwZTUzODE2ODAwY2Y3ZGN' \
-									'mNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.M7UJoYomkjrlJ4m1jJ7zBUAALt-xL7C4uml5cwJdxBk'
+		self.read_access_token = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmNTYwOGZiYTZhYjQ5ZTk5ODU4MjhiMzVkNTY1MzMyMSIsIm5iZiI6MTUzMDI2NzI0OS44NDcwMDAxLCJzdWIiOiI1YjM2MDY3MTkyNTE0MTNjOTMwMjkzZDMiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.sY0aCEb0tkFBHMJIxNRMbjYEmBu1aQF7z-uzRhu_134'
 	
 	def auth(self):
 		import requests
