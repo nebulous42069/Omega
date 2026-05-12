@@ -81,21 +81,13 @@ def find_tmdb_from_imdb(api_key, imdb_id, media_type):
     if not api_key or not imdb_id:
         return ""
 
-    params = urllib.parse.urlencode({
-        "api_key": api_key,
-        "external_source": "imdb_id",
-    })
-    url = "%s/find/%s?%s" % (
-        service.TMDB_API_BASE,
-        urllib.parse.quote(imdb_id),
-        params,
+    data = service.fetch_tmdb_json(
+        api_key,
+        "/find/%s" % urllib.parse.quote(imdb_id),
+        params={"external_source": "imdb_id"},
+        timeout=10,
     )
-    try:
-        req = urllib.request.Request(url)
-        with urllib.request.urlopen(req, timeout=10) as resp:
-            data = json.loads(resp.read().decode("utf-8"))
-    except Exception as exc:
-        log("Error finding TMDb id from IMDb id: %s" % exc)
+    if not data:
         return ""
 
     bucket = "tv_results" if media_type == "tv" else "movie_results"

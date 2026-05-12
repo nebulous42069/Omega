@@ -3,6 +3,7 @@ import json
 import time
 import urllib.request
 import urllib.parse
+import urllib.error
 
 import xbmc
 import xbmcaddon
@@ -16,20 +17,95 @@ WIDGET_IDS = list(range(8000, 8046))  # 8000–8045, adjust if needed
 
 TMDB_API_BASE = "https://api.themoviedb.org/3"
 TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p"
+DEFAULT_TMDB_CREDENTIAL = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmNTYwOGZiYTZhYjQ5ZTk5ODU4MjhiMzVkNTY1MzMyMSIsIm5iZiI6MTUzMDI2NzI0OS44NDcwMDAxLCJzdWIiOiI1YjM2MDY3MTkyNTE0MTNjOTMwMjkzZDMiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.sY0aCEb0tkFBHMJIxNRMbjYEmBu1aQF7z-uzRhu_134"
 
 
 def log(msg):
     xbmc.log("[CastHelper] %s" % msg, xbmc.LOGINFO)
 
 
-def get_settings():
-    api_key = ADDON.getSetting("tmdb_api_key").strip()
-    language = ADDON.getSetting("language") or "en-US"
+def _setting(setting_id):
     try:
-        max_cast = int(ADDON.getSetting("max_cast") or "5")
+        return (ADDON.getSetting(setting_id) or "").strip()
+    except Exception:
+        return ""
+
+
+def get_settings():
+    credential = _setting("tmdb_api_key")
+    bearer_token = _setting("tmdb_bearer_token")
+
+    if bearer_token:
+        credential = bearer_token
+
+    # Fallback to hardcoded default if Kodi settings are empty.
+    if not credential:
+        credential = DEFAULT_TMDB_CREDENTIAL
+
+    language = _setting("language") or "en-US"
+    try:
+        max_cast = int(_setting("max_cast") or "5")
     except ValueError:
         max_cast = 5
-    return api_key, language, max_cast
+    return credential, language, max_cast
+
+
+def is_bearer_credential(credential):
+    credential = (credential or "").strip()
+    if credential.lower().startswith("bearer "):
+        return True
+    # TMDb API Read Access Tokens are JWTs and usually begin with eyJ... and contain
+    # two dots. The v3 API key is a short hexadecimal string, so this is safe enough
+    # for deciding which authentication method to use.
+    return credential.startswith("eyJ") and credential.count(".") >= 2
+
+
+def get_bearer_token(credential):
+    credential = (credential or "").strip()
+    if credential.lower().startswith("bearer "):
+        return credential[7:].strip()
+    return credential
+
+
+def fetch_tmdb_json(credential, path, params=None, timeout=10):
+    """Fetch JSON from TMDb using either a v3 API key or v4 read access token."""
+    credential = (credential or "").strip()
+    if not credential:
+        return None
+
+    if not path.startswith("/"):
+        path = "/" + path
+
+    params = dict(params or {})
+    headers = {"Accept": "application/json"}
+
+    if is_bearer_credential(credential):
+        headers["Authorization"] = "Bearer %s" % get_bearer_token(credential)
+    else:
+        params["api_key"] = credential
+
+    url = TMDB_API_BASE + path
+    if params:
+        url += "?" + urllib.parse.urlencode(params)
+
+    try:
+        req = urllib.request.Request(url, headers=headers)
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            return json.loads(resp.read().decode("utf-8"))
+    except urllib.error.HTTPError as e:
+        detail = ""
+        try:
+            detail = e.read().decode("utf-8")
+        except Exception:
+            detail = ""
+        if e.code == 401:
+            log("TMDb authentication failed (HTTP 401). The configured credential was rejected. "
+                "Use a valid TMDb v3 API Key or v4/API Read Access Token. %s" % detail)
+        else:
+            log("HTTP error fetching info from TMDb: %s %s" % (e, detail))
+    except Exception as e:
+        log("Error fetching info from TMDb: %s" % e)
+    return None
 
 
 def get_focused_widget():
@@ -125,18 +201,12 @@ def fetch_cast_and_info_from_tmdb(api_key, language, tmdb_id, media_type, max_ca
         append = "credits,release_dates"
 
     params = {
-        "api_key": api_key,
         "language": language,
         "append_to_response": append,
     }
-    url = TMDB_API_BASE + path + "?" + urllib.parse.urlencode(params)
 
-    try:
-        req = urllib.request.Request(url)
-        with urllib.request.urlopen(req, timeout=10) as resp:
-            data = json.loads(resp.read().decode("utf-8"))
-    except Exception as e:
-        log("Error fetching info from TMDb: %s" % e)
+    data = fetch_tmdb_json(api_key, path, params=params, timeout=10)
+    if not data:
         return result_cast, result_info
 
     # ---- Cast ----
