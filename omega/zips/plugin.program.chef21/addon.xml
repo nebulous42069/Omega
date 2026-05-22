@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.program.chef21" name="[B][COLOR chartreuse]Chef Wizard[/COLOR][/B]" version="500" provider-name="Diggz">
+<addon id="plugin.program.chef21" name="[B][COLOR chartreuse]Chef Wizard[/COLOR][/B]" version="501" provider-name="Diggz">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0"/>
-		<import addon="script.module.acctmgr" version="1.0.3" />
 	</requires>
 	<extension point="xbmc.python.pluginsource" library="addon.py">
 		<provides>executable</provides>
