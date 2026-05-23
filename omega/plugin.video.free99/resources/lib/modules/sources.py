@@ -731,7 +731,7 @@ class sources:
         elif 'year' in meta:
             sysname += urllib_parse.quote_plus(' (%s)' % meta['year'])
         poster = meta.get('poster') or control.addonPoster()
-        if control.setting('fanart') == 'true':
+        if control.setting('show.fanart') == 'true':
             fanart = meta.get('fanart') or control.addonFanart()
         else:
             fanart = control.addonFanart()

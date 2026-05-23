@@ -4,8 +4,15 @@ import xbmcgui
 
 from resources.lib.common import source_utils
 from resources.lib.indexers.apibase import ApiBase
-from resources.lib.modules.exceptions import FileIdentification
+from resources.lib.modules.exceptions import FileIdentification, InfringingFile
 from resources.lib.modules.globals import g
+
+# Maps debrid_provider source field to DebridCache DB service key.
+# Imported here to avoid circular imports — same mapping as in resolver/__init__.py.
+_DEBRID_PROVIDER_TO_DB_KEY = {
+    'real_debrid': 'rd', 'all_debrid': 'ad', 'premiumize': 'pm',
+    'torbox': 'tb', 'debrid_link': 'dl',
+}
 
 
 class TorrentResolverBase(ApiBase):
@@ -83,8 +90,44 @@ class TorrentResolverBase(ApiBase):
     def _finalize_resolving(self, item_information, torrent, identified_file, folder_details):
         if identified_file is None:
             self._do_post_processing(item_information, torrent, identified_file)
+            # If resolving an episode and no matching file was found in the torrent,
+            # write cached=False to the DB so the next scrape cycle doesn't restore
+            # this hash as confirmed-cached and attempt it again silently.
+            # Guard: skip when pack_select=True (user cancelled manual selection —
+            # the torrent itself is fine) and skip for movies (different failure modes).
+            if self.media_type == "episode" and not self.pack_select:
+                db_key = _DEBRID_PROVIDER_TO_DB_KEY.get(torrent.get('debrid_provider', ''))
+                if db_key and torrent.get('hash'):
+                    g.log(
+                        f"Episode file not found in torrent — invalidating DB cache: "
+                        f"{torrent.get('debrid_provider')} / {torrent.get('hash', '')[:8]}... "
+                        f"({torrent.get('release_title', 'N/A')})",
+                        "warning",
+                    )
+                    try:
+                        from resources.lib.database.debridCache import DebridCache
+                        DebridCache().set_many_background(
+                            [(torrent['hash'], 'False')], db_key
+                        )
+                    except Exception:
+                        pass
             return None
-        stream_link = self.resolve_stream_url(identified_file)
+        try:
+            stream_link = self.resolve_stream_url(identified_file)
+        except InfringingFile:
+            # RD HTTP 451 / error_code=35: file is legally blocked (DMCA).
+            # Write a 7-day False entry to DebridCache so this hash is suppressed
+            # on all future scrape sessions without re-hitting the API.
+            db_key = _DEBRID_PROVIDER_TO_DB_KEY.get(torrent.get('debrid_provider', ''))
+            if db_key and torrent.get('hash'):
+                try:
+                    from resources.lib.database.debridCache import DebridCache
+                    DebridCache().set_infringing([torrent['hash']], db_key)
+                except Exception:
+                    pass
+            # Pass None to force torrent cleanup — player never starts for a blocked file
+            self._do_post_processing(item_information, torrent, None)
+            return None
         self._do_post_processing(item_information, torrent, identified_file)
         if not stream_link:
             raise FileIdentification([i["path"] for i in folder_details])
@@ -109,6 +152,18 @@ class TorrentResolverBase(ApiBase):
                 folder_details,
             )
         folder_details = self._sort_and_filter_files(folder_details, item_information)
+
+        # ── Single-file shortcut (mirrors Otaku's resolver behaviour) ───────
+        # If after filtering only one playable file remains, use it directly
+        # without running the episode regex.  This is the correct behaviour for
+        # single-episode fansub releases (SubsPlease, Erai-raws, etc.) which
+        # land as one .mkv inside the torrent — their filenames use "- 09"
+        # style that the SxxExx regex never matches, causing a false
+        # "episode file not found" failure even though the file is right there.
+        # Otaku does exactly this: `if len(torrent_info['files']) == 1: best_match = torrent_files[0]`
+        if len(folder_details) == 1:
+            return self._finalize_resolving(item_information, torrent, folder_details[0], folder_details)
+
         best_match = source_utils.get_best_episode_match("path", folder_details, item_information)
         return self._finalize_resolving(item_information, torrent, best_match, folder_details)
 
@@ -136,7 +191,7 @@ class TorrentResolverBase(ApiBase):
             )
 
         if m2ts_check := self._try_m2ts_resolving(folder_details):
-            return self._finalize_resolving(item_information, torrent, folder_details[0], [m2ts_check])
+            return self._finalize_resolving(item_information, torrent, m2ts_check, [m2ts_check])
 
         if len(folder_details) == 1:
             return self._finalize_resolving(item_information, torrent, folder_details[0], folder_details)

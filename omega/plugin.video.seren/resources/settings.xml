@@ -117,22 +117,6 @@
 					</constraints>
 					<control type="spinner" format="string"/>
 				</setting>
-				<setting id="general.watchlist.sort" type="integer" label="30653" help="">
-					<level>0</level>
-					<default>0</default>
-					<constraints>
-						<options>
-							<option label="30654">0</option>
-							<option label="30655">1</option>
-						</options>
-					</constraints>
-					<dependencies>
-						<dependency type="enable">
-							<condition operator="!is" setting="trakt.auth"/>
-						</dependency>
-					</dependencies>
-					<control type="spinner" format="string"/>
-				</setting>
 				<setting id="general.paginatetraktlists" type="boolean" label="30324" help="">
 					<level>0</level>
 					<default>true</default>
@@ -171,11 +155,6 @@
 					<control type="slider" format="integer">
 						<popup>false</popup>
 					</control>
-				</setting>
-				<setting id="limit.nextup" type="boolean" label="30657" help="">
-					<level>0</level>
-					<default>true</default>
-					<control type="toggle"/>
 				</setting>
 				<setting id="general.disableNotificationSound" type="boolean" label="30360" help="">
 					<level>0</level>
@@ -928,7 +907,7 @@
 				</setting>
 				<setting id="premiumize.auth" type="action" label="30339" help="">
 					<level>0</level>
-					<data>RunPlugin(plugin://plugin.video.seren/?action=authPremiumize)</data>
+					<data>RunPlugin(plugin://plugin.video.seren/?action=smartAuthPremiumize)</data>
 					<constraints>
 						<allowempty>true</allowempty>
 					</constraints>
@@ -938,7 +917,7 @@
 						</dependency>
 					</dependencies>
 					<control type="button" format="action">
-						<close>true</close>
+						<close>false</close>
 					</control>
 				</setting>
 				<setting id="premiumize.username" type="string" label="30159" help="" parent="">
@@ -971,6 +950,21 @@
 					</dependencies>
 					<control type="edit" format="string">
 						<heading>30458</heading>
+					</control>
+				</setting>
+				<setting id="premiumize.accountInfo" type="action" label="30876" help="">
+					<level>0</level>
+					<data>RunPlugin(plugin://plugin.video.seren/?action=pmAccountInfo)</data>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="premiumize.enabled">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="button" format="action">
+						<close>false</close>
 					</control>
 				</setting>
 				<setting id="premiumize.torrents" type="boolean" label="30153" help="" parent="">
@@ -1043,12 +1037,61 @@
 						<popup>false</popup>
 					</control>
 				</setting>
+				<setting id="premiumize.smartdelete" type="boolean" label="30673" help="30674" parent="">
+					<level>0</level>
+					<default>false</default>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="premiumize.enabled">true</condition>
+								<condition operator="is" setting="premiumize.addToCloud">true</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
 			</group>
 			<group id="5" label="30135">
 				<setting id="realdebrid.enabled" type="boolean" label="30152" help="">
 					<level>0</level>
 					<default>false</default>
 					<control type="toggle"/>
+				</setting>
+				<setting id="rd.authRealDebrid" type="action" label="30150" help="">
+					<level>0</level>
+					<data>RunPlugin(plugin://plugin.video.seren/?action=authRealDebrid)</data>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="realdebrid.enabled">true</condition>
+						</dependency>
+						<dependency type="visible">
+							<condition operator="is" setting="rd.auth"/>
+						</dependency>
+					</dependencies>
+					<control type="button" format="action">
+						<close>true</close>
+					</control>
+				</setting>
+				<setting id="rd.revokeAuth" type="action" label="30878" help="">
+					<level>0</level>
+					<data>RunPlugin(plugin://plugin.video.seren/?action=revokeRealDebrid)</data>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="realdebrid.enabled">true</condition>
+						</dependency>
+						<dependency type="visible">
+							<condition operator="!is" setting="rd.auth"/>
+						</dependency>
+					</dependencies>
+					<control type="button" format="action">
+						<close>false</close>
+					</control>
 				</setting>
 				<setting id="rd.username" type="string" label="30151" help="">
 					<level>0</level>
@@ -1082,9 +1125,9 @@
 						<heading>30458</heading>
 					</control>
 				</setting>
-				<setting id="rd.authRealDebrid" type="action" label="30150" help="">
+				<setting id="rd.accountInfo" type="action" label="30876" help="">
 					<level>0</level>
-					<data>RunPlugin(plugin://plugin.video.seren/?action=authRealDebrid)</data>
+					<data>RunPlugin(plugin://plugin.video.seren/?action=rdAccountInfo)</data>
 					<constraints>
 						<allowempty>true</allowempty>
 					</constraints>
@@ -1094,7 +1137,7 @@
 						</dependency>
 					</dependencies>
 					<control type="button" format="action">
-						<close>true</close>
+						<close>false</close>
 					</control>
 				</setting>
 				<setting id="rd.torrents" type="boolean" label="30153" help="" parent="">
@@ -1107,7 +1150,81 @@
 					</dependencies>
 					<control type="toggle"/>
 				</setting>
+				<setting id="rd.externalcache" type="boolean" label="30677" help="30678" parent="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="realdebrid.enabled">true</condition>
+								<condition operator="is" setting="rd.torrents">true</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<setting id="realdebrid.storeall" type="boolean" label="30886" help="30893" parent="">
+					<level>0</level>
+					<default>false</default>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="realdebrid.enabled">true</condition>
+								<condition operator="is" setting="rd.torrents">true</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<setting id="realdebrid.storeall.threshold" type="integer" label="30889" help="30890" parent="">
+					<level>0</level>
+					<default>5</default>
+					<constraints>
+						<minimum>0</minimum>
+						<step>1</step>
+						<maximum>20</maximum>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="realdebrid.enabled">true</condition>
+								<condition operator="is" setting="rd.torrents">true</condition>
+								<condition operator="is" setting="realdebrid.storeall">true</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="spinner" format="integer"/>
+				</setting>
+				<setting id="realdebrid.storeall.limit" type="integer" label="30891" help="30892" parent="">
+					<level>0</level>
+					<default>30</default>
+					<constraints>
+						<minimum>10</minimum>
+						<step>10</step>
+						<maximum>100</maximum>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="realdebrid.enabled">true</condition>
+								<condition operator="is" setting="rd.torrents">true</condition>
+								<condition operator="is" setting="realdebrid.storeall">true</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="spinner" format="integer"/>
+				</setting>
 				<setting id="rd.hosters" type="boolean" label="30154" help="" parent="">
+					<level>0</level>
+					<default>false</default>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="realdebrid.enabled">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<setting id="rd.addtocloud" type="boolean" label="30666" help="30675" parent="">
 					<level>0</level>
 					<default>false</default>
 					<dependencies>
@@ -1122,7 +1239,23 @@
 					<default>true</default>
 					<dependencies>
 						<dependency type="visible">
-							<condition operator="is" setting="realdebrid.enabled">true</condition>
+							<and>
+								<condition operator="is" setting="realdebrid.enabled">true</condition>
+								<condition operator="is" setting="rd.addtocloud">false</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<setting id="rd.smartdelete" type="boolean" label="30671" help="30672" parent="">
+					<level>0</level>
+					<default>false</default>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="realdebrid.enabled">true</condition>
+								<condition operator="is" setting="rd.addtocloud">false</condition>
+							</and>
 						</dependency>
 					</dependencies>
 					<control type="toggle"/>
@@ -1133,6 +1266,42 @@
 					<level>0</level>
 					<default>false</default>
 					<control type="toggle"/>
+				</setting>
+				<setting id="alldebrid.authAllDebrid" type="action" label="30337" help="">
+					<level>0</level>
+					<data>RunPlugin(plugin://plugin.video.seren/?action=authAllDebrid)</data>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="alldebrid.enabled">true</condition>
+						</dependency>
+						<dependency type="visible">
+							<condition operator="is" setting="alldebrid.apikey"/>
+						</dependency>
+					</dependencies>
+					<control type="button" format="action">
+						<close>true</close>
+					</control>
+				</setting>
+				<setting id="alldebrid.revokeAuth" type="action" label="30879" help="">
+					<level>0</level>
+					<data>RunPlugin(plugin://plugin.video.seren/?action=revokeAllDebrid)</data>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="alldebrid.enabled">true</condition>
+						</dependency>
+						<dependency type="visible">
+							<condition operator="!is" setting="alldebrid.apikey"/>
+						</dependency>
+					</dependencies>
+					<control type="button" format="action">
+						<close>false</close>
+					</control>
 				</setting>
 				<setting id="alldebrid.username" type="string" label="30336" help="">
 					<level>0</level>
@@ -1166,9 +1335,9 @@
 						<heading>30458</heading>
 					</control>
 				</setting>
-				<setting id="alldebrid.authAllDebrid" type="action" label="30337" help="">
+				<setting id="alldebrid.accountInfo" type="action" label="30876" help="">
 					<level>0</level>
-					<data>RunPlugin(plugin://plugin.video.seren/?action=authAllDebrid)</data>
+					<data>RunPlugin(plugin://plugin.video.seren/?action=adAccountInfo)</data>
 					<constraints>
 						<allowempty>true</allowempty>
 					</constraints>
@@ -1178,7 +1347,7 @@
 						</dependency>
 					</dependencies>
 					<control type="button" format="action">
-						<close>true</close>
+						<close>false</close>
 					</control>
 				</setting>
 				<setting id="alldebrid.torrents" type="boolean" label="30153" help="" parent="">
@@ -1191,7 +1360,94 @@
 					</dependencies>
 					<control type="toggle"/>
 				</setting>
+				<setting id="alldebrid.externalcache" type="boolean" label="30677" help="30679" parent="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="alldebrid.enabled">true</condition>
+								<condition operator="is" setting="alldebrid.torrents">true</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<setting id="alldebrid.magnetupload" type="boolean" label="30882" help="30883" parent="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="alldebrid.enabled">true</condition>
+								<condition operator="is" setting="alldebrid.torrents">true</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<setting id="alldebrid.storeall" type="boolean" label="30886" help="30887" parent="">
+					<level>0</level>
+					<default>false</default>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="alldebrid.enabled">true</condition>
+								<condition operator="is" setting="alldebrid.torrents">true</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<setting id="alldebrid.storeall.threshold" type="integer" label="30889" help="30890" parent="">
+					<level>0</level>
+					<default>5</default>
+					<constraints>
+						<minimum>0</minimum>
+						<step>1</step>
+						<maximum>20</maximum>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="alldebrid.enabled">true</condition>
+								<condition operator="is" setting="alldebrid.torrents">true</condition>
+								<condition operator="is" setting="alldebrid.storeall">true</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="spinner" format="integer"/>
+				</setting>
+				<setting id="alldebrid.storeall.limit" type="integer" label="30891" help="30892" parent="">
+					<level>0</level>
+					<default>30</default>
+					<constraints>
+						<minimum>10</minimum>
+						<step>10</step>
+						<maximum>100</maximum>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="alldebrid.enabled">true</condition>
+								<condition operator="is" setting="alldebrid.torrents">true</condition>
+								<condition operator="is" setting="alldebrid.storeall">true</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="spinner" format="integer"/>
+				</setting>
 				<setting id="alldebrid.hosters" type="boolean" label="30154" help="" parent="">
+					<level>0</level>
+					<default>false</default>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="alldebrid.enabled">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<setting id="alldebrid.addtocloud" type="boolean" label="30666" help="30675" parent="">
 					<level>0</level>
 					<default>false</default>
 					<dependencies>
@@ -1206,7 +1462,451 @@
 					<default>true</default>
 					<dependencies>
 						<dependency type="visible">
-							<condition operator="is" setting="alldebrid.enabled">true</condition>
+							<and>
+								<condition operator="is" setting="alldebrid.enabled">true</condition>
+								<condition operator="is" setting="alldebrid.addtocloud">false</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<setting id="alldebrid.smartdelete" type="boolean" label="30671" help="30672" parent="">
+					<level>0</level>
+					<default>false</default>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="alldebrid.enabled">true</condition>
+								<condition operator="is" setting="alldebrid.addtocloud">false</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+			</group>
+			<group id="7" label="30660">
+				<setting id="torbox.enabled" type="boolean" label="30661" help="">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="torbox.token" type="string" help="">
+					<level>4</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="edit" format="string">
+						<heading/>
+					</control>
+				</setting>
+				<setting id="torbox.authTorBox" type="action" label="30663" help="">
+					<level>0</level>
+					<data>RunPlugin(plugin://plugin.video.seren/?action=authTorBox)</data>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="torbox.enabled">true</condition>
+						</dependency>
+						<dependency type="visible">
+							<condition operator="is" setting="torbox.token"/>
+						</dependency>
+					</dependencies>
+					<control type="button" format="action">
+						<close>true</close>
+					</control>
+				</setting>
+				<setting id="torbox.revokeAuth" type="action" label="30880" help="">
+					<level>0</level>
+					<data>RunPlugin(plugin://plugin.video.seren/?action=revokeTorBox)</data>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="torbox.enabled">true</condition>
+						</dependency>
+						<dependency type="visible">
+							<condition operator="!is" setting="torbox.token"/>
+						</dependency>
+					</dependencies>
+					<control type="button" format="action">
+						<close>false</close>
+					</control>
+				</setting>
+				<setting id="torbox.username" type="string" label="30662" help="">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<enable>false</enable>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="torbox.enabled">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="edit" format="string">
+						<heading>30662</heading>
+					</control>
+				</setting>
+				<setting id="torbox.premiumstatus" type="string" label="30458" help="" parent="torbox.username">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<enable>false</enable>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="torbox.enabled">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="edit" format="string">
+						<heading>30458</heading>
+					</control>
+				</setting>
+				<setting id="torbox.accountInfo" type="action" label="30876" help="">
+					<level>0</level>
+					<data>RunPlugin(plugin://plugin.video.seren/?action=tbAccountInfo)</data>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="torbox.enabled">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="button" format="action">
+						<close>false</close>
+					</control>
+				</setting>
+				<setting id="torbox.torrents" type="boolean" label="30153" help="" parent="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="torbox.enabled">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<setting id="torbox.hosters" type="boolean" label="30154" help="" parent="">
+					<level>0</level>
+					<default>false</default>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="torbox.enabled">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<setting id="torbox.usenet" type="boolean" label="30830" help="30831" parent="">
+					<level>0</level>
+					<default>false</default>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="torbox.enabled">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<setting id="torbox.usenetUserEnginesOnly" type="boolean" label="30832" help="30833" parent="">
+					<level>0</level>
+					<default>false</default>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="torbox.enabled">true</condition>
+								<condition operator="is" setting="torbox.usenet">true</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<setting id="torbox.addtocloud" type="boolean" label="30666" help="30668" parent="">
+					<level>0</level>
+					<default>false</default>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="torbox.enabled">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<setting id="torbox.autodelete" type="boolean" label="30155" help="" parent="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="torbox.enabled">true</condition>
+								<condition operator="is" setting="torbox.addtocloud">false</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<setting id="torbox.smartdelete" type="boolean" label="30671" help="30672" parent="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="torbox.enabled">true</condition>
+								<condition operator="is" setting="torbox.addtocloud">false</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+			</group>
+			<group id="8" label="30680">
+				<setting id="debridlink.enabled" type="boolean" label="30681" help="">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="debridlink.token" type="string" label="" help="">
+					<level>4</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="edit" format="string">
+						<heading/>
+					</control>
+				</setting>
+				<setting id="debridlink.refresh" type="string" label="" help="">
+					<level>4</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="edit" format="string"/>
+				</setting>
+				<setting id="debridlink.expiry" type="string" label="" help="">
+					<level>4</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="edit" format="string"/>
+				</setting>
+				<setting id="debridlink.authDebridLink" type="action" label="30682" help="">
+					<level>0</level>
+					<data>RunPlugin(plugin://plugin.video.seren/?action=authDebridLink)</data>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="debridlink.enabled">true</condition>
+						</dependency>
+						<dependency type="visible">
+							<condition operator="is" setting="debridlink.token"/>
+						</dependency>
+					</dependencies>
+					<control type="button" format="action">
+						<close>true</close>
+					</control>
+				</setting>
+				<setting id="debridlink.revokeAuth" type="action" label="30881" help="">
+					<level>0</level>
+					<data>RunPlugin(plugin://plugin.video.seren/?action=revokeDebridLink)</data>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="debridlink.enabled">true</condition>
+						</dependency>
+						<dependency type="visible">
+							<condition operator="!is" setting="debridlink.token"/>
+						</dependency>
+					</dependencies>
+					<control type="button" format="action">
+						<close>false</close>
+					</control>
+				</setting>
+				<setting id="debridlink.username" type="string" label="30835" help="">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<enable>false</enable>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="debridlink.enabled">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="edit" format="string">
+						<heading>30835</heading>
+					</control>
+				</setting>
+				<setting id="debridlink.premiumstatus" type="string" label="30458" help="" parent="debridlink.username">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<enable>false</enable>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="debridlink.enabled">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="edit" format="string">
+						<heading>30458</heading>
+					</control>
+				</setting>
+				<setting id="debridlink.accountInfo" type="action" label="30876" help="">
+					<level>0</level>
+					<data>RunPlugin(plugin://plugin.video.seren/?action=dlAccountInfo)</data>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="debridlink.enabled">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="button" format="action">
+						<close>false</close>
+					</control>
+				</setting>
+				<setting id="debridlink.torrents" type="boolean" label="30153" help="" parent="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="debridlink.enabled">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<setting id="debridlink.externalcache" type="boolean" label="30677" help="30681" parent="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="debridlink.enabled">true</condition>
+						</dependency>
+						<dependency type="visible">
+							<condition operator="is" setting="debridlink.torrents">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<setting id="debridlink.seedboxprobe" type="boolean" label="30884" help="30885" parent="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="debridlink.enabled">true</condition>
+								<condition operator="is" setting="debridlink.torrents">true</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<setting id="debridlink.storeall" type="boolean" label="30886" help="30888" parent="">
+					<level>0</level>
+					<default>false</default>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="debridlink.enabled">true</condition>
+								<condition operator="is" setting="debridlink.torrents">true</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<setting id="debridlink.storeall.threshold" type="integer" label="30889" help="30890" parent="">
+					<level>0</level>
+					<default>5</default>
+					<constraints>
+						<minimum>0</minimum>
+						<step>1</step>
+						<maximum>20</maximum>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="debridlink.enabled">true</condition>
+								<condition operator="is" setting="debridlink.torrents">true</condition>
+								<condition operator="is" setting="debridlink.storeall">true</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="spinner" format="integer"/>
+				</setting>
+				<setting id="debridlink.storeall.limit" type="integer" label="30891" help="30892" parent="">
+					<level>0</level>
+					<default>30</default>
+					<constraints>
+						<minimum>10</minimum>
+						<step>10</step>
+						<maximum>100</maximum>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="debridlink.enabled">true</condition>
+								<condition operator="is" setting="debridlink.torrents">true</condition>
+								<condition operator="is" setting="debridlink.storeall">true</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="spinner" format="integer"/>
+				</setting>
+				<setting id="debridlink.hosters" type="boolean" label="30154" help="" parent="">
+					<level>0</level>
+					<default>false</default>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="debridlink.enabled">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<setting id="debridlink.addtocloud" type="boolean" label="30666" help="30675" parent="">
+					<level>0</level>
+					<default>false</default>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="debridlink.enabled">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<setting id="debridlink.autodelete" type="boolean" label="30155" help="" parent="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="debridlink.enabled">true</condition>
+								<condition operator="is" setting="debridlink.addtocloud">false</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<setting id="debridlink.smartdelete" type="boolean" label="30671" help="30672" parent="">
+					<level>0</level>
+					<default>false</default>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="debridlink.enabled">true</condition>
+								<condition operator="is" setting="debridlink.addtocloud">false</condition>
+							</and>
 						</dependency>
 					</dependencies>
 					<control type="toggle"/>
@@ -1239,6 +1939,50 @@
 					<control type="button" format="action"/>
 				</setting>
 			</group>
+			<group id="3a" label="30811">
+				<setting id="scraping.easynews" type="boolean" label="30812" help="30813">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+			</group>
+			<group id="3" label="30794">
+				<setting id="scraping.tier0" type="boolean" label="30795" help="30796">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="scraping.tier1" type="boolean" label="30797" help="30798">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="scraping.tier2" type="boolean" label="30799" help="30800">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="scraping.tier3" type="boolean" label="30807" help="30808">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="scraping.tier4" type="boolean" label="30801" help="30802">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="scraping.tier5" type="boolean" label="30803" help="30804">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="scraping.tier6" type="boolean" label="30809" help="30810">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+			</group>
 		</category>
 		<category id="scraping" label="30110" help="">
 			<group id="1" label="30084">
@@ -1266,10 +2010,58 @@
 				</setting>
 				<setting id="general.timeout" type="integer" label="30112" help="">
 					<level>0</level>
-					<default>60</default>
+					<default>30</default>
 					<constraints>
 						<minimum>10</minimum>
 						<maximum>180</maximum>
+					</constraints>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+				</setting>
+				<setting id="general.tierThreshold" type="integer" label="30669" help="30670">
+					<level>0</level>
+					<default>10</default>
+					<constraints>
+						<minimum>0</minimum>
+						<maximum>50</maximum>
+					</constraints>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+				</setting>
+				<setting id="scraping.allTierSweep" type="boolean" label="30914" help="30915">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="general.providerPerformance" type="boolean" label="30730" help="30731">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="general.providerFailThreshold" type="integer" label="30732" help="30733">
+					<level>0</level>
+					<default>5</default>
+					<constraints>
+						<minimum>3</minimum>
+						<maximum>20</maximum>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="general.providerPerformance">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+				</setting>
+				<setting id="general.cloudMissThreshold" type="integer" label="30742" help="30743">
+					<level>0</level>
+					<default>3</default>
+					<constraints>
+						<minimum>1</minimum>
+						<maximum>10</maximum>
 					</constraints>
 					<control type="slider" format="integer">
 						<popup>false</popup>
@@ -1307,6 +2099,26 @@
 					</dependencies>
 					<control type="toggle"/>
 				</setting>
+				<setting id="torbox.cloudInspection" type="boolean" label="30664" help="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="torbox.enabled">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<setting id="debridlink.cloudInspection" type="boolean" label="30834" help="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="debridlink.enabled">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
 			</group>
 			<group id="3" label="30113">
 				<setting id="general.autocache" type="boolean" label="30114" help="">
@@ -1338,6 +2150,7 @@
 							<option label="30134">0</option>
 							<option label="30135">1</option>
 							<option label="30333">2</option>
+							<option label="30660">3</option>
 						</options>
 					</constraints>
 					<dependencies>
@@ -1477,6 +2290,85 @@
 						<close>true</close>
 					</control>
 				</setting>
+				<setting id="filter.foreign.audio" type="boolean" label="30691" help="30692">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="filter.undesirables" type="boolean" label="30701" help="30702">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="filter.undesirables.selectDefaults" type="action" label="30703" help="">
+					<level>0</level>
+					<data>RunPlugin(plugin://plugin.video.seren/?action=undesirablesSelectDefaults)</data>
+					<dependencies>
+						<dependency type="enable" setting="filter.undesirables">true</dependency>
+					</dependencies>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="button" format="action">
+						<close>true</close>
+					</control>
+				</setting>
+				<setting id="filter.undesirables.userInput" type="action" label="30704" help="">
+					<level>0</level>
+					<data>RunPlugin(plugin://plugin.video.seren/?action=undesirablesUserInput)</data>
+					<dependencies>
+						<dependency type="enable" setting="filter.undesirables">true</dependency>
+					</dependencies>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="button" format="action">
+						<close>true</close>
+					</control>
+				</setting>
+				<setting id="filter.undesirables.userRemove" type="action" label="30705" help="">
+					<level>0</level>
+					<data>RunPlugin(plugin://plugin.video.seren/?action=undesirablesUserRemove)</data>
+					<dependencies>
+						<dependency type="enable" setting="filter.undesirables">true</dependency>
+					</dependencies>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="button" format="action">
+						<close>true</close>
+					</control>
+				</setting>
+				<setting id="filter.undesirables.reset" type="action" label="30706" help="">
+					<level>0</level>
+					<data>RunPlugin(plugin://plugin.video.seren/?action=undesirablesReset)</data>
+					<dependencies>
+						<dependency type="enable" setting="filter.undesirables">true</dependency>
+					</dependencies>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="button" format="action">
+						<close>true</close>
+					</control>
+				</setting>
+				<setting id="general.removeduplicates" type="boolean" label="30718" help="30719">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="general.rememberfilter" type="boolean" label="30724" help="30725">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="general.qualityColors" type="boolean" label="30726" help="30727">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+			</group>
+			<group id="3" label="30707">
 				<setting id="general.maxResolution" type="integer" label="30120" help="">
 					<level>0</level>
 					<default>0</default>
@@ -1625,7 +2517,7 @@
 					</control>
 				</setting>
 			</group>
-			<group id="2" label="30149">
+			<group id="4" label="30149">
 				<setting id="general.chooseSorting" type="action" label="30633" help="">
 					<level>0</level>
 					<data>RunPlugin(plugin://plugin.video.seren/?action=chooseSorting)</data>
@@ -1655,6 +2547,7 @@
 							<option label="30572">6</option>
 							<option label="30573">7</option>
 							<option label="30575">8</option>
+							<option label="30667">9</option>
 						</options>
 					</constraints>
 					<control type="spinner" format="string"/>
@@ -1678,6 +2571,7 @@
 							<option label="30572">6</option>
 							<option label="30573">7</option>
 							<option label="30575">8</option>
+							<option label="30667">9</option>
 						</options>
 					</constraints>
 					<control type="spinner" format="string"/>
@@ -1701,6 +2595,7 @@
 							<option label="30572">6</option>
 							<option label="30573">7</option>
 							<option label="30575">8</option>
+							<option label="30667">9</option>
 						</options>
 					</constraints>
 					<control type="spinner" format="string"/>
@@ -1724,6 +2619,7 @@
 							<option label="30572">6</option>
 							<option label="30573">7</option>
 							<option label="30575">8</option>
+							<option label="30667">9</option>
 						</options>
 					</constraints>
 					<control type="spinner" format="string"/>
@@ -1747,6 +2643,7 @@
 							<option label="30572">6</option>
 							<option label="30573">7</option>
 							<option label="30575">8</option>
+							<option label="30667">9</option>
 						</options>
 					</constraints>
 					<control type="spinner" format="string"/>
@@ -1770,6 +2667,7 @@
 							<option label="30572">6</option>
 							<option label="30573">7</option>
 							<option label="30575">8</option>
+							<option label="30667">9</option>
 						</options>
 					</constraints>
 					<control type="spinner" format="string"/>
@@ -1793,6 +2691,7 @@
 							<option label="30572">6</option>
 							<option label="30573">7</option>
 							<option label="30575">8</option>
+							<option label="30667">9</option>
 						</options>
 					</constraints>
 					<control type="spinner" format="string"/>
@@ -1816,6 +2715,7 @@
 							<option label="30572">6</option>
 							<option label="30573">7</option>
 							<option label="30575">8</option>
+							<option label="30667">9</option>
 						</options>
 					</constraints>
 					<control type="spinner" format="string"/>
@@ -1933,32 +2833,68 @@
 							<option label="30134">1</option>
 							<option label="30135">2</option>
 							<option label="30333">3</option>
+							<option label="30660">4</option>
+							<option label="30680">5</option>
 						</options>
 					</constraints>
 					<control type="spinner" format="string"/>
 				</setting>
 				<setting id="general.debridsort.2" type="integer" label="30577" help="" parent="general.sortmethod.8">
 					<level>4</level>
-					<default>0</default>
+					<default>2</default>
 					<constraints>
 						<options>
 							<option label="30513">0</option>
 							<option label="30134">1</option>
 							<option label="30135">2</option>
 							<option label="30333">3</option>
+							<option label="30660">4</option>
+							<option label="30680">5</option>
 						</options>
 					</constraints>
 					<control type="spinner" format="string"/>
 				</setting>
 				<setting id="general.debridsort.3" type="integer" label="30578" help="" parent="general.sortmethod.8">
 					<level>4</level>
-					<default>0</default>
+					<default>4</default>
 					<constraints>
 						<options>
 							<option label="30513">0</option>
 							<option label="30134">1</option>
 							<option label="30135">2</option>
 							<option label="30333">3</option>
+							<option label="30660">4</option>
+							<option label="30680">5</option>
+						</options>
+					</constraints>
+					<control type="spinner" format="string"/>
+				</setting>
+				<setting id="general.debridsort.4" type="integer" label="30665" help="" parent="general.sortmethod.8">
+					<level>4</level>
+					<default>3</default>
+					<constraints>
+						<options>
+							<option label="30513">0</option>
+							<option label="30134">1</option>
+							<option label="30135">2</option>
+							<option label="30333">3</option>
+							<option label="30660">4</option>
+							<option label="30680">5</option>
+						</options>
+					</constraints>
+					<control type="spinner" format="string"/>
+				</setting>
+				<setting id="general.debridsort.5" type="integer" label="30683" help="" parent="general.sortmethod.8">
+					<level>4</level>
+					<default>5</default>
+					<constraints>
+						<options>
+							<option label="30513">0</option>
+							<option label="30134">1</option>
+							<option label="30135">2</option>
+							<option label="30333">3</option>
+							<option label="30660">4</option>
+							<option label="30680">5</option>
 						</options>
 					</constraints>
 					<control type="spinner" format="string"/>
@@ -2025,6 +2961,31 @@
 						</options>
 					</constraints>
 					<control type="spinner" format="string"/>
+				</setting>
+				<setting id="general.contentVerify" type="boolean" label="30710" help="30711">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="general.contentVerifyMaxMismatch" type="integer" label="30712" help="30713">
+					<level>0</level>
+					<default>3</default>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="general.contentVerify">true</condition>
+						</dependency>
+					</dependencies>
+					<constraints>
+						<minimum>1</minimum>
+						<maximum>10</maximum>
+						<step>1</step>
+					</constraints>
+					<control type="slider" format="integer"/>
+				</setting>
+				<setting id="general.cloudContentVerify" type="boolean" label="30715" help="30717">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
 				</setting>
 			</group>
 			<group id="4" label="30604">
@@ -2113,20 +3074,6 @@
 						<popup>false</popup>
 					</control>
 				</setting>
-				<setting id="playingnext.chapters" type="boolean" label="30656" help="" parent="smartplay.playingnextdialog">
-					<level>0</level>
-					<default>true</default>
-					<dependencies>
-						<dependency type="visible">
-							<and>
-								<condition operator="is" setting="smartplay.playlistcreate">true</condition>
-								<condition operator="is" setting="smartplay.playingnextdialog">true</condition>
-								<condition operator="is" setting="smartplay.displaystyle">0</condition>
-							</and>
-						</dependency>
-					</dependencies>
-					<control type="toggle"/>
-				</setting>
 				<setting id="playingnext.defaultaction" type="integer" label="30319" help="" parent="smartplay.playingnextdialog">
 					<level>0</level>
 					<default>0</default>
@@ -2181,6 +3128,295 @@
 					</control>
 				</setting>
 			</group>
+			<group id="5" label="30820">
+				<setting id="playback.watchdog" type="boolean" label="30821" help="30822">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="watchdog.stallTimeout" type="integer" label="30823" help="">
+					<level>0</level>
+					<default>10</default>
+					<constraints>
+						<minimum>5</minimum>
+						<step>1</step>
+						<maximum>30</maximum>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="playback.watchdog">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+				</setting>
+				<setting id="watchdog.monitorWindow" type="integer" label="30824" help="">
+					<level>0</level>
+					<default>30</default>
+					<constraints>
+						<minimum>15</minimum>
+						<step>5</step>
+						<maximum>60</maximum>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="playback.watchdog">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+				</setting>
+				<setting id="watchdog.maxRetries" type="integer" label="30825" help="">
+					<level>0</level>
+					<default>3</default>
+					<constraints>
+						<minimum>1</minimum>
+						<step>1</step>
+						<maximum>5</maximum>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="playback.watchdog">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+				</setting>
+				<setting id="watchdog.subtitleDetection" type="boolean" label="30828" help="30829">
+					<level>0</level>
+					<default>false</default>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="playback.watchdog">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+			</group>
+		</category>
+		<category id="anime_titles" label="30763" help="">
+			<group id="1" label="30786">
+				<setting id="general.smartSearch" type="boolean" label="30786" help="30787">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="general.smartSearch.movies" type="boolean" label="30790" help="30791">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="enable" setting="general.smartSearch">true</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<setting id="general.smartSearch.tvshows" type="boolean" label="30788" help="30789">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="enable" setting="general.smartSearch">true</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<setting id="general.smartSearch.anime" type="boolean" label="30792" help="30793">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="enable" setting="general.smartSearch">true</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<setting id="general.smartSearch.asiandrama" type="boolean" label="30826" help="30827">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="enable" setting="general.smartSearch">true</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+			</group>
+			<group id="2" label="30758">
+				<setting id="general.titleSubs" type="boolean" label="30758" help="30759">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="general.titleSubs.add" type="action" label="30760" help="">
+					<level>0</level>
+					<data>RunPlugin(plugin://plugin.video.seren/?action=titleSubsAdd)</data>
+					<dependencies>
+						<dependency type="enable" setting="general.titleSubs">true</dependency>
+					</dependencies>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="button" format="action">
+						<close>true</close>
+					</control>
+				</setting>
+				<setting id="general.titleSubs.viewRemove" type="action" label="30761" help="">
+					<level>0</level>
+					<data>RunPlugin(plugin://plugin.video.seren/?action=titleSubsViewRemove)</data>
+					<dependencies>
+						<dependency type="enable" setting="general.titleSubs">true</dependency>
+					</dependencies>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="button" format="action">
+						<close>true</close>
+					</control>
+				</setting>
+				<setting id="general.titleSubs.clearAll" type="action" label="30762" help="">
+					<level>0</level>
+					<data>RunPlugin(plugin://plugin.video.seren/?action=titleSubsClearAll)</data>
+					<dependencies>
+						<dependency type="enable" setting="general.titleSubs">true</dependency>
+					</dependencies>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="button" format="action">
+						<close>true</close>
+					</control>
+				</setting>
+			</group>
+			<group id="3" label="30896">
+				<setting id="skip.intro" type="boolean" label="30897" help="30898">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="skip.recap" type="boolean" label="30899" help="30900">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="skip.credits" type="boolean" label="30901" help="30902">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="skip.preview" type="boolean" label="30903" help="30904">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="skip.autoIntro" type="boolean" label="30905" help="30906">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="skip.offset" type="integer" label="30907" help="30908">
+					<level>0</level>
+					<default>0</default>
+					<constraints>
+						<minimum>-10</minimum>
+						<step>1</step>
+						<maximum>10</maximum>
+					</constraints>
+					<control type="slider" format="integer"/>
+				</setting>
+				<setting id="skip.theIntroDbApiKey" type="string" label="30909" help="30910">
+					<level>0</level>
+					<default></default>
+					<control type="edit" format="string">
+						<hidden>true</hidden>
+					</control>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+				</setting>
+				<setting id="anime.skipFallbackDelay" type="integer" label="30778" help="30779">
+					<level>0</level>
+					<default>2</default>
+					<constraints>
+						<minimum>0</minimum>
+						<step>1</step>
+						<maximum>30</maximum>
+					</constraints>
+					<control type="slider" format="integer"/>
+				</setting>
+				<setting id="anime.skipFallbackDuration" type="integer" label="30780" help="30781">
+					<level>0</level>
+					<default>85</default>
+					<constraints>
+						<minimum>0</minimum>
+						<step>5</step>
+						<maximum>180</maximum>
+					</constraints>
+					<control type="slider" format="integer"/>
+				</setting>
+				<setting id="anime.skipFallbackOffset" type="integer" label="30782" help="30783">
+					<level>0</level>
+					<default>0</default>
+					<constraints>
+						<minimum>-10</minimum>
+						<step>1</step>
+						<maximum>10</maximum>
+					</constraints>
+					<control type="slider" format="integer"/>
+				</setting>
+			</group>
+			<group id="4" label="30773">
+				<setting id="anime.fillerDetection" type="boolean" label="30774" help="30775">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+			</group>
+			<group id="5" label="30840">
+				<setting id="anime.episodeMeta" type="boolean" label="30841" help="30842">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+			</group>
+			<group id="6" label="30850">
+				<setting id="anime.versionPreference" type="boolean" label="30851" help="30852">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+			</group>
+			<group id="7" label="30860">
+				<setting id="anime.dubSubPreference" type="integer" label="30861" help="30862">
+					<level>0</level>
+					<default>0</default>
+					<constraints>
+						<options>
+							<option label="30863">0</option>
+							<option label="30864">1</option>
+							<option label="30865">2</option>
+						</options>
+					</constraints>
+					<control type="spinner" format="string"/>
+				</setting>
+			</group>
+			<group id="anidb_udp" label="30871">
+				<setting id="anidb.username" type="string" label="30872" help="30873">
+					<level>0</level>
+					<default></default>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="edit" format="string">
+						<heading/>
+					</control>
+				</setting>
+				<setting id="anidb.password" type="string" label="30874" help="30875">
+					<level>0</level>
+					<default></default>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="edit" format="string">
+						<heading/>
+					</control>
+				</setting>
+			</group>
 		</category>
 		<category id="shortcuts" label="30142" help="">
 			<group id="1" label="30028">
@@ -2195,6 +3431,14 @@
 				<setting id="cache.cleartorrent" type="action" label="30039" help="">
 					<level>0</level>
 					<data>RunPlugin(plugin://plugin.video.seren/?action=clearTorrentCache)</data>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="button" format="action"/>
+				</setting>
+				<setting id="cache.cleardebrid" type="action" label="30676" help="">
+					<level>0</level>
+					<data>RunPlugin(plugin://plugin.video.seren/?action=clearDebridCache)</data>
 					<constraints>
 						<allowempty>true</allowempty>
 					</constraints>
@@ -2582,6 +3826,51 @@
 					<control type="edit" format="string">
 						<heading>30146</heading>
 					</control>
+				</setting>
+				<setting id="anirena.apikey" type="string" label="30912" help="30913">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="edit" format="string">
+						<hidden>true</hidden>
+						<heading>30912</heading>
+					</control>
+				</setting>
+				<setting id="mf.token" type="string" label="30916" help="30917">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="edit" format="string">
+						<hidden>true</hidden>
+						<heading>30916</heading>
+					</control>
+				</setting>
+				<setting id="mf.instance" type="integer" label="30920" help="30921">
+					<level>0</level>
+					<default>0</default>
+					<constraints>
+						<options>
+							<option label="30922">0</option>
+							<option label="30923">1</option>
+						</options>
+					</constraints>
+					<control type="spinner" format="string"/>
+				</setting>
+				<setting id="mf.service" type="integer" label="30918" help="30919">
+					<level>0</level>
+					<default>0</default>
+					<constraints>
+						<options>
+							<option label="30680">0</option>
+							<option label="30333">1</option>
+							<option label="30135">2</option>
+						</options>
+					</constraints>
+					<control type="spinner" format="string"/>
 				</setting>
 			</group>
 			<group id="3" label="30547">

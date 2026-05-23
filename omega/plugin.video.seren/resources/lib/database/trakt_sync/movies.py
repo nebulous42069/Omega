@@ -1,4 +1,5 @@
 from resources.lib.database import trakt_sync
+from resources.lib.database.trakt_sync import _list_cache_key, list_cache_get, list_cache_set
 from resources.lib.modules.globals import g
 from resources.lib.modules.guard_decorators import guard_against_none
 from resources.lib.modules.guard_decorators import guard_against_none_or_empty
@@ -11,6 +12,12 @@ class TraktSyncDatabase(trakt_sync.TraktSyncDatabase):
 
     @guard_against_none(list)
     def get_movie_list(self, trakt_list, **params):
+        # L1 cache check — returns cached result if available (reuselanguageinvoker)
+        cache_key = _list_cache_key("movies", [i.get('trakt_id') for i in trakt_list if i.get('trakt_id')], **params)
+        cached = list_cache_get(cache_key)
+        if cached is not None:
+            return cached
+
         self._update_movies(trakt_list)
         query = f"""
             SELECT m.trakt_id,
@@ -33,7 +40,9 @@ class TraktSyncDatabase(trakt_sync.TraktSyncDatabase):
         if params.get("hide_watched", self.hide_watched):
             query += " AND watched = 0"
 
-        return MetadataHandler.sort_list_items(self.fetchall(query), trakt_list)
+        result = MetadataHandler.sort_list_items(self.fetchall(query), trakt_list)
+        list_cache_set(cache_key, result)
+        return result
 
     @guard_against_none(list)
     def get_collected_movies(self, page):

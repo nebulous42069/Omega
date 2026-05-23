@@ -63,6 +63,36 @@ class GeneralCachingFailure(StackTraceException):
     pass
 
 
+class CloudMiss(Exception):
+    """Raised when a debrid service confirms a hash is no longer cached/available.
+
+    Unlike FileIdentification (files found but couldn't pick one) or
+    GeneralCachingFailure (general API error), CloudMiss specifically means
+    the torrent was expected to be cached but isn't anymore.
+
+    Not a StackTraceException — this is a normal operational signal, not an error.
+    """
+    def __init__(self, debrid_provider, info_hash=""):
+        self.debrid_provider = debrid_provider
+        self.info_hash = info_hash
+        super().__init__(f"{debrid_provider}: hash {info_hash[:16]}... no longer cached")
+
+
+class InfringingFile(Exception):
+    """Raised when RD returns HTTP 451 / error_code=35 (legally-blocked file).
+
+    RD's unrestrict/link endpoint returns error_code=35 for files that have
+    been flagged as DMCA-infringing. The torrent still shows status='downloaded'
+    in torrents/info — the block is invisible until resolve time.
+
+    Not a StackTraceException — this is a normal operational signal, not an error.
+    The hash is written to DebridCache with a 7-day TTL to suppress future attempts.
+    """
+    def __init__(self, link=""):
+        self.link = link
+        super().__init__(f"File is legally blocked (infringing): {link[:60]}")
+
+
 class FailureAtRemoteParty(StackTraceException):
     def __init__(self, error):
         xbmcgui.Dialog().ok(

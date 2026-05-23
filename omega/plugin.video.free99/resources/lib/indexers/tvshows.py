@@ -65,7 +65,7 @@ class tvshows:
         self.imdb_user = control.setting('imdb.user').replace('ur', '')
         self.tmdb_key = control.setting('tmdb.api')
         if self.tmdb_key == '' or self.tmdb_key == None:
-            self.tmdb_key = '3d000491a0f37d4962d02bdb062af037'
+            self.tmdb_key = 'f5608fba6ab49e9985828b35d5653321'
         self.fanart_tv_headers = {'api-key': 'ad7eccc1dd67f889f7f5c2e9ebb810ae'}
         self.fanart_tv_user = control.setting('fanart.api')
         if not self.fanart_tv_user == '' or self.fanart_tv_user == None:
@@ -1413,7 +1413,7 @@ class tvshows:
         sysaddon = sys.argv[0]
         syshandle = int(sys.argv[1])
         addonPoster, addonBanner = control.addonPoster(), control.addonBanner()
-        addonFanart, settingFanart = control.addonFanart(), control.setting('fanart')
+        addonFanart, settingFanart = control.addonFanart(), control.setting('show.fanart')
         traktCredentials = trakt.getTraktCredentialsInfo()
         tmdbCredentials = tmdb_utils.getTMDbCredentialsInfo()
         indicators = playcount.getTVShowIndicators()#refresh=True) if action == 'tvshows' else playcount.getTVShowIndicators()

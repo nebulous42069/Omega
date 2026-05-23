@@ -22,6 +22,18 @@ class SerenMonitor(xbmc.Monitor):
             return
         g.log("FLUSHING SETTINGS CACHE", "info")
         g.SETTINGS_CACHE.clear_cache()
+        g.SETTINGS_CACHE.pre_warm_settings(g.SETTINGS_PATH)
+        g.clear_cached_settings_properties()
+        try:
+            from resources.lib.modules.metadataHandler import MetadataHandler
+            MetadataHandler.invalidate()
+        except Exception:
+            pass
+        try:
+            from resources.lib.database.trakt_sync import clear_list_cache
+            clear_list_cache()
+        except Exception:
+            pass
         g.trigger_widget_refresh(if_playing=False)
 
     def onNotification(self, sender, method, data):

@@ -19,7 +19,11 @@ class PremiumizeResolver(TorrentResolverBase):
         self.transfer_class = PremiumizeTransfers()
 
     def _fetch_source_files(self, torrent, item_information):
-        return self.debrid_module.direct_download(torrent["magnet"])["content"]
+        from resources.lib.modules.exceptions import CloudMiss
+        result = self.debrid_module.direct_download(torrent["magnet"])
+        if not result or "content" not in result or not result["content"]:
+            raise CloudMiss("premiumize", torrent.get("hash", ""))
+        return result["content"]
 
     def resolve_stream_url(self, file_info):
         """
@@ -39,6 +43,10 @@ class PremiumizeResolver(TorrentResolverBase):
             transfer = self.debrid_module.create_transfer(torrent["magnet"])
             if transfer.get("id"):
                 self.transfer_class.add_premiumize_transfer(transfer["id"])
+                if g.get_bool_setting("premiumize.smartdelete"):
+                    # Smart delete: defer cleanup to player — delete if fully watched, keep if stopped early
+                    from resources.lib.debrid.debrid_utils import store_pending_cleanup
+                    store_pending_cleanup("premiumize", transfer["id"], "delete_transfer")
             else:
                 xbmcgui.Dialog().notification(g.ADDON_NAME, g.get_language_string(30472))
                 g.log(transfer, "error")

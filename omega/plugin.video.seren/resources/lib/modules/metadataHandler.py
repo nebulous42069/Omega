@@ -16,7 +16,26 @@ ART_TVDB = 2
 
 
 class MetadataHandler:
+    _instance = None
+
+    def __new__(cls):
+        if cls._instance is not None:
+            return cls._instance
+        instance = super().__new__(cls)
+        cls._instance = instance
+        return instance
+
+    @classmethod
+    def invalidate(cls):
+        """Clear the singleton instance. Called when settings change."""
+        cls._instance = None
+
     def __init__(self):
+        # Skip re-init if already initialized (singleton returned cached instance)
+        if hasattr(self, '_initialized'):
+            return
+        self._initialized = True
+
         self.lang_code = g.get_language_code()
         self.lang_full_code = g.get_language_code(True)
         self.lang_region_code = self.lang_full_code.split("-")[-1]
@@ -187,6 +206,12 @@ class MetadataHandler:
         self._add_season_show_info(result, season_info, show_info)
         self._add_season_show_art(result, season_art, show_art)
         self._add_season_show_cast(result, season_cast, show_cast)
+
+        # Anime episode metadata overlay — replaces generic TMDB titles/plots/thumbs
+        # with anime-specific data from Simkl/AniZip/Jikan/AniDB/Kitsu
+        if result["info"].get("mediatype") == "episode":
+            self._apply_anime_episode_meta(result, db_object)
+
         return result
 
     @staticmethod
@@ -214,6 +239,8 @@ class MetadataHandler:
                 result["info"]["country_origin"] = show_info.get("country_origin")
             if not result["info"].get("aliases") and show_info.get("aliases"):
                 result["info"]["aliases"] = show_info.get("aliases")
+            if show_info.get("originaltitle"):
+                result["info"]["tvshow.originaltitle"] = show_info.get("originaltitle")
             if not result["info"].get("mpaa") and (mpaa := show_info.get("mpaa")):
                 result["info"]["mpaa"] = mpaa
             result["info"].update({f"tvshow.{key}": value for key, value in show_info.items() if key.endswith("_id")})
@@ -955,6 +982,115 @@ class MetadataHandler:
                         tools.safe_dict_get(db_object, "trakt_object", "info", "episode"),
                     ),
                 )
+
+    @staticmethod
+    def _apply_anime_episode_meta(result, db_object):
+        """Overlay anime-specific episode metadata onto the formatted result.
+
+        Called from format_meta() for episode items only. Checks if the show is anime,
+        then fetches episode title/plot/thumb from the Simkl → AniZip → Jikan → AniDB → Kitsu
+        fallback chain (with SQLite caching). Overlays only non-empty fields — existing
+        TMDB/TVDB data is preserved as fallback.
+        """
+        if not g.get_bool_setting('anime.episodeMeta', True):
+            return
+
+        info = result.get("info", {})
+
+        # ── Anime genre check (same logic as filler detection) ───────────
+        genres = info.get("genre", [])
+        if not isinstance(genres, list):
+            genres = [genres] if genres else []
+
+        is_anime = any(genre.lower() == 'anime' for genre in genres)
+
+        # Also accept Japanese animation content
+        if not is_anime:
+            country = info.get("country_origin", "")
+            has_animation = any("animation" in genre.lower() for genre in genres)
+            if has_animation and str(country).upper() in ("JP", "JPN", "JAPAN"):
+                is_anime = True
+
+        if not is_anime:
+            return
+
+        season = info.get("season")
+        episode = info.get("episode")
+        if not season or not episode:
+            return
+
+        # ── Get anime IDs via existing mapping module ────────────────────
+        try:
+            from resources.lib.modules.anime.anilist_mapping import get_anime_ids
+
+            imdb_id = info.get("imdb_id") or info.get("tvshow.imdb_id")
+            tmdb_id = info.get("tmdb_show_id")
+            trakt_id = info.get("trakt_show_id")
+            anime_ids = get_anime_ids(imdb_id=imdb_id or None, tmdb_id=tmdb_id or None, trakt_id=trakt_id or None)
+            if not anime_ids:
+                return
+        except Exception as e:
+            g.log(f"AnimeEpisodeMeta: ID mapping failed: {e}", "debug")
+            return
+
+        # ── Fetch episode metadata (cached or live) ──────────────────────
+        try:
+            from resources.lib.modules.anime.episode_meta import get_episode_data
+
+            all_episodes = get_episode_data(
+                mal_id=anime_ids.get("mal_id"),
+                anidb_id=anime_ids.get("anidb_id"),
+                simkl_id=anime_ids.get("simkl_id"),
+                kitsu_id=anime_ids.get("kitsu_id"),
+                anilist_id=anime_ids.get("anilist_id"),
+                season=int(season),
+            )
+            if not all_episodes:
+                return
+
+            ep_data = all_episodes.get(int(episode))
+            if not ep_data:
+                return
+        except Exception as e:
+            g.log(f"AnimeEpisodeMeta: fetch failed: {e}", "debug")
+            return
+
+        # ── Overlay non-empty fields onto result ─────────────────────────
+        if ep_data.get("title"):
+            result["info"]["title"] = ep_data["title"]
+            result["info"]["originaltitle"] = ep_data["title"]
+
+        if ep_data.get("plot"):
+            result["info"]["plot"] = ep_data["plot"]
+            result["info"]["plotoutline"] = ep_data["plot"]
+
+        if ep_data.get("thumb"):
+            result.setdefault("art", {})["thumb"] = ep_data["thumb"]
+
+        if ep_data.get("airdate") and not info.get("aired"):
+            result["info"]["aired"] = ep_data["airdate"]
+
+        if ep_data.get("duration") and not info.get("duration"):
+            result["info"]["duration"] = int(ep_data["duration"]) * 60  # Kodi expects seconds
+
+        # ── AniDB per-episode rating (unique — no other source has this) ────
+        if ep_data.get("anidb_rating"):
+            try:
+                result["info"]["rating"] = float(ep_data["anidb_rating"])
+                result["info"]["votes"] = str(ep_data.get("anidb_votes", 0))
+            except (ValueError, TypeError):
+                pass
+
+        # ── AniDB voice actor cast (seiyuu) for Bingie Mod info dialog ───────
+        anidb_id = anime_ids.get("anidb_id") if anime_ids else None
+        if anidb_id:
+            try:
+                from resources.lib.modules.anime.anidb_characters import get_anime_cast
+                cast = get_anime_cast(anidb_id)
+                if cast:
+                    result["cast"] = cast
+            except Exception as e:
+                g.log(f"AnimeEpisodeMeta: cast inject failed (non-fatal): {e}", "debug")
 
     def _update_episode_rating(self, db_object):
         if not tools.safe_dict_get(db_object, "tmdb_object", "info") and self._tmdb_show_id_valid(db_object):

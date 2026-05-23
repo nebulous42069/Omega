@@ -147,6 +147,17 @@
 				<top>100</top>
 				<height>140</height>
 
+				<!-- Seeders -->
+				<control type="label">
+					<right>360</right>
+					<width>350</width>
+					<height>20</height>
+					<font>font12</font>
+					<textcolor>FFFFFFFF</textcolor>
+					<align>right</align>
+					<label>[B][UPPERCASE]$ADDON[plugin.video.seren 30667]: [COLOR $INFO[Window().Property(settings.color)]]$INFO[Window().Property(source_seeds)][/COLOR][/UPPERCASE][/B]</label>
+				</control>
+
 				<!-- Size -->
 				<control type="label">
 					<right>0</right>
@@ -167,7 +178,7 @@
 					<font>font12</font>
 					<align>right</align>
 					<textcolor>FFFFFFFF</textcolor>
-					<label>[B][UPPERCASE]$ADDON[plugin.video.seren 30237]: [COLOR $INFO[Window().Property(settings.color)]]$INFO[Window().Property(source_resolution)][/COLOR][/UPPERCASE][/B]</label>
+					<label>[B][UPPERCASE]$ADDON[plugin.video.seren 30237]: [COLOR $INFO[Window().Property(source_resolution_color)]]$INFO[Window().Property(source_resolution)][/COLOR][/UPPERCASE][/B]</label>
 				</control>
 
 				<!-- Source Type -->

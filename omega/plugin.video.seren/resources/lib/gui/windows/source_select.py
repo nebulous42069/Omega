@@ -34,13 +34,17 @@ class SourceSelect(SourceWindow):
         self.position = self.display_list.getSelectedPosition()
 
         if action_id == 117:
-            response = xbmcgui.Dialog().contextmenu(
-                [
-                    g.get_language_string(30320),
-                    g.get_language_string(30473),
-                    g.get_language_string(30483),
-                ]
-            )
+            menu_items = [
+                g.get_language_string(30320),
+                g.get_language_string(30473),
+                g.get_language_string(30483),
+            ]
+            if self._filter_applied:
+                menu_items.append(g.get_language_string(30694))
+            else:
+                menu_items.append(g.get_language_string(30693))
+
+            response = xbmcgui.Dialog().contextmenu(menu_items)
             if response == 0:
                 self._resolve_item(False)
             elif response == 1:
@@ -59,12 +63,16 @@ class SourceSelect(SourceWindow):
 
             elif response == 2:
                 self._resolve_item(True)
+            elif response == 3:
+                self.toggle_filter()
 
         if action_id == 7:
             if control_id == 1000:
                 self._resolve_item(False)
             elif control_id == 2001:
                 self._open_manual_cache_assist()
+            elif control_id == 2002:
+                self.toggle_filter()
             elif control_id == 2999:
                 self.close()
 
@@ -107,5 +115,23 @@ class SourceSelect(SourceWindow):
         if newly_cached_source is None:
             return
 
-        self.sources = [newly_cached_source] + self.sources
-        self.onInit()
+        # Resolve and play the newly-cached source directly instead of
+        # prepending it to the source list and forcing the user to click again.
+        resolver_helper = Resolverhelper()
+        self.setProperty("resolving", "true")
+        self.stream_link = resolver_helper.resolve_silent_or_visible(
+            [newly_cached_source],
+            self.item_information,
+            pack_select=False,
+        )
+
+        if self.stream_link is None or self.stream_link == "none":
+            # Resolution failed — fall back to prepending so user can try manually
+            self.setProperty("resolving", "false")
+            resolver_helper.close_window()
+            g.log("Newly cached source failed to resolve — adding to source list", "warning")
+            self.sources = [newly_cached_source] + self.sources
+            self.onInit()
+        else:
+            self.setProperty("instant_close", "true")
+            self.close()

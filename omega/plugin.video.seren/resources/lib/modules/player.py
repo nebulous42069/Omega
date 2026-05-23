@@ -53,6 +53,8 @@ class SerenPlayer(xbmc.Player):
         self.playback_error = False
         self.playback_ended = False
         self.playback_stopped = False
+        self.stop_event_received = False  # Set by onPlayBackStopped regardless of playback_started
+        self._end_playback_done = False  # Guard: prevents double-execution of _end_playback()
         self.scrobbled = False
         self.scrobble_started = False
         self.last_attempted_scrobble_stop = 0
@@ -61,6 +63,31 @@ class SerenPlayer(xbmc.Player):
         self.dialogs_triggered = False
         self.pre_scrape_initiated = False
         self.playback_timestamp = 0
+
+        # Skip segment handler (intro/recap/credits/preview across anime/TV/movies)
+        self._skip_handler = None
+        # Per-segment-type one-shot trigger guard. Resets if user seeks back into a segment.
+        self._skip_state = {
+            "intro": {"inside": False, "shown": False, "last_t": None},
+            "recap": {"inside": False, "shown": False, "last_t": None},
+            "credits": {"inside": False, "shown": False, "last_t": None},
+            "preview": {"inside": False, "shown": False, "last_t": None},
+        }
+
+        # Per-type enable toggles (introduced in 3.3.92 — replaces anime.skip* names).
+        self._skip_enabled = {
+            "intro": g.get_bool_setting("skip.intro"),
+            "recap": g.get_bool_setting("skip.recap"),
+            "credits": g.get_bool_setting("skip.credits"),
+            "preview": g.get_bool_setting("skip.preview"),
+        }
+        self._skip_auto_intro = g.get_bool_setting("skip.autoIntro")
+        self._skip_offset = g.get_int_setting("skip.offset")
+
+        # Anime-only fallback timer (used when AniSkip/Anime-Skip have no data)
+        self._skip_fallback_delay = g.get_int_setting("anime.skipFallbackDelay")
+        self._skip_fallback_duration = g.get_int_setting("anime.skipFallbackDuration")
+        self._skip_fallback_offset = g.get_int_setting("anime.skipFallbackOffset")
 
     @cached_property
     def _trakt_api(self):
@@ -105,6 +132,97 @@ class SerenPlayer(xbmc.Player):
         self.playing_next_time = max(self.playing_next_time, self.item_information["info"]["duration"] * (1 - (g.get_int_setting("playingnext.percent") / 100)))
 
         xbmcplugin.setResolvedUrl(g.PLUGIN_HANDLE, True, self._create_list_item(stream_link))
+
+        # Start skip-segment handler in background for episodes and movies
+        if any(self._skip_enabled.values()) and self.mediatype in (g.MEDIA_EPISODE, g.MEDIA_MOVIE):
+            try:
+                from resources.lib.modules.skip.skip_handler import SkipHandler
+                episode_number = self.item_information["info"].get("episode", 0) if self.mediatype == g.MEDIA_EPISODE else 0
+                if self.mediatype == g.MEDIA_MOVIE or episode_number:
+                    self._skip_handler = SkipHandler(self.item_information, episode_number)
+                    self._skip_handler.start()
+            except Exception as e:
+                g.log(f"Skip handler init failed: {e}", "debug")
+
+        self._keep_alive()
+
+    def attach_to_playing(self, stream_link, item_information, resume_time=None):
+        """Attach lifecycle management to an already-playing stream.
+
+        Used by PlaybackWatchdog — the stream is already playing via
+        xbmc.Player().play(). This sets up Trakt scrobbling, bookmarks,
+        Playing Next dialogs, anime skip, and enters _keep_alive() —
+        everything play_source() does except setResolvedUrl.
+
+        :param stream_link: URL of the currently playing stream
+        :param item_information: Metadata on the playing item
+        :param resume_time: Time to seek to (if resuming)
+        """
+        self.pre_scrape_initiated = False
+        if resume_time:
+            self.offset = float(resume_time)
+            # Watchdog already seeked to the resume position before the
+            # monitoring window. Mark as resumed so _keep_alive() doesn't
+            # do a second seek 30s later.
+            self.resumed = True
+
+        if not stream_link:
+            return
+
+        self.playing_file = stream_link
+        self.item_information = item_information
+        self.smart_module = smartPlay.SmartPlay(item_information)
+        self.mediatype = self.item_information["info"]["mediatype"]
+        self.trakt_id = self.item_information["info"]["trakt_id"]
+
+        if self.item_information.get("resume", "false") == "true":
+            self._try_get_bookmark()
+
+        self._handle_bookmark()
+        self._add_support_for_external_trakt_scrobbling()
+
+        self.playing_next_time = max(
+            self.playing_next_time,
+            self.item_information["info"]["duration"]
+            * (1 - (g.get_int_setting("playingnext.percent") / 100)),
+        )
+
+        # Stream is already playing via watchdog's Player.play().
+        # Do NOT call setResolvedUrl here — when TMDb Helper is the
+        # launching player, setResolvedUrl(True) causes Kodi to route
+        # the resolution back through TMDb Helper, which opens a new
+        # VideoPlayer and kills the watchdog's working stream.
+        # The plugin handle is released by g.cancel_playback() in the
+        # router before the watchdog starts.
+
+        # Manually trigger start state
+        self.playback_started = True
+        self.playback_timestamp = time.time()
+        try:
+            self._running_path = self.getPlayingFile()
+        except Exception:
+            self._running_path = stream_link
+
+        g.close_busy_dialog()
+        g.close_all_dialogs()
+
+        # Smart playlist handling
+        if self.smart_playlists and self.mediatype == "episode":
+            if g.PLAYLIST.size() == 1 and not self.smart_module.is_season_final():
+                self.smart_module.build_playlist()
+            elif g.PLAYLIST.size() == g.PLAYLIST.getposition() + 1:
+                self.smart_module.append_next_season()
+
+        # Start skip-segment handler in background for episodes and movies
+        if any(self._skip_enabled.values()) and self.mediatype in (g.MEDIA_EPISODE, g.MEDIA_MOVIE):
+            try:
+                from resources.lib.modules.skip.skip_handler import SkipHandler
+                episode_number = self.item_information["info"].get("episode", 0) if self.mediatype == g.MEDIA_EPISODE else 0
+                if self.mediatype == g.MEDIA_MOVIE or episode_number:
+                    self._skip_handler = SkipHandler(self.item_information, episode_number)
+                    self._skip_handler.start()
+            except Exception as e:
+                g.log(f"Skip handler init failed: {e}", "debug")
 
         self._keep_alive()
 
@@ -265,6 +383,7 @@ class SerenPlayer(xbmc.Player):
         :rtype: None
         """
         self.playback_stopped = bool(self.playback_started)
+        self.stop_event_received = True
         g.PLAYLIST.clear()
         g.close_busy_dialog()
         g.close_all_dialogs()
@@ -298,17 +417,6 @@ class SerenPlayer(xbmc.Player):
         if self.playback_started:
             return
 
-        if g.get_bool_setting("playingnext.chapters"):
-            last_chapter = self.final_chapter()
-            if last_chapter is not None:
-                remaining_time = self.item_information["info"]["duration"] * (1 - last_chapter / 100)
-                if remaining_time > 5:
-                    self.playing_next_time = min(self.playing_next_time, remaining_time)
-
-        if self.offset and not self.resumed:
-            self.seekTime(self.offset)
-            self.resumed = True
-
         self.playback_started = True
         self.playback_timestamp = time.time()
         self._running_path = self.getPlayingFile()
@@ -323,11 +431,87 @@ class SerenPlayer(xbmc.Player):
                 self.smart_module.append_next_season()
 
     def _end_playback(self):
+        if self._end_playback_done:
+            return
+        self._end_playback_done = True
         self._handle_bookmark()
         self._trakt_stop_watching()
         self._trakt_mark_playing_item_watched()
+        self._debrid_post_playback_cleanup()
         if g.get_bool_setting("general.force.widget.refresh.playback"):
-            g.trigger_widget_refresh()
+            # trigger_widget_refresh() has a blocking wait loop — never call it directly
+            # from within a Kodi player callback (onPlayBackStopped fires inside
+            # g.wait_for_abort(), so a nested wait_for_abort() inside the refresh loop
+            # deadlocks the thread permanently). Run it on a daemon thread instead.
+            import threading
+            threading.Thread(target=g.trigger_widget_refresh, daemon=True).start()
+
+    def _debrid_post_playback_cleanup(self):
+        """Unified smart auto-delete for all debrid services.
+        Deletes the resolved torrent/transfer from cloud if fully watched.
+        Keeps in cloud if stopped early (for later viewing).
+        Works for Real-Debrid, Premiumize, AllDebrid, TorBox, and Debrid-Link."""
+        try:
+            from resources.lib.debrid.debrid_utils import get_pending_cleanup
+
+            pending = get_pending_cleanup()
+            if not pending:
+                return
+
+            # If playback never started (CDN failed, stream error, etc.),
+            # silently discard the cleanup record — nothing to decide on.
+            if not self.playback_started:
+                g.log(
+                    f"Smart delete ({pending['service']}): Discarding cleanup for "
+                    f"{pending['item_id']} — playback never started",
+                    "debug",
+                )
+                return
+
+            service = pending["service"]
+            item_id = pending["item_id"]
+            delete_method = pending["delete_method"]
+
+            # Check if fully watched using same threshold as Trakt scrobbling
+            if self.watched_percentage >= self.playCountMinimumPercent:
+                # Fully watched — delete from cloud
+                debrid_module = self._get_debrid_module(service)
+                if debrid_module:
+                    getattr(debrid_module, delete_method)(item_id)
+                    g.log(
+                        f"Smart delete ({service}): Deleted item {item_id} "
+                        f"(watched {self.watched_percentage}%)",
+                        "info",
+                    )
+            else:
+                # Stopped early — keep in cloud for later
+                g.log(
+                    f"Smart delete ({service}): Keeping item {item_id} "
+                    f"in cloud (watched {self.watched_percentage}%)",
+                    "info",
+                )
+        except Exception as e:
+            g.log(f"Smart delete cleanup error: {e}", "warning")
+
+    @staticmethod
+    def _get_debrid_module(service):
+        """Lazy-load the appropriate debrid module by service name."""
+        if service == "real_debrid":
+            from resources.lib.debrid.real_debrid import RealDebrid
+            return RealDebrid()
+        elif service == "premiumize":
+            from resources.lib.debrid.premiumize import Premiumize
+            return Premiumize()
+        elif service == "all_debrid":
+            from resources.lib.debrid.all_debrid import AllDebrid
+            return AllDebrid()
+        elif service == "torbox":
+            from resources.lib.debrid.torbox import TorBox
+            return TorBox()
+        elif service == "debrid_link":
+            from resources.lib.debrid.debrid_link import DebridLink
+            return DebridLink()
+        return None
 
     def _get_kodi_preferred_subtitle_language(self):
         language = g.get_kodi_preferred_subtitle_language(True)
@@ -442,10 +626,10 @@ class SerenPlayer(xbmc.Player):
             not self.trakt_enabled
             or not self.scrobbling_enabled
             or self.scrobbled
-            or (not self.scrobble_started and self.current_time < self.ignoreSecondsAtStart)
+            or self.current_time < self.ignoreSecondsAtStart
         ):
             return
-        
+
         post_data = self._build_trakt_object()
 
         if post_data["progress"] >= self.playCountMinimumPercent:
@@ -472,13 +656,11 @@ class SerenPlayer(xbmc.Player):
                 return
             else:
                 g.log(f"Trakt scrobble/stop returned status code: {scrobble_response.status_code}", "warning")
-        else:
+        elif self.current_time > self.ignoreSecondsAtStart:
             if (pause_time := time.time() - self.last_attempted_scrobble_pause) < 5:
                 g.log(f"Trakt scrobble/pause repeat called: {pause_time}s", "warning")
             try:
                 scrobble_response = self._trakt_api.post("scrobble/pause", post_data)
-                if self.current_time < self.ignoreSecondsAtStart:
-                    self._remove_playback_history(self.item_information)
             except Exception:
                 g.log_stacktrace()
                 return
@@ -510,6 +692,13 @@ class SerenPlayer(xbmc.Player):
 
             TraktSyncDatabase().mark_movie_watched(self.trakt_id)
 
+        # Clear L1 list cache so watched status reflects immediately on next list build
+        try:
+            from resources.lib.database.trakt_sync import clear_list_cache
+            clear_list_cache()
+        except Exception:
+            pass
+
     def _build_trakt_object(self, offset=None):
         post_data = {self.mediatype: {"ids": {"trakt": self.trakt_id}}}
         if offset:
@@ -529,6 +718,10 @@ class SerenPlayer(xbmc.Player):
         self.total_time = self.getTotalTime()
         self.min_time_before_scrape = max(self.total_time * 0.2, self.min_time_before_scrape)
 
+        if self.offset and not self.resumed:
+            self.seekTime(self.offset)
+            self.resumed = True
+
         self._log_debug_information()
 
         while not g.wait_for_abort(0.5) and self._is_file_playing():  # This order is correct! Wait then check.
@@ -538,6 +731,9 @@ class SerenPlayer(xbmc.Player):
                 self._trakt_start_watching()
 
             time_left = int(self.total_time) - int(self.current_time)
+
+            # Skip-segment check (intro/recap/credits/preview)
+            self._check_skip()
 
             if self.min_time_before_scrape > time_left and not self.pre_scrape_initiated:
                 self._handle_pre_scrape()
@@ -550,11 +746,146 @@ class SerenPlayer(xbmc.Player):
                 xbmc.executebuiltin('RunPlugin("plugin://plugin.video.seren/?action=runPlayerDialogs")')
                 self.dialogs_triggered = True
 
-        if not self._playback_has_stopped():  # Kodi does not fire the onPlaybackStopped event if early in playback
-            self._end_playback()
+        if not self._playback_has_stopped():
+            # Kodi fires onPlayBackStopped/onPlayBackEnded asynchronously — wait up to 2s
+            # for the callback to arrive before falling back to a direct _end_playback() call.
+            for _i in range(40):  # 40 × 50 ms = 2 s max
+                if self._playback_has_stopped() or g.wait_for_abort(0.05):
+                    break
+            if not self._playback_has_stopped():
+                # Kodi did not fire any callback — call _end_playback() directly
+                # (guard inside prevents double-execution if callback races in later)
+                self._end_playback()
 
     def _playback_has_stopped(self):
-        return self.playback_stopped or self.playback_error or self.playback_ended
+        return self.playback_stopped or self.playback_error or self.playback_ended or self.stop_event_received
+
+    def _check_skip(self):
+        """Check if current playback position is in any enabled skip segment.
+
+        Handles up to four segment types in chronological order:
+        - intro:   start..end → "Skip Intro" overlay (or auto-skip when enabled)
+        - recap:   start..end → "Skip Recap" overlay
+        - credits: start..end → mid-file credits "Skip Credits" overlay
+                   start..None (runs to end of media) → trigger Playing Next
+        - preview: same dual behaviour as credits
+
+        Re-entry on seek-back is detected and re-shows the overlay once per entry.
+        Anime fallback timer (anime.skipFallback*) still applies when no API data
+        is available and the underlying handler reports anime content.
+        """
+        if not self._skip_handler or not self._skip_handler.ready:
+            return
+
+        current = int(self.current_time)
+        segments = self._skip_handler.segments
+
+        # Walk segment types in chronological order so the right overlay fires when
+        # ranges overlap. A real episode plays as: recap → intro → … → credits → preview.
+        for seg_type in ("recap", "intro", "credits", "preview"):
+            if not self._skip_enabled.get(seg_type):
+                continue
+
+            data = segments.get(seg_type)
+            offset = self._skip_offset
+
+            # Anime intro fallback: AniSkip/Anime-Skip miss → use timer
+            if (
+                seg_type == "intro"
+                and not data
+                and self._skip_handler.is_anime
+                and self._skip_fallback_duration > 0
+            ):
+                start = self._skip_fallback_delay
+                end = self._skip_fallback_delay + self._skip_fallback_duration
+                offset = self._skip_fallback_offset
+                data = (start, end)
+
+            if not data:
+                continue
+
+            start, end = data
+
+            # credits/preview with end=None means "runs to end of media" — handle below
+            ends_at_media_end = end is None
+            if ends_at_media_end:
+                try:
+                    end = max(0, int(self.total_time) - 10)
+                except Exception:
+                    continue
+
+            if start is None or end is None or end <= start:
+                continue
+
+            if not self._segment_entry_check(seg_type, current, start, end):
+                continue
+
+            # We've entered the segment for the first time (or re-entered after seek-back)
+            self._dispatch_segment(seg_type, start, end, offset, ends_at_media_end)
+
+    def _segment_entry_check(self, seg_type, current, seg_start, seg_end, margin=0.25):
+        """One-shot-per-entry guard. Mirrors TheIntroDB addon's re-entry logic.
+
+        Returns True the first poll after the playhead enters the segment range,
+        and False on every subsequent poll until the playhead leaves it. If the
+        user seeks back into the segment, the next entry yields True again.
+        """
+        state = self._skip_state.setdefault(
+            seg_type, {"inside": False, "shown": False, "last_t": None}
+        )
+
+        inside = seg_start <= current < (seg_end - margin)
+        prev_t = state.get("last_t")
+
+        if not inside:
+            state["inside"] = False
+            state["shown"] = False
+            state["last_t"] = current
+            return False
+
+        reentered = (not state["inside"])
+        if prev_t is not None and current + margin < prev_t:
+            reentered = True
+
+        if reentered:
+            state["shown"] = False
+
+        state["inside"] = True
+        state["last_t"] = current
+
+        if state["shown"]:
+            return False
+
+        state["shown"] = True
+        return True
+
+    def _dispatch_segment(self, seg_type, start, end, offset, ends_at_media_end):
+        """Auto-skip, fire Playing Next, or show the Skip overlay for a segment."""
+        target = end + offset
+
+        # Auto-skip applies only to intro segments (matches TheIntroDB addon convention)
+        if seg_type == "intro" and self._skip_auto_intro:
+            self.seekTime(target)
+            src = self._skip_handler.sources.get("intro", "?")
+            g.log(f"Skip: auto-skipped intro ({src}) → {target}s", "debug")
+            return
+
+        # credits/preview that run to the end of media → use Playing Next dialog
+        if seg_type in ("credits", "preview") and ends_at_media_end:
+            if self.dialogs_enabled and not self.dialogs_triggered:
+                g.set_runtime_setting("anime.skipOutroEnd", str(int(end)))
+                xbmc.executebuiltin('RunPlugin("plugin://plugin.video.seren/?action=runPlayerDialogs")')
+                self.dialogs_triggered = True
+                src = self._skip_handler.sources.get(seg_type, "?")
+                g.log(f"Skip: triggered Playing Next from {seg_type} ({src})", "debug")
+            return
+
+        # Otherwise show the Skip overlay (intro/recap, or mid-file credits/preview)
+        g.set_runtime_setting("seren.skipSegmentEnd", str(int(target)))
+        g.set_runtime_setting("seren.skipSegmentType", seg_type)
+        xbmc.executebuiltin('RunPlugin("plugin://plugin.video.seren/?action=showSkipIntro")')
+        src = self._skip_handler.sources.get(seg_type, "?")
+        g.log(f"Skip: showing {seg_type} overlay (target={target}s, src={src})", "debug")
 
     def _handle_pre_scrape(self):
         if self.pre_scrape_enabled and not self.pre_scrape_initiated:
@@ -570,51 +901,28 @@ class SerenPlayer(xbmc.Player):
             g.clear_kodi_bookmarks()
         except Exception:
             g.log_stacktrace()
-        if self.current_time == 0 or self.total_time == 0:
-            return
+        try:
+            if self.current_time == 0 or self.total_time == 0:
+                self.bookmark_sync.remove_bookmark(self.trakt_id)
+                return
 
-        if self.watched_percentage < self.playCountMinimumPercent and self.current_time >= self.ignoreSecondsAtStart:
-            self.bookmark_sync.set_bookmark(
-                self.trakt_id,
-                int(self.current_time),
-                self.mediatype,
-                self.watched_percentage,
-            )
-        else:
-            self.bookmark_sync.remove_bookmark(self.trakt_id)
+            if self.watched_percentage < self.playCountMinimumPercent and self.current_time >= self.ignoreSecondsAtStart:
+                self.bookmark_sync.set_bookmark(
+                    self.trakt_id,
+                    int(self.current_time),
+                    self.mediatype,
+                    self.watched_percentage,
+                )
+            else:
+                self.bookmark_sync.remove_bookmark(self.trakt_id)
+        except Exception:
+            g.log("_handle_bookmark: DB unavailable at teardown — skipping bookmark sync", "warning")
 
     def _is_file_playing(self):
         if not self.playback_started or self._playback_has_stopped() or self._running_path is None:
             return False
 
         return self.isPlayingVideo()
-        
-    def _remove_playback_history(self, item_information):
-        self.bookmark_sync.remove_bookmark(item_information["trakt_id"])
-        item_information = item_information["info"]
-        media_type = "episode" if item_information["mediatype"] != "movie" else "movie"
-        progress = self._trakt_api.get_json(f"sync/playback/{media_type}s")
-        if len(progress) == 0:
-            return
-        if media_type == "movie":
-            progress_ids = [i["playback_id"] for i in progress if i["trakt_id"] == item_information["trakt_id"]]
-        else:
-            progress_ids = [
-                i["playback_id"] for i in progress if i["episode"]["trakt_id"] == item_information["trakt_id"]
-            ]
-
-        for i in progress_ids:
-            self._trakt_api.delete_request(f"sync/playback/{i}")
-
-    def final_chapter(self):
-        try:
-            final_chapter = xbmc.getInfoLabel('Player.Chapters')
-            if final_chapter:
-                final_chapter = float(final_chapter.split(',')[-1])
-                if final_chapter >= 90:
-                    return final_chapter
-        except: pass
-        return None
 
 
 class PlayerDialogs(xbmc.Player):
@@ -699,3 +1007,37 @@ class PlayerDialogs(xbmc.Player):
     @staticmethod
     def _is_video_window_open():
         return xbmcgui.getCurrentWindowId() == 12005
+
+
+def show_skip_intro_dialog():
+    """Module-level function called via RunPlugin to show the Skip overlay.
+
+    Reads the segment end-time and type from runtime settings and forwards them
+    to the SkipIntro window so it can render the correct button label.
+    """
+    try:
+        # Prefer new generic key; fall back to legacy anime-only key for compatibility.
+        skip_end = g.get_runtime_setting("seren.skipSegmentEnd")
+        seg_type = g.get_runtime_setting("seren.skipSegmentType") or "intro"
+        if not skip_end:
+            skip_end = g.get_runtime_setting("anime.skipIntroEnd")
+            seg_type = "intro"
+        if not skip_end:
+            return
+        skip_end = int(float(skip_end))
+        g.clear_runtime_setting("seren.skipSegmentEnd")
+        g.clear_runtime_setting("seren.skipSegmentType")
+        g.clear_runtime_setting("anime.skipIntroEnd")
+
+        from resources.lib.database.skinManager import SkinManager
+        from resources.lib.gui.windows.skip_intro import SkipIntro
+
+        window = SkipIntro(
+            *SkinManager().confirm_skin_path("skip_intro.xml"),
+            skip_end=skip_end,
+            segment_type=seg_type,
+        )
+        window.doModal()
+        del window
+    except Exception:
+        g.log_stacktrace()

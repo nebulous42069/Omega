@@ -13,7 +13,7 @@ ACCOUNT_ID = control.setting('tmdb.id')
 
 API_KEY = control.setting('tmdb.api')
 if not API_KEY:
-    API_KEY = '3d000491a0f37d4962d02bdb062af037'
+    API_KEY = 'f5608fba6ab49e9985828b35d5653321'
 
 original_artwork = control.setting('original.artwork') or 'false'
 if original_artwork == 'true':

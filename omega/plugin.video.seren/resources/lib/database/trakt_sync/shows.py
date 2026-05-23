@@ -1,5 +1,6 @@
 from resources.lib.common.thread_pool import ThreadPool
 from resources.lib.database import trakt_sync
+from resources.lib.database.trakt_sync import _list_cache_key, list_cache_get, list_cache_set
 from resources.lib.modules.globals import g
 from resources.lib.modules.guard_decorators import guard_against_none
 from resources.lib.modules.guard_decorators import guard_against_none_or_empty
@@ -250,6 +251,12 @@ class TraktSyncDatabase(trakt_sync.TraktSyncDatabase):
         :return: List of updated shows with full meta
         :rtype: list
         """
+        # L1 cache check — compute key before params.pop modifies params
+        cache_key = _list_cache_key("shows", [i.get('trakt_id') for i in trakt_list if i.get('trakt_id')], **params)
+        cached = list_cache_get(cache_key)
+        if cached is not None:
+            return cached
+
         g.log("Fetching show list from sync database and updating", "debug")
         trakt_list = [i for i in trakt_list if i.get("trakt_id")]
         self._update_mill_format_shows(trakt_list, False)
@@ -265,7 +272,9 @@ class TraktSyncDatabase(trakt_sync.TraktSyncDatabase):
         if params.pop("hide_watched", self.hide_watched):
             statement += " AND s.watched_episodes < s.episode_count"
 
-        return MetadataHandler.sort_list_items(self.fetchall(statement), trakt_list)
+        result = MetadataHandler.sort_list_items(self.fetchall(statement), trakt_list)
+        list_cache_set(cache_key, result)
+        return result
 
     @guard_against_none(list, 1)
     def get_season_list(self, trakt_show_id, trakt_id=None, **params):

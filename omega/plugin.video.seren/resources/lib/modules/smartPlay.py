@@ -318,9 +318,29 @@ class SmartPlay:
             g.PLAYLIST[i].getPath() for i in range(g.PLAYLIST.size())  # pylint: disable=unsubscriptable-object
         ]
 
-        # Check to see if we are just starting playback and kodi has created a playlist
-        if len(playlist_uris) == 1 and playlist_uris[0].split('/')[-1].lstrip('?') == g.PARAM_STRING:
-            return
+        # Check to see if we are just starting playback and kodi has created a playlist.
+        #
+        # NOTE: this comparison must be done by parsed query-dict, NOT raw string.
+        # When an external addon (e.g. OpenMeta, TMDb Helper) calls
+        # xbmc.Player().play(plugin://plugin.video.seren/?...), Kodi adds the URL
+        # to its internal playlist, then re-fires the plugin via CScriptRunner.
+        # Between those two steps Kodi may renormalize URL encoding — most
+        # commonly spaces: external addons typically encode spaces as %20 (per
+        # RFC 3986), but Kodi passes argv[2] with spaces encoded as + (per
+        # application/x-www-form-urlencoded). A raw string compare would treat
+        # the two URLs as different even though they represent the exact same
+        # request, fall through to create_single_item_playlist_from_info(), and
+        # trigger an unnecessary re-fire of getSources via
+        # xbmc.Player().play(g.PLAYLIST) — which manifests as a "double scrape"
+        # in the log (two getSources invocations for one user action).
+        # urllib.parse.parse_qsl decodes both %20 and + as space, so comparing
+        # the parsed dicts normalizes the encoding mismatch.
+        if len(playlist_uris) == 1:
+            playlist_query = parse.urlparse(playlist_uris[0]).query
+            playlist_params = dict(parse.parse_qsl(playlist_query))
+            current_params = dict(parse.parse_qsl(g.PARAM_STRING))
+            if playlist_params == current_params:
+                return
 
         if g.PLAYLIST.getposition() == -1:
             return self.create_single_item_playlist_from_info()

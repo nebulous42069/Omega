@@ -10,9 +10,14 @@ from functools import reduce
 from functools import wraps
 
 from resources.lib.common import tools
-from resources.lib.database import Database
+from resources.lib.database import Database, SQLiteConnection
 from resources.lib.modules.exceptions import UnsupportedCacheParamException
 from resources.lib.modules.globals import g
+
+# Size-based DB cap constants (ported from POV limit_metacache_database).
+# do_cleanup() prunes oldest rows when seren_cache.db exceeds this threshold.
+_CACHE_DB_MAX_SIZE_MB = 50
+_CACHE_DB_MAX_ROWS = 10_000
 
 schema = {
     "cache": {
@@ -225,9 +230,50 @@ class DatabaseCache(Database, CacheBase):
         if g.get_bool_runtime_setting(self._create_key("db.clean.busy")):
             return
         g.set_runtime_setting(self._create_key("db.clean.busy"), True)
-        query = f"DELETE FROM {self.cache_table_name} where expires < ?"
-        self.execute_sql(query, (self._get_timestamp(),))
-        g.clear_runtime_setting(self._create_key("db.clean.busy"))
+        try:
+            # Step 1: TTL expiry delete with fast-bulk PRAGMAs (ported from POV clean_databases).
+            # synchronous=OFF + journal_mode=MEMORY avoids per-row fsync and disk-journal
+            # overhead during bulk DELETE.  Cache DB is rebuildable; crash risk is acceptable.
+            with SQLiteConnection(self._db_file) as conn:
+                with conn.cursor() as cur:
+                    cur.execute("PRAGMA synchronous = OFF")
+                    cur.execute("PRAGMA journal_mode = MEMORY")
+                with conn.transaction() as cur:
+                    cur.execute(
+                        f"DELETE FROM {self.cache_table_name} WHERE expires < ?",
+                        (self._get_timestamp(),),
+                    )
+
+            # Step 2: Size-based row cap — prune oldest rows when DB exceeds 50 MB.
+            # Prevents unbounded growth on long-running installs.
+            # Ported from POV limit_metacache_database().
+            try:
+                import os as _os
+                size_mb = _os.path.getsize(self._db_file) / 1_048_576
+                if size_mb > _CACHE_DB_MAX_SIZE_MB:
+                    g.log(
+                        f"Cache DB {_os.path.basename(self._db_file)} is {size_mb:.1f} MB "
+                        f"— pruning to {_CACHE_DB_MAX_ROWS} rows",
+                        "info",
+                    )
+                    with SQLiteConnection(self._db_file) as conn:
+                        with conn.cursor() as cur:
+                            cur.execute("PRAGMA synchronous = OFF")
+                            cur.execute("PRAGMA journal_mode = MEMORY")
+                        with conn.transaction() as cur:
+                            cur.execute(
+                                f"DELETE FROM {self.cache_table_name} WHERE ROWID IN "
+                                f"(SELECT ROWID FROM {self.cache_table_name} "
+                                f" ORDER BY expires ASC "
+                                f" LIMIT MAX(0, (SELECT COUNT(*) FROM {self.cache_table_name}) - ?))",
+                                (_CACHE_DB_MAX_ROWS,),
+                            )
+                        with conn.cursor() as cur:
+                            cur.execute("VACUUM")
+            except OSError:
+                pass
+        finally:
+            g.clear_runtime_setting(self._create_key("db.clean.busy"))
 
     def get(self, cache_id, checksum=None):
         cur_time = self._get_timestamp()

@@ -37,6 +37,16 @@ class TorrentAssist(Database):
         """
         return self.fetchall("SELECT * FROM torrents")
 
+    def clear_all(self):
+        """
+        Remove all torrent assist records regardless of status.
+        Called by the Clear All Cache button (manual). Not called on install
+        or version change so in-progress transfers are not orphaned mid-upgrade.
+        :return: None
+        :rtype: None
+        """
+        self.execute_sql("DELETE FROM torrents")
+
     def clear_non_active_assist(self):
         """
         Remove all records of transfers that have completed or failed

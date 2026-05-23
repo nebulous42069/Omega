@@ -8,8 +8,10 @@ from resources.lib.common import tools
 from resources.lib.common.thread_pool import ThreadPool
 from resources.lib.database.torrentAssist import TorrentAssist
 from resources.lib.debrid import all_debrid
+from resources.lib.debrid import debrid_link
 from resources.lib.debrid import premiumize
 from resources.lib.debrid import real_debrid
+from resources.lib.debrid import torbox
 from resources.lib.modules.exceptions import DebridNotEnabled
 from resources.lib.modules.exceptions import FailureAtRemoteParty
 from resources.lib.modules.exceptions import GeneralCachingFailure
@@ -129,18 +131,35 @@ class _BaseCacheAssist(TorrentAssist):
 
                 if progress_dialog.iscanceled() and self.current_percent != 100:
 
-                    self._handle_cancellation()
-                    self.cancel_process()
-                    return {"result": "error", "source": None}
-                else:
+                    keep_downloading = self._handle_cancellation()
+                    if keep_downloading:
+                        # User chose to keep downloading in cloud — switch to background mode
+                        self.thread_pool.put(self.status_update_loop)
+                        return {"result": "background", "source": None}
+                    else:
+                        # User chose to delete the transfer
+                        self.cancel_process()
+                        return {"result": "error", "source": None}
+                elif self.current_percent == 100:
                     self.uncached_source["debrid_provider"] = self.debrid_slug
                     return {"result": "success", "source": self.uncached_source}
+                else:
+                    # Kodi abort requested — clean up silently
+                    self.cancel_process()
+                    return {"result": "error", "source": None}
             finally:
                 del progress_dialog
 
     @staticmethod
     def _handle_cancellation():
-        return xbmcgui.Dialog().ok(g.ADDON_NAME, g.get_language_string(30468))
+        """Prompt user on cancel: keep downloading in cloud or delete?
+        Returns True to keep downloading, False to delete."""
+        return xbmcgui.Dialog().yesno(
+            g.ADDON_NAME,
+            g.get_language_string(30744),
+            yeslabel=g.get_language_string(30746),
+            nolabel=g.get_language_string(30747),
+        )
 
     def status_update_loop(self):
         while not g.abort_requested() and not self.cancelled:
@@ -277,8 +296,9 @@ class _RealDebridCacheAssist(_BaseCacheAssist):
             for file in self.transfer_info["files"]
             if file["path"].lower().endswith(g.common_video_extensions)
         ]
-        if len(self.file_keys) == 1:
-            self.file_keys = str(self.file_keys[0])
+        # Do NOT convert to string here — _select_files calls ",".join(self.file_keys)
+        # which joins characters of a string rather than list elements.
+        # Keep as list always; ",".join(["12345"]) == "12345" (correct).
         self._select_files()
         self._update_status()
 
@@ -287,7 +307,7 @@ class _RealDebridCacheAssist(_BaseCacheAssist):
             raise GeneralCachingFailure("Unable to select any relevent files for torrent")
         g.log(f"Selecting files: {self.file_keys} - Transfer ID: {self.transfer_id}")
         response = self.debrid.torrent_select(self.transfer_id, ",".join(self.file_keys))
-        if "error" in response:
+        if isinstance(response, dict) and "error" in response:
             raise FailureAtRemoteParty(f"Unable to select torrent files - {response}")
 
     def _update_status(self):
@@ -319,7 +339,7 @@ class _RealDebridCacheAssist(_BaseCacheAssist):
         self.previous_percent = self.current_percent
         self.current_percent = tools.safe_round(status["progress"], 2)
 
-    def delete_transfer(self):
+    def _delete_transfer(self):
         self.debrid.delete_torrent(self.transfer_id)
 
 
@@ -333,34 +353,131 @@ class _AllDebridCacheAssist(_BaseCacheAssist):
         self.debrid = all_debrid.AllDebrid()
 
         self.uncached_source = uncached_source
-        self.transfer_info = self.debrid.upload_magnet(uncached_source["magnet"])["magnets"][0]
-        self.transfer_id = self.transfer_info["id"]
-        self.transfer_info = self.debrid.magnet_status(self.transfer_id)["magnets"]
+        upload_result = self.debrid.upload_magnet(uncached_source["magnet"])
+        if not upload_result or "magnets" not in upload_result:
+            raise GeneralCachingFailure("AllDebrid upload_magnet failed")
+        try:
+            self.transfer_info = upload_result["magnets"][0]
+            self.transfer_id = self.transfer_info["id"]
+        except (KeyError, IndexError, TypeError):
+            raise GeneralCachingFailure("AllDebrid upload_magnet missing magnet ID")
+        self.transfer_info = self.debrid.magnet_status(self.transfer_id).get("magnets", {})
         self._update_status()
 
     def _update_status(self):
 
-        status = self.debrid.magnet_status(self.transfer_id)["magnets"]
+        status = self.debrid.magnet_status(self.transfer_id).get("magnets", {})
+        if not isinstance(status, dict):
+            self.status = "failed"
+            return
 
-        if status["status"] == "Downloading":
+        ad_status = status.get("status", "")
+        # In-progress states — AD can return these before "Downloading" begins.
+        # "Queued": waiting in the download queue (common right after upload).
+        # "Compressing" / "Uploading": post-download processing steps.
+        # "Processing": pre-download scan.
+        # Mapping these to "failed" (as before) caused _handle_failure() to fire
+        # immediately on a healthy queued transfer, showing a spurious error.
+        _AD_DOWNLOADING = {"Downloading", "Queued", "Compressing", "Uploading", "Processing"}
+        if ad_status in _AD_DOWNLOADING:
             self.status = "downloading"
-        elif status["status"] == "Ready":
+        elif ad_status == "Ready":
             self.status = "finished"
         else:
+            # "Banned", "Fail", "Timeout", "ScanSkip", or empty → actual failure
             self.status = "failed"
 
         self.previous_percent = self.current_percent
-        self.seeds = status["seeders"]
-        self.download_speed = status["downloadSpeed"]
+        self.seeds = status.get("seeders", 0)
+        self.download_speed = status.get("downloadSpeed", 0)
 
-        total_size = status["size"]
-        downloaded = status["downloaded"]
+        total_size = status.get("size", 0)
+        downloaded = status.get("downloaded", 0)
 
-        if downloaded > 0:
+        if downloaded > 0 and total_size > 0:
             self.current_percent = tools.safe_round((float(downloaded) / total_size) * 100, 2)
 
-    def delete_transfer(self):
+    def _delete_transfer(self):
         self.debrid.delete_magnet(self.transfer_id)
+
+
+class _TorBoxCacheAssist(_BaseCacheAssist):
+    def __init__(self, uncached_source, silent=False):
+        if not g.torbox_enabled():
+            raise DebridNotEnabled
+        super().__init__(uncached_source, silent)
+        self.debrid_slug = "torbox"
+        self.debrid_readable = "TorBox"
+        self.debrid = torbox.TorBox()
+
+        self.uncached_source = uncached_source
+        result = self.debrid.add_magnet(uncached_source["magnet"])
+        if not result or "torrent_id" not in result:
+            raise GeneralCachingFailure("TorBox failed to add magnet")
+        self.transfer_id = result["torrent_id"]
+        self._update_status()
+
+    def _update_status(self):
+        status = self.debrid.torrent_info(self.transfer_id)
+        if not status:
+            self.status = "failed"
+            return
+
+        state = status.get("download_state", "error")
+        if state in ("downloading", "uploading", "stalled (no seeds)"):
+            self.status = "downloading"
+        elif status.get("download_finished"):
+            self.status = "finished"
+        else:
+            self.status = "downloading"
+
+        self.seeds = status.get("peers", 0)
+        self.download_speed = status.get("download_speed", 0)
+
+        self.previous_percent = self.current_percent
+        progress = status.get("progress", 0)
+        self.current_percent = tools.safe_round(progress * 100, 2)
+
+    def _delete_transfer(self):
+        self.debrid.delete_torrent(self.transfer_id)
+
+
+class _DebridLinkCacheAssist(_BaseCacheAssist):
+    def __init__(self, uncached_source, silent=False):
+        if not g.debridlink_enabled():
+            raise DebridNotEnabled
+        super().__init__(uncached_source, silent)
+        self.debrid_slug = "debrid_link"
+        self.debrid_readable = "Debrid-Link"
+        self.debrid = debrid_link.DebridLink()
+
+        self.uncached_source = uncached_source
+        result = self.debrid.add_magnet(uncached_source["magnet"])
+        if not result or "id" not in result:
+            raise GeneralCachingFailure("Debrid-Link failed to add magnet")
+        self.transfer_id = str(result["id"])
+        self._update_status()
+
+    def _update_status(self):
+        status = self.debrid.torrent_info(self.transfer_id)
+        if not status:
+            self.status = "failed"
+            return
+
+        percent = status.get("downloadPercent", 0)
+        if percent >= 100:
+            self.status = "finished"
+        else:
+            self.status = "downloading"
+
+        self.seeds = status.get("peersConnected", 0)
+        self.download_speed = status.get("downloadSpeed", 0)
+
+        self.previous_percent = self.current_percent
+        self.current_percent = tools.safe_round(percent, 2)
+
+    def _delete_transfer(self):
+        self.debrid.delete_torrent(self.transfer_id)
 
 
 class CacheAssistHelper:
@@ -369,6 +486,8 @@ class CacheAssistHelper:
             ("Premiumize", _PremiumizeCacheAssist, "premiumize", g.premiumize_enabled()),
             ("Real Debrid", _RealDebridCacheAssist, "real_debrid", g.real_debrid_enabled()),
             ("AllDebrid", _AllDebridCacheAssist, "all_debrid", g.all_debrid_enabled()),
+            ("TorBox", _TorBoxCacheAssist, "torbox", g.torbox_enabled()),
+            ("Debrid-Link", _DebridLinkCacheAssist, "debrid_link", g.debridlink_enabled()),
         ]
 
     def _get_cache_location(self):

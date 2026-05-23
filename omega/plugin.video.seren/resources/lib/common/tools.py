@@ -126,6 +126,8 @@ def shortened_debrid(debrid):
         return "RD"
     if debrid == "all_debrid":  # sourcery skip: assign-if-exp
         return "AD"
+    if debrid == "torbox":
+        return "TB"
     else:
         return ""
 
@@ -238,6 +240,10 @@ def get_item_information(action_args):
     """
     if action_args is None:
         return None
+    if not isinstance(action_args, dict):
+        return None
+    if not action_args.get("trakt_id"):
+        return None
     item_information = {"action_args": action_args}
     if action_args["mediatype"] == "tvshow":
         from resources.lib.database.trakt_sync import shows
@@ -276,7 +282,16 @@ def deconstruct_action_args(action_args):
     action_args = parse.unquote(action_args)
     try:
         return json.loads(action_args)
-    except ValueError:
+    except (ValueError, TypeError):
+        pass
+    # Handle Python literals embedded by TMDb Helper's format_map (None/True/False → null/true/false)
+    try:
+        import re
+        fixed = re.sub(r'\bNone\b', 'null', action_args)
+        fixed = re.sub(r'\bTrue\b', 'true', fixed)
+        fixed = re.sub(r'\bFalse\b', 'false', fixed)
+        return json.loads(fixed)
+    except (ValueError, TypeError):
         return action_args
 
 

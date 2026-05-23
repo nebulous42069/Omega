@@ -31,6 +31,12 @@ class Resolverhelper:
         stream_link = None
         release_title = None
 
+        # Bubble last-played release title to position 0 — applies to both
+        # silent and visible resolution paths (Otaku reorder_sources pattern).
+        if not pack_select:
+            episode_number = item_information.get('info', {}).get('episode', 1)
+            Resolver.reorder_sources(sources, episode_number)
+
         if g.get_bool_runtime_setting('tempSilent') or g.get_bool_setting("general.resolverHide", False):
             stream_link, release_title = Resolver().resolve_multiple_until_valid_link(
                 sources, item_information, pack_select, True
@@ -43,7 +49,12 @@ class Resolverhelper:
             )
             tools.run_threaded(self.window.doModal, sources, pack_select)
             while not g.wait_for_abort(0.30):
-                stream_link, release_title = self.window.get_return_data()
+                # Capture reference once to avoid TOCTOU race with close_window()
+                # which sets self.window = None on the background thread.
+                window = self.window
+                if window is None or window.canceled:
+                    break
+                stream_link, release_title = window.get_return_data()
                 if stream_link:
                     break
 
@@ -55,9 +66,10 @@ class Resolverhelper:
 
     def close_window(self):
         if self.window:
-            self.window.close()
-            del self.window
+            window = self.window
             self.window = None
+            window.close()
+            del window
 
 
 class SourcesHelper:

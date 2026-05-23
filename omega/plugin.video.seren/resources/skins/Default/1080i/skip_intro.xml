@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<defaultcontrol always="true">3001</defaultcontrol>
+	<onload>Dialog.Close(fullscreeninfo,true)</onload>
+	<onload>Dialog.Close(videoosd,true)</onload>
+	<controls>
+		<control type="group">
+			<animation type="WindowOpen" reversible="false">
+				<effect type="fade" start="0" end="100" time="300"/>
+				<effect type="slide" start="400%,0" end="0,0" time="400" tween="cubic" easing="in"/>
+			</animation>
+			<animation type="WindowClose" reversible="false">
+				<effect type="fade" start="100" end="0" time="400"/>
+				<effect type="slide" start="0,0" end="400%,0" time="400" tween="cubic" easing="in"/>
+			</animation>
+			<control type="group">
+				<height>80</height>
+				<width>300</width>
+				<right>20</right>
+				<bottom>150</bottom>
+
+				<!-- Background -->
+				<control type="image">
+					<width>100%</width>
+					<height>100%</height>
+					<texture colordiffuse="CC000000">$INFO[Window.Property(texture.white)]</texture>
+				</control>
+
+				<!-- Buttons -->
+				<control type="grouplist">
+					<orientation>horizontal</orientation>
+					<height>56</height>
+					<top>12</top>
+					<left>15</left>
+					<itemgap>15</itemgap>
+					<width>270</width>
+
+					<!-- Skip Intro -->
+					<control type="button" id="3001">
+						<label>$ADDON[plugin.video.seren 30784]</label>
+						<height>56</height>
+						<width min="50">auto</width>
+						<font>font12</font>
+						<textoffsetx>20</textoffsetx>
+						<textcolor>ddffffff</textcolor>
+						<focusedcolor>eeffffff</focusedcolor>
+						<selectedcolor>ddffffff</selectedcolor>
+						<aligny>center</aligny>
+						<align>center</align>
+						<texturefocus border="10" colordiffuse="$INFO[Window.Property(settings.color)]">white.png</texturefocus>
+						<texturenofocus border="10" colordiffuse="AA212121">white.png</texturenofocus>
+						<pulseonselect>no</pulseonselect>
+					</control>
+
+					<!-- Close -->
+					<control type="button" id="3002">
+						<label>$ADDON[plugin.video.seren 30459]</label>
+						<height>56</height>
+						<width min="50">auto</width>
+						<font>font12</font>
+						<textoffsetx>15</textoffsetx>
+						<textcolor>ddffffff</textcolor>
+						<focusedcolor>eeffffff</focusedcolor>
+						<selectedcolor>ddffffff</selectedcolor>
+						<aligny>center</aligny>
+						<align>center</align>
+						<texturefocus border="10" colordiffuse="$INFO[Window.Property(settings.color)]">white.png</texturefocus>
+						<texturenofocus border="10" colordiffuse="AA212121">white.png</texturenofocus>
+						<pulseonselect>no</pulseonselect>
+					</control>
+				</control>
+			</control>
+		</control>
+	</controls>
+</window>

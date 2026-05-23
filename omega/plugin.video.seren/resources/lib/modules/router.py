@@ -5,9 +5,195 @@ from resources.lib.modules.exceptions import NoPlayableSourcesException
 from resources.lib.modules.globals import g
 
 """
-    Dispatch module
+    Dispatch module — two-level dispatch: O(1) dict lookup for simple routes,
+    elif fallback for complex routes (getSources, preScrape, etc.)
 """
 
+
+# ---------------------------------------------------------------------------
+# Route table helpers
+# ---------------------------------------------------------------------------
+
+def _menu(module_path, method_name, arg_key=None):
+    """Create a handler for: from module import Menus; Menus().method(arg?)"""
+    def handler(ctx):
+        mod = __import__(module_path, fromlist=["Menus"])
+        method = getattr(mod.Menus(), method_name)
+        method(ctx[arg_key]) if arg_key else method()
+    return handler
+
+
+def _call(module_path, class_name, method_name, arg_key=None):
+    """Create a handler for: from module import Class; Class().method(arg?)"""
+    def handler(ctx):
+        mod = __import__(module_path, fromlist=[class_name])
+        method = getattr(getattr(mod, class_name)(), method_name)
+        method(ctx[arg_key]) if arg_key else method()
+    return handler
+
+
+def _func(module_path, func_name, arg_key=None):
+    """Create a handler for: from module import func; func(arg?)"""
+    def handler(ctx):
+        mod = __import__(module_path, fromlist=[func_name])
+        func = getattr(mod, func_name)
+        func(ctx[arg_key]) if arg_key else func()
+    return handler
+
+
+# ---------------------------------------------------------------------------
+# Route table — O(1) lookup for simple routes (~95 routes)
+# ---------------------------------------------------------------------------
+
+_ROUTE_TABLE = {
+    # --- Movie menus ---
+    "moviesHome":           _menu("resources.lib.gui.movieMenus", "discover_movies"),
+    "moviesUpdated":        _menu("resources.lib.gui.movieMenus", "movies_updated"),
+    "moviesRecommended":    _menu("resources.lib.gui.movieMenus", "movies_recommended"),
+    "moviesSearch":         _menu("resources.lib.gui.movieMenus", "movies_search", "action_args"),
+    "moviesSearchResults":  _menu("resources.lib.gui.movieMenus", "movies_search_results", "action_args"),
+    "moviesSearchHistory":  _menu("resources.lib.gui.movieMenus", "movies_search_history"),
+    "myMovies":             _menu("resources.lib.gui.movieMenus", "my_movies"),
+    "moviesMyCollection":   _menu("resources.lib.gui.movieMenus", "my_movie_collection"),
+    "moviesMyWatchlist":    _menu("resources.lib.gui.movieMenus", "my_movie_watchlist"),
+    "moviesRelated":        _menu("resources.lib.gui.movieMenus", "movies_related", "action_args"),
+    "movieGenres":          _menu("resources.lib.gui.movieMenus", "movies_genres"),
+    "movieGenresGet":       _menu("resources.lib.gui.movieMenus", "movies_genre_list", "action_args"),
+    "movieYears":           _menu("resources.lib.gui.movieMenus", "movies_years"),
+    "movieYearsMovies":     _menu("resources.lib.gui.movieMenus", "movie_years_results", "action_args"),
+    "movieByActor":         _menu("resources.lib.gui.movieMenus", "movies_by_actor", "action_args"),
+    "myWatchedMovies":      _menu("resources.lib.gui.movieMenus", "my_watched_movies"),
+    "onDeckMovies":         _menu("resources.lib.gui.movieMenus", "on_deck_movies"),
+    "moviePopularRecent":   _menu("resources.lib.gui.movieMenus", "movie_popular_recent"),
+    "movieTrendingRecent":  _menu("resources.lib.gui.movieMenus", "movie_trending_recent"),
+
+    # --- Show menus ---
+    "showsHome":            _menu("resources.lib.gui.tvshowMenus", "discover_shows"),
+    "myShows":              _menu("resources.lib.gui.tvshowMenus", "my_shows"),
+    "showsMyCollection":    _menu("resources.lib.gui.tvshowMenus", "my_shows_collection"),
+    "showsMyWatchlist":     _menu("resources.lib.gui.tvshowMenus", "my_shows_watchlist"),
+    "showsMyProgress":      _menu("resources.lib.gui.tvshowMenus", "my_show_progress"),
+    "showsMyRecentEpisodes": _menu("resources.lib.gui.tvshowMenus", "my_recent_episodes"),
+    "showsRecommended":     _menu("resources.lib.gui.tvshowMenus", "shows_recommended"),
+    "showsUpdated":         _menu("resources.lib.gui.tvshowMenus", "shows_updated"),
+    "showsSearch":          _menu("resources.lib.gui.tvshowMenus", "shows_search", "action_args"),
+    "showsSearchResults":   _menu("resources.lib.gui.tvshowMenus", "shows_search_results", "action_args"),
+    "showsSearchHistory":   _menu("resources.lib.gui.tvshowMenus", "shows_search_history"),
+    "showSeasons":          _menu("resources.lib.gui.tvshowMenus", "show_seasons", "action_args"),
+    "seasonEpisodes":       _menu("resources.lib.gui.tvshowMenus", "season_episodes", "action_args"),
+    "showsRelated":         _menu("resources.lib.gui.tvshowMenus", "shows_related", "action_args"),
+    "showYears":            _menu("resources.lib.gui.tvshowMenus", "shows_years", "action_args"),
+    "showsNextUp":          _menu("resources.lib.gui.tvshowMenus", "my_next_up"),
+    "showsNew":             _menu("resources.lib.gui.tvshowMenus", "shows_new"),
+    "showsNetworks":        _menu("resources.lib.gui.tvshowMenus", "shows_networks"),
+    "showsNetworkShows":    _menu("resources.lib.gui.tvshowMenus", "shows_networks_results", "action_args"),
+    "onDeckShows":          _menu("resources.lib.gui.tvshowMenus", "on_deck_shows"),
+    "tvGenres":             _menu("resources.lib.gui.tvshowMenus", "shows_genres"),
+    "showGenresGet":        _menu("resources.lib.gui.tvshowMenus", "shows_genre_list", "action_args"),
+    "flatEpisodes":         _menu("resources.lib.gui.tvshowMenus", "flat_episode_list", "action_args"),
+    "myUpcomingEpisodes":   _menu("resources.lib.gui.tvshowMenus", "my_upcoming_episodes"),
+    "myWatchedEpisodes":    _menu("resources.lib.gui.tvshowMenus", "my_watched_episode"),
+    "showsByActor":         _menu("resources.lib.gui.tvshowMenus", "shows_by_actor", "action_args"),
+    "showsPopularRecent":   _menu("resources.lib.gui.tvshowMenus", "shows_popular_recent"),
+    "showsTrendingRecent":  _menu("resources.lib.gui.tvshowMenus", "shows_trending_recent"),
+    "showsRecentlyWatched": _menu("resources.lib.gui.tvshowMenus", "shows_recently_watched"),
+
+    # --- Home / Search / Tools ---
+    "searchMenu":           _menu("resources.lib.gui.homeMenu", "search_menu"),
+    "toolsMenu":            _menu("resources.lib.gui.homeMenu", "tools_menu"),
+    "providerTools":        _menu("resources.lib.gui.homeMenu", "provider_menu"),
+    "traktSyncTools":       _menu("resources.lib.gui.homeMenu", "trakt_sync_tools"),
+    "testWindows":          _menu("resources.lib.gui.homeMenu", "test_windows"),
+
+    # --- Debrid services menus ---
+    "debridServices":       _menu("resources.lib.gui.debridServices", "home"),
+    "cacheAssistStatus":    _menu("resources.lib.gui.debridServices", "get_assist_torrents"),
+    "premiumize_transfers": _menu("resources.lib.gui.debridServices", "list_premiumize_transfers"),
+    "realdebridTransfers":  _menu("resources.lib.gui.debridServices", "list_rd_transfers"),
+    "alldebridTransfers":   _menu("resources.lib.gui.debridServices", "list_ad_transfers"),
+    "torboxTransfers":      _menu("resources.lib.gui.debridServices", "list_tb_transfers"),
+    "debridlinkTransfers":  _menu("resources.lib.gui.debridServices", "list_dl_transfers"),
+    "nonActiveAssistClear": _menu("resources.lib.gui.debridServices", "assist_non_active_clear"),
+    "clearAllDebridTransfers": _menu("resources.lib.gui.debridServices", "clear_all_transfers"),
+    "clearAllDebridCloudFiles": _menu("resources.lib.gui.debridServices", "clear_all_cloud_files"),
+
+    # --- My Files ---
+    "myFiles":              _menu("resources.lib.gui.myFiles", "home"),
+    "myFilesFolder":        _menu("resources.lib.gui.myFiles", "my_files_folder", "action_args"),
+    "myFilesPlay":          _menu("resources.lib.gui.myFiles", "my_files_play", "action_args"),
+
+    # --- Lists ---
+    "myTraktLists":         _call("resources.lib.modules.listsHelper", "ListsHelper", "my_trakt_lists", "mediatype"),
+    "myLikedLists":         _call("resources.lib.modules.listsHelper", "ListsHelper", "my_liked_lists", "mediatype"),
+    "TrendingLists":        _call("resources.lib.modules.listsHelper", "ListsHelper", "trending_lists", "mediatype"),
+    "PopularLists":         _call("resources.lib.modules.listsHelper", "ListsHelper", "popular_lists", "mediatype"),
+    "traktList":            _call("resources.lib.modules.listsHelper", "ListsHelper", "get_list_items"),
+
+    # --- Trakt sync ---
+    "syncTraktActivities":  _call("resources.lib.database.trakt_sync.activities", "TraktSyncDatabase", "sync_activities"),
+    "flushTraktActivities": _call("resources.lib.database.trakt_sync", "TraktSyncDatabase", "flush_activities"),
+    "rebuildTraktDatabase": _call("resources.lib.database.trakt_sync", "TraktSyncDatabase", "re_build_database"),
+    "cleanOrphanedMetadata": _call("resources.lib.database.trakt_sync", "TraktSyncDatabase", "clean_orphaned_metadata"),
+
+    # --- Cache management ---
+    "clearTorrentCache":    _call("resources.lib.database.torrentCache", "TorrentCache", "clear_all"),
+    "torrentCacheCleanup":  _call("resources.lib.database.torrentCache", "TorrentCache", "do_cleanup"),
+
+    # --- Undesirables ---
+    "undesirablesSelectDefaults": _func("resources.lib.database.undesirables", "undesirables_select_defaults"),
+    "undesirablesUserInput":      _func("resources.lib.database.undesirables", "undesirables_user_input"),
+    "undesirablesUserRemove":     _func("resources.lib.database.undesirables", "undesirables_user_remove"),
+    "undesirablesUserRemoveAll":  _func("resources.lib.database.undesirables", "undesirables_user_remove_all"),
+    "undesirablesReset":          _func("resources.lib.database.undesirables", "undesirables_reset_defaults"),
+    # --- Title Substitutions ---
+    "titleSubsAdd":              _func("resources.lib.database.titleSubs", "title_subs_add"),
+    "titleSubsViewRemove":       _func("resources.lib.database.titleSubs", "title_subs_view_remove"),
+    "titleSubsClearAll":         _func("resources.lib.database.titleSubs", "title_subs_clear_all"),
+    # --- Anime Skip ---
+    "showSkipIntro":             _func("resources.lib.modules.player", "show_skip_intro_dialog"),
+
+    # --- Providers ---
+    "installProviders":     _call("resources.lib.modules.providers.install_manager", "ProviderInstallManager", "install_package", "action_args"),
+    "uninstallProviders":   _call("resources.lib.modules.providers.install_manager", "ProviderInstallManager", "uninstall_package"),
+    "manualProviderUpdate": _call("resources.lib.modules.providers.install_manager", "ProviderInstallManager", "manual_update"),
+
+    # --- Skins ---
+    "installSkin":          _call("resources.lib.database.skinManager", "SkinManager", "install_skin"),
+    "uninstallSkin":        _call("resources.lib.database.skinManager", "SkinManager", "uninstall_skin"),
+    "switchSkin":           _call("resources.lib.database.skinManager", "SkinManager", "switch_skin"),
+    "checkSkinUpdates":     _call("resources.lib.database.skinManager", "SkinManager", "check_for_updates"),
+
+    # --- Maintenance / service ---
+    "runMaintenance":       _func("resources.lib.common.maintenance", "run_maintenance"),
+    "cleanInstall":         _func("resources.lib.common.maintenance", "wipe_install"),
+    "premiumizeCleanup":    _func("resources.lib.common.maintenance", "premiumize_transfer_cleanup"),
+    "toggleLanguageInvoker": _func("resources.lib.common.maintenance", "toggle_reuselanguageinvoker"),
+    "longLifeServiceManager": _call("resources.lib.modules.providers.service_manager", "ProvidersServiceManager", "run_long_life_manager"),
+
+    # --- Backup / Restore ---
+    "backupSettings":       _func("resources.lib.modules.backup_restore", "backup_settings"),
+    "restoreSettings":      _func("resources.lib.modules.backup_restore", "restore_settings"),
+
+    # --- Playback helpers ---
+    "cacheAssist":          _call("resources.lib.modules.cacheAssist", "CacheAssistHelper", "auto_cache", "action_args"),
+
+    # --- Timezone ---
+    "chooseTimeZone":       _func("resources.lib.modules.manual_timezone", "choose_timezone"),
+
+    # --- Test windows ---
+    "testPlayingNext":      _func("resources.lib.gui.mock_windows", "mock_playing_next"),
+    "testStillWatching":    _func("resources.lib.gui.mock_windows", "mock_still_watching"),
+    "testGetSourcesWindow": _func("resources.lib.gui.mock_windows", "mock_get_sources"),
+    "testResolverWindow":   _func("resources.lib.gui.mock_windows", "mock_resolver"),
+    "testSourceSelectWindow": _func("resources.lib.gui.mock_windows", "mock_source_select"),
+    "testManualCacheWindow": _func("resources.lib.gui.mock_windows", "mock_cache_assist"),
+    "testDownloadManagerWindow": _func("resources.lib.gui.mock_windows", "mock_download_manager"),
+}
+
+
+# ---------------------------------------------------------------------------
+# Main dispatch function
+# ---------------------------------------------------------------------------
 
 def dispatch(params):
     url = params.get("url")
@@ -24,14 +210,39 @@ def dispatch(params):
     mediatype = params.get("mediatype")
     endpoint = params.get("endpoint")
 
+    # TMDb Helper alias passthrough: decode CJK aliases from player URL into action_args
+    # so _build_simple_show_info() / _build_simple_movie_info() can use them
+    tmdbhelper_aliases_raw = params.get("tmdbhelper_aliases")
+    if tmdbhelper_aliases_raw and isinstance(action_args, dict):
+        try:
+            import json
+            from urllib.parse import unquote
+            decoded = json.loads(unquote(tmdbhelper_aliases_raw))
+            if isinstance(decoded, list) and decoded:
+                action_args['tmdbhelper_aliases'] = decoded
+        except (json.JSONDecodeError, TypeError, ValueError):
+            pass
+
     g.log(f"Seren, Running Path - {g.REQUEST_PARAMS}")
 
+    # Home menu (no action)
     if action is None:
         from resources.lib.gui import homeMenu
-
         homeMenu.Menus().home()
+        return
 
-    elif action == "genericEndpoint":
+    # O(1) dict dispatch for simple routes (~95 of ~120 total)
+    handler = _ROUTE_TABLE.get(action)
+    if handler is not None:
+        handler({
+            "action_args": action_args,
+            "mediatype": mediatype,
+            "endpoint": endpoint,
+        })
+        return
+
+    # Complex routes that need multiple local variables (elif fallback)
+    if action == "genericEndpoint":
         if mediatype == "movies":
             from resources.lib.gui.movieMenus import Menus
         else:
@@ -116,6 +327,10 @@ def dispatch(params):
         from resources.lib.database.providerCache import ProviderCache
 
         item_information = tools.get_item_information(action_args)
+        if not item_information:
+            g.log("getSources: Unable to identify item (missing or unresolvable Trakt ID)", "warning")
+            g.cancel_playback()
+            return
         smart_play = SmartPlay(item_information)
         background = None
         resolver_window = None
@@ -164,7 +379,9 @@ def dispatch(params):
             else:
                 source_select_style = "Movie"
 
-            if g.get_int_setting(f"general.playstyle{source_select_style}") == 1 or source_select:
+            watchdog_used = False
+            used_source_select = g.get_int_setting(f"general.playstyle{source_select_style}") == 1 or source_select
+            if used_source_select:
 
                 if background:
                     background.set_text(g.get_language_string(30178))
@@ -173,31 +390,279 @@ def dispatch(params):
                 xbmc.sleep(750)
                 if background:
                     background.set_text("")
-                stream_link = sourceSelect.source_select(uncached, sources, item_information)
+                stream_link = sourceSelect.source_select(uncached, sources, ii)
             else:
-                stream_link = helpers.Resolverhelper().resolve_silent_or_visible(
-                    sources, ii, pack_select, overwrite_cache=overwrite_cache
-                )
+                # Clear any previous rescrape flag before resolving
+                g.clear_runtime_setting("content_verify_rescrape")
+                g.clear_runtime_setting("cloud_miss_rescrape")
+
+                watchdog_enabled = g.get_bool_setting("playback.watchdog", False)
+                watchdog_used = False
+
+                if watchdog_enabled:
+                    # Watchdog path: resolve + play + stall monitor in one loop
+                    # Uses xbmc.Player().play() directly for retry capability
+                    #
+                    # Release the plugin handle BEFORE watchdog starts — the
+                    # watchdog plays via Player.play() which is independent of
+                    # the plugin resolution system. Without this, setResolvedUrl
+                    # at commit time routes back through TMDb Helper and kills
+                    # the working stream.
+                    g.cancel_playback()
+
+                    # Close Seren overlay windows (persistent_background,
+                    # get_sources) so video is visible during monitoring
+                    if background:
+                        try:
+                            background.close()
+                        except Exception:
+                            pass
+                    g.close_busy_dialog()
+                    g.close_all_dialogs()
+
+                    from resources.lib.modules.playback_watchdog import PlaybackWatchdog
+                    watchdog = PlaybackWatchdog()
+                    stream_link = watchdog.attempt_playback(sources, ii, pack_select, resume_time=resume_time)
+                    # attempt_playback returns (stream_link, release_title) tuple
+                    _release_title = None
+                    if isinstance(stream_link, tuple):
+                        stream_link, _release_title = stream_link
+                    watchdog_used = bool(stream_link)
+                    # Set last resolved title for episode release group continuity
+                    if watchdog_used and _release_title and ii['info']['mediatype'] == g.MEDIA_EPISODE:
+                        g.set_runtime_setting(
+                            f"last_resolved_release_title.{ii['info']['trakt_show_id']}",
+                            _release_title,
+                        )
+                else:
+                    stream_link = helpers.Resolverhelper().resolve_silent_or_visible(
+                        sources, ii, pack_select, overwrite_cache=overwrite_cache
+                    )
+
+                # Cloud miss rescrape: if too many sources were no longer cached
+                # on debrid, clear the cache and rescrape with fresh results
+                rescrape_reason = None
+                if (
+                    stream_link is None
+                    and g.get_runtime_setting("cloud_miss_rescrape") == "true"
+                    and not g.get_runtime_setting("cloud_miss_rescrape_done")
+                ):
+                    rescrape_reason = "cloud_miss"
+                    g.clear_runtime_setting("cloud_miss_rescrape")
+                    g.set_runtime_setting("cloud_miss_rescrape_done", "true")
+                    g.log(
+                        "Cloud miss: Sources no longer cached on debrid — rescraping",
+                        "warning",
+                    )
+
+                # Content verification rescrape: if too many mismatches were detected,
+                # clear the cache and rescrape once with fresh results
+                elif (
+                    stream_link is None
+                    and g.get_runtime_setting("content_verify_rescrape") == "true"
+                    and not g.get_runtime_setting("content_verify_rescrape_done")
+                ):
+                    rescrape_reason = "content_verify"
+                    g.clear_runtime_setting("content_verify_rescrape")
+                    g.set_runtime_setting("content_verify_rescrape_done", "true")
+                    g.log(
+                        "Content verification: Rescraping after consecutive mismatches",
+                        "warning",
+                    )
+
+                if rescrape_reason:
+                    if background:
+                        background.set_text(g.get_language_string(30714))
+
+                    # Rescrape with cache overwrite
+                    uncached2, sources_list2, ii2 = sources_helper.get_sources(
+                        action_args, overwrite_cache=True
+                    )
+                    if background:
+                        background.set_process_started()
+                        background.set_text("")
+                    sources2 = sources_helper.sort_sources(ii2, sources_list2)
+                    if sources2:
+                        if watchdog_enabled:
+                            from resources.lib.modules.playback_watchdog import PlaybackWatchdog
+                            watchdog = PlaybackWatchdog()
+                            stream_link = watchdog.attempt_playback(sources2, ii2, pack_select, resume_time=resume_time)
+                            _release_title = None
+                            if isinstance(stream_link, tuple):
+                                stream_link, _release_title = stream_link
+                            watchdog_used = bool(stream_link)
+                            if watchdog_used and _release_title and ii2['info']['mediatype'] == g.MEDIA_EPISODE:
+                                g.set_runtime_setting(
+                                    f"last_resolved_release_title.{ii2['info']['trakt_show_id']}",
+                                    _release_title,
+                                )
+                        else:
+                            stream_link = helpers.Resolverhelper().resolve_silent_or_visible(
+                                sources2, ii2, pack_select, overwrite_cache=True
+                            )
+
+                # Clean up rescrape flags
+                g.clear_runtime_setting("content_verify_rescrape")
+                g.clear_runtime_setting("content_verify_rescrape_done")
+                g.clear_runtime_setting("cloud_miss_rescrape")
+                g.clear_runtime_setting("cloud_miss_rescrape_done")
+
+                # Uncached torrent fallback: if all cached sources failed and
+                # uncached sources exist, offer to cache-and-wait for the best one
+                if stream_link is None and uncached:
+                    from resources.lib.modules.cacheAssist import CacheAssistHelper
+
+                    if xbmcgui.Dialog().yesno(
+                        g.ADDON_NAME,
+                        g.get_language_string(30748),
+                    ):
+                        try:
+                            cache_helper = CacheAssistHelper()
+                            cache_module = cache_helper.manual_cache(uncached[0])
+                            if cache_module:
+                                cache_result = cache_module.do_cache()
+                                if cache_result and cache_result['result'] == 'success':
+                                    cached_source = cache_result['source']
+                                    stream_link = helpers.Resolverhelper().resolve_silent_or_visible(
+                                        [cached_source], ii, pack_select, overwrite_cache=True
+                                    )
+                                    watchdog_used = False  # cache-assist uses normal path
+                        except Exception as e:
+                            g.log(f"Uncached torrent fallback failed: {e}", "error")
+                            g.log_stacktrace()
+
                 if stream_link is None:
                     g.close_busy_dialog()
                     g.close_all_dialogs()
                     g.notification(g.ADDON_NAME, g.get_language_string(30032), time=5000)
 
+            # Clean up any remaining AD MagnetUpload IDs not consumed by the resolver.
+            # Fires at both source select close and autoplay resolution, covering:
+            #   - user cancels source select (no resolver call → IDs never cleaned)
+            #   - user picks non-AD source (AD resolver never fires → IDs never cleaned)
+            #   - autoplay resolves non-AD source (same)
+            #   - all sources failed (IDs still set)
+            # Safe when AD resolver DID succeed: _cleanup_other_upload_cached() already
+            # cleared alldebrid.upload_cache_ids, so this finds nothing and exits early.
+            try:
+                _ad_ids = g.get_runtime_setting("alldebrid.upload_cache_ids")
+                if _ad_ids and isinstance(_ad_ids, list):
+                    from resources.lib.debrid.all_debrid import AllDebrid
+                    AllDebrid().delete_magnets_background(_ad_ids)
+                    g.clear_runtime_setting("alldebrid.upload_cache_ids")
+                    g.log(
+                        f"AD MagnetUpload: cleanup at source select/autoplay — "
+                        f"{len(_ad_ids)} upload ID(s) released",
+                        "info",
+                    )
+            except Exception:
+                pass
+
+            # Clean up any DL SeedboxProbe IDs not consumed by the DL resolver.
+            # Fires at source select close and autoplay resolution, covering:
+            #   - user cancels source select (no resolver call → IDs never cleaned)
+            #   - user picks non-DL source (DL resolver never fires → IDs never cleaned)
+            #   - all sources failed (IDs still set)
+            # Safe when DL resolver DID play: _do_post_processing() already cleared
+            # debridlink.probe_ids (deleting the unplayed cached probes and removing
+            # the played ID from the runtime setting), so this finds nothing and exits
+            # early — mirroring the AD MagnetUpload pattern.
+            try:
+                _dl_ids = g.get_runtime_setting("debridlink.probe_ids")
+                if _dl_ids and isinstance(_dl_ids, list):
+                    from resources.lib.debrid.debrid_link import DebridLink
+                    DebridLink().delete_torrents_background(_dl_ids)
+                    g.clear_runtime_setting("debridlink.probe_ids")
+                    g.log(
+                        f"DL SeedboxProbe: cleanup at source select/autoplay — "
+                        f"{len(_dl_ids)} probe ID(s) released",
+                        "info",
+                    )
+            except Exception:
+                pass
+
             if not stream_link:
                 raise NoPlayableSourcesException
 
-            from resources.lib.modules import player
-
             try:
-                seren_player = player.SerenPlayer()
-                seren_player.play_source(stream_link, item_information, resume_time=resume_time)
+                from resources.lib.modules import player as _player_module
+                seren_player = _player_module.SerenPlayer()
+                if watchdog_used:
+                    # Stream is already playing via watchdog — attach lifecycle
+                    seren_player.attach_to_playing(stream_link, ii, resume_time=resume_time)
+                elif used_source_select:
+                    # In-process source select loop — no PLAYLIST, no new plugin invocation.
+                    # First play consumes setResolvedUrl (one-shot per handle); re-opens use
+                    # Player.play() + attach_to_playing() which bypasses setResolvedUrl.
+                    from resources.lib.gui.windows.source_select import SourceSelect
+                    from resources.lib.database.skinManager import SkinManager as _SM
+                    current_link = stream_link
+                    first_play = True
+                    while not g.abort_requested():
+                        if first_play:
+                            seren_player.play_source(current_link, ii, resume_time=resume_time)
+                            first_play = False
+                        else:
+                            seren_player.playing_file = current_link
+                            seren_player.item_information = ii
+                            listitem = seren_player._create_list_item(current_link)
+                            xbmc.Player().play(current_link, listitem=listitem)
+                            g.wait_for_abort(0.5)
+                            seren_player.attach_to_playing(current_link, ii, resume_time=None)
+
+                        if seren_player.playback_ended or g.abort_requested():
+                            break
+                        if xbmc.Player().isPlaying():
+                            break
+
+                        needs_grace = seren_player.playback_error or (
+                            not seren_player.playback_started and not seren_player.stop_event_received
+                        )
+                        if needs_grace:
+                            g.log("Source select re-open: 3s grace period (stream error / dead stream)", "debug")
+                            g.wait_for_abort(3)
+
+                        if xbmc.Player().isPlaying() or g.abort_requested():
+                            break
+
+                        new_link = None
+                        try:
+                            window = SourceSelect(
+                                *_SM().confirm_skin_path("source_select.xml"),
+                                item_information=ii,
+                                sources=sources,
+                                uncached=uncached,
+                            )
+                            new_link = window.doModal()
+                        except Exception:
+                            g.log_stacktrace()
+                        finally:
+                            try:
+                                del window
+                            except (UnboundLocalError, NameError):
+                                pass
+
+                        if not new_link or new_link == "none":
+                            break
+
+                        del seren_player
+                        seren_player = _player_module.SerenPlayer()
+                        current_link = new_link
+                else:
+                    seren_player.play_source(stream_link, ii, resume_time=resume_time)
             finally:
                 if background:
                     try:
                         background.close()
                     finally:
                         del background
-                del seren_player
+                # Guard against UnboundLocalError if seren_player assignment threw —
+                # without this, the original NameError would be replaced by a
+                # confusing UnboundLocalError, masking the real cause.
+                try:
+                    del seren_player
+                except (UnboundLocalError, NameError):
+                    pass
 
         except NoPlayableSourcesException:
             try:
@@ -250,6 +715,11 @@ def dispatch(params):
 
         real_debrid.RealDebrid().auth()
         g.open_addon_settings(3, 27)
+
+    elif action == "rdAccountInfo":
+        from resources.lib.debrid.real_debrid import RealDebrid
+
+        RealDebrid().account_info_to_dialog()
 
     elif action == "showsHome":
         from resources.lib.gui import tvshowMenus
@@ -400,6 +870,126 @@ def dispatch(params):
 
         TorrentCache().clear_all()
 
+    elif action == "clearDebridCache":
+        from resources.lib.database.debridCache import DebridCache
+
+        DebridCache().clear_all()
+        g.notification(g.ADDON_NAME, "Debrid cache cleared")
+
+    elif action == "clearProviderStats":
+        from resources.lib.database.providerPerformance import ProviderPerformance
+
+        ProviderPerformance().clear_all()
+        g.notification(g.ADDON_NAME, g.get_language_string(30738))
+
+    elif action == "reenableProviders":
+        from resources.lib.database.providerPerformance import ProviderPerformance
+
+        pp = ProviderPerformance()
+        for stats in pp.get_all_stats():
+            if stats['status'] in ('disabled', 'demoted'):
+                pp.set_status(stats['provider'], 'active')
+                pp.execute_sql(
+                    "UPDATE provider_stats SET consecutive_failures = 0 WHERE provider = ?",
+                    (stats['provider'],),
+                )
+        g.notification(g.ADDON_NAME, g.get_language_string(30741))
+
+    elif action == "viewProviderStats":
+        from resources.lib.database.providerPerformance import ProviderPerformance
+
+        pp = ProviderPerformance()
+        all_stats = pp.get_all_stats()
+        if not all_stats:
+            xbmcgui.Dialog().ok(
+                g.get_language_string(30734),
+                "No provider performance data recorded yet.\n"
+                "Scrape some content first to begin tracking."
+            )
+        else:
+            lines = []
+            for s in all_stats:
+                status_tag = ""
+                if s['status'] == 'disabled':
+                    status_tag = " [COLOR red][DISABLED][/COLOR]"
+                elif s['status'] == 'demoted':
+                    status_tag = " [COLOR orange][DEMOTED][/COLOR]"
+                score = pp.get_provider_score(s['provider'])
+                lines.append(
+                    f"{s['provider'].upper()}{status_tag}  |  "
+                    f"Score: {score:.0f}  |  "
+                    f"Avg: {s['avg_response_ms']:.0f}ms  |  "
+                    f"Results: {s['avg_results']:.1f}/scrape  |  "
+                    f"Scrapes: {s['scrape_count']}  |  "
+                    f"Fails: {s['consecutive_failures']}"
+                )
+            selected = xbmcgui.Dialog().select(
+                g.get_language_string(30734), lines
+            )
+            if selected >= 0:
+                stat = all_stats[selected]
+                detail_lines = [
+                    f"Provider: {stat['provider'].upper()}",
+                    f"Status: {stat['status'].upper()}",
+                    f"Performance Score: {pp.get_provider_score(stat['provider']):.1f} / 100",
+                    f"Total Scrapes: {stat['scrape_count']}",
+                    f"Avg Response: {stat['avg_response_ms']:.0f}ms",
+                    f"Avg Results: {stat['avg_results']:.1f} per scrape",
+                    f"Avg Cached: {stat['avg_cached']:.1f} per scrape",
+                    f"Consecutive Failures: {stat['consecutive_failures']}",
+                    f"Total Results: {stat['total_results']}",
+                    f"Total Cached: {stat['total_cached']}",
+                ]
+                xbmcgui.Dialog().textviewer(
+                    f"{stat['provider'].upper()} — Performance Details",
+                    "\n".join(detail_lines),
+                )
+
+    elif action == "undesirablesSelectDefaults":
+        from resources.lib.database.undesirables import undesirables_select_defaults
+
+        undesirables_select_defaults()
+
+    elif action == "undesirablesUserInput":
+        from resources.lib.database.undesirables import undesirables_user_input
+
+        undesirables_user_input()
+
+    elif action == "undesirablesUserRemove":
+        from resources.lib.database.undesirables import undesirables_user_remove
+
+        undesirables_user_remove()
+
+    elif action == "undesirablesUserRemoveAll":
+        from resources.lib.database.undesirables import undesirables_user_remove_all
+
+        undesirables_user_remove_all()
+
+    elif action == "undesirablesReset":
+        from resources.lib.database.undesirables import undesirables_reset_defaults
+
+        undesirables_reset_defaults()
+
+    elif action == "titleSubsAdd":
+        from resources.lib.database.titleSubs import title_subs_add
+
+        title_subs_add()
+
+    elif action == "titleSubsViewRemove":
+        from resources.lib.database.titleSubs import title_subs_view_remove
+
+        title_subs_view_remove()
+
+    elif action == "titleSubsClearAll":
+        from resources.lib.database.titleSubs import title_subs_clear_all
+
+        title_subs_clear_all()
+
+    elif action == "showSkipIntro":
+        from resources.lib.modules.player import show_skip_intro_dialog
+
+        show_skip_intro_dialog()
+
     elif action == "openSettings":
         xbmc.executebuiltin(f"Addon.OpenSettings({g.ADDON_ID})")
 
@@ -482,10 +1072,35 @@ def dispatch(params):
 
         debridServices.Menus().list_rd_transfers()
 
+    elif action == "alldebridTransfers":
+        from resources.lib.gui import debridServices
+
+        debridServices.Menus().list_ad_transfers()
+
+    elif action == "torboxTransfers":
+        from resources.lib.gui import debridServices
+
+        debridServices.Menus().list_tb_transfers()
+
+    elif action == "debridlinkTransfers":
+        from resources.lib.gui import debridServices
+
+        debridServices.Menus().list_dl_transfers()
+
     elif action == "cleanInstall":
         from resources.lib.common import maintenance
 
         maintenance.wipe_install()
+
+    elif action == "backupSettings":
+        from resources.lib.modules.backup_restore import backup_settings
+
+        backup_settings()
+
+    elif action == "restoreSettings":
+        from resources.lib.modules.backup_restore import restore_settings
+
+        restore_settings()
 
     elif action == "premiumizeCleanup":
         from resources.lib.common import maintenance
@@ -679,6 +1294,33 @@ def dispatch(params):
         AllDebrid().auth()
         g.open_addon_settings(3, 36)
 
+    elif action == "adAccountInfo":
+        from resources.lib.debrid.all_debrid import AllDebrid
+
+        AllDebrid().account_info_to_dialog()
+
+    elif action == "authTorBox":
+        from resources.lib.debrid.torbox import TorBox
+
+        TorBox().auth()
+        g.open_addon_settings(3, 37)
+
+    elif action == "tbAccountInfo":
+        from resources.lib.debrid.torbox import TorBox
+
+        TorBox().account_info_to_dialog()
+
+    elif action == "authDebridLink":
+        from resources.lib.debrid.debrid_link import DebridLink
+
+        DebridLink().auth()
+        g.open_addon_settings(3, 38)
+
+    elif action == "dlAccountInfo":
+        from resources.lib.debrid.debrid_link import DebridLink
+
+        DebridLink().account_info_to_dialog()
+
     elif action == "checkSkinUpdates":
         from resources.lib.database.skinManager import SkinManager
 
@@ -689,6 +1331,76 @@ def dispatch(params):
 
         Premiumize().auth()
         g.open_addon_settings(3, 13)
+
+    elif action == "smartAuthPremiumize":
+        from resources.lib.debrid.premiumize import Premiumize
+        pm = Premiumize()
+        if g.get_setting("premiumize.token"):
+            pm.revoke_auth()
+        else:
+            pm.auth()
+            g.open_addon_settings(3, 13)
+
+    elif action == "smartAuthRealDebrid":
+        from resources.lib.debrid.real_debrid import RealDebrid
+        rd = RealDebrid()
+        if g.get_setting("rd.auth"):
+            rd.revoke_auth()
+        else:
+            rd.auth()
+            g.open_addon_settings(3, 27)
+
+    elif action == "smartAuthAllDebrid":
+        from resources.lib.debrid.all_debrid import AllDebrid
+        ad = AllDebrid()
+        if g.get_setting("alldebrid.apikey"):
+            ad.revoke_auth()
+        else:
+            ad.auth()
+            g.open_addon_settings(3, 36)
+
+    elif action == "smartAuthTorBox":
+        from resources.lib.debrid.torbox import TorBox
+        tb = TorBox()
+        if g.get_setting("torbox.token"):
+            tb.revoke_auth()
+        else:
+            tb.auth()
+            g.open_addon_settings(3, 37)
+
+    elif action == "smartAuthDebridLink":
+        from resources.lib.debrid.debrid_link import DebridLink
+        dl = DebridLink()
+        if g.get_setting("debridlink.token"):
+            dl.revoke_auth()
+        else:
+            dl.auth()
+            g.open_addon_settings(3, 38)
+
+    elif action == "pmAccountInfo":
+        from resources.lib.debrid.premiumize import Premiumize
+
+        Premiumize().account_info_to_dialog()
+    elif action == "revokePremiumize":
+        from resources.lib.debrid.premiumize import Premiumize
+        Premiumize().revoke_auth()
+
+    elif action == "revokeRealDebrid":
+        from resources.lib.debrid.real_debrid import RealDebrid
+        RealDebrid().revoke_auth()
+
+    elif action == "revokeAllDebrid":
+        from resources.lib.debrid.all_debrid import AllDebrid
+        AllDebrid().revoke_auth()
+
+    elif action == "revokeTorBox":
+        from resources.lib.debrid.torbox import TorBox
+        TorBox().revoke_auth()
+
+    elif action == "revokeDebridLink":
+        from resources.lib.debrid.debrid_link import DebridLink
+        DebridLink().revoke_auth()
+
 
     elif action == "testWindows":
         from resources.lib.gui.homeMenu import Menus
@@ -786,6 +1498,41 @@ def dispatch(params):
         from resources.lib.database import torrentCache
 
         torrentCache.TorrentCache().do_cleanup()
+
+    elif action == "undesirablesStartup":
+        try:
+            from resources.lib.database.undesirables import UndesirableCache
+            uc = UndesirableCache()
+            uc.add_new_defaults()
+            g.log("Undesirables database initialized", "debug")
+        except Exception as e:
+            g.log(f"Undesirables startup error: {e}", "warning")
+
+    elif action == "updateAnimeMappings":
+        try:
+            from resources.lib.modules.anime.anilist_mapping import update_mapping_db
+            update_mapping_db()
+        except Exception as e:
+            g.log(f"Anime mappings update error: {e}", "warning")
+        try:
+            from resources.lib.modules.anime.dub_data import update_mal_dub_json
+            update_mal_dub_json()
+        except Exception as e:
+            g.log(f"MAL-Dubs update error: {e}", "warning")
+        try:
+            from resources.lib.modules.anime.anidb_titles import download_titles_dump
+            download_titles_dump()
+        except Exception as e:
+            g.log(f"AniDB titles dump update error: {e}", "warning")
+
+    elif action == "animeRelated":
+        try:
+            anidb_id = int(params.get("anidb_id", 0))
+            if anidb_id:
+                from resources.lib.gui.tvshowMenus import TVShowMenus
+                TVShowMenus().anime_related_shows(anidb_id)
+        except Exception as e:
+            g.log(f"animeRelated error: {e}", "warning")
 
     elif action == "chooseTimeZone":
         from resources.lib.modules.manual_timezone import choose_timezone

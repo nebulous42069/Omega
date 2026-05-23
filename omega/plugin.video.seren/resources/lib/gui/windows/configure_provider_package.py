@@ -71,11 +71,15 @@ class PackageConfiguration(BaseWindow):
 
         provider_types = self.provider_class.provider_types
         for provider_type in provider_types:
-            for i in [
-                provider
-                for provider in self.providers
-                if provider["package"] == self.package_name and provider["provider_type"] == provider_type
-            ]:
+            filtered = sorted(
+                [
+                    provider
+                    for provider in self.providers
+                    if provider["package"] == self.package_name and provider["provider_type"] == provider_type
+                ],
+                key=lambda p: (0 if p["provider_name"] == "cached" else 1, p["provider_name"]),
+            )
+            for i in filtered:
                 item = xbmcgui.ListItem(label=i["provider_name"])
                 provider_imports = (
                     '.'.join(["providers", i["package"], i["country"], i["provider_type"]]),

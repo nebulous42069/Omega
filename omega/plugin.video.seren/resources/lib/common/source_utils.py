@@ -19,6 +19,65 @@ BROWSER_AGENTS = [
 ]
 
 exclusions = ["soundtrack", "gesproken"]
+
+# Default undesirable keywords — filtered from release titles during scraping.
+# Russian/foreign release groups, non-video files, junk content, low-quality rips.
+# Users can toggle these individually and add their own via Tools > Undesirables.
+DEFAULT_UNDESIRABLES = sorted([
+    '400p.octopus', '720p.octopus', '1080p.octopus',
+    'alexfilm', 'amedia', 'audiobook',
+    'baibako', 'bigsinema', 'bonus.disc',
+    'casstudio.tv', '.cbr', '.cbz', 'coldfilm', 'courage.bambey',
+    'dilnix', 'dutchreleaseteam',
+    'e.book.collection', 'empire.minutemen', 'eniahd', '.exe', 'exkinoray', 'extras.only',
+    'gears.media', 'gearsmedia', 'good.people', 'gostfilm',
+    'hamsterstudio', 'hdrezka', 'hdtvrip', 'hurtom',
+    'idea.film', 'ideafilm',
+    'jaskier',
+    'kapatejl6', 'kb.1080p', 'kb.720p', 'kb.400p', 'kerob', 'kinokopilka', 'kravec', 'kuraj.bambey',
+    'lakefilm', 'lostfilm',
+    'megapeer', 'minutemen.empire',
+    'newstudio',
+    'omskbird', '.ost.',
+    'pa.web.dl', '.p.web.dl', '.d.web.dl', 'paravozik', 'profix.media',
+    'rifftrax',
+    'sample', 'soundtrack', 'subtitle.only', 'sunshinestudio',
+    'teaser', 'trailer', 'tumbler.studio', 'tvshows',
+    'ultradox',
+    'viruseproject', 'vostfr', 'vo.stfr',
+    'web.dlrip', 'webdlrip', 'wish666',
+])
+
+
+def get_undesirables():
+    """Return list of enabled undesirable keywords, or empty list if filter is disabled.
+
+    Reads the filter.undesirables setting toggle. If enabled, queries the SQLite database
+    for all keywords where enabled=1. Falls back to DEFAULT_UNDESIRABLES on DB errors.
+    """
+    if not g.get_bool_setting("filter.undesirables"):
+        return []
+    try:
+        from resources.lib.database.undesirables import UndesirableCache
+        return UndesirableCache().get_enabled()
+    except Exception:
+        return list(DEFAULT_UNDESIRABLES)
+
+
+def is_undesirable(release_title, undesirables):
+    """Check if a release title contains any undesirable keyword.
+
+    Args:
+        release_title: the release title string (will be lowercased)
+        undesirables: list of keyword strings from get_undesirables()
+
+    Returns:
+        True if any keyword is found as a substring in the lowercased title
+    """
+    if not undesirables:
+        return False
+    title_lower = release_title.lower()
+    return any(keyword in title_lower for keyword in undesirables)
 _APOSTROPHE_SUBS = re.compile(r"\\'s|'s|&#039;s| 039 s")
 _SEPARATORS = re.compile(r'[:|/,!?()"[\]\-\\_.{}]|(?<![:|/,!?()"[\]\-\\_.{}\s]dd)\+')
 _WHITESPACE = re.compile(r'\s+')
@@ -55,6 +114,20 @@ def get_quality(release_title):
 
 
 INFO_STRUCT = {
+    "sourcetype": {
+        "CACHED",
+        "SEASON",
+        "SHOW",
+        "BATCH",
+    },
+    "audiolang": {
+        "MULTI-AUDIO",
+        "DUAL-AUDIO",
+        "DUB",
+    },
+    "sublang": {
+        "MULTI-SUB",
+    },
     "videocodec": {
         "AVC",
         "HEVC",
@@ -208,7 +281,12 @@ INFO_TYPES = {
         "vo stfr",
     ],
     "3D": [" 3d", " half ou", " half sbs"],
-    "60-FPS": [" 60 fps", " 60fps"]
+    "60-FPS": [" 60 fps", " 60fps"],
+    "MULTI-AUDIO": ["multi audio", "multi lang", "multiple audio", "multiple lang"],
+    "DUAL-AUDIO": ["dual audio", "dual.audio", "dual-audio"],
+    "DUB": ["dubbed", "dublado", "pldub", "bgaudio"],
+    "MULTI-SUB": ["multi sub", "multi subs", "multiple sub", "multiple subs"],
+    "BATCH": ["batch", "complete series", "complete collection"],
 }
 
 
@@ -242,7 +320,292 @@ def get_info(release_title):
         info.add("HC")
     if "opus" in title and "AV1" in info:
         info.add("OPUS")
+    # Audio language hierarchy: MULTI-AUDIO > DUAL-AUDIO > DUB
+    if "MULTI-AUDIO" in info:
+        info.discard("DUAL-AUDIO")
+        info.discard("DUB")
+    elif "DUAL-AUDIO" in info:
+        info.discard("DUB")
+    # Enhanced anime batch detection — regex patterns on raw title for bracket
+    # ranges and BD box patterns that clean_title() would strip.
+    if "BATCH" not in info:
+        from resources.lib.modules.anime.source_filter import is_anime_batch
+        if is_anime_batch(release_title):
+            info.add("BATCH")
     return info
+
+
+# ── Smart Foreign Language Filter ──────────────────────────────────────────────
+# Context-aware filter that uses Kodi's audio/subtitle language preferences and
+# Trakt/TVDB country_origin metadata to decide which releases are wanted.
+# A release is kept if it matches the user's preferred languages, the content's
+# native language, or is multilingual.  Only mismatched foreign dubs are removed.
+
+FOREIGN_LANGUAGES = {
+    "arabic":     {"AE", "AR", "BH", "DZ", "EG", "IQ", "JO", "KW", "LB", "LY", "MA", "OM", "QA", "SA", "SY", "TN", "YE"},
+    "bengali":    {"BD", "IN"},
+    "bulgarian":  {"BG"},
+    "castellano": {"ES"},
+    "chinese":    {"CN", "HK", "SG", "TW"},
+    "czech":      {"CZ"},
+    "danish":     {"DK"},
+    "dutch":      {"BE", "NL"},
+    "finnish":    {"FI"},
+    "french":     {"BE", "CA", "FR"},
+    "german":     {"AT", "CH", "DE"},
+    "greek":      {"GR"},
+    "hebrew":     {"IL"},
+    "hindi":      {"IN"},
+    "hungarian":  {"HU"},
+    "italian":    {"IT"},
+    "japanese":   {"JP"},
+    "korean":     {"KR"},
+    "latino":     {"AR", "CL", "CO", "MX", "PE", "VE"},
+    "norwegian":  {"NO"},
+    "persian":    {"IR"},
+    "polish":     {"PL"},
+    "portuguese": {"BR", "PT"},
+    "romanian":   {"RO"},
+    "russian":    {"RU"},
+    "spanish":    {"AR", "CL", "CO", "ES", "MX", "PE", "VE"},
+    "swedish":    {"SE"},
+    "tamil":      {"IN", "LK"},
+    "telugu":     {"IN"},
+    "thai":       {"TH"},
+    "turkish":    {"TR"},
+    "ukrainian":  {"UA"},
+    "vietnamese": {"VN"},
+}
+
+# Three-letter ISO 639 codes that appear in release titles (e.g. "Movie.FRA.1080p")
+# After clean_title() dots become spaces so ".fra." → " fra "
+FOREIGN_LANG_CODES = {
+    "ara": {"AE", "EG", "SA"},  "bul": {"BG"},       "ces": {"CZ"},
+    "chi": {"CN", "HK", "TW"},  "chs": {"CN"},       "cht": {"TW"},
+    "cze": {"CZ"},               "dan": {"DK"},       "deu": {"AT", "DE"},
+    "dut": {"NL"},               "ell": {"GR"},       "esl": {"ES"},
+    "esp": {"ES"},               "fin": {"FI"},       "fra": {"FR"},
+    "fre": {"FR"},               "frn": {"FR"},       "ger": {"AT", "DE"},
+    "gre": {"GR"},               "heb": {"IL"},       "hin": {"IN"},
+    "hun": {"HU"},               "ita": {"IT"},       "jap": {"JP"},
+    "jpn": {"JP"},               "kor": {"KR"},       "lit": {"LT"},
+    "nld": {"NL"},               "nor": {"NO"},       "pol": {"PL"},
+    "por": {"BR", "PT"},         "ron": {"RO"},       "rus": {"RU"},
+    "spa": {"ES", "MX"},         "sve": {"SE"},       "swe": {"SE"},
+    "tha": {"TH"},               "tur": {"TR"},       "ukr": {"UA"},
+    "vie": {"VN"},               "zho": {"CN", "TW"},
+}
+
+# Specific dubbed/subtitle keywords that imply a particular language
+FOREIGN_DUB_KEYWORDS = {
+    "bgaudio":     {"BG"},
+    "castellano":  {"ES"},
+    "dublado":     {"BR", "PT"},
+    "latino":      {"AR", "CL", "CO", "MX", "PE", "VE"},
+    "pldub":       {"PL"},
+    "truefrench":  {"FR"},
+    "truespanish": {"ES"},
+}
+
+# Foreign subtitle-only markers — indicate the release may lack useful audio
+FOREIGN_SUB_MARKERS = {
+    "subfrench":  {"FR"},
+    "subita":     {"IT"},
+    "subspanish": {"ES"},
+    "subtitula":  {"ES"},
+    "swesub":     {"SE"},
+}
+
+# ── User Language Mapping ──────────────────────────────────────────────────────
+# Maps ISO 639-1 language codes (from Kodi settings) to the keywords and country
+# codes used in release titles.  "multi" is always treated as a safe indicator.
+
+USER_LANG_INDICATORS = {
+    "ar": {"arabic", " ara "},
+    "bg": {"bulgarian", "bgaudio", " bul "},
+    "bn": {"bengali"},
+    "cs": {"czech", " ces ", " cze "},
+    "da": {"danish", " dan "},
+    "de": {"german", " ger ", " deu "},
+    "el": {"greek", " ell ", " gre "},
+    "en": {"english", " eng ", " en "},
+    "es": {"spanish", "castellano", "truespanish", "latino", " esp ", " esl ", " spa "},
+    "fa": {"persian"},
+    "fi": {"finnish", " fin "},
+    "fr": {"french", "truefrench", " fra ", " fre ", " frn "},
+    "he": {"hebrew", " heb "},
+    "hi": {"hindi", " hin "},
+    "hu": {"hungarian", " hun "},
+    "it": {"italian", " ita "},
+    "ja": {"japanese", " jap ", " jpn "},
+    "ko": {"korean", " kor "},
+    "lt": {"lithuanian", " lit "},
+    "nl": {"dutch", " dut ", " nld "},
+    "no": {"norwegian", " nor "},
+    "pl": {"polish", "pldub", " pol "},
+    "pt": {"portuguese", "dublado", " por "},
+    "ro": {"romanian", " ron "},
+    "ru": {"russian", " rus "},
+    "sv": {"swedish", "swesub", " sve ", " swe "},
+    "ta": {"tamil"},
+    "te": {"telugu"},
+    "th": {"thai", " tha "},
+    "tr": {"turkish", " tur "},
+    "uk": {"ukrainian", " ukr "},
+    "vi": {"vietnamese", " vie "},
+    "zh": {"chinese", " chi ", " chs ", " cht ", " zho "},
+}
+
+USER_LANG_COUNTRIES = {
+    "ar": {"AE", "AR", "BH", "DZ", "EG", "IQ", "JO", "KW", "LB", "LY", "MA", "OM", "QA", "SA", "SY", "TN", "YE"},
+    "bg": {"BG"},       "bn": {"BD", "IN"},  "cs": {"CZ"},
+    "da": {"DK"},        "de": {"AT", "CH", "DE"},
+    "el": {"GR"},        "en": {"AU", "CA", "GB", "IE", "NZ", "US"},
+    "es": {"AR", "CL", "CO", "ES", "MX", "PE", "VE"},
+    "fa": {"IR"},        "fi": {"FI"},        "fr": {"BE", "CA", "FR"},
+    "he": {"IL"},        "hi": {"IN"},        "hu": {"HU"},
+    "it": {"IT"},        "ja": {"JP"},        "ko": {"KR"},
+    "lt": {"LT"},        "nl": {"BE", "NL"},  "no": {"NO"},
+    "pl": {"PL"},        "pt": {"BR", "PT"},  "ro": {"RO"},
+    "ru": {"RU"},        "sv": {"SE"},        "ta": {"IN", "LK"},
+    "te": {"IN"},        "th": {"TH"},        "tr": {"TR"},
+    "uk": {"UA"},        "vi": {"VN"},        "zh": {"CN", "HK", "SG", "TW"},
+}
+
+
+def build_user_language_sets(lang_codes):
+    """
+    Given a set of ISO 639-1 language codes from Kodi settings, build the
+    indicator keywords and country code sets used by is_foreign_release().
+
+    :param lang_codes: set of ISO 639-1 codes e.g. {"en"}, {"en", "fr"}, {"ko"}
+    :return: tuple of (indicators_set, countries_set)
+    """
+    indicators = {"multi"}  # "multi" always means multilingual → safe for any user
+    countries = set()
+    for code in lang_codes:
+        indicators.update(USER_LANG_INDICATORS.get(code, set()))
+        countries.update(USER_LANG_COUNTRIES.get(code, set()))
+    return indicators, countries
+
+
+def _isolate_release_info(release_title, content_title, year):
+    """
+    Strip the content title and year from a release title to get only the
+    metadata portion (codec, quality, language tags).  This prevents the
+    content name from triggering false positives — e.g. a movie titled
+    "The French Connection" won't match the "french" language keyword.
+
+    :param release_title: Full release title string
+    :param content_title: Movie title or show title from metadata
+    :param year: Content year string
+    :return: Space-padded lowercase info portion for keyword matching
+    """
+    info_portion = clean_title(release_title)
+    if content_title:
+        content_cleaned = clean_title(content_title)
+        info_portion = info_portion.replace(content_cleaned, "")
+    if year:
+        info_portion = info_portion.replace(str(year), "", 1)
+    return f" {info_portion.strip()} "
+
+
+def is_foreign_release(release_title, content_title, year, country_origin,
+                       is_anime, info_tags, user_indicators, user_countries):
+    """
+    Smart foreign language filter.  Returns True if the release should be
+    REMOVED (filtered out) because it appears to be in an unwanted language.
+
+    Uses Kodi's audio/subtitle language preferences (passed as pre-built sets)
+    to determine what the user considers "wanted" languages.
+
+    Decision logic:
+      1. MULTI-AUDIO / DUAL-AUDIO / MULTI-SUB  → always KEEP (multilingual)
+      2. User's preferred language indicator found → KEEP
+      3. No foreign language detected             → KEEP (normal release)
+      4. Foreign subtitle-only markers            → FILTER unless native or user's lang
+      5. Context-aware check:
+         a. Content is from the same country as detected language → KEEP (native)
+         b. Content is anime and detected language is Japanese    → KEEP
+         c. DUB tag + content not from user's language countries  → KEEP (likely dub
+            in user's language)
+         d. Otherwise                                             → FILTER
+
+    :param release_title: Full release title
+    :param content_title: Movie/show title from metadata
+    :param year: Content year
+    :param country_origin: ISO alpha-2 country code from Trakt/TVDB
+    :param is_anime: True if content genre includes anime/animation
+    :param info_tags: The source's parsed info set (from get_info)
+    :param user_indicators: set of keywords for user's preferred languages
+                            (built by build_user_language_sets)
+    :param user_countries: set of country codes for user's preferred languages
+                           (built by build_user_language_sets)
+    :return: True to filter OUT, False to keep
+    """
+    # 1. Multilingual releases are always safe
+    if info_tags & {"MULTI-AUDIO", "DUAL-AUDIO", "MULTI-SUB"}:
+        return False
+
+    # Get the info portion of the title (strip content name + year)
+    info = _isolate_release_info(release_title, content_title, year)
+
+    # 2. User's preferred language indicators present → keep
+    if any(ind in info for ind in user_indicators):
+        return False
+
+    # Normalise country_origin for lookup
+    country = (country_origin or "").upper().strip()
+
+    # 3–4. Check for foreign language keywords
+    detected_countries = set()
+
+    # Check full language names
+    for lang, countries in FOREIGN_LANGUAGES.items():
+        if lang in info:
+            detected_countries.update(countries)
+
+    # Check 3-letter codes (word-bounded via spaces)
+    for code, countries in FOREIGN_LANG_CODES.items():
+        if f" {code} " in info:
+            detected_countries.update(countries)
+
+    # Check specific dub keywords
+    for keyword, countries in FOREIGN_DUB_KEYWORDS.items():
+        if keyword in info:
+            detected_countries.update(countries)
+
+    # Check foreign subtitle-only markers
+    if any(marker in info for marker in FOREIGN_SUB_MARKERS):
+        # Keep if marker matches content's origin or user's language
+        for marker, marker_countries in FOREIGN_SUB_MARKERS.items():
+            if marker in info:
+                if country in marker_countries:
+                    return False  # Native subtitle marker
+                if marker_countries & user_countries:
+                    return False  # Subtitle in user's language
+        return True
+
+    # 3. No foreign language detected → normal release, keep
+    if not detected_countries:
+        return False
+
+    # 5. Context-aware decision
+    # 5a. Content's country matches detected language → native audio, keep
+    if country and country in detected_countries:
+        return False
+
+    # 5b. Anime + Japanese detected → expected, keep
+    if is_anime and detected_countries & {"JP"}:
+        return False
+
+    # 5c. DUB tag + content not from user's language countries → likely dub
+    #     in user's language (e.g. French user + Korean drama + "dubbed")
+    if "DUB" in info_tags and country and country not in user_countries:
+        return False
+
+    # Otherwise → unwanted foreign language release, filter out
+    return True
 
 
 def strip_non_ascii_and_unprintable(text):
@@ -707,8 +1070,14 @@ def is_file_ext_valid(file_name):
 
 def _full_meta_episode_regex(args):
     """
-    Takes an episode items full meta and returns a regex object to use in title matching
-    :param args: Full meta of episode item
+    Takes an episode items full meta and returns a regex object to use in title matching.
+    When item_information['info'] contains alternative_season/alternative_episode (set by
+    the anime cour-correction logic in getSources), the regex matches EITHER the primary
+    Trakt numbering OR the cour-corrected numbering — whichever appears in the filename.
+    This fixes file selection inside PM/RD-cached anime torrents and the content verifier
+    fallback for cour-split shows (e.g. Frieren S1E30 → also matches S2E10 filenames).
+
+    :param args: Full meta of episode item (item_information dict)
     :return: compiled regex object
     """
     episode_info = args["info"]
@@ -725,7 +1094,7 @@ def _full_meta_episode_regex(args):
     if episode_title == show_title or len(re.findall(r"^\d+$", episode_title)) > 0:
         episode_title = None
 
-    reg_string = (
+    _ep_pattern = (
         r"(?#SHOW TITLE)(?:{show_title})"
         r"? ?"
         r"(?#COUNTRY)(?:{country})"
@@ -738,10 +1107,68 @@ def _full_meta_episode_regex(args):
         r"(?#SEASON){season} "
         r"(?:episode )|(?: ep ?)))(?:\d?\d?e)?0?"
         r"(?#EPISODE){episode}"
-        r"(?:e\d\d)?\]? "
+        r"(?:e\d\d)?\]?(?:[ ]|$)"
     )
 
-    reg_string = reg_string.format(show_title=show_title, country=country, year=year, season=season, episode=episode)
+    reg_string = _ep_pattern.format(
+        show_title=show_title, country=country, year=year,
+        season=season, episode=episode,
+    )
+
+    # ── Fansub dash-style branch (always active for anime) ──────────────────
+    # SubsPlease, Erai-raws, HorribleSubs and similar groups release single
+    # episodes as "Show Name - 09 (1080p) [CRC].mkv".  The standard _ep_pattern
+    # above only matches SxxExx / season N episode N / NxNN formats — it will
+    # never match the bare "- 09" convention, so file selection in the resolver
+    # fails with "Episode file not found" even for a correctly-cached torrent.
+    #
+    # IMPORTANT: clean_title() (used by get_best_episode_match and the content
+    # verifier) strips dashes to spaces via _SEPARATORS.  So by the time this
+    # regex runs, "[SubsPlease] Show - 09 (1080p)" has become
+    # "subsplease show 09 1080p" — there is NO dash to match.
+    #
+    # Pattern breakdown (applied to the cleaned, lowercased filename):
+    #   (?:^|\s)   — start-of-string or whitespace (where the dash used to be)
+    #   0?         — optional leading zero  (- 9 == - 09)
+    #   {ep_int}   — the episode number without leading zero
+    #   (?:v\d)?   — optional fansub version suffix (v2, v3 …)
+    #   (?:\s|$)   — must be followed by whitespace or end-of-string
+    #
+    # The strict boundary guards prevent false matches on resolution tokens
+    # (1080, 720) and episode numbers that are sub-strings of larger numbers
+    # (e.g. ep 9 must not match ep 19).
+    def _fansub_dash_branch(ep):
+        ep_int = str(int(ep))   # strip leading zero: "09" → "9"
+        return (
+            rf"(?:^|\s)0?{re.escape(ep_int)}(?:v\d)?(?:\s|$)"
+        )
+
+    reg_string = f"(?:{reg_string})|(?:{_fansub_dash_branch(episode)})"
+
+    # If cour-corrected alt numbers are available, add them as OR branches so the
+    # regex matches files labelled with either the Trakt or the cour season/episode.
+    alt_season = str(episode_info.get("alternative_season", ""))
+    alt_episode = str(episode_info.get("alternative_episode", ""))
+    if alt_season and alt_episode and (alt_season, alt_episode) != (season, episode):
+        # Branch 1: standard SxxExx / season N episode N style (e.g. S02E10)
+        alt_string = _ep_pattern.format(
+            show_title=show_title, country=country, year=year,
+            season=alt_season, episode=alt_episode,
+        )
+        # Branch 2: ordinal/dash style used by Erai-raws and similar fansubs:
+        #   "2nd Season - 10", "2nd Season – 10", "2nd Season 10"
+        #   Matches: {N}(st|nd|rd|th)? season[-– ]+{ep}
+        alt_ordinal = (
+            rf"(?:{re.escape(show_title)})? ?"
+            rf"\b{re.escape(alt_season)}(?:st|nd|rd|th)?\s+season"
+            rf"[\s\-\u2013\u2014]*0?{re.escape(alt_episode)}"
+            rf"(?:\s|$|\.|\[)"
+        )
+        # Branch 3: fansub dash style for the alt (cour-corrected) episode
+        alt_fansub_dash = _fansub_dash_branch(alt_episode)
+        reg_string = (
+            f"(?:{reg_string})|(?:{alt_string})|(?:{alt_ordinal})|(?:{alt_fansub_dash})"
+        )
 
     if episode_title:
         reg_string += f"|{episode_title}"

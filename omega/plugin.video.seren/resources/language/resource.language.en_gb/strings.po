@@ -167,8 +167,8 @@ msgstr "Tools"
 #: /resources/settings.xml:2082 /resources/settings.xml:2083
 #: /resources/lib/gui/homeMenu.py:112
 msgctxt "#30028"
-msgid "Clear Cache"
-msgstr "Clear Cache"
+msgid "Clear All Cache"
+msgstr "Clear All Cache"
 
 #: /resources/lib/modules/globals.py:1005
 msgctxt "#30029"
@@ -734,8 +734,8 @@ msgstr "Enable Trakt Scrobbling"
 
 #: /resources/settings.xml:885
 msgctxt "#30133"
-msgid "Revoke Trakt Authentication..."
-msgstr "Revoke Trakt Authentication..."
+msgid "Revoke Trakt"
+msgstr "Revoke Trakt"
 
 #: /resources/settings.xml:901 /resources/settings.xml:1310
 #: /resources/settings.xml:1864 /resources/settings.xml:1877
@@ -1897,8 +1897,8 @@ msgstr "Enable Automatic Theme Updates"
 
 #: /resources/settings.xml:907
 msgctxt "#30339"
-msgid "Authorise Premiumize"
-msgstr "Authorise Premiumize"
+msgid "Authorize Premiumize"
+msgstr "Authorize Premiumize"
 
 #: /resources/lib/indexers/trakt.py:110 /resources/lib/indexers/trakt.py:121
 msgctxt "#30340"
@@ -3702,27 +3702,909 @@ msgctxt "#30652"
 msgid "Icon Only"
 msgstr "Icon Only"
 
-#: /resources/settings.xml:120
-msgctxt "#30653"
-msgid "Watchlist Sort Style"
-msgstr "Watchlist Sort Style"
+msgctxt "#30660"
+msgid "TorBox"
+msgstr "TorBox"
 
-#: /resources/settings.xml:125
-msgctxt "#30654"
-msgid "Recently Added"
-msgstr "Recently Added"
+msgctxt "#30661"
+msgid "Enable TorBox"
+msgstr "Enable TorBox"
 
-#: /resources/settings.xml:126
-msgctxt "#30655"
-msgid "First Added"
-msgstr "First Added"
+msgctxt "#30662"
+msgid "TorBox Username"
+msgstr "TorBox Username"
 
-#: /resources/settings.xml:2111
-msgctxt "#30656"
-msgid "Use Last Chapter Info When Available"
-msgstr "Use Last Chapter Info When Available"
+msgctxt "#30663"
+msgid "Authorize TorBox..."
+msgstr "Authorize TorBox..."
 
-#: /resources/settings.xml:1231
-msgctxt "#30657"
-msgid "Limit Next Up Episodes"
-msgstr "Limit Next Up Episodes"
+msgctxt "#30664"
+msgid "Scrape TorBox Cloud"
+msgstr "Scrape TorBox Cloud"
+
+msgctxt "#30665"
+msgid "Fourth Priority"
+msgstr "Fourth Priority"
+
+msgctxt "#30666"
+msgid "Add Resolved Torrents to Cloud"
+msgstr "Add Resolved Torrents to Cloud"
+
+msgctxt "#30667"
+msgid "Seeders"
+msgstr "Seeders"
+
+msgctxt "#30668"
+msgid "When enabled, resolved torrents stay permanently in your TorBox cloud. When disabled, torrents are auto-deleted after fully watching and kept if you stop early."
+msgstr "When enabled, resolved torrents stay permanently in your TorBox cloud. When disabled, torrents are auto-deleted after fully watching and kept if you stop early."
+
+msgctxt "#30669"
+msgid "Tier Skip Threshold"
+msgstr "Tier Skip Threshold"
+
+msgctxt "#30670"
+msgid "Minimum cached sources needed before skipping remaining scraper tiers. Lower = faster (fewer choices), higher = more thorough. Set to 0 to always run all tiers."
+msgstr "Minimum cached sources needed before skipping remaining scraper tiers. Lower = faster (fewer choices), higher = more thorough. Set to 0 to always run all tiers."
+
+msgctxt "#30671"
+msgid "Smart Auto-Delete"
+msgstr "Smart Auto-Delete"
+
+msgctxt "#30672"
+msgid "When enabled, resolved torrents are auto-deleted after fully watching and kept in cloud if you stop early. Overrides the standard auto-delete behavior."
+msgstr "When enabled, resolved torrents are auto-deleted after fully watching and kept in cloud if you stop early. Overrides the standard auto-delete behavior."
+
+msgctxt "#30673"
+msgid "Smart Auto-Delete (Post-Playback)"
+msgstr "Smart Auto-Delete (Post-Playback)"
+
+msgctxt "#30674"
+msgid "When enabled, resolved transfers are auto-deleted after fully watching and kept if you stop early. Only applies when Add to Cloud is enabled."
+msgstr "When enabled, resolved transfers are auto-deleted after fully watching and kept if you stop early. Only applies when Add to Cloud is enabled."
+
+msgctxt "#30675"
+msgid "When enabled, resolved torrents stay permanently in your debrid cloud. When disabled, cleanup follows your auto-delete and smart delete settings."
+msgstr "When enabled, resolved torrents stay permanently in your debrid cloud. When disabled, cleanup follows your auto-delete and smart delete settings."
+
+msgctxt "#30676"
+msgid "Clear Debrid Hash Cache"
+msgstr "Clear Debrid Hash Cache"
+
+msgctxt "#30677"
+msgid "External Cache Check"
+msgstr "External Cache Check"
+
+msgctxt "#30678"
+msgid "When enabled, uses Torrentio and DMM APIs to verify which torrents are actually cached on Real-Debrid before showing results. Reduces failed playback attempts. Disable to show all results without verification."
+msgstr "When enabled, uses Torrentio and DMM APIs to verify which torrents are actually cached on Real-Debrid before showing results. Reduces failed playback attempts. Disable to show all results without verification."
+
+msgctxt "#30679"
+msgid "When enabled, uses AIOStreams API to verify which torrents are actually cached on AllDebrid before showing results. Reduces failed playback attempts. Disable to show all results without verification."
+msgstr "When enabled, uses AIOStreams API to verify which torrents are actually cached on AllDebrid before showing results. Reduces failed playback attempts. Disable to show all results without verification."
+
+msgctxt "#30680"
+msgid "Debrid-Link"
+msgstr "Debrid-Link"
+
+msgctxt "#30681"
+msgid "Enable Debrid-Link"
+msgstr "Enable Debrid-Link"
+
+msgctxt "#30682"
+msgid "Authorize Debrid-Link"
+msgstr "Authorize Debrid-Link"
+
+msgctxt "#30683"
+msgid "Fifth Priority"
+msgstr "Fifth Priority"
+
+msgctxt "#30684"
+msgid "Audio Language"
+msgstr "Audio Language"
+
+msgctxt "#30685"
+msgid "Subtitle Language"
+msgstr "Subtitle Language"
+
+msgctxt "#30686"
+msgid "Multi-Audio"
+msgstr "Multi-Audio"
+
+msgctxt "#30687"
+msgid "Dual-Audio"
+msgstr "Dual-Audio"
+
+msgctxt "#30688"
+msgid "Sub"
+msgstr "Sub"
+
+msgctxt "#30689"
+msgid "Dub"
+msgstr "Dub"
+
+msgctxt "#30690"
+msgid "Multi-Sub"
+msgstr "Multi-Sub"
+
+msgctxt "#30691"
+msgid "Filter Foreign Audio"
+msgstr "Filter Foreign Audio"
+
+msgctxt "#30692"
+msgid "Smart filter that uses your Kodi audio and subtitle language settings to remove releases in unwanted languages. Keeps releases matching your preferred languages, native-language audio for foreign content (e.g. Korean audio for K-dramas, Japanese for anime), English dubs, and multilingual releases. Only removes mismatched foreign dubs."
+msgstr "Smart filter that uses your Kodi audio and subtitle language settings to remove releases in unwanted languages. Keeps releases matching your preferred languages, native-language audio for foreign content (e.g. Korean audio for K-dramas, Japanese for anime), English dubs, and multilingual releases. Only removes mismatched foreign dubs."
+
+msgctxt "#30693"
+msgid "Filter Results"
+msgstr "Filter Results"
+
+msgctxt "#30694"
+msgid "Clear Filter"
+msgstr "Clear Filter"
+
+msgctxt "#30695"
+msgid "Quality"
+msgstr "Quality"
+
+msgctxt "#30696"
+msgid "Provider"
+msgstr "Provider"
+
+msgctxt "#30697"
+msgid "Keyword"
+msgstr "Keyword"
+
+msgctxt "#30698"
+msgid "Extra Info"
+msgstr "Extra Info"
+
+msgctxt "#30699"
+msgid "No results match the filter"
+msgstr "No results match the filter"
+
+msgctxt "#30700"
+msgid "Enter Keywords (comma separated)"
+msgstr "Enter Keywords (comma separated)"
+
+msgctxt "#30701"
+msgid "Filter Undesirables"
+msgstr "Filter Undesirables"
+
+msgctxt "#30702"
+msgid "Filter out releases matching undesirable keywords (Russian groups, trailers, samples, audiobooks, etc). Manage the keyword list with the buttons below."
+msgstr "Filter out releases matching undesirable keywords (Russian groups, trailers, samples, audiobooks, etc). Manage the keyword list with the buttons below."
+
+msgctxt "#30703"
+msgid "Toggle Default Keywords..."
+msgstr "Toggle Default Keywords..."
+
+msgctxt "#30704"
+msgid "Add User Keywords..."
+msgstr "Add User Keywords..."
+
+msgctxt "#30705"
+msgid "Remove User Keywords..."
+msgstr "Remove User Keywords..."
+
+msgctxt "#30706"
+msgid "Reset Undesirables to Defaults"
+msgstr "Reset Undesirables to Defaults"
+
+msgctxt "#30707"
+msgid "Max/Min Resolution and Internet Speed"
+msgstr "Max/Min Resolution and Internet Speed"
+
+msgctxt "#30710"
+msgid "Torrent Content Verification"
+msgstr "Torrent Content Verification"
+
+msgctxt "#30711"
+msgid "Verify resolved torrent matches expected Movie/Episode before playback. Skips mismatched sources and rescrapes after reaching the mismatch threshold."
+msgstr "Verify resolved torrent matches expected Movie/Episode before playback. Skips mismatched sources and rescrapes after reaching the mismatch threshold."
+
+msgctxt "#30712"
+msgid "Max Mismatches Before Rescrape"
+msgstr "Max Mismatches Before Rescrape"
+
+msgctxt "#30713"
+msgid "Number of consecutive content mismatches before clearing cache and rescraping. Default: 3"
+msgstr "Number of consecutive content mismatches before clearing cache and rescraping. Default: 3"
+
+msgctxt "#30714"
+msgid "Content mismatch detected — rescraping..."
+msgstr "Content mismatch detected — rescraping..."
+
+msgctxt "#30715"
+msgid "Cloud Content Verification"
+msgstr "Cloud Content Verification"
+
+msgctxt "#30716"
+msgid "Mismatched cloud file deleted from {}"
+msgstr "Mismatched cloud file deleted from {}"
+
+msgctxt "#30717"
+msgid "Verify cloud files from debrid services match expected Movie/Episode. Mismatched files are auto-deleted from your debrid cloud and a rescrape is triggered."
+msgstr "Verify cloud files from debrid services match expected Movie/Episode. Mismatched files are auto-deleted from your debrid cloud and a rescrape is triggered."
+
+msgctxt "#30718"
+msgid "Remove Duplicate Sources"
+msgstr "Remove Duplicate Sources"
+
+msgctxt "#30719"
+msgid "Remove duplicate sources from the results list. Torrents with the same hash and debrid provider are collapsed to one entry. Hosters with the same URL are collapsed."
+msgstr "Remove duplicate sources from the results list. Torrents with the same hash and debrid provider are collapsed to one entry. Hosters with the same URL are collapsed."
+
+msgctxt "#30720"
+msgid "Backup Settings"
+msgstr "Backup Settings"
+
+msgctxt "#30721"
+msgid "Restore Settings"
+msgstr "Restore Settings"
+
+msgctxt "#30722"
+msgid "Export settings, debrid auths, provider packages, and undesirables to a backup zip file."
+msgstr "Export settings, debrid auths, provider packages, and undesirables to a backup zip file."
+
+msgctxt "#30723"
+msgid "Import settings from a previously created backup zip file. Restart Kodi after restore."
+msgstr "Import settings from a previously created backup zip file. Restart Kodi after restore."
+
+msgctxt "#30724"
+msgid "Remember Last Filter"
+msgstr "Remember Last Filter"
+
+msgctxt "#30725"
+msgid "Automatically re-apply the last interactive filter used in Source Select on the next scrape."
+msgstr "Automatically re-apply the last interactive filter used in Source Select on the next scrape."
+
+msgctxt "#30726"
+msgid "Color-Coded Quality Tags"
+msgstr "Color-Coded Quality Tags"
+
+msgctxt "#30727"
+msgid "Color quality labels by resolution: 4K gold, 1080p green, 720p blue, SD gray. When disabled, uses the default accent color."
+msgstr "Color quality labels by resolution: 4K gold, 1080p green, 720p blue, SD gray. When disabled, uses the default accent color."
+
+msgctxt "#30728"
+msgid "Unchecked Source Fallback"
+msgstr "Unchecked Source Fallback"
+
+msgctxt "#30729"
+msgid "When Real-Debrid/AllDebrid cache verification returns no results, show sources as unchecked (playable). Disable for strict mode where only verified cached sources appear."
+msgstr "When Real-Debrid/AllDebrid cache verification returns no results, show sources as unchecked (playable). Disable for strict mode where only verified cached sources appear."
+
+msgctxt "#30730"
+msgid "Provider Performance Learning"
+msgstr "Provider Performance Learning"
+
+msgctxt "#30731"
+msgid "Track scraper response times and hit rates. Sorts providers within each tier by effectiveness and auto-disables providers that consistently fail."
+msgstr "Track scraper response times and hit rates. Sorts providers within each tier by effectiveness and auto-disables providers that consistently fail."
+
+msgctxt "#30732"
+msgid "Auto-Disable Failure Threshold"
+msgstr "Auto-Disable Failure Threshold"
+
+msgctxt "#30733"
+msgid "Number of consecutive failures before a provider is automatically disabled. Disabled providers are skipped during scraping until manually re-enabled."
+msgstr "Number of consecutive failures before a provider is automatically disabled. Disabled providers are skipped during scraping until manually re-enabled."
+
+msgctxt "#30734"
+msgid "Provider Performance Stats"
+msgstr "Provider Performance Stats"
+
+msgctxt "#30735"
+msgid "View scraping performance statistics for all tracked providers."
+msgstr "View scraping performance statistics for all tracked providers."
+
+msgctxt "#30736"
+msgid "Clear Provider Stats"
+msgstr "Clear Provider Stats"
+
+msgctxt "#30737"
+msgid "Clear all provider performance data and re-enable any auto-disabled providers."
+msgstr "Clear all provider performance data and re-enable any auto-disabled providers."
+
+msgctxt "#30738"
+msgid "Provider stats cleared"
+msgstr "Provider stats cleared"
+
+msgctxt "#30739"
+msgid "Re-enable All Providers"
+msgstr "Re-enable All Providers"
+
+msgctxt "#30740"
+msgid "Re-enable all auto-disabled providers without clearing performance history."
+msgstr "Re-enable all auto-disabled providers without clearing performance history."
+
+msgctxt "#30741"
+msgid "All providers re-enabled"
+msgstr "All providers re-enabled"
+
+msgctxt "#30742"
+msgid "Cloud Miss Rescrape Threshold"
+msgstr "Cloud Miss Rescrape Threshold"
+
+msgctxt "#30743"
+msgid "Number of consecutive resolve failures (torrent no longer cached on debrid) before automatically rescraping with fresh results. Lower values detect stale caches faster but may trigger unnecessary rescrapes on temporary API errors."
+msgstr "Number of consecutive resolve failures (torrent no longer cached on debrid) before automatically rescraping with fresh results. Lower values detect stale caches faster but may trigger unnecessary rescrapes on temporary API errors."
+
+msgctxt "#30744"
+msgid "Download cancelled. Keep downloading in your debrid cloud?"
+msgstr "Download cancelled. Keep downloading in your debrid cloud?"
+
+msgctxt "#30745"
+msgid ""
+msgstr ""
+
+msgctxt "#30746"
+msgid "Keep Downloading"
+msgstr "Keep Downloading"
+
+msgctxt "#30747"
+msgid "Delete Transfer"
+msgstr "Delete Transfer"
+
+msgctxt "#30748"
+msgid "No cached sources available. Cache the best uncached torrent and wait for download?"
+msgstr "No cached sources available. Cache the best uncached torrent and wait for download?"
+
+msgctxt "#30750"
+msgid "Enter Original Title"
+msgstr "Enter Original Title"
+
+msgctxt "#30751"
+msgid "Enter Search Substitute"
+msgstr "Enter Search Substitute"
+
+msgctxt "#30752"
+msgid "Title substitution saved"
+msgstr "Title substitution saved"
+
+msgctxt "#30753"
+msgid "No title substitutions found"
+msgstr "No title substitutions found"
+
+msgctxt "#30754"
+msgid "Select Substitutions to Remove"
+msgstr "Select Substitutions to Remove"
+
+msgctxt "#30755"
+msgid "Removed {} substitution(s)"
+msgstr "Removed {} substitution(s)"
+
+msgctxt "#30756"
+msgid "Reset all title substitutions to defaults? This removes user-added entries."
+msgstr "Reset all title substitutions to defaults? This removes user-added entries."
+
+msgctxt "#30757"
+msgid "Title substitutions reset to defaults"
+msgstr "Title substitutions reset to defaults"
+
+msgctxt "#30758"
+msgid "Title Substitutions"
+msgstr "Title Substitutions"
+
+msgctxt "#30759"
+msgid "Override scraper search titles with custom alternatives. Useful for abbreviations (CSI, SVU), franchise prefix removal (Star Wars: Andor → Andor), and other cases auto-clean can't handle. Anime titles and special characters are handled automatically."
+msgstr "Override scraper search titles with custom alternatives. Useful for abbreviations (CSI, SVU), franchise prefix removal (Star Wars: Andor → Andor), and other cases auto-clean can't handle. Anime titles and special characters are handled automatically."
+
+msgctxt "#30760"
+msgid "Add Title Substitution"
+msgstr "Add Title Substitution"
+
+msgctxt "#30761"
+msgid "View / Remove Substitutions"
+msgstr "View / Remove Substitutions"
+
+msgctxt "#30762"
+msgid "Reset to Defaults"
+msgstr "Reset to Defaults"
+
+msgctxt "#30763"
+msgid "Search & Titles"
+msgstr "Search & Titles"
+
+msgctxt "#30764"
+msgid "Anime — Skip Intro / Outro"
+msgstr "Anime — Skip Intro / Outro"
+
+msgctxt "#30765"
+msgid "Skip Intro"
+msgstr "Skip Intro"
+
+msgctxt "#30766"
+msgid "Skip anime episode intros using AniSkip and Anime-Skip community timestamps. Requires anime content detection via genre metadata."
+msgstr "Skip anime episode intros using AniSkip and Anime-Skip community timestamps. Requires anime content detection via genre metadata."
+
+msgctxt "#30767"
+msgid "Skip Outro"
+msgstr "Skip Outro"
+
+msgctxt "#30768"
+msgid "Skip anime episode outros/endings using AniSkip and Anime-Skip community timestamps."
+msgstr "Skip anime episode outros/endings using AniSkip and Anime-Skip community timestamps."
+
+msgctxt "#30769"
+msgid "Auto-Skip (no prompt)"
+msgstr "Auto-Skip (no prompt)"
+
+msgctxt "#30770"
+msgid "Intro detected — skip available"
+msgstr "Intro detected — skip available"
+
+msgctxt "#30771"
+msgid "Outro detected — skip available"
+msgstr "Outro detected — skip available"
+
+msgctxt "#30772"
+msgid "Automatically skip intros and outros without showing a notification. When disabled, a notification is shown instead."
+msgstr "Automatically skip intros and outros without showing a notification. When disabled, a notification is shown instead."
+
+msgctxt "#30773"
+msgid "Anime — Filler Detection"
+msgstr "Anime — Filler Detection"
+
+msgctxt "#30774"
+msgid "Tag Filler Episodes"
+msgstr "Tag Filler Episodes"
+
+msgctxt "#30775"
+msgid "Tag filler and mixed episodes in anime episode lists using data from animefillerlist.com. Filler episodes are marked [FILLER] in red, mixed episodes are marked [MIXED] in orange."
+msgstr "Tag filler and mixed episodes in anime episode lists using data from animefillerlist.com. Filler episodes are marked [FILLER] in red, mixed episodes are marked [MIXED] in orange."
+
+msgctxt "#30778"
+msgid "Fallback Delay (seconds)"
+msgstr "Fallback Delay (seconds)"
+
+msgctxt "#30779"
+msgid "Seconds into the episode before the intro skip triggers when AniSkip has no data. Most anime intros start 1-5 seconds in."
+msgstr "Seconds into the episode before the intro skip triggers when AniSkip has no data. Most anime intros start 1-5 seconds in."
+
+msgctxt "#30780"
+msgid "Fallback Skip Duration (seconds)"
+msgstr "Fallback Skip Duration (seconds)"
+
+msgctxt "#30781"
+msgid "How many seconds to skip forward when no AniSkip data is available. Most anime intros are 85-90 seconds. Set to 0 to disable the fallback entirely."
+msgstr "How many seconds to skip forward when no AniSkip data is available. Most anime intros are 85-90 seconds. Set to 0 to disable the fallback entirely."
+
+msgctxt "#30782"
+msgid "Skip Offset (seconds)"
+msgstr "Skip Offset (seconds)"
+
+msgctxt "#30783"
+msgid "Fine-tune the skip point. Negative values skip earlier, positive values skip later. Applies to both API and fallback skips."
+msgstr "Fine-tune the skip point. Negative values skip earlier, positive values skip later. Applies to both API and fallback skips."
+
+msgctxt "#30784"
+msgid "Skip Intro"
+msgstr "Skip Intro"
+
+msgctxt "#30785"
+msgid "Skip Outro"
+msgstr "Skip Outro"
+
+msgctxt "#30786"
+msgid "Smart Search"
+msgstr "Smart Search"
+
+msgctxt "#30787"
+msgid "Improve search results by generating alternate title variants. When off, Seren uses only the exact Trakt title for searches."
+msgstr "Improve search results by generating alternate title variants. When off, Seren uses only the exact Trakt title for searches."
+
+msgctxt "#30788"
+msgid "TV Shows — Auto-Clean"
+msgstr "TV Shows — Auto-Clean"
+
+msgctxt "#30789"
+msgid "Strip special characters from TV show titles that cause search misses on torrent sites (colons, apostrophes, ampersands, dashes)."
+msgstr "Strip special characters from TV show titles that cause search misses on torrent sites (colons, apostrophes, ampersands, dashes)."
+
+msgctxt "#30790"
+msgid "Movies — Auto-Clean"
+msgstr "Movies — Auto-Clean"
+
+msgctxt "#30791"
+msgid "Strip special characters from movie titles that cause search misses on torrent sites (colons, apostrophes, ampersands, dashes)."
+msgstr "Strip special characters from movie titles that cause search misses on torrent sites (colons, apostrophes, ampersands, dashes)."
+
+msgctxt "#30792"
+msgid "Anime — AniList / MAL"
+msgstr "Anime — AniList / MAL"
+
+msgctxt "#30793"
+msgid "Add romaji, English, and Japanese title variants from AniList and MAL. Also fixes season and episode numbering for multi-cour anime."
+msgstr "Add romaji, English, and Japanese title variants from AniList and MAL. Also fixes season and episode numbering for multi-cour anime."
+
+msgctxt "#30794"
+msgid "Tier Toggles"
+msgstr "Tier Toggles"
+
+msgctxt "#30795"
+msgid "Tier 0 — Cloud Cache"
+msgstr "Tier 0 — Cloud Cache"
+
+msgctxt "#30796"
+msgid "Local torrent cache from previous scrapes. Provider: Cached."
+msgstr "Local torrent cache from previous scrapes. Provider: Cached."
+
+msgctxt "#30797"
+msgid "Tier 1 — Anime Trackers"
+msgstr "Tier 1 — Anime Trackers"
+
+msgctxt "#30798"
+msgid "Dedicated anime trackers (auto-skipped for non-anime content). Providers: AnimeTosho, AniRena, NekoBT, Nyaa, SubsPlease."
+msgstr "Dedicated anime trackers (auto-skipped for non-anime content). Providers: AnimeTosho, AniRena, NekoBT, Nyaa, SubsPlease."
+
+msgctxt "#30799"
+msgid "Tier 2 — Stremio Direct"
+msgstr "Tier 2 — Stremio Direct"
+
+msgctxt "#30800"
+msgid "Largest single Stremio index with direct JSON API. Provider: Torrentio."
+msgstr "Largest single Stremio index with direct JSON API. Provider: Torrentio."
+
+msgctxt "#30801"
+msgid "Tier 4 — Large Indexed DBs"
+msgstr "Tier 4 — Large Indexed DBs"
+
+msgctxt "#30802"
+msgid "IMDB API indexes and meta-search engines with fast JSON/XML APIs. Providers: Bitmagnet, Bitsearch, DMM, Knaben, TorrentsDB, Torrentz2, Torz, Zilean."
+msgstr "IMDB API indexes and meta-search engines with fast JSON/XML APIs. Providers: Bitmagnet, Bitsearch, DMM, Knaben, TorrentsDB, Torrentz2, Torz, Zilean."
+
+msgctxt "#30803"
+msgid "Tier 5 — Public Trackers"
+msgstr "Tier 5 — Public Trackers"
+
+msgctxt "#30804"
+msgid "Reliable public torrent trackers. Providers: EZTV, Kickass2, 1337x, PirateBay, YTS."
+msgstr "Reliable public torrent trackers. Providers: EZTV, Kickass2, 1337x, PirateBay, YTS."
+
+msgctxt "#30807"
+msgid "Tier 3 — Stremio Aggregator"
+msgstr "Tier 3 — Stremio Aggregator"
+
+msgctxt "#30808"
+msgid "Aggregates Comet, MediaFusion, and Meteor through a single API with parallel fallback. Provider: AIOStreams."
+msgstr "Aggregates Comet, MediaFusion, and Meteor through a single API with parallel fallback. Provider: AIOStreams."
+
+msgctxt "#30809"
+msgid "Tier 6 — Slow / Unreliable"
+msgstr "Tier 6 — Slow / Unreliable"
+
+msgctxt "#30810"
+msgid "Scrapers with frequent downtime or slow response times. Providers: Kickass, MagnetDL, ShowRSS, TorrentDownload, TorrentProject2."
+msgstr "Scrapers with frequent downtime or slow response times. Providers: Kickass, MagnetDL, ShowRSS, TorrentDownload, TorrentProject2."
+
+msgctxt "#30811"
+msgid "Easynews"
+msgstr "Easynews"
+
+msgctxt "#30812"
+msgid "Easynews (a4kNewsgroups)"
+msgstr "Easynews (a4kNewsgroups)"
+
+msgctxt "#30813"
+msgid "Enable or disable the Easynews/Usenet direct provider (a4kNewsgroups). Requires an active Easynews account."
+msgstr "Enable or disable the Easynews/Usenet direct provider (a4kNewsgroups). Requires an active Easynews account."
+
+msgctxt "#30820"
+msgid "Playback Watchdog"
+msgstr "Playback Watchdog"
+
+msgctxt "#30821"
+msgid "Enable Playback Watchdog"
+msgstr "Enable Playback Watchdog"
+
+msgctxt "#30822"
+msgid "Monitors playback for stalls (frozen streams). If a stream stops progressing, automatically tries the next source. Works with all source types."
+msgstr "Monitors playback for stalls (frozen streams). If a stream stops progressing, automatically tries the next source. Works with all source types."
+
+msgctxt "#30823"
+msgid "Stall Timeout (seconds)"
+msgstr "Stall Timeout (seconds)"
+
+msgctxt "#30824"
+msgid "Monitor Window (seconds)"
+msgstr "Monitor Window (seconds)"
+
+msgctxt "#30825"
+msgid "Max Retries"
+msgstr "Max Retries"
+
+msgctxt "#30826"
+msgid "Asian Drama — CJK Titles"
+msgstr "Asian Drama — CJK Titles"
+
+msgctxt "#30827"
+msgid "Add native-language titles for C-dramas, K-dramas, J-dramas, and Thai dramas from TMDb. Includes Chinese, Korean, Japanese, and romanized title variants. Requires TMDb Helper."
+msgstr "Add native-language titles for C-dramas, K-dramas, J-dramas, and Thai dramas from TMDb. Includes Chinese, Korean, Japanese, and romanized title variants. Requires TMDb Helper."
+
+msgctxt "#30828"
+msgid "Subtitle Service Detection"
+msgstr "Subtitle Service Detection"
+
+msgctxt "#30829"
+msgid "Wait for subtitle services (e.g. a4kSubtitles) to finish before starting stall detection. Prevents false failures when subtitle downloads or stream selection cause brief playback pauses."
+msgstr "Wait for subtitle services (e.g. a4kSubtitles) to finish before starting stall detection. Prevents false failures when subtitle downloads or stream selection cause brief playback pauses."
+
+msgctxt "#30830"
+msgid "Enable TorBox Usenet Search"
+msgstr "Enable TorBox Usenet Search"
+
+msgctxt "#30831"
+msgid "Search TorBox's usenet index for NZB sources. Cached results resolve instantly through TorBox without a separate usenet provider."
+msgstr "Search TorBox's usenet index for NZB sources. Cached results resolve instantly through TorBox without a separate usenet provider."
+
+msgctxt "#30832"
+msgid "User Engines Only"
+msgstr "User Engines Only"
+
+msgctxt "#30833"
+msgid "Only show results from your configured usenet search engines on TorBox."
+msgstr "Only show results from your configured usenet search engines on TorBox."
+
+msgctxt "#30834"
+msgid "Scrape Debrid-Link Cloud"
+msgstr "Scrape Debrid-Link Cloud"
+
+msgctxt "#30835"
+msgid "Debrid-Link Username"
+msgstr "Debrid-Link Username"
+
+msgctxt "#30840"
+msgid "Episode Metadata"
+msgstr "Episode Metadata"
+
+msgctxt "#30841"
+msgid "Anime Episode Enrichment"
+msgstr "Anime Episode Enrichment"
+
+msgctxt "#30842"
+msgid "Replace generic TMDB episode titles and thumbnails with anime-specific data from Simkl, AniZip, MAL, AniDB, and Kitsu. Cached for 30 days."
+msgstr "Replace generic TMDB episode titles and thumbnails with anime-specific data from Simkl, AniZip, MAL, AniDB, and Kitsu. Cached for 30 days."
+
+msgctxt "#30850"
+msgid "Source Filtering"
+msgstr "Source Filtering"
+
+msgctxt "#30851"
+msgid "Prefer Latest Fansub Version"
+msgstr "Prefer Latest Fansub Version"
+
+msgctxt "#30852"
+msgid "When multiple versions of the same fansub release exist (v2, v3), prefer the highest version. Fansub patches fix subtitle timing, video artifacts, or encoding issues."
+msgstr "When multiple versions of the same fansub release exist (v2, v3), prefer the highest version. Fansub patches fix subtitle timing, video artifacts, or encoding issues."
+
+msgctxt "#30860"
+msgid "Dub / Sub Preference"
+msgstr "Dub / Sub Preference"
+
+msgctxt "#30861"
+msgid "Audio Language Preference"
+msgstr "Audio Language Preference"
+
+msgctxt "#30862"
+msgid "Sort boost for anime sources matching your preferred audio language. Dubbed boosts DUAL-AUDIO and known dub groups; Subbed boosts sub-focused and quality fansub groups."
+msgstr "Sort boost for anime sources matching your preferred audio language. Dubbed boosts DUAL-AUDIO and known dub groups; Subbed boosts sub-focused and quality fansub groups."
+
+msgctxt "#30863"
+msgid "No Preference"
+msgstr "No Preference"
+
+msgctxt "#30864"
+msgid "Prefer Dubbed"
+msgstr "Prefer Dubbed"
+
+msgctxt "#30865"
+msgid "Prefer Subbed"
+msgstr "Prefer Subbed"
+
+msgctxt "#30871"
+msgid "AniDB UDP (Optional)"
+msgstr "AniDB UDP (Optional)"
+
+msgctxt "#30872"
+msgid "AniDB Username"
+msgstr "AniDB Username"
+
+msgctxt "#30873"
+msgid "Your AniDB username — enables per-anime fansub group data"
+msgstr "Your AniDB username — enables per-anime fansub group data"
+
+msgctxt "#30874"
+msgid "AniDB Password"
+msgstr "AniDB Password"
+
+msgctxt "#30875"
+msgid "Your AniDB password — stored locally, used only for GROUP_STATUS queries"
+msgstr "Your AniDB password — stored locally, used only for GROUP_STATUS queries"
+
+msgctxt "#30876"
+msgid "Account Info"
+msgstr "Account Info"
+msgctxt "#30877"
+msgid "Revoke Premiumize"
+msgstr "Revoke Premiumize"
+
+msgctxt "#30878"
+msgid "Revoke Real-Debrid"
+msgstr "Revoke Real-Debrid"
+
+msgctxt "#30879"
+msgid "Revoke AllDebrid"
+msgstr "Revoke AllDebrid"
+
+msgctxt "#30880"
+msgid "Revoke TorBox"
+msgstr "Revoke TorBox"
+
+msgctxt "#30881"
+msgid "Revoke Debrid-Link"
+msgstr "Revoke Debrid-Link"
+
+msgctxt "#30882"
+msgid "Magnet Upload Cache Check"
+msgstr "Magnet Upload Cache Check"
+
+msgctxt "#30883"
+msgid "Upload torrents to AllDebrid in batches of 10 (sorted by quality) to check cache. Stops at 10 cached or 50 uploads. Uncached uploads deleted immediately. Cached uploads cleaned up after play."
+msgstr "Upload torrents to AllDebrid in batches of 10 (sorted by quality) to check cache. Stops at 10 cached or 50 uploads. Uncached uploads deleted immediately. Cached uploads cleaned up after play."
+
+msgctxt "#30884"
+msgid "Seedbox Probe Cache Check"
+msgstr "Seedbox Probe Cache Check"
+
+msgctxt "#30885"
+msgid "Probe top 20 unchecked torrents (by quality+seeds) against the DL seedbox API in parallel. Returns cached status in ~200-400ms. Uncached probes deleted immediately. Cached probes cleaned up after play. Catches hashes Comet has never indexed."
+msgstr "Probe top 20 unchecked torrents (by quality+seeds) against the DL seedbox API in parallel. Returns cached status in ~200-400ms. Uncached probes deleted immediately. Cached probes cleaned up after play. Catches hashes Comet has never indexed."
+
+msgctxt "#30886"
+msgid "Store Unverified Sources"
+msgstr "Store Unverified Sources"
+
+msgctxt "#30887"
+msgid "After MagnetUpload, if confirmed cached sources are below the threshold, add the top-N unchecked torrents as AD sources anyway. The resolver will attempt them at play time — CloudMiss is handled gracefully. Useful for niche or uncommon content."
+msgstr "After MagnetUpload, if confirmed cached sources are below the threshold, add the top-N unchecked torrents as AD sources anyway. The resolver will attempt them at play time — CloudMiss is handled gracefully. Useful for niche or uncommon content."
+
+msgctxt "#30888"
+msgid "After the seedbox probe, if confirmed cached sources are below the threshold, add the top-N unchecked torrents as DL sources anyway. The resolver will attempt them at play time — CloudMiss is handled gracefully. Useful for niche or uncommon content."
+msgstr "After the seedbox probe, if confirmed cached sources are below the threshold, add the top-N unchecked torrents as DL sources anyway. The resolver will attempt them at play time — CloudMiss is handled gracefully. Useful for niche or uncommon content."
+
+msgctxt "#30889"
+msgid "Activation Threshold"
+msgstr "Activation Threshold"
+
+msgctxt "#30890"
+msgid "Store unverified sources only if confirmed cached count is below this number. Default 5: skips store-all when the cascade already found enough confirmed sources."
+msgstr "Store unverified sources only if confirmed cached count is below this number. Default 5: skips store-all when the cascade already found enough confirmed sources."
+
+msgctxt "#30891"
+msgid "Unverified Source Limit"
+msgstr "Unverified Source Limit"
+
+msgctxt "#30892"
+msgid "Maximum number of unverified sources to add per tier. Sorted by quality then seeds — best candidates first. Default 30."
+msgstr "Maximum number of unverified sources to add per tier. Sorted by quality then seeds — best candidates first. Default 30."
+
+msgctxt "#30893"
+msgid "After the cache check cascade (Torrentio rd_cached + ExternalCache + instantAvailability), if confirmed cached sources are below the threshold, add the top-N unchecked torrents as RD sources anyway. The resolver will attempt them at play time — CloudMiss is handled gracefully (RD auto-deletes uncached magnets). Useful for niche or uncommon content. Disable to keep the legacy Option A behaviour (store all when ExternalCache returns 0)."
+msgstr "After the cache check cascade (Torrentio rd_cached + ExternalCache + instantAvailability), if confirmed cached sources are below the threshold, add the top-N unchecked torrents as RD sources anyway. The resolver will attempt them at play time — CloudMiss is handled gracefully (RD auto-deletes uncached magnets). Useful for niche or uncommon content. Disable to keep the legacy Option A behaviour (store all when ExternalCache returns 0)."
+
+msgctxt "#30894"
+msgid "Skip Recap"
+msgstr "Skip Recap"
+
+msgctxt "#30895"
+msgid "Skip Preview"
+msgstr "Skip Preview"
+
+msgctxt "#30896"
+msgid "Skip Segments — Intro / Recap / Credits / Preview"
+msgstr "Skip Segments — Intro / Recap / Credits / Preview"
+
+msgctxt "#30897"
+msgid "Skip Intro"
+msgstr "Skip Intro"
+
+msgctxt "#30898"
+msgid "Show a Skip button when an intro segment is detected. Anime episodes use AniSkip + Anime-Skip; movies and live-action TV use TheIntroDB. Auto-skip can be enabled separately below."
+msgstr "Show a Skip button when an intro segment is detected. Anime episodes use AniSkip + Anime-Skip; movies and live-action TV use TheIntroDB. Auto-skip can be enabled separately below."
+
+msgctxt "#30899"
+msgid "Skip Recap"
+msgstr "Skip Recap"
+
+msgctxt "#30900"
+msgid "Show a Skip button during \"Previously on…\" recap segments. Sourced from TheIntroDB community submissions. Coverage varies by show."
+msgstr "Show a Skip button during \"Previously on…\" recap segments. Sourced from TheIntroDB community submissions. Coverage varies by show."
+
+msgctxt "#30901"
+msgid "Skip Credits / Outro"
+msgstr "Skip Credits / Outro"
+
+msgctxt "#30902"
+msgid "Show a Skip button during end credits or outro segments. For mid-file credits this skips to after the credits; when credits run to the end of the file it triggers the Playing Next dialog."
+msgstr "Show a Skip button during end credits or outro segments. For mid-file credits this skips to after the credits; when credits run to the end of the file it triggers the Playing Next dialog."
+
+msgctxt "#30903"
+msgid "Skip Preview"
+msgstr "Skip Preview"
+
+msgctxt "#30904"
+msgid "Show a Skip button during next-episode preview teasers. Sourced from TheIntroDB. Coverage varies by show."
+msgstr "Show a Skip button during next-episode preview teasers. Sourced from TheIntroDB. Coverage varies by show."
+
+msgctxt "#30905"
+msgid "Auto-Skip Intro (no prompt)"
+msgstr "Auto-Skip Intro (no prompt)"
+
+msgctxt "#30906"
+msgid "When enabled, intros are skipped silently without showing a Skip button. Recap/Credits/Preview always show the button — auto-skipping those is rarely what you want."
+msgstr "When enabled, intros are skipped silently without showing a Skip button. Recap/Credits/Preview always show the button — auto-skipping those is rarely what you want."
+
+msgctxt "#30907"
+msgid "Skip Offset (seconds)"
+msgstr "Skip Offset (seconds)"
+
+msgctxt "#30908"
+msgid "Fine-tune where playback resumes after a skip. Negative values land earlier, positive values land later. Applies to all segment types."
+msgstr "Fine-tune where playback resumes after a skip. Negative values land earlier, positive values land later. Applies to all segment types."
+
+msgctxt "#30909"
+msgid "TheIntroDB API Key (optional)"
+msgstr "TheIntroDB API Key (optional)"
+
+msgctxt "#30910"
+msgid "Optional Bearer token for TheIntroDB. Leave blank for unauthenticated access (lower rate limits but works fine for normal viewing). Get a key at theintrodb.org if you hit rate limits."
+msgstr "Optional Bearer token for TheIntroDB. Leave blank for unauthenticated access (lower rate limits but works fine for normal viewing). Get a key at theintrodb.org if you hit rate limits."
+
+msgctxt "#30912"
+msgid "AniRena API Key"
+msgstr "AniRena API Key"
+
+msgctxt "#30913"
+msgid "Optional API key for AniRena. When set, uses the authenticated JSON API which returns real seeder counts and better results. Get your key at anirena.com > Your Account > API Key."
+msgstr "Optional API key for AniRena. When set, uses the authenticated JSON API which returns real seeder counts and better results. Get your key at anirena.com > Your Account > API Key."
+
+msgctxt "#30914"
+msgid "Scrape All Tiers Within Time Budget"
+msgstr "Scrape All Tiers Within Time Budget"
+
+msgctxt "#30915"
+msgid "Divide your scraping timeout evenly across all enabled tiers so every tier gets a guaranteed time slice. Prevents slow tiers (e.g. Tier 3 cache check) from starving Tiers 4-6. When off, tiers stop early once enough cached sources are found."
+msgstr "Divide your scraping timeout evenly across all enabled tiers so every tier gets a guaranteed time slice. Prevents slow tiers (e.g. Tier 3 cache check) from starving Tiers 4-6. When off, tiers stop early once enough cached sources are found."
+
+msgctxt "#30916"
+msgid "MediaFusion Token"
+msgstr "MediaFusion Token"
+
+msgctxt "#30917"
+msgid "Your personal MediaFusion secret string (U- or D- token). Copy the UUID from mediafusion.elfhosted.com or paste the full Secret String from the MediaFusion Kodi addon. Leave blank to disable MediaFusion scraping and cache checking entirely."
+msgstr "Your personal MediaFusion secret string (U- or D- token). Copy the UUID from mediafusion.elfhosted.com or paste the full Secret String from the MediaFusion Kodi addon. Leave blank to disable MediaFusion scraping and cache checking entirely."
+
+msgctxt "#30918"
+msgid "MediaFusion Cache Service"
+msgstr "MediaFusion Cache Service"
+
+msgctxt "#30919"
+msgid "Which debrid service your MediaFusion token is linked to. MF cache checking only fires during that service's external cache check to avoid false positives. Order: Debrid-Link (0), AllDebrid (1), Real-Debrid (2)."
+msgstr "Which debrid service your MediaFusion token is linked to. MF cache checking only fires during that service's external cache check to avoid false positives. Order: Debrid-Link (0), AllDebrid (1), Real-Debrid (2)."
+
+msgctxt "#30920"
+msgid "MediaFusion Instance"
+msgstr "MediaFusion Instance"
+
+msgctxt "#30921"
+msgid "Which MediaFusion server to use for scraping. Production is the stable ElfHosted instance. Dev / Beta is the development instance — use only when testing at the developer's request."
+msgstr "Which MediaFusion server to use for scraping. Production is the stable ElfHosted instance. Dev / Beta is the development instance — use only when testing at the developer's request."
+
+msgctxt "#30922"
+msgid "Production"
+msgstr "Production"
+
+msgctxt "#30923"
+msgid "Dev / Beta"
+msgstr "Dev / Beta"

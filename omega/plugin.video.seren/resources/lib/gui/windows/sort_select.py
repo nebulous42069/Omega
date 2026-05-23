@@ -2,20 +2,25 @@ from resources.lib.gui.windows.base_window import BaseWindow
 from resources.lib.modules.globals import g
 
 SORT_OPTIONS = {
-    "sortmethod": [30513, 30237, 30252, 30570, 30251, 30571, 30572, 30573, 30575],
-    # None, Resolution, Source Type, Debrid Provider, Size, Low Cam Sort, HEVC, DV/HDR, Audio Channels
+    "sortmethod": [30513, 30237, 30252, 30570, 30251, 30571, 30572, 30573, 30575, 30667, 30684, 30685],
+    # None, Resolution, Source Type, Debrid Provider, Size, Low Cam Sort, HEVC, DV/HDR, Audio Channels, Seeders, Audio Language, Subtitle Language
     "none": [],
     "resolution": [],
     "sourcetypesort": [30581, 30249, 30470, 30057, 30058, 30631],
     # Other, Cloud, Adaptive, Torrents, Hosters, Direct
-    "debridsort": [30513, 30134, 30135, 30333],
-    # None, Premiumize, Real-Debrid, AllDebrid
+    "debridsort": [30513, 30134, 30135, 30333, 30660, 30680],
+    # None, Premiumize, Real-Debrid, AllDebrid, TorBox, Debrid-Link
     "size": [],
     "cam": [],
     "hevc": [],
     "hdrsort": [30513, 30590, 30574],
     # None, DV, HDR
     "audiochannels": [],
+    "seeders": [],
+    "audiolang": [30686, 30687, 30688, 30689, 30513],
+    # Multi-Audio, Dual-Audio, Sub, Dub, None
+    "sublang": [30690, 30513],
+    # Multi-Sub, None
 }
 SORT_METHODS = [
     "none",
@@ -27,6 +32,9 @@ SORT_METHODS = [
     "hevc",
     "hdrsort",
     "audiochannels",
+    "seeders",
+    "audiolang",
+    "sublang",
 ]
 
 

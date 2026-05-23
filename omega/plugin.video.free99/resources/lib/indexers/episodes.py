@@ -48,7 +48,7 @@ class seasons:
             self.unairedcolor = 'darkred'
         self.tmdb_key = control.setting('tmdb.api')
         if self.tmdb_key == '' or self.tmdb_key == None:
-            self.tmdb_key = '3d000491a0f37d4962d02bdb062af037'
+            self.tmdb_key = 'f5608fba6ab49e9985828b35d5653321'
         self.tmdb_link = 'https://api.themoviedb.org'
         self.original_artwork = control.setting('original.artwork') or 'false'
         if self.original_artwork == 'true':
@@ -342,7 +342,7 @@ class seasons:
         addonPoster = control.addonPoster()
         addonBanner = control.addonBanner()
         addonFanart = control.addonFanart()
-        settingFanart = control.setting('fanart')
+        settingFanart = control.setting('show.fanart')
         traktCredentials = trakt.getTraktCredentialsInfo()
         tmdbCredentials = tmdb_utils.getTMDbCredentialsInfo()
         try:
@@ -483,7 +483,7 @@ class episodes:
         self.hq_artwork = control.setting('hq.artwork') or 'false'
         self.tmdb_key = control.setting('tmdb.api')
         if self.tmdb_key == '' or self.tmdb_key == None:
-            self.tmdb_key = '3d000491a0f37d4962d02bdb062af037'
+            self.tmdb_key = 'f5608fba6ab49e9985828b35d5653321'
         self.trakt_user = control.setting('trakt.user').strip()
         self.trakt_item_limit = str(control.setting('trakt.item.limit')) or '100'
         self.fanart_tv_headers = {'api-key': 'ad7eccc1dd67f889f7f5c2e9ebb810ae'}
@@ -1700,7 +1700,7 @@ class episodes:
         addonPoster = control.addonPoster()
         addonBanner = control.addonBanner()
         addonFanart = control.addonFanart()
-        settingFanart = control.setting('fanart')
+        settingFanart = control.setting('show.fanart')
         traktCredentials = trakt.getTraktCredentialsInfo()
         tmdbCredentials = tmdb_utils.getTMDbCredentialsInfo()
         isPlayable = True if not 'plugin' in control.infoLabel('Container.PluginName') else False

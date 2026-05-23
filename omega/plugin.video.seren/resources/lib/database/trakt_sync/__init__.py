@@ -1,5 +1,6 @@
 import collections
 import datetime
+import hashlib
 import json
 import time
 from functools import cached_property
@@ -15,6 +16,40 @@ from resources.lib.modules.exceptions import UnsupportedProviderType
 from resources.lib.modules.globals import g
 from resources.lib.modules.metadataHandler import MetadataHandler
 from resources.lib.modules.sync_lock import SyncLock
+
+# ---------------------------------------------------------------------------
+# L1 Metadata Cache — module-level dict that persists across plugin calls
+# when reuselanguageinvoker is enabled. Caches formatted list results
+# (get_movie_list, get_show_list, etc.) keyed by content hash.
+# ---------------------------------------------------------------------------
+_LIST_CACHE = {}
+_LIST_CACHE_MAX = 50  # Max entries to prevent unbounded growth
+
+
+def _list_cache_key(method_name, id_list, **params):
+    """Generate a cache key from method name, trakt IDs, and relevant params."""
+    key_data = f"{method_name}:{','.join(str(i) for i in sorted(id_list))}:{params.get('hide_unaired', '')}:{params.get('hide_watched', '')}:{g.PAGE}"
+    return hashlib.md5(key_data.encode()).hexdigest()
+
+
+def list_cache_get(key):
+    """Get a cached list result. Returns None on miss."""
+    return _LIST_CACHE.get(key)
+
+
+def list_cache_set(key, value):
+    """Store a list result in the L1 cache."""
+    if len(_LIST_CACHE) >= _LIST_CACHE_MAX:
+        # Evict oldest ~25% of entries
+        evict_count = _LIST_CACHE_MAX // 4
+        for old_key in list(_LIST_CACHE.keys())[:evict_count]:
+            _LIST_CACHE.pop(old_key, None)
+    _LIST_CACHE[key] = value
+
+
+def clear_list_cache():
+    """Clear the L1 list cache. Called on trakt sync, settings change, etc."""
+    _LIST_CACHE.clear()
 
 schema = {
     "shows_meta": {
@@ -380,6 +415,7 @@ class TraktSyncDatabase(Database):
             self.clear_all_meta()
         self.execute_sql("DELETE FROM activities")
         self.set_base_activities()
+        clear_list_cache()
 
     def clear_user_information(self, notify=True):
         username = self.activities["trakt_username"]
@@ -475,6 +511,7 @@ class TraktSyncDatabase(Database):
         self.rebuild_database()
         self.set_base_activities()
         self.refresh_activities()
+        clear_list_cache()
 
         from resources.lib.database.trakt_sync import activities
 

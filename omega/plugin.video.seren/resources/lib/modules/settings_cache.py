@@ -1,3 +1,4 @@
+import json
 import threading
 from abc import ABCMeta
 from abc import abstractmethod
@@ -139,6 +140,13 @@ class RuntimeSettingsCache(SettingsCache):
     def _setting_key(self, setting_id):
         return f"{self._KODI_ADDON_ID}.{self._KODI_ADDON_VERSION}.{self._SETTINGS_PREFIX}.{setting_id}"
 
+    # Magic prefix marking JSON-serialized values.  Lists and dicts cannot be
+    # stored directly in Kodi's window properties (which only accept strings)
+    # — without this, str([a,b]) was stored and the value read back was a str,
+    # silently breaking every isinstance(list) check downstream (probe_ids,
+    # upload_cache_ids, router cleanup hooks, etc.).
+    _JSON_PREFIX = "__JSON__"
+
     def set_setting(self, setting_id, value):
         """
         Set a runtime setting value
@@ -148,9 +156,13 @@ class RuntimeSettingsCache(SettingsCache):
         :param setting_id: The name of the setting
         :type setting_id: str
         :param value: The value to store in settings
-        :type value: str|float|int|bool
+        :type value: str|float|int|bool|list|dict
         """
-        self._KODI_HOME_WINDOW.setProperty(self._setting_key(setting_id), str(value))
+        if isinstance(value, (list, dict)):
+            stored = self._JSON_PREFIX + json.dumps(value)
+        else:
+            stored = str(value)
+        self._KODI_HOME_WINDOW.setProperty(self._setting_key(setting_id), stored)
 
     def update_settings(self, dictionary):
         super().update_settings(dictionary)
@@ -163,8 +175,12 @@ class RuntimeSettingsCache(SettingsCache):
             value = self._KODI_HOME_WINDOW.getProperty(self._setting_key(setting_id))
             if value is None or value == "":
                 return default_value if default_value is not None else None
-            else:
-                return value
+            if value.startswith(self._JSON_PREFIX):
+                try:
+                    return json.loads(value[len(self._JSON_PREFIX):])
+                except (ValueError, TypeError):
+                    return default_value
+            return value
         except (ValueError, TypeError):
             return None
 
@@ -363,3 +379,63 @@ class PersistedSettingsCache(SettingsCache):
 
     def get_bool_setting(self, setting_id, default_value=None):
         return super().get_bool_setting(setting_id, default_value)
+
+    def pre_warm_settings(self, settings_xml_path):
+        """
+        Pre-warm the settings cache by reading the user's settings.xml file at startup.
+        This populates the in-memory cache so that subsequent get_setting() calls
+        never need to acquire the settings lock or call Addon().getSetting().
+
+        Should be called once from service.py after init_globals().
+
+        :param settings_xml_path: Path to the user's settings.xml file
+        :type settings_xml_path: str
+        :return: Number of settings pre-warmed, or -1 on error
+        :rtype: int
+        """
+        try:
+            from xml.etree import ElementTree
+
+            import xbmcvfs
+
+            if not xbmcvfs.exists(settings_xml_path):
+                return 0
+
+            f = xbmcvfs.File(settings_xml_path, "r")
+            try:
+                xml_content = f.read()
+            finally:
+                f.close()
+
+            if not xml_content:
+                return 0
+
+            root = ElementTree.fromstring(xml_content)
+            settings_list = set()
+            count = 0
+
+            # Kodi settings.xml v2 format: <setting id="..." /> elements nested in
+            # <section>/<category>/<group>.  User data settings.xml is flat:
+            # <settings version="2"><setting id="..." >value</setting>...</settings>
+            # We handle both by iterating all <setting> elements with an 'id' attribute.
+            for item in root.iter("setting"):
+                setting_id = item.get("id")
+                if not setting_id:
+                    continue
+
+                setting_value = item.text if item.text is not None else item.get("value", "")
+                if setting_value is None:
+                    setting_value = ""
+
+                cache_value = setting_value if setting_value != "" else self.EMPTY_PERSISTED_SETTING_VALUE
+                self._SETTINGS_CACHE.set_setting(setting_id, cache_value)
+                settings_list.add(setting_id)
+                count += 1
+
+            if settings_list:
+                self._store_setting_list_set(settings_list)
+
+            return count
+        except Exception:
+            return -1
+

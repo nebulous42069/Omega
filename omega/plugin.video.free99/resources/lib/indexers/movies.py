@@ -57,7 +57,7 @@ class movies:
         self.imdb_user = control.setting('imdb.user').replace('ur', '')
         self.tmdb_key = control.setting('tmdb.api')
         if self.tmdb_key == '' or self.tmdb_key == None:
-            self.tmdb_key = '3d000491a0f37d4962d02bdb062af037'
+            self.tmdb_key = 'f5608fba6ab49e9985828b35d5653321'
         self.fanart_tv_headers = {'api-key': 'ad7eccc1dd67f889f7f5c2e9ebb810ae'}
         self.fanart_tv_user = control.setting('fanart.api')
         if not self.fanart_tv_user == '' or self.fanart_tv_user == None:
@@ -68,7 +68,7 @@ class movies:
             self.unairedcolor = 'darkred'
         self.lang = control.apiLanguage()['tmdb'] or 'en'
         self.items_per_page = str(control.setting('items.per.page')) or '20'
-        self.settingFanart = control.setting('fanart') or 'false'
+        self.settingFanart = control.setting('show.fanart') or 'false'
         self.hq_artwork = control.setting('hq.artwork') or 'false'
         self.studio_artwork = control.setting('studio.artwork') or 'false'
         self.trakt_link = 'https://api.trakt.tv'

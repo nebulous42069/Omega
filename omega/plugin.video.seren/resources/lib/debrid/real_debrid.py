@@ -43,7 +43,14 @@ class RealDebrid:
         from urllib3 import Retry
 
         session = requests.Session()
-        retries = Retry(total=5, backoff_factor=0.1, status_forcelist=[500, 502, 503, 504])
+        # 429 is intentionally excluded from status_forcelist — auto-retrying on
+        # rate-limit responses amplifies the problem. check_cache_batch handles
+        # 429/403 manually and breaks early instead of burning retries.
+        retries = Retry(
+            total=5,
+            backoff_factor=0.1,  # matches Umbrella/POV/AD/TB/DL pattern; more retries, less dead time
+            status_forcelist=[500, 502, 503, 504],
+        )
         session.mount("https://", HTTPAdapter(max_retries=retries, pool_maxsize=100))
         return session
 
@@ -187,9 +194,10 @@ class RealDebrid:
             return
 
     def _get_headers(self):
-        headers = {
-            "Content-Type": "application/json",
-        }
+        # RD API uses form-encoded POST bodies (data=, not json=).
+        # Do NOT set Content-Type here — requests auto-sets
+        # application/x-www-form-urlencoded when data= is used.
+        headers = {}
         if self.token:
             headers["Authorization"] = f"Bearer {self.token}"
         return headers
@@ -265,13 +273,107 @@ class RealDebrid:
                 ]}
             }
 
-            if g.get_bool_setting("rd.autodelete"):
-                self.delete_torrent(torrent_id)
+            # NOTE: Do NOT delete torrent here — the resolver still needs valid
+            # links from torrent_info to call resolve_hoster/unrestrict.
+            # Cleanup (autodelete / smartdelete) is handled by the resolver's
+            # _do_post_processing after the stream link has been obtained.
         else:
             self.delete_torrent(torrent_id)
             hash_dict = {}
 
         return hash_dict
+
+    def _get_url_no_refresh(self, url):
+        """
+        GET request that bypasses the automatic token-refresh cycle.
+
+        Used for deprecated / rate-limited endpoints (e.g. instantAvailability)
+        where a non-200 response does NOT indicate an expired token.  Calling
+        the normal get_url() on such endpoints causes try_refresh_token(True)
+        to fire on every failed chunk, which:
+          - blocks the scraping thread while the refresh POST runs,
+          - fires a "Failed to refresh RD token" notification popup, and
+          - can itself trigger a 429 on the token endpoint.
+
+        Returns:
+          - Parsed JSON dict on success
+          - {'_rd_status': <int>} sentinel for 403 / 429 (no retry)
+          - None for any other failure
+        """
+        full_url = self.base_url + url
+        if not self.token:
+            return None
+        try:
+            response = self.session.get(full_url, headers=self._get_headers(), timeout=10)
+            if response.status_code in (403, 429):
+                return {'_rd_status': response.status_code}
+            if not response.ok:
+                g.log(f"RD instantAvailability HTTP {response.status_code}", "warning")
+                return None
+            return response.json()
+        except Exception as e:
+            g.log(f"RD instantAvailability request error: {e}", "warning")
+            return None
+
+    def check_cache_batch(self, hash_list):
+        """
+        Batch cache check using /torrents/instantAvailability endpoint.
+
+        Sends hashes in chunks of 50 and returns the set of hashes confirmed
+        cached.  Uses _get_url_no_refresh() to prevent the token-refresh loop
+        from firing on 403/429 responses (the endpoint is deprecated and will
+        often return these codes regardless of token validity).
+
+        On 403 or 429 the loop breaks immediately — no further chunks are sent
+        and an empty set is returned. The caller returns 0 cached sources
+        (no store-all fallback).
+
+        :param hash_list: List of info_hash strings to check
+        :type hash_list: list
+        :return: Set of cached hash strings (lowercased)
+        :rtype: set
+        """
+        cached_hashes = set()
+        chunk_size = 50  # reduced from 100; smaller chunks are less likely to hit URL-length limits
+
+        for i in range(0, len(hash_list), chunk_size):
+            chunk = hash_list[i:i + chunk_size]
+            hash_string = '/' + '/'.join(chunk)
+            try:
+                response = self._get_url_no_refresh(f"torrents/instantAvailability{hash_string}")
+
+                if response is None:
+                    continue
+
+                # 403 = endpoint deprecated/forbidden for this account
+                # 429 = rate limited — stop sending chunks immediately
+                if isinstance(response, dict) and '_rd_status' in response:
+                    status = response['_rd_status']
+                    g.log(
+                        f"RD instantAvailability: HTTP {status} — "
+                        f"{'endpoint forbidden/deprecated' if status == 403 else 'rate limited'}. "
+                        f"Stopping chunk loop.",
+                        "warning",
+                    )
+                    break
+
+                if not isinstance(response, dict):
+                    continue
+
+                for h, info in response.items():
+                    # A hash is cached if it has a non-empty 'rd' list
+                    if isinstance(info, dict) and info.get('rd'):
+                        cached_hashes.add(h.lower())
+
+            except Exception as e:
+                g.log(f"RD instantAvailability chunk error: {e}", "warning")
+                continue
+
+            # Small inter-chunk delay to avoid consecutive rapid-fire requests
+            if i + chunk_size < len(hash_list):
+                time.sleep(0.2)
+
+        return cached_hashes
 
     def torrent_select_all(self, torrent_id):
         try:
@@ -288,7 +390,8 @@ class RealDebrid:
                 file_string = ','.join(valid_file_ids)
                 return self.torrent_select(torrent_id, file_string)
             
-            return self.torrent_select(torrent_id, 'all')
+            g.log(f"No valid video files found in torrent {torrent_id}", "warning")
+            return None
 
         except Exception as e:
             g.log(f"Error selecting files for torrent {torrent_id}: {e}", "error")
@@ -313,9 +416,22 @@ class RealDebrid:
         return self.post_url(url, post_data)
 
     def resolve_hoster(self, link):
+        from resources.lib.debrid.debrid_utils import get_user_ip
+        from resources.lib.modules.exceptions import InfringingFile
+
         url = "unrestrict/link"
         post_data = {"link": link}
+        user_ip = get_user_ip()
+        if user_ip:
+            post_data["ip"] = user_ip
         response = self.post_url(url, post_data)
+        if isinstance(response, dict) and str(response.get('error_code')) == '35':
+            g.log(
+                f"RD unrestrict/link: infringing_file (error_code=35) — "
+                f"link: {link[:80]}",
+                "warning",
+            )
+            raise InfringingFile(link)
         try:
             return response["download"]
         except KeyError as e:
@@ -324,6 +440,16 @@ class RealDebrid:
     def delete_torrent(self, id):
         url = f"torrents/delete/{id}"
         self.delete_url(url)
+
+    def delete_download(self, id):
+        """Delete a download item from user's download history."""
+        url = f"downloads/delete/{id}"
+        self.delete_url(url)
+
+    def list_downloads(self):
+        """List recent downloads (hoster unrestricted links) from user's account."""
+        url = "downloads"
+        return self.get_url(url) or []
 
     @staticmethod
     def is_streamable_storage_type(storage_variant):
@@ -361,3 +487,50 @@ class RealDebrid:
         if isinstance(status_response, dict):
             status = status_response.get("type")
         return status or "unknown"
+
+    def revoke_auth(self):
+        """Remove Real-Debrid authorization after user confirmation."""
+        if not self.token:
+            xbmcgui.Dialog().ok(g.ADDON_NAME, "Real-Debrid is not currently authorized.")
+            return
+        if not xbmcgui.Dialog().yesno(
+            g.ADDON_NAME, "Remove Real-Debrid authorization?"
+        ):
+            return
+        for key in (RD_AUTH_KEY, RD_REFRESH_KEY, RD_EXPIRY_KEY,
+                    RD_SECRET_KEY, RD_CLIENT_ID_KEY, RD_USERNAME_KEY, RD_STATUS_KEY):
+            g.set_setting(key, "")
+        self.token = ""
+        xbmcgui.Dialog().ok(g.ADDON_NAME, "Real-Debrid authorization removed.")
+
+    def account_info_to_dialog(self):
+        """
+        Fetch account info from Real-Debrid API and display in a select dialog.
+        Mirrors Account Manager's RealDebrid.account_info_to_dialog() format.
+        """
+        from datetime import datetime
+        try:
+            user_info = self.get_url("user")
+            if not isinstance(user_info, dict) or "username" not in user_info:
+                xbmcgui.Dialog().ok(g.ADDON_NAME, "Real-Debrid: Could not retrieve account information.")
+                return
+            try:
+                expires = datetime.strptime(user_info["expiration"], "%Y-%m-%dT%H:%M:%S.%fZ")
+                days_remaining = (expires - datetime.today()).days
+                expires_str = expires.strftime("%A, %B %d, %Y")
+            except Exception:
+                days_remaining = "N/A"
+                expires_str = user_info.get("expiration", "N/A")
+            lines = [
+                "Username:  %s" % user_info.get("username", "N/A"),
+                "Email:     %s" % user_info.get("email", "N/A"),
+                "Status:    %s" % user_info.get("type", "N/A").capitalize(),
+                "Expires:   %s" % expires_str,
+                "Days left: %s" % days_remaining,
+                "Points:    %s" % user_info.get("points", "N/A"),
+            ]
+            xbmcgui.Dialog().select("%s: Real-Debrid Account" % g.ADDON_NAME, lines)
+        except Exception as e:
+            g.log("RD account_info_to_dialog error: %s" % e, "error")
+            xbmcgui.Dialog().ok(g.ADDON_NAME, "Real-Debrid: Could not retrieve account information.")
+

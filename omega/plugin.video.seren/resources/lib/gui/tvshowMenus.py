@@ -320,8 +320,6 @@ class Menus:
             ignore_cache=True,
             no_paging=paginate,
             pull_all=True,
-            sort_by="added",
-            sort_how="asc" if g.get_int_setting("general.watchlist.sort") == 1 else "desc"
         )
         self.list_builder.show_list_builder(trakt_list, no_paging=paginate)
 
@@ -366,8 +364,6 @@ class Menus:
 
     def my_next_up(self):
         episodes = self.shows_database.get_nextup_episodes(g.get_int_setting("nextup.sort") == 1)
-        if g.get_bool_setting("limit.nextup"):
-            episodes = [i for i in episodes if i["trakt_id"]][: self.page_limit]
         self.list_builder.mixed_episode_builder(episodes, no_paging=True)
 
     @trakt_auth_guard
@@ -375,7 +371,7 @@ class Menus:
         hidden_shows = self.hidden_database.get_hidden_items("calendar", "shows")
         date_string = datetime.datetime.now() - datetime.timedelta(days=13)
         trakt_list = self.trakt_api.get_json(
-            f"calendars/my/shows/{date_string.strftime('%Y-%m-%d')}/14", extended="full", pull_all=True
+            f"calendars/my/shows/{date_string.strftime('%d-%m-%Y')}/14", extended="full", pull_all=True
         )
         trakt_list = sorted(
             [i for i in trakt_list if i["trakt_show_id"] not in hidden_shows],
@@ -607,3 +603,43 @@ class Menus:
     def my_watched_episode(self):
         watched_episodes = self.shows_database.get_watched_episodes(g.PAGE)
         self.list_builder.mixed_episode_builder(watched_episodes)
+
+    def anime_related_shows(self, anidb_id):
+        """Display related anime (sequels/prequels/side stories) for a given AniDB ID.
+
+        Resolves related AniDB IDs to Trakt IDs via Otaku-Mappings DB and
+        builds a standard show list. Items without Trakt IDs are shown as
+        unplayable directory items.
+        """
+        from resources.lib.modules.anime.anidb_relations import get_related_anime
+        relations = get_related_anime(anidb_id)
+        if not relations:
+            g.cancel_directory()
+            return
+
+        # Split into those with Trakt IDs (playable) and those without
+        trakt_shows = []
+        for rel in relations:
+            if rel.get("trakt_id"):
+                trakt_shows.append(rel)
+
+        if trakt_shows:
+            # Build using existing trakt show infrastructure
+            trakt_ids = [{"trakt_id": r["trakt_id"]} for r in trakt_shows]
+            trakt_list = self.shows_database.get_show_list(trakt_ids)
+            if trakt_list:
+                self.list_builder.show_list_builder(trakt_list)
+                return
+
+        # Fallback: plain directory items with relation info
+        for rel in relations:
+            label = f"[{rel['relation_type']}] {rel['title'] or 'Unknown'}"
+            if rel.get("trakt_id"):
+                g.add_directory_item(
+                    label,
+                    action="showSeasons",
+                    action_args=rel["trakt_id"],
+                )
+            else:
+                g.add_directory_item(label, is_folder=False)
+        g.close_directory(g.CONTENT_SHOWS)

@@ -466,9 +466,13 @@ class TMDBAPI(ApiBase):
 
         return result
 
+    # Asian countries for alternative title inclusion (Session 48)
+    ASIAN_TITLE_COUNTRIES = {"CN", "KR", "TW", "TH", "HK", "VN", "PH", "MY", "IN", "SG", "ID"}
+
     def _apply_localized_alternative_titles(self, item):
         if alternative_titles := item.get("alternative_titles"):
-            country_set = {self.lang_region_code, "US"}
+            # Include JP for anime + all Asian drama countries for CJK titles
+            country_set = {self.lang_region_code, "US", "JP"} | self.ASIAN_TITLE_COUNTRIES
             item["aliases"] = [
                 title
                 for t in alternative_titles.get("titles", alternative_titles.get("results", []))

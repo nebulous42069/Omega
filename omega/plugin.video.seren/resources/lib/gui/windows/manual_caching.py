@@ -1,3 +1,5 @@
+import xbmcgui
+
 from resources.lib.gui.windows.source_window import SourceWindow
 from resources.lib.modules.cacheAssist import CacheAssistHelper
 from resources.lib.modules.exceptions import FailureAtRemoteParty
@@ -20,18 +22,39 @@ class ManualCacheWindow(SourceWindow):
         uncached_source = self.sources[self.display_list.getSelectedPosition()]
         cache_assist_module = self.cache_assist_helper.manual_cache(uncached_source)
 
+        if not cache_assist_module:
+            g.notification(g.ADDON_NAME, g.get_language_string(30186), time=3000)
+            return
+
         cache_status = cache_assist_module.do_cache()
 
         if cache_status['result'] == 'success':
-            return cache_status['source']
+            self.cached_source = cache_status['source']
+            self.close()
+        elif cache_status['result'] == 'background':
+            g.notification(g.ADDON_NAME, g.get_language_string(30468), time=3000)
 
     def handle_action(self, action_id, control_id=None):
+        if action_id == 117:
+            menu_items = []
+            if self._filter_applied:
+                menu_items.append(g.get_language_string(30694))
+            else:
+                menu_items.append(g.get_language_string(30693))
+
+            response = xbmcgui.Dialog().contextmenu(menu_items)
+            if response == 0:
+                self.toggle_filter()
+
         if action_id == 7:
             if control_id == 1000:
                 try:
                     self._cache_item()
                 except (GeneralCachingFailure, FailureAtRemoteParty) as e:
                     g.log(e, 'error')
+                    g.notification(g.ADDON_NAME, g.get_language_string(30032), time=3000)
+            elif control_id == 2002:
+                self.toggle_filter()
             elif control_id == 2999:
                 self.close()
 

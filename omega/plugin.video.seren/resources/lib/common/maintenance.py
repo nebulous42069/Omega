@@ -9,8 +9,10 @@ from resources.lib.database import cache
 from resources.lib.database.premiumizeTransfers import PremiumizeTransfers
 from resources.lib.database.skinManager import SkinManager
 from resources.lib.debrid import all_debrid
+from resources.lib.debrid import debrid_link
 from resources.lib.debrid import premiumize
 from resources.lib.debrid import real_debrid
+from resources.lib.debrid import torbox
 from resources.lib.indexers.trakt import TraktAPI
 from resources.lib.indexers.tvdb import TVDBAPI
 from resources.lib.modules.globals import g
@@ -140,16 +142,21 @@ def account_premium_status_checks():
         ("Real Debrid", real_debrid.RealDebrid, "rd"),
         ("Premiumize", premiumize.Premiumize, "premiumize"),
         ("All Debrid", all_debrid.AllDebrid, "alldebrid"),
+        ("TorBox", torbox.TorBox, "torbox"),
+        ("Debrid-Link", debrid_link.DebridLink, "debridlink"),
     ]
 
     for service in valid_debrid_providers:
         service_module = service[1]()
         if service_module.is_service_enabled():
-            status = service_module.get_account_status()
-            if status == "expired":
-                display_expiry_notification(service[0])
-            g.log(f"{service[0]}: {status}")
-            set_settings_status(service[2], status)
+            if service[2] == "debridlink" and not g.get_setting("debridlink.username"):
+                service_module.store_user_info()
+            else:
+                status = service_module.get_account_status()
+                if status == "expired":
+                    display_expiry_notification(service[0])
+                g.log(f"{service[0]}: {status}")
+                set_settings_status(service[2], status)
 
 
 def toggle_reuselanguageinvoker(forced_state=None):
@@ -237,3 +244,32 @@ def run_maintenance():
 
     # clean_deprecated_settings()
     cache.Cache().check_cleanup()
+
+    # Clean expired debrid hash cache entries
+    try:
+        from resources.lib.database.debridCache import DebridCache
+        dc = DebridCache()
+        dc.cleanup()
+        stats = dc.get_stats()
+        g.log(
+            f"DebridCache maintenance: {stats['total']} entries, "
+            f"{stats['cached']} cached, cleaned {stats['expired']} expired",
+            "info",
+        )
+    except Exception as e:
+        g.log(f"DebridCache maintenance error: {e}", "warning")
+
+    # Clean stale provider performance entries
+    try:
+        from resources.lib.database.providerPerformance import ProviderPerformance
+        pp = ProviderPerformance()
+        pp.cleanup()
+        summary = pp.get_summary()
+        g.log(
+            f"ProviderPerformance maintenance: {summary['total']} providers tracked, "
+            f"{summary['active']} active, {summary['demoted']} demoted, "
+            f"{summary['disabled']} disabled",
+            "info",
+        )
+    except Exception as e:
+        g.log(f"ProviderPerformance maintenance error: {e}", "warning")

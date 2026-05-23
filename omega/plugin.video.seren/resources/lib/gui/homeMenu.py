@@ -124,6 +124,34 @@ class Menus:
             menu_item=g.create_icon_dict("clear_cache", g.ICONS_PATH),
         )
         g.add_directory_item(
+            g.get_language_string(30676),
+            action='clearDebridCache',
+            is_folder=False,
+            description=g.get_language_string(30676),
+            menu_item=g.create_icon_dict("clear_cache", g.ICONS_PATH),
+        )
+        g.add_directory_item(
+            g.get_language_string(30734),
+            action='viewProviderStats',
+            is_folder=False,
+            description=g.get_language_string(30735),
+            menu_item=g.create_icon_dict("tools", g.ICONS_PATH),
+        )
+        g.add_directory_item(
+            g.get_language_string(30736),
+            action='clearProviderStats',
+            is_folder=False,
+            description=g.get_language_string(30737),
+            menu_item=g.create_icon_dict("clear_cache", g.ICONS_PATH),
+        )
+        g.add_directory_item(
+            g.get_language_string(30739),
+            action='reenableProviders',
+            is_folder=False,
+            description=g.get_language_string(30740),
+            menu_item=g.create_icon_dict("tools", g.ICONS_PATH),
+        )
+        g.add_directory_item(
             g.get_language_string(30180),
             action='clearSearchHistory',
             is_folder=False,
@@ -143,6 +171,20 @@ class Menus:
             is_folder=False,
             description=g.get_language_string(30383),
             menu_item=g.create_icon_dict("clear", g.ICONS_PATH),
+        )
+        g.add_directory_item(
+            g.get_language_string(30720),
+            action='backupSettings',
+            is_folder=False,
+            description=g.get_language_string(30722),
+            menu_item=g.create_icon_dict("settings", g.ICONS_PATH),
+        )
+        g.add_directory_item(
+            g.get_language_string(30721),
+            action='restoreSettings',
+            is_folder=False,
+            description=g.get_language_string(30723),
+            menu_item=g.create_icon_dict("settings", g.ICONS_PATH),
         )
         g.add_directory_item(
             g.get_language_string(30215),

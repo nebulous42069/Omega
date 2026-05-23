@@ -538,15 +538,51 @@ class _AllDebridDownloader(_DebridDownloadBase):
         self.available_files = []
 
     def _fetch_available_files(self):
-        self.magnet_id = self.debrid_module.upload_magnet(self.source['hash'])["magnets"][0]["id"]
-        status = self.debrid_module.magnet_status(self.magnet_id)['magnets']
-        if status["status"] != "Ready":
+        upload_result = self.debrid_module.upload_magnet(self.source['hash'])
+        if not upload_result or "magnets" not in upload_result:
+            raise UnexpectedResponse("AllDebrid upload_magnet failed")
+        try:
+            self.magnet_id = upload_result["magnets"][0]["id"]
+        except (KeyError, IndexError, TypeError):
+            raise UnexpectedResponse("AllDebrid upload_magnet missing magnet ID")
+        status = self.debrid_module.magnet_status(self.magnet_id).get('magnets', {})
+        if not isinstance(status, dict) or status.get("status") != "Ready":
             raise UnexpectedResponse(status)
-        return [{'path': i['filename'], 'url': i['link']} for i in status['links']]
+        return [{'path': i.get('filename', ''), 'url': i.get('link', '')} for i in status.get('links', [])]
 
     def _get_single_item_info(self, source):
         source = super()._get_single_item_info(source)
         return source
+
+    def _resolve_file_url(self, file):
+        return self.debrid_module.resolve_hoster(file[0]["url"])
+
+
+class _TorBoxDownloader(_DebridDownloadBase):
+    def __init__(self, source):
+        super().__init__(source)
+        from resources.lib.debrid.torbox import TorBox
+
+        self.debrid_module = TorBox()
+
+    def _fetch_available_files(self):
+        result = self.debrid_module.add_magnet(self.source["magnet"])
+        if not result or "torrent_id" not in result:
+            raise UnexpectedResponse(result)
+        self.torrent_id = result["torrent_id"]
+        info = self.debrid_module.torrent_info(self.torrent_id)
+        if not info or "files" not in info:
+            raise UnexpectedResponse(info)
+        return [
+            {
+                "path": f.get("short_name", f.get("name", "")),
+                "url": f"{self.torrent_id},{f['id']}",
+            }
+            for f in info["files"]
+        ]
+
+    def _get_single_item_info(self, source):
+        return super()._get_single_item_info(source)
 
     def _resolve_file_url(self, file):
         return self.debrid_module.resolve_hoster(file[0]["url"])
@@ -584,6 +620,7 @@ def _get_debrid_downloader_class(source):
         "premiumize": _PremiumizeDownloader,
         "real_debrid": _RealDebridDownloader,
         "all_debrid": _AllDebridDownloader,
+        "torbox": _TorBoxDownloader,
     }
     return debrid_providers[source["debrid_provider"]](source)
 

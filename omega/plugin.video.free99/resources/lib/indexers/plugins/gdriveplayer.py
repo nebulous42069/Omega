@@ -43,7 +43,7 @@ class indexer:
             self.studio_artwork = control.setting('studio.artwork') or 'false'
             self.tmdb_key = control.setting('tmdb.api')
             if not self.tmdb_key:
-                self.tmdb_key = '3d000491a0f37d4962d02bdb062af037'
+                self.tmdb_key = 'f5608fba6ab49e9985828b35d5653321'
             self.tmdb_movie_api_link = 'https://api.themoviedb.org/3/movie/%s?api_key=%s&language=%s&append_to_response=credits,releases,external_ids' % ('%s', self.tmdb_key, self.lang)
             self.tmdb_tv_api_link = 'https://api.themoviedb.org/3/tv/%s?api_key=%s&language=%s&append_to_response=aggregate_credits,content_ratings,external_ids' % ('%s', self.tmdb_key, self.lang)
             self.tm_img_link = 'https://image.tmdb.org/t/p/w%s%s'
