@@ -2171,6 +2171,36 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.sc19
 		</assets>
 		<news>- code refactor</news>
 	</extension>
+</addon><addon id="script.module.curl_cffi" name="curl_cffi" version="0.15.0" provider-name="Unknown">
+
+  <requires>
+    <import addon="xbmc.python" version="3.0.0" />
+  </requires>
+
+  <extension point="xbmc.python.module" library="lib" />
+
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">curl_cffi: libcurl Python binding with Cloudflare impersonation support</summary>
+    <description lang="en">
+      curl_cffi 0.15.0 — libcurl Python binding that impersonates real browser TLS fingerprints
+      (Chrome, Firefox, Safari) to bypass Cloudflare bot detection.
+
+      Platforms supported:
+        - Windows x64 (Kodi 21 / Python 3.12, Kodi 22 / Python 3.13-3.14)
+        - Android ARM64 (Kodi 22 / Python 3.13+)
+
+      Used by a4kScrapers when available, with automatic fallback to cloudscraper v1.2.60.
+    </description>
+    <disclaimer lang="en">Use at your own risk.</disclaimer>
+    <platform>all</platform>
+    <license>MIT</license>
+    <website>https://github.com/lexiforest/curl_cffi</website>
+    <source>https://github.com/lexiforest/curl_cffi</source>
+    <news>
+      v0.15.0 — Initial Kodi module build. Bundles Windows (cp312/cp313/cp314) and Android ARM64 binaries.
+    </news>
+  </extension>
+
 </addon><addon id="script.simpleclean" name="Diggz Simple Clean" version="1.0.12" provider-name="Angelitto, Diggz">
 
   <requires>
