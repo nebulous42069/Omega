@@ -19,6 +19,10 @@
 	</onload>
     <onload condition="!Skin.HasSetting(Use.Skinshortcuts) + String.IsEmpty(Window.Property(ReturnHome))">SetProperty(ReturnHome,True)</onload>
 	<onload>RunScript(script.skinvariables,action=buildviews)</onload>
+
+    <!-- If MyVideoNav marked plugin widgets as unsafe, keep them suspended long enough
+         for the plugin invoker to fully unwind before Home asks the same plugin for a widget. -->
+    <onload condition="Window(Home).Property(SuspendPluginWidgets)">AlarmClock(XenonResumePluginWidgets,ClearProperty(SuspendPluginWidgets,Home),00:20,silent)</onload>
     
 	<!-- Build menu/submenus/widgets if skinshortcuts enabled -->
 	<onload condition="System.AddonIsEnabled(script.skinshortcuts) + Skin.HasSetting(Use.SkinShortcuts)">RunScript(script.skinshortcuts,type=buildxml&amp;mainmenuID=9000&amp;group=mainmenu|powermenu&amp;levels=2)</onload>

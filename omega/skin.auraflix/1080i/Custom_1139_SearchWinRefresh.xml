@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<window type="window" id="1139">
+  <onload>ActivateWindow(Home)</onload>
+  <controls>
+<control type="label">
+<textcolor>black</textcolor>
+<font>font_tiny</font>
+<label>$LOCALIZE[31617]</label> <!-- reload -->
+</control>
+</controls>
+</window>

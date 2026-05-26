@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<shortcuts>
+	<shortcut>
+		<label>$LOCALIZE[31227]</label> <!-- Top Rated TV Shows -->
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>image://DefaultFolder.png/</thumb>
+		<action></action>
+	</shortcut>
+</shortcuts>

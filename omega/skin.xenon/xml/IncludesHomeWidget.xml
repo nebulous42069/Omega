@@ -5064,48 +5064,108 @@
 		<content target="videos">videodb://musicvideos/titles/?xsp=%7b%22limit%22%3a20%2c%22order%22%3a%7b%22direction%22%3a%22descending%22%2c%22ignorefolders%22%3a0%2c%22method%22%3a%22playcount%22%7d%2c%22rules%22%3a%7b%22and%22%3a%5b%7b%22field%22%3a%22playcount%22%2c%22operator%22%3a%22greaterthan%22%2c%22value%22%3a%5b%220%22%5d%7d%5d%7d%2c%22type%22%3a%22musicvideos%22%7d</content>
     </include>
     <include name="PlayListOneContent">
+        <include condition="Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.1.Playlist),plugin://)">PluginWidgetEmptyContent</include>
+        <include condition="![Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.1.Playlist),plugin://)]">PlayListOneContentReal</include>
+    </include>
+    <include name="PlayListOneContentReal">
         <content target="videos" limit="10">$INFO[Skin.String(HomeItem.1.Playlist)]</content>
     </include>
     <include name="PlayListTwoContent">
+        <include condition="Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.2.Playlist),plugin://)">PluginWidgetEmptyContent</include>
+        <include condition="![Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.2.Playlist),plugin://)]">PlayListTwoContentReal</include>
+    </include>
+    <include name="PlayListTwoContentReal">
         <content target="videos" limit="10">$INFO[Skin.String(HomeItem.2.Playlist)]</content>
     </include>
     <include name="PlayListThreeContent">
+        <include condition="Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.3.Playlist),plugin://)">PluginWidgetEmptyContent</include>
+        <include condition="![Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.3.Playlist),plugin://)]">PlayListThreeContentReal</include>
+    </include>
+    <include name="PlayListThreeContentReal">
         <content target="videos" limit="10">$INFO[Skin.String(HomeItem.3.Playlist)]</content>
     </include>
     <include name="PlayListFourContent">
+        <include condition="Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.4.Playlist),plugin://)">PluginWidgetEmptyContent</include>
+        <include condition="![Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.4.Playlist),plugin://)]">PlayListFourContentReal</include>
+    </include>
+    <include name="PlayListFourContentReal">
         <content target="videos" limit="10">$INFO[Skin.String(HomeItem.4.Playlist)]</content>
     </include>
     <include name="PlayListFiveContent">
+        <include condition="Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.5.Playlist),plugin://)">PluginWidgetEmptyContent</include>
+        <include condition="![Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.5.Playlist),plugin://)]">PlayListFiveContentReal</include>
+    </include>
+    <include name="PlayListFiveContentReal">
         <content target="videos" limit="10">$INFO[Skin.String(HomeItem.5.Playlist)]</content>
     </include>
     <include name="PlayListSixContent">
+        <include condition="Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.6.Playlist),plugin://)">PluginWidgetEmptyContent</include>
+        <include condition="![Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.6.Playlist),plugin://)]">PlayListSixContentReal</include>
+    </include>
+    <include name="PlayListSixContentReal">
         <content target="videos" limit="10">$INFO[Skin.String(HomeItem.6.Playlist)]</content>
     </include>
     <include name="PlayListSevenContent">
+        <include condition="Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.7.Playlist),plugin://)">PluginWidgetEmptyContent</include>
+        <include condition="![Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.7.Playlist),plugin://)]">PlayListSevenContentReal</include>
+    </include>
+    <include name="PlayListSevenContentReal">
         <content target="videos" limit="10">$INFO[Skin.String(HomeItem.7.Playlist)]</content>
     </include>
     <include name="PlayListEightContent">
+        <include condition="Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.8.Playlist),plugin://)">PluginWidgetEmptyContent</include>
+        <include condition="![Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.8.Playlist),plugin://)]">PlayListEightContentReal</include>
+    </include>
+    <include name="PlayListEightContentReal">
         <content target="videos" limit="10">$INFO[Skin.String(HomeItem.8.Playlist)]</content>
     </include>
     <include name="PlayListNineContent">
+        <include condition="Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.9.Playlist),plugin://)">PluginWidgetEmptyContent</include>
+        <include condition="![Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.9.Playlist),plugin://)]">PlayListNineContentReal</include>
+    </include>
+    <include name="PlayListNineContentReal">
         <content target="videos" limit="10">$INFO[Skin.String(HomeItem.9.Playlist)]</content>
     </include>
     <include name="PlayListTenContent">
+        <include condition="Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.10.Playlist),plugin://)">PluginWidgetEmptyContent</include>
+        <include condition="![Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.10.Playlist),plugin://)]">PlayListTenContentReal</include>
+    </include>
+    <include name="PlayListTenContentReal">
         <content target="videos" limit="10">$INFO[Skin.String(HomeItem.10.Playlist)]</content>
     </include>
     <include name="PlayListElevenContent">
+        <include condition="Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.11.Playlist),plugin://)">PluginWidgetEmptyContent</include>
+        <include condition="![Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.11.Playlist),plugin://)]">PlayListElevenContentReal</include>
+    </include>
+    <include name="PlayListElevenContentReal">
         <content target="videos" limit="10">$INFO[Skin.String(HomeItem.11.Playlist)]</content>
     </include>
     <include name="PlayListTwelveContent">
+        <include condition="Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.12.Playlist),plugin://)">PluginWidgetEmptyContent</include>
+        <include condition="![Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.12.Playlist),plugin://)]">PlayListTwelveContentReal</include>
+    </include>
+    <include name="PlayListTwelveContentReal">
         <content target="videos" limit="10">$INFO[Skin.String(HomeItem.12.Playlist)]</content>
     </include>
     <include name="PlayListThirteenContent">
+        <include condition="Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.13.Playlist),plugin://)">PluginWidgetEmptyContent</include>
+        <include condition="![Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.13.Playlist),plugin://)]">PlayListThirteenContentReal</include>
+    </include>
+    <include name="PlayListThirteenContentReal">
         <content limit="10" target="videos">$INFO[Skin.String(HomeItem.13.Playlist)]</content>
     </include>
     <include name="PlayListFourteenContent">
+        <include condition="Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.14.Playlist),plugin://)">PluginWidgetEmptyContent</include>
+        <include condition="![Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.14.Playlist),plugin://)]">PlayListFourteenContentReal</include>
+    </include>
+    <include name="PlayListFourteenContentReal">
         <content target="videos" limit="10">$INFO[Skin.String(HomeItem.14.Playlist)]</content>
     </include>
     <include name="PlayListFifteenContent">
+        <include condition="Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.15.Playlist),plugin://)">PluginWidgetEmptyContent</include>
+        <include condition="![Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.15.Playlist),plugin://)]">PlayListFifteenContentReal</include>
+    </include>
+    <include name="PlayListFifteenContentReal">
         <content target="videos" limit="10">$INFO[Skin.String(HomeItem.15.Playlist)]</content>
     </include>
     <include name="WeatherForecastContent">
@@ -5394,6 +5454,23 @@
         </content>
     </include>
     <include name="CustomWidgetVisibility">
+        <!-- Xenon LanguageInvoker workaround: hide custom plugin widgets while suspended. -->
+        <visible>![Window(Home).Property(SuspendPluginWidgets) + String.Contains(Container(9000).ListItem.Property(WidgetSet),plugin://)]</visible>
+        <visible>![Window(Home).Property(SuspendPluginWidgets) + Container(9000).HasFocus(1) + String.Contains(Skin.String(HomeItem.1.Playlist),plugin://)]</visible>
+        <visible>![Window(Home).Property(SuspendPluginWidgets) + Container(9000).HasFocus(2) + String.Contains(Skin.String(HomeItem.2.Playlist),plugin://)]</visible>
+        <visible>![Window(Home).Property(SuspendPluginWidgets) + Container(9000).HasFocus(3) + String.Contains(Skin.String(HomeItem.3.Playlist),plugin://)]</visible>
+        <visible>![Window(Home).Property(SuspendPluginWidgets) + Container(9000).HasFocus(4) + String.Contains(Skin.String(HomeItem.4.Playlist),plugin://)]</visible>
+        <visible>![Window(Home).Property(SuspendPluginWidgets) + Container(9000).HasFocus(5) + String.Contains(Skin.String(HomeItem.5.Playlist),plugin://)]</visible>
+        <visible>![Window(Home).Property(SuspendPluginWidgets) + Container(9000).HasFocus(6) + String.Contains(Skin.String(HomeItem.6.Playlist),plugin://)]</visible>
+        <visible>![Window(Home).Property(SuspendPluginWidgets) + Container(9000).HasFocus(7) + String.Contains(Skin.String(HomeItem.7.Playlist),plugin://)]</visible>
+        <visible>![Window(Home).Property(SuspendPluginWidgets) + Container(9000).HasFocus(8) + String.Contains(Skin.String(HomeItem.8.Playlist),plugin://)]</visible>
+        <visible>![Window(Home).Property(SuspendPluginWidgets) + Container(9000).HasFocus(9) + String.Contains(Skin.String(HomeItem.9.Playlist),plugin://)]</visible>
+        <visible>![Window(Home).Property(SuspendPluginWidgets) + Container(9000).HasFocus(10) + String.Contains(Skin.String(HomeItem.10.Playlist),plugin://)]</visible>
+        <visible>![Window(Home).Property(SuspendPluginWidgets) + Container(9000).HasFocus(11) + String.Contains(Skin.String(HomeItem.11.Playlist),plugin://)]</visible>
+        <visible>![Window(Home).Property(SuspendPluginWidgets) + Container(9000).HasFocus(12) + String.Contains(Skin.String(HomeItem.12.Playlist),plugin://)]</visible>
+        <visible>![Window(Home).Property(SuspendPluginWidgets) + Container(9000).HasFocus(13) + String.Contains(Skin.String(HomeItem.13.Playlist),plugin://)]</visible>
+        <visible>![Window(Home).Property(SuspendPluginWidgets) + Container(9000).HasFocus(14) + String.Contains(Skin.String(HomeItem.14.Playlist),plugin://)]</visible>
+        <visible>![Window(Home).Property(SuspendPluginWidgets) + Container(9000).HasFocus(15) + String.Contains(Skin.String(HomeItem.15.Playlist),plugin://)]</visible>
         <visible>!String.IsEqual(Container(9000).ListItem.Property(WidgetSet),RecentMovies)</visible>
 		<visible>!String.IsEqual(Container(9000).ListItem.Property(WidgetSet),RecentMoviesWatched)</visible>
         <visible>!String.IsEqual(Container(9000).ListItem.Property(WidgetSet),RandomMovies)</visible>
@@ -5487,15 +5564,21 @@
     <include name="VideoNodeContent500">
         <content target="video" limit="500">$VAR[VideoNodeContent]</content>
     </include>	
+    <include name="PluginWidgetEmptyContent">
+        <content target="videos" limit="1">special://skin/extras/playlists/empty.xsp</content>
+    </include>
     <include name="CustomWidgetContent">
-        <include condition="String.IsEmpty(Skin.String(CustomWidgets))">CustomWidgetContent10</include>
-        <include condition="Skin.String(CustomWidgets,20)">CustomWidgetContent20</include>
-        <include condition="Skin.String(CustomWidgets,30)">CustomWidgetContent30</include>
-        <include condition="Skin.String(CustomWidgets,40)">CustomWidgetContent40</include>
-        <include condition="Skin.String(CustomWidgets,50)">CustomWidgetContent50</include>
-        <include condition="Skin.String(CustomWidgets,75)">CustomWidgetContent75</include>
-        <include condition="Skin.String(CustomWidgets,100)">CustomWidgetContent100</include>
-        <include condition="Skin.String(CustomWidgets,500)">CustomWidgetContent500</include>		
+        <!-- If the selected custom widget is plugin:// and we just left MyVideoNav,
+             feed Kodi a harmless local empty playlist instead of re-entering the same Python add-on. -->
+        <include condition="Window(Home).Property(SuspendPluginWidgets) + String.Contains(Container(9000).ListItem.Property(WidgetSet),plugin://)">PluginWidgetEmptyContent</include>
+        <include condition="![Window(Home).Property(SuspendPluginWidgets) + String.Contains(Container(9000).ListItem.Property(WidgetSet),plugin://)] + String.IsEmpty(Skin.String(CustomWidgets))">CustomWidgetContent10</include>
+        <include condition="![Window(Home).Property(SuspendPluginWidgets) + String.Contains(Container(9000).ListItem.Property(WidgetSet),plugin://)] + Skin.String(CustomWidgets,20)">CustomWidgetContent20</include>
+        <include condition="![Window(Home).Property(SuspendPluginWidgets) + String.Contains(Container(9000).ListItem.Property(WidgetSet),plugin://)] + Skin.String(CustomWidgets,30)">CustomWidgetContent30</include>
+        <include condition="![Window(Home).Property(SuspendPluginWidgets) + String.Contains(Container(9000).ListItem.Property(WidgetSet),plugin://)] + Skin.String(CustomWidgets,40)">CustomWidgetContent40</include>
+        <include condition="![Window(Home).Property(SuspendPluginWidgets) + String.Contains(Container(9000).ListItem.Property(WidgetSet),plugin://)] + Skin.String(CustomWidgets,50)">CustomWidgetContent50</include>
+        <include condition="![Window(Home).Property(SuspendPluginWidgets) + String.Contains(Container(9000).ListItem.Property(WidgetSet),plugin://)] + Skin.String(CustomWidgets,75)">CustomWidgetContent75</include>
+        <include condition="![Window(Home).Property(SuspendPluginWidgets) + String.Contains(Container(9000).ListItem.Property(WidgetSet),plugin://)] + Skin.String(CustomWidgets,100)">CustomWidgetContent100</include>
+        <include condition="![Window(Home).Property(SuspendPluginWidgets) + String.Contains(Container(9000).ListItem.Property(WidgetSet),plugin://)] + Skin.String(CustomWidgets,500)">CustomWidgetContent500</include>		
     </include>
     <include name="CustomWidgetContent10">
         <content target="videos" limit="10">$INFO[Container(9000).ListItem.Property(WidgetSet)]</content>

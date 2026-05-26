@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="script.simpleclean"
+       name="Diggz Simple Clean"
+       version="1.0.12"
+       provider-name="Angelitto, Diggz">
+
+  <requires>
+    <import addon="xbmc.python" version="3.0.0"/>
+  </requires>
+
+  <extension point="xbmc.python.script" library="default.py">
+    <provides>executable</provides>
+  </extension>
+
+  <extension point="xbmc.addon.metadata">
+    <platform>all</platform>
+    <summary lang="en_gb">Clean your Kodi setup</summary>
+    <description lang="en_gb">Lightweigt cleaning solution for Kodi.</description>
+    <license>GPL-2.0-or-later</license>
+        <assets>
+            <icon>icon.png</icon>
+        </assets>
+  </extension>
+</addon>

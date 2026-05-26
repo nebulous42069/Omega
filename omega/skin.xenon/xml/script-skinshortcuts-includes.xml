@@ -29,7 +29,7 @@
 			<thumb />
 			<property name="labelID">13012</property>
 			<property name="defaultID">13012</property>
-			<visible>[[System.ShowExitButton] + [System.ShowExitButton]] + String.IsEqual(Container(300).ListItem.Property(submenuVisibility),powermenu)</visible>
+			<visible>[[System.ShowExitButton] + [System.ShowExitButton]] + String.IsEqual(Container(900).ListItem.Property(submenuVisibility),powermenu)</visible>
 			<onclick condition="Window.IsActive(DialogButtonMenu.xml)">Close</onclick>
 			<onclick>Quit()</onclick>
 			<property name="path">Quit()</property>
@@ -51,7 +51,7 @@
 			<onclick>ActivateWindow(Settings)</onclick>
 			<property name="path">ActivateWindow(Settings)</property>
 			<property name="list">Settings</property>
-			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(300).ListItem.Property(submenuVisibility),powermenu)</visible>
+			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(900).ListItem.Property(submenuVisibility),powermenu)</visible>
 			<property name="group">powermenu</property>
 			<property name="isSubmenu">True</property>
 			</item>
@@ -68,7 +68,7 @@
 			<onclick>ActivateWindow(SkinSettings)</onclick>
 			<property name="path">ActivateWindow(SkinSettings)</property>
 			<property name="list">SkinSettings</property>
-			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(300).ListItem.Property(submenuVisibility),powermenu)</visible>
+			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(900).ListItem.Property(submenuVisibility),powermenu)</visible>
 			<property name="group">powermenu</property>
 			<property name="isSubmenu">True</property>
 			</item>
@@ -81,7 +81,7 @@
 			<thumb />
 			<property name="labelID">13016</property>
 			<property name="defaultID">13016</property>
-			<visible>[[System.CanPowerDown] + [System.CanPowerDown]] + String.IsEqual(Container(300).ListItem.Property(submenuVisibility),powermenu)</visible>
+			<visible>[[System.CanPowerDown] + [System.CanPowerDown]] + String.IsEqual(Container(900).ListItem.Property(submenuVisibility),powermenu)</visible>
 			<onclick condition="Window.IsActive(DialogButtonMenu.xml)">Close</onclick>
 			<onclick>Powerdown()</onclick>
 			<property name="path">Powerdown()</property>
@@ -99,7 +99,7 @@
 			<thumb />
 			<property name="labelID">13011</property>
 			<property name="defaultID">13011</property>
-			<visible>[[System.CanSuspend] + [System.CanSuspend]] + String.IsEqual(Container(300).ListItem.Property(submenuVisibility),powermenu)</visible>
+			<visible>[[System.CanSuspend] + [System.CanSuspend]] + String.IsEqual(Container(900).ListItem.Property(submenuVisibility),powermenu)</visible>
 			<onclick condition="Window.IsActive(DialogButtonMenu.xml)">Close</onclick>
 			<onclick>Suspend()</onclick>
 			<property name="path">Suspend()</property>
@@ -117,7 +117,7 @@
 			<thumb />
 			<property name="labelID">13010</property>
 			<property name="defaultID">13010</property>
-			<visible>[[System.CanHibernate] + [System.CanHibernate]] + String.IsEqual(Container(300).ListItem.Property(submenuVisibility),powermenu)</visible>
+			<visible>[[System.CanHibernate] + [System.CanHibernate]] + String.IsEqual(Container(900).ListItem.Property(submenuVisibility),powermenu)</visible>
 			<onclick condition="Window.IsActive(DialogButtonMenu.xml)">Close</onclick>
 			<onclick>Hibernate()</onclick>
 			<property name="path">Hibernate()</property>
@@ -135,7 +135,7 @@
 			<thumb />
 			<property name="labelID">13013</property>
 			<property name="defaultID">13013</property>
-			<visible>[[System.CanReboot] + [System.CanReboot]] + String.IsEqual(Container(300).ListItem.Property(submenuVisibility),powermenu)</visible>
+			<visible>[[System.CanReboot] + [System.CanReboot]] + String.IsEqual(Container(900).ListItem.Property(submenuVisibility),powermenu)</visible>
 			<onclick condition="Window.IsActive(DialogButtonMenu.xml)">Close</onclick>
 			<onclick>Reset()</onclick>
 			<property name="path">Reset()</property>
@@ -153,7 +153,7 @@
 			<thumb />
 			<property name="labelID">31527</property>
 			<property name="defaultID">31527</property>
-			<visible>[System.CanReboot + [System.Platform.Linux | System.Platform.Linux.RaspberryPi | System.Platform.Android]] + String.IsEqual(Container(300).ListItem.Property(submenuVisibility),powermenu)</visible>
+			<visible>[System.CanReboot + [System.Platform.Linux | System.Platform.Linux.RaspberryPi | System.Platform.Android]] + String.IsEqual(Container(900).ListItem.Property(submenuVisibility),powermenu)</visible>
 			<onclick condition="Window.IsActive(DialogButtonMenu.xml)">Close</onclick>
 			<onclick>System.ExecWait("/usr/sbin/rebootfromnand")</onclick>
 			<property name="path">System.ExecWait("/usr/sbin/rebootfromnand")</property>
@@ -172,7 +172,7 @@
 			<thumb />
 			<property name="labelID">20126</property>
 			<property name="defaultID">20126</property>
-			<visible>[System.HasLoginScreen | IntegerGreaterThan(System.ProfileCount,1)] + String.IsEqual(Container(300).ListItem.Property(submenuVisibility),powermenu)</visible>
+			<visible>[System.HasLoginScreen | IntegerGreaterThan(System.ProfileCount,1)] + String.IsEqual(Container(900).ListItem.Property(submenuVisibility),powermenu)</visible>
 			<onclick condition="Window.IsActive(DialogButtonMenu.xml)">Close</onclick>
 			<onclick>dialog.close(all,true)</onclick>
 			<property name="path">dialog.close(all,true)</property>
@@ -191,7 +191,7 @@
 			<thumb />
 			<property name="labelID">20046</property>
 			<property name="defaultID">20046</property>
-			<visible>[[System.HasLocks] + [System.HasLocks]] + String.IsEqual(Container(300).ListItem.Property(submenuVisibility),powermenu)</visible>
+			<visible>[[System.HasLocks] + [System.HasLocks]] + String.IsEqual(Container(900).ListItem.Property(submenuVisibility),powermenu)</visible>
 			<onclick condition="Window.IsActive(DialogButtonMenu.xml)">Close</onclick>
 			<onclick>mastermode</onclick>
 			<property name="path">mastermode</property>
@@ -209,7 +209,7 @@
 			<thumb />
 			<property name="labelID">13017</property>
 			<property name="defaultID">13017</property>
-			<visible>[[System.HasShutdown +!System.IsInhibit] + [System.HasShutdown +!System.IsInhibit]] + String.IsEqual(Container(300).ListItem.Property(submenuVisibility),powermenu)</visible>
+			<visible>[[System.HasShutdown +!System.IsInhibit] + [System.HasShutdown +!System.IsInhibit]] + String.IsEqual(Container(900).ListItem.Property(submenuVisibility),powermenu)</visible>
 			<onclick condition="Window.IsActive(DialogButtonMenu.xml)">Close</onclick>
 			<onclick>InhibitIdleShutdown(true)</onclick>
 			<property name="path">InhibitIdleShutdown(true)</property>
@@ -227,7 +227,7 @@
 			<thumb />
 			<property name="labelID">13018</property>
 			<property name="defaultID">13018</property>
-			<visible>[[System.HasShutdown + System.IsInhibit] + [System.HasShutdown + System.IsInhibit]] + String.IsEqual(Container(300).ListItem.Property(submenuVisibility),powermenu)</visible>
+			<visible>[[System.HasShutdown + System.IsInhibit] + [System.HasShutdown + System.IsInhibit]] + String.IsEqual(Container(900).ListItem.Property(submenuVisibility),powermenu)</visible>
 			<onclick condition="Window.IsActive(DialogButtonMenu.xml)">Close</onclick>
 			<onclick>InhibitIdleShutdown(false)</onclick>
 			<property name="path">InhibitIdleShutdown(false)</property>
@@ -245,7 +245,7 @@
 			<thumb />
 			<property name="labelID">20150</property>
 			<property name="defaultID">20150</property>
-			<visible>[[!System.HasAlarm(shutdowntimer) + [System.CanPowerDown | System.CanSuspend | System.CanHibernate]] + [!System.HasAlarm(shutdowntimer)]] + String.IsEqual(Container(300).ListItem.Property(submenuVisibility),powermenu)</visible>
+			<visible>[[!System.HasAlarm(shutdowntimer) + [System.CanPowerDown | System.CanSuspend | System.CanHibernate]] + [!System.HasAlarm(shutdowntimer)]] + String.IsEqual(Container(900).ListItem.Property(submenuVisibility),powermenu)</visible>
 			<onclick condition="Window.IsActive(DialogButtonMenu.xml)">Close</onclick>
 			<onclick>AlarmClock(shutdowntimer,Shutdown())</onclick>
 			<property name="path">AlarmClock(shutdowntimer,Shutdown())</property>
@@ -263,7 +263,7 @@
 			<thumb />
 			<property name="labelID">20151</property>
 			<property name="defaultID">20151</property>
-			<visible>[[System.HasAlarm(shutdowntimer)] + [System.HasAlarm(shutdowntimer)]] + String.IsEqual(Container(300).ListItem.Property(submenuVisibility),powermenu)</visible>
+			<visible>[[System.HasAlarm(shutdowntimer)] + [System.HasAlarm(shutdowntimer)]] + String.IsEqual(Container(900).ListItem.Property(submenuVisibility),powermenu)</visible>
 			<onclick condition="Window.IsActive(DialogButtonMenu.xml)">Close</onclick>
 			<onclick>CancelAlarm(shutdowntimer)</onclick>
 			<property name="path">CancelAlarm(shutdowntimer)</property>
@@ -801,268 +801,112 @@
 	<include name="skinshortcuts-group-alt-powermenu-1">
 		<description>No items</description>
 		</include>
-	<include name="skinshortcuts-group-x1101">
+	<include name="skinshortcuts-group-searchmenu">
 		<description>No items</description>
 		</include>
-	<include name="skinshortcuts-group-alt-x1101">
+	<include name="skinshortcuts-group-alt-searchmenu">
 		<description>No items</description>
 		</include>
-	<include name="skinshortcuts-group-x1101-1">
+	<include name="skinshortcuts-group-searchmenu-1">
 		<description>No items</description>
 		</include>
-	<include name="skinshortcuts-group-alt-x1101-1">
+	<include name="skinshortcuts-group-alt-searchmenu-1">
 		<description>No items</description>
 		</include>
-	<include name="skinshortcuts-group-x1102">
+	<include name="skinshortcuts-group-tmdbsearchmenu">
 		<description>No items</description>
 		</include>
-	<include name="skinshortcuts-group-alt-x1102">
+	<include name="skinshortcuts-group-alt-tmdbsearchmenu">
 		<description>No items</description>
 		</include>
-	<include name="skinshortcuts-group-x1102-1">
+	<include name="skinshortcuts-group-tmdbsearchmenu-1">
 		<description>No items</description>
 		</include>
-	<include name="skinshortcuts-group-alt-x1102-1">
+	<include name="skinshortcuts-group-alt-tmdbsearchmenu-1">
 		<description>No items</description>
 		</include>
-	<include name="skinshortcuts-group-x1103">
+	<include name="skinshortcuts-group-moviehub">
 		<description>No items</description>
 		</include>
-	<include name="skinshortcuts-group-alt-x1103">
+	<include name="skinshortcuts-group-alt-moviehub">
 		<description>No items</description>
 		</include>
-	<include name="skinshortcuts-group-x1103-1">
+	<include name="skinshortcuts-group-moviehub-1">
 		<description>No items</description>
 		</include>
-	<include name="skinshortcuts-group-alt-x1103-1">
+	<include name="skinshortcuts-group-alt-moviehub-1">
 		<description>No items</description>
 		</include>
-	<include name="skinshortcuts-group-x1104">
+	<include name="skinshortcuts-group-tvshowhub">
 		<description>No items</description>
 		</include>
-	<include name="skinshortcuts-group-alt-x1104">
+	<include name="skinshortcuts-group-alt-tvshowhub">
 		<description>No items</description>
 		</include>
-	<include name="skinshortcuts-group-x1104-1">
+	<include name="skinshortcuts-group-tvshowhub-1">
 		<description>No items</description>
 		</include>
-	<include name="skinshortcuts-group-alt-x1104-1">
+	<include name="skinshortcuts-group-alt-tvshowhub-1">
 		<description>No items</description>
 		</include>
-	<include name="skinshortcuts-group-x1105">
+	<include name="skinshortcuts-group-newhub">
 		<description>No items</description>
 		</include>
-	<include name="skinshortcuts-group-alt-x1105">
+	<include name="skinshortcuts-group-alt-newhub">
 		<description>No items</description>
 		</include>
-	<include name="skinshortcuts-group-x1105-1">
+	<include name="skinshortcuts-group-newhub-1">
 		<description>No items</description>
 		</include>
-	<include name="skinshortcuts-group-alt-x1105-1">
+	<include name="skinshortcuts-group-alt-newhub-1">
 		<description>No items</description>
 		</include>
-	<include name="skinshortcuts-group-x1106">
+	<include name="skinshortcuts-group-musichub">
 		<description>No items</description>
 		</include>
-	<include name="skinshortcuts-group-alt-x1106">
+	<include name="skinshortcuts-group-alt-musichub">
 		<description>No items</description>
 		</include>
-	<include name="skinshortcuts-group-x1106-1">
+	<include name="skinshortcuts-group-musichub-1">
 		<description>No items</description>
 		</include>
-	<include name="skinshortcuts-group-alt-x1106-1">
+	<include name="skinshortcuts-group-alt-musichub-1">
 		<description>No items</description>
 		</include>
-	<include name="skinshortcuts-group-x1107">
+	<include name="skinshortcuts-group-customhub">
 		<description>No items</description>
 		</include>
-	<include name="skinshortcuts-group-alt-x1107">
+	<include name="skinshortcuts-group-alt-customhub">
 		<description>No items</description>
 		</include>
-	<include name="skinshortcuts-group-x1107-1">
+	<include name="skinshortcuts-group-customhub-1">
 		<description>No items</description>
 		</include>
-	<include name="skinshortcuts-group-alt-x1107-1">
+	<include name="skinshortcuts-group-alt-customhub-1">
 		<description>No items</description>
 		</include>
-	<include name="skinshortcuts-group-x1108">
+	<include name="skinshortcuts-group-somethinghub">
 		<description>No items</description>
 		</include>
-	<include name="skinshortcuts-group-alt-x1108">
+	<include name="skinshortcuts-group-alt-somethinghub">
 		<description>No items</description>
 		</include>
-	<include name="skinshortcuts-group-x1108-1">
+	<include name="skinshortcuts-group-somethinghub-1">
 		<description>No items</description>
 		</include>
-	<include name="skinshortcuts-group-alt-x1108-1">
+	<include name="skinshortcuts-group-alt-somethinghub-1">
 		<description>No items</description>
 		</include>
-	<include name="skinshortcuts-group-x1109">
+	<include name="skinshortcuts-group-mylisthub">
 		<description>No items</description>
 		</include>
-	<include name="skinshortcuts-group-alt-x1109">
+	<include name="skinshortcuts-group-alt-mylisthub">
 		<description>No items</description>
 		</include>
-	<include name="skinshortcuts-group-x1109-1">
+	<include name="skinshortcuts-group-mylisthub-1">
 		<description>No items</description>
 		</include>
-	<include name="skinshortcuts-group-alt-x1109-1">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-x1110">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-alt-x1110">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-x1110-1">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-alt-x1110-1">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-x1111">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-alt-x1111">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-x1111-1">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-alt-x1111-1">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-x1112">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-alt-x1112">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-x1112-1">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-alt-x1112-1">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-x1113">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-alt-x1113">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-x1113-1">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-alt-x1113-1">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-hubtvnetworks">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-alt-hubtvnetworks">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-hubtvnetworks-1">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-alt-hubtvnetworks-1">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-searchmenus">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-alt-searchmenus">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-searchmenus-1">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-alt-searchmenus-1">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-aurahubtv">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-alt-aurahubtv">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-aurahubtv-1">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-alt-aurahubtv-1">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-aurahubmovies">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-alt-aurahubmovies">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-aurahubmovies-1">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-alt-aurahubmovies-1">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-netflixhubtv">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-alt-netflixhubtv">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-netflixhubtv-1">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-alt-netflixhubtv-1">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-netflixhubmovies">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-alt-netflixhubmovies">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-netflixhubmovies-1">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-alt-netflixhubmovies-1">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-pvrspot">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-alt-pvrspot">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-pvrspot-1">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-alt-pvrspot-1">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-tvhubmenu">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-alt-tvhubmenu">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-tvhubmenu-1">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-alt-tvhubmenu-1">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-moviehubmenu">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-alt-moviehubmenu">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-moviehubmenu-1">
-		<description>No items</description>
-		</include>
-	<include name="skinshortcuts-group-alt-moviehubmenu-1">
+	<include name="skinshortcuts-group-alt-mylisthub-1">
 		<description>No items</description>
 		</include>
 	</includes>

@@ -3475,21 +3475,37 @@
         <value condition="!Window.IsVisible(1195) + Container(9000).HasFocus(15)">plugin://service.library.data.provider?type=playliststats&amp;id=$INFO[Skin.String(HomeItem.15.Path)]</value>
     </variable>
     <variable name="VideoNodeContent" type="text">
-        <value condition="!Window.IsVisible(1195) + Container(9000).HasFocus(1)">$INFO[Skin.String(HomeItem.1.Playlist)]</value>
-        <value condition="!Window.IsVisible(1195) + Container(9000).HasFocus(2)">$INFO[Skin.String(HomeItem.2.Playlist)]</value>
-        <value condition="!Window.IsVisible(1195) + Container(9000).HasFocus(3)">$INFO[Skin.String(HomeItem.3.Playlist)]</value>
-        <value condition="!Window.IsVisible(1195) + Container(9000).HasFocus(4)">$INFO[Skin.String(HomeItem.4.Playlist)]</value>
-        <value condition="!Window.IsVisible(1195) + Container(9000).HasFocus(5)">$INFO[Skin.String(HomeItem.5.Playlist)]</value>
-        <value condition="!Window.IsVisible(1195) + Container(9000).HasFocus(6)">$INFO[Skin.String(HomeItem.6.Playlist)]</value>
-        <value condition="!Window.IsVisible(1195) + Container(9000).HasFocus(7)">$INFO[Skin.String(HomeItem.7.Playlist)]</value>
-        <value condition="!Window.IsVisible(1195) + Container(9000).HasFocus(8)">$INFO[Skin.String(HomeItem.8.Playlist)]</value>
-        <value condition="!Window.IsVisible(1195) + Container(9000).HasFocus(9)">$INFO[Skin.String(HomeItem.9.Playlist)]</value>
-        <value condition="!Window.IsVisible(1195) + Container(9000).HasFocus(10)">$INFO[Skin.String(HomeItem.10.Playlist)]</value>
-        <value condition="!Window.IsVisible(1195) + Container(9000).HasFocus(11)">$INFO[Skin.String(HomeItem.11.Playlist)]</value>
-        <value condition="!Window.IsVisible(1195) + Container(9000).HasFocus(12)">$INFO[Skin.String(HomeItem.12.Playlist)]</value>
-        <value condition="!Window.IsVisible(1195) + Container(9000).HasFocus(13)">$INFO[Skin.String(HomeItem.13.Playlist)]</value>
-        <value condition="!Window.IsVisible(1195) + Container(9000).HasFocus(14)">$INFO[Skin.String(HomeItem.14.Playlist)]</value>
-        <value condition="!Window.IsVisible(1195) + Container(9000).HasFocus(15)">$INFO[Skin.String(HomeItem.15.Playlist)]</value>
+        <!-- Xenon LanguageInvoker workaround: empty VideoNodeContent while returning from a plugin directory. -->
+        <value condition="Window(Home).Property(SuspendPluginWidgets) + Container(9000).HasFocus(1) + String.Contains(Skin.String(HomeItem.1.Playlist),plugin://)">special://skin/extras/playlists/empty.xsp</value>
+        <value condition="Window(Home).Property(SuspendPluginWidgets) + Container(9000).HasFocus(2) + String.Contains(Skin.String(HomeItem.2.Playlist),plugin://)">special://skin/extras/playlists/empty.xsp</value>
+        <value condition="Window(Home).Property(SuspendPluginWidgets) + Container(9000).HasFocus(3) + String.Contains(Skin.String(HomeItem.3.Playlist),plugin://)">special://skin/extras/playlists/empty.xsp</value>
+        <value condition="Window(Home).Property(SuspendPluginWidgets) + Container(9000).HasFocus(4) + String.Contains(Skin.String(HomeItem.4.Playlist),plugin://)">special://skin/extras/playlists/empty.xsp</value>
+        <value condition="Window(Home).Property(SuspendPluginWidgets) + Container(9000).HasFocus(5) + String.Contains(Skin.String(HomeItem.5.Playlist),plugin://)">special://skin/extras/playlists/empty.xsp</value>
+        <value condition="Window(Home).Property(SuspendPluginWidgets) + Container(9000).HasFocus(6) + String.Contains(Skin.String(HomeItem.6.Playlist),plugin://)">special://skin/extras/playlists/empty.xsp</value>
+        <value condition="Window(Home).Property(SuspendPluginWidgets) + Container(9000).HasFocus(7) + String.Contains(Skin.String(HomeItem.7.Playlist),plugin://)">special://skin/extras/playlists/empty.xsp</value>
+        <value condition="Window(Home).Property(SuspendPluginWidgets) + Container(9000).HasFocus(8) + String.Contains(Skin.String(HomeItem.8.Playlist),plugin://)">special://skin/extras/playlists/empty.xsp</value>
+        <value condition="Window(Home).Property(SuspendPluginWidgets) + Container(9000).HasFocus(9) + String.Contains(Skin.String(HomeItem.9.Playlist),plugin://)">special://skin/extras/playlists/empty.xsp</value>
+        <value condition="Window(Home).Property(SuspendPluginWidgets) + Container(9000).HasFocus(10) + String.Contains(Skin.String(HomeItem.10.Playlist),plugin://)">special://skin/extras/playlists/empty.xsp</value>
+        <value condition="Window(Home).Property(SuspendPluginWidgets) + Container(9000).HasFocus(11) + String.Contains(Skin.String(HomeItem.11.Playlist),plugin://)">special://skin/extras/playlists/empty.xsp</value>
+        <value condition="Window(Home).Property(SuspendPluginWidgets) + Container(9000).HasFocus(12) + String.Contains(Skin.String(HomeItem.12.Playlist),plugin://)">special://skin/extras/playlists/empty.xsp</value>
+        <value condition="Window(Home).Property(SuspendPluginWidgets) + Container(9000).HasFocus(13) + String.Contains(Skin.String(HomeItem.13.Playlist),plugin://)">special://skin/extras/playlists/empty.xsp</value>
+        <value condition="Window(Home).Property(SuspendPluginWidgets) + Container(9000).HasFocus(14) + String.Contains(Skin.String(HomeItem.14.Playlist),plugin://)">special://skin/extras/playlists/empty.xsp</value>
+        <value condition="Window(Home).Property(SuspendPluginWidgets) + Container(9000).HasFocus(15) + String.Contains(Skin.String(HomeItem.15.Playlist),plugin://)">special://skin/extras/playlists/empty.xsp</value>
+        <value condition="!Window.IsVisible(1195) + Container(9000).HasFocus(1) + ![Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.1.Playlist),plugin://)]">$INFO[Skin.String(HomeItem.1.Playlist)]</value>
+        <value condition="!Window.IsVisible(1195) + Container(9000).HasFocus(2) + ![Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.2.Playlist),plugin://)]">$INFO[Skin.String(HomeItem.2.Playlist)]</value>
+        <value condition="!Window.IsVisible(1195) + Container(9000).HasFocus(3) + ![Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.3.Playlist),plugin://)]">$INFO[Skin.String(HomeItem.3.Playlist)]</value>
+        <value condition="!Window.IsVisible(1195) + Container(9000).HasFocus(4) + ![Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.4.Playlist),plugin://)]">$INFO[Skin.String(HomeItem.4.Playlist)]</value>
+        <value condition="!Window.IsVisible(1195) + Container(9000).HasFocus(5) + ![Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.5.Playlist),plugin://)]">$INFO[Skin.String(HomeItem.5.Playlist)]</value>
+        <value condition="!Window.IsVisible(1195) + Container(9000).HasFocus(6) + ![Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.6.Playlist),plugin://)]">$INFO[Skin.String(HomeItem.6.Playlist)]</value>
+        <value condition="!Window.IsVisible(1195) + Container(9000).HasFocus(7) + ![Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.7.Playlist),plugin://)]">$INFO[Skin.String(HomeItem.7.Playlist)]</value>
+        <value condition="!Window.IsVisible(1195) + Container(9000).HasFocus(8) + ![Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.8.Playlist),plugin://)]">$INFO[Skin.String(HomeItem.8.Playlist)]</value>
+        <value condition="!Window.IsVisible(1195) + Container(9000).HasFocus(9) + ![Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.9.Playlist),plugin://)]">$INFO[Skin.String(HomeItem.9.Playlist)]</value>
+        <value condition="!Window.IsVisible(1195) + Container(9000).HasFocus(10) + ![Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.10.Playlist),plugin://)]">$INFO[Skin.String(HomeItem.10.Playlist)]</value>
+        <value condition="!Window.IsVisible(1195) + Container(9000).HasFocus(11) + ![Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.11.Playlist),plugin://)]">$INFO[Skin.String(HomeItem.11.Playlist)]</value>
+        <value condition="!Window.IsVisible(1195) + Container(9000).HasFocus(12) + ![Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.12.Playlist),plugin://)]">$INFO[Skin.String(HomeItem.12.Playlist)]</value>
+        <value condition="!Window.IsVisible(1195) + Container(9000).HasFocus(13) + ![Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.13.Playlist),plugin://)]">$INFO[Skin.String(HomeItem.13.Playlist)]</value>
+        <value condition="!Window.IsVisible(1195) + Container(9000).HasFocus(14) + ![Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.14.Playlist),plugin://)]">$INFO[Skin.String(HomeItem.14.Playlist)]</value>
+        <value condition="!Window.IsVisible(1195) + Container(9000).HasFocus(15) + ![Window(Home).Property(SuspendPluginWidgets) + String.Contains(Skin.String(HomeItem.15.Playlist),plugin://)]">$INFO[Skin.String(HomeItem.15.Playlist)]</value>
     </variable>
     <variable name="CustomWidgetLabel" type="text">
         <value condition="String.IsEqual(Window(home).Property(UsrSelectBtn),HomeItem.1)">$INFO[Skin.String(HomeItem.1.Label)]</value>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+
+  <category label="[B][COLOR red]Cleaning Options[/COLOR][/B]">
+    <setting id="clean_packages"
+             type="bool"
+             label="Clean: [B][COLOR red]addons/packages/[/COLOR][/B] (downloaded add-on ZIP files)"
+             default="true"/>
+
+    <setting id="clean_addons_temp"
+             type="bool"
+             label="Clean: [B][COLOR red]addons/temp/[/COLOR][/B] (temporary add-on files)"
+             default="true"/>
+
+    <setting id="clean_cache"
+             type="bool"
+             label="Clean: [B][COLOR red]cache/[/COLOR][/B] (Kodi cache - Windows/Linux)"
+             default="true"/>
+
+    <setting id="clean_temp"
+             type="bool"
+             label="Clean: [B][COLOR red]temp/[/COLOR][/B] (Kodi temp - Android)"
+             default="true"/>
+
+    <setting id="clean_thumbnails"
+             type="bool"
+             label="Safe clean: [B][COLOR red]unused thumbnails[/COLOR][/B] + TMDb Helper image cache"
+             default="true"/>
+  </category>
+
+</settings>

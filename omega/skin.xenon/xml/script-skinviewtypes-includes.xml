@@ -43,7 +43,7 @@
     <expression name="Exp_View_513_Include">False</expression>
     <expression name="Exp_View_514">[False]</expression>
     <expression name="Exp_View_514_Include">False</expression>
-    <expression name="Exp_View_515">[[Container.Content(movies) + [[String.IsEmpty(Container.PluginName)] | [!String.IsEmpty(Container.PluginName)]]] | [Container.Content(tvshows) + [[String.IsEmpty(Container.PluginName)] | [!String.IsEmpty(Container.PluginName)]]] | [Container.Content(videos) + [String.IsEqual(Container.PluginName,plugin.video.hublive)]]]</expression>
+    <expression name="Exp_View_515">[[Container.Content(movies) + [[String.IsEmpty(Container.PluginName) | String.IsEqual(Container.PluginName,plugin.video.free99)] | [!String.IsEmpty(Container.PluginName)]]] | [Container.Content(tvshows) + [[String.IsEmpty(Container.PluginName)] | [!String.IsEmpty(Container.PluginName)]]] | [Container.Content(videos) + [String.IsEqual(Container.PluginName,plugin.video.hublive)]]]</expression>
     <expression name="Exp_View_515_Include">True</expression>
     <expression name="Exp_View_532">[False]</expression>
     <expression name="Exp_View_532_Include">False</expression>

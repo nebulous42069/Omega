@@ -4,6 +4,7 @@
     <menucontrol>9000</menucontrol>
     <views>50,51,500,732,724,550,551,560,501,508,504,503,515,505,511</views>
     <onload condition="!Skin.HasSetting(DisableTVNextAired)">RunScript(script.tv.show.next.aired,backend=True,silent=True)</onload>
+	<onload condition="Control.IsVisible(50)">SetFocus(50)</onload>
 	<onload condition="Control.IsVisible(51)">SetFocus(51)</onload>
 	<onload condition="Control.IsVisible(500)">SetFocus(500)</onload>
 	<onload condition="Control.IsVisible(732)">SetFocus(732)</onload>
@@ -21,6 +22,10 @@
 
 
     <onunload>ClearProperty(SideBladeOpen)</onunload>
+    <!-- Workaround: plugin directory + plugin home widget can crash Kodi/Python when the
+         add-on uses reuselanguageinvoker. Set this before Home rebuilds widgets. -->
+    <onunload condition="!String.IsEmpty(Container.PluginName)">SetProperty(SuspendPluginWidgets,true,Home)</onunload>
+    <onunload condition="!String.IsEmpty(Container.PluginName)">AlarmClock(XenonResumePluginWidgets,ClearProperty(SuspendPluginWidgets,Home),00:20,silent)</onunload>
     <controls>
         <include>CommonBackground</include>
         <include condition="Skin.HasSetting(ShowExtraFanArt)">FanArtExtraThumbs</include>
