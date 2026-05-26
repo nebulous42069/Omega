@@ -268,7 +268,7 @@ class TraktSyncDatabase(trakt_sync.TraktSyncDatabase):
             WHERE s.trakt_id IN ({','.join(str(i.get('trakt_id')) for i in trakt_list)})
             """
         if params.pop("hide_unaired", self.hide_unaired):
-            statement += f" AND Datetime(s.air_date) < Datetime('{self._get_datetime_now()}')"
+            statement += f" AND (s.air_date IS NULL OR Datetime(s.air_date) < Datetime('{self._get_datetime_now()}'))"
         if params.pop("hide_watched", self.hide_watched):
             statement += " AND s.watched_episodes < s.episode_count"
 
@@ -703,6 +703,8 @@ class TraktSyncDatabase(trakt_sync.TraktSyncDatabase):
                    se.info          AS season_info,
                    se.art           AS season_art,
                    se.cast          AS season_cast,
+                   ep.season        AS db_season,
+                   ep.number        AS db_number,
                    ep.needs_update
             FROM requested AS r
                      LEFT JOIN episodes AS ep ON r.trakt_id = ep.trakt_id
@@ -728,10 +730,32 @@ class TraktSyncDatabase(trakt_sync.TraktSyncDatabase):
 
     @guard_against_none_or_empty()
     def _format_episodes(self, list_to_update):
-        formatted_items = self._format_objects(self._identify_episodes_to_update(list_to_update))
+        db_list = self._identify_episodes_to_update(list_to_update)
+        formatted_items = self._format_objects(db_list)
 
         if formatted_items is None:
             return
+
+        # Build lookup for DB-authoritative season/number values.
+        # After format_meta/_apply_best_fit_meta_data, i["info"]["season"] and
+        # i["info"]["episode"] may be TMDb absolute-numbering values (e.g. season=1,
+        # number=48) that differ from what was originally inserted by insert_trakt_episodes
+        # (e.g. season=4, number=12 using Trakt's numbering). The upsert uses
+        # ON CONFLICT(trakt_show_id, season, number), so if season/number changed the
+        # conflict clause won't fire — instead UNIQUE(trakt_id) fires → IntegrityError.
+        # Using the DB-stored values keeps the upsert targeting the correct existing row.
+        raw_by_trakt_id = {r["trakt_id"]: r for r in (db_list or [])}
+
+        # Deduplicate by trakt_id — calendar API can return the same episode
+        # twice in a single batch, which would violate UNIQUE(trakt_id).
+        seen_trakt_ids = set()
+        deduped_items = []
+        for i in formatted_items:
+            tid = i["info"]["trakt_id"]
+            if tid not in seen_trakt_ids:
+                seen_trakt_ids.add(tid)
+                deduped_items.append(i)
+
         self.execute_sql(
             self.upsert_episode_query,
             (
@@ -743,8 +767,8 @@ class TraktSyncDatabase(trakt_sync.TraktSyncDatabase):
                     None,
                     i["info"].get("aired"),
                     i["info"].get("dateadded"),
-                    i["info"].get("season"),
-                    i["info"].get("episode"),
+                    raw_by_trakt_id.get(i["info"]["trakt_id"], {}).get("db_season") or i["info"].get("season"),
+                    raw_by_trakt_id.get(i["info"]["trakt_id"], {}).get("db_number") or i["info"].get("episode"),
                     i["info"].get("tmdb_id"),
                     i["info"].get("tvdb_id"),
                     i["info"].get("imdb_id"),
@@ -757,7 +781,7 @@ class TraktSyncDatabase(trakt_sync.TraktSyncDatabase):
                     None,
                     self.metadataHandler.meta_hash,
                 )
-                for i in formatted_items
+                for i in deduped_items
             ),
         )
 
@@ -866,7 +890,7 @@ class TraktSyncDatabase(trakt_sync.TraktSyncDatabase):
                      INNER JOIN shows AS sh
                                 ON e.trakt_show_id = sh.trakt_id
                      INNER JOIN episodes_meta AS em
-                                ON em.id = e.trakt_id
+                                ON em.id = e.trakt_id AND em.type = 'trakt'
             WHERE e.trakt_id IN ({','.join(str(i.get('trakt_id')) for i in trakt_items)})
             """
         )

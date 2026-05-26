@@ -81,7 +81,12 @@ class SerenPlayer(xbmc.Player):
             "credits": g.get_bool_setting("skip.credits"),
             "preview": g.get_bool_setting("skip.preview"),
         }
-        self._skip_auto_intro = g.get_bool_setting("skip.autoIntro")
+        self._skip_auto = {
+            "intro":   g.get_bool_setting("skip.autoIntro"),
+            "recap":   g.get_bool_setting("skip.autoRecap"),
+            "credits": g.get_bool_setting("skip.autoCredits"),
+            "preview": g.get_bool_setting("skip.autoPreview"),
+        }
         self._skip_offset = g.get_int_setting("skip.offset")
 
         # Anime-only fallback timer (used when AniSkip/Anime-Skip have no data)
@@ -862,12 +867,19 @@ class SerenPlayer(xbmc.Player):
     def _dispatch_segment(self, seg_type, start, end, offset, ends_at_media_end):
         """Auto-skip, fire Playing Next, or show the Skip overlay for a segment."""
         target = end + offset
+        src = self._skip_handler.sources.get(seg_type, "?")
 
-        # Auto-skip applies only to intro segments (matches TheIntroDB addon convention)
-        if seg_type == "intro" and self._skip_auto_intro:
-            self.seekTime(target)
-            src = self._skip_handler.sources.get("intro", "?")
-            g.log(f"Skip: auto-skipped intro ({src}) → {target}s", "debug")
+        if self._skip_auto.get(seg_type, False):
+            # credits/preview at end-of-media with auto-skip on → trigger Playing Next silently
+            if seg_type in ("credits", "preview") and ends_at_media_end:
+                if self.dialogs_enabled and not self.dialogs_triggered:
+                    g.set_runtime_setting("anime.skipOutroEnd", str(int(end)))
+                    xbmc.executebuiltin('RunPlugin("plugin://plugin.video.seren/?action=runPlayerDialogs")')
+                    self.dialogs_triggered = True
+                    g.log(f"Skip: auto-triggered Playing Next from {seg_type} ({src})", "debug")
+            else:
+                self.seekTime(target)
+                g.log(f"Skip: auto-skipped {seg_type} ({src}) → {target}s", "debug")
             return
 
         # credits/preview that run to the end of media → use Playing Next dialog
@@ -876,7 +888,6 @@ class SerenPlayer(xbmc.Player):
                 g.set_runtime_setting("anime.skipOutroEnd", str(int(end)))
                 xbmc.executebuiltin('RunPlugin("plugin://plugin.video.seren/?action=runPlayerDialogs")')
                 self.dialogs_triggered = True
-                src = self._skip_handler.sources.get(seg_type, "?")
                 g.log(f"Skip: triggered Playing Next from {seg_type} ({src})", "debug")
             return
 
@@ -884,7 +895,6 @@ class SerenPlayer(xbmc.Player):
         g.set_runtime_setting("seren.skipSegmentEnd", str(int(target)))
         g.set_runtime_setting("seren.skipSegmentType", seg_type)
         xbmc.executebuiltin('RunPlugin("plugin://plugin.video.seren/?action=showSkipIntro")')
-        src = self._skip_handler.sources.get(seg_type, "?")
         g.log(f"Skip: showing {seg_type} overlay (target={target}s, src={src})", "debug")
 
     def _handle_pre_scrape(self):

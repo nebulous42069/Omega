@@ -301,7 +301,9 @@ class ListBuilder:
             name = self._handle_filler_tag(name, item)
 
         if item["info"]["mediatype"] == "list" and self.list_title_appends == 1:
-            name += f" - {g.color_string(item['info']['username'])}"
+            username = item["info"].get("username", "")
+            if username:
+                name += f" - {g.color_string(username)}"
 
         if item["info"]["mediatype"] != "list" and prepend_date:
             if release_date := g.utc_to_local(item.get("air_date", item["info"].get("aired", None))):

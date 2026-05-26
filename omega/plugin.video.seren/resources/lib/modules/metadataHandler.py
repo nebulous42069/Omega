@@ -1124,7 +1124,7 @@ class MetadataHandler:
 
     def _tvdb_needs_update(self, db_object):
         return not db_object.get("tvdb_object") or (
-            db_object.get("tvdb_meta_hash") and db_object.get("tvdb_meta_hash") != self.tmdb_api.meta_hash
+            db_object.get("tvdb_meta_hash") and db_object.get("tvdb_meta_hash") != self.tvdb_api.meta_hash
         )
 
     def _fanart_needs_update(self, db_object):

@@ -9,7 +9,7 @@ import xbmcvfs
 
 from resources.lib.common import tools
 from resources.lib.database.providerCache import ProviderCache
-from resources.lib.modules.exceptions import RanOnceAlready
+from resources.lib.modules.exceptions import LockTimeout, RanOnceAlready
 from resources.lib.modules.global_lock import GlobalLock
 from resources.lib.modules.globals import g
 from resources.lib.modules.providers.settings import SettingsManager
@@ -37,9 +37,9 @@ class CustomProviders(ProviderCache):
         self.provider_types = ["torrent", "hosters", "adaptive", "direct"]
 
         try:
-            with GlobalLock(self.__class__.__name__, True):
+            with GlobalLock(self.__class__.__name__, True, timeout=5):
                 self._init_providers()
-        except RanOnceAlready:
+        except (RanOnceAlready, LockTimeout):
             pass
         self.poll_database()
         self.provider_settings = SettingsManager()

@@ -1127,7 +1127,7 @@ class TraktSyncDatabase(Database):
                 WHERE TRUE
                 """
             if hide_unaired:
-                query += f" AND Datetime(air_date) < Datetime('{self._get_datetime_now()}')"
+                query += f" AND (air_date IS NULL OR Datetime(air_date) < Datetime('{self._get_datetime_now()}'))"
             if hide_watched:
                 if media_type == "movies":
                     query += " AND watched = 0"

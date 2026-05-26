@@ -193,6 +193,13 @@ class SkipHandler:
 
             api_key = (g.get_setting("skip.theIntroDbApiKey") or "").strip() or None
 
+            # duration in info is Kodi seconds; v3 API takes milliseconds
+            duration_sec = self._info.get("duration")
+            try:
+                duration_ms = int(duration_sec) * 1000 if duration_sec else None
+            except (TypeError, ValueError):
+                duration_ms = None
+
             data = query_segments(
                 tmdb_id=tmdb_id,
                 imdb_id=imdb_id,
@@ -200,6 +207,7 @@ class SkipHandler:
                 episode=episode,
                 is_movie=self.is_movie,
                 api_key=api_key,
+                duration_ms=duration_ms,
             )
             if not data:
                 return

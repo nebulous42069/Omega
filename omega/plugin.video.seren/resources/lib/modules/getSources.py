@@ -65,13 +65,15 @@ SCRAPER_TIERS = {
     'torrentio': 2,
     # Tier 3 — Stremio Direct-Alt (Comet, MediaFusion, Meteor — standalone Stremio scrapers)
     'comet': 3, 'mediafusion': 3, 'meteor': 3,
-    # Tier 4 — Large Indexed DBs (IMDB API + meta-search, fast JSON/XML APIs)
-    'bitmagnet': 4, 'bitsearch': 4, 'dmm': 4, 'knaben': 4, 'torrentsdb': 4, 'torrentz2': 4, 'torz': 4, 'zilean': 4,
-    # Tier 5 — Reliable public trackers
-    'eztv': 5, 'kickass2': 5, 'leet': 5, 'piratebay': 5, 'yts': 5,
-    # Tier 6 — Slow or unreliable
-    'kickass': 6, 'magnetdl': 6, 'showrss': 6,
-    'torrentdownload': 6, 'torrentproject2': 6,
+    # Tier 4 — IMDB Hash Lookup (debrid-optimized IMDB-ID hash lookup, instant JSON APIs)
+    'bitmagnet': 4, 'dmm': 4, 'torrentsdb': 4, 'torz': 4, 'zilean': 4,
+    # Tier 5 — Keyword Scrapers (title-based text search, broader coverage)
+    'bitsearch': 5, 'knaben': 5, 'torrentz2': 5,
+    # Tier 6 — Reliable public trackers
+    'eztv': 6, 'kickass2': 6, 'leet': 6, 'piratebay': 6, 'yts': 6,
+    # Tier 7 — Slow or unreliable
+    'kickass': 7, 'magnetdl': 7, 'showrss': 7,
+    'torrentdownload': 7, 'torrentproject2': 7,
 }
 
 # Scrapers to skip entirely — these providers are ignored even if installed in the package
@@ -467,8 +469,8 @@ class Sources:
         already collected and ready for their own cache check.
 
         Anime-aware tier ordering:
-        - Non-anime: Tier 2 → 3 (Comet/MF/Meteor) → 4 → 5 → 6 (skip Tier 1 anime scrapers entirely)
-        - Anime: Tier 1 → 2 → 3 → 4 → 5 → 6
+        - Non-anime: Tier 2 → 3 (Comet/MF/Meteor) → 4 → 5 → 6 → 7 (skip Tier 1 anime scrapers entirely)
+        - Anime: Tier 1 → 2 → 3 → 4 → 5 → 6 → 7
 
         Provider Performance Learning (when enabled):
         - Providers within each tier are sorted by performance score (best first)
@@ -510,7 +512,7 @@ class Sources:
                 continue
             # Handle parenthesized names if any provider uses that convention
             base_name = provider_name.split('(')[0].strip() if '(' in provider_name else provider_name
-            tier = SCRAPER_TIERS.get(provider_name, SCRAPER_TIERS.get(base_name, 6))
+            tier = SCRAPER_TIERS.get(provider_name, SCRAPER_TIERS.get(base_name, 7))
             tier_groups.setdefault(tier, []).append(provider)
 
         if perf_skipped:

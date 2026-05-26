@@ -1,20 +1,25 @@
-from resources.lib.modules.exceptions import RanOnceAlready
+import time
+
+from resources.lib.modules.exceptions import LockTimeout, RanOnceAlready
 from resources.lib.modules.globals import g
 
 
 class GlobalLock:
-    def __init__(self, lock_name, run_once=False, check_sum=None):
+    def __init__(self, lock_name, run_once=False, check_sum=None, timeout=None):
         self._lock_name = lock_name
         self._run_once = run_once
         self._lock_format = "{}.GlobalLock.{}.{}"
         self._check_sum = check_sum or 'global'
+        self._timeout = timeout  # seconds; None = wait forever
 
     def _create_key(self, value):
         return self._lock_format.format(g.ADDON_NAME, self._lock_name, value)
 
     def _run(self):
+        deadline = None if self._timeout is None else (time.monotonic() + self._timeout)
         while not g.abort_requested() and self._running() and not g.wait_for_abort(0.100):
-            pass
+            if deadline is not None and time.monotonic() >= deadline:
+                raise LockTimeout(f"Lock name: {self._lock_name}")
         g.set_runtime_setting(self._create_key("Running"), True)
         self._check_ran_once_already()
 

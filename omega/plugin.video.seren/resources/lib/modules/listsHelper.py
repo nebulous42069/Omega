@@ -51,7 +51,7 @@ class ListsHelper:
     def my_liked_lists(self, media_type):
         self._create_list_menu(
             self.lists_database.extract_trakt_page(
-                'users/likes/lists', media_type, page=g.PAGE, no_paging=self.no_paging, pull_all=True, ignore_cache=True
+                'users/me/likes/lists', media_type, page=g.PAGE, no_paging=self.no_paging, pull_all=True, ignore_cache=True
             ),
             media_type=media_type,
         )

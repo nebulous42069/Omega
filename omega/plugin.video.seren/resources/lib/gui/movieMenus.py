@@ -8,6 +8,8 @@ from resources.lib.common import tools
 from resources.lib.indexers import trakt_auth_guard
 from resources.lib.modules.globals import g
 
+_PERIOD_ENDPOINTS = frozenset({"played", "watched", "collected"})
+
 
 class Menus:
     def __init__(self):
@@ -233,7 +235,10 @@ class Menus:
         g.close_directory(g.CONTENT_MENU)
 
     def generic_endpoint(self, endpoint):
-        trakt_list = self.movies_database.extract_trakt_page(f"movies/{endpoint}", extended="full", page=g.PAGE)
+        trakt_endpoint = f"movies/{endpoint}"
+        if endpoint in _PERIOD_ENDPOINTS:
+            trakt_endpoint += "/weekly"
+        trakt_list = self.movies_database.extract_trakt_page(trakt_endpoint, extended="full", page=g.PAGE)
         self.list_builder.movie_menu_builder(trakt_list)
 
     def movie_popular_recent(self):
@@ -278,8 +283,10 @@ class Menus:
             ignore_cache=True,
             no_paging=paginate,
             pull_all=True,
+            hide_unaired=False,
+            hide_watched=False,
         )
-        self.list_builder.movie_menu_builder(trakt_list, no_paging=paginate)
+        self.list_builder.movie_menu_builder(trakt_list, no_paging=paginate, hide_unaired=False, hide_watched=False)
 
     @trakt_auth_guard
     def movies_recommended(self):

@@ -4247,20 +4247,20 @@ msgid "Largest single Stremio index with direct JSON API. Provider: Torrentio."
 msgstr "Largest single Stremio index with direct JSON API. Provider: Torrentio."
 
 msgctxt "#30801"
-msgid "Tier 4 — Large Indexed DBs"
-msgstr "Tier 4 — Large Indexed DBs"
+msgid "Tier 4 — IMDB Hash Lookup"
+msgstr "Tier 4 — IMDB Hash Lookup"
 
 msgctxt "#30802"
-msgid "IMDB API indexes and meta-search engines with fast JSON/XML APIs. Providers: Bitmagnet, Bitsearch, DMM, Knaben, TorrentsDB, Torrentz2, Torz, Zilean."
-msgstr "IMDB API indexes and meta-search engines with fast JSON/XML APIs. Providers: Bitmagnet, Bitsearch, DMM, Knaben, TorrentsDB, Torrentz2, Torz, Zilean."
+msgid "Debrid-optimized scrapers that resolve torrents by IMDB ID with fast JSON APIs. Providers: Bitmagnet, DMM, TorrentsDB, Torz, Zilean."
+msgstr "Debrid-optimized scrapers that resolve torrents by IMDB ID with fast JSON APIs. Providers: Bitmagnet, DMM, TorrentsDB, Torz, Zilean."
 
 msgctxt "#30803"
-msgid "Tier 5 — Public Trackers"
-msgstr "Tier 5 — Public Trackers"
+msgid "Tier 5 — Keyword Scrapers"
+msgstr "Tier 5 — Keyword Scrapers"
 
 msgctxt "#30804"
-msgid "Reliable public torrent trackers. Providers: EZTV, Kickass2, 1337x, PirateBay, YTS."
-msgstr "Reliable public torrent trackers. Providers: EZTV, Kickass2, 1337x, PirateBay, YTS."
+msgid "Title-based keyword search scrapers with broader coverage. Providers: Bitsearch, Knaben, Torrentz2."
+msgstr "Title-based keyword search scrapers with broader coverage. Providers: Bitsearch, Knaben, Torrentz2."
 
 msgctxt "#30807"
 msgid "Tier 3 — Stremio Aggregator"
@@ -4271,12 +4271,12 @@ msgid "Aggregates Comet, MediaFusion, and Meteor through a single API with paral
 msgstr "Aggregates Comet, MediaFusion, and Meteor through a single API with parallel fallback. Provider: AIOStreams."
 
 msgctxt "#30809"
-msgid "Tier 6 — Slow / Unreliable"
-msgstr "Tier 6 — Slow / Unreliable"
+msgid "Tier 6 — Public Trackers"
+msgstr "Tier 6 — Public Trackers"
 
 msgctxt "#30810"
-msgid "Scrapers with frequent downtime or slow response times. Providers: Kickass, MagnetDL, ShowRSS, TorrentDownload, TorrentProject2."
-msgstr "Scrapers with frequent downtime or slow response times. Providers: Kickass, MagnetDL, ShowRSS, TorrentDownload, TorrentProject2."
+msgid "Reliable public torrent trackers. Providers: EZTV, Kickass2, 1337x, PirateBay, YTS."
+msgstr "Reliable public torrent trackers. Providers: EZTV, Kickass2, 1337x, PirateBay, YTS."
 
 msgctxt "#30811"
 msgid "Easynews"
@@ -4542,8 +4542,8 @@ msgid "Auto-Skip Intro (no prompt)"
 msgstr "Auto-Skip Intro (no prompt)"
 
 msgctxt "#30906"
-msgid "When enabled, intros are skipped silently without showing a Skip button. Recap/Credits/Preview always show the button — auto-skipping those is rarely what you want."
-msgstr "When enabled, intros are skipped silently without showing a Skip button. Recap/Credits/Preview always show the button — auto-skipping those is rarely what you want."
+msgid "When enabled, intros are skipped silently without showing a Skip button."
+msgstr "When enabled, intros are skipped silently without showing a Skip button."
 
 msgctxt "#30907"
 msgid "Skip Offset (seconds)"
@@ -4608,3 +4608,40 @@ msgstr "Production"
 msgctxt "#30923"
 msgid "Dev / Beta"
 msgstr "Dev / Beta"
+
+msgctxt "#30924"
+msgid "Auto-Skip Recap (no prompt)"
+msgstr "Auto-Skip Recap (no prompt)"
+
+msgctxt "#30925"
+msgid "When enabled, recap segments are skipped silently without showing a Skip button."
+msgstr "When enabled, recap segments are skipped silently without showing a Skip button."
+
+msgctxt "#30926"
+msgid "Auto-Skip Credits (no prompt)"
+msgstr "Auto-Skip Credits (no prompt)"
+
+msgctxt "#30927"
+msgid "When enabled, credits segments are skipped silently. End-of-media credits trigger Playing Next automatically."
+msgstr "When enabled, credits segments are skipped silently. End-of-media credits trigger Playing Next automatically."
+
+msgctxt "#30928"
+msgid "Auto-Skip Preview (no prompt)"
+msgstr "Auto-Skip Preview (no prompt)"
+
+msgctxt "#30929"
+msgid "When enabled, preview segments are skipped silently. End-of-media previews trigger Playing Next automatically."
+msgstr "When enabled, preview segments are skipped silently. End-of-media previews trigger Playing Next automatically."
+
+
+msgctxt "#30930"
+msgid "TVDB Subscriber PIN"
+msgstr "TVDB Subscriber PIN"
+
+msgctxt "#30931"
+msgid "Tier 7 — Slow / Unreliable"
+msgstr "Tier 7 — Slow / Unreliable"
+
+msgctxt "#30932"
+msgid "Scrapers with frequent downtime or slow response times. Providers: Kickass, MagnetDL, ShowRSS, TorrentDownload, TorrentProject2."
+msgstr "Scrapers with frequent downtime or slow response times. Providers: Kickass, MagnetDL, ShowRSS, TorrentDownload, TorrentProject2."

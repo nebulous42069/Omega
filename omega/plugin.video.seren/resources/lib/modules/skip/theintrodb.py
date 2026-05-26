@@ -1,14 +1,15 @@
 """TheIntroDB API client — community-submitted intro/recap/credits/preview timestamps.
 
-API docs: https://api.theintrodb.org/v2
-Endpoint: GET /media?tmdb_id={id}[&season={s}&episode={e}]
-         or GET /media?imdb_id=tt{id}[&season={s}&episode={e}]
+API docs: https://api.theintrodb.org/v3
+Endpoint: GET /media?tmdb_id={id}[&season={s}&episode={e}][&duration_ms={ms}]
+         or GET /media?imdb_id=tt{id}[&season={s}&episode={e}][&duration_ms={ms}]
 
 Returns segments grouped by type:
 - intro / recap: start can be null (treated as 0); end required
 - credits / preview: start required; end can be null (means "end of media")
 
 No auth required for low-volume use; optional Bearer API key for higher rate limits.
+duration_ms (v3): media duration in milliseconds; improves segment accuracy.
 """
 
 import time
@@ -18,7 +19,7 @@ import requests
 
 from resources.lib.modules.globals import g
 
-_API_BASE = "https://api.theintrodb.org/v2"
+_API_BASE = "https://api.theintrodb.org/v3"
 _MIN_REQUEST_GAP = 0.4  # seconds between requests
 _REQUEST_TIMEOUT = 8
 
@@ -94,8 +95,17 @@ def _do_request(url, api_key=None):
         return None
 
 
-def _build_url(tmdb_id, imdb_id, season, episode, is_movie):
+def _build_url(tmdb_id, imdb_id, season, episode, is_movie, duration_ms=None):
     """Build the /media query URL. Prefers TMDB id, falls back to IMDb."""
+    dur_q = ""
+    try:
+        if duration_ms is not None:
+            dur_int = int(duration_ms)
+            if dur_int > 0:
+                dur_q = f"&duration_ms={dur_int}"
+    except (TypeError, ValueError):
+        pass
+
     # TMDB path
     if tmdb_id:
         try:
@@ -107,13 +117,13 @@ def _build_url(tmdb_id, imdb_id, season, episode, is_movie):
 
         if tid:
             if is_movie:
-                return f"{_API_BASE}/media?tmdb_id={tid}", "tmdb"
+                return f"{_API_BASE}/media?tmdb_id={tid}{dur_q}", "tmdb"
             try:
                 s = int(season)
                 e = int(episode)
                 if s > 0 and e > 0:
                     return (
-                        f"{_API_BASE}/media?tmdb_id={tid}&season={s}&episode={e}",
+                        f"{_API_BASE}/media?tmdb_id={tid}&season={s}&episode={e}{dur_q}",
                         "tmdb",
                     )
             except (TypeError, ValueError):
@@ -124,13 +134,13 @@ def _build_url(tmdb_id, imdb_id, season, episode, is_movie):
         imdb = str(imdb_id).strip()
         if imdb.startswith("tt"):
             if is_movie:
-                return f"{_API_BASE}/media?imdb_id={imdb}", "imdb"
+                return f"{_API_BASE}/media?imdb_id={imdb}{dur_q}", "imdb"
             try:
                 s = int(season)
                 e = int(episode)
                 if s > 0 and e > 0:
                     return (
-                        f"{_API_BASE}/media?imdb_id={imdb}&season={s}&episode={e}",
+                        f"{_API_BASE}/media?imdb_id={imdb}&season={s}&episode={e}{dur_q}",
                         "imdb",
                     )
             except (TypeError, ValueError):
@@ -188,7 +198,7 @@ def _pick_best_segments(raw, segment_type):
 
 
 def query_segments(tmdb_id=None, imdb_id=None, season=None, episode=None,
-                   is_movie=False, api_key=None):
+                   is_movie=False, api_key=None, duration_ms=None):
     """Fetch all segment types for a media item.
 
     Returns:
@@ -196,7 +206,7 @@ def query_segments(tmdb_id=None, imdb_id=None, season=None, episode=None,
             {'intro': [{'start': 0.0, 'end': 95.5, 'score': 0.85}], 'credits': [...]}
         Empty dict on failure or if media not in DB.
     """
-    url, mode = _build_url(tmdb_id, imdb_id, season, episode, is_movie)
+    url, mode = _build_url(tmdb_id, imdb_id, season, episode, is_movie, duration_ms=duration_ms)
     if not url:
         if tmdb_id or imdb_id:
             g.log("TheIntroDB: need TMDB id, or IMDb tt… id with season/episode for TV", "debug")

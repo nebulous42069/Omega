@@ -70,8 +70,9 @@ class TorBoxResolver(TorrentResolverBase):
     def _fetch_nzb_files(self, torrent, nzb_url):
         """Fetch file list from TorBox for an NZB source.
 
-        Pipeline: add_nzb(url) → usenet_info(id) → file list with usenet: composite links.
+        Pipeline: add_nzb(url) → poll usenet_info(id) → file list with usenet: composite links.
         Reference: POV torbox_api.py resolve_nzb()."""
+        import xbmc
         from resources.lib.modules.exceptions import CloudMiss
 
         self._is_usenet = True
@@ -87,8 +88,20 @@ class TorBoxResolver(TorrentResolverBase):
         if not self._usenet_id:
             raise CloudMiss("torbox", torrent.get("hash", ""))
 
-        usenet_info = self.debrid_module.usenet_info(self._usenet_id)
-        if not usenet_info or "files" not in usenet_info:
+        # Poll until TorBox has indexed the files (cached NZBs are usually instant,
+        # uncached ones need time to download from usenet first).
+        usenet_info = None
+        for _ in range(30):
+            xbmc.sleep(1000)
+            info = self.debrid_module.usenet_info(self._usenet_id)
+            if info and info.get("files"):
+                usenet_info = info
+                break
+            state = (info or {}).get("download_state", "")
+            if state in ("error", "failed"):
+                break
+
+        if not usenet_info:
             self.debrid_module.delete_usenet(self._usenet_id)
             raise CloudMiss("torbox", torrent.get("hash", ""))
 

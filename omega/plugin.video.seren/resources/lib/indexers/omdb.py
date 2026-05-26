@@ -44,7 +44,7 @@ def omdb_guard_response(func):
             )
 
             return None
-        except requests.exceptions.ConnectionError as e:
+        except (requests.exceptions.ConnectionError, requests.exceptions.Timeout) as e:
             g.log(f"Connection Error to OMDb: {args} - {kwarg}", "error")
             g.log(e, "error")
             return None
@@ -182,6 +182,7 @@ class OmdbApi(ApiBase):
             total=5,
             backoff_factor=0.1,
             status_forcelist=[500, 503, 504, 520, 521, 522, 524],
+            read=False,  # Don't retry on ReadTimeout — fail fast at first timeout
         )
         session.mount("https://", HTTPAdapter(max_retries=retries, pool_maxsize=100))
         return session

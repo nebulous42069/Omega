@@ -36,7 +36,7 @@ class TraktSyncDatabase(trakt_sync.TraktSyncDatabase):
             """
 
         if params.get("hide_unaired", self.hide_unaired):
-            query += f" AND Datetime(air_date) < Datetime('{self._get_datetime_now()}')"
+            query += f" AND (air_date IS NULL OR Datetime(air_date) < Datetime('{self._get_datetime_now()}'))"
         if params.get("hide_watched", self.hide_watched):
             query += " AND watched = 0"
 

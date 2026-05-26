@@ -179,6 +179,11 @@ class RanOnceAlready(RuntimeError):
     pass
 
 
+class LockTimeout(RuntimeError):
+    """Raised when GlobalLock times out waiting for the lock to become available."""
+    pass
+
+
 class AuthFailure(RuntimeError):
     def __init__(self, message):
         super().__init__(message)

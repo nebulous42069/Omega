@@ -1529,8 +1529,8 @@ def dispatch(params):
         try:
             anidb_id = int(params.get("anidb_id", 0))
             if anidb_id:
-                from resources.lib.gui.tvshowMenus import TVShowMenus
-                TVShowMenus().anime_related_shows(anidb_id)
+                from resources.lib.gui.tvshowMenus import Menus
+                Menus().anime_related_shows(anidb_id)
         except Exception as e:
             g.log(f"animeRelated error: {e}", "warning")
 

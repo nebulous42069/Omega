@@ -9,6 +9,8 @@ from resources.lib.common import tools
 from resources.lib.indexers import trakt_auth_guard
 from resources.lib.modules.globals import g
 
+_PERIOD_ENDPOINTS = frozenset({"played", "watched", "collected"})
+
 
 class Menus:
     def __init__(self):
@@ -280,8 +282,16 @@ class Menus:
         g.close_directory(g.CONTENT_MENU)
 
     def generic_endpoint(self, endpoint):
-        trakt_list = self.shows_database.extract_trakt_page(f"shows/{endpoint}", page=g.PAGE, extended="full")
-        self.list_builder.show_list_builder(trakt_list)
+        trakt_endpoint = f"shows/{endpoint}"
+        if endpoint in _PERIOD_ENDPOINTS:
+            trakt_endpoint += "/weekly"
+        # "anticipated" shows have future air_dates by definition — bypass the
+        # hide_unaired filter so they are not silently filtered out entirely.
+        hide_unaired = endpoint != "anticipated"
+        trakt_list = self.shows_database.extract_trakt_page(
+            trakt_endpoint, page=g.PAGE, extended="full", hide_unaired=hide_unaired, hide_watched=False
+        )
+        self.list_builder.show_list_builder(trakt_list, hide_unaired=hide_unaired, hide_watched=False)
 
     def shows_popular_recent(self):
         year_range = f"{datetime.datetime.now().year - 1}-{datetime.datetime.now().year}"
@@ -320,8 +330,10 @@ class Menus:
             ignore_cache=True,
             no_paging=paginate,
             pull_all=True,
+            hide_unaired=False,
+            hide_watched=False,
         )
-        self.list_builder.show_list_builder(trakt_list, no_paging=paginate)
+        self.list_builder.show_list_builder(trakt_list, no_paging=paginate, hide_unaired=False, hide_watched=False)
 
     @trakt_auth_guard
     def my_show_progress(self):
@@ -347,7 +359,7 @@ class Menus:
         hidden_items = self.hidden_database.get_hidden_items("recommendations", "shows")
         date_string = datetime.datetime.now() - datetime.timedelta(days=29)
         trakt_list = self.shows_database.extract_trakt_page(
-            f"calendars/all/shows/new/{date_string.strftime('%d-%m-%Y')}/30",
+            f"calendars/all/shows/new/{date_string.strftime('%Y-%m-%d')}/30",
             languages=','.join({'en', g.get_language_code()}),
             extended="full",
             pull_all=True,
@@ -371,11 +383,13 @@ class Menus:
         hidden_shows = self.hidden_database.get_hidden_items("calendar", "shows")
         date_string = datetime.datetime.now() - datetime.timedelta(days=13)
         trakt_list = self.trakt_api.get_json(
-            f"calendars/my/shows/{date_string.strftime('%d-%m-%Y')}/14", extended="full", pull_all=True
+            f"calendars/my/shows/{date_string.strftime('%Y-%m-%d')}/14", extended="full", pull_all=True
         )
+        if trakt_list is None:
+            trakt_list = []
         trakt_list = sorted(
-            [i for i in trakt_list if i["trakt_show_id"] not in hidden_shows],
-            key=lambda t: t["first_aired"],
+            [i for i in trakt_list if i.get("trakt_show_id") not in hidden_shows],
+            key=lambda t: (t.get("first_aired") or ""),
             reverse=True,
         )
 
@@ -386,7 +400,10 @@ class Menus:
         tomorrow = g.datetime_to_string(datetime.date.today() + datetime.timedelta(days=1))
         upcoming_episodes = self.trakt_api.get_json(
             f"calendars/my/shows/{tomorrow}/30", extended="full", pull_all=True
-        )[: self.page_limit]
+        )
+        if upcoming_episodes is None:
+            upcoming_episodes = []
+        upcoming_episodes = upcoming_episodes[: self.page_limit]
         self.list_builder.mixed_episode_builder(
             upcoming_episodes, prepend_date=True, no_paging=True, hide_unaired=False
         )

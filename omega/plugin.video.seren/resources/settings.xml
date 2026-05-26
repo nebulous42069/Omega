@@ -1982,6 +1982,11 @@
 					<default>true</default>
 					<control type="toggle"/>
 				</setting>
+				<setting id="scraping.tier7" type="boolean" label="30931" help="30932">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
 			</group>
 		</category>
 		<category id="scraping" label="30110" help="">
@@ -3309,6 +3314,21 @@
 					<default>false</default>
 					<control type="toggle"/>
 				</setting>
+				<setting id="skip.autoRecap" type="boolean" label="30924" help="30925">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="skip.autoCredits" type="boolean" label="30926" help="30927">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="skip.autoPreview" type="boolean" label="30928" help="30929">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
 				<setting id="skip.offset" type="integer" label="30907" help="30908">
 					<level>0</level>
 					<default>0</default>
@@ -3805,6 +3825,16 @@
 					</constraints>
 					<control type="edit" format="string">
 						<heading>30147</heading>
+					</control>
+				</setting>
+				<setting id="tvdb.pin" type="string" label="30930" help="">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="edit" format="string">
+						<heading>30930</heading>
 					</control>
 				</setting>
 				<setting id="trakt.clientid" type="string" label="30145" help="">
