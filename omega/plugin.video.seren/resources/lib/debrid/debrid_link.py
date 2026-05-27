@@ -50,6 +50,8 @@ def debridlink_guard_response(func):
 
         try:
             response = func(*args, **kwarg)
+            if response is None:
+                return None
             if response.status_code in [200, 201]:
                 return response
 
@@ -58,6 +60,8 @@ def debridlink_guard_response(func):
                 if dl and isinstance(dl, DebridLink):
                     dl.refresh_token()
                     response = func(*args, **kwarg)
+                    if response is None:
+                        return None
                     if response.status_code in [200, 201]:
                         return response
 
@@ -65,6 +69,8 @@ def debridlink_guard_response(func):
                 g.log("Debrid-Link Throttling Applied, Sleeping for 2 seconds")
                 xbmc.sleep(2 * 1000)
                 response = func(*args, **kwarg)
+                if response is None:
+                    return None
 
             g.log(
                 f"Debrid-Link returned a {response.status_code} "
@@ -292,11 +298,17 @@ class DebridLink:
         return self.get_json("account/infos")
 
     def store_user_info(self):
-        user_info = self.get_user_info()
-        if user_info is not None:
-            username = user_info.get("pseudo", "") or user_info.get("email", "")
-            g.set_setting(DL_USERNAME_KEY, username)
-            g.set_setting(DL_STATUS_KEY, self.get_account_status().title())
+        resp = self.session.get(
+            parse.urljoin(self.base_url, "account/infos"),
+            headers=self._headers(),
+            timeout=20,
+        )
+        if resp and resp.ok:
+            user_info = self._extract_value(resp)
+            if isinstance(user_info, dict):
+                username = user_info.get("pseudo", "") or user_info.get("email", "")
+                g.set_setting(DL_USERNAME_KEY, username)
+                g.set_setting(DL_STATUS_KEY, self.get_account_status(user_info).title())
 
     @staticmethod
     def is_service_enabled():
@@ -306,8 +318,9 @@ class DebridLink:
             and g.get_setting(DL_TOKEN_KEY) != ""
         )
 
-    def get_account_status(self):
-        user_info = self.get_user_info()
+    def get_account_status(self, user_info=None):
+        if user_info is None:
+            user_info = self.get_user_info()
         if not isinstance(user_info, dict):
             return "unknown"
         premium_left = user_info.get("premiumLeft", 0)
@@ -336,9 +349,25 @@ class DebridLink:
         """
         Fetch account info from Debrid-Link API and display in a select dialog.
         Mirrors Account Manager's DebridLink.account_info_to_dialog() format.
+        Bypasses the enabled-check guard and handles token refresh on 401.
         """
         try:
-            user_info = self.get_user_info()
+            resp = self.session.get(
+                parse.urljoin(self.base_url, "account/infos"),
+                headers=self._headers(),
+                timeout=20,
+            )
+            if resp and resp.status_code == 401:
+                self.refresh_token()
+                resp = self.session.get(
+                    parse.urljoin(self.base_url, "account/infos"),
+                    headers=self._headers(),
+                    timeout=20,
+                )
+            if not (resp and resp.ok):
+                xbmcgui.Dialog().ok(g.ADDON_NAME, "Debrid-Link: Could not retrieve account information.")
+                return
+            user_info = self._extract_value(resp)
             if not isinstance(user_info, dict):
                 xbmcgui.Dialog().ok(g.ADDON_NAME, "Debrid-Link: Could not retrieve account information.")
                 return

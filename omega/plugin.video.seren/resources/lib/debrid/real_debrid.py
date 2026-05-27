@@ -106,7 +106,7 @@ class RealDebrid:
             self.token_request()
 
             user_information = self.get_url("user")
-            if user_information["type"] != "premium":
+            if user_information and user_information.get("type") != "premium":
                 xbmcgui.Dialog().ok(g.ADDON_NAME, g.get_language_string(30194))
 
     def token_request(self):
@@ -137,7 +137,8 @@ class RealDebrid:
         g.set_setting(RD_EXPIRY_KEY, self.expiry)
 
     def _save_user_status(self):
-        username = self.get_url("user").get("username")
+        user_info = self.get_url("user")
+        username = user_info.get("username") if user_info else ""
         status = self.get_account_status().title()
         g.set_setting(RD_USERNAME_KEY, username)
         g.set_setting(RD_STATUS_KEY, status)

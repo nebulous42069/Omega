@@ -21,6 +21,8 @@ def alldebrid_guard_response(func):
 
         try:
             response = func(*args, **kwarg)
+            if response is None:
+                return None
             if response.status_code in [200, 201]:
                 return response
 
@@ -28,6 +30,8 @@ def alldebrid_guard_response(func):
                 g.log('Alldebrid Throttling Applied, Sleeping for 1 seconds')
                 xbmc.sleep(1 * 1000)
                 response = func(*args, **kwarg)
+                if response is None:
+                    return None
                 # Check the retry response — if it succeeded, return it.
                 # Previous code fell through to the log+return-None path even
                 # on a successful retry, silently discarding the valid response.
@@ -136,6 +140,9 @@ class AllDebrid:
         return response["data"] if "data" in response else response
     def auth(self):
         resp = self.get_json("pin/get", reauth=True)
+        if not resp or "expires_in" not in resp:
+            xbmcgui.Dialog().ok(g.ADDON_NAME, g.get_language_string(30024).format("AllDebrid"))
+            return
         expiry = pin_ttl = int(resp["expires_in"])
         auth_complete = False
         auth_check = None
@@ -158,6 +165,9 @@ class AllDebrid:
 
             while not auth_complete and expiry > 0 and not progress_dialog.iscanceled():
                 auth_check = self.get_json("pin/check", check=resp["check"], pin=resp["pin"])
+                if not auth_check or "activated" not in auth_check:
+                    xbmc.sleep(1 * 1000)
+                    continue
                 if auth_check["activated"]:
                     auth_complete = True
                     break
@@ -382,8 +392,9 @@ class AllDebrid:
     def is_service_enabled():
         return g.get_bool_setting(AD_ENABLED_KEY) and g.get_setting(AD_AUTH_KEY) is not None
 
-    def get_account_status(self):
-        user_info = self.get_user_info()
+    def get_account_status(self, user_info=None):
+        if user_info is None:
+            user_info = self.get_user_info()
         if not isinstance(user_info, dict):
             return "unknown"
 
@@ -420,10 +431,18 @@ class AllDebrid:
         """
         Fetch account info from AllDebrid API and display in a select dialog.
         Mirrors Account Manager's AllDebrid.account_info_to_dialog() format.
+        Bypasses the enabled-check guard so it works even when alldebrid.enabled=false.
         """
         from datetime import datetime
         try:
-            user_info = self.get_user_info()
+            full_url = parse.urljoin(self.base_url, "user")
+            headers = {"Authorization": "Bearer %s" % self.apikey} if self.apikey else {}
+            resp = self.session.get(full_url, headers=headers, timeout=20)
+            if not (resp and resp.ok):
+                xbmcgui.Dialog().ok(g.ADDON_NAME, "AllDebrid: Could not retrieve account information.")
+                return
+            data = self._extract_data(resp.json())
+            user_info = data.get("user", {}) if isinstance(data, dict) else {}
             if not isinstance(user_info, dict) or not user_info:
                 xbmcgui.Dialog().ok(g.ADDON_NAME, "AllDebrid: Could not retrieve account information.")
                 return
@@ -438,7 +457,7 @@ class AllDebrid:
             lines = [
                 "Username:  %s" % user_info.get("username", "N/A"),
                 "Email:     %s" % user_info.get("email", "N/A"),
-                "Status:    %s" % self.get_account_status().capitalize(),
+                "Status:    %s" % self.get_account_status(user_info).capitalize(),
                 "Expires:   %s" % expires_str,
                 "Days left: %s" % days_remaining,
             ]

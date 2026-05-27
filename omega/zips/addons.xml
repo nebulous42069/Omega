@@ -996,7 +996,7 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.sc19
         <disclaimer lang="de_DE">(c) 2025 aitschti</disclaimer>
         <reuselanguageinvoker>false</reuselanguageinvoker>
     </extension>
-</addon><addon id="plugin.video.seren" version="4.3.156" name="Seren" provider-name="Nixgates">
+</addon><addon id="plugin.video.seren" version="4.3.159" name="Seren" provider-name="Nixgates">
     <requires>
         <import addon="xbmc.addon" version="17.9.910" />
         <import addon="xbmc.python" version="3.0.0" />
@@ -2427,7 +2427,7 @@ v0.2.4
 v0.2.3
 - Add a Kodi settings action button to start Google Drive pairing directly from the add-on UI</news>
   </extension>
-</addon><addon id="service.multistaller" name="Multi Installer" version="420" provider-name="Zaxxon709">
+</addon><addon id="service.multistaller" name="Multi Installer" version="421" provider-name="Zaxxon709, Diggz">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0" />
 	</requires>

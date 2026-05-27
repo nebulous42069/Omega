@@ -34,9 +34,5 @@
     },
     "Addon12": {
             "plugin_id": "resource.images.studios.coloured"
-    },
-    },
-    "Addon13": {
-            "plugin_id": "script.wikipedia"
     }
 }

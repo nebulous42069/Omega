@@ -198,10 +198,16 @@ class TorBox:
         return self.get_json("user/me")
 
     def store_user_info(self):
-        user_info = self.get_user_info()
-        if user_info is not None:
-            g.set_setting(TB_USERNAME_KEY, user_info.get("email", ""))
-            g.set_setting(TB_STATUS_KEY, self.get_account_status().title())
+        resp = self.session.get(
+            parse.urljoin(self.base_url, "user/me"),
+            headers=self._headers(),
+            timeout=20,
+        )
+        if resp and resp.ok:
+            user_info = self._extract_data(resp.json(), "user/me")
+            if isinstance(user_info, dict):
+                g.set_setting(TB_USERNAME_KEY, user_info.get("email", ""))
+                g.set_setting(TB_STATUS_KEY, self.get_account_status(user_info).title())
 
     @staticmethod
     def is_service_enabled():
@@ -211,8 +217,9 @@ class TorBox:
             and g.get_setting(TB_TOKEN_KEY) != ""
         )
 
-    def get_account_status(self):
-        user_info = self.get_user_info()
+    def get_account_status(self, user_info=None):
+        if user_info is None:
+            user_info = self.get_user_info()
         if not isinstance(user_info, dict):
             return "unknown"
 
@@ -258,10 +265,20 @@ class TorBox:
         """
         Fetch account info from TorBox API and display in a select dialog.
         Mirrors Account Manager's TorBox.account_info_to_dialog() format.
+        Bypasses the enabled-check guard so it works even when torbox.enabled=false
+        (e.g. immediately after auth before the user re-enables the service).
         """
         from datetime import datetime, timezone
         try:
-            user_info = self.get_user_info()
+            resp = self.session.get(
+                parse.urljoin(self.base_url, "user/me"),
+                headers=self._headers(),
+                timeout=20,
+            )
+            if not (resp and resp.ok):
+                xbmcgui.Dialog().ok(g.ADDON_NAME, "TorBox: Could not retrieve account information.")
+                return
+            user_info = self._extract_data(resp.json(), "user/me")
             if not isinstance(user_info, dict):
                 xbmcgui.Dialog().ok(g.ADDON_NAME, "TorBox: Could not retrieve account information.")
                 return
@@ -283,7 +300,7 @@ class TorBox:
             lines = [
                 "Email:     %s" % user_info.get("email", "N/A"),
                 "Plan:      %s" % plan_str,
-                "Status:    %s" % self.get_account_status().capitalize(),
+                "Status:    %s" % self.get_account_status(user_info).capitalize(),
                 "Expires:   %s" % expires_str,
                 "Days left: %s" % days_remaining,
             ]
