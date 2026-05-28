@@ -1,0 +1,447 @@
+# Addon Name: ResolveURL
+# Addon id: script.module.resolveurl
+# Addon Provider:
+# Translators:
+# Anton G, 2017
+# Zvonimir Brajković, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2017-10-18 18:47+0200\n"
+"Last-Translator: gogo\n"
+"Language-Team: Croatian ()\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hr\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Poedit 2.0.4\n"
+
+msgctxt "#33000"
+msgid "Move Red square over play icon and submit"
+msgstr "Pomaknite Crveni kvadrat preko ikone za reprodukciju i pošaljite"
+
+msgctxt "#33001"
+msgid "To play this video, authorization is required"
+msgstr "Za reprodukciju ovog videa, potrebna je ovjera"
+
+msgctxt "#33002"
+msgid "Visit the link below to authorize the devices on your network:"
+msgstr "Posjetite poveznicu ispod za ovjeru uređaja na vašoj mreži:"
+
+msgctxt "#33003"
+msgid "[B][COLOR blue]%s[/COLOR][/B] then click 'Pair'"
+msgstr "[B][COLOR blue]%s[/COLOR][/B] zatim kliknite 'Pair'"
+
+msgctxt "#33004"
+msgid "Submit"
+msgstr "podnijeti"
+
+msgctxt "#33005"
+msgid "Automatically update resolver"
+msgstr "Automatski nadopuni razrješitelja"
+
+msgctxt "#33006"
+msgid "Auto-Update Url"
+msgstr "Automatski nadopuni URL"
+
+msgctxt "#33007"
+msgid "Decryption Key"
+msgstr "Ključ za dešifriranje"
+
+msgctxt "#33008"
+msgid "TheVideo.me Stream Authorization"
+msgstr "TheVideo.me ovjera strujanja"
+
+msgctxt "#33009"
+msgid "VidUP.me Stream Authorization"
+msgstr "VidUp.me ovjera strujanja"
+
+msgctxt "#33010"
+msgid "Enable Universal Resolvers"
+msgstr "Omogući univerzalnog razrješitelja"
+
+msgctxt "#33011"
+msgid "Automatically pick best quality"
+msgstr "Automatski odaberi najbolju kvalitetu"
+
+msgctxt "#33012"
+msgid "Use Function Cache"
+msgstr "Koristi funkciju predmemorije"
+
+msgctxt "#33013"
+msgid "Reset Function Cache"
+msgstr "Vrati izvornu funkciju predmemorije"
+
+msgctxt "#33014"
+msgid "Universal Resolvers"
+msgstr "Univerzalni razrješitelj"
+
+msgctxt "#33015"
+msgid "Resolvers"
+msgstr "Razrješitelji"
+
+msgctxt "#33016"
+msgid "Priority"
+msgstr "Prioritet"
+
+msgctxt "#33017"
+msgid "Enabled"
+msgstr "Omogućen"
+
+msgctxt "#33018"
+msgid "Real-Debrid Resolver Authorized"
+msgstr "Real-Debrid razrješitelj ovjeren"
+
+msgctxt "#33019"
+msgid "Real-Debrid Authorization Reset"
+msgstr "Real-Debrid razrješitelj vraćen na izvorno"
+
+msgctxt "#33020"
+msgid "Cache Reset"
+msgstr "Predmemorija vraćena na izvorno"
+
+msgctxt "#33021"
+msgid "Cache Reset Failed"
+msgstr "Neuspjelo vraćanje priručne memorije na izvorno"
+
+msgctxt "#33022"
+msgid "login"
+msgstr "Prijava:"
+
+msgctxt "#33023"
+msgid "Username"
+msgstr "Korisničko ime"
+
+msgctxt "#33024"
+msgid "Password"
+msgstr "Lozinka"
+
+msgctxt "#33025"
+msgid "Use HTTPS"
+msgstr "Koristi HTTPS"
+
+msgctxt "#33026"
+msgid "Customer ID"
+msgstr "Korisnički ID"
+
+msgctxt "#33027"
+msgid "PIN"
+msgstr "PIN"
+
+msgctxt "#33028"
+msgid "Choose Primary Link Automatically"
+msgstr "Automatski odaberi glavnu poveznicu"
+
+msgctxt "#33029"
+msgid "(Re)Authorize My Account"
+msgstr "Ponovna ovjera računa"
+
+msgctxt "#33030"
+msgid "Reset My Authorization"
+msgstr "Poništi moju ovjeru"
+
+msgctxt "#33031"
+msgid "Resolver Auto-Updated"
+msgstr "Razrješitelj je automatski nadopunjen"
+
+msgctxt "#33032"
+msgid "Type the letters in the image"
+msgstr "Upiši slova sa slike"
+
+msgctxt "#33033"
+msgid "Captcha Error"
+msgstr "Captcha greška"
+
+msgctxt "#33034"
+msgid "Choose the link"
+msgstr "Odaberi poveznicu"
+
+msgctxt "#33035"
+msgid "No link selected"
+msgstr "Nije odabrana poveznica"
+
+msgctxt "#33036"
+msgid "No Video Link Found"
+msgstr "Nije pronađena poveznica na video"
+
+msgctxt "#33037"
+msgid "Captcha Round: %s [I](2 Rounds is typical)[/I]"
+msgstr "Captcha runda: %s [I](uobičajene su 2 runde)[/I]"
+
+msgctxt "#33038"
+msgid "Cancel"
+msgstr "Odustani"
+
+msgctxt "#33039"
+msgid "OK"
+msgstr "U redu"
+
+msgctxt "#33040"
+msgid "IP Stream Authorization Pairing"
+msgstr "Uparivanje ovjere IP strujanja"
+
+msgctxt "#33041"
+msgid "No IP Authorization"
+msgstr "Nema IP ovjere"
+
+msgctxt "#33042"
+msgid "Client ID"
+msgstr "ID klijenta"
+
+msgctxt "#33043"
+msgid "Vshare.eu Stream Authorization"
+msgstr "Vshare.eu ovjera strujanja"
+
+msgctxt "#33044"
+msgid "Flashx Stream Authorization"
+msgstr "Flashx ovjera strujanja"
+
+msgctxt "#33045"
+msgid "AllDebrid Authorization Reset"
+msgstr "AllDebrid razrješitelj vraćen na izvorno"
+
+msgctxt "#33046"
+msgid "AllDebrid Resolver Authorized"
+msgstr "AllDebrid razrješitelj ovjeren"
+
+msgctxt "#33047"
+msgid "Enable PopUps"
+msgstr "Omogući skočne prozore"
+
+msgctxt "#33048"
+msgid "API Key"
+msgstr "API ključ"
+
+msgctxt "#33049"
+msgid "Torrent Support"
+msgstr "Torrent podrška"
+
+msgctxt "#33050"
+msgid "Cached torrents only"
+msgstr "Samo predmemorirani torenti"
+
+msgctxt "#33051"
+msgid "Premiumize Authorization Reset"
+msgstr "Premiumize razrješitelj vraćen na izvorno"
+
+msgctxt "#33052"
+msgid "Premiumize Resolver Authorized"
+msgstr "Premiumize razrješitelj ovjeren"
+
+msgctxt "#33053"
+msgid "Linksnappy Authorization Reset"
+msgstr "Linksnappy razrješitelj vraćen na izvorno"
+
+msgctxt "#33054"
+msgid "Linksnappy Resolver Authorized"
+msgstr "Linksnappy razrješitelj ovjeren"
+
+msgctxt "#33055"
+msgid "Download rate:"
+msgstr "Stopa preuzimanja:"
+
+msgctxt "#33056"
+msgid "Peers:"
+msgstr "Kolega:"
+
+msgctxt "#33057"
+msgid "seconds"
+msgstr "sekundi"
+
+msgctxt "#33058"
+msgid "Cached filehosts only"
+msgstr "Samo predmemorirane datoteke"
+
+msgctxt "#33059"
+msgid "JetLoad Stream Authorization"
+msgstr "JetLoad ovjera strujanja"
+
+msgctxt "#33060"
+msgid "Uptobox Stream Authorization"
+msgstr "Uptobox ovjera strujanja"
+
+msgctxt "#33061"
+msgid "Visit this link: [B][COLOR blue]{0}[/COLOR][/B]"
+msgstr "Posjetite ovu vezu: [B][COLOR blue]{0}[/COLOR][/B]"
+
+msgctxt "#33062"
+msgid "Enter the PIN as [B][COLOR blue]{0}[/COLOR][/B] and then click 'Link Account'"
+msgstr "Unesite PIN kao [B][COLOR blue]{0}[/COLOR][/B], a zatim kliknite 'Poveži račun'"
+
+msgctxt "#33063"
+msgid "Debrid-Link Authorisation Reset"
+msgstr "Debrid-Link razrješitelj vraćen na izvorno"
+
+msgctxt "#33064"
+msgid "Debrid-Link Resolver Authorised"
+msgstr "Debrid-Link razrješitelj ovjeren"
+
+msgctxt "#33065"
+msgid "Clear Finished torrents from account"
+msgstr "Izbriši gotove bujice s računa"
+
+msgctxt "#33066"
+msgid "minutes"
+msgstr "minuta"
+
+msgctxt "#33067"
+msgid "hours"
+msgstr "sati"
+
+msgctxt "#33068"
+msgid "Uptobox Authorisation Reset"
+msgstr "Uptobox razrješitelj vraćen na izvorno"
+
+msgctxt "#33069"
+msgid "Uptobox Resolver Authorised"
+msgstr "Uptobox razrješitelj ovjeren"
+
+msgctxt "#33070"
+msgid "email"
+msgstr "elektronička pošta"
+
+msgctxt "#33071"
+msgid "Only cached torrents are allowed to be initiated"
+msgstr "Dopušteno je pokretanje samo predmemoriranih torrenta"
+
+msgctxt "#33072"
+msgid "No stream returned"
+msgstr "Nije vraćen nijedan tok"
+
+msgctxt "#33073"
+msgid "Transfer"
+msgstr "Prijenos"
+
+msgctxt "#33074"
+msgid "Cancelled by user"
+msgstr "Otkazao korisnik"
+
+msgctxt "#33075"
+msgid "Please validate your Email with Alldebrid before authorising"
+msgstr "Prije autorizacije potvrdite svoju e-poštu s Alldebridom"
+
+msgctxt "#33076"
+msgid "This account is banned"
+msgstr "Ovaj račun je zabranjen"
+
+msgctxt "#33077"
+msgid "Saving torrent to UptoBox via AllDebrid"
+msgstr "Spremanje torrenta u UptoBox putem AllDebrid-a"
+
+msgctxt "#33078"
+msgid "Downloading at"
+msgstr "Preuzimanje na"
+
+msgctxt "#33079"
+msgid "Uploading at"
+msgstr "Prijenos u"
+
+msgctxt "#33080"
+msgid "completed"
+msgstr "dovršeno"
+
+msgctxt "#33081"
+msgid "of"
+msgstr "od"
+
+msgctxt "#33082"
+msgid "Keep transferring to AllDebrid Cloud in the background?"
+msgstr "Nastaviti prijenos u AllDebrid Cloud u pozadini?"
+
+msgctxt "#33083"
+msgid "Goto URL"
+msgstr "Idi na URL"
+
+msgctxt "#33084"
+msgid "When prompted, enter"
+msgstr "Kada se to od vas zatraži, unesite"
+
+msgctxt "#33085"
+msgid "Authorisation"
+msgstr "Autorizacija"
+
+msgctxt "#33086"
+msgid "Torrent queueing failed"
+msgstr "Torrent nije uspio"
+
+msgctxt "#33087"
+msgid "Torrent access not available"
+msgstr "Pristup torrentu nije dostupan"
+
+msgctxt "#33088"
+msgid "Authorisation Failed"
+msgstr "Autorizacija nije uspjela"
+
+msgctxt "#33089"
+msgid "No usable link returned"
+msgstr "Nije vraćena upotrebljiva veza"
+
+msgctxt "#33090"
+msgid "Saving Torrent to Debrid-Link Seedbox"
+msgstr "Spremanje torrenta u Debrid-Link Seedbox"
+
+msgctxt "#33091"
+msgid "Keep transferring to Debrid-Link Cloud in the background?"
+msgstr "Nastaviti prijenos u Debrid-Link Cloud u pozadini?"
+
+msgctxt "#33092"
+msgid "Saving Torrent to the Premiumize Cloud"
+msgstr "Spremanje Torrenta u Premiumize Cloud"
+
+msgctxt "#33093"
+msgid "Keep transferring to Premiumize Cloud in the background?"
+msgstr "Nastaviti prijenos u Premiumize Cloud u pozadini?"
+
+msgctxt "#33094"
+msgid "Saving Torrent to Real-Debrid Cloud"
+msgstr "Spremanje torrenta u Real-Debrid Cloud"
+
+msgctxt "#33095"
+msgid "Keep transferring to Real-Debrid Cloud in the background?"
+msgstr "Nastaviti prijenos u Real-Debrid Cloud u pozadini?"
+
+msgctxt "#33096"
+msgid "Getting Torrent from Real-Debrid Cloud"
+msgstr "Dohvaćanje torrenta iz Real-Debrid Clouda"
+
+msgctxt "#33097"
+msgid "CocoLeech Resolver Authorised"
+msgstr "CocoLeech razrješivač autoriziran"
+
+msgctxt "#33098"
+msgid "CocoLeech Authorisation Reset"
+msgstr "CocoLeech autorizacija resetirana"
+
+msgctxt "#33099"
+msgid "Account not Premium"
+msgstr "Račun nije Premium"
+
+msgctxt "#33100"
+msgid "Saving Torrent to CocoLeech Cloud"
+msgstr "Spremanje torrenta u CocoLeech Cloud"
+
+msgctxt "#33101"
+msgid "Clean Settings File"
+msgstr "Očistite datoteku postavki"
+
+msgctxt "#33102"
+msgid "Settings File cleaned"
+msgstr "Datoteka postavki je očišćena"
+
+msgctxt "#33103"
+msgid "Keep transferring to CocoLeech Cloud in the background?"
+msgstr "Nastaviti prijenos u CocoLeech Cloud u pozadini?"
+
+msgctxt "#33104"
+msgid "Enable ByParr access"
+msgstr "Omogući ByParr pristup"
+
+msgctxt "#33105"
+msgid "ByParr URL"
+msgstr "ByParr URL"
+
+msgctxt "#33106"
+msgid "ByParr timeout"
+msgstr "ByParr vrijeme isteka"

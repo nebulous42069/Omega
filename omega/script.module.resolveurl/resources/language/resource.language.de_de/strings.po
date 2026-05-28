@@ -1,0 +1,441 @@
+# Addon Name: ResolveURL
+# Addon id: script.module.resolveurl
+# Addon Provider:
+# Translators:
+# Viper2k4, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Viper2k4, 2016\n"
+"Language-Team: German ()\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "#33000"
+msgid "Move Red square over play icon and submit"
+msgstr "Bewegen Sie das rote Quadrat über das Wiedergabesymbol und senden Sie es ab"
+
+msgctxt "#33001"
+msgid "To play this video, authorization is required"
+msgstr "Um dieses Video abzuspielen, ist eine Autorisierung erforderlich."
+
+msgctxt "#33002"
+msgid "Visit the link below to authorize the devices on your network:"
+msgstr "Besuche folgenden Link, um Geräte im Netzwerk zu autorisieren:"
+
+msgctxt "#33003"
+msgid "[B][COLOR blue]%s[/COLOR][/B] then click 'Pair'"
+msgstr "[B][COLOR blue]%s[/COLOR][/B] und klicke dann 'Pair'"
+
+msgctxt "#33004"
+msgid "Submit"
+msgstr "Einreichen"
+
+msgctxt "#33005"
+msgid "Automatically update resolver"
+msgstr "Resolver automatisch aktualisieren"
+
+msgctxt "#33006"
+msgid "Auto-Update Url"
+msgstr "Auto-Update Url"
+
+msgctxt "#33007"
+msgid "Decryption Key"
+msgstr "Entschlüsselungsschlüssel"
+
+msgctxt "#33008"
+msgid "TheVideo.me Stream Authorization"
+msgstr "TheVideo.me Stream Autorisierung"
+
+msgctxt "#33009"
+msgid "VidUP.me Stream Authorization"
+msgstr "VidUP.me Stream Autorisierung"
+
+msgctxt "#33010"
+msgid "Enable Universal Resolvers"
+msgstr "Universal-Resolver aktivieren"
+
+msgctxt "#33011"
+msgid "Automatically pick best quality"
+msgstr "Automatisch beste Qualität auswählen"
+
+msgctxt "#33012"
+msgid "Use Function Cache"
+msgstr "Cache-Funktion benutzen"
+
+msgctxt "#33013"
+msgid "Reset Function Cache"
+msgstr "Cache-Funktion zurücksetzen"
+
+msgctxt "#33014"
+msgid "Universal Resolvers"
+msgstr "Universelle Resolver"
+
+msgctxt "#33015"
+msgid "Resolvers"
+msgstr "Resolver"
+
+msgctxt "#33016"
+msgid "Priority"
+msgstr "Priorität"
+
+msgctxt "#33017"
+msgid "Enabled"
+msgstr "Aktiviert"
+
+msgctxt "#33018"
+msgid "Real-Debrid Resolver Authorized"
+msgstr "Real-Debrid Resolver autorisiert"
+
+msgctxt "#33019"
+msgid "Real-Debrid Authorization Reset"
+msgstr "Real-Debrid Autorisierung zurücksetzen"
+
+msgctxt "#33020"
+msgid "Cache Reset"
+msgstr "Cache zurücksetzen"
+
+msgctxt "#33021"
+msgid "Cache Reset Failed"
+msgstr "Fehler beim Cache zurücksetzen"
+
+msgctxt "#33022"
+msgid "login"
+msgstr "Login"
+
+msgctxt "#33023"
+msgid "Username"
+msgstr "Benutzername"
+
+msgctxt "#33024"
+msgid "Password"
+msgstr "Passwort"
+
+msgctxt "#33025"
+msgid "Use HTTPS"
+msgstr "HTTPS benutzen"
+
+msgctxt "#33026"
+msgid "Customer ID"
+msgstr "Kundennummer"
+
+msgctxt "#33027"
+msgid "PIN"
+msgstr "PIN"
+
+msgctxt "#33028"
+msgid "Choose Primary Link Automatically"
+msgstr "Primärlink automatisch wählen"
+
+msgctxt "#33029"
+msgid "(Re)Authorize My Account"
+msgstr "(Re)Autorisiere mein Konto"
+
+msgctxt "#33030"
+msgid "Reset My Authorization"
+msgstr "Meine Autorisierung zurücksetzen"
+
+msgctxt "#33031"
+msgid "Resolver Auto-Updated"
+msgstr "Resolver automatisch aktualisiert"
+
+msgctxt "#33032"
+msgid "Type the letters in the image"
+msgstr "Geben Sie die Buchstaben aus dem Bild ein"
+
+msgctxt "#33033"
+msgid "Captcha Error"
+msgstr "Captcha-Fehler"
+
+msgctxt "#33034"
+msgid "Choose the link"
+msgstr "Wählen Sie einen Link"
+
+msgctxt "#33035"
+msgid "No link selected"
+msgstr "Kein Link ausgewählt"
+
+msgctxt "#33036"
+msgid "No Video Link Found"
+msgstr "Kein Video Link gefunden"
+
+msgctxt "#33037"
+msgid "Captcha Round: %s [I](2 Rounds is typical)[/I]"
+msgstr "Captcha Runde: %s [I](2 Runden sind üblich)[/I]"
+
+msgctxt "#33038"
+msgid "Cancel"
+msgstr "Abbrechen"
+
+msgctxt "#33039"
+msgid "OK"
+msgstr "OK"
+
+msgctxt "#33040"
+msgid "IP Stream Authorization Pairing"
+msgstr "IP Stream Autorisierung"
+
+msgctxt "#33041"
+msgid "No IP Authorization"
+msgstr "Keine IP Autorisierung"
+
+msgctxt "#33043"
+msgid "Vshare.eu Stream Authorization"
+msgstr "Vshare.eu Stream Autorisierung"
+
+msgctxt "#33044"
+msgid "Flashx Stream Authorization"
+msgstr "Flashx Stream Autorisierung"
+
+msgctxt "#33045"
+msgid "AllDebrid Authorization Reset"
+msgstr "AllDebrid Autorisierung zurücksetzen"
+
+msgctxt "#33046"
+msgid "AllDebrid Resolver Authorized"
+msgstr "AllDebrid Resolver autorisiert"
+
+msgctxt "#33047"
+msgid "Enable PopUps"
+msgstr "PopUps aktivieren"
+
+msgctxt "#33048"
+msgid "API Key"
+msgstr "API-Schlüssel"
+
+msgctxt "#33049"
+msgid "Torrent Support"
+msgstr "Torrent-Unterstützung"
+
+msgctxt "#33050"
+msgid "Cached torrents only"
+msgstr "Nur zwischengespeicherte Torrents"
+
+msgctxt "#33051"
+msgid "Premiumize Authorization Reset"
+msgstr "Premiumize Autorisierung zurücksetzen"
+
+msgctxt "#33052"
+msgid "Premiumize Resolver Authorized"
+msgstr "Premiumize Resolver autorisiert"
+
+msgctxt "#33053"
+msgid "Linksnappy Authorization Reset"
+msgstr "Linksnappy Autorisierung zurücksetzen"
+
+msgctxt "#33054"
+msgid "Linksnappy Resolver Authorized"
+msgstr "Linksnappy Resolver autorisiert"
+
+msgctxt "#33055"
+msgid "Download rate:"
+msgstr "Download-Rate:"
+
+msgctxt "#33056"
+msgid "Peers:"
+msgstr "Gleichaltrigen:"
+
+msgctxt "#33057"
+msgid "seconds"
+msgstr "Sekunden"
+
+msgctxt "#33058"
+msgid "Cached filehosts only"
+msgstr "Nur zwischengespeicherte Dateihosts"
+
+msgctxt "#33059"
+msgid "JetLoad Stream Authorization"
+msgstr "JetLoad Stream Autorisierung"
+
+msgctxt "#33060"
+msgid "Uptobox Stream Authorization"
+msgstr "Uptobox Stream Autorisierung"
+
+msgctxt "#33061"
+msgid "Visit this link: [B][COLOR blue]{0}[/COLOR][/B]"
+msgstr "Besuchen Sie diesen Link: [B][COLOR blue]{0}[/COLOR][/B]"
+
+msgctxt "#33062"
+msgid "Enter the PIN as [B][COLOR blue]{0}[/COLOR][/B] and then click 'Link Account'"
+msgstr "Geben Sie die PIN als [B][COLOR blue]{0}[/COLOR][/B] ein und klicken Sie auf 'Konto verknüpfen'"
+
+msgctxt "#33063"
+msgid "Debrid-Link Authorization Reset"
+msgstr "Debrid-Link Autorisierung zurücksetzen"
+
+msgctxt "#33064"
+msgid "Debrid-Link Resolver Authorized"
+msgstr "Debrid-Link Resolver autorisiert"
+
+msgctxt "#33065"
+msgid "Clear Finished torrents from account"
+msgstr "Beende fertige Torrents vom Konto"
+
+msgctxt "#33066"
+msgid "minutes"
+msgstr "Protokoll"
+
+msgctxt "#33067"
+msgid "hours"
+msgstr "Std"
+
+msgctxt "#33068"
+msgid "Uptobox Authorisation Reset"
+msgstr "Uptobox Autorisierung zurücksetzen"
+
+msgctxt "#33069"
+msgid "Uptobox Resolver Authorised"
+msgstr "Uptobox Resolver autorisiert"
+
+msgctxt "#33070"
+msgid "email"
+msgstr "Email"
+
+msgctxt "#33071"
+msgid "Only cached torrents are allowed to be initiated"
+msgstr "Es dürfen nur zwischengespeicherte Torrents gestartet werden"
+
+msgctxt "#33072"
+msgid "No stream returned"
+msgstr "Es wurde kein Stream zurückgegeben"
+
+msgctxt "#33073"
+msgid "Transfer"
+msgstr "Überweisen"
+
+msgctxt "#33074"
+msgid "Cancelled by user"
+msgstr "Vom Benutzer abgebrochen"
+
+msgctxt "#33075"
+msgid "Please validate your Email with Alldebrid before authorising"
+msgstr "Bitte validieren Sie Ihre E-Mail-Adresse bei Alldebrid, bevor Sie die Autorisierung vornehmen"
+
+msgctxt "#33076"
+msgid "This account is banned"
+msgstr "Dieses Konto ist gesperrt"
+
+msgctxt "#33077"
+msgid "Saving torrent to UptoBox via AllDebrid"
+msgstr "Torrent über AllDebrid in UptoBox speichern"
+
+msgctxt "#33078"
+msgid "Downloading at"
+msgstr "Herunterladen unter"
+
+msgctxt "#33079"
+msgid "Uploading at"
+msgstr "Hochladen unter"
+
+msgctxt "#33080"
+msgid "completed"
+msgstr "vollendet"
+
+msgctxt "#33081"
+msgid "of"
+msgstr "von"
+
+msgctxt "#33082"
+msgid "Keep transferring to AllDebrid Cloud in the background?"
+msgstr "Weiter im Hintergrund zur AllDebrid Cloud übertragen?"
+
+msgctxt "#33083"
+msgid "Goto URL"
+msgstr "Gehe zur URL"
+
+msgctxt "#33084"
+msgid "When prompted, enter"
+msgstr "Geben Sie ein, wenn Sie dazu aufgefordert werden"
+
+msgctxt "#33085"
+msgid "Authorisation"
+msgstr "Genehmigung"
+
+msgctxt "#33086"
+msgid "Torrent queueing failed"
+msgstr "Das Einreihen in die Torrent-Warteschlange ist fehlgeschlagen"
+
+msgctxt "#33087"
+msgid "Torrent access not available"
+msgstr "Torrent-Zugriff nicht verfügbar"
+
+msgctxt "#33088"
+msgid "Authorisation Failed"
+msgstr "Autorisierung fehlgeschlagen"
+
+msgctxt "#33089"
+msgid "No usable link returned"
+msgstr "Es wurde kein verwendbarer Link zurückgegeben"
+
+msgctxt "#33090"
+msgid "Saving Torrent to Debrid-Link Seedbox"
+msgstr "Torrent in Debrid-Link Seedbox speichern"
+
+msgctxt "#33091"
+msgid "Keep transferring to Debrid-Link Cloud in the background?"
+msgstr "Im Hintergrund weiter zur Debrid-Link Cloud übertragen?"
+
+msgctxt "#33092"
+msgid "Saving Torrent to the Premiumize Cloud"
+msgstr "Torrent in der Premiumize Cloud speichern"
+
+msgctxt "#33093"
+msgid "Keep transferring to Premiumize Cloud in the background?"
+msgstr "Im Hintergrund weiterhin zur Premiumize Cloud übertragen?"
+
+msgctxt "#33094"
+msgid "Saving Torrent to Real-Debrid Cloud"
+msgstr "Torrent in der Real-Debrid Cloud speichern"
+
+msgctxt "#33095"
+msgid "Keep transferring to Real-Debrid Cloud in the background?"
+msgstr "Im Hintergrund weiter zur Real-Debrid Cloud übertragen?"
+
+msgctxt "#33096"
+msgid "Getting Torrent from Real-Debrid Cloud"
+msgstr "Torrent von Real-Debrid Cloud beziehen"
+
+msgctxt "#33097"
+msgid "CocoLeech Resolver Authorised"
+msgstr "CocoLeech Resolver autorisiert"
+
+msgctxt "#33098"
+msgid "CocoLeech Authorisation Reset"
+msgstr "CocoLeech-Autorisierung zurückgesetzt"
+
+msgctxt "#33099"
+msgid "Account not Premium"
+msgstr "Konto nicht Premium"
+
+msgctxt "#33100"
+msgid "Saving Torrent to CocoLeech Cloud"
+msgstr "Torrent in CocoLeech Cloud speichern"
+
+msgctxt "#33101"
+msgid "Clean Settings File"
+msgstr "Einstellungsdatei bereinigen"
+
+msgctxt "#33102"
+msgid "Settings File cleaned"
+msgstr "Einstellungsdatei bereinigt"
+
+msgctxt "#33103"
+msgid "Keep transferring to CocoLeech Cloud in the background?"
+msgstr "Im Hintergrund in die CocoLeech Cloud übertragen?"
+
+msgctxt "#33104"
+msgid "Enable ByParr access"
+msgstr "ByParr-Zugriff aktivieren"
+
+msgctxt "#33105"
+msgid "ByParr URL"
+msgstr "ByParr-URL"
+
+msgctxt "#33106"
+msgid "ByParr timeout"
+msgstr "ByParr-Timeout"

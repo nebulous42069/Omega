@@ -1,0 +1,444 @@
+# Addon Name: ResolveURL
+# Addon id: script.module.resolveurl
+# Addon Provider: 
+msgid ""
+msgstr ""
+"Project-Id-Version: script.module.resolveurl\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2017-09-24 17:07+0300\n"
+"Last-Translator: A. Dambledore\n"
+"Language-Team: Eng2Heb\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: he_IL\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+
+msgctxt "#33000"
+msgid "Move Red square over play icon and submit"
+msgstr "העבר את הריבוע האדום מעל סמל המשחק ושלח"
+
+msgctxt "#33001"
+msgid "To play this video, authorization is required"
+msgstr "כדי להפעיל את הוידאו זה, נדרש לבצע תהליך הרשאה"
+
+msgctxt "#33002"
+msgid "Visit the link below to authorize the devices on your network:"
+msgstr "בקר בקישור שלהלן כדי לבצע הרשאה להתקנים ברשת שלך:"
+
+msgctxt "#33003"
+msgid "[B][COLOR blue]%s[/COLOR][/B] then click 'Pair'"
+msgstr "[B][COLOR blue]%s[/COLOR][/B] ולחץ על צימוד"
+
+msgctxt "#33004"
+msgid "Submit"
+msgstr "שלח"
+
+msgctxt "#33005"
+msgid "Automatically update resolver"
+msgstr "עדכון resolver באופן אוטומטי"
+
+msgctxt "#33006"
+msgid "Auto-Update Url"
+msgstr "עדכון קישור אוטומטי"
+
+msgctxt "#33007"
+msgid "Decryption Key"
+msgstr "מפתח הפענוח"
+
+msgctxt "#33008"
+msgid "TheVideo.me Stream Authorization"
+msgstr "הרשאה להזרמה מ-TheVideo.me"
+
+msgctxt "#33009"
+msgid "VidUP.me Stream Authorization"
+msgstr "הרשאה להזרמה מ-VidUP.me"
+
+msgctxt "#33010"
+msgid "Enable Universal Resolvers"
+msgstr "אפשר Resolvers אוניברסליים"
+
+msgctxt "#33011"
+msgid "Automatically pick best quality"
+msgstr "בחירה אוטומטית של המקורות הטובים ביותר"
+
+msgctxt "#33012"
+msgid "Use Function Cache"
+msgstr "תשתמש בפונקצית מטמון"
+
+msgctxt "#33013"
+msgid "Reset Function Cache"
+msgstr "אפס את פונקציית המטמון"
+
+msgctxt "#33014"
+msgid "Universal Resolvers"
+msgstr "Resolvers אוניברסליים"
+
+msgctxt "#33015"
+msgid "Resolvers"
+msgstr "פותרן - Resolvers"
+
+msgctxt "#33016"
+msgid "Priority"
+msgstr "עדיפות"
+
+msgctxt "#33017"
+msgid "Enabled"
+msgstr "מופעל"
+
+msgctxt "#33018"
+msgid "Real-Debrid Resolver Authorized"
+msgstr "הרשאה ל-Real-Debrid Resolver"
+
+msgctxt "#33019"
+msgid "Real-Debrid Authorization Reset"
+msgstr "איפוס הרשאה ל-Real-Debrid"
+
+msgctxt "#33020"
+msgid "Cache Reset"
+msgstr "איפוס מטמון"
+
+msgctxt "#33021"
+msgid "Cache Reset Failed"
+msgstr "נכשל לאפס את המטמון"
+
+msgctxt "#33022"
+msgid "login"
+msgstr "התחברות"
+
+msgctxt "#33023"
+msgid "Username"
+msgstr "שם משתמש"
+
+msgctxt "#33024"
+msgid "Password"
+msgstr "ססמה"
+
+msgctxt "#33025"
+msgid "Use HTTPS"
+msgstr "שימוש ב־HTTPS"
+
+msgctxt "#33026"
+msgid "Customer ID"
+msgstr "מספר לקוח"
+
+msgctxt "#33027"
+msgid "PIN"
+msgstr "קוד"
+
+msgctxt "#33028"
+msgid "Choose Primary Link Automatically"
+msgstr "בחר קישור ראשי באופן אוטומטי"
+
+msgctxt "#33029"
+msgid "(Re)Authorize My Account"
+msgstr "אשר (או אשר מחדש) את החשבון שלי"
+
+msgctxt "#33030"
+msgid "Reset My Authorization"
+msgstr "אפס את האישור שלי"
+
+msgctxt "#33031"
+msgid "Resolver Auto-Updated"
+msgstr "עדכון אוטומטי ל-Resolver"
+
+msgctxt "#33032"
+msgid "Type the letters in the image"
+msgstr "הקלד את האותיות שבתמונה"
+
+msgctxt "#33033"
+msgid "Captcha Error"
+msgstr "שגיאה במנגנון Captcha"
+
+msgctxt "#33034"
+msgid "Choose the link"
+msgstr "בחר את הקישור"
+
+msgctxt "#33035"
+msgid "No link selected"
+msgstr "לא נבחר הקישור"
+
+msgctxt "#33036"
+msgid "No Video Link Found"
+msgstr "לא נמצא קישור לוידאו"
+
+msgctxt "#33037"
+msgid "Captcha Round: %s [I](2 Rounds is typical)[/I]"
+msgstr "סיבוב Captcha : %s [I] (בדרך כלל 2 סיבובים)[/I]"
+
+msgctxt "#33038"
+msgid "Cancel"
+msgstr "בטל"
+
+msgctxt "#33039"
+msgid "OK"
+msgstr "אישור"
+
+msgctxt "#33040"
+msgid "IP Stream Authorization Pairing"
+msgstr "צימוד הרשאת הזרמה לכתובת IP"
+
+msgctxt "#33041"
+msgid "No IP Authorization"
+msgstr "אין הרשאת הזרמה"
+
+msgctxt "#33042"
+msgid "Client ID"
+msgstr "זיהוי לקוח"
+
+msgctxt "#33043"
+msgid "Vshare.eu Stream Authorization"
+msgstr "הרשאה להזרמה מ-Vshare.eu"
+
+msgctxt "#33044"
+msgid "Flashx Stream Authorization"
+msgstr "הרשאה להזרמה מ-Flashx"
+
+msgctxt "#33045"
+msgid "AllDebrid Authorization Reset"
+msgstr "איפוס הרשאה ל-AllDebrid"
+
+msgctxt "#33046"
+msgid "AllDebrid Resolver Authorized"
+msgstr "הרשאה ל-AllDebrid Resolver"
+
+msgctxt "#33047"
+msgid "Enable PopUps"
+msgstr "אפשר PopUps"
+
+msgctxt "#33048"
+msgid "API Key"
+msgstr "מפתח API"
+
+msgctxt "#33049"
+msgid "Torrent Support"
+msgstr "תמיכה בטורנט "
+
+msgctxt "#33050"
+msgid "Cached torrents only"
+msgstr "טורנטים מטמון בלבד"
+
+msgctxt "#33051"
+msgid "Premiumize Authorization Reset"
+msgstr "איפוס הרשאה ל-Premiumize"
+
+msgctxt "#33052"
+msgid "Premiumize Resolver Authorized"
+msgstr "הרשאה ל-Premiumize Resolver"
+
+msgctxt "#33053"
+msgid "Linksnappy Authorization Reset"
+msgstr "איפוס הרשאה ל-Linksnappy"
+
+msgctxt "#33054"
+msgid "Linksnappy Resolver Authorized"
+msgstr "הרשאה ל-Linksnappy Resolver"
+
+msgctxt "#33055"
+msgid "Download rate:"
+msgstr "שיעור הורדה:"
+
+msgctxt "#33056"
+msgid "Peers:"
+msgstr "עמיתים:"
+
+msgctxt "#33057"
+msgid "seconds"
+msgstr "שניות"
+
+msgctxt "#33058"
+msgid "Cached filehosts only"
+msgstr "מארחי קבצים במטמון בלבד"
+
+msgctxt "#33059"
+msgid "JetLoad Stream Authorization"
+msgstr "הרשאה להזרמה מ-JetLoad"
+
+msgctxt "#33060"
+msgid "Uptobox Stream Authorization"
+msgstr "הרשאה להזרמה מ-Uptobox"
+
+msgctxt "#33061"
+msgid "Visit this link: [B][COLOR blue]{0}[/COLOR][/B]"
+msgstr "[B][COLOR blue]{0}[/COLOR][/B]בקר בקישור זה: "
+
+msgctxt "#33062"
+msgid "Enter the PIN as [B][COLOR blue]{0}[/COLOR][/B] and then click 'Link Account'"
+msgstr "הזן את ה- PIN כ- [B][COLOR blue]{0}[/COLOR][/B] ולחץ על 'קישור חשבון'"
+
+msgctxt "#33063"
+msgid "Debrid-Link Authorization Reset"
+msgstr "איפוס הרשאה ל-Debrid-Link"
+
+msgctxt "#33064"
+msgid "Debrid-Link Resolver Authorized"
+msgstr "Debrid-Link מורשה פותר"
+
+msgctxt "#33065"
+msgid "Clear Finished torrents from account"
+msgstr "נקה טורנטים מוגמרים מחשבון"
+
+msgctxt "#33066"
+msgid "minutes"
+msgstr "דקות"
+
+msgctxt "#33067"
+msgid "hours"
+msgstr "שעה (ות"
+
+msgctxt "#33068"
+msgid "Uptobox Authorisation Reset"
+msgstr "איפוס הרשאה ל-Uptobox"
+
+msgctxt "#33069"
+msgid "Uptobox Resolver Authorised"
+msgstr "Uptobox מורשה פותר"
+
+msgctxt "#33070"
+msgid "email"
+msgstr "אימייל"
+
+msgctxt "#33071"
+msgid "Only cached torrents are allowed to be initiated"
+msgstr "מותר להתחיל רק טורנטים במטמון"
+
+msgctxt "#33072"
+msgid "No stream returned"
+msgstr "שום זרם לא הוחזר"
+
+msgctxt "#33073"
+msgid "Transfer"
+msgstr "לְהַעֲבִיר"
+
+msgctxt "#33074"
+msgid "Cancelled by user"
+msgstr "בוטל על ידי המשתמש"
+
+msgctxt "#33075"
+msgid "Please validate your Email with Alldebrid before authorising"
+msgstr "נא לאמת את הדוא"ל שלך עם Alldebrid לפני אישור"
+
+msgctxt "#33076"
+msgid "This account is banned"
+msgstr "חשבון זה נאסר"
+
+msgctxt "#33077"
+msgid "Saving torrent to UptoBox via AllDebrid"
+msgstr "שמירת טורנט ל-UptoBox באמצעות AllDebrid"
+
+msgctxt "#33078"
+msgid "Downloading at"
+msgstr "הורדה ב"
+
+msgctxt "#33079"
+msgid "Uploading at"
+msgstr "מעלה ב"
+
+msgctxt "#33080"
+msgid "completed"
+msgstr "הושלם"
+
+msgctxt "#33081"
+msgid "of"
+msgstr "שֶׁל"
+
+msgctxt "#33082"
+msgid "Keep transferring to AllDebrid Cloud in the background?"
+msgstr "להמשיך להעביר אל AllDebrid Cloud ברקע?"
+
+msgctxt "#33083"
+msgid "Goto URL"
+msgstr "עבור אל כתובת האתר"
+
+msgctxt "#33084"
+msgid "When prompted, enter"
+msgstr "כאשר תתבקש, הכנס"
+
+msgctxt "#33085"
+msgid "Authorisation"
+msgstr "הרשאה"
+
+msgctxt "#33086"
+msgid "Torrent queueing failed"
+msgstr "תור טורנט נכשל"
+
+msgctxt "#33087"
+msgid "Torrent access not available"
+msgstr "גישה לטורנט אינה זמינה"
+
+msgctxt "#33088"
+msgid "Authorisation Failed"
+msgstr "ההרשאה נכשלה"
+
+msgctxt "#33089"
+msgid "No usable link returned"
+msgstr "לא הוחזר קישור שמיש"
+
+msgctxt "#33090"
+msgid "Saving Torrent to Debrid-Link Seedbox"
+msgstr "שמירת טורנט ל-Debrid-Link Seedbox"
+
+msgctxt "#33091"
+msgid "Keep transferring to Debrid-Link Cloud in the background?"
+msgstr "להמשיך להעביר לענן Debrid-Link ברקע?"
+
+msgctxt "#33092"
+msgid "Saving Torrent to the Premiumize Cloud"
+msgstr "שמירת טורנט לענן Premiumize"
+
+msgctxt "#33093"
+msgid "Keep transferring to Premiumize Cloud in the background?"
+msgstr "להמשיך להעביר ל-Premiumize Cloud ברקע?"
+
+msgctxt "#33094"
+msgid "Saving Torrent to Real-Debrid Cloud"
+msgstr "שמירת טורנט לענן Real-Debrid"
+
+msgctxt "#33095"
+msgid "Keep transferring to Real-Debrid Cloud in the background?"
+msgstr "להמשיך להעביר אל Real-Debrid Cloud ברקע?"
+
+msgctxt "#33096"
+msgid "Getting Torrent from Real-Debrid Cloud"
+msgstr "השגת טורנט מ-Real-Debrid Cloud"
+
+msgctxt "#33097"
+msgid "CocoLeech Resolver Authorised"
+msgstr "פותר CocoLeech מורשה"
+
+msgctxt "#33098"
+msgid "CocoLeech Authorisation Reset"
+msgstr "איפוס הרשאת CocoLeech"
+
+msgctxt "#33099"
+msgid "Account not Premium"
+msgstr "החשבון אינו פרימיום"
+
+msgctxt "#33100"
+msgid "Saving Torrent to CocoLeech Cloud"
+msgstr "שמירת טורנט בענן CocoLeech"
+
+msgctxt "#33101"
+msgid "Clean Settings File"
+msgstr "נקה את קובץ ההגדרות"
+
+msgctxt "#33102"
+msgid "Settings File cleaned"
+msgstr "הגדרות קובץ ניקה"
+
+msgctxt "#33103"
+msgid "Keep transferring to CocoLeech Cloud in the background?"
+msgstr "האם ממשיך להעביר לענן CocoLeech ברקע?"
+
+msgctxt "#33104"
+msgid "Enable ByParr access"
+msgstr "אפשר גישת ByParr"
+
+msgctxt "#33105"
+msgid "ByParr URL"
+msgstr "כתובת URL של ByParr"
+
+msgctxt "#33106"
+msgid "ByParr timeout"
+msgstr "פסק זמן של ByParr"
