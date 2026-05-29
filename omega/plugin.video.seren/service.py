@@ -1,18 +1,20 @@
 import sqlite3
 import sys
+import os
+import json
+import zipfile
 from random import randint
 
 import xbmc
 import xbmcgui
+import xbmcvfs
 
 from resources.lib.common import tools
 
 if tools.is_stub():
-    # noinspection PyUnresolvedReferences
     from mock_kodi import MOCK
 
 from resources.lib.modules.globals import g
-
 from resources.lib.modules.seren_version import do_version_change
 from resources.lib.modules.serenMonitor import SerenMonitor
 from resources.lib.modules.update_news import do_update_news
@@ -22,12 +24,72 @@ from resources.lib.modules.accountmgr_sync import (
     snapshot_enabled_flags,
     protect_enabled_flags
 )
+from resources.lib.modules.providers.install_manager import ProviderInstallManager
 
 g.init_globals(sys.argv)
 
-import os
-import xbmcvfs
-from resources.lib.modules.providers.install_manager import ProviderInstallManager
+
+def get_provider_package_name(zip_path):
+    """
+    Read provider package name from meta.json inside provider zip
+    """
+
+    try:
+        with zipfile.ZipFile(zip_path, "r") as zf:
+
+            for member in zf.namelist():
+
+                if member.lower().endswith("meta.json"):
+
+                    with zf.open(member) as meta_file:
+
+                        meta = json.loads(
+                            meta_file.read().decode("utf-8")
+                        )
+
+                        return meta.get("name")
+
+    except Exception as e:
+
+        g.log(
+            f"Failed reading provider meta from {zip_path}: {e}",
+            "error"
+        )
+
+    return None
+
+
+def remove_existing_provider_package(package_name):
+    """
+    Remove existing provider package before installing updated version
+    """
+
+    try:
+
+        installer = ProviderInstallManager(silent=True)
+
+        known_packages = installer.known_packages
+
+        for package in known_packages:
+
+            existing_name = package.get("pack_name")
+
+            if existing_name == package_name:
+
+                g.log(
+                    f"Removing existing provider package: "
+                    f"{existing_name}"
+                )
+
+                installer.uninstall_package(existing_name)
+
+    except Exception as e:
+
+        g.log(
+            f"Failed removing existing provider package "
+            f"{package_name}: {e}",
+            "error"
+        )
 
 
 def install_embedded_provider_packages():
@@ -40,10 +102,25 @@ def install_embedded_provider_packages():
     if not xbmcvfs.exists(provider_dir):
         return
 
+    version_marker = os.path.join(
+        g.ADDON_USERDATA_PATH,
+        f"provider_prompt_version_{g.VERSION}.txt"
+    )
+
+    if xbmcvfs.exists(version_marker):
+        return
+
     try:
+
         files = xbmcvfs.listdir(provider_dir)[1]
+
     except Exception as e:
-        g.log(f"Embedded provider scan failed: {e}", "error")
+
+        g.log(
+            f"Embedded provider scan failed: {e}",
+            "error"
+        )
+
         return
 
     provider_zips = [
@@ -59,29 +136,20 @@ def install_embedded_provider_packages():
 
     for filename in provider_zips:
 
-        marker = os.path.join(
-            g.ADDON_USERDATA_PATH,
-            "installed_provider_" + filename + ".txt"
-        )
-
-        if xbmcvfs.exists(marker):
-            continue
-
         selectable.append(filename)
 
         install_paths.append(
             os.path.join(provider_dir, filename)
         )
 
-    if not selectable:
-        return
-
     selected = xbmcgui.Dialog().multiselect(
-        "Install One Or More Provider Packages",
+        "Install Provider Packages",
         selectable
     )
 
     if selected is None:
+
+        xbmcvfs.File(version_marker, "w").close()
         return
 
     for index in selected:
@@ -89,14 +157,21 @@ def install_embedded_provider_packages():
         filename = selectable[index]
         zip_path = install_paths[index]
 
-        marker = os.path.join(
-            g.ADDON_USERDATA_PATH,
-            "installed_provider_" + filename + ".txt"
-        )
-
         try:
 
-            g.log(f"Installing provider package: {filename}")
+            package_name = get_provider_package_name(
+                zip_path
+            )
+
+            if package_name:
+
+                remove_existing_provider_package(
+                    package_name
+                )
+
+            g.log(
+                f"Installing provider package: {filename}"
+            )
 
             installer = ProviderInstallManager(
                 silent=True
@@ -107,9 +182,9 @@ def install_embedded_provider_packages():
                 url=zip_path
             )
 
-            xbmcvfs.File(marker, "w").close()
-
-            g.log(f"Installed provider package: {filename}")
+            g.log(
+                f"Installed provider package: {filename}"
+            )
 
         except Exception as e:
 
@@ -119,6 +194,8 @@ def install_embedded_provider_packages():
                 "error"
             )
 
+    xbmcvfs.File(version_marker, "w").close()
+
 
 do_version_change()
 
@@ -126,43 +203,41 @@ snapshot_enabled_flags()
 
 sync_accountmgr_credentials()
 
-_prewarm_count = g.SETTINGS_CACHE.pre_warm_settings(g.SETTINGS_PATH)
+_prewarm_count = g.SETTINGS_CACHE.pre_warm_settings(
+    g.SETTINGS_PATH
+)
 
 g._store_service_state()
 
 install_embedded_provider_packages()
 
-xbmcgui.Window(10000).setProperty('seren.service.ready', g.VERSION)
+xbmcgui.Window(10000).setProperty(
+    'seren.service.ready',
+    g.VERSION
+)
 
 _ = g.studio_icons
-
-g.log("##################  STARTING SERVICE  ######################")
-g.log(f"### {g.ADDON_ID} {g.VERSION}")
-g.log(f"### Platform: {g.PLATFORM}")
-g.log(f"### Python: {sys.version.split(' ', 1)[0]}")
-g.log(f"### SQLite: {sqlite3.sqlite_version}")
-g.log(f"### Detected Kodi Version: {g.KODI_VERSION}")
-g.log(f"### Detected timezone: {repr(g.LOCAL_TIMEZONE.zone)}")
-g.log(f"### Settings pre-warmed: {_prewarm_count}")
-g.log("#############  SERVICE ENTERED KEEP ALIVE  #################")
 
 monitor = SerenMonitor()
 
 try:
+
     xbmc.executebuiltin(
         'RunPlugin("plugin://plugin.video.seren/?action=longLifeServiceManager")'
     )
 
     do_update_news()
+
     validate_timezone_detected()
 
     try:
+
         g.clear_kodi_bookmarks()
 
     except TypeError:
+
         g.log(
-            "Unable to clear bookmarks on service init. "
-            "This is not a problem if it occurs immediately after install.",
+            "Unable to clear bookmarks on service init.",
             "warning",
         )
 
@@ -210,6 +285,11 @@ try:
             break
 
 finally:
-    xbmcgui.Window(10000).clearProperty('seren.service.ready')
+
+    xbmcgui.Window(10000).clearProperty(
+        'seren.service.ready'
+    )
+
     del monitor
+
     g.deinit()
