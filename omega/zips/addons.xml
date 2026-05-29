@@ -2847,7 +2847,7 @@ v0.2.3
 		<news> 
 		</news>
 	</extension>
-</addon><addon id="skin.xenon" name="[B][COLOR gold]Diggz Xenon[/COLOR][/B]  (Mid Power)" provider-name="Helly,bsoriano, Diggz" version="2.9">
+</addon><addon id="skin.xenon" name="[B][COLOR gold]Diggz Xenon[/COLOR][/B]  (Mid Power)" provider-name="Helly,bsoriano, Diggz" version="3.0">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0" />
 		<import addon="script.skinshortcuts" version="2.0.1" />
