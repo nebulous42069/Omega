@@ -280,8 +280,8 @@ msgstr "Uninstall"
 
 #: /resources/lib/modules/providers/install_manager.py:65
 msgctxt "#30050"
-msgid "Are you sure you wish to remove?"
-msgstr "Are you sure you wish to remove?"
+msgid "Update To The Latest Package Now?"
+msgstr "Update To The Latest Package Now?"
 
 #: /resources/lib/modules/providers/install_manager.py:78
 msgctxt "#30051"
