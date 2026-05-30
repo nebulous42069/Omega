@@ -2475,7 +2475,7 @@ v0.2.4
 v0.2.3
 - Add a Kodi settings action button to start Google Drive pairing directly from the add-on UI</news>
   </extension>
-</addon><addon id="service.multistaller" name="Multi Installer" version="427" provider-name="Zaxxon709">
+</addon><addon id="service.multistaller" name="Multi Installer" version="428" provider-name="Zaxxon709">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0" />
 	</requires>
