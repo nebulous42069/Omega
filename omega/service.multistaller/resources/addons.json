@@ -1,9 +1,9 @@
 {
     "Addon1": {
-            "plugin_id": "inputstream.adaptive"
+            "plugin_id": "resource.images.recordlabels.white"
     },
     "Addon2": {
-            "plugin_id": "inputstream.helper"
+            "plugin_id": "script.image.resource.select"
     },
     "Addon3": {
             "plugin_id": "script.module.six"
@@ -12,27 +12,30 @@
             "plugin_id": "script.module.kodi-six"
     },
     "Addon5": {
-            "plugin_id": "inputstream.rtmp"
+            "plugin_id": "script.skin.helper.service"
     },
     "Addon6": {
-            "plugin_id": "visualization.waveform"
-    },
-    "Addon7": {
             "plugin_id": "script.favourites"
     },
-    "Addon8": {
+    "Addon7": {
             "plugin_id": "resource.images.studios.white"
     },
-    "Addon9": {
+    "Addon8": {
             "plugin_id": "script.module.jurialmunkey"
     },
-    "Addon10": {
+    "Addon9": {
             "plugin_id": "script.module.infotagger"
     },
-    "Addon11": {
+    "Addon10": {
             "plugin_id": "script.skinvariables"
     },
-    "Addon12": {
+    "Addon11": {
             "plugin_id": "resource.images.studios.coloured"
+    },
+    "Addon12": {
+            "plugin_id": "resource.font.robotocjksc"
+    },
+    "Addon13": {
+            "plugin_id": "plugin.audio.m3sr2019"
     }
 }
