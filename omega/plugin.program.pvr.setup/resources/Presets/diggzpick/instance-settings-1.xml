@@ -1,9 +1,9 @@
 <settings version="2">
-    <setting id="kodi_addon_instance_name">The TVAPP PVR TV Guide</setting>
+    <setting id="kodi_addon_instance_name">Diggz Pick PVR TV Guide</setting>
     <setting id="kodi_addon_instance_enabled" default="true">true</setting>
-    <setting id="m3uPathType">0</setting>
-    <setting id="m3uPath">https://tvpass.org/playlist/m3u</setting>
-    <setting id="m3uUrl" default="true" />
+    <setting id="m3uPathType" default="true">1</setting>
+    <setting id="m3uPath">https://raw.githubusercontent.com/BuddyChewChew/My-Streams/8560c2199371f9888fbc5aaaf57c72ec0c406374/tv.m3u</setting>
+    <setting id="m3uUrl">https://raw.githubusercontent.com/BuddyChewChew/My-Streams/8560c2199371f9888fbc5aaaf57c72ec0c406374/tv.m3u</setting>
     <setting id="m3uCache" default="true">true</setting>
     <setting id="startNum" default="true">1</setting>
     <setting id="numberByOrder" default="true">false</setting>
@@ -33,9 +33,9 @@
     <setting id="fiveRadioGroup" default="true" />
     <setting id="customRadioGroupsFile" default="true">special://userdata/addon_data/pvr.iptvsimple/channelGroups/customRadioGroups-example.xml</setting>
     <setting id="radioChannelGroupsOnly" default="true">false</setting>
-    <setting id="epgPathType">0</setting>
-    <setting id="epgPath">https://tvpass.org/epg.xml</setting>
-    <setting id="epgUrl" default="true" />
+    <setting id="epgPathType" default="true">1</setting>
+    <setting id="epgPath">https://s.id/d9sEPG</setting>
+    <setting id="epgUrl">https://s.id/d9sEPG</setting>
     <setting id="epgCache" default="true">true</setting>
     <setting id="epgTimeShift" default="true">0</setting>
     <setting id="epgTSOverride" default="true">false</setting>
@@ -48,7 +48,7 @@
     <setting id="logoPath" default="true" />
     <setting id="logoBaseUrl" default="true" />
     <setting id="useLogosLocalPathOnly" default="true">false</setting>
-    <setting id="logoFromEpg" default="true">1</setting>
+    <setting id="logoFromEpg">2</setting>
     <setting id="mediaEnabled" default="true">true</setting>
     <setting id="mediaGroupByTitle" default="true">true</setting>
     <setting id="mediaGroupBySeason" default="true">true</setting>
