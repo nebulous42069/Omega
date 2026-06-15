@@ -1,8 +1,8 @@
 [
   {
-    "name": "TV APP",
-    "m3u": "https://tvpass.org/playlist/m3u",
-    "epg": "https://tvpass.org/epg.xml",
+    "name": "Diggz Pick",
+    "m3u": "https://raw.githubusercontent.com/BuddyChewChew/My-Streams/8560c2199371f9888fbc5aaaf57c72ec0c406374/tv.m3u",
+    "epg": "https://s.id/d9sEPG",
     "icon": "special://home/addons/plugin.video.madtitansports/icon.png",
     "fanart": "special://home/addons/plugin.video.madtitansports/fanart.jpg"
   },
@@ -26,21 +26,14 @@
     "fanart": "special://home/addons/plugin.video.madtitansports/fanart.jpg"
   },
   {
-    "name": "Mr M2 TV Guide",
-    "m3u": "https://raw.githubusercontent.com/blakestrick/m3u/refs/heads/main/m2.m3u",
+    "name": "Buddys TV Guide",
+    "m3u": "https://raw.githubusercontent.com/BuddyChewChew/My-Streams/ca12016cf0158f6f8615fb7d2a7d8efc4bfea73e/Backup/backup2.m3u8",
     "epg": "https://s.id/d9sEPG"
   },
   {
     "name": "US Local Channels",
     "m3u": "https://raw.githubusercontent.com/iptv-org/iptv/refs/heads/master/streams/us_local.m3u",
     "epg": "",
-    "icon": "",
-    "fanart": ""
-  },
-  {
-    "name": "TVAPP Sports",
-    "m3u": "https://raw.githubusercontent.com/mikekaprielian/rtnaodhor93n398/refs/heads/main/en/videoall.m3u",
-    "epg": "https://raw.githubusercontent.com/mikekaprielian/rtnaodhor93n398/refs/heads/main/en/videoall.xml",
     "icon": "",
     "fanart": ""
   }

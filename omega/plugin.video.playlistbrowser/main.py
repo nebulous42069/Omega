@@ -1211,7 +1211,19 @@ def show_guide_for_channel(src_idx: int, cname: str, tvg: str, play_url: str):
     xbmcplugin.endOfDirectory(HANDLE)
 
 def play_item(stream_url: str):
-    li = xbmcgui.ListItem(path=stream_url); li.setProperty('IsPlayable','true')
+
+    headers = (
+        "User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/137.0.0.0 Safari/537.36"
+        "&Referer=http://tvmate.icu/"
+    )
+
+    play_url = f"{stream_url}|{headers}"
+
+    li = xbmcgui.ListItem(path=play_url)
+    li.setProperty('IsPlayable', 'true')
+
     xbmcplugin.setResolvedUrl(HANDLE, True, li)
 
 # ---------- Router ----------
