@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <include name="SearchHistory">
+
+        <!-- Slot 1 -->
+        <item>
+            <visible>!String.IsEmpty(Skin.String(SearchHistory.1))</visible>
+            <label>$INFO[Skin.String(SearchHistory.1)]</label>
+            <onclick>RunScript(script.redtastic.helper,mode=re_search,query=$INFO[Skin.String(SearchHistory.1)])</onclick>
+        </item>
+
+        <!-- Slot 2 -->
+        <item>
+            <visible>!String.IsEmpty(Skin.String(SearchHistory.2))</visible>
+            <label>$INFO[Skin.String(SearchHistory.2)]</label>
+            <onclick>RunScript(script.redtastic.helper,mode=re_search,query=$INFO[Skin.String(SearchHistory.2)])</onclick>
+        </item>
+
+        <!-- Slot 3 -->
+        <item>
+            <visible>!String.IsEmpty(Skin.String(SearchHistory.3))</visible>
+            <label>$INFO[Skin.String(SearchHistory.3)]</label>
+            <onclick>RunScript(script.redtastic.helper,mode=re_search,query=$INFO[Skin.String(SearchHistory.3)])</onclick>
+        </item>
+
+        <!-- Slot 4 -->
+        <item>
+            <visible>!String.IsEmpty(Skin.String(SearchHistory.4))</visible>
+            <label>$INFO[Skin.String(SearchHistory.4)]</label>
+            <onclick>RunScript(script.redtastic.helper,mode=re_search,query=$INFO[Skin.String(SearchHistory.4)])</onclick>
+        </item>
+
+        <!-- Slot 5 -->
+        <item>
+            <visible>!String.IsEmpty(Skin.String(SearchHistory.5))</visible>
+            <label>$INFO[Skin.String(SearchHistory.5)]</label>
+            <onclick>RunScript(script.redtastic.helper,mode=re_search,query=$INFO[Skin.String(SearchHistory.5)])</onclick>
+        </item>
+
+        <!-- Slot 6 -->
+        <item>
+            <visible>!String.IsEmpty(Skin.String(SearchHistory.6))</visible>
+            <label>$INFO[Skin.String(SearchHistory.6)]</label>
+            <onclick>RunScript(script.redtastic.helper,mode=re_search,query=$INFO[Skin.String(SearchHistory.6)])</onclick>
+        </item>
+
+        <!-- Slot 7 -->
+        <item>
+            <visible>!String.IsEmpty(Skin.String(SearchHistory.7))</visible>
+            <label>$INFO[Skin.String(SearchHistory.7)]</label>
+            <onclick>RunScript(script.redtastic.helper,mode=re_search,query=$INFO[Skin.String(SearchHistory.7)])</onclick>
+        </item>
+
+        <!-- Slot 8 -->
+        <item>
+            <visible>!String.IsEmpty(Skin.String(SearchHistory.8))</visible>
+            <label>$INFO[Skin.String(SearchHistory.8)]</label>
+            <onclick>RunScript(script.redtastic.helper,mode=re_search,query=$INFO[Skin.String(SearchHistory.8)])</onclick>
+        </item>
+
+        <!-- Slot 9 -->
+        <item>
+            <visible>!String.IsEmpty(Skin.String(SearchHistory.9))</visible>
+            <label>$INFO[Skin.String(SearchHistory.9)]</label>
+            <onclick>RunScript(script.redtastic.helper,mode=re_search,query=$INFO[Skin.String(SearchHistory.9)])</onclick>
+        </item>
+
+        <!-- Slot 10 -->
+        <item>
+            <visible>!String.IsEmpty(Skin.String(SearchHistory.10))</visible>
+            <label>$INFO[Skin.String(SearchHistory.10)]</label>
+            <onclick>RunScript(script.redtastic.helper,mode=re_search,query=$INFO[Skin.String(SearchHistory.10)])</onclick>
+        </item>
+
+        <!-- Slot 11 -->
+        <item>
+            <visible>!String.IsEmpty(Skin.String(SearchHistory.11))</visible>
+            <label>$INFO[Skin.String(SearchHistory.11)]</label>
+            <onclick>RunScript(script.redtastic.helper,mode=re_search,query=$INFO[Skin.String(SearchHistory.11)])</onclick>
+        </item>
+
+        <!-- Slot 12 -->
+        <item>
+            <visible>!String.IsEmpty(Skin.String(SearchHistory.12))</visible>
+            <label>$INFO[Skin.String(SearchHistory.12)]</label>
+            <onclick>RunScript(script.redtastic.helper,mode=re_search,query=$INFO[Skin.String(SearchHistory.12)])</onclick>
+        </item>
+
+        <!-- Slot 13 -->
+        <item>
+            <visible>!String.IsEmpty(Skin.String(SearchHistory.13))</visible>
+            <label>$INFO[Skin.String(SearchHistory.13)]</label>
+            <onclick>RunScript(script.redtastic.helper,mode=re_search,query=$INFO[Skin.String(SearchHistory.13)])</onclick>
+        </item>
+
+        <!-- Slot 14 -->
+        <item>
+            <visible>!String.IsEmpty(Skin.String(SearchHistory.14))</visible>
+            <label>$INFO[Skin.String(SearchHistory.14)]</label>
+            <onclick>RunScript(script.redtastic.helper,mode=re_search,query=$INFO[Skin.String(SearchHistory.14)])</onclick>
+        </item>
+
+        <!-- Slot 15 -->
+        <item>
+            <visible>!String.IsEmpty(Skin.String(SearchHistory.15))</visible>
+            <label>$INFO[Skin.String(SearchHistory.15)]</label>
+            <onclick>RunScript(script.redtastic.helper,mode=re_search,query=$INFO[Skin.String(SearchHistory.15)])</onclick>
+        </item>
+
+        <!-- Slot 16 -->
+        <item>
+            <visible>!String.IsEmpty(Skin.String(SearchHistory.16))</visible>
+            <label>$INFO[Skin.String(SearchHistory.16)]</label>
+            <onclick>RunScript(script.redtastic.helper,mode=re_search,query=$INFO[Skin.String(SearchHistory.16)])</onclick>
+        </item>
+
+        <!-- Slot 17 -->
+        <item>
+            <visible>!String.IsEmpty(Skin.String(SearchHistory.17))</visible>
+            <label>$INFO[Skin.String(SearchHistory.17)]</label>
+            <onclick>RunScript(script.redtastic.helper,mode=re_search,query=$INFO[Skin.String(SearchHistory.17)])</onclick>
+        </item>
+
+        <!-- Slot 18 -->
+        <item>
+            <visible>!String.IsEmpty(Skin.String(SearchHistory.18))</visible>
+            <label>$INFO[Skin.String(SearchHistory.18)]</label>
+            <onclick>RunScript(script.redtastic.helper,mode=re_search,query=$INFO[Skin.String(SearchHistory.18)])</onclick>
+        </item>
+
+        <!-- Slot 19 -->
+        <item>
+            <visible>!String.IsEmpty(Skin.String(SearchHistory.19))</visible>
+            <label>$INFO[Skin.String(SearchHistory.19)]</label>
+            <onclick>RunScript(script.redtastic.helper,mode=re_search,query=$INFO[Skin.String(SearchHistory.19)])</onclick>
+        </item>
+
+        <!-- Slot 20 -->
+        <item>
+            <visible>!String.IsEmpty(Skin.String(SearchHistory.20))</visible>
+            <label>$INFO[Skin.String(SearchHistory.20)]</label>
+            <onclick>RunScript(script.redtastic.helper,mode=re_search,query=$INFO[Skin.String(SearchHistory.20)])</onclick>
+        </item>
+
+    </include>
+</includes>

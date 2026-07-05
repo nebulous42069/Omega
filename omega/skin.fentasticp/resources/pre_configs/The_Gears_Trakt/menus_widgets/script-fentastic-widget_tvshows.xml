@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <include name="TVShowWidgets">
+        <include condition="System.HasAddon(plugin.video.gears)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.gears/?name=Genres&amp;mode=navigator.genres&amp;menu_type=tvshow&amp;random_support=true&amp;iconImage=genres"/>
+            <param name="widget_header" value="Genres"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="22011"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.gears)" content="WidgetListBigPoster">
+            <param name="content_path" value="plugin://plugin.video.gears/?mode=trakt.list.build_trakt_list&amp;user=garycrawfordgc&amp;slug=latest-tv-shows&amp;list_type=liked_lists&amp;list_name=Latest+TV+Shows&amp;iconImage=trakt&amp;name=Latest+TV+Shows"/>
+            <param name="widget_header" value="Latest TV Shows"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="22012"/>
+        </include>
+        <include condition="System.HasAddon(plugin.program.autowidget)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.program.autowidget/?mode=group&amp;group=gears_tv-1783253219.0103006&amp;refresh=&amp;reload="/>
+            <param name="widget_header" value="Trakt Lists"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="22013"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.gears)" content="WidgetListBigPoster">
+            <param name="content_path" value="plugin://plugin.video.gears/?name=Trending+Recent&amp;mode=build_tvshow_list&amp;action=trakt_tv_trending_recent&amp;random_support=true&amp;iconImage=trending_recent"/>
+            <param name="widget_header" value="Trending Recent"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="22014"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.gears)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.gears/?name=Decades&amp;mode=navigator.decades&amp;menu_type=tvshow&amp;random_support=true&amp;iconImage=calendar_decades"/>
+            <param name="widget_header" value="Decades"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="22015"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.gears)" content="WidgetListBigPoster">
+            <param name="content_path" value="plugin://plugin.video.gears/?name=Most+Watched&amp;mode=build_tvshow_list&amp;action=trakt_tv_most_watched&amp;random_support=true&amp;iconImage=most_watched"/>
+            <param name="widget_header" value="Most Watched"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="22016"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.gears)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.gears/?name=Providers&amp;mode=navigator.providers&amp;menu_type=tvshow&amp;random_support=true&amp;iconImage=providers"/>
+            <param name="widget_header" value="Providers"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="22017"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.gears)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.gears/?name=Networks&amp;mode=navigator.networks&amp;menu_type=tvshow&amp;random_support=true&amp;iconImage=networks"/>
+            <param name="widget_header" value="Networks"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="22018"/>
+        </include>
+    </include>
+</includes>

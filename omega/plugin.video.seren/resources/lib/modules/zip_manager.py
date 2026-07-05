@@ -151,7 +151,11 @@ class ZipManager:
         return contents
 
     def _extract_zip_member(self, member, output_path):
-        target_path = os.path.join(output_path, member.replace(self._root_directory, ""))
+        # Strip only the leading root prefix once — .replace() would remove every
+        # occurrence of the prefix, corrupting paths like
+        # "a4kScrapers/providers/a4kScrapers/en/..." → "providers/en/..." (wrong).
+        stripped = member[len(self._root_directory):]
+        target_path = os.path.join(output_path, stripped)
         upper_dirs = os.path.dirname(target_path)
 
         if upper_dirs and not xbmcvfs.exists(upper_dirs):

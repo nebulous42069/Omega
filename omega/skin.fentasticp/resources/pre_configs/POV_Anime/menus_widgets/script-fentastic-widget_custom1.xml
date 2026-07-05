@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <include name="Custom1Widgets">
+        <include condition="System.HasAddon(plugin.video.pov)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.pov/?name=Movies+Genres&amp;iconImage=genres.png&amp;mode=navigator.anime_genres&amp;menu_type=movie"/>
+            <param name="widget_header" value="Movies Genres"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="23011"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.pov)" content="WidgetListBigPoster">
+            <param name="content_path" value="plugin://plugin.video.pov/?name=Movies+Recent+Released&amp;iconImage=movies.png&amp;mode=build_movie_list&amp;action=tmdb_moviesanime_latest_releases"/>
+            <param name="widget_header" value="Movies Recent Released"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="23012"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.pov)" content="WidgetListBigPoster">
+            <param name="content_path" value="plugin://plugin.video.pov/?name=Movies+Trending&amp;iconImage=movies.png&amp;mode=build_movie_list&amp;action=trakt_moviesanime_trending"/>
+            <param name="widget_header" value="Movies Trending"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="23013"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.pov)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.pov/?name=Series+Genres&amp;iconImage=genres.png&amp;mode=navigator.anime_genres&amp;menu_type=tvshow"/>
+            <param name="widget_header" value="TV Show Genres"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="23014"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.pov)" content="WidgetListBigPoster">
+            <param name="content_path" value="plugin://plugin.video.pov/?name=Series+Recent+Released&amp;iconImage=tv.png&amp;mode=build_tvshow_list&amp;action=tmdb_tvanime_premieres"/>
+            <param name="widget_header" value="TV Shows Recent Released"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="23015"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.pov)" content="WidgetListBigPoster">
+            <param name="content_path" value="plugin://plugin.video.pov/?name=Series+Trending&amp;iconImage=tv.png&amp;mode=build_tvshow_list&amp;action=trakt_tvanime_trending"/>
+            <param name="widget_header" value="TV Shows Trending"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="23016"/>
+        </include>
+    </include>
+</includes>

@@ -164,11 +164,18 @@ def _fetch_titles_from_api(anidb_id):
 
 
 def _parse_titles_from_xml(xml_text):
-    """Parse <titles> block from AniDB anime XML response."""
+    """Parse <titles> block from AniDB anime XML response.
+
+    Scopes to the <titles> child element only — root.iter() would also walk
+    the <episodes> block and pick up every episode title as an alias.
+    """
     titles = []
     try:
         root = ET.fromstring(xml_text)
-        for elem in root.iter("title"):
+        titles_elem = root.find("titles")
+        if titles_elem is None:
+            return titles
+        for elem in titles_elem:
             lang = elem.get("{http://www.w3.org/XML/1998/namespace}lang", "")
             if lang not in _INCLUDE_LANGS:
                 continue

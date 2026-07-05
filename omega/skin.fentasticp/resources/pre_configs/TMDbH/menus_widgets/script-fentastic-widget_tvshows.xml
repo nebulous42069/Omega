@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <include name="TVShowWidgets">
+        <include condition="System.HasAddon(plugin.video.themoviedb.helper)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.themoviedb.helper/?info=trakt_genres&amp;tmdb_type=tv"/>
+            <param name="widget_header" value="Genres"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="22011"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.themoviedb.helper)" content="WidgetListBigPoster">
+            <param name="content_path" value="plugin://plugin.video.themoviedb.helper/?info=trakt_userlist&amp;tmdb_type=both&amp;list_name=Latest+TV+Shows&amp;list_slug=latest-tv-shows&amp;user_slug=garycrawfordgc&amp;plugin_category=Latest+TV+Shows"/>
+            <param name="widget_header" value="Latest TV Shows"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="22012"/>
+        </include>
+        <include condition="System.HasAddon(plugin.program.autowidget)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.program.autowidget/?mode=group&amp;group=tmdbh_tv-1783203099.1743958&amp;refresh=&amp;reload="/>
+            <param name="widget_header" value="Trakt Lists"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="22013"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.themoviedb.helper)" content="WidgetListBigPoster">
+            <param name="content_path" value="plugin://plugin.video.themoviedb.helper/?info=trakt_trending&amp;tmdb_type=tv"/>
+            <param name="widget_header" value="Trending TV"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="22014"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.themoviedb.helper)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.themoviedb.helper/?info=trakt_years&amp;tmdb_type=tv"/>
+            <param name="widget_header" value="Years"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="22015"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.themoviedb.helper)" content="WidgetListBigPoster">
+            <param name="content_path" value="plugin://plugin.video.themoviedb.helper/?info=trakt_mostplayed&amp;tmdb_type=tv"/>
+            <param name="widget_header" value="Most Played"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="22016"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.themoviedb.helper)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.themoviedb.helper/?info=watch_providers&amp;tmdb_type=tv"/>
+            <param name="widget_header" value="Providers"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="22017"/>
+        </include>
+    </include>
+</includes>

@@ -29,6 +29,23 @@ _ART_TYPE_MAP = {
     23: "clearlogo",
 }
 
+# TVDB v4 returns 3-letter ISO 639-2 language codes; metadataHandler expects 2-letter ISO 639-1.
+_TVDB_LANG_3TO2 = {
+    "eng": "en", "fra": "fr", "deu": "de", "spa": "es", "ita": "it",
+    "por": "pt", "rus": "ru", "pol": "pl", "jpn": "ja", "zho": "zh",
+    "kor": "ko", "ara": "ar", "nld": "nl", "swe": "sv", "nor": "no",
+    "fin": "fi", "dan": "da", "ces": "cs", "tur": "tr", "hun": "hu",
+    "heb": "he", "ind": "id", "vie": "vi", "tha": "th",
+}
+
+
+def _norm_lang(lang):
+    """Normalise a TVDB v4 3-letter language code to the 2-letter code metadataHandler expects.
+    Returns None for absent/empty codes so _filter_art treats the artwork as language-neutral."""
+    if not lang:
+        return None
+    return _TVDB_LANG_3TO2.get(lang, lang)
+
 
 def tvdb_guard_response(func):
     @wraps(func)
@@ -337,7 +354,7 @@ class TVDBAPI(ApiBase):
             seren_type = _ART_TYPE_MAP[art_type]
             entry = {
                 "url": display_url,
-                "language": art.get("language") or "eng",
+                "language": _norm_lang(art.get("language")),
                 "rating": art.get("score") or 0,
                 "size": art.get("height") or art.get("score") or 0,
             }
@@ -465,9 +482,9 @@ class TVDBAPI(ApiBase):
 
         # Find season IDs for the requested season number in Aired Order (type.id == 1)
         target_season_ids = {
-            s["id"]
+            s.get("id")
             for s in seasons
-            if s.get("number") == season and s.get("type", {}).get("id") == 1
+            if s.get("id") and s.get("number") == season and s.get("type", {}).get("id") == 1
         }
 
         if not target_season_ids:
@@ -486,7 +503,7 @@ class TVDBAPI(ApiBase):
                 posters.append(
                     {
                         "url": image_url,
-                        "language": art.get("language") or "eng",
+                        "language": _norm_lang(art.get("language")),
                         "rating": art.get("score") or 0,
                         "size": art.get("height") or art.get("score") or 0,
                     }

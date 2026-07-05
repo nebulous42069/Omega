@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <include name="Custom2Widgets">
+        <include condition="System.HasAddon(plugin.video.pov)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.pov/?name=32474&amp;iconImage=because_you_watched.png&amp;mode=navigator.because_you_watched&amp;menu_type=movie"/>
+            <param name="widget_header" value="Because You Watched..."/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="24011"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.pov)" content="WidgetListBigPoster">
+            <param name="content_path" value="plugin://plugin.video.pov/?name=32476&amp;iconImage=player.png&amp;mode=build_movie_list&amp;action=in_progress_movies"/>
+            <param name="widget_header" value="In Progress Movies"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="24012"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.pov)" content="WidgetListBigPoster">
+            <param name="content_path" value="plugin://plugin.video.pov/?name=32481&amp;iconImage=in_progress_tvshow.png&amp;mode=build_tvshow_list&amp;action=in_progress_tvshows"/>
+            <param name="widget_header" value="In Progress TV Shows"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="24013"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.pov)" content="WidgetListBigPoster">
+            <param name="content_path" value="plugin://plugin.video.pov/?name=32482&amp;iconImage=player.png&amp;mode=build_in_progress_episode"/>
+            <param name="widget_header" value="In Progress Episodes"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="24014"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.pov)" content="WidgetListBigPoster">
+            <param name="content_path" value="plugin://plugin.video.pov/?name=32483&amp;iconImage=next_episodes.png&amp;mode=build_next_episode"/>
+            <param name="widget_header" value="Next Episodes"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="24015"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.pov)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.pov/?name=32474&amp;iconImage=because_you_watched.png&amp;mode=navigator.because_you_watched&amp;menu_type=tvshow"/>
+            <param name="widget_header" value="Because You Watched..."/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="24016"/>
+        </include>
+    </include>
+</includes>

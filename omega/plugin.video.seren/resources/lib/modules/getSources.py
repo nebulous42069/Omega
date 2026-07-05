@@ -61,8 +61,8 @@ SCRAPER_TIERS = {
     'cached': 0,
     # Tier 1 — Anime (dedicated anime trackers, fast, return nothing for non-anime; auto-skipped for non-anime)
     'animetosho': 1, 'anirena': 1, 'nekobt': 1, 'nyaa': 1, 'subsplease': 1,
-    # Tier 2 — Stremio Direct (Torrentio — largest single Stremio index, fast JSON API)
-    'torrentio': 2,
+    # Tier 2 — Meta-indexers (Torrentio, Orionoid — large centralized indexes, fast single API call, pre-aggregated results)
+    'oriontorrent': 2, 'torrentio': 2,
     # Tier 3 — Stremio Direct-Alt (Comet, MediaFusion, Meteor — standalone Stremio scrapers)
     'comet': 3, 'mediafusion': 3, 'meteor': 3,
     # Tier 4 — IMDB Hash Lookup (debrid-optimized IMDB-ID hash lookup, instant JSON APIs)
@@ -1345,6 +1345,16 @@ class Sources:
         direct_providers = providers_dict['direct']
 
         hoster_providers, torrent_providers = self._remove_duplicate_providers(torrent_providers, hoster_providers)
+
+        orion_master = g.get_bool_setting("scraping.orion", True)
+        if not orion_master or not g.get_bool_setting("scraping.orion.torrent", True):
+            if not orion_master:
+                g.log("Orion provider disabled in settings, skipping all Orion providers", "info")
+            torrent_providers = [p for p in torrent_providers if p[2] != "Orion"]
+            adaptive_providers = [p for p in adaptive_providers if p[2] != "Orion"]
+        if not orion_master or not g.get_bool_setting("scraping.orion.hoster", True):
+            hoster_providers = [p for p in hoster_providers if p[2] != "Orion"]
+            direct_providers = [p for p in direct_providers if p[2] != "Orion"]
 
         self.hoster_domains = resolver.Resolver.get_hoster_list()
         self.torrent_providers = torrent_providers

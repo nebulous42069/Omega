@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <include name="Custom1Widgets">
+        <include condition="System.HasAddon(plugin.video.pov)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.pov/?name=32454&amp;iconImage=lists.png&amp;mode=navigator.my_content"/>
+            <param name="widget_header" value="My Lists"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="23011"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.pov)" content="WidgetListBigEpisodes">
+            <param name="content_path" value="plugin://plugin.video.pov/?name=32483&amp;iconImage=next_episodes.png&amp;mode=build_next_episode"/>
+            <param name="widget_header" value="Next Episodes"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="23012"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.pov)" content="WidgetListBigPoster">
+            <param name="content_path" value="plugin://plugin.video.pov/?name=32481&amp;iconImage=in_progress_tvshow.png&amp;mode=build_tvshow_list&amp;action=in_progress_tvshows"/>
+            <param name="widget_header" value="In Progress TV Shows"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="23013"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.pov)" content="WidgetListBigEpisodes">
+            <param name="content_path" value="plugin://plugin.video.pov/?name=32476&amp;iconImage=player.png&amp;mode=build_movie_list&amp;action=in_progress_movies"/>
+            <param name="widget_header" value="In Progress Movies"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="23014"/>
+        </include>
+    </include>
+</includes>

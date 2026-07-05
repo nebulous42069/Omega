@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<onload condition="String.IsEmpty(Skin.String(current_search_provider))">Skin.SetString(current_search_provider,0)</onload>
+	<onload condition="String.IsEmpty(Skin.String(searchhistory.limit))">Skin.SetString(searchhistory.limit,5)</onload>
+	<onload condition="String.IsEmpty(Skin.String(WidgetItemLimit))">Skin.SetString(WidgetItemLimit,20)</onload>
+	<onload condition="String.IsEmpty(Skin.String(CategoryWidgetItemLimit))">Skin.SetString(CategoryWidgetItemLimit,20)</onload>
+	<onload condition="String.IsEmpty(Skin.String(StackedWidgetItemLimit))">Skin.SetString(StackedWidgetItemLimit,20)</onload>
+	<onload condition="String.IsEmpty(Skin.String(DefaultBackgroundBrightness))">Skin.SetString(DefaultBackgroundBrightness,Medium)</onload>
+	<onload condition="String.IsEmpty(Skin.String(DefaultFanartBrightness))">Skin.SetString(DefaultFanartBrightness,Medium)</onload>
+	<onload condition="String.IsEmpty(Skin.String(DefaultRainDropBrightness))">Skin.SetString(DefaultRainDropBrightness,Medium)</onload>
+	<onload condition="String.IsEmpty(Skin.String(backup_directory))">Skin.SetString(backup_directory,special://home/backups/FENtastic_Plus/)
+</onload>
+	<onload condition="String.IsEmpty(Skin.String(OSDAudioButtonMode))">Skin.SetString(OSDAudioButtonMode,Next audio stream)</onload>
+	<onload condition="String.IsEmpty(Skin.String(OSDSubtitleButtonMode))">Skin.SetString(OSDSubtitleButtonMode,Subtitle settings)</onload>
+	<onload>ReplaceWindow($INFO[System.StartupWindow])</onload>
+	<controls/>
+</window>

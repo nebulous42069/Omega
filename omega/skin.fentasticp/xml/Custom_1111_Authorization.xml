@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog" id="1111">
+	<defaultcontrol always="true">9000</defaultcontrol>
+	<include>Animation_DialogPopupOpenClose</include>
+	<controls>
+		<control type="group">
+			<centerleft>50%</centerleft>
+			<width>600</width>
+			<centertop>50%</centertop>
+			<height>350</height>
+			<include content="DialogBackgroundCommons">
+				<param name="width" value="600" />
+				<param name="height" value="350" />
+				<param name="header_label" value="Authorize Services" />
+				<param name="header_id" value="" />
+				<param name="diffusetexture" value="masks/dialog-bg-squareish.png" />
+			</include>
+			<control type="panel" id="9000">
+				<include>ButtonMenuList_dialog</include>
+				<onback>Dialog.Close(1111)</onback>
+				<onback>ActivateWindow(1106)</onback>
+				<content>
+					<item>
+						<label>Trakt</label>
+						<visible>!System.HasAddon(script.module.acctmgr) + !Skin.HasSetting(AuthNoTrakt)</visible>
+						<onclick>Dialog.Close(all)</onclick>
+						<onclick>ActivateWindow(1108)</onclick>
+					</item>
+					<item>
+						<label>Real-Debrid</label>
+						<visible>!System.HasAddon(script.module.acctmgr) + !Skin.HasSetting(AuthNoRealDebrid)</visible>
+						<onclick>Dialog.Close(all)</onclick>
+						<onclick>ActivateWindow(1113)</onclick>
+					</item>
+					<item>
+						<label>Premiumize</label>
+						<visible>!System.HasAddon(script.module.acctmgr) + !Skin.HasSetting(AuthNoPremiumize)</visible>
+						<onclick>Dialog.Close(all)</onclick>
+						<onclick>ActivateWindow(1114)</onclick>
+					</item>
+					<item>
+						<label>All-Debrid</label>
+						<visible>!System.HasAddon(script.module.acctmgr) + !Skin.HasSetting(AuthNoAllDebrid)</visible>
+						<onclick>Dialog.Close(all)</onclick>
+						<onclick>ActivateWindow(1115)</onclick>
+					</item>
+					<item>
+						<label>Torbox</label>
+						<visible>!System.HasAddon(script.module.acctmgr) + !Skin.HasSetting(AuthNoTorbox)</visible>
+						<onclick>Dialog.Close(all)</onclick>
+						<onclick>ActivateWindow(1116)</onclick>
+					</item>
+					<item>
+						<label>Set Skin MDbList API Key</label>
+						<visible>!System.HasAddon(script.module.acctmgr) + !Skin.HasSetting(AuthNoSkinMDBList)</visible>
+						<onclick>RunScript(script.fentastic.helperr,mode=set_api_key)</onclick>
+					</item>
+					<item>
+						<label>Set TMDbH MDbList API Key</label>
+						<visible>!System.HasAddon(script.module.acctmgr) + System.HasAddon(plugin.video.themoviedb.helper) + !Skin.HasSetting(AuthNoTMDBHMDBList)</visible>
+						<onclick>RunScript(script.fentastic.helperr,tmdbh_mdblist_api)</onclick>
+					</item>
+					<item>
+						<label>IMDb Trailers</label>
+						<visible>System.HasAddon(plugin.video.imdb.trailers) + !Skin.HasSetting(AuthNoYouTube)</visible>
+						<onclick>ActivateWindow(videos,"plugin://plugin.video.imdb.trailers/",return)</onclick>
+					</item>
+				</content>
+			</control>
+			<include content="UpDownArrows">
+				<param name="container_id" value="9000" />
+				<param name="posx" value="276" />
+				<param name="up_posy" value="-35" />
+				<param name="down_posy" value="360" />
+			</include>
+		</control>
+	</controls>
+</window>

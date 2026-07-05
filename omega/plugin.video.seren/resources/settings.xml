@@ -1939,6 +1939,23 @@
 					<control type="button" format="action"/>
 				</setting>
 			</group>
+			<group id="3c" label="30814">
+				<setting id="scraping.orion" type="boolean" label="30815" help="30816">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="scraping.orion.torrent" type="boolean" label="30817">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="scraping.orion.hoster" type="boolean" label="30818">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+			</group>
 			<group id="3a" label="30811">
 				<setting id="scraping.easynews" type="boolean" label="30812" help="30813">
 					<level>0</level>

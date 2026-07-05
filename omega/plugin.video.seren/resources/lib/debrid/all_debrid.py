@@ -163,9 +163,14 @@ class AllDebrid:
             xbmc.sleep(5 * 1000)
             progress_dialog.update(100)
 
+            if "check" not in resp or "pin" not in resp:
+                progress_dialog.close()
+                return
+
             while not auth_complete and expiry > 0 and not progress_dialog.iscanceled():
                 auth_check = self.get_json("pin/check", check=resp["check"], pin=resp["pin"])
                 if not auth_check or "activated" not in auth_check:
+                    expiry -= 1
                     xbmc.sleep(1 * 1000)
                     continue
                 if auth_check["activated"]:

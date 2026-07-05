@@ -7,6 +7,7 @@ from urllib import parse
 import xbmc
 import xbmcgui
 
+from resources.lib.database.cache import use_cache
 from resources.lib.modules.globals import g
 
 DL_TOKEN_KEY = "debridlink.token"
@@ -71,6 +72,8 @@ def debridlink_guard_response(func):
                 response = func(*args, **kwarg)
                 if response is None:
                     return None
+                if response.status_code in [200, 201]:
+                    return response
 
             g.log(
                 f"Debrid-Link returned a {response.status_code} "
@@ -637,6 +640,24 @@ class DebridLink:
         t = Thread(target=_delete)
         t.daemon = True
         t.start()
+
+    @use_cache(1)
+    def get_relevant_hosters(self):
+        host_list = self.get_json("downloader/hosts")
+        if not host_list:
+            return []
+        domains = []
+        for host in host_list:
+            if isinstance(host, dict) and host.get("status") == 1:
+                domains.extend(host.get("domains", []))
+        return domains
+
+    def get_hosters(self, hosters):
+        host_list = self.get_relevant_hosters()
+        if host_list:
+            hosters["premium"]["debrid_link"] = [(i, i.split(".")[0]) for i in host_list]
+        else:
+            hosters["premium"]["debrid_link"] = []
 
     def resolve_hoster(self, link):
         """Resolve a download URL. For Debrid-Link, files already have

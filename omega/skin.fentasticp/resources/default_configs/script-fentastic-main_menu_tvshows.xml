@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <include name="TVShowsMainMenu">
+        <item>
+            <label>Empty</label>
+            <onclick>noop</onclick>
+            <visible>false</visible>
+        </item>
+    </include>
+</includes>

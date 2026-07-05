@@ -380,7 +380,7 @@ def dispatch(params):
                 source_select_style = "Movie"
 
             watchdog_used = False
-            used_source_select = g.get_int_setting(f"general.playstyle{source_select_style}") == 1 or source_select
+            used_source_select = (g.get_int_setting(f"general.playstyle{source_select_style}") == 1 or source_select) and not smart_url_arg
             if used_source_select:
 
                 if background:
@@ -428,6 +428,8 @@ def dispatch(params):
                     if isinstance(stream_link, tuple):
                         stream_link, _release_title = stream_link
                     watchdog_used = bool(stream_link)
+                    if not stream_link and watchdog.user_stopped_early:
+                        return
                     # Set last resolved title for episode release group continuity
                     if watchdog_used and _release_title and ii['info']['mediatype'] == g.MEDIA_EPISODE:
                         g.set_runtime_setting(
@@ -491,6 +493,8 @@ def dispatch(params):
                             if isinstance(stream_link, tuple):
                                 stream_link, _release_title = stream_link
                             watchdog_used = bool(stream_link)
+                            if not stream_link and watchdog.user_stopped_early:
+                                return
                             if watchdog_used and _release_title and ii2['info']['mediatype'] == g.MEDIA_EPISODE:
                                 g.set_runtime_setting(
                                     f"last_resolved_release_title.{ii2['info']['trakt_show_id']}",

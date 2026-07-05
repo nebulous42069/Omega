@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <include name="Custom1Widgets">
+        <include condition="System.HasAddon(plugin.video.themoviedb.helper)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.themoviedb.helper/?info=dir_trakt&amp;tmdb_type=None"/>
+            <param name="widget_header" value="Trakt"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="23011"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.themoviedb.helper)" content="WidgetListBigEpisodes">
+            <param name="content_path" value="plugin://plugin.video.themoviedb.helper/?info=trakt_nextepisodes&amp;tmdb_type=tv"/>
+            <param name="widget_header" value="Your Next Episodes"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="23012"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.themoviedb.helper)" content="WidgetListBigPoster">
+            <param name="content_path" value="plugin://plugin.video.themoviedb.helper/?info=trakt_inprogress&amp;tmdb_type=tv&amp;list_name=Your+In-Progress"/>
+            <param name="widget_header" value="Your In-Progress TV"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="23013"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.themoviedb.helper)" content="WidgetListBigEpisodes">
+            <param name="content_path" value="plugin://plugin.video.themoviedb.helper/?info=trakt_inprogress&amp;tmdb_type=movie&amp;list_name=Your+In-Progress"/>
+            <param name="widget_header" value="Your In-Progress Movies"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="23014"/>
+        </include>
+    </include>
+</includes>

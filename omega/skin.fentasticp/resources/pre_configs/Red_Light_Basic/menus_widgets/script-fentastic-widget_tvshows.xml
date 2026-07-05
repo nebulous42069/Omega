@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <include name="TVShowWidgets">
+        <include condition="System.HasAddon(plugin.video.redlight)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.redlight/?name=Genres&amp;iconImage=genres&amp;mode=navigator.genres&amp;menu_type=tvshow&amp;random_support=true"/>
+            <param name="widget_header" value="Genres"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="22011"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.redlight)" content="WidgetListBigPoster">
+            <param name="content_path" value="plugin://plugin.video.redlight/?mode=trakt.list.build_trakt_list&amp;user=garycrawfordgc&amp;slug=latest-tv-shows&amp;list_type=liked_lists&amp;list_id=20370350&amp;list_name=Latest+TV+Shows&amp;sort_by=rank&amp;sort_how=asc"/>
+            <param name="widget_header" value="Latest TV Shows"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="22012"/>
+        </include>
+        <include condition="System.HasAddon(plugin.program.autowidget)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.program.autowidget/?mode=group&amp;group=red_light_tv-1783194017.2305048&amp;refresh=&amp;reload="/>
+            <param name="widget_header" value="Trakt Lists"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="22013"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.redlight)" content="WidgetListBigPoster">
+            <param name="content_path" value="plugin://plugin.video.redlight/?mode=build_tvshow_list&amp;action=tmdb_tv_popular_today&amp;category_name=Popular+Today"/>
+            <param name="widget_header" value="Popular Today"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="22014"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.redlight)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.redlight/?mode=navigator.decades&amp;menu_type=tvshow"/>
+            <param name="widget_header" value="Decades"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="22015"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.redlight)" content="WidgetListBigPoster">
+            <param name="content_path" value="plugin://plugin.video.redlight/?mode=build_tvshow_list&amp;action=trakt_tv_most_favorited&amp;category_name=Most+Favorited"/>
+            <param name="widget_header" value="Most Favorited"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="22016"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.redlight)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.redlight/?mode=navigator.providers&amp;menu_type=tvshow"/>
+            <param name="widget_header" value="Providers"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="22017"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.redlight)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.redlight/?mode=navigator.networks&amp;menu_type=tvshow"/>
+            <param name="widget_header" value="Networks"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="22018"/>
+        </include>
+    </include>
+</includes>

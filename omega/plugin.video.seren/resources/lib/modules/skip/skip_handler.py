@@ -10,8 +10,8 @@ TheIntroDB does have community submissions for popular anime via TMDB ids.
 
 The handler runs lookups in a background thread and exposes a unified
 `segments` dict with up to four keys (intro/recap/credits/preview), each
-mapping to the best segment as `(start, end)` in seconds. `end` may be None
-for credits/preview when the segment runs to the end of the media.
+mapping to a list of `(start, end)` tuples in seconds (best-first). `end`
+may be None for credits/preview when the segment runs to the end of the media.
 """
 
 import threading
@@ -27,8 +27,8 @@ class SkipHandler:
         handler.start()
         # ... in playback loop:
         if handler.ready:
-            intro = handler.segments.get("intro")  # (start, end) or None
-            credits = handler.segments.get("credits")  # (start, end) or None
+            intro = handler.segments.get("intro")  # [(start, end), ...] or absent
+            credits = handler.segments.get("credits")  # [(start, end), ...] or absent
             ...
     """
 
@@ -39,7 +39,7 @@ class SkipHandler:
         except (TypeError, ValueError):
             self.episode_number = 0
 
-        # Unified result map. Each value is (start, end) in seconds, end may be None.
+        # Unified result map. Each value is a list of (start, end) tuples, end may be None.
         self.segments = {}
 
         # Per-segment data source label (for diagnostics): "aniskip" | "anime_skip" | "theintrodb"
@@ -66,12 +66,14 @@ class SkipHandler:
     @property
     def intro_times(self):
         """Tuple (start, end) or None — preserved for legacy callers."""
-        return self.segments.get("intro")
+        lst = self.segments.get("intro")
+        return lst[0] if lst else None
 
     @property
     def outro_times(self):
         """Tuple (start, end) or None — anime 'outro' maps to 'credits'."""
-        return self.segments.get("credits")
+        lst = self.segments.get("credits")
+        return lst[0] if lst else None
 
     @property
     def source(self):
@@ -147,12 +149,12 @@ class SkipHandler:
 
             i_start, i_end = get_intro_times(mal_id, self.episode_number)
             if i_start is not None and i_end is not None and "intro" not in self.segments:
-                self.segments["intro"] = (i_start, i_end)
+                self.segments["intro"] = [(i_start, i_end)]
                 self.sources["intro"] = "aniskip"
 
             o_start, o_end = get_outro_times(mal_id, self.episode_number)
             if o_start is not None and o_end is not None and "credits" not in self.segments:
-                self.segments["credits"] = (o_start, o_end)
+                self.segments["credits"] = [(o_start, o_end)]
                 self.sources["credits"] = "aniskip"
 
         except Exception as e:
@@ -167,11 +169,11 @@ class SkipHandler:
                 return
 
             if "intro" not in self.segments and "intro" in result:
-                self.segments["intro"] = (result["intro"]["start"], result["intro"]["end"])
+                self.segments["intro"] = [(result["intro"]["start"], result["intro"]["end"])]
                 self.sources["intro"] = "anime_skip"
 
             if "credits" not in self.segments and "outro" in result:
-                self.segments["credits"] = (result["outro"]["start"], result["outro"]["end"])
+                self.segments["credits"] = [(result["outro"]["start"], result["outro"]["end"])]
                 self.sources["credits"] = "anime_skip"
 
         except Exception as e:
@@ -184,11 +186,12 @@ class SkipHandler:
 
             tmdb_id = self._info.get("tmdb_id") or self._info.get("tmdb_show_id")
             imdb_id = self._info.get("imdb_id")
+            tvdb_id = self._info.get("tvdb_id")
             season = self._info.get("season") if not self.is_movie else None
             episode = self.episode_number if not self.is_movie else None
 
-            if not tmdb_id and not imdb_id:
-                g.log("SkipHandler: no TMDB or IMDb id available", "debug")
+            if not tmdb_id and not imdb_id and not tvdb_id:
+                g.log("SkipHandler: no TMDB, IMDb or TVDB id available", "debug")
                 return
 
             api_key = (g.get_setting("skip.theIntroDbApiKey") or "").strip() or None
@@ -203,6 +206,7 @@ class SkipHandler:
             data = query_segments(
                 tmdb_id=tmdb_id,
                 imdb_id=imdb_id,
+                tvdb_id=tvdb_id,
                 season=season,
                 episode=episode,
                 is_movie=self.is_movie,
@@ -215,13 +219,15 @@ class SkipHandler:
             for seg_type in ("intro", "recap", "credits", "preview"):
                 if seg_type in self.segments:
                     continue  # don't override anime API data
-                segments = data.get(seg_type) or []
-                if not segments:
+                segs = data.get(seg_type) or []
+                if not segs:
                     continue
-                best = segments[0]
-                start = best.get("start") if best.get("start") is not None else 0.0
-                end = best.get("end")  # may be None for credits/preview
-                self.segments[seg_type] = (start, end)
+                tuples = []
+                for seg in segs:
+                    start = seg.get("start") if seg.get("start") is not None else 0.0
+                    end = seg.get("end")  # may be None for credits/preview
+                    tuples.append((start, end))
+                self.segments[seg_type] = tuples
                 self.sources[seg_type] = "theintrodb"
 
         except Exception as e:

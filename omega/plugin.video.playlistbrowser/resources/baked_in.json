@@ -1,17 +1,17 @@
 [
   {
     "name": "Diggz Pick",
-    "m3u": "https://raw.githubusercontent.com/BuddyChewChew/My-Streams/8560c2199371f9888fbc5aaaf57c72ec0c406374/tv.m3u",
+    "m3u": "https://raw.githubusercontent.com/BuddyChewChew/My-Streams/refs/heads/main/tv.m3u",
     "epg": "https://s.id/d9sEPG",
-    "icon": "special://home/addons/plugin.video.madtitansports/icon.png",
-    "fanart": "special://home/addons/plugin.video.madtitansports/fanart.jpg"
+    "icon": "",
+    "fanart": ""
   },
    {
     "name": "Doms List",
     "m3u": "https://s.id/d9M3U8",
     "epg": "https://s.id/d9sEPG",
-    "icon": "special://home/addons/plugin.video.madtitansports/icon.png",
-    "fanart": "special://home/addons/plugin.video.madtitansports/fanart.jpg"
+    "icon": "",
+    "fanart": ""
   },
   {
     "name": "DrewLive TV Guide",
@@ -22,18 +22,53 @@
     "name": "Tubi TV",
     "m3u": "https://raw.githubusercontent.com/BuddyChewChew/app-m3u-generator/refs/heads/main/playlists/tubi_all.m3u",
     "epg": "https://raw.githubusercontent.com/BuddyChewChew/tubi-scraper/refs/heads/main/tubi_epg.xml",
-    "icon": "special://home/addons/plugin.video.madtitansports/icon.png",
-    "fanart": "special://home/addons/plugin.video.madtitansports/fanart.jpg"
+    "icon": "",
+    "fanart": ""
   },
   {
-    "name": "Buddys TV Guide",
-    "m3u": "https://raw.githubusercontent.com/BuddyChewChew/My-Streams/ca12016cf0158f6f8615fb7d2a7d8efc4bfea73e/Backup/backup2.m3u8",
-    "epg": "https://s.id/d9sEPG"
+    "name": "Whiplash TV",
+    "m3u": "https://raw.githubusercontent.com/BuddyChewChew/whiplash-epg/refs/heads/main/playlist.m3u",
+    "epg": "https://raw.githubusercontent.com/BuddyChewChew/whiplash-epg/refs/heads/main/epg.xml"
   },
   {
     "name": "US Local Channels",
     "m3u": "https://raw.githubusercontent.com/iptv-org/iptv/refs/heads/master/streams/us_local.m3u",
     "epg": "",
+    "icon": "",
+    "fanart": ""
+  },
+  {
+    "name": "For TV Widget",
+    "m3u": "https://raw.githubusercontent.com/BuddyChewChew/My-Streams/8560c2199371f9888fbc5aaaf57c72ec0c406374/tv.m3u",
+    "epg": "",
+    "icon": "",
+    "fanart": ""
+  },
+  {
+    "name": "TVMate Live",
+    "m3u": "https://raw.githubusercontent.com/IPTVFlixBD/RynoCast-IPTV-M3u-Playlist/refs/heads/main/tvmate_live.m3u",
+    "epg": "https://s.id/d9sEPG",
+    "icon": "",
+    "fanart": ""
+  },
+  {
+    "name": "TVMate On Demand",
+    "m3u": "https://raw.githubusercontent.com/IPTVFlixBD/RynoCast-IPTV-M3u-Playlist/refs/heads/main/tvmate_vod.m3u",
+    "epg": "",
+    "icon": "",
+    "fanart": ""
+  },
+  {
+    "name": "No Cable Live",
+    "m3u": "https://raw.githubusercontent.com/IPTVFlixBD/RynoCast-IPTV-M3u-Playlist/refs/heads/main/nocable_live.m3u",
+    "epg": "https://s.id/d9sEPG",
+    "icon": "",
+    "fanart": ""
+  },
+  {
+    "name": "TV Builder Channels",
+    "m3u": "https://livetvbuilder.replit.app/api/download/m3u?zip=96457&providerId=big-150&country=US",
+    "epg": "https://livetvbuilder.replit.app/api/download/epg?zip=96457&providerId=big-150&country=US",
     "icon": "",
     "fanart": ""
   }

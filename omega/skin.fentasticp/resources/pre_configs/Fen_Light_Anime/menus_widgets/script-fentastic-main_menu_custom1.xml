@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <include name="Custom1MainMenu">
+        <item>
+            <label>Anime</label>
+            <onclick>ActivateWindow(Videos,plugin://plugin.video.fenlight/?name=Anime&amp;mode=navigator.main&amp;action=AnimeList&amp;iconImage=anime,return)</onclick>
+            <property name="menu_id">$NUMBER[23000]</property>
+            <thumb>special://skin/extras/icons/Genres/anime.png</thumb>
+            <property name="id">custom1</property>
+            <visible>!Skin.HasSetting(HomeMenuNoCustom1Button)</visible>
+        </item>
+    </include>
+</includes>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <include name="Custom2Widgets">
+        <include condition="System.HasAddon(plugin.video.redlight)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.redlight/?name=Providers&amp;mode=navigator.providers&amp;menu_type=movie&amp;random_support=true&amp;iconImage=providers"/>
+            <param name="widget_header" value="Movie Streaming Services"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="24011"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.redlight)" content="WidgetListBigPoster">
+            <param name="content_path" value="plugin://plugin.video.redlight/?name=In+Progress&amp;mode=build_movie_list&amp;action=in_progress_movies&amp;iconImage=player"/>
+            <param name="widget_header" value="In Progress Movies"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="24012"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.redlight)" content="WidgetListBigPoster">
+            <param name="content_path" value="plugin://plugin.video.redlight/?name=In+Progress&amp;mode=build_tvshow_list&amp;action=in_progress_tvshows&amp;iconImage=in_progress_tvshow"/>
+            <param name="widget_header" value="In Progress TV Shows"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="24013"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.redlight)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.redlight/?name=Providers&amp;mode=navigator.providers&amp;menu_type=tvshow&amp;random_support=true&amp;iconImage=providers"/>
+            <param name="widget_header" value="TV Streaming Services"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="24014"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.redlight)" content="WidgetListEpisodes">
+            <param name="content_path" value="plugin://plugin.video.redlight/?name=In+Progress+Episodes&amp;mode=build_in_progress_episode&amp;iconImage=player"/>
+            <param name="widget_header" value="In Progress Episodes"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="24015"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.redlight)" content="WidgetListEpisodes">
+            <param name="content_path" value="plugin://plugin.video.redlight/?name=Next+Episodes&amp;mode=build_next_episode&amp;iconImage=next_episodes"/>
+            <param name="widget_header" value="Next Episodes"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="24016"/>
+        </include>
+    </include>
+</includes>

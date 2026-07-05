@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <include name="TVShowWidgets">
+        <control type="group">
+            <width>1</width>
+            <height>1</height>
+            <visible>false</visible>
+        </control>
+    </include>
+</includes>

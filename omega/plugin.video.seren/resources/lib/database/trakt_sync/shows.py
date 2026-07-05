@@ -7,6 +7,11 @@ from resources.lib.modules.guard_decorators import guard_against_none_or_empty
 from resources.lib.modules.metadataHandler import MetadataHandler
 
 
+def _coalesce(a, b):
+    """Return a if a is not None, else b. Avoids `or` collapsing 0 to falsy."""
+    return a if a is not None else b
+
+
 class TraktSyncDatabase(trakt_sync.TraktSyncDatabase):
     """
     Handles database records for show/season/episode items
@@ -767,8 +772,8 @@ class TraktSyncDatabase(trakt_sync.TraktSyncDatabase):
                     None,
                     i["info"].get("aired"),
                     i["info"].get("dateadded"),
-                    raw_by_trakt_id.get(i["info"]["trakt_id"], {}).get("db_season") or i["info"].get("season"),
-                    raw_by_trakt_id.get(i["info"]["trakt_id"], {}).get("db_number") or i["info"].get("episode"),
+                    _coalesce(raw_by_trakt_id.get(i["info"]["trakt_id"], {}).get("db_season"), i["info"].get("season")),
+                    _coalesce(raw_by_trakt_id.get(i["info"]["trakt_id"], {}).get("db_number"), i["info"].get("episode")),
                     i["info"].get("tmdb_id"),
                     i["info"].get("tvdb_id"),
                     i["info"].get("imdb_id"),

@@ -564,6 +564,9 @@ class Resolver:
 
             if g.get_bool_setting("torbox.enabled") and g.get_bool_setting("torbox.hosters"):
                 thread_pool.put(TorBox().get_hosters, hosters)
+
+            if g.get_bool_setting("debridlink.enabled") and g.get_bool_setting("debridlink.hosters"):
+                thread_pool.put(DebridLink().get_hosters, hosters)
             thread_pool.wait_completion()
         except ValueError:
             g.log_stacktrace()

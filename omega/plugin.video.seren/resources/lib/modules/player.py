@@ -791,44 +791,42 @@ class SerenPlayer(xbmc.Player):
             if not self._skip_enabled.get(seg_type):
                 continue
 
-            data = segments.get(seg_type)
-            offset = self._skip_offset
+            seg_list = segments.get(seg_type) or []
+            base_offset = self._skip_offset
 
             # Anime intro fallback: AniSkip/Anime-Skip miss → use timer
             if (
                 seg_type == "intro"
-                and not data
+                and not seg_list
                 and self._skip_handler.is_anime
                 and self._skip_fallback_duration > 0
             ):
-                start = self._skip_fallback_delay
-                end = self._skip_fallback_delay + self._skip_fallback_duration
-                offset = self._skip_fallback_offset
-                data = (start, end)
+                seg_list = [(self._skip_fallback_delay,
+                             self._skip_fallback_delay + self._skip_fallback_duration)]
+                base_offset = self._skip_fallback_offset
 
-            if not data:
-                continue
+            for idx, seg_tup in enumerate(seg_list):
+                offset = base_offset
+                start, end = seg_tup
 
-            start, end = data
+                # credits/preview with end=None means "runs to end of media" — handle below
+                ends_at_media_end = end is None
+                if ends_at_media_end:
+                    try:
+                        end = max(0, int(self.total_time) - 10)
+                    except Exception:
+                        continue
 
-            # credits/preview with end=None means "runs to end of media" — handle below
-            ends_at_media_end = end is None
-            if ends_at_media_end:
-                try:
-                    end = max(0, int(self.total_time) - 10)
-                except Exception:
+                if start is None or end is None or end <= start:
                     continue
 
-            if start is None or end is None or end <= start:
-                continue
+                if not self._segment_entry_check((seg_type, idx), current, start, end):
+                    continue
 
-            if not self._segment_entry_check(seg_type, current, start, end):
-                continue
+                # We've entered the segment for the first time (or re-entered after seek-back)
+                self._dispatch_segment(seg_type, start, end, offset, ends_at_media_end)
 
-            # We've entered the segment for the first time (or re-entered after seek-back)
-            self._dispatch_segment(seg_type, start, end, offset, ends_at_media_end)
-
-    def _segment_entry_check(self, seg_type, current, seg_start, seg_end, margin=0.25):
+    def _segment_entry_check(self, state_key, current, seg_start, seg_end, margin=0.25):
         """One-shot-per-entry guard. Mirrors TheIntroDB addon's re-entry logic.
 
         Returns True the first poll after the playhead enters the segment range,
@@ -836,7 +834,7 @@ class SerenPlayer(xbmc.Player):
         user seeks back into the segment, the next entry yields True again.
         """
         state = self._skip_state.setdefault(
-            seg_type, {"inside": False, "shown": False, "last_t": None}
+            state_key, {"inside": False, "shown": False, "last_t": None}
         )
 
         inside = seg_start <= current < (seg_end - margin)

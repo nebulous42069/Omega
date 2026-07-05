@@ -49,6 +49,13 @@ def do_version_change():
     except Exception as e:
         g.log(f"Version change: Failed to clear provider performance stats: {e}", "warning")
 
+    try:
+        from resources.lib.database.animeCache import AnimeCache
+        AnimeCache().execute_sql("DELETE FROM anime_titles WHERE anidb_id != 0", ())
+        g.log("Version change: Cleared AniDB titles cache (episode-title pollution fix)", "info")
+    except Exception as e:
+        g.log(f"Version change: Failed to clear AniDB titles cache: {e}", "warning")
+
     # Clean stale Kodi texture cache entries to prevent thumbnail loading storm.
     # After cache clear, skin widgets re-render and Kodi's CImageLoader tries loading
     # hundreds of thumbnails whose cached files may no longer exist, flooding the log

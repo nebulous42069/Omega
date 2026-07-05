@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <include name="MovieWidgets">
+        <include condition="System.HasAddon(plugin.video.umbrella)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.umbrella/?action=movieGenres&amp;url=trakt_movie_genre&amp;folderName=Genres+%28Trakt%29"/>
+            <param name="widget_header" value="Genres"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="19011"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.umbrella)" content="WidgetListBigPoster">
+            <param name="content_path" value="plugin://plugin.video.umbrella/?action=movies&amp;folderName=Latest+Releases&amp;url=https%3A%2F%2Fapi.trakt.tv%2Fusers%2Fgiladg%2Flists%2F3837211%2Fitems%2Fmovies%3Flimit%3D40%26page%3D1&amp;folderName=Latest+Releases+-+%5BCOLOR+FFFFFF33%5Dgiladg%5B%2FCOLOR%5D"/>
+            <param name="widget_header" value="Latest Releases"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="19012"/>
+        </include>
+        <include condition="System.HasAddon(plugin.program.autowidget)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.program.autowidget/?mode=group&amp;group=umbrella_movies-1783248229.8203247&amp;refresh=&amp;reload="/>
+            <param name="widget_header" value="Trakt Lists"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="19013"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.umbrella)" content="WidgetListBigPoster">
+            <param name="content_path" value="plugin://plugin.video.umbrella/?action=movies&amp;url=trakttrending_recent&amp;folderName=Trending+Recently+Released+%28Trakt%29"/>
+            <param name="widget_header" value="Trending Recently Released"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="19014"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.umbrella)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.umbrella/?action=movieYears&amp;url=tmdb_year&amp;folderName=Year+%28TMDb%29"/>
+            <param name="widget_header" value="Year"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="19015"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.umbrella)" content="WidgetListBigPoster">
+            <param name="content_path" value="plugin://plugin.video.umbrella/?action=movies&amp;url=traktpopular&amp;folderName=Popular+%28Trakt%29"/>
+            <param name="widget_header" value="Popular"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="19016"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.umbrella)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.umbrella/?action=anime_Navigator&amp;folderName=Anime"/>
+            <param name="widget_header" value="Anime"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="19017"/>
+        </include>
+    </include>
+</includes>

@@ -90,6 +90,7 @@ class BaseWindow(xbmcgui.WindowXMLDialog):
         except RuntimeError as e:
             g.log(f'Control does not exist {control_id}', 'error')
             g.log(e)
+            raise AttributeError(f"Control with Id {control_id} does not exist") from e
         if not isinstance(control, xbmcgui.ControlList):
             raise AttributeError(f"Control with Id {control_id} should be of type ControlList")
 

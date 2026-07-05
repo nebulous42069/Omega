@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <include name="Custom1Widgets">
+        <include condition="System.HasAddon(plugin.video.redlight)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.redlight/?mode=navigator.trakt_lists_personal"/>
+            <param name="widget_header" value="Trakt Lists"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="23011"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.redlight)" content="WidgetListBigEpisodes">
+            <param name="content_path" value="plugin://plugin.video.redlight/?mode=build_next_episode"/>
+            <param name="widget_header" value="Next Episodes"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="23012"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.redlight)" content="WidgetListBigPoster">
+            <param name="content_path" value="plugin://plugin.video.redlight/?mode=build_tvshow_list&amp;action=in_progress_tvshows&amp;category_name=In+Progress"/>
+            <param name="widget_header" value="In Progress TV"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="23013"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.redlight)" content="WidgetListBigEpisodes">
+            <param name="content_path" value="plugin://plugin.video.redlight/?mode=build_movie_list&amp;action=in_progress_movies&amp;category_name=In+Progress"/>
+            <param name="widget_header" value="In Progress Movies"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="23014"/>
+        </include>
+    </include>
+</includes>

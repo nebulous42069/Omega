@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <include name="TVShowWidgets">
+        <include condition="System.HasAddon(plugin.video.pov)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.pov/?name=32470&amp;iconImage=genres.png&amp;mode=navigator.genres&amp;menu_type=tvshow"/>
+            <param name="widget_header" value="Genres"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="22011"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.pov)" content="WidgetListBigPoster">
+            <param name="content_path" value="plugin://plugin.video.pov/?name=32460&amp;iconImage=fresh.png&amp;mode=build_tvshow_list&amp;action=tmdb_tv_premieres"/>
+            <param name="widget_header" value="Premieres"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="22012"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.pov)" content="WidgetListBigPoster">
+            <param name="content_path" value="plugin://plugin.video.pov/?name=32449&amp;iconImage=trending.png&amp;mode=build_tvshow_list&amp;action=trakt_tv_trending_recent"/>
+            <param name="widget_header" value="Trending Recent"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="22013"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.pov)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.pov/?name=32472&amp;iconImage=calender.png&amp;mode=navigator.years&amp;menu_type=tvshow"/>
+            <param name="widget_header" value="Years"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="22014"/>
+        </include>
+    </include>
+</includes>

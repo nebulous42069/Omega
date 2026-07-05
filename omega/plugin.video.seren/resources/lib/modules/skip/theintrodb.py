@@ -95,8 +95,8 @@ def _do_request(url, api_key=None):
         return None
 
 
-def _build_url(tmdb_id, imdb_id, season, episode, is_movie, duration_ms=None):
-    """Build the /media query URL. Prefers TMDB id, falls back to IMDb."""
+def _build_url(tmdb_id, imdb_id, tvdb_id, season, episode, is_movie, duration_ms=None):
+    """Build the /media query URL. Prefers TMDB, falls back to IMDb then TVDB (TV only)."""
     dur_q = ""
     try:
         if duration_ms is not None:
@@ -142,6 +142,26 @@ def _build_url(tmdb_id, imdb_id, season, episode, is_movie, duration_ms=None):
                     return (
                         f"{_API_BASE}/media?imdb_id={imdb}&season={s}&episode={e}{dur_q}",
                         "imdb",
+                    )
+            except (TypeError, ValueError):
+                pass
+
+    # TVDB path (TV episodes only — TVDB has no movie ids)
+    if tvdb_id and not is_movie:
+        try:
+            vid = str(tvdb_id).strip()
+            if int(vid) <= 0:
+                vid = None
+        except (ValueError, TypeError):
+            vid = None
+        if vid:
+            try:
+                s = int(season)
+                e = int(episode)
+                if s > 0 and e > 0:
+                    return (
+                        f"{_API_BASE}/media?tvdb_id={vid}&season={s}&episode={e}{dur_q}",
+                        "tvdb",
                     )
             except (TypeError, ValueError):
                 pass
@@ -197,7 +217,7 @@ def _pick_best_segments(raw, segment_type):
     return valid
 
 
-def query_segments(tmdb_id=None, imdb_id=None, season=None, episode=None,
+def query_segments(tmdb_id=None, imdb_id=None, tvdb_id=None, season=None, episode=None,
                    is_movie=False, api_key=None, duration_ms=None):
     """Fetch all segment types for a media item.
 
@@ -206,10 +226,10 @@ def query_segments(tmdb_id=None, imdb_id=None, season=None, episode=None,
             {'intro': [{'start': 0.0, 'end': 95.5, 'score': 0.85}], 'credits': [...]}
         Empty dict on failure or if media not in DB.
     """
-    url, mode = _build_url(tmdb_id, imdb_id, season, episode, is_movie, duration_ms=duration_ms)
+    url, mode = _build_url(tmdb_id, imdb_id, tvdb_id, season, episode, is_movie, duration_ms=duration_ms)
     if not url:
-        if tmdb_id or imdb_id:
-            g.log("TheIntroDB: need TMDB id, or IMDb tt… id with season/episode for TV", "debug")
+        if tmdb_id or imdb_id or tvdb_id:
+            g.log("TheIntroDB: need TMDB, IMDb tt… or TVDB id with season/episode for TV", "debug")
         return {}
 
     g.log(f"TheIntroDB query ({mode}): {url}", "debug")

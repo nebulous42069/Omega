@@ -942,7 +942,7 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.cb20
         <description lang="es_ES">NewsON proporciona acceso instantáneo a emisiones en directo o a la carta de más de 175 emisoras locales en 114 mercados de Estados Unidos. Acceda a noticiarios emitidos hasta 48 horas después de su emisión y comparta historias interesantes con la función integrada para compartir en redes sociales directamente desde la aplicación. Busque una emisora local con el mapa interactivo o vea la emisora más cercana en teléfonos inteligentes, tabletas o reproductores de transmisiones Roku. Guarde sus emisoras favoritas y manténgase al día con las alertas de noticias de última hora enviadas directamente a los dispositivos móviles desde la fuente local de las noticias. Mantente conectado en cualquier momento y lugar sin necesidad de suscribirte a la televisión por cable ni de iniciar sesión.</description>
         <description lang="it_IT">NewsON fornisce accesso istantaneo a trasmissioni in diretta o su richiesta da oltre 175 stazioni locali in 114 mercati statunitensi. Accedi ai notiziari fino a 48 ore dopo la loro messa in onda e condividi storie interessanti con la funzione di condivisione integrata sui social media direttamente dall'app. Cerca una stazione locale con la mappa interattiva o guarda la stazione più vicina a te su smartphone, tablet o lettori streaming Roku. Salva le stazioni preferite e tieniti aggiornato con gli avvisi delle ultime notizie inviati direttamente ai dispositivi mobili dalla fonte locale delle notizie. Rimani connesso sempre e ovunque senza abbonamento via cavo o registrazione.</description>
     </extension>
-</addon><addon id="plugin.video.playlistbrowser" name="Diggz TV Guide Lite" version="2.6.9" provider-name="Diggz">
+</addon><addon id="plugin.video.playlistbrowser" name="Diggz TV Guide Lite" version="2.7.0" provider-name="Diggz">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
   </requires>
@@ -996,7 +996,7 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.sc19
         <disclaimer lang="de_DE">(c) 2025 aitschti</disclaimer>
         <reuselanguageinvoker>false</reuselanguageinvoker>
     </extension>
-</addon><addon id="plugin.video.seren" version="4.3.162" name="Seren" provider-name="Nixgates, minh, Diggz">
+</addon><addon id="plugin.video.seren" version="4.3.173" name="Seren" provider-name="Nixgates">
     <requires>
         <import addon="xbmc.addon" version="17.9.910" />
         <import addon="xbmc.python" version="3.0.0" />
@@ -2144,6 +2144,27 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.sc19
 		<news>- get favourites using json-rpc instead of parsing the favourites.xml file
 - fix crash when no favourites exist</news>
 	</extension>
+</addon><addon id="script.fentastic.helperr" name="FENtastic Plus Helper Mod" version="100.6.25h" provider-name="Tikipeter, Ivar Brandt, Zaxxon709">
+    <requires>
+        <import addon="xbmc.python" version="3.0.0" />
+        <import addon="script.module.requests" version="2.19.1" />
+    </requires>
+    <extension point="xbmc.python.library" library="resources/lib/default.py" />
+    <extension point="xbmc.service" library="resources/lib/service.py" start="startup" />
+    <extension point="xbmc.addon.metadata">
+        <news />
+        <platform>all</platform>
+        <license>GPL-2.0-only</license>
+        <forum />
+        <source />
+        <assets>
+            <icon>resources/media/icon.png</icon>
+            <fanart>resources/media/fanart.jpg</fanart>
+        </assets>
+        <description lang="en_GB">Helper for the FENtastic Plus Skin. Based on Fentastic Helper v0.6.20a.</description>
+        <description lang="en_NZ">Helper for the FENtastic Plus Skin. Based on Fentastic Helper v0.6.20a.</description>
+        <description lang="en_US">Helper for the FENtastic Plus Skin. Based on Fentastic Helper v0.6.20a.</description>
+    </extension>
 </addon><addon id="script.free99.artwork" version="1.0" name="[COLOR orange]Free99 Artwork[/COLOR]" provider-name="JewBMX">
     <extension point="xbmc.python.module" library="lib" />
     <extension point="xbmc.addon.metadata">
@@ -2487,7 +2508,7 @@ v0.2.3
 		<platform>all</platform>
 		<license>GNU GENERAL PUBLIC LICENSE Version 2</license>
 	</extension>
-</addon><addon id="skin.arctic.horizon.2" name="[B][COLOR gold]ArcticFlix[/COLOR][/B]   (High Power) (NO TOUCH/MOUSE)" provider-name="jurialmunkey" version="422.8.30">
+</addon><addon id="skin.arctic.horizon.2" name="[B][COLOR gold]ArcticFlix[/COLOR][/B]   (High Power) (NO TOUCH/MOUSE)" provider-name="jurialmunkey" version="422.8.31">
     <requires>
         <import addon="xbmc.gui" version="5.17.0" />
         <import addon="script.skinshortcuts" version="0.4.0" />
@@ -2513,7 +2534,7 @@ v0.2.3
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="skin.auraflix" version="2.1.11" name="[B][COLOR gold]DiggzFlix[/COLOR][/B]   (Mid Power) (NO MOUSE/TOUCH)" provider-name="skyfsza,inb4after,SerpentDrago">
+</addon><addon id="skin.auraflix" version="2.1.12" name="[B][COLOR gold]DiggzFlix[/COLOR][/B]   (Mid Power) (NO MOUSE/TOUCH)" provider-name="skyfsza,inb4after,SerpentDrago">
     <requires>
         <import addon="xbmc.gui" version="5.17.0" />
         <import addon="script.skin.helper.service" version="1.1.24" />
@@ -2760,7 +2781,7 @@ v0.2.3
             -Various changes so skin would install on Matrix
         </news>
     </extension>
-</addon><addon id="skin.diggzflix2" version="22.0.2" name="[B][COLOR gold]DiggzFlix 2[/COLOR][/B]  (Mid Power)" provider-name="matke">
+</addon><addon id="skin.diggzflix2" version="22.0.3" name="[B][COLOR gold]DiggzFlix 2[/COLOR][/B]  (Mid Power)" provider-name="matke">
 	<requires>
 		<import version="5.17.0" addon="xbmc.gui" />
 		<import addon="script.bingie.helper" version="1.1.2" />
@@ -2825,7 +2846,7 @@ v0.2.3
     </assets>
     <news>See changelog for latest changes</news>
   </extension>
-</addon><addon id="skin.eminence.2.mod" version="422.3.0.4" name="[B][COLOR gold]Eminence[/COLOR][/B]  (Mid Power)" provider-name="Diggz">
+</addon><addon id="skin.eminence.2.mod" version="422.3.0.5" name="[B][COLOR gold]Eminence[/COLOR][/B]  (Mid Power)" provider-name="Diggz">
     <requires>
         <import addon="xbmc.gui" version="5.17.0" />
         <import addon="script.skinshortcuts" version="1.0.0" />
@@ -2847,7 +2868,41 @@ v0.2.3
 		<news> 
 		</news>
 	</extension>
-</addon><addon id="skin.xenon" name="[B][COLOR gold]Diggz Xenon[/COLOR][/B]  (Mid Power)" provider-name="Helly,bsoriano, Diggz" version="3.0">
+</addon><addon id="skin.fentasticp" version="100.0.31" name="FENtastic Plus Mod" provider-name="Ivar Brandt, Zaxxon709">
+	<requires>
+		<import addon="xbmc.gui" version="5.17.0" />
+		<import addon="script.fentastic.helperr" version="100.6.25g" />
+	</requires>
+	<extension point="xbmc.gui.skin" debugging="false">
+		<res width="1920" height="1440" aspect="4:3" default="false" folder="xml" />
+		<res width="1920" height="1280" aspect="3:2" default="false" folder="xml" />
+		<res width="1920" height="1200" aspect="16:10" default="false" folder="xml" />
+		<res width="2040" height="1080" aspect="17:9" default="false" folder="xml" />
+		<res width="1920" height="1080" aspect="16:9" default="true" folder="xml" />
+		<res width="2560" height="1080" aspect="21:9" default="false" folder="xml" />
+		<res width="2338" height="1080" aspect="19.5:9" default="false" folder="xml" />
+		<res width="2160" height="1080" aspect="18:9" default="false" folder="xml" />
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<platform>all</platform>
+		<license>CC BY-SA 4.0, GNU GENERAL PUBLIC LICENSE Version 2.0</license>
+		<forum>http://forum.kodi.tv/</forum>
+		<source>https://github.com/xbmc/skin.estuary/</source>
+		<assets>
+			<icon>resources/icon.png</icon>
+			<fanart>resources/fanart.jpg</fanart>
+			<screenshot>resources/images/customizable_widgets.jpg</screenshot>
+			<screenshot>resources/images/infopanel.jpg</screenshot>
+			<screenshot>resources/images/viewtypes1.jpg</screenshot>
+		</assets>
+		<summary lang="en_GB">FENtastic Plus skin by Ivar Brandt, Zaxxon709 (Estuary MOD). Based on FENtastic v1.0.25</summary>
+		<summary lang="en_NZ">FENtastic Plus skin by Ivar Brandt, Zaxxon709 (Estuary MOD). Based on FENtastic v1.0.25</summary>
+		<summary lang="en_US">FENtastic Plus skin by Ivar Brandt, Zaxxon709 (Estuary MOD). Based on FENtastic v1.0.25</summary>
+		<description lang="en_GB">FENtastic Plus is a modified version of the default Estuary skin for Kodi. It is intended for use with Fen Light, Red Light, The Gears, Umbrella, POV, TMDbH.[CR][CR]See [B]CHANGELOG[/B] located in Skin settings » Extra info for latest changes.</description>
+		<description lang="en_NZ">FENtastic Plus is a modified version of the default Estuary skin for Kodi. It is intended for use with Fen Light, Red Light, The Gears, Umbrella, POV, TMDbH.[CR][CR]See [B]CHANGELOG[/B] located in Skin settings » Extra info for latest changes.</description>
+		<description lang="en_US">FENtastic Plus is a modified version of the default Estuary skin for Kodi. It is intended for use with Fen Light, Red Light, The Gears, Umbrella, POV, TMDbH.[CR][CR]See [B]CHANGELOG[/B] located in Skin settings » Extra info for latest changes.</description>
+	</extension>
+</addon><addon id="skin.xenon" name="[B][COLOR gold]Diggz Xenon[/COLOR][/B]  (Mid Power)" provider-name="Helly,bsoriano, Diggz" version="3.1">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0" />
 		<import addon="script.skinshortcuts" version="2.0.1" />

@@ -92,7 +92,6 @@ class TorBoxResolver(TorrentResolverBase):
         # uncached ones need time to download from usenet first).
         usenet_info = None
         for _ in range(30):
-            xbmc.sleep(1000)
             info = self.debrid_module.usenet_info(self._usenet_id)
             if info and info.get("files"):
                 usenet_info = info
@@ -100,6 +99,9 @@ class TorBoxResolver(TorrentResolverBase):
             state = (info or {}).get("download_state", "")
             if state in ("error", "failed"):
                 break
+            if g.abort_requested():
+                break
+            xbmc.sleep(1000)
 
         if not usenet_info:
             self.debrid_module.delete_usenet(self._usenet_id)

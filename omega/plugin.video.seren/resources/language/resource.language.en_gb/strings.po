@@ -280,8 +280,8 @@ msgstr "Uninstall"
 
 #: /resources/lib/modules/providers/install_manager.py:65
 msgctxt "#30050"
-msgid "Update To The Latest Package Now?"
-msgstr "Update To The Latest Package Now?"
+msgid "Are you sure you wish to remove?"
+msgstr "Are you sure you wish to remove?"
 
 #: /resources/lib/modules/providers/install_manager.py:78
 msgctxt "#30051"
@@ -4289,6 +4289,26 @@ msgstr "Easynews (a4kNewsgroups)"
 msgctxt "#30813"
 msgid "Enable or disable the Easynews/Usenet direct provider (a4kNewsgroups). Requires an active Easynews account."
 msgstr "Enable or disable the Easynews/Usenet direct provider (a4kNewsgroups). Requires an active Easynews account."
+
+msgctxt "#30814"
+msgid "Orion"
+msgstr "Orion"
+
+msgctxt "#30815"
+msgid "Orion (Orionoid)"
+msgstr "Orion (Orionoid)"
+
+msgctxt "#30816"
+msgid "Enable or disable the Orion provider package (Orionoid). Requires an active Orion account."
+msgstr "Enable or disable the Orion provider package (Orionoid). Requires an active Orion account."
+
+msgctxt "#30817"
+msgid "Orion Torrents"
+msgstr "Orion Torrents"
+
+msgctxt "#30818"
+msgid "Orion Hosters"
+msgstr "Orion Hosters"
 
 msgctxt "#30820"
 msgid "Playback Watchdog"

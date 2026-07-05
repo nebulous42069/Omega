@@ -256,7 +256,7 @@ class RealDebrid:
         magnet = f'magnet:?xt=urn:btih:{hash_value}'
         response = self.add_magnet(magnet)
 
-        if 'id' not in response:
+        if not response or 'id' not in response:
             return {}
 
         torrent_id = response['id']
@@ -465,7 +465,7 @@ class RealDebrid:
     @use_cache(1)
     def get_relevant_hosters(self):
         host_list = self.get_url("hosts/status")
-        if "error" in host_list:
+        if not host_list or "error" in host_list:
             return []
         return [domain for domain, status in host_list.items() if status["supported"] == 1 and status["status"] == "up"]
 

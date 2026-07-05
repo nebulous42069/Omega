@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <include name="Custom1Widgets">
+        <include condition="System.HasAddon(plugin.video.umbrella)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.umbrella/?action=mytvNavigator&amp;folderName=My+TV+Shows"/>
+            <param name="widget_header" value="My TV Shows"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="23011"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.umbrella)" content="WidgetListBigEpisodes">
+            <param name="content_path" value="plugin://plugin.video.umbrella/?action=calendar&amp;url=progress&amp;folderName=Progress+Episodes+%28Trakt%29"/>
+            <param name="widget_header" value="Next Episodes"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="23012"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.umbrella)" content="WidgetListBigPoster">
+            <param name="content_path" value="plugin://plugin.video.umbrella/?action=shows_progress&amp;url=progresstv&amp;folderName=Progress+Shows+%28Trakt%29"/>
+            <param name="widget_header" value="In Progress TV"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="23013"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.umbrella)" content="WidgetListBigEpisodes">
+            <param name="content_path" value="plugin://plugin.video.umbrella/?action=moviesUnfinished&amp;url=traktunfinished&amp;folderName=Finish+Watching+%28Trakt%29"/>
+            <param name="widget_header" value="Finish Watching"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="23014"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.umbrella)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.umbrella/?action=mymovieNavigator&amp;folderName=My+Movies"/>
+            <param name="widget_header" value="My Movies"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="23015"/>
+        </include>
+    </include>
+</includes>

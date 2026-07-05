@@ -52,6 +52,7 @@ class PlaybackWatchdog(xbmc.Player):
         self._playback_error = False
         self._playback_stopped = False
         self._user_stopped = False  # True only when user explicitly stopped (backspace/stop)
+        self.user_stopped_early = False  # Public: caller can check if user stopped during retry
         self._monitor = xbmc.Monitor()
 
         # AV change tracking — fires when subtitle/audio streams change
@@ -221,16 +222,10 @@ class PlaybackWatchdog(xbmc.Player):
                 continue
 
             # "error" — playback never started OR user explicitly stopped.
-            # If the user stopped and OpenInfo is managing this session, exit
-            # the retry loop immediately so OpenInfo can reopen its dialog.
             if self._user_stopped:
-                if xbmcgui.Window(10000).getProperty("openinfo.watchdog.gen"):
-                    g.log(
-                        "Watchdog: User stopped playback in OpenInfo session — "
-                        "exiting retry loop to allow dialog reopen",
-                        "info",
-                    )
-                    return None, None
+                self.user_stopped_early = True
+                g.log("Watchdog: User stopped playback — exiting retry loop", "info")
+                return None, None
 
             failed_titles.add(src_title)
             g.log(

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <include name="Custom2MainMenu">
+        <item>
+            <label>Watching</label>
+            <onclick>noop</onclick>
+            <property name="menu_id">$NUMBER[24000]</property>
+            <thumb>special://skin/extras/icons/play.png</thumb>
+            <property name="id">custom2</property>
+            <visible>!Skin.HasSetting(HomeMenuNoCustom2Button)</visible>
+        </item>
+    </include>
+</includes>

@@ -659,4 +659,4 @@ class Menus:
                 )
             else:
                 g.add_directory_item(label, is_folder=False)
-        g.close_directory(g.CONTENT_SHOWS)
+        g.close_directory(g.CONTENT_SHOW)

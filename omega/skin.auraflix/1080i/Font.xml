@@ -717,6 +717,27 @@
             <linespacing>0.9</linespacing>
             <size>78</size>
         </font>
+        <!-- Arctic Mirage custom fonts -->
+        <font>
+            <name>Mirage_Title</name>
+            <filename>Mirage-Bold.ttf</filename>
+            <size>72</size>
+        </font>
+        <font>
+            <name>Mirage_Body</name>
+            <filename>Mirage-Regular.ttf</filename>
+            <size>36</size>
+        </font>
+        <font>
+            <name>Mirage_Small</name>
+            <filename>Mirage-Regular.ttf</filename>
+            <size>40</size>
+        </font>
+        <font>
+            <name>Mirage_Button</name>
+            <filename>Mirage-Bold.ttf</filename>
+            <size>64</size>
+        </font>
     </fontset>
 
     <fontset id="Arial" unicode="true">

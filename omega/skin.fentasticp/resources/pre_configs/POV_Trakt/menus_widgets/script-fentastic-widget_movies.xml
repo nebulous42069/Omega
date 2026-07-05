@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <include name="MovieWidgets">
+        <include condition="System.HasAddon(plugin.video.pov)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.pov/?name=32470&amp;iconImage=genres.png&amp;mode=navigator.genres&amp;menu_type=movie"/>
+            <param name="widget_header" value="Genres"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="19011"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.pov)" content="WidgetListBigPoster">
+            <param name="content_path" value="plugin://plugin.video.pov/?mode=build_trakt_list&amp;user=giladg&amp;slug=latest-releases&amp;list_id=3837211&amp;list_type=liked_lists&amp;name=Latest+Releases"/>
+            <param name="widget_header" value="Latest Releases"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="19012"/>
+        </include>
+        <include condition="System.HasAddon(plugin.program.autowidget)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.program.autowidget/?mode=group&amp;group=pov_movies-1783205327.2751288&amp;refresh=&amp;reload="/>
+            <param name="widget_header" value="Trakt Lists"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="19013"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.pov)" content="WidgetListBigPoster">
+            <param name="content_path" value="plugin://plugin.video.pov/?name=32449&amp;iconImage=trending.png&amp;mode=build_movie_list&amp;action=trakt_movies_trending_recent"/>
+            <param name="widget_header" value="Trending Recent"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="19014"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.pov)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.pov/?name=32472&amp;iconImage=calender.png&amp;mode=navigator.years&amp;menu_type=movie"/>
+            <param name="widget_header" value="Years"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="19015"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.pov)" content="WidgetListBigPoster">
+            <param name="content_path" value="plugin://plugin.video.pov/?name=32463&amp;iconImage=most_voted.png&amp;mode=build_movie_list&amp;action=tmdb_movies_blockbusters"/>
+            <param name="widget_header" value="Blockbusters"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="19016"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.pov)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.pov/?name=Anime&amp;iconImage=&amp;mode=navigator.main&amp;action=AnimeList"/>
+            <param name="widget_header" value="Anime"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="19017"/>
+        </include>
+    </include>
+</includes>

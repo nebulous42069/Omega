@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <include name="TVShowWidgets">
+        <include condition="System.HasAddon(plugin.video.umbrella)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.umbrella/?action=tvGenres&amp;url=trakt_tvshow_genre&amp;folderName=Genres+%28Trakt%29"/>
+            <param name="widget_header" value="Genres"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="22011"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.umbrella)" content="WidgetListBigPoster">
+            <param name="content_path" value="plugin://plugin.video.umbrella/?action=tvshows&amp;folderName=Latest+TV+Shows&amp;url=https%3A%2F%2Fapi.trakt.tv%2Fusers%2Fgarycrawfordgc%2Flists%2F20370350%2Fitems%2Fshows%3Flimit%3D40%26page%3D1&amp;folderName=Latest+TV+Shows+-+%5BCOLOR+FFFFFF33%5Dgarycrawfordgc%5B%2FCOLOR%5D"/>
+            <param name="widget_header" value="Latest TV Shows"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="22012"/>
+        </include>
+        <include condition="System.HasAddon(plugin.program.autowidget)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.program.autowidget/?mode=group&amp;group=umbrella_tv-1783248295.9715066&amp;refresh=&amp;reload="/>
+            <param name="widget_header" value="Trakt Lists"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="22013"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.umbrella)" content="WidgetListBigPoster">
+            <param name="content_path" value="plugin://plugin.video.umbrella/?action=tvshows&amp;url=trakttrending_recent&amp;folderName=Trending+Recently+Released+%28Trakt%29"/>
+            <param name="widget_header" value="Trending Recently Released"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="22014"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.umbrella)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.umbrella/?action=tvYears&amp;url=tmdb_year&amp;folderName=Year+%28TMDb%29"/>
+            <param name="widget_header" value="Year"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="22015"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.umbrella)" content="WidgetListBigPoster">
+            <param name="content_path" value="plugin://plugin.video.umbrella/?action=tvshows&amp;url=traktpopular&amp;folderName=Popular+%28Trakt%29"/>
+            <param name="widget_header" value="Popular"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="22016"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.umbrella)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.umbrella/?action=tvOriginals&amp;folderName=Originals+%28TMDb%29"/>
+            <param name="widget_header" value="Originals"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="22017"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.umbrella)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.umbrella/?action=tvNetworks&amp;folderName=Networks+%28TMDb%29"/>
+            <param name="widget_header" value="Networks"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="22018"/>
+        </include>
+    </include>
+</includes>

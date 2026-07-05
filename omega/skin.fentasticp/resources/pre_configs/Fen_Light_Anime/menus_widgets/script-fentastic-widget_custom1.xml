@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <include name="Custom1Widgets">
+        <include condition="System.HasAddon(plugin.video.fenlight)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.fenlight/?name=Anime+Genres&amp;mode=navigator.genres&amp;menu_type=anime&amp;random_support=true&amp;iconImage=genres"/>
+            <param name="widget_header" value="Genres"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="23011"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.fenlight)" content="WidgetListBigPoster">
+            <param name="content_path" value="plugin://plugin.video.fenlight/?name=Anime+Premieres&amp;mode=build_tvshow_list&amp;action=tmdb_anime_premieres&amp;random_support=true&amp;iconImage=fresh"/>
+            <param name="widget_header" value="Premieres"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="23012"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.fenlight)" content="WidgetListBigPoster">
+            <param name="content_path" value="plugin://plugin.video.fenlight/?name=Anime+Trending&amp;mode=build_tvshow_list&amp;action=trakt_anime_trending&amp;random_support=true&amp;iconImage=trending"/>
+            <param name="widget_header" value="Trending"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="23013"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.fenlight)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.fenlight/?name=Anime+Decades&amp;mode=navigator.decades&amp;menu_type=anime&amp;random_support=true&amp;iconImage=calendar_decades"/>
+            <param name="widget_header" value="Decades"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="23014"/>
+        </include>
+    </include>
+</includes>

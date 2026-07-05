@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <include name="TVShowWidgets">
+        <include condition="System.HasAddon(plugin.video.fenlight)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.fenlight/?name=Genres&amp;iconImage=genres&amp;mode=navigator.genres&amp;menu_type=tvshow&amp;random_support=true"/>
+            <param name="widget_header" value="Genres"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="22011"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.fenlight)" content="WidgetListBigPoster">
+            <param name="content_path" value="plugin://plugin.video.fenlight/?name=Premieres&amp;action=tmdb_tv_premieres&amp;iconImage=fresh&amp;mode=build_tvshow_list&amp;random_support=true"/>
+            <param name="widget_header" value="Premieres"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="22012"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.fenlight)" content="WidgetListBigPoster">
+            <param name="content_path" value="plugin://plugin.video.fenlight/?name=Trending&amp;action=trakt_tv_trending&amp;iconImage=trending&amp;mode=build_tvshow_list&amp;random_support=true"/>
+            <param name="widget_header" value="Trending"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="22013"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.fenlight)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.fenlight/?name=Decades&amp;iconImage=calendar_decades&amp;mode=navigator.decades&amp;menu_type=tvshow&amp;random_support=true"/>
+            <param name="widget_header" value="Decades"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="22014"/>
+        </include>
+    </include>
+</includes>

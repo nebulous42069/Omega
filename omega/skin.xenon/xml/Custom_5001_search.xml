@@ -130,7 +130,7 @@
 				<item>
 					<label>Search Youtube</label>
 					<onclick>Dialog.Close(5001)</onclick>
-					<onclick>ActivateWindow(10025,"plugin://plugin.video.yt.kiosk/?action=browse&amp;kind=search",return)</onclick>
+					<onclick>ActivateWindow(10025,"plugin://plugin.video.yt.kiosk/?action=search",return)</onclick>
 				</item>
 				<item>
 					<label>Search TMDBH</label>
@@ -141,16 +141,11 @@
 					<label>Search Movie And TV Portal</label>
 					<onclick>Dialog.Close(5001)</onclick>					
 					<onclick>PlayMedia("plugin://script.extendedinfo?info=search_menu")</onclick>
-				</item>
+				</item>			
 				<item>
-					<label>Search Trakt Lists</label>
-					<onclick>Dialog.Close(5001)</onclick>					
-					<onclick>ActivateWindow(10025,"plugin://plugin.video.themoviedb.helper/?info=trakt_searchlists&amp;tmdb_type=both",return)</onclick>
-				</item>				
-				<item>
-					<label>Search Fen Light</label>
+					<label>Search Red Light</label>
 					<onclick>Dialog.Close(5001)</onclick>
-					<onclick>ActivateWindow(10025,"plugin://plugin.video.fenlight/?iconImage=https%3a%2f%2fi.imgur.com%2fowsADQ4.png&amp;mode=navigator.search&amp;name=Search",return)</onclick>
+					<onclick>ActivateWindow(10025,"plugin://plugin.video.redlight/?iconImage=https%3a%2f%2fi.imgur.com%2fowsADQ4.png&amp;mode=navigator.search&amp;name=Search",return)</onclick>
 				</item>
 				<item>
 					<label>Search Seren</label>
@@ -179,24 +174,19 @@
 					<onclick>ActivateWindow(10040,"addons://search/",return)</onclick>
 				</item>				
 				<item>
-					<label>Search Live TV And Sports</label>
-					<onclick>Dialog.Close(5001)</onclick>					
-					<onclick>ActivateWindow(10025,"plugin://plugin.program.super.favourites/?content_type&amp;fanart=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.program.super.favourites%5cfanart.jpg&amp;image=special%3a%2f%2fhome%2faddons%2fresource.images.skinicons.wide%2fresources%2ficons%2fsearch.png&amp;label=Search%20Channels&amp;mode=400&amp;path=special%3a%2f%2fprofile%2faddon_data%2fplugin.program.super.favourites%2fSuper%20Favourites%5cSearch%20Channels",return)</onclick>
-				</item>
-				<item>
 					<label>Search Music Artists</label>
 					<onclick>Dialog.Close(5001)</onclick>					
-					<onclick>ActivateWindow(10502,"plugin://plugin.audio.mp3streams/?iconimage=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.audio.mp3streams%5cart%2fsearchartists.jpg&amp;list=search%20artists%3c%3eurl%3c%3eC%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.audio.mp3streams%5cart%2fsearchartists.jpg&amp;mode=24&amp;name=Search%20Artists&amp;type&amp;url=url",return)</onclick>
+					<onclick>ActivateWindow(10502,"plugin://plugin.audio.m3sr2019/musicmp3/search/artists",return)</onclick>
 				</item>				
 				<item>
 					<label>Search Music Albums</label>
 					<onclick>Dialog.Close(5001)</onclick>					
-					<onclick>ActivateWindow(10502,"plugin://plugin.audio.mp3streams/?iconimage=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.audio.mp3streams%5cart%2fsearchalbums.jpg&amp;list=search%20albums%3c%3eurl%3c%3eC%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.audio.mp3streams%5cart%2fsearchalbums.jpg&amp;mode=24&amp;name=Search%20Albums&amp;type&amp;url=url",return)</onclick>
+					<onclick>ActivateWindow(10502,"plugin://plugin.audio.m3sr2019/musicmp3/search/albums",return)</onclick>
 				</item>
 				<item>
 					<label>Search Songs</label>
 					<onclick>Dialog.Close(5001)</onclick>					
-					<onclick>ActivateWindow(10502,"plugin://plugin.audio.mp3streams/?iconimage=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.audio.mp3streams%5cart%2fsearchsongs.jpg&amp;list=search%20songs%3c%3eurl%3c%3eC%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.audio.mp3streams%5cart%2fsearchsongs.jpg&amp;mode=24&amp;name=Search%20Songs&amp;type&amp;url=url",return)</onclick>
+					<onclick>plugin://plugin.audio.m3sr2019/musicmp3/search/songs",return)</onclick>
 				</item>
 				<item>
 					<label>Search Radio Stations</label>

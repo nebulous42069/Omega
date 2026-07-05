@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+    <include name="MovieWidgets">
+        <include condition="System.HasAddon(plugin.video.redlight)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.redlight/?mode=navigator.genres&amp;menu_type=movie"/>
+            <param name="widget_header" value="Genres"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="19011"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.redlight)" content="WidgetListBigPoster">
+            <param name="content_path" value="plugin://plugin.video.redlight/?mode=trakt.list.build_trakt_list&amp;user=giladg&amp;slug=latest-releases&amp;list_type=liked_lists&amp;list_id=3837211&amp;list_name=Latest+Releases&amp;sort_by=added&amp;sort_how=desc"/>
+            <param name="widget_header" value="Latest Releases"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="19012"/>
+        </include>
+        <include condition="System.HasAddon(plugin.program.autowidget)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.program.autowidget/?mode=group&amp;group=redlight_movies-1783185691.822734&amp;refresh=&amp;reload="/>
+            <param name="widget_header" value="Trakt Lists"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="19013"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.redlight)" content="WidgetListBigPoster">
+            <param name="content_path" value="plugin://plugin.video.redlight/?mode=build_movie_list&amp;action=trakt_movies_trending_recent&amp;category_name=Trending+Recent"/>
+            <param name="widget_header" value="Trending Recent"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="19014"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.redlight)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.redlight/?mode=navigator.decades&amp;menu_type=movie"/>
+            <param name="widget_header" value="Decades"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="19015"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.redlight)" content="WidgetListBigPoster">
+            <param name="content_path" value="plugin://plugin.video.redlight/?mode=build_movie_list&amp;action=tmdb_movies_blockbusters&amp;category_name=Blockbusters"/>
+            <param name="widget_header" value="Blockbusters"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="19016"/>
+        </include>
+        <include condition="System.HasAddon(plugin.video.redlight)" content="WidgetListCategory">
+            <param name="content_path" value="plugin://plugin.video.redlight/?mode=navigator.providers&amp;menu_type=movie"/>
+            <param name="widget_header" value="Providers"/>
+            <param name="widget_target" value="videos"/>
+            <param name="list_id" value="19017"/>
+        </include>
+    </include>
+</includes>
