@@ -114,6 +114,10 @@ class TraktSyncDatabase(trakt_sync.TraktSyncDatabase):
                 g.log("TraktSync: No Trakt auth present, no sync will occur", "warning")
                 return
 
+            if not g.get_bool_setting("trakt.enabled", True):
+                g.log("TraktSync: Trakt is disabled, no sync will occur", "warning")
+                return
+
             self.refresh_activities()
             remote_activities = self.fetch_remote_activities(silent)
 
@@ -304,7 +308,11 @@ class TraktSyncDatabase(trakt_sync.TraktSyncDatabase):
     def sync_watched_episodes(self):
         try:
             get = MetadataHandler.get_trakt_info
-            trakt_watched = self.trakt_api.get_json("sync/watched/shows", extended="full")
+            trakt_watched = []
+            for paged_items in self.trakt_api.get_all_pages_json(
+                "sync/watched/shows", extended="progress", limit=100, ignore_cache=True
+            ):
+                trakt_watched.extend(paged_items)
             if not trakt_watched:
                 return
             self.insert_trakt_shows(trakt_watched)

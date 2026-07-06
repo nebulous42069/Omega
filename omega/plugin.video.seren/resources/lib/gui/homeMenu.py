@@ -17,7 +17,9 @@ class Menus:
             description=g.get_language_string(30365),
             menu_item=g.create_icon_dict("shows", g.ICONS_PATH),
         )
-        if g.get_setting('trakt.auth'):
+        if (g.get_setting('trakt.auth') and g.get_bool_setting('trakt.enabled', True)) or (
+            g.get_setting('mdblist.enabled') == "true" and g.get_setting('mdblist.apikey')
+        ):
             g.add_directory_item(
                 g.get_language_string(30001),
                 action='myMovies',

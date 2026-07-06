@@ -36,6 +36,10 @@ def context(argv):
         from resources.lib.action.plugin import TraktManager
 
         TraktManager().execute()
+    elif arg == "mdblistManager":
+        from resources.lib.action.plugin import MDBListManager
+
+        MDBListManager().execute()
     elif arg == "browseShow":
         from resources.lib.action.window import BrowseShow
 

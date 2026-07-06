@@ -9,6 +9,7 @@ from resources.lib.common.thread_pool import ThreadPool
 from resources.lib.database.torrentAssist import TorrentAssist
 from resources.lib.debrid import all_debrid
 from resources.lib.debrid import debrid_link
+from resources.lib.debrid import offcloud as offcloud_debrid
 from resources.lib.debrid import premiumize
 from resources.lib.debrid import real_debrid
 from resources.lib.debrid import torbox
@@ -480,6 +481,48 @@ class _DebridLinkCacheAssist(_BaseCacheAssist):
         self.debrid.delete_torrent(self.transfer_id)
 
 
+class _OffCloudCacheAssist(_BaseCacheAssist):
+    def __init__(self, uncached_source, silent=False):
+        if not g.offcloud_enabled():
+            raise DebridNotEnabled
+        super().__init__(uncached_source, silent)
+        self.debrid_slug = "offcloud"
+        self.debrid_readable = "Offcloud"
+        self.debrid = offcloud_debrid.OffCloud()
+
+        self.uncached_source = uncached_source
+        request_id = self.debrid.create_transfer(uncached_source["magnet"])
+        if not request_id:
+            raise GeneralCachingFailure("Offcloud failed to add magnet")
+        self.transfer_id = request_id
+        self._update_status()
+
+    def _update_status(self):
+        # Poll via cloud/history to find our requestId and check status.
+        # Offcloud doesn't expose a per-item progress percentage so we report
+        # 0% until the item reaches 'downloaded' (100%).
+        history = self.debrid.list_torrents()
+        if not isinstance(history, list):
+            self.status = "failed"
+            return
+        item = next((i for i in history if i.get("requestId") == self.transfer_id), None)
+        if item is None:
+            self.status = "failed"
+            return
+        if item.get("status") == "downloaded":
+            self.status = "finished"
+            self.current_percent = 100
+        elif item.get("status") in ("error", "deleted"):
+            self.status = "failed"
+        else:
+            self.status = "downloading"
+            self.previous_percent = self.current_percent
+            self.current_percent = 0
+
+    def _delete_transfer(self):
+        self.debrid.delete_torrent(self.transfer_id)
+
+
 class CacheAssistHelper:
     def __init__(self):
         self.locations = [
@@ -488,6 +531,7 @@ class CacheAssistHelper:
             ("AllDebrid", _AllDebridCacheAssist, "all_debrid", g.all_debrid_enabled()),
             ("TorBox", _TorBoxCacheAssist, "torbox", g.torbox_enabled()),
             ("Debrid-Link", _DebridLinkCacheAssist, "debrid_link", g.debridlink_enabled()),
+            ("Offcloud", _OffCloudCacheAssist, "offcloud", g.offcloud_enabled()),
         ]
 
     def _get_cache_location(self):

@@ -102,8 +102,9 @@ class ListBuilder:
         params["mixed_list"] = True
         action = "getSources"
 
+        content_type = params.pop("content_type_override", g.CONTENT_EPISODE)
         return self._common_menu_builder(
-            shows.TraktSyncDatabase().get_mixed_episode_list(trakt_list, **params), g.CONTENT_EPISODE, action, **params
+            shows.TraktSyncDatabase().get_mixed_episode_list(trakt_list, **params), content_type, action, **params
         )
 
     def show_list_builder(self, trakt_list, **params):
@@ -119,8 +120,9 @@ class ListBuilder:
             params["is_playable"] = True
             action = "forceResumeShow"
 
+        content_type = params.pop("content_type_override", g.CONTENT_SHOW)
         self._common_menu_builder(
-            shows.TraktSyncDatabase().get_show_list(trakt_list, **params), g.CONTENT_SHOW, action, **params
+            shows.TraktSyncDatabase().get_show_list(trakt_list, **params), content_type, action, **params
         )
 
     def movie_menu_builder(self, trakt_list, **params):

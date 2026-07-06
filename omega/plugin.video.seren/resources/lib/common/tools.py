@@ -128,6 +128,10 @@ def shortened_debrid(debrid):
         return "AD"
     if debrid == "torbox":
         return "TB"
+    if debrid == "debrid_link":
+        return "DL"
+    if debrid == "offcloud":
+        return "OC"
     else:
         return ""
 

@@ -188,14 +188,17 @@ class TraktSyncDatabase(trakt_sync.TraktSyncDatabase):
 
         query = """
             SELECT sm.id                   AS trakt_id,
+                   s.tmdb_id               AS tmdb_id,
                    sm.value                AS trakt_object,
                    MAX(ep.last_watched_at) AS lw
             FROM shows_meta AS sm
                      LEFT JOIN episodes AS ep
                                ON ep.trakt_show_id = sm.id AND sm.type = 'trakt'
+                     LEFT JOIN shows AS s
+                               ON s.trakt_id = sm.id
             WHERE watched > 0
             GROUP BY trakt_show_id
-            ORDER BY last_watched_at DESC
+            ORDER BY lw DESC
             """
 
         if not force_all:

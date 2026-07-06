@@ -208,6 +208,16 @@
 					<level>4</level>
 					<default>0</default>
 				</setting>
+				<setting id="mdblist.apikey" type="string" help="">
+					<level>4</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="edit" format="string">
+						<heading/>
+					</control>
+				</setting>
 				<setting id="rd.auth" type="string" help="">
 					<level>4</level>
 					<default/>
@@ -799,16 +809,20 @@
 
 
 		</category>
-		<category id="accounts" label="30127" help="">
+		<category id="watch_accounts" label="30941" help="">
 			<group id="1" label="30084">
-				<setting id="general.accountNotifications" type="boolean" label="30128" help="">
+				<setting id="general.watchAccountNotifications" type="boolean" label="30942" help="">
 					<level>0</level>
 					<default>true</default>
 					<control type="toggle"/>
 				</setting>
 			</group>
-			<group id="2" label="30129"/>
-			<group id="3">
+			<group id="2" label="30129">
+				<setting id="trakt.enabled" type="boolean" label="30982" help="">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
 				<setting id="trakt.username" type="string" label="30130" help="">
 					<level>0</level>
 					<default/>
@@ -816,6 +830,11 @@
 						<allowempty>true</allowempty>
 					</constraints>
 					<enable>false</enable>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="trakt.enabled">true</condition>
+						</dependency>
+					</dependencies>
 					<control type="edit" format="string">
 						<heading>30130</heading>
 					</control>
@@ -828,7 +847,10 @@
 					</constraints>
 					<dependencies>
 						<dependency type="visible">
-							<condition operator="is" setting="trakt.username"/>
+							<and>
+								<condition operator="is" setting="trakt.enabled">true</condition>
+								<condition operator="is" setting="trakt.username"/>
+							</and>
 						</dependency>
 					</dependencies>
 					<control type="button" format="action">
@@ -840,7 +862,10 @@
 					<default>true</default>
 					<dependencies>
 						<dependency type="visible">
-							<condition operator="!is" setting="trakt.username"/>
+							<and>
+								<condition operator="is" setting="trakt.enabled">true</condition>
+								<condition operator="!is" setting="trakt.username"/>
+							</and>
 						</dependency>
 					</dependencies>
 					<control type="toggle"/>
@@ -855,6 +880,7 @@
 					<dependencies>
 						<dependency type="visible">
 							<and>
+								<condition operator="is" setting="trakt.enabled">true</condition>
 								<condition operator="!is" setting="trakt.username"/>
 								<condition operator="is" setting="trakt.scrobbling">true</condition>
 							</and>
@@ -874,6 +900,7 @@
 					<dependencies>
 						<dependency type="visible">
 							<and>
+								<condition operator="is" setting="trakt.enabled">true</condition>
 								<condition operator="!is" setting="trakt.username"/>
 								<condition operator="is" setting="trakt.scrobbling">true</condition>
 							</and>
@@ -891,12 +918,138 @@
 					</constraints>
 					<dependencies>
 						<dependency type="visible">
-							<condition operator="!is" setting="trakt.username"/>
+							<and>
+								<condition operator="is" setting="trakt.enabled">true</condition>
+								<condition operator="!is" setting="trakt.username"/>
+							</and>
 						</dependency>
 					</dependencies>
 					<control type="button" format="action">
 						<close>true</close>
 					</control>
+				</setting>
+			</group>
+			<group id="3" label="30943">
+				<setting id="mdblist.enabled" type="boolean" label="30944" help="">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="mdblist.username" type="string" label="30947" help="">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<enable>false</enable>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="mdblist.enabled">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="edit" format="string">
+						<heading>30947</heading>
+					</control>
+				</setting>
+				<setting id="mdblist.authMDBList" type="action" label="30948" help="">
+					<level>0</level>
+					<data>RunPlugin(plugin://plugin.video.seren/?action=authMDBList)</data>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="mdblist.enabled">true</condition>
+								<condition operator="is" setting="mdblist.username"/>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="button" format="action">
+						<close>true</close>
+					</control>
+				</setting>
+				<setting id="mdblist.scrobbling" type="boolean" label="30981" help="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="mdblist.enabled">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
+				<setting id="mdblist.ignoreSecondsAtStart" type="integer" label="30481" help="">
+					<level>0</level>
+					<default>180</default>
+					<constraints>
+						<minimum>30</minimum>
+						<maximum>360</maximum>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="mdblist.enabled">true</condition>
+								<condition operator="is" setting="mdblist.scrobbling">true</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+				</setting>
+				<setting id="mdblist.playCountMinimumPercent" type="integer" label="30482" help="">
+					<level>0</level>
+					<default>80</default>
+					<constraints>
+						<minimum>80</minimum>
+						<maximum>95</maximum>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="mdblist.enabled">true</condition>
+								<condition operator="is" setting="mdblist.scrobbling">true</condition>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="slider" format="integer">
+						<popup>false</popup>
+					</control>
+				</setting>
+				<setting id="mdblist.revokeMDBList" type="action" label="30949" help="">
+					<level>0</level>
+					<data>RunPlugin(plugin://plugin.video.seren/?action=revokeMDBList)</data>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<dependencies>
+						<dependency type="visible">
+							<and>
+								<condition operator="is" setting="mdblist.enabled">true</condition>
+								<condition operator="!is" setting="mdblist.username"/>
+							</and>
+						</dependency>
+					</dependencies>
+					<control type="button" format="action">
+						<close>true</close>
+					</control>
+				</setting>
+			</group>
+			<group id="4" label="30945">
+				<setting id="simkl.enabled" type="boolean" label="30946" help="">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+			</group>
+		</category>
+		<category id="accounts" label="30127" help="">
+			<group id="1" label="30084">
+				<setting id="general.accountNotifications" type="boolean" label="30128" help="">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
 				</setting>
 			</group>
 			<group id="4" label="30134">
@@ -1912,6 +2065,203 @@
 					<control type="toggle"/>
 				</setting>
 			</group>
+			<group id="9" label="30940">
+			<setting id="offcloud.enabled" type="boolean" label="30933" help="">
+				<level>0</level>
+				<default>false</default>
+				<control type="toggle"/>
+				</setting>
+			<setting id="offcloud.apikey" type="string" label="30936" help="">
+				<level>0</level>
+				<default/>
+				<constraints>
+					<allowempty>true</allowempty>
+				</constraints>
+				<dependencies>
+					<dependency type="visible">
+						<condition operator="is" setting="offcloud.enabled">true</condition>
+					</dependency>
+				</dependencies>
+				<control type="edit" format="string">
+					<heading>30936</heading>
+				</control>
+				</setting>
+			<setting id="offcloud.connectOffCloud" type="action" label="30934" help="">
+				<level>0</level>
+				<data>RunPlugin(plugin://plugin.video.seren/?action=connectOffCloud)</data>
+				<constraints>
+					<allowempty>true</allowempty>
+				</constraints>
+				<dependencies>
+					<dependency type="visible">
+						<condition operator="is" setting="offcloud.enabled">true</condition>
+					</dependency>
+				</dependencies>
+				<control type="button" format="action">
+					<close>true</close>
+				</control>
+				</setting>
+			<setting id="offcloud.revokeAuth" type="action" label="30939" help="">
+				<level>0</level>
+				<data>RunPlugin(plugin://plugin.video.seren/?action=revokeOffCloud)</data>
+				<constraints>
+					<allowempty>true</allowempty>
+				</constraints>
+				<dependencies>
+					<dependency type="visible">
+						<condition operator="is" setting="offcloud.enabled">true</condition>
+					</dependency>
+				</dependencies>
+				<control type="button" format="action">
+					<close>false</close>
+				</control>
+				</setting>
+			<setting id="offcloud.username" type="string" label="30935" help="">
+				<level>0</level>
+				<default/>
+				<constraints>
+					<allowempty>true</allowempty>
+				</constraints>
+				<enable>false</enable>
+				<dependencies>
+					<dependency type="visible">
+						<condition operator="is" setting="offcloud.enabled">true</condition>
+					</dependency>
+				</dependencies>
+				<control type="edit" format="string">
+					<heading>30935</heading>
+				</control>
+				</setting>
+			<setting id="offcloud.premiumstatus" type="string" label="30458" help="" parent="offcloud.username">
+				<level>0</level>
+				<default/>
+				<constraints>
+					<allowempty>true</allowempty>
+				</constraints>
+				<enable>false</enable>
+				<dependencies>
+					<dependency type="visible">
+						<condition operator="is" setting="offcloud.enabled">true</condition>
+					</dependency>
+				</dependencies>
+				<control type="edit" format="string">
+					<heading>30458</heading>
+				</control>
+				</setting>
+			<setting id="offcloud.accountInfo" type="action" label="30876" help="">
+				<level>0</level>
+				<data>RunPlugin(plugin://plugin.video.seren/?action=ocAccountInfo)</data>
+				<constraints>
+					<allowempty>true</allowempty>
+				</constraints>
+				<dependencies>
+					<dependency type="visible">
+						<condition operator="is" setting="offcloud.enabled">true</condition>
+					</dependency>
+				</dependencies>
+				<control type="button" format="action">
+					<close>false</close>
+				</control>
+				</setting>
+			<setting id="offcloud.torrents" type="boolean" label="30153" help="" parent="">
+				<level>0</level>
+				<default>true</default>
+				<dependencies>
+					<dependency type="visible">
+						<condition operator="is" setting="offcloud.enabled">true</condition>
+					</dependency>
+				</dependencies>
+				<control type="toggle"/>
+				</setting>
+
+			<setting id="offcloud.storeall" type="boolean" label="30886" help="30888" parent="">
+				<level>0</level>
+				<default>false</default>
+				<dependencies>
+					<dependency type="visible">
+						<and>
+							<condition operator="is" setting="offcloud.enabled">true</condition>
+							<condition operator="is" setting="offcloud.torrents">true</condition>
+						</and>
+					</dependency>
+				</dependencies>
+				<control type="toggle"/>
+				</setting>
+			<setting id="offcloud.storeall.threshold" type="integer" label="30889" help="30890" parent="">
+				<level>0</level>
+				<default>5</default>
+				<constraints>
+					<minimum>0</minimum>
+					<step>1</step>
+					<maximum>20</maximum>
+				</constraints>
+				<dependencies>
+					<dependency type="visible">
+						<and>
+							<condition operator="is" setting="offcloud.enabled">true</condition>
+							<condition operator="is" setting="offcloud.torrents">true</condition>
+							<condition operator="is" setting="offcloud.storeall">true</condition>
+						</and>
+					</dependency>
+				</dependencies>
+				<control type="spinner" format="integer"/>
+				</setting>
+			<setting id="offcloud.storeall.limit" type="integer" label="30891" help="30892" parent="">
+				<level>0</level>
+				<default>30</default>
+				<constraints>
+					<minimum>10</minimum>
+					<step>10</step>
+					<maximum>100</maximum>
+				</constraints>
+				<dependencies>
+					<dependency type="visible">
+						<and>
+							<condition operator="is" setting="offcloud.enabled">true</condition>
+							<condition operator="is" setting="offcloud.torrents">true</condition>
+							<condition operator="is" setting="offcloud.storeall">true</condition>
+						</and>
+					</dependency>
+				</dependencies>
+				<control type="spinner" format="integer"/>
+				</setting>
+			<setting id="offcloud.addtocloud" type="boolean" label="30666" help="30675" parent="">
+				<level>0</level>
+				<default>false</default>
+				<dependencies>
+					<dependency type="visible">
+						<condition operator="is" setting="offcloud.enabled">true</condition>
+					</dependency>
+				</dependencies>
+				<control type="toggle"/>
+				</setting>
+			<setting id="offcloud.autodelete" type="boolean" label="30155" help="" parent="">
+				<level>0</level>
+				<default>true</default>
+				<dependencies>
+					<dependency type="visible">
+						<and>
+							<condition operator="is" setting="offcloud.enabled">true</condition>
+							<condition operator="is" setting="offcloud.addtocloud">false</condition>
+						</and>
+					</dependency>
+				</dependencies>
+				<control type="toggle"/>
+				</setting>
+			<setting id="offcloud.smartdelete" type="boolean" label="30671" help="30672" parent="">
+				<level>0</level>
+				<default>false</default>
+				<dependencies>
+					<dependency type="visible">
+						<and>
+							<condition operator="is" setting="offcloud.enabled">true</condition>
+							<condition operator="is" setting="offcloud.addtocloud">false</condition>
+						</and>
+					</dependency>
+				</dependencies>
+				<control type="toggle"/>
+				</setting>
+			</group>
 		</category>
 		<category id="providers" label="30136" help="">
 			<group id="1" label="30084">
@@ -1948,11 +2298,21 @@
 				<setting id="scraping.orion.torrent" type="boolean" label="30817">
 					<level>0</level>
 					<default>true</default>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="scraping.orion">true</condition>
+						</dependency>
+					</dependencies>
 					<control type="toggle"/>
 				</setting>
 				<setting id="scraping.orion.hoster" type="boolean" label="30818">
 					<level>0</level>
 					<default>true</default>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="scraping.orion">true</condition>
+						</dependency>
+					</dependencies>
 					<control type="toggle"/>
 				</setting>
 			</group>
@@ -2141,6 +2501,16 @@
 					</dependencies>
 					<control type="toggle"/>
 				</setting>
+				<setting id="offcloud.cloudInspection" type="boolean" label="30938" help="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="visible">
+							<condition operator="is" setting="offcloud.enabled">true</condition>
+						</dependency>
+					</dependencies>
+					<control type="toggle"/>
+				</setting>
 			</group>
 			<group id="3" label="30113">
 				<setting id="general.autocache" type="boolean" label="30114" help="">
@@ -2173,6 +2543,8 @@
 							<option label="30135">1</option>
 							<option label="30333">2</option>
 							<option label="30660">3</option>
+							<option label="30680">4</option>
+							<option label="30940">5</option>
 						</options>
 					</constraints>
 					<dependencies>
@@ -2857,6 +3229,7 @@
 							<option label="30333">3</option>
 							<option label="30660">4</option>
 							<option label="30680">5</option>
+							<option label="30940">6</option>
 						</options>
 					</constraints>
 					<control type="spinner" format="string"/>
@@ -2872,6 +3245,7 @@
 							<option label="30333">3</option>
 							<option label="30660">4</option>
 							<option label="30680">5</option>
+							<option label="30940">6</option>
 						</options>
 					</constraints>
 					<control type="spinner" format="string"/>
@@ -2887,6 +3261,7 @@
 							<option label="30333">3</option>
 							<option label="30660">4</option>
 							<option label="30680">5</option>
+							<option label="30940">6</option>
 						</options>
 					</constraints>
 					<control type="spinner" format="string"/>
@@ -2902,6 +3277,7 @@
 							<option label="30333">3</option>
 							<option label="30660">4</option>
 							<option label="30680">5</option>
+							<option label="30940">6</option>
 						</options>
 					</constraints>
 					<control type="spinner" format="string"/>
@@ -2917,6 +3293,23 @@
 							<option label="30333">3</option>
 							<option label="30660">4</option>
 							<option label="30680">5</option>
+							<option label="30940">6</option>
+						</options>
+					</constraints>
+					<control type="spinner" format="string"/>
+				</setting>
+				<setting id="general.debridsort.6" type="integer" label="30937" help="" parent="general.sortmethod.8">
+					<level>4</level>
+					<default>6</default>
+					<constraints>
+						<options>
+							<option label="30513">0</option>
+							<option label="30134">1</option>
+							<option label="30135">2</option>
+							<option label="30333">3</option>
+							<option label="30660">4</option>
+							<option label="30680">5</option>
+							<option label="30940">6</option>
 						</options>
 					</constraints>
 					<control type="spinner" format="string"/>

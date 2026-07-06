@@ -64,7 +64,7 @@ def _reset_trakt_auth(notify=True):
     settings = ["trakt.refresh", "trakt.auth", "trakt.expires", "trakt.username"]
     for i in settings:
         g.clear_setting(i)
-    if notify:
+    if notify and g.get_bool_setting("general.watchAccountNotifications", True):
         xbmcgui.Dialog().ok(g.ADDON_NAME, g.get_language_string(30536))
 
 
@@ -108,7 +108,8 @@ def trakt_guard_response(func):
                 import inspect
 
                 if inspect.stack(1)[1][3] == "try_refresh_token":
-                    xbmcgui.Dialog().notification(g.ADDON_NAME, g.get_language_string(30340))
+                    if g.get_bool_setting("general.watchAccountNotifications", True):
+                        xbmcgui.Dialog().notification(g.ADDON_NAME, g.get_language_string(30340))
                     g.log(
                         "Attempts to refresh Trakt token have failed. User intervention is required",
                         "error",
@@ -119,7 +120,8 @@ def trakt_guard_response(func):
                             if method_class.refresh_token is not None:
                                 method_class.try_refresh_token(True)
                             if method_class.refresh_token is None and method_class.username is not None:
-                                xbmcgui.Dialog().ok(g.ADDON_NAME, g.get_language_string(30340))
+                                if g.get_bool_setting("general.watchAccountNotifications", True):
+                                    xbmcgui.Dialog().ok(g.ADDON_NAME, g.get_language_string(30340))
                     if method_class.refresh_token is not None:
                         return func(*args, **kwargs)
 
@@ -941,6 +943,19 @@ class TraktAPI(ApiBase):
     # Asian drama countries for alias inclusion (Sessions 38-47 added JP for anime;
     # Session 48 extends to all CJK/SEA countries for drama content)
     ASIAN_ALIAS_COUNTRIES = {'cn', 'kr', 'tw', 'th', 'hk', 'vn', 'ph', 'my', 'in', 'sg', 'id'}
+
+    def search_by_tmdb_id(self, tmdb_id, media_type):
+        """
+        Resolves an external TMDb ID to a Trakt object via Trakt's ID lookup search.
+        Does not require personal OAuth - works with just the app client_id, so it
+        resolves items regardless of the user's own trakt.auth state.
+        :param tmdb_id: TMDb ID of the movie or show
+        :param media_type: "movie" or "show"
+        :return: Normalized trakt object dict (same shape get_movie_list/get_show_list
+                 expect as input), or None if Trakt has no match for this ID
+        """
+        results = self.get_json_cached(f"search/tmdb/{tmdb_id}", type=media_type)
+        return results[0] if results else None
 
     def get_show_aliases(self, trakt_show_id):
         """

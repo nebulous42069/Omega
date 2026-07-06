@@ -83,13 +83,13 @@ msgstr "Search..."
 
 #: /resources/lib/gui/movieMenus.py:201 /resources/lib/gui/tvshowMenus.py:218
 msgctxt "#30014"
-msgid "Collection"
-msgstr "Collection"
+msgid "Trakt - Collection"
+msgstr "Trakt - Collection"
 
 #: /resources/lib/gui/movieMenus.py:207 /resources/lib/gui/tvshowMenus.py:224
 msgctxt "#30015"
-msgid "Watchlist"
-msgstr "Watchlist"
+msgid "Trakt - Watchlist"
+msgstr "Trakt - Watchlist"
 
 #: /resources/lib/modules/globals.py:912
 msgctxt "#30016"
@@ -243,13 +243,13 @@ msgstr "Genres"
 
 #: /resources/lib/gui/movieMenus.py:195 /resources/lib/gui/tvshowMenus.py:212
 msgctxt "#30043"
-msgid "Finish Watching"
-msgstr "Finish Watching"
+msgid "Trakt - Finish Watching"
+msgstr "Trakt - Finish Watching"
 
 #: /resources/lib/gui/movieMenus.py:213
 msgctxt "#30044"
-msgid "My Movie Lists"
-msgstr "My Movie Lists"
+msgid "Trakt - My Movie Lists"
+msgstr "Trakt - My Movie Lists"
 
 #: /resources/lib/gui/movieMenus.py:416 /resources/lib/gui/tvshowMenus.py:532
 msgctxt "#30045"
@@ -704,13 +704,13 @@ msgstr "Terminate on... "
 
 #: /resources/settings.xml:801
 msgctxt "#30127"
-msgid "Accounts"
-msgstr "Accounts"
+msgid "Debrid Accounts"
+msgstr "Debrid Accounts"
 
 #: /resources/settings.xml:803
 msgctxt "#30128"
-msgid "Enable Account Expiry Notifications"
-msgstr "Enable Account Expiry Notifications"
+msgid "Enable Debrid Account Expiry Notifications"
+msgstr "Enable Debrid Account Expiry Notifications"
 
 #: /resources/settings.xml:386 /resources/settings.xml:809
 msgctxt "#30129"
@@ -1176,28 +1176,28 @@ msgstr ""
 #: /resources/skins/Default/1080i/playing_next.xml:122
 #: /resources/lib/gui/tvshowMenus.py:236
 msgctxt "#30210"
-msgid "Next Up"
-msgstr "Next Up"
+msgid "Trakt - Next Up"
+msgstr "Trakt - Next Up"
 
 #: /resources/lib/gui/tvshowMenus.py:242
 msgctxt "#30211"
-msgid "Upcoming Episodes"
-msgstr "Upcoming Episodes"
+msgid "Trakt - Upcoming Episodes"
+msgstr "Trakt - Upcoming Episodes"
 
 #: /resources/lib/gui/tvshowMenus.py:248
 msgctxt "#30212"
-msgid "Unfinished Shows in Collection"
-msgstr "Unfinished Shows in Collection"
+msgid "Trakt - Unfinished Shows in Collection"
+msgstr "Trakt - Unfinished Shows in Collection"
 
 #: /resources/lib/gui/tvshowMenus.py:254
 msgctxt "#30213"
-msgid "Recent Episodes"
-msgstr "Recent Episodes"
+msgid "Trakt - Recent Episodes"
+msgstr "Trakt - Recent Episodes"
 
 #: /resources/lib/gui/tvshowMenus.py:260
 msgctxt "#30214"
-msgid "My Show Lists"
-msgstr "My Show Lists"
+msgid "Trakt - My Show Lists"
+msgstr "Trakt - My Show Lists"
 
 #: /resources/settings.xml:2118 /resources/lib/gui/homeMenu.py:147
 msgctxt "#30215"
@@ -1821,13 +1821,13 @@ msgstr "Paginate Trakt Lists"
 
 #: /resources/lib/gui/tvshowMenus.py:274
 msgctxt "#30325"
-msgid "My Watched Episodes"
-msgstr "My Watched Episodes"
+msgid "Trakt - My Watched Episodes"
+msgstr "Trakt - My Watched Episodes"
 
 #: /resources/lib/gui/movieMenus.py:227
 msgctxt "#30326"
-msgid "My Watched Movies"
-msgstr "My Watched Movies"
+msgid "Trakt - My Watched Movies"
+msgstr "Trakt - My Watched Movies"
 
 #: /resources/lib/gui/homeMenu.py:83
 msgctxt "#30327"
@@ -1956,13 +1956,13 @@ msgstr "Premiumize auth"
 
 #: /resources/lib/gui/tvshowMenus.py:267
 msgctxt "#30350"
-msgid "My Liked Show Lists"
-msgstr "My Liked Show Lists"
+msgid "Trakt - My Liked Show Lists"
+msgstr "Trakt - My Liked Show Lists"
 
 #: /resources/lib/gui/movieMenus.py:220
 msgctxt "#30351"
-msgid "My Liked Movie Lists"
-msgstr "My Liked Movie Lists"
+msgid "Trakt - My Liked Movie Lists"
+msgstr "Trakt - My Liked Movie Lists"
 
 #: /resources/lib/gui/tvshowMenus.py:139
 msgctxt "#30352"
@@ -4665,3 +4665,203 @@ msgstr "Tier 7 — Slow / Unreliable"
 msgctxt "#30932"
 msgid "Scrapers with frequent downtime or slow response times. Providers: Kickass, MagnetDL, ShowRSS, TorrentDownload, TorrentProject2."
 msgstr "Scrapers with frequent downtime or slow response times. Providers: Kickass, MagnetDL, ShowRSS, TorrentDownload, TorrentProject2."
+
+msgctxt "#30933"
+msgid "Enable Offcloud"
+msgstr "Enable Offcloud"
+
+msgctxt "#30934"
+msgid "Connect Offcloud"
+msgstr "Connect Offcloud"
+
+msgctxt "#30935"
+msgid "Offcloud Username"
+msgstr "Offcloud Username"
+
+msgctxt "#30936"
+msgid "Offcloud API Key"
+msgstr "Offcloud API Key"
+
+msgctxt "#30937"
+msgid "Sixth Priority"
+msgstr "Sixth Priority"
+
+msgctxt "#30938"
+msgid "Scrape Offcloud Cloud"
+msgstr "Scrape Offcloud Cloud"
+
+msgctxt "#30939"
+msgid "Revoke Offcloud"
+msgstr "Revoke Offcloud"
+
+msgctxt "#30940"
+msgid "Offcloud"
+msgstr "Offcloud"
+
+msgctxt "#30941"
+msgid "Watch Accounts"
+msgstr "Watch Accounts"
+
+msgctxt "#30942"
+msgid "Enable Watch Accounts Expiry Notifications"
+msgstr "Enable Watch Accounts Expiry Notifications"
+
+msgctxt "#30943"
+msgid "MDBList"
+msgstr "MDBList"
+
+msgctxt "#30944"
+msgid "Enable MDBList"
+msgstr "Enable MDBList"
+
+msgctxt "#30945"
+msgid "Simkl"
+msgstr "Simkl"
+
+msgctxt "#30946"
+msgid "Enable Simkl"
+msgstr "Enable Simkl"
+
+msgctxt "#30947"
+msgid "MDBList Username"
+msgstr "MDBList Username"
+
+msgctxt "#30948"
+msgid "Authorize MDBList..."
+msgstr "Authorize MDBList..."
+
+msgctxt "#30949"
+msgid "Revoke MDBList"
+msgstr "Revoke MDBList"
+
+msgctxt "#30950"
+msgid "MDBList Successfully Disconnected"
+msgstr "MDBList Successfully Disconnected"
+
+msgctxt "#30951"
+msgid "Error while authenticating with MDBList.\nPlease check your API key and try again."
+msgstr "Error while authenticating with MDBList.\nPlease check your API key and try again."
+
+msgctxt "#30952"
+msgid "Successfully authenticated with MDBList"
+msgstr "Successfully authenticated with MDBList"
+
+msgctxt "#30953"
+msgid "MDBList Sync: {0} watched, {1} in-progress synced"
+msgstr "MDBList Sync: {0} watched, {1} in-progress synced"
+
+msgctxt "#30954"
+msgid "Mark as Watched (MDBList)"
+msgstr "Mark as Watched (MDBList)"
+
+msgctxt "#30955"
+msgid "Mark as Unwatched (MDBList)"
+msgstr "Mark as Unwatched (MDBList)"
+
+msgctxt "#30956"
+msgid "Clear MDBList Progress"
+msgstr "Clear MDBList Progress"
+
+msgctxt "#30957"
+msgid "MDBList: Item marked as watched"
+msgstr "MDBList: Item marked as watched"
+
+msgctxt "#30958"
+msgid "MDBList: Item marked as unwatched"
+msgstr "MDBList: Item marked as unwatched"
+
+msgctxt "#30959"
+msgid "MDBList: Progress cleared"
+msgstr "MDBList: Progress cleared"
+
+msgctxt "#30960"
+msgid "MDBList: No progress found to clear"
+msgstr "MDBList: No progress found to clear"
+
+msgctxt "#30961"
+msgid "MDBList manager"
+msgstr "MDBList manager"
+
+msgctxt "#30962"
+msgid "MDBList"
+msgstr "MDBList"
+
+msgctxt "#30963"
+msgid "Browse your MDBList watched history and in-progress items"
+msgstr "Browse your MDBList watched history and in-progress items"
+
+msgctxt "#30964"
+msgid "MDBList - Recently Watched Movies"
+msgstr "MDBList - Recently Watched Movies"
+
+msgctxt "#30965"
+msgid "Movies you've marked watched on MDBList"
+msgstr "Movies you've marked watched on MDBList"
+
+msgctxt "#30966"
+msgid "MDBList - Recently Watched Shows"
+msgstr "MDBList - Recently Watched Shows"
+
+msgctxt "#30967"
+msgid "Shows you've watched episodes of on MDBList"
+msgstr "Shows you've watched episodes of on MDBList"
+
+msgctxt "#30968"
+msgid "MDBList - In Progress Movies"
+msgstr "MDBList - In Progress Movies"
+
+msgctxt "#30969"
+msgid "Movies with a saved resume point on MDBList"
+msgstr "Movies with a saved resume point on MDBList"
+
+msgctxt "#30970"
+msgid "MDBList - In Progress Episodes"
+msgstr "MDBList - In Progress Episodes"
+
+msgctxt "#30971"
+msgid "Episodes with a saved resume point on MDBList"
+msgstr "Episodes with a saved resume point on MDBList"
+
+msgctxt "#30972"
+msgid "Trakt - Recently Watched"
+msgstr "Trakt - Recently Watched"
+
+msgctxt "#30973"
+msgid "Merge - In Progress Movies"
+msgstr "Merge - In Progress Movies"
+
+msgctxt "#30974"
+msgid "Movies in progress on either Trakt or MDBList, deduplicated"
+msgstr "Movies in progress on either Trakt or MDBList, deduplicated"
+
+msgctxt "#30975"
+msgid "Merge - Recently Watched Movies"
+msgstr "Merge - Recently Watched Movies"
+
+msgctxt "#30976"
+msgid "Movies watched on either Trakt or MDBList, deduplicated"
+msgstr "Movies watched on either Trakt or MDBList, deduplicated"
+
+msgctxt "#30977"
+msgid "Merge - In Progress Episodes"
+msgstr "Merge - In Progress Episodes"
+
+msgctxt "#30978"
+msgid "Episodes in progress on either Trakt or MDBList, deduplicated"
+msgstr "Episodes in progress on either Trakt or MDBList, deduplicated"
+
+msgctxt "#30979"
+msgid "Merge - Recently Watched Shows"
+msgstr "Merge - Recently Watched Shows"
+
+msgctxt "#30980"
+msgid "Shows watched on either Trakt or MDBList, deduplicated"
+msgstr "Shows watched on either Trakt or MDBList, deduplicated"
+
+msgctxt "#30981"
+msgid "Enable MDBList Scrobbling"
+msgstr "Enable MDBList Scrobbling"
+
+msgctxt "#30982"
+msgid "Enable Trakt"
+msgstr "Enable Trakt"

@@ -392,9 +392,10 @@ class SourceSorter:
             3: "all_debrid",
             4: "torbox",
             5: "debrid_link",
+            6: "offcloud",
         }
 
-        for i in range(1, 6):
+        for i in range(1, 7):
             debridp = debrid_priority_settings.get(g.get_int_setting(f"general.debridsort.{i}"))
             if debridp is None:
                 break

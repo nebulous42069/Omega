@@ -64,6 +64,7 @@ _ENABLED_FLAGS = {
     "alldebrid.enabled":  "AD",
     "torbox.enabled":     "TB",
     "debridlink.enabled": "DL",
+    "offcloud.enabled":   "OC",
 }
 _SNAPSHOT_PROPERTY = "seren.user_enabled_snapshot"
 

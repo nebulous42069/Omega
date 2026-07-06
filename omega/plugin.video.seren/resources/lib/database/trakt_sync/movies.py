@@ -62,18 +62,18 @@ class TraktSyncDatabase(trakt_sync.TraktSyncDatabase):
         return self.fetchall(query)
 
     @guard_against_none(list)
-    def get_watched_movies(self, page):
-        return self.fetchall(
-            f"""
-            SELECT m.trakt_id, meta.value AS trakt_object
+    def get_watched_movies(self, page, force_all=False):
+        query = """
+            SELECT m.trakt_id, m.tmdb_id, meta.value AS trakt_object, m.last_watched_at
             FROM movies AS m
                      LEFT JOIN movies_meta AS meta
                                ON m.trakt_id = meta.id
             WHERE watched = 1
             ORDER BY last_watched_at DESC
-            LIMIT {self.page_limit} OFFSET {self.page_limit * (page - 1)}
             """
-        )
+        if not force_all:
+            query += f" LIMIT {self.page_limit} OFFSET {self.page_limit * (page - 1)}"
+        return self.fetchall(query)
 
     def get_all_collected_movies(self):
         return self.fetchall(

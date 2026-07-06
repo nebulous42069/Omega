@@ -68,7 +68,9 @@ class Menus:
             for i in self.bookmark_database.get_all_bookmark_items("episode")
             if i["trakt_show_id"] not in hidden_shows
         ][self.page_start : self.page_end]
-        self.list_builder.mixed_episode_builder(bookmarked_items)
+        self.list_builder.mixed_episode_builder(
+            bookmarked_items, hide_watched=False, content_type_override=g.CONTENT_MENU
+        )
 
     @staticmethod
     def discover_shows():
@@ -87,7 +89,7 @@ class Menus:
             description=g.get_language_string(30417),
             menu_item=g.create_icon_dict("shows_recent", g.ICONS_PATH),
         )
-        if g.get_setting("trakt.auth"):
+        if g.get_setting("trakt.auth") and g.get_bool_setting("trakt.enabled", True):
             g.add_directory_item(
                 g.get_language_string(30005),
                 action="showsRecommended",
@@ -209,76 +211,102 @@ class Menus:
         g.close_directory(g.CONTENT_MENU)
 
     @staticmethod
-    @trakt_auth_guard
     def my_shows():
-        g.add_directory_item(
-            g.get_language_string(30043),
-            action="onDeckShows",
-            description=g.get_language_string(30433),
-            menu_item=g.create_icon_dict("shows_progress", g.ICONS_PATH),
-        )
-        g.add_directory_item(
-            g.get_language_string(30014),
-            action="showsMyCollection",
-            description=g.get_language_string(30434),
-            menu_item=g.create_icon_dict("shows_collected", g.ICONS_PATH),
-        )
-        g.add_directory_item(
-            g.get_language_string(30015),
-            action="showsMyWatchlist",
-            description=g.get_language_string(30435),
-            menu_item=g.create_icon_dict("shows_watched", g.ICONS_PATH),
-        )
-        g.add_directory_item(
-            g.get_language_string(30090),
-            action="showsRecentlyWatched",
-            description=g.get_language_string(30479),
-            menu_item=g.create_icon_dict("shows_recent", g.ICONS_PATH),
-        )
-        g.add_directory_item(
-            g.get_language_string(30210),
-            action="showsNextUp",
-            description=g.get_language_string(30436),
-            menu_item=g.create_icon_dict("shows_nextup", g.ICONS_PATH),
-        )
-        g.add_directory_item(
-            g.get_language_string(30211),
-            action="myUpcomingEpisodes",
-            description=g.get_language_string(30437),
-            menu_item=g.create_icon_dict("shows_update", g.ICONS_PATH),
-        )
-        g.add_directory_item(
-            g.get_language_string(30212),
-            action="showsMyProgress",
-            description=g.get_language_string(30438),
-            menu_item=g.create_icon_dict("shows_progress", g.ICONS_PATH),
-        )
-        g.add_directory_item(
-            g.get_language_string(30213),
-            action="showsMyRecentEpisodes",
-            description=g.get_language_string(30439),
-            menu_item=g.create_icon_dict("shows_recent", g.ICONS_PATH),
-        )
-        g.add_directory_item(
-            g.get_language_string(30214),
-            action="myTraktLists",
-            mediatype="shows",
-            description=g.get_language_string(30440),
-            menu_item=g.create_icon_dict("list_trakt", g.ICONS_PATH),
-        )
-        g.add_directory_item(
-            g.get_language_string(30350),
-            action="myLikedLists",
-            mediatype="shows",
-            description=g.get_language_string(30441),
-            menu_item=g.create_icon_dict("list_liked", g.ICONS_PATH),
-        )
-        g.add_directory_item(
-            g.get_language_string(30325),
-            action="myWatchedEpisodes",
-            description=g.get_language_string(30442),
-            menu_item=g.create_icon_dict("shows_watched", g.ICONS_PATH),
-        )
+        if g.get_setting('trakt.auth') and g.get_bool_setting('trakt.enabled', True) and g.get_setting('mdblist.enabled') == "true" and g.get_setting('mdblist.apikey'):
+            g.add_directory_item(
+                g.get_language_string(30977),
+                action="mergeInProgressShows",
+                description=g.get_language_string(30978),
+                menu_item=g.create_icon_dict("shows_progress", g.ICONS_PATH),
+            )
+            g.add_directory_item(
+                g.get_language_string(30979),
+                action="mergeWatchedShows",
+                description=g.get_language_string(30980),
+                menu_item=g.create_icon_dict("shows_watched", g.ICONS_PATH),
+            )
+        if g.get_setting('trakt.auth') and g.get_bool_setting('trakt.enabled', True):
+            g.add_directory_item(
+                g.get_language_string(30043),
+                action="onDeckShows",
+                description=g.get_language_string(30433),
+                menu_item=g.create_icon_dict("shows_progress", g.ICONS_PATH),
+            )
+            g.add_directory_item(
+                g.get_language_string(30014),
+                action="showsMyCollection",
+                description=g.get_language_string(30434),
+                menu_item=g.create_icon_dict("shows_collected", g.ICONS_PATH),
+            )
+            g.add_directory_item(
+                g.get_language_string(30015),
+                action="showsMyWatchlist",
+                description=g.get_language_string(30435),
+                menu_item=g.create_icon_dict("shows_watched", g.ICONS_PATH),
+            )
+            g.add_directory_item(
+                g.get_language_string(30972),
+                action="showsRecentlyWatched",
+                description=g.get_language_string(30479),
+                menu_item=g.create_icon_dict("shows_recent", g.ICONS_PATH),
+            )
+            g.add_directory_item(
+                g.get_language_string(30210),
+                action="showsNextUp",
+                description=g.get_language_string(30436),
+                menu_item=g.create_icon_dict("shows_nextup", g.ICONS_PATH),
+            )
+            g.add_directory_item(
+                g.get_language_string(30211),
+                action="myUpcomingEpisodes",
+                description=g.get_language_string(30437),
+                menu_item=g.create_icon_dict("shows_update", g.ICONS_PATH),
+            )
+            g.add_directory_item(
+                g.get_language_string(30212),
+                action="showsMyProgress",
+                description=g.get_language_string(30438),
+                menu_item=g.create_icon_dict("shows_progress", g.ICONS_PATH),
+            )
+            g.add_directory_item(
+                g.get_language_string(30213),
+                action="showsMyRecentEpisodes",
+                description=g.get_language_string(30439),
+                menu_item=g.create_icon_dict("shows_recent", g.ICONS_PATH),
+            )
+            g.add_directory_item(
+                g.get_language_string(30214),
+                action="myTraktLists",
+                mediatype="shows",
+                description=g.get_language_string(30440),
+                menu_item=g.create_icon_dict("list_trakt", g.ICONS_PATH),
+            )
+            g.add_directory_item(
+                g.get_language_string(30350),
+                action="myLikedLists",
+                mediatype="shows",
+                description=g.get_language_string(30441),
+                menu_item=g.create_icon_dict("list_liked", g.ICONS_PATH),
+            )
+            g.add_directory_item(
+                g.get_language_string(30325),
+                action="myWatchedEpisodes",
+                description=g.get_language_string(30442),
+                menu_item=g.create_icon_dict("shows_watched", g.ICONS_PATH),
+            )
+        if g.get_setting('mdblist.enabled') == "true" and g.get_setting('mdblist.apikey'):
+            g.add_directory_item(
+                g.get_language_string(30970),
+                action="mdblistInProgressEpisodes",
+                description=g.get_language_string(30971),
+                menu_item=g.create_icon_dict("shows_progress", g.ICONS_PATH),
+            )
+            g.add_directory_item(
+                g.get_language_string(30966),
+                action="mdblistRecentShows",
+                description=g.get_language_string(30967),
+                menu_item=g.create_icon_dict("shows_watched", g.ICONS_PATH),
+            )
         g.close_directory(g.CONTENT_MENU)
 
     def generic_endpoint(self, endpoint):
@@ -291,7 +319,9 @@ class Menus:
         trakt_list = self.shows_database.extract_trakt_page(
             trakt_endpoint, page=g.PAGE, extended="full", hide_unaired=hide_unaired, hide_watched=False
         )
-        self.list_builder.show_list_builder(trakt_list, hide_unaired=hide_unaired, hide_watched=False)
+        self.list_builder.show_list_builder(
+            trakt_list, hide_unaired=hide_unaired, hide_watched=False, content_type_override=g.CONTENT_MENU
+        )
 
     def shows_popular_recent(self):
         year_range = f"{datetime.datetime.now().year - 1}-{datetime.datetime.now().year}"
@@ -318,7 +348,9 @@ class Menus:
             )
             offset = (g.PAGE - 1) * self.page_limit
             trakt_list = trakt_list[offset : offset + self.page_limit]
-        self.list_builder.show_list_builder(trakt_list, no_paging=no_paging, sort=sort)
+        self.list_builder.show_list_builder(
+            trakt_list, no_paging=no_paging, sort=sort, hide_watched=False, content_type_override=g.CONTENT_MENU
+        )
 
     @trakt_auth_guard
     def my_shows_watchlist(self):
@@ -333,7 +365,13 @@ class Menus:
             hide_unaired=False,
             hide_watched=False,
         )
-        self.list_builder.show_list_builder(trakt_list, no_paging=paginate, hide_unaired=False, hide_watched=False)
+        self.list_builder.show_list_builder(
+            trakt_list,
+            no_paging=paginate,
+            hide_unaired=False,
+            hide_watched=False,
+            content_type_override=g.CONTENT_MENU,
+        )
 
     @trakt_auth_guard
     def my_show_progress(self):
@@ -372,7 +410,12 @@ class Menus:
         self.list_builder.show_list_builder(trakt_list, no_paging=True)
 
     def shows_recently_watched(self):
-        self.list_builder.show_list_builder(self.shows_database.get_recently_watched_shows(), no_paging=True)
+        self.list_builder.show_list_builder(
+            self.shows_database.get_recently_watched_shows(),
+            no_paging=True,
+            hide_watched=False,
+            content_type_override=g.CONTENT_MENU,
+        )
 
     def my_next_up(self):
         episodes = self.shows_database.get_nextup_episodes(g.get_int_setting("nextup.sort") == 1)
@@ -393,7 +436,9 @@ class Menus:
             reverse=True,
         )
 
-        self.list_builder.mixed_episode_builder(trakt_list)
+        self.list_builder.mixed_episode_builder(
+            trakt_list, hide_watched=False, content_type_override=g.CONTENT_MENU
+        )
 
     @trakt_auth_guard
     def my_upcoming_episodes(self):
@@ -495,6 +540,7 @@ class Menus:
             [show for show in trakt_list if float(show["trakt_object"]["info"]["score"]) > 0],
             hide_unaired=False,
             hide_watched=False,
+            content_type_override=g.CONTENT_MENU,
         )
 
     def shows_by_actor(self, query):
@@ -534,7 +580,9 @@ class Menus:
         except KeyError:
             g.cancel_directory()
             return
-        self.list_builder.show_list_builder(trakt_list, hide_watched=False, hide_unaired=False)
+        self.list_builder.show_list_builder(
+            trakt_list, hide_watched=False, hide_unaired=False, content_type_override=g.CONTENT_MENU
+        )
 
     def show_seasons(self, args):
         self.list_builder.season_list_builder(args["trakt_id"], no_paging=True)
@@ -619,7 +667,9 @@ class Menus:
     @trakt_auth_guard
     def my_watched_episode(self):
         watched_episodes = self.shows_database.get_watched_episodes(g.PAGE)
-        self.list_builder.mixed_episode_builder(watched_episodes)
+        self.list_builder.mixed_episode_builder(
+            watched_episodes, hide_watched=False, content_type_override=g.CONTENT_MENU
+        )
 
     def anime_related_shows(self, anidb_id):
         """Display related anime (sequels/prequels/side stories) for a given AniDB ID.

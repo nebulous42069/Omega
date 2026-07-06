@@ -35,7 +35,7 @@ Use this to quickly and easily organize your Favourites.
         <icon>icon.png</icon>
     </assets>
   </extension>
-</addon><addon id="context.seren" version="3.0.2" name="Seren - Global Context Menu Items" provider-name="Nixgates">
+</addon><addon id="context.seren" version="3.0.4" name="Seren - Global Context Menu Items" provider-name="Nixgates">
 	<requires>
 		<import addon="xbmc.addon" version="17.9.910" />
 		<import addon="xbmc.python" version="3.0.0" />
@@ -82,6 +82,10 @@ Use this to quickly and easily organize your Favourites.
 				<label>$ADDON[context.seren 30008]</label>
 				<visible>String.IsEmpty(Window(home).Property(context.seren.traktManager)) + String.StartsWith(ListItem.path,plugin://plugin.video.seren/)+[String.IsEqual(ListItem.dbtype,episode)|String.IsEqual(ListItem.dbtype,tvshow)|String.IsEqual(ListItem.dbtype,season)|String.IsEqual(ListItem.dbtype,movie)]</visible>
 			</item>
+			<item library="context.py" args="mdblistManager">
+				<label>$ADDON[context.seren 30011]</label>
+				<visible>String.IsEmpty(Window(home).Property(context.seren.mdblistManager)) + String.StartsWith(ListItem.path,plugin://plugin.video.seren/)+[String.IsEqual(ListItem.dbtype,episode)|String.IsEqual(ListItem.dbtype,tvshow)|String.IsEqual(ListItem.dbtype,season)|String.IsEqual(ListItem.dbtype,movie)]</visible>
+			</item>
 		</menu>
 	</extension>
 	<extension point="xbmc.service" library="service.py" />
@@ -103,6 +107,12 @@ Use this to quickly and easily organize your Favourites.
 			<poster>resources/images/poster-seren-3.png</poster>
 		</assets>
 		<news>
+			Changelog 3.0.4
+			[FIX] "Trakt Manager" context-menu item now correctly hides when Seren's new "Enable Trakt" toggle is switched off. Previously this addon only checked whether a Trakt login was saved, so turning Trakt off in Seren (which intentionally keeps the login saved) didn't hide the menu item here. Now also checks Seren's trakt.enabled setting, matching how "MDBList Manager" already checks mdblist.enabled.
+
+			Changelog 3.0.3
+			Split the "Trakt Manager" context-menu item into two: "Trakt Manager" and a new "MDBList Manager", each shown only when its own service is enabled/authorized in Seren (auto-detected via cross-addon settings read, polled every 5s) AND its own manual toggle in this addon settings is on.
+
 			Changelog 3.0.2
 			Compressed icons from 3.53 MB to 1.34
 			Update background color to Black
@@ -996,7 +1006,7 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.sc19
         <disclaimer lang="de_DE">(c) 2025 aitschti</disclaimer>
         <reuselanguageinvoker>false</reuselanguageinvoker>
     </extension>
-</addon><addon id="plugin.video.seren" version="4.3.173" name="Seren" provider-name="Nixgates">
+</addon><addon id="plugin.video.seren" version="4.3.207" name="Seren" provider-name="Nixgates">
     <requires>
         <import addon="xbmc.addon" version="17.9.910" />
         <import addon="xbmc.python" version="3.0.0" />
@@ -1063,6 +1073,62 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.sc19
             <screenshot>resources/screenshots/screenshot-04.jpg</screenshot>
         </assets>
         <news>
+            Changelog 3.3.207
+            [FIX] Hardened 3 more settings the same way 3.3.206 hardened "Enable Trakt": "Enable MDBList Scrobbling", "Enable Trakt Scrobbling", and the Trakt account-notification toggle now all explicitly default to "on" if read before the settings screen has ever been opened, instead of relying solely on the settings screen's declared default. No behavior change for anyone who has already loaded the settings screen once.
+
+            Changelog 3.3.206
+            [FIX] Hardened the new "Enable Trakt" toggle's internal default handling so every code path (menus, background sync, scrobbling) explicitly falls back to "on" if the setting can't be read yet, matching the settings screen's declared default. No behavior change for anyone who has loaded the settings screen at least once; this only affects the narrow window right after upgrading, before that happens.
+
+            Changelog 3.3.205
+            [NEW] Added a dedicated "Enable Trakt" toggle (Settings - Watch Accounts, Trakt section), mirroring "Enable MDBList". Defaults on, so nothing changes unless you switch it off. Turning it off hides all Trakt-sourced menu items (Trakt Recommended, On Deck, My Shows/Movies, in-progress merges), pauses the background Trakt sync, and stops scrobbling and watched-marking - while keeping your Trakt login saved, so turning it back on doesn't require re-authenticating.
+
+            Changelog 3.3.204
+            [CHANGE] MDBList Username now appears at the top of Settings - Watch Accounts - MDBList, immediately followed by the Authenticate button - matching Trakt's layout (Username, then Authenticate, then scrobbling settings, with Revoke at the end). No functional change, display order only.
+
+            Changelog 3.3.203
+            [NEW] Added a dedicated "Enable MDBList Scrobbling" toggle (Settings - Watch Accounts, MDBList section), mirroring "Enable Trakt Scrobbling". MDBList can now stay connected for menus/lists while scrobbling is switched off independently; the start-seconds/minimum-percent sliders now only show while both MDBList and its scrobbling toggle are on.
+
+            Changelog 3.3.202
+            [NEW] MDBList scrobbling now has its own "Start scrobble after seconds" and "Minimum scrobble percentage before marked watched" settings (Settings - Watch Accounts, MDBList section), independent of Trakt's. Previously MDBList silently reused Trakt's values, and those settings were only visible once a Trakt account was also connected.
+
+            Changelog 3.3.201
+            [FIX] "Recommended For You" showed only 1 result instead of the full list. The shared filter behind several show discovery menus ("Recommended For You", "Popular Recent Shows", "Trending Recent Shows", Genres, Networks, Related Shows) incorrectly treated any show Seren hadn't seen before as "fully watched" and hid it. These now correctly show all valid results.
+
+            Changelog 3.3.200
+            [FIX] Trakt watched-episode sync updated for an upstream Trakt API change enforced 2026-07-03: the API stopped returning full episode data on the old request shape, which was silently starving every watched-episode menu of data. Sync now requests the correct data explicitly; no other behaviour changes.
+            [FIX] "Trakt - Collection", "Trakt - Recent Episodes", "Trakt - My Watched Episodes", "Trakt - Recently Watched", and "Trakt - Finish Watching" could render empty, or show only a single item, due to two stacking causes: a "hide watched" filter meant for discovery menus, and the active skin hiding fully-watched entries from any watched-status menu. Both are now bypassed for these menus specifically.
+            [FIX] "MDBList - Recently Watched Movies", "MDBList - Recently Watched Shows", and "Merge - Recently Watched Shows" had the same two issues; fixed identically.
+
+            Changelog 3.3.199
+            [FIX] "Merge - Watched" (Movies/Shows) plus the native "Trakt - My Watched Movies" and "Trakt - Recently Watched Shows" menus could render empty or show only partial results when the "Hide Watched" setting was enabled — these lists exist specifically to show watched content, but were unintentionally filtering it out. All four now explicitly bypass that filter.
+
+            Changelog 3.3.198
+            [FIX] Trakt - Recently Watched Shows menu threw a SQLite "ambiguous column name" error introduced by 3.3.197's Merge-menu changes (the new tmdb_id join on the shows table collided with an unqualified ORDER BY). Query now sorts by the intended column explicitly. Also removed an unused parameter from the Merge-menu dedup helper; no behavior change.
+
+            Changelog 3.3.197
+            [NEW] "Merge - In Progress" and "Merge - Watched" entries added to the top of "My Movies"/"My Shows", showing a deduplicated, chronologically-sorted union of the Trakt and MDBList equivalents. Only shown when both Trakt and MDBList are enabled; existing "Trakt - X"/"MDBList - X" entries are unchanged. Known limitation: if Trakt's scrobbler fails to update on a stop event that MDBList's scrobbler correctly records, the affected item can appear in both Merge lists at once.
+
+            Changelog 3.3.196
+            [FIX] "Mark as Watched (MDBList)" now also clears any stale in-progress entry for that item on MDBList, so it no longer lingers in "MDBList - In Progress" after being marked watched.
+
+            Changelog 3.3.195
+            [CHANGE] In "My Movies"/"My Shows", "MDBList - In Progress ..." now lists before "MDBList - Recently Watched ...", matching the existing Trakt ordering convention where "Trakt - Finish Watching" (in-progress) already leads each menu.
+
+            Changelog 3.3.194
+            [CHANGE] All Trakt-sourced items in "My Movies"/"My Shows" now carry a "Trakt - " label prefix (Collection, Watchlist, My Movie/Show Lists, My Liked Lists, Next Up, Upcoming Episodes, Unfinished Shows in Collection, Recent Episodes, My Watched Episodes), matching the 3.3.193 relocation's existing "Trakt - "/"MDBList - " items for full consistency between the two sources in these merged menus.
+
+            Changelog 3.3.193
+            [CHANGE] MDBList browsing menus relocated: the standalone "MDBList" home entry is removed; its four menus (Recently Watched Movies/Shows, In-Progress Movies/Episodes) now live inside the existing "My Movies"/"My Shows" menus alongside their Trakt equivalents, each labelled with a source prefix ("Trakt - ..." / "MDBList - ...") to tell them apart. "My Movies"/"My Shows" are now shown, and reachable, whenever Trakt is authorized OR MDBList is enabled+authorized (previously Trakt-only); each entry inside is individually gated to its own source so a Trakt-only or MDBList-only user only sees their own items.
+
+            Changelog 3.3.192
+            [NEW] MDBList Phase E — browsing menus: new "MDBList" home entry (shown when MDBList is enabled+authorized) with Recently Watched Movies/Shows and In-Progress Movies/Episodes. Items are sourced from your local MDBList sync data (or, for in-progress, live from MDBList) and resolved to Trakt IDs via Trakt's own ID-lookup search so they render and play through Seren's existing, unmodified Trakt menu and playback pipeline. [FIX] Marking an item watched via the MDBList context-menu action now also writes it to the local MDBList sync tables (previously only the scrobbler did this), matching Phase D's behaviour and closing a gap where such marks were invisible in Seren's own local view.
+
+            Changelog 3.3.190
+            [NEW] MDBList Manager split from Trakt Manager in the context menu: the single shared "Trakt Manager" dialog is now dispatched via two distinct actions (traktManager/mdblistManager), each showing only its own service's rows and its own dialog header ("Trakt manager" vs "MDBList manager"). Requires context.seren 3.0.3+ for the corresponding context-menu entries, which are auto-shown/hidden based on whether Trakt is authorized / MDBList is enabled+authorized in Seren (polled every 5s), ANDed with each item's own manual on/off toggle in context.seren's settings.
+
+            Changelog 3.3.189
+            [NEW] MDBList Phase C — context-menu writes: the existing Trakt Manager context-menu entry now also offers "Mark as Watched (MDBList)", "Mark as Unwatched (MDBList)" and "Clear MDBList Progress" (movies/episodes only) when MDBList is enabled and authorized, pushing status directly to MDBList's sync/watched and scrobble/clear endpoints. Trakt's own options are now shown only when Trakt is authorized (previously unconditional). No changes to context.seren; no local DB mirroring (Phase E will read live/synced state).
+
             Changelog 3.3.141
             [NEW] Add script.module.curl_cffi as optional dependency in addon.xml — enables Kodi native C-extension loader to mount the lib/ path, allowing curl_cffi Chrome120 TLS impersonation to initialise correctly in Kodi 22. Falls back gracefully to cloudscraper on platforms where the module is absent.
 

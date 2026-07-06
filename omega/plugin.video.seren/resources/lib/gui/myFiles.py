@@ -25,6 +25,8 @@ class Menus:
             self.providers.append(('torbox', 'TorBox', TorBoxWalker))
         if g.debridlink_enabled():
             self.providers.append(('debrid_link', 'Debrid-Link', DebridLinkWalker))
+        if g.offcloud_enabled():
+            self.providers.append(('offcloud', 'Offcloud', OffCloudWalker))
         # Key → WalkerClass lookup used by my_files_folder / my_files_play
         self._walker = {key: walker for key, _label, walker in self.providers}
 
@@ -412,6 +414,58 @@ class DebridLinkWalker(BaseDebridWalker):
 
     def resolve_link(self, list_item):
         return list_item.get("link", "")
+
+
+class OffCloudWalker(BaseDebridWalker):
+    provider = 'offcloud'
+
+    @cached_property
+    def offcloud(self):
+        from resources.lib.debrid.offcloud import OffCloud
+        return OffCloud()
+
+    def get_init_list(self):
+        history = self.offcloud.list_torrents()
+        if not isinstance(history, list):
+            return
+        items = []
+        for item in history:
+            if item.get('status') != 'downloaded':
+                continue
+            items.append({
+                'id': item.get('requestId'),
+                'name': item.get('fileName', 'Unknown'),
+                'files': True,
+            })
+        self._format_items(items)
+
+    def _is_folder(self, list_item):
+        return bool(list_item.get('files'))
+
+    def get_folder(self, list_item):
+        info = self.offcloud.torrent_info(list_item['id'])
+        file_list = []
+        if isinstance(info, dict):
+            file_list = info.get('files') or []
+        elif isinstance(info, list):
+            # Plain URL list from explore without ?format=detailed
+            file_list = info
+
+        items = []
+        for f in file_list:
+            if isinstance(f, str):
+                items.append({'name': f.split('/')[-1], 'link': f, 'size': 0})
+            elif isinstance(f, dict):
+                name = (f.get('path') or f.get('filename') or f.get('url', '')).split('/')[-1]
+                items.append({
+                    'name': name,
+                    'link': f.get('url', ''),
+                    'size': f.get('size', 0),
+                })
+        self._format_items(items)
+
+    def resolve_link(self, list_item):
+        return list_item.get('link', '')
 
 
 class LocalFileWalker(BaseDebridWalker):

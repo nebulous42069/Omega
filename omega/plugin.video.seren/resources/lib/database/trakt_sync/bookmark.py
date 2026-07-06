@@ -22,6 +22,7 @@ class TraktSyncDatabase(trakt_sync.TraktSyncDatabase):
                        bm.trakt_id        AS trakt_id,
                        ep.trakt_season_id AS trakt_season_id,
                        bm.resume_time     AS progress,
+                       bm.paused_at       AS paused_at,
                        em.value           AS episode,
                        sm.value           AS show
                 FROM bookmarks AS bm
@@ -38,11 +39,15 @@ class TraktSyncDatabase(trakt_sync.TraktSyncDatabase):
         else:
             query = """
                 SELECT bm.trakt_id,
+                       m.tmdb_id      AS tmdb_id,
                        bm.resume_time AS progress,
+                       bm.paused_at   AS paused_at,
                        mm.value       AS trakt_object
                 FROM bookmarks AS bm
                          LEFT JOIN movies_meta AS mm
                                    ON bm.trakt_id = mm.id
+                         LEFT JOIN movies AS m
+                                   ON bm.trakt_id = m.trakt_id
                 WHERE bm.type = 'movie'
                 ORDER BY bm.paused_at DESC
                 """

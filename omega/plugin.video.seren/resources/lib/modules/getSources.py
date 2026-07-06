@@ -25,6 +25,7 @@ from resources.lib.database.skinManager import SkinManager
 from resources.lib.database.torrentCache import TorrentCache
 from resources.lib.debrid import all_debrid
 from resources.lib.debrid import debrid_link
+from resources.lib.debrid import offcloud
 from resources.lib.debrid import premiumize
 from resources.lib.debrid import real_debrid
 from resources.lib.debrid import torbox
@@ -36,6 +37,7 @@ from resources.lib.modules import resolver as resolver
 from resources.lib.modules.cloud_scrapers import AllDebridCloudScraper
 from resources.lib.modules.cloud_scrapers import DebridLinkCloudScraper
 from resources.lib.modules.cloud_scrapers import PremiumizeCloudScraper
+from resources.lib.modules.cloud_scrapers import OffCloudCloudScraper
 from resources.lib.modules.cloud_scrapers import RealDebridCloudScraper
 from resources.lib.modules.cloud_scrapers import TorBoxCloudScraper
 from resources.lib.modules.globals import g
@@ -1237,6 +1239,7 @@ class Sources:
             or (g.get_bool_setting('alldebrid.torrents') and g.all_debrid_enabled())
             or (g.get_bool_setting('torbox.torrents') and g.torbox_enabled())
             or (g.get_bool_setting('debridlink.torrents') and g.debridlink_enabled())
+            or (g.get_bool_setting('offcloud.torrents') and g.offcloud_enabled())
         )
 
     @staticmethod
@@ -1663,6 +1666,11 @@ class Sources:
                     "setting": "debridlink.cloudInspection",
                     "provider": DebridLinkCloudScraper,
                     "enabled": g.debridlink_enabled(),
+                },
+                {
+                    "setting": "offcloud.cloudInspection",
+                    "provider": OffCloudCloudScraper,
+                    "enabled": g.offcloud_enabled(),
                 },
             ]
 
@@ -2397,6 +2405,8 @@ class Sources:
             apikeys['tb'] = g.get_setting('torbox.token')
         if g.debridlink_enabled():
             apikeys['dl'] = g.get_setting('debridlink.token')
+        if g.offcloud_enabled():
+            apikeys['oc'] = g.get_setting('offcloud.apikey')
         anirena_key = (g.get_setting('anirena.apikey') or '').strip()
         if anirena_key:
             apikeys['anirena'] = anirena_key
@@ -2589,6 +2599,9 @@ class TorrentCacheCheck:
 
         if g.debridlink_enabled() and g.get_bool_setting('debridlink.torrents'):
             self.threads.put(self._debridlink_worker, copy.deepcopy(torrent_list), info)
+
+        if g.offcloud_enabled() and g.get_bool_setting('offcloud.torrents'):
+            self.threads.put(self._offcloud_worker, copy.deepcopy(torrent_list))
 
         # S15 — Register this batch as active BEFORE wait_completion so
         # get_sources() can detect in-flight debrid API calls and wait for them.
@@ -3319,6 +3332,75 @@ class TorrentCacheCheck:
 
             # ── Final DB write — covers all unchecked hashes for this tier ────
             self._write_cache_results(unchecked, confirmed_cached, 'dl')
+
+        except Exception:
+            g.log_stacktrace()
+
+    def _offcloud_worker(self, torrent_list):
+        """Cache-check worker for Offcloud.
+
+        Steps:
+          1. DB cache   — hashes confirmed in a previous scrape (24h TTL)
+          2. Native OC  — POST /api/cache?key= with all unchecked hashes
+          3. Store-All  — optional: tag top-N unverified hashes as OC sources
+                          so the resolver can attempt them (CloudMiss on failure)
+        """
+        try:
+            oc = offcloud.OffCloud()
+
+            # ── Step 1: DB cache ──────────────────────────────────────────────
+            db_cached, unchecked = self._split_by_db_cache(torrent_list, 'oc')
+            for i in db_cached:
+                i['debrid_provider'] = 'offcloud'
+                self.store_torrent(i)
+
+            if not unchecked:
+                return
+
+            # ── Step 2: Native Offcloud cache check ───────────────────────────
+            confirmed_cached = set()
+            hash_list = [i['hash'].lower() for i in unchecked]
+            oc_cached = oc.check_cache(hash_list)
+
+            if oc_cached:
+                for i in unchecked:
+                    if i['hash'].lower() in oc_cached:
+                        i['debrid_provider'] = 'offcloud'
+                        self.store_torrent(i)
+                        confirmed_cached.add(i['hash'].lower())
+                g.log(
+                    f"Offcloud cache check: {len(confirmed_cached)}/{len(unchecked)} "
+                    f"hashes confirmed cached",
+                    "info",
+                )
+            else:
+                g.log("Offcloud cache check: 0 cached hashes returned", "info")
+
+            # ── Step 3: Store-All (optional) ─────────────────────────────────
+            if g.get_bool_setting('offcloud.storeall'):
+                _sa_threshold = g.get_int_setting('offcloud.storeall.threshold', 5)
+                if len(confirmed_cached) < _sa_threshold:
+                    _sa_limit = g.get_int_setting('offcloud.storeall.limit', 30)
+                    _sa_candidates = [
+                        t for t in unchecked
+                        if t.get('hash', '').lower() not in confirmed_cached
+                    ]
+                    _sa_candidates.sort(key=self._dl_probe_sort_key, reverse=True)
+                    _sa_candidates = _sa_candidates[:_sa_limit]
+                    _sa_stored = 0
+                    for t in _sa_candidates:
+                        t['debrid_provider'] = 'offcloud'
+                        self.store_torrent(t)
+                        _sa_stored += 1
+                    if _sa_stored:
+                        g.log(
+                            f"OC StoreAll: {_sa_stored} unverified sources added "
+                            f"(confirmed={len(confirmed_cached)} < threshold={_sa_threshold})",
+                            "info",
+                        )
+
+            # ── Final DB write ────────────────────────────────────────────────
+            self._write_cache_results(unchecked, confirmed_cached, 'oc')
 
         except Exception:
             g.log_stacktrace()

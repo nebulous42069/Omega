@@ -53,6 +53,11 @@
                     <default>true</default>
                     <control type="toggle"/>
                 </setting>
+                <setting id="context.seren.mdblistManager" type="boolean" label="30011" help="">
+                    <level>0</level>
+                    <default>true</default>
+                    <control type="toggle"/>
+                </setting>
             </group>
         </category>
     </section>

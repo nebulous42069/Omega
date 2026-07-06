@@ -282,7 +282,7 @@ class GlobalVariables:
     # (with reuselanguageinvoker, these persist across plugin calls)
     _CACHED_SETTING_PROPS = (
         "_debrid_available", "_premiumize_enabled", "_real_debrid_enabled",
-        "_all_debrid_enabled", "_torbox_enabled", "_debridlink_enabled",
+        "_all_debrid_enabled", "_torbox_enabled", "_debridlink_enabled", "_offcloud_enabled",
         "menu_caching_enabled", "set_views_enabled", "disable_notification_sound",
         "fanart_fallback_disabled", "studio_limit", "_local_is_utc",
     )
@@ -428,6 +428,7 @@ class GlobalVariables:
             "UNDESIRABLES_DB_PATH": self.UNDESIRABLES_DB_PATH,
             "TITLE_SUBS_DB_PATH": self.TITLE_SUBS_DB_PATH,
             "TRAKT_SYNC_DB_PATH": self.TRAKT_SYNC_DB_PATH,
+            "MDBLIST_SYNC_DB_PATH": self.MDBLIST_SYNC_DB_PATH,
             "SEARCH_HISTORY_DB_PATH": self.SEARCH_HISTORY_DB_PATH,
             "SKINS_DB_PATH": self.SKINS_DB_PATH,
             "ANIME_CACHE_DB_PATH": self.ANIME_CACHE_DB_PATH,
@@ -508,6 +509,7 @@ class GlobalVariables:
             self.UNDESIRABLES_DB_PATH = state["UNDESIRABLES_DB_PATH"]
             self.TITLE_SUBS_DB_PATH = state["TITLE_SUBS_DB_PATH"]
             self.TRAKT_SYNC_DB_PATH = state["TRAKT_SYNC_DB_PATH"]
+            self.MDBLIST_SYNC_DB_PATH = state["MDBLIST_SYNC_DB_PATH"]
             self.SEARCH_HISTORY_DB_PATH = state["SEARCH_HISTORY_DB_PATH"]
             self.SKINS_DB_PATH = state["SKINS_DB_PATH"]
             self.ANIME_CACHE_DB_PATH = state["ANIME_CACHE_DB_PATH"]
@@ -793,6 +795,7 @@ class GlobalVariables:
         self.UNDESIRABLES_DB_PATH = tools.translate_path(os.path.join(self.ADDON_USERDATA_PATH, "undesirables.db"))
         self.TITLE_SUBS_DB_PATH = tools.translate_path(os.path.join(self.ADDON_USERDATA_PATH, "titleSubs.db"))
         self.TRAKT_SYNC_DB_PATH = tools.translate_path(os.path.join(self.ADDON_USERDATA_PATH, "traktSync.db"))
+        self.MDBLIST_SYNC_DB_PATH = tools.translate_path(os.path.join(self.ADDON_USERDATA_PATH, "mdblistSync.db"))
         self.SEARCH_HISTORY_DB_PATH = tools.translate_path(os.path.join(self.ADDON_USERDATA_PATH, "search.db"))
         self.SKINS_DB_PATH = tools.translate_path(os.path.join(self.ADDON_USERDATA_PATH, "skins.db"))
         self.ANIME_CACHE_DB_PATH = tools.translate_path(os.path.join(self.ADDON_USERDATA_PATH, "animeCache.db"))
@@ -1302,7 +1305,7 @@ class GlobalVariables:
 
     @cached_property
     def _debrid_available(self):
-        return self.premiumize_enabled() or self.real_debrid_enabled() or self.all_debrid_enabled() or self.torbox_enabled() or self.debridlink_enabled()
+        return self.premiumize_enabled() or self.real_debrid_enabled() or self.all_debrid_enabled() or self.torbox_enabled() or self.debridlink_enabled() or self.offcloud_enabled()
 
     def debrid_available(self):
         return self._debrid_available
@@ -1341,6 +1344,13 @@ class GlobalVariables:
 
     def debridlink_enabled(self):
         return self._debridlink_enabled
+
+    @cached_property
+    def _offcloud_enabled(self):
+        return bool(self.get_setting("offcloud.apikey") != "" and self.get_bool_setting("offcloud.enabled"))
+
+    def offcloud_enabled(self):
+        return self._offcloud_enabled
 
     def container_refresh(self):
         return xbmc.executebuiltin("Container.Refresh")

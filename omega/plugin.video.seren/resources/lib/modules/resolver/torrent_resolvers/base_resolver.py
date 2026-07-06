@@ -11,7 +11,7 @@ from resources.lib.modules.globals import g
 # Imported here to avoid circular imports — same mapping as in resolver/__init__.py.
 _DEBRID_PROVIDER_TO_DB_KEY = {
     'real_debrid': 'rd', 'all_debrid': 'ad', 'premiumize': 'pm',
-    'torbox': 'tb', 'debrid_link': 'dl',
+    'torbox': 'tb', 'debrid_link': 'dl', 'offcloud': 'oc',
 }
 
 

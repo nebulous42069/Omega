@@ -10,7 +10,7 @@ class TraktContextMenu:
     Handles manual user interactions to the Trakt API
     """
 
-    def __init__(self, item_information):
+    def __init__(self, item_information, scope):
         super().__init__()
         trakt_id = item_information["trakt_id"]
         item_type = item_information["action_args"]["mediatype"].lower()
@@ -18,76 +18,111 @@ class TraktContextMenu:
 
         self._confirm_item_information(item_information)
 
+        self.header_text = g.get_language_string(30286) if scope == "trakt" else g.get_language_string(30961)
+
         self.dialog_list = []
+        options = {}
 
-        self._handle_watched_options(item_information, item_type)
-        self._handle_collected_options(item_information, trakt_id, display_type)
-        self._handle_watchlist_options(item_type)
+        if scope == "trakt" and g.get_setting("trakt.auth") and g.get_bool_setting("trakt.enabled", True):
+            self._handle_watched_options(item_information, item_type)
+            self._handle_collected_options(item_information, trakt_id, display_type)
+            self._handle_watchlist_options(item_type)
 
-        standard_list = [
-            g.get_language_string(30280),
-            g.get_language_string(30281),
-            g.get_language_string(30282).format(display_type),
-            g.get_language_string(30283),
-        ]
+            standard_list = [
+                g.get_language_string(30280),
+                g.get_language_string(30281),
+                g.get_language_string(30282).format(display_type),
+                g.get_language_string(30283),
+            ]
 
-        self.dialog_list.extend(iter(standard_list))
-        self._handle_progress_option(item_type, trakt_id)
+            self.dialog_list.extend(iter(standard_list))
+            self._handle_progress_option(item_type, trakt_id)
+
+            options.update(
+                {
+                    g.get_language_string(30274).format(display_type): {
+                        "method": self._add_to_collection,
+                        "info_key": "info",
+                    },
+                    g.get_language_string(30275).format(display_type): {
+                        "method": self._remove_from_collection,
+                        "info_key": "info",
+                    },
+                    g.get_language_string(30276): {
+                        "method": self._add_to_watchlist,
+                        "info_key": "info",
+                    },
+                    g.get_language_string(30277): {
+                        "method": self._remove_from_watchlist,
+                        "info_key": "info",
+                    },
+                    g.get_language_string(30278): {
+                        "method": self._mark_watched,
+                        "info_key": "info",
+                    },
+                    g.get_language_string(30279): {
+                        "method": self._mark_unwatched,
+                        "info_key": "info",
+                    },
+                    g.get_language_string(30280): {
+                        "method": self._add_to_list,
+                        "info_key": "info",
+                    },
+                    g.get_language_string(30281): {
+                        "method": self._remove_from_list,
+                        "info_key": "info",
+                    },
+                    g.get_language_string(30282).format(display_type): {
+                        "method": self._hide_item,
+                        "info_key": "action_args",
+                    },
+                    g.get_language_string(30283): {
+                        "method": self._refresh_meta_information,
+                        "info_key": "info",
+                    },
+                    g.get_language_string(30284): {
+                        "method": self._remove_playback_history,
+                        "info_key": "info",
+                    },
+                }
+            )
+
+        if scope == "mdblist" and g.get_bool_setting("mdblist.enabled") and g.get_setting("mdblist.apikey"):
+            self.dialog_list.extend(
+                [
+                    g.get_language_string(30954),
+                    g.get_language_string(30955),
+                ]
+            )
+            options.update(
+                {
+                    g.get_language_string(30954): {
+                        "method": self._mdblist_mark_watched,
+                        "info_key": "info",
+                    },
+                    g.get_language_string(30955): {
+                        "method": self._mdblist_mark_unwatched,
+                        "info_key": "info",
+                    },
+                }
+            )
+            if item_type not in ("tvshow", "season"):
+                self.dialog_list.append(g.get_language_string(30956))
+                options[g.get_language_string(30956)] = {
+                    "method": self._mdblist_clear_progress,
+                    "info_key": "info",
+                }
+
+        if not self.dialog_list:
+            return
 
         selection = xbmcgui.Dialog().select(
-            f"{g.ADDON_NAME}: {g.get_language_string(30286)}",
+            f"{g.ADDON_NAME}: {self.header_text}",
             self.dialog_list,
         )
 
         if selection == -1:
             return
-
-        options = {
-            g.get_language_string(30274).format(display_type): {
-                "method": self._add_to_collection,
-                "info_key": "info",
-            },
-            g.get_language_string(30275).format(display_type): {
-                "method": self._remove_from_collection,
-                "info_key": "info",
-            },
-            g.get_language_string(30276): {
-                "method": self._add_to_watchlist,
-                "info_key": "info",
-            },
-            g.get_language_string(30277): {
-                "method": self._remove_from_watchlist,
-                "info_key": "info",
-            },
-            g.get_language_string(30278): {
-                "method": self._mark_watched,
-                "info_key": "info",
-            },
-            g.get_language_string(30279): {
-                "method": self._mark_unwatched,
-                "info_key": "info",
-            },
-            g.get_language_string(30280): {
-                "method": self._add_to_list,
-                "info_key": "info",
-            },
-            g.get_language_string(30281): {
-                "method": self._remove_from_list,
-                "info_key": "info",
-            },
-            g.get_language_string(30282).format(display_type): {
-                "method": self._hide_item,
-                "info_key": "action_args",
-            },
-            g.get_language_string(30283): {
-                "method": self._refresh_meta_information,
-                "info_key": "info",
-            },
-            g.get_language_string(30284): {
-                "method": self._remove_playback_history,
-                "info_key": "info",
-            },
-        }
 
         selected_option = self.dialog_list[selection]
         if selected_option not in options:
@@ -442,4 +477,142 @@ class TraktContextMenu:
 
         g.container_refresh()
         g.notification(g.ADDON_NAME, g.get_language_string(30301))
+        g.trigger_widget_refresh()
+
+    @cached_property
+    def mdblist_api(self):
+        from resources.lib.indexers.mdblist import MDBListAPI
+
+        return MDBListAPI()
+
+    @staticmethod
+    def _info_to_mdblist_object(item_information):
+        mediatype = item_information["mediatype"]
+        if mediatype == "movie":
+            return {"movies": [{"ids": {"tmdb": item_information["tmdb_id"]}}]}
+        if mediatype == "tvshow":
+            return {"shows": [{"ids": {"tmdb": item_information["tmdb_id"]}}]}
+        if mediatype == "season":
+            return {
+                "shows": [
+                    {
+                        "ids": {"tmdb": item_information["tmdb_show_id"]},
+                        "seasons": [{"number": item_information["season"]}],
+                    }
+                ]
+            }
+        if mediatype == "episode":
+            return {
+                "shows": [
+                    {
+                        "ids": {"tmdb": item_information["tmdb_show_id"]},
+                        "seasons": [
+                            {
+                                "number": item_information["season"],
+                                "episodes": [{"number": item_information["episode"]}],
+                            }
+                        ],
+                    }
+                ]
+            }
+        return None
+
+    @staticmethod
+    def _mdblist_response_key(mediatype):
+        return {"movie": "movies", "tvshow": "shows", "season": "seasons", "episode": "episodes"}.get(mediatype)
+
+    def _mdblist_mark_watched(self, item_information):
+        payload = self._info_to_mdblist_object(item_information)
+        if payload is None:
+            return
+        response = self.mdblist_api.post_json("sync/watched", payload)
+        key = self._mdblist_response_key(item_information["mediatype"])
+        if not response or response.get("updated", {}).get(key, 0) <= 0:
+            g.notification(
+                f"{g.ADDON_NAME}: {self.header_text}",
+                g.get_language_string(30287),
+            )
+            g.log(f"Failed to mark item as watched on MDBList\nResponse: {response}")
+            return
+
+        from resources.lib.database.mdblist_sync import MDBListSyncDatabase
+
+        MDBListSyncDatabase().write_watched_locally(item_information["mediatype"], item_information)
+        cleared_progress = self._mdblist_clear_playback_entries(item_information)
+
+        g.notification(
+            f"{g.ADDON_NAME}: {self.header_text}",
+            g.get_language_string(30957),
+        )
+        if cleared_progress:
+            g.container_refresh()
+            g.trigger_widget_refresh()
+
+    def _mdblist_mark_unwatched(self, item_information):
+        payload = self._info_to_mdblist_object(item_information)
+        if payload is None:
+            return
+        response = self.mdblist_api.post_json("sync/watched/remove", payload)
+        key = self._mdblist_response_key(item_information["mediatype"])
+        if not response or response.get("removed", {}).get(key, 0) <= 0:
+            g.notification(
+                f"{g.ADDON_NAME}: {self.header_text}",
+                g.get_language_string(30287),
+            )
+            g.log(f"Failed to mark item as unwatched on MDBList\nResponse: {response}")
+            return
+
+        g.notification(
+            f"{g.ADDON_NAME}: {self.header_text}",
+            g.get_language_string(30958),
+        )
+
+    def _mdblist_clear_playback_entries(self, item_information):
+        # No notification/refresh here - mark_watched clears silently while Clear Progress reports success/failure.
+        mediatype = item_information["mediatype"]
+        if mediatype not in ("movie", "episode"):
+            return False
+
+        playback = self.mdblist_api.get_json("sync/playback")
+        if not playback:
+            return False
+
+        if mediatype == "movie":
+            entry_ids = [
+                i["id"]
+                for i in playback
+                if i.get("movie") and i["movie"].get("ids", {}).get("tmdb") == item_information["tmdb_id"]
+            ]
+        else:
+            entry_ids = [
+                i["id"]
+                for i in playback
+                if i.get("episode")
+                and i.get("show")
+                and i["show"].get("ids", {}).get("tmdb") == item_information["tmdb_show_id"]
+                and i["episode"].get("season") == item_information["season"]
+                and i["episode"].get("number") == item_information["episode"]
+            ]
+
+        if not entry_ids:
+            return False
+
+        for entry_id in entry_ids:
+            self.mdblist_api.post_json("scrobble/clear", {"id": entry_id})
+
+        return True
+
+    def _mdblist_clear_progress(self, item_information):
+        if not self._mdblist_clear_playback_entries(item_information):
+            g.notification(
+                f"{g.ADDON_NAME}: {self.header_text}",
+                g.get_language_string(30960),
+            )
+            return
+
+        g.container_refresh()
+        g.notification(
+            f"{g.ADDON_NAME}: {self.header_text}",
+            g.get_language_string(30959),
+        )
         g.trigger_widget_refresh()

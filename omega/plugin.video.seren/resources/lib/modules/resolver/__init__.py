@@ -24,6 +24,7 @@ from resources.lib.modules.exceptions import UnexpectedResponse
 from resources.lib.modules.globals import g
 from resources.lib.modules.resolver.torrent_resolvers import AllDebridResolver
 from resources.lib.modules.resolver.torrent_resolvers import DebridLinkResolver
+from resources.lib.modules.resolver.torrent_resolvers import OffCloudResolver
 from resources.lib.modules.resolver.torrent_resolvers import PremiumizeResolver
 from resources.lib.modules.resolver.torrent_resolvers import RealDebridResolver
 from resources.lib.modules.resolver.content_verifier import ContentVerifier
@@ -33,7 +34,7 @@ from resources.lib.modules.resolver.torrent_resolvers import TorBoxResolver
 # Used both in the CloudMiss handler and the file-not-found handler.
 _DEBRID_PROVIDER_TO_DB_KEY = {
     'real_debrid': 'rd', 'all_debrid': 'ad', 'premiumize': 'pm',
-    'torbox': 'tb', 'debrid_link': 'dl',
+    'torbox': 'tb', 'debrid_link': 'dl', 'offcloud': 'oc',
 }
 
 
@@ -47,6 +48,7 @@ _DEBRID_DISPLAY_LABEL = {
     'premiumize': 'Premiumize',
     'torbox': 'TorBox',
     'debrid_link': 'Debrid-Link',
+    'offcloud': 'Offcloud',
 }
 
 # Cap on how many entries we keep in the resolutions cache. The dict is
@@ -189,6 +191,7 @@ class Resolver:
         self.resolvers = {
             "all_debrid": AllDebridResolver,
             "debrid_link": DebridLinkResolver,
+            "offcloud": OffCloudResolver,
             "premiumize": PremiumizeResolver,
             "real_debrid": RealDebridResolver,
             "torbox": TorBoxResolver,

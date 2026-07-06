@@ -1,6 +1,7 @@
 from resources.lib.common import source_utils
 from resources.lib.debrid.all_debrid import AllDebrid
 from resources.lib.debrid.debrid_link import DebridLink
+from resources.lib.debrid.offcloud import OffCloud
 from resources.lib.debrid.premiumize import Premiumize
 from resources.lib.debrid.real_debrid import RealDebrid
 from resources.lib.debrid.torbox import TorBox
@@ -565,3 +566,59 @@ class DebridLinkCloudScraper(CloudScraper):
 
     def _is_enabled(self):
         return g.debridlink_enabled()
+
+
+class OffCloudCloudScraper(CloudScraper):
+    def __init__(self, terminate_flag):
+        super().__init__(terminate_flag)
+        self.api_adapter = OffCloud()
+        self.debrid_provider = "offcloud"
+        self._source_normalization = (
+            ("filename", ["release_title", "path"], None),
+            ("size", "size", lambda k: (k / 1024) / 1024),
+            ("url", ["link", "url"], None),
+        )
+
+    def _fetch_cloud_items(self):
+        """Fetch completed cloud items from Offcloud history.
+
+        GET /api/cloud/history → filter status='downloaded'
+        GET /api/cloud/explore/{id}?format=detailed → files list
+        """
+        history = self.api_adapter.list_torrents()
+        if not isinstance(history, list):
+            return []
+        results = []
+        for item in history:
+            if item.get("status") != "downloaded":
+                continue
+            request_id = item.get("requestId")
+            if not request_id:
+                continue
+            info = self.api_adapter.torrent_info(request_id)
+            files = []
+            if isinstance(info, dict):
+                files = info.get("files") or []
+            elif isinstance(info, list):
+                # plain URL list (non-detailed format) — wrap as dicts
+                files = [{"url": u, "filename": u.split("/")[-1], "size": 0} for u in info if isinstance(u, str)]
+            for f in files:
+                f["_oc_request_id"] = request_id
+                results.append(f)
+        return results
+
+    def _finalise_identified_items(self, items):
+        items = super()._finalise_identified_items(items)
+        for item in items:
+            item["_cloud_delete_info"] = {
+                "service": "offcloud",
+                "method": "delete_torrent",
+                "id": item.get("_oc_request_id", ""),
+            }
+        return items
+
+    def _is_valid_pack(self, item):
+        return True
+
+    def _is_enabled(self):
+        return g.offcloud_enabled()

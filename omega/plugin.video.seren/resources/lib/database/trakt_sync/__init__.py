@@ -1116,6 +1116,8 @@ class TraktSyncDatabase(Database):
             elif media_type == "shows":
                 current_page = [i.get("show", i) for i in current_page]
                 self.insert_trakt_shows(current_page)
+                if hide_watched:
+                    self._mill_if_needed(current_page, None, False)
             query = f"""
                 WITH requested(trakt_id) AS (VALUES
                     {','.join('({})'.format(i.get('trakt_id', get(i, 'trakt_id'))) for i in current_page)})

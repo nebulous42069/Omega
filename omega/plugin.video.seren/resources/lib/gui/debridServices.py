@@ -50,6 +50,12 @@ class Menus:
                 action='debridlinkTransfers',
                 menu_item=g.create_icon_dict("cloud", g.ICONS_PATH),
             )
+        if g.get_bool_setting('offcloud.enabled'):
+            g.add_directory_item(
+                "Current Offcloud Transfers",
+                action='offcloudTransfers',
+                menu_item=g.create_icon_dict("offcloud", g.ICONS_PATH),
+            )
         g.add_directory_item(
             "Clear All Debrid Transfers",
             action='clearAllDebridTransfers',
@@ -216,6 +222,8 @@ class Menus:
                 services.append(('TorBox', self._clear_tb_transfers))
             if g.get_bool_setting('debridlink.enabled'):
                 services.append(('Debrid-Link', self._clear_dl_transfers))
+            if g.get_bool_setting('offcloud.enabled'):
+                services.append(('Offcloud', self._clear_oc_transfers))
 
             for idx, (name, func) in enumerate(services):
                 if progress.iscanceled():
@@ -268,6 +276,8 @@ class Menus:
                 services.append(('TorBox', self._clear_tb_cloud))
             if g.get_bool_setting('debridlink.enabled'):
                 services.append(('Debrid-Link', self._clear_dl_cloud))
+            if g.get_bool_setting('offcloud.enabled'):
+                services.append(('Offcloud', self._clear_oc_cloud))
 
             for idx, (name, func) in enumerate(services):
                 if progress.iscanceled():
@@ -405,3 +415,41 @@ class Menus:
         for t in torrents:
             dl.delete_torrent(t.get('id'))
         return len(torrents)
+
+    def list_oc_transfers(self):
+        from resources.lib.debrid.offcloud import OffCloud
+
+        items = OffCloud().list_torrents()
+        if not isinstance(items, list) or not items:
+            g.close_directory(self.view_type)
+            return
+        for i in items:
+            status = i.get('status', 'unknown')
+            name = i.get('fileName', 'Unknown')
+            title = "{} | [I]{}[/I]".format(
+                g.color_string(status.title()),
+                f"{name[:50]}..." if len(name) > 50 else name,
+            )
+            g.add_directory_item(
+                title, is_playable=False, is_folder=False,
+                menu_item=g.create_icon_dict("offcloud", g.ICONS_PATH),
+            )
+        g.close_directory(self.view_type)
+
+    @staticmethod
+    def _clear_oc_transfers():
+        from resources.lib.debrid.offcloud import OffCloud
+        oc = OffCloud()
+        items = oc.list_torrents() or []
+        for i in items:
+            oc.delete_torrent(i.get('requestId', ''))
+        return len(items)
+
+    @staticmethod
+    def _clear_oc_cloud():
+        from resources.lib.debrid.offcloud import OffCloud
+        oc = OffCloud()
+        items = oc.list_torrents() or []
+        for i in items:
+            oc.delete_torrent(i.get('requestId', ''))
+        return len(items)

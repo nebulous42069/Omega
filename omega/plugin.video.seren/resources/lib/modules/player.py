@@ -29,7 +29,7 @@ class SerenPlayer(xbmc.Player):
         self.mediatype = None
         self.offset = None
         self.playing_file = None
-        self.scrobbling_enabled = g.get_bool_setting("trakt.scrobbling")
+        self.scrobbling_enabled = g.get_bool_setting("trakt.scrobbling", True)
         self.item_information = None
         self.smart_playlists = g.get_bool_setting("smartplay.playlistcreate")
         self.smart_module = None
@@ -39,12 +39,15 @@ class SerenPlayer(xbmc.Player):
         self.ignoreSecondsAtStart = g.get_int_setting("trakt.ignoreSecondsAtStart")
         self.min_time_before_scrape = 600
         self.playCountMinimumPercent = g.get_int_setting("trakt.playCountMinimumPercent")
+        self.mdblist_ignoreSecondsAtStart = g.get_int_setting("mdblist.ignoreSecondsAtStart")
+        self.mdblist_playCountMinimumPercent = g.get_int_setting("mdblist.playCountMinimumPercent")
+        self.mdblist_scrobbling_enabled = g.get_bool_setting("mdblist.scrobbling", True)
         self.dialogs_enabled = g.get_bool_setting("smartplay.playingnextdialog") or g.get_bool_setting(
             "smartplay.stillwatching"
         )
         self.pre_scrape_enabled = g.get_bool_setting("smartPlay.preScrape")
         self.playing_next_time = g.get_int_setting("playingnext.time")
-        self.trakt_enabled = bool(g.get_setting("trakt.auth", ""))
+        self.trakt_enabled = bool(g.get_setting("trakt.auth", "")) and g.get_bool_setting("trakt.enabled", True)
         self._running_path = None
 
         # Flags
@@ -59,6 +62,10 @@ class SerenPlayer(xbmc.Player):
         self.scrobble_started = False
         self.last_attempted_scrobble_stop = 0
         self.last_attempted_scrobble_pause = 0
+        self.mdblist_enabled = g.get_bool_setting("mdblist.enabled") and bool(g.get_setting("mdblist.apikey"))
+        self.mdblist_scrobbled = False
+        self.last_attempted_mdblist_stop = 0
+        self.last_attempted_mdblist_pause = 0
         self.marked_watched = False
         self.dialogs_triggered = False
         self.pre_scrape_initiated = False
@@ -97,6 +104,12 @@ class SerenPlayer(xbmc.Player):
     @cached_property
     def _trakt_api(self):
         return trakt.TraktAPI()
+
+    @cached_property
+    def _mdblist_api(self):
+        from resources.lib.indexers.mdblist import MDBListAPI
+
+        return MDBListAPI()
 
     @cached_property
     def bookmark_sync(self):
@@ -402,6 +415,7 @@ class SerenPlayer(xbmc.Player):
         """
         self._handle_bookmark()
         self._trakt_stop_watching()
+        self._mdblist_stop_watching()
 
     def onPlayBackError(self):
         """
@@ -441,6 +455,7 @@ class SerenPlayer(xbmc.Player):
         self._end_playback_done = True
         self._handle_bookmark()
         self._trakt_stop_watching()
+        self._mdblist_stop_watching()
         self._trakt_mark_playing_item_watched()
         self._debrid_post_playback_cleanup()
         if g.get_bool_setting("general.force.widget.refresh.playback"):
@@ -676,7 +691,8 @@ class SerenPlayer(xbmc.Player):
 
     def _trakt_mark_playing_item_watched(self):
         if (
-            self.marked_watched
+            not self.trakt_enabled
+            or self.marked_watched
             or not self.playback_started
             or not self.watched_percentage >= self.playCountMinimumPercent
         ):
@@ -715,6 +731,90 @@ class SerenPlayer(xbmc.Player):
 
     # endregion
 
+    # region MDBList
+    def _build_mdblist_object(self):
+        info = self.item_information["info"]
+        if self.mediatype == "movie":
+            tmdb_id = info.get("tmdb_id")
+            if not tmdb_id:
+                return None
+            return {"movie": {"ids": {"tmdb": tmdb_id}}, "progress": self.watched_percentage}
+        if self.mediatype == "episode":
+            tmdb_show_id = info.get("tmdb_show_id")
+            season = info.get("season")
+            episode = info.get("episode")
+            if not tmdb_show_id or season is None or episode is None:
+                return None
+            return {
+                "show": {
+                    "ids": {"tmdb": tmdb_show_id},
+                    "season": {"number": season, "episode": {"number": episode}},
+                },
+                "progress": self.watched_percentage,
+            }
+        return None
+
+    def _mdblist_stop_watching(self):
+        if (
+            not self.mdblist_enabled
+            or not self.mdblist_scrobbling_enabled
+            or self.mdblist_scrobbled
+            or self.current_time < self.mdblist_ignoreSecondsAtStart
+        ):
+            return
+
+        post_data = self._build_mdblist_object()
+        if post_data is None:
+            return
+
+        if post_data["progress"] >= self.mdblist_playCountMinimumPercent:
+            if time.time() - self.last_attempted_mdblist_stop < 30 and not g.abort_requested():
+                return
+            post_data["progress"] = max(post_data["progress"], 80)
+            try:
+                response = self._mdblist_api.post("scrobble/stop", post_data)
+            except Exception:
+                g.log_stacktrace()
+                return
+            finally:
+                self.last_attempted_mdblist_stop = time.time()
+            if response is not None and response.ok:
+                self.mdblist_scrobbled = True
+                try:
+                    action = response.json().get("action")
+                    if action != "scrobble":
+                        g.log(f"MDBList scrobble/stop returned action: {action}", "warning")
+                except Exception:
+                    g.log_stacktrace()
+                self._mdblist_write_watched_locally()
+            else:
+                g.log(
+                    f"MDBList scrobble/stop returned status code: {response.status_code if response is not None else 'no response'}",
+                    "warning",
+                )
+        elif self.current_time > self.mdblist_ignoreSecondsAtStart:
+            if (pause_time := time.time() - self.last_attempted_mdblist_pause) < 5:
+                g.log(f"MDBList scrobble/pause repeat called: {pause_time}s", "warning")
+            try:
+                response = self._mdblist_api.post("scrobble/pause", post_data)
+            except Exception:
+                g.log_stacktrace()
+                return
+            finally:
+                self.last_attempted_mdblist_pause = time.time()
+            if response is None or not response.ok:
+                g.log(
+                    f"MDBList scrobble/pause returned status code: {response.status_code if response is not None else 'no response'}",
+                    "warning",
+                )
+
+    def _mdblist_write_watched_locally(self):
+        from resources.lib.database.mdblist_sync import MDBListSyncDatabase
+
+        MDBListSyncDatabase().write_watched_locally(self.mediatype, self.item_information["info"])
+
+    # endregion
+
     def _keep_alive(self):
         for _ in range(480):
             if self._is_file_playing() or self._playback_has_stopped() or g.wait_for_abort(0.25):
@@ -746,6 +846,13 @@ class SerenPlayer(xbmc.Player):
             if self.watched_percentage >= self.playCountMinimumPercent and self.scrobble_started and not self.scrobbled:
                 self._handle_bookmark()
                 self._trakt_stop_watching()
+
+            if (
+                self.watched_percentage >= self.mdblist_playCountMinimumPercent
+                and self.mdblist_enabled
+                and not self.mdblist_scrobbled
+            ):
+                self._mdblist_stop_watching()
 
             if self.dialogs_enabled and not self.dialogs_triggered and time_left <= self.playing_next_time:
                 xbmc.executebuiltin('RunPlugin("plugin://plugin.video.seren/?action=runPlayerDialogs")')
