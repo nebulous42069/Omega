@@ -11,9 +11,6 @@
     "Addon4": {
             "plugin_id": "script.module.kodi-six"
     },
-    "Addon5": {
-            "plugin_id": "script.skin.helper.service"
-    },
     "Addon6": {
             "plugin_id": "script.favourites"
     },
@@ -36,6 +33,6 @@
             "plugin_id": "resource.font.robotocjksc"
     },
     "Addon13": {
-            "plugin_id": "plugin.audio.m3sr2019"
+            "plugin_id": "inputstream.adaptive"
     }
 }

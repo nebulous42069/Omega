@@ -2371,6 +2371,64 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.sc19
             <icon>icon.png</icon>
         </assets>
   </extension>
+</addon><addon id="script.skin.helper.service" name="Skin Helper Service" version="1.20.3" provider-name="marcelveldt and others">
+    <requires>
+		<import addon="xbmc.python" version="3.0.0" />
+        <import addon="xbmc.addon" version="12.0.0" />
+        <import addon="script.module.simplejson" version="3.3.0" />
+        <import addon="script.module.simplecache" version="2.0.2" />
+        <import addon="script.module.metadatautils" version="1.20.1" />
+    </requires>
+
+    <extension point="kodi.context.item">
+        <menu id="kodi.core.main">
+            <item library="resources\lib\context_animatedart.py">
+              <label>32024</label>
+              <visible>!String.IsEmpty(Window(Home).Property(SkinHelper.EnableAnimatedPosters)) + Container.Content(movies)</visible>
+            </item>
+            <item library="resources\lib\context_pvr.py">
+                <label>32023</label>
+                <description>PVR artwork Configuration</description>
+                <visible>
+                    !String.IsEmpty(Window(Home).Property(SkinHelper.EnablePvrThumbs)) + 
+                    [Window.IsActive(MyPVRChannels.xml) | String.Contains(ListItem.FileNameAndPath,action=playchannel) | 
+                    Window.IsActive(MyPVRGuide.xml) | Window.IsActive(MyPVRRecordings.xml) | 
+                    Window.IsActive(MyPVRTimers.xml) | Window.IsActive(MyPVRSearch.xml)]
+                </visible>
+            </item>
+            <item library="resources\lib\context_music.py">
+                <label>32023</label>
+                <description>Music artwork Configuration</description>
+                <visible>
+                    !String.IsEmpty(Window(Home).Property(SkinHelper.EnableMusicArt)) + 
+                    [Container.Content(albums) | Container.Content(artists) | Container.Content(songs)]
+                </visible>
+            </item>
+        </menu>
+    </extension>
+
+    <extension point="xbmc.python.library" library="default.py" />
+    <extension point="xbmc.python.pluginsource" library="plugin.py" />
+    <extension library="service.py" point="xbmc.service" start="login" />
+
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en">Helper service for Kodi skins</summary>
+        <description>Helper service for Kodi skins</description>
+        <news>
+v1.20.0
+- Nexus version
+        </news>
+		<assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
+        </assets>
+        <language />
+        <platform>all</platform>
+        <license>GPL v2.0</license>
+        <forum>http://forum.kodi.tv/showthread.php?tid=235676</forum>
+        <website />
+        <source>https://github.com/kodi-community-addons/script.skin.helper.service</source>
+    </extension>
 </addon><addon id="script.texturemaker" version="0.2.8" name="Texture Maker" provider-name="jurialmunkey">
 <requires>
   <import addon="xbmc.python" version="3.0.1" />
@@ -2578,7 +2636,7 @@ v0.2.4
 v0.2.3
 - Add a Kodi settings action button to start Google Drive pairing directly from the add-on UI</news>
   </extension>
-</addon><addon id="service.multistaller" name="Multi Installer" version="428" provider-name="Zaxxon709">
+</addon><addon id="service.multistaller" name="Multi Installer" version="429" provider-name="Zaxxon709">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0" />
 	</requires>
@@ -2984,10 +3042,9 @@ v0.2.3
 		<description lang="en_NZ">FENtastic Plus is a modified version of the default Estuary skin for Kodi. It is intended for use with Fen Light, Red Light, The Gears, Umbrella, POV, TMDbH.[CR][CR]See [B]CHANGELOG[/B] located in Skin settings » Extra info for latest changes.</description>
 		<description lang="en_US">FENtastic Plus is a modified version of the default Estuary skin for Kodi. It is intended for use with Fen Light, Red Light, The Gears, Umbrella, POV, TMDbH.[CR][CR]See [B]CHANGELOG[/B] located in Skin settings » Extra info for latest changes.</description>
 	</extension>
-</addon><addon id="skin.xenon" name="[B][COLOR gold]Diggz Xenon[/COLOR][/B]  (Mid Power)" provider-name="Helly,bsoriano, Diggz" version="3.2.1">
+</addon><addon id="skin.xenon" name="[B][COLOR gold]Diggz Xenon[/COLOR][/B]  (Mid Power)" provider-name="Helly,bsoriano, Diggz" version="3.2.2">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0" />
-		<import addon="script.skinshortcuts" version="2.0.1" />
 		<import addon="script.xenon.casthelper" version="1.0.0" />
 		<import addon="script.favourites" version="1.0.0" />
 	</requires>

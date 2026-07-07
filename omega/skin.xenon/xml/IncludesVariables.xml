@@ -2,8 +2,8 @@
 <includes>
 	<variable name="StudioIconVar">
 		<value condition="ListItem.IsCollection">overlays/set.png</value>
-		<value condition="!String.IsEmpty(ListItem.Studio)">$INFO[ListItem.Studio,resource://resource.images.studios.coloured/,.png]</value>
-		<value condition="Container.Content(studios)">$INFO[ListItem.Label,resource://resource.images.studios.coloured/,.png]</value>
+		<value condition="!String.IsEmpty(ListItem.Studio) + !String.Contains(ListItem.Studio,/)">$INFO[ListItem.Studio,resource://resource.images.studios.coloured/,.png]</value>
+		<value condition="Container.Content(studios) + !String.Contains(ListItem.Label,/)">$INFO[ListItem.Label,resource://resource.images.studios.coloured/,.png]</value>
 		<value condition="!String.StartsWith(ListItem.Icon,Default)">$INFO[ListItem.Icon]</value>
 		<value>$INFO[ListItem.Icon,views/list/]</value>
 	</variable>
@@ -3742,7 +3742,7 @@
     <variable name="StudioIcon">
         <value condition="String.IsEqual(ListItem.Label,..)">DefaultFolder.png</value>
         <value condition="String.IsEmpty(Skin.String(StudioIcons.path))">DefaultStudios.png</value>
-        <value>$INFO[Skin.String(StudioIcons.path)]$INFO[ListItem.Label,,.png]</value>
+        <value condition="!String.Contains(ListItem.Label,/)">$INFO[Skin.String(StudioIcons.path)]$INFO[ListItem.Label,,.png]</value>
     </variable>
     <variable name="FlagLabel">
         <value condition="String.IsEqual(ListItem.Label,Argentina)">ar</value>

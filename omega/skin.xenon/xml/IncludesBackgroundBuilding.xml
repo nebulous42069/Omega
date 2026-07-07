@@ -513,9 +513,8 @@
         <control type="multiimage" id="5045">
             <include>InvisibleButton</include>
             <imagepath background="true">$INFO[ListItem.Path,,extrathumbs/]</imagepath>
+            <visible>String.IsEmpty(Container.PluginName) + !String.Contains(Container.FolderPath,plugin://) + !String.Contains(ListItem.Path,plugin://)</visible>
             <visible>!String.IsEmpty(ListItem.Title)</visible>
-            <!-- Avoid probing plugin:// item paths as local extrathumbs folders on Android. -->
-            <visible>!String.Contains(Container.FolderPath,plugin://) + !String.Contains(ListItem.Path,plugin://)</visible>
             <visible>Container.Content(Movies) | Container.Content(MusicVideos)</visible>
         </control>
     </include>

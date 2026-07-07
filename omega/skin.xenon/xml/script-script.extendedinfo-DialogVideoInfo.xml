@@ -716,6 +716,7 @@
                                 <bordersize>5</bordersize>
                                 <fadetime>100</fadetime>
                                 <texture background="true" fallback="DefaultVideo.png">$INFO[ListItem.Label,resource://resource.images.studios.white/,.png]</texture>
+                                <visible>!String.Contains(ListItem.Label,/)</visible>
                                 <aspectratio>scale</aspectratio>
                             </control>
                             <control type="label">
@@ -741,6 +742,7 @@
                                 <bordersize>5</bordersize>
                                 <fadetime>100</fadetime>
                                 <texture background="true" fallback="DefaultVideo.png">$INFO[ListItem.Label,resource://resource.images.studios.white/,.png]</texture>
+                                <visible>!String.Contains(ListItem.Label,/)</visible>
                                 <aspectratio>scale</aspectratio>
                             </control>
                             <control type="label">
@@ -775,6 +777,7 @@
                                 <bordersize>5</bordersize>
                                 <fadetime>100</fadetime>
                                 <texture background="true" fallback="DefaultVideo.png">$INFO[ListItem.Label,resource://resource.images.studios.white/,.png]</texture>
+                                <visible>!String.Contains(ListItem.Label,/)</visible>
                                 <aspectratio>scale</aspectratio>
                             </control>
                             <control type="label">
@@ -800,6 +803,7 @@
                                 <bordersize>5</bordersize>
                                 <fadetime>100</fadetime>
                                 <texture background="true" fallback="DefaultVideo.png">$INFO[ListItem.Label,resource://resource.images.studios.white/,.png]</texture>
+                                <visible>!String.Contains(ListItem.Label,/)</visible>
                                 <aspectratio>scale</aspectratio>
                             </control>
                             <control type="label">

@@ -29,7 +29,7 @@
          add-on uses reuselanguageinvoker. Set this before Home rebuilds widgets. -->
     <controls>
         <include>CommonBackground</include>
-        <include condition="Skin.HasSetting(ShowExtraFanArt)">FanArtExtraThumbs</include>
+        <include condition="Skin.HasSetting(ShowExtraFanArt) + String.IsEmpty(Container.PluginName) + !String.Contains(Container.FolderPath,plugin://)">FanArtExtraThumbs</include>
         <include>ContentPanelBackgrounds</include>
         <control type="group">
             <!-- view id = 50 -->
@@ -71,7 +71,7 @@
         </control>
         <include>FloorReturnButtons</include>
         <include>BehindDialogFadeOut</include>
-        <include>ScrollOffsetLabel</include>
+        <include condition="String.IsEmpty(Container.PluginName) + !String.Contains(Container.FolderPath,plugin://)">ScrollOffsetLabel</include>
         <include condition="!Skin.HasSetting(DisableTVNextAired)">NextAired</include>
         <include content="CommonWindowHeader">
             <param name="Icon" value="icon_video" />

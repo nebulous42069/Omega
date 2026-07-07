@@ -1726,9 +1726,8 @@
                     <timeperimage>5000</timeperimage>
                     <randomize>true</randomize>
                     <imagepath background="true">$INFO[ListItem.path,,extrathumbs/]</imagepath>
+                    <visible>String.IsEmpty(Container.PluginName) + !String.Contains(Container.FolderPath,plugin://) + !String.Contains(ListItem.Path,plugin://)</visible>
                     <visible>!String.IsEmpty(Control.GetLabel(5045))</visible>
-                    <!-- Avoid probing plugin:// item paths as local extrathumbs folders on Android. -->
-                    <visible>!String.Contains(Container.FolderPath,plugin://) + !String.Contains(ListItem.Path,plugin://)</visible>
                     <visible>!Skin.HasSetting(Disable504FanArt) + String.IsEqual(ListItem.DBType,movie)</visible>
                 </control>
                 <control type="image">
@@ -2324,9 +2323,8 @@
                     <timeperimage>5000</timeperimage>
                     <randomize>true</randomize>
                     <imagepath diffuse="Fanart_Diffuse.png" background="true">$INFO[ListItem.path,,extrathumbs/]</imagepath>
+                    <visible>String.IsEmpty(Container.PluginName) + !String.Contains(Container.FolderPath,plugin://) + !String.Contains(ListItem.Path,plugin://)</visible>
                     <visible>!String.IsEmpty(Control.GetLabel(5045))</visible>
-                    <!-- Avoid probing plugin:// item paths as local extrathumbs folders on Android. -->
-                    <visible>!String.Contains(Container.FolderPath,plugin://) + !String.Contains(ListItem.Path,plugin://)</visible>
                     <visible>!Skin.HasSetting(Disable504FanArt)</visible>
                 </control>
                 <control type="image">

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<addon id="skin.xenon" name="[B][COLOR gold]Diggz Xenon[/COLOR][/B]  (Mid Power)" provider-name="Helly,bsoriano, Diggz" version="3.2.1">
+<addon id="skin.xenon" name="[B][COLOR gold]Diggz Xenon[/COLOR][/B]  (Mid Power)" provider-name="Helly,bsoriano, Diggz" version="3.2.2">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
-		<import addon="script.skinshortcuts" version="2.0.1" />
 		<import addon="script.xenon.casthelper" version="1.0.0" />
 		<import addon="script.favourites" version="1.0.0" />
 	</requires>

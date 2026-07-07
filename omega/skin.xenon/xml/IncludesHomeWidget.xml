@@ -5596,7 +5596,7 @@
         <content target="videos" limit="500">$VAR[SafeCustomWidgetContent]</content>
     </include>
 	<variable name="WidgetStudioLogo">
-		<value condition="!String.IsEmpty(Window(Home).Property(MyInfo.Studio))">resource://resource.images.studios.coloured/$INFO[Window(Home).Property(MyInfo.Studio)].png</value>
+		<value condition="!String.IsEmpty(Window(Home).Property(MyInfo.Studio)) + !String.Contains(Window(Home).Property(MyInfo.Studio),/)">resource://resource.images.studios.coloured/$INFO[Window(Home).Property(MyInfo.Studio)].png</value>
 		<value condition="!String.IsEmpty(Window(Home).Property(MyInfo.StudioLogo))">$INFO[Window(Home).Property(MyInfo.StudioLogo)]</value>		
 	</variable>
 	<!-- Put in IncludesHomeWidget.xml (above the selector) -->
