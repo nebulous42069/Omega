@@ -8,7 +8,7 @@ import xbmc, xbmcgui, xbmcplugin, xbmcaddon, xbmcvfs
 
 ADDON = xbmcaddon.Addon()
 ADDON_ID = ADDON.getAddonInfo('id')
-VERSION = "2.6.9"
+VERSION = "2.7.1-fixed"
 HANDLE = int(sys.argv[1])
 BASE_URL = sys.argv[0]
 
@@ -1211,19 +1211,36 @@ def show_guide_for_channel(src_idx: int, cname: str, tvg: str, play_url: str):
     xbmcplugin.endOfDirectory(HANDLE)
 
 def play_item(stream_url: str):
+    stream_url = (stream_url or '').strip()
+    if not stream_url:
+        log('Playback failed: empty stream URL')
+        xbmcplugin.setResolvedUrl(HANDLE, False, xbmcgui.ListItem())
+        return
 
-    headers = (
-        "User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-        "AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/137.0.0.0 Safari/537.36"
-        "&Referer=http://tvmate.icu/"
-    )
-
-    play_url = f"{stream_url}|{headers}"
+    # Kodi plug-in URLs are routes, not HTTP media URLs. Appending pipe
+    # headers changes the route itself, e.g. /eplayer/play|User-Agent=...,
+    # which makes the target add-on's router reject it.
+    lower_url = stream_url.lower()
+    if lower_url.startswith(('plugin://', 'pvr://')):
+        play_url = stream_url
+    elif '|' in stream_url:
+        # Preserve headers already supplied by the playlist.
+        play_url = stream_url
+    elif lower_url.startswith(('http://', 'https://')):
+        # Retain the add-on's existing fallback headers for direct web streams.
+        headers = (
+            "User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/137.0.0.0 Safari/537.36"
+            "&Referer=http://tvmate.icu/"
+        )
+        play_url = f"{stream_url}|{headers}"
+    else:
+        # Local files and any other Kodi-supported schemes must also remain intact.
+        play_url = stream_url
 
     li = xbmcgui.ListItem(path=play_url)
     li.setProperty('IsPlayable', 'true')
-
     xbmcplugin.setResolvedUrl(HANDLE, True, li)
 
 # ---------- Router ----------

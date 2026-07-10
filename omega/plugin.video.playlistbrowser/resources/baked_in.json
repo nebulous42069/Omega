@@ -71,6 +71,13 @@
     "epg": "https://livetvbuilder.replit.app/api/download/epg?zip=96457&providerId=big-150&country=US",
     "icon": "",
     "fanart": ""
+  },
+  {
+    "name": "The Loop TV Guide",
+    "m3u": "https://bit.ly/4oo63xG",
+    "epg": "https://cutt.ly/Le1JrbXW",
+    "icon": "",
+    "fanart": ""
   }
 
 ]
