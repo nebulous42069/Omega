@@ -27,6 +27,7 @@ class TraktContextMenu:
             self._handle_watched_options(item_information, item_type)
             self._handle_collected_options(item_information, trakt_id, display_type)
             self._handle_watchlist_options(item_type)
+            self._handle_favorited_options(item_type)
 
             standard_list = [
                 g.get_language_string(30280),
@@ -54,6 +55,14 @@ class TraktContextMenu:
                     },
                     g.get_language_string(30277): {
                         "method": self._remove_from_watchlist,
+                        "info_key": "info",
+                    },
+                    g.get_language_string(30989): {
+                        "method": self._add_to_favorites,
+                        "info_key": "info",
+                    },
+                    g.get_language_string(30990): {
+                        "method": self._remove_from_favorites,
                         "info_key": "info",
                     },
                     g.get_language_string(30278): {
@@ -150,6 +159,13 @@ class TraktContextMenu:
             self.dialog_list += [
                 g.get_language_string(30276),
                 g.get_language_string(30277),
+            ]
+
+    def _handle_favorited_options(self, item_type):
+        if item_type not in ["season", "episode"]:
+            self.dialog_list += [
+                g.get_language_string(30989),
+                g.get_language_string(30990),
             ]
 
     def _handle_progress_option(self, item_type, trakt_id):
@@ -371,6 +387,31 @@ class TraktContextMenu:
         g.notification(
             f"{g.ADDON_NAME}: {g.get_language_string(30286)}",
             g.get_language_string(30293),
+        )
+        g.trigger_widget_refresh()
+
+    def _add_to_favorites(self, item_information):
+        response = self.trakt_api.post("sync/favorites", self._info_to_trakt_object(item_information, True))
+
+        if response is not None and response.status_code == 420:
+            g.notification(
+                f"{g.ADDON_NAME}: {g.get_language_string(30286)}",
+                g.get_language_string(30993),
+            )
+            return
+
+        g.notification(
+            f"{g.ADDON_NAME}: {g.get_language_string(30286)}",
+            g.get_language_string(30991),
+        )
+        g.trigger_widget_refresh()
+
+    def _remove_from_favorites(self, item_information):
+        self.trakt_api.post("sync/favorites/remove", self._info_to_trakt_object(item_information, True))
+        g.container_refresh()
+        g.notification(
+            f"{g.ADDON_NAME}: {g.get_language_string(30286)}",
+            g.get_language_string(30992),
         )
         g.trigger_widget_refresh()
 

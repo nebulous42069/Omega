@@ -194,7 +194,7 @@ class ListBuilder:
         except Exception as e:
             g.log_stacktrace()
             if not smart_play:
-                g.cancel_directory()
+                g.cancel_directory(silent=True)
             raise e
 
         finally:

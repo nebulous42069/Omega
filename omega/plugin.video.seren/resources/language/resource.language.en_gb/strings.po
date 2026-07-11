@@ -4865,3 +4865,47 @@ msgstr "Enable MDBList Scrobbling"
 msgctxt "#30982"
 msgid "Enable Trakt"
 msgstr "Enable Trakt"
+
+msgctxt "#30983"
+msgid "Most Favorited"
+msgstr "Most Favorited"
+
+msgctxt "#30984"
+msgid "Returns the most favorited (unique users) movies for the week"
+msgstr "Returns the most favorited (unique users) movies for the week"
+
+msgctxt "#30985"
+msgid "Returns the most favorited (unique users) shows for the week"
+msgstr "Returns the most favorited (unique users) shows for the week"
+
+msgctxt "#30986"
+msgid "Trakt - Favorites"
+msgstr "Trakt - Favorites"
+
+msgctxt "#30987"
+msgid "A list of movies you have marked as a favorite on Trakt"
+msgstr "A list of movies you have marked as a favorite on Trakt"
+
+msgctxt "#30988"
+msgid "View TV shows you have marked as a favorite on Trakt"
+msgstr "View TV shows you have marked as a favorite on Trakt"
+
+msgctxt "#30989"
+msgid "Add to Favorites"
+msgstr "Add to Favorites"
+
+msgctxt "#30990"
+msgid "Remove from Favorites"
+msgstr "Remove from Favorites"
+
+msgctxt "#30991"
+msgid "Item added to Favorites"
+msgstr "Item added to Favorites"
+
+msgctxt "#30992"
+msgid "Item removed from Favorites"
+msgstr "Item removed from Favorites"
+
+msgctxt "#30993"
+msgid "Favorites list is full (max 50) - remove an item before adding another"
+msgstr "Favorites list is full (max 50) - remove an item before adding another"

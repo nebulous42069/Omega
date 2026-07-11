@@ -30,6 +30,7 @@ TRAKT_STATUS_CODES = {
     405: "Method Not Found - method doesn't exist",
     409: "Conflict - resource already created",
     412: "Precondition Failed - use application/json content type",
+    420: "Limit Exceeded - reached max allowed items (e.g. Favorites cap)",
     422: "Unprocessable Entity - validation errors",
     423: "Locked User Account - Contact Trakt support",
     426: "VIP Only - user must upgrade to VIP",

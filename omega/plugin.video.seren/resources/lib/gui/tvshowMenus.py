@@ -9,7 +9,7 @@ from resources.lib.common import tools
 from resources.lib.indexers import trakt_auth_guard
 from resources.lib.modules.globals import g
 
-_PERIOD_ENDPOINTS = frozenset({"played", "watched", "collected"})
+_PERIOD_ENDPOINTS = frozenset({"played", "watched", "collected", "favorited"})
 
 
 class Menus:
@@ -68,9 +68,7 @@ class Menus:
             for i in self.bookmark_database.get_all_bookmark_items("episode")
             if i["trakt_show_id"] not in hidden_shows
         ][self.page_start : self.page_end]
-        self.list_builder.mixed_episode_builder(
-            bookmarked_items, hide_watched=False, content_type_override=g.CONTENT_MENU
-        )
+        self.list_builder.mixed_episode_builder(bookmarked_items, hide_watched=False)
 
     @staticmethod
     def discover_shows():
@@ -139,6 +137,14 @@ class Menus:
             endpoint="collected",
             description=g.get_language_string(30424),
             menu_item=g.create_icon_dict("shows_collected", g.ICONS_PATH),
+        )
+        g.add_directory_item(
+            g.get_language_string(30983),
+            action="genericEndpoint",
+            mediatype="shows",
+            endpoint="favorited",
+            description=g.get_language_string(30985),
+            menu_item=g.create_icon_dict("shows_watched", g.ICONS_PATH),
         )
         g.add_directory_item(
             g.get_language_string(30352),
@@ -245,6 +251,12 @@ class Menus:
                 menu_item=g.create_icon_dict("shows_watched", g.ICONS_PATH),
             )
             g.add_directory_item(
+                g.get_language_string(30986),
+                action="showsMyFavorites",
+                description=g.get_language_string(30988),
+                menu_item=g.create_icon_dict("list_liked", g.ICONS_PATH),
+            )
+            g.add_directory_item(
                 g.get_language_string(30972),
                 action="showsRecentlyWatched",
                 description=g.get_language_string(30479),
@@ -319,9 +331,7 @@ class Menus:
         trakt_list = self.shows_database.extract_trakt_page(
             trakt_endpoint, page=g.PAGE, extended="full", hide_unaired=hide_unaired, hide_watched=False
         )
-        self.list_builder.show_list_builder(
-            trakt_list, hide_unaired=hide_unaired, hide_watched=False, content_type_override=g.CONTENT_MENU
-        )
+        self.list_builder.show_list_builder(trakt_list, hide_unaired=hide_unaired, hide_watched=False)
 
     def shows_popular_recent(self):
         year_range = f"{datetime.datetime.now().year - 1}-{datetime.datetime.now().year}"
@@ -349,7 +359,7 @@ class Menus:
             offset = (g.PAGE - 1) * self.page_limit
             trakt_list = trakt_list[offset : offset + self.page_limit]
         self.list_builder.show_list_builder(
-            trakt_list, no_paging=no_paging, sort=sort, hide_watched=False, content_type_override=g.CONTENT_MENU
+            trakt_list, no_paging=no_paging, sort=sort, hide_watched=False
         )
 
     @trakt_auth_guard
@@ -357,6 +367,25 @@ class Menus:
         paginate = not g.get_bool_setting("general.paginatetraktlists")
         trakt_list = self.shows_database.extract_trakt_page(
             "users/me/watchlist/shows",
+            extended="full",
+            page=g.PAGE,
+            ignore_cache=True,
+            no_paging=paginate,
+            hide_unaired=False,
+            hide_watched=False,
+        )
+        self.list_builder.show_list_builder(
+            trakt_list,
+            no_paging=paginate,
+            hide_unaired=False,
+            hide_watched=False,
+        )
+
+    @trakt_auth_guard
+    def my_shows_favorites(self):
+        paginate = not g.get_bool_setting("general.paginatetraktlists")
+        trakt_list = self.shows_database.extract_trakt_page(
+            "sync/favorites/shows/rank/asc",
             extended="full",
             page=g.PAGE,
             ignore_cache=True,
@@ -370,7 +399,6 @@ class Menus:
             no_paging=paginate,
             hide_unaired=False,
             hide_watched=False,
-            content_type_override=g.CONTENT_MENU,
         )
 
     @trakt_auth_guard
@@ -414,7 +442,6 @@ class Menus:
             self.shows_database.get_recently_watched_shows(),
             no_paging=True,
             hide_watched=False,
-            content_type_override=g.CONTENT_MENU,
         )
 
     def my_next_up(self):
@@ -436,9 +463,7 @@ class Menus:
             reverse=True,
         )
 
-        self.list_builder.mixed_episode_builder(
-            trakt_list, hide_watched=False, content_type_override=g.CONTENT_MENU
-        )
+        self.list_builder.mixed_episode_builder(trakt_list, hide_watched=False)
 
     @trakt_auth_guard
     def my_upcoming_episodes(self):
@@ -476,7 +501,7 @@ class Menus:
         g.close_directory(g.CONTENT_SHOW)
 
     def shows_updated(self):
-        date = datetime.date.today() - datetime.timedelta(days=29)
+        date = datetime.date.today() - datetime.timedelta(days=21)
         date = g.datetime_to_string(date)
         trakt_list = self.shows_database.extract_trakt_page(
             f"shows/updates/{date}", extended="full", ignore_cache=True, hide_watched=False, hide_unaired=False
@@ -514,7 +539,7 @@ class Menus:
         if not query:
             query = g.get_keyboard_input(g.get_language_string(30013))
         if not query:
-            g.cancel_directory()
+            g.cancel_directory(silent=True)
             return
 
         if g.get_bool_setting("searchHistory"):
@@ -540,14 +565,13 @@ class Menus:
             [show for show in trakt_list if float(show["trakt_object"]["info"]["score"]) > 0],
             hide_unaired=False,
             hide_watched=False,
-            content_type_override=g.CONTENT_MENU,
         )
 
     def shows_by_actor(self, query):
         if not query:
             query = g.get_keyboard_input(g.get_language_string(30013))
         if not query:
-            g.cancel_directory()
+            g.cancel_directory(silent=True)
             return
 
         if g.get_bool_setting("searchHistory"):
@@ -580,9 +604,7 @@ class Menus:
         except KeyError:
             g.cancel_directory()
             return
-        self.list_builder.show_list_builder(
-            trakt_list, hide_watched=False, hide_unaired=False, content_type_override=g.CONTENT_MENU
-        )
+        self.list_builder.show_list_builder(trakt_list, hide_watched=False, hide_unaired=False)
 
     def show_seasons(self, args):
         self.list_builder.season_list_builder(args["trakt_id"], no_paging=True)
@@ -667,9 +689,7 @@ class Menus:
     @trakt_auth_guard
     def my_watched_episode(self):
         watched_episodes = self.shows_database.get_watched_episodes(g.PAGE)
-        self.list_builder.mixed_episode_builder(
-            watched_episodes, hide_watched=False, content_type_override=g.CONTENT_MENU
-        )
+        self.list_builder.mixed_episode_builder(watched_episodes, hide_watched=False)
 
     def anime_related_shows(self, anidb_id):
         """Display related anime (sequels/prequels/side stories) for a given AniDB ID.

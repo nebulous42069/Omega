@@ -1610,8 +1610,8 @@ class GlobalVariables:
     def is_addon_visible(self):
         return xbmc.getInfoLabel('Container.PluginName') == "plugin.video.seren"
 
-    def cancel_directory(self):
-        if g.FROM_WIDGET:
+    def cancel_directory(self, silent=False):
+        if g.FROM_WIDGET or not silent:
             g.add_directory_item(
                 g.get_language_string(284, addon=False),
                 menu_item=g.create_icon_dict("trakt_sync", base_path=g.ICONS_PATH),

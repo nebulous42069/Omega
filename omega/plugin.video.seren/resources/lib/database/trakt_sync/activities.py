@@ -231,7 +231,11 @@ class TraktSyncDatabase(trakt_sync.TraktSyncDatabase):
 
     def _sync_watched_movies(self):
         try:
-            trakt_watched = self.trakt_api.get_json("/sync/watched/movies", extended="full")
+            trakt_watched = []
+            for paged_items in self.trakt_api.get_all_pages_json(
+                "/sync/watched/movies", extended="full", limit=100, ignore_cache=True
+            ):
+                trakt_watched.extend(paged_items)
             if len(trakt_watched) == 0:
                 return
             self.insert_trakt_movies(trakt_watched)
@@ -249,7 +253,11 @@ class TraktSyncDatabase(trakt_sync.TraktSyncDatabase):
 
     def _sync_collection_movies(self):
         try:
-            trakt_collection = self.trakt_api.get_json("sync/collection/movies", extended="full")
+            trakt_collection = []
+            for paged_items in self.trakt_api.get_all_pages_json(
+                "sync/collection/movies", extended="full", limit=100, ignore_cache=True
+            ):
+                trakt_collection.extend(paged_items)
             if len(trakt_collection) == 0:
                 return
             self.insert_trakt_movies(trakt_collection)
@@ -376,7 +384,11 @@ class TraktSyncDatabase(trakt_sync.TraktSyncDatabase):
     def sync_collection_episodes(self):
         try:
             get = MetadataHandler.get_trakt_info
-            trakt_collection = self.trakt_api.get_json("sync/collection/shows", extended="full")
+            trakt_collection = []
+            for paged_items in self.trakt_api.get_all_pages_json(
+                "sync/collection/shows", extended="full", limit=100, ignore_cache=True
+            ):
+                trakt_collection.extend(paged_items)
             if not trakt_collection:
                 return
 
@@ -454,9 +466,12 @@ class TraktSyncDatabase(trakt_sync.TraktSyncDatabase):
             self.insert_trakt_shows(i.get("show") for i in trakt_rated_seasons)
 
             def fetch_rated_episodes(rating):
-                return self.trakt_api.get_json(
-                    f"sync/ratings/episodes/{rating}", extended="full", no_paging=True, timeout=90
-                )
+                items = []
+                for paged_items in self.trakt_api.get_all_pages_json(
+                    f"sync/ratings/episodes/{rating}", extended="full", limit=100, ignore_cache=True, timeout=90
+                ):
+                    items.extend(paged_items)
+                return items
 
             self._queue_with_progress(fetch_rated_episodes, [(i,) for i in range(1, 11)])
             trakt_rated_episodes = self.mill_task_queue.wait_completion()

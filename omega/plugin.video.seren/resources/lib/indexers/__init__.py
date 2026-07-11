@@ -27,11 +27,11 @@ def trakt_auth_guard(func):
 
                     TraktAPI().auth()
                 else:
-                    g.cancel_directory()
+                    g.cancel_directory(silent=True)
         if g.get_setting("trakt.auth"):
             return func(*args, **kwargs)
         else:
-            g.cancel_directory()
+            g.cancel_directory(silent=True)
 
     return wrapper
 

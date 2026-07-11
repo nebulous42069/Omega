@@ -8,7 +8,7 @@ from resources.lib.common import tools
 from resources.lib.indexers import trakt_auth_guard
 from resources.lib.modules.globals import g
 
-_PERIOD_ENDPOINTS = frozenset({"played", "watched", "collected"})
+_PERIOD_ENDPOINTS = frozenset({"played", "watched", "collected", "favorited"})
 
 
 class Menus:
@@ -121,6 +121,14 @@ class Menus:
             menu_item=g.create_icon_dict("movies_collected", g.ICONS_PATH),
         )
         g.add_directory_item(
+            g.get_language_string(30983),
+            action="genericEndpoint",
+            mediatype="movies",
+            endpoint="favorited",
+            description=g.get_language_string(30984),
+            menu_item=g.create_icon_dict("movies_watched", g.ICONS_PATH),
+        )
+        g.add_directory_item(
             g.get_language_string(30353),
             action="TrendingLists",
             mediatype="movies",
@@ -226,6 +234,12 @@ class Menus:
                 menu_item=g.create_icon_dict("movies_watched", g.ICONS_PATH),
             )
             g.add_directory_item(
+                g.get_language_string(30986),
+                action="moviesMyFavorites",
+                description=g.get_language_string(30987),
+                menu_item=g.create_icon_dict("list_liked", g.ICONS_PATH),
+            )
+            g.add_directory_item(
                 g.get_language_string(30044),
                 action="myTraktLists",
                 mediatype="movies",
@@ -308,6 +322,20 @@ class Menus:
             page=g.PAGE,
             ignore_cache=True,
             no_paging=paginate,
+            hide_unaired=False,
+            hide_watched=False,
+        )
+        self.list_builder.movie_menu_builder(trakt_list, no_paging=paginate, hide_unaired=False, hide_watched=False)
+
+    @trakt_auth_guard
+    def my_movie_favorites(self):
+        paginate = not g.get_bool_setting("general.paginatetraktlists")
+        trakt_list = self.movies_database.extract_trakt_page(
+            "sync/favorites/movies/rank/asc",
+            extended="full",
+            page=g.PAGE,
+            ignore_cache=True,
+            no_paging=paginate,
             pull_all=True,
             hide_unaired=False,
             hide_watched=False,
@@ -327,7 +355,7 @@ class Menus:
     def movies_updated(self):
         import datetime
 
-        date = datetime.date.today() - datetime.timedelta(days=29)
+        date = datetime.date.today() - datetime.timedelta(days=21)
         date = g.datetime_to_string(date)
         trakt_list = self.movies_database.extract_trakt_page(f"movies/updates/{date}", page=g.PAGE, extended="full")
         self.list_builder.movie_menu_builder(trakt_list)
@@ -364,7 +392,7 @@ class Menus:
         if query is None:
             query = g.get_keyboard_input(heading=g.get_language_string(30013))
             if not query:
-                g.cancel_directory()
+                g.cancel_directory(silent=True)
                 return
 
         if g.get_bool_setting("searchHistory"):
@@ -414,7 +442,7 @@ class Menus:
         if query is None:
             query = g.get_keyboard_input(g.get_language_string(30013))
             if not query:
-                g.cancel_directory()
+                g.cancel_directory(silent=True)
                 return
 
         if g.get_bool_setting("searchHistory"):

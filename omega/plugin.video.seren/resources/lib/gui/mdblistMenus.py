@@ -124,9 +124,7 @@ class Menus:
         if not trakt_list:
             g.cancel_directory()
             return
-        self.list_builder.show_list_builder(
-            trakt_list, no_paging=True, hide_watched=False, content_type_override=g.CONTENT_MENU
-        )
+        self.list_builder.show_list_builder(trakt_list, no_paging=True, hide_watched=False)
 
     def in_progress_movies(self):
         rows = self._live_playback_rows("movie")
