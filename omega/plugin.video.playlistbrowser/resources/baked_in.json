@@ -72,7 +72,7 @@
   {
     "name": "For TV Widget 3",
     "alias_source": "The Loop TV Guide",
-    "alias_group": "> World Entertainment <",
+    "alias_group": "> UK Entertainment <",
     "epg": "",
     "icon": "",
     "fanart": "",
@@ -80,8 +80,8 @@
   },
   {
     "name": "For Sports Widget",
-    "alias_source": "Doms List",
-    "alias_group": "Live Events",
+    "alias_source": "The Loop TV Guide",
+    "alias_group": "> USA Sport <",
     "epg": "",
     "icon": "",
     "fanart": "",
@@ -90,7 +90,7 @@
   {
     "name": "For Sports Widget 2",
     "alias_source": "The Loop TV Guide",
-    "alias_group": "> World Entertainment <",
+    "alias_group": "> UK Sport <",
     "epg": "",
     "icon": "",
     "fanart": "",
@@ -98,8 +98,8 @@
   },
   {
     "name": "For Sports Widget 3",
-    "alias_source": "The Loop TV Guide",
-    "alias_group": "> World Entertainment <",
+    "alias_source": "Doms List",
+    "alias_group": "Live Events",
     "epg": "",
     "icon": "",
     "fanart": "",
