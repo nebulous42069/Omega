@@ -13,8 +13,12 @@
     <expression name="Exp_View_52_Include">False</expression>
     <expression name="Exp_View_56">[False]</expression>
     <expression name="Exp_View_56_Include">False</expression>
-    <expression name="Exp_View_450">[False]</expression>
-    <expression name="Exp_View_450_Include">False</expression>
+    <expression name="Exp_View_450">[[Window.IsVisible(MyFavourites.xml) + [[String.IsEmpty(Container.PluginName)] | [!String.IsEmpty(Container.PluginName)]]]]</expression>
+    <expression name="Exp_View_450_Include">True</expression>
+    <expression name="Exp_View_451">[False]</expression>
+    <expression name="Exp_View_451_Include">False</expression>
+    <expression name="Exp_View_452">[False]</expression>
+    <expression name="Exp_View_452_Include">False</expression>
     <expression name="Exp_View_500">[False]</expression>
     <expression name="Exp_View_500_Include">False</expression>
     <expression name="Exp_View_501">[False]</expression>
@@ -29,8 +33,8 @@
     <expression name="Exp_View_506_Include">False</expression>
     <expression name="Exp_View_507">[False]</expression>
     <expression name="Exp_View_507_Include">False</expression>
-    <expression name="Exp_View_508">[False]</expression>
-    <expression name="Exp_View_508_Include">False</expression>
+    <expression name="Exp_View_508">[[Container.Content(movies) + [String.IsEqual(Container.PluginName,plugin.video.4kwallpapers)]]]</expression>
+    <expression name="Exp_View_508_Include">True</expression>
     <expression name="Exp_View_509">[False]</expression>
     <expression name="Exp_View_509_Include">False</expression>
     <expression name="Exp_View_510">[False]</expression>
@@ -43,7 +47,7 @@
     <expression name="Exp_View_513_Include">False</expression>
     <expression name="Exp_View_514">[False]</expression>
     <expression name="Exp_View_514_Include">False</expression>
-    <expression name="Exp_View_515">[[Container.Content(movies) + [[String.IsEmpty(Container.PluginName) | String.IsEqual(Container.PluginName,plugin.video.free99)] | [!String.IsEmpty(Container.PluginName)]]] | [Container.Content(tvshows) + [[String.IsEmpty(Container.PluginName)] | [!String.IsEmpty(Container.PluginName)]]] | [Container.Content(videos) + [String.IsEqual(Container.PluginName,plugin.video.hublive)]]]</expression>
+    <expression name="Exp_View_515">[[Container.Content(movies) + [[String.IsEmpty(Container.PluginName) | String.IsEqual(Container.PluginName,plugin.video.free99)] | [!String.IsEmpty(Container.PluginName) + !String.IsEqual(Container.PluginName,plugin.video.4kwallpapers)]]] | [Container.Content(tvshows) + [[String.IsEmpty(Container.PluginName)] | [!String.IsEmpty(Container.PluginName)]]] | [Container.Content(videos) + [String.IsEqual(Container.PluginName,plugin.video.hublive)]]]</expression>
     <expression name="Exp_View_515_Include">True</expression>
     <expression name="Exp_View_532">[False]</expression>
     <expression name="Exp_View_532_Include">False</expression>

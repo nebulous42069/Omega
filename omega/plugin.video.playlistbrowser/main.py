@@ -9,8 +9,8 @@ import xbmc, xbmcgui, xbmcplugin, xbmcaddon, xbmcvfs
 ADDON = xbmcaddon.Addon()
 ADDON_ID = ADDON.getAddonInfo('id')
 VERSION = "2.7.1-fixed"
-HANDLE = int(sys.argv[1])
-BASE_URL = sys.argv[0]
+HANDLE = int(sys.argv[1]) if len(sys.argv) > 1 and str(sys.argv[1]).lstrip('-').isdigit() else -1
+BASE_URL = sys.argv[0] if sys.argv else ''
 
 
 def _normalize_hex(color: str) -> str:
@@ -364,6 +364,13 @@ class Source:
     def _cache_paths(self):
         base = os.path.join(PROFILE, f'epg_{self.idx}.xml'); return base, base + '.gz'
     def load_channels(self):
+        if getattr(self, 'alias_source', None):
+            target = next((s for s in load_sources() if s.name == self.alias_source and s.idx != self.idx), None)
+            if not target or getattr(target, 'alias_source', None):
+                log(f"Widget source target unavailable: {self.alias_source}")
+                return []
+            return [ch for ch in target.load_channels()
+                    if (ch.get('group') or '').strip() == self.alias_group.strip()]
         if self.channels is not None: return self.channels
         # Prefer cached channels JSON (written by 'Refresh channels now')
         try:
@@ -563,6 +570,7 @@ def load_baked_in_sources(base_idx_start: int = 100):
       - m3u or m3u_url (str)  [optional if 'json' provided]
       - json or json_url (str) [optional if 'm3u' provided]
       - epg or epg_xml or epg_url (str) [optional]
+      - source_id (integer >= 100) [stable number for widget paths]
     Only additive: if file is missing or invalid, returns [].
     """
     try:
@@ -582,25 +590,54 @@ def load_baked_in_sources(base_idx_start: int = 100):
             return ""
 
         out = []
-        idx = base_idx_start
+        reserved = set()
+        for item in data:
+            if not isinstance(item, dict) or 'source_id' not in item:
+                continue
+            try:
+                source_id = int(item['source_id'])
+                if source_id < base_idx_start or source_id in reserved:
+                    log(f"Invalid or duplicate baked-in source_id: {source_id}")
+                    continue
+                reserved.add(source_id)
+            except (ValueError, TypeError):
+                log(f"Invalid baked-in source_id: {item['source_id']}")
+        used = set()
+        next_id = base_idx_start
         for item in data:
             if not isinstance(item, dict):
                 continue
+            if 'source_id' in item:
+                try:
+                    idx = int(item['source_id'])
+                except (ValueError, TypeError):
+                    continue
+                if idx < base_idx_start or idx in used:
+                    continue
+            else:
+                while next_id in reserved or next_id in used:
+                    next_id += 1
+                idx = next_id
+                next_id += 1
             name = pick(item, 'name', 'Name', 'display_name') or f"Baked {idx}"
             m3u = pick(item, 'm3u', 'm3u_url', 'M3U', 'M3U_URL')
             js  = pick(item, 'json', 'json_url', 'JSON', 'JSON_URL')
             epg = pick(item, 'epg', 'epg_xml', 'epg_url', 'EPG', 'EPG_XML', 'EPG_URL')
-            # Require at least one of m3u/json
-            if not (m3u or js):
+            alias_source = pick(item, 'alias_source')
+            alias_group = pick(item, 'alias_group')
+            # A group reference can replace a playlist URL.
+            if not (m3u or js or (alias_source and alias_group)):
                 continue
             s = Source(idx, name, m3u, js, epg)
+            s.alias_source = alias_source
+            s.alias_group = alias_group
             try:
                 s.src_icon = pick(item, 'icon','Icon','icon_url','IconUrl')
                 s.src_fanart = pick(item, 'fanart','Fanart','fanart_url','FanartUrl')
             except Exception:
                 pass
             out.append(s)
-            idx += 1
+            used.add(idx)
         return out
     except Exception as e:
         try:
@@ -776,6 +813,12 @@ def _playlist_cache_paths(idx: int, src: 'Source'):
 def refresh_channels(src_idx: int):
     src = next((x for x in load_sources() if x.idx==src_idx), None)
     if not src: xbmcgui.Dialog().ok('Playlist Browser', 'Source not found.'); return
+    if getattr(src, 'alias_source', None):
+        target = next((s for s in load_sources() if s.name == src.alias_source and s.idx != src.idx), None)
+        if not target or getattr(target, 'alias_source', None):
+            notify('Playlist Browser', 'Widget source target unavailable', xbmcgui.NOTIFICATION_ERROR); return
+        refresh_channels(target.idx)
+        return
     raw = read_text(src.js or src.m3u); raw_path, ch_json_path = _playlist_cache_paths(src.idx, src)
     _write_text(raw_path, raw or ''); chans = parse_json(raw) if src.js else parse_m3u(raw)
     src.channels = chans; _write_json(ch_json_path, chans); src.load_epg()
@@ -784,43 +827,12 @@ def refresh_channels(src_idx: int):
     except Exception: pass
     log(f"Channels refreshed: {len(chans)} parsed; {matched} matched to EPG (src {src.idx})")
 def refresh_all_sources():
-    """Refresh ALL sources: clear cached EPG/XML(.gz) and playlist/channels caches for each source,
-    then rebuild channels and EPG for each source without changing navigation."""
+    """Queue a refresh for the background service and release Kodi's plugin handle."""
     try:
-        sources = load_sources()
-        if not sources:
-            notify('Playlist Browser', 'No sources to refresh.')
-            return
-        notify('Playlist Browser', 'Refreshing all sources…')
-        # Clear caches for each source
-        for s in sources:
-            try:
-                # EPG caches
-                path_xml = _epg_cache_path_for(s.idx); path_gz = _epg_cache_gz_for(s.idx)
-                for fp in (path_xml, path_gz):
-                    try:
-                        if os.path.exists(fp): os.remove(fp)
-                    except Exception as e:
-                        log(f"Failed removing {fp}: {e}")
-                # Playlist + parsed channels caches
-                raw_path, ch_json_path = _playlist_cache_paths(s.idx, s)
-                for fp in (raw_path, ch_json_path):
-                    try:
-                        if os.path.exists(fp): os.remove(fp)
-                    except Exception as e:
-                        log(f"Failed removing {fp}: {e}")
-            except Exception as e:
-                log(f"Refresh-all cleanup error (src {s.idx}): {e}")
-        # Rebuild for each source
-        for s in sources:
-            try:
-                refresh_channels(s.idx)
-            except Exception as e:
-                log(f"Refresh-all rebuild error (src {s.idx}): {e}")
-        notify('Playlist Browser', 'All sources refreshed.')
+        _write_text(os.path.join(PROFILE, 'refresh_all.request'), str(time.time()))
+        notify('Playlist Browser', 'Refreshing all sources in the background…')
     except Exception as e:
-        notify('Playlist Browser', f'Refresh all failed: {e}', xbmcgui.NOTIFICATION_ERROR, 4000)
-        log(f"Refresh all sources failed: {e}")
+        notify('Playlist Browser', f'Could not queue refresh: {e}', xbmcgui.NOTIFICATION_ERROR, 4000)
 
 
 def write_match_report(src_idx: int):

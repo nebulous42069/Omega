@@ -19,6 +19,7 @@
 	<onload condition="![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + String.IsEmpty(ListItem.UniqueID(tmdb)) + !String.IsEmpty(ListItem.Property(tmdb_id))">SetProperty(DVI.OriginTmdbId,$INFO[ListItem.Property(tmdb_id)],home)</onload>
 	<onload condition="[String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + !String.IsEmpty(ListItem.Property(TMDb_ID))">SetProperty(DVI.PersonTmdbId,$INFO[ListItem.Property(TMDb_ID)],home)</onload>
 	<onload condition="[String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + String.IsEmpty(ListItem.Property(TMDb_ID)) + !String.IsEmpty(ListItem.Property(tmdb_id))">SetProperty(DVI.PersonTmdbId,$INFO[ListItem.Property(tmdb_id)],home)</onload>
+	<onunload>ClearProperty(Xenon.TrailerInfo.Active,home)</onunload>
 	<onunload>ClearProperty(DVI.ShowCast,home)</onunload>
 	<onunload>ClearProperty(DVI.PersonTmdbId,home)</onunload>
 	
@@ -27,7 +28,7 @@
 	<onload condition="System.AddonIsEnabled(script.extendedinfo) + Skin.HasSetting(AutoExtendedInfo) + String.IsEqual(ListItem.DBType,tvshow)">RunScript(script.extendedinfo,info=extendedtvinfo,dbid=$INFO[ListItem.DBID],id=$INFO[ListItem.UniqueID(tmdb)],tvdb_id=$INFO[ListItem.UniqueID(tvdb)],name=$INFO[Listitem.Title])</onload>
 	<onload condition="System.AddonIsEnabled(script.extendedinfo) + Skin.HasSetting(AutoExtendedInfo) + String.IsEqual(ListItem.DBType,season)">RunScript(script.extendedinfo,info=seasoninfo,tvshow=$INFO[Listitem.TVShowTitle],season=$INFO[ListItem.Season])</onload>
 	<onload condition="System.AddonIsEnabled(script.extendedinfo) + Skin.HasSetting(AutoExtendedInfo) + String.IsEqual(ListItem.DBType,episode)">RunScript(script.extendedinfo,info=extendedepisodeinfo,tvshow=$INFO[Listitem.TVShowTitle],season=$INFO[ListItem.Season],episode=$INFO[ListItem.Episode])</onload>
-	<onload condition="System.HasAddon(script.xenon.casthelper) + ![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)]">RunScript(script.xenon.casthelper,mode=videoinfo,tmdb=$INFO[ListItem.UniqueID(tmdb)],tmdbprop=$INFO[ListItem.Property(tmdb_id)],tmdbshow=$INFO[ListItem.Property(tmdbshow_id)],imdb=$INFO[ListItem.IMDBNumber],dbtype=$INFO[ListItem.DBType],season=$INFO[ListItem.Season],episode=$INFO[ListItem.Episode])</onload>
+	<onload condition="![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)]">RunScript(special://skin/resources/scripts/xenon_casthelper.py,mode=videoinfo,tmdb=$INFO[ListItem.UniqueID(tmdb)],tmdbprop=$INFO[ListItem.Property(tmdb_id)],tmdbshow=$INFO[ListItem.Property(tmdbshow_id)],imdb=$INFO[ListItem.IMDBNumber],dbtype=$INFO[ListItem.DBType],season=$INFO[ListItem.Season],episode=$INFO[ListItem.Episode])</onload>
 	<!-- Normal video-info pages should always land on a stable focusable control.
 	     This also prevents Back from falling through to a stale TMDb person DialogVideoInfo instance underneath. -->
 	<onload condition="![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + !String.IsEqual(Window(Home).Property(DVI.ReturnToCast),true)">SetFocus(8)</onload>
@@ -40,6 +41,11 @@
 	     The dynamic TMDb credit rows may not have content yet during onload. -->
 	<onload condition="[String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)]">SetFocus(8005)</onload>
 	
+	<!-- Playback may close native Video Info. The bridge reopens its captured
+         item with this marker, so expose the embedded trailer player. -->
+    <onload condition="!String.IsEmpty(Window(Home).Property(Xenon.TrailerInfo.Pending)) + Player.HasVideo">SetProperty(Xenon.TrailerInfo.Active,true,home)</onload>
+    <onload condition="!String.IsEmpty(Window(Home).Property(Xenon.TrailerInfo.Pending)) + Player.HasVideo">SetFocus(1515)</onload>
+
 	<controls>
 		<control type="group">
 			<visible>!Window.IsVisible(FileBrowser)</visible>
@@ -76,7 +82,8 @@
 				<description>Close Window button</description>
 				<left>1800</left>
 				<top>24</top>
-				<onclick>PreviousMenu</onclick>
+				<onclick>ClearProperty(Xenon.TrailerInfo.Pending,home)</onclick>
+                        <onclick>PreviousMenu</onclick>
 				<include>DialogCloseButton</include>
 				<onleft>450</onleft>
 				<onright>450</onright>
@@ -95,7 +102,7 @@
 					<itemgap>3</itemgap>
 					<orientation>horizontal</orientation>
 					<include>VisibleFadeEffect</include>
-					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + !Control.IsVisible(50) + [String.IsEqual(ListItem.DBTYPE,movie) | String.IsEqual(ListItem.DBTYPE,episode) | String.IsEqual(ListItem.DBTYPE,musicvideo)] + !Control.HasFocus(15)</visible>
+					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + !Control.IsVisible(50) + [String.IsEqual(ListItem.DBTYPE,movie) | String.IsEqual(ListItem.DBTYPE,episode) | String.IsEqual(ListItem.DBTYPE,musicvideo)] + ![Control.HasFocus(1515) | [Player.HasVideo + String.IsEqual(Window(Home).Property(Xenon.TrailerInfo.Active),true)]]</visible>
 					<include>VideoCodecFlaggingConditions</include>
 					<include>AudioCodecFlaggingConditions</include>
 					<include>AudioChannelsFlaggingConditions</include>
@@ -106,7 +113,7 @@
 				<control type="group">
 					<top>135</top>
 					<left>200</left>
-					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + Control.HasFocus(15)</visible>
+					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + [Control.HasFocus(1515) | [Player.HasVideo + String.IsEqual(Window(Home).Property(Xenon.TrailerInfo.Active),true)]]</visible>
 					<include>VisibleFadeEffect</include>
 					<control type="image">
 						<description>Border</description>
@@ -146,7 +153,7 @@
 					</control>
 				</control>
 				<control type="group">
-					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + [!String.IsEqual(ListItem.DBTYPE,tvshow) + !String.IsEqual(ListItem.DBTYPE,episode) + !String.IsEqual(ListItem.DBTYPE,musicvideo)] + ![Control.HasFocus(12) | Control.HasFocus(15)]</visible>
+					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + [!String.IsEqual(ListItem.DBTYPE,tvshow) + !String.IsEqual(ListItem.DBTYPE,episode) + !String.IsEqual(ListItem.DBTYPE,musicvideo)] + ![Control.HasFocus(12) | [Control.HasFocus(1515) | [Player.HasVideo + String.IsEqual(Window(Home).Property(Xenon.TrailerInfo.Active),true)]]]</visible>
 					<top>135</top>
 					<left>60</left>
 					<include>VisibleFadeEffect</include>
@@ -193,9 +200,9 @@
 								<textcolor>$VAR[MainColorOne]</textcolor>
 								<selectedcolor>selected</selectedcolor>
 								<info>ListItem.Label</info>
-								<visible>!Control.HasFocus(15)</visible>
+								<visible>![Control.HasFocus(1515) | [Player.HasVideo + String.IsEqual(Window(Home).Property(Xenon.TrailerInfo.Active),true)]]</visible>
 							</control>
-							<visible>!Control.HasFocus(15)</visible>
+							<visible>![Control.HasFocus(1515) | [Player.HasVideo + String.IsEqual(Window(Home).Property(Xenon.TrailerInfo.Active),true)]]</visible>
 								<control type="label">
 								<left>262</left>
 								<top>0</top>
@@ -353,7 +360,7 @@
 					</control>
 				</control>
 				<control type="group">
-					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + String.IsEqual(ListItem.DBTYPE,tvshow) + !Control.HasFocus(12) + !Control.HasFocus(15)</visible>
+					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + String.IsEqual(ListItem.DBTYPE,tvshow) + !Control.HasFocus(12) + ![Control.HasFocus(1515) | [Player.HasVideo + String.IsEqual(Window(Home).Property(Xenon.TrailerInfo.Active),true)]]</visible>
 					<top>135</top>
 					<left>60</left>
 					<include>VisibleFadeEffect</include>
@@ -401,7 +408,7 @@
 								<selectedcolor>selected</selectedcolor>
 								<info>ListItem.Label</info>
 							</control>
-							<visible>!Control.HasFocus(15)</visible>
+							<visible>![Control.HasFocus(1515) | [Player.HasVideo + String.IsEqual(Window(Home).Property(Xenon.TrailerInfo.Active),true)]]</visible>
 								<control type="label">
 								<left>262</left>
 								<top>0</top>
@@ -572,7 +579,7 @@
 								<selectedcolor>selected</selectedcolor>
 								<info>ListItem.Label</info>
 							</control>
-							<visible>!Control.HasFocus(15)</visible>
+							<visible>![Control.HasFocus(1515) | [Player.HasVideo + String.IsEqual(Window(Home).Property(Xenon.TrailerInfo.Active),true)]]</visible>
 								<control type="label">
 								<left>262</left>
 								<top>0</top>
@@ -761,7 +768,7 @@
 								<selectedcolor>selected</selectedcolor>
 								<info>ListItem.Label</info>
 							</control>
-							<visible>!Control.HasFocus(15)</visible>
+							<visible>![Control.HasFocus(1515) | [Player.HasVideo + String.IsEqual(Window(Home).Property(Xenon.TrailerInfo.Active),true)]]</visible>
 								<control type="label">
 								<left>262</left>
 								<top>0</top>
@@ -884,7 +891,7 @@
 					<align>right</align>
 					<aligny>center</aligny>
 					<label>[COLOR=$VAR[MainColorOne]]$LOCALIZE[207][/COLOR]$INFO[Container(400).CurrentPage, ( $LOCALIZE[31024] ]$INFO[Container(400).NumPages,/, )]</label>
-					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + Control.IsVisible(400) + !Control.HasFocus(15)</visible>
+					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + Control.IsVisible(400) + ![Control.HasFocus(1515) | [Player.HasVideo + String.IsEqual(Window(Home).Property(Xenon.TrailerInfo.Active),true)]]</visible>
 				</control>
 				<control type="label">
 					<right>250</right>
@@ -912,7 +919,7 @@
 					<align>right</align>
 					<aligny>center</aligny>
 					<label>[COLOR=$VAR[MainColorOne]]$LOCALIZE[206][/COLOR]$INFO[Container(5050).CurrentPage, ( $LOCALIZE[31024] ]$INFO[Container(5050).NumPages,/, )]</label>
-					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + [Control.HasFocus(5505) | Control.HasFocus(5050) | String.IsEqual(Window(Home).Property(DVI.ShowCast),true)] + !String.IsEmpty(Window(Home).Property(MyCast.1.Name)) + !Control.HasFocus(15)</visible>
+					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + [Control.HasFocus(5505) | Control.HasFocus(5050) | String.IsEqual(Window(Home).Property(DVI.ShowCast),true)] + !String.IsEmpty(Window(Home).Property(MyCast.1.Name)) + ![Control.HasFocus(1515) | [Player.HasVideo + String.IsEqual(Window(Home).Property(Xenon.TrailerInfo.Active),true)]]</visible>
 				</control>
 				<control type="spincontrol" id="61">
 					<description>Next page button</description>
@@ -926,7 +933,7 @@
 					<ondown>9000</ondown>
 					<onup>49</onup>
 					<textcolor/>
-					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + !Control.HasFocus(15)</visible>
+					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + ![Control.HasFocus(1515) | [Player.HasVideo + String.IsEqual(Window(Home).Property(Xenon.TrailerInfo.Active),true)]]</visible>
 					<showonepage>true</showonepage>
 				</control>
 				<control type="textbox" id="400">
@@ -942,7 +949,7 @@
 					<label>$VAR[VideoDescription]</label>
 					<include condition="Skin.HasSetting(AutoScroll) + !Skin.HasSetting(AutoScroll.Slow)">StandardAutoScroll</include>
 					<include condition="Skin.HasSetting(AutoScroll) + Skin.HasSetting(AutoScroll.Slow)">SlowerAutoScroll</include>
-					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + ![Control.HasFocus(5505) | Control.HasFocus(50) | Control.HasFocus(5050) | String.IsEqual(Window(Home).Property(DVI.ShowCast),true)] + !Control.HasFocus(15)</visible>
+					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + ![Control.HasFocus(5505) | Control.HasFocus(50) | Control.HasFocus(5050) | String.IsEqual(Window(Home).Property(DVI.ShowCast),true)] + ![Control.HasFocus(1515) | [Player.HasVideo + String.IsEqual(Window(Home).Property(Xenon.TrailerInfo.Active),true)]]</visible>
 				</control>
 				<control type="panel" id="50">
 					<description>Kodi built-in cast row disabled; CastHelper row 5050 is used for TMDb person lookups</description>
@@ -955,9 +962,9 @@
 					<onright>50</onright>
 					<onup>61</onup>
 					<ondown>9000</ondown>
-					<onclick condition="System.HasAddon(script.xenon.casthelper) + System.HasAddon(plugin.video.themoviedb.helper)">RunScript(script.xenon.casthelper,mode=openperson,person='$ESCINFO[ListItem.Label]',tmdb=$INFO[Window(Home).Property(DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(DVI.OriginTmdbType)])</onclick>
+					<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/xenon_casthelper.py,mode=openperson,person='$ESCINFO[ListItem.Label]',tmdb=$INFO[Window(Home).Property(DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(DVI.OriginTmdbType)])</onclick>
 					<onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[ListItem.Label]')</onclick>
-					<oninfo condition="System.HasAddon(script.xenon.casthelper) + System.HasAddon(plugin.video.themoviedb.helper)">RunScript(script.xenon.casthelper,mode=openperson,person='$ESCINFO[ListItem.Label]',tmdb=$INFO[Window(Home).Property(DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(DVI.OriginTmdbType)])</oninfo>
+					<oninfo condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/xenon_casthelper.py,mode=openperson,person='$ESCINFO[ListItem.Label]',tmdb=$INFO[Window(Home).Property(DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(DVI.OriginTmdbType)])</oninfo>
 					<oninfo condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[ListItem.Label]')</oninfo>
 					<visible>false</visible>
 					<viewtype label="">list</viewtype>
@@ -1067,7 +1074,7 @@
 					</focusedlayout>
 				</control>
 				<control type="panel" id="5050">
-					<description>CastHelper cast row. Actor clicks are routed through script.xenon.casthelper mode=openperson so the original DialogVideoInfo is closed before TMDb Helper opens the person page.</description>
+					<description>CastHelper cast row. Actor clicks are routed through the bundled Xenon Cast Helper mode=openperson so the original DialogVideoInfo is closed before TMDb Helper opens the person page.</description>
 					<onfocus>SetProperty(DVI.ShowCast,true,home)</onfocus>
 					<left>60</left>
 					<top>750</top>
@@ -1077,13 +1084,14 @@
 					<onright>5050</onright>
 					<onup>61</onup>
 					<ondown>9000</ondown>
-					<onback>ClearProperty(DVI.ShowCast,home)</onback>
+					<onback>ClearProperty(Xenon.TrailerInfo.Pending,home)</onback>
+                        <onback>ClearProperty(DVI.ShowCast,home)</onback>
 					<onback>Dialog.Close(all,true)</onback>
-					<onclick condition="System.HasAddon(script.xenon.casthelper) + System.HasAddon(plugin.video.themoviedb.helper)">RunScript(script.xenon.casthelper,mode=openperson,person='$ESCINFO[ListItem.Label]',tmdb=$INFO[Window(Home).Property(DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(DVI.OriginTmdbType)])</onclick>
+					<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/xenon_casthelper.py,mode=openperson,person='$ESCINFO[ListItem.Label]',tmdb=$INFO[Window(Home).Property(DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(DVI.OriginTmdbType)])</onclick>
 					<onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[ListItem.Label]')</onclick>
-					<oninfo condition="System.HasAddon(script.xenon.casthelper) + System.HasAddon(plugin.video.themoviedb.helper)">RunScript(script.xenon.casthelper,mode=openperson,person='$ESCINFO[ListItem.Label]',tmdb=$INFO[Window(Home).Property(DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(DVI.OriginTmdbType)])</oninfo>
+					<oninfo condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/xenon_casthelper.py,mode=openperson,person='$ESCINFO[ListItem.Label]',tmdb=$INFO[Window(Home).Property(DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(DVI.OriginTmdbType)])</oninfo>
 					<oninfo condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[ListItem.Label]')</oninfo>
-					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + [Control.HasFocus(5505) | Control.HasFocus(5050) | String.IsEqual(Window(Home).Property(DVI.ShowCast),true)] + !String.IsEmpty(Window(Home).Property(MyCast.1.Name)) + !Control.HasFocus(15)</visible>
+					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + [Control.HasFocus(5505) | Control.HasFocus(5050) | String.IsEqual(Window(Home).Property(DVI.ShowCast),true)] + !String.IsEmpty(Window(Home).Property(MyCast.1.Name)) + ![Control.HasFocus(1515) | [Player.HasVideo + String.IsEqual(Window(Home).Property(Xenon.TrailerInfo.Active),true)]]</visible>
 					<viewtype label="">list</viewtype>
 					<pagecontrol>61</pagecontrol>
 					<scrolltime>200</scrolltime>
@@ -1509,8 +1517,8 @@
 						<label></label>
 						<!-- Use CastHelper to close the current TMDb person dialog first, then reopen the original title.
 						     Doing both directly in XML leaves the person DialogVideoInfo underneath and Back loops between dialogs. -->
-						<onfocus condition="System.HasAddon(script.xenon.casthelper) + !String.IsEmpty(Window(Home).Property(DVI.OriginTmdbId))">RunScript(script.xenon.casthelper,mode=returnorigin,tmdb=$INFO[Window(Home).Property(DVI.OriginTmdbId)],tmdb_type=$INFO[Window(Home).Property(DVI.OriginTmdbType)])</onfocus>
-						<onfocus condition="System.HasAddon(script.xenon.casthelper) + String.IsEmpty(Window(Home).Property(DVI.OriginTmdbId)) + !String.IsEmpty(Window(Home).Property(DVI.OriginDbid))">RunScript(script.xenon.casthelper,mode=returnorigin,dbid=$INFO[Window(Home).Property(DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(DVI.OriginTmdbType)])</onfocus>
+						<onfocus condition="!String.IsEmpty(Window(Home).Property(DVI.OriginTmdbId))">RunScript(special://skin/resources/scripts/xenon_casthelper.py,mode=returnorigin,tmdb=$INFO[Window(Home).Property(DVI.OriginTmdbId)],tmdb_type=$INFO[Window(Home).Property(DVI.OriginTmdbType)])</onfocus>
+						<onfocus condition="String.IsEmpty(Window(Home).Property(DVI.OriginTmdbId)) + !String.IsEmpty(Window(Home).Property(DVI.OriginDbid))">RunScript(special://skin/resources/scripts/xenon_casthelper.py,mode=returnorigin,dbid=$INFO[Window(Home).Property(DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(DVI.OriginTmdbType)])</onfocus>
 						<onfocus condition="String.IsEmpty(Window(Home).Property(DVI.OriginTmdbId)) + String.IsEmpty(Window(Home).Property(DVI.OriginDbid))">Dialog.Close(all,true)</onfocus>
 					</control>
 
@@ -1715,12 +1723,14 @@
 				</control>
 
 				<control type="grouplist" id="9000">
-					<onback>ClearProperty(DVI.ShowCast,home)</onback>
+					<onback>ClearProperty(Xenon.TrailerInfo.Pending,home)</onback>
+                        <onback>ClearProperty(DVI.ShowCast,home)</onback>
 					<onback>Dialog.Close(all,true)</onback>
 					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)]</visible>
-				<control type="togglebutton" id="15">
+				<control type="togglebutton" id="1515">
                     <description>Play/Stop Trailer Windowed</description>
-						<onback>ClearProperty(DVI.ShowCast,home)</onback>
+						<onback>ClearProperty(Xenon.TrailerInfo.Pending,home)</onback>
+                        <onback>ClearProperty(DVI.ShowCast,home)</onback>
 						<onback>Dialog.Close(all,true)</onback>
 						<onfocus>ClearProperty(DVI.ShowCast,home)</onfocus>
                     <include>ButtonInfoDialogsCommonValues</include>
@@ -1729,13 +1739,15 @@
                     <label>Play Trailer</label>
                     <altlabel>Stop Trailer</altlabel>
                     <usealttexture>Player.HasVideo</usealttexture>
+                    <onclick condition="Player.HasVideo">ClearProperty(Xenon.TrailerInfo.Pending,home)</onclick>
                     <onclick condition="Player.HasVideo">PlayerControl(Stop)</onclick>
-                    <onclick condition="!Player.HasVideo">RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.IMDBNumber]&amp;tmdb=$INFO[ListItem.Property(tmdb_id)]&amp;tmdbshow=$INFO[ListItem.Property(tmdbshow_id)]&amp;dbtype=$INFO[ListItem.DBType]&amp;mediatype=$INFO[ListItem.MediaType]&amp;title=$INFO[ListItem.Title]&amp;tvshowtitle=$INFO[ListItem.TVShowTitle]&amp;year=$INFO[ListItem.Year]&amp;windowed=1)</onclick>
+                    <onclick condition="!Player.HasVideo">RunScript(special://skin/resources/scripts/trailer_bridge.py,?imdb=$INFO[ListItem.IMDBNumber]&amp;tmdb=$INFO[ListItem.Property(tmdb_id)]&amp;tmdbshow=$INFO[ListItem.Property(tmdbshow_id)]&amp;dbtype=$INFO[ListItem.DBType]&amp;mediatype=$INFO[ListItem.MediaType]&amp;title=$INFO[ListItem.Title]&amp;tvshowtitle=$INFO[ListItem.TVShowTitle]&amp;year=$INFO[ListItem.Year]&amp;windowed=1)</onclick>
 					<visible>!String.IsEqual(ListItem.DBTYPE,episode)</visible>
                 </control>
 				<control type="togglebutton" id="8">
 						<description>Play/browse to Show</description>
-						<onback>ClearProperty(DVI.ShowCast,home)</onback>
+						<onback>ClearProperty(Xenon.TrailerInfo.Pending,home)</onback>
+                        <onback>ClearProperty(DVI.ShowCast,home)</onback>
 						<onback>Dialog.Close(all,true)</onback>
 						<onfocus>ClearProperty(DVI.ShowCast,home)</onfocus>
 						<include>ButtonInfoDialogsCommonValues</include>
@@ -1763,7 +1775,8 @@
     					
 					<control type="button" id="1227">
 						<description>Special Features button</description>
-						<onback>ClearProperty(DVI.ShowCast,home)</onback>
+						<onback>ClearProperty(Xenon.TrailerInfo.Pending,home)</onback>
+                        <onback>ClearProperty(DVI.ShowCast,home)</onback>
 						<onback>Dialog.Close(all,true)</onback>
 						<onfocus>ClearProperty(DVI.ShowCast,home)</onfocus>
 						<label>$LOCALIZE[31054]</label>
@@ -1775,7 +1788,8 @@
 					</control>
 					<control type="button" id="1228">
 						<description>Library Editor</description>
-						<onback>ClearProperty(DVI.ShowCast,home)</onback>
+						<onback>ClearProperty(Xenon.TrailerInfo.Pending,home)</onback>
+                        <onback>ClearProperty(DVI.ShowCast,home)</onback>
 						<onback>Dialog.Close(all,true)</onback>
 						<onfocus>ClearProperty(DVI.ShowCast,home)</onfocus>
 						<include>ButtonInfoDialogsCommonValues</include>
@@ -1787,7 +1801,8 @@
 					</control>
 					<control type="button" id="5505">
 						<description>Cast</description>
-						<onback>ClearProperty(DVI.ShowCast,home)</onback>
+						<onback>ClearProperty(Xenon.TrailerInfo.Pending,home)</onback>
+                        <onback>ClearProperty(DVI.ShowCast,home)</onback>
 						<onback>Dialog.Close(all,true)</onback>
 							<onfocus>SetProperty(DVI.ShowCast,true,home)</onfocus>
 						<include>ButtonInfoDialogsCommonValues</include>
@@ -1796,12 +1811,14 @@
 					</control>
 					<control type="button" id="106">
 						<description>ExtendedInfo</description>
-						<onback>ClearProperty(DVI.ShowCast,home)</onback>
+						<onback>ClearProperty(Xenon.TrailerInfo.Pending,home)</onback>
+                        <onback>ClearProperty(DVI.ShowCast,home)</onback>
 						<onback>Dialog.Close(all,true)</onback>
 						<onfocus>ClearProperty(DVI.ShowCast,home)</onfocus>
 						<include>ButtonInfoDialogsCommonValues</include>
 						<label>31204</label>
-						<onclick>PreviousMenu</onclick>
+						<onclick>ClearProperty(Xenon.TrailerInfo.Pending,home)</onclick>
+                        <onclick>PreviousMenu</onclick>
 						<onclick condition="String.IsEqual(ListItem.DBType,movie)">RunScript(script.extendedinfo,info=extendedinfo,dbid=$INFO[ListItem.DBID],id=$INFO[ListItem.UniqueID(tmdb)],imdb_id=$INFO[ListItem.IMDBNumber],year=$INFO[ListItem.Year],name=$INFO[ListItem.Title])</onclick>
 						<onclick condition="String.IsEqual(ListItem.DBType,tvshow)">RunScript(script.extendedinfo,info=extendedtvinfo,dbid=$INFO[ListItem.DBID],id=$INFO[ListItem.UniqueID(tmdb)],tvdb_id=$INFO[ListItem.UniqueID(tvdb)],name=$INFO[ListItem.Title])</onclick>
 						<onclick condition="String.IsEqual(ListItem.DBType,episode)">RunScript(script.extendedinfo,info=extendedepisodeinfo,tvshow=$INFO[ListItem.TVShowTitle],season=$INFO[ListItem.Season],episode=$INFO[ListItem.Episode])</onclick>
@@ -1810,30 +1827,35 @@
 					</control>
 					<control type="button" id="132">
 						<description>Options (Context Menu)</description>
-						<onback>ClearProperty(DVI.ShowCast,home)</onback>
+						<onback>ClearProperty(Xenon.TrailerInfo.Pending,home)</onback>
+                        <onback>ClearProperty(DVI.ShowCast,home)</onback>
 						<onback>Dialog.Close(all,true)</onback>
 						<onfocus>ClearProperty(DVI.ShowCast,home)</onfocus>
 						<include>ButtonInfoDialogsCommonValues</include>
 						<label>Options</label>
-						<onclick>PreviousMenu</onclick>
+						<onclick>ClearProperty(Xenon.TrailerInfo.Pending,home)</onclick>
+                        <onclick>PreviousMenu</onclick>
 						<onclick condition="String.IsEqual(ListItem.DBType,movie)">AlarmClock(openctxmenu,Action(ContextMenu),00:00:01,silent)</onclick>
 						<onclick condition="[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,episode)]">AlarmClock(openctxmenu,Action(ContextMenu),00:00:02,silent)</onclick>
 					</control>
     
 					<control type="button" id="107">
 						<description>MoreInfo</description>
-						<onback>ClearProperty(DVI.ShowCast,home)</onback>
+						<onback>ClearProperty(Xenon.TrailerInfo.Pending,home)</onback>
+                        <onback>ClearProperty(DVI.ShowCast,home)</onback>
 						<onback>Dialog.Close(all,true)</onback>
 						<onfocus>ClearProperty(DVI.ShowCast,home)</onfocus>
 						<include>ButtonInfoDialogsCommonValues</include>
 						<label>22082</label>
-						<onclick>PreviousMenu</onclick>
+						<onclick>ClearProperty(Xenon.TrailerInfo.Pending,home)</onclick>
+                        <onclick>PreviousMenu</onclick>
 						<onclick>RunScript($INFO[Skin.String(CustomVideoInfoScript)])</onclick>
 						<enable>!String.IsEmpty(Skin.String(CustomVideoInfoScript))</enable>
 						<visible>Skin.HasSetting(EnableCustomVideoInfoScript)</visible>
 					</control><control type="button" id="7">
 						<description>Set my rating</description>
-						<onback>ClearProperty(DVI.ShowCast,home)</onback>
+						<onback>ClearProperty(Xenon.TrailerInfo.Pending,home)</onback>
+                        <onback>ClearProperty(DVI.ShowCast,home)</onback>
 						<onback>Dialog.Close(all,true)</onback>
 						<onfocus>ClearProperty(DVI.ShowCast,home)</onfocus>
 						<include>ButtonInfoDialogsCommonValues</include>
@@ -1850,7 +1872,8 @@
 					</control>-->
 					<control type="button" id="102">
 						<description>Fetch TvTunes stuff</description>
-						<onback>ClearProperty(DVI.ShowCast,home)</onback>
+						<onback>ClearProperty(Xenon.TrailerInfo.Pending,home)</onback>
+                        <onback>ClearProperty(DVI.ShowCast,home)</onback>
 						<onback>Dialog.Close(all,true)</onback>
 						<onfocus>ClearProperty(DVI.ShowCast,home)</onfocus>
 						<include>ButtonInfoDialogsCommonValues</include>

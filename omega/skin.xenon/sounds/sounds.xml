@@ -70,7 +70,7 @@
 
   <windows>
     <window>
-      <name>infodialog</name>
+      <name>movieinformation</name>
       <activate>notify.wav</activate>
       <deactivate>out.wav</deactivate>
     </window>

@@ -41,7 +41,7 @@
                         <aligny>center</aligny>
                         <selectedcolor>selected</selectedcolor>
                         <align>center</align>
-                        <label>$INFO[ListItem.Label]</label>
+                        <label>$VAR[DirectoryItemLabel]</label>
                         <visible>!ListItem.Property(DateLabel)</visible>
                     </control>
                     <control type="label" id="2">
@@ -53,7 +53,7 @@
                         <aligny>center</aligny>
                         <selectedcolor>selected</selectedcolor>
                         <align>left</align>
-                        <label>$INFO[ListItem.Label]</label>
+                        <label>$VAR[DirectoryItemLabel]</label>
                         <visible>ListItem.Property(DateLabel)</visible>
                     </control>
                 </rulerlayout>

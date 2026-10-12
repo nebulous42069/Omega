@@ -53,7 +53,7 @@
                         <selectedcolor>selected</selectedcolor>
                         <align>left</align>
                         <aligny>center</aligny>
-                        <label>$INFO[ListItem.Label]</label>
+                        <label>$VAR[DirectoryItemLabel]</label>
                     </control>
                     <control type="label">
                         <left>90</left>
@@ -97,7 +97,7 @@
                         <selectedcolor>selected</selectedcolor>
                         <align>left</align>
                         <aligny>center</aligny>
-                        <label>$INFO[ListItem.Label]</label>
+                        <label>$VAR[DirectoryItemLabel]</label>
                     </control>
                     <control type="label">
                         <left>90</left>
@@ -202,7 +202,7 @@
                 <scroll>true</scroll>
                 <align>center</align>
                 <aligny>center</aligny>
-                <label>$INFO[ListItem.Label]</label>
+                <label>$VAR[DirectoryItemLabel]</label>
                 <animation effect="slide" start="0,0" end="0,30" time="150" condition="!Control.HasFocus(509)">conditional</animation>
             </control>
         </control>
@@ -351,7 +351,7 @@
                 <scroll>true</scroll>
                 <align>center</align>
                 <aligny>center</aligny>
-                <label>$INFO[ListItem.Label]</label>
+                <label>$VAR[DirectoryItemLabel]</label>
             </control>
             <control type="group">
                 <left>60</left>
@@ -470,7 +470,7 @@
                         <selectedcolor>selected</selectedcolor>
                         <align>left</align>
                         <aligny>center</aligny>
-                        <label>$INFO[ListItem.Label]</label>
+                        <label>$VAR[DirectoryItemLabel]</label>
                     </control>
                     <control type="label">
                         <left>45</left>
@@ -522,7 +522,7 @@
                         <selectedcolor>selected</selectedcolor>
                         <align>left</align>
                         <aligny>center</aligny>
-                        <label>$INFO[ListItem.Label]</label>
+                        <label>$VAR[DirectoryItemLabel]</label>
                     </control>
                     <control type="label">
                         <left>45</left>
@@ -706,7 +706,7 @@
                         <selectedcolor>selected</selectedcolor>
                         <align>left</align>
                         <aligny>center</aligny>
-                        <label>$INFO[ListItem.Label]</label>
+                        <label>$VAR[DirectoryItemLabel]</label>
                     </control>
                 </itemlayout>
                 <focusedlayout height="60" width="870">
@@ -738,7 +738,7 @@
                         <selectedcolor>selected</selectedcolor>
                         <align>left</align>
                         <aligny>center</aligny>
-                        <label>$INFO[ListItem.Label]</label>
+                        <label>$VAR[DirectoryItemLabel]</label>
                     </control>
                 </focusedlayout>
             </control>
@@ -909,7 +909,7 @@
                         <selectedcolor>selected</selectedcolor>
                         <align>left</align>
                         <aligny>center</aligny>
-                        <label>$INFO[ListItem.Label]</label>
+                        <label>$VAR[DirectoryItemLabel]</label>
                     </control>
                     <control type="label">
                         <left>90</left>
@@ -953,7 +953,7 @@
                         <selectedcolor>selected</selectedcolor>
                         <align>left</align>
                         <aligny>center</aligny>
-                        <label>$INFO[ListItem.Label]</label>
+                        <label>$VAR[DirectoryItemLabel]</label>
                     </control>
                     <control type="label">
                         <left>90</left>

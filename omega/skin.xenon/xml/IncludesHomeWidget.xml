@@ -89,14 +89,14 @@
 					!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.TMDB_Id))
 				</visible>
 				<visible>
-					(
+					[
 						Container.Content(movies) |
 						Container.Content(tvshows) |
 						String.IsEqual(Container($PARAM[Control]).ListItem.DBType,movie) |
 						String.IsEqual(Container($PARAM[Control]).ListItem.DBType,tvshow) |
 						!String.IsEmpty(Container($PARAM[Control]).ListItem.Property(tmdb_id)) |
 						!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.TMDB_Id))
-					)
+					]
 					+
 					!String.IsEqual(Container($PARAM[Control]).ListItem.DBType,episode)
 				</visible>
@@ -672,7 +672,7 @@
     <onfocus condition="Control.IsVisible(80431)">SetFocus(80431,0)</onfocus>
 			<ondown>9091</ondown>
 			<animation effect="fade" start="100" end="0" time="480" condition="[Skin.HasSetting(ShowWidgetsOnFocus) + Control.HasFocus(9000)]">Conditional</animation>
-            <visible>!Window.IsVisible(Favourites)</visible>
+            <visible>!Window.IsVisible(FavouritesBrowser)</visible>
             <include>VisibleFadeEffect</include>
             <animation effect="fade" time="225" delay="1000">WindowOpen</animation>
             <animation effect="fade" time="150">WindowClose</animation>		
@@ -3043,13 +3043,13 @@
                 <height>380</height>
                 <onleft>$PARAM[Control]</onleft>
                 <onright>$PARAM[Control]</onright>
-				<onup condition="String.IsEqual(ListItem.DBType,movie)">RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.IMDBNumber]&amp;tmdb=$INFO[ListItem.Property(tmdb_id)]&amp;tmdbshow=$INFO[ListItem.Property(tmdbshow_id)]&amp;dbtype=$INFO[ListItem.DBType]&amp;mediatype=$INFO[ListItem.MediaType]&amp;title=$INFO[ListItem.Title]&amp;tvshowtitle=$INFO[ListItem.TVShowTitle]&amp;year=$INFO[ListItem.Year])</onup>
+				<onup condition="String.IsEqual(ListItem.DBType,movie)">RunScript(special://skin/resources/scripts/trailer_bridge.py,?imdb=$INFO[ListItem.IMDBNumber]&amp;tmdb=$INFO[ListItem.Property(tmdb_id)]&amp;tmdbshow=$INFO[ListItem.Property(tmdbshow_id)]&amp;dbtype=$INFO[ListItem.DBType]&amp;mediatype=$INFO[ListItem.MediaType]&amp;title=$INFO[ListItem.Title]&amp;tvshowtitle=$INFO[ListItem.TVShowTitle]&amp;year=$INFO[ListItem.Year])</onup>
 				<onup condition="String.IsEqual(ListItem.DBType,tvshow) + !String.IsEmpty(ListItem.IMDBNumber)">
-				RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.IMDBNumber]&amp;dbtype=$INFO[ListItem.DBType]&amp;title=$INFO[ListItem.TVShowTitle])</onup>
+				RunScript(special://skin/resources/scripts/trailer_bridge.py,?imdb=$INFO[ListItem.IMDBNumber]&amp;dbtype=$INFO[ListItem.DBType]&amp;title=$INFO[ListItem.TVShowTitle])</onup>
 				<onup condition="String.IsEqual(ListItem.DBType,tvshow) + String.IsEmpty(ListItem.IMDBNumber) + !String.IsEmpty(ListItem.UniqueID(imdb))">
-				RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.UniqueID(imdb)]&amp;dbtype=$INFO[ListItem.DBType]&amp;title=$INFO[ListItem.TVShowTitle])</onup>
+				RunScript(special://skin/resources/scripts/trailer_bridge.py,?imdb=$INFO[ListItem.UniqueID(imdb)]&amp;dbtype=$INFO[ListItem.DBType]&amp;title=$INFO[ListItem.TVShowTitle])</onup>
 				<onup condition="String.IsEqual(ListItem.DBType,tvshow) + String.IsEmpty(ListItem.IMDBNumber) + String.IsEmpty(ListItem.UniqueID(imdb)) + !String.IsEmpty(ListItem.Property(tmdbshow_id))">
-				RunScript(script.trailer.bridge,?tmdbshow=$INFO[ListItem.Property(tmdbshow_id)]&amp;dbtype=$INFO[ListItem.DBType]&amp;title=$INFO[ListItem.TVShowTitle])</onup>
+				RunScript(special://skin/resources/scripts/trailer_bridge.py,?tmdbshow=$INFO[ListItem.Property(tmdbshow_id)]&amp;dbtype=$INFO[ListItem.DBType]&amp;title=$INFO[ListItem.TVShowTitle])</onup>
                 <ondown>9091</ondown>
 				<viewtype label="535">list</viewtype>
                 <scrolltime>200</scrolltime>
@@ -3380,13 +3380,13 @@
                 <height>540</height>
                 <onleft>$PARAM[Control]</onleft>
                 <onright>$PARAM[Control]</onright>
-				<onup condition="String.IsEqual(ListItem.DBType,movie)">RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.IMDBNumber]&amp;tmdb=$INFO[ListItem.Property(tmdb_id)]&amp;tmdbshow=$INFO[ListItem.Property(tmdbshow_id)]&amp;dbtype=$INFO[ListItem.DBType]&amp;mediatype=$INFO[ListItem.MediaType]&amp;title=$INFO[ListItem.Title]&amp;tvshowtitle=$INFO[ListItem.TVShowTitle]&amp;year=$INFO[ListItem.Year])</onup>
+				<onup condition="String.IsEqual(ListItem.DBType,movie)">RunScript(special://skin/resources/scripts/trailer_bridge.py,?imdb=$INFO[ListItem.IMDBNumber]&amp;tmdb=$INFO[ListItem.Property(tmdb_id)]&amp;tmdbshow=$INFO[ListItem.Property(tmdbshow_id)]&amp;dbtype=$INFO[ListItem.DBType]&amp;mediatype=$INFO[ListItem.MediaType]&amp;title=$INFO[ListItem.Title]&amp;tvshowtitle=$INFO[ListItem.TVShowTitle]&amp;year=$INFO[ListItem.Year])</onup>
 				<onup condition="String.IsEqual(ListItem.DBType,tvshow) + !String.IsEmpty(ListItem.IMDBNumber)">
-				RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.IMDBNumber]&amp;dbtype=$INFO[ListItem.DBType]&amp;title=$INFO[ListItem.TVShowTitle])</onup>
+				RunScript(special://skin/resources/scripts/trailer_bridge.py,?imdb=$INFO[ListItem.IMDBNumber]&amp;dbtype=$INFO[ListItem.DBType]&amp;title=$INFO[ListItem.TVShowTitle])</onup>
 				<onup condition="String.IsEqual(ListItem.DBType,tvshow) + String.IsEmpty(ListItem.IMDBNumber) + !String.IsEmpty(ListItem.UniqueID(imdb))">
-				RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.UniqueID(imdb)]&amp;dbtype=$INFO[ListItem.DBType]&amp;title=$INFO[ListItem.TVShowTitle])</onup>
+				RunScript(special://skin/resources/scripts/trailer_bridge.py,?imdb=$INFO[ListItem.UniqueID(imdb)]&amp;dbtype=$INFO[ListItem.DBType]&amp;title=$INFO[ListItem.TVShowTitle])</onup>
 				<onup condition="String.IsEqual(ListItem.DBType,tvshow) + String.IsEmpty(ListItem.IMDBNumber) + String.IsEmpty(ListItem.UniqueID(imdb)) + !String.IsEmpty(ListItem.Property(tmdbshow_id))">
-				RunScript(script.trailer.bridge,?tmdbshow=$INFO[ListItem.Property(tmdbshow_id)]&amp;dbtype=$INFO[ListItem.DBType]&amp;title=$INFO[ListItem.TVShowTitle])</onup>
+				RunScript(special://skin/resources/scripts/trailer_bridge.py,?tmdbshow=$INFO[ListItem.Property(tmdbshow_id)]&amp;dbtype=$INFO[ListItem.DBType]&amp;title=$INFO[ListItem.TVShowTitle])</onup>
                 <ondown>9091</ondown>
 				<viewtype label="535">list</viewtype>
                 <scrolltime tween="cubic" easing="out">500</scrolltime>

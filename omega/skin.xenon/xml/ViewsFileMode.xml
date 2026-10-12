@@ -48,7 +48,7 @@
                         <selectedcolor>selected</selectedcolor>
                         <align>left</align>
                         <aligny>center</aligny>
-                        <label>$INFO[ListItem.Label]</label>
+                        <label>$VAR[DirectoryItemLabel]</label>
                         <visible>!Window.IsVisible(pictures) | String.IsEmpty(listItem.PictureDatetime)</visible>
                     </control>
                     <control type="label">
@@ -148,7 +148,7 @@
                         <selectedcolor>selected</selectedcolor>
                         <align>left</align>
                         <aligny>center</aligny>
-                        <label>$INFO[ListItem.Label]</label>
+                        <label>$VAR[DirectoryItemLabel]</label>
                         <visible>!Window.IsVisible(pictures) | String.IsEmpty(listItem.PictureDatetime)</visible>
                     </control>
                     <control type="label">
@@ -869,7 +869,7 @@
                         <selectedcolor>selected</selectedcolor>
                         <align>left</align>
                         <aligny>center</aligny>
-                        <label>$INFO[ListItem.Label]</label>
+                        <label>$VAR[DirectoryItemLabel]</label>
                         <visible>!Window.IsVisible(pictures) | String.IsEmpty(listItem.PictureDatetime)</visible>
                     </control>
                     <control type="label">
@@ -1006,7 +1006,7 @@
                         <selectedcolor>selected</selectedcolor>
                         <align>left</align>
                         <aligny>center</aligny>
-                        <label>$INFO[ListItem.Label]</label>
+                        <label>$VAR[DirectoryItemLabel]</label>
                         <visible>!Window.IsVisible(pictures) | String.IsEmpty(listItem.PictureDatetime)</visible>
                     </control>
                     <control type="label">

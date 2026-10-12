@@ -65,6 +65,7 @@
           <!-- Use the skin's submenu common values (same left/top/width/height/scroll) -->
           <onup condition="Skin.HasSetting(LowerMainMenuBar)">9002</onup>
           <onup condition="!Skin.HasSetting(LowerMainMenuBar)">9003</onup>
+          <onup condition="!Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(8044)">Control.SetFocus(8044,0,absolute)</onup>
           <ondown>9000</ondown>
 			<!-- Hide until focused (but keep control visible for routing) -->
 			<alpha>0</alpha>
@@ -206,6 +207,7 @@
           <!-- Use the skin's submenu common values (same left/top/width/height/scroll) -->
           <onup condition="Skin.HasSetting(LowerMainMenuBar)">9002</onup>
           <onup condition="!Skin.HasSetting(LowerMainMenuBar)">9003</onup>
+          <onup condition="!Skin.HasSetting(LowerMainMenuBar) + Control.IsVisible(8044)">Control.SetFocus(8044,0,absolute)</onup>
           <ondown>9000</ondown>
 			<!-- Hide until focused (but keep control visible for routing) -->
 			<alpha>0</alpha>

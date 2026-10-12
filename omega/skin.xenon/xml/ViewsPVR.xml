@@ -303,7 +303,7 @@
                         <selectedcolor>selected</selectedcolor>
                         <align>left</align>
                         <aligny>center</aligny>
-                        <label>$INFO[ListItem.Label]</label>
+                        <label>$VAR[DirectoryItemLabel]</label>
                     </control>
                     <control type="label">
                         <left>75</left>
@@ -399,7 +399,7 @@
                         <selectedcolor>selected</selectedcolor>
                         <align>left</align>
                         <aligny>center</aligny>
-                        <label>$INFO[ListItem.Label]</label>
+                        <label>$VAR[DirectoryItemLabel]</label>
                     </control>
                     <control type="label">
                         <left>75</left>
@@ -713,7 +713,7 @@
                         <selectedcolor>selected</selectedcolor>
                         <align>left</align>
                         <aligny>center</aligny>
-                        <label>$INFO[ListItem.Label]</label>
+                        <label>$VAR[DirectoryItemLabel]</label>
                     </control>
                     <control type="label">
                         <left>405</left>
@@ -809,7 +809,7 @@
                         <selectedcolor>selected</selectedcolor>
                         <align>left</align>
                         <aligny>center</aligny>
-                        <label>$INFO[ListItem.Label]</label>
+                        <label>$VAR[DirectoryItemLabel]</label>
                     </control>
                     <control type="label">
                         <left>405</left>
@@ -954,7 +954,7 @@
                         <selectedcolor>selected</selectedcolor>
                         <align>left</align>
                         <aligny>center</aligny>
-                        <label>$INFO[ListItem.Label]</label>
+                        <label>$VAR[DirectoryItemLabel]</label>
                     </control>
                     <control type="label">
                         <left>75</left>
@@ -1050,7 +1050,7 @@
                         <selectedcolor>selected</selectedcolor>
                         <align>left</align>
                         <aligny>center</aligny>
-                        <label>$INFO[ListItem.Label]</label>
+                        <label>$VAR[DirectoryItemLabel]</label>
                     </control>
                     <control type="label">
                         <left>75</left>
@@ -1362,7 +1362,7 @@
                         <selectedcolor>selected</selectedcolor>
                         <align>left</align>
                         <aligny>center</aligny>
-                        <label>$INFO[ListItem.Label]</label>
+                        <label>$VAR[DirectoryItemLabel]</label>
                     </control>
                     <control type="label">
                         <left>90</left>
@@ -1443,7 +1443,7 @@
                         <selectedcolor>selected</selectedcolor>
                         <align>left</align>
                         <aligny>center</aligny>
-                        <label>$INFO[ListItem.Label]</label>
+                        <label>$VAR[DirectoryItemLabel]</label>
                     </control>
                     <control type="label">
                         <left>90</left>

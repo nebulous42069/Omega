@@ -70,6 +70,8 @@
 	
     <include name="SkinShortcutsSubMenu">
         <control type="list" id="9001">
+                <!-- Always enter this home row at its first visible item. -->
+                <defaultcontrol always="true">0</defaultcontrol>
             <depth>DepthMenu-</depth>
             <left>92</left>
 			<top>105</top>

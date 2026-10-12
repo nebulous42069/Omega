@@ -132,7 +132,7 @@
 					<onclick>Dialog.Close(5002)</onclick>					
 					<onclick>ActivateWindow(skinsettings)</onclick>
 				</item>
-				<item>
+                <item>
 					<label>- [B]Kodi System Settings[/B]</label>
 					<onclick>Dialog.Close(5002)</onclick>					
 					<onclick>ActivateWindow(settings)</onclick>
@@ -145,7 +145,7 @@
 				<item>
 					<label>- [B]Maintenance[/B]</label>
 					<onclick>Dialog.Close(5002)</onclick>					
-					<onclick>ActivateWindow(10001,"plugin://script.ezmaintenanceplus/?action=maintenance&amp;description&amp;fanart=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cscript.ezmaintenanceplus%5cfanart.jpg&amp;icon=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cscript.ezmaintenanceplus%5cicon.png&amp;name=%5bCOLOR%20white%5d%5bB%5dMAINTENANCE%5b%2fB%5d%5b%2fCOLOR%5d&amp;url=ur",return)</onclick>
+					<onclick>RunAddon(script.simpleclean)</onclick>
 				</item>	
 				<item>
 					<label>- [B]Internet Speedtest[/B]</label>
@@ -164,7 +164,7 @@
 				<item>
 					<label>- [B]Restore Xenon Skin To Default Settings[/B]</label>
 					<onclick>Dialog.Close(5002)</onclick>
-					<onclick>ActivateWindow(10001,"plugin://plugin.program.diggzflavors/?description&amp;fanart=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5cKODI_OMEGA_21%5cKodi%5cportable_data%5caddons%5cplugin.program.diggzflavors%5cresources%5cfanart.jpg&amp;icon=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5cKODI_OMEGA_21%5cKodi%5cportable_data%5caddons%5cplugin.program.diggzflavors%5cresources%5cicon.png&amp;mode=1&amp;name=Xenon%20Flavors&amp;name2&amp;section=Xenon&amp;url=https%3a%2f%2fraw.githubusercontent.com%2fBuildtexts69%2fomegabuilds%2fmain%2fX2%2f23flavors.xml&amp;version",return)</onclick>
+					<onclick>RunScript(special://skin/resources/scripts/flavors.py)</onclick>
 				</item>				
 				<item>
 					<label>- [B]Click Here For Available Fixes[/B]</label>
@@ -197,7 +197,27 @@
 				<item>
 					<label>- [B]Diggz Wiki Help Forum[/B]</label>
 					<onclick>RunScript(&quot;script.diggzwiki&quot;)</onclick>
-				</item>					
+				</item>
+				<item>
+                    <label>- [B]First Run - Open Xenon Flavors at next boot: OFF[/B]</label>
+                    <visible>!Skin.HasSetting(Xenon.FlavorFirstRun)</visible>
+                    <onclick>Skin.SetBool(Xenon.FlavorFirstRun)</onclick>
+                </item>
+                <item>
+                    <label>- [B]First Run - Open Xenon Flavors at next boot: ON[/B]</label>
+                    <visible>Skin.HasSetting(Xenon.FlavorFirstRun)</visible>
+                    <onclick>Skin.Reset(Xenon.FlavorFirstRun)</onclick>
+                </item>
+                <item>
+                    <label>- [B]Cast Helper Settings[/B]</label>
+                    <onclick>Dialog.Close(5002)</onclick>
+                    <onclick>RunScript(special://skin/resources/scripts/xenon_casthelper.py,settings)</onclick>
+                </item>
+                <item>
+                    <label>- [B]Trailer Lookup - TMDb API Key[/B]</label>
+                    <onclick>Dialog.Close(5002)</onclick>
+                    <onclick>RunScript(special://skin/resources/scripts/trailer_bridge.py,settings)</onclick>
+                </item>				
                 </content>
             </control>
             <control type="scrollbar" id="61">

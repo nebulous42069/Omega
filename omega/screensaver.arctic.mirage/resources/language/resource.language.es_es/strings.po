@@ -1,0 +1,55 @@
+# Kodi Media Center language file
+# Addon Name: Arctic Mirage
+# Addon id: screensaver.arctic.mirage
+# Addon Provider: drinfernoo
+msgid ""
+msgstr ""
+"Project-Id-Version: XBMC Addons\n"
+"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Kodi Translation Team\n"
+"Language-Team: English (http://www.transifex.com/projects/p/xbmc-addons/language/en/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#This is a comment
+
+msgctxt "#32000"
+msgid "General"
+msgstr ""
+
+msgctxt "#32001"
+msgid "Widget Path"
+msgstr "Ruta del widget"
+
+msgctxt "#32002"
+msgid "Widget Label"
+msgstr "Etiqueta de widget"
+
+msgctxt "#32003"
+msgid "Saved Widget Path"
+msgstr "Ruta del widget guardada"
+
+msgctxt "#32004"
+msgid "Saved Widget Label"
+msgstr "Etiqueta de widget guardada"
+
+msgctxt "#32005"
+msgid "Open Video Info when DOWN is pressed"
+msgstr "Abrir información de video al pulsar ABAJO"
+
+msgctxt "#32006"
+msgid "Install Mirage fonts into current skin"
+msgstr ""
+
+msgctxt "#32007"
+msgid "Restore current skin Font.xml backup"
+msgstr ""
+
+msgctxt "#32008"
+msgid "Return to paused video OSD when video is paused"
+msgstr "Volver al OSD del video pausado cuando el video está pausado"

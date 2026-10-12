@@ -22,6 +22,7 @@
 	<onload condition="Control.IsVisible(515)">SetFocus(515)</onload>
 	<onload condition="Control.IsVisible(505)">SetFocus(505)</onload>
 	<onload condition="Control.IsVisible(511)">SetFocus(511)</onload>
+	<onload>RunScript(special://skin/resources/scripts/video_nav_focus.py)</onload>
 
 
     <onunload>ClearProperty(SideBladeOpen)</onunload>

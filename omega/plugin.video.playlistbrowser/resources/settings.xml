@@ -7,6 +7,7 @@
   <category label="Global Options">
     <setting id="REFRESH_EPG_ON_OPEN" type="bool" label="Refresh EPG when opening a source" default="false" />
     <setting id="EPG_TTL_HOURS" type="number" label="EPG cache hours" default="6" />
+    <setting id="M3U_REFRESH_HOURS" type="number" label="Automatic playlist refresh hours (0 = off)" default="6" />
     <setting id="USE_LOGOS" type="bool" label="Use logos from M3U/EPG if available" default="true" />
     <setting id="USE_EPG_LOGO_FALLBACK" type="bool" label="Fallback to EPG channel icons when M3U has no logo" default="true" />
   </category>
@@ -38,7 +39,6 @@
     <setting id="COLOR_TIME" type="text" label="Time range color (hex, e.g. #B0FFA0)" default=""/>
   </category>
 
-</settings>
 <category label="Source 4">
     <setting id="SRC4_NAME" type="text" label="Display name" default="Playlist 3" />
     <setting id="SRC4_M3U_URL" type="text" label="M3U URL or path" default="" />
@@ -88,3 +88,4 @@
     <setting id="SRC10_EPG_XML_URL" type="text" label="XMLTV EPG URL or path" default="" />
       <setting id="SRC10_REFRESH_ON_OPEN" type="bool" label="Refresh EPG on opening this source" default="false" />
   </category>
+</settings>

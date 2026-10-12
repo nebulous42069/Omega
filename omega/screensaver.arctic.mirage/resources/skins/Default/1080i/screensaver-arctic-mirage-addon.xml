@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<window>
+    <defaultcontrol always="true">1297</defaultcontrol>
+    <backgroundcolor>FF000000</backgroundcolor>
+    <coordinates>
+        <system>1</system>
+        <left>0</left>
+        <top>0</top>
+    </coordinates>
+    <controls>
+        <!-- Hidden list that loads the widget path chosen via script.skinshortcuts. -->
+        <control type="list" id="1297">
+            <left>-1000</left>
+            <top>-1000</top>
+            <width>1</width>
+            <height>1</height>
+            <content sortby="random">$INFO[Skin.String(screensaver.arctic.mirage.path)]</content>
+            <autoscroll time="20000">true</autoscroll>
+            <orientation>horizontal</orientation>
+            <itemlayout />
+            <focusedlayout />
+        </control>
+
+        <!-- Main fanart/image. -->
+        <control type="image">
+            <left>0</left>
+            <top>0</top>
+            <width>1920</width>
+            <height>1080</height>
+            <aspectratio scalediffuse="false">scale</aspectratio>
+            <fadetime>800</fadetime>
+            <texture background="true">$INFO[Container(1297).ListItem.Art(fanart)]</texture>
+            <animation effect="zoom" start="110" end="130" center="auto" time="10000" tween="sine" easing="inout" pulse="true" condition="true">Conditional</animation>
+            <animation effect="slide" start="-30,-30" end="30,30" time="6000" tween="sine" easing="inout" pulse="true" condition="true">Conditional</animation>
+        </control>
+
+        <!-- Fallback image for lists that expose thumb/poster but no fanart. -->
+        <control type="image">
+            <left>0</left>
+            <top>0</top>
+            <width>1920</width>
+            <height>1080</height>
+            <visible>String.IsEmpty(Container(1297).ListItem.Art(fanart))</visible>
+            <aspectratio scalediffuse="false">scale</aspectratio>
+            <fadetime>800</fadetime>
+            <texture background="true">$INFO[Container(1297).ListItem.Art(thumb)]</texture>
+            <animation effect="zoom" start="105" end="125" center="auto" time="10000" tween="sine" easing="inout" pulse="true" condition="true">Conditional</animation>
+        </control>
+
+        <control type="image">
+            <left>0</left>
+            <top>0</top>
+            <width>1920</width>
+            <height>1080</height>
+            <visible>String.IsEmpty(Container(1297).ListItem.Art(fanart)) + String.IsEmpty(Container(1297).ListItem.Art(thumb))</visible>
+            <aspectratio scalediffuse="false">scale</aspectratio>
+            <fadetime>800</fadetime>
+            <texture background="true">$INFO[Container(1297).ListItem.Art(poster)]</texture>
+            <animation effect="zoom" start="105" end="125" center="auto" time="10000" tween="sine" easing="inout" pulse="true" condition="true">Conditional</animation>
+        </control>
+
+        <!-- Tiny hidden control expected by resources/lib/screensaver.py. -->
+        <control type="image" id="1298">
+            <left>-1000</left>
+            <top>-1000</top>
+            <width>1</width>
+            <height>1</height>
+            <texture />
+        </control>
+
+        <!-- Metadata overlay. Font names below must exist in the active skin's Font.xml. Use the settings action to inject them. -->
+        <!-- Prefer clearlogo art when the list item exposes it; fall back to text title otherwise. -->
+        <control type="image">
+            <left>30</left>
+            <top>660</top>
+            <width>800</width>
+            <height>200</height>
+            <visible>!String.IsEmpty(Container(1297).ListItem.Art(clearlogo))</visible>
+            <aspectratio>keep</aspectratio>
+            <fadetime>300</fadetime>
+            <texture background="false">$INFO[Container(1297).ListItem.Art(clearlogo)]</texture>
+        </control>
+        <control type="image">
+            <left>30</left>
+            <top>660</top>
+            <width>800</width>
+            <height>200</height>
+            <visible>String.IsEmpty(Container(1297).ListItem.Art(clearlogo)) + !String.IsEmpty(Container(1297).ListItem.Art(tvshow.clearlogo))</visible>
+            <aspectratio>keep</aspectratio>
+            <fadetime>300</fadetime>
+            <texture background="false">$INFO[Container(1297).ListItem.Art(tvshow.clearlogo)]</texture>
+        </control>
+        <control type="label">
+            <left>30</left>
+            <top>670</top>
+            <width>1760</width>
+            <height>200</height>
+            <visible>String.IsEmpty(Container(1297).ListItem.Art(clearlogo)) + String.IsEmpty(Container(1297).ListItem.Art(tvshow.clearlogo))</visible>
+            <font>Mirage_Title</font>
+            <textcolor>FFFFFFFF</textcolor>
+            <shadowcolor>FF000000</shadowcolor>
+            <label>$INFO[Container(1297).ListItem.Title]</label>
+        </control>
+        <!-- Semi-transparent local shadow panel behind the plot for readability. -->
+        <control type="image">
+            <left>0</left>
+            <top>865</top>
+            <width>1450</width>
+            <height>300</height>
+            <aspectratio>stretch</aspectratio>
+            <fadetime>300</fadetime>
+            <texture background="false">special://home/addons/screensaver.arctic.mirage/resources/media/plot-shadow.png</texture>
+        </control>
+
+        <control type="textbox">
+            <left>30</left>
+            <top>875</top>
+            <width>1350</width>
+            <height>420</height>
+            <font>Mirage_Body</font>
+            <textcolor>DDFFFFFF</textcolor>
+            <shadowcolor>FF000000</shadowcolor>
+			<scrolltime>200</scrolltime>
+			<autoscroll delay="6000" time="1800" repeat="10000">true</autoscroll>
+            <label>$INFO[Container(1297).ListItem.Plot]</label>
+        </control>
+
+        <!-- DOWN shortcut hint; this label cannot be clicked or focused. -->
+        <control type="label" id="1299">
+            <left>1460</left>
+            <top>1010</top>
+            <width>460</width>
+            <height>90</height>
+            <visible>String.IsEqual(Window.Property(screensaver.arctic.mirage.info_enabled),true) + !String.IsEmpty(Container(1297).ListItem.FileNameAndPath)</visible>
+            <label>Press DOWN For Info</label>
+            <font>Mirage_Small</font>
+            <textcolor>99FFFFFF</textcolor>
+            <focusedcolor>FFFFFFFF</focusedcolor>
+			<shadowcolor>FF000000</shadowcolor>
+            <disabledcolor>FFFFFFFF</disabledcolor>
+            <align>center</align>
+        </control>
+    </controls>
+</window>

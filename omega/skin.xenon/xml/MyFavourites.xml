@@ -3,8 +3,11 @@
 <window>
 	<defaultcontrol>450</defaultcontrol>
 	<menucontrol>9000</menucontrol>
+    <onload condition="Control.IsVisible(451)">SetFocus(451)</onload>
+    <onload condition="Control.IsVisible(452)">SetFocus(452)</onload>
+    <onunload>ClearProperty(SideBladeOpen)</onunload>
 	<onload condition="!Skin.HasSetting(FirstTimeRun)">ActivateWindow(1112)</onload>
-	<views>450</views>
+	<views>450,451,452</views>
 	<controls>
 		<include>BehindDialogDarkBackgroundDarkest</include>
 		<control type="group">
@@ -34,10 +37,12 @@
 				<width>375</width>
 				<height>975</height>
 				<onleft>9000</onleft>
-				<onright>450</onright>
+				<onright>ClearProperty(SideBladeOpen)</onright>
+                <onright>SetFocus($VAR[ActiveListId])</onright>
 				<onup>9000</onup>
 				<ondown>9000</ondown>
-				<onback>450</onback>
+				<onback>ClearProperty(SideBladeOpen)</onback>
+                <onback>SetFocus($VAR[ActiveListId])</onback>
 				<itemgap>0</itemgap>				
 				<control type="label" id="200">
 					<width>345</width>
@@ -48,7 +53,13 @@
 					<align>center</align>
 					<aligny>center</aligny>
 				</control>
-				<control type="button" id="3">
+				<control type="button" id="2450">
+                    <description>Favourites view selector</description>
+                    <include>ButtonCommonValues</include>
+                    <label>Viewtype: $INFO[Container.Viewmode]</label>
+                    <onclick>RunScript(script.skinvariables,action=buildviews,contentid=favourites,pluginname=library)</onclick>
+                </control>
+                <control type="button" id="3">
 					<description>Sort by button</description>
 					<include>ButtonCommonValues</include>
 					<label>103</label>

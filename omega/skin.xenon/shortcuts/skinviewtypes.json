@@ -7,7 +7,9 @@
         "51":  "FullWidthList",
         "52":   "20021",
         "56":   "31479",
-        "450":  "My Favorites 21",		
+        "450":  "Favourites - Tiles",
+        "451":  "Favourites - List",
+        "452":  "Favourites - Icons",		
         "500":  "ThumbnailView",
         "501":  "PosterWrapView",
         "503":  "MediaInfo2",
@@ -35,6 +37,12 @@
         "5060":  "PVR"		
     },
     "rules": {
+        "favourites": {
+            "rule": "Window.IsVisible(MyFavourites.xml)",
+            "viewtypes": ["450", "451", "452"],
+            "library": "450",
+            "plugins": "450"
+        },
         "images": {
             "rule": "Container.Content(images)",
             "viewtypes": ["50", "500"],

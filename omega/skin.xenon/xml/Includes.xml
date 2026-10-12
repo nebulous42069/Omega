@@ -4,6 +4,7 @@
     <include file="Defaults.xml" />
     <include file="IncludesDialogSelect.xml" />
     <include file="IncludesVariables.xml" />
+    <include file="ViewsFavourites.xml" />
 	<include file="Includes_VideoLyrics.xml" />    
 	<include file="script-skinviewtypes-includes.xml" />
 	<include file="IncludesMainMenu.xml" />
@@ -666,23 +667,9 @@
 		</control>
 	</include>
 	<include name="MyFavoritesLayout">
-		<!-- Kodi 20+ MyFavourites.xml aka FavouritesBrowser -->
-		<control type="panel" id="450">
-			<left>39</left>
-			<top>138</top>
-			<width>1368</width>
-			<height>942</height>
-			<onleft>9000</onleft>
-			<onup>450</onup>
-			<onright>4501</onright>
-			<ondown>450</ondown>
-			<pagecontrol>4501</pagecontrol>
-			<include>StandardScrollTime</include>
-			<include>favoritesLayout1</include>
-		</control>
-		<include>favoritesLayoutScrollBar</include>
-	</include>
-	<include name="SideBladeLeftFadeInAni">
+        <include>XenonFavouritesViews</include>
+    </include>
+    <include name="SideBladeLeftFadeInAni">
 		<animation effect="fade" start="0" end="100" time="500" condition="[ControlGroup(9000).HasFocus | Control.HasFocus(8999)] + ![Window.IsActive(PVRGuideInfo) | Window.IsActive(PVRRadioRDSInfo)]" reversible="true">Conditional</animation>
 	</include>
 	<include name="StandardScrollTime">
@@ -996,7 +983,7 @@
                 <description>Trailer Button</description>
                 <width>68</width>
                 <height>68</height>
-                <onclick>RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.IMDBNumber]&amp;tmdb=$INFO[ListItem.Property(tmdb_id)]&amp;tmdbshow=$INFO[ListItem.Property(tmdbshow_id)]&amp;dbtype=$INFO[ListItem.DBType]&amp;mediatype=$INFO[ListItem.MediaType]&amp;title=$INFO[ListItem.Title]&amp;tvshowtitle=$INFO[ListItem.TVShowTitle]&amp;year=$INFO[ListItem.Year])</onclick>
+                <onclick>RunScript(special://skin/resources/scripts/trailer_bridge.py,?imdb=$INFO[ListItem.IMDBNumber]&amp;tmdb=$INFO[ListItem.Property(tmdb_id)]&amp;tmdbshow=$INFO[ListItem.Property(tmdbshow_id)]&amp;dbtype=$INFO[ListItem.DBType]&amp;mediatype=$INFO[ListItem.MediaType]&amp;title=$INFO[ListItem.Title]&amp;tvshowtitle=$INFO[ListItem.TVShowTitle]&amp;year=$INFO[ListItem.Year])</onclick>
                 <textureradioonfocus>FloorButtons/FloorTrailer.png</textureradioonfocus>
                 <textureradioonnofocus>FloorButtons/FloorTrailer.png</textureradioonnofocus>
                 <textureradioofffocus>FloorButtons/FloorTrailer.png</textureradioofffocus>
@@ -3395,7 +3382,7 @@
             <width>675</width>
             <height>570</height>
             <onup>450</onup>
-            <onleft>Dialog.Close(Favourites)</onleft>
+            <onleft>ActivateWindow(Home)</onleft>
             <onright>450</onright>
             <ondown>450</ondown>
             <pagecontrol></pagecontrol>

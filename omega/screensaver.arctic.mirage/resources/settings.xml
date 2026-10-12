@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+    <category label="$ADDON[screensaver.arctic.mirage 32000]">
+        <setting id="path" type="text" label="$ADDON[screensaver.arctic.mirage 32003]" default="" />
+        <setting type="action" label="$ADDON[screensaver.arctic.mirage 32001]" option="close" action="RunScript(screensaver.arctic.mirage, mode=choose)" />
+        <setting id="name" type="text" label="$ADDON[screensaver.arctic.mirage 32004]" default="" />
+        <setting id="open_info_on_wake" type="bool" label="$ADDON[screensaver.arctic.mirage 32005]" default="true" />
+        <setting id="restore_paused_video_osd" type="bool" label="$ADDON[screensaver.arctic.mirage 32008]" default="true" />
+        <setting type="action" label="$ADDON[screensaver.arctic.mirage 32002]" option="close" action="RunScript(screensaver.arctic.mirage, mode=label)" />
+        <setting type="action" label="$ADDON[screensaver.arctic.mirage 32006]" option="close" action="RunScript(screensaver.arctic.mirage, mode=installfonts)" />
+        <setting type="action" label="$ADDON[screensaver.arctic.mirage 32007]" option="close" action="RunScript(screensaver.arctic.mirage, mode=restorefonts)" />
+    </category>
+</settings>

@@ -12,6 +12,9 @@
         <value>videos</value>
     </variable>
 	<variable name="ActiveListId">
+  <value condition="Control.IsVisible(450) + Control.IsEnabled(450)">450</value>
+  <value condition="Control.IsVisible(451) + Control.IsEnabled(451)">451</value>
+  <value condition="Control.IsVisible(452) + Control.IsEnabled(452)">452</value>
   <value condition="Control.IsVisible(50) + Control.IsEnabled(50)">50</value>
   <value condition="Control.IsVisible(51) + Control.IsEnabled(51)">51</value>
   <value condition="Control.IsVisible(500) + Control.IsEnabled(500)">500</value>
@@ -3834,6 +3837,11 @@
         <value condition="!String.IsEmpty(Skin.String(WeatherFanart.ext))">$INFO[Skin.String(WeatherFanart.ext)]</value>
         <value>.jpg</value>
     </variable>
+	
+	<variable name="DirectoryItemLabel">
+		<value condition="ListItem.IsParentFolder">←</value>
+		<value>$INFO[ListItem.Label]</value>
+	</variable>
 	
 	<expression name="IsVideoPlaylist">[Container(9000).HasFocus(1) + Skin.String(HomeItem.1.PlaylistType,video)] | 
 	                                   [Container(9000).HasFocus(2) + Skin.String(HomeItem.2.PlaylistType,video)] | 

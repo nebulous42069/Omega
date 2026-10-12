@@ -148,7 +148,7 @@
                 <scroll>true</scroll>
                 <align>center</align>
                 <aligny>center</aligny>
-                <label>$INFO[ListItem.Label]</label>
+                <label>$VAR[DirectoryItemLabel]</label>
                 <visible>Skin.HasSetting(DisableLogoArt) | String.IsEmpty(ListItem.Art(clearlogo)) | Skin.HasSetting(View515Hidelogo)</visible>
             </control>
             <control type="label">
@@ -209,7 +209,7 @@
                 <scroll>true</scroll>
                 <align>center</align>
                 <aligny>center</aligny>
-                <label>$INFO[ListItem.Label]</label>
+                <label>$VAR[DirectoryItemLabel]</label>
             </control>
             <control type="label">
                 <left>0</left>
@@ -270,7 +270,7 @@
                 <scroll>true</scroll>
                 <align>center</align>
                 <aligny>center</aligny>
-                <label>$INFO[ListItem.Label]</label>
+                <label>$VAR[DirectoryItemLabel]</label>
                 <visible>Skin.HasSetting(DisableLogoArt) | String.IsEmpty(ListItem.Art(clearlogo)) | Skin.HasSetting(View515Hidelogo)</visible>
             </control>
             <control type="label">
@@ -338,7 +338,7 @@
                 <scroll>true</scroll>
                 <align>center</align>
                 <aligny>center</aligny>
-                <label>$INFO[ListItem.Label]</label>
+                <label>$VAR[DirectoryItemLabel]</label>
                 <animation effect="slide" start="0,0" end="0,38" time="150" condition="!Control.HasFocus(508)">conditional</animation>
             </control>
         </control>
@@ -464,7 +464,7 @@
                 <scroll>true</scroll>
                 <align>center</align>
                 <aligny>center</aligny>
-                <label>$INFO[ListItem.label]</label>
+                <label>$VAR[DirectoryItemLabel]</label>
             </control>
             <control type="group">
                 <left>60</left>
@@ -899,7 +899,7 @@
                         <selectedcolor>selected</selectedcolor>
                         <align>left</align>
                         <aligny>center</aligny>
-				                <!-- BEGIN runtime addition by:rafi    <label>$INFO[ListItem.Label]</label> -->
+				                <!-- BEGIN runtime addition by:rafi    <label>$VAR[DirectoryItemLabel]</label> -->
                         <label>$INFO[ListItem.Label]$INFO[ListItem.Year, (,)]</label>
 				                <!-- END runtime addition -->
                     </control>
@@ -1526,7 +1526,7 @@
                         <selectedcolor>selected</selectedcolor>
                         <align>left</align>
                         <aligny>center</aligny>
-				                <!-- BEGIN runtime addition by:rafi                      <label>$INFO[ListItem.Label]</label> -->
+				                <!-- BEGIN runtime addition by:rafi                      <label>$VAR[DirectoryItemLabel]</label> -->
                         <label>$INFO[ListItem.Label]$INFO[ListItem.Year, (,)]</label>    
          			                <!-- END runtime addition -->
                     </control>
@@ -1626,7 +1626,7 @@
                         <align>left</align>
                         <aligny>center</aligny>
 				                <!-- BEGIN runtime addition by:rafi  -->
-                     <label>$INFO[ListItem.Label]$INFO[ListItem.Year, (,)]</label>                       <label>$INFO[ListItem.Label]</label>
+                     <label>$INFO[ListItem.Label]$INFO[ListItem.Year, (,)]</label>                       <label>$VAR[DirectoryItemLabel]</label>
 				                <!-- END runtime addition  -->
                     </control>
                     <control type="label">
@@ -2112,7 +2112,7 @@
                         <selectedcolor>selected</selectedcolor>
                         <align>left</align>
                         <aligny>center</aligny>
-                        <label>$INFO[ListItem.Label]</label>
+                        <label>$VAR[DirectoryItemLabel]</label>
                     </control>
                     <control type="image">
                         <left>480</left>
@@ -2160,7 +2160,7 @@
                         <selectedcolor>selected</selectedcolor>
                         <align>left</align>
                         <aligny>center</aligny>
-                        <label>$INFO[ListItem.Label]</label>
+                        <label>$VAR[DirectoryItemLabel]</label>
                     </control>
                     <control type="image">
                         <left>480</left>
@@ -2210,7 +2210,7 @@
                         <selectedcolor>selected</selectedcolor>
                         <align>left</align>
                         <aligny>center</aligny>
-                        <label>$INFO[ListItem.label]</label>
+                        <label>$VAR[DirectoryItemLabel]</label>
                         <visible>String.IsEmpty(ListItem.Art(banner))</visible>
                     </control>
                     <control type="image">
@@ -2271,7 +2271,7 @@
                         <selectedcolor>selected</selectedcolor>
                         <align>left</align>
                         <aligny>center</aligny>
-                        <label>$INFO[ListItem.label]</label>
+                        <label>$VAR[DirectoryItemLabel]</label>
                         <visible>String.IsEmpty(ListItem.Art(banner))</visible>
                     </control>
                     <control type="image">
@@ -2357,7 +2357,7 @@
                     <shadowcolor>black</shadowcolor>
                     <align>left</align>
                     <aligny>center</aligny>
-                    <label>$INFO[ListItem.label]</label>
+                    <label>$VAR[DirectoryItemLabel]</label>
                     <visible>Skin.HasSetting(DisableLogoArt) | Skin.HasSetting(View515Hidelogo) | String.IsEmpty(ListItem.Title)</visible>
                 </control>
                 <control type="textbox">
@@ -2488,7 +2488,7 @@
                     <shadowcolor>black</shadowcolor>
                     <align>left</align>
                     <aligny>center</aligny>
-                    <label>$INFO[ListItem.label]</label>
+                    <label>$VAR[DirectoryItemLabel]</label>
                     <visible>Skin.HasSetting(DisableLogoArt) | Skin.HasSetting(View515Hidelogo) | String.IsEmpty(ListItem.Title)</visible>
                 </control>
                 <control type="textbox">
@@ -2553,7 +2553,7 @@
                     <shadowcolor>black</shadowcolor>
                     <align>left</align>
                     <aligny>center</aligny>
-                    <label>$INFO[ListItem.label]</label>
+                    <label>$VAR[DirectoryItemLabel]</label>
                 </control>
                 <control type="textbox">
                     <visible>!ListItem.IsParentFolder</visible>
@@ -2639,7 +2639,7 @@
                     <shadowcolor>black</shadowcolor>
                     <align>left</align>
                     <aligny>center</aligny>
-                    <label>$INFO[ListItem.label]</label>
+                    <label>$VAR[DirectoryItemLabel]</label>
                 </control>
                 <control type="textbox">
                     <description>Description Value for Video</description>

@@ -1,0 +1,18 @@
+Place your font files here before using the settings action:
+
+    Mirage-Regular.ttf
+    Mirage-Bold.ttf
+
+Then in Kodi open:
+
+    Settings > Interface > Screensaver > Settings
+    Install Mirage fonts into current skin
+
+Why this extra step exists:
+Kodi loads Font.xml from the ACTIVE SKIN, not from a Python script add-on's
+resources/skins folder. The installer action copies these font files into the
+active skin's fonts folder and injects the Mirage_* font definitions into the
+active skin's Font.xml.
+
+A backup is created next to the skin's Font.xml:
+    Font.xml.arcticmirage.bak

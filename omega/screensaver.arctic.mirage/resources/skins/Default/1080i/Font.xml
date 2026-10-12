@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fonts>
+    <!--
+        TEMPLATE ONLY.
+
+        Kodi does not reliably load Font.xml from Python script add-ons.
+        The screensaver XML can reference these Mirage_* font names, but Kodi
+        must first know those names from the ACTIVE SKIN's Font.xml.
+
+        Use the add-on settings action:
+            Install Mirage fonts into current skin
+
+        Then adjust sizes in the active skin's backed-up/modified Font.xml.
+        Expected font files in this add-on before running that action:
+            resources/skins/Default/fonts/Mirage-Regular.ttf
+            resources/skins/Default/fonts/Mirage-Bold.ttf
+    -->
+    <fontset id="Default" unicode="true">
+        <font>
+            <name>font13</name>
+            <filename>Mirage-Regular.ttf</filename>
+            <size>30</size>
+        </font>
+        <font>
+            <name>Mirage_Title</name>
+            <filename>Mirage-Bold.ttf</filename>
+            <size>72</size>
+        </font>
+        <font>
+            <name>Mirage_Body</name>
+            <filename>Mirage-Regular.ttf</filename>
+            <size>76</size>
+        </font>
+        <font>
+            <name>Mirage_Small</name>
+            <filename>Mirage-Regular.ttf</filename>
+            <size>72</size>
+        </font>
+        <font>
+            <name>Mirage_Button</name>
+            <filename>Mirage-Bold.ttf</filename>
+            <size>64</size>
+        </font>
+    </fontset>
+</fonts>

@@ -72,7 +72,7 @@
             <visible>!Skin.HasSetting(HideTVRecordingInfo)</visible>
             <include>VisibleFadeEffect</include>
             <include>Window_OpenClose_Animation</include>
-            <animation effect="fade" start="100" end="0" time="150" condition="Window.IsActive(Favourites)">conditional</animation>
+            <animation effect="fade" start="100" end="0" time="150" condition="Window.IsActive(FavouritesBrowser)">conditional</animation>
             <control type="group">
                 <animation effect="slide" start="0,0" end="0,150" time="0" condition="PVR.IsRecording">conditional</animation>
                 <visible>PVR.HasNonRecordingTimer</visible>
@@ -451,7 +451,7 @@
             <animation effect="slide" start="0,0" end="0,-45" time="0" condition="!String.IsEmpty(Skin.String(MenuLAF))">Conditional</animation>
             <animation effect="slide" start="0,0" end="0,240" time="0" condition="Skin.HasSetting(LowerMainMenuBar)">Conditional</animation>
             <animation effect="slide" start="0,0" end="-150,0" time="225" condition="!Player.HasMedia + Skin.HasSetting(EnableHomeStats)">conditional</animation>
-            <animation effect="fade" start="100" end="65" time="150" condition="Window.IsVisible(2123) | Window.IsVisible(2124) | Window.IsVisible(2125) | Window.IsVisible(Favourites)">conditional</animation>
+            <animation effect="fade" start="100" end="65" time="150" condition="Window.IsVisible(2123) | Window.IsVisible(2124) | Window.IsVisible(2125) | Window.IsVisible(FavouritesBrowser)">conditional</animation>
             <animation effect="slide" start="0,0" end="600,0" time="225" condition="!Player.HasMedia + !Skin.HasSetting(EnableHomeStats)">conditional</animation>
             <animation type="WindowOpen" reversible="false">
                 <effect type="zoom" start="80" end="100" center="960,540" easing="out" tween="back" time="225" />

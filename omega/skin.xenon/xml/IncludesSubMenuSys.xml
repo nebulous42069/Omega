@@ -16,6 +16,8 @@
                     <param name="Control">9010</param>
                 </include>
                 <control type="list" id="9010">
+                <!-- Always enter this home row at its first visible item. -->
+                <defaultcontrol always="true">0</defaultcontrol>
                     <include>SubMenuCommonValues</include>
                     <onleft>9010</onleft>
                     <onright>9010</onright>
@@ -32,6 +34,8 @@
                     <param name="Control">9011</param>
                 </include>
                 <control type="list" id="9011">
+                <!-- Always enter this home row at its first visible item. -->
+                <defaultcontrol always="true">0</defaultcontrol>
                     <include>SubMenuCommonValues</include>
                     <onleft>9011</onleft>
                     <onright>9011</onright>
@@ -48,6 +52,8 @@
                     <param name="Control">9012</param>
                 </include>
                 <control type="list" id="9012">
+                <!-- Always enter this home row at its first visible item. -->
+                <defaultcontrol always="true">0</defaultcontrol>
                     <include>SubMenuCommonValues</include>
                     <onleft>9012</onleft>
                     <onright>9012</onright>
@@ -64,6 +70,8 @@
                     <param name="Control">9013</param>
                 </include>
                 <control type="list" id="9013">
+                <!-- Always enter this home row at its first visible item. -->
+                <defaultcontrol always="true">0</defaultcontrol>
                     <include>SubMenuCommonValues</include>
                     <onleft>9013</onleft>
                     <onright>9013</onright>
@@ -80,6 +88,8 @@
                     <param name="Control">9014</param>
                 </include>
                 <control type="list" id="9014">
+                <!-- Always enter this home row at its first visible item. -->
+                <defaultcontrol always="true">0</defaultcontrol>
                     <include>SubMenuCommonValues</include>
                     <onleft>9014</onleft>
                     <onright>9014</onright>
@@ -96,6 +106,8 @@
                     <param name="Control">9015</param>
                 </include>
                 <control type="list" id="9015">
+                <!-- Always enter this home row at its first visible item. -->
+                <defaultcontrol always="true">0</defaultcontrol>
                     <include>SubMenuCommonValues</include>
                     <onleft>9015</onleft>
                     <onright>9015</onright>
@@ -112,6 +124,8 @@
                     <param name="Control">9016</param>
                 </include>
                 <control type="list" id="9016">
+                <!-- Always enter this home row at its first visible item. -->
+                <defaultcontrol always="true">0</defaultcontrol>
                     <include>SubMenuCommonValues</include>
                     <onleft>9016</onleft>
                     <onright>9016</onright>
@@ -128,6 +142,8 @@
                     <param name="Control">9017</param>
                 </include>
                 <control type="list" id="9017">
+                <!-- Always enter this home row at its first visible item. -->
+                <defaultcontrol always="true">0</defaultcontrol>
                     <include>SubMenuCommonValues</include>
                     <onleft>9017</onleft>
                     <onright>9017</onright>
@@ -144,6 +160,8 @@
                     <param name="Control">9019</param>
                 </include>
                 <control type="list" id="9019">
+                <!-- Always enter this home row at its first visible item. -->
+                <defaultcontrol always="true">0</defaultcontrol>
                     <include>SubMenuCommonValues</include>
                     <onleft>9019</onleft>
                     <onright>9019</onright>
@@ -160,6 +178,8 @@
                     <param name="Control">9021</param>
                 </include>
                 <control type="list" id="9021">
+                <!-- Always enter this home row at its first visible item. -->
+                <defaultcontrol always="true">0</defaultcontrol>
                     <include>SubMenuCommonValues</include>
                     <onleft>9021</onleft>
                     <onright>9021</onright>
@@ -176,6 +196,8 @@
                     <param name="Control">9022</param>
                 </include>
                 <control type="list" id="9022">
+                <!-- Always enter this home row at its first visible item. -->
+                <defaultcontrol always="true">0</defaultcontrol>
                     <include>SubMenuCommonValues</include>
                     <onleft>9022</onleft>
                     <onright>9022</onright>
@@ -192,6 +214,8 @@
                     <param name="Control">9023</param>
                 </include>
                 <control type="list" id="9023">
+                <!-- Always enter this home row at its first visible item. -->
+                <defaultcontrol always="true">0</defaultcontrol>
                     <include>SubMenuCommonValues</include>
                     <onleft>9022</onleft>
                     <onright>9022</onright>
@@ -208,6 +232,8 @@
                     <param name="Control">9024</param>
                 </include>
                 <control type="list" id="9024">
+                <!-- Always enter this home row at its first visible item. -->
+                <defaultcontrol always="true">0</defaultcontrol>
                     <include>SubMenuCommonValues</include>
                     <onleft>9022</onleft>
                     <onright>9022</onright>
@@ -224,6 +250,8 @@
                     <param name="Control">9025</param>
                 </include>
                 <control type="list" id="9025">
+                <!-- Always enter this home row at its first visible item. -->
+                <defaultcontrol always="true">0</defaultcontrol>
                     <include>SubMenuCommonValues</include>
                     <onleft>9022</onleft>
                     <onright>9022</onright>
@@ -240,6 +268,8 @@
                     <param name="Control">9026</param>
                 </include>
                 <control type="list" id="9026">
+                <!-- Always enter this home row at its first visible item. -->
+                <defaultcontrol always="true">0</defaultcontrol>
                     <include>SubMenuCommonValues</include>
                     <onleft>9023</onleft>
                     <onright>9023</onright>
@@ -256,6 +286,8 @@
                     <param name="Control">9027</param>
                 </include>
                 <control type="list" id="9027">
+                <!-- Always enter this home row at its first visible item. -->
+                <defaultcontrol always="true">0</defaultcontrol>
                     <include>SubMenuCommonValues</include>
                     <onleft>9024</onleft>
                     <onright>9024</onright>

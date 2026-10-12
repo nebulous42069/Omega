@@ -57,7 +57,7 @@
                         <selectedcolor>selected</selectedcolor>
                         <align>center</align>
                         <aligny>center</aligny>
-                        <label>$INFO[ListItem.Label]</label>
+                        <label>$VAR[DirectoryItemLabel]</label>
                     </control>
 					<control type="multiimage">
                         <left>690</left>
@@ -136,7 +136,7 @@
                         <selectedcolor>selected</selectedcolor>
                         <align>center</align>
                         <aligny>center</aligny>
-                        <label>$INFO[ListItem.Label]</label>
+                        <label>$VAR[DirectoryItemLabel]</label>
                     </control>
 					<control type="multiimage">
                         <left>690</left>
@@ -194,7 +194,7 @@
                         <selectedcolor>selected</selectedcolor>
                         <align>center</align>
                         <aligny>center</aligny>
-                        <label>$INFO[ListItem.Label]</label>
+                        <label>$VAR[DirectoryItemLabel]</label>
                     </control>
 					<control type="multiimage">
                         <left>165</left>
@@ -260,7 +260,7 @@
                         <selectedcolor>selected</selectedcolor>
                         <align>center</align>
                         <aligny>center</aligny>
-                        <label>$INFO[ListItem.Label]</label>
+                        <label>$VAR[DirectoryItemLabel]</label>
                     </control>
 					<control type="multiimage">
                         <left>165</left>
@@ -926,7 +926,7 @@
                         <selectedcolor>selected</selectedcolor>
                         <align>center</align>
                         <aligny>center</aligny>
-                        <label>$INFO[ListItem.Label]</label>
+                        <label>$VAR[DirectoryItemLabel]</label>
                     </control>
 					<control type="multiimage">
                         <left>165</left>
@@ -992,7 +992,7 @@
                         <selectedcolor>selected</selectedcolor>
                         <align>center</align>
                         <aligny>center</aligny>
-                        <label>$INFO[ListItem.Label]</label>
+                        <label>$VAR[DirectoryItemLabel]</label>
                     </control>
 					<control type="multiimage">
                         <left>165</left>
