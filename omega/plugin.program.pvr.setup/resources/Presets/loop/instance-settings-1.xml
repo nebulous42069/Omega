@@ -35,7 +35,7 @@
     <setting id="radioChannelGroupsOnly" default="true">false</setting>
     <setting id="epgPathType" default="true">1</setting>
     <setting id="epgPath" default="true" />
-    <setting id="epgUrl">https://s.id/d9sEPG</setting>
+    <setting id="epgUrl">https://cutt.ly/Le1JrbXW</setting>
     <setting id="epgCache" default="true">true</setting>
     <setting id="epgTimeShift" default="true">0</setting>
     <setting id="epgTSOverride" default="true">false</setting>
