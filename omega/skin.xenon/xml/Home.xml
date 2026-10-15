@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
     <defaultcontrol>9000</defaultcontrol>
-    <onload>RunScript(special://skin/resources/scripts/first_run.py)</onload>
-    <onload>RunScript(special://skin/resources/scripts/xenon_cast_service.py)</onload>
-	<onload>RunScript(special://skin/resources/scripts/flavors.py,checkupdates)</onload>
+    <!-- Schedule optional Python work after initial widget loading, once per session. -->
+    <onload condition="Skin.HasSetting(Xenon.FlavorFirstRun) + String.IsEmpty(Window(Home).Property(Xenon.FirstRunScheduled))">AlarmClock(XenonDeferredFirstRun,RunScript(special://skin/resources/scripts/first_run.py),00:30,silent)</onload>
+    <onload condition="Skin.HasSetting(Xenon.FlavorFirstRun) + String.IsEmpty(Window(Home).Property(Xenon.FirstRunScheduled))">SetProperty(Xenon.FirstRunScheduled,true,Home)</onload>
+    <onload condition="String.IsEmpty(Window(Home).Property(Xenon.FlavorCheckScheduled))">AlarmClock(XenonDeferredFlavorCheck,RunScript(special://skin/resources/scripts/flavors.py,checkupdates),00:45,silent)</onload>
+    <onload condition="String.IsEmpty(Window(Home).Property(Xenon.FlavorCheckScheduled))">SetProperty(Xenon.FlavorCheckScheduled,true,Home)</onload>
+
     
 	<include condition="!Skin.HasSetting(InitialSetUpRun)">DefaultInitialSetup</include>
     

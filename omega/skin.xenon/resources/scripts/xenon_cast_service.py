@@ -20,7 +20,7 @@ SERVICE_LOCK = xbmcvfs.translatePath("special://profile/addon_data/skin.xenon/ca
 HOME_WINDOW_ID = 10000
 
 # Widget container IDs used by your skin
-WIDGET_IDS = list(range(8000, 8046))  # 8000–8045, adjust if needed
+WIDGET_IDS = [8000, 8001, 8002, 8003, 8004, 8005, 8006, 8007, 8008, 8009, 8010, 8011, 8012, 8013, 8014, 8015, 8016, 8017, 8018, 8019, 8020, 8021, 8022, 8023, 8024, 8025, 8026, 8027, 8028, 8029, 8030, 8031, 8032, 8033, 8034, 8035, 8036, 8037, 8038, 8039, 8040, 8041, 8042, 8043, 8044, 8045, 80001, 80011, 80021, 80031, 80041, 80051, 80061, 80071, 80081, 80091, 80101, 80111, 80121, 80131, 80141, 80151, 80161, 80171, 80181, 80191, 80201, 80211, 80221, 80231, 80241, 80251, 80261, 80271, 80281, 80291, 80301, 80311, 80321, 80322, 80323, 80324, 80325, 80326, 80327, 80328, 80329, 80331, 80332, 80333, 80334, 80335, 80336, 80337, 80338, 80339, 80341, 80342, 80343, 80344, 80345, 80346, 80347, 80348, 80349, 80351, 80352, 80353, 80354, 80355, 80356, 80357, 80358, 80359, 80361, 80362, 80371, 80372, 80381, 80391, 80401, 80411, 80421, 80431, 80441, 80451, 803211, 803221, 803231, 803241, 803251, 803261, 803271, 803281, 803291, 803311, 803321, 803331, 803341, 803351, 803361, 803371, 803381, 803391, 803411, 803421, 803431, 803441, 803451, 803461, 803471, 803481, 803491, 803511, 803521, 803531, 803541, 803551, 803561, 803571, 803581, 803591, 803621, 803721]  # Poster, thumbnail, and playlist widget containers.
 
 TMDB_API_BASE = "https://api.themoviedb.org/3"
 TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p"
@@ -450,16 +450,23 @@ def skin_active():
 
 
 def acquire_service_lock():
+    """Distinguish Kodi processes so a recent lock from the last boot cannot block startup."""
     os.makedirs(os.path.dirname(SERVICE_LOCK), exist_ok=True)
     token = uuid.uuid4().hex
     for _ in range(2):
         try:
             with open(SERVICE_LOCK, 'x') as stream:
-                stream.write(token)
+                json.dump({'pid': os.getpid(), 'token': token}, stream)
             return token
         except FileExistsError:
             try:
-                if time.time() - os.path.getmtime(SERVICE_LOCK) < 60:
+                with open(SERVICE_LOCK) as stream:
+                    try:
+                        owner = json.load(stream)
+                    except ValueError:
+                        owner = {}
+                if (isinstance(owner, dict) and owner.get('pid') == os.getpid()
+                        and time.time() - os.path.getmtime(SERVICE_LOCK) < 60):
                     return None
                 os.unlink(SERVICE_LOCK)
             except FileNotFoundError:
@@ -470,8 +477,12 @@ def acquire_service_lock():
 def release_service_lock(token):
     try:
         with open(SERVICE_LOCK) as stream:
-            if stream.read() != token:
+            try:
+                owner = json.load(stream)
+            except ValueError:
                 return
+        if not isinstance(owner, dict) or owner.get('token') != token:
+            return
         os.unlink(SERVICE_LOCK)
     except FileNotFoundError:
         pass

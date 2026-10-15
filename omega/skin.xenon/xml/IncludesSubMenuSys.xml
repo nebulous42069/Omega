@@ -394,50 +394,52 @@
     </include>
     <include name="HomeSubMenuVideos">
         <item>
-            <label>$VAR[SubMenuVideosOne]</label>
+            <label>$INFO[Skin.String(SubVideos.1.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubVideos.1.Path))">ActivateWindow(Videos,MovieTitles,return)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubVideos.1.Path))">$INFO[Skin.String(SubVideos.1.Path)]</onclick>
-            <visible>Library.HasContent(Movies) | !String.IsEmpty(Skin.String(SubVideos.1.Path))</visible>
             <visible>!String.IsEqual(Skin.String(SubVideos.1.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubVideos.1.Path))</visible>
         </item>
         <item>
-            <label>$VAR[SubMenuVideosTwo]</label>
+            <label>$INFO[Skin.String(SubVideos.2.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubVideos.2.Path))">ActivateWindow(Videos,TvShowTitles,return)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubVideos.2.Path))">$INFO[Skin.String(SubVideos.2.Path)]</onclick>
-            <visible>Library.HasContent(TVShows)  | !String.IsEmpty(Skin.String(SubVideos.2.Path))</visible>
             <visible>!String.IsEqual(Skin.String(SubVideos.2.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubVideos.2.Path))</visible>
         </item>
         <item>
-            <label>$VAR[SubMenuVideosThree]</label>
+            <label>$INFO[Skin.String(SubVideos.3.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubVideos.3.Path))">ActivateWindow(Videos,MusicVideoTitles,return)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubVideos.3.Path))">$INFO[Skin.String(SubVideos.3.Path)]</onclick>
-            <visible>Library.HasContent(MusicVideos) | !String.IsEmpty(Skin.String(SubVideos.3.Path))</visible>
             <visible>!String.IsEqual(Skin.String(SubVideos.3.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubVideos.3.Path))</visible>
         </item>
         <item>
-            <label>$VAR[SubMenuVideosFour]</label>
+            <label>$INFO[Skin.String(SubVideos.4.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubVideos.4.Path))">ActivateWindow(Videos,Files,return)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubVideos.4.Path))">$INFO[Skin.String(SubVideos.4.Path)]</onclick>
             <visible>!String.IsEqual(Skin.String(SubVideos.4.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubVideos.4.Path))</visible>
         </item>
         <item>
-            <label>$VAR[SubMenuVideosFive]</label>
+            <label>$INFO[Skin.String(SubVideos.5.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubVideos.5.Path))">ActivateWindow(Videos,Root)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubVideos.5.Path))">$INFO[Skin.String(SubVideos.5.Path)]</onclick>
-            <visible>Library.HasContent(Video) | !String.IsEmpty(Skin.String(SubVideos.5.Path))</visible>
             <visible>!String.IsEqual(Skin.String(SubVideos.5.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubVideos.5.Path))</visible>
         </item>
         <item>
-            <label>$VAR[SubMenuVideosSix]</label>
+            <label>$INFO[Skin.String(SubVideos.6.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubVideos.6.Path))">ActivateWindow(Videos,Addons,return)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubVideos.6.Path))">$INFO[Skin.String(SubVideos.6.Path)]</onclick>
             <visible>!String.IsEqual(Skin.String(SubVideos.6.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubVideos.6.Path))</visible>
         </item>
         <item>
             <label>$INFO[Skin.String(SubVideos.7.Label)]</label>
@@ -486,47 +488,52 @@
     </include>
     <include name="HomeSubMenuMovies">
         <item>
-            <label>$VAR[SubMenuMoviesOne]</label>
+            <label>$INFO[Skin.String(SubMovies.1.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubMovies.1.Path))">ActivateWindow(Videos,RecentlyAddedMovies,return)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubMovies.1.Path))">$INFO[Skin.String(SubMovies.1.Path)]</onclick>
             <visible>!String.IsEqual(Skin.String(SubMovies.1.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubMovies.1.Path))</visible>
         </item>
         <item>
-            <label>$VAR[SubMenuMoviesTwo]</label>
+            <label>$INFO[Skin.String(SubMovies.2.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubMovies.2.Path))">ActivateWindow(Videos,MovieSets,return)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubMovies.2.Path))">$INFO[Skin.String(SubMovies.2.Path)]</onclick>
-            <visible>Library.HasContent(MovieSets) | !String.IsEmpty(Skin.String(SubMovies.2.Path))</visible>
             <visible>!String.IsEqual(Skin.String(SubMovies.2.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubMovies.2.Path))</visible>
         </item>
         <item>
-            <label>$VAR[SubMenuMoviesThree]</label>
+            <label>$INFO[Skin.String(SubMovies.3.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubMovies.3.Path))">ActivateWindow(Videos,MovieTitles,return)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubMovies.3.Path))">$INFO[Skin.String(SubMovies.3.Path)]</onclick>
             <visible>!String.IsEqual(Skin.String(SubMovies.3.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubMovies.3.Path))</visible>
         </item>
         <item>
-            <label>$VAR[SubMenuMoviesFour]</label>
+            <label>$INFO[Skin.String(SubMovies.4.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubMovies.4.Path))">ActivateWindow(Videos,MovieGenres,return)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubMovies.4.Path))">$INFO[Skin.String(SubMovies.4.Path)]</onclick>
             <visible>!String.IsEqual(Skin.String(SubMovies.4.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubMovies.4.Path))</visible>
         </item>
         <item>
-            <label>$VAR[SubMenuMoviesFive]</label>
+            <label>$INFO[Skin.String(SubMovies.5.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubMovies.5.Path))">ActivateWindow(Videos,MovieYears,return)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubMovies.5.Path))">$INFO[Skin.String(SubMovies.5.Path)]</onclick>
             <visible>!String.IsEqual(Skin.String(SubMovies.5.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubMovies.5.Path))</visible>
         </item>
         <item>
-            <label>$VAR[SubMenuMoviesSix]</label>
+            <label>$INFO[Skin.String(SubMovies.6.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubMovies.6.Path))">ActivateWindow(Videos,MovieActors,return)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubMovies.6.Path))">$INFO[Skin.String(SubMovies.6.Path)]</onclick>
             <visible>!String.IsEqual(Skin.String(SubMovies.6.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubMovies.6.Path))</visible>
         </item>
         <item>
             <label>$INFO[Skin.String(SubMovies.7.Label)]</label>
@@ -575,39 +582,44 @@
     </include>
     <include name="HomeSubMenuTVShows">
         <item>
-            <label>$VAR[SubMenuTVShowsOne]</label>
+            <label>$INFO[Skin.String(SubTVShows.1.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubTVShows.1.Path))">ActivateWindow(Videos,RecentlyAddedEpisodes,return)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubTVShows.1.Path))">$INFO[Skin.String(SubTVShows.1.Path)]</onclick>
             <visible>!String.IsEqual(Skin.String(SubTVShows.1.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubTVShows.1.Path))</visible>
         </item>
         <item>
-            <label>$VAR[SubMenuTVShowsTwo]</label>
+            <label>$INFO[Skin.String(SubTVShows.2.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubTVShows.2.Path))">ActivateWindow(Videos,TVShowTitles,return)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubTVShows.2.Path))">$INFO[Skin.String(SubTVShows.2.Path)]</onclick>
             <visible>!String.IsEqual(Skin.String(SubTVShows.2.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubTVShows.2.Path))</visible>
         </item>
         <item>
-            <label>$VAR[SubMenuTVShowsThree]</label>
+            <label>$INFO[Skin.String(SubTVShows.3.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubTVShows.3.Path))">ActivateWindow(Videos,TVShowGenres,return)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubTVShows.3.Path))">$INFO[Skin.String(SubTVShows.3.Path)]</onclick>
             <visible>!String.IsEqual(Skin.String(SubTVShows.3.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubTVShows.3.Path))</visible>
         </item>
         <item>
-            <label>$VAR[SubMenuTVShowsFour]</label>
+            <label>$INFO[Skin.String(SubTVShows.4.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubTVShows.4.Path))">ActivateWindow(Videos,TVShowYears,return)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubTVShows.4.Path))">$INFO[Skin.String(SubTVShows.4.Path)]</onclick>
             <visible>!String.IsEqual(Skin.String(SubTVShows.4.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubTVShows.4.Path))</visible>
         </item>
         <item>
-            <label>$VAR[SubMenuTVShowsFive]</label>
+            <label>$INFO[Skin.String(SubTVShows.5.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubTVShows.5.Path))">ActivateWindow(Videos,TVShowActors,return)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubTVShows.5.Path))">$INFO[Skin.String(SubTVShows.5.Path)]</onclick>
             <visible>!String.IsEqual(Skin.String(SubTVShows.5.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubTVShows.5.Path))</visible>
         </item>
         <item>
             <label>$INFO[Skin.String(SubTVShows.6.Label)]</label>
@@ -667,50 +679,52 @@
     </include>
     <include name="HomeSubMenuMusic">
         <item>
-            <label>$VAR[SubMenuMusicOne]</label>
+            <label>$INFO[Skin.String(SubMusic.1.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubMusic.1.Path))">ActivateWindow(Music,Artists,return)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubMusic.1.Path))">$INFO[Skin.String(SubMusic.1.Path)]</onclick>
-            <visible>Library.HasContent(Music) | !String.IsEmpty(Skin.String(SubMusic.1.Path))</visible>
             <visible>!String.IsEqual(Skin.String(SubMusic.1.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubMusic.1.Path))</visible>
         </item>
         <item>
-            <label>$VAR[SubMenuMusicTwo]</label>
+            <label>$INFO[Skin.String(SubMusic.2.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubMusic.2.Path))">ActivateWindow(Music,Albums,return)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubMusic.2.Path))">$INFO[Skin.String(SubMusic.2.Path)]</onclick>
-            <visible>Library.HasContent(Music) | !String.IsEmpty(Skin.String(SubMusic.2.Path))</visible>
             <visible>!String.IsEqual(Skin.String(SubMusic.2.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubMusic.2.Path))</visible>
         </item>
         <item>
-            <label>$VAR[SubMenuMusicThree]</label>
+            <label>$INFO[Skin.String(SubMusic.3.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubMusic.3.Path))">ActivateWindow(Music,Songs,return)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubMusic.3.Path))">$INFO[Skin.String(SubMusic.3.Path)]</onclick>
-            <visible>Library.HasContent(Music) | !String.IsEmpty(Skin.String(SubMusic.3.Path))</visible>
             <visible>!String.IsEqual(Skin.String(SubMusic.3.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubMusic.3.Path))</visible>
         </item>
         <item>
-            <label>$VAR[SubMenuMusicFour]</label>
+            <label>$INFO[Skin.String(SubMusic.4.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubMusic.4.Path))">ActivateWindow(Music,Files,return)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubMusic.4.Path))">$INFO[Skin.String(SubMusic.4.Path)]</onclick>
             <visible>!String.IsEqual(Skin.String(SubMusic.4.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubMusic.4.Path))</visible>
         </item>
         <item>
-            <label>$VAR[SubMenuMusicFive]</label>
+            <label>$INFO[Skin.String(SubMusic.5.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubMusic.5.Path))">ActivateWindow(Music,root)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubMusic.5.Path))">$INFO[Skin.String(SubMusic.5.Path)]</onclick>
-            <visible>Library.HasContent(Music) | !String.IsEmpty(Skin.String(SubMusic.5.Path))</visible>
             <visible>!String.IsEqual(Skin.String(SubMusic.5.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubMusic.5.Path))</visible>
         </item>
         <item>
-            <label>$VAR[SubMenuMusicSix]</label>
+            <label>$INFO[Skin.String(SubMusic.6.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubMusic.6.Path))">ActivateWindow(Music,Addons,return)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubMusic.6.Path))">$INFO[Skin.String(SubMusic.6.Path)]</onclick>
             <visible>!String.IsEqual(Skin.String(SubMusic.6.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubMusic.6.Path))</visible>
         </item>
         <item>
             <label>$INFO[Skin.String(SubMusic.7.Label)]</label>
@@ -759,57 +773,64 @@
     </include>
     <include name="HomeSubMenuSystem">
         <item>
-            <label>$VAR[SubMenuSystemOne]</label>
+            <label>$INFO[Skin.String(SubSettings.1.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubSettings.1.Path)) + System.HasAddon(os.openelec.settings)">RunAddon(os.openelec.settings)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubSettings.1.Path)) + System.HasAddon(service.openelec.settings)">RunAddon(service.openelec.settings)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubSettings.1.Path)) + System.HasAddon(script.raspbmc.settings)">RunAddon(script.raspbmc.settings)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubSettings.1.Path)) + !System.HasAddon(os.openelec.settings) + !System.HasAddon(service.openelec.settings) + !System.HasAddon(script.raspbmc.settings)">ActivateWindow(Settings)</onclick>
+            
+            
+            
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubSettings.1.Path))">$INFO[Skin.String(SubSettings.1.Path)]</onclick>
             <visible>!String.IsEqual(Skin.String(SubSettings.1.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubSettings.1.Path))</visible>
         </item>
         <item>
-            <label>$VAR[SubMenuSystemTwo]</label>
+            <label>$INFO[Skin.String(SubSettings.2.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubSettings.2.Path))">ActivateWindow(FileManager)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubSettings.2.Path))">$INFO[Skin.String(SubSettings.2.Path)]</onclick>
             <visible>!String.IsEqual(Skin.String(SubSettings.2.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubSettings.2.Path))</visible>
         </item>
         <item>
-            <label>$VAR[SubMenuSystemThree]</label>
+            <label>$INFO[Skin.String(SubSettings.3.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubSettings.3.Path))">ActivateWindow(Profiles)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubSettings.3.Path))">$INFO[Skin.String(SubSettings.3.Path)]</onclick>
             <visible>!String.IsEqual(Skin.String(SubSettings.3.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubSettings.3.Path))</visible>
         </item>
         <item>
-            <label>$VAR[SubMenuSystemFour]</label>
+            <label>$INFO[Skin.String(SubSettings.4.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubSettings.4.Path))">ActivateWindow(SystemInfo)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubSettings.4.Path))">$INFO[Skin.String(SubSettings.4.Path)]</onclick>
             <visible>!String.IsEqual(Skin.String(SubSettings.4.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubSettings.4.Path))</visible>
         </item>
         <item>
-            <label>$VAR[SubMenuSystemFive]</label>
+            <label>$INFO[Skin.String(SubSettings.5.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubSettings.5.Path))">ActivateWindow(SkinSettings)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubSettings.5.Path))">$INFO[Skin.String(SubSettings.5.Path)]</onclick>
             <visible>!String.IsEqual(Skin.String(SubSettings.5.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubSettings.5.Path))</visible>
         </item>
         <item>
-            <label>$VAR[SubMenuSystemSix]</label>
+            <label>$INFO[Skin.String(SubSettings.6.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubSettings.6.Path))">ActivateWindow(AddonBrowser)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubSettings.6.Path))">$INFO[Skin.String(SubSettings.6.Path)]</onclick>
             <visible>!String.IsEqual(Skin.String(SubSettings.6.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubSettings.6.Path))</visible>
         </item>
         <item>
-            <label>$VAR[SubMenuSystemSeven]</label>
+            <label>$INFO[Skin.String(SubSettings.7.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubSettings.7.Path))">ActivateWindow(EventLog,events://,return)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubSettings.7.Path))">$INFO[Skin.String(SubSettings.7.Path)]</onclick>
             <visible>[!String.IsEmpty(Skin.String(SubSettings.7.Path))] | [String.IsEmpty(Skin.String(SubSettings.7.Path)) + system.getbool(eventlog.enabled)]</visible>
             <visible>!String.IsEqual(Skin.String(SubSettings.7.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubSettings.7.Path))</visible>
         </item>
         <item>
             <label>$INFO[Skin.String(SubSettings.8.Label)]</label>
@@ -855,11 +876,12 @@
     </include>
     <include name="HomeSubMenuPictures">
         <item>
-            <label>$VAR[SubMenuPicturesOne]</label>
+            <label>$INFO[Skin.String(SubPictures.1.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubPictures.1.Path))">ActivateWindow(Pictures,Addons,return)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubPictures.1.Path))">$INFO[Skin.String(SubPictures.1.Path)]</onclick>
             <visible>!String.IsEqual(Skin.String(SubPictures.1.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubPictures.1.Path))</visible>
         </item>
         <item>
             <label>$INFO[Skin.String(SubPictures.2.Label)]</label>
@@ -963,39 +985,44 @@
     </include>
     <include name="HomeSubMenuLiveTV">
         <item>
-            <label>$VAR[SubMenuLiveTVOne]</label>
+            <label>$INFO[Skin.String(SubLiveTV.1.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubLiveTV.1.Path))">ActivateWindow(TVChannels)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubLiveTV.1.Path))">$INFO[Skin.String(SubLiveTV.1.Path)]</onclick>
             <visible>!String.IsEqual(Skin.String(SubLiveTV.1.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubLiveTV.1.Path))</visible>
         </item>
         <item>
-            <label>$VAR[SubMenuLiveTVTwo]</label>
+            <label>$INFO[Skin.String(SubLiveTV.2.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubLiveTV.2.Path))">ActivateWindow(TVGuide)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubLiveTV.2.Path))">$INFO[Skin.String(SubLiveTV.2.Path)]</onclick>
             <visible>!String.IsEqual(Skin.String(SubLiveTV.2.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubLiveTV.2.Path))</visible>
         </item>
         <item>
-            <label>$VAR[SubMenuLiveTVThree]</label>
+            <label>$INFO[Skin.String(SubLiveTV.3.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubLiveTV.3.Path))">ActivateWindow(TVRecordings)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubLiveTV.3.Path))">$INFO[Skin.String(SubLiveTV.3.Path)]</onclick>
             <visible>!String.IsEqual(Skin.String(SubLiveTV.3.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubLiveTV.3.Path))</visible>
         </item>
         <item>
-            <label>$VAR[SubMenuLiveTVFour]</label>
+            <label>$INFO[Skin.String(SubLiveTV.4.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubLiveTV.4.Path))">ActivateWindow(TVTimers)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubLiveTV.4.Path))">$INFO[Skin.String(SubLiveTV.4.Path)]</onclick>
             <visible>!String.IsEqual(Skin.String(SubLiveTV.4.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubLiveTV.4.Path))</visible>
         </item>
         <item>
-            <label>$VAR[SubMenuLiveTVFive]</label>
+            <label>$INFO[Skin.String(SubLiveTV.5.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubLiveTV.5.Path))">ActivateWindow(TVSearch)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubLiveTV.5.Path))">$INFO[Skin.String(SubLiveTV.5.Path)]</onclick>
             <visible>!String.IsEqual(Skin.String(SubLiveTV.5.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubLiveTV.5.Path))</visible>
         </item>
         <item>
             <label>$INFO[Skin.String(SubLiveTV.6.Label)]</label>
@@ -1055,39 +1082,44 @@
     </include>
     <include name="HomeSubMenuRadio">
         <item>
-            <label>$VAR[SubMenuRadioOne]</label>
+            <label>$INFO[Skin.String(SubRadio.1.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubRadio.1.Path))">ActivateWindow(RadioChannels)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubRadio.1.Path))">$INFO[Skin.String(SubRadio.1.Path)]</onclick>
             <visible>!String.IsEqual(Skin.String(SubRadio.1.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubRadio.1.Path))</visible>
         </item>
         <item>
-            <label>$VAR[SubMenuRadioTwo]</label>
+            <label>$INFO[Skin.String(SubRadio.2.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubRadio.2.Path))">ActivateWindow(RadioGuide)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubRadio.2.Path))">$INFO[Skin.String(SubRadio.2.Path)]</onclick>
             <visible>!String.IsEqual(Skin.String(SubRadio.2.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubRadio.2.Path))</visible>
         </item>
         <item>
-            <label>$VAR[SubMenuRadioThree]</label>
+            <label>$INFO[Skin.String(SubRadio.3.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubRadio.3.Path))">ActivateWindow(RadioRecordings)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubRadio.3.Path))">$INFO[Skin.String(SubRadio.3.Path)]</onclick>
             <visible>!String.IsEqual(Skin.String(SubRadio.3.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubRadio.3.Path))</visible>
         </item>
         <item>
-            <label>$VAR[SubMenuRadioFour]</label>
+            <label>$INFO[Skin.String(SubRadio.4.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubRadio.4.Path))">ActivateWindow(RadioTimers)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubRadio.4.Path))">$INFO[Skin.String(SubRadio.4.Path)]</onclick>
             <visible>!String.IsEqual(Skin.String(SubRadio.4.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubRadio.4.Path))</visible>
         </item>
         <item>
-            <label>$VAR[SubMenuRadioFive]</label>
+            <label>$INFO[Skin.String(SubRadio.5.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubRadio.5.Path))">ActivateWindow(RadioSearch)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubRadio.5.Path))">$INFO[Skin.String(SubRadio.5.Path)]</onclick>
             <visible>!String.IsEqual(Skin.String(SubRadio.5.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubRadio.5.Path))</visible>
         </item>
         <item>
             <label>$INFO[Skin.String(SubRadio.6.Label)]</label>
@@ -1147,39 +1179,44 @@
     </include>
     <include name="HomeSubMenuConcerts">
         <item>
-            <label>$VAR[SubMenuConcertsOne]</label>
+            <label>$INFO[Skin.String(SubConcerts.1.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubConcerts.1.Path))">ActivateWindow(2126),return</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubConcerts.1.Path))">$INFO[Skin.String(SubConcerts.1.Path)]</onclick>
             <visible>!String.IsEqual(Skin.String(SubConcerts.1.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubConcerts.1.Path))</visible>
         </item>
         <item>
-            <label>$VAR[SubMenuConcertsTwo]</label>
+            <label>$INFO[Skin.String(SubConcerts.2.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubConcerts.2.Path))">ActivateWindow(Videos,MusicVideoTitles,return)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubConcerts.2.Path))">$INFO[Skin.String(SubConcerts.2.Path)]</onclick>
             <visible>!String.IsEqual(Skin.String(SubConcerts.2.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubConcerts.2.Path))</visible>
         </item>
         <item>
-            <label>$VAR[SubMenuConcertsThree]</label>
+            <label>$INFO[Skin.String(SubConcerts.3.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubConcerts.3.Path))">ActivateWindow(Videos,MusicVideoGenres,return)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubConcerts.3.Path))">$INFO[Skin.String(SubConcerts.3.Path)]</onclick>
             <visible>!String.IsEqual(Skin.String(SubConcerts.3.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubConcerts.3.Path))</visible>
         </item>
         <item>
-            <label>$VAR[SubMenuConcertsFour]</label>
+            <label>$INFO[Skin.String(SubConcerts.4.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubConcerts.4.Path))">ActivateWindow(Videos,MusicVideoYears,return)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubConcerts.4.Path))">$INFO[Skin.String(SubConcerts.4.Path)]</onclick>
             <visible>!String.IsEqual(Skin.String(SubConcerts.4.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubConcerts.4.Path))</visible>
         </item>
         <item>
-            <label>$VAR[SubMenuConcertsFive]</label>
+            <label>$INFO[Skin.String(SubConcerts.5.Label)]</label>
             <onclick>SetProperty(SubMenuBackground,$VAR[SubMenuItemBackground],Home)</onclick>
-            <onclick condition="String.IsEmpty(Skin.String(SubConcerts.5.Path))">ActivateWindow(Videos,MusicVideoTags,return)</onclick>
+            
             <onclick condition="!String.IsEmpty(Skin.String(SubConcerts.5.Path))">$INFO[Skin.String(SubConcerts.5.Path)]</onclick>
             <visible>!String.IsEqual(Skin.String(SubConcerts.5.Path),Hidden)</visible>
+            <visible>!String.IsEmpty(Skin.String(SubConcerts.5.Path))</visible>
         </item>
         <item>
             <label>$INFO[Skin.String(SubConcerts.6.Label)]</label>

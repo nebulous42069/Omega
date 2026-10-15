@@ -3030,6 +3030,9 @@
 		<param name="embuaryinfonextaired">false</param>
         <definition>
             <control type="list" id="$PARAM[Control]">
+                <!-- Lazy launch: no cast Python interpreter until a widget receives focus. -->
+                <onfocus condition="String.IsEmpty(Window(Home).Property(Xenon.CastLaunchRequested))">RunScript(special://skin/resources/scripts/xenon_cast_service.py)</onfocus>
+                <onfocus condition="String.IsEmpty(Window(Home).Property(Xenon.CastLaunchRequested))">SetProperty(Xenon.CastLaunchRequested,true,Home)</onfocus>
                 <onclick condition="Skin.HasSetting(openinfoonwidgetclick) + [ String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.MediaType,movie) | String.IsEqual(ListItem.MediaType,tvshow) | String.IsEqual(ListItem.Property(tmdb_type),movie) | String.IsEqual(ListItem.Property(tmdb_type),tv) ]">Info</onclick>
 				<animation effect="slide" start="0,0" end="810,0" time="0" condition="String.IsEqual(Container($PARAM[Control]).NumItems,1)">Conditional</animation>
                 <animation effect="slide" start="0,0" end="675,0" time="0" condition="String.IsEqual(Container($PARAM[Control]).NumItems,2)">Conditional</animation>
@@ -3368,6 +3371,9 @@
                 <include condition="!String.IsEmpty(Skin.String(HomeTrans))">HomeTransparentEffect</include>
             </control>
             <control type="list" id="$PARAM[Control]">
+                <!-- Lazy launch: no cast Python interpreter until a widget receives focus. -->
+                <onfocus condition="String.IsEmpty(Window(Home).Property(Xenon.CastLaunchRequested))">RunScript(special://skin/resources/scripts/xenon_cast_service.py)</onfocus>
+                <onfocus condition="String.IsEmpty(Window(Home).Property(Xenon.CastLaunchRequested))">SetProperty(Xenon.CastLaunchRequested,true,Home)</onfocus>
                 <onclick condition="Skin.HasSetting(openinfoonwidgetclick) + [ String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.MediaType,movie) | String.IsEqual(ListItem.MediaType,tvshow) | String.IsEqual(ListItem.Property(tmdb_type),movie) | String.IsEqual(ListItem.Property(tmdb_type),tv) ]">Info</onclick>
 				<animation effect="slide" start="0,0" end="730,0" time="0" condition="String.IsEqual(Container($PARAM[Control]).NumItems,1)">Conditional</animation>
                 <animation effect="slide" start="0,0" end="584,0" time="0" condition="String.IsEqual(Container($PARAM[Control]).NumItems,2)">Conditional</animation>
@@ -3655,6 +3661,9 @@
 		<param name="embuaryinfonextaired">false</param>
         <definition>
             <control type="list" id="$PARAM[Control]">
+                <!-- Lazy launch: no cast Python interpreter until a widget receives focus. -->
+                <onfocus condition="String.IsEmpty(Window(Home).Property(Xenon.CastLaunchRequested))">RunScript(special://skin/resources/scripts/xenon_cast_service.py)</onfocus>
+                <onfocus condition="String.IsEmpty(Window(Home).Property(Xenon.CastLaunchRequested))">SetProperty(Xenon.CastLaunchRequested,true,Home)</onfocus>
                 <onclick condition="Skin.HasSetting(openinfoonwidgetclick) + [ String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.MediaType,movie) | String.IsEqual(ListItem.MediaType,tvshow) | String.IsEqual(ListItem.Property(tmdb_type),movie) | String.IsEqual(ListItem.Property(tmdb_type),tv) ]">Info</onclick>
 				<animation effect="slide" start="0,0" end="720,0" time="0" condition="String.IsEqual(Container($PARAM[Control]).NumItems,1)">Conditional</animation>
                 <animation effect="slide" start="0,0" end="540,0" time="0" condition="String.IsEqual(Container($PARAM[Control]).NumItems,2)">Conditional</animation>
@@ -4101,6 +4110,9 @@
 				<visible>$PARAM[embuaryinfonextaired]</visible>
             </control>
             <control type="list" id="$PARAM[Control]">
+                <!-- Lazy launch: no cast Python interpreter until a widget receives focus. -->
+                <onfocus condition="String.IsEmpty(Window(Home).Property(Xenon.CastLaunchRequested))">RunScript(special://skin/resources/scripts/xenon_cast_service.py)</onfocus>
+                <onfocus condition="String.IsEmpty(Window(Home).Property(Xenon.CastLaunchRequested))">SetProperty(Xenon.CastLaunchRequested,true,Home)</onfocus>
                 <onclick condition="Skin.HasSetting(openinfoonwidgetclick) + [ String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.MediaType,movie) | String.IsEqual(ListItem.MediaType,tvshow) | String.IsEqual(ListItem.Property(tmdb_type),movie) | String.IsEqual(ListItem.Property(tmdb_type),tv) ]">Info</onclick>
 				<animation effect="slide" start="0,0" end="675,0" time="0" condition="String.IsEqual(Container($PARAM[Control]).NumItems,1)">Conditional</animation>
                 <animation effect="slide" start="0,0" end="450,0" time="0" condition="String.IsEqual(Container($PARAM[Control]).NumItems,2)">Conditional</animation>
@@ -4760,310 +4772,68 @@
 	
 	<!-- Content includes -->
     <include name="RecentVideoContent">
-		<content target="videos"  sortorder="descending" sortby="dateadded" limit="10">videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22playcount%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%220%22%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</content>
+        <!-- Built-in library source disabled; custom widget slots remain available. -->
+        <content target="videos" limit="1">special://skin/extras/playlists/empty.xsp</content>
     </include>
 	<include name="RecentWithWatchedVideoContent">
-		<content target="videos"  sortorder="descending" sortby="dateadded" limit="10">videodb://movies/titles/</content>
-	</include>	
+        <!-- Built-in library source disabled; custom widget slots remain available. -->
+        <content target="videos" limit="1">special://skin/extras/playlists/empty.xsp</content>
+    </include>	
     <include name="RandomVideoContent">
-        <content sortby="random" sortorder="" limit="10" target="videos">videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22playcount%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%220%22%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</content>
+        <!-- Built-in library source disabled; custom widget slots remain available. -->
+        <content target="videos" limit="1">special://skin/extras/playlists/empty.xsp</content>
     </include>
     <include name="SuggestedVideoContent">
-        <!-- Suggested movies is just in-progress movies -->
-		<content>videodb://movies/titles/?xsp=%7b%22limit%22%3a20%2c%22order%22%3a%7b%22direction%22%3a%22descending%22%2c%22ignorefolders%22%3a0%2c%22method%22%3a%22lastplayed%22%7d%2c%22rules%22%3a%7b%22and%22%3a%5b%7b%22field%22%3a%22inprogress%22%2c%22operator%22%3a%22true%22%2c%22value%22%3a%5b%5d%7d%5d%7d%2c%22type%22%3a%22movies%22%7d</content>
+        <!-- Built-in library source disabled; custom widget slots remain available. -->
+        <content target="videos" limit="1">special://skin/extras/playlists/empty.xsp</content>
     </include>
     <include name="HomeUnWatchedMovies">
-        <!-- This is just 10 unwatched movies, random -->
-		<content sortby="random" sortorder="" limit="10" target="videos">videodb://movies/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22playcount%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%220%22%7D%5D%7D%2C%22type%22%3A%22movies%22%7D</content>
+        <!-- Built-in library source disabled; custom widget slots remain available. -->
+        <content target="videos" limit="1">special://skin/extras/playlists/empty.xsp</content>
     </include>
     <include name="RecentTVShowContent">
-        <!-- 10 episodes, unwatched, newest first -->
-		<content target="videos">videodb://tvshows/titles/-1/-1/-1/-1/?xsp=%7b%22limit%22%3a10%2c%22order%22%3a%7b%22direction%22%3a%22descending%22%2c%22ignorefolders%22%3a0%2c%22method%22%3a%22dateadded%22%7d%2c%22rules%22%3a%7b%22and%22%3a%5b%7b%22field%22%3a%22playcount%22%2c%22operator%22%3a%22is%22%2c%22value%22%3a%5b%220%22%5d%7d%2c%7b%22field%22%3a%22dateadded%22%2c%22operator%22%3a%22after%22%2c%22value%22%3a%5b%22%201%2f%201%2f2021%22%5d%7d%5d%7d%2c%22type%22%3a%22episodes%22%7d</content>
+        <!-- Built-in library source disabled; custom widget slots remain available. -->
+        <content target="videos" limit="1">special://skin/extras/playlists/empty.xsp</content>
     </include>
 	<include name="RecentWithWatchedTVShowContent">
-        <!-- 10 episodes, unwatched, newest first -->
-		<content target="videos" sortorder="descending" sortby="dateadded" limit="10">videodb://tvshows/titles/-1/-1/</content>
-	</include>	
+        <!-- Built-in library source disabled; custom widget slots remain available. -->
+        <content target="videos" limit="1">special://skin/extras/playlists/empty.xsp</content>
+    </include>	
     <include name="RandomTVShowContent">
-        <content sortby="random" sortorder="" limit="10" target="videos">videodb://tvshows/titles/-1/-1/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22playcount%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%220%22%7D%5D%7D%2C%22type%22%3A%22episodes%22%7D</content>
+        <!-- Built-in library source disabled; custom widget slots remain available. -->
+        <content target="videos" limit="1">special://skin/extras/playlists/empty.xsp</content>
     </include>
     <include name="SuggestedTVShowContent">
-        <content>
-            <item id="1">
-                <label>$INFO[Window(Home).Property(RecommendedEpisode.1.Title)]</label>
-                <label2>$INFO[Window(Home).Property(RecommendedEpisode.1.TVshowTitle)] - $INFO[Window(Home).Property(RecommendedEpisode.1.EpisodeNo)]</label2>
-                <onclick>PlayList.Clear</onclick>
-                <onclick condition="Window.IsVisible(2124)">Dialog.Close(2124)</onclick>
-                <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedEpisode.1.File)])</onclick>
-                <thumb>$INFO[Window(Home).Property(RecommendedEpisode.1.Art(tvshow.fanart))]</thumb>
-                <icon>$INFO[Window(Home).Property(RecommendedEpisode.1.Art(thumb))]</icon>
-                <property name="Logo">$INFO[Window(Home).Property(RecommendedEpisode.1.Art(tvshow.clearlogo))]</property>
-                <property name="PercentPlayed">$INFO[Window(Home).Property(RecommendedEpisode.1.PercentPlayed)]</property>
-                <visible>!String.IsEmpty(Window(Home).Property(RecommendedEpisode.1.TVshowTitle))</visible>
-            </item>
-            <item id="2">
-                <label>$INFO[Window(Home).Property(RecommendedEpisode.2.Title)]</label>
-                <label2>$INFO[Window(Home).Property(RecommendedEpisode.2.TVshowTitle)] - $INFO[Window(Home).Property(RecommendedEpisode.2.EpisodeNo)]</label2>
-                <onclick>PlayList.Clear</onclick>
-                <onclick condition="Window.IsVisible(2124)">Dialog.Close(2124)</onclick>
-                <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedEpisode.2.File)])</onclick>
-                <thumb>$INFO[Window(Home).Property(RecommendedEpisode.2.Art(tvshow.fanart))]</thumb>
-                <icon>$INFO[Window(Home).Property(RecommendedEpisode.2.Art(thumb))]</icon>
-                <property name="Logo">$INFO[Window(Home).Property(RecommendedEpisode.2.Art(tvshow.clearlogo))]</property>
-                <property name="PercentPlayed">$INFO[Window(Home).Property(RecommendedEpisode.2.PercentPlayed)]</property>
-                <visible>!String.IsEmpty(Window(Home).Property(RecommendedEpisode.2.TVshowTitle))</visible>
-            </item>
-            <item id="3">
-                <label>$INFO[Window(Home).Property(RecommendedEpisode.3.Title)]</label>
-                <label2>$INFO[Window(Home).Property(RecommendedEpisode.3.TVshowTitle)] - $INFO[Window(Home).Property(RecommendedEpisode.3.EpisodeNo)]</label2>
-                <onclick>PlayList.Clear</onclick>
-                <onclick condition="Window.IsVisible(2124)">Dialog.Close(2124)</onclick>
-                <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedEpisode.3.File)])</onclick>
-                <thumb>$INFO[Window(Home).Property(RecommendedEpisode.3.Art(tvshow.fanart))]</thumb>
-                <icon>$INFO[Window(Home).Property(RecommendedEpisode.3.Art(thumb))]</icon>
-                <property name="Logo">$INFO[Window(Home).Property(RecommendedEpisode.3.Art(tvshow.clearlogo))]</property>
-                <property name="PercentPlayed">$INFO[Window(Home).Property(RecommendedEpisode.3.PercentPlayed)]</property>
-                <visible>!String.IsEmpty(Window(Home).Property(RecommendedEpisode.3.TVshowTitle))</visible>
-            </item>
-            <item id="4">
-                <label>$INFO[Window(Home).Property(RecommendedEpisode.4.Title)]</label>
-                <label2>$INFO[Window(Home).Property(RecommendedEpisode.4.TVshowTitle)] - $INFO[Window(Home).Property(RecommendedEpisode.4.EpisodeNo)]</label2>
-                <onclick>PlayList.Clear</onclick>
-                <onclick condition="Window.IsVisible(2124)">Dialog.Close(2124)</onclick>
-                <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedEpisode.4.File)])</onclick>
-                <thumb>$INFO[Window(Home).Property(RecommendedEpisode.4.Art(tvshow.fanart))]</thumb>
-                <icon>$INFO[Window(Home).Property(RecommendedEpisode.4.Art(thumb))]</icon>
-                <property name="Logo">$INFO[Window(Home).Property(RecommendedEpisode.4.Art(tvshow.clearlogo))]</property>
-                <property name="PercentPlayed">$INFO[Window(Home).Property(RecommendedEpisode.4.PercentPlayed)]</property>
-                <visible>!String.IsEmpty(Window(Home).Property(RecommendedEpisode.4.TVshowTitle))</visible>
-            </item>
-            <item id="5">
-                <label>$INFO[Window(Home).Property(RecommendedEpisode.5.Title)]</label>
-                <label2>$INFO[Window(Home).Property(RecommendedEpisode.5.TVshowTitle)] - $INFO[Window(Home).Property(RecommendedEpisode.5.EpisodeNo)]</label2>
-                <onclick>PlayList.Clear</onclick>
-                <onclick condition="Window.IsVisible(2124)">Dialog.Close(2124)</onclick>
-                <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedEpisode.5.File)])</onclick>
-                <thumb>$INFO[Window(Home).Property(RecommendedEpisode.5.Art(tvshow.fanart))]</thumb>
-                <icon>$INFO[Window(Home).Property(RecommendedEpisode.5.Art(thumb))]</icon>
-                <property name="Logo">$INFO[Window(Home).Property(RecommendedEpisode.5.Art(tvshow.clearlogo))]</property>
-                <property name="PercentPlayed">$INFO[Window(Home).Property(RecommendedEpisode.5.PercentPlayed)]</property>
-                <visible>!String.IsEmpty(Window(Home).Property(RecommendedEpisode.5.TVshowTitle))</visible>
-            </item>
-            <item id="6">
-                <label>$INFO[Window(Home).Property(RecommendedEpisode.6.Title)]</label>
-                <label2>$INFO[Window(Home).Property(RecommendedEpisode.6.TVshowTitle)] - $INFO[Window(Home).Property(RecommendedEpisode.6.EpisodeNo)]</label2>
-                <onclick>PlayList.Clear</onclick>
-                <onclick condition="Window.IsVisible(2124)">Dialog.Close(2124)</onclick>
-                <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedEpisode.6.File)])</onclick>
-                <thumb>$INFO[Window(Home).Property(RecommendedEpisode.6.Art(tvshow.fanart))]</thumb>
-                <icon>$INFO[Window(Home).Property(RecommendedEpisode.6.Art(thumb))]</icon>
-                <property name="Logo">$INFO[Window(Home).Property(RecommendedEpisode.6.Art(tvshow.clearlogo))]</property>
-                <property name="PercentPlayed">$INFO[Window(Home).Property(RecommendedEpisode.6.PercentPlayed)]</property>
-                <visible>!String.IsEmpty(Window(Home).Property(RecommendedEpisode.6.TVshowTitle))</visible>
-            </item>
-            <item id="7">
-                <label>$INFO[Window(Home).Property(RecommendedEpisode.7.Title)]</label>
-                <label2>$INFO[Window(Home).Property(RecommendedEpisode.7.TVshowTitle)] - $INFO[Window(Home).Property(RecommendedEpisode.7.EpisodeNo)]</label2>
-                <onclick>PlayList.Clear</onclick>
-                <onclick condition="Window.IsVisible(2124)">Dialog.Close(2124)</onclick>
-                <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedEpisode.7.File)])</onclick>
-                <thumb>$INFO[Window(Home).Property(RecommendedEpisode.7.Art(tvshow.fanart))]</thumb>
-                <icon>$INFO[Window(Home).Property(RecommendedEpisode.7.Art(thumb))]</icon>
-                <property name="Logo">$INFO[Window(Home).Property(RecommendedEpisode.7.Art(tvshow.clearlogo))]</property>
-                <property name="PercentPlayed">$INFO[Window(Home).Property(RecommendedEpisode.7.PercentPlayed)]</property>
-                <visible>!String.IsEmpty(Window(Home).Property(RecommendedEpisode.7.TVshowTitle))</visible>
-            </item>
-            <item id="8">
-                <label>$INFO[Window(Home).Property(RecommendedEpisode.8.Title)]</label>
-                <label2>$INFO[Window(Home).Property(RecommendedEpisode.8.TVshowTitle)] - $INFO[Window(Home).Property(RecommendedEpisode.8.EpisodeNo)]</label2>
-                <onclick>PlayList.Clear</onclick>
-                <onclick condition="Window.IsVisible(2124)">Dialog.Close(2124)</onclick>
-                <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedEpisode.8.File)])</onclick>
-                <thumb>$INFO[Window(Home).Property(RecommendedEpisode.8.Art(tvshow.fanart))]</thumb>
-                <icon>$INFO[Window(Home).Property(RecommendedEpisode.8.Art(thumb))]</icon>
-                <property name="Logo">$INFO[Window(Home).Property(RecommendedEpisode.8.Art(tvshow.clearlogo))]</property>
-                <property name="PercentPlayed">$INFO[Window(Home).Property(RecommendedEpisode.8.PercentPlayed)]</property>
-                <visible>!String.IsEmpty(Window(Home).Property(RecommendedEpisode.8.TVshowTitle))</visible>
-            </item>
-            <item id="9">
-                <label>$INFO[Window(Home).Property(RecommendedEpisode.9.Title)]</label>
-                <label2>$INFO[Window(Home).Property(RecommendedEpisode.9.TVshowTitle)] - $INFO[Window(Home).Property(RecommendedEpisode.9.EpisodeNo)]</label2>
-                <onclick>PlayList.Clear</onclick>
-                <onclick condition="Window.IsVisible(2124)">Dialog.Close(2124)</onclick>
-                <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedEpisode.9.File)])</onclick>
-                <thumb>$INFO[Window(Home).Property(RecommendedEpisode.9.Art(tvshow.fanart))]</thumb>
-                <icon>$INFO[Window(Home).Property(RecommendedEpisode.9.Art(thumb))]</icon>
-                <property name="Logo">$INFO[Window(Home).Property(RecommendedEpisode.9.Art(tvshow.clearlogo))]</property>
-                <property name="PercentPlayed">$INFO[Window(Home).Property(RecommendedEpisode.9.PercentPlayed)]</property>
-                <visible>!String.IsEmpty(Window(Home).Property(RecommendedEpisode.9.TVshowTitle))</visible>
-            </item>
-            <item id="10">
-                <label>$INFO[Window(Home).Property(RecommendedEpisode.10.Title)]</label>
-                <label2>$INFO[Window(Home).Property(RecommendedEpisode.10.TVshowTitle)] - $INFO[Window(Home).Property(RecommendedEpisode.10.EpisodeNo)]</label2>
-                <onclick>PlayList.Clear</onclick>
-                <onclick condition="Window.IsVisible(2124)">Dialog.Close(2124)</onclick>
-                <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedEpisode.10.File)])</onclick>
-                <thumb>$INFO[Window(Home).Property(RecommendedEpisode.10.Art(tvshow.fanart))]</thumb>
-                <icon>$INFO[Window(Home).Property(RecommendedEpisode.10.Art(thumb))]</icon>
-                <property name="Logo">$INFO[Window(Home).Property(RecommendedEpisode.10.Art(tvshow.clearlogo))]</property>
-                <property name="PercentPlayed">$INFO[Window(Home).Property(RecommendedEpisode.10.PercentPlayed)]</property>
-                <visible>!String.IsEmpty(Window(Home).Property(RecommendedEpisode.10.TVshowTitle))</visible>
-            </item>
-            <item id="11">
-                <label>$INFO[Window(Home).Property(RecommendedEpisode.11.Title)]</label>
-                <label2>$INFO[Window(Home).Property(RecommendedEpisode.11.TVshowTitle)] - $INFO[Window(Home).Property(RecommendedEpisode.11.EpisodeNo)]</label2>
-                <onclick>PlayList.Clear</onclick>
-                <onclick>Dialog.Close(2124)</onclick>
-                <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedEpisode.11.File)])</onclick>
-                <thumb>$INFO[Window(Home).Property(RecommendedEpisode.11.Art(tvshow.fanart))]</thumb>
-                <icon>$INFO[Window(Home).Property(RecommendedEpisode.11.Art(thumb))]</icon>
-                <property name="Logo">$INFO[Window(Home).Property(RecommendedEpisode.11.Art(tvshow.clearlogo))]</property>
-                <property name="PercentPlayed">$INFO[Window(Home).Property(RecommendedEpisode.11.PercentPlayed)]</property>
-                <visible>!String.IsEmpty(Window(Home).Property(RecommendedEpisode.11.TVshowTitle)) + Window.IsVisible(2124)</visible>
-            </item>
-            <item id="12">
-                <label>$INFO[Window(Home).Property(RecommendedEpisode.12.Title)]</label>
-                <label2>$INFO[Window(Home).Property(RecommendedEpisode.12.TVshowTitle)] - $INFO[Window(Home).Property(RecommendedEpisode.12.EpisodeNo)]</label2>
-                <onclick>PlayList.Clear</onclick>
-                <onclick>Dialog.Close(2124)</onclick>
-                <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedEpisode.12.File)])</onclick>
-                <thumb>$INFO[Window(Home).Property(RecommendedEpisode.12.Art(tvshow.fanart))]</thumb>
-                <icon>$INFO[Window(Home).Property(RecommendedEpisode.12.Art(thumb))]</icon>
-                <property name="Logo">$INFO[Window(Home).Property(RecommendedEpisode.12.Art(tvshow.clearlogo))]</property>
-                <property name="PercentPlayed">$INFO[Window(Home).Property(RecommendedEpisode.12.PercentPlayed)]</property>
-                <visible>!String.IsEmpty(Window(Home).Property(RecommendedEpisode.12.TVshowTitle)) + Window.IsVisible(2124)</visible>
-            </item>
-            <item id="13">
-                <label>$INFO[Window(Home).Property(RecommendedEpisode.13.Title)]</label>
-                <label2>$INFO[Window(Home).Property(RecommendedEpisode.13.TVshowTitle)] - $INFO[Window(Home).Property(RecommendedEpisode.13.EpisodeNo)]</label2>
-                <onclick>PlayList.Clear</onclick>
-                <onclick>Dialog.Close(2124)</onclick>
-                <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedEpisode.13.File)])</onclick>
-                <thumb>$INFO[Window(Home).Property(RecommendedEpisode.13.Art(tvshow.fanart))]</thumb>
-                <icon>$INFO[Window(Home).Property(RecommendedEpisode.13.Art(thumb))]</icon>
-                <property name="Logo">$INFO[Window(Home).Property(RecommendedEpisode.13.Art(tvshow.clearlogo))]</property>
-                <property name="PercentPlayed">$INFO[Window(Home).Property(RecommendedEpisode.13.PercentPlayed)]</property>
-                <visible>!String.IsEmpty(Window(Home).Property(RecommendedEpisode.13.TVshowTitle)) + Window.IsVisible(2124)</visible>
-            </item>
-            <item id="14">
-                <label>$INFO[Window(Home).Property(RecommendedEpisode.14.Title)]</label>
-                <label2>$INFO[Window(Home).Property(RecommendedEpisode.14.TVshowTitle)] - $INFO[Window(Home).Property(RecommendedEpisode.14.EpisodeNo)]</label2>
-                <onclick>PlayList.Clear</onclick>
-                <onclick>Dialog.Close(2124)</onclick>
-                <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedEpisode.14.File)])</onclick>
-                <thumb>$INFO[Window(Home).Property(RecommendedEpisode.14.Art(tvshow.fanart))]</thumb>
-                <icon>$INFO[Window(Home).Property(RecommendedEpisode.14.Art(thumb))]</icon>
-                <property name="Logo">$INFO[Window(Home).Property(RecommendedEpisode.14.Art(tvshow.clearlogo))]</property>
-                <property name="PercentPlayed">$INFO[Window(Home).Property(RecommendedEpisode.14.PercentPlayed)]</property>
-                <visible>!String.IsEmpty(Window(Home).Property(RecommendedEpisode.14.TVshowTitle)) + Window.IsVisible(2124)</visible>
-            </item>
-            <item id="15">
-                <label>$INFO[Window(Home).Property(RecommendedEpisode.15.Title)]</label>
-                <label2>$INFO[Window(Home).Property(RecommendedEpisode.15.TVshowTitle)] - $INFO[Window(Home).Property(RecommendedEpisode.15.EpisodeNo)]</label2>
-                <onclick>PlayList.Clear</onclick>
-                <onclick>Dialog.Close(2124)</onclick>
-                <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedEpisode.15.File)])</onclick>
-                <thumb>$INFO[Window(Home).Property(RecommendedEpisode.15.Art(tvshow.fanart))]</thumb>
-                <icon>$INFO[Window(Home).Property(RecommendedEpisode.15.Art(thumb))]</icon>
-                <property name="Logo">$INFO[Window(Home).Property(RecommendedEpisode.15.Art(tvshow.clearlogo))]</property>
-                <property name="PercentPlayed">$INFO[Window(Home).Property(RecommendedEpisode.15.PercentPlayed)]</property>
-                <visible>!String.IsEmpty(Window(Home).Property(RecommendedEpisode.15.TVshowTitle)) + Window.IsVisible(2124)</visible>
-            </item>
-            <item id="16">
-                <label>$INFO[Window(Home).Property(RecommendedEpisode.16.Title)]</label>
-                <label2>$INFO[Window(Home).Property(RecommendedEpisode.16.TVshowTitle)] - $INFO[Window(Home).Property(RecommendedEpisode.16.EpisodeNo)]</label2>
-                <onclick>PlayList.Clear</onclick>
-                <onclick>Dialog.Close(2124)</onclick>
-                <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedEpisode.16.File)])</onclick>
-                <thumb>$INFO[Window(Home).Property(RecommendedEpisode.16.Art(tvshow.fanart))]</thumb>
-                <icon>$INFO[Window(Home).Property(RecommendedEpisode.16.Art(thumb))]</icon>
-                <property name="Logo">$INFO[Window(Home).Property(RecommendedEpisode.16.Art(tvshow.clearlogo))]</property>
-                <property name="PercentPlayed">$INFO[Window(Home).Property(RecommendedEpisode.16.PercentPlayed)]</property>
-                <visible>!String.IsEmpty(Window(Home).Property(RecommendedEpisode.16.TVshowTitle)) + Window.IsVisible(2124)</visible>
-            </item>
-            <item id="17">
-                <label>$INFO[Window(Home).Property(RecommendedEpisode.17.Title)]</label>
-                <label2>$INFO[Window(Home).Property(RecommendedEpisode.17.TVshowTitle)] - $INFO[Window(Home).Property(RecommendedEpisode.17.EpisodeNo)]</label2>
-                <onclick>PlayList.Clear</onclick>
-                <onclick>Dialog.Close(2124)</onclick>
-                <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedEpisode.17.File)])</onclick>
-                <thumb>$INFO[Window(Home).Property(RecommendedEpisode.17.Art(tvshow.fanart))]</thumb>
-                <icon>$INFO[Window(Home).Property(RecommendedEpisode.17.Art(thumb))]</icon>
-                <property name="Logo">$INFO[Window(Home).Property(RecommendedEpisode.17.Art(tvshow.clearlogo))]</property>
-                <property name="PercentPlayed">$INFO[Window(Home).Property(RecommendedEpisode.17.PercentPlayed)]</property>
-                <visible>!String.IsEmpty(Window(Home).Property(RecommendedEpisode.17.TVshowTitle)) + Window.IsVisible(2124)</visible>
-            </item>
-            <item id="18">
-                <label>$INFO[Window(Home).Property(RecommendedEpisode.18.Title)]</label>
-                <label2>$INFO[Window(Home).Property(RecommendedEpisode.18.TVshowTitle)] - $INFO[Window(Home).Property(RecommendedEpisode.18.EpisodeNo)]</label2>
-                <onclick>PlayList.Clear</onclick>
-                <onclick>Dialog.Close(2124)</onclick>
-                <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedEpisode.18.File)])</onclick>
-                <thumb>$INFO[Window(Home).Property(RecommendedEpisode.18.Art(tvshow.fanart))]</thumb>
-                <icon>$INFO[Window(Home).Property(RecommendedEpisode.18.Art(thumb))]</icon>
-                <property name="Logo">$INFO[Window(Home).Property(RecommendedEpisode.18.Art(tvshow.clearlogo))]</property>
-                <property name="PercentPlayed">$INFO[Window(Home).Property(RecommendedEpisode.18.PercentPlayed)]</property>
-                <visible>!String.IsEmpty(Window(Home).Property(RecommendedEpisode.18.TVshowTitle)) + Window.IsVisible(2124)</visible>
-            </item>
-            <item id="19">
-                <label>$INFO[Window(Home).Property(RecommendedEpisode.19.Title)]</label>
-                <label2>$INFO[Window(Home).Property(RecommendedEpisode.19.TVshowTitle)] - $INFO[Window(Home).Property(RecommendedEpisode.19.EpisodeNo)]</label2>
-                <onclick>PlayList.Clear</onclick>
-                <onclick>Dialog.Close(2124)</onclick>
-                <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedEpisode.19.File)])</onclick>
-                <thumb>$INFO[Window(Home).Property(RecommendedEpisode.19.Art(tvshow.fanart))]</thumb>
-                <icon>$INFO[Window(Home).Property(RecommendedEpisode.19.Art(thumb))]</icon>
-                <property name="Logo">$INFO[Window(Home).Property(RecommendedEpisode.19.Art(tvshow.clearlogo))]</property>
-                <property name="PercentPlayed">$INFO[Window(Home).Property(RecommendedEpisode.19.PercentPlayed)]</property>
-                <visible>!String.IsEmpty(Window(Home).Property(RecommendedEpisode.19.TVshowTitle)) + Window.IsVisible(2124)</visible>
-            </item>
-            <item id="20">
-                <label>$INFO[Window(Home).Property(RecommendedEpisode.20.Title)]</label>
-                <label2>$INFO[Window(Home).Property(RecommendedEpisode.20.TVshowTitle)] - $INFO[Window(Home).Property(RecommendedEpisode.20.EpisodeNo)]</label2>
-                <onclick>PlayList.Clear</onclick>
-                <onclick>Dialog.Close(2124)</onclick>
-                <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecommendedEpisode.20.File)])</onclick>
-                <thumb>$INFO[Window(Home).Property(RecommendedEpisode.20.Art(tvshow.fanart))]</thumb>
-                <icon>$INFO[Window(Home).Property(RecommendedEpisode.20.Art(thumb))]</icon>
-                <property name="Logo">$INFO[Window(Home).Property(RecommendedEpisode.20.Art(tvshow.clearlogo))]</property>
-                <property name="PercentPlayed">$INFO[Window(Home).Property(RecommendedEpisode.20.PercentPlayed)]</property>
-                <visible>!String.IsEmpty(Window(Home).Property(RecommendedEpisode.20.TVshowTitle)) + Window.IsVisible(2124)</visible>
-            </item>
-            <item id="21">
-                <label>$INFO[Window(Home).Property(RecentEpisode.1.Title)]</label>
-                <label2>$INFO[Window(Home).Property(RecentEpisode.1.TVshowTitle)] - $INFO[Window(Home).Property(RecentEpisode.1.EpisodeNo)]</label2>
-                <onclick>PlayList.Clear</onclick>
-                <onclick>Dialog.Close(2124)</onclick>
-                <onclick>PlayMedia($ESCINFO[Window(Home).Property(RecentEpisode.1.File)])</onclick>
-                <icon>$INFO[Window(Home).Property(RecentEpisode.1.Art(thumb))]</icon>
-                <thumb>$INFO[Window(Home).Property(RecentEpisode.1.Art(tvshow.fanart))]</thumb>
-                <property name="Logo">$INFO[Window(Home).Property(RecentEpisode.1.Art(tvshow.clearlogo))]</property>
-                <visible>String.IsEmpty(Window(Home).Property(RecommendedEpisode.1.TVshowTitle)) + !String.IsEmpty(Window(Home).Property(RecentEpisode.1.TVshowTitle)) + Window.IsVisible(2124)</visible>
-            </item>
-        </content>
+        <!-- Built-in library source disabled; custom widget slots remain available. -->
+        <content target="videos" limit="1">special://skin/extras/playlists/empty.xsp</content>
     </include>
     <include name="RecentAlbumContent">
-        <content target="music" sortby="dateadded" sortorder="descending" limit="10">musicdb://recentlyaddedalbums</content>
+        <!-- Built-in library source disabled; custom widget slots remain available. -->
+        <content target="videos" limit="1">special://skin/extras/playlists/empty.xsp</content>
     </include>
     <include name="RandomAlbumContent">
-        <content sortby="random" sortorder="" limit="10" target="music">library://music/albums.xml/</content>
+        <!-- Built-in library source disabled; custom widget slots remain available. -->
+        <content target="videos" limit="1">special://skin/extras/playlists/empty.xsp</content>
     </include>
     <include name="SuggestedAlbumContent">
-        <!-- Suggested albums is the 20 most played albums -->
-		<content target="music">musicdb://albums/?xsp=%7b%22limit%22%3a20%2c%22order%22%3a%7b%22direction%22%3a%22descending%22%2c%22ignorefolders%22%3a0%2c%22method%22%3a%22playcount%22%7d%2c%22rules%22%3a%7b%22and%22%3a%5b%7b%22field%22%3a%22playcount%22%2c%22operator%22%3a%22greaterthan%22%2c%22value%22%3a%5b%220%22%5d%7d%5d%7d%2c%22type%22%3a%22albums%22%7d</content>
+        <!-- Built-in library source disabled; custom widget slots remain available. -->
+        <content target="videos" limit="1">special://skin/extras/playlists/empty.xsp</content>
     </include>
     <include name="RecentConcertContent">
-        <content target="videos"  sortorder="descending" sortby="dateadded" limit="10">videodb://musicvideos/titles/?xsp=%7B%22rules%22%3A%7B%22and%22%3A%5B%7B%22field%22%3A%22playcount%22%2C%22operator%22%3A%22is%22%2C%22value%22%3A%220%22%7D%5D%7D%2C%22type%22%3A%22musicvideos%22%7D</content>
+        <!-- Built-in library source disabled; custom widget slots remain available. -->
+        <content target="videos" limit="1">special://skin/extras/playlists/empty.xsp</content>
     </include>
 	<include name="RecentWithWatchedConcertContent">
-        <content target="videos"  sortorder="descending" sortby="dateadded" limit="10">videodb://musicvideos/titles/</content>
-	</include>	
+        <!-- Built-in library source disabled; custom widget slots remain available. -->
+        <content target="videos" limit="1">special://skin/extras/playlists/empty.xsp</content>
+    </include>	
     <include name="RandomConcertContent">
-        <content target="videos">videodb://musicvideos/titles/?xsp=%7b%22limit%22%3a10%2c%22order%22%3a%7b%22direction%22%3a%22ascending%22%2c%22ignorefolders%22%3a0%2c%22method%22%3a%22random%22%7d%2c%22rules%22%3a%7b%22and%22%3a%5b%7b%22field%22%3a%22playcount%22%2c%22operator%22%3a%22is%22%2c%22value%22%3a%5b%220%22%5d%7d%5d%7d%2c%22type%22%3a%22musicvideos%22%7d</content>
+        <!-- Built-in library source disabled; custom widget slots remain available. -->
+        <content target="videos" limit="1">special://skin/extras/playlists/empty.xsp</content>
     </include>
     <include name="SuggestedConcertContent">
-        <!-- Suggested music videos is just 20 most played music videos -->
-		<content target="videos">videodb://musicvideos/titles/?xsp=%7b%22limit%22%3a20%2c%22order%22%3a%7b%22direction%22%3a%22descending%22%2c%22ignorefolders%22%3a0%2c%22method%22%3a%22playcount%22%7d%2c%22rules%22%3a%7b%22and%22%3a%5b%7b%22field%22%3a%22playcount%22%2c%22operator%22%3a%22greaterthan%22%2c%22value%22%3a%5b%220%22%5d%7d%5d%7d%2c%22type%22%3a%22musicvideos%22%7d</content>
+        <!-- Built-in library source disabled; custom widget slots remain available. -->
+        <content target="videos" limit="1">special://skin/extras/playlists/empty.xsp</content>
     </include>
     <include name="PlayListOneContent">
         <content target="videos" limit="10">$VAR[SafePlayListOneContent]</content>
@@ -5435,25 +5205,32 @@
         <include condition="Skin.HasSetting(UPnP_Mode) + Skin.String(UPnPServer,Kodi) + Skin.String(CustomWidgets,100)">UPnP_RecentMovies100</include>
         <include condition="Skin.HasSetting(UPnP_Mode) + Skin.String(UPnPServer,Kodi) + Skin.String(CustomWidgets,500)">UPnP_RecentMovies500</include>		
     </include>    <include name="UPnP_RecentMovies10">
-        <content target="video" limit="10">$INFO[Skin.String(UPnP_Path)]library%3a%2f%2fvideo%2frecentlyaddedmovies.xml%2f/</content>
+        <!-- Built-in library source disabled; custom widget slots remain available. -->
+        <content target="videos" limit="1">special://skin/extras/playlists/empty.xsp</content>
     </include>
     <include name="UPnP_RecentMovies20">
-        <content target="video" limit="20">$INFO[Skin.String(UPnP_Path)]library%3a%2f%2fvideo%2frecentlyaddedmovies.xml%2f/</content>
+        <!-- Built-in library source disabled; custom widget slots remain available. -->
+        <content target="videos" limit="1">special://skin/extras/playlists/empty.xsp</content>
     </include>
     <include name="UPnP_RecentMovies30">
-        <content target="video" limit="30">$INFO[Skin.String(UPnP_Path)]library%3a%2f%2fvideo%2frecentlyaddedmovies.xml%2f/</content>
+        <!-- Built-in library source disabled; custom widget slots remain available. -->
+        <content target="videos" limit="1">special://skin/extras/playlists/empty.xsp</content>
     </include>
     <include name="UPnP_RecentMovies40">
-        <content target="video" limit="40">$INFO[Skin.String(UPnP_Path)]library%3a%2f%2fvideo%2frecentlyaddedmovies.xml%2f/</content>
+        <!-- Built-in library source disabled; custom widget slots remain available. -->
+        <content target="videos" limit="1">special://skin/extras/playlists/empty.xsp</content>
     </include>
     <include name="UPnP_RecentMovies50">
-        <content target="video" limit="50">$INFO[Skin.String(UPnP_Path)]library%3a%2f%2fvideo%2frecentlyaddedmovies.xml%2f/</content>
+        <!-- Built-in library source disabled; custom widget slots remain available. -->
+        <content target="videos" limit="1">special://skin/extras/playlists/empty.xsp</content>
     </include>
     <include name="UPnP_RecentMovies75">
-        <content target="video" limit="75">$INFO[Skin.String(UPnP_Path)]library%3a%2f%2fvideo%2frecentlyaddedmovies.xml%2f/</content>
+        <!-- Built-in library source disabled; custom widget slots remain available. -->
+        <content target="videos" limit="1">special://skin/extras/playlists/empty.xsp</content>
     </include>
     <include name="UPnP_RecentMovies100">
-        <content target="video" limit="100">$INFO[Skin.String(UPnP_Path)]library%3a%2f%2fvideo%2frecentlyaddedmovies.xml%2f/</content>
+        <!-- Built-in library source disabled; custom widget slots remain available. -->
+        <content target="videos" limit="1">special://skin/extras/playlists/empty.xsp</content>
     </include>
     <include name="VideoNodeContent">
         <include condition="String.IsEmpty(Skin.String(CustomWidgets))">VideoNodeContent10</include>
@@ -5493,6 +5270,7 @@
          resolve their <content>, so the protection must happen at the content path level,
          not only at <visible>. -->
     <variable name="SafeCustomWidgetContent">
+        <value condition="String.IsEmpty(Container(9000).ListItem.Property(WidgetSet)) | String.IsEqual(Container(9000).ListItem.Property(WidgetSet),noop) | String.IsEqual(Container(9000).ListItem.Property(WidgetSet),None)">special://skin/extras/playlists/empty.xsp</value>
         <value condition="Skin.HasSetting(SuspendPluginWidgets)">special://skin/extras/playlists/empty.xsp</value>
         <value>$INFO[Container(9000).ListItem.Property(WidgetSet)]</value>
     </variable>

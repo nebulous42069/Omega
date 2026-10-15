@@ -572,8 +572,6 @@ def check_updates():
     profile = xbmcvfs.translatePath('special://profile/addon_data/skin.xenon/')
     lock = os.path.join(profile, 'flavor-switch.lock')
     try:
-        if monitor.waitForAbort(10):
-            return
         if os.path.exists(lock):
             return
         flavors = all_online_flavors(xenon_catalog_entries(fetch(CATALOG), CATALOG))
