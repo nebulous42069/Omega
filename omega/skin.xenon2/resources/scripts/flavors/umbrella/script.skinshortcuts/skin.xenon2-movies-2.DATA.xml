@@ -61,7 +61,7 @@
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
 		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/blacknwhite.png</thumb>
-		<action>ActivateWindow(Videos,"plugin://plugin.video.bnwmovie19/?url=Black_and_White&amp;mode=1&amp;name=%5BCOLOR%3Dwhite%5DBlack+and+White+Movies%5B%2FCOLOR%5D&amp;iconimage=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.video.bnwmovie19%5Cicon.png&amp;fanart=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.video.bnwmovie19%5Cfanart.jpg&amp;description=Black+and+White+movies",return)</action>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.bnwmovie19/?url=Black_and_White&amp;mode=1&amp;name=%5BCOLOR%3Dwhite%5DBlack+and+White+Movies%5B%2FCOLOR%5D&amp;iconimage=special%3A%2F%2Fhome%2Faddons%2Fplugin.video.bnwmovie19%2Ficon.png&amp;fanart=special%3A%2F%2Fhome%2Faddons%2Fplugin.video.bnwmovie19%2Ffanart.jpg&amp;description=Black+and+White+movies",return)</action>
 		</shortcut>
 	<shortcut>
 		<defaultID />

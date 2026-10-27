@@ -36,7 +36,7 @@
 		<label>Trakt Lists</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>image://C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.video.umbrella%5cresources%5cartwork%5cumbrella%5cmovies.png/</thumb>
+		<thumb>image://special%3A%2F%2Fhome%2Faddons%2Fplugin.video.umbrella%2Fresources%2Fartwork%2Fumbrella%2Fmovies.png/</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.umbrella/?action=movies_PublicLists&amp;url=trakt_trendingLists&amp;folderName=Trakt+Trending+Lists",return)</action>
 		</shortcut>
 	<shortcut>
@@ -44,7 +44,7 @@
 		<label>MDB Lists</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>image://C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.video.umbrella%5cresources%5cartwork%5cumbrella%5cmovies.png/</thumb>
+		<thumb>image://special%3A%2F%2Fhome%2Faddons%2Fplugin.video.umbrella%2Fresources%2Fartwork%2Fumbrella%2Fmovies.png/</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.umbrella/?action=mdbOfficialListMovies&amp;folderName=Official+Lists+%28MDBList%29",return)</action>
 		</shortcut>
 	<shortcut>
@@ -52,7 +52,7 @@
 		<label>Anime</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>image://C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.video.umbrella%5cresources%5cartwork%5cumbrella%5cboxsets.png/</thumb>
+		<thumb>image://special%3A%2F%2Fhome%2Faddons%2Fplugin.video.umbrella%2Fresources%2Fartwork%2Fumbrella%2Fboxsets.png/</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.umbrella/?action=anime_Navigator&amp;folderName=Anime",return)</action>
 		</shortcut>
 	<shortcut>
@@ -60,7 +60,7 @@
 		<label>People</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>image://C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.video.themoviedb.helper%5cicon.png/</thumb>
+		<thumb>image://special%3A%2F%2Fhome%2Faddons%2Fplugin.video.themoviedb.helper%2Ficon.png/</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=dir_person&amp;tmdb_type=None&amp;widget=true&amp;reload=$INFO[Window(Home).Property(TMDbHelper.Widgets.Reload)]&amp;reload=$INFO[Window(Home).Property(TMDbHelper.Widgets.Reload)]",return)</action>
 		</shortcut>
 	<shortcut>

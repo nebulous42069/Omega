@@ -84,7 +84,7 @@
 		<label>People</label>
 		<label2>Custom item</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>image://C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.video.themoviedb.helper%5cicon.png/</thumb>
+		<thumb>image://special%3A%2F%2Fhome%2Faddons%2Fplugin.video.themoviedb.helper%2Ficon.png/</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.redlight/?mode=navigator.people",return)</action>
 		</shortcut>
 	</shortcuts>

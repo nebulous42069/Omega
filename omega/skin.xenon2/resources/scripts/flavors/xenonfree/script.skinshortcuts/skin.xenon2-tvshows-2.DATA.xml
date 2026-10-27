@@ -13,7 +13,7 @@
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
 		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/lookmovies.png</thumb>
-		<action>ActivateWindow(Videos,"plugin://plugin.video.lookmovietomb/?mode=listmenus&amp;url=series&amp;page=1&amp;title=%5BCOLOR+khaki%5D%5BB%5DTV+Shows%5B%2FCOLOR%5D%5B%2FB%5D&amp;image=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.video.lookmovietomb%5C%2Fresources%2F..%2Ficon.png&amp;infoLabels=%257B%2527title%2527%253A%2B%2527%255BCOLOR%2Bkhaki%255D%255BB%255DTV%2BShows%255B%252FCOLOR%255D%255B%252FB%255D%2527%257D",return)</action>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.lookmovietomb/?mode=listmenus&amp;url=series&amp;page=1&amp;title=%5BCOLOR+khaki%5D%5BB%5DTV+Shows%5B%2FCOLOR%5D%5B%2FB%5D&amp;image=special%3A%2F%2Fhome%2Faddons%2Fplugin.video.lookmovietomb%2Fresources%2F..%2Ficon.png&amp;infoLabels=%257B%2527title%2527%253A%2B%2527%255BCOLOR%2Bkhaki%255D%255BB%255DTV%2BShows%255B%252FCOLOR%255D%255B%252FB%255D%2527%257D",return)</action>
 		</shortcut>
 	<shortcut>
 		<defaultID />

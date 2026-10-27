@@ -44,7 +44,7 @@
 		<label>Trakt Lists</label>
 		<label2>Custom item</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>image://C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.video.umbrella%5cresources%5cartwork%5cumbrella%5cmovies.png/</thumb>
+		<thumb>image://special%3A%2F%2Fhome%2Faddons%2Fplugin.video.umbrella%2Fresources%2Fartwork%2Fumbrella%2Fmovies.png/</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.redlight/?mode=navigator.trakt_lists_public",return)</action>
 		</shortcut>
 	<shortcut>
@@ -52,7 +52,7 @@
 		<label>MDB Lists</label>
 		<label2>Custom item</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>image://C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.video.umbrella%5cresources%5cartwork%5cumbrella%5cmovies.png/</thumb>
+		<thumb>image://special%3A%2F%2Fhome%2Faddons%2Fplugin.video.umbrella%2Fresources%2Fartwork%2Fumbrella%2Fmovies.png/</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.redlight/?mode=mdblist.get_mdbl_top_lists",return)</action>
 		</shortcut>
 	<shortcut>

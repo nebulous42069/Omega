@@ -12,7 +12,7 @@
 		<label>Your MDBList Shows</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>image://C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.video.umbrella%5cresources%5cartwork%5cumbrella%5cmdblist.png/</thumb>
+		<thumb>image://special%3A%2F%2Fhome%2Faddons%2Fplugin.video.umbrella%2Fresources%2Fartwork%2Fumbrella%2Fmdblist.png/</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.umbrella/?action=mytvshows_mdblistNavigator&amp;folderName=MDBList",return)</action>
 		</shortcut>
 	<shortcut>
@@ -20,7 +20,7 @@
 		<label>Your MDBList Movies</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>image://C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.video.umbrella%5cresources%5cartwork%5cumbrella%5cmdblist.png/</thumb>
+		<thumb>image://special%3A%2F%2Fhome%2Faddons%2Fplugin.video.umbrella%2Fresources%2Fartwork%2Fumbrella%2Fmdblist.png/</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.umbrella/?action=mymovies_mdblistNavigator&amp;folderName=MDBList",return)</action>
 		</shortcut>
 	<shortcut>
@@ -28,7 +28,7 @@
 		<label>MDBListUser Lists (Shows)</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>image://C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.video.umbrella%5cresources%5cartwork%5cumbrella%5cmdblist.png/</thumb>
+		<thumb>image://special%3A%2F%2Fhome%2Faddons%2Fplugin.video.umbrella%2Fresources%2Fartwork%2Fumbrella%2Fmdblist.png/</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.umbrella/?action=mdbUserListTV&amp;folderName=User+Lists+%28MDBList%29",return)</action>
 		</shortcut>
 	<shortcut>
@@ -36,7 +36,7 @@
 		<label>MDBLists (Movies)</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>image://C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.video.umbrella%5cresources%5cartwork%5cumbrella%5cmdblist.png/</thumb>
+		<thumb>image://special%3A%2F%2Fhome%2Faddons%2Fplugin.video.umbrella%2Fresources%2Fartwork%2Fumbrella%2Fmdblist.png/</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.umbrella/?action=mdbUserListMovies&amp;folderName=User+Lists+%28MDBList%29",return)</action>
 		</shortcut>
 	<shortcut>
@@ -44,7 +44,7 @@
 		<label>Liked Lists (Movies)</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>image://C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.video.umbrella%5cresources%5cartwork%5cumbrella%5cmdblist.png/</thumb>
+		<thumb>image://special%3A%2F%2Fhome%2Faddons%2Fplugin.video.umbrella%2Fresources%2Fartwork%2Fumbrella%2Fmdblist.png/</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.umbrella/?action=mdbLikedListMovies&amp;folderName=Liked+Lists+%28MDBList%29",return)</action>
 		</shortcut>
 	<shortcut>
@@ -52,7 +52,7 @@
 		<label>Liked Lists (TV Shows)</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>image://C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.video.umbrella%5cresources%5cartwork%5cumbrella%5cmdblist.png/</thumb>
+		<thumb>image://special%3A%2F%2Fhome%2Faddons%2Fplugin.video.umbrella%2Fresources%2Fartwork%2Fumbrella%2Fmdblist.png/</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.umbrella/?action=mdbLikedListShows&amp;folderName=Liked+Lists+%28MDBList%29",return)</action>
 		</shortcut>
 	</shortcuts>

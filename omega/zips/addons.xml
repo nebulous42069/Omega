@@ -3213,7 +3213,7 @@ v0.2.3
 			<fanart>resources/fanart.jpg</fanart>
 		</assets>
 	</extension>
-</addon><addon id="skin.xenon2" version="430.99.13" name="[B][COLOR gold]Diggz Xenon 2[/COLOR][/B]  (Mid Power)" provider-name="SiLVO, Diggz">
+</addon><addon id="skin.xenon2" version="430.99.14" name="[B][COLOR gold]Diggz Xenon 2[/COLOR][/B]  (Mid Power)" provider-name="SiLVO, Diggz">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0" />
 		<import addon="script.module.requests" version="2.19.1" />

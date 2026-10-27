@@ -53,7 +53,7 @@
 		<label>MDBList</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>image://C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.video.umbrella%5cresources%5cartwork%5cumbrella%5cmdblist.png/</thumb>
+		<thumb>image://special%3A%2F%2Fhome%2Faddons%2Fplugin.video.umbrella%2Fresources%2Fartwork%2Fumbrella%2Fmdblist.png/</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.umbrella/?action=mytvshows_mdblistNavigator&amp;folderName=MDBList",return)</action>
 		<disabled>True</disabled>
 		</shortcut>
@@ -62,7 +62,7 @@
 		<label>Simkl</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>image://C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.video.umbrella%5cresources%5cartwork%5cumbrella%5csimkl.png/</thumb>
+		<thumb>image://special%3A%2F%2Fhome%2Faddons%2Fplugin.video.umbrella%2Fresources%2Fartwork%2Fumbrella%2Fsimkl.png/</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.umbrella/?action=mytvshows_simklNavigator&amp;folderName=Simkl",return)</action>
 		<disabled>True</disabled>
 		</shortcut>
@@ -81,7 +81,7 @@
 		<label2>Custom item</label2>
 		<icon>DefaultShortcut.png</icon>
 		<thumb>image://special%3a%2f%2fhome%2faddons%2fresource.images.skinicons.wide%2fresources%2ficons%2fsportscentral.png/</thumb>
-		<action>ActivateWindow(Videos,"plugin://plugin.video.sporthdme/?url=https%3A%2F%2Fsuper.league.st&amp;mode=events&amp;name=%5BB%5D%5BCOLOR+white%5DLIVE+EVENTS%5B%2FCOLOR%5D%5B%2FB%5D&amp;iconimage=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5CKODI_OMEGA_21%5CKodi%5Cportable_data%5Caddons%5Cplugin.video.sporthdme%5Cicon.png&amp;description=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5CKODI_OMEGA_21%5CKodi%5Cportable_data%5Caddons%5Cplugin.video.sporthdme%5Cfanart.jpg",return)</action>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.sporthdme/?url=https%3A%2F%2Fsuper.league.st&amp;mode=events&amp;name=%5BB%5D%5BCOLOR+white%5DLIVE+EVENTS%5B%2FCOLOR%5D%5B%2FB%5D&amp;iconimage=special%3A%2F%2Fhome%2Faddons%2Fplugin.video.sporthdme%2Ficon.png&amp;description=special%3A%2F%2Fhome%2Faddons%2Fplugin.video.sporthdme%2Ffanart.jpg",return)</action>
 		<disabled>True</disabled>
 		</shortcut>
 	<shortcut>

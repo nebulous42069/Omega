@@ -12,7 +12,7 @@
 		<label>Your Trakt TV</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>image://C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.video.umbrella%5cresources%5cartwork%5cumbrella%5ctrakt.png/</thumb>
+		<thumb>image://special%3A%2F%2Fhome%2Faddons%2Fplugin.video.umbrella%2Fresources%2Fartwork%2Fumbrella%2Ftrakt.png/</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.umbrella/?action=mytvshows_traktNavigator&amp;folderName=Trakt",return)</action>
 		</shortcut>
 	<shortcut>
@@ -20,7 +20,7 @@
 		<label>Your Trakt Movies</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>image://C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.video.umbrella%5cresources%5cartwork%5cumbrella%5ctrakt.png/</thumb>
+		<thumb>image://special%3A%2F%2Fhome%2Faddons%2Fplugin.video.umbrella%2Fresources%2Fartwork%2Fumbrella%2Ftrakt.png/</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.umbrella/?action=mymovies_traktNavigator&amp;folderName=Trakt",return)</action>
 		</shortcut>
 	<shortcut>
@@ -28,7 +28,7 @@
 		<label>My Liked Lists (Movies)</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>image://C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.video.umbrella%5cresources%5cartwork%5cumbrella%5ctrakt.png/</thumb>
+		<thumb>image://special%3A%2F%2Fhome%2Faddons%2Fplugin.video.umbrella%2Fresources%2Fartwork%2Fumbrella%2Ftrakt.png/</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.umbrella/?action=movies_LikedLists&amp;folderName=My+Liked+Lists+%28Trakt%29",return)</action>
 		</shortcut>
 	<shortcut>
@@ -36,7 +36,7 @@
 		<label>My Liked Lists (Shows)</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>image://C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.video.umbrella%5cresources%5cartwork%5cumbrella%5ctrakt.png/</thumb>
+		<thumb>image://special%3A%2F%2Fhome%2Faddons%2Fplugin.video.umbrella%2Fresources%2Fartwork%2Fumbrella%2Ftrakt.png/</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.umbrella/?action=shows_LikedLists&amp;folderName=My+Liked+Lists+%28Trakt%29",return)</action>
 		</shortcut>
 	</shortcuts>

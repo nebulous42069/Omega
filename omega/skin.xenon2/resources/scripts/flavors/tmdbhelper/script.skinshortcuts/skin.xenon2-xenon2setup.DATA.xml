@@ -4,7 +4,7 @@
 		<label>Choose A Flavor</label>
 		<label2>Custom item</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>image://C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.program.xenon2%5cresources%5cicon.png/</thumb>
-		<action>ActivateWindow(Programs,"plugin://plugin.program.diggzflavors/?url=https%3A%2F%2Fraw.githubusercontent.com%2FBuildtexts69%2Fomegabuilds%2Fmain%2FX2%2F23flavors.xml&amp;mode=1&amp;name=Xenon+2+Flavors&amp;icon=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.diggzflavors%5Cresources%5Cicon.png&amp;fanart=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.diggzflavors%5Cresources%5Cfanart.jpg&amp;description=&amp;name2=&amp;version=&amp;section=Xenon2",return)</action>
+		<thumb>image://special%3A%2F%2Fhome%2Faddons%2Fplugin.program.xenon2%2Fresources%2Ficon.png/</thumb>
+		<action>ActivateWindow(Programs,"plugin://plugin.program.diggzflavors/?url=https%3A%2F%2Fraw.githubusercontent.com%2FBuildtexts69%2Fomegabuilds%2Fmain%2FX2%2F23flavors.xml&amp;mode=1&amp;name=Xenon+2+Flavors&amp;icon=special%3A%2F%2Fhome%2Faddons%2Fplugin.program.diggzflavors%2Fresources%2Ficon.png&amp;fanart=special%3A%2F%2Fhome%2Faddons%2Fplugin.program.diggzflavors%2Fresources%2Ffanart.jpg&amp;description=&amp;name2=&amp;version=&amp;section=Xenon2",return)</action>
 		</shortcut>
 	</shortcuts>

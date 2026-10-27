@@ -4,7 +4,7 @@
 		<label>[COLOR chartreuse]Red Light[/COLOR] - 10/25</label>
 		<label2>Custom item</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>image://C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.program.chef21%5cresources%5cicon.png/</thumb>
+		<thumb>image://special%3A%2F%2Fhome%2Faddons%2Fplugin.program.chef21%2Fresources%2Ficon.png/</thumb>
 		<action>RunScript(special://home/addons/skin.xenon2/resources/scripts/xenon_setup.py)</action>
 		</shortcut>
 	<shortcut>

@@ -206,7 +206,7 @@
 				<item>
 					<label>Search Radio Stations</label>
 					<onclick>Dialog.Close(5001)</onclick>					
-					<onclick>ActivateWindow(10502,"plugin://plugin.audio.radio_de_light/?description=Sender%20suchen&amp;fanart&amp;iconimage=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.audio.radio_de_light%5cicon.png&amp;mode=3&amp;name=Search%20Radio%20Stations&amp;url=-",return)</onclick>
+					<onclick>ActivateWindow(10502,"plugin://plugin.audio.radio_de_light/?description=Sender%20suchen&amp;fanart&amp;iconimage=special%3A%2F%2Fhome%2Faddons%2Fplugin.audio.radio_de_light%2Ficon.png&amp;mode=3&amp;name=Search%20Radio%20Stations&amp;url=-",return)</onclick>
 				</item>
                 </content>
             </control>

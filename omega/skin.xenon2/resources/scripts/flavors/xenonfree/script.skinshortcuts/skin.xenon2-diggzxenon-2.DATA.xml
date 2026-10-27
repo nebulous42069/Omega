@@ -45,6 +45,6 @@
 		<label2>Custom item</label2>
 		<icon>DefaultShortcut.png</icon>
 		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/advanced.png</thumb>
-		<action>PlayMedia("plugin://plugin.program.chef21/?url=&amp;mode=29&amp;name=%5BB%5D%5BCOLOR+snow%5DAdvanced+Settings+K21%5B%2FCOLOR%5D%5B%2FB%5D&amp;icon=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.chef21%5Cresources%5Cicon.png&amp;fanart=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.chef21%5Cresources%5Cfanart.jpg&amp;description=%5BB%5D%5BCOLOR+snow%5DA+list+of+presets+to+set+the+cache+size+based+on+your+device%27s+RAM+size.%5B%2FCOLOR%5D%5B%2FB%5D&amp;name2=&amp;version=&amp;kodi=&amp;sf_options=winID%3D10025%26_options_sf")</action>
+		<action>PlayMedia("plugin://plugin.program.chef21/?url=&amp;mode=29&amp;name=%5BB%5D%5BCOLOR+snow%5DAdvanced+Settings+K21%5B%2FCOLOR%5D%5B%2FB%5D&amp;icon=special%3A%2F%2Fhome%2Faddons%2Fplugin.program.chef21%2Fresources%2Ficon.png&amp;fanart=special%3A%2F%2Fhome%2Faddons%2Fplugin.program.chef21%2Fresources%2Ffanart.jpg&amp;description=%5BB%5D%5BCOLOR+snow%5DA+list+of+presets+to+set+the+cache+size+based+on+your+device%27s+RAM+size.%5B%2FCOLOR%5D%5B%2FB%5D&amp;name2=&amp;version=&amp;kodi=&amp;sf_options=winID%3D10025%26_options_sf")</action>
 		</shortcut>
 	</shortcuts>
