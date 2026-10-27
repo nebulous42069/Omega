@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<defaultcontrol always="true">200</defaultcontrol>
+	<controls>
+
+		<!-- Diffused splash background -->
+		<control type="image">
+			<left>0</left>
+			<top>0</top>
+			<width>1920</width>
+			<height>1080</height>
+			<texture>common/splash_bg.jpg</texture>
+		</control>
+
+		<!-- Dark overlay to keep text readable -->
+		<control type="image">
+			<left>0</left>
+			<top>0</top>
+			<width>1920</width>
+			<height>1080</height>
+			<texture colordiffuse="CC0E0E0E">common/white.png</texture>
+		</control>
+
+		<control type="group">
+			<left>260</left>
+			<top>40</top>
+			<control type="group">
+				<width>1400</width>
+
+				<!-- Main background -->
+				<control type="image">
+					<height>1000</height>
+					<texture colordiffuse="DDffffff">common/splash.jpg</texture>
+				</control>
+
+				<!-- Header bar - RED when builder mode active -->
+				<control type="image">
+					<height>90</height>
+					<texture colordiffuse="FF6B1A1A">common/white.png</texture>
+				</control>
+
+				<!-- Header icon -->
+				<control type="image">
+					<left>12</left>
+					<top>8</top>
+					<width>74</width>
+					<height>74</height>
+					<aspectratio>keep</aspectratio>
+					<texture colordiffuse="FFFFFFFF">common/icon.png</texture>
+				</control>
+
+				<!-- Header title -->
+				<control type="label">
+					<left>100</left>
+					<top>0</top>
+					<width>1000</width>
+					<height>90</height>
+					<font>font20</font>
+					<textcolor>FFFFFFFF</textcolor>
+					<aligny>center</aligny>
+					<label>ReAuthorize - Builder Mode</label>
+				</control>
+
+				<!-- Builder Mode badge (right side of header) -->
+				<control type="label">
+					<left>900</left>
+					<top>0</top>
+					<width>480</width>
+					<height>90</height>
+					<font>font16</font>
+					<textcolor>FFFF6666</textcolor>
+					<align>right</align>
+					<aligny>center</aligny>
+					<label>BUILDER MODE ACTIVE</label>
+				</control>
+
+				<!-- Divider -->
+				<control type="image">
+					<left>0</left>
+					<top>90</top>
+					<width>1400</width>
+					<height>2</height>
+					<texture colordiffuse="FF883333">common/white.png</texture>
+				</control>
+
+				<!-- Info panel background -->
+				<control type="image">
+					<left>0</left>
+					<top>92</top>
+					<width>1400</width>
+					<height>50</height>
+					<texture colordiffuse="CC3A1A1A">common/white.png</texture>
+				</control>
+
+				<!-- Info text -->
+				<control type="label">
+					<left>20</left>
+					<top>92</top>
+					<width>1360</width>
+					<height>50</height>
+					<font>font13</font>
+					<textcolor>FFFFA0A0</textcolor>
+					<aligny>center</aligny>
+					<label>Strip all credentials before zipping. Kodi closes automatically after - zip the build before re-opening or credentials will reload.</label>
+				</control>
+
+				<!-- Divider below info -->
+				<control type="image">
+					<left>0</left>
+					<top>142</top>
+					<width>1400</width>
+					<height>2</height>
+					<texture colordiffuse="FF444444">common/white.png</texture>
+				</control>
+
+				<!-- Center content area -->
+				<!-- Warning icon / title -->
+				<control type="label">
+					<left>200</left>
+					<top>260</top>
+					<width>1000</width>
+					<height>70</height>
+					<font>font20</font>
+					<textcolor>FFFF6666</textcolor>
+					<align>center</align>
+					<label>Clean Build for Distribution</label>
+				</control>
+
+				<!-- Explanation -->
+				<control type="label">
+					<left>200</left>
+					<top>340</top>
+					<width>1000</width>
+					<height>160</height>
+					<font>font14</font>
+					<textcolor>FFFFFFFF</textcolor>
+					<align>center</align>
+					<label>Removes all service credentials from this build's addon settings.[CR]Kodi will close immediately after - you must zip the build folder BEFORE re-opening.[CR][CR]If you re-open Kodi first, your credentials will reload automatically[CR]and you will need to click this button again before zipping.</label>
+				</control>
+
+				<!-- Device ID reminder (id=500) - filled by Python -->
+				<control type="label" id="500">
+					<left>200</left>
+					<top>520</top>
+					<width>1000</width>
+					<height>50</height>
+					<font>font13</font>
+					<textcolor>FFFFFFFF</textcolor>
+					<align>center</align>
+					<label>Device ID: -</label>
+				</control>
+
+				<!-- Status label (id=501) -->
+				<control type="label" id="501">
+					<left>200</left>
+					<top>580</top>
+					<width>1000</width>
+					<height>50</height>
+					<font>font14</font>
+					<textcolor>FF4ADE80</textcolor>
+					<align>center</align>
+					<label></label>
+				</control>
+
+				<!-- Divider above buttons -->
+				<control type="image">
+					<left>0</left>
+					<top>926</top>
+					<width>1400</width>
+					<height>2</height>
+					<texture colordiffuse="FF444444">common/white.png</texture>
+				</control>
+
+				<!-- Clear All button (id=201) -->
+				<control type="button" id="201">
+					<left>440</left>
+					<top>934</top>
+					<width>520</width>
+					<height>58</height>
+					<onup>500</onup>
+					<onright>200</onright>
+					<label>Clean Build for Distribution</label>
+					<font>font14</font>
+					<textcolor>FFFFFFFF</textcolor>
+					<focusedcolor>FFFFFFFF</focusedcolor>
+					<texturefocus colordiffuse="FF883333">common/white.png</texturefocus>
+					<texturenofocus colordiffuse="FF552222">common/white.png</texturenofocus>
+					<aligny>center</aligny>
+				</control>
+
+				<!-- Close button (id=200) -->
+				<control type="button" id="200">
+					<left>1140</left>
+					<top>934</top>
+					<width>240</width>
+					<height>58</height>
+					<onleft>201</onleft>
+					<label>Close</label>
+					<font>font14</font>
+					<textcolor>FFFFFFFF</textcolor>
+					<focusedcolor>FFFFFFFF</focusedcolor>
+					<texturefocus colordiffuse="FF555555">common/white.png</texturefocus>
+					<texturenofocus colordiffuse="FF2E2E2E">common/white.png</texturenofocus>
+					<aligny>center</aligny>
+				</control>
+
+			</control>
+		</control>
+
+	</controls>
+</window>

@@ -5,7 +5,7 @@
 		<label2>Custom item</label2>
 		<icon>DefaultShortcut.png</icon>
 		<thumb />
-		<action>RunScript(special://home/addons/skin.xenon2/resources/scripts/tmdbhelper_tracking.py)</action>
+		<action>RunScript(plugin.video.themoviedb.helper,install_sync_provider)</action>
 		</shortcut>
 	<shortcut>
 		<defaultID />

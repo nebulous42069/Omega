@@ -1,0 +1,395 @@
+HOW TO USE REAUTHORIZE
+======================
+A plain-English guide for getting set up - no technical knowledge needed.
+
+
+----------------------------------------------------------------
+WHAT IS REAUTHORIZE?
+----------------------------------------------------------------
+ReAuthorize is the one place in Kodi where you link your streaming
+accounts - debrid services, Trakt, Simkl, and others.
+
+Once you link them here, ReAuthorize pushes your credentials to
+every supported add-on automatically. You link once, and every
+add-on in your build benefits.
+
+The best part: after you install a new build, ReAuthorize restores
+everything on its own, at Kodi start. You do not have to open it,
+press anything, or even remember it is there. Your credentials are
+kept in a personal vault that a build install cannot wipe.
+
+You only need to open ReAuthorize when you want to link a new
+service, or re-link one that has lapsed - for example if your
+debrid subscription ran out and you renewed it.
+
+
+----------------------------------------------------------------
+ANDROID USERS
+----------------------------------------------------------------
+There is nothing for you to do. ReAuthorize works on Fire TV,
+Shield, Onn, Google TV, phones and tablets with no setup.
+
+You do NOT need an SD card, a USB drive, or external storage of
+any kind. An earlier version of this guide said that adding one
+would help. That was wrong, and we are sorry if it sent anyone
+shopping - it could never have made any difference.
+
+Your backup is kept outside Kodi's own settings, which is what
+lets it survive a new build. ReAuthorize picks that spot itself:
+it writes a test file and reads it back first, so it only trusts
+a place your device really allows. If the best spot is blocked,
+it moves down to the next one automatically.
+
+To see exactly where your backup is saved on your device:
+  About tab  ->  Storage Report
+
+
+----------------------------------------------------------------
+STEP 1 - GETTING STARTED
+----------------------------------------------------------------
+ReAuthorize opens straight to Settings when you launch it.
+Work through the service tabs in this menu to authorize each
+service you have an account with. Your profile is created
+and backed up automatically as you go.
+
+Already signed in to a service inside one of your add-ons?
+On this first tab, press:
+
+  "Already Signed In Inside Your Add-ons? Bring Those In"
+
+ReAuthorize will look through your installed add-ons, show you
+what it found, and ask before taking anything. Anything you
+accept is then shared with your other add-ons and backed up.
+
+
+----------------------------------------------------------------
+STEP 2 - LINK YOUR DEBRID SERVICE (OPTIONAL)
+----------------------------------------------------------------
+A debrid service (Real-Debrid, Premiumize, AllDebrid, TorBox,
+Easy Debrid, or OffCloud) lets add-ons play content faster and
+more reliably. You pay the debrid company directly - it is a
+separate subscription from Kodi.
+
+To link a debrid service:
+  1. Open ReAuthorize and go to the  Debrid Services  tab
+  2. Find your service and press "Authorize"
+  3. Follow the steps shown on screen
+  4. When done, your username will appear alongside Sync and
+     Revoke options
+
+If you do not have a debrid service, skip this step. Your
+add-ons will still work - debrid is optional.
+
+
+----------------------------------------------------------------
+STEP 3 - LINK TRAKT FOR KODI (OPTIONAL)
+----------------------------------------------------------------
+Trakt is a free service that tracks what you have watched so
+Kodi and compatible add-ons know what is new and what you have
+already seen.
+
+To link Trakt:
+  1. Open ReAuthorize and go to the  Trakt & Scrobble  tab
+  2. Press "Authorize Trakt for Kodi"
+  3. An 8-character code will appear on screen
+  4. On any phone, tablet, or computer, go to:
+
+         trakt.tv/activate
+
+  5. Sign in to Trakt (or create a free account)
+  6. Enter the code shown on your Kodi screen
+  7. Kodi detects the connection automatically - wait a moment
+  8. A confirmation message appears when done
+
+WHAT HAPPENS NEXT:
+  As soon as you finish signing in, ReAuthorize sends Trakt to
+  every add-on you have installed that uses it. There is nothing
+  to choose. Kodi then asks you to restart once so they all pick
+  it up.
+
+  ReAuthorize renews the Trakt login by itself, about a month
+  before it runs out, and sends the new one to all of your
+  add-ons and to your backups. That keeps them working together,
+  and keeps them showing up in Trakt as one connected app. (Two
+  add-ons renewing the same login at the same time is what used
+  to sign people out of all of them.)
+
+  If you install another add-on later, press "Sync Add-ons" on
+  the  Trakt & Scrobble  tab to send Trakt to it.
+
+  You can come back and change your choice at any time.
+
+GOOD TO KNOW:
+  You are signing in with YOUR Trakt account. ReAuthorize is
+  simply the application doing the asking - which is why Trakt
+  shows one connected app no matter how many add-ons you use it
+  with. That matters, because a free Trakt account is allowed
+  one connected app.
+
+NOTE: Trakt requires a Kodi restart before it becomes fully
+active. If prompted to restart, do so.
+
+
+----------------------------------------------------------------
+STEP 4 - LINK SIMKL (OPTIONAL)
+----------------------------------------------------------------
+Simkl tracks your viewing history across devices, similar to
+Trakt.
+
+To link Simkl:
+  1. Open ReAuthorize and go to the  Trakt & Scrobble  tab
+  2. Press "Authorize Simkl"
+  3. A popup shows a PIN code and the address:
+
+         simkl.com/pin
+
+  4. Go to that address on any device and sign in
+  5. Enter the PIN code shown in the Kodi popup
+  6. Click Allow when asked for permission
+  7. The page may appear to stop loading - that is normal.
+     Kodi is checking in the background and will detect
+     approval automatically.
+
+
+----------------------------------------------------------------
+STEP 5 - LINK LAST.FM (OPTIONAL)
+----------------------------------------------------------------
+Last.fm is a music tracking service. If you use a music add-on
+that supports Last.fm, linking it here means it will record
+what you listen to automatically.
+
+To link Last.fm:
+  1. Install the "Last.fm Scrobbler" add-on from Kodi's add-on repo
+  2. Open ReAuthorize and go to the  Trakt & Scrobble  tab
+  3. Scroll down to the Last.fm section and press "Authorize Last.fm"
+  4. Enter your Last.fm username, then your password
+  5. A confirmation message appears when the Scrobbler has signed in
+
+No Last.fm API key is needed.
+
+
+----------------------------------------------------------------
+STEP 6 - YOUTUBE FOR KODI (OPTIONAL)
+----------------------------------------------------------------
+YouTube for Kodi needs its own set of Google API keys. The
+add-on ships with shared ones, but they are used by everybody
+and run out of daily allowance - that is what causes the
+"quota exceeded" errors. Creating your own set fixes it.
+
+There are three values, all made in one free Google account:
+
+  API Key         for ordinary searching and browsing
+  Client ID       identifies the app to your Google account
+  Client Secret   the password that goes with the Client ID
+
+When you create the Client ID, you MUST choose the application
+type "TVs and Limited Input devices". That is the type that
+lets you sign in with a code on screen. Picking any other type
+will not work, because Kodi has no web browser to return to.
+
+To store them here:
+  1. Open ReAuthorize and go to the  Streaming Services  tab
+  2. Under "Step 1", enter the API Key, Client ID and Client Secret
+  3. Press "Sync Keys to YouTube for Kodi"
+  4. Under "Step 2", press "Sign in to YouTube"
+
+ReAuthorize keeps these keys and puts them back after a build
+install, so you only ever create them once.
+
+SIGNING IN TO YOUR YOUTUBE ACCOUNT IS SEPARATE:
+  The keys above only let the add-on talk to YouTube. To see
+  your own subscriptions, watch history, saved playlists and
+    Watch Later, you also sign in to YouTube. You do NOT need to
+  sign in just to watch or search.
+
+  It is the same sign-in you would do for YouTube on any TV:
+  Kodi shows a short code, you enter it at youtube.com/activate
+  on your phone or computer, and sign in there with the account
+  you already use for YouTube. ReAuthorize never sees your
+  password. It only keeps a copy of the sign-in YouTube hands
+  back, so a new build does not make you do it again.
+
+  The "Sign in to YouTube" button under Step 2 starts it, and
+  Step 2 shows "Signed in" once it has worked.
+
+  YouTube for Kodi will ask you to sign in more than once in a
+  row (usually 3 codes) - it warns you about this before it
+  starts. That is normal: it links several parts of your
+  account, each with its own code. The FIRST code goes in at
+  youtube.com/activate, the next ones at google.com/device.
+  Wait for each new code to show in Kodi before typing it.
+
+  IMPORTANT: work through every prompt it gives you, and approve
+  each one. If you decline any of them, the whole sign-in is
+  thrown away - including the parts you already approved - and
+  YouTube ends up looking signed out.
+
+  Once you are through it, you are done with it for good.
+  ReAuthorize keeps a copy of that sign-in along with your keys,
+  so after a build install it comes back on its own and you do
+  not sit through those prompts again.
+
+TORRENTCLAW (OPTIONAL, SAME TAB):
+  Cosmos can search TorrentClaw, and needs your own free key for
+  it. TorrentClaw has no sign-in with a code, so you type the key
+  once:
+  1. On your phone or computer, sign in at torrentclaw.com, open
+     your profile and the API Keys tab, and copy the key
+  2. Press "Enter TorrentClaw Key" and type it in
+  ReAuthorize checks it with TorrentClaw, gives it to Cosmos, and
+  keeps it with your other sign-ins, so you never type it again.
+  Cosmos also needs a debrid account to play what it finds.
+
+
+----------------------------------------------------------------
+STEP 7 - METADATA SERVICES (OPTIONAL)
+----------------------------------------------------------------
+Metadata services supply the movie posters, descriptions, cast
+info, and artwork shown in Kodi. Most users do not need to do
+anything here - the defaults work fine.
+
+If an add-on asks you to enter a Fanart.TV API key:
+  1. Open ReAuthorize and go to the  Metadata  tab
+  2. Enter the API key for the relevant provider
+  3. Press "Authorize" where shown
+
+MDBList is on the  Trakt & Scrobble  tab: press "Authorize MDBList",
+enter the code shown, and add your API key when it asks.
+
+The TMDB connection is handled automatically by each add-on -
+you do not need to set it up here unless specifically asked.
+
+
+----------------------------------------------------------------
+STEP 8 - ADDING OR REMOVING A SERVICE LATER
+----------------------------------------------------------------
+You can add or remove any service at any time.
+
+  To add a service:
+    Go to that service's tab and press Authorize.
+
+  To remove a service:
+    Open the  Manage  tab and press "Remove a Service."
+    Choose a category, then the service you want to remove.
+    Confirm the removal - your backup is updated automatically.
+
+
+----------------------------------------------------------------
+STEP 9 - YOU ARE DONE!
+----------------------------------------------------------------
+There is nothing to press. Each time you link a service,
+ReAuthorize does three things by itself:
+  - Saves your credentials to the local vault
+  - Backs them up to the server
+  - Sends them to every supported add-on in your build
+
+You will see "Saved and backed up." when it has done so.
+
+An add-on you install later, or open for the first time later,
+gets your sign-ins by itself within a few minutes or at the next
+Kodi start. You do not need to touch settings inside each one.
+
+"Save & Backup Now" on the  Backup & Device  tab is still there
+if you ever want to do it by hand.
+
+NOTE: Some services (especially Trakt) require a Kodi restart
+before they become fully active.
+
+
+----------------------------------------------------------------
+AFTER INSTALLING A NEW BUILD
+----------------------------------------------------------------
+This is where ReAuthorize really shines.
+
+When you install a new build, ReAuthorize automatically restores
+your credentials and pushes them to all your add-ons, at Kodi
+start. You do not need to open it or do anything at all.
+
+If a service is not authorized after installing a new build:
+  Open ReAuthorize, go to the  Backup & Device  tab, and press
+  "Save & Backup Now" - this also pushes credentials to all add-ons.
+
+If it is still not working, try the  Manage  tab and press
+"Re-Authorize My Services" to force a fresh credential push.
+
+If that does not fix it, check the supported add-ons list in
+the  About  tab. If your add-on is not listed, contact us:
+
+         tinyurl.com/ReAuthHelp
+
+  It will be added within 24 hours.
+
+You can also go to  Backup & Device  to restore credentials
+from a cloud backup if the automatic restore did not find them.
+
+
+----------------------------------------------------------------
+FOR BUILD CREATORS - BEFORE YOU ZIP YOUR BUILD
+----------------------------------------------------------------
+ReAuthorize stores your personal credentials in Kodi settings.
+If you have authorized services on the install you are
+packaging, those credentials will be in the build zip unless
+you clear them first.
+
+The order matters. Prepare This Build for Distribution is the
+LAST thing you do inside Kodi:
+  1. Do any clean-up you do inside Kodi first (a wizard's cache,
+     thumbnails, packages and so on)
+  2. Open ReAuthorize and go to the  Reset & Clear  tab
+  3. Press the green "START - Prepare This Build for Distribution"
+     at the bottom of the tab
+  4. Press "Remove and close"
+  5. Choose "Truncate too" to also truncate the database tables
+     (watched history, TV guide, music library, view settings), as a
+     wizard's Truncate Tables does. Your add-ons, their settings,
+     Kodi's add-on database and the thumbnails are kept. Both need
+     Kodi to close straight after, which is why one button does both.
+     Choose "Sign-ins only" if you already truncated the tables.
+  6. A progress window shows each step (about a minute). It ends
+     with "Tables and sign-ins are clean. Kodi will now force close."
+     Please let it finish: Kodi force closes by itself when done,
+     with every sign-in removed
+  7. Do any clean-up you do OUTSIDE Kodi now (.pyc files and so on),
+     with Kodi still closed
+  8. Zip the build folder RIGHT AWAY - before re-opening Kodi
+
+Do NOT delete ReAuthorize's addon_data folder, anything in
+userdata/Database, or rows in Kodi's add-on database (Addons33.db)
+by hand. Prepare This Build for Distribution already removes
+everything that matters, and hand deleting add-on data is how
+builds end up with add-ons that will not open.
+
+IMPORTANT: If you re-open Kodi before zipping, your credentials
+reload automatically. You will need to run "Prepare This Build
+for Distribution" again before zipping.
+
+Users who install your build will not see your credentials.
+When they first open ReAuthorize, the Read Me First tab will
+guide them through getting started. They can then use the
+service tabs to authorize their own accounts.
+
+
+----------------------------------------------------------------
+IF SOMETHING DOES NOT LOOK RIGHT
+----------------------------------------------------------------
+If an add-on is still not authorized after a new build:
+  1. Open ReAuthorize and go to the  Manage  tab
+  2. Press "Re-Authorize My Services"
+  3. If Trakt is involved, restart Kodi after syncing -
+     Trakt requires a restart before changes take effect
+
+If Trakt is missing from one particular add-on, press
+"Sync Add-ons" on the  Trakt & Scrobble  tab and restart Kodi.
+If it is still missing, check the supported add-ons list in
+the  About  tab.
+
+To check what is connected across your whole build, go to
+the  Manage  tab and press "View Status."
+
+If Re-Authorize My Services does not fix it, check the supported
+add-ons list in the  About  tab to confirm your add-on is
+listed. If it is not listed, contact us:
+
+         tinyurl.com/ReAuthHelp
+
+It will be added within 24 hours.

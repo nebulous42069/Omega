@@ -17,6 +17,7 @@ trakt_icon = joinPath(os.path.join(xbmcaddon.Addon('script.module.reauthorize').
 class Trakt():
 	def __init__(self):
 		self.api_endpoint = 'https://api.trakt.tv/%s'
+		self.auth_endpoint = 'https://auth.trakt.tv/%s'
 		self.client_id = self.traktClientID()
 		self.client_secret = self.traktClientSecret()
 		# Kodi hands settings back as strings, and `time.time() > '1790000000'`
@@ -58,13 +59,17 @@ class Trakt():
 						return None
 					headers['Authorization'] = 'Bearer ' + self.token
 				try:
-					if data is not None: resp = requests.post(self.api_endpoint % path, json=data, headers=headers, timeout=timeout)
-					else: resp = requests.get(self.api_endpoint % path, headers=headers, timeout=timeout)
+					if data is not None: resp = requests.post(url, json=data, headers=headers, timeout=timeout)
+					else: resp = requests.get(url, headers=headers, timeout=timeout)
 				except requests.exceptions.RequestException as e:
 					error_notification('Trakt Error', str(e))
 				except Exception as e:
 					error_notification('', str(e))
 				return resp
+			# OAuth uses Trakt's auth host; account/data calls stay on the API host.
+			path = path.lstrip('/')
+			endpoint = self.auth_endpoint if path.startswith('oauth/') else self.api_endpoint
+			url = endpoint % path
 			timeout = 15.0
 			headers = {'Content-Type': 'application/json', 'trakt-api-version': '2', 'trakt-api-key': self.traktClientID()}
 			response = send_query()

@@ -1,0 +1,360 @@
+<?xml version='1.0' encoding='utf-8'?>
+<window>
+  <defaultcontrol>900</defaultcontrol>
+  <coordinates>
+    <left>322</left>
+    <top>90</top>
+  </coordinates>
+  <include>dialogeffect</include>
+  <controls>
+    <control type="image">
+      <left>0</left>
+      <top>0</top>
+      <width>1200</width>
+      <height>900</height>
+      <texture border="40">$VAR[SelectBack]</texture>
+    </control>
+    <control type="image">
+      <left>60</left>
+      <top>24</top>
+      <width>1080</width>
+      <height>60</height>
+      <texture>dialogheader.png</texture>
+    </control>
+    <control type="label" id="20">
+      <left>60</left>
+      <top>30</top>
+      <width>1080</width>
+      <height>45</height>
+      <font>font13</font>
+      <textcolor>selected</textcolor>
+      <label>ReAuthorize</label>
+      <aligny>center</aligny>
+      <align>center</align>
+      <shadowcolor>black</shadowcolor>
+    </control>
+    <control type="label" id="22">
+      <left>140</left>
+      <top>265</top>
+      <width>1600</width>
+      <height>40</height>
+      <font>font13</font>
+      <textcolor>$VAR[ThemeLabelColor]</textcolor>
+      <label />
+      <visible>false</visible>
+    </control>
+    <control type="label" id="23">
+      <left>140</left>
+      <top>815</top>
+      <width>1600</width>
+      <height>35</height>
+      <font>font12</font>
+      <textcolor>FF9DA8B4</textcolor>
+      <label />
+      <visible>false</visible>
+    </control>
+    <control type="list" id="100">
+      <left>60</left>
+      <top>105</top>
+      <width>1080</width>
+      <height>60</height>
+      <onleft>100</onleft>
+      <onright>100</onright>
+      <onup>901</onup>
+      <ondown>200</ondown>
+      <scrolltime>120</scrolltime>
+      <itemlayout height="60" width="270">
+        <control type="textbox">
+          <left>12</left>
+          <top>4</top>
+          <width>246</width>
+          <height>52</height>
+          <font>font12</font>
+          <textcolor>FFBDC6CF</textcolor>
+          <label>$INFO[ListItem.Label]</label>
+          <align>center</align>
+        </control>
+      </itemlayout>
+      <focusedlayout height="60" width="270">
+        <control type="image">
+          <left>0</left>
+          <top>0</top>
+          <width>268</width>
+          <height>60</height>
+          <texture border="5" colordiffuse="$VAR[ThemeLabelColor]">lf_classic/button/button-focus2.png</texture>
+          <visible>[Control.HasFocus(100)] + [Skin.String(ButtonLAF,Max)]</visible>
+        </control>
+        <control type="image">
+          <left>0</left>
+          <top>0</top>
+          <width>268</width>
+          <height>60</height>
+          <texture border="5" colordiffuse="$VAR[ThemeLabelColor]">lf_classic/button/button-focus2.png</texture>
+          <visible>[Control.HasFocus(100)] + [Skin.String(ButtonLAF,Modern)]</visible>
+        </control>
+        <control type="image">
+          <left>0</left>
+          <top>0</top>
+          <width>268</width>
+          <height>60</height>
+          <texture border="5" colordiffuse="$VAR[ThemeLabelColor]">lf_classic/button/button-focus2.png</texture>
+          <visible>[Control.HasFocus(100)] + [String.IsEmpty(Skin.String(ButtonLAF))]</visible>
+        </control>
+        <control type="textbox">
+          <left>12</left>
+          <top>4</top>
+          <width>246</width>
+          <height>52</height>
+          <font>font12</font>
+          <textcolor>FFFFFFFF</textcolor>
+          <label>$INFO[ListItem.Label]</label>
+          <align>center</align>
+        </control>
+      </focusedlayout>
+      <orientation>horizontal</orientation>
+    </control>
+    <control type="list" id="200">
+      <left>60</left>
+      <top>180</top>
+      <width>1080</width>
+      <height>544</height>
+      <onleft>100</onleft>
+      <onright>210</onright>
+      <onup>200</onup>
+      <ondown>900</ondown>
+      <pagecontrol>210</pagecontrol>
+      <scrolltime>120</scrolltime>
+      <itemlayout height="68" width="1080">
+        <control type="image">
+          <left>0</left>
+          <top>60</top>
+          <width>1080</width>
+          <height>1</height>
+          <texture colordiffuse="$VAR[ThemeLabelColor]">separator2.png</texture>
+          <visible>String.IsEqual(ListItem.Property(kind),heading)</visible>
+        </control>
+        <control type="textbox">
+          <left>15</left>
+          <top>3</top>
+          <width>750</width>
+          <height>56</height>
+          <font>font13</font>
+          <textcolor>FFFFFFFF</textcolor>
+          <label>$INFO[ListItem.Label]</label>
+          <visible>[!String.IsEqual(ListItem.Property(kind),heading)] + !String.IsEqual(ListItem.Property(wide),true)</visible>
+        </control>
+        <control type="textbox">
+          <left>15</left>
+          <top>3</top>
+          <width>1045</width>
+          <height>56</height>
+          <font>font12</font>
+          <textcolor>$VAR[ThemeLabelColor]</textcolor>
+          <label>$INFO[ListItem.Label]</label>
+          <visible>String.IsEqual(ListItem.Property(kind),heading)</visible>
+          <align>center</align>
+        </control>
+        <control type="textbox">
+          <left>790</left>
+          <top>3</top>
+          <width>215</width>
+          <height>56</height>
+          <font>font12</font>
+          <textcolor>FFD6DDE4</textcolor>
+          <label>$INFO[ListItem.Label2]</label>
+          <align>right</align>
+        </control>
+        <control type="image">
+          <left>1010</left>
+          <top>8</top>
+          <width>55</width>
+          <height>44</height>
+          <texture colordiffuse="$VAR[ThemeLabelColor]">android/btn_radio_on_holo_dark.png</texture>
+          <visible>String.IsEqual(ListItem.Property(kind),bool) + String.IsEqual(ListItem.Property(checked),true)</visible>
+        </control>
+        <control type="image">
+          <left>1010</left>
+          <top>8</top>
+          <width>55</width>
+          <height>44</height>
+          <texture colordiffuse="FF9DA8B4">android/btn_radio_off_holo_dark.png</texture>
+          <visible>String.IsEqual(ListItem.Property(kind),bool) + !String.IsEqual(ListItem.Property(checked),true)</visible>
+        </control>
+        <control type="textbox">
+          <left>15</left>
+          <top>3</top>
+          <width>1045</width>
+          <height>56</height>
+          <font>font13</font>
+          <textcolor>FFFFFFFF</textcolor>
+          <label>$INFO[ListItem.Label]</label>
+          <visible>[!String.IsEqual(ListItem.Property(kind),heading)] + String.IsEqual(ListItem.Property(wide),true)</visible>
+        </control>
+      </itemlayout>
+      <focusedlayout height="68" width="1080">
+        <control type="image">
+          <left>0</left>
+          <top>0</top>
+          <width>1080</width>
+          <height>60</height>
+          <texture border="5" colordiffuse="$VAR[ThemeLabelColor]">lf_classic/button/button-focus2.png</texture>
+          <visible>[[Control.HasFocus(200)] + String.IsEqual(ListItem.Property(interactive),true)] + [Skin.String(ButtonLAF,Max)]</visible>
+        </control>
+        <control type="image">
+          <left>0</left>
+          <top>0</top>
+          <width>1080</width>
+          <height>60</height>
+          <texture border="5" colordiffuse="$VAR[ThemeLabelColor]">lf_classic/button/button-focus2.png</texture>
+          <visible>[[Control.HasFocus(200)] + String.IsEqual(ListItem.Property(interactive),true)] + [Skin.String(ButtonLAF,Modern)]</visible>
+        </control>
+        <control type="image">
+          <left>0</left>
+          <top>0</top>
+          <width>1080</width>
+          <height>60</height>
+          <texture border="5" colordiffuse="$VAR[ThemeLabelColor]">lf_classic/button/button-focus2.png</texture>
+          <visible>[[Control.HasFocus(200)] + String.IsEqual(ListItem.Property(interactive),true)] + [String.IsEmpty(Skin.String(ButtonLAF))]</visible>
+        </control>
+        <control type="image">
+          <left>0</left>
+          <top>60</top>
+          <width>1080</width>
+          <height>1</height>
+          <texture colordiffuse="$VAR[ThemeLabelColor]">separator2.png</texture>
+          <visible>String.IsEqual(ListItem.Property(kind),heading)</visible>
+        </control>
+        <control type="image">
+          <left>1010</left>
+          <top>8</top>
+          <width>55</width>
+          <height>44</height>
+          <texture colordiffuse="$VAR[ThemeLabelColor]">android/btn_radio_on_holo_dark.png</texture>
+          <visible>String.IsEqual(ListItem.Property(kind),bool) + String.IsEqual(ListItem.Property(checked),true)</visible>
+        </control>
+        <control type="image">
+          <left>1010</left>
+          <top>8</top>
+          <width>55</width>
+          <height>44</height>
+          <texture colordiffuse="FF9DA8B4">android/btn_radio_off_holo_dark.png</texture>
+          <visible>String.IsEqual(ListItem.Property(kind),bool) + !String.IsEqual(ListItem.Property(checked),true)</visible>
+        </control>
+        <control type="textbox">
+          <left>15</left>
+          <top>3</top>
+          <width>750</width>
+          <height>56</height>
+          <font>font13</font>
+          <textcolor>FFFFFFFF</textcolor>
+          <label>$INFO[ListItem.Label]</label>
+          <visible>[!String.IsEqual(ListItem.Property(kind),heading)] + !String.IsEqual(ListItem.Property(wide),true)</visible>
+        </control>
+        <control type="textbox">
+          <left>15</left>
+          <top>3</top>
+          <width>1045</width>
+          <height>56</height>
+          <font>font12</font>
+          <textcolor>$VAR[ThemeLabelColor]</textcolor>
+          <label>$INFO[ListItem.Label]</label>
+          <visible>String.IsEqual(ListItem.Property(kind),heading)</visible>
+          <align>center</align>
+        </control>
+        <control type="textbox">
+          <left>790</left>
+          <top>3</top>
+          <width>215</width>
+          <height>56</height>
+          <font>font12</font>
+          <textcolor>FFFFFFFF</textcolor>
+          <label>$INFO[ListItem.Label2]</label>
+          <align>right</align>
+        </control>
+        <control type="textbox">
+          <left>15</left>
+          <top>3</top>
+          <width>1045</width>
+          <height>56</height>
+          <font>font13</font>
+          <textcolor>FFFFFFFF</textcolor>
+          <label>$INFO[ListItem.Label]</label>
+          <visible>[!String.IsEqual(ListItem.Property(kind),heading)] + String.IsEqual(ListItem.Property(wide),true)</visible>
+        </control>
+      </focusedlayout>
+    </control>
+    <control type="scrollbar" id="210">
+      <left>1147</left>
+      <top>180</top>
+      <width>38</width>
+      <height>570</height>
+      <orientation>vertical</orientation>
+      <onleft>200</onleft>
+      <onright>100</onright>
+      <onup>210</onup>
+      <ondown>900</ondown>
+      <showonepage>false</showonepage>
+      <texturesliderbackground border="0,14,0,14">ScrollBarV.png</texturesliderbackground>
+      <texturesliderbar border="0,14,0,14">ScrollBarV_bar.png</texturesliderbar>
+      <texturesliderbarfocus colordiffuse="$VAR[ThemeLabelColor]" border="0,14,0,14">ScrollBarV_bar_focus.png</texturesliderbarfocus>
+      <textureslidernib colordiffuse="$VAR[ThemeLabelColor]">ScrollBarNib.png</textureslidernib>
+      <textureslidernibfocus colordiffuse="$VAR[ThemeLabelColor]">ScrollBarNib.png</textureslidernibfocus>
+    </control>
+    <control type="label" id="24">
+      <left>140</left>
+      <top>995</top>
+      <width>1200</width>
+      <height>35</height>
+      <font>font12</font>
+      <textcolor>FF9DA8B4</textcolor>
+      <label>Changes save immediately. Back returns to categories.</label>
+      <visible>false</visible>
+    </control>
+    <control type="button" id="900">
+      <left>450</left>
+      <top>802</top>
+      <width>300</width>
+      <height>60</height>
+      <label>Close</label>
+      <font>font12_title</font>
+      <textcolor>FFFFFFFF</textcolor>
+      <align>center</align>
+      <aligny>center</aligny>
+      <onup>200</onup>
+      <onleft>100</onleft>
+      <onright>100</onright>
+      <ondown>100</ondown>
+      <focusedcolor>FFFFFFFF</focusedcolor>
+      <include>NormalButton</include>
+    </control>
+    <control type="button" id="901">
+      <left>1025</left>
+      <top>24</top>
+      <width>96</width>
+      <height>48</height>
+      <align>center</align>
+      <aligny>center</aligny>
+      <onup>200</onup>
+      <onleft>100</onleft>
+      <onright>100</onright>
+      <ondown>100</ondown>
+      <include>DialogCloseButton</include>
+    </control>
+    <control type="image">
+      <left>20</left>
+      <top>120</top>
+      <width>30</width>
+      <height>30</height>
+      <texture colordiffuse="$VAR[ThemeLabelColor]">scroll-left-focus.png</texture>
+      <visible>Container(100).HasPrevious</visible>
+    </control>
+    <control type="image">
+      <left>1150</left>
+      <top>120</top>
+      <width>30</width>
+      <height>30</height>
+      <texture colordiffuse="$VAR[ThemeLabelColor]">scroll-right-focus.png</texture>
+      <visible>Container(100).HasNext</visible>
+    </control>
+  </controls>
+</window>

@@ -1,0 +1,31 @@
+
+Getting Help
+============
+
+If something is not working, here are a few things to check first:
+
+- Make sure you completed authorization (the service row shows your username).
+- If a sync failed, try the manual Re-Sync button for that service.
+- If credentials were lost after a reinstall, try Settings > Backup & Device > Restore from Vault.
+
+Need more help?
+---------------
+
+Come find us on Telegram - the link is in the addon's forum/info page.
+
+IMPORTANT: Do NOT post about ReAuthorize issues on the official Kodi forums.
+ReAuthorize is a third-party addon and is outside the scope of Kodi's official
+support. Posting there about it may get you warned or removed.
+
+Bring your question to Telegram instead - describe what happened and
+what you expected, and someone will help you out.
+
+Local troubleshooting
+---------------------
+
+1. Turn on Settings > System > Logging > Enable debug logging.
+2. Repeat the action that failed.
+3. Inspect the local kodi.log for ReAuthorize errors.
+4. Turn debug logging off when finished.
+
+The embedded version has no log-upload feature.

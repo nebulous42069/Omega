@@ -1,0 +1,243 @@
+v1.4.4
+- Fixed: with two Kodi installs on one device (two on a PC, or Kodi and a Kodi fork on one box), Trakt could keep asking you to sign in again: when one renewed your Trakt sign-in, the other went on using the old one, and a backup made there could replace the good sign-in with the old one. ReAuthorize now always uses the newest Trakt sign-in it has saved, and a backup never replaces a newer Trakt or PunchPlay sign-in with an older one. If Trakt asks you to sign in now, Revoke and Authorize it once more and it will stay.
+- Added: TorrentClaw. Type your free TorrentClaw key once (Streaming Services tab, "Enter TorrentClaw Key"; get it from your profile on torrentclaw.com, API Keys tab). ReAuthorize checks it, gives it to Cosmos, backs it up and puts it back after a new build, like your other sign-ins. Build Status has a TorrentClaw tile.
+- Fixed: removing a TorBox, OffCloud, Easy Debrid, Linksnappy or Debrid-Link sign-in showed a box that just said "None". It now asks "Remove your ... sign-in?" with Cancel and Remove.
+- Fixed: signing in to YouTube could make the last code window disappear while you were typing it, leaving that part of the sign-in unfinished. ReAuthorize now waits until YouTube has shown and you have entered every code. The sign-in message now says there are usually 3 codes: the first at youtube.com/activate, the rest at google.com/device.
+- Easier to read: text that was grey on grey (the sign-in names and status lines, backup dates, notes under the buttons, and parts of the Build Status, sign-in code and builder windows) is now white. (Asked for by a user. Thank you.)
+- Fixed: some skins showed small boxes in place of dashes and dots in ReAuthorize's settings, messages and help. Only plain characters are used now.
+- Changed: "Prepare This Build for Distribution" no longer ends with an OK button. It says the sign-ins (and tables) are clean and force closes Kodi by itself, because a normal close could leave Kodi frozen on some setups.
+- Changed: Build Status lists only the add-ons ReAuthorize shares your sign-ins with. The Trakt, Simkl and Last.fm scrobbler add-ons, which each hold just their own sign-in, are no longer listed.
+
+v1.4.3
+- Fixed: on some devices ReAuthorize opened to an empty settings window and nothing in it could be saved, often right after a new build was installed. Kodi stops reading an add-on's saved settings when that file gets damaged (for example when Kodi is closed while the file is being written) or was saved by a newer Kodi (a build made on Kodi 22 and installed on Kodi 21). ReAuthorize now checks its settings file each time Kodi starts, puts a damaged one aside and brings your sign-ins back from your backup by itself. (Reported by users. Thank you.)
+- Fixed: the same can happen to the add-ons ReAuthorize sends your sign-ins to: they then lose your debrid and scrapers and find nothing to play, and their settings window is empty. ReAuthorize now checks their settings files too each time Kodi starts, repairs a damaged one while keeping the add-on's own choices wherever they can be read, and sends your sign-ins to it again.
+- Fixed: the first start after a new build could damage ReAuthorize's settings file on slower devices. It now saves its settings one at a time.
+- Added: "Prepare This Build for Distribution" can now also truncate the database tables, like a wizard's Truncate Tables: choose "Truncate too" to empty the watched history, TV guide, music library and view settings in the same step. Both need Kodi to close straight after, so now one button does both. Your add-ons, their settings, Kodi's add-on database and the thumbnails are kept. "Sign-ins only" works as before.
+
+v1.4.2
+- Fixed: PunchPlay could ask you to sign in again after a build install, or when two Kodi installs on one device both ran ReAuthorize. ReAuthorize now always renews with the newest sign-in it has saved. If PunchPlay asked you to sign in again on 1.4.1, sign in once more and it will stay.
+- Fixed: GratisRed could show a Trakt error after GratisRed itself was updated, until Kodi was restarted. ReAuthorize now gives GratisRed its Trakt app key in a way that survives GratisRed updates and needs no restart. (Reported by a user. Thank you.)
+
+v1.4.1
+- Added: PunchPlay. Press "Authorize PunchPlay" on the Trakt & Scrobble tab, enter the code shown at punchplay.tv/link (or scan the QR code), and your sign-in goes to Umbrella, Red Light, Cosmos, TMDb Movies and The Archives. PunchPlay sign-ins last one hour, so ReAuthorize renews yours by itself while Kodi runs and hands the new one to your add-ons each time. Build Status has a PunchPlay tile.
+- Changed: a new sign-in now goes to your add-ons by itself. Before, "Authorize" for Real-Debrid, Premiumize, AllDebrid, TorBox, EasyDebrid, OffCloud, Easynews, FilePursuit and the metadata keys only saved the sign-in, and your add-ons had nothing until you pressed "Sync Add-ons". Now you sign in and it is done. "Sync Add-ons" is still there to send it again.
+- Fixed: "Authorize Premiumize" shows a code again, like Real-Debrid: enter it at premiumize.me/device or scan the QR code. No API key to type. If you already signed in with your key, nothing changes and you do not need to sign in again. (Reported by a user. Thank you.)
+- Changed: Last.fm now signs in with your Last.fm username and password, no API key needed. ReAuthorize sends them to the Last.fm Scrobbler add-on, which now really scrobbles and stays signed in after a build install. If you signed in inside the Scrobbler before, ReAuthorize picks that up by itself.
+- Added: the version number now shows at the top of the first tab ("ReAuthorize version"), and says whether it is the latest or an update is available, so you can see where you stand from inside ReAuthorize.
+- Fixed: after "Revoke" for Real-Debrid, Premiumize, AllDebrid, TorBox, EasyDebrid, OffCloud, Easynews or FilePursuit, the sign-in could come back by itself a few moments later, so ReAuthorize still showed it as signed in.
+- Fixed: the "new version available" notice could stay silent. ReAuthorize now compares version numbers properly, whatever their length.
+
+v1.4.0
+- Changed: MDBList is now one sign-in. Press "Authorize MDBList" on the Trakt & Scrobble tab, enter the code shown, and add your MDBList API key when it asks (some add-ons only take the key). "Revoke" removes both, from ReAuthorize and from your add-ons. The separate MDBList rows on the Metadata tab are gone; a key you entered before keeps working.
+- Changed: Build Status shows one MDBList tile, lit whichever way you signed in.
+- Added: your MDBList account now reaches Umbrella, POV, Red Light, Cosmos and TMDb Movies, and is kept renewed there. Before, only the MDBList Scrobbler add-on received it. (Reported by a user. Thank you.)
+- Added: your MDBList API key now reaches The Archives and Cosmos.
+- Added: your TMDb key now reaches The Loop and Mad Titan Sports. If you have none, they keep their own.
+- Changed: no more "Restart Kodi to finish linking your add-ons?" question when Kodi starts. It came up after nearly every update of some add-ons. ReAuthorize now sets such an add-on up again quietly, and it is finished by itself the next time Kodi starts. The question is still asked right after you press "Sync Add-ons" or sign in, when it is needed.
+- Added: Nightwing and Mad Titan Sports now receive your sign-ins: Trakt in both, and your metadata keys in Nightwing.
+- Removed: Moria, which is no longer maintained. ReAuthorize no longer sends it your sign-ins.
+- Fixed: Build Status did not show TMDb, Fanart.tv, Easynews and FilePursuit for My Accounts. They were being sent all along.
+- Changed: "Compatible Add-ons" on the About tab is now always up to date: it lists exactly the add-ons ReAuthorize sends to.
+- Changed: Build Status shows each add-on with its own current icon, and the ReAuthorize download is about 3 MB smaller.
+
+v1.3.9
+- Changed: ReAuthorize now backs up by itself whenever you link, change or remove a service, and says "Saved and backed up." The reminder to press "Save & Backup Now" after every action is gone. The button is still on the Backup & Device tab if you want it.
+- Added: when you install a new add-on, or open one for the first time, ReAuthorize now sends it your sign-ins by itself, within a few minutes or at the next Kodi start. No need to press "Sync Add-ons".
+- Fixed: when ReAuthorize renewed Trakt while Kodi stayed on, Gears could be sent the previous sign-in until Kodi was restarted.
+- Fixed: Simkl now reaches Red Light, Gears, Cosmos, GratisRed, TMDb Movies, The Crew and the Simkl scrobbler add-on. They were not being sent your Simkl sign-in at all. (Reported by a user. Thank you.)
+- Fixed: Simkl in Umbrella, Prism and The Archives. They received your sign-in but could not use it. A mistake on our side: Simkl only accepts a sign-in together with the app it was made with, and ReAuthorize now sends both.
+- Fixed: POV's Trakt sync reported "Error from Trakt" every 30 minutes. A mistake on our side in how one value was written; it is corrected by itself after this update.
+- Fixed: Black Lightning did not accept the Trakt sign-in from ReAuthorize with its current version.
+- Changed: after this update ReAuthorize sends your sign-ins to all your add-ons once by itself, so any add-on that was missed is brought up to date. If it asks to restart Kodi afterwards, that is so the add-ons pick it up.
+- Added: a "Sync Add-ons" button for Simkl on the Trakt & Scrobble tab, like the one Trakt has.
+- Changed: "Revoke" for Simkl now also removes the sign-in from your add-ons. Before, it only signed ReAuthorize out.
+- Changed: Build Status shows the Simkl tile for every add-on that receives Simkl.
+- Changed: clearer tiles for AllDebrid, FilePursuit, TMDb, Simkl and MDBList.
+
+v1.3.8
+- Changed: ReAuthorize now asks whether to restart Kodi when an add-on needs a restart before it can use Trakt: after "Sync Add-ons" on the Trakt & Scrobble tab, and at Kodi start after an add-on update. "Later" leaves Kodi open.
+- Changed: The "close Kodi" message after a Trakt or Metadata change is now a question. "Close Kodi" closes it; "Not yet", Back or the X leave Kodi open, and the change is picked up the next time Kodi starts.
+- Fixed: ReAuthorize could say "YouTube has a different sign-in" when the keys were the same. Nothing needed importing.
+- Fixed: "Revoke" on the Trakt & Scrobble tab only removed Trakt from your add-ons and left ReAuthorize itself signed in, so "Authorize" never came back. Revoke now signs ReAuthorize out too. Afterwards it asks whether to close Kodi now; when Kodi is open again, press "Authorize Trakt for Kodi".
+- Fixed: the Trakt add-on (script.trakt) 3.9 did not accept the Trakt sign-in from ReAuthorize, the same mistake on our side as with The Crew. It is put right at the next Kodi start, or press "Sync Add-ons" on the Trakt & Scrobble tab.
+- Fixed: closing Kodi within the first few minutes after starting it could take about 5 seconds longer, because ReAuthorize did not notice Kodi was closing (since 1.3.7).
+- Added: Build Status now lists the MDBList Scrobbler and shows your MDBList account sign-in with its own icon (the "MDBList" tile). The plain "M" is still the MDBList API key.
+- Fixed: The Crew did not accept the Trakt sign-in from ReAuthorize and kept showing "No Trakt account". A mistake on our side with newer versions of The Crew: it now receives the complete sign-in. If The Crew still asks after this update, open ReAuthorize, go to the Trakt & Scrobble tab and press "Sync Add-ons" once. (Reported by a user, with the cause. Thank you.)
+
+v1.3.7
+- Added: MDBList account sign-in, on the Trakt & Scrobble tab ("Authorize MDBList Account"). Sign in once with a code, the same way as Trakt, and ReAuthorize sends it to the MDBList Scrobbler add-on and keeps it renewed. The MDBList API key under Metadata is still there for ratings and lists.
+- Changed: ReAuthorize now also appears under Video add-ons in the repository, next to its helper ReAuthorize-Core. Opening ReAuthorize-Core on its own now offers to install ReAuthorize.
+- Fixed: Trakt asked you to authorize again far too often. Trakt sign-ins now only last 7 days, so ReAuthorize renews them on that schedule, also while Kodi stays on. If one of your add-ons renewed first, ReAuthorize now picks up that working sign-in instead of asking you to authorize again.
+
+v1.3.6
+- Added: "Send My Log for Help" (About tab). If something is not working, press it to send a cleaned copy of your Kodi log to the ReAuthorize team. Before anything leaves your device, ReAuthorize removes passwords, keys, sign-in tokens and email addresses, and keeps only the lines about ReAuthorize and the add-ons it signs in to. Press "Show me" to read exactly what will be sent. Nothing is sent until you press Send. You get a reference number to quote when you ask for help in the group. For the most useful log, turn on Settings > System > Logging > Enable debug logging, repeat the problem, then send.
+- Fixed: Genocide kept asking you to authorize Trakt. A small mistake on our side meant Trakt did not recognise Genocide's request. If it still asks after this update, open ReAuthorize, go to the Trakt tab and press "Sync Add-ons" once.
+- Fixed: The "found sign-ins" message could appear after the reset when nothing had been signed in. It no longer does.
+- Fixed: YouTube's second sign-in step failed with "The OAuth client was not found" when the Client ID had been pasted together with extra text from Google's download. ReAuthorize now keeps only the Client ID itself and repairs the copy it had saved.
+- Fixed: The one-time sign-in reset from 1.3.5 did not reach devices that have "Enable Server Sync" switched off. It now does. If your device skipped it, the reset runs once after this update, with the same message: press OK and sign in to your services again.
+
+v1.3.5
+- IMPORTANT, PLEASE READ: Every sign-in on every device is being reset, once. After this update reaches your device (usually within a day or two), the reset runs the next time Kodi starts and takes about a minute. When it finishes you will see a message: press OK and ReAuthorize opens so you can sign in to your services again (Real-Debrid, Premiumize, Trakt and the rest). Your services will not work until you do. For Premiumize, press Authorize and, when it offers, enter your Premiumize API key (premiumize.me, under My Account). Only sign-in details are removed, including the copies ReAuthorize had already sent to your add-ons. Your add-ons, settings and library stay as they are.
+- Why: a fail-safe has been added. A build or file that still contains a sign-in is now stopped where it lands and flagged, so the person shipping it knows an active authorization is still linked. This reset clears every older copy so that every device starts clean. We are truly sorry for the inconvenience. It is the only way to be sure every old sign-in is shut down.
+- Fixed: Account Info, everything under Manage, and other settings buttons could just close settings and do nothing, or bring settings back blank, on skins that close their windows slowly (Confluence, Xonfluence). Every button now clears any half-closed window before it starts. (Reported by a user.)
+- Fixed: "Nuke This Device" could leave an old copy of your backup behind in a second place on the device. It now removes it from every place it may have been kept.
+- Fixed: The Premiumize "Authorize" button crashed because Premiumize no longer accepts ReAuthorize's own sign-in request. It now offers to sign in with your Premiumize API key instead (premiumize.me, under My Account), which works with all your add-ons.
+- Fixed (builders): "Prepare This Build for Distribution" cleared ReAuthorize's own sign-ins but left the copies it had already sent to your add-ons, so a build still carried them. It now clears those too.
+- If you make builds: run "Prepare This Build for Distribution" before you zip a build, so it goes out clean.
+
+v1.3.4
+- Added: Diamond Media Player, Prism, TMDb Movies, and "Youtube Theater" now receive sign-ins from ReAuthorize (Real-Debrid, Premiumize, All-Debrid, TorBox, OffCloud, Easynews, Trakt, and more, depending on the add-on).
+- Fixed: About -> Build Status did not list TMDb Helper at all, so its Trakt / Fanart.tv / MDBList status never showed even though ReAuthorize sends it all three. Genocide was missing from the same dashboard's Fanart.tv and TMDB columns after this build's metadata fix (see below). Both added; this is a display-only list, so nothing about what actually gets sent changed.
+- Fixed: "View Authorizations" did nothing (or briefly showed a Kodi busy notice) for every service that has it -- Real-Debrid, Premiumize, AllDebrid, TorBox, Easy Debrid, OffCloud, Easynews, FilePursuit, and Trakt. "Revoke" for those same nine, and every per-service Backup/Restore button in the Vault section, had the identical problem. All fixed at once. It could still be refused afterward if you opened ReAuthorize through the add-on browser's info page rather than Program add-ons; also fixed. (Found live, from a user report, the first time these buttons had ever actually been used.)
+- Fixed: "Revoke" only ever cleared your sign-in from ReAuthorize itself and a short, older list of add-ons -- some newer add-ons ReAuthorize had already signed you into kept the old sign-in afterward with no warning. Revoke now clears it everywhere it was actually sent. It's still destructive, so please be careful the first time you use it on each service.
+- Fixed: Prism's Premiumize connection could show as "not authorized" even with a working sign-in, and re-syncing didn't fix it on its own. Both are fixed.
+- Fixed: If an internal issue ever resets a sign-in on your device, choosing to fix it now actually clears the old one from every add-on it reached, not just from ReAuthorize's own copy.
+- Fixed: Genocide (plugin.video.genocide) never received Fanart.TV, IMDb or TMDB metadata from ReAuthorize. Real-Debrid, Premiumize, AllDebrid, Trakt, TorBox and Simkl already reached it under its current name; the metadata block was the one left behind on the old "Chains Genocide" add-on id, which no longer exists. (Found live, on a real Kodi 21 box with Genocide open in Settings.)
+- Fixed: OMDb and IMDb API keys had no way to be entered. The fields existed under Metadata -> Other API Keys, but were disabled display boxes with nothing to type into, so they were always blank -- ReAuthorize pushes OMDb's key to five addons and IMDb's to nine, and all of them were getting nothing. Each now has its own "Enter API Key" (OMDb) and "Enter Profile ID" (IMDb -- the number from your own imdb.com/user/urXXXXXXXX, not a login) plus Revoke, matching Fanart.TV and TheAudioDB. (Found while tracing a TMDb Helper crash on an empty OMDb reply.)
+- Changed: The Storage Report (About -> Storage Report) now starts with the answer: whether your backup is working and survives a new build, in green or red, then your last backup and device fingerprint. It opens in the same window as Help, so it scrolls with your remote on every skin. Before, many boxes only showed the top of a list of folders.
+- Fixed (builders): "Prepare This Build for Distribution" cleared every sign-in, but left your real usernames, profile IDs, and API keys sitting in a handful of hidden display fields it forgot about -- not shown in the app, but readable by anyone who opened the build's settings file directly. Now cleared too.
+
+v1.3.3
+- Fixed: Some boxes showed sign-ins that belonged to someone else, such as a Real-Debrid account nobody on the box recognised. A build could carry the ReAuthorize ID of the person who made it, so every box it was installed on shared one online backup. Every box now has an ID of its own, and an ID that was shared is shut down.
+- Added: If your box was one of them, ReAuthorize tells you once which sign-ins may not be yours and offers to remove them. You can then sign in with your own.
+- Fixed: "NUKE THIS DEVICE" kept the old ID, so the box could pick the same backup straight back up. It now starts completely fresh.
+- Fixed: "Prepare This Build for Distribution" left your ReAuthorize ID inside the build. It no longer does.
+
+v1.3.2
+- Added: Blue Balls and Twisted now receive Trakt, Real-Debrid, Premiumize and All-Debrid sign-ins from ReAuthorize.
+- Fixed: Aliunde K19's Trakt sign-in was never actually reaching it, even though ReAuthorize reported success. It now works, and Aliunde K19 also receives Real-Debrid, Premiumize, All-Debrid and a TMDB key.
+
+v1.3.1
+- Fixed: After you signed in to a service, its "Authorize" button stayed on screen, and Account Info, Sync Add-ons, View Authorizations and Revoke never appeared. Kodi was ignoring the settings rules that switch them. They now show once you are signed in, and "Authorize" goes away.
+- Fixed: Trakt now reaches your add-ons. Before, signing in to Trakt said "Trakt linked!" but sent it to nothing until you found "Choose Primary Kodi Trakt Add-on", and a new build erased that choice. Signing in now sends Trakt to every add-on you have installed that uses it.
+- Changed: "Choose Primary Kodi Trakt Add-on" is gone. Trakt goes to all of your add-ons, so there is nothing to choose.
+- Added: ReAuthorize now renews your Trakt sign-in by itself, about a month before it runs out, and sends the new one to every add-on and to your backups. Your add-ons never have to renew it themselves, so they can no longer sign each other out, and Trakt keeps seeing one connected app.
+- Fixed: If you signed in to Trakt before this update, it is sent to your add-ons once, automatically, the first time Kodi starts after updating. (If you once told ReAuthorize not to re-link Trakt after a new build, that is respected.)
+- Changed: After a new build, the question "re-link Trakt to your addons?" is now asked only once. Your answer is kept with your backup instead of being forgotten by every new build.
+- Fixed: Gears, Genocide and Orion could never receive Trakt. They do now.
+- Changed: The YouTube for Kodi page is now titled "YouTube Authorize and Login" and is two clear steps: your API keys, then your YouTube sign-in. It shows "Signed in" or "Not signed in", and has "Sign in to YouTube" and "Sign out of YouTube" buttons.
+- Added: Your YouTube sign-in is kept with your backup and put back after a new build, so you do not have to sit through every code again. Your API keys are saved with it, so a sign-in is never restored without the keys it belongs to.
+- Removed: Alvin, which closed down.
+
+v1.3.0
+- Please do this once after updating: open ReAuthorize, press "Already Signed In Inside Your Add-ons? Bring Those In" on the first tab, then "Save & Backup Now" on the Backup & Device tab. If an earlier version damaged your backup (see the first fix below), this writes you a good one.
+- Fixed: Restoring could erase your backup. When a restore came back empty, ReAuthorize then saved that empty result over your real backup, both on this device and on the server. An empty profile can no longer overwrite a backup.
+- Fixed: A restore that worked could be undone a second later, leaving you signed out of everything right after being told it succeeded.
+- Fixed: Cloud backup and restore work again. The backup server was unreachable for several months after it was renamed, so nothing reached it and every restore came back empty.
+- Added: "Already Signed In Inside Your Add-ons? Bring Those In" on the first tab. If you signed into a service inside Umbrella, Red Light or another add-on instead of through ReAuthorize, this finds it, shows you what it found, and asks before adding it. It then shares it with your other add-ons and backs it up. It also checks quietly by itself when you open ReAuthorize from Program add-ons.
+- Fixed: Red Light only ever received Easynews from ReAuthorize. It now gets Real-Debrid, Premiumize, AllDebrid, TorBox, OffCloud, TMDb, OMDb and Fanart.tv, plus Trakt when Red Light is your chosen Trakt add-on.
+- Fixed: GratisRed never actually signed into Trakt through ReAuthorize. It does now, when it is your chosen Trakt add-on.
+- Changed: Nearly every add-on ReAuthorize links to Trakt now shares ReAuthorize's own Trakt app, so Trakt counts them all as one connected app. That matters now that free Trakt accounts are limited to one.
+- Fixed: Orion received your Real-Debrid login, but it was left switched off.
+- Fixed: Infinity only received OffCloud when POV was also installed.
+- Added: ResolveURL now receives OffCloud.
+- Fixed: ReAuthorize could never renew its own Trakt sign-in once it expired. It can now.
+- Fixed: Debrid-Link, Linksnappy and your Simkl client ID were never backed up. They are now.
+- Fixed: Debrid-Link no longer shows as synced. No installed add-on accepts it yet.
+- Fixed: Backup messages now tell you what actually happened (saved, nothing to save, no backup on the server yet, or couldn't reach the server) instead of one generic message.
+- Fixed: "Save & Backup Now" skipped syncing your add-ons whenever the backup itself failed. Syncing now runs either way.
+- Fixed: A "Last Backup" date could be shown for a backup that never happened.
+- Changed: ReAuthorize now proves it can really save somewhere, by writing and reading back, before trusting that place with your backup. Existing installs are not moved.
+- Fixed: You do NOT need an SD card, USB drive or other external storage. Earlier help text said it would help. That was wrong.
+- Added: About -> Storage Report shows where your backup is kept, whether it survives a new build, and your Kodi and Android versions. Screenshot it when you report a problem.
+- Fixed: The reminder after changing a service pointed to the wrong tab.
+- Removed: Salts and Nightwing (both retired), and the unused setup wizard.
+
+v1.2.8
+- Added: Real-Debrid, All-Debrid, Premiumize, Trakt, Simkl, and TorBox now show a scannable QR code right alongside the existing "go to this URL and enter this code" authorization screen - scan with your phone instead of typing on a remote. Real-Debrid and All-Debrid's QR even skips retyping the code entirely.
+- Added: TorBox authorization now offers a choice - your API key as before, or the new QR/device-code option.
+
+v1.2.7
+- Please do this once after updating: open ReAuthorize and press Save & Backup Now. It's a single button - you do NOT need to re-authorize anything - and it writes a fresh copy of your current authorizations to your off-Kodi vault and to the server, so a restore is ready and waiting if you ever wipe, rebuild, or move to a new device.
+- Changed: Streamlined and optimized the cloud backup connection for more reliable saves and restores
+- Added: Backup and Restore now tell you exactly what happened - saved locally, saved to the server, or couldn't reach the server - instead of a single generic "complete" message. If something doesn't save, you'll know straight away rather than finding out when you need it.
+- Fixed: Build Status could open to an empty screen - the companion module failed to load on some setups
+- Changed: Build Status service icons are now full size and much easier to read, with a divider separating your installed add-ons from the services authorized in them
+- Changed: Build Status now opens at the top of the list, has a scrollbar, and shows a count so you can tell at a glance when there are more add-ons further down
+
+v1.2.6
+- Changed: Build Status got a cosmetic refresh for readability (service icons now show bright/dim state and the unused Refresh button was removed)
+- Fixed: Last.fm now shows correctly as authorized/synced and displays properly in Build Status
+- Fixed: YouTube credentials can now be imported from YouTube for Kodi when already configured there, so it no longer appears unlinked in ReAuthorize
+- Added: Cosmos support across sync/status coverage where it was missing
+- Changed: Internal code cleanup to reduce duplicated status mappings and make maintenance easier
+
+v1.2.5
+- Changed: OffCloud authorization now uses your OffCloud API key directly instead of your email and password - if you're already connected, nothing to do; your existing authorization keeps working. Grab your key from your account page on offcloud.com if you ever revoke and want to reconnect.
+
+v1.2.4
+- Removed: Fen and Fen Light are no longer supported add-ons - credentials are no longer synced to either
+- Fixed: If one service failed to sync during Save & Backup Now or Re-Authorize My Services, the whole batch used to stop silently and settings wouldn't reopen - now every other service still gets synced and you're told exactly which one (if any) failed
+- Fixed: A couple of spots where settings didn't reopen after an action (Simkl re-sync, and Metadata sync when there was nothing to sync)
+- Changed: Removed the duplicate "Sync All Services" button from the account status screen - Save & Backup Now under Manage is the one place for that
+- Added: After authorizing, revoking, or re-syncing a service, you'll get a reminder to hit Save & Backup Now so nothing gets left un-synced or un-backed-up
+
+v1.2.3
+- Fixed: The Archives sync compatibility for rebuilt versions by writing both legacy and newer key patterns for Trakt and Debrid
+- Fixed: The Archives now receives Simkl tokens from ReAuthorize sync
+- Fixed: Last.fm now stays visible as authorized after login and can be synced to the Last.fm scrobbler addon
+- Changed: YouTube for Kodi moved into a dedicated Streaming Services tab, while Last.fm is grouped under Trakt & Scrobble
+- Changed: Trakt is now treated as Kodi-level authorization with one primary synced Kodi add-on instead of a multi-add-on Trakt sync list
+
+v1.2.2
+- Fixed: Re-Authorize My Services now correctly pushes to all connected services - previously only Real-Debrid, Premiumize, and All-Debrid were included
+- Fixed: Revoking Real-Debrid, Premiumize, or All-Debrid now immediately clears the username from the display
+
+v1.2.1
+- Fixed: After a build install, settings now show your correct authorization state on first open - no more buttons showing "Authorize" when you're already authorized
+- Fixed: Services authorized after your last backup (like Simkl) no longer need to be re-authorized after a build restore
+- Fixed: Save & Backup Now also pushes your credentials to all installed addons in the same action
+
+v1.2.0
+- Fixed: Authorize buttons on all service tabs stayed on-screen even after authorization - now correctly switch to post-auth options once you're connected
+- Fixed: After authorizing a service or clicking a backup button, settings now reopen with the correct updated display
+- Changed: Save & Backup Now backs up your credentials and syncs to all addons in one click
+
+v1.1.6
+- Changed: Companion addon renamed to ReAuthorize-Core
+
+v1.1.5
+- Fixed: Re-Authorize My Services no longer interrupted settings mid-run
+- Fixed: Help and info buttons now reopen settings correctly after closing instead of dropping you to the Kodi home screen
+- Fixed: Fanart.TV, TheAudioDB, and MDBList auth and revoke buttons now work cleanly without opening settings twice
+
+v1.1.4
+- Fixed: Credential display fields no longer show raw color markup when selected
+- Fixed: TMDB authorization no longer crashes on success
+- Fixed: 7 services (Real-Debrid, AllDebrid, Trakt, TorBox, OffCloud, Easynews, Easy Debrid) no longer crash at the end of a successful authorization
+- Fixed: Per-service backup timestamps now each track their own last backup time independently
+- Added: OffCloud password and Easynews password now shown as masked text when authorized
+
+v1.1.0
+- Fixed: Build Status dashboard was missing Red Light and several other addons
+- Fixed: Cosmos and The Archives missing from Build Status
+- Added: Compatible Add-ons list viewable from the About tab
+
+v1.0.7
+- Fixed: startup crash introduced in 1.0.6 package
+
+v1.0.6
+- Fixed: startup crash on open caused by a malformed code block carried over from older versions
+- Added: Authorized service credentials shown in cyan for quick visual confirmation in Settings
+
+v1.0.4
+- Fixed: Quick Authorize was syncing Linksnappy and Debrid-Link twice on every Re-Auth All
+- Fixed: Metadata sync crashes (Fanart.TV section, PVR section)
+- Fixed: MDBList API key entry now pre-fills with your saved key instead of opening blank
+- Added: FidoK19, TorqueLite, TorqueLive support
+
+v1.0.3
+- Fixed: Setup Wizard - selecting TMDB, Linksnappy, or Debrid-Link now correctly opens the authorization flow
+
+v1.0.2
+- Added: Linksnappy support
+- Added: Debrid-Link support
+- Added: Orion, Red Light, The Archives, SALTS, Cosmos sync for Trakt and all debrids
+- Added: GratisRed metadata sync
+- Fixed: TMDB shows as configured in Build Status when your API key or session is present
+
+v1.0.0
+- Initial public release
+- Added: Remove a Service - revoke any connected service directly from settings
+- Added: Setup Wizard Close button
+- Fixed: Last Backup date now shows the actual date of your last backup

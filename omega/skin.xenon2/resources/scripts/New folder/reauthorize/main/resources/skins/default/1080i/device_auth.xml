@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<defaultcontrol always="true">200</defaultcontrol>
+	<controls>
+
+		<!-- Diffused splash background -->
+		<control type="image">
+			<left>0</left>
+			<top>0</top>
+			<width>1920</width>
+			<height>1080</height>
+			<texture>common/splash_bg.jpg</texture>
+		</control>
+
+		<!-- Dark overlay to keep text readable -->
+		<control type="image">
+			<left>0</left>
+			<top>0</top>
+			<width>1920</width>
+			<height>1080</height>
+			<texture colordiffuse="CC0E0E0E">common/white.png</texture>
+		</control>
+
+		<!-- ═══════════════════════════════════════════════════════════════
+		     MAIN PANEL - centered, 900x760
+		     ═══════════════════════════════════════════════════════════════ -->
+		<control type="group">
+			<left>510</left>
+			<top>160</top>
+			<control type="group">
+				<width>900</width>
+
+				<!-- Panel background -->
+				<control type="image">
+					<height>760</height>
+					<texture colordiffuse="DDffffff">common/splash.jpg</texture>
+				</control>
+
+				<!-- Header bar -->
+				<control type="image">
+					<height>80</height>
+					<texture colordiffuse="EE151515">common/white.png</texture>
+				</control>
+
+				<!-- Header icon -->
+				<control type="image">
+					<left>14</left>
+					<top>10</top>
+					<width>60</width>
+					<height>60</height>
+					<aspectratio>keep</aspectratio>
+					<texture colordiffuse="FFFFFFFF">common/icon.png</texture>
+				</control>
+
+				<!-- Header title (id=101) - "Authorize <Service>", set by Python -->
+				<control type="label" id="101">
+					<left>90</left>
+					<top>0</top>
+					<width>780</width>
+					<height>80</height>
+					<font>font20</font>
+					<textcolor>FFFFFFFF</textcolor>
+					<aligny>center</aligny>
+					<label>Authorize</label>
+				</control>
+
+				<!-- Divider below header -->
+				<control type="image">
+					<left>0</left>
+					<top>80</top>
+					<width>900</width>
+					<height>2</height>
+					<texture colordiffuse="FF2E2E2E">common/white.png</texture>
+				</control>
+
+				<!-- White backing so the QR stays scannable regardless of skin bg -->
+				<control type="image">
+					<left>270</left>
+					<top>110</top>
+					<width>360</width>
+					<height>360</height>
+					<texture colordiffuse="FFFFFFFF">common/white.png</texture>
+				</control>
+
+				<!-- QR code image (id=100) - texture set by Python to a QR image URL -->
+				<control type="image" id="100">
+					<left>270</left>
+					<top>110</top>
+					<width>360</width>
+					<height>360</height>
+					<aspectratio>keep</aspectratio>
+					<texture>common/white.png</texture>
+				</control>
+
+				<!-- Verification URL (id=102) - set by Python -->
+				<control type="label" id="102">
+					<left>50</left>
+					<top>490</top>
+					<width>800</width>
+					<height>34</height>
+					<font>font16</font>
+					<textcolor>FFFFFFFF</textcolor>
+					<align>center</align>
+					<aligny>center</aligny>
+					<label>Go to:</label>
+				</control>
+
+				<!-- User code (id=103) - big, set by Python -->
+				<control type="label" id="103">
+					<left>50</left>
+					<top>528</top>
+					<width>800</width>
+					<height>50</height>
+					<font>font20</font>
+					<textcolor>FF22C55E</textcolor>
+					<align>center</align>
+					<aligny>center</aligny>
+					<label></label>
+				</control>
+
+				<!-- Status line (id=104) - set by Python during polling -->
+				<control type="label" id="104">
+					<left>50</left>
+					<top>592</top>
+					<width>800</width>
+					<height>34</height>
+					<font>font14</font>
+					<textcolor>FFFFFFFF</textcolor>
+					<align>center</align>
+					<aligny>center</aligny>
+					<label></label>
+				</control>
+
+				<!-- Divider above button -->
+				<control type="image">
+					<left>0</left>
+					<top>656</top>
+					<width>900</width>
+					<height>2</height>
+					<texture colordiffuse="FF2E2E2E">common/white.png</texture>
+				</control>
+
+				<!-- Cancel button (id=200) -->
+				<control type="button" id="200">
+					<left>300</left>
+					<top>676</top>
+					<width>300</width>
+					<height>52</height>
+					<label>Cancel</label>
+					<font>font16</font>
+					<align>center</align>
+					<aligny>center</aligny>
+					<textoffsetx>8</textoffsetx>
+					<textcolor>FFFFFFFF</textcolor>
+					<focusedcolor>FFFFFFFF</focusedcolor>
+					<texturefocus colordiffuse="FF553333">common/white.png</texturefocus>
+					<texturenofocus colordiffuse="FF2A2A2A">common/white.png</texturenofocus>
+				</control>
+
+			</control>
+		</control>
+
+	</controls>
+</window>

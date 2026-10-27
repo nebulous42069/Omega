@@ -1,0 +1,27 @@
+test_all_sources_parse (__main__.RegressionTests.test_all_sources_parse) ... ok
+test_cancel_filepursuit_preserves_previous (__main__.RegressionTests.test_cancel_filepursuit_preserves_previous) ... ok
+test_crew_key_failure_stops_send (__main__.RegressionTests.test_crew_key_failure_stops_send) ... ok
+test_crew_marked_key_rotation_and_restore (__main__.RegressionTests.test_crew_marked_key_rotation_and_restore) ... ok
+test_crew_xml_escape (__main__.RegressionTests.test_crew_xml_escape) ... ok
+test_easynews_username_change (__main__.RegressionTests.test_easynews_username_change) ... ok
+test_explicit_metadata_wipe_clears (__main__.RegressionTests.test_explicit_metadata_wipe_clears) ... ok
+test_filepursuit_consumer_key (__main__.RegressionTests.test_filepursuit_consumer_key) ... ok
+test_helper_expiry_contract (__main__.RegressionTests.test_helper_expiry_contract) ... ok
+test_inner_failure_is_returned_by_runner (__main__.RegressionTests.test_inner_failure_is_returned_by_runner) ... ok
+test_linksnappy_password_change (__main__.RegressionTests.test_linksnappy_password_change) ... ok
+test_metadata_preserves_unconfigured_services (__main__.RegressionTests.test_metadata_preserves_unconfigured_services) ... ok
+test_missing_enable_is_repaired (__main__.RegressionTests.test_missing_enable_is_repaired) ... ok
+test_otaku_action_not_written_as_token (__main__.RegressionTests.test_otaku_action_not_written_as_token) ... ok
+test_partial_rd_bundle_is_repaired (__main__.RegressionTests.test_partial_rd_bundle_is_repaired) ... ok
+test_rd_failure_tuple_is_unpacked (__main__.RegressionTests.test_rd_failure_tuple_is_unpacked) ... ok
+test_removal_preserves_independent_accounts (__main__.RegressionTests.test_removal_preserves_independent_accounts) ... ok
+test_source_key_patch_preserves_other_constants (__main__.RegressionTests.test_source_key_patch_preserves_other_constants) ... ok
+test_supplemental_offcloud (__main__.RegressionTests.test_supplemental_offcloud) ... ok
+test_supplemental_torbox_targets (__main__.RegressionTests.test_supplemental_torbox_targets) ... ok
+test_unknown_source_layout_is_not_modified (__main__.RegressionTests.test_unknown_source_layout_is_not_modified) ... ok
+test_youtube_capture_changes_issuing_keys_together (__main__.RegressionTests.test_youtube_capture_changes_issuing_keys_together) ... ok
+
+----------------------------------------------------------------------
+Ran 22 tests in 0.157s
+
+OK

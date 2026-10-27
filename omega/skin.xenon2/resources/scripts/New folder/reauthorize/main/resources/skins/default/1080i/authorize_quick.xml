@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<defaultcontrol>201</defaultcontrol>
+	<controls>
+
+		<!-- Diffused splash background -->
+		<control type="image">
+			<left>0</left>
+			<top>0</top>
+			<width>1920</width>
+			<height>1080</height>
+			<texture>common/splash_bg.jpg</texture>
+		</control>
+
+		<!-- Dark overlay to keep text readable -->
+		<control type="image">
+			<left>0</left>
+			<top>0</top>
+			<width>1920</width>
+			<height>1080</height>
+			<texture colordiffuse="BB0E0E0E">common/white.png</texture>
+		</control>
+
+		<!-- Gradient strip - blends backdrop into panel -->
+		<control type="image">
+			<left>0</left>
+			<top>240</top>
+			<width>1920</width>
+			<height>40</height>
+			<texture colordiffuse="CC0E0E0E">common/white.png</texture>
+		</control>
+
+		<!-- ═══════════════════════════════════════════════════════════════
+		     MAIN PANEL - starts at top=280 (below backdrop)
+		     ═══════════════════════════════════════════════════════════════ -->
+		<control type="group">
+			<left>260</left>
+			<top>40</top>
+			<control type="group">
+				<width>1400</width>
+
+				<!-- Panel background -->
+				<control type="image">
+					<height>1000</height>
+					<texture colordiffuse="DDffffff">common/splash.jpg</texture>
+				</control>
+
+				<!-- Header bar -->
+				<control type="image">
+					<height>80</height>
+					<texture colordiffuse="EE151515">common/white.png</texture>
+				</control>
+
+				<!-- Header icon -->
+				<control type="image">
+					<left>14</left>
+					<top>10</top>
+					<width>60</width>
+					<height>60</height>
+					<aspectratio>keep</aspectratio>
+					<texture colordiffuse="FFFFFFFF">common/icon.png</texture>
+				</control>
+
+				<!-- Header title -->
+				<control type="label">
+					<left>90</left>
+					<top>0</top>
+					<width>1200</width>
+					<height>80</height>
+					<font>font20</font>
+					<textcolor>FFFFFFFF</textcolor>
+					<aligny>center</aligny>
+					<label>Welcome Back - Re-Authorize Your Services</label>
+				</control>
+
+				<!-- Divider below header -->
+				<control type="image">
+					<left>0</left>
+					<top>80</top>
+					<width>1400</width>
+					<height>2</height>
+					<texture colordiffuse="FF2E2E2E">common/white.png</texture>
+				</control>
+
+				<!-- Status label (id=500) - updated by Python during sync -->
+				<control type="label" id="500">
+					<left>100</left>
+					<top>90</top>
+					<width>1200</width>
+					<height>36</height>
+					<font>font16</font>
+					<textcolor>FFFFFFFF</textcolor>
+					<aligny>center</aligny>
+					<label>Welcome back! Click Re-Auth All to push your services to every addon.</label>
+				</control>
+
+				<!-- Service status ticker (id=520) - fade ticker, color-coded per service
+				     Green=Active  Yellow=Pending Sync  Red=Not Set Up -->
+				<control type="fadelabel" id="520">
+					<left>100</left>
+					<top>134</top>
+					<width>1200</width>
+					<height>26</height>
+					<font>font14</font>
+					<textcolor>FFFFFFFF</textcolor>
+					<scrollout>true</scrollout>
+					<pauseatend>1400</pauseatend>
+					<resetonlabelchange>true</resetonlabelchange>
+					<label></label>
+				</control>
+
+				<!-- Progress bar track (id=510) -->
+				<control type="image" id="510">
+					<left>100</left>
+					<top>164</top>
+					<width>1200</width>
+					<height>8</height>
+					<texture colordiffuse="FF2A2A2A">common/white.png</texture>
+				</control>
+
+				<!-- Progress bar fill (id=511) - width driven by Python -->
+				<control type="image" id="511">
+					<left>100</left>
+					<top>164</top>
+					<width>0</width>
+					<height>8</height>
+					<texture colordiffuse="FF22883C">common/white.png</texture>
+				</control>
+
+				<!-- Divider below progress -->
+				<control type="image">
+					<left>0</left>
+					<top>178</top>
+					<width>1400</width>
+					<height>2</height>
+					<texture colordiffuse="FF282828">common/white.png</texture>
+				</control>
+
+				<!-- ─────────────────────────────────────────────────────
+				     Results list (id=100)
+				     One row per installed addon. Service icons are always
+				     shown: bright (FFFFFFFF) when authorized, dim (44FFFFFF)
+				     when applicable but not yet authorized, transparent
+				     (00000000) when not applicable to that addon.
+				     Python drives this via col_<service> properties.
+				     ───────────────────────────────────────────────────── -->
+				<control type="list" id="100">
+					<left>0</left>
+					<top>182</top>
+					<width>1400</width>
+					<height>752</height>
+					<ondown>201</ondown>
+
+					<itemlayout height="72">
+						<control type="image">
+							<left>0</left><top>0</top><width>1400</width><height>72</height>
+							<texture colordiffuse="AA1E1E1E">common/white.png</texture>
+						</control>
+						<control type="image">
+							<left>0</left><top>71</top><width>1400</width><height>1</height>
+							<texture colordiffuse="FF2A2A2A">common/white.png</texture>
+						</control>
+						<!-- Addon icon -->
+						<control type="image">
+							<left>18</left><top>16</top><width>40</width><height>40</height>
+							<aspectratio>keep</aspectratio>
+							<texture>$INFO[ListItem.Art(icon)]</texture>
+						</control>
+						<!-- Addon name -->
+						<control type="label">
+							<left>72</left><top>0</top><width>440</width><height>72</height>
+							<font>font16</font>
+							<textcolor>FFFFFFFF</textcolor>
+							<aligny>center</aligny>
+							<label>$INFO[ListItem.Label]</label>
+						</control>
+						<!-- trakt -->
+						<control type="image">
+							<left>526</left><top>20</top><width>32</width><height>32</height>
+							<aspectratio>keep</aspectratio>
+							<texture>$INFO[ListItem.Art(icon_trakt)]</texture>
+							<colordiffuse>$INFO[ListItem.Property(col_trakt)]</colordiffuse>
+						</control>
+						<!-- realdebrid -->
+						<control type="image">
+							<left>570</left><top>20</top><width>32</width><height>32</height>
+							<aspectratio>keep</aspectratio>
+							<texture>$INFO[ListItem.Art(icon_realdebrid)]</texture>
+							<colordiffuse>$INFO[ListItem.Property(col_realdebrid)]</colordiffuse>
+						</control>
+						<!-- premiumize -->
+						<control type="image">
+							<left>614</left><top>20</top><width>32</width><height>32</height>
+							<aspectratio>keep</aspectratio>
+							<texture>$INFO[ListItem.Art(icon_premiumize)]</texture>
+							<colordiffuse>$INFO[ListItem.Property(col_premiumize)]</colordiffuse>
+						</control>
+						<!-- alldebrid -->
+						<control type="image">
+							<left>658</left><top>20</top><width>32</width><height>32</height>
+							<aspectratio>keep</aspectratio>
+							<texture>$INFO[ListItem.Art(icon_alldebrid)]</texture>
+							<colordiffuse>$INFO[ListItem.Property(col_alldebrid)]</colordiffuse>
+						</control>
+						<!-- torbox -->
+						<control type="image">
+							<left>702</left><top>20</top><width>32</width><height>32</height>
+							<aspectratio>keep</aspectratio>
+							<texture>$INFO[ListItem.Art(icon_torbox)]</texture>
+							<colordiffuse>$INFO[ListItem.Property(col_torbox)]</colordiffuse>
+						</control>
+						<!-- simkl -->
+						<control type="image">
+							<left>746</left><top>20</top><width>32</width><height>32</height>
+							<aspectratio>keep</aspectratio>
+							<texture>$INFO[ListItem.Art(icon_simkl)]</texture>
+							<colordiffuse>$INFO[ListItem.Property(col_simkl)]</colordiffuse>
+						</control>
+						<!-- easynews -->
+						<control type="image">
+							<left>790</left><top>20</top><width>32</width><height>32</height>
+							<aspectratio>keep</aspectratio>
+							<texture>$INFO[ListItem.Art(icon_easynews)]</texture>
+							<colordiffuse>$INFO[ListItem.Property(col_easynews)]</colordiffuse>
+						</control>
+						<!-- tmdb -->
+						<control type="image">
+							<left>834</left><top>20</top><width>32</width><height>32</height>
+							<aspectratio>keep</aspectratio>
+							<texture>$INFO[ListItem.Art(icon_tmdb)]</texture>
+							<colordiffuse>$INFO[ListItem.Property(col_tmdb)]</colordiffuse>
+						</control>
+						<!-- youtube -->
+						<control type="image">
+							<left>878</left><top>20</top><width>32</width><height>32</height>
+							<aspectratio>keep</aspectratio>
+							<texture>$INFO[ListItem.Art(icon_youtube)]</texture>
+							<colordiffuse>$INFO[ListItem.Property(col_youtube)]</colordiffuse>
+						</control>
+					</itemlayout>
+
+					<focusedlayout height="72">
+						<control type="image">
+							<left>0</left><top>0</top><width>1400</width><height>72</height>
+							<texture colordiffuse="AA252525">common/white.png</texture>
+						</control>
+						<!-- Green left accent on focus -->
+						<control type="image">
+							<left>0</left><top>0</top><width>4</width><height>72</height>
+							<texture colordiffuse="FF22883C">common/white.png</texture>
+						</control>
+						<control type="image">
+							<left>0</left><top>71</top><width>1400</width><height>1</height>
+							<texture colordiffuse="FF303030">common/white.png</texture>
+						</control>
+						<!-- Addon icon -->
+						<control type="image">
+							<left>18</left><top>16</top><width>40</width><height>40</height>
+							<aspectratio>keep</aspectratio>
+							<texture>$INFO[ListItem.Art(icon)]</texture>
+						</control>
+						<!-- Addon name (white when focused) -->
+						<control type="label">
+							<left>72</left><top>0</top><width>440</width><height>72</height>
+							<font>font16</font>
+							<textcolor>FFFFFFFF</textcolor>
+							<aligny>center</aligny>
+							<label>$INFO[ListItem.Label]</label>
+						</control>
+						<!-- trakt -->
+						<control type="image">
+							<left>526</left><top>20</top><width>32</width><height>32</height>
+							<aspectratio>keep</aspectratio>
+							<texture>$INFO[ListItem.Art(icon_trakt)]</texture>
+							<colordiffuse>$INFO[ListItem.Property(col_trakt)]</colordiffuse>
+						</control>
+						<!-- realdebrid -->
+						<control type="image">
+							<left>570</left><top>20</top><width>32</width><height>32</height>
+							<aspectratio>keep</aspectratio>
+							<texture>$INFO[ListItem.Art(icon_realdebrid)]</texture>
+							<colordiffuse>$INFO[ListItem.Property(col_realdebrid)]</colordiffuse>
+						</control>
+						<!-- premiumize -->
+						<control type="image">
+							<left>614</left><top>20</top><width>32</width><height>32</height>
+							<aspectratio>keep</aspectratio>
+							<texture>$INFO[ListItem.Art(icon_premiumize)]</texture>
+							<colordiffuse>$INFO[ListItem.Property(col_premiumize)]</colordiffuse>
+						</control>
+						<!-- alldebrid -->
+						<control type="image">
+							<left>658</left><top>20</top><width>32</width><height>32</height>
+							<aspectratio>keep</aspectratio>
+							<texture>$INFO[ListItem.Art(icon_alldebrid)]</texture>
+							<colordiffuse>$INFO[ListItem.Property(col_alldebrid)]</colordiffuse>
+						</control>
+						<!-- torbox -->
+						<control type="image">
+							<left>702</left><top>20</top><width>32</width><height>32</height>
+							<aspectratio>keep</aspectratio>
+							<texture>$INFO[ListItem.Art(icon_torbox)]</texture>
+							<colordiffuse>$INFO[ListItem.Property(col_torbox)]</colordiffuse>
+						</control>
+						<!-- simkl -->
+						<control type="image">
+							<left>746</left><top>20</top><width>32</width><height>32</height>
+							<aspectratio>keep</aspectratio>
+							<texture>$INFO[ListItem.Art(icon_simkl)]</texture>
+							<colordiffuse>$INFO[ListItem.Property(col_simkl)]</colordiffuse>
+						</control>
+						<!-- easynews -->
+						<control type="image">
+							<left>790</left><top>20</top><width>32</width><height>32</height>
+							<aspectratio>keep</aspectratio>
+							<texture>$INFO[ListItem.Art(icon_easynews)]</texture>
+							<colordiffuse>$INFO[ListItem.Property(col_easynews)]</colordiffuse>
+						</control>
+						<!-- tmdb -->
+						<control type="image">
+							<left>834</left><top>20</top><width>32</width><height>32</height>
+							<aspectratio>keep</aspectratio>
+							<texture>$INFO[ListItem.Art(icon_tmdb)]</texture>
+							<colordiffuse>$INFO[ListItem.Property(col_tmdb)]</colordiffuse>
+						</control>
+						<!-- youtube -->
+						<control type="image">
+							<left>878</left><top>20</top><width>32</width><height>32</height>
+							<aspectratio>keep</aspectratio>
+							<texture>$INFO[ListItem.Art(icon_youtube)]</texture>
+							<colordiffuse>$INFO[ListItem.Property(col_youtube)]</colordiffuse>
+						</control>
+					</focusedlayout>
+				</control>
+
+				<!-- Divider above buttons -->
+				<control type="image">
+					<left>0</left>
+					<top>934</top>
+					<width>1400</width>
+					<height>2</height>
+					<texture colordiffuse="FF2E2E2E">common/white.png</texture>
+				</control>
+
+				<!-- ─────────────────────────────────────────────────────
+				     Bottom button row - 2 centred buttons
+				     Re-Auth All: left=375   Close: left=725
+				     ───────────────────────────────────────────────────── -->
+
+				<!-- Re-Auth All button (id=201) - label changes to "Syncing..." during sync -->
+				<control type="button" id="201">
+					<left>375</left>
+					<top>942</top>
+					<width>300</width>
+					<height>52</height>
+					<onup>100</onup>
+					<onright>200</onright>
+					<label>Re-Auth All</label>
+					<font>font16</font>
+					<align>center</align>
+					<aligny>center</aligny>
+					<textoffsetx>8</textoffsetx>
+					<textcolor>FFFFFFFF</textcolor>
+					<focusedcolor>FFFFFFFF</focusedcolor>
+					<texturefocus colordiffuse="FF22883C">common/white.png</texturefocus>
+					<texturenofocus colordiffuse="FF1A5C2A">common/white.png</texturenofocus>
+				</control>
+
+				<!-- Close button (id=200) - always visible, always navigable -->
+				<control type="button" id="200">
+					<left>725</left>
+					<top>942</top>
+					<width>300</width>
+					<height>52</height>
+					<onup>100</onup>
+					<onleft>201</onleft>
+					<label>Close</label>
+					<font>font16</font>
+					<align>center</align>
+					<aligny>center</aligny>
+					<textoffsetx>8</textoffsetx>
+					<textcolor>FFFFFFFF</textcolor>
+					<focusedcolor>FFFFFFFF</focusedcolor>
+					<texturefocus colordiffuse="FF555555">common/white.png</texturefocus>
+					<texturenofocus colordiffuse="FF2A2A2A">common/white.png</texturenofocus>
+				</control>
+
+			</control>
+		</control>
+
+	</controls>
+</window>
