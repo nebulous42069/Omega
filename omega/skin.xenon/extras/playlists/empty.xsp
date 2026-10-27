@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
-<smartplaylist type="movies">
-    <name>Empty</name>
-    <match>all</match>
-    <rule field="title" operator="is">
-        <value>__xenon_empty_widget_never_match__</value>
-    </rule>
-    <limit>1</limit>
-</smartplaylist>
