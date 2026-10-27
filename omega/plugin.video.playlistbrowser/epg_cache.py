@@ -153,4 +153,4 @@ def clear_epg(profile, epg, indices, log=lambda message: None):
     xml, gz = cache_paths(profile, epg)
     os.makedirs(profile, exist_ok=True)
     with cache_lock(xml):
-        _remove([xml, gz] + list(legacy_paths(profile, indices)), log)
+        _remove([xml, gz, xml + '.processed.json'] + list(legacy_paths(profile, indices)), log)

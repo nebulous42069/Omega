@@ -4,12 +4,13 @@ from urllib.request import urlopen, Request
 from datetime import datetime, timezone, timedelta
 import xml.etree.ElementTree as ET
 from epg_cache import cache_paths, read_epg, clear_epg
+import epg_processed
 
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon, xbmcvfs
 
 ADDON = xbmcaddon.Addon()
 ADDON_ID = ADDON.getAddonInfo('id')
-VERSION = "2.8.5-integrated-daddylive"
+VERSION = "2.8.8-integrated-daddylive"
 HANDLE = int(sys.argv[1]) if len(sys.argv) > 1 and str(sys.argv[1]).lstrip('-').isdigit() else -1
 BASE_URL = sys.argv[0] if sys.argv else ''
 
@@ -430,6 +431,14 @@ class Source:
             return {}, {}
         if not xml_bytes: return {}, {}
 
+        digest = epg_processed.fingerprint(xml_bytes)
+        xml_path = self._cache_paths()[0]
+        cached = epg_processed.load(xml_path, digest)
+        if cached is not None:
+            self.epg_channels, self.progs = cached
+            log(f"Processed EPG cache reused (src {self.idx})")
+            return self.epg_channels, self.progs
+
         try:
             root = ET.fromstring(xml_bytes)
             epg_channels = {}
@@ -515,6 +524,10 @@ class Source:
                         log(f"EPG fallback parse from gz failed (src {self.idx}): {fe}")
 
             self.epg_channels, self.progs = epg_channels, progs_by_ch
+            try:
+                epg_processed.save(xml_path, digest, epg_channels, progs_by_ch)
+            except Exception as cache_error:
+                log(f"Processed EPG cache write skipped: {type(cache_error).__name__}")
             counts = (len(self.epg_channels), sum(len(v) for v in self.progs.values()))
             log(f"EPG loaded: {counts[0]} channels, {counts[1]} programmes (src {self.idx})")
             if need_refresh:
