@@ -8,12 +8,6 @@
     "source_id": 110
   },
   {
-    "name": "DrewLive TV Guide",
-    "m3u": "http://drewlive2423.duckdns.org:8081/DrewLive/MergedPlaylist.m3u8",
-    "epg": "https://s.id/d9sEPG",
-    "source_id": 111
-  },
-  {
     "name": "Whiplash TV",
     "m3u": "https://raw.githubusercontent.com/BuddyChewChew/whiplash-epg/refs/heads/main/playlist.m3u",
     "epg": "https://raw.githubusercontent.com/BuddyChewChew/whiplash-epg/refs/heads/main/epg.xml",
@@ -49,58 +43,67 @@
     "epg": "https://magnetic.website/jet/epg/merged_epg.xml.gz",
     "icon": "",
     "fanart": "",
-    "source_id":116
+    "source_id": 116
+  },
+  {
+    "name": "Daddy Live",
+    "m3u": "special://profile/addon_data/plugin.video.playlistbrowser/daddylive.m3u",
+    "epg": "https://raw.githubusercontent.com/acidjesuz/EPGTalk/master/guide.xml.gz",
+    "icon": "",
+    "fanart": "",
+    "source_id": 117,
+    "integrated_dlhd": true
   },
   {
     "name": "For TV Widget",
-    "alias_source": "The Loop TV Guide",
-    "alias_group": "> World Entertainment <",
-    "epg": "",
+    "alias_source": "Daddy Live",
+    "alias_group": "Channels-USA-",
+    "epg": "https://raw.githubusercontent.com/acidjesuz/EPGTalk/master/guide.xml.gz",
     "icon": "",
     "fanart": "",
     "source_id": 106
   },
   {
     "name": "For TV Widget 2",
-    "alias_source": "Doms List",
-    "alias_group": "TV",
-    "epg": "",
+    "alias_source": "Daddy Live",
+    "alias_group": "Channels-UK-",
+    "epg": "https://raw.githubusercontent.com/acidjesuz/EPGTalk/master/guide.xml.gz",
     "icon": "",
     "fanart": "",
     "source_id": 105
   },
   {
     "name": "For TV Widget 3",
-    "alias_source": "The Loop TV Guide",
-    "alias_group": "> UK Entertainment <",
-    "epg": "",
+    "alias_source": "Daddy Live",
+    "alias_group": "Channels-Italy-",
+    "epg": "https://raw.githubusercontent.com/acidjesuz/EPGTalk/master/guide.xml.gz",
     "icon": "",
     "fanart": "",
     "source_id": 104
   },
   {
     "name": "For Sports Widget",
-    "alias_source": "The Loop TV Guide",
-    "alias_group": "> USA Sport <",
-    "epg": "",
+    "alias_source": "Daddy Live",
+    "alias_group": "Sports-USA-",
+    "epg": "https://raw.githubusercontent.com/acidjesuz/EPGTalk/master/guide.xml.gz",
     "icon": "",
     "fanart": "",
     "source_id": 103
   },
   {
     "name": "For Sports Widget 2",
-    "alias_source": "The Loop TV Guide",
-    "alias_group": "> UK Sport <",
-    "epg": "",
+    "alias_source": "Daddy Live",
+    "alias_group": "Sports-UK-",
+    "epg": "https://raw.githubusercontent.com/acidjesuz/EPGTalk/master/guide.xml.gz",
     "icon": "",
     "fanart": "",
     "source_id": 102
   },
   {
     "name": "For Sports Widget 3",
-    "alias_source": "Doms List",
-    "alias_group": "Live Events",
-    "epg": "",
+    "alias_source": "Daddy Live",
+    "alias_group": "Sports-Canada-",
+    "epg": "https://raw.githubusercontent.com/acidjesuz/EPGTalk/master/guide.xml.gz",
     "icon": "",
     "fanart": "",
     "source_id": 101

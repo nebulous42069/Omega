@@ -1,5 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <window>
+	<onload>RunScript(special://home/addons/skin.xenon2/resources/scripts/x2_default_views.py,init=true)</onload>
+	<onload condition="!Skin.HasSetting(centermainmenu)">Skin.SetBool(centermainmenu)</onload>
+	<onload condition="!String.IsEmpty(Skin.String(MainMenu.Layout))">Skin.Reset(MainMenu.Layout)</onload>
 	<defaultcontrol always="true">9000</defaultcontrol>
 	<onload>SetProperty(Window.HasSettings,True,Home)</onload>
 	<onload>ClearProperty(MediaMenu,Home)</onload>
@@ -47,9 +50,9 @@
 				<width>400</width>
 				<height>130</height>
 				<texture>aeon-nox-logo.png</texture>
-			</control>			
+			</control>
 			<control type="group">
-				<visible>!Window.IsActive(script-skinshortcuts.xml)</visible>			
+				<visible>!Window.IsActive(script-skinshortcuts.xml)</visible>
 				<left>135</left>
 				<top>45</top>
 				<animation type="WindowOpen" reversible="false">
@@ -94,7 +97,7 @@
 					<onright>90000</onright>
 					<onup>9000</onup>
 					<ondown>9000</ondown>
-					<pagecontrol></pagecontrol>
+					<pagecontrol />
 					<scrolltime>300</scrolltime>
 					<itemlayout height="105" width="390">
 						<control type="image">
@@ -205,6 +208,10 @@
 							<label>31569</label>
 							<icon />
 						</item>
+						<item id="11">
+							<label>Default Views</label>
+							<label2>Video listings</label2>
+						</item>
 					</content>
 				</control>
 				<control type="image">
@@ -259,20 +266,6 @@
 							<include>SettingsButtonCommonValues</include>
 							<label>31911</label>
 							<onclick>RunScript(script.skinshortcuts,type=manage&amp;group=mainmenu)</onclick>
-						</control>
-						<control type="button" id="1001">
-							<include>SettingsButtonCommonValues</include>
-							<label>31913</label>
-							<label2>[COLOR $VAR[ThemeLabelColor]]$VAR[centermainmenuVar][/COLOR]</label2>
-							<onclick>Skin.ToggleSetting(centermainmenu)</onclick>
-							<visible>!String.IsEqual(Skin.String(MainMenu.Layout),vertical)</visible>
-						</control>
-						<control type="button" id="1002">
-							<include>SettingsButtonCommonValues</include>
-							<label>31928</label>
-							<label2>[COLOR $VAR[ThemeLabelColor]]$VAR[MainMenuLayoutVar][/COLOR]</label2>
-							<onclick>SetProperty(CustomSelect,mainmenulayout,Home)</onclick>
-							<onclick>ActivateWindow(1129)</onclick>
 						</control>
 						<control type="radiobutton" id="1003">
 							<include>SettingsButtonCommonValues</include>
@@ -641,7 +634,7 @@
 							<include>SettingsButtonCommonValues</include>
 							<label>Setup Xenon Custom Viewtypes</label>
 							<onclick>runscript(script.skinvariables,action=buildviews,configure)</onclick>
-						</control>						
+						</control>
 						<control type="button" id="6001">
 							<include>SettingsButtonCommonValues</include>
 							<label>$LOCALIZE[31281]</label>
@@ -732,6 +725,17 @@
 							<selected>Skin.HasSetting(Enable.ListWidgetAutoscroll)</selected>
 							<include>SettingsButtonCommonValues</include>
 						</control>
+						<control type="radiobutton" id="98501">
+							<label>Use Xenon-style movie / TV widget info</label>
+							<include>SettingsButtonCommonValues</include>
+							<onclick>Skin.ToggleSetting(Disable.XenonWidgetInfo)</onclick>
+							<selected>!Skin.HasSetting(Disable.XenonWidgetInfo)</selected>
+						</control>
+						<control type="button" id="98502">
+							<label>Cast and metadata lookup settings</label>
+							<include>SettingsButtonCommonValues</include>
+							<onclick>RunScript(special://skin/resources/scripts/x2_cast_config.py)</onclick>
+						</control>
 						<control type="button" id="8006">
 							<label>31740</label>
 							<label2>[COLOR $VAR[ThemeLabelColor]]$VAR[WidgetCaseInfoVar][/COLOR]</label2>
@@ -748,7 +752,7 @@
 						<visible>Container(9000).HasFocus(7)</visible>
 						<usecontrolcoords>true</usecontrolcoords>
 						<control type="image" id="7000">
-							<top>10</top>						
+							<top>10</top>
 							<left>404</left>
 							<width>560</width>
 							<height>182</height>
@@ -860,6 +864,37 @@
 							<label>$LOCALIZE[31568]</label>
 							<onclick>Addon.OpenSettings(script.xbmcbackup)</onclick>
 						</control>
+					</control>
+					<control type="grouplist" id="9011">
+					<left>337</left><top>32</top><width>1345</width><height>775</height>
+					<onleft>9000</onleft>
+					<visible>Container(9000).HasFocus(11)</visible>
+					<control type="button" id="3900"><include>SettingsButtonCommonValues</include><label>NONE-VIDEOS (fixed)</label><label2>Panel (50)</label2><enable>false</enable></control>
+					<control type="button" id="3901"><include>SettingsButtonCommonValues</include><label>Movies</label><label2>$INFO[Skin.String(Xenon2.DefaultView.movies.Label)]</label2><onclick>RunScript(special://home/addons/skin.xenon2/resources/scripts/x2_default_views.py,content=movies)</onclick><enable>System.AddonIsEnabled(script.skinvariables)</enable></control>
+					<control type="button" id="3902"><include>SettingsButtonCommonValues</include><label>TV Shows</label><label2>$INFO[Skin.String(Xenon2.DefaultView.tvshows.Label)]</label2><onclick>RunScript(special://home/addons/skin.xenon2/resources/scripts/x2_default_views.py,content=tvshows)</onclick><enable>System.AddonIsEnabled(script.skinvariables)</enable></control>
+					<control type="button" id="3903"><include>SettingsButtonCommonValues</include><label>Seasons</label><label2>$INFO[Skin.String(Xenon2.DefaultView.seasons.Label)]</label2><onclick>RunScript(special://home/addons/skin.xenon2/resources/scripts/x2_default_views.py,content=seasons)</onclick><enable>System.AddonIsEnabled(script.skinvariables)</enable></control>
+					<control type="button" id="3904"><include>SettingsButtonCommonValues</include><label>Episodes</label><label2>$INFO[Skin.String(Xenon2.DefaultView.episodes.Label)]</label2><onclick>RunScript(special://home/addons/skin.xenon2/resources/scripts/x2_default_views.py,content=episodes)</onclick><enable>System.AddonIsEnabled(script.skinvariables)</enable></control>
+					<control type="button" id="3905"><include>SettingsButtonCommonValues</include><label>Videos</label><label2>$INFO[Skin.String(Xenon2.DefaultView.videos.Label)]</label2><onclick>RunScript(special://home/addons/skin.xenon2/resources/scripts/x2_default_views.py,content=videos)</onclick><enable>System.AddonIsEnabled(script.skinvariables)</enable></control>
+					<control type="button" id="3906"><include>SettingsButtonCommonValues</include><label>Files</label><label2>$INFO[Skin.String(Xenon2.DefaultView.files.Label)]</label2><onclick>RunScript(special://home/addons/skin.xenon2/resources/scripts/x2_default_views.py,content=files)</onclick><enable>System.AddonIsEnabled(script.skinvariables)</enable></control>
+					<control type="button" id="3907"><include>SettingsButtonCommonValues</include><label>Movie Sets</label><label2>$INFO[Skin.String(Xenon2.DefaultView.sets.Label)]</label2><onclick>RunScript(special://home/addons/skin.xenon2/resources/scripts/x2_default_views.py,content=sets)</onclick><enable>System.AddonIsEnabled(script.skinvariables)</enable></control>
+					<control type="button" id="3908"><include>SettingsButtonCommonValues</include><label>Artists</label><label2>$INFO[Skin.String(Xenon2.DefaultView.artists.Label)]</label2><onclick>RunScript(special://home/addons/skin.xenon2/resources/scripts/x2_default_views.py,content=artists)</onclick><enable>System.AddonIsEnabled(script.skinvariables)</enable></control>
+					<control type="button" id="3909"><include>SettingsButtonCommonValues</include><label>Albums</label><label2>$INFO[Skin.String(Xenon2.DefaultView.albums.Label)]</label2><onclick>RunScript(special://home/addons/skin.xenon2/resources/scripts/x2_default_views.py,content=albums)</onclick><enable>System.AddonIsEnabled(script.skinvariables)</enable></control>
+					<control type="button" id="3910"><include>SettingsButtonCommonValues</include><label>Songs</label><label2>$INFO[Skin.String(Xenon2.DefaultView.songs.Label)]</label2><onclick>RunScript(special://home/addons/skin.xenon2/resources/scripts/x2_default_views.py,content=songs)</onclick><enable>System.AddonIsEnabled(script.skinvariables)</enable></control>
+					<control type="button" id="3911"><include>SettingsButtonCommonValues</include><label>Addons</label><label2>$INFO[Skin.String(Xenon2.DefaultView.addons.Label)]</label2><onclick>RunScript(special://home/addons/skin.xenon2/resources/scripts/x2_default_views.py,content=addons)</onclick><enable>System.AddonIsEnabled(script.skinvariables)</enable></control>
+					<control type="button" id="3912"><include>SettingsButtonCommonValues</include><label>Video Genres</label><label2>$INFO[Skin.String(Xenon2.DefaultView.genres.Label)]</label2><onclick>RunScript(special://home/addons/skin.xenon2/resources/scripts/x2_default_views.py,content=genres)</onclick><enable>System.AddonIsEnabled(script.skinvariables)</enable></control>
+					<control type="button" id="3913"><include>SettingsButtonCommonValues</include><label>Music Videos</label><label2>$INFO[Skin.String(Xenon2.DefaultView.musicvideos.Label)]</label2><onclick>RunScript(special://home/addons/skin.xenon2/resources/scripts/x2_default_views.py,content=musicvideos)</onclick><enable>System.AddonIsEnabled(script.skinvariables)</enable></control>
+					<control type="button" id="3914"><include>SettingsButtonCommonValues</include><label>Games</label><label2>$INFO[Skin.String(Xenon2.DefaultView.games.Label)]</label2><onclick>RunScript(special://home/addons/skin.xenon2/resources/scripts/x2_default_views.py,content=games)</onclick><enable>System.AddonIsEnabled(script.skinvariables)</enable></control>
+					<control type="button" id="3915"><include>SettingsButtonCommonValues</include><label>Images</label><label2>$INFO[Skin.String(Xenon2.DefaultView.images.Label)]</label2><onclick>RunScript(special://home/addons/skin.xenon2/resources/scripts/x2_default_views.py,content=images)</onclick><enable>System.AddonIsEnabled(script.skinvariables)</enable></control>
+					<control type="button" id="3916"><include>SettingsButtonCommonValues</include><label>Unspecified Content (other windows)</label><label2>$INFO[Skin.String(Xenon2.DefaultView.none.Label)]</label2><onclick>RunScript(special://home/addons/skin.xenon2/resources/scripts/x2_default_views.py,content=none)</onclick><enable>System.AddonIsEnabled(script.skinvariables)</enable></control>
+					<control type="button" id="3917"><include>SettingsButtonCommonValues</include><label>Playlists</label><label2>$INFO[Skin.String(Xenon2.DefaultView.playlists.Label)]</label2><onclick>RunScript(special://home/addons/skin.xenon2/resources/scripts/x2_default_views.py,content=playlists)</onclick><enable>System.AddonIsEnabled(script.skinvariables)</enable></control>
+					<control type="button" id="3918"><include>SettingsButtonCommonValues</include><label>Actors</label><label2>$INFO[Skin.String(Xenon2.DefaultView.actors.Label)]</label2><onclick>RunScript(special://home/addons/skin.xenon2/resources/scripts/x2_default_views.py,content=actors)</onclick><enable>System.AddonIsEnabled(script.skinvariables)</enable></control>
+					<control type="button" id="3919"><include>SettingsButtonCommonValues</include><label>Directors</label><label2>$INFO[Skin.String(Xenon2.DefaultView.directors.Label)]</label2><onclick>RunScript(special://home/addons/skin.xenon2/resources/scripts/x2_default_views.py,content=directors)</onclick><enable>System.AddonIsEnabled(script.skinvariables)</enable></control>
+					<control type="button" id="3920"><include>SettingsButtonCommonValues</include><label>Studios</label><label2>$INFO[Skin.String(Xenon2.DefaultView.studios.Label)]</label2><onclick>RunScript(special://home/addons/skin.xenon2/resources/scripts/x2_default_views.py,content=studios)</onclick><enable>System.AddonIsEnabled(script.skinvariables)</enable></control>
+					<control type="button" id="3921"><include>SettingsButtonCommonValues</include><label>Years</label><label2>$INFO[Skin.String(Xenon2.DefaultView.years.Label)]</label2><onclick>RunScript(special://home/addons/skin.xenon2/resources/scripts/x2_default_views.py,content=years)</onclick><enable>System.AddonIsEnabled(script.skinvariables)</enable></control>
+					<control type="button" id="3922"><include>SettingsButtonCommonValues</include><label>Tags</label><label2>$INFO[Skin.String(Xenon2.DefaultView.tags.Label)]</label2><onclick>RunScript(special://home/addons/skin.xenon2/resources/scripts/x2_default_views.py,content=tags)</onclick><enable>System.AddonIsEnabled(script.skinvariables)</enable></control>
+					<control type="button" id="3923"><include>SettingsButtonCommonValues</include><label>Countries</label><label2>$INFO[Skin.String(Xenon2.DefaultView.countries.Label)]</label2><onclick>RunScript(special://home/addons/skin.xenon2/resources/scripts/x2_default_views.py,content=countries)</onclick><enable>System.AddonIsEnabled(script.skinvariables)</enable></control>
+					<control type="button" id="3924"><include>SettingsButtonCommonValues</include><label>Video Versions</label><label2>$INFO[Skin.String(Xenon2.DefaultView.videoversions.Label)]</label2><onclick>RunScript(special://home/addons/skin.xenon2/resources/scripts/x2_default_views.py,content=videoversions)</onclick><enable>System.AddonIsEnabled(script.skinvariables)</enable></control>
+					<control type="button" id="3925"><include>SettingsButtonCommonValues</include><label>Reset to my default views (clear saved overrides)</label><onclick>RunScript(special://home/addons/skin.xenon2/resources/scripts/x2_default_views.py,reset=true)</onclick><enable>System.AddonIsEnabled(script.skinvariables)</enable></control>
 					</control>
 				</control>
 				<control type="textbox">

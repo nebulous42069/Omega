@@ -1,0 +1,105 @@
+<shortcuts>
+	<shortcut>
+		<defaultID>1036</defaultID>
+		<label>1036</label>
+		<label2>Favourites</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb />
+		<action>ActivateWindow(favouritesbrowser)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>24001</defaultID>
+		<label>24001</label>
+		<label2>Settings</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb />
+		<action>ActivateWindow(AddonBrowser)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>settings</defaultID>
+		<label>Diggz Xenon</label>
+		<label2>Custom item</label2>
+		<icon>special://skin/extras/icons/DefaultAddonService.png</icon>
+		<thumb />
+		<action>ActivateWindow(Settings)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Movies</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>thumb</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.redlight/?mode=navigator.main&amp;action=MovieList",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>TV shows</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>thumb</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.redlight/?mode=navigator.main&amp;action=TVShowList",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Trakt</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>thumb</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.redlight/?mode=navigator.trakt_lists_personal",return)</action>
+		<disabled>True</disabled>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>MDBList</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>image://C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.video.umbrella%5cresources%5cartwork%5cumbrella%5cmdblist.png/</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.redlight/?mode=navigator.mdblist_lists",return)</action>
+		<disabled>True</disabled>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Simkl</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>image://C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.video.umbrella%5cresources%5cartwork%5cumbrella%5csimkl.png/</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.redlight/?mode=navigator.simkl_lists",return)</action>
+		<disabled>True</disabled>
+		</shortcut>
+	<shortcut>
+		<defaultID>4</defaultID>
+		<label>4</label>
+		<label2>TV guide</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb />
+		<action>ActivateWindow(TVGuide)</action>
+		<disabled>True</disabled>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Sports</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>image://special%3a%2f%2fhome%2faddons%2fresource.images.skinicons.wide%2fresources%2ficons%2fsportscentral.png/</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.sporthdme/?url=https%3A%2F%2Fsuper.league.st&amp;mode=events&amp;name=%5BB%5D%5BCOLOR+white%5DLIVE+EVENTS%5B%2FCOLOR%5D%5B%2FB%5D&amp;iconimage=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5CKODI_OMEGA_21%5CKodi%5Cportable_data%5Caddons%5Cplugin.video.sporthdme%5Cicon.png&amp;description=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5CKODI_OMEGA_21%5CKodi%5Cportable_data%5Caddons%5Cplugin.video.sporthdme%5Cfanart.jpg",return)</action>
+		<disabled>True</disabled>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.audio.mp3streams</defaultID>
+		<label>Music</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>thumb</thumb>
+		<action>ActivateWindow(Music,"plugin://plugin.audio.m3sr2019",return)</action>
+		<disabled>True</disabled>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.program.iagl</defaultID>
+		<label>Arcade</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>thumb</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.program.iagl",return)</action>
+		<disabled>True</disabled>
+		</shortcut>
+	</shortcuts>

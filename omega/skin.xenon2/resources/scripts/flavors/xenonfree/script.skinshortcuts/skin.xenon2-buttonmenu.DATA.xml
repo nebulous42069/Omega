@@ -1,0 +1,85 @@
+<shortcuts>
+	<shortcut>
+		<defaultID>13012</defaultID>
+		<label>13012</label>
+		<label2 />
+		<icon>DefaultShortcut.png</icon>
+		<thumb />
+		<action>Quit()</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>20150</defaultID>
+		<label>20150</label>
+		<label2 />
+		<icon>DefaultShortcut.png</icon>
+		<thumb />
+		<action>AlarmClock(shutdowntimer,Shutdown())</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>20151</defaultID>
+		<label>20151</label>
+		<label2 />
+		<icon>DefaultShortcut.png</icon>
+		<thumb />
+		<action>CancelAlarm(shutdowntimer)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>31576</defaultID>
+		<label>$SKIN[31576|skin.aeon.nox.silvo|None]</label>
+		<label2 />
+		<icon>DefaultShortcut.png</icon>
+		<thumb />
+		<action>RebootFromNand</action>
+		<visible>System.Platform.Linux</visible>
+		</shortcut>
+	<shortcut>
+		<defaultID>20126</defaultID>
+		<label>20126</label>
+		<label2>Master user</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb />
+		<action>System.LogOff</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>20046</defaultID>
+		<label>20046</label>
+		<label2 />
+		<icon>DefaultShortcut.png</icon>
+		<thumb />
+		<action>Mastermode</action>
+		<visible>System.IsMaster</visible>
+		</shortcut>
+	<shortcut>
+		<defaultID>20045</defaultID>
+		<label>20045</label>
+		<label2 />
+		<icon>DefaultShortcut.png</icon>
+		<thumb />
+		<action>Mastermode</action>
+		<visible>!System.IsMaster</visible>
+		</shortcut>
+	<shortcut>
+		<defaultID>1036</defaultID>
+		<label>1036</label>
+		<label2 />
+		<icon>DefaultShortcut.png</icon>
+		<thumb />
+		<action>ActivateWindow(favouritesbrowser)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>20183</defaultID>
+		<label>20183</label>
+		<label2 />
+		<icon>DefaultShortcut.png</icon>
+		<thumb />
+		<action>ReloadSkin()</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>20077</defaultID>
+		<label>20077</label>
+		<label2 />
+		<icon>DefaultShortcut.png</icon>
+		<thumb />
+		<action>ActivateWindow(skinsettings)</action>
+		</shortcut>
+	</shortcuts>

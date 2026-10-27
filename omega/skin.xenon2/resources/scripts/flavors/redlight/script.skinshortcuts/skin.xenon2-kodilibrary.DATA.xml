@@ -1,0 +1,50 @@
+<shortcuts>
+	<shortcut>
+		<defaultID>movies</defaultID>
+		<label>Movie Library</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb />
+		<action>ActivateWindow(Videos,Movies,root)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>tvshows</defaultID>
+		<label>TV Library</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb />
+		<action>ActivateWindow(Videos,TvShows,root)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>music</defaultID>
+		<label>Music Library</label>
+		<label2>Music</label2>
+		<icon>DefaultAddonMusic.png</icon>
+		<thumb />
+		<action>ActivateWindow(Music,musicdb://,return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>744</defaultID>
+		<label>Sources</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb />
+		<action>ActivateWindow(Videos,Files,return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>136</defaultID>
+		<label>136</label>
+		<label2 />
+		<icon>DefaultShortcut.png</icon>
+		<thumb />
+		<action>ActivateWindow(Videos,Playlists,return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Update Library</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb />
+		<action>UpdateLibrary(video)</action>
+		</shortcut>
+	</shortcuts>

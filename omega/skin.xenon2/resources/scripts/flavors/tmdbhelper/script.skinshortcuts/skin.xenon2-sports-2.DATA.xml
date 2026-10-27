@@ -1,0 +1,138 @@
+<shortcuts>
+	<shortcut>
+		<defaultID>istreameast</defaultID>
+		<label>IStreamEast</label>
+		<label2>Favourite</label2>
+		<icon>DefaultFolder.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/streameast.png</thumb>
+		<action>ActivateWindow(10025,"plugin://plugin.video.thesportssearch/?action=browse_provider&amp;provider=istreameast",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.video.sporthdme</defaultID>
+		<label>SportHD</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/sporthd.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.sporthdme",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.video.daddylive</defaultID>
+		<label>Daddylive</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/daddylive.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.daddylive",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.video.thesportssearch</defaultID>
+		<label>The Sports Search</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/sportssearch.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.thesportssearch",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>The Crew Sports</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/crew.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.thecrew/?action=bluehat",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Sports On Youtube</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/ytkiosk.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.yt.kiosk/?action=chip&amp;label=Sports&amp;url=https%3A%2F%2Fwww.youtube.com%2Fsports%3Fgl%3DUS%26hl%3Den%26persist_gl%3D1%26persist_hl%3D1",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.video.torquelite</defaultID>
+		<label>Torque Lite</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/torque.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.torquelite",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.video.madtitansports/get_list/https://magnetic.website/MAD_TITAN_SPORTS/SPORTS/sports.json</defaultID>
+		<label>Mad Titan Sports</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/madtitan.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.madtitansports/get_list/https://magnetic.website/MAD_TITAN_SPORTS/SPORTS/sports.json",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.video.the-loop</defaultID>
+		<label>The Loop</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/loop.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.the-loop",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.video.Rising.Tides</defaultID>
+		<label>Rising Tides</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/risingtides.jpg</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.Rising.Tides",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.video.wod</defaultID>
+		<label>WOD</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/wod.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.wod",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Pluto Sports</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/pluto.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://slyguy.pluto.tv.provider/?_=live_tv&amp;code=us&amp;group=Sports",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.video.purelywrestling</defaultID>
+		<label>Purely Wrestling</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/purelywrestling.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.purelywrestling",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Xumo Sports</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/xumo.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.xumoplay?mode=3&amp;url=https%3A%2F%2Fvalencia-app-mds.xumo.com%2Fv2%2F&amp;name=Sports",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.video.sportstv</defaultID>
+		<label>Sports.TV</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/sports.tv.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.sportstv",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.video.powernationtv</defaultID>
+		<label>PowerNation TV</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/pn.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.powernationtv",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.video.redbull.tv</defaultID>
+		<label>Red Bull TV</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/redbull.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.redbull.tv",return)</action>
+		</shortcut>
+	</shortcuts>

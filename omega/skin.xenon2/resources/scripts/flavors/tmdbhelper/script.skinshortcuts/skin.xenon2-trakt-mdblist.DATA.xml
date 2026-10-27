@@ -1,0 +1,34 @@
+<shortcuts>
+	<shortcut>
+		<defaultID />
+		<label>Trakt Or Mdblist?</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb />
+		<action>RunScript(C:\Users\jeddi\AppData\Roaming\Kodi\addons\skin.xenon2\resources/scripts/tmdbhelper_tracking.py)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>MDbList</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>thumb</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=dir_mdblist&amp;tmdb_type=None&amp;reload=%24INFO%5BWindow%28Home%29.Property%28TMDbHelper.Widgets.Reload%29%5D&amp;widget=true",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Trakt</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>thumb</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=dir_trakt&amp;tmdb_type=None&amp;reload=%24INFO%5BWindow%28Home%29.Property%28TMDbHelper.Widgets.Reload%29%5D&amp;widget=true",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>TMDBH Settings</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb />
+		<action>Addon.OpenSettings(plugin.video.themoviedb.helper)</action>
+		</shortcut>
+	</shortcuts>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <includes>
 	<!-- Video List -->
 	<include name="VideoList">
@@ -7,7 +7,7 @@
 			<include>ViewAnimation</include>
 			<centerleft>50%</centerleft>
 			<width>100%</width>
-			<top>10</top>
+			<top>-60</top>
 			<control type="group">
 				<left>80</left>
 				<top>-50</top>
@@ -26,17 +26,10 @@
 					<height>840</height>
 					<onleft>SetProperty(MediaMenu,True,Home)</onleft>
 					<onleft>SetFocus(9050)</onleft>
-					<onright condition="String.IsEqual(ListItem.DBType,movie)">RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.IMDBNumber]&amp;tmdb=$INFO[ListItem.Property(tmdb_id)]&amp;tmdbshow=$INFO[ListItem.Property(tmdbshow_id)]&amp;dbtype=$INFO[ListItem.DBType]&amp;mediatype=$INFO[ListItem.MediaType]&amp;title=$INFO[ListItem.Title]&amp;tvshowtitle=$INFO[ListItem.TVShowTitle]&amp;year=$INFO[ListItem.Year])</onright>
-					<onright condition="String.IsEqual(ListItem.DBType,tvshow) + !String.IsEmpty(ListItem.IMDBNumber)">
-					RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.IMDBNumber]&amp;dbtype=$INFO[ListItem.DBType]&amp;title=$INFO[ListItem.TVShowTitle])</onright>
-					<onright condition="String.IsEqual(ListItem.DBType,tvshow) + String.IsEmpty(ListItem.IMDBNumber) + !String.IsEmpty(ListItem.UniqueID(imdb))">
-					RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.UniqueID(imdb)]&amp;dbtype=$INFO[ListItem.DBType]&amp;title=$INFO[ListItem.TVShowTitle])</onright>
-					<onright condition="String.IsEqual(ListItem.DBType,tvshow) + String.IsEmpty(ListItem.IMDBNumber) + String.IsEmpty(ListItem.UniqueID(imdb)) + !String.IsEmpty(ListItem.Property(tmdbshow_id))">
-					RunScript(script.trailer.bridge,?tmdbshow=$INFO[ListItem.Property(tmdbshow_id)]&amp;dbtype=$INFO[ListItem.DBType]&amp;title=$INFO[ListItem.TVShowTitle])</onright>
-					<onright condition="Control.IsVisible(95060)">95060</onright>
-					<onright condition="!Control.IsVisible(95060) + Control.IsVisible(95061)">95061</onright>
-					<onright condition="!Control.IsVisible(95060) + Control.IsVisible(95063)">95063</onright>
-					<onright condition="!Control.IsVisible(95060) + !Control.IsVisible(95061)">4400</onright>
+					<onright condition="!Container(50).ListItem.IsParentFolder + [String.IsEqual(Container(50).ListItem.DBType,movie) | String.IsEqual(Container(50).ListItem.DBType,tvshow) | [String.IsEmpty(Container(50).ListItem.DBType) + [Container(50).Content(movies) | Container(50).Content(tvshows)]]]">RunScript(special://skin/resources/scripts/x2_view_trailer.py,50)</onright><onright condition="![!Container(50).ListItem.IsParentFolder + [String.IsEqual(Container(50).ListItem.DBType,movie) | String.IsEqual(Container(50).ListItem.DBType,tvshow) | [String.IsEmpty(Container(50).ListItem.DBType) + [Container(50).Content(movies) | Container(50).Content(tvshows)]]]] + [Control.IsVisible(95060)]">95060</onright>
+					<onright condition="![!Container(50).ListItem.IsParentFolder + [String.IsEqual(Container(50).ListItem.DBType,movie) | String.IsEqual(Container(50).ListItem.DBType,tvshow) | [String.IsEmpty(Container(50).ListItem.DBType) + [Container(50).Content(movies) | Container(50).Content(tvshows)]]]] + [!Control.IsVisible(95060) + Control.IsVisible(95061)]">95061</onright>
+					<onright condition="![!Container(50).ListItem.IsParentFolder + [String.IsEqual(Container(50).ListItem.DBType,movie) | String.IsEqual(Container(50).ListItem.DBType,tvshow) | [String.IsEmpty(Container(50).ListItem.DBType) + [Container(50).Content(movies) | Container(50).Content(tvshows)]]]] + [!Control.IsVisible(95060) + Control.IsVisible(95063)]">95063</onright>
+					<onright condition="![!Container(50).ListItem.IsParentFolder + [String.IsEqual(Container(50).ListItem.DBType,movie) | String.IsEqual(Container(50).ListItem.DBType,tvshow) | [String.IsEmpty(Container(50).ListItem.DBType) + [Container(50).Content(movies) | Container(50).Content(tvshows)]]]] + [!Control.IsVisible(95060) + !Control.IsVisible(95061)]">4400</onright>
 					<onup>50</onup>
 					<ondown>50</ondown>
 					<viewtype label="535">list</viewtype>
@@ -861,14 +854,14 @@
 							<textcolor>grey2</textcolor>
 							<label>$INFO[ListItem.Label]</label>
 						</control>
-						<control type="label">
-							<left>30</left>
+						<control type="image"><left>30</left><top>65</top><width>150</width><height>42</height><aspectratio>keep</aspectratio><texture background="true">$VAR[X2VideoRowStudioLogo]</texture></control><control type="label">
+							<left>195</left>
 							<top>55</top>
-							<width>1040</width>
+							<width>875</width>
 							<height>60</height>
 							<font>font15</font>
 							<textcolor>grey3</textcolor>
-							<label>$INFO[ListItem.Studio]$INFO[ListItem.Premiered, • ]</label>
+							<label>$INFO[ListItem.Premiered]</label>
 						</control>
 						<control type="label">
 							<left>30</left>
@@ -903,13 +896,13 @@
 							<font>font30</font>
 							<label>$INFO[ListItem.Label]</label>
 						</control>
-						<control type="label">
-							<left>30</left>
+						<control type="image"><left>30</left><top>65</top><width>150</width><height>42</height><aspectratio>keep</aspectratio><texture background="true">$VAR[X2VideoRowStudioLogo]</texture></control><control type="label">
+							<left>195</left>
 							<top>55</top>
-							<width>1040</width>
+							<width>875</width>
 							<height>60</height>
 							<font>font15</font>
-							<label>$INFO[ListItem.Studio]$INFO[ListItem.Premiered, • ]</label>
+							<label>$INFO[ListItem.Premiered]</label>
 						</control>
 						<control type="label">
 							<left>30</left>
@@ -1434,18 +1427,10 @@
 					<height>840</height>
 					<onleft>SetProperty(MediaMenu,True,Home)</onleft>
 					<onleft>SetFocus(9050)</onleft>
-					<onright condition="String.IsEqual(ListItem.DBType,movie)">RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.IMDBNumber]&amp;tmdb=$INFO[ListItem.Property(tmdb_id)]&amp;tmdbshow=$INFO[ListItem.Property(tmdbshow_id)]&amp;dbtype=$INFO[ListItem.DBType]&amp;mediatype=$INFO[ListItem.MediaType]&amp;title=$INFO[ListItem.Title]&amp;tvshowtitle=$INFO[ListItem.TVShowTitle]&amp;year=$INFO[ListItem.Year])</onright>
-					<onright condition="String.IsEqual(ListItem.DBType,tvshow) + !String.IsEmpty(ListItem.IMDBNumber)">
-					RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.IMDBNumber]&amp;dbtype=$INFO[ListItem.DBType]&amp;title=$INFO[ListItem.TVShowTitle])</onright>
-					<onright condition="String.IsEqual(ListItem.DBType,tvshow) + String.IsEmpty(ListItem.IMDBNumber) + !String.IsEmpty(ListItem.UniqueID(imdb))">
-					RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.UniqueID(imdb)]&amp;dbtype=$INFO[ListItem.DBType]&amp;title=$INFO[ListItem.TVShowTitle])</onright>
-					<onright condition="String.IsEqual(ListItem.DBType,tvshow) + String.IsEmpty(ListItem.IMDBNumber) + String.IsEmpty(ListItem.UniqueID(imdb)) + !String.IsEmpty(ListItem.Property(tmdbshow_id))">
-					RunScript(script.trailer.bridge,?tmdbshow=$INFO[ListItem.Property(tmdbshow_id)]&amp;dbtype=$INFO[ListItem.DBType]&amp;title=$INFO[ListItem.TVShowTitle])</onright>					
-
-					<onright condition="Control.IsVisible(95060)">95060</onright>
-					<onright condition="!Control.IsVisible(95060) + Control.IsVisible(95061)">95061</onright>
-					<onright condition="!Control.IsVisible(95060) + Control.IsVisible(95063)">95063</onright>
-					<onright condition="!Control.IsVisible(95060) + !Control.IsVisible(95061)">4400</onright>
+					<onright condition="!Container(50).ListItem.IsParentFolder + [String.IsEqual(Container(50).ListItem.DBType,movie) | String.IsEqual(Container(50).ListItem.DBType,tvshow) | [String.IsEmpty(Container(50).ListItem.DBType) + [Container(50).Content(movies) | Container(50).Content(tvshows)]]]">RunScript(special://skin/resources/scripts/x2_view_trailer.py,50)</onright><onright condition="![!Container(50).ListItem.IsParentFolder + [String.IsEqual(Container(50).ListItem.DBType,movie) | String.IsEqual(Container(50).ListItem.DBType,tvshow) | [String.IsEmpty(Container(50).ListItem.DBType) + [Container(50).Content(movies) | Container(50).Content(tvshows)]]]] + [Control.IsVisible(95060)]">95060</onright>
+					<onright condition="![!Container(50).ListItem.IsParentFolder + [String.IsEqual(Container(50).ListItem.DBType,movie) | String.IsEqual(Container(50).ListItem.DBType,tvshow) | [String.IsEmpty(Container(50).ListItem.DBType) + [Container(50).Content(movies) | Container(50).Content(tvshows)]]]] + [!Control.IsVisible(95060) + Control.IsVisible(95061)]">95061</onright>
+					<onright condition="![!Container(50).ListItem.IsParentFolder + [String.IsEqual(Container(50).ListItem.DBType,movie) | String.IsEqual(Container(50).ListItem.DBType,tvshow) | [String.IsEmpty(Container(50).ListItem.DBType) + [Container(50).Content(movies) | Container(50).Content(tvshows)]]]] + [!Control.IsVisible(95060) + Control.IsVisible(95063)]">95063</onright>
+					<onright condition="![!Container(50).ListItem.IsParentFolder + [String.IsEqual(Container(50).ListItem.DBType,movie) | String.IsEqual(Container(50).ListItem.DBType,tvshow) | [String.IsEmpty(Container(50).ListItem.DBType) + [Container(50).Content(movies) | Container(50).Content(tvshows)]]]] + [!Control.IsVisible(95060) + !Control.IsVisible(95061)]">4400</onright>
 					<onup>50</onup>
 					<ondown>50</ondown>
 					<viewtype label="535">list</viewtype>
@@ -2008,7 +1993,7 @@
 					<height>840</height>
 					<onleft>SetProperty(MediaMenu,True,Home)</onleft>
 					<onleft>SetFocus(9050)</onleft>
-					<onright>95060</onright>
+					<onright condition="!Container(50).ListItem.IsParentFolder + [String.IsEqual(Container(50).ListItem.DBType,movie) | String.IsEqual(Container(50).ListItem.DBType,tvshow) | [String.IsEmpty(Container(50).ListItem.DBType) + [Container(50).Content(movies) | Container(50).Content(tvshows)]]]">RunScript(special://skin/resources/scripts/x2_view_trailer.py,50)</onright><onright condition="![!Container(50).ListItem.IsParentFolder + [String.IsEqual(Container(50).ListItem.DBType,movie) | String.IsEqual(Container(50).ListItem.DBType,tvshow) | [String.IsEmpty(Container(50).ListItem.DBType) + [Container(50).Content(movies) | Container(50).Content(tvshows)]]]]">95060</onright>
 					<onup>50</onup>
 					<ondown>50</ondown>
 					<viewtype label="535">list</viewtype>
@@ -2217,7 +2202,7 @@
 					<height>840</height>
 					<onleft>SetProperty(MediaMenu,True,Home)</onleft>
 					<onleft>SetFocus(9050)</onleft>
-					<onright>95060</onright>
+					<onright condition="!Container(50).ListItem.IsParentFolder + [String.IsEqual(Container(50).ListItem.DBType,movie) | String.IsEqual(Container(50).ListItem.DBType,tvshow) | [String.IsEmpty(Container(50).ListItem.DBType) + [Container(50).Content(movies) | Container(50).Content(tvshows)]]]">RunScript(special://skin/resources/scripts/x2_view_trailer.py,50)</onright><onright condition="![!Container(50).ListItem.IsParentFolder + [String.IsEqual(Container(50).ListItem.DBType,movie) | String.IsEqual(Container(50).ListItem.DBType,tvshow) | [String.IsEmpty(Container(50).ListItem.DBType) + [Container(50).Content(movies) | Container(50).Content(tvshows)]]]]">95060</onright>
 					<onup>50</onup>
 					<ondown>50</ondown>
 					<viewtype label="535">list</viewtype>
@@ -2468,17 +2453,10 @@
 					<height>880</height>
 					<onleft>SetProperty(MediaMenu,True,Home)</onleft>
 					<onleft>SetFocus(9050)</onleft>
-					<onright condition="String.IsEqual(ListItem.DBType,movie)">RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.IMDBNumber]&amp;tmdb=$INFO[ListItem.Property(tmdb_id)]&amp;tmdbshow=$INFO[ListItem.Property(tmdbshow_id)]&amp;dbtype=$INFO[ListItem.DBType]&amp;mediatype=$INFO[ListItem.MediaType]&amp;title=$INFO[ListItem.Title]&amp;tvshowtitle=$INFO[ListItem.TVShowTitle]&amp;year=$INFO[ListItem.Year])</onright>
-					<onright condition="String.IsEqual(ListItem.DBType,tvshow) + !String.IsEmpty(ListItem.IMDBNumber)">
-					RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.IMDBNumber]&amp;dbtype=$INFO[ListItem.DBType]&amp;title=$INFO[ListItem.TVShowTitle])</onright>
-					<onright condition="String.IsEqual(ListItem.DBType,tvshow) + String.IsEmpty(ListItem.IMDBNumber) + !String.IsEmpty(ListItem.UniqueID(imdb))">
-					RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.UniqueID(imdb)]&amp;dbtype=$INFO[ListItem.DBType]&amp;title=$INFO[ListItem.TVShowTitle])</onright>
-					<onright condition="String.IsEqual(ListItem.DBType,tvshow) + String.IsEmpty(ListItem.IMDBNumber) + String.IsEmpty(ListItem.UniqueID(imdb)) + !String.IsEmpty(ListItem.Property(tmdbshow_id))">
-					RunScript(script.trailer.bridge,?tmdbshow=$INFO[ListItem.Property(tmdbshow_id)]&amp;dbtype=$INFO[ListItem.DBType]&amp;title=$INFO[ListItem.TVShowTitle])</onright>					
-					<onright condition="Control.IsVisible(95060)">95060</onright>
-					<onright condition="!Control.IsVisible(95060) + Control.IsVisible(95061)">95061</onright>
-					<onright condition="!Control.IsVisible(95060) + Control.IsVisible(95063)">95063</onright>
-					<onright condition="!Control.IsVisible(95060) + !Control.IsVisible(95061)">4400</onright>
+					<onright condition="!Container(50).ListItem.IsParentFolder + [String.IsEqual(Container(50).ListItem.DBType,movie) | String.IsEqual(Container(50).ListItem.DBType,tvshow) | [String.IsEmpty(Container(50).ListItem.DBType) + [Container(50).Content(movies) | Container(50).Content(tvshows)]]]">RunScript(special://skin/resources/scripts/x2_view_trailer.py,50)</onright><onright condition="![!Container(50).ListItem.IsParentFolder + [String.IsEqual(Container(50).ListItem.DBType,movie) | String.IsEqual(Container(50).ListItem.DBType,tvshow) | [String.IsEmpty(Container(50).ListItem.DBType) + [Container(50).Content(movies) | Container(50).Content(tvshows)]]]] + [Control.IsVisible(95060)]">95060</onright>
+					<onright condition="![!Container(50).ListItem.IsParentFolder + [String.IsEqual(Container(50).ListItem.DBType,movie) | String.IsEqual(Container(50).ListItem.DBType,tvshow) | [String.IsEmpty(Container(50).ListItem.DBType) + [Container(50).Content(movies) | Container(50).Content(tvshows)]]]] + [!Control.IsVisible(95060) + Control.IsVisible(95061)]">95061</onright>
+					<onright condition="![!Container(50).ListItem.IsParentFolder + [String.IsEqual(Container(50).ListItem.DBType,movie) | String.IsEqual(Container(50).ListItem.DBType,tvshow) | [String.IsEmpty(Container(50).ListItem.DBType) + [Container(50).Content(movies) | Container(50).Content(tvshows)]]]] + [!Control.IsVisible(95060) + Control.IsVisible(95063)]">95063</onright>
+					<onright condition="![!Container(50).ListItem.IsParentFolder + [String.IsEqual(Container(50).ListItem.DBType,movie) | String.IsEqual(Container(50).ListItem.DBType,tvshow) | [String.IsEmpty(Container(50).ListItem.DBType) + [Container(50).Content(movies) | Container(50).Content(tvshows)]]]] + [!Control.IsVisible(95060) + !Control.IsVisible(95061)]">4400</onright>
 					<onup>50</onup>
 					<ondown>50</ondown>
 					<viewtype label="535">list</viewtype>
@@ -2986,7 +2964,7 @@
 					<height>840</height>
 					<onleft>SetProperty(MediaMenu,True,Home)</onleft>
 					<onleft>SetFocus(9050)</onleft>
-					<onright>95060</onright>
+					<onright condition="!Container(50).ListItem.IsParentFolder + [String.IsEqual(Container(50).ListItem.DBType,movie) | String.IsEqual(Container(50).ListItem.DBType,tvshow) | [String.IsEmpty(Container(50).ListItem.DBType) + [Container(50).Content(movies) | Container(50).Content(tvshows)]]]">RunScript(special://skin/resources/scripts/x2_view_trailer.py,50)</onright><onright condition="![!Container(50).ListItem.IsParentFolder + [String.IsEqual(Container(50).ListItem.DBType,movie) | String.IsEqual(Container(50).ListItem.DBType,tvshow) | [String.IsEmpty(Container(50).ListItem.DBType) + [Container(50).Content(movies) | Container(50).Content(tvshows)]]]]">95060</onright>
 					<onup>50</onup>
 					<ondown>50</ondown>
 					<viewtype label="535">list</viewtype>
@@ -3173,7 +3151,7 @@
 					<height>840</height>
 					<onleft>SetProperty(MediaMenu,True,Home)</onleft>
 					<onleft>SetFocus(9050)</onleft>
-					<onright>95060</onright>
+					<onright condition="!Container(50).ListItem.IsParentFolder + [String.IsEqual(Container(50).ListItem.DBType,movie) | String.IsEqual(Container(50).ListItem.DBType,tvshow) | [String.IsEmpty(Container(50).ListItem.DBType) + [Container(50).Content(movies) | Container(50).Content(tvshows)]]]">RunScript(special://skin/resources/scripts/x2_view_trailer.py,50)</onright><onright condition="![!Container(50).ListItem.IsParentFolder + [String.IsEqual(Container(50).ListItem.DBType,movie) | String.IsEqual(Container(50).ListItem.DBType,tvshow) | [String.IsEmpty(Container(50).ListItem.DBType) + [Container(50).Content(movies) | Container(50).Content(tvshows)]]]]">95060</onright>
 					<onup>50</onup>
 					<ondown>50</ondown>
 					<viewtype label="535">list</viewtype>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <includes>			
     <include file="Viewsweather.xml" />
     <include file="IncludesDialogSelect.xml" />	
@@ -204,11 +204,7 @@
     </include>
     <include name="Date">
         <control type="group" id="1">
-			<animation effect="fade" start="100" end="0" time="200" condition="[Control.IsVisible(508) | Control.IsVisible(509) | 
-			                                                                    Window.IsVisible(MyWeather.xml) | Window.IsVisible(DialogVolumeBar.xml) | 
-																				Window.IsVisible(FileManager.xml) | Window.IsVisible(SmartPlaylistEditor.xml) | 
-																				Window.IsVisible(Settings.xml) | Window.IsVisible(SettingsCategory.xml) | 
-																				Window.IsVisible(SkinSettings.xml)]">Conditional</animation>
+			<animation effect="fade" start="100" end="0" time="200" condition="[Control.IsVisible(508) | Control.IsVisible(509) |                                                                         Window.IsVisible(MyWeather.xml) | Window.IsVisible(DialogVolumeBar.xml) |                      Window.IsVisible(FileManager.xml) | Window.IsVisible(SmartPlaylistEditor.xml) |                      Window.IsVisible(Settings.xml) | Window.IsVisible(SettingsCategory.xml) |                      Window.IsVisible(SkinSettings.xml)]">Conditional</animation>
 		    <control type="label" id="1">
                 <description>Date label</description>
                 <right>30</right>
@@ -241,7 +237,7 @@
                 <font>font11_compact</font>
                 <textcolor>blue</textcolor>
                 <shadowcolor>black</shadowcolor>
-                <label></label>
+                <label />
                 <include>Window_OpenClose_Animation</include>
                 <animation effect="slide" start="0,0" end="-60,0" time="75" condition="Player.Muted">conditional</animation>
                 <animation effect="slide" start="0,0" end="-120,0" time="0" condition="![Window.IsVisible(AddonSettings) | Window.IsVisible(SelectDialog) | Window.IsVisible(VisualisationPresetList) | Window.IsVisible(PVROSDChannels) | Window.IsVisible(PVROSDGuide) | Window.IsVisible(1105)]+system.getbool(input.enablemouse)+Window.IsVisible(MusicOSD)">conditional</animation>
@@ -412,8 +408,8 @@
         <top>1380</top>
         <width>1</width>
         <height>1</height>
-        <texturenofocus></texturenofocus>
-        <texturefocus></texturefocus>
+        <texturenofocus />
+        <texturefocus />
     </include>	
     <include name="BehindDialogFadeOut">
         <control type="image">
@@ -600,8 +596,8 @@
                     <focusedcolor>white</focusedcolor>
                     <align>center</align>
                     <textwidth>435</textwidth>
-                    <onclick condition="!Skin.HasSetting(MinimizeOnExit)">ActivateWindow(10001,&quot;plugin://plugin.program.chef21/?description=Force%20Close%20Kodi&amp;fanart=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.program.chef21%5cresources%5cfanart.jpg&amp;icon=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.program.chef21%5cresources%5cicon.png&amp;mode=18&amp;name=Force%20Close&amp;name2&amp;url&amp;version&quot;,return)</onclick>
-                    <onclick condition="Skin.HasSetting(MinimizeOnExit)">ActivateWindow(10001,&quot;plugin://plugin.program.chef21/?description=Force%20Close%20Kodi&amp;fanart=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.program.chef21%5cresources%5cfanart.jpg&amp;icon=C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.program.chef21%5cresources%5cicon.png&amp;mode=18&amp;name=Force%20Close&amp;name2&amp;url&amp;version&quot;,return)</onclick>
+                    <onclick condition="!Skin.HasSetting(MinimizeOnExit)">RunScript(special://skin/resources/scripts/x2_force_close.py)</onclick>
+                    <onclick condition="Skin.HasSetting(MinimizeOnExit)">RunScript(special://skin/resources/scripts/x2_force_close.py)</onclick>
                     <pulseonselect>no</pulseonselect>
                     <font>font13</font>
                     <label>Force Close Kodi</label>
@@ -1021,7 +1017,7 @@
                 <radioheight>68</radioheight>
                 <radioposx>1</radioposx>
                 <radioposy>1</radioposy>
-                <font></font>
+                <font />
                 <visible>!Skin.HasSetting(HideTrailerBtn)</visible>
                 <visible>!Player.HasMedia + !String.IsEmpty(ListItem.Trailer)</visible>
                 <visible>!Container.Content(TVShows) + !Container.Content(Seasons) + !Container.Content(Episodes)</visible>
@@ -1042,7 +1038,7 @@
                 <radioheight>68</radioheight>
                 <radioposx>1</radioposx>
                 <radioposy>1</radioposy>
-                <font></font>
+                <font />
             </control>
             <control type="radiobutton" id="803">
                 <description>Volume Down Button</description>
@@ -1060,7 +1056,7 @@
                 <radioheight>68</radioheight>
                 <radioposx>1</radioposx>
                 <radioposy>1</radioposy>
-                <font></font>
+                <font />
             </control>
             <control type="radiobutton" id="804">
                 <description>Back push button</description>
@@ -1077,7 +1073,7 @@
                 <radioheight>68</radioheight>
                 <radioposx>1</radioposx>
                 <radioposy>1</radioposy>
-                <font></font>
+                <font />
             </control>
             <control type="radiobutton" id="800">
                 <description>Home push button</description>
@@ -1095,7 +1091,7 @@
                 <radioheight>68</radioheight>
                 <radioposx>1</radioposx>
                 <radioposy>1</radioposy>
-                <font></font>
+                <font />
             </control>
         </control>
     </include>	
@@ -1482,7 +1478,7 @@
                         <param name="Size" value="58" />
                         <param name="Texture" value="OSDChannelUp" />
                     </include>
-                    <onclick>ChannelDown</onclick>
+                    <onclick>ChannelUp</onclick>
                 </control>
                 <control type="radiobutton" id="601">
                     <label />
@@ -1490,7 +1486,7 @@
                         <param name="Size" value="58" />
                         <param name="Texture" value="OSDChannelDown" />
                     </include>
-                    <onclick>ChannelUp</onclick>
+                    <onclick>ChannelDown</onclick>
                 </control>
                 <control type="radiobutton" id="603">
                     <label />
@@ -1692,8 +1688,8 @@
     <include name="DialogCloseButton">
         <width>96</width>
         <height>48</height>
-        <label></label>
-        <font></font>
+        <label />
+        <font />
         <include>DialogCloseButtonClassic</include>
     </include>
     <include name="DialogCloseButtonClassic">
@@ -2003,7 +1999,7 @@
 			<width>64</width>
 			<height>48</height>
 			<label></label>
-			<font></font>
+			<font />
 			<textcolor>grey</textcolor>
 			<focusedcolor>$VAR[ThemeLabelColor]</focusedcolor>
 			<onclick>ClearProperty(MediaMenu,Home)</onclick>
@@ -2356,7 +2352,7 @@
 				<shadowcolor>shadow</shadowcolor>
 				<width>80</width>
 				<height>80</height>
-				<onclick>PlayerControl(Previous)</onclick>
+				<onclick>ChannelDown</onclick>
 				<visible>VideoPlayer.Content(livetv)</visible>
 			</control>
 			<control type="button" id="9951">
@@ -2452,7 +2448,7 @@
 				<shadowcolor>shadow</shadowcolor>
 				<width>80</width>
 				<height>80</height>
-				<onclick>PlayerControl(Next)</onclick>
+				<onclick>ChannelUp</onclick>
 				<visible>VideoPlayer.Content(livetv)</visible>
 			</control>
 		</control>
@@ -2731,7 +2727,7 @@
                 <left>0</left>
 				<top>815</top>
 				<width>1290</width>
-				<height>150</height>>
+				<height>150</height>&gt;
                 <texture border="20">OverlayDialogBackground.png</texture>
             </control>
             <control type="panel" id="5001">
@@ -3170,7 +3166,7 @@
 			<onup>703</onup>
 			<ondown>706</ondown>
 			<control type="button" id="701">
-				<font/>
+				<font />
 				<texturefocus>osd/buttons2/OSDAudioFO.png</texturefocus>
 				<texturenofocus>osd/buttons2/OSDAudioNF.png</texturenofocus>
 				<label></label>
@@ -3183,7 +3179,7 @@
 				<oninfo>ActivateWindow(osdaudiosettings)</oninfo>
 			</control>
 			<control type="button" id="702">
-				<font/>
+				<font />
 				<texturefocus>osd/buttons2/OSDVideoFO.png</texturefocus>
 				<texturenofocus>osd/buttons2/OSDVideoNF.png</texturenofocus>
 				<label></label>
@@ -3196,7 +3192,7 @@
 				<oninfo>ActivateWindow(osdvideosettings)</oninfo>
 			</control>
 			<control type="togglebutton" id="703">
-				<font/>
+				<font />
 				<texturefocus>osd/buttons2/SubFO.png</texturefocus>
 				<texturenofocus>osd/buttons2/SubNF.png</texturenofocus>
 				<label></label>
@@ -3209,7 +3205,7 @@
 				<onclick>ActivateWindow(OSDSubtitleSettings)</onclick>
 			</control>
 			<control type="button" id="600">
-				<font/>
+				<font />
 				<texturefocus>osd/buttons2/OSDPrevTrackFO.png</texturefocus>
 				<texturenofocus>osd/buttons2/OSDPrevTrackNF.png</texturenofocus>
 				<label></label>
@@ -3223,7 +3219,7 @@
 				<visible>!Skin.HasSetting(Disable.PlayerControlButtons)</visible>
 			</control>
 			<control type="button" id="601">
-				<font/>
+				<font />
 				<texturefocus>osd/buttons2/OSDRewindFO.png</texturefocus>
 				<texturenofocus>osd/buttons2/OSDRewindNF.png</texturenofocus>
 				<label></label>
@@ -3238,7 +3234,7 @@
 				<visible>!Skin.HasSetting(Disable.PlayerControlButtons)</visible>
 			</control>
 			<control type="button" id="603">
-				<font/>
+				<font />
 				<texturefocus>osd/buttons2/OSDStopFO.png</texturefocus>
 				<texturenofocus>osd/buttons2/OSDStopNF.png</texturenofocus>
 				<label></label>
@@ -3252,7 +3248,7 @@
 				<visible>!Skin.HasSetting(Disable.PlayerControlButtons)</visible>
 			</control>
 			<control type="togglebutton" id="602">
-				<font/>
+				<font />
 				<texturefocus>osd/buttons2/OSDPauseFO.png</texturefocus>
 				<texturenofocus>osd/buttons2/OSDPauseNF.png</texturenofocus>
 				<usealttexture>Player.Paused | Player.Forwarding | Player.Rewinding</usealttexture>
@@ -3271,7 +3267,7 @@
 				<visible>!Skin.HasSetting(Disable.PlayerControlButtons)</visible>
 			</control>
 			<control type="button" id="604">
-				<font/>
+				<font />
 				<texturefocus>osd/buttons2/OSDForwardFO.png</texturefocus>
 				<texturenofocus>osd/buttons2/OSDForwardNF.png</texturenofocus>
 				<label></label>
@@ -3286,7 +3282,7 @@
 				<visible>!Skin.HasSetting(Disable.PlayerControlButtons)</visible>
 			</control>
 			<control type="button" id="605">
-				<font/>
+				<font />
 				<texturefocus>osd/buttons2/OSDNextTrackFO.png</texturefocus>
 				<texturenofocus>osd/buttons2/OSDNextTrackNF.png</texturenofocus>
 				<label></label>
@@ -3300,7 +3296,7 @@
 				<visible>!Skin.HasSetting(Disable.PlayerControlButtons)</visible>
 			</control>
 			<control type="button" id="706">
-				<font/>
+				<font />
 				<texturefocus>osd/buttons2/OSDInfoFO.png</texturefocus>
 				<texturenofocus>osd/buttons2/OSDInfoNF.png</texturenofocus>
 				<label></label>
@@ -3316,7 +3312,7 @@
 				<oninfo>ActivateWindow(fullscreeninfo)</oninfo>
 			</control>
 			<control type="button" id="700">
-				<font/>
+				<font />
 				<texturefocus>osd/buttons2/OSDBookmarksFO.png</texturefocus>
 				<texturenofocus>osd/buttons2/OSDBookmarksNF.png</texturenofocus>
 				<label></label>
@@ -3329,7 +3325,7 @@
 				<oninfo>ActivateWindow(videobookmarks)</oninfo>
 			</control>
 			<control type="button" id="704">
-				<font/>
+				<font />
 				<texturefocus>osd/buttons2/OSDDvdFO.png</texturefocus>
 				<texturenofocus>osd/buttons2/OSDDvdNF.png</texturenofocus>
 				<label></label>
@@ -3373,7 +3369,7 @@
 				<visible>VideoPlayer.Content(movies) | VideoPlayer.Content(episodes)</visible>
 			</control>
 			<control type="button" id="709">
-				<font/>
+				<font />
 				<texturefocus>osd/buttons2/OSDSettingsFO.png</texturefocus>
 				<texturenofocus>osd/buttons2/OSDSettingsNF.png</texturenofocus>
 				<label></label>
@@ -3441,7 +3437,7 @@
 				<onclick>ActivateWindow(osdvideosettings)</onclick>
 			</control>
 			<control type="togglebutton" id="802">
-				<font/>
+				<font />
 				<texturefocus>osd/buttons2/SubFO.png</texturefocus>
 				<texturenofocus>osd/buttons2/SubNF.png</texturenofocus>
 				<label></label>
@@ -4238,7 +4234,7 @@
 						<height>45</height>
 						<font>font14</font>
 						<textcolor>$VAR[ThemeLabelColor]</textcolor>
-						<label>$INFO[ListItem.Rating,$LOCALIZE[31146]: [COLOR grey],[/COLOR]]$INFO[ListItem.Top250,[COLOR grey] / $LOCALIZE[13409] # ,[/COLOR]]$INFO[ListItem.Year,   $LOCALIZE[345]: [COLOR grey],[/COLOR]]$INFO[ListItem.Duration(mins),   $LOCALIZE[2050]: [COLOR grey], $LOCALIZE[12391][/COLOR]]$INFO[Window(Home).Property(SkinInfo.Set.Movies.Runtime),   $LOCALIZE[2050]: [COLOR grey], $LOCALIZE[12391][/COLOR]]</label>
+						<label>TMDb: [COLOR grey]$VAR[X2View50RatingTMDb][/COLOR]$INFO[ListItem.Top250,[COLOR grey] / $LOCALIZE[13409] # ,[/COLOR]]$INFO[ListItem.Year,   $LOCALIZE[345]: [COLOR grey],[/COLOR]]$INFO[ListItem.Duration(mins),   $LOCALIZE[2050]: [COLOR grey], $LOCALIZE[12391][/COLOR]]$INFO[Window(Home).Property(SkinInfo.Set.Movies.Runtime),   $LOCALIZE[2050]: [COLOR grey], $LOCALIZE[12391][/COLOR]]</label>
 						<visible>!Container.Content(episodes)</visible>
 					</control>
 					<control type="label">
@@ -4375,19 +4371,10 @@
 						<visible>Container.Content(tvshows)</visible>
 						<control type="image" id="9900$PARAM[StudioLabelID]">
 							<width>120</width>
-							<colordiffuse>grey</colordiffuse>
-							<include>MediaFlagValues</include>
-							<texture>$VAR[PathFlagsStudios]$INFO[ListItem.Studio,,.png]</texture>
-							<visible>!String.IsEmpty(ListItem.Studio)</visible>
+							<texture>$VAR[X2VideoStudioLogo]</texture>
+							<visible>!String.IsEmpty(Window(Home).Property(X2ViewStudio.Logo))</visible>
+						<height>78</height><aspectratio>keep</aspectratio><colordiffuse>white</colordiffuse></control>
 						</control>
-						<control type="label">
-							<width>120</width>
-							<align>center</align>
-							<font>font10</font>
-							<label>$INFO[ListItem.Studio]</label>
-							<visible>String.IsEmpty(Control.GetLabel(9900$PARAM[StudioLabelID]))</visible>
-						</control>
-					</control>
 					<control type="image">
 						<width>120</width>
 						<colordiffuse>grey</colordiffuse>
@@ -5893,4 +5880,5 @@
 			</control>
 		</control>
 	</include>
-</includes>
+<include file="Includes_WidgetSelector.xml" /><include file="Includes_SelectorNative.xml" /><include file="Includes_XenonWidgetInfo.xml" />    <include file="Includes_XenonVideoInfo.xml" />
+<variable name="X2VideoStudioLogo"><value condition="String.IsEqual(ListItem.Label,Window(Home).Property(X2ViewStudio.Label))">$INFO[Window(Home).Property(X2ViewStudio.Logo)]</value><value /></variable><variable name="X2VideoRowStudioLogo"><value condition="String.IsEqual(ListItem.Label,Window(Home).Property(X2ViewStudio.Label))">$INFO[Window(Home).Property(X2ViewStudio.Logo)]</value><value>$INFO[ListItem.Studio,resource://resource.images.studios.coloured/,.png]</value></variable><include name="X2View50Ratings"><control type="group"><width>140</width><height>78</height><visible>!String.IsEmpty(Container(50).ListItem.Rating) | !String.IsEmpty(Container.ListItem.Rating) | !String.IsEmpty(ListItem.Rating)</visible><control type="label"><left>0</left><top>8</top><width>55</width><height>54</height><font>font13_bold</font><textcolor>gold</textcolor><label>★</label></control><control type="label"><left>60</left><top>8</top><width>78</width><height>32</height><font>font13_bold</font><textcolor>grey</textcolor><label>$VAR[X2View50DefaultRating]</label></control><control type="label"><left>60</left><top>40</top><width>78</width><height>22</height><font>font10</font><textcolor>grey</textcolor><label>Rating</label></control></control><control type="group"><width>140</width><height>78</height><visible>[!String.IsEmpty(Container(9143).ListItem.Property(imdb_rating))] | [!String.IsEmpty(ListItem.Property(imdb_rating))] | [!String.IsEmpty(ListItem.Rating(imdb))]</visible><control type="image"><top>8</top><width>55</width><height>54</height><aspectratio>keep</aspectratio><texture>logos/imdb.png</texture></control><control type="label"><left>60</left><top>8</top><width>78</width><height>32</height><font>font13_bold</font><textcolor>grey</textcolor><label>$VAR[X2View50RatingIMDb]</label></control><control type="label"><left>60</left><top>40</top><width>78</width><height>22</height><font>font10</font><textcolor>grey</textcolor><label>IMDb</label></control></control><control type="group"><width>140</width><height>78</height><visible>[!String.IsEmpty(Container(9143).ListItem.Property(tmdb_rating))] | [!String.IsEmpty(ListItem.Property(tmdb_rating))] | [!String.IsEmpty(ListItem.Rating(themoviedb))]</visible><control type="image"><top>8</top><width>55</width><height>54</height><aspectratio>keep</aspectratio><texture>logos/tmdb.png</texture></control><control type="label"><left>60</left><top>8</top><width>78</width><height>32</height><font>font13_bold</font><textcolor>grey</textcolor><label>$VAR[X2View50RatingTMDb]</label></control><control type="label"><left>60</left><top>40</top><width>78</width><height>22</height><font>font10</font><textcolor>grey</textcolor><label>TMDb</label></control></control><control type="group"><width>140</width><height>78</height><visible>[!String.IsEmpty(Container(9143).ListItem.Property(rottentomatoes_rating))] | [!String.IsEmpty(ListItem.Property(rottentomatoes_rating))] | [!String.IsEmpty(ListItem.Rating(tomatometerallcritics))]</visible><control type="image"><top>8</top><width>55</width><height>54</height><aspectratio>keep</aspectratio><texture>$VAR[TMDbHelperRottenTomatoLogoVar]</texture></control><control type="label"><left>60</left><top>8</top><width>78</width><height>32</height><font>font13_bold</font><textcolor>grey</textcolor><label>$VAR[X2View50RatingCritics]%</label></control><control type="label"><left>60</left><top>40</top><width>78</width><height>22</height><font>font10</font><textcolor>grey</textcolor><label>Critics</label></control></control><control type="group"><width>140</width><height>78</height><visible>[!String.IsEmpty(Container(9143).ListItem.Property(rottentomatoes_usermeter))] | [!String.IsEmpty(ListItem.Property(rottentomatoes_usermeter))] | [!String.IsEmpty(ListItem.Rating(tomatometerallaudience))]</visible><control type="image"><top>8</top><width>55</width><height>54</height><aspectratio>keep</aspectratio><texture>$VAR[RottenFreshAudienceTMDbHelperLogoVar]</texture></control><control type="label"><left>60</left><top>8</top><width>78</width><height>32</height><font>font13_bold</font><textcolor>grey</textcolor><label>$VAR[X2View50RatingAudience]%</label></control><control type="label"><left>60</left><top>40</top><width>78</width><height>22</height><font>font10</font><textcolor>grey</textcolor><label>Audience</label></control></control><control type="group"><width>140</width><height>78</height><visible>[!String.IsEmpty(Container(9143).ListItem.Property(metacritic_rating))] | [!String.IsEmpty(ListItem.Property(metacritic_rating))] | [!String.IsEmpty(ListItem.Rating(metacritic))]</visible><control type="image"><top>8</top><width>55</width><height>54</height><aspectratio>keep</aspectratio><texture>logos/metacritic.png</texture></control><control type="label"><left>60</left><top>8</top><width>78</width><height>32</height><font>font13_bold</font><textcolor>grey</textcolor><label>$VAR[X2View50RatingMetacritic]</label></control><control type="label"><left>60</left><top>40</top><width>78</width><height>22</height><font>font10</font><textcolor>grey</textcolor><label>Metacritic</label></control></control></include><variable name="X2View50RatingIMDb"><value condition="!String.IsEmpty(Container(9143).ListItem.Property(imdb_rating))">$INFO[Container(9143).ListItem.Property(imdb_rating)]</value><value condition="!String.IsEmpty(ListItem.Property(imdb_rating))">$INFO[ListItem.Property(imdb_rating)]</value><value condition="!String.IsEmpty(ListItem.Rating(imdb))">$INFO[ListItem.Rating(imdb)]</value><value /></variable><variable name="X2View50RatingTMDb"><value condition="!String.IsEmpty(Container(9143).ListItem.Property(tmdb_rating))">$INFO[Container(9143).ListItem.Property(tmdb_rating)]</value><value condition="!String.IsEmpty(ListItem.Property(tmdb_rating))">$INFO[ListItem.Property(tmdb_rating)]</value><value condition="!String.IsEmpty(ListItem.Rating(themoviedb))">$INFO[ListItem.Rating(themoviedb)]</value><value /></variable><variable name="X2View50RatingCritics"><value condition="!String.IsEmpty(Container(9143).ListItem.Property(rottentomatoes_rating))">$INFO[Container(9143).ListItem.Property(rottentomatoes_rating)]</value><value condition="!String.IsEmpty(ListItem.Property(rottentomatoes_rating))">$INFO[ListItem.Property(rottentomatoes_rating)]</value><value condition="!String.IsEmpty(ListItem.Rating(tomatometerallcritics))">$INFO[ListItem.Rating(tomatometerallcritics)]</value><value /></variable><variable name="X2View50RatingAudience"><value condition="!String.IsEmpty(Container(9143).ListItem.Property(rottentomatoes_usermeter))">$INFO[Container(9143).ListItem.Property(rottentomatoes_usermeter)]</value><value condition="!String.IsEmpty(ListItem.Property(rottentomatoes_usermeter))">$INFO[ListItem.Property(rottentomatoes_usermeter)]</value><value condition="!String.IsEmpty(ListItem.Rating(tomatometerallaudience))">$INFO[ListItem.Rating(tomatometerallaudience)]</value><value /></variable><variable name="X2View50RatingMetacritic"><value condition="!String.IsEmpty(Container(9143).ListItem.Property(metacritic_rating))">$INFO[Container(9143).ListItem.Property(metacritic_rating)]</value><value condition="!String.IsEmpty(ListItem.Property(metacritic_rating))">$INFO[ListItem.Property(metacritic_rating)]</value><value condition="!String.IsEmpty(ListItem.Rating(metacritic))">$INFO[ListItem.Rating(metacritic)]</value><value /></variable><variable name="X2View50DefaultRating"><value condition="!String.IsEmpty(Container(50).ListItem.Rating)">$INFO[Container(50).ListItem.Rating]</value><value condition="!String.IsEmpty(Container.ListItem.Rating)">$INFO[Container.ListItem.Rating]</value><value condition="!String.IsEmpty(ListItem.Rating)">$INFO[ListItem.Rating]</value><value /></variable><include name="X2View50PrimaryFooter"><control type="group"><width>140</width><height>78</height><visible>[!String.IsEmpty(Container(9143).ListItem.Property(tmdb_rating))] | [!String.IsEmpty(ListItem.Property(tmdb_rating))] | [!String.IsEmpty(ListItem.Rating(themoviedb))]</visible><control type="image"><top>8</top><width>55</width><height>54</height><aspectratio>keep</aspectratio><texture>logos/tmdb.png</texture></control><control type="label"><left>60</left><top>8</top><width>78</width><height>32</height><font>font13_bold</font><textcolor>grey</textcolor><label>$VAR[X2View50RatingTMDb]</label></control><control type="label"><left>60</left><top>40</top><width>78</width><height>22</height><font>font10</font><textcolor>grey</textcolor><label>TMDb</label></control></control><control type="group"><width>180</width><height>78</height><control type="image"><top>8</top><width>180</width><height>62</height><aspectratio>keep</aspectratio><texture>$VAR[X2VideoStudioLogo]</texture><colordiffuse>white</colordiffuse><hitrect x="-10000" y="-10000" w="0" h="0" /></control></control><control type="group"><width>110</width><height>78</height><control type="image"><top>8</top><width>110</width><height>62</height><aspectratio>keep</aspectratio><texture fallback="flags/default/mpaa/NR.png">$VAR[MediaFlagsPathVar]/mpaa/$VAR[RatingFlagVar]</texture><hitrect x="-10000" y="-10000" w="0" h="0" /></control></control></include><include name="X2VideoTMDbRatingBadge"><control type="group"><width>140</width><height>78</height><visible>[!String.IsEmpty(Container(9143).ListItem.Property(tmdb_rating))] | [!String.IsEmpty(ListItem.Property(tmdb_rating))] | [!String.IsEmpty(ListItem.Rating(themoviedb))]</visible><control type="image"><top>8</top><width>55</width><height>54</height><aspectratio>keep</aspectratio><texture>logos/tmdb.png</texture></control><control type="label"><left>60</left><top>8</top><width>78</width><height>32</height><font>font13_bold</font><textcolor>grey</textcolor><label>$VAR[X2View50RatingTMDb]</label></control><control type="label"><left>60</left><top>40</top><width>78</width><height>22</height><font>font10</font><textcolor>grey</textcolor><label>TMDb</label></control></control></include><include name="X2VideoFooterRatingFirst"><control type="group"><width>140</width><height>78</height><visible>[!String.IsEmpty(Container(9143).ListItem.Property(tmdb_rating))] | [!String.IsEmpty(ListItem.Property(tmdb_rating))] | [!String.IsEmpty(ListItem.Rating(themoviedb))]</visible><control type="image"><top>8</top><width>55</width><height>54</height><aspectratio>keep</aspectratio><texture>logos/tmdb.png</texture></control><control type="label"><left>60</left><top>8</top><width>78</width><height>32</height><font>font13_bold</font><textcolor>grey</textcolor><label>$VAR[X2View50RatingTMDb]</label></control><control type="label"><left>60</left><top>40</top><width>78</width><height>22</height><font>font10</font><textcolor>grey</textcolor><label>TMDb</label></control></control><control type="group"><width>180</width><height>78</height><control type="image"><top>8</top><width>180</width><height>62</height><aspectratio>keep</aspectratio><texture>$VAR[X2VideoStudioLogo]</texture><colordiffuse>white</colordiffuse><hitrect x="-10000" y="-10000" w="0" h="0" /></control></control><control type="group"><width>110</width><height>78</height><control type="image"><top>8</top><width>110</width><height>62</height><aspectratio>keep</aspectratio><texture fallback="flags/default/mpaa/NR.png">$VAR[MediaFlagsPathVar]/mpaa/$VAR[RatingFlagVar]</texture><hitrect x="-10000" y="-10000" w="0" h="0" /></control></control></include><include name="X2VideoFooterStudioFirst"><control type="group"><width>180</width><height>78</height><control type="image"><top>8</top><width>180</width><height>62</height><aspectratio>keep</aspectratio><texture>$VAR[X2VideoStudioLogo]</texture><colordiffuse>white</colordiffuse><hitrect x="-10000" y="-10000" w="0" h="0" /></control></control><control type="group"><width>140</width><height>78</height><visible>[!String.IsEmpty(Container(9143).ListItem.Property(tmdb_rating))] | [!String.IsEmpty(ListItem.Property(tmdb_rating))] | [!String.IsEmpty(ListItem.Rating(themoviedb))]</visible><control type="image"><top>8</top><width>55</width><height>54</height><aspectratio>keep</aspectratio><texture>logos/tmdb.png</texture></control><control type="label"><left>60</left><top>8</top><width>78</width><height>32</height><font>font13_bold</font><textcolor>grey</textcolor><label>$VAR[X2View50RatingTMDb]</label></control><control type="label"><left>60</left><top>40</top><width>78</width><height>22</height><font>font10</font><textcolor>grey</textcolor><label>TMDb</label></control></control><control type="group"><width>110</width><height>78</height><control type="image"><top>8</top><width>110</width><height>62</height><aspectratio>keep</aspectratio><texture fallback="flags/default/mpaa/NR.png">$VAR[MediaFlagsPathVar]/mpaa/$VAR[RatingFlagVar]</texture><hitrect x="-10000" y="-10000" w="0" h="0" /></control></control></include><variable name="X2ViewDirector"><value condition="!String.IsEmpty(ListItem.Director)">$INFO[ListItem.Director]</value><value condition="!String.IsEmpty(Container(9143).ListItem.Director)">$INFO[Container(9143).ListItem.Director]</value><value condition="!String.IsEmpty(Container(9143).ListItem.Property(director))">$INFO[Container(9143).ListItem.Property(director)]</value><value condition="String.IsEqual(ListItem.Label,Window(Home).Property(X2ViewStudio.Label)) + !String.IsEmpty(Window(Home).Property(X2ViewStudio.Director))">$INFO[Window(Home).Property(X2ViewStudio.Director)]</value><value /></variable><variable name="X2ViewWriter"><value condition="!String.IsEmpty(ListItem.Writer)">$INFO[ListItem.Writer]</value><value condition="!String.IsEmpty(Container(9143).ListItem.Writer)">$INFO[Container(9143).ListItem.Writer]</value><value condition="!String.IsEmpty(Container(9143).ListItem.Property(writer))">$INFO[Container(9143).ListItem.Property(writer)]</value><value condition="String.IsEqual(ListItem.Label,Window(Home).Property(X2ViewStudio.Label)) + !String.IsEmpty(Window(Home).Property(X2ViewStudio.Writer))">$INFO[Window(Home).Property(X2ViewStudio.Writer)]</value><value /></variable></includes>

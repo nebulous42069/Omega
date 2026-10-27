@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
 	<zorder>2</zorder>
+	<onload condition="!Skin.HasSetting(Disable.AutoLyrics) + System.AddonIsEnabled(script.cu.lrclyrics)">RunScript(special://skin/extras/autostart_lyrics.py)</onload>
 	<onload>Skin.SetString(BlurRadius,10)</onload>
 	<onload condition="!Skin.HasSetting(BlurEnabled) + String.IsEqual(Skin.String(Viz.Background),4)">Skin.ToggleSetting(BlurEnabled)</onload>
 	<onload condition="!Skin.HasSetting(BlurEnabled) + String.IsEqual(Skin.String(Viz.Background),4)">RunScript(script.embuary.helper,action=restartservice)</onload>

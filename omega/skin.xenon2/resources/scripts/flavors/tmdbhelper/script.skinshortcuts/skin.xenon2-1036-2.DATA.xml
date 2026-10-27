@@ -1,0 +1,194 @@
+<shortcuts>
+	<shortcut>
+		<defaultID />
+		<label>Anime</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/EXPLORE/anime.ico</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.program.autowidget/?mode=group&amp;group=anime-1769433797.4921048&amp;refresh=&amp;reload=",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Classics Zone</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/EXPLORE/classics.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.program.autowidget/?mode=group&amp;group=classics-1769433872.3666735&amp;refresh=&amp;reload=",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Westerns</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/EXPLORE/WESTERNS.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.program.autowidget/?mode=group&amp;group=westerns-1769434221.3476632&amp;refresh=&amp;reload=",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Urban Essence</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/EXPLORE/urban-entertainment-logo.jpg</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.program.autowidget/?mode=group&amp;group=urban_essence-1769434164.6578279&amp;refresh=&amp;reload=",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Diggz Kids</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/EXPLORE/KIDS.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.program.autowidget/?mode=group&amp;group=kids_zone-1769433885.2465518&amp;refresh=&amp;reload=",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Documentaries</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/EXPLORE/DOCS.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.program.autowidget/?mode=group&amp;group=documentaries-1769433894.8223248&amp;refresh=&amp;reload=",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Horror</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/EXPLORE/HORROR.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.program.autowidget/?mode=group&amp;group=horror_zone-1769434006.817225&amp;refresh=&amp;reload=",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Home, DIY &amp; Lifestyle</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/EXPLORE/diy.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.program.autowidget/?mode=group&amp;group=home_diy_and_lifestyle-1769433989.7503798&amp;refresh=&amp;reload=",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Martial Arts</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/EXPLORE/MARTIALARTS.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.program.autowidget/?mode=group&amp;group=martial_arts-1769434037.5143332&amp;refresh=&amp;reload=",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Relax And Chill</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/EXPLORE/relax.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.program.autowidget/?mode=group&amp;group=relax_and_chill-1769434072.9482505&amp;refresh=&amp;reload=",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Scifi, UFO's &amp; Paranormal</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/EXPLORE/SCIFI.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.program.autowidget/?mode=group&amp;group=sci-fi_ufos_and_paranormal-1769434103.7640765&amp;refresh=&amp;reload=",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Webcams</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/EXPLORE/webcams.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.program.autowidget/?mode=group&amp;group=webcamscctv-1769434213.8069308&amp;refresh=&amp;reload=",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>En Espanol</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/EXPLORE/ESPANOL1.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.program.autowidget/?mode=group&amp;group=en_espanol-1769433903.414178&amp;refresh=&amp;reload=",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Fitness Zone</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/EXPLORE/FITNESS.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.program.autowidget/?mode=group&amp;group=fitness_zone-1769433914.87603&amp;refresh=&amp;reload=",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Food And Cooking</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/EXPLORE/cooking.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.program.autowidget/?mode=group&amp;group=food_and_cooking-1769433938.2655196&amp;refresh=&amp;reload=",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Game Shows</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/EXPLORE/gameshow.jpg</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.program.autowidget/?mode=group&amp;group=game_shows-1769433945.5227313&amp;refresh=&amp;reload=",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Her Place</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/EXPLORE/herplace.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.program.autowidget/?mode=group&amp;group=her_place-1769433954.0146875&amp;refresh=&amp;reload=",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>War And Politics</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/EXPLORE/WAR.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.program.autowidget/?mode=group&amp;group=war_and_politics-1769434189.6158624&amp;refresh=&amp;reload=",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>India-SE Asia</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/EXPLORE/southasia.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.program.autowidget/?mode=group&amp;group=indiase_asia-1769434028.6889925&amp;refresh=&amp;reload=",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Reality TV</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/EXPLORE/REALITY.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.program.autowidget/?mode=group&amp;group=reality_tv-1769434059.8032212&amp;refresh=&amp;reload=",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Religion</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/EXPLORE/religion.jpg</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.program.autowidget/?mode=group&amp;group=religion-1769434080.1069615&amp;refresh=&amp;reload=",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Shopping</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/EXPLORE/STANDUP.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.program.autowidget/?mode=group&amp;group=shopping-1769434115.091637&amp;refresh=&amp;reload=",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Soaps &amp; Daytime TV</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/EXPLORE/soaps.jpg</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.program.autowidget/?mode=group&amp;group=soaps_and_daytime_tv-1769434139.4658725&amp;refresh=&amp;reload=",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Stand-Up Comedy</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/EXPLORE/STANDUP.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.program.autowidget/?mode=group&amp;group=stand-up_comedy-1769434154.5976574&amp;refresh=&amp;reload=",return)</action>
+		</shortcut>
+	</shortcuts>

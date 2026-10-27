@@ -1,0 +1,58 @@
+<shortcuts>
+	<shortcut>
+		<defaultID>settings</defaultID>
+		<label>Red Light Settings</label>
+		<label2>Favourite</label2>
+		<icon>DefaultFolder.png</icon>
+		<thumb>https://repo.redwizard.xyz/images/redlight/media/icons/settings.png</thumb>
+		<action>PlayMedia("plugin://plugin.video.redlight/?mode=open_settings")</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>MDBList Lists</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>image://https%3a%2f%2frepo.redwizard.xyz%2fimages%2fredlight%2fmedia%2ficons%2fmdblist.png/</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.redlight/?mode=navigator.mdblist_lists",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Calendar</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>image://https%3a%2f%2frepo.redwizard.xyz%2fimages%2fredlight%2fmedia%2ficons%2fcalender.png/</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.redlight/?mode=build_mdbl_calendar",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Dropped</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>image://https%3a%2f%2frepo.redwizard.xyz%2fimages%2fredlight%2fmedia%2ficons%2flists.png/</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.redlight/?mode=build_tvshow_list&amp;action=mdblist_droplist&amp;category_name=Dropped+TV+Shows",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>My Lists</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>image://https%3a%2f%2frepo.redwizard.xyz%2fimages%2fredlight%2fmedia%2ficons%2flists.png/</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.redlight/?mode=mdblist.get_mdbl_lists",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Liked Lists</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>image://https%3a%2f%2frepo.redwizard.xyz%2fimages%2fredlight%2fmedia%2ficons%2ffavorites.png/</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.redlight/?mode=mdblist.get_mdbl_liked_lists",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Popular MDBLists</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>image://https%3a%2f%2frepo.redwizard.xyz%2fimages%2fredlight%2fmedia%2ficons%2fpopular.png/</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.redlight/?mode=mdblist.get_mdbl_top_lists",return)</action>
+		</shortcut>
+	</shortcuts>

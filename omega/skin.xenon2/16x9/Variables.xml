@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <includes>
 	<variable name="SkinVariablesContentVar">
 		<value condition="String.IsEqual(Container.Content,genres) + Window.IsVisible(MyMusicNav.xml)">genres-music</value>
@@ -696,13 +696,13 @@
 		<value>$LOCALIZE[351]</value>
 	</variable>
 	<variable name="InfoPanelLabel1Var">
-		<value condition="[Container.Content(movies) | Container.Content(episodes) | Container.Content(sets)] + !String.IsEmpty(Window(Home).Property(SkinInfo.Set.Movies.Director))">[COLOR $VAR[ThemeLabelColor]]$LOCALIZE[31000]:[/COLOR][CR]$INFO[Window(Home).Property(SkinInfo.Set.Movies.Director)]</value>
+		<value condition="[Control.IsVisible(52) | Control.IsVisible(57)] + [Container.Content(movies) | Container.Content(episodes)] + !String.IsEmpty(ListItem.Director)">[COLOR $VAR[ThemeLabelColor]]$LOCALIZE[31000]:[/COLOR][CR]$INFO[ListItem.Director]</value><value condition="[Control.IsVisible(52) | Control.IsVisible(57)] + [Container.Content(movies) | Container.Content(episodes)] + !String.IsEmpty(Container(9143).ListItem.Director)">[COLOR $VAR[ThemeLabelColor]]$LOCALIZE[31000]:[/COLOR][CR]$INFO[Container(9143).ListItem.Director]</value><value condition="[Control.IsVisible(52) | Control.IsVisible(57)] + [Container.Content(movies) | Container.Content(episodes)] + !String.IsEmpty(Container(9143).ListItem.Property(director))">[COLOR $VAR[ThemeLabelColor]]$LOCALIZE[31000]:[/COLOR][CR]$INFO[Container(9143).ListItem.Property(director)]</value><value condition="[Control.IsVisible(52) | Control.IsVisible(57)] + [Container.Content(movies) | Container.Content(episodes)] + String.IsEqual(ListItem.Label,Window(Home).Property(X2ViewStudio.Label)) + !String.IsEmpty(Window(Home).Property(X2ViewStudio.Director))">[COLOR $VAR[ThemeLabelColor]]$LOCALIZE[31000]:[/COLOR][CR]$INFO[Window(Home).Property(X2ViewStudio.Director)]</value><value condition="[Control.IsVisible(52) | Control.IsVisible(57)] + [Container.Content(movies) | Container.Content(episodes)]">[COLOR $VAR[ThemeLabelColor]]$LOCALIZE[31000]:[/COLOR]</value><value condition="[Container.Content(movies) | Container.Content(episodes) | Container.Content(sets)] + !String.IsEmpty(Window(Home).Property(SkinInfo.Set.Movies.Director))">[COLOR $VAR[ThemeLabelColor]]$LOCALIZE[31000]:[/COLOR][CR]$INFO[Window(Home).Property(SkinInfo.Set.Movies.Director)]</value>
 		<value condition="[Container.Content(movies) | Container.Content(episodes) | Container.Content(sets)]">[COLOR $VAR[ThemeLabelColor]]$LOCALIZE[31000]:[/COLOR][CR]$INFO[ListItem.Director]</value>
 		<value condition="[Container.Content(tvshows) | Container.Content(seasons)] + !String.IsEmpty(Container(9143).ListItem.Property(Status))">[COLOR $VAR[ThemeLabelColor]]$LOCALIZE[126]:[/COLOR][CR]$INFO[Container(9143).ListItem.Property(Status)]</value>
 		<value condition="[Container.Content(tvshows) | Container.Content(seasons)]">[COLOR $VAR[ThemeLabelColor]]$LOCALIZE[515]:[/COLOR][CR]$INFO[ListItem.Genre]</value>
 	</variable>
 	<variable name="InfoPanelLabel2Var">
-		<value condition="[Container.Content(movies) | Container.Content(episodes) | Container.Content(sets)] + !String.IsEmpty(Window(Home).Property(SkinInfo.Set.Movies.Writer))">[COLOR $VAR[ThemeLabelColor]]$LOCALIZE[31001]:[/COLOR][CR]$INFO[Window(Home).Property(SkinInfo.Set.Movies.Writer)]</value>
+		<value condition="[Control.IsVisible(52) | Control.IsVisible(57)] + [Container.Content(movies) | Container.Content(episodes)] + !String.IsEmpty(ListItem.Writer)">[COLOR $VAR[ThemeLabelColor]]$LOCALIZE[31001]:[/COLOR][CR]$INFO[ListItem.Writer]</value><value condition="[Control.IsVisible(52) | Control.IsVisible(57)] + [Container.Content(movies) | Container.Content(episodes)] + !String.IsEmpty(Container(9143).ListItem.Writer)">[COLOR $VAR[ThemeLabelColor]]$LOCALIZE[31001]:[/COLOR][CR]$INFO[Container(9143).ListItem.Writer]</value><value condition="[Control.IsVisible(52) | Control.IsVisible(57)] + [Container.Content(movies) | Container.Content(episodes)] + !String.IsEmpty(Container(9143).ListItem.Property(writer))">[COLOR $VAR[ThemeLabelColor]]$LOCALIZE[31001]:[/COLOR][CR]$INFO[Container(9143).ListItem.Property(writer)]</value><value condition="[Control.IsVisible(52) | Control.IsVisible(57)] + [Container.Content(movies) | Container.Content(episodes)] + String.IsEqual(ListItem.Label,Window(Home).Property(X2ViewStudio.Label)) + !String.IsEmpty(Window(Home).Property(X2ViewStudio.Writer))">[COLOR $VAR[ThemeLabelColor]]$LOCALIZE[31001]:[/COLOR][CR]$INFO[Window(Home).Property(X2ViewStudio.Writer)]</value><value condition="[Control.IsVisible(52) | Control.IsVisible(57)] + [Container.Content(movies) | Container.Content(episodes)]">[COLOR $VAR[ThemeLabelColor]]$LOCALIZE[31001]:[/COLOR]</value><value condition="[Container.Content(movies) | Container.Content(episodes) | Container.Content(sets)] + !String.IsEmpty(Window(Home).Property(SkinInfo.Set.Movies.Writer))">[COLOR $VAR[ThemeLabelColor]]$LOCALIZE[31001]:[/COLOR][CR]$INFO[Window(Home).Property(SkinInfo.Set.Movies.Writer)]</value>
 		<value condition="[Container.Content(movies) | Container.Content(episodes) | Container.Content(sets)]">[COLOR $VAR[ThemeLabelColor]]$LOCALIZE[31001]:[/COLOR][CR]$INFO[ListItem.Writer]</value>
 		<value condition="[Container.Content(tvshows) | Container.Content(seasons)] + !String.IsEmpty(Container(9143).ListItem.Property(Next_Aired))">[COLOR $VAR[ThemeLabelColor]]$LOCALIZE[31010]:[/COLOR][CR]$INFO[Container(9143).ListItem.Property(Next_Aired),,: ]$INFO[Container(9143).ListItem.Property(Next_Aired.Name)]</value>
 		<value condition="[Container.Content(tvshows) | Container.Content(seasons)] + !String.IsEmpty(Container(9143).ListItem.Property(Last_Aired))">[COLOR $VAR[ThemeLabelColor]]$LOCALIZE[31011]:[/COLOR][CR]$INFO[Container(9143).ListItem.Property(Last_Aired.Season),S]$INFO[Container(9143).ListItem.Property(Last_Aired.Episode),E,  -]$INFO[Container(9143).ListItem.Property(Last_Aired.Name)]</value>
@@ -990,29 +990,29 @@
 		<value condition="Control.HasFocus(801)">$LOCALIZE[31559]</value>
 		<value condition="Control.HasFocus(519)">$LOCALIZE[31560]</value>
 		<!-- Widget 1 -->
-		<value condition="Control.HasFocus(312)"></value>
-		<value condition="Control.HasFocus(1001)"></value>
-		<value condition="Control.HasFocus(1021)"></value>
-		<value condition="Control.HasFocus(1004)"></value>
-		<value condition="Control.HasFocus(1008)"></value>
-		<value condition="Control.HasFocus(1002)"></value>
-		<value condition="Control.HasFocus(1003)"></value>
-		<value condition="Control.HasFocus(1022)"></value>
-		<value condition="Control.HasFocus(1023)"></value>
-		<value condition="Control.HasFocus(1012)"></value>
-		<value condition="Control.HasFocus(1012)"></value>
+		<value condition="Control.HasFocus(312)" />
+		<value condition="Control.HasFocus(1001)" />
+		<value condition="Control.HasFocus(1021)" />
+		<value condition="Control.HasFocus(1004)" />
+		<value condition="Control.HasFocus(1008)" />
+		<value condition="Control.HasFocus(1002)" />
+		<value condition="Control.HasFocus(1003)" />
+		<value condition="Control.HasFocus(1022)" />
+		<value condition="Control.HasFocus(1023)" />
+		<value condition="Control.HasFocus(1012)" />
+		<value condition="Control.HasFocus(1012)" />
 		<!-- Widget 2 Likely Can Repeat Widget 1 Strings -->
-		<value condition="Control.HasFocus(2051)"></value>
-		<value condition="Control.HasFocus(2001)"></value>
-		<value condition="Control.HasFocus(2021)"></value>
-		<value condition="Control.HasFocus(2004)"></value>
-		<value condition="Control.HasFocus(2008)"></value>
-		<value condition="Control.HasFocus(2002)"></value>
-		<value condition="Control.HasFocus(2003)"></value>
-		<value condition="Control.HasFocus(2022)"></value>
-		<value condition="Control.HasFocus(2023)"></value>
-		<value condition="Control.HasFocus(2012)"></value>
-		<value condition="Control.HasFocus(2016)"></value>
+		<value condition="Control.HasFocus(2051)" />
+		<value condition="Control.HasFocus(2001)" />
+		<value condition="Control.HasFocus(2021)" />
+		<value condition="Control.HasFocus(2004)" />
+		<value condition="Control.HasFocus(2008)" />
+		<value condition="Control.HasFocus(2002)" />
+		<value condition="Control.HasFocus(2003)" />
+		<value condition="Control.HasFocus(2022)" />
+		<value condition="Control.HasFocus(2023)" />
+		<value condition="Control.HasFocus(2012)" />
+		<value condition="Control.HasFocus(2016)" />
 	</variable>
 	<variable name="CustomColorsDescriptionVar">
 		<value condition="Control.HasFocus(200)">$LOCALIZE[31414]</value>
@@ -2139,7 +2139,7 @@
 		<value />
 	</variable>
 	<variable name="CustomTextViewerContentVar">
-		<value condition="!String.IsEmpty(Window(skinsettings).Property(FAQ))">[COLOR FFFF9800][B]Why are all the menu backgrounds black?[/B][/COLOR][CR]There are no default chosen backgrounds in this skin. If you want backgrounds for your menu items you must select them yourself when customizing the main menu or use the Set default background option in Skin settings > General.[CR][CR][COLOR FFFF9800][B]How do I find my backgrounds when I can not see them?[/B][/COLOR][CR]If you have added sources to Kodi's File Manager (repos or other locations and folders) then you must add any additional sources/paths that contain your backgrounds. Visit [B]http://kodi.wiki/view/File%20manager[/B] for more info on how to add sources.[CR][CR][B][COLOR FFFF9800]How do I keep the Music information on the screen permanently?[/B][/COLOR][CR]The info button toggles how music information is displayed. When it disappears press info to re-show it and never press it a second time to hide it. If it is hidden then it will display for 10 seconds after a song is played or the next track in your queue begins.[CR][CR][COLOR FFFF9800][B]How do I customize this skin?[/B][/COLOR][CR]To customize the Main Menu navigate to System > Interface > Configure skin to access the skin wide settings and main menu customization. Select [B]Set up the Aeon Nox main menu[/B] where you can enable/disable any item, customize what happens when you select that item, set up backgrounds, widgets, manage the submenu, and choose a custom label.[CR][CR][LIGHT]There are many more options located in Skin settings > Customization for things like the OSD (On Screen Display) for fullscreen music and video playback, skin color picker, and the video information dialog.[/LIGHT][CR][CR][LIGHT]There are also many settings for each viewtype and/or section (Artist, Album, Song, Movie, TV Show, Episode, etc...) in the side menu so play around with all the options for further customization.[/LIGHT]</value>
+		<value condition="!String.IsEmpty(Window(skinsettings).Property(FAQ))">[COLOR FFFF9800][B]Why are all the menu backgrounds black?[/B][/COLOR][CR]There are no default chosen backgrounds in this skin. If you want backgrounds for your menu items you must select them yourself when customizing the main menu or use the Set default background option in Skin settings &gt; General.[CR][CR][COLOR FFFF9800][B]How do I find my backgrounds when I can not see them?[/B][/COLOR][CR]If you have added sources to Kodi's File Manager (repos or other locations and folders) then you must add any additional sources/paths that contain your backgrounds. Visit [B]http://kodi.wiki/view/File%20manager[/B] for more info on how to add sources.[CR][CR][B][COLOR FFFF9800]How do I keep the Music information on the screen permanently?[/B][/COLOR][CR]The info button toggles how music information is displayed. When it disappears press info to re-show it and never press it a second time to hide it. If it is hidden then it will display for 10 seconds after a song is played or the next track in your queue begins.[CR][CR][COLOR FFFF9800][B]How do I customize this skin?[/B][/COLOR][CR]To customize the Main Menu navigate to System &gt; Interface &gt; Configure skin to access the skin wide settings and main menu customization. Select [B]Set up the Aeon Nox main menu[/B] where you can enable/disable any item, customize what happens when you select that item, set up backgrounds, widgets, manage the submenu, and choose a custom label.[CR][CR][LIGHT]There are many more options located in Skin settings &gt; Customization for things like the OSD (On Screen Display) for fullscreen music and video playback, skin color picker, and the video information dialog.[/LIGHT][CR][CR][LIGHT]There are also many settings for each viewtype and/or section (Artist, Album, Song, Movie, TV Show, Episode, etc...) in the side menu so play around with all the options for further customization.[/LIGHT]</value>
 		<value>$INFO[Window(Home).Property(TextViewerContent)]</value>
 	</variable>
 	<!-- TopBar VARs -->

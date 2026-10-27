@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 from __future__ import annotations
-import json, time
+import json, time, os, sys
 import xbmc, xbmcaddon, xbmcgui  # type: ignore
 
 ADDON      = xbmcaddon.Addon()
@@ -204,7 +204,7 @@ def load_bundled_presets() -> list[dict]:
             label = (item.get("name") or item.get("label") or "").strip()
             xmlkey = (item.get("xml") or "").strip()
             if label and xmlkey:
-                out.append({"label": label, "xmlkey": xmlkey})
+                out.append({"label": label, "xmlkey": xmlkey, "default_group": str(item.get("default_group") or "").strip()})
         except Exception:
             pass
     return out
@@ -260,6 +260,13 @@ def run() -> None:
         xbmcgui.Dialog().ok(ADDON_NAME, "Failed to apply preset XML.")
         return
     try:
+        import xbmcvfs
+        from launcher import remember
+        remember(xbmcvfs.translatePath(ADDON.getAddonInfo('profile')), xmlkey,
+                 os.path.join(_iptv_profile_dir(), 'instance-settings-1.xml'))
+    except Exception as e:
+        log(f"Could not remember active preset: {type(e).__name__}")
+    try:
         jsonrpc("Addons.SetAddonEnabled", {"addonid": TARGET_ID, "enabled": True})
         log("pvr.iptvsimple enabled for next start")
     except Exception as e:
@@ -272,5 +279,21 @@ def run() -> None:
         pass
     return
 
+def entry() -> None:
+    action = sys.argv[1].strip().lower() if len(sys.argv) > 1 else ''
+    if not action:
+        run()
+        return
+    if action in ('open_tv', 'open_guide'):
+        from launcher import open_pvr
+        open_pvr(ADDON, xbmc, jsonrpc, load_bundled_presets(),
+                 _iptv_profile_dir(), guide=action == 'open_guide')
+    elif action == 'choose_default_group':
+        from launcher import edit_group
+        edit_group(ADDON, xbmcgui.Dialog(), load_bundled_presets())
+    else:
+        notify(ADDON_NAME, 'Unknown action; no IPTV settings were changed.')
+
+
 if __name__ == "__main__":
-    run()
+    entry()

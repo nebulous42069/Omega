@@ -1,0 +1,74 @@
+<shortcuts>
+	<shortcut>
+		<defaultID />
+		<label>[COLOR chartreuse]Xenon Free[/COLOR] - 10/25</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb />
+		<action>RunScript(special://home/addons/skin.xenon2/resources/scripts/xenon_setup.py)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Reload Skin</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb />
+		<action>reloadskin()</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>20077</defaultID>
+		<label>Xenon Settings</label>
+		<label2>Settings</label2>
+		<icon>Settings.png</icon>
+		<thumb />
+		<action>ActivateWindow(SkinSettings)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>settings</defaultID>
+		<label>Kodi Settings</label>
+		<label2>Settings</label2>
+		<icon>Settings.png</icon>
+		<thumb />
+		<action>ActivateWindow(Settings)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>weather</defaultID>
+		<label>12600</label>
+		<label2>Weather</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb />
+		<action>ActivateWindow(Weather)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Weather Settings</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb />
+		<action>addon.opensettings(weather.multi)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>130</defaultID>
+		<label>130</label>
+		<label2 />
+		<icon>DefaultShortcut.png</icon>
+		<thumb />
+		<action>ActivateWindow(SystemInfo)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>13200</defaultID>
+		<label>13200</label>
+		<label2 />
+		<icon>DefaultShortcut.png</icon>
+		<thumb />
+		<action>ActivateWindow(Profiles)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Skin Debugging</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb />
+		<action>Skin.ToggleDebug</action>
+		</shortcut>
+	</shortcuts>

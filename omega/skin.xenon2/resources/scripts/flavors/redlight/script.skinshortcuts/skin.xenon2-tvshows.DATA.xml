@@ -1,0 +1,90 @@
+<shortcuts>
+	<shortcut>
+		<defaultID />
+		<label>Search...</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>thumb</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.redlight/?mode=navigator.search",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Genres</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>thumb</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.redlight/?mode=navigator.genres&amp;menu_type=tvshow",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>TV Providers</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>thumb</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.redlight/?mode=navigator.providers&amp;menu_type=tvshow",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>TV Networks</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>image://https%3a%2f%2frepo.redwizard.xyz%2fimages%2fredlight%2fmedia%2ficons%2fnetworks.png/</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.redlight/?mode=navigator.networks&amp;menu_type=tvshow",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Anime</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>image://https%3a%2f%2frepo.redwizard.xyz%2fimages%2fredlight%2fmedia%2ficons%2fanime.png/</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.redlight/?mode=navigator.main&amp;action=AnimeList",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Random Lists</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>image://https%3a%2f%2frepo.redwizard.xyz%2fimages%2fredlight%2fmedia%2ficons%2frandom.png/</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.redlight/?mode=navigator.random_lists",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Popular MDBLists</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>image://https%3a%2f%2frepo.redwizard.xyz%2fimages%2fredlight%2fmedia%2ficons%2fpopular.png/</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.redlight/?mode=mdblist.get_mdbl_top_lists",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Trakt Lists</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>thumb</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.redlight/?mode=navigator.trakt_lists_public",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>WeTrakr Public Lists</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>image://https%3a%2f%2frepo.redwizard.xyz%2fimages%2fredlight%2fmedia%2ficons%2fwetrakr.png/</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.redlight/?mode=navigator.wetrakr_public_lists_menu",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>TV Portal</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb />
+		<action>RunScript(script.extendedinfo,info=alltvshows)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>People</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>image://C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.video.themoviedb.helper%5cicon.png/</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.redlight/?mode=navigator.people",return)</action>
+		</shortcut>
+	</shortcuts>

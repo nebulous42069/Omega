@@ -1,0 +1,66 @@
+<shortcuts>
+	<shortcut>
+		<defaultID>search</defaultID>
+		<label>Search Addons</label>
+		<label2>Favourite</label2>
+		<icon>DefaultFolder.png</icon>
+		<thumb />
+		<action>ActivateWindow(10040,"addons://search/",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>7</defaultID>
+		<label>7</label>
+		<label2>System</label2>
+		<icon>DefaultRemovableDisk.png</icon>
+		<thumb />
+		<action>ActivateWindow(FileManager)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Install From Zip</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb />
+		<action>InstallFromZip</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Install From Repo</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb />
+		<action>ActivateWindow(addonbrowser,addons://repos/,return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>1037</defaultID>
+		<label>1037</label>
+		<label2>Video add-ons</label2>
+		<icon>DefaultAddonVideo.png</icon>
+		<thumb />
+		<action>ActivateWindow(Videos,Addons,return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>1043</defaultID>
+		<label>1043</label>
+		<label2>Program add-ons</label2>
+		<icon>DefaultAddonProgram.png</icon>
+		<thumb />
+		<action>ActivateWindow(Programs,Addons,return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>1038</defaultID>
+		<label>1038</label>
+		<label2>Music add-ons</label2>
+		<icon>DefaultAddonMusic.png</icon>
+		<thumb />
+		<action>ActivateWindow(MusicLibrary,Addons,return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>1039</defaultID>
+		<label>1039</label>
+		<label2>Picture add-ons</label2>
+		<icon>DefaultAddonPicture.png</icon>
+		<thumb />
+		<action>ActivateWindow(Pictures,Addons,return)</action>
+		</shortcut>
+	</shortcuts>

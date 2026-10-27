@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <includes>
 	<!-- Video TriPanel -->
 	<include name="VideoTriPanel">
@@ -41,14 +41,10 @@
 						<include>DefaultButtonsValues</include>
 						<visible>!String.IsEmpty(ListItem.Premiered) + [Container.Content(episodes) | [[Container.Content(tvshows) | Container.Content(seasons)] + Skin.HasSetting(Disable.NextAired)]]</visible>
 					</control>
-					<control type="button">
-						<label>[COLOR $VAR[ThemeLabelColor]]$LOCALIZE[31019]:[/COLOR][CR]$INFO[ListItem.Studio]</label>
-						<width>448</width>
-						<include>DefaultButtonsValues</include>
-						<visible>!String.IsEmpty(ListItem.Studio)</visible>
+					<control type="image"><width>448</width>
+						<visible>!String.IsEmpty(Window(Home).Property(X2ViewStudio.Logo))</visible>
 						<visible>[[Container.Content(tvshows) | Container.Content(seasons)] + Skin.HasSetting(Disable.NextAired)] | Container.Content(episodes)</visible>
-					</control>
-					<control type="button">
+					<height>90</height><aspectratio align="left">keep</aspectratio><texture background="true">$VAR[X2VideoStudioLogo]</texture><colordiffuse>white</colordiffuse></control><control type="button">
 						<label>[COLOR $VAR[ThemeLabelColor]]$LOCALIZE[31010]: [/COLOR][CR]$INFO[Container(9143).ListItem.Property(Next_Aired),, • ]$INFO[Container(9143).ListItem.Property(Next_Aired.Season),S]$INFO[Container(9143).ListItem.Property(Next_Aired.Episode),E, - ]$INFO[Container(9143).ListItem.Property(Next_Aired.Name)]</label>
 						<width>448</width>
 						<include>DefaultButtonsValues</include>
@@ -183,10 +179,9 @@
 					<height>840</height>
 					<onleft>SetProperty(MediaMenu,True,Home)</onleft>
 					<onleft>SetFocus(9050)</onleft>
-					<onright condition="Container.Content(movies) | Container.Content(tvshows) | !Container.Content(seasons) | !Container.Content(episodes) |  !Container.Content(musicvideos) | !Container.Content(files) | !Container.Content(addons) | !Container.Content() | !String.IsEmpty(ListItem.Trailer)">PlayMedia("$INFO[ListItem.Trailer]")</onright>					
-					<onright condition="Control.IsVisible(95560)">95560</onright>
-					<onright condition="!Control.IsVisible(95560) + Control.IsVisible(95561)">95561</onright>
-					<onright condition="!Control.IsVisible(95560) + !Control.IsVisible(95561)">4400</onright>
+					<onright condition="!Container(55).ListItem.IsParentFolder + [String.IsEqual(Container(55).ListItem.DBType,movie) | String.IsEqual(Container(55).ListItem.DBType,tvshow) | [String.IsEmpty(Container(55).ListItem.DBType) + [Container(55).Content(movies) | Container(55).Content(tvshows)]]]">RunScript(special://skin/resources/scripts/x2_view_trailer.py,55)</onright><onright condition="![!Container(55).ListItem.IsParentFolder + [String.IsEqual(Container(55).ListItem.DBType,movie) | String.IsEqual(Container(55).ListItem.DBType,tvshow) | [String.IsEmpty(Container(55).ListItem.DBType) + [Container(55).Content(movies) | Container(55).Content(tvshows)]]]] + [Control.IsVisible(95560)]">95560</onright>
+					<onright condition="![!Container(55).ListItem.IsParentFolder + [String.IsEqual(Container(55).ListItem.DBType,movie) | String.IsEqual(Container(55).ListItem.DBType,tvshow) | [String.IsEmpty(Container(55).ListItem.DBType) + [Container(55).Content(movies) | Container(55).Content(tvshows)]]]] + [!Control.IsVisible(95560) + Control.IsVisible(95561)]">95561</onright>
+					<onright condition="![!Container(55).ListItem.IsParentFolder + [String.IsEqual(Container(55).ListItem.DBType,movie) | String.IsEqual(Container(55).ListItem.DBType,tvshow) | [String.IsEmpty(Container(55).ListItem.DBType) + [Container(55).Content(movies) | Container(55).Content(tvshows)]]]] + [!Control.IsVisible(95560) + !Control.IsVisible(95561)]">4400</onright>
 					<onup>55</onup>
 					<ondown>55</ondown>
 					<viewtype label="31078">list</viewtype>
@@ -760,7 +755,7 @@
 					<height>575</height>
 					<onleft>SetProperty(MediaMenu,True,Home)</onleft>
 					<onleft>SetFocus(9050)</onleft>
-					<onright>95560</onright>
+					<onright condition="!Container(55).ListItem.IsParentFolder + [String.IsEqual(Container(55).ListItem.DBType,movie) | String.IsEqual(Container(55).ListItem.DBType,tvshow) | [String.IsEmpty(Container(55).ListItem.DBType) + [Container(55).Content(movies) | Container(55).Content(tvshows)]]]">RunScript(special://skin/resources/scripts/x2_view_trailer.py,55)</onright><onright condition="![!Container(55).ListItem.IsParentFolder + [String.IsEqual(Container(55).ListItem.DBType,movie) | String.IsEqual(Container(55).ListItem.DBType,tvshow) | [String.IsEmpty(Container(55).ListItem.DBType) + [Container(55).Content(movies) | Container(55).Content(tvshows)]]]]">95560</onright>
 					<onup>55</onup>
 					<ondown>55</ondown>
 					<visible>Container.Content(albums) | Container.Content(artists) | Container.Content(songs) | Container.Content(addons) | [Window.IsActive(music) + Container.Content(files)]</visible>
@@ -1015,7 +1010,7 @@
 					<height>840</height>
 					<onleft>SetProperty(MediaMenu,True,Home)</onleft>
 					<onleft>SetFocus(9050)</onleft>
-					<onright>95560</onright>
+					<onright condition="!Container(55).ListItem.IsParentFolder + [String.IsEqual(Container(55).ListItem.DBType,movie) | String.IsEqual(Container(55).ListItem.DBType,tvshow) | [String.IsEmpty(Container(55).ListItem.DBType) + [Container(55).Content(movies) | Container(55).Content(tvshows)]]]">RunScript(special://skin/resources/scripts/x2_view_trailer.py,55)</onright><onright condition="![!Container(55).ListItem.IsParentFolder + [String.IsEqual(Container(55).ListItem.DBType,movie) | String.IsEqual(Container(55).ListItem.DBType,tvshow) | [String.IsEmpty(Container(55).ListItem.DBType) + [Container(55).Content(movies) | Container(55).Content(tvshows)]]]]">95560</onright>
 					<onup>55</onup>
 					<ondown>55</ondown>
 					<viewtype label="31078">list</viewtype>

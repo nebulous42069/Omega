@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <includes>
 	<!-- Horizontal -->	
 	<include name="HomeShortcuts">
@@ -10,7 +10,7 @@
 			<onback>9000</onback>
 			<ondown condition="Control.IsVisible(90020) + Skin.HasSetting(centermainmenu)">9000</ondown>
 			<ondown condition="!Control.IsVisible(90020) | !Skin.HasSetting(centermainmenu)">9000</ondown>			
-			<pagecontrol />
+			<pagecontrol/>
 			<scrolltime tween="quadratic" easing="out">300</scrolltime>
 			<focusposition>2</focusposition>
 			<movement>2</movement>		
@@ -83,7 +83,7 @@
 			</control>			
 	</include>	
 	<include name="HorizontalSubMenu">
-		<control type="fixedlist" id="9010">
+		<control type="list" id="9010">
 			<left>100</left>
 			<width>1720</width>
 			<height>50</height>
@@ -92,11 +92,13 @@
 			<ondown condition="Control.IsVisible(90020) + Skin.HasSetting(centermainmenu)">90020</ondown>
 			<ondown condition="!Player.HasMedia + Control.IsVisible(9000) + !Skin.HasSetting(centermainmenu)">9081</ondown>
 			<ondown condition="!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Control.IsVisible(90020) + !Skin.HasSetting(centermainmenu) + Player.HasMedia">600</ondown>
-			<pagecontrol />
+			<pagecontrol/>
 			<scrolltime tween="quadratic" easing="out">300</scrolltime>
-			<focusposition>2</focusposition>
-			<movement>2</movement>
 			<orientation>horizontal</orientation>
+			<animation effect="slide" start="0,0" end="688,0" time="0" condition="Integer.IsEqual(Container(9010).NumItems,1)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="516,0" time="0" condition="Integer.IsEqual(Container(9010).NumItems,2)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="344,0" time="0" condition="Integer.IsEqual(Container(9010).NumItems,3)">Conditional</animation>
+			<animation effect="slide" start="0,0" end="172,0" time="0" condition="Integer.IsEqual(Container(9010).NumItems,4)">Conditional</animation>
 			<itemlayout height="87" width="344">
 				<control type="label">
 					<top>2</top>
@@ -161,7 +163,143 @@
 				<include>skinshortcuts-submenu</include>
 			</content>
 		</control>
+		<control type="group"><visible>Integer.IsEqual(Container(9010).NumItems,1)</visible><control type="button">
+			<left>788</left>
+			<top>6.5</top>
+			<width>40</width>
+			<height>32</height>
+			<texturefocus flipx="true" colordiffuse="white">arrowright.gif</texturefocus>
+			<texturenofocus flipx="true">arrowright.gif</texturenofocus>
+			<visible>Container(9010).HasPrevious</visible>
+			<onclick>Control.Move(9010,-1)</onclick>
+		</control>
 		<control type="button">
+			<left>1094</left>
+			<top>6.5</top>
+			<width>40</width>
+			<height>32</height>
+			<texturefocus colordiffuse="white">arrowright.gif</texturefocus>
+			<texturenofocus>arrowright.gif</texturenofocus>
+			<visible>Container(9010).HasNext</visible>
+			<onclick>Control.Move(9010,1)</onclick>
+		</control>
+        <control type="image">
+            <left>748</left>
+            <top>0</top>
+            <width>43</width>
+            <height>46</height>
+            <texture border="0,0,0,3" flipx="true">HomeSubEnd.png</texture>
+        </control>
+        <control type="image">
+			<left>1131</left>
+			<top>0</top>
+			<width>43</width>
+			<height>46</height>
+            <texture border="0,0,0,3">HomeSubEnd.png</texture>
+        </control>
+	</control><control type="group"><visible>Integer.IsEqual(Container(9010).NumItems,2)</visible><control type="button">
+			<left>616</left>
+			<top>6.5</top>
+			<width>40</width>
+			<height>32</height>
+			<texturefocus flipx="true" colordiffuse="white">arrowright.gif</texturefocus>
+			<texturenofocus flipx="true">arrowright.gif</texturenofocus>
+			<visible>Container(9010).HasPrevious</visible>
+			<onclick>Control.Move(9010,-1)</onclick>
+		</control>
+		<control type="button">
+			<left>1266</left>
+			<top>6.5</top>
+			<width>40</width>
+			<height>32</height>
+			<texturefocus colordiffuse="white">arrowright.gif</texturefocus>
+			<texturenofocus>arrowright.gif</texturenofocus>
+			<visible>Container(9010).HasNext</visible>
+			<onclick>Control.Move(9010,1)</onclick>
+		</control>
+        <control type="image">
+            <left>576</left>
+            <top>0</top>
+            <width>43</width>
+            <height>46</height>
+            <texture border="0,0,0,3" flipx="true">HomeSubEnd.png</texture>
+        </control>
+        <control type="image">
+			<left>1303</left>
+			<top>0</top>
+			<width>43</width>
+			<height>46</height>
+            <texture border="0,0,0,3">HomeSubEnd.png</texture>
+        </control>
+	</control><control type="group"><visible>Integer.IsEqual(Container(9010).NumItems,3)</visible><control type="button">
+			<left>444</left>
+			<top>6.5</top>
+			<width>40</width>
+			<height>32</height>
+			<texturefocus flipx="true" colordiffuse="white">arrowright.gif</texturefocus>
+			<texturenofocus flipx="true">arrowright.gif</texturenofocus>
+			<visible>Container(9010).HasPrevious</visible>
+			<onclick>Control.Move(9010,-1)</onclick>
+		</control>
+		<control type="button">
+			<left>1438</left>
+			<top>6.5</top>
+			<width>40</width>
+			<height>32</height>
+			<texturefocus colordiffuse="white">arrowright.gif</texturefocus>
+			<texturenofocus>arrowright.gif</texturenofocus>
+			<visible>Container(9010).HasNext</visible>
+			<onclick>Control.Move(9010,1)</onclick>
+		</control>
+        <control type="image">
+            <left>404</left>
+            <top>0</top>
+            <width>43</width>
+            <height>46</height>
+            <texture border="0,0,0,3" flipx="true">HomeSubEnd.png</texture>
+        </control>
+        <control type="image">
+			<left>1475</left>
+			<top>0</top>
+			<width>43</width>
+			<height>46</height>
+            <texture border="0,0,0,3">HomeSubEnd.png</texture>
+        </control>
+	</control><control type="group"><visible>Integer.IsEqual(Container(9010).NumItems,4)</visible><control type="button">
+			<left>272</left>
+			<top>6.5</top>
+			<width>40</width>
+			<height>32</height>
+			<texturefocus flipx="true" colordiffuse="white">arrowright.gif</texturefocus>
+			<texturenofocus flipx="true">arrowright.gif</texturenofocus>
+			<visible>Container(9010).HasPrevious</visible>
+			<onclick>Control.Move(9010,-1)</onclick>
+		</control>
+		<control type="button">
+			<left>1610</left>
+			<top>6.5</top>
+			<width>40</width>
+			<height>32</height>
+			<texturefocus colordiffuse="white">arrowright.gif</texturefocus>
+			<texturenofocus>arrowright.gif</texturenofocus>
+			<visible>Container(9010).HasNext</visible>
+			<onclick>Control.Move(9010,1)</onclick>
+		</control>
+        <control type="image">
+            <left>232</left>
+            <top>0</top>
+            <width>43</width>
+            <height>46</height>
+            <texture border="0,0,0,3" flipx="true">HomeSubEnd.png</texture>
+        </control>
+        <control type="image">
+			<left>1647</left>
+			<top>0</top>
+			<width>43</width>
+			<height>46</height>
+            <texture border="0,0,0,3">HomeSubEnd.png</texture>
+        </control>
+	</control><control type="group"><visible>Integer.IsGreater(Container(9010).NumItems,4)</visible><control type="button">
 			<left>100</left>
 			<top>6.5</top>
 			<width>40</width>
@@ -195,7 +333,7 @@
 			<height>46</height>
             <texture border="0,0,0,3">HomeSubEnd.png</texture>
         </control>
-	</include>
+	</control></include>
 	<include name="HorizontalMenuSystemBars">
 		<control type="group">
 			<left>-5</left>
@@ -248,9 +386,9 @@
 			</control>		
 			<control type="image">
 				<left>0</left>
-				<top>71</top>
+				<top>79</top>
 				<width>100%</width>
-				<height>11</height>
+				<height>5</height>
 				<texture>HomeOverlay1.png</texture>
 				<include condition="!String.IsEmpty(Skin.String(HomeTrans))">HomeTransparentEffect</include>
 			</control>
@@ -290,30 +428,110 @@
 				<texture colordiffuse="$VAR[ThemeHomeMenuGlowBarColor]">separator_horizontal.pn</texture>
 			</control>			
 			<control type="group" id="9001">
-				<top>159</top>
-				<include condition="[String.IsEmpty(Skin.String(HorizontalRSSPosition)) | !String.IsEmpty(Skin.String(HorizontalRSSPosition)) + !Skin.HasSetting(Enable.VisibleSubmenu)] + system.getbool(lookandfeel.enablerssfeeds) | [!system.getbool(lookandfeel.enablerssfeeds) + !Skin.HasSetting(Enable.VisibleSubmenu)]">SubMenuAnimation</include>
-				<control type="image">
-					<width>100%</width>
+				<control type="group"><visible>Integer.IsEqual(Container(9010).NumItems,1)</visible><control type="image">
+					<width>344</width>
 					<height>97</height>
 					<texture colordiffuse="$VAR[ThemeHomeSystemBarsColor]">submenu_bar.png</texture>
 					<visible>[String.IsEmpty(Skin.String(ThemeHomeMenuBarColor)) | String.IsEqual(Skin.String(ThemeHomeMenuBarColor),None)] + [String.IsEmpty(Skin.String(ThemeHomeSystemBarsColor)) | String.IsEqual(Skin.String(ThemeHomeSystemBarsColor),None)]</visible>
-				</control>
+				<left>788</left></control>
 				<control type="image">
-					<left>0</left>
-					<width>100%</width>
+					<left>788</left>
+					<width>344</width>
 					<height>97</height>
 					<texture colordiffuse="$VAR[ThemeHomeSystemBarsColor]">submenu_bar_white.png</texture>
 					<visible>[!String.IsEmpty(Skin.String(ThemeHomeMenuBarColor)) + !String.IsEqual(Skin.String(ThemeHomeMenuBarColor),None)] | [!String.IsEmpty(Skin.String(ThemeHomeSystemBarsColor)) + !String.IsEqual(Skin.String(ThemeHomeSystemBarsColor),None)]</visible>
 				</control>
-				<include>HorizontalSubMenu</include>
 				<control type="image">
-					<left>102</left>
-					<width>89.5%</width>
+					<left>790</left>
+					<width>342</width>
 					<top>46</top>
 					<height>1</height>
 					<texture colordiffuse="$VAR[ThemeHomeSystemGlowBarsColor]">separator_horizontal.png</texture>
 				</control>				
-			</control>
+			</control><control type="group"><visible>Integer.IsEqual(Container(9010).NumItems,2)</visible><control type="image">
+					<width>688</width>
+					<height>97</height>
+					<texture colordiffuse="$VAR[ThemeHomeSystemBarsColor]">submenu_bar.png</texture>
+					<visible>[String.IsEmpty(Skin.String(ThemeHomeMenuBarColor)) | String.IsEqual(Skin.String(ThemeHomeMenuBarColor),None)] + [String.IsEmpty(Skin.String(ThemeHomeSystemBarsColor)) | String.IsEqual(Skin.String(ThemeHomeSystemBarsColor),None)]</visible>
+				<left>616</left></control>
+				<control type="image">
+					<left>616</left>
+					<width>688</width>
+					<height>97</height>
+					<texture colordiffuse="$VAR[ThemeHomeSystemBarsColor]">submenu_bar_white.png</texture>
+					<visible>[!String.IsEmpty(Skin.String(ThemeHomeMenuBarColor)) + !String.IsEqual(Skin.String(ThemeHomeMenuBarColor),None)] | [!String.IsEmpty(Skin.String(ThemeHomeSystemBarsColor)) + !String.IsEqual(Skin.String(ThemeHomeSystemBarsColor),None)]</visible>
+				</control>
+				<control type="image">
+					<left>618</left>
+					<width>686</width>
+					<top>46</top>
+					<height>1</height>
+					<texture colordiffuse="$VAR[ThemeHomeSystemGlowBarsColor]">separator_horizontal.png</texture>
+				</control>				
+			</control><control type="group"><visible>Integer.IsEqual(Container(9010).NumItems,3)</visible><control type="image">
+					<width>1032</width>
+					<height>97</height>
+					<texture colordiffuse="$VAR[ThemeHomeSystemBarsColor]">submenu_bar.png</texture>
+					<visible>[String.IsEmpty(Skin.String(ThemeHomeMenuBarColor)) | String.IsEqual(Skin.String(ThemeHomeMenuBarColor),None)] + [String.IsEmpty(Skin.String(ThemeHomeSystemBarsColor)) | String.IsEqual(Skin.String(ThemeHomeSystemBarsColor),None)]</visible>
+				<left>444</left></control>
+				<control type="image">
+					<left>444</left>
+					<width>1032</width>
+					<height>97</height>
+					<texture colordiffuse="$VAR[ThemeHomeSystemBarsColor]">submenu_bar_white.png</texture>
+					<visible>[!String.IsEmpty(Skin.String(ThemeHomeMenuBarColor)) + !String.IsEqual(Skin.String(ThemeHomeMenuBarColor),None)] | [!String.IsEmpty(Skin.String(ThemeHomeSystemBarsColor)) + !String.IsEqual(Skin.String(ThemeHomeSystemBarsColor),None)]</visible>
+				</control>
+				<control type="image">
+					<left>446</left>
+					<width>1030</width>
+					<top>46</top>
+					<height>1</height>
+					<texture colordiffuse="$VAR[ThemeHomeSystemGlowBarsColor]">separator_horizontal.png</texture>
+				</control>				
+			</control><control type="group"><visible>Integer.IsEqual(Container(9010).NumItems,4)</visible><control type="image">
+					<width>1376</width>
+					<height>97</height>
+					<texture colordiffuse="$VAR[ThemeHomeSystemBarsColor]">submenu_bar.png</texture>
+					<visible>[String.IsEmpty(Skin.String(ThemeHomeMenuBarColor)) | String.IsEqual(Skin.String(ThemeHomeMenuBarColor),None)] + [String.IsEmpty(Skin.String(ThemeHomeSystemBarsColor)) | String.IsEqual(Skin.String(ThemeHomeSystemBarsColor),None)]</visible>
+				<left>272</left></control>
+				<control type="image">
+					<left>272</left>
+					<width>1376</width>
+					<height>97</height>
+					<texture colordiffuse="$VAR[ThemeHomeSystemBarsColor]">submenu_bar_white.png</texture>
+					<visible>[!String.IsEmpty(Skin.String(ThemeHomeMenuBarColor)) + !String.IsEqual(Skin.String(ThemeHomeMenuBarColor),None)] | [!String.IsEmpty(Skin.String(ThemeHomeSystemBarsColor)) + !String.IsEqual(Skin.String(ThemeHomeSystemBarsColor),None)]</visible>
+				</control>
+				<control type="image">
+					<left>274</left>
+					<width>1374</width>
+					<top>46</top>
+					<height>1</height>
+					<texture colordiffuse="$VAR[ThemeHomeSystemGlowBarsColor]">separator_horizontal.png</texture>
+				</control>				
+			</control><control type="group"><visible>Integer.IsGreater(Container(9010).NumItems,4)</visible><control type="image">
+					<width>1720</width>
+					<height>97</height>
+					<texture colordiffuse="$VAR[ThemeHomeSystemBarsColor]">submenu_bar.png</texture>
+					<visible>[String.IsEmpty(Skin.String(ThemeHomeMenuBarColor)) | String.IsEqual(Skin.String(ThemeHomeMenuBarColor),None)] + [String.IsEmpty(Skin.String(ThemeHomeSystemBarsColor)) | String.IsEqual(Skin.String(ThemeHomeSystemBarsColor),None)]</visible>
+				<left>100</left></control>
+				<control type="image">
+					<left>100</left>
+					<width>1720</width>
+					<height>97</height>
+					<texture colordiffuse="$VAR[ThemeHomeSystemBarsColor]">submenu_bar_white.png</texture>
+					<visible>[!String.IsEmpty(Skin.String(ThemeHomeMenuBarColor)) + !String.IsEqual(Skin.String(ThemeHomeMenuBarColor),None)] | [!String.IsEmpty(Skin.String(ThemeHomeSystemBarsColor)) + !String.IsEqual(Skin.String(ThemeHomeSystemBarsColor),None)]</visible>
+				</control>
+				<control type="image">
+					<left>102</left>
+					<width>1718</width>
+					<top>46</top>
+					<height>1</height>
+					<texture colordiffuse="$VAR[ThemeHomeSystemGlowBarsColor]">separator_horizontal.png</texture>
+				</control>				
+			</control><top>159</top>
+				<include condition="[String.IsEmpty(Skin.String(HorizontalRSSPosition)) | !String.IsEmpty(Skin.String(HorizontalRSSPosition)) + !Skin.HasSetting(Enable.VisibleSubmenu)] + system.getbool(lookandfeel.enablerssfeeds) | [!system.getbool(lookandfeel.enablerssfeeds) + !Skin.HasSetting(Enable.VisibleSubmenu)]">SubMenuAnimation</include>
+				<include>HorizontalSubMenu</include>
+				</control>
 		</control>
 	</include>
 	<!-- Vertical -->
@@ -367,7 +585,7 @@
 				<ondown>9010</ondown>
 				<onright>9000</onright>
 				<onback>9000</onback>
-				<pagecontrol />
+				<pagecontrol/>
 				<scrolltime tween="quadratic" easing="out">300</scrolltime>
 				<itemlayout height="60" width="375">
 					<control type="label">
@@ -506,13 +724,13 @@
 		<animation effect="slide" start="0" end="126,0" time="320" tween="cubic" easing="inout" condition="String.IsEqual(Skin.String(MainMenu.Layout),icons)">Conditional</animation>
 		<animation effect="slide" start="0" end="0,20" time="320" tween="cubic" easing="inout" condition="String.IsEqual(Skin.String(MainMenu.Layout),icons) + Skin.HasSetting(Disable.IconsMenuLabel)">Conditional</animation>
 		<animation effect="slide" end="-0,5" condition="String.IsEqual(Skin.Font,$LOCALIZE[31483])">Conditional</animation>
-		<onup condition="Control.IsVisible(9027)">9020</onup>
-		<onup condition="Control.IsVisible(90010) + !Control.IsVisible(9027)">90010</onup>
-		<onup condition="!Control.IsVisible(90010) + Control.IsVisible(90020) + !Control.IsVisible(9027) + !Skin.HasSetting(centermainmenu)">90020</onup>
+		<onup condition="[Control.IsVisible(9027)] + ![!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + String.IsEqual(Container(9000).ListItem.Property(selectorEnabled),true)]">9020</onup>
+		<onup condition="[Control.IsVisible(90010) + !Control.IsVisible(9027)] + ![!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + String.IsEqual(Container(9000).ListItem.Property(selectorEnabled),true)]">90010</onup>
+		<onup condition="[!Control.IsVisible(90010) + Control.IsVisible(90020) + !Control.IsVisible(9027) + !Skin.HasSetting(centermainmenu)] + ![!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + String.IsEqual(Container(9000).ListItem.Property(selectorEnabled),true)]">90020</onup>
 		<ondown condition="String.IsEqual(Container(9000).ListItem.Property(hasSubmenu),True)">9001</ondown>
 		<ondown condition="!String.IsEqual(Container(9000).ListItem.Property(hasSubmenu),True) + Skin.HasSetting(centermainmenu) + Control.IsVisible(90020)">90020</ondown>
 		<onback condition="Skin.HasSetting(Home.Hide) + !Player.Playing">SetFocus(64)</onback>
-		<pagecontrol />
+		<pagecontrol/>
 		<itemlayout height="70" width="500" condition="String.IsEmpty(Skin.String(MainMenu.Layout))">
 			<control type="label">
 				<top>26</top>			
@@ -672,20 +890,20 @@
 		<content>
 			<include>skinshortcuts-mainmenu</include>
 		</content>
-	</include>
+	<onup condition="!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + String.IsEqual(Container(9000).ListItem.Property(selectorEnabled),true)">94000</onup></include>
 	<include name="OneMainMenuItemListContent">
 		<top>62</top>
 		<width>2800</width>
 		<height>100</height>
 		<onleft>9000</onleft>
 		<onright>9000</onright>
-		<onup condition="Control.IsVisible(9027)">9020</onup>
-		<onup condition="Control.IsVisible(90010) + !Control.IsVisible(9027)">90010</onup>
-		<onup condition="!Control.IsVisible(90010) + Control.IsVisible(90020) + !Control.IsVisible(9027) + !Skin.HasSetting(centermainmenu)">90020</onup>
+		<onup condition="[Control.IsVisible(9027)] + ![!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + String.IsEqual(Container(9000).ListItem.Property(selectorEnabled),true)]">9020</onup>
+		<onup condition="[Control.IsVisible(90010) + !Control.IsVisible(9027)] + ![!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + String.IsEqual(Container(9000).ListItem.Property(selectorEnabled),true)]">90010</onup>
+		<onup condition="[!Control.IsVisible(90010) + Control.IsVisible(90020) + !Control.IsVisible(9027) + !Skin.HasSetting(centermainmenu)] + ![!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + String.IsEqual(Container(9000).ListItem.Property(selectorEnabled),true)]">90020</onup>
 		<ondown condition="String.IsEqual(Container(9000).ListItem.Property(hasSubmenu),True)">9001</ondown>
 		<ondown condition="!String.IsEqual(Container(9000).ListItem.Property(hasSubmenu),True) + Skin.HasSetting(centermainmenu) + Control.IsVisible(90020)">90020</ondown>
 		<onback condition="Skin.HasSetting(Home.Hide) + !Player.Playing">SetFocus(64)</onback>
-		<pagecontrol />
+		<pagecontrol/>
 		<scrolltime tween="quadratic" easing="out">400</scrolltime>
 		<orientation>horizontal</orientation>
 		<itemlayout height="100" width="1920">
@@ -724,7 +942,7 @@
 		<content>
 			<include>skinshortcuts-mainmenu</include>
 		</content>
-	</include>
+	<onup condition="!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + String.IsEqual(Container(9000).ListItem.Property(selectorEnabled),true)">94000</onup></include>
 	<include name="VerticalMainMenuListContent">
 		<left>0</left>
 		<top>48</top>
@@ -737,7 +955,7 @@
 		<onright condition="!Control.IsVisible(90010) + Control.IsVisible(90020)">90020</onright>
 		<onright condition="!Control.IsVisible(90010) + !Control.IsVisible(90020) + Control.IsVisible(9027)">9020</onright>
 		<onback condition="Skin.HasSetting(Home.Hide) + !Player.Playing">SetFocus(64)</onback>
-		<pagecontrol />
+		<pagecontrol/>
 		<focusposition>3</focusposition>
 		<movement>3</movement>
 		<scrolltime tween="quadratic" easing="out">200</scrolltime>
@@ -819,8 +1037,8 @@
 			<visible>!ControlGroup(9004).HasFocus()</visible>
 			<width>1</width>
 			<height>1</height>
-			<focusedlayout />
-			<itemlayout />
+			<focusedlayout/>
+			<itemlayout/>
 			<content>$VAR[PlaylistStatsContentVar]</content>
 		</control>
 	</include>
@@ -837,12 +1055,12 @@
 			<onclick>SetProperty(CustomSelect,search,Home)</onclick>
 			<onclick>ActivateWindow(1129)</onclick>
 			<animation type="Visible">
-				<effect type="fade" start="0" end="100" tween="sine" easing="inout" time="300" />
-				<effect type="zoom" start="50" end="100" center="auto" tween="sine" easing="inout" time="300" />
+				<effect type="fade" start="0" end="100" tween="sine" easing="inout" time="300"/>
+				<effect type="zoom" start="50" end="100" center="auto" tween="sine" easing="inout" time="300"/>
 			</animation>
 			<animation type="Hidden">
-				<effect type="fade" start="100" end="0" tween="sine" easing="inout" time="300" />
-				<effect type="zoom" start="100" end="50" center="auto" tween="sine" easing="inout" time="300" />
+				<effect type="fade" start="100" end="0" tween="sine" easing="inout" time="300"/>
+				<effect type="zoom" start="100" end="50" center="auto" tween="sine" easing="inout" time="300"/>
 			</animation>
 		</control>
 	</include>
@@ -851,10 +1069,10 @@
 			<top>145</top>
 			<height>87</height>
 			<width>100%</width>
-			<texturefocus />
-			<texturenofocus />
-			<label />
-			<font />
+			<texturefocus/>
+			<texturenofocus/>
+			<label/>
+			<font/>
 		</control>
 	</include>
 	<!-- SiLVO Now Playing Widgets -->
@@ -871,7 +1089,7 @@
 			<animation effect="slide" end="425,-30" time="320" tween="cubic" easing="inout" condition="String.IsEqual(Skin.String(MainMenu.Layout),vertical)">Conditional</animation>
 			<animation effect="slide" end="-410,0" time="320" tween="cubic" easing="inout" condition="String.IsEqual(Skin.String(MainMenu.Layout),vertical) + String.Contains(Container(9000).ListItem.Property(widgetStyle),Extended) + ControlGroup(90010).HasFocus">Conditional</animation>
 			<animation effect="slide" end="-410,0" time="320" tween="cubic" easing="inout" condition="String.IsEqual(Skin.String(MainMenu.Layout),vertical) + String.Contains(Container(9000).ListItem.Property(widgetStyle.2),Extended) + ControlGroup(90020).HasFocus">Conditional</animation>
-			<animation effect="fade" start="100" end="0" condition="[!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + ControlGroup(90020).HasFocus] | [!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + ControlGroup(90010).HasFocus + !String.IsEqual(Container(9000).ListItem.Property(widgetStyle),List) + [!String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo))]]">Conditional</animation>
+			<animation effect="fade" start="100" end="0" condition="[[!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + ControlGroup(90020).HasFocus] | [!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + ControlGroup(90010).HasFocus + !String.IsEqual(Container(9000).ListItem.Property(widgetStyle),List) + [!String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo))]]] | [!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + ControlGroup(96002).HasFocus + !String.IsEqual(Container(9000).ListItem.Property(widgetStyle.sel2),List) + !String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.sel2))] | [!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + ControlGroup(96003).HasFocus + !String.IsEqual(Container(9000).ListItem.Property(widgetStyle.sel3),List) + !String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.sel3))] | [!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + ControlGroup(96004).HasFocus + !String.IsEqual(Container(9000).ListItem.Property(widgetStyle.sel4),List) + !String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.sel4))] | [!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + ControlGroup(96005).HasFocus + !String.IsEqual(Container(9000).ListItem.Property(widgetStyle.sel5),List) + !String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.sel5))] | [!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + ControlGroup(96006).HasFocus + !String.IsEqual(Container(9000).ListItem.Property(widgetStyle.sel6),List) + !String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.sel6))] | [!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + ControlGroup(96007).HasFocus + !String.IsEqual(Container(9000).ListItem.Property(widgetStyle.sel7),List) + !String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.sel7))] | [!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + ControlGroup(96008).HasFocus + !String.IsEqual(Container(9000).ListItem.Property(widgetStyle.sel8),List) + !String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.sel8))] | [!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + ControlGroup(96009).HasFocus + !String.IsEqual(Container(9000).ListItem.Property(widgetStyle.sel9),List) + !String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.sel9))] | [!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + ControlGroup(96010).HasFocus + !String.IsEqual(Container(9000).ListItem.Property(widgetStyle.sel10),List) + !String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.sel10))] | [!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + ControlGroup(96011).HasFocus + !String.IsEqual(Container(9000).ListItem.Property(widgetStyle.sel11),List) + !String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.sel11))] | [!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + ControlGroup(96012).HasFocus + !String.IsEqual(Container(9000).ListItem.Property(widgetStyle.sel12),List) + !String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.sel12))] | [!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + ControlGroup(96013).HasFocus + !String.IsEqual(Container(9000).ListItem.Property(widgetStyle.sel13),List) + !String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.sel13))] | [!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + ControlGroup(96014).HasFocus + !String.IsEqual(Container(9000).ListItem.Property(widgetStyle.sel14),List) + !String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.sel14))] | [!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + ControlGroup(96015).HasFocus + !String.IsEqual(Container(9000).ListItem.Property(widgetStyle.sel15),List) + !String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.sel15))]">Conditional</animation>
 			<control type="image">
 				<width>1920</width>
 				<height>600</height>
@@ -1125,7 +1343,7 @@
 				<animation effect="slide" end="425,-30" time="320" tween="cubic" easing="inout" condition="String.IsEqual(Skin.String(MainMenu.Layout),vertical)">Conditional</animation>
 				<animation effect="slide" end="-410,0" time="320" tween="cubic" easing="inout" condition="String.IsEqual(Skin.String(MainMenu.Layout),vertical) + String.Contains(Container(9000).ListItem.Property(widgetStyle),Extended) + ControlGroup(90010).HasFocus">Conditional</animation>
 				<animation effect="slide" end="-410,0" time="320" tween="cubic" easing="inout" condition="String.IsEqual(Skin.String(MainMenu.Layout),vertical) + String.Contains(Container(9000).ListItem.Property(widgetStyle.2),Extended) + ControlGroup(90020).HasFocus">Conditional</animation>
-				<animation effect="fade" start="100" end="0" condition="[!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + ControlGroup(90020).HasFocus] | [!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + ControlGroup(90010).HasFocus + !String.IsEqual(Container(9000).ListItem.Property(widgetStyle),List) + [!String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo))]]">Conditional</animation>
+				<animation effect="fade" start="100" end="0" condition="[[!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + ControlGroup(90020).HasFocus] | [!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + ControlGroup(90010).HasFocus + !String.IsEqual(Container(9000).ListItem.Property(widgetStyle),List) + [!String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo))]]] | [!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + ControlGroup(96002).HasFocus + !String.IsEqual(Container(9000).ListItem.Property(widgetStyle.sel2),List) + !String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.sel2))] | [!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + ControlGroup(96003).HasFocus + !String.IsEqual(Container(9000).ListItem.Property(widgetStyle.sel3),List) + !String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.sel3))] | [!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + ControlGroup(96004).HasFocus + !String.IsEqual(Container(9000).ListItem.Property(widgetStyle.sel4),List) + !String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.sel4))] | [!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + ControlGroup(96005).HasFocus + !String.IsEqual(Container(9000).ListItem.Property(widgetStyle.sel5),List) + !String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.sel5))] | [!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + ControlGroup(96006).HasFocus + !String.IsEqual(Container(9000).ListItem.Property(widgetStyle.sel6),List) + !String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.sel6))] | [!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + ControlGroup(96007).HasFocus + !String.IsEqual(Container(9000).ListItem.Property(widgetStyle.sel7),List) + !String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.sel7))] | [!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + ControlGroup(96008).HasFocus + !String.IsEqual(Container(9000).ListItem.Property(widgetStyle.sel8),List) + !String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.sel8))] | [!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + ControlGroup(96009).HasFocus + !String.IsEqual(Container(9000).ListItem.Property(widgetStyle.sel9),List) + !String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.sel9))] | [!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + ControlGroup(96010).HasFocus + !String.IsEqual(Container(9000).ListItem.Property(widgetStyle.sel10),List) + !String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.sel10))] | [!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + ControlGroup(96011).HasFocus + !String.IsEqual(Container(9000).ListItem.Property(widgetStyle.sel11),List) + !String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.sel11))] | [!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + ControlGroup(96012).HasFocus + !String.IsEqual(Container(9000).ListItem.Property(widgetStyle.sel12),List) + !String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.sel12))] | [!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + ControlGroup(96013).HasFocus + !String.IsEqual(Container(9000).ListItem.Property(widgetStyle.sel13),List) + !String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.sel13))] | [!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + ControlGroup(96014).HasFocus + !String.IsEqual(Container(9000).ListItem.Property(widgetStyle.sel14),List) + !String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.sel14))] | [!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + ControlGroup(96015).HasFocus + !String.IsEqual(Container(9000).ListItem.Property(widgetStyle.sel15),List) + !String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.sel15))]">Conditional</animation>
 				<control type="image">
 					<width>1920</width>
 					<height>600</height>
@@ -1545,7 +1763,7 @@
 					<include condition="System.AddonIsEnabled(script.globalsearch) + !Skin.HasSetting(Disable.SearchButton)">HomeSearchButton</include>
 					<control type="label">
 						<width>410</width>
-						<label />
+						<label/>
 						<visible>!ControlGroup(90010).HasFocus | [!String.Contains(Container(9000).ListItem.Property(widgetStyle),Extended) + ControlGroup(90010).HasFocus]</visible>
 						<visible>!ControlGroup(90020).HasFocus | [!String.Contains(Container(9000).ListItem.Property(widgetStyle.2),Extended) + ControlGroup(90020).HasFocus]</visible>
 					</control>
@@ -1592,7 +1810,7 @@
 					<left>-200</left>
 					<width>800</width>
 					<height>120</height>
-					<texture flipx="true" border="40,0,0,0" >side_fade.png</texture>
+					<texture flipx="true" border="40,0,0,0">side_fade.png</texture>
 				</control>
 				<control type="image">
 					<left>390</left>
@@ -1649,7 +1867,7 @@
 					<left>-200</left>
 					<width>800</width>
 					<height>120</height>
-					<texture flipx="true" border="40,0,0,0" >side_fade.png</texture>
+					<texture flipx="true" border="40,0,0,0">side_fade.png</texture>
 				</control>
 				<control type="image">
 					<left>390</left>
@@ -1707,7 +1925,7 @@
 			<width min="0" max="450">auto</width>
 			<font>font10</font>
 			<textcolor>FFDFDFDF</textcolor>
-			<shadowcolor />
+			<shadowcolor/>
 			<aligny>top</aligny>
 			<textoffsetx>30</textoffsetx>
 			<textoffsety>5</textoffsety>
@@ -1718,9 +1936,9 @@
 			<animation effect="fade" time="600">WindowOpen</animation>
 			<animation effect="fade" time="600">WindowClose</animation>
 			<animation effect="slide" end="0,40" time="300" tween="cubic" easing="inout" condition="String.IsEqual(Skin.String(MainMenu.Layout),vertical)">Conditional</animation>
-			<visible>![Player.HasAudio + Skin.HasSetting(Enable.ArtistSlideshowOnHome) + !String.IsEmpty(Window(Visualisation).Property(ArtistSlideshow.Image))]</visible>
-			<visible>![ControlGroup(90010).HasFocus() | ControlGroup(90020).HasFocus()] | [!String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart)) + ControlGroup(90010).HasFocus() | !ControlGroup(90010).HasFocus()] + [!String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.2)) + ControlGroup(90020).HasFocus() | !ControlGroup(90020).HasFocus()]</visible>
-			<visible>[String.Contains(Container(9000).ListItem.Property(background),i:playlist) | String.EndsWith(Container(9000).ListItem.Property(background),.Fanart)] + !String.IsEqual(Container(9000).ListItem.Property(background),Weather.Fanart) + ![Player.HasVideo + !Skin.HasSetting(Disable.ShowBackgroundVideo)]</visible>
+			<visible>[![Player.HasAudio + Skin.HasSetting(Enable.ArtistSlideshowOnHome) + !String.IsEmpty(Window(Visualisation).Property(ArtistSlideshow.Image))]] + [!ControlGroup(96002).HasFocus() | !String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel2))] + [!ControlGroup(96003).HasFocus() | !String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel3))] + [!ControlGroup(96004).HasFocus() | !String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel4))] + [!ControlGroup(96005).HasFocus() | !String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel5))] + [!ControlGroup(96006).HasFocus() | !String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel6))] + [!ControlGroup(96007).HasFocus() | !String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel7))] + [!ControlGroup(96008).HasFocus() | !String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel8))] + [!ControlGroup(96009).HasFocus() | !String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel9))] + [!ControlGroup(96010).HasFocus() | !String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel10))] + [!ControlGroup(96011).HasFocus() | !String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel11))] + [!ControlGroup(96012).HasFocus() | !String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel12))] + [!ControlGroup(96013).HasFocus() | !String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel13))] + [!ControlGroup(96014).HasFocus() | !String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel14))] + [!ControlGroup(96015).HasFocus() | !String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel15))]</visible>
+			<visible>[![ControlGroup(90010).HasFocus() | ControlGroup(90020).HasFocus()] | [!String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart)) + ControlGroup(90010).HasFocus() | !ControlGroup(90010).HasFocus()] + [!String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.2)) + ControlGroup(90020).HasFocus() | !ControlGroup(90020).HasFocus()]] + [!ControlGroup(96002).HasFocus() | !String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel2))] + [!ControlGroup(96003).HasFocus() | !String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel3))] + [!ControlGroup(96004).HasFocus() | !String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel4))] + [!ControlGroup(96005).HasFocus() | !String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel5))] + [!ControlGroup(96006).HasFocus() | !String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel6))] + [!ControlGroup(96007).HasFocus() | !String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel7))] + [!ControlGroup(96008).HasFocus() | !String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel8))] + [!ControlGroup(96009).HasFocus() | !String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel9))] + [!ControlGroup(96010).HasFocus() | !String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel10))] + [!ControlGroup(96011).HasFocus() | !String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel11))] + [!ControlGroup(96012).HasFocus() | !String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel12))] + [!ControlGroup(96013).HasFocus() | !String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel13))] + [!ControlGroup(96014).HasFocus() | !String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel14))] + [!ControlGroup(96015).HasFocus() | !String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel15))]</visible>
+			<visible>[[String.Contains(Container(9000).ListItem.Property(background),i:playlist) | String.EndsWith(Container(9000).ListItem.Property(background),.Fanart)] + !String.IsEqual(Container(9000).ListItem.Property(background),Weather.Fanart) + ![Player.HasVideo + !Skin.HasSetting(Disable.ShowBackgroundVideo)]] + [!ControlGroup(96002).HasFocus() | !String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel2))] + [!ControlGroup(96003).HasFocus() | !String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel3))] + [!ControlGroup(96004).HasFocus() | !String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel4))] + [!ControlGroup(96005).HasFocus() | !String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel5))] + [!ControlGroup(96006).HasFocus() | !String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel6))] + [!ControlGroup(96007).HasFocus() | !String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel7))] + [!ControlGroup(96008).HasFocus() | !String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel8))] + [!ControlGroup(96009).HasFocus() | !String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel9))] + [!ControlGroup(96010).HasFocus() | !String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel10))] + [!ControlGroup(96011).HasFocus() | !String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel11))] + [!ControlGroup(96012).HasFocus() | !String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel12))] + [!ControlGroup(96013).HasFocus() | !String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel13))] + [!ControlGroup(96014).HasFocus() | !String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel14))] + [!ControlGroup(96015).HasFocus() | !String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel15))]</visible>
 		</control>
 	</include>
 </includes>

@@ -1,0 +1,34 @@
+<shortcuts>
+	<shortcut>
+		<defaultID />
+		<label>Search Games</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>image://special%3a%2f%2fhome%2faddons%2fresource.images.skinicons.wide%2fresources%2ficons%2fsearch.png/</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.program.autowidget/?mode=group&amp;group=search_channels-1769667409.9157088&amp;refresh=&amp;reload=",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>SPORT NETWORKS</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>image://https%3a%2f%2fmagnetic.website%2fmenu%2520icons%2fwolfgirl%2520mad%2520titan%2520sports%2520icons%2fsports.png/</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.madtitansports/search_json/https://magnetic.website/jet/TVGUIDE/TVGUIDE_Sports Networks.json?query=sports networks&amp;dialog=false",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Hunting And Fishing</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>image://special%3a%2f%2fhome%2faddons%2fresource.images.skinicons.wide%2fresources%2ficons%2fHUNTINGFISHING.jpg/</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.program.autowidget/?mode=group&amp;group=hunting_and_fishing-1769434341.8009965&amp;refresh=&amp;reload=",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Motor Zone</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>image://special%3a%2f%2fhome%2faddons%2fresource.images.skinicons.wide%2fresources%2ficons%2ftorque.png/</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.program.autowidget/?mode=group&amp;group=motor_zone-1769438696.2709346&amp;refresh=&amp;reload=",return)</action>
+		</shortcut>
+	</shortcuts>

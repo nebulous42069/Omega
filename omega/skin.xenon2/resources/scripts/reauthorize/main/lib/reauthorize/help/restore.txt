@@ -1,0 +1,65 @@
+
+Reset & Clear - What Each Option Does
+======================================
+
+Nuke This Device
+--------------------
+Wipes all service credentials from this device (Real-Debrid,
+Trakt, Premiumize, etc.), deletes the local vault backup, and removes
+your profile from the ReAuthorize server entirely.
+
+After this you will need to open ReAuthorize and re-authorize your
+services from each service tab. Each one is backed up as you link it.
+Use this if you are leaving the build, selling the device, or want
+a completely clean start.
+
+WARNING: This cannot be undone.
+
+
+Reset All Add-ons to Default Settings
+---------------------------------------
+Resets the individual add-on settings that ReAuthorize pushed to your
+build add-ons (Infinity, Umbrella, etc.) back to their defaults.
+
+This does NOT delete your credentials from the server or the vault -
+it only clears what was written to the add-ons themselves. Kodi will
+close and run the reset on the next startup.
+
+Use this if your add-on settings have become messy and you want a
+clean slate without losing your authorizations.
+
+
+Prepare This Build for Distribution  (Build Creators Only)
+------------------------------------------------------------
+Strips all service credentials from the Kodi install you are
+about to zip up as a build. Kodi closes immediately after.
+
+It also offers to truncate the database tables, as a wizard's
+Truncate Tables does: "Truncate too" empties the watched history,
+TV guide, music library and view settings. Add-ons, their
+settings, Kodi's add-on database and the thumbnails are kept.
+
+You should zip your build folder straight away - if you re-open
+Kodi first, your own credentials will be written back in.
+
+This option is for build creators only. Regular users do not
+need to use this.
+
+
+----------------------------------------------------------------
+Note on the .reauthorize folder
+----------------------------------------------------------------
+After a reset or uninstall, the .reauthorize folder on your device
+is not removed automatically. Only the files inside it (vault.json
+and device_id) are deleted. The empty folder will remain - this is
+normal and harmless. If you want it completely gone, delete it
+manually using a file manager app.
+
+The folder location depends on your device, because ReAuthorize
+picks the best one your device actually allows. To see the exact
+path yours is using, open the About tab and press Storage Report.
+
+Typical locations:
+  Android 11+   Android/data/org.xbmc.kodi/files/.reauthorize/
+  Android 10-   /sdcard/.reauthorize/
+  Windows/Linux ~/.reauthorize/  (your home folder)

@@ -1,0 +1,50 @@
+<shortcuts>
+	<shortcut>
+		<defaultID />
+		<label>Red Light Settings</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>image://https%3a%2f%2frepo.redwizard.xyz%2fimages%2fredlight%2fmedia%2ficons%2fsettings2.png/</thumb>
+		<action>PlayMedia("plugin://plugin.video.redlight/?mode=open_settings")</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Trakt Lists</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>image://https%3a%2f%2frepo.redwizard.xyz%2fimages%2fredlight%2fmedia%2ficons%2ftrakt.png/</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.redlight/?mode=navigator.trakt_lists_personal",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>TV Calendar</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>image://https%3a%2f%2frepo.redwizard.xyz%2fimages%2fredlight%2fmedia%2ficons%2fcalender.png/</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.redlight/?mode=build_my_calendar",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>My Lists</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>image://https%3a%2f%2frepo.redwizard.xyz%2fimages%2fredlight%2fmedia%2ficons%2flists.png/</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.redlight/?mode=trakt.list.get_trakt_lists&amp;list_type=my_lists&amp;category_name=My+Lists",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Liked Lists</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>image://https%3a%2f%2frepo.redwizard.xyz%2fimages%2fredlight%2fmedia%2ficons%2ffavorites.png/</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.redlight/?mode=trakt.list.get_trakt_lists&amp;list_type=liked_lists&amp;category_name=Liked+Lists",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Dropped</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>image://https%3a%2f%2frepo.redwizard.xyz%2fimages%2fredlight%2fmedia%2ficons%2flists.png/</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.redlight/?mode=build_tvshow_list&amp;action=trakt_droplist&amp;category_name=Dropped+TV+Shows",return)</action>
+		</shortcut>
+	</shortcuts>

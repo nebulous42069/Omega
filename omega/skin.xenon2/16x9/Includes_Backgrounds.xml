@@ -79,7 +79,7 @@
 					<top>880</top>
 					<width>400</width>
 					<height>130</height>
-					<visible>!Window.IsActive(home) | !Window.IsActive(DialogAddonInfo)</visible>
+					<visible>!Window.IsActive(home) | !Window.IsActive(addoninformation)</visible>
 					<texture>aeon-nox-logo.pn</texture>
 				</control>
 			</control>
@@ -95,9 +95,9 @@
 				<top>64</top>
 				<control type="image">
 					<left>0</left>
-					<top>593</top>
+					<top>543</top>
 					<width>1920</width>
-					<height>424</height>
+					<height>475</height>
 					<texture>floorx.png</texture>
 					<include>HomeTransparentEffect25</include>
 					<visible>!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Skin.HasSetting(centermainmenu)</visible>					

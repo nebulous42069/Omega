@@ -1,0 +1,26 @@
+<shortcuts>
+	<shortcut>
+		<defaultID />
+		<label>Umbrella Settings</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb />
+		<action>PlayMedia("plugin://plugin.video.umbrella/?action=tools_openSettings&amp;query=5.0")</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Your Simkl Movies</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>image://C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.video.umbrella%5cresources%5cartwork%5cumbrella%5csimkl.png/</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.umbrella/?action=mymovies_simklNavigator&amp;folderName=Simkl",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Your Simkl TV Shows</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>image://C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.video.umbrella%5cresources%5cartwork%5cumbrella%5csimkl.png/</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.umbrella/?action=mytvshows_simklNavigator&amp;folderName=Simkl",return)</action>
+		</shortcut>
+	</shortcuts>

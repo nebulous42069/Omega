@@ -1,0 +1,106 @@
+<shortcuts>
+	<shortcut>
+		<defaultID>plugin.audio.pandoki</defaultID>
+		<label>Pandoki (US)</label>
+		<label2>Music Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/pandora.png</thumb>
+		<action>ActivateWindow(Music,"plugin://plugin.audio.pandoki",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Pluto Music</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/pluto.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://slyguy.pluto.tv.provider/?_=live_tv&amp;code=us&amp;group=Music+Videos",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Music On Youtube</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/ytkiosk.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.yt.kiosk/?action=chip&amp;label=Music&amp;url=https%3A%2F%2Fwww.youtube.com%2Fchannel%2FUC-9-kyTW8ZkZNDHQJ6FgpwQ%3Fgl%3DUS%26hl%3Den%26persist_gl%3D1%26persist_hl%3D1",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.audio.mp3streams</defaultID>
+		<label>MP3 Streams</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/mp3streams.png</thumb>
+		<action>ActivateWindow(Music,"plugin://plugin.audio.m3sr2019",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.audio.dashradio</defaultID>
+		<label>Diggz LITT Radio</label>
+		<label2>Music Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/littradio.png</thumb>
+		<action>ActivateWindow(Music,"plugin://plugin.audio.dashradio",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.video.worldstarhiphop</defaultID>
+		<label>World Star Hip Hop</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/worldstar.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.worldstarhiphop",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.audio.mytuner</defaultID>
+		<label>myTuner</label>
+		<label2>Music Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/tuner.png</thumb>
+		<action>ActivateWindow(Music,"plugin://plugin.audio.mytuner",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.audio.soundcloud</defaultID>
+		<label>SoundCloud</label>
+		<label2>Music Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/soundcloud.png</thumb>
+		<action>ActivateWindow(Music,"plugin://plugin.audio.soundcloud",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.audio.radio_de</defaultID>
+		<label>Radio</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/radio.png</thumb>
+		<action>ActivateWindow(Music,"plugin://plugin.audio.radio_de_light",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.audio.mixcloud</defaultID>
+		<label>Mixcloud</label>
+		<label2>Music Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/mixcloud.png</thumb>
+		<action>ActivateWindow(Music,"plugin://plugin.audio.mixcloud",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.video.essential</defaultID>
+		<label>Essential</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/essential.jpg</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.essential",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.video.kodikaraoke</defaultID>
+		<label>Kodi Karaoke</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/karaoke.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.kodikaraoke",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Xumo Music</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/xumo.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.xumoplay?mode=3&amp;url=https%3A%2F%2Fvalencia-app-mds.xumo.com%2Fv2%2F&amp;name=Music+%26+Radio",return)</action>
+		</shortcut>
+	</shortcuts>

@@ -1,0 +1,50 @@
+<shortcuts>
+	<shortcut>
+		<defaultID />
+		<label>Sync Kodi Favorites</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb />
+		<action>addon.opensettings(service.kodi.favourites.sync)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>Insert-Swap-Kodi-Favourites</defaultID>
+		<label>Swap Kodi Favorites</label>
+		<label2>Program</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>thumb</thumb>
+		<action>ActivateWindow(Programs,"plugin://Insert-Swap-Kodi-Favourites",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>View Wallpapers</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb />
+		<action>SlideShow(special://home/addons/resource.images.skinbackgrounds.xenon/resources/custom/,recursive,random)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>360</defaultID>
+		<label>Activate Screensaver</label>
+		<label2>Kodi Command</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb />
+		<action>ActivateScreensaver</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.program.super.favourites</defaultID>
+		<label>Super Favourites</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>thumb</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.program.super.favourites",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>[COLOR deeppink]Adults ONLY!![/COLOR]</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>image://special%3a%2f%2fhome%2faddons%2fresource.images.skinicons.wide%2fresources%2ficons%2fEXPLORE%2fPorn.png/</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.program.autowidget/?mode=group&amp;group=adults_only-1769437087.6922288&amp;refresh=&amp;reload=",return)</action>
+		</shortcut>
+	</shortcuts>

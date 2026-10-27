@@ -1,0 +1,688 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+
+	<!-- ═══════════════════════════════════════════════════════════
+	     TAB 1 - READ ME FIRST
+	═══════════════════════════════════════════════════════════ -->
+	<category label="Read Me First">
+
+		<!-- Filled in by settings_display at every Kodi start and before the settings open, so it
+		     always names the version that is running, and whether it is the newest the start-up
+		     check saw in the repo: "1.4.1  (latest)". Hidden until it has a value (1.4.1). -->
+		<setting id="version.display" type="text" label="ReAuthorize version" default="" enable="false"
+		         visible="!eq(0,)" />
+		<setting type="action" label="Welcome &amp; How to Get Started" option="close"
+		         action="RunScript(script.module.reauthorize, action=readMeFirst)" />
+		<setting type="action" label="Already Signed In Inside Your Add-ons? Bring Those In" option="close"
+		         action="RunScript(script.module.reauthorize, action=findSignins)" />
+		<setting type="lsep" label="Work through the service tabs in this menu to authorize each service you have an account with." />
+
+		<!-- Internal - not shown to user -->
+		<setting id="checkAddonUpdates"    type="bool" label="" default="false"  visible="false" />
+		<!-- The newest version the start-up check last saw in the repo -->
+		<setting id="version.latest"       type="text" label="" default=""      visible="false" />
+		<setting id="trakt.auto_push.consent" type="text" label="" default=""   visible="false" />
+		<setting id="trakt.all_push.done"   type="text" label="" default=""   visible="false" />
+		<!-- Fingerprints (hashes, never values) of sign-ins the user said "not now" to -->
+		<setting id="import.declined"      type="text" label="" default=""      visible="false" />
+		<!-- 'true' after this device found it was sharing its backup; startup asks once -->
+		<setting id="server.shared.notice" type="text" label="" default=""      visible="false" />
+		<!-- Written and read back at every start: proves Kodi can load and save this file (settings_health.py) -->
+		<setting id="settings.probe"       type="text" label="" default=""      visible="false" />
+
+	</category>
+
+	<!-- ═══════════════════════════════════════════════════════════
+	     TAB 3 - DEBRID SERVICES
+	     Real-Debrid - Premiumize - AllDebrid - TorBox -
+	     Easy Debrid - OffCloud - Easynews - FilePursuit
+	═══════════════════════════════════════════════════════════ -->
+	<category label="Debrid Services">
+
+		<setting type="lsep" label="Real-Debrid" />
+		<setting id="realdebrid.token"    type="text" label="" default="" visible="false" />
+		<setting id="realdebrid.client_id" type="text" label="" default="" visible="false" />
+		<setting id="realdebrid.refresh"  type="text" label="" default="" visible="false" />
+		<setting id="realdebrid.secret"   type="text" label="" default="" visible="false" />
+		<setting id="realdebrid.username" type="text" label="" default="" visible="false" />
+		<setting id="realdebrid.username.display" label="Username" type="text" default="" enable="false"
+		         visible="!eq(0,)" />
+		<setting id="realdebrid.expiry.notice" type="bool" label="Expiry Notice" default="false"
+		         visible="!eq(-1,)" />
+		<setting type="action" label="Account Info" option="close"
+		         action="RunScript(script.module.reauthorize, action=realdebridAcct)"
+		         visible="!eq(-2,)" />
+		<setting type="action" label="Sync Add-ons" option="close"
+		         action="RunScript(script.module.reauthorize, action=realdebridReSync)"
+		         visible="!eq(-3,)" />
+		<setting type="action" label="View Authorizations" option="close"
+		         action="RunScript(script.module.reauthorize, action=viewAuthorizations&amp;mode=realdebrid)"
+		         visible="!eq(-4,)" />
+		<setting type="action" label="Revoke" option="close"
+		         action="RunScript(script.module.reauthorize, action=serviceRevoke&amp;mode=addondebrid_rd)"
+		         visible="!eq(-5,)" />
+		<setting type="action" label="Authorize Real-Debrid" option="close"
+		         action="RunScript(script.module.reauthorize, action=realdebridAuth)"
+		         visible="eq(-6,)" />
+
+		<setting type="lsep" label="Premiumize" />
+		<setting id="premiumize.token"    type="text" label="" default="" visible="false" />
+		<setting id="premiumize.username" type="text" label="" default="" visible="false" />
+		<setting id="premiumize.username.display" label="Customer ID" type="text" default="" enable="false"
+		         visible="!eq(0,)" />
+		<setting id="premiumize.expiry.notice" type="bool" label="Expiry Notice" default="false"
+		         visible="!eq(-1,)" />
+		<setting type="action" label="Account Info" option="close"
+		         action="RunScript(script.module.reauthorize, action=premiumizeAcct)"
+		         visible="!eq(-2,)" />
+		<setting type="action" label="Sync Add-ons" option="close"
+		         action="RunScript(script.module.reauthorize, action=premiumizeReSync)"
+		         visible="!eq(-3,)" />
+		<setting type="action" label="View Authorizations" option="close"
+		         action="RunScript(script.module.reauthorize, action=viewAuthorizations&amp;mode=premiumize)"
+		         visible="!eq(-4,)" />
+		<setting type="action" label="Revoke" option="close"
+		         action="RunScript(script.module.reauthorize, action=serviceRevoke&amp;mode=addondebrid_pm)"
+		         visible="!eq(-5,)" />
+		<setting type="action" label="Authorize Premiumize" option="close"
+		         action="RunScript(script.module.reauthorize, action=premiumizeAuth)"
+		         visible="eq(-6,)" />
+
+		<setting type="lsep" label="AllDebrid" />
+		<setting id="alldebrid.token"    type="text" label="" default="" visible="false" />
+		<setting id="alldebrid.username" type="text" label="" default="" visible="false" />
+		<setting id="alldebrid.username.display" label="Username" type="text" default="" enable="false"
+		         visible="!eq(0,)" />
+		<setting id="alldebrid.expiry.notice" type="bool" label="Expiry Notice" default="false"
+		         visible="!eq(-1,)" />
+		<setting type="action" label="Account Info" option="close"
+		         action="RunScript(script.module.reauthorize, action=alldebridAcct)"
+		         visible="!eq(-2,)" />
+		<setting type="action" label="Sync Add-ons" option="close"
+		         action="RunScript(script.module.reauthorize, action=alldebridReSync)"
+		         visible="!eq(-3,)" />
+		<setting type="action" label="View Authorizations" option="close"
+		         action="RunScript(script.module.reauthorize, action=viewAuthorizations&amp;mode=alldebrid)"
+		         visible="!eq(-4,)" />
+		<setting type="action" label="Revoke" option="close"
+		         action="RunScript(script.module.reauthorize, action=serviceRevoke&amp;mode=addondebrid_ad)"
+		         visible="!eq(-5,)" />
+		<setting type="action" label="Authorize AllDebrid" option="close"
+		         action="RunScript(script.module.reauthorize, action=alldebridAuth)"
+		         visible="eq(-6,)" />
+
+		<setting type="lsep" label="TorBox" />
+		<setting id="torbox.enabled" type="bool" label="Enable TorBox" default="false" visible="true" />
+		<setting id="torbox.token"   type="text" label="" default="" visible="false" />
+		<setting id="torbox.authorized.display" type="text" label="Status" default="" enable="false"
+		         visible="!eq(0,)" />
+		<setting type="action" label="Authorize TorBox" option="close"
+		         action="RunScript(script.module.reauthorize, action=torboxAuth)"
+		         visible="eq(-1,)" />
+		<setting type="action" label="Sync Add-ons" option="close"
+		         action="RunScript(script.module.reauthorize, action=torboxReSync)"
+		         visible="eq(-4,true) + !eq(-2,)" />
+		<setting type="action" label="View Authorizations" option="close"
+		         action="RunScript(script.module.reauthorize, action=viewAuthorizations&amp;mode=torbox)"
+		         visible="eq(-5,true) + !eq(-3,)" />
+		<setting type="action" label="Revoke" option="close"
+		         action="RunScript(script.module.reauthorize, action=serviceRevoke&amp;mode=addontb)"
+		         visible="eq(-6,true) + !eq(-4,)" />
+
+		<setting type="lsep" label="Easy Debrid" />
+		<setting id="easydebrid.enabled" type="bool" label="Enable Easy Debrid" default="false" visible="true" />
+		<setting id="easydebrid.token"   type="text" label="" default="" visible="false" />
+		<setting id="easydebrid.authorized.display" type="text" label="Status" default="" enable="false"
+		         visible="!eq(0,)" />
+		<setting type="action" label="Authorize Easy Debrid" option="close"
+		         action="RunScript(script.module.reauthorize, action=easydebridAuth)"
+		         visible="eq(-1,)" />
+		<setting type="action" label="Sync Add-ons" option="close"
+		         action="RunScript(script.module.reauthorize, action=easydebridReSync)"
+		         visible="eq(-4,true) + !eq(-2,)" />
+		<setting type="action" label="View Authorizations" option="close"
+		         action="RunScript(script.module.reauthorize, action=viewAuthorizations&amp;mode=easydebrid)"
+		         visible="eq(-5,true) + !eq(-3,)" />
+		<setting type="action" label="Revoke" option="close"
+		         action="RunScript(script.module.reauthorize, action=serviceRevoke&amp;mode=addoned)"
+		         visible="eq(-6,true) + !eq(-4,)" />
+
+		<setting type="lsep" label="OffCloud" />
+		<setting id="offcloud.enabled" type="bool" label="Enable OffCloud" default="false" visible="true" />
+		<setting id="offcloud.token"   type="text" label="" default="" visible="false" />
+		<setting id="offcloud.userid"  type="text" label="" default="" visible="false" />
+		<setting id="offcloud.user" type="text" label="" default="" visible="false" />
+		<setting id="offcloud.pass" type="text" label="" default="" visible="false" />
+		<setting id="offcloud.authorized.display" type="text" label="Status" default="" enable="false"
+		         visible="!eq(0,)" />
+		<setting type="action" label="Authorize OffCloud" option="close"
+		         action="RunScript(script.module.reauthorize, action=offcloudAuth)"
+		         visible="eq(-1,)" />
+		<setting type="action" label="Sync Add-ons" option="close"
+		         action="RunScript(script.module.reauthorize, action=offcloudReSync)"
+		         visible="eq(-7,true) + !eq(-2,)" />
+		<setting type="action" label="View Authorizations" option="close"
+		         action="RunScript(script.module.reauthorize, action=viewAuthorizations&amp;mode=offcloud)"
+		         visible="eq(-8,true) + !eq(-3,)" />
+		<setting type="action" label="Revoke" option="close"
+		         action="RunScript(script.module.reauthorize, action=serviceRevoke&amp;mode=addonoffc)"
+		         visible="eq(-9,true) + !eq(-4,)" />
+
+		<setting type="lsep" label="Easynews" />
+		<setting id="easynews.enabled"  type="bool" label="Enable Easynews" default="false" visible="true" />
+		<setting id="easynews.username" type="text" label="" default="" visible="false" />
+		<setting id="easynews.username.display" type="text" label="Username" default="" enable="false"
+		         visible="!eq(0,)" />
+		<setting id="easynews.password.display" type="text" label="Password" default="" enable="false"
+		         visible="!eq(-1,)" />
+		<setting id="easynews.password" type="text" label="" default="" visible="false" />
+		<setting type="action" label="Authorize Easynews" option="close"
+		         action="RunScript(script.module.reauthorize, action=easynewsAuth)"
+		         visible="eq(-3,)" />
+		<setting type="action" label="Sync Add-ons" option="close"
+		         action="RunScript(script.module.reauthorize, action=easynewsReSync)"
+		         visible="eq(-6,true) + !eq(-4,)" />
+		<setting type="action" label="View Authorizations" option="close"
+		         action="RunScript(script.module.reauthorize, action=viewAuthorizations&amp;mode=easynews)"
+		         visible="eq(-7,true) + !eq(-5,)" />
+		<setting type="action" label="Revoke" option="close"
+		         action="RunScript(script.module.reauthorize, action=serviceRevoke&amp;mode=addoneasy)"
+		         visible="eq(-8,true) + !eq(-6,)" />
+
+		<setting type="lsep" label="FilePursuit" />
+		<setting id="filepursuit.enabled" type="bool" label="Enable FilePursuit" default="false" visible="true" />
+		<setting id="filepursuit.api.key" type="text" label="" default="" visible="false" />
+		<setting id="filepursuit.authorized.display" type="text" label="Status" default="" enable="false"
+		         visible="!eq(0,)" />
+		<setting type="action" label="Authorize FilePursuit" option="close"
+		         action="RunScript(script.module.reauthorize, action=filepursuitAuth)"
+		         visible="eq(-1,)" />
+		<setting type="action" label="Sync Add-ons" option="close"
+		         action="RunScript(script.module.reauthorize, action=filepursuitReSync)"
+		         visible="eq(-4,true) + !eq(-2,)" />
+		<setting type="action" label="View Authorizations" option="close"
+		         action="RunScript(script.module.reauthorize, action=viewAuthorizations&amp;mode=filepursuit)"
+		         visible="eq(-5,true) + !eq(-3,)" />
+		<setting type="action" label="Revoke" option="close"
+		         action="RunScript(script.module.reauthorize, action=serviceRevoke&amp;mode=addonfile)"
+		         visible="eq(-6,true) + !eq(-4,)" />
+
+		<setting type="lsep" label="Linksnappy" />
+		<setting id="linksnappy.enabled"  type="bool" label="Enable Linksnappy" default="false" visible="true" />
+		<setting id="linksnappy.username" type="text" label="" default="" visible="false" />
+		<setting id="linksnappy.username.display" type="text" label="Username" default="" enable="false"
+		         visible="!eq(0,)" />
+		<setting id="linksnappy.password" type="text" label="" default="" visible="false" />
+		<setting type="action" label="Authorize Linksnappy" option="close"
+		         action="RunScript(script.module.reauthorize, action=linksnappyAuth)"
+		         visible="eq(-2,)" />
+		<setting type="action" label="Sync Add-ons" option="close"
+		         action="RunScript(script.module.reauthorize, action=linksnappyReSync)"
+		         visible="eq(-5,true) + !eq(-3,)" />
+		<setting type="action" label="Revoke" option="close"
+		         action="RunScript(script.module.reauthorize, action=linksnappyRevoke)"
+		         visible="eq(-6,true) + !eq(-4,)" />
+
+		<setting type="lsep" label="Debrid-Link" />
+		<setting id="debridlink.enabled" type="bool" label="Enable Debrid-Link" default="false" visible="true" />
+		<setting id="debridlink.token"   type="text" label="" default="" visible="false" />
+		<setting id="debridlink.authorized.display" type="text" label="Status" default="" enable="false"
+		         visible="!eq(0,)" />
+		<setting type="action" label="Authorize Debrid-Link" option="close"
+		         action="RunScript(script.module.reauthorize, action=debridlinkAuth)"
+		         visible="eq(-1,)" />
+		<setting type="action" label="Sync Add-ons" option="close"
+		         action="RunScript(script.module.reauthorize, action=debridlinkReSync)"
+		         visible="eq(-4,true) + !eq(-2,)" />
+		<setting type="action" label="Revoke" option="close"
+		         action="RunScript(script.module.reauthorize, action=debridlinkRevoke)"
+		         visible="eq(-5,true) + !eq(-3,)" />
+
+	</category>
+
+	<!-- ═══════════════════════════════════════════════════════════
+	     TAB 4 - TRAKT & SCROBBLE
+	     Trakt - Simkl - Last.fm
+	═══════════════════════════════════════════════════════════ -->
+	<category label="Trakt &amp; Scrobble">
+
+		<setting type="lsep" label="Trakt" />
+		<setting id="trakt.token"    type="text" visible="false" label="" default="" />
+		<setting id="trakt.refresh"  type="text" visible="false" label="" default="" />
+		<setting id="trakt.expires"  type="text" visible="false" label="" default="" />
+		<setting id="trakt.synclist" type="text" visible="false" label="" default="false" />
+		<setting id="trakt.username" type="text" label="" default="" visible="false" />
+		<setting id="trakt.username.display" type="text" label="Username" default="" enable="false"
+		         visible="!eq(0,)" />
+		<setting type="text" label="Sent to all your add-ons and renewed automatically"
+		         visible="!eq(-1,)" />
+		<setting type="action" label="Sync Add-ons" option="close"
+		         action="RunScript(script.module.reauthorize, action=traktReSync)"
+		         visible="!eq(-2,)" />
+		<setting type="action" label="View Authorizations" option="close"
+		         action="RunScript(script.module.reauthorize, action=viewAuthorizations&amp;mode=trakt)"
+		         visible="!eq(-3,)" />
+		<setting type="action" label="Account Info" option="close"
+		         action="RunScript(script.module.reauthorize, action=traktAcct)"
+		         visible="!eq(-4,)" />
+		<setting type="action" label="Revoke" option="close"
+		         action="RunScript(script.module.reauthorize, action=serviceRevoke&amp;mode=addontrakt)"
+		         visible="!eq(-5,)" />
+		<setting type="action" label="Authorize Trakt for Kodi" option="close"
+		         action="RunScript(script.module.reauthorize, action=traktAuth)"
+		         visible="eq(-6,)" />
+
+		<setting type="lsep" label="Simkl" />
+		<setting id="simkl.token"     type="text" visible="false" label="" default="" />
+		<setting id="simkl.client.id" type="text" visible="false" label="" default="" />
+		<setting id="simkl.username" type="text" label="" default="" visible="false" />
+		<setting id="simkl.username.display" type="text" label="Username" default="" enable="false"
+		         visible="!eq(0,)" />
+		<setting type="action" label="Sync Add-ons" option="close"
+		         action="RunScript(script.module.reauthorize, action=simklReSync)"
+		         visible="!eq(-1,)" />
+		<setting type="action" label="Account Info" option="close"
+		         action="RunScript(script.module.reauthorize, action=simklAcct)"
+		         visible="!eq(-2,)" />
+		<setting type="action" label="Revoke" option="close"
+		         action="RunScript(script.module.reauthorize, action=simklRevoke)"
+		         visible="!eq(-3,)" />
+		<setting type="action" label="Authorize Simkl" option="close"
+		         action="RunScript(script.module.reauthorize, action=simklAuth)"
+		         visible="eq(-4,)" />
+
+		<setting type="lsep" label="Last.fm" />
+		<setting id="lastfm.session.key" type="text" label="" default="" visible="false" />
+		<setting id="lastfm.api.key"     type="text" label="" default="" visible="false" />
+		<setting id="lastfm.api.secret"  type="text" label="" default="" visible="false" />
+		<setting id="lastfm.password"    type="text" label="" default="" visible="false" />
+		<setting id="lastfm.username" type="text" label="" default="" visible="false" />
+		<setting id="lastfm.username.display" type="text" label="Username" default="" enable="false"
+		         visible="!eq(0,)" />
+		<setting type="action" label="Authorize Last.fm" option="close"
+		         action="RunScript(script.module.reauthorize, action=lastfmAuth)"
+		         visible="eq(-1,)" />
+		<setting type="action" label="Account Info" option="close"
+		         action="RunScript(script.module.reauthorize, action=lastfmAcct)"
+		         visible="!eq(-2,)" />
+		<setting type="action" label="Sync Add-ons" option="close"
+		         action="RunScript(script.module.reauthorize, action=lastfmReSync)"
+		         visible="!eq(-3,)" />
+		<setting type="action" label="Revoke" option="close"
+		         action="RunScript(script.module.reauthorize, action=lastfmRevoke)"
+		         visible="!eq(-4,)" />
+
+		<setting type="lsep" label="MDBList (scrobbling, watchlist, ratings)" />
+		<setting id="mdblist.oauth.token"    type="text" visible="false" label="" default="" />
+		<setting id="mdblist.oauth.refresh"  type="text" visible="false" label="" default="" />
+		<setting id="mdblist.oauth.expires"  type="text" visible="false" label="" default="" />
+		<setting id="mdblist.oauth.username" type="text" visible="false" label="" default="" />
+		<setting id="mdblist.oauth.username.display" type="text" label="Username" default="" enable="false"
+		         visible="!eq(0,)" />
+		<setting type="text" label="Sent to your MDBList add-ons and renewed automatically"
+		         visible="!eq(-1,)" />
+		<setting type="action" label="Sync Add-ons" option="close"
+		         action="RunScript(script.module.reauthorize, action=mdblistOAuthReSync)"
+		         visible="!eq(-2,)" />
+		<setting type="action" label="Revoke" option="close"
+		         action="RunScript(script.module.reauthorize, action=mdblistOAuthRevoke)"
+		         visible="!eq(-3,)" />
+		<setting type="action" label="Authorize MDBList" option="close"
+		         action="RunScript(script.module.reauthorize, action=mdblistOAuthAuth)"
+		         visible="eq(-4,)" />
+
+		<setting type="lsep" label="PunchPlay (scrobbling, history, lists)" />
+		<!-- Which of Umbrella's watched/scrobble choices a sign-out took off PunchPlay, to put back at the next sign-in -->
+		<setting id="punchplay.umbrella.choices" type="text" visible="false" label="" default="" />
+		<setting id="punchplay.token"     type="text" visible="false" label="" default="" />
+		<setting id="punchplay.refresh"   type="text" visible="false" label="" default="" />
+		<setting id="punchplay.expires"   type="text" visible="false" label="" default="" />
+		<setting id="punchplay.user.id"   type="text" visible="false" label="" default="" />
+		<setting id="punchplay.device.id" type="text" visible="false" label="" default="" />
+		<setting id="punchplay.username"  type="text" visible="false" label="" default="" />
+		<setting id="punchplay.username.display" type="text" label="Username" default="" enable="false"
+		         visible="!eq(0,)" />
+		<setting type="text" label="Sent to your PunchPlay add-ons and renewed automatically"
+		         visible="!eq(-1,)" />
+		<setting type="action" label="Account Info" option="close"
+		         action="RunScript(script.module.reauthorize, action=punchplayAcct)"
+		         visible="!eq(-2,)" />
+		<setting type="action" label="Sync Add-ons" option="close"
+		         action="RunScript(script.module.reauthorize, action=punchplayReSync)"
+		         visible="!eq(-3,)" />
+		<setting type="action" label="Revoke" option="close"
+		         action="RunScript(script.module.reauthorize, action=punchplayRevoke)"
+		         visible="!eq(-4,)" />
+		<setting type="action" label="Authorize PunchPlay" option="close"
+		         action="RunScript(script.module.reauthorize, action=punchplayAuth)"
+		         visible="eq(-5,)" />
+
+	</category>
+
+	<!-- ═══════════════════════════════════════════════════════════
+	     TAB 5 - METADATA
+	     TMDB - Fanart.TV - TheAudioDB - OMDb - MDbList
+	═══════════════════════════════════════════════════════════ -->
+	<category label="Metadata">
+
+		<setting type="action" label="Sync All Metadata Add-ons" option="close"
+		         action="RunScript(script.module.reauthorize, action=metaReSync)" />
+		<setting label="[COLOR yellow]Help - Metadata Setup[/COLOR]" type="action" option="close"
+		         action="RunScript(script.module.reauthorize, action=ShowHelpMeta)" />
+
+		<setting type="sep" />
+
+		<setting type="lsep" label="The Movie Database (TMDB)" />
+		<setting id="tmdb.api.key"         type="text" label="API Key"  default="" visible="eq(6,)" />
+		<setting id="tmdb.username"        type="text" label="Username" default="" visible="eq(5,)" />
+		<setting id="tmdb.password"        type="text" label="Password" default="" option="hidden" visible="eq(4,)" />
+		<setting id="tmdb.api.key.display" type="text" label="API Key"  default="" enable="false" visible="!eq(3,)" />
+		<setting id="tmdb.username.display" type="text" label="Username" default="" enable="false" visible="!eq(2,)" />
+		<setting id="tmdb.password.display" type="text" label="Password" default="" enable="false" visible="!eq(1,)" />
+		<setting id="tmdb.session_id" type="text" label="Session"  default="" enable="false" visible="!eq(0,)" />
+		<setting label="[COLOR yellow]Help - TMDB Setup[/COLOR]" type="action" option="close"
+		         action="RunScript(script.module.reauthorize, action=ShowHelpTMDb)" />
+		<setting type="action" label="Authorize TMDB" option="close"
+		         action="RunScript(script.module.reauthorize, action=tmdbAuth)"
+		         visible="eq(-2,)" />
+		<setting type="action" label="Revoke TMDB" option="close"
+		         action="RunScript(script.module.reauthorize, action=tmdbRevoke)"
+		         visible="!eq(-3,)" />
+
+		<setting type="lsep" label="Fanart.TV" />
+		<setting id="fanart.tv.api.key" type="text" label="" default="" visible="false" />
+		<setting id="fanart.tv.api.key.display" type="text" label="API Key" default="" enable="false" visible="!eq(0,)" />
+		<setting type="action" label="Enter API Key" option="close"
+		         action="RunScript(script.module.reauthorize, action=fanartAuth)"
+		         visible="eq(-1,)" />
+		<setting type="action" label="Revoke" option="close"
+		         action="RunScript(script.module.reauthorize, action=fanartRevoke)"
+		         visible="!eq(-2,)" />
+
+		<setting type="lsep" label="TheAudioDB" />
+		<setting id="audiodb.api.key" type="text" label="" default="" visible="false" />
+		<setting id="audiodb.api.key.display" type="text" label="API Key" default="" enable="false" visible="!eq(0,)" />
+		<setting type="action" label="Enter API Key" option="close"
+		         action="RunScript(script.module.reauthorize, action=audiodbAuth)"
+		         visible="eq(-1,)" />
+		<setting type="action" label="Revoke" option="close"
+		         action="RunScript(script.module.reauthorize, action=audiodbRevoke)"
+		         visible="!eq(-2,)" />
+
+		<!-- MDBList's API key: set from 'Authorize MDBList' on the Trakt & Scrobble tab (1.4.0). -->
+		<setting id="mdb.username" type="text" label="" default="" visible="false" />
+		<setting id="mdb.username.display" type="text" label="" default="" visible="false" />
+		<setting id="mdb.api.key"  type="text" label=""  default="" visible="false" />
+		<setting id="mdb.api.key.display"  type="text" label="" default="" visible="false" />
+
+		<setting type="lsep" label="OMDb" />
+		<setting id="omdb.api.key" type="text" label="" default="" visible="false" />
+		<setting id="omdb.api.key.display" type="text" label="API Key" default="" enable="false" visible="!eq(0,)" />
+		<setting type="action" label="Enter API Key" option="close"
+		         action="RunScript(script.module.reauthorize, action=omdbAuth)"
+		         visible="eq(-1,)" />
+		<setting type="action" label="Revoke" option="close"
+		         action="RunScript(script.module.reauthorize, action=omdbRevoke)"
+		         visible="!eq(-2,)" />
+
+		<setting type="lsep" label="IMDb" />
+		<setting id="imdb.user" type="text" label="" default="" visible="false" />
+		<setting id="imdb.user.display" type="text" label="Profile ID" default="" enable="false" visible="!eq(0,)" />
+		<setting type="action" label="Enter Profile ID" option="close"
+		         action="RunScript(script.module.reauthorize, action=imdbAuth)"
+		         visible="eq(-1,)" />
+		<setting type="action" label="Revoke" option="close"
+		         action="RunScript(script.module.reauthorize, action=imdbRevoke)"
+		         visible="!eq(-2,)" />
+
+	</category>
+
+	<!-- ═══════════════════════════════════════════════════════════
+	     TAB 6 - STREAMING SERVICES
+	     YouTube for Kodi
+	═══════════════════════════════════════════════════════════ -->
+	<category label="Streaming Services">
+
+		<setting type="lsep" label="YouTube Authorize and Login" />
+		<setting type="text" label="Step 1: your YouTube API Key, Client ID and Client Secret" />
+		<setting type="text" label="Your own keys stop the 'quota exceeded' errors." />
+		<setting id="youtube.api.key"    type="text" label="API Key"       default="" />
+		<setting id="youtube.api.id"     type="text" label="Client ID"     default="" />
+		<setting id="youtube.api.secret" type="text" label="Client Secret" default="" option="hidden" />
+		<!-- Internal - filled by settings_display.py; kept so nothing writes to a setting that is not declared -->
+		<setting id="youtube.api.key.display"    type="text" label="" default="" visible="false" />
+		<setting id="youtube.api.id.display"     type="text" label="" default="" visible="false" />
+		<setting id="youtube.api.secret.display" type="text" label="" default="" visible="false" />
+		<setting type="action" label="Sync Keys to YouTube for Kodi" option="close"
+		         action="RunScript(script.module.reauthorize, action=youtubeReSync)"
+		         visible="!eq(-6,)" />
+		<setting type="lsep" label="Step 2: Sign in to YouTube (optional)" />
+		<setting type="text" label="Only needed to see your own subscriptions and playlists." />
+		<setting type="text" label="You sign in on youtube.com with your usual YouTube account." />
+		<setting type="text" label="ReAuthorize never sees your password." />
+		<setting id="youtube.signin.display" type="text" label="YouTube sign-in" default="" enable="false" />
+		<setting id="youtube.signedin" type="text" label="" default="" visible="false" />
+		<setting type="action" label="Sign in to YouTube" option="close"
+		         action="RunScript(script.module.reauthorize, action=youtubeSignIn)"
+		         visible="!eq(-13,) + !eq(-1,true)" />
+		<setting type="action" label="Sign out of YouTube" option="close"
+		         action="RunScript(script.module.reauthorize, action=youtubeSignOut)"
+		         visible="eq(-2,true)" />
+		<!-- Internal - the YouTube sign-in (access_manager.json), kept so a build install cannot lose it -->
+		<setting id="youtube.tokens" type="text" label="" default="" visible="false" />
+
+		<setting type="lsep" label="TorrentClaw" />
+		<setting type="text" label="A free key from torrentclaw.com: your profile, API Keys tab. Used by Cosmos." enable="false" />
+		<setting id="torrentclaw.api.key" type="text" label="" default="" visible="false" />
+		<setting id="torrentclaw.authorized.display" type="text" label="Status" default="" enable="false" visible="!eq(-1,)" />
+		<setting type="action" label="Enter TorrentClaw Key" option="close"
+		         action="RunScript(script.module.reauthorize, action=torrentclawAuth)"
+		         visible="eq(-2,)" />
+		<setting type="action" label="Revoke" option="close"
+		         action="RunScript(script.module.reauthorize, action=torrentclawRevoke)"
+		         visible="!eq(-3,)" />
+
+	</category>
+
+	<!-- ═══════════════════════════════════════════════════════════
+	     TAB 5 - MANAGE
+	     Re-Authorize - Remove a Service - View Status
+	═══════════════════════════════════════════════════════════ -->
+	<category label="Manage">
+
+		<setting type="lsep" label="Your Profile" />
+		<setting type="action" label="Re-Authorize My Services" option="close"
+		         action="RunScript(script.module.reauthorize, action=silentReAuthorize)" />
+		<setting type="action" label="Remove a Service" option="close"
+		         action="RunScript(script.module.reauthorize, action=removeService)" />
+		<setting type="action" label="View Status" option="close"
+		         action="RunScript(script.module.reauthorize, action=statusDashboard)" />
+		<setting type="lsep" label="Re-Authorize pushes your credentials to every addon. Use it after a restart if something is not linking." />
+
+
+	</category>
+
+	<!-- ═══════════════════════════════════════════════════════════
+	     TAB 6 - BACKUP & DEVICE
+	     Auto-Vault - Server Sync - Per-service
+	═══════════════════════════════════════════════════════════ -->
+	<category label="Backup &amp; Device">
+
+		<setting type="lsep" label="Save &amp; Backup" />
+		<setting type="action" label="Save &amp; Backup Now" option="close"
+		         action="RunScript(script.module.reauthorize, action=backupAll)" />
+		<setting type="text" label="Saves your credentials locally and syncs them to the server." />
+
+		<setting type="sep" />
+		<setting type="lsep" label="Auto-Vault  (Survives Build Installs)" />
+		<setting id="vault.enabled"    type="bool" label="Enable Auto-Vault" default="true" visible="true" />
+		<setting id="vault.last_backup" type="text" label="Last Backup" default="Never" enable="false" visible="true" />
+		<setting type="action" label="Backup Now" option="close"
+		         action="RunScript(script.module.reauthorize, action=vaultBackup)"
+		         visible="true" />
+		<setting type="action" label="Restore from Vault" option="close"
+		         action="RunScript(script.module.reauthorize, action=vaultRestore)"
+		         visible="true" />
+		<setting type="action" label="Clear Vault" option="close"
+		         action="RunScript(script.module.reauthorize, action=vaultClear)"
+		         visible="true" />
+
+		<setting type="lsep" label="Server Sync  (Survives New Devices)" />
+		<setting id="server.device.id"  type="text" label="" default="" visible="false" />
+		<setting id="owner.stamp"      type="text" label="" default="" visible="false" />
+		<setting id="owner.leaks.seen" type="text" label="" default="" visible="false" />
+		<setting id="trakt.lifetime"   type="text" label="" default="" visible="false" />
+		<setting id="mdblist.scrobbler.client" type="text" label="" default="" visible="false" />
+		<setting id="simkl.all_push.done" type="text" label="" default="" visible="false" />
+		<setting id="sync.known_addons" type="text" label="" default="" visible="false" />
+		<setting id="sync.catchup.done" type="text" label="" default="" visible="false" />
+		<setting id="sync.resend.next_start" type="text" label="" default="" visible="false" />
+		<setting id="server.enabled"    type="bool" label="Enable Server Sync" default="true" visible="true" />
+		<setting id="server.api.secret" type="text" label="API Secret" default="oX2iwWkARSQr6Jf9UdPgZxELN1qaDp53Hh7VteB0bMT4vlmG"
+		         option="hidden" enable="eq(-1,true)" visible="true" />
+		<setting type="action" label="Backup to Server Now" option="close"
+		         action="RunScript(script.module.reauthorize, action=serverBackup)"
+		         visible="eq(-2,true)" />
+		<setting type="action" label="Restore from Server" option="close"
+		         action="RunScript(script.module.reauthorize, action=serverRestore)"
+		         visible="eq(-3,true)" />
+		<setting type="action" label="Delete This Device from Server" option="close"
+		         action="RunScript(script.module.reauthorize, action=serverClear)"
+		         visible="eq(-4,true)" />
+
+		<setting type="sep" />
+		<setting type="text" label="Per-Service Backup" />
+
+		<setting type="lsep" label="Real-Debrid" />
+		<setting type="action" label="Backup Data" option="close"
+		         action="RunScript(script.module.reauthorize,action=backupService&amp;service=realdebrid)" />
+		<setting type="action" label="Restore Saved Data" option="close"
+		         action="RunScript(script.module.reauthorize,action=restoreService&amp;service=realdebrid)"
+		         visible="true" />
+		<setting id="rd_backup_date" type="text" label="Last Backup" default="Never" enable="false" />
+
+		<setting type="lsep" label="Premiumize" />
+		<setting type="action" label="Backup Data" option="close"
+		         action="RunScript(script.module.reauthorize,action=backupService&amp;service=premiumize)" />
+		<setting type="action" label="Restore Saved Data" option="close"
+		         action="RunScript(script.module.reauthorize,action=restoreService&amp;service=premiumize)"
+		         visible="true" />
+		<setting id="pm_backup_date" type="text" label="Last Backup" default="Never" enable="false" />
+
+		<setting type="lsep" label="AllDebrid" />
+		<setting type="action" label="Backup Data" option="close"
+		         action="RunScript(script.module.reauthorize,action=backupService&amp;service=alldebrid)" />
+		<setting type="action" label="Restore Saved Data" option="close"
+		         action="RunScript(script.module.reauthorize,action=restoreService&amp;service=alldebrid)"
+		         visible="true" />
+		<setting id="ad_backup_date" type="text" label="Last Backup" default="Never" enable="false" />
+
+		<setting type="lsep" label="Trakt" />
+		<setting type="action" label="Backup Data" option="close"
+		         action="RunScript(script.module.reauthorize,action=backupService&amp;service=trakt)" />
+		<setting type="action" label="Restore Saved Data" option="close"
+		         action="RunScript(script.module.reauthorize,action=restoreService&amp;service=trakt)"
+		         visible="true" />
+		<setting id="tk_backup_date" type="text" label="Last Backup" default="Never" enable="false" />
+
+		<setting type="lsep" label="TorBox" />
+		<setting type="action" label="Backup Data" option="close"
+		         action="RunScript(script.module.reauthorize,action=backupService&amp;service=torbox)" />
+		<setting type="action" label="Restore Saved Data" option="close"
+		         action="RunScript(script.module.reauthorize,action=restoreService&amp;service=torbox)"
+		         visible="true" />
+		<setting id="tb_backup_date" type="text" label="Last Backup" default="Never" enable="false" />
+
+		<setting type="lsep" label="Easy Debrid" />
+		<setting type="action" label="Backup Data" option="close"
+		         action="RunScript(script.module.reauthorize,action=backupService&amp;service=easydebrid)" />
+		<setting type="action" label="Restore Saved Data" option="close"
+		         action="RunScript(script.module.reauthorize,action=restoreService&amp;service=easydebrid)"
+		         visible="true" />
+		<setting id="ed_backup_date" type="text" label="Last Backup" default="Never" enable="false" />
+
+		<setting type="lsep" label="OffCloud" />
+		<setting type="action" label="Backup Data" option="close"
+		         action="RunScript(script.module.reauthorize,action=backupService&amp;service=offcloud)" />
+		<setting type="action" label="Restore Saved Data" option="close"
+		         action="RunScript(script.module.reauthorize,action=restoreService&amp;service=offcloud)"
+		         visible="true" />
+		<setting id="oc_backup_date" type="text" label="Last Backup" default="Never" enable="false" />
+
+		<setting type="lsep" label="Easynews" />
+		<setting type="action" label="Backup Data" option="close"
+		         action="RunScript(script.module.reauthorize,action=backupService&amp;service=easynews)" />
+		<setting type="action" label="Restore Saved Data" option="close"
+		         action="RunScript(script.module.reauthorize,action=restoreService&amp;service=easynews)"
+		         visible="true" />
+		<setting id="en_backup_date" type="text" label="Last Backup" default="Never" enable="false" />
+
+		<setting type="lsep" label="FilePursuit" />
+		<setting type="action" label="Backup Data" option="close"
+		         action="RunScript(script.module.reauthorize,action=backupService&amp;service=filepursuit)" />
+		<setting type="action" label="Restore Saved Data" option="close"
+		         action="RunScript(script.module.reauthorize,action=restoreService&amp;service=filepursuit)"
+		         visible="true" />
+		<setting id="fp_backup_date" type="text" label="Last Backup" default="Never" enable="false" />
+
+		<setting type="lsep" label="Metadata Providers" />
+		<setting type="action" label="Backup Data" option="close"
+		         action="RunScript(script.module.reauthorize,action=backupService&amp;service=meta)"
+		         visible="true" />
+		<setting type="action" label="Restore Saved Data" option="close"
+		         action="RunScript(script.module.reauthorize,action=restoreService&amp;service=meta)"
+		         visible="true" />
+		<setting id="md_backup_date" type="text" label="Last Backup" default="Never" enable="false" />
+
+	</category>
+
+	<!-- ═══════════════════════════════════════════════════════════
+	     TAB 7 - RESET & CLEAR
+	     Remove device - Reset add-ons - Prepare for distribution
+	═══════════════════════════════════════════════════════════ -->
+	<category label="Reset &amp; Clear">
+
+		<setting type="lsep" label="For Users" />
+		<setting type="action" label="[COLOR red]*NUKE THIS DEVICE*[/COLOR] - wipes all sign-ins and removes your server backup" option="close"
+		         action="RunScript(script.module.reauthorize, action=deviceReset)" />
+		<setting type="action" label="Reset All Add-ons to Default Settings" option="close"
+		         action="RunScript(script.module.reauthorize, action=resetSettings)" />
+		<setting label="[COLOR yellow]Help - Restore to Default[/COLOR]" type="action" option="close"
+		         action="RunScript(script.module.reauthorize, action=ShowHelpRestore)" />
+
+		<setting type="sep" />
+		<setting type="lsep" label="For Build Creators" />
+		<!-- The steps first, so nobody shuts Kodi down half way (the user, 2026-10-16), then the button: bold, green,
+		     'START', last in the tab, so it reads as the one thing to press, not one more line of the notes (the user,
+		     2026-10-18: from across a living room it looked like a statement). Kodi's settings list cannot centre a row.
+		     The notes are disabled rows: Kodi draws them in its own dim grey and the remote skips them, so START is the
+		     only row that lights up (as the user saw, every note row took the highlight when they were plain labels). -->
+		<setting type="text" label="Do this last, after any clean-up inside Kodi." enable="false" />
+		<setting type="text" label="Press START below and answer its two questions." enable="false" />
+		<setting type="text" label="Takes a minute or two. Please let the clean finish: Kodi force closes when done." enable="false" />
+		<setting type="action" label="[B][COLOR FF4ADE80]START - Prepare This Build for Distribution[/COLOR][/B]" option="close"
+		         action="RunScript(script.module.reauthorize, action=prepareDistribution)" />
+
+	</category>
+
+	<!-- ═══════════════════════════════════════════════════════════
+	     TAB 8 - ABOUT
+	═══════════════════════════════════════════════════════════ -->
+	<category label="About">
+
+		<setting label="View Changelog" type="action" option="close"
+		         action="RunScript(script.module.reauthorize, action=ShowChangelog)" />
+
+		<setting label="Compatible Add-ons" type="action" option="close"
+		         action="RunScript(script.module.reauthorize, action=ShowCompatibleAddons)" />
+
+		<setting label="How to Report an Issue" type="action" option="close"
+		         action="RunScript(script.module.reauthorize, action=ShowHelpIssues)" />
+
+<setting label="Storage Report" type="action" option="close"
+		         action="RunScript(script.module.reauthorize, action=storageReport)" />
+		<setting type="lsep" label="Shows where your backup is saved and whether it will survive a build install. Screenshot this when reporting a problem." />
+
+	</category>
+
+</settings>

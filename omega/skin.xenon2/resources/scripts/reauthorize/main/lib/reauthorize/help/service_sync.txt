@@ -1,0 +1,21 @@
+AUTO-SYNC AFTER A BUILD INSTALL
+================================
+When Kodi starts on a fresh build (or any build that does not have
+ReAuthorize's setup marker), ReAuthorize automatically restores your
+credentials from the cloud and pushes them to every supported add-on
+in one step.
+
+No toggles, no configuration, no action required.
+
+Once setup is complete the marker is written, and future starts are
+instant - no sync is run until you install another new build.
+
+A new add-on, or one you open for the first time, is noticed within
+a few minutes (or at the next Kodi start) and gets your sign-ins by
+itself. To do it by hand, go to the  Backup & Device  tab and press
+"Save & Backup Now" - this backs up your credentials and pushes them
+to all add-ons in one step.
+
+For a targeted re-push without a backup, go to the  Manage  tab and
+press "Re-Authorize My Services," or use the individual "Sync Add-ons"
+button in each service's tab.

@@ -1,0 +1,73 @@
+FULLSCREEN PLAYER UPDATE — 0.10.7
+Selecting a station now opens Kodi's fullscreen music visualization/player
+(window 12006), rather than explicitly opening the music playlist (10500).
+The fullscreen request is made once audio is playing and the newly selected
+station's first song has been handed to Kodi. It is not repeated every song,
+so you can leave the player and browse normally. Selecting the same currently
+playing station also opens the player. Kodi's playlist remains the internal
+playback queue. All startup and download fixes from 0.10.6 are retained.
+
+Pandoki 0.10.7 — station startup and download recovery
+
+INSTALL
+Back up your original plugin.audio.pandoki.zip. In Kodi, select Add-ons >
+Install from zip file and install plugin.audio.pandoki-0.10.7.zip.
+Restart Kodi to stop any old resident Pandoki instance and load the new code.
+The add-on ID and settings IDs are unchanged, so your existing configuration
+is retained. No account credentials were needed or used to prepare this patch.
+
+STARTUP FIXES
+- A selected station requests its first song immediately, rather than waiting
+  for the previous station's next-fetch countdown (default pacing: 8 seconds).
+  Subsequent requests retain the existing pacing.
+- When switching stations, start the new station's first ready song instead
+  of waiting for the current old-station song to finish.
+- Reduce the unconditional pause after displaying the station directory from
+  3 seconds to 0.1 seconds, improving responsiveness and autoplay startup.
+- Poll command completion every 0.1 seconds instead of every second.
+- Discard stale queued songs and cancel obsolete cache downloads on station
+  changes, so old work cannot unexpectedly enter the new station's queue.
+
+RECOVERY AND CACHE FIXES
+- Reserve fetch-worker slots before connections begin and release them in a
+  finally block after failures. Applies to streaming and caching workers.
+- Stop cleanly on early EOF and timeouts instead of repeatedly reading an empty
+  response or leaving worker counters stuck.
+- Use temporary partial files; promote only complete, closed files to the
+  playable cache. Partial files cannot be mistaken for fully cached songs.
+- Queue complete short files even if smaller than the old buffer threshold.
+- Move startup cache cleanup before downloads begin, avoiding deletion of
+  a newly queued cache file. Interrupted temporary downloads are cleaned at
+  the next add-on startup.
+- Support urllib and urllib3 audio openers in cache mode.
+- Do not trigger an unrelated account login retry for every audio-download
+  failure. Failed songs are skipped; normal scheduling requests another.
+- Return safely after playlist network failures instead of using an undefined
+  local song list. The scheduler retries after its normal pacing interval.
+- Apply the existing 30-second API timeout to the optional urllib3/SNI path;
+  disable hidden HTTP retry loops there. Handle timeout exceptions and URL
+  errors safely, and close ordinary API responses after reading.
+
+SETTINGS AND EXPECTATIONS
+For shortest startup latency, use Stream Only (the add-on's existing default).
+Cache Only still waits for a complete audio download before playing; this
+patch deliberately avoids feeding incomplete MP4/M4A files to Kodi.
+Existing quality, proxy, credentials, station UI and rate-limit pacing settings
+are retained. Pandora login, playlist generation, network latency and Kodi
+buffering can still affect startup. No live Pandora performance measurements
+were possible here, so no fixed speedup is claimed.
+
+VALIDATION
+13 automated regression tests pass using extracted add-on class methods and
+mocked Kodi/network calls. Tests cover immediate fetch scheduling, transition
+playback, stale-work rejection, concurrency reservation and cleanup, playlist
+request failure, complete-cache promotion, early EOF and download timeout.
+All three modified Python files compile; ZIP integrity is verified.
+Live Pandora authentication, playback, proxy behavior and skin rendering have
+not been tested. Bundled optional legacy asciidamnit code already contains
+Python 2 syntax; it is unchanged and is not imported on the inspected playback
+startup path. This update is not a complete modernization of every dependency.
+
+ROLLBACK
+Reinstall your original ZIP and restart Kodi. No skin or lyrics changes are
+required. Stop playback before testing the replacement or rollback.

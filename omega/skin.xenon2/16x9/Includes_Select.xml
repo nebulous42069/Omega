@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <includes>
 	<!-- Built-in-Select -->
 	<include name="DefaultSelect">
@@ -647,13 +647,8 @@
 			<label>Horizontal Menu</label>
 			<onclick>Dialog.Close(1129)</onclick>
 			<onclick>Skin.Reset(MainMenu.Layout)</onclick>
-		</item>
-		<item>
-			<label>$LOCALIZE[31994]</label>
-			<onclick>Dialog.Close(1129)</onclick>
-			<onclick>Skin.SetString(MainMenu.Layout,vertical)</onclick>
-		</item>
-	</include>
+		<onclick>Skin.SetBool(centermainmenu)</onclick></item>
+		</include>
 	<include name="SelectFanartTimePerImage">
 		<item>
 			<label>2 $LOCALIZE[31090]</label>

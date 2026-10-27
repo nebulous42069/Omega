@@ -1,0 +1,82 @@
+<shortcuts>
+	<shortcut>
+		<defaultID />
+		<label>Android Apps</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/android.png</thumb>
+		<action>ActivateWindow(Programs,AndroidApps,return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>videoadd-ons</defaultID>
+		<label>Video Addons</label>
+		<label2>Favourite</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/defaultaddonmovieinfo.png</thumb>
+		<action>ActivateWindow(10040,"addons://all/xbmc.addon.video",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>musicadd-ons</defaultID>
+		<label>Music add-ons</label>
+		<label2>Favourite</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/defaultaddonmusic.png</thumb>
+		<action>ActivateWindow(10040,"addons://all/xbmc.addon.audio",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>lookandfeel</defaultID>
+		<label>Look and feel</label>
+		<label2>Favourite</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/defaultaddonlookandfeel.png</thumb>
+		<action>ActivateWindow(10040,"addons://all/category.lookandfeel",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Paid Addons</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/netflix.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.program.super.favourites/?label=Subscription+Addons&amp;mode=400&amp;path=special%3A%2F%2Fprofile%2Faddon_data%2Fplugin.program.super.favourites%2FSuper+Favourites%5CSubscription+Addons&amp;image=special%3A%2F%2Fhome%2Faddons%2Fresource.images.skinicons.wide%2Fresources%2Ficons%2Fnetflix.png&amp;fanart=special%3A%2F%2Fhome%2Faddons%5Cplugin.video.amazon-test%5Cfanart.png&amp;content_type=",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>pictureadd-ons</defaultID>
+		<label>Picture add-ons</label>
+		<label2>Favourite</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/defaultaddonpicture.png</thumb>
+		<action>ActivateWindow(10040,"addons://all/xbmc.addon.image",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>pvrclients</defaultID>
+		<label>PVR clients</label>
+		<label2>Favourite</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/defaultmusicrecentlyplayed.png</thumb>
+		<action>ActivateWindow(10040,"addons://all/kodi.pvrclient",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>weather</defaultID>
+		<label>Weather Addons</label>
+		<label2>Favourite</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/DefaultAddonWeather.png</thumb>
+		<action>ActivateWindow(10040,"addons://all/xbmc.python.weather",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>subtitles</defaultID>
+		<label>Subtitle Addons</label>
+		<label2>Favourite</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/DefaultAddonSubtitles.png</thumb>
+		<action>ActivateWindow(10040,"addons://all/xbmc.subtitle.module",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.video.yt.kiosk</defaultID>
+		<label>YouTube Kiosk</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/ytkiosk.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.yt.kiosk",return)</action>
+		</shortcut>
+	</shortcuts>

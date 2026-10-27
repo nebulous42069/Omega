@@ -1,0 +1,79 @@
+id,name,kind,status,content_type,bytes,ok,url
+2,60's,stream,200,audio/mpeg,512,True,https://das-sa39.cdnstream1.com/5557_128
+2,60's,logo,200,image/png,512,True,https://dashradio-files.s3.amazonaws.com/development/icon_logos/2/logos/2fe9ddaf-c176-401b-b8fc-e7ab7e557d63.png
+3,LITT 30,stream,200,audio/mpeg,512,True,https://das-sa39.cdnstream1.com/5603_128
+3,LITT 30,logo,200,image/png,512,True,https://dashradio-files.s3.amazonaws.com/development/icon_logos/3/logos/e79fab5d-6030-435d-a70a-af5f07e1c361.png
+19,LITT Y2K Hits,stream,200,audio/mpeg,512,True,https://das-sa39.cdnstream1.com/5604_128
+19,LITT Y2K Hits,logo,200,image/png,512,True,https://dashradio-files.s3.amazonaws.com/development/icon_logos/19/logos/1dd31490-ca2e-463d-8b4a-e469ed96074a.png
+22,LITT Rock,stream,200,audio/mpeg,512,True,https://das-sa39.cdnstream1.com/5591_128
+22,LITT Rock,logo,200,image/png,512,True,https://dashradio-files.s3.amazonaws.com/development/icon_logos/22/logos/a1522fe3-1990-41dd-919e-f4c0a32e7c64.png
+28,LITT Pop,stream,200,audio/mpeg,512,True,https://das-sa39.cdnstream1.com/5587_128
+28,LITT Pop,logo,200,image/png,512,True,https://dashradio-files.s3.amazonaws.com/development/icon_logos/28/logos/a6d290c5-6621-41c2-b7f8-8d2c0fe63097.png
+31,80's,stream,200,audio/mpeg,512,True,https://das-sa39.cdnstream1.com/5559_128
+31,80's,logo,200,image/png,512,True,https://dashradio-files.s3.amazonaws.com/development/icon_logos/31/logos/1fa99faa-b51e-45b6-a016-c60dbcccfdeb.png
+33,LITT Hip-Hop,stream,200,audio/mpeg,512,True,https://das-sa39.cdnstream1.com/6067_128
+33,LITT Hip-Hop,logo,200,image/png,512,True,https://dashradio-files.s3.amazonaws.com/development/icon_logos/33/logos/02a6f296-83c5-4e17-ad6b-f868b166b06c.png
+37,LITT Alt,stream,200,audio/mpeg,512,True,https://das-sa39.cdnstream1.com/5561_128
+37,LITT Alt,logo,200,image/png,512,True,https://dashradio-files.s3.amazonaws.com/development/icon_logos/37/logos/fa223160-3a88-45f2-b452-9fd341ecfe4d.png
+40,Legends Of Rock,stream,200,audio/mpeg,512,True,https://das-sa39.cdnstream1.com/5602_128
+40,Legends Of Rock,logo,200,image/png,512,True,https://dashradio-files.s3.amazonaws.com/development/icon_logos/40/logos/c28255f3-0b59-4149-ab1f-09b2c40ba4a7.png
+43,LITT Country,stream,200,audio/mpeg,512,True,https://das-sa39.cdnstream1.com/5563_128
+43,LITT Country,logo,200,image/png,512,True,https://dashradio-files.s3.amazonaws.com/development/icon_logos/43/logos/bf193911-ce9a-40fa-be4c-adc086fddcc9.png
+44,The Ranch - Classic Country,stream,200,audio/mpeg,512,True,https://das-sa39.cdnstream1.com/5601_128
+44,The Ranch - Classic Country,logo,200,image/png,512,True,https://dashradio-files.s3.amazonaws.com/development/icon_logos/44/logos/a1e72c32-c76c-4727-991f-97d8d3ee6514.png
+49,LITT City Radio,stream,200,audio/mpeg,512,True,https://das-sa39.cdnstream1.com/6066_128
+49,LITT City Radio,logo,200,image/png,512,True,https://dashradio-files.s3.amazonaws.com/development/icon_logos/49/logos/293ce169-b41d-4b8b-a9f2-0cbc52f83fec.png
+50,LITT R&B,stream,200,audio/mpeg,512,True,https://das-sa39.cdnstream1.com/5589_128
+50,LITT R&B,logo,200,image/png,512,True,https://dashradio-files.s3.amazonaws.com/development/icon_logos/50/logos/46dde197-a76a-4e04-9b73-c8fd9a797fcb.png
+52,Super Freak - Powered by Rick James,stream,200,audio/mpeg,512,True,https://das-sa39.cdnstream1.com/5597_128
+52,Super Freak - Powered by Rick James,logo,200,image/jpeg,512,True,https://dashradio-files.s3.amazonaws.com/development/icon_logos/52/logos/4501a75e-7bca-4815-8600-c230ec08ce8b.png
+53,Daebak Radio,stream,200,audio/mpeg,512,True,https://das-sa39.cdnstream1.com/11561_128
+53,Daebak Radio,logo,200,image/png,512,True,https://dashradio-files.s3.amazonaws.com/development/icon_logos/53/logos/fad7f982-88ea-4345-b38d-ae8910f74433.png
+57,Lofi - Chill & Instrumental Jazz Beats,stream,200,audio/mpeg,512,True,https://das-sa39.cdnstream1.com/5582_128
+57,Lofi - Chill & Instrumental Jazz Beats,logo,200,image/png,512,True,https://dashradio-files.s3.amazonaws.com/development/icon_logos/57/logos/c296a19b-e6ef-4bad-9430-6aab6954fbee.png
+60,LITT Latin,stream,200,audio/mpeg,512,True,https://das-sa39.cdnstream1.com/5580_128
+60,LITT Latin,logo,200,image/png,512,True,https://dashradio-files.s3.amazonaws.com/development/icon_logos/60/logos/b75f4b94-6599-4539-94e3-6c7ef03bcc3e.png
+62,90's-Boomerang,stream,200,audio/mpeg,512,True,https://das-sa39.cdnstream1.com/5560_128
+62,90's-Boomerang,logo,200,image/png,512,True,https://dashradio-files.s3.amazonaws.com/development/icon_logos/62/logos/5d36d54a-924f-4539-9407-0cadb4de7439.png
+68,1580 - Classic Hip-Hop Hits,stream,200,audio/mpeg,512,True,https://das-sa39.cdnstream1.com/5556_128
+68,1580 - Classic Hip-Hop Hits,logo,200,image/png,512,True,https://dashradio-files.s3.amazonaws.com/development/icon_logos/68/logos/bc7e99c4-af5d-4f33-923f-9b703063c064.png
+69,Yacht Rock Radio,stream,200,audio/mpeg,512,True,https://das-sa39.cdnstream1.com/5605_128
+69,Yacht Rock Radio,logo,200,image/png,512,True,https://dashradio-files.s3.amazonaws.com/development/icon_logos/69/logos/711887f1-d88c-445b-a746-4ae0ddbf19fe.png
+70,70's,stream,200,audio/mpeg,512,True,https://das-sa39.cdnstream1.com/5558_128
+70,70's,logo,200,image/png,512,True,https://dashradio-files.s3.amazonaws.com/development/icon_logos/70/logos/83aee305-112d-4ae5-902b-d1063eb139f0.png
+76,Disco Fever,stream,200,audio/mpeg,512,True,https://das-sa39.cdnstream1.com/5566_128
+76,Disco Fever,logo,200,image/png,512,True,https://dashradio-files.s3.amazonaws.com/development/icon_logos/76/logos/70e9e71e-e10b-460e-aa0f-53e4373ff2e7.png
+107,"Cadillacc Music - Soul, R&B, Funk, & Hip-Hop",stream,200,audio/mpeg,512,True,https://littlive-live-a.cdnstream1.com/5595_128
+107,"Cadillacc Music - Soul, R&B, Funk, & Hip-Hop",logo,200,image/png,512,True,https://dashradio-files.s3.amazonaws.com/development/icon_logos/107/logos/590aec9f-6927-4ad8-8125-96353e4c3ca9.png
+140,Konvict Kulture-Akon,stream,200,audio/mpeg,512,True,https://das-sa39.cdnstream1.com/5600_128
+140,Konvict Kulture-Akon,logo,200,image/png,512,True,https://dashradio-files.s3.amazonaws.com/development/icon_logos/140/logos/8d28a231-73d5-45f9-9d31-295331594ecd.png
+147,Doggystyle - West Coast Hip-Hop programmed by Snoop Dogg,stream,200,audio/mpeg,512,True,https://das-sa39.cdnstream1.com/5567_128
+147,Doggystyle - West Coast Hip-Hop programmed by Snoop Dogg,logo,200,image/png,512,True,https://dashradio-files.s3.amazonaws.com/development/icon_logos/147/logos/60de287c-2e3c-4735-a18d-340d433f9222.png
+164,Grunge - 90's Rock,stream,200,audio/mpeg,512,True,https://das-sa39.cdnstream1.com/5570_128
+164,Grunge - 90's Rock,logo,200,image/png,512,True,https://dashradio-files.s3.amazonaws.com/development/icon_logos/164/logos/5035a009-8938-4b8e-998a-31d6aba7de6f.png
+186,Ice Cube Presents: BIG3 Radio,stream,200,audio/mpeg,512,True,https://das-sa39.cdnstream1.com/5573_128
+186,Ice Cube Presents: BIG3 Radio,logo,200,image/png,512,True,https://dashradio-files.s3.amazonaws.com/icon_logos/BIG3/big3_324.png
+198,LITT Dance,stream,200,audio/mpeg,512,True,https://das-sa39.cdnstream1.com/5564_128
+198,LITT Dance,logo,200,image/png,512,True,https://dashradio-files.s3.amazonaws.com/development/icon_logos/198/logos/b39a9a12-2b5d-409f-9d6c-2addfd32394a.png
+200,Rhythm & Praise - Gospel R&B,stream,200,audio/mpeg,512,True,https://das-sa39.cdnstream1.com/5590_128
+200,Rhythm & Praise - Gospel R&B,logo,200,image/png,512,True,https://dashradio-files.s3.amazonaws.com/development/icon_logos/200/logos/af7e6d30-1c90-42c3-bc13-66b870d85d77.png
+214,LITT Hits,stream,200,audio/mpeg,512,True,https://das-sa39.cdnstream1.com/5572_128
+214,LITT Hits,logo,200,image/png,512,True,https://dashradio-files.s3.amazonaws.com/development/icon_logos/214/logos/427a5891-ff20-4c54-b4e4-969a3c7222f6.png
+215,Island Fever - Where Caribbean Music Lives,stream,200,audio/mpeg,512,True,https://das-sa39.cdnstream1.com/5578_128
+215,Island Fever - Where Caribbean Music Lives,logo,200,image/png,512,True,https://dashradio-files.s3.amazonaws.com/development/icon_logos/215/logos/ed926b3b-3b27-4916-9609-c26624115803.png
+217,Laugh Factory - Live Comedy,stream,200,audio/mpeg,512,True,https://das-sa39.cdnstream1.com/5581_128
+217,Laugh Factory - Live Comedy,logo,200,image/png,512,True,https://dashradio-files.s3.amazonaws.com/development/icon_logos/217/logos/298f4cb0-baae-4dba-89ee-5ae7ea0ea523.png
+233,Sunny,stream,200,audio/mpeg,512,True,https://das-sa39.cdnstream1.com/5598_128
+233,Sunny,logo,200,image/png,512,True,https://dashradio-files.s3.amazonaws.com/development/icon_logos/233/logos/1fb642ea-2d94-47ba-9955-c36ed1b78492.png
+234,"LITT ""The Tens""",stream,200,audio/mpeg,512,True,https://das-sa39.cdnstream1.com/5555_128
+234,"LITT ""The Tens""",logo,200,image/png,512,True,https://dashradio-files.s3.amazonaws.com/development/icon_logos/234/logos/aa28851b-53b7-4de8-abb3-eea51456bf43.png
+235,SmashHaus,stream,200,audio/mpeg,512,True,https://das-sa39.cdnstream1.com/5593_128
+235,SmashHaus,logo,200,image/png,512,True,https://dashradio-files.s3.amazonaws.com/development/icon_logos/235/logos/4c3e0f34-881e-4ddd-9662-99f20437224d.png
+237,Shaq Fu,stream,200,audio/mpeg,512,True,https://radiocustoms.cdnstream1.com/shaqfu?aw_0_1st.playerId=LITTLive
+237,Shaq Fu,logo,200,image/png,512,True,https://dashradio-files.s3.amazonaws.com/development/icon_logos/237/logos/0228c1fc-958c-427c-857c-b9f39fe2b770.png
+245,AP News,stream,200,audio/aacp,512,True,https://apnews.cdnstream1.com/apnews?aw_0_1st.playerId=LITTLive
+245,AP News,logo,200,image/png,512,True,https://dashradio-files.s3.amazonaws.com/development/icon_logos/245/logos/8187dc1f-a2c3-4e83-9e40-c0218b1fa267.png
+246,LITT Premo,stream,200,audio/mpeg,512,True,https://das-sa39.cdnstream1.com/6212_128
+246,LITT Premo,logo,200,image/png,512,True,https://dashradio-files.s3.amazonaws.com/development/icon_logos/246/logos/041316cc-074b-44ad-9df8-abff80cbad2c.png
+248,LITT Xtreme,stream,200,audio/mpeg,512,True,https://littlive-live-a.cdnstream1.com/5584_128
+248,LITT Xtreme,logo,200,image/png,512,True,https://dashradio-files.s3.amazonaws.com/development/icon_logos/248/logos/f907f517-bb04-4653-9791-0c7162d048d2.png

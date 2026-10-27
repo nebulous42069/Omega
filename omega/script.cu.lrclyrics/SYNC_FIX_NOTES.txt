@@ -1,0 +1,59 @@
+CU LRC Lyrics 6.7.6.3 — radio and streaming synchronization fixes
+
+INSTALL
+Keep your original ZIP. Install script.cu.lrclyrics-6.7.6.3-streamfix.zip using
+Kodi > Add-ons > Install from zip file, then restart Kodi. This updates the
+lyrics add-on only; Dash/Litt Live and M3SR2019 do not need reinstalling.
+
+For switching between these two add-ons, leave the lyrics add-on's manual
+internet radio setting OFF. Continuous internet streams without a duration
+are now checked automatically for song metadata changes. The manual setting
+remains available for stations that incorrectly report a track duration.
+Start with the global lyrics time offset at zero.
+
+WHAT THE ATTACHED SOURCES SHOW
+Dash/Litt Live opens continuous station URLs. Its Python code supplies no
+song-start timestamps or periodic now-playing timing service. Any changing
+song metadata must come from the playback stream/Kodi. Initial mid-song
+playback and late metadata therefore have no trustworthy song-start time.
+M3SR2019 resolves individual MP3 URLs and supplies artist, title and duration
+when available. Known-duration tracks follow Kodi's normal playback clock.
+If a track has no duration, the generic stream timing heuristic applies.
+
+CHANGES SINCE 6.7.6.2
+- Automatically check metadata on internet streams with no known duration.
+- Preserve a station song's clock when redisplaying/refetching its lyrics.
+  Reset only when its filename/artist/title identity changes.
+- Skip next-track prefetch on continuous stations to avoid delaying metadata
+  polling with a download for an unrelated next playlist item.
+
+ALL SYNCHRONIZATION CHANGES
+- Check playback every 50 ms; handle seeks and live offsets without stale timers.
+- Correct fractional LRC timestamps, repeated tags and signed file offsets.
+- Select the correct line at exact timestamps and after backward seeks.
+- Save only the delta between repeated manual synchronization adjustments.
+- Initialize the sync slider safely when closed without changes.
+- Use a song-relative stream clock based on observed Kodi position changes.
+- Exclude pauses and buffering reported by Kodi. Before a usable player clock
+  advances, use monotonic elapsed time. Once established, freeze on stalled or
+  missing player-clock samples and rebase on clock restarts/outages.
+- Reset radio timing before fetching lyrics for a newly detected song.
+- Remove bundled Python bytecode from the install archive.
+
+OFFSET DIRECTIONS
+Global setting: positive delays lyrics; negative advances them.
+Song synchronization slider: positive advances; negative delays.
+Saving song adjustments requires the add-on's existing save options and a
+writable lyrics destination. Back up LRC files before testing saved adjustments.
+
+VALIDATION AND LIMITS
+17 automated tests pass with simulated clocks and mocked Kodi APIs; modified
+Python files compile, and ZIP integrity is verified. Actual Kodi playback has
+not been tested. 50 ms is a polling target, not a real-time guarantee.
+This does not analyze audio or infer vocal alignment. Incorrect lyric versions,
+station metadata delays, crossfades, and starting mid-song remain limitations.
+When Kodi supplies neither advancing timing nor buffering notifications, the
+fallback clock cannot account for unreported interruptions. A changing stream
+duration or inaccurate metadata may still require further diagnostics.
+Test several song transitions on both add-ons. Reinstall the earlier/original
+ZIP and restart Kodi to roll back; saved LRC adjustments are separate files.

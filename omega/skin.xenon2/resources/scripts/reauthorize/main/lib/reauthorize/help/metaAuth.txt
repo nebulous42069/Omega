@@ -1,0 +1,6 @@
+
+How To Sync Your Data:
+
+1. Add your data into the appropriate field(s).
+2. ReAuthorize sends it to your installed add-ons by itself.
+   'Sync Add-ons' sends it again, for example after installing an add-on.

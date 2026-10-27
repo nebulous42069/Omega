@@ -1,0 +1,133 @@
+# Kodi Media Center language file
+# Addon Name: "Pandoki"
+# Addon id: plugin.audio.pandoki
+# Addon Provider: TBD
+msgid ""
+msgstr ""
+"Project-Id-Version: plugin.audio.pandoki\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: TBD\n"
+"Language-Team: English (http://www.transifex.com/projects/p/xbmc-addons/language/en/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgctxt "#30000"
+msgid "Account"
+msgstr ""
+
+msgctxt "#30001"
+msgid "Username (email)"
+msgstr ""
+
+msgctxt "#30002"
+msgid "Password"
+msgstr ""
+
+msgctxt "#30003"
+msgid "Pandora One"
+msgstr ""
+
+msgctxt "#30004"
+msgid "Use Proxy"
+msgstr ""
+
+msgctxt "#30005"
+msgid "SNI Support"
+msgstr ""
+
+msgctxt "#30006"
+msgid "Server"
+msgstr ""
+
+msgctxt "#30007"
+msgid "Port"
+msgstr ""
+
+msgctxt "#30008"
+msgid "Username"
+msgstr ""
+
+msgctxt "#30009"
+msgid "Settings"
+msgstr ""
+
+msgctxt "#30010"
+msgid "Auto Play Last Station"
+msgstr ""
+
+msgctxt "#30011"
+msgid "Sort Stations"
+msgstr ""
+
+msgctxt "#30012"
+msgid "Audio Quality"
+msgstr ""
+
+msgctxt "#30013"
+msgid "Rating Mode"
+msgstr ""
+
+msgctxt "#30014"
+msgid "Track Handling"
+msgstr ""
+
+msgctxt "#30015"
+msgid "Concurrent Downloads"
+msgstr ""
+
+msgctxt "#30016"
+msgid "Save Playlist"
+msgstr ""
+
+msgctxt "#30017"
+msgid "Skip Small Songs"
+msgstr ""
+
+msgctxt "#30018"
+msgid "Advanced"
+msgstr ""
+
+msgctxt "#30019"
+msgid "Debug"
+msgstr ""
+
+msgctxt "#30020"
+msgid "Notification"
+msgstr ""
+
+msgctxt "#30021"
+msgid "Playlist History"
+msgstr ""
+
+msgctxt "#30022"
+msgid "Min Song Size"
+msgstr ""
+
+msgctxt "#30023"
+msgid "Track Prefetch"
+msgstr ""
+
+msgctxt "#30024"
+msgid "Folders"
+msgstr ""
+
+msgctxt "#30025"
+msgid "Cache"
+msgstr ""
+
+msgctxt "#30026"
+msgid "Profile"
+msgstr ""
+
+msgctxt "#30027"
+msgid "Station0"
+msgstr ""
+
+msgctxt "#30028"
+msgid "Library"
+msgstr ""

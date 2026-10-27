@@ -1,0 +1,114 @@
+<shortcuts>
+	<shortcut>
+		<defaultID>plugin.program.iagl/game_list/Atari 2600/by_all</defaultID>
+		<label>Atari 2600</label>
+		<label2>Favourite</label2>
+		<icon>DefaultFolder.png</icon>
+		<thumb>https://raw.githubusercontent.com/zach-morris/iagl.media/master/default/game_list/thumb/Atari%202600.png</thumb>
+		<action>ActivateWindow(10025,"plugin://plugin.program.iagl/game_list/Atari 2600/by_all",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.program.iagl/game_list/Nintendo Entertainment System/by_all</defaultID>
+		<label>Nintendo</label>
+		<label2>Favourite</label2>
+		<icon>DefaultFolder.png</icon>
+		<thumb>https://raw.githubusercontent.com/zach-morris/iagl.media/master/default/game_list/thumb/Nintendo%20Entertainment%20System.png</thumb>
+		<action>ActivateWindow(10025,"plugin://plugin.program.iagl/game_list/Nintendo Entertainment System/by_all",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.program.iagl/game_list/Super Nintendo Entertainment System/by_all</defaultID>
+		<label>Super Nintendo</label>
+		<label2>Favourite</label2>
+		<icon>DefaultFolder.png</icon>
+		<thumb>https://raw.githubusercontent.com/zach-morris/iagl.media/master/default/game_list/thumb/Super%20Nintendo%20Entertainment%20System.png</thumb>
+		<action>ActivateWindow(10025,"plugin://plugin.program.iagl/game_list/Super Nintendo Entertainment System/by_all",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.program.iagl/game_list/Sony PlayStation/by_all</defaultID>
+		<label>Sony PlayStation</label>
+		<label2>Favourite</label2>
+		<icon>DefaultFolder.png</icon>
+		<thumb>https://raw.githubusercontent.com/zach-morris/iagl.media/master/default/game_list/thumb/Sony%20PlayStation.png</thumb>
+		<action>ActivateWindow(10025,"plugin://plugin.program.iagl/game_list/Sony PlayStation/by_all",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.program.iagl/game_list/MAME/by_all</defaultID>
+		<label>MAME</label>
+		<label2>Favourite</label2>
+		<icon>DefaultFolder.png</icon>
+		<thumb>https://raw.githubusercontent.com/zach-morris/iagl.media/master/default/game_list/thumb/MAME.png</thumb>
+		<action>ActivateWindow(10025,"plugin://plugin.program.iagl/game_list/MAME/by_all",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.program.iagl/game_list/TurboGrafx-16/by_all</defaultID>
+		<label>TurboGrafx-16</label>
+		<label2>Favourite</label2>
+		<icon>DefaultFolder.png</icon>
+		<thumb>https://raw.githubusercontent.com/zach-morris/iagl.media/master/default/game_list/thumb/TurboGrafx-16.png</thumb>
+		<action>ActivateWindow(10025,"plugin://plugin.program.iagl/game_list/TurboGrafx-16/by_all",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.program.iagl/game_list/Nintendo Game Boy/by_all</defaultID>
+		<label>Game Boy</label>
+		<label2>Favourite</label2>
+		<icon>DefaultFolder.png</icon>
+		<thumb>https://raw.githubusercontent.com/zach-morris/iagl.media/master/default/game_list/thumb/Nintendo%20Game%20Boy.png</thumb>
+		<action>ActivateWindow(10025,"plugin://plugin.program.iagl/game_list/Nintendo Game Boy/by_all",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.program.iagl/game_list/Nintendo Game Boy Color/by_all</defaultID>
+		<label>Game Boy Color</label>
+		<label2>Favourite</label2>
+		<icon>DefaultFolder.png</icon>
+		<thumb>https://raw.githubusercontent.com/zach-morris/iagl.media/master/default/game_list/thumb/Nintendo%20Game%20Boy%20Color.png</thumb>
+		<action>ActivateWindow(10025,"plugin://plugin.program.iagl/game_list/Nintendo Game Boy Color/by_all",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.program.iagl/game_list/Nintendo Game Boy Advance/by_all</defaultID>
+		<label>Game Boy Advance</label>
+		<label2>Favourite</label2>
+		<icon>DefaultFolder.png</icon>
+		<thumb>https://raw.githubusercontent.com/zach-morris/iagl.media/master/default/game_list/thumb/Nintendo%20Game%20Boy%20Advance.png</thumb>
+		<action>ActivateWindow(10025,"plugin://plugin.program.iagl/game_list/Nintendo Game Boy Advance/by_all",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.program.iagl/game_list/Sega Game Gear/by_all</defaultID>
+		<label>Sega Game Gear</label>
+		<label2>Favourite</label2>
+		<icon>DefaultFolder.png</icon>
+		<thumb>https://raw.githubusercontent.com/zach-morris/iagl.media/master/default/game_list/thumb/Sega%20Game%20Gear.png</thumb>
+		<action>ActivateWindow(10025,"plugin://plugin.program.iagl/game_list/Sega Game Gear/by_all",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.program.iagl/game_list/Atari Jaguar/by_all</defaultID>
+		<label>Atari Jaguar</label>
+		<label2>Favourite</label2>
+		<icon>DefaultFolder.png</icon>
+		<thumb>https://raw.githubusercontent.com/zach-morris/iagl.media/master/default/game_list/thumb/Atari%20Jaguar.png</thumb>
+		<action>ActivateWindow(10025,"plugin://plugin.program.iagl/game_list/Atari Jaguar/by_all",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.program.iagl/game_list/FBNeo - Arcade/by_all</defaultID>
+		<label>FBNeo - Arcade</label>
+		<label2>Favourite</label2>
+		<icon>DefaultFolder.png</icon>
+		<thumb>https://raw.githubusercontent.com/zach-morris/iagl.media/master/default/game_list/thumb/FBNeo%20-%20Arcade.png</thumb>
+		<action>ActivateWindow(10025,"plugin://plugin.program.iagl/game_list/FBNeo - Arcade/by_all",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.program.iagl/game_list/Nintendo DS/by_all</defaultID>
+		<label>Nintendo DS</label>
+		<label2>Favourite</label2>
+		<icon>DefaultFolder.png</icon>
+		<thumb>https://raw.githubusercontent.com/zach-morris/iagl.media/master/default/game_list/thumb/Nintendo%20DS.png</thumb>
+		<action>ActivateWindow(10025,"plugin://plugin.program.iagl/game_list/Nintendo DS/by_all",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.program.iagl/all</defaultID>
+		<label>Browse all Lists</label>
+		<label2>Favourite</label2>
+		<icon>DefaultFolder.png</icon>
+		<thumb>https://raw.githubusercontent.com/zach-morris/iagl.media/master/default/browse/thumb/Browse%20All%20Lists.png</thumb>
+		<action>ActivateWindow(10025,"plugin://plugin.program.iagl/all",return)</action>
+		</shortcut>
+	</shortcuts>

@@ -1,0 +1,252 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<includes>
+  <expression name="X2EnhancedWidgetInfoVisible">!Skin.HasSetting(Disable.XenonWidgetInfo) + !String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Window.IsActive(home) + !Player.HasVideo + [[Container.Content(movies) | Container.Content(tvshows) | Container.Content(episodes) | String.IsEqual(Container.ListItem.DBType,movie) | String.IsEqual(Container.ListItem.DBType,tvshow) | String.IsEqual(Container.ListItem.DBType,episode) | String.IsEqual(Container.ListItem.Property(tmdb_type),movie) | String.IsEqual(Container.ListItem.Property(tmdb_type),tv) | String.IsEqual(Container.ListItem.MediaType,movie) | String.IsEqual(Container.ListItem.MediaType,tvshow)] | [ControlGroup(90010).HasFocus + [String.IsEqual(Container(9000).ListItem.Property(widgetType),movie) | String.IsEqual(Container(9000).ListItem.Property(widgetType),movies) | String.IsEqual(Container(9000).ListItem.Property(widgetType),tvshow) | String.IsEqual(Container(9000).ListItem.Property(widgetType),tvshows) | String.IsEqual(Container(9000).ListItem.Property(widgetType),episodes) | String.IsEqual(Container(9000).ListItem.Property(widgetType),video) | String.IsEqual(Container(9000).ListItem.Property(widgetType),videos)]] | [ControlGroup(90020).HasFocus + [String.IsEqual(Container(9000).ListItem.Property(widgetType.2),movie) | String.IsEqual(Container(9000).ListItem.Property(widgetType.2),movies) | String.IsEqual(Container(9000).ListItem.Property(widgetType.2),tvshow) | String.IsEqual(Container(9000).ListItem.Property(widgetType.2),tvshows) | String.IsEqual(Container(9000).ListItem.Property(widgetType.2),episodes) | String.IsEqual(Container(9000).ListItem.Property(widgetType.2),video) | String.IsEqual(Container(9000).ListItem.Property(widgetType.2),videos)]] | [ControlGroup(96002).HasFocus + [String.IsEqual(Container(9000).ListItem.Property(widgetType.sel2),movie) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel2),movies) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel2),tvshow) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel2),tvshows) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel2),episodes) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel2),video) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel2),videos)]] | [ControlGroup(96003).HasFocus + [String.IsEqual(Container(9000).ListItem.Property(widgetType.sel3),movie) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel3),movies) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel3),tvshow) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel3),tvshows) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel3),episodes) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel3),video) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel3),videos)]] | [ControlGroup(96004).HasFocus + [String.IsEqual(Container(9000).ListItem.Property(widgetType.sel4),movie) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel4),movies) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel4),tvshow) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel4),tvshows) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel4),episodes) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel4),video) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel4),videos)]] | [ControlGroup(96005).HasFocus + [String.IsEqual(Container(9000).ListItem.Property(widgetType.sel5),movie) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel5),movies) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel5),tvshow) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel5),tvshows) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel5),episodes) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel5),video) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel5),videos)]] | [ControlGroup(96006).HasFocus + [String.IsEqual(Container(9000).ListItem.Property(widgetType.sel6),movie) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel6),movies) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel6),tvshow) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel6),tvshows) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel6),episodes) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel6),video) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel6),videos)]] | [ControlGroup(96007).HasFocus + [String.IsEqual(Container(9000).ListItem.Property(widgetType.sel7),movie) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel7),movies) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel7),tvshow) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel7),tvshows) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel7),episodes) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel7),video) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel7),videos)]] | [ControlGroup(96008).HasFocus + [String.IsEqual(Container(9000).ListItem.Property(widgetType.sel8),movie) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel8),movies) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel8),tvshow) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel8),tvshows) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel8),episodes) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel8),video) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel8),videos)]] | [ControlGroup(96009).HasFocus + [String.IsEqual(Container(9000).ListItem.Property(widgetType.sel9),movie) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel9),movies) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel9),tvshow) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel9),tvshows) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel9),episodes) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel9),video) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel9),videos)]] | [ControlGroup(96010).HasFocus + [String.IsEqual(Container(9000).ListItem.Property(widgetType.sel10),movie) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel10),movies) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel10),tvshow) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel10),tvshows) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel10),episodes) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel10),video) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel10),videos)]] | [ControlGroup(96011).HasFocus + [String.IsEqual(Container(9000).ListItem.Property(widgetType.sel11),movie) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel11),movies) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel11),tvshow) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel11),tvshows) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel11),episodes) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel11),video) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel11),videos)]] | [ControlGroup(96012).HasFocus + [String.IsEqual(Container(9000).ListItem.Property(widgetType.sel12),movie) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel12),movies) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel12),tvshow) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel12),tvshows) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel12),episodes) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel12),video) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel12),videos)]] | [ControlGroup(96013).HasFocus + [String.IsEqual(Container(9000).ListItem.Property(widgetType.sel13),movie) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel13),movies) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel13),tvshow) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel13),tvshows) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel13),episodes) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel13),video) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel13),videos)]] | [ControlGroup(96014).HasFocus + [String.IsEqual(Container(9000).ListItem.Property(widgetType.sel14),movie) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel14),movies) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel14),tvshow) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel14),tvshows) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel14),episodes) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel14),video) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel14),videos)]] | [ControlGroup(96015).HasFocus + [String.IsEqual(Container(9000).ListItem.Property(widgetType.sel15),movie) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel15),movies) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel15),tvshow) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel15),tvshows) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel15),episodes) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel15),video) | String.IsEqual(Container(9000).ListItem.Property(widgetType.sel15),videos)]]] + [[ControlGroup(90010).HasFocus + [!String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo)) | String.Contains(Container(9000).ListItem.Property(widgetStyle),List)]] | [ControlGroup(90020).HasFocus + [!String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.2)) | String.Contains(Container(9000).ListItem.Property(widgetStyle.2),List)]] | [ControlGroup(96002).HasFocus + [!String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.sel2)) | String.Contains(Container(9000).ListItem.Property(widgetStyle.sel2),List)]] | [ControlGroup(96003).HasFocus + [!String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.sel3)) | String.Contains(Container(9000).ListItem.Property(widgetStyle.sel3),List)]] | [ControlGroup(96004).HasFocus + [!String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.sel4)) | String.Contains(Container(9000).ListItem.Property(widgetStyle.sel4),List)]] | [ControlGroup(96005).HasFocus + [!String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.sel5)) | String.Contains(Container(9000).ListItem.Property(widgetStyle.sel5),List)]] | [ControlGroup(96006).HasFocus + [!String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.sel6)) | String.Contains(Container(9000).ListItem.Property(widgetStyle.sel6),List)]] | [ControlGroup(96007).HasFocus + [!String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.sel7)) | String.Contains(Container(9000).ListItem.Property(widgetStyle.sel7),List)]] | [ControlGroup(96008).HasFocus + [!String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.sel8)) | String.Contains(Container(9000).ListItem.Property(widgetStyle.sel8),List)]] | [ControlGroup(96009).HasFocus + [!String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.sel9)) | String.Contains(Container(9000).ListItem.Property(widgetStyle.sel9),List)]] | [ControlGroup(96010).HasFocus + [!String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.sel10)) | String.Contains(Container(9000).ListItem.Property(widgetStyle.sel10),List)]] | [ControlGroup(96011).HasFocus + [!String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.sel11)) | String.Contains(Container(9000).ListItem.Property(widgetStyle.sel11),List)]] | [ControlGroup(96012).HasFocus + [!String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.sel12)) | String.Contains(Container(9000).ListItem.Property(widgetStyle.sel12),List)]] | [ControlGroup(96013).HasFocus + [!String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.sel13)) | String.Contains(Container(9000).ListItem.Property(widgetStyle.sel13),List)]] | [ControlGroup(96014).HasFocus + [!String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.sel14)) | String.Contains(Container(9000).ListItem.Property(widgetStyle.sel14),List)]] | [ControlGroup(96015).HasFocus + [!String.IsEmpty(Container(9000).ListItem.Property(widgetPanelInfo.sel15)) | String.Contains(Container(9000).ListItem.Property(widgetStyle.sel15),List)]]]</expression>
+  <include name="X2EnhancedWidgetInfoPanel">
+        <definition>
+            <control type="group">
+                <depth>DepthDialog+</depth>
+
+                <!-- Only when setting is enabled -->
+                <!-- Only when that widget list has focus -->
+                <!-- Only for video widgets (movie / tvshow / episode / TMDbH items with a tmdb_id) -->
+				<include>VisibleFadeEffect</include>
+
+                <!-- Bottom half of the screen -->
+                <left>0</left>
+                <top>520</top>
+                <!-- Bottom Widget 2 stays in place; show its information above the menu. -->
+                <animation effect="slide" start="0,0" end="0,-520" time="0" condition="Skin.HasSetting(centermainmenu) + ControlGroup(90020).HasFocus">Conditional</animation>
+                <width>1920</width>
+                <height>570</height>
+
+                <!-- Panel background -->
+                <control type="image">
+                    <visible>![Skin.HasSetting(centermainmenu) + ControlGroup(90020).HasFocus]</visible>
+                    <left>-30</left>
+                    <top>5</top>
+                    <width>1975</width>
+                    <height>560</height>
+                    <texture border="5">colors/black.png</texture>
+					<colordiffuse>D0000000</colordiffuse>
+                <hitrect x="-10000" y="-10000" w="0" h="0"/></control>
+                
+				
+				<control type="image">
+                    <visible>Skin.HasSetting(centermainmenu) + ControlGroup(90020).HasFocus</visible>
+                    <left>-30</left><top>0</top><width>1980</width><height>665</height>
+                    <texture>colors/black.png</texture><colordiffuse>D0000000</colordiffuse>
+                    <hitrect x="-10000" y="-10000" w="0" h="0"/>
+                </control>
+                <!-- Restore the original shaded texture over the translucent black base. -->
+                <control type="image">
+                    <visible>![Skin.HasSetting(centermainmenu) + ControlGroup(90020).HasFocus]</visible>
+                    <left>-30</left><top>0</top><width>1980</width><height>590</height>
+                    <texture border="5">RecentAddedBack.png</texture>
+                    <hitrect x="-10000" y="-10000" w="0" h="0"/>
+                </control>
+                <control type="image">
+                    <visible>Skin.HasSetting(centermainmenu) + ControlGroup(90020).HasFocus</visible>
+                    <left>-30</left><top>0</top><width>1980</width><height>665</height>
+                    <texture border="5">RecentAddedBack.png</texture>
+                    <hitrect x="-10000" y="-10000" w="0" h="0"/>
+                </control>
+                <!-- Vertical info block above poster -->
+				<control type="grouplist">
+					<left>25</left>          <!-- aligned with poster left -->
+					<top>25</top>            <!-- above poster top (which is 60) -->
+					<width>550</width>
+					<height>120</height>
+					<orientation>vertical</orientation>
+					<itemgap>2</itemgap>
+
+					<!-- Year -->
+					<control type="label">
+						<width>350</width>
+						<height>24</height>
+						<label>Year: $VAR[X2InfoYear]</label>
+						<font>font12</font>
+						<textcolor>grey2</textcolor>
+						<shadowcolor>black</shadowcolor>
+						<visible>!String.IsEmpty(Window(Home).Property(X2Info.Year)) | !String.IsEmpty(Container.ListItem.Year)</visible>
+					<hitrect x="-10000" y="-10000" w="0" h="0"/></control>
+
+					<!-- Genre -->
+					<control type="label">
+						<width>550</width>
+						<height>24</height>
+						<label>Genre: $VAR[X2InfoGenres]</label>
+						<font>font12</font>
+						<textcolor>grey2</textcolor>
+						<shadowcolor>black</shadowcolor>
+						<scroll>true</scroll>
+						<scrollspeed>40</scrollspeed>      <!-- pixels per second; tweak to taste -->
+						<scrollsuffix>   •   </scrollsuffix> <!-- optional gap between loops -->
+						<visible>!String.IsEmpty(Window(Home).Property(X2Info.Genres)) | !String.IsEmpty(Container.ListItem.Genre)</visible>
+					<hitrect x="-10000" y="-10000" w="0" h="0"/></control>
+
+					<!-- Rating -->
+					<control type="label">
+						<width>350</width>
+						<height>24</height>
+						<label>Rating: $VAR[X2InfoRating]</label>
+						<font>font12</font>
+						<textcolor>grey2</textcolor>
+						<shadowcolor>black</shadowcolor>
+						<visible>!String.IsEmpty(Window(Home).Property(X2Info.Rating)) | !String.IsEmpty(Container.ListItem.Rating)</visible>
+					<hitrect x="-10000" y="-10000" w="0" h="0"/></control>
+
+					<!-- Director -->
+					<control type="label">
+						<width>350</width>
+						<height>24</height>
+						<label>Director: $VAR[X2InfoDirector]</label>
+						<font>font12</font>
+						<textcolor>grey2</textcolor>
+						<shadowcolor>black</shadowcolor>
+						<scroll>true</scroll>
+						<scrollspeed>40</scrollspeed>      <!-- pixels per second; tweak to taste -->
+						<scrollsuffix>   •   </scrollsuffix> <!-- optional gap between loops -->
+						<visible>!String.IsEmpty(Window(Home).Property(X2Info.Director)) | !String.IsEmpty(Container.ListItem.Director)</visible>
+					<hitrect x="-10000" y="-10000" w="0" h="0"/></control>
+				<hitrect x="-10000" y="-10000" w="0" h="0"/></control>
+
+
+                <!-- Poster on left (same style as widget posters) -->
+                <control type="image">
+                    <left>19</left>
+                    <top>130</top>
+                    <width>260</width>
+                    <height>390</height>
+                    <aspectratio>keep</aspectratio>
+                    <texture background="true">$VAR[X2InfoPoster]</texture>
+                    <bordertexture border="5">button-nofocus.png</bordertexture>
+                    <include>TextureBorderWidgets</include>
+                <hitrect x="-10000" y="-10000" w="0" h="0"/></control>
+
+                <!-- ClearLogo (preferred over text title) -->
+                <control type="image">
+                    <left>610</left>
+                    <top>30</top>
+                    <width>700</width>
+                    <height>80</height>
+                    <aspectratio>keep</aspectratio>
+					<align>left</align>
+					<aligny>center</aligny>
+                    <texture background="true">$VAR[X2InfoClearLogo]</texture>
+                    <!-- Only show if we actually have a clearlogo -->
+                    <visible>!String.IsEmpty(Window(Home).Property(X2Info.ClearLogo)) | !String.IsEmpty(Container.ListItem.Art(clearlogo))</visible>
+                <hitrect x="-10000" y="-10000" w="0" h="0"/></control>
+				<!-- Studio / Network logo -->
+				<control type="image">
+					<left>1620</left>
+					<top>10</top>
+					<width>120</width>
+					<height>120</height>
+					<aspectratio>keep</aspectratio>
+					<!-- Coloured resource pack, then TMDb, then white resource pack. -->
+					<texture background="true">$VAR[X2InfoStudioLogo]</texture>
+					<!-- No resolved logo means no image or placeholder. -->
+					<visible>!String.IsEmpty(Window(Home).Property(X2Info.ResolvedStudioLogo))</visible>							 
+				<hitrect x="-10000" y="-10000" w="0" h="0"/></control>
+				<control type="image">
+					<left>1360</left>
+					<top>10</top>
+					<width>220</width>
+					<height>120</height>
+					<aspectratio>keep</aspectratio>
+					<texture>trailer.gif</texture>
+					<hitrect x="-10000" y="-10000" w="0" h="0"/></control>
+				
+                <!-- Title (fallback when no clearlogo artwork) -->
+                <control type="label">
+                    <left>710</left>
+                    <top>30</top>
+                    <width>700</width>
+                    <height>80</height>
+                    <label>$VAR[X2InfoTitle]</label>
+                    <font>font24_title</font>
+                    <textcolor>white</textcolor>
+                    <shadowcolor>black</shadowcolor>
+					<scroll>true</scroll>
+					<scrollspeed>40</scrollspeed>      <!-- pixels per second; tweak to taste -->
+					<scrollsuffix>   •   </scrollsuffix> <!-- optional gap between loops -->
+                    <!-- Only show when no clearlogo is available -->
+                    <visible>String.IsEmpty(Window(Home).Property(X2Info.ClearLogo)) + String.IsEmpty(Container.ListItem.Art(clearlogo))</visible>
+                <hitrect x="-10000" y="-10000" w="0" h="0"/></control>
+
+				<!-- Plot -->
+				<control type="textbox">
+					<left>290</left>
+					<top>120</top>
+					<width>1620</width>
+					<height>200</height>
+					<label>$VAR[X2InfoPlot]</label>
+					<font>font14</font>
+					<textcolor>white</textcolor>
+					<shadowcolor>black</shadowcolor>
+					<autoscroll delay="4000" time="2000" repeat="8000">true</autoscroll>
+				<hitrect x="-10000" y="-10000" w="0" h="0"/></control>
+
+				<!-- Cast row driven by script.xenon.casthelper (X2Cast.*) -->
+				<control type="list" id="98760"><description>Compact automatically scrolling widget cast</description><left>300</left><top>320</top><width>1600</width><height>230</height><orientation>horizontal</orientation><scrolltime>700</scrolltime><enable>false</enable><visible>!String.IsEmpty(Window(Home).Property(X2Cast.1.Name))</visible><hitrect x="-10000" y="-10000" w="0" h="0"/><itemlayout width="200" height="230"><control type="image"><left>40</left><top>0</top><width>120</width><height>180</height><aspectratio>keep</aspectratio><texture background="true" fallback="defaultactor.png">$INFO[ListItem.Icon]</texture></control><control type="label"><left>5</left><top>185</top><width>190</width><height>25</height><align>center</align><aligny>center</aligny><font>font11</font><textcolor>white</textcolor><shadowcolor>black</shadowcolor><label>$INFO[ListItem.Label]</label></control><control type="label"><left>5</left><top>210</top><width>190</width><height>20</height><align>center</align><aligny>center</aligny><font>font10</font><textcolor>grey</textcolor><shadowcolor>black</shadowcolor><label>$INFO[ListItem.Label2]</label></control></itemlayout><focusedlayout width="200" height="230"><control type="image"><left>40</left><top>0</top><width>120</width><height>180</height><aspectratio>keep</aspectratio><texture background="true" fallback="defaultactor.png">$INFO[ListItem.Icon]</texture></control><control type="label"><left>5</left><top>185</top><width>190</width><height>25</height><align>center</align><aligny>center</aligny><font>font11</font><textcolor>white</textcolor><shadowcolor>black</shadowcolor><label>$INFO[ListItem.Label]</label></control><control type="label"><left>5</left><top>210</top><width>190</width><height>20</height><align>center</align><aligny>center</aligny><font>font10</font><textcolor>grey</textcolor><shadowcolor>black</shadowcolor><label>$INFO[ListItem.Label2]</label></control></focusedlayout><content><item id="1"><label>$INFO[Window(Home).Property(X2Cast.1.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.1.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.1.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.1.Name))</visible></item><item id="2"><label>$INFO[Window(Home).Property(X2Cast.2.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.2.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.2.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.2.Name))</visible></item><item id="3"><label>$INFO[Window(Home).Property(X2Cast.3.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.3.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.3.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.3.Name))</visible></item><item id="4"><label>$INFO[Window(Home).Property(X2Cast.4.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.4.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.4.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.4.Name))</visible></item><item id="5"><label>$INFO[Window(Home).Property(X2Cast.5.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.5.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.5.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.5.Name))</visible></item><item id="6"><label>$INFO[Window(Home).Property(X2Cast.6.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.6.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.6.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.6.Name))</visible></item><item id="7"><label>$INFO[Window(Home).Property(X2Cast.7.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.7.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.7.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.7.Name))</visible></item><item id="8"><label>$INFO[Window(Home).Property(X2Cast.8.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.8.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.8.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.8.Name))</visible></item><item id="9"><label>$INFO[Window(Home).Property(X2Cast.9.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.9.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.9.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.9.Name))</visible></item><item id="10"><label>$INFO[Window(Home).Property(X2Cast.10.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.10.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.10.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.10.Name))</visible></item><item id="11"><label>$INFO[Window(Home).Property(X2Cast.11.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.11.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.11.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.11.Name))</visible></item><item id="12"><label>$INFO[Window(Home).Property(X2Cast.12.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.12.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.12.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.12.Name))</visible></item><item id="13"><label>$INFO[Window(Home).Property(X2Cast.13.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.13.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.13.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.13.Name))</visible></item><item id="14"><label>$INFO[Window(Home).Property(X2Cast.14.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.14.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.14.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.14.Name))</visible></item><item id="15"><label>$INFO[Window(Home).Property(X2Cast.15.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.15.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.15.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.15.Name))</visible></item><item id="16"><label>$INFO[Window(Home).Property(X2Cast.16.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.16.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.16.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.16.Name))</visible></item><item id="17"><label>$INFO[Window(Home).Property(X2Cast.17.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.17.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.17.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.17.Name))</visible></item><item id="18"><label>$INFO[Window(Home).Property(X2Cast.18.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.18.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.18.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.18.Name))</visible></item><item id="19"><label>$INFO[Window(Home).Property(X2Cast.19.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.19.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.19.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.19.Name))</visible></item><item id="20"><label>$INFO[Window(Home).Property(X2Cast.20.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.20.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.20.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.20.Name))</visible></item><item id="21"><label>$INFO[Window(Home).Property(X2Cast.21.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.21.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.21.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.21.Name))</visible></item><item id="22"><label>$INFO[Window(Home).Property(X2Cast.22.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.22.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.22.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.22.Name))</visible></item><item id="23"><label>$INFO[Window(Home).Property(X2Cast.23.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.23.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.23.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.23.Name))</visible></item><item id="24"><label>$INFO[Window(Home).Property(X2Cast.24.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.24.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.24.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.24.Name))</visible></item><item id="25"><label>$INFO[Window(Home).Property(X2Cast.25.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.25.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.25.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.25.Name))</visible></item><item id="26"><label>$INFO[Window(Home).Property(X2Cast.26.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.26.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.26.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.26.Name))</visible></item><item id="27"><label>$INFO[Window(Home).Property(X2Cast.27.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.27.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.27.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.27.Name))</visible></item><item id="28"><label>$INFO[Window(Home).Property(X2Cast.28.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.28.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.28.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.28.Name))</visible></item><item id="29"><label>$INFO[Window(Home).Property(X2Cast.29.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.29.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.29.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.29.Name))</visible></item><item id="30"><label>$INFO[Window(Home).Property(X2Cast.30.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.30.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.30.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.30.Name))</visible></item><item id="31"><label>$INFO[Window(Home).Property(X2Cast.31.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.31.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.31.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.31.Name))</visible></item><item id="32"><label>$INFO[Window(Home).Property(X2Cast.32.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.32.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.32.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.32.Name))</visible></item><item id="33"><label>$INFO[Window(Home).Property(X2Cast.33.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.33.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.33.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.33.Name))</visible></item><item id="34"><label>$INFO[Window(Home).Property(X2Cast.34.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.34.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.34.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.34.Name))</visible></item><item id="35"><label>$INFO[Window(Home).Property(X2Cast.35.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.35.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.35.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.35.Name))</visible></item><item id="36"><label>$INFO[Window(Home).Property(X2Cast.36.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.36.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.36.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.36.Name))</visible></item><item id="37"><label>$INFO[Window(Home).Property(X2Cast.37.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.37.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.37.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.37.Name))</visible></item><item id="38"><label>$INFO[Window(Home).Property(X2Cast.38.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.38.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.38.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.38.Name))</visible></item><item id="39"><label>$INFO[Window(Home).Property(X2Cast.39.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.39.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.39.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.39.Name))</visible></item><item id="40"><label>$INFO[Window(Home).Property(X2Cast.40.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.40.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.40.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.40.Name))</visible></item><item id="41"><label>$INFO[Window(Home).Property(X2Cast.41.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.41.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.41.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.41.Name))</visible></item><item id="42"><label>$INFO[Window(Home).Property(X2Cast.42.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.42.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.42.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.42.Name))</visible></item><item id="43"><label>$INFO[Window(Home).Property(X2Cast.43.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.43.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.43.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.43.Name))</visible></item><item id="44"><label>$INFO[Window(Home).Property(X2Cast.44.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.44.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.44.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.44.Name))</visible></item><item id="45"><label>$INFO[Window(Home).Property(X2Cast.45.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.45.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.45.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.45.Name))</visible></item><item id="46"><label>$INFO[Window(Home).Property(X2Cast.46.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.46.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.46.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.46.Name))</visible></item><item id="47"><label>$INFO[Window(Home).Property(X2Cast.47.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.47.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.47.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.47.Name))</visible></item><item id="48"><label>$INFO[Window(Home).Property(X2Cast.48.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.48.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.48.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.48.Name))</visible></item><item id="49"><label>$INFO[Window(Home).Property(X2Cast.49.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.49.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.49.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.49.Name))</visible></item><item id="50"><label>$INFO[Window(Home).Property(X2Cast.50.Name)]</label><label2>$INFO[Window(Home).Property(X2Cast.50.Role)]</label2><icon>$INFO[Window(Home).Property(X2Cast.50.Thumb)]</icon><visible>!String.IsEmpty(Window(Home).Property(X2Cast.50.Name))</visible></item></content></control><!-- Fallback: plain text cast if helper has nothing -->
+				<control type="label">
+					<left>360</left>
+					<top>420</top>
+					<width>1500</width>
+					<height>30</height>
+					<label>$VAR[X2InfoCast]</label>
+					<font>font12</font>
+					<textcolor>white</textcolor>
+					<shadowcolor>black</shadowcolor>
+					<visible>String.IsEmpty(Window(Home).Property(X2Cast.1.Name))
+							 + [!String.IsEmpty(Window(Home).Property(X2Info.Cast)) | !String.IsEmpty(Container.ListItem.Cast)]</visible>
+				<hitrect x="-10000" y="-10000" w="0" h="0"/></control>
+
+            <visible>$EXP[X2EnhancedWidgetInfoVisible]</visible><control type="image"><description>Coloured classification resource badge</description><left>1772</left><top>30</top><width>96</width><height>80</height><aspectratio>keep</aspectratio><texture background="true">$INFO[Window(Home).Property(X2Info.ClassificationLogo)]</texture><visible>System.HasAddon(resource.images.classificationicons.colour) + !String.IsEmpty(Window(Home).Property(X2Info.ClassificationLogo))</visible><hitrect x="-10000" y="-10000" w="0" h="0"/></control><control type="label"><left>1740</left><top>40</top><width>160</width><height>35</height><font>font12</font><textcolor>white</textcolor><align>right</align><label>$VAR[X2InfoCertification]</label><visible>[!String.IsEmpty(Window(Home).Property(X2Info.Certification)) | !String.IsEmpty(Container.ListItem.MPAA)] + ![System.HasAddon(resource.images.classificationicons.colour) + !String.IsEmpty(Window(Home).Property(X2Info.ClassificationLogo))]</visible><hitrect x="-10000" y="-10000" w="0" h="0"/><scroll>true</scroll><shadowcolor>black</shadowcolor></control><hitrect x="-10000" y="-10000" w="0" h="0"/></control>
+        </definition>
+    </include>
+  <variable name="X2InfoYear">
+    <value condition="!String.IsEmpty(Window(Home).Property(X2Info.Year))">$INFO[Window(Home).Property(X2Info.Year)]</value>
+    <value>$INFO[Container.ListItem.Year]</value>
+  </variable>
+  <variable name="X2InfoGenres">
+    <value condition="!String.IsEmpty(Window(Home).Property(X2Info.Genres))">$INFO[Window(Home).Property(X2Info.Genres)]</value>
+    <value>$INFO[Container.ListItem.Genre]</value>
+  </variable>
+  <variable name="X2InfoRating">
+    <value condition="!String.IsEmpty(Window(Home).Property(X2Info.Rating))">$INFO[Window(Home).Property(X2Info.Rating)]</value>
+    <value>$INFO[Container.ListItem.Rating]</value>
+  </variable>
+  <variable name="X2InfoDirector">
+    <value condition="!String.IsEmpty(Window(Home).Property(X2Info.Director))">$INFO[Window(Home).Property(X2Info.Director)]</value>
+    <value>$INFO[Container.ListItem.Director]</value>
+  </variable>
+  <variable name="X2InfoPoster">
+    <value condition="!String.IsEmpty(Window(Home).Property(X2Info.Poster))">$INFO[Window(Home).Property(X2Info.Poster)]</value>
+    <value condition="!String.IsEmpty(Container.ListItem.Art(poster))">$INFO[Container.ListItem.Art(poster)]</value>
+    <value condition="!String.IsEmpty(Container.ListItem.Art(tvshow.poster))">$INFO[Container.ListItem.Art(tvshow.poster)]</value>
+    <value condition="!String.IsEmpty(Container.ListItem.Art(thumb))">$INFO[Container.ListItem.Art(thumb)]</value>
+    <value>$INFO[Container.ListItem.Icon]</value>
+  </variable>
+  <variable name="X2InfoStudioLogo">
+    <value condition="!String.IsEmpty(Window(Home).Property(X2Info.ResolvedStudioLogo))">$INFO[Window(Home).Property(X2Info.ResolvedStudioLogo)]</value>
+    <value/>
+  </variable>
+  <variable name="X2InfoTitle">
+    <value condition="!String.IsEmpty(Window(Home).Property(X2Info.Title))">$INFO[Window(Home).Property(X2Info.Title)]</value>
+    <value>$INFO[Container.ListItem.Title]</value>
+  </variable>
+  <variable name="X2InfoPlot">
+    <value condition="!String.IsEmpty(Window(Home).Property(X2Info.Plot))">$INFO[Window(Home).Property(X2Info.Plot)]</value>
+    <value>$INFO[Container.ListItem.Plot]</value>
+  </variable>
+  <variable name="X2InfoCast">
+    <value condition="!String.IsEmpty(Window(Home).Property(X2Info.Cast))">$INFO[Window(Home).Property(X2Info.Cast)]</value>
+    <value>$INFO[Container.ListItem.Cast]</value>
+  </variable>
+  <variable name="X2InfoClearLogo">
+    <value condition="!String.IsEmpty(Window(Home).Property(X2Info.ClearLogo))">$INFO[Window(Home).Property(X2Info.ClearLogo)]</value>
+    <value>$INFO[Container.ListItem.Art(clearlogo)]</value>
+  </variable>
+<variable name="X2InfoCertification"><value condition="!String.IsEmpty(Window(Home).Property(X2Info.Certification))">$INFO[Window(Home).Property(X2Info.Certification)]</value><value>$INFO[Container.ListItem.MPAA]</value></variable>
+</includes>

@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <window>
 	<defaultcontrol always="true">90001</defaultcontrol>
 	<onload>ClearProperty(skinshortcuts-management-widget,Home)</onload>
 	<onunload>ClearProperty(skinshortcuts-management-widget,Home)</onunload>
-	<controls>
+	<!-- Diagnostic: Custom Item title watcher disabled while investigating native Kodi crash. --><onunload>ClearProperty(X2Widgets.CustomWatch)</onunload><onunload>RunScript(special://skin/resources/scripts/x2_widgets_editor_closed.py)</onunload>
+<controls>
 		<control type="group">
 			<include>WindowSettingsFadeAnimation</include>
 			<top>64</top>
@@ -162,8 +163,8 @@
 						<animation effect="slide" end="0,81" condition="Integer.IsGreater(Container(211).Position,9)">Conditional</animation>
 						<animation effect="slide" end="0,81" condition="Integer.IsGreater(Container(211).Position,10)">Conditional</animation>						
 						<control type="button" id="308">
-							<texturefocus />
-							<texturenofocus />
+							<texturefocus/>
+							<texturenofocus/>
 							<width>80</width>
 							<height>81</height>
 							<align>center</align>
@@ -175,8 +176,8 @@
 							<visible>!String.IsEqual(Window.Property(groupname),buttonmenu)</visible>
 						</control>
 						<control type="button" id="302">
-							<texturefocus />
-							<texturenofocus />
+							<texturefocus/>
+							<texturenofocus/>
 							<width>80</width>
 							<height>81</height>
 							<align>center</align>
@@ -187,8 +188,8 @@
 							<label></label>
 						</control>
 						<control type="button" id="301">
-							<texturefocus />
-							<texturenofocus />
+							<texturefocus/>
+							<texturenofocus/>
 							<width>80</width>
 							<height>81</height>
 							<align>center</align>
@@ -200,8 +201,8 @@
 							<visible>!String.IsEqual(Window.Property(groupname),buttonmenu)</visible>
 						</control>
 						<control type="button" id="303">
-							<texturefocus />
-							<texturenofocus />
+							<texturefocus/>
+							<texturenofocus/>
 							<width>80</width>
 							<height>81</height>
 							<align>center</align>
@@ -212,8 +213,8 @@
 							<label></label>
 						</control>
 						<control type="button" id="304">
-							<texturefocus />
-							<texturenofocus />
+							<texturefocus/>
+							<texturenofocus/>
 							<width>80</width>
 							<height>81</height>
 							<align>center</align>
@@ -335,7 +336,7 @@
 									<description>Widget 1</description>
 									<width>1125</width>
 									<include>SettingsButtonCommonValues</include>
-									<label>$ADDON[script.skinshortcuts 32044] 1</label>
+									<label>$ADDON[script.skinshortcuts 32044] 1 / Selector widget 1</label>
 									<label2>$VAR[Widget1DisplayTitleVar]</label2>
 									<onfocus condition="!String.IsEmpty(Window(Home).Property(skinshortcuts-management-widget))">ClearProperty(skinshortcuts-management-widget,Home)</onfocus>
 									<onclick>SetProperty(skinshortcuts-management-widget,1,Home)</onclick>
@@ -349,7 +350,7 @@
 									<label>   - $LOCALIZE[31760]</label>
 									<visible>String.IsEqual(Window.Property(groupname),mainmenu) + String.IsEqual(Container(211).ListItem.Property(widgetType),custom)</visible>
 								</control>
-								<control type="button" id="801">
+								<control type="radiobutton" id="94100"><width>1125</width><include>SettingsButtonCommonValues</include><label>Enable primary widget selector (10 choices)</label><visible>String.IsEqual(Window.Property(groupname),mainmenu)</visible><selected>String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</selected><onclick>SetProperty(customProperty,selectorEnabled)</onclick><onclick condition="!String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)">SetProperty(customValue,true)</onclick><onclick condition="String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)">SetProperty(customValue,false)</onclick><onclick>SendClick(404)</onclick></control><control type="button" id="94104"><width>1125</width><include>SettingsButtonCommonValues</include><label>Selector widget 2</label><label2>$VAR[Widget1DisplayTitleVarX2S2]</label2><visible>String.IsEqual(Window.Property(groupname),mainmenu) + String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onfocus condition="!String.IsEmpty(Window(Home).Property(skinshortcuts-management-widget))">ClearProperty(skinshortcuts-management-widget,Home)</onfocus><onclick>SetProperty(skinshortcuts-management-widget,sel2,Home)</onclick><onclick>Control.SetFocus(100202)</onclick></control><control type="button" id="94106"><width>1125</width><include>SettingsButtonCommonValues</include><label>Selector widget 3</label><label2>$VAR[Widget1DisplayTitleVarX2S3]</label2><visible>String.IsEqual(Window.Property(groupname),mainmenu) + String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onfocus condition="!String.IsEmpty(Window(Home).Property(skinshortcuts-management-widget))">ClearProperty(skinshortcuts-management-widget,Home)</onfocus><onclick>SetProperty(skinshortcuts-management-widget,sel3,Home)</onclick><onclick>Control.SetFocus(100302)</onclick></control><control type="button" id="94108"><width>1125</width><include>SettingsButtonCommonValues</include><label>Selector widget 4</label><label2>$VAR[Widget1DisplayTitleVarX2S4]</label2><visible>String.IsEqual(Window.Property(groupname),mainmenu) + String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onfocus condition="!String.IsEmpty(Window(Home).Property(skinshortcuts-management-widget))">ClearProperty(skinshortcuts-management-widget,Home)</onfocus><onclick>SetProperty(skinshortcuts-management-widget,sel4,Home)</onclick><onclick>Control.SetFocus(100402)</onclick></control><control type="button" id="94110"><width>1125</width><include>SettingsButtonCommonValues</include><label>Selector widget 5</label><label2>$VAR[Widget1DisplayTitleVarX2S5]</label2><visible>String.IsEqual(Window.Property(groupname),mainmenu) + String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onfocus condition="!String.IsEmpty(Window(Home).Property(skinshortcuts-management-widget))">ClearProperty(skinshortcuts-management-widget,Home)</onfocus><onclick>SetProperty(skinshortcuts-management-widget,sel5,Home)</onclick><onclick>Control.SetFocus(100502)</onclick></control><control type="button" id="94112"><width>1125</width><include>SettingsButtonCommonValues</include><label>Selector widget 6</label><label2>$VAR[Widget1DisplayTitleVarX2S6]</label2><visible>String.IsEqual(Window.Property(groupname),mainmenu) + String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onfocus condition="!String.IsEmpty(Window(Home).Property(skinshortcuts-management-widget))">ClearProperty(skinshortcuts-management-widget,Home)</onfocus><onclick>SetProperty(skinshortcuts-management-widget,sel6,Home)</onclick><onclick>Control.SetFocus(100602)</onclick></control><control type="button" id="94114"><width>1125</width><include>SettingsButtonCommonValues</include><label>Selector widget 7</label><label2>$VAR[Widget1DisplayTitleVarX2S7]</label2><visible>String.IsEqual(Window.Property(groupname),mainmenu) + String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onfocus condition="!String.IsEmpty(Window(Home).Property(skinshortcuts-management-widget))">ClearProperty(skinshortcuts-management-widget,Home)</onfocus><onclick>SetProperty(skinshortcuts-management-widget,sel7,Home)</onclick><onclick>Control.SetFocus(100702)</onclick></control><control type="button" id="94116"><width>1125</width><include>SettingsButtonCommonValues</include><label>Selector widget 8</label><label2>$VAR[Widget1DisplayTitleVarX2S8]</label2><visible>String.IsEqual(Window.Property(groupname),mainmenu) + String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onfocus condition="!String.IsEmpty(Window(Home).Property(skinshortcuts-management-widget))">ClearProperty(skinshortcuts-management-widget,Home)</onfocus><onclick>SetProperty(skinshortcuts-management-widget,sel8,Home)</onclick><onclick>Control.SetFocus(100802)</onclick></control><control type="button" id="94118"><width>1125</width><include>SettingsButtonCommonValues</include><label>Selector widget 9</label><label2>$VAR[Widget1DisplayTitleVarX2S9]</label2><visible>String.IsEqual(Window.Property(groupname),mainmenu) + String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onfocus condition="!String.IsEmpty(Window(Home).Property(skinshortcuts-management-widget))">ClearProperty(skinshortcuts-management-widget,Home)</onfocus><onclick>SetProperty(skinshortcuts-management-widget,sel9,Home)</onclick><onclick>Control.SetFocus(100902)</onclick></control><control type="button" id="94120"><width>1125</width><include>SettingsButtonCommonValues</include><label>Selector widget 10</label><label2>$VAR[Widget1DisplayTitleVarX2S10]</label2><visible>String.IsEqual(Window.Property(groupname),mainmenu) + String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onfocus condition="!String.IsEmpty(Window(Home).Property(skinshortcuts-management-widget))">ClearProperty(skinshortcuts-management-widget,Home)</onfocus><onclick>SetProperty(skinshortcuts-management-widget,sel10,Home)</onclick><onclick>Control.SetFocus(101002)</onclick></control><control type="button" id="94122"><width>1125</width><include>SettingsButtonCommonValues</include><label>Selector widget 11</label><label2>$VAR[Widget1DisplayTitleVarX2S11]</label2><visible>String.IsEqual(Window.Property(groupname),mainmenu) + String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onfocus condition="!String.IsEmpty(Window(Home).Property(skinshortcuts-management-widget))">ClearProperty(skinshortcuts-management-widget,Home)</onfocus><onclick>SetProperty(skinshortcuts-management-widget,sel11,Home)</onclick><onclick>Control.SetFocus(101102)</onclick></control><control type="button" id="94124"><width>1125</width><include>SettingsButtonCommonValues</include><label>Selector widget 12</label><label2>$VAR[Widget1DisplayTitleVarX2S12]</label2><visible>String.IsEqual(Window.Property(groupname),mainmenu) + String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onfocus condition="!String.IsEmpty(Window(Home).Property(skinshortcuts-management-widget))">ClearProperty(skinshortcuts-management-widget,Home)</onfocus><onclick>SetProperty(skinshortcuts-management-widget,sel12,Home)</onclick><onclick>Control.SetFocus(101202)</onclick></control><control type="button" id="94126"><width>1125</width><include>SettingsButtonCommonValues</include><label>Selector widget 13</label><label2>$VAR[Widget1DisplayTitleVarX2S13]</label2><visible>String.IsEqual(Window.Property(groupname),mainmenu) + String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onfocus condition="!String.IsEmpty(Window(Home).Property(skinshortcuts-management-widget))">ClearProperty(skinshortcuts-management-widget,Home)</onfocus><onclick>SetProperty(skinshortcuts-management-widget,sel13,Home)</onclick><onclick>Control.SetFocus(101302)</onclick></control><control type="button" id="94128"><width>1125</width><include>SettingsButtonCommonValues</include><label>Selector widget 14</label><label2>$VAR[Widget1DisplayTitleVarX2S14]</label2><visible>String.IsEqual(Window.Property(groupname),mainmenu) + String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onfocus condition="!String.IsEmpty(Window(Home).Property(skinshortcuts-management-widget))">ClearProperty(skinshortcuts-management-widget,Home)</onfocus><onclick>SetProperty(skinshortcuts-management-widget,sel14,Home)</onclick><onclick>Control.SetFocus(101402)</onclick></control><control type="button" id="94130"><width>1125</width><include>SettingsButtonCommonValues</include><label>Selector widget 15</label><label2>$VAR[Widget1DisplayTitleVarX2S15]</label2><visible>String.IsEqual(Window.Property(groupname),mainmenu) + String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onfocus condition="!String.IsEmpty(Window(Home).Property(skinshortcuts-management-widget))">ClearProperty(skinshortcuts-management-widget,Home)</onfocus><onclick>SetProperty(skinshortcuts-management-widget,sel15,Home)</onclick><onclick>Control.SetFocus(101502)</onclick></control><control type="button" id="801">
 									<description>Widget 2</description>
 									<width>1125</width>
 									<include>SettingsButtonCommonValues</include>
@@ -396,8 +397,8 @@
 						<include>FullscreenDimensions</include>
 						<height>1141</height>
 						<onclick>back</onclick>
-						<texturefocus />
-						<texturenofocus />
+						<texturefocus/>
+						<texturenofocus/>
 					</control>
 					<control type="grouplist" id="6000">
 						<left>712</left>
@@ -415,7 +416,7 @@
 							<onclick>SetProperty(customProperty,widgetArt)</onclick>
 							<onclick>SendClick(404)</onclick>
 						</control>
-						<control type="button" id="1001">
+						<control type="button" id="95702"><include>SettingsButtonSkinShortcuts</include><label>Move widget left</label><label2/><visible>String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><enable>false</enable><onclick>RunScript(special://skin/resources/scripts/x2_reorder_widgets.py,slot=1,direction=left)</onclick></control><control type="button" id="95703"><include>SettingsButtonSkinShortcuts</include><label>Move widget right</label><label2>To slot 2</label2><visible>String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onclick>RunScript(special://skin/resources/scripts/x2_reorder_widgets.py,slot=1,direction=right)</onclick></control><control type="button" id="1001">
 							<description>Change widget style 1</description>
 							<include>SettingsButtonSkinShortcuts</include>
 							<label>31701</label>
@@ -490,6 +491,17 @@
 							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart))</selected>
 							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle))</visible>
 						</control>
+						<control type="radiobutton" id="171000">
+							<description>Show the overall widget row title</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>Show Widget Title</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle))">SetProperty(customProperty,widgetShowRowTitle)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle))">SetProperty(customProperty,widgetShowRowTitle)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle))</visible>
+						</control>
 						<control type="group" id="6002">
 							<width>1401</width>
 							<height>81</height>
@@ -538,8 +550,8 @@
 						<include>FullscreenDimensions</include>
 						<height>1141</height>
 						<onclick>back</onclick>
-						<texturefocus />
-						<texturenofocus />
+						<texturefocus/>
+						<texturenofocus/>
 					</control>
 					<control type="grouplist" id="7000">
 						<left>712</left>
@@ -634,6 +646,17 @@
 							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.2))</selected>
 							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.2)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.2))</visible>
 						</control>
+						<control type="radiobutton" id="171001">
+							<description>Show the overall widget row title</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>Show Widget Title</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.2))">SetProperty(customProperty,widgetShowRowTitle.2)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.2))">SetProperty(customProperty,widgetShowRowTitle.2)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.2))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.2))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.2)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.2))</visible>
+						</control>
 						<control type="group" id="7002">
 							<width>1401</width>
 							<height>81</height>
@@ -674,7 +697,2093 @@
 						</control>
 					</control>
 				</control>
-			</control>
+			<control type="group">
+					<visible>String.IsEqual(Window(Home).Property(skinshortcuts-management-widget),sel2)</visible>
+					<control type="button" id="100200">
+						<include>FullscreenDimensions</include>
+						<height>1141</height>
+						<onclick>back</onclick>
+						<texturefocus/>
+						<texturenofocus/>
+					</control>
+					<control type="grouplist" id="100201">
+						<left>712</left>
+						<top>32</top>
+						<width>1125</width>
+						<height>810</height>
+						<onup>100201</onup>
+						<ondown>100201</ondown>
+						<scrolltime tween="quadratic" easing="out">200</scrolltime>
+						<control type="button" id="100202">
+							<description>Change widget.sel2 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>$ADDON[script.skinshortcuts 32044]</label>
+							<label2>$INFO[Container(211).ListItem.Property(widgetName.sel2)]</label2>
+							<onclick>SetProperty(widgetID,sel2)</onclick><onclick>SendClick(312)</onclick><onclick>SetProperty(customProperty,widgetArt.sel2)</onclick><onclick>SendClick(404)</onclick></control>
+						<control type="button" id="95704"><include>SettingsButtonSkinShortcuts</include><label>Move widget left</label><label2>To slot 1</label2><visible>String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onclick>RunScript(special://skin/resources/scripts/x2_reorder_widgets.py,slot=2,direction=left)</onclick></control><control type="button" id="95705"><include>SettingsButtonSkinShortcuts</include><label>Move widget right</label><label2>To slot 3</label2><visible>String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onclick>RunScript(special://skin/resources/scripts/x2_reorder_widgets.py,slot=2,direction=right)</onclick></control><control type="button" id="100203">
+							<description>Change widget.sel2 style 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31701</label>
+							<label2>$VAR[WidgetStyleLabelVarX2S2]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel2))</visible>
+						</control>
+						<control type="button" id="100204">
+							<description>Change widget.sel2 art 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>$LOCALIZE[31706]</label>
+							<label2>$VAR[WidgetArtLabelVarX2S2]</label2>
+							<visible>[!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel2)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel2))] + [!String.IsEqual(Container(211).ListItem.Property(widgetType.sel2),system) | !String.Contains(Container(211).ListItem.Property(widgetStyle.sel2),List)]</visible>
+						</control>
+						<control type="button" id="100205">
+							<description>Change widget.sel2 case 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>$LOCALIZE[31707]</label>
+							<label2>$VAR[WidgetCaseLabelVarX2S2]</label2>
+							<visible>[!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel2)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel2))] + [!String.IsEqual(Container(211).ListItem.Property(widgetType.sel2),system) | !String.Contains(Container(211).ListItem.Property(widgetStyle.sel2),List)]</visible>
+						</control>
+						<control type="button" id="100206">
+							<description>Change widget.sel2 background 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31702</label>
+							<label2>$VAR[WidgetBackgroundLabelVarX2S2]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel2)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel2)) + !Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+						</control>
+						<control type="button" id="100207">
+							<description>Change widget.sel2 title 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31703</label>
+							<label2>$VAR[WidgetTitleLabelVarX2S2]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel2)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel2)) + !String.Contains(Container(211).ListItem.Property(widgetStyle.sel2),List)</visible>
+						</control>
+						<control type="button" id="100208">
+							<description>Change list widget.sel2 text 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31704</label>
+							<label2>$VAR[WidgetListLabelVarX2S2]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel2)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel2)) + String.Contains(Container(211).ListItem.Property(widgetStyle.sel2),List) + !String.IsEqual(Container(211).ListItem.Property(widgetArt.sel2),Banner) + !String.IsEqual(Container(211).ListItem.Property(widgetType.sel2),system) + !String.IsEqual(Container(211).ListItem.Property(widgetType.sel2),weather)</visible>
+						</control>
+						<control type="radiobutton" id="100209">
+							<description>Enable panel widget.sel2 info 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel2))">SetProperty(customProperty,widgetPanelInfo.sel2)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel2))">SetProperty(customProperty,widgetPanelInfo.sel2)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel2))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel2))</selected>
+							<label>31705</label>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel2)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel2)) + !String.Contains(Container(211).ListItem.Property(widgetStyle.sel2),List)</visible>
+						</control>
+						<control type="radiobutton" id="100210">
+							<description>Enable widget.sel2 hide 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31289</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel2))">SetProperty(customProperty,widgetHide.sel2)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel2))">SetProperty(customProperty,widgetHide.sel2)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel2))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel2))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel2)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel2))</visible>
+						</control>
+						<control type="radiobutton" id="100211">
+							<description>Disable widget.sel2 fanart 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31444</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel2))">SetProperty(customProperty,widgetDisableFanart.sel2)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel2))">SetProperty(customProperty,widgetDisableFanart.sel2)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel2))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel2))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel2)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel2))</visible>
+						</control>
+						<control type="radiobutton" id="171002">
+							<description>Show the overall widget row title</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>Show Widget Title</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel2))">SetProperty(customProperty,widgetShowRowTitle.sel2)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel2))">SetProperty(customProperty,widgetShowRowTitle.sel2)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel2))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel2))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel2)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel2))</visible>
+						</control>
+						<control type="group" id="100212">
+							<width>1401</width>
+							<height>81</height>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel2)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel2))</visible>
+							<control type="button" id="100213">
+								<description>Change widget.sel2 1 limit</description>
+								<width>370</width>
+								<onup>100211</onup>
+								<ondown>100202</ondown>
+								<onright>100214</onright>
+								<include>SettingsButtonSkinShortcuts</include>
+								<label>Limit to:</label>
+								<textoffsetx>-30</textoffsetx>								
+								<label2>$VAR[WidgetLimitLabelVarX2S2]</label2>
+							</control>
+							<control type="button" id="100214">
+								<description>Change widget.sel2 1 sort by</description>
+								<left>387</left>
+								<width>370</width>
+								<onup>100211</onup>
+								<ondown>100202</ondown>
+								<onleft>100213</onleft>
+								<onright>100215</onright>
+								<include>SettingsButtonSkinShortcuts</include>
+								<label>Sort by:</label>
+								<label2>$VAR[WidgetSortbyLabelVarX2S2]</label2>
+							</control>
+							<control type="button" id="100215">
+								<description>Change widget.sel2 1 sort order</description>
+								<left>775</left>
+								<width>370</width>
+								<onup>100211</onup>
+								<ondown>100202</ondown>
+								<onleft>100214</onleft>
+								<include>SettingsButtonSkinShortcuts</include>
+								<label>Sort order:</label>
+								<label2>$VAR[WidgetSortLabelVarX2S2]</label2>
+							</control>
+						</control>
+					</control>
+				</control><control type="group">
+					<visible>String.IsEqual(Window(Home).Property(skinshortcuts-management-widget),sel3)</visible>
+					<control type="button" id="100300">
+						<include>FullscreenDimensions</include>
+						<height>1141</height>
+						<onclick>back</onclick>
+						<texturefocus/>
+						<texturenofocus/>
+					</control>
+					<control type="grouplist" id="100301">
+						<left>712</left>
+						<top>32</top>
+						<width>1125</width>
+						<height>810</height>
+						<onup>100301</onup>
+						<ondown>100301</ondown>
+						<scrolltime tween="quadratic" easing="out">200</scrolltime>
+						<control type="button" id="100302">
+							<description>Change widget.sel3 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>$ADDON[script.skinshortcuts 32044]</label>
+							<label2>$INFO[Container(211).ListItem.Property(widgetName.sel3)]</label2>
+							<onclick>SetProperty(widgetID,sel3)</onclick><onclick>SendClick(312)</onclick><onclick>SetProperty(customProperty,widgetArt.sel3)</onclick><onclick>SendClick(404)</onclick></control>
+						<control type="button" id="95706"><include>SettingsButtonSkinShortcuts</include><label>Move widget left</label><label2>To slot 2</label2><visible>String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onclick>RunScript(special://skin/resources/scripts/x2_reorder_widgets.py,slot=3,direction=left)</onclick></control><control type="button" id="95707"><include>SettingsButtonSkinShortcuts</include><label>Move widget right</label><label2>To slot 4</label2><visible>String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onclick>RunScript(special://skin/resources/scripts/x2_reorder_widgets.py,slot=3,direction=right)</onclick></control><control type="button" id="100303">
+							<description>Change widget.sel3 style 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31701</label>
+							<label2>$VAR[WidgetStyleLabelVarX2S3]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel3))</visible>
+						</control>
+						<control type="button" id="100304">
+							<description>Change widget.sel3 art 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>$LOCALIZE[31706]</label>
+							<label2>$VAR[WidgetArtLabelVarX2S3]</label2>
+							<visible>[!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel3)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel3))] + [!String.IsEqual(Container(211).ListItem.Property(widgetType.sel3),system) | !String.Contains(Container(211).ListItem.Property(widgetStyle.sel3),List)]</visible>
+						</control>
+						<control type="button" id="100305">
+							<description>Change widget.sel3 case 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>$LOCALIZE[31707]</label>
+							<label2>$VAR[WidgetCaseLabelVarX2S3]</label2>
+							<visible>[!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel3)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel3))] + [!String.IsEqual(Container(211).ListItem.Property(widgetType.sel3),system) | !String.Contains(Container(211).ListItem.Property(widgetStyle.sel3),List)]</visible>
+						</control>
+						<control type="button" id="100306">
+							<description>Change widget.sel3 background 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31702</label>
+							<label2>$VAR[WidgetBackgroundLabelVarX2S3]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel3)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel3)) + !Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+						</control>
+						<control type="button" id="100307">
+							<description>Change widget.sel3 title 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31703</label>
+							<label2>$VAR[WidgetTitleLabelVarX2S3]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel3)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel3)) + !String.Contains(Container(211).ListItem.Property(widgetStyle.sel3),List)</visible>
+						</control>
+						<control type="button" id="100308">
+							<description>Change list widget.sel3 text 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31704</label>
+							<label2>$VAR[WidgetListLabelVarX2S3]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel3)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel3)) + String.Contains(Container(211).ListItem.Property(widgetStyle.sel3),List) + !String.IsEqual(Container(211).ListItem.Property(widgetArt.sel3),Banner) + !String.IsEqual(Container(211).ListItem.Property(widgetType.sel3),system) + !String.IsEqual(Container(211).ListItem.Property(widgetType.sel3),weather)</visible>
+						</control>
+						<control type="radiobutton" id="100309">
+							<description>Enable panel widget.sel3 info 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel3))">SetProperty(customProperty,widgetPanelInfo.sel3)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel3))">SetProperty(customProperty,widgetPanelInfo.sel3)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel3))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel3))</selected>
+							<label>31705</label>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel3)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel3)) + !String.Contains(Container(211).ListItem.Property(widgetStyle.sel3),List)</visible>
+						</control>
+						<control type="radiobutton" id="100310">
+							<description>Enable widget.sel3 hide 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31289</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel3))">SetProperty(customProperty,widgetHide.sel3)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel3))">SetProperty(customProperty,widgetHide.sel3)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel3))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel3))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel3)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel3))</visible>
+						</control>
+						<control type="radiobutton" id="100311">
+							<description>Disable widget.sel3 fanart 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31444</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel3))">SetProperty(customProperty,widgetDisableFanart.sel3)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel3))">SetProperty(customProperty,widgetDisableFanart.sel3)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel3))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel3))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel3)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel3))</visible>
+						</control>
+						<control type="radiobutton" id="171003">
+							<description>Show the overall widget row title</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>Show Widget Title</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel3))">SetProperty(customProperty,widgetShowRowTitle.sel3)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel3))">SetProperty(customProperty,widgetShowRowTitle.sel3)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel3))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel3))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel3)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel3))</visible>
+						</control>
+						<control type="group" id="100312">
+							<width>1401</width>
+							<height>81</height>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel3)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel3))</visible>
+							<control type="button" id="100313">
+								<description>Change widget.sel3 1 limit</description>
+								<width>370</width>
+								<onup>100311</onup>
+								<ondown>100302</ondown>
+								<onright>100314</onright>
+								<include>SettingsButtonSkinShortcuts</include>
+								<label>Limit to:</label>
+								<textoffsetx>-30</textoffsetx>								
+								<label2>$VAR[WidgetLimitLabelVarX2S3]</label2>
+							</control>
+							<control type="button" id="100314">
+								<description>Change widget.sel3 1 sort by</description>
+								<left>387</left>
+								<width>370</width>
+								<onup>100311</onup>
+								<ondown>100302</ondown>
+								<onleft>100313</onleft>
+								<onright>100315</onright>
+								<include>SettingsButtonSkinShortcuts</include>
+								<label>Sort by:</label>
+								<label2>$VAR[WidgetSortbyLabelVarX2S3]</label2>
+							</control>
+							<control type="button" id="100315">
+								<description>Change widget.sel3 1 sort order</description>
+								<left>775</left>
+								<width>370</width>
+								<onup>100311</onup>
+								<ondown>100302</ondown>
+								<onleft>100314</onleft>
+								<include>SettingsButtonSkinShortcuts</include>
+								<label>Sort order:</label>
+								<label2>$VAR[WidgetSortLabelVarX2S3]</label2>
+							</control>
+						</control>
+					</control>
+				</control><control type="group">
+					<visible>String.IsEqual(Window(Home).Property(skinshortcuts-management-widget),sel4)</visible>
+					<control type="button" id="100400">
+						<include>FullscreenDimensions</include>
+						<height>1141</height>
+						<onclick>back</onclick>
+						<texturefocus/>
+						<texturenofocus/>
+					</control>
+					<control type="grouplist" id="100401">
+						<left>712</left>
+						<top>32</top>
+						<width>1125</width>
+						<height>810</height>
+						<onup>100401</onup>
+						<ondown>100401</ondown>
+						<scrolltime tween="quadratic" easing="out">200</scrolltime>
+						<control type="button" id="100402">
+							<description>Change widget.sel4 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>$ADDON[script.skinshortcuts 32044]</label>
+							<label2>$INFO[Container(211).ListItem.Property(widgetName.sel4)]</label2>
+							<onclick>SetProperty(widgetID,sel4)</onclick><onclick>SendClick(312)</onclick><onclick>SetProperty(customProperty,widgetArt.sel4)</onclick><onclick>SendClick(404)</onclick></control>
+						<control type="button" id="95708"><include>SettingsButtonSkinShortcuts</include><label>Move widget left</label><label2>To slot 3</label2><visible>String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onclick>RunScript(special://skin/resources/scripts/x2_reorder_widgets.py,slot=4,direction=left)</onclick></control><control type="button" id="95709"><include>SettingsButtonSkinShortcuts</include><label>Move widget right</label><label2>To slot 5</label2><visible>String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onclick>RunScript(special://skin/resources/scripts/x2_reorder_widgets.py,slot=4,direction=right)</onclick></control><control type="button" id="100403">
+							<description>Change widget.sel4 style 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31701</label>
+							<label2>$VAR[WidgetStyleLabelVarX2S4]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel4))</visible>
+						</control>
+						<control type="button" id="100404">
+							<description>Change widget.sel4 art 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>$LOCALIZE[31706]</label>
+							<label2>$VAR[WidgetArtLabelVarX2S4]</label2>
+							<visible>[!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel4)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel4))] + [!String.IsEqual(Container(211).ListItem.Property(widgetType.sel4),system) | !String.Contains(Container(211).ListItem.Property(widgetStyle.sel4),List)]</visible>
+						</control>
+						<control type="button" id="100405">
+							<description>Change widget.sel4 case 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>$LOCALIZE[31707]</label>
+							<label2>$VAR[WidgetCaseLabelVarX2S4]</label2>
+							<visible>[!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel4)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel4))] + [!String.IsEqual(Container(211).ListItem.Property(widgetType.sel4),system) | !String.Contains(Container(211).ListItem.Property(widgetStyle.sel4),List)]</visible>
+						</control>
+						<control type="button" id="100406">
+							<description>Change widget.sel4 background 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31702</label>
+							<label2>$VAR[WidgetBackgroundLabelVarX2S4]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel4)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel4)) + !Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+						</control>
+						<control type="button" id="100407">
+							<description>Change widget.sel4 title 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31703</label>
+							<label2>$VAR[WidgetTitleLabelVarX2S4]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel4)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel4)) + !String.Contains(Container(211).ListItem.Property(widgetStyle.sel4),List)</visible>
+						</control>
+						<control type="button" id="100408">
+							<description>Change list widget.sel4 text 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31704</label>
+							<label2>$VAR[WidgetListLabelVarX2S4]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel4)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel4)) + String.Contains(Container(211).ListItem.Property(widgetStyle.sel4),List) + !String.IsEqual(Container(211).ListItem.Property(widgetArt.sel4),Banner) + !String.IsEqual(Container(211).ListItem.Property(widgetType.sel4),system) + !String.IsEqual(Container(211).ListItem.Property(widgetType.sel4),weather)</visible>
+						</control>
+						<control type="radiobutton" id="100409">
+							<description>Enable panel widget.sel4 info 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel4))">SetProperty(customProperty,widgetPanelInfo.sel4)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel4))">SetProperty(customProperty,widgetPanelInfo.sel4)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel4))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel4))</selected>
+							<label>31705</label>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel4)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel4)) + !String.Contains(Container(211).ListItem.Property(widgetStyle.sel4),List)</visible>
+						</control>
+						<control type="radiobutton" id="100410">
+							<description>Enable widget.sel4 hide 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31289</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel4))">SetProperty(customProperty,widgetHide.sel4)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel4))">SetProperty(customProperty,widgetHide.sel4)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel4))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel4))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel4)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel4))</visible>
+						</control>
+						<control type="radiobutton" id="100411">
+							<description>Disable widget.sel4 fanart 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31444</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel4))">SetProperty(customProperty,widgetDisableFanart.sel4)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel4))">SetProperty(customProperty,widgetDisableFanart.sel4)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel4))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel4))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel4)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel4))</visible>
+						</control>
+						<control type="radiobutton" id="171004">
+							<description>Show the overall widget row title</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>Show Widget Title</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel4))">SetProperty(customProperty,widgetShowRowTitle.sel4)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel4))">SetProperty(customProperty,widgetShowRowTitle.sel4)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel4))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel4))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel4)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel4))</visible>
+						</control>
+						<control type="group" id="100412">
+							<width>1401</width>
+							<height>81</height>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel4)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel4))</visible>
+							<control type="button" id="100413">
+								<description>Change widget.sel4 1 limit</description>
+								<width>370</width>
+								<onup>100411</onup>
+								<ondown>100402</ondown>
+								<onright>100414</onright>
+								<include>SettingsButtonSkinShortcuts</include>
+								<label>Limit to:</label>
+								<textoffsetx>-30</textoffsetx>								
+								<label2>$VAR[WidgetLimitLabelVarX2S4]</label2>
+							</control>
+							<control type="button" id="100414">
+								<description>Change widget.sel4 1 sort by</description>
+								<left>387</left>
+								<width>370</width>
+								<onup>100411</onup>
+								<ondown>100402</ondown>
+								<onleft>100413</onleft>
+								<onright>100415</onright>
+								<include>SettingsButtonSkinShortcuts</include>
+								<label>Sort by:</label>
+								<label2>$VAR[WidgetSortbyLabelVarX2S4]</label2>
+							</control>
+							<control type="button" id="100415">
+								<description>Change widget.sel4 1 sort order</description>
+								<left>775</left>
+								<width>370</width>
+								<onup>100411</onup>
+								<ondown>100402</ondown>
+								<onleft>100414</onleft>
+								<include>SettingsButtonSkinShortcuts</include>
+								<label>Sort order:</label>
+								<label2>$VAR[WidgetSortLabelVarX2S4]</label2>
+							</control>
+						</control>
+					</control>
+				</control><control type="group">
+					<visible>String.IsEqual(Window(Home).Property(skinshortcuts-management-widget),sel5)</visible>
+					<control type="button" id="100500">
+						<include>FullscreenDimensions</include>
+						<height>1141</height>
+						<onclick>back</onclick>
+						<texturefocus/>
+						<texturenofocus/>
+					</control>
+					<control type="grouplist" id="100501">
+						<left>712</left>
+						<top>32</top>
+						<width>1125</width>
+						<height>810</height>
+						<onup>100501</onup>
+						<ondown>100501</ondown>
+						<scrolltime tween="quadratic" easing="out">200</scrolltime>
+						<control type="button" id="100502">
+							<description>Change widget.sel5 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>$ADDON[script.skinshortcuts 32044]</label>
+							<label2>$INFO[Container(211).ListItem.Property(widgetName.sel5)]</label2>
+							<onclick>SetProperty(widgetID,sel5)</onclick><onclick>SendClick(312)</onclick><onclick>SetProperty(customProperty,widgetArt.sel5)</onclick><onclick>SendClick(404)</onclick></control>
+						<control type="button" id="95710"><include>SettingsButtonSkinShortcuts</include><label>Move widget left</label><label2>To slot 4</label2><visible>String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onclick>RunScript(special://skin/resources/scripts/x2_reorder_widgets.py,slot=5,direction=left)</onclick></control><control type="button" id="95711"><include>SettingsButtonSkinShortcuts</include><label>Move widget right</label><label2>To slot 6</label2><visible>String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onclick>RunScript(special://skin/resources/scripts/x2_reorder_widgets.py,slot=5,direction=right)</onclick></control><control type="button" id="100503">
+							<description>Change widget.sel5 style 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31701</label>
+							<label2>$VAR[WidgetStyleLabelVarX2S5]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel5))</visible>
+						</control>
+						<control type="button" id="100504">
+							<description>Change widget.sel5 art 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>$LOCALIZE[31706]</label>
+							<label2>$VAR[WidgetArtLabelVarX2S5]</label2>
+							<visible>[!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel5)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel5))] + [!String.IsEqual(Container(211).ListItem.Property(widgetType.sel5),system) | !String.Contains(Container(211).ListItem.Property(widgetStyle.sel5),List)]</visible>
+						</control>
+						<control type="button" id="100505">
+							<description>Change widget.sel5 case 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>$LOCALIZE[31707]</label>
+							<label2>$VAR[WidgetCaseLabelVarX2S5]</label2>
+							<visible>[!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel5)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel5))] + [!String.IsEqual(Container(211).ListItem.Property(widgetType.sel5),system) | !String.Contains(Container(211).ListItem.Property(widgetStyle.sel5),List)]</visible>
+						</control>
+						<control type="button" id="100506">
+							<description>Change widget.sel5 background 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31702</label>
+							<label2>$VAR[WidgetBackgroundLabelVarX2S5]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel5)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel5)) + !Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+						</control>
+						<control type="button" id="100507">
+							<description>Change widget.sel5 title 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31703</label>
+							<label2>$VAR[WidgetTitleLabelVarX2S5]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel5)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel5)) + !String.Contains(Container(211).ListItem.Property(widgetStyle.sel5),List)</visible>
+						</control>
+						<control type="button" id="100508">
+							<description>Change list widget.sel5 text 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31704</label>
+							<label2>$VAR[WidgetListLabelVarX2S5]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel5)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel5)) + String.Contains(Container(211).ListItem.Property(widgetStyle.sel5),List) + !String.IsEqual(Container(211).ListItem.Property(widgetArt.sel5),Banner) + !String.IsEqual(Container(211).ListItem.Property(widgetType.sel5),system) + !String.IsEqual(Container(211).ListItem.Property(widgetType.sel5),weather)</visible>
+						</control>
+						<control type="radiobutton" id="100509">
+							<description>Enable panel widget.sel5 info 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel5))">SetProperty(customProperty,widgetPanelInfo.sel5)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel5))">SetProperty(customProperty,widgetPanelInfo.sel5)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel5))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel5))</selected>
+							<label>31705</label>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel5)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel5)) + !String.Contains(Container(211).ListItem.Property(widgetStyle.sel5),List)</visible>
+						</control>
+						<control type="radiobutton" id="100510">
+							<description>Enable widget.sel5 hide 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31289</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel5))">SetProperty(customProperty,widgetHide.sel5)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel5))">SetProperty(customProperty,widgetHide.sel5)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel5))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel5))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel5)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel5))</visible>
+						</control>
+						<control type="radiobutton" id="100511">
+							<description>Disable widget.sel5 fanart 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31444</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel5))">SetProperty(customProperty,widgetDisableFanart.sel5)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel5))">SetProperty(customProperty,widgetDisableFanart.sel5)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel5))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel5))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel5)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel5))</visible>
+						</control>
+						<control type="radiobutton" id="171005">
+							<description>Show the overall widget row title</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>Show Widget Title</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel5))">SetProperty(customProperty,widgetShowRowTitle.sel5)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel5))">SetProperty(customProperty,widgetShowRowTitle.sel5)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel5))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel5))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel5)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel5))</visible>
+						</control>
+						<control type="group" id="100512">
+							<width>1401</width>
+							<height>81</height>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel5)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel5))</visible>
+							<control type="button" id="100513">
+								<description>Change widget.sel5 1 limit</description>
+								<width>370</width>
+								<onup>100511</onup>
+								<ondown>100502</ondown>
+								<onright>100514</onright>
+								<include>SettingsButtonSkinShortcuts</include>
+								<label>Limit to:</label>
+								<textoffsetx>-30</textoffsetx>								
+								<label2>$VAR[WidgetLimitLabelVarX2S5]</label2>
+							</control>
+							<control type="button" id="100514">
+								<description>Change widget.sel5 1 sort by</description>
+								<left>387</left>
+								<width>370</width>
+								<onup>100511</onup>
+								<ondown>100502</ondown>
+								<onleft>100513</onleft>
+								<onright>100515</onright>
+								<include>SettingsButtonSkinShortcuts</include>
+								<label>Sort by:</label>
+								<label2>$VAR[WidgetSortbyLabelVarX2S5]</label2>
+							</control>
+							<control type="button" id="100515">
+								<description>Change widget.sel5 1 sort order</description>
+								<left>775</left>
+								<width>370</width>
+								<onup>100511</onup>
+								<ondown>100502</ondown>
+								<onleft>100514</onleft>
+								<include>SettingsButtonSkinShortcuts</include>
+								<label>Sort order:</label>
+								<label2>$VAR[WidgetSortLabelVarX2S5]</label2>
+							</control>
+						</control>
+					</control>
+				</control><control type="group">
+					<visible>String.IsEqual(Window(Home).Property(skinshortcuts-management-widget),sel6)</visible>
+					<control type="button" id="100600">
+						<include>FullscreenDimensions</include>
+						<height>1141</height>
+						<onclick>back</onclick>
+						<texturefocus/>
+						<texturenofocus/>
+					</control>
+					<control type="grouplist" id="100601">
+						<left>712</left>
+						<top>32</top>
+						<width>1125</width>
+						<height>810</height>
+						<onup>100601</onup>
+						<ondown>100601</ondown>
+						<scrolltime tween="quadratic" easing="out">200</scrolltime>
+						<control type="button" id="100602">
+							<description>Change widget.sel6 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>$ADDON[script.skinshortcuts 32044]</label>
+							<label2>$INFO[Container(211).ListItem.Property(widgetName.sel6)]</label2>
+							<onclick>SetProperty(widgetID,sel6)</onclick><onclick>SendClick(312)</onclick><onclick>SetProperty(customProperty,widgetArt.sel6)</onclick><onclick>SendClick(404)</onclick></control>
+						<control type="button" id="95712"><include>SettingsButtonSkinShortcuts</include><label>Move widget left</label><label2>To slot 5</label2><visible>String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onclick>RunScript(special://skin/resources/scripts/x2_reorder_widgets.py,slot=6,direction=left)</onclick></control><control type="button" id="95713"><include>SettingsButtonSkinShortcuts</include><label>Move widget right</label><label2>To slot 7</label2><visible>String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onclick>RunScript(special://skin/resources/scripts/x2_reorder_widgets.py,slot=6,direction=right)</onclick></control><control type="button" id="100603">
+							<description>Change widget.sel6 style 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31701</label>
+							<label2>$VAR[WidgetStyleLabelVarX2S6]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel6))</visible>
+						</control>
+						<control type="button" id="100604">
+							<description>Change widget.sel6 art 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>$LOCALIZE[31706]</label>
+							<label2>$VAR[WidgetArtLabelVarX2S6]</label2>
+							<visible>[!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel6)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel6))] + [!String.IsEqual(Container(211).ListItem.Property(widgetType.sel6),system) | !String.Contains(Container(211).ListItem.Property(widgetStyle.sel6),List)]</visible>
+						</control>
+						<control type="button" id="100605">
+							<description>Change widget.sel6 case 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>$LOCALIZE[31707]</label>
+							<label2>$VAR[WidgetCaseLabelVarX2S6]</label2>
+							<visible>[!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel6)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel6))] + [!String.IsEqual(Container(211).ListItem.Property(widgetType.sel6),system) | !String.Contains(Container(211).ListItem.Property(widgetStyle.sel6),List)]</visible>
+						</control>
+						<control type="button" id="100606">
+							<description>Change widget.sel6 background 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31702</label>
+							<label2>$VAR[WidgetBackgroundLabelVarX2S6]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel6)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel6)) + !Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+						</control>
+						<control type="button" id="100607">
+							<description>Change widget.sel6 title 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31703</label>
+							<label2>$VAR[WidgetTitleLabelVarX2S6]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel6)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel6)) + !String.Contains(Container(211).ListItem.Property(widgetStyle.sel6),List)</visible>
+						</control>
+						<control type="button" id="100608">
+							<description>Change list widget.sel6 text 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31704</label>
+							<label2>$VAR[WidgetListLabelVarX2S6]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel6)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel6)) + String.Contains(Container(211).ListItem.Property(widgetStyle.sel6),List) + !String.IsEqual(Container(211).ListItem.Property(widgetArt.sel6),Banner) + !String.IsEqual(Container(211).ListItem.Property(widgetType.sel6),system) + !String.IsEqual(Container(211).ListItem.Property(widgetType.sel6),weather)</visible>
+						</control>
+						<control type="radiobutton" id="100609">
+							<description>Enable panel widget.sel6 info 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel6))">SetProperty(customProperty,widgetPanelInfo.sel6)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel6))">SetProperty(customProperty,widgetPanelInfo.sel6)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel6))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel6))</selected>
+							<label>31705</label>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel6)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel6)) + !String.Contains(Container(211).ListItem.Property(widgetStyle.sel6),List)</visible>
+						</control>
+						<control type="radiobutton" id="100610">
+							<description>Enable widget.sel6 hide 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31289</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel6))">SetProperty(customProperty,widgetHide.sel6)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel6))">SetProperty(customProperty,widgetHide.sel6)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel6))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel6))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel6)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel6))</visible>
+						</control>
+						<control type="radiobutton" id="100611">
+							<description>Disable widget.sel6 fanart 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31444</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel6))">SetProperty(customProperty,widgetDisableFanart.sel6)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel6))">SetProperty(customProperty,widgetDisableFanart.sel6)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel6))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel6))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel6)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel6))</visible>
+						</control>
+						<control type="radiobutton" id="171006">
+							<description>Show the overall widget row title</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>Show Widget Title</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel6))">SetProperty(customProperty,widgetShowRowTitle.sel6)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel6))">SetProperty(customProperty,widgetShowRowTitle.sel6)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel6))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel6))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel6)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel6))</visible>
+						</control>
+						<control type="group" id="100612">
+							<width>1401</width>
+							<height>81</height>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel6)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel6))</visible>
+							<control type="button" id="100613">
+								<description>Change widget.sel6 1 limit</description>
+								<width>370</width>
+								<onup>100611</onup>
+								<ondown>100602</ondown>
+								<onright>100614</onright>
+								<include>SettingsButtonSkinShortcuts</include>
+								<label>Limit to:</label>
+								<textoffsetx>-30</textoffsetx>								
+								<label2>$VAR[WidgetLimitLabelVarX2S6]</label2>
+							</control>
+							<control type="button" id="100614">
+								<description>Change widget.sel6 1 sort by</description>
+								<left>387</left>
+								<width>370</width>
+								<onup>100611</onup>
+								<ondown>100602</ondown>
+								<onleft>100613</onleft>
+								<onright>100615</onright>
+								<include>SettingsButtonSkinShortcuts</include>
+								<label>Sort by:</label>
+								<label2>$VAR[WidgetSortbyLabelVarX2S6]</label2>
+							</control>
+							<control type="button" id="100615">
+								<description>Change widget.sel6 1 sort order</description>
+								<left>775</left>
+								<width>370</width>
+								<onup>100611</onup>
+								<ondown>100602</ondown>
+								<onleft>100614</onleft>
+								<include>SettingsButtonSkinShortcuts</include>
+								<label>Sort order:</label>
+								<label2>$VAR[WidgetSortLabelVarX2S6]</label2>
+							</control>
+						</control>
+					</control>
+				</control><control type="group">
+					<visible>String.IsEqual(Window(Home).Property(skinshortcuts-management-widget),sel7)</visible>
+					<control type="button" id="100700">
+						<include>FullscreenDimensions</include>
+						<height>1141</height>
+						<onclick>back</onclick>
+						<texturefocus/>
+						<texturenofocus/>
+					</control>
+					<control type="grouplist" id="100701">
+						<left>712</left>
+						<top>32</top>
+						<width>1125</width>
+						<height>810</height>
+						<onup>100701</onup>
+						<ondown>100701</ondown>
+						<scrolltime tween="quadratic" easing="out">200</scrolltime>
+						<control type="button" id="100702">
+							<description>Change widget.sel7 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>$ADDON[script.skinshortcuts 32044]</label>
+							<label2>$INFO[Container(211).ListItem.Property(widgetName.sel7)]</label2>
+							<onclick>SetProperty(widgetID,sel7)</onclick><onclick>SendClick(312)</onclick><onclick>SetProperty(customProperty,widgetArt.sel7)</onclick><onclick>SendClick(404)</onclick></control>
+						<control type="button" id="95714"><include>SettingsButtonSkinShortcuts</include><label>Move widget left</label><label2>To slot 6</label2><visible>String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onclick>RunScript(special://skin/resources/scripts/x2_reorder_widgets.py,slot=7,direction=left)</onclick></control><control type="button" id="95715"><include>SettingsButtonSkinShortcuts</include><label>Move widget right</label><label2>To slot 8</label2><visible>String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onclick>RunScript(special://skin/resources/scripts/x2_reorder_widgets.py,slot=7,direction=right)</onclick></control><control type="button" id="100703">
+							<description>Change widget.sel7 style 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31701</label>
+							<label2>$VAR[WidgetStyleLabelVarX2S7]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel7))</visible>
+						</control>
+						<control type="button" id="100704">
+							<description>Change widget.sel7 art 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>$LOCALIZE[31706]</label>
+							<label2>$VAR[WidgetArtLabelVarX2S7]</label2>
+							<visible>[!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel7)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel7))] + [!String.IsEqual(Container(211).ListItem.Property(widgetType.sel7),system) | !String.Contains(Container(211).ListItem.Property(widgetStyle.sel7),List)]</visible>
+						</control>
+						<control type="button" id="100705">
+							<description>Change widget.sel7 case 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>$LOCALIZE[31707]</label>
+							<label2>$VAR[WidgetCaseLabelVarX2S7]</label2>
+							<visible>[!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel7)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel7))] + [!String.IsEqual(Container(211).ListItem.Property(widgetType.sel7),system) | !String.Contains(Container(211).ListItem.Property(widgetStyle.sel7),List)]</visible>
+						</control>
+						<control type="button" id="100706">
+							<description>Change widget.sel7 background 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31702</label>
+							<label2>$VAR[WidgetBackgroundLabelVarX2S7]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel7)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel7)) + !Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+						</control>
+						<control type="button" id="100707">
+							<description>Change widget.sel7 title 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31703</label>
+							<label2>$VAR[WidgetTitleLabelVarX2S7]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel7)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel7)) + !String.Contains(Container(211).ListItem.Property(widgetStyle.sel7),List)</visible>
+						</control>
+						<control type="button" id="100708">
+							<description>Change list widget.sel7 text 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31704</label>
+							<label2>$VAR[WidgetListLabelVarX2S7]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel7)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel7)) + String.Contains(Container(211).ListItem.Property(widgetStyle.sel7),List) + !String.IsEqual(Container(211).ListItem.Property(widgetArt.sel7),Banner) + !String.IsEqual(Container(211).ListItem.Property(widgetType.sel7),system) + !String.IsEqual(Container(211).ListItem.Property(widgetType.sel7),weather)</visible>
+						</control>
+						<control type="radiobutton" id="100709">
+							<description>Enable panel widget.sel7 info 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel7))">SetProperty(customProperty,widgetPanelInfo.sel7)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel7))">SetProperty(customProperty,widgetPanelInfo.sel7)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel7))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel7))</selected>
+							<label>31705</label>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel7)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel7)) + !String.Contains(Container(211).ListItem.Property(widgetStyle.sel7),List)</visible>
+						</control>
+						<control type="radiobutton" id="100710">
+							<description>Enable widget.sel7 hide 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31289</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel7))">SetProperty(customProperty,widgetHide.sel7)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel7))">SetProperty(customProperty,widgetHide.sel7)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel7))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel7))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel7)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel7))</visible>
+						</control>
+						<control type="radiobutton" id="100711">
+							<description>Disable widget.sel7 fanart 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31444</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel7))">SetProperty(customProperty,widgetDisableFanart.sel7)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel7))">SetProperty(customProperty,widgetDisableFanart.sel7)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel7))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel7))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel7)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel7))</visible>
+						</control>
+						<control type="radiobutton" id="171007">
+							<description>Show the overall widget row title</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>Show Widget Title</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel7))">SetProperty(customProperty,widgetShowRowTitle.sel7)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel7))">SetProperty(customProperty,widgetShowRowTitle.sel7)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel7))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel7))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel7)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel7))</visible>
+						</control>
+						<control type="group" id="100712">
+							<width>1401</width>
+							<height>81</height>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel7)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel7))</visible>
+							<control type="button" id="100713">
+								<description>Change widget.sel7 1 limit</description>
+								<width>370</width>
+								<onup>100711</onup>
+								<ondown>100702</ondown>
+								<onright>100714</onright>
+								<include>SettingsButtonSkinShortcuts</include>
+								<label>Limit to:</label>
+								<textoffsetx>-30</textoffsetx>								
+								<label2>$VAR[WidgetLimitLabelVarX2S7]</label2>
+							</control>
+							<control type="button" id="100714">
+								<description>Change widget.sel7 1 sort by</description>
+								<left>387</left>
+								<width>370</width>
+								<onup>100711</onup>
+								<ondown>100702</ondown>
+								<onleft>100713</onleft>
+								<onright>100715</onright>
+								<include>SettingsButtonSkinShortcuts</include>
+								<label>Sort by:</label>
+								<label2>$VAR[WidgetSortbyLabelVarX2S7]</label2>
+							</control>
+							<control type="button" id="100715">
+								<description>Change widget.sel7 1 sort order</description>
+								<left>775</left>
+								<width>370</width>
+								<onup>100711</onup>
+								<ondown>100702</ondown>
+								<onleft>100714</onleft>
+								<include>SettingsButtonSkinShortcuts</include>
+								<label>Sort order:</label>
+								<label2>$VAR[WidgetSortLabelVarX2S7]</label2>
+							</control>
+						</control>
+					</control>
+				</control><control type="group">
+					<visible>String.IsEqual(Window(Home).Property(skinshortcuts-management-widget),sel8)</visible>
+					<control type="button" id="100800">
+						<include>FullscreenDimensions</include>
+						<height>1141</height>
+						<onclick>back</onclick>
+						<texturefocus/>
+						<texturenofocus/>
+					</control>
+					<control type="grouplist" id="100801">
+						<left>712</left>
+						<top>32</top>
+						<width>1125</width>
+						<height>810</height>
+						<onup>100801</onup>
+						<ondown>100801</ondown>
+						<scrolltime tween="quadratic" easing="out">200</scrolltime>
+						<control type="button" id="100802">
+							<description>Change widget.sel8 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>$ADDON[script.skinshortcuts 32044]</label>
+							<label2>$INFO[Container(211).ListItem.Property(widgetName.sel8)]</label2>
+							<onclick>SetProperty(widgetID,sel8)</onclick><onclick>SendClick(312)</onclick><onclick>SetProperty(customProperty,widgetArt.sel8)</onclick><onclick>SendClick(404)</onclick></control>
+						<control type="button" id="95716"><include>SettingsButtonSkinShortcuts</include><label>Move widget left</label><label2>To slot 7</label2><visible>String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onclick>RunScript(special://skin/resources/scripts/x2_reorder_widgets.py,slot=8,direction=left)</onclick></control><control type="button" id="95717"><include>SettingsButtonSkinShortcuts</include><label>Move widget right</label><label2>To slot 9</label2><visible>String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onclick>RunScript(special://skin/resources/scripts/x2_reorder_widgets.py,slot=8,direction=right)</onclick></control><control type="button" id="100803">
+							<description>Change widget.sel8 style 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31701</label>
+							<label2>$VAR[WidgetStyleLabelVarX2S8]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel8))</visible>
+						</control>
+						<control type="button" id="100804">
+							<description>Change widget.sel8 art 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>$LOCALIZE[31706]</label>
+							<label2>$VAR[WidgetArtLabelVarX2S8]</label2>
+							<visible>[!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel8)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel8))] + [!String.IsEqual(Container(211).ListItem.Property(widgetType.sel8),system) | !String.Contains(Container(211).ListItem.Property(widgetStyle.sel8),List)]</visible>
+						</control>
+						<control type="button" id="100805">
+							<description>Change widget.sel8 case 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>$LOCALIZE[31707]</label>
+							<label2>$VAR[WidgetCaseLabelVarX2S8]</label2>
+							<visible>[!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel8)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel8))] + [!String.IsEqual(Container(211).ListItem.Property(widgetType.sel8),system) | !String.Contains(Container(211).ListItem.Property(widgetStyle.sel8),List)]</visible>
+						</control>
+						<control type="button" id="100806">
+							<description>Change widget.sel8 background 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31702</label>
+							<label2>$VAR[WidgetBackgroundLabelVarX2S8]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel8)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel8)) + !Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+						</control>
+						<control type="button" id="100807">
+							<description>Change widget.sel8 title 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31703</label>
+							<label2>$VAR[WidgetTitleLabelVarX2S8]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel8)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel8)) + !String.Contains(Container(211).ListItem.Property(widgetStyle.sel8),List)</visible>
+						</control>
+						<control type="button" id="100808">
+							<description>Change list widget.sel8 text 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31704</label>
+							<label2>$VAR[WidgetListLabelVarX2S8]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel8)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel8)) + String.Contains(Container(211).ListItem.Property(widgetStyle.sel8),List) + !String.IsEqual(Container(211).ListItem.Property(widgetArt.sel8),Banner) + !String.IsEqual(Container(211).ListItem.Property(widgetType.sel8),system) + !String.IsEqual(Container(211).ListItem.Property(widgetType.sel8),weather)</visible>
+						</control>
+						<control type="radiobutton" id="100809">
+							<description>Enable panel widget.sel8 info 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel8))">SetProperty(customProperty,widgetPanelInfo.sel8)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel8))">SetProperty(customProperty,widgetPanelInfo.sel8)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel8))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel8))</selected>
+							<label>31705</label>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel8)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel8)) + !String.Contains(Container(211).ListItem.Property(widgetStyle.sel8),List)</visible>
+						</control>
+						<control type="radiobutton" id="100810">
+							<description>Enable widget.sel8 hide 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31289</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel8))">SetProperty(customProperty,widgetHide.sel8)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel8))">SetProperty(customProperty,widgetHide.sel8)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel8))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel8))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel8)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel8))</visible>
+						</control>
+						<control type="radiobutton" id="100811">
+							<description>Disable widget.sel8 fanart 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31444</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel8))">SetProperty(customProperty,widgetDisableFanart.sel8)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel8))">SetProperty(customProperty,widgetDisableFanart.sel8)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel8))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel8))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel8)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel8))</visible>
+						</control>
+						<control type="radiobutton" id="171008">
+							<description>Show the overall widget row title</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>Show Widget Title</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel8))">SetProperty(customProperty,widgetShowRowTitle.sel8)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel8))">SetProperty(customProperty,widgetShowRowTitle.sel8)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel8))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel8))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel8)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel8))</visible>
+						</control>
+						<control type="group" id="100812">
+							<width>1401</width>
+							<height>81</height>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel8)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel8))</visible>
+							<control type="button" id="100813">
+								<description>Change widget.sel8 1 limit</description>
+								<width>370</width>
+								<onup>100811</onup>
+								<ondown>100802</ondown>
+								<onright>100814</onright>
+								<include>SettingsButtonSkinShortcuts</include>
+								<label>Limit to:</label>
+								<textoffsetx>-30</textoffsetx>								
+								<label2>$VAR[WidgetLimitLabelVarX2S8]</label2>
+							</control>
+							<control type="button" id="100814">
+								<description>Change widget.sel8 1 sort by</description>
+								<left>387</left>
+								<width>370</width>
+								<onup>100811</onup>
+								<ondown>100802</ondown>
+								<onleft>100813</onleft>
+								<onright>100815</onright>
+								<include>SettingsButtonSkinShortcuts</include>
+								<label>Sort by:</label>
+								<label2>$VAR[WidgetSortbyLabelVarX2S8]</label2>
+							</control>
+							<control type="button" id="100815">
+								<description>Change widget.sel8 1 sort order</description>
+								<left>775</left>
+								<width>370</width>
+								<onup>100811</onup>
+								<ondown>100802</ondown>
+								<onleft>100814</onleft>
+								<include>SettingsButtonSkinShortcuts</include>
+								<label>Sort order:</label>
+								<label2>$VAR[WidgetSortLabelVarX2S8]</label2>
+							</control>
+						</control>
+					</control>
+				</control><control type="group">
+					<visible>String.IsEqual(Window(Home).Property(skinshortcuts-management-widget),sel9)</visible>
+					<control type="button" id="100900">
+						<include>FullscreenDimensions</include>
+						<height>1141</height>
+						<onclick>back</onclick>
+						<texturefocus/>
+						<texturenofocus/>
+					</control>
+					<control type="grouplist" id="100901">
+						<left>712</left>
+						<top>32</top>
+						<width>1125</width>
+						<height>810</height>
+						<onup>100901</onup>
+						<ondown>100901</ondown>
+						<scrolltime tween="quadratic" easing="out">200</scrolltime>
+						<control type="button" id="100902">
+							<description>Change widget.sel9 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>$ADDON[script.skinshortcuts 32044]</label>
+							<label2>$INFO[Container(211).ListItem.Property(widgetName.sel9)]</label2>
+							<onclick>SetProperty(widgetID,sel9)</onclick><onclick>SendClick(312)</onclick><onclick>SetProperty(customProperty,widgetArt.sel9)</onclick><onclick>SendClick(404)</onclick></control>
+						<control type="button" id="95718"><include>SettingsButtonSkinShortcuts</include><label>Move widget left</label><label2>To slot 8</label2><visible>String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onclick>RunScript(special://skin/resources/scripts/x2_reorder_widgets.py,slot=9,direction=left)</onclick></control><control type="button" id="95719"><include>SettingsButtonSkinShortcuts</include><label>Move widget right</label><label2>To slot 10</label2><visible>String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onclick>RunScript(special://skin/resources/scripts/x2_reorder_widgets.py,slot=9,direction=right)</onclick></control><control type="button" id="100903">
+							<description>Change widget.sel9 style 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31701</label>
+							<label2>$VAR[WidgetStyleLabelVarX2S9]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel9))</visible>
+						</control>
+						<control type="button" id="100904">
+							<description>Change widget.sel9 art 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>$LOCALIZE[31706]</label>
+							<label2>$VAR[WidgetArtLabelVarX2S9]</label2>
+							<visible>[!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel9)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel9))] + [!String.IsEqual(Container(211).ListItem.Property(widgetType.sel9),system) | !String.Contains(Container(211).ListItem.Property(widgetStyle.sel9),List)]</visible>
+						</control>
+						<control type="button" id="100905">
+							<description>Change widget.sel9 case 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>$LOCALIZE[31707]</label>
+							<label2>$VAR[WidgetCaseLabelVarX2S9]</label2>
+							<visible>[!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel9)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel9))] + [!String.IsEqual(Container(211).ListItem.Property(widgetType.sel9),system) | !String.Contains(Container(211).ListItem.Property(widgetStyle.sel9),List)]</visible>
+						</control>
+						<control type="button" id="100906">
+							<description>Change widget.sel9 background 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31702</label>
+							<label2>$VAR[WidgetBackgroundLabelVarX2S9]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel9)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel9)) + !Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+						</control>
+						<control type="button" id="100907">
+							<description>Change widget.sel9 title 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31703</label>
+							<label2>$VAR[WidgetTitleLabelVarX2S9]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel9)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel9)) + !String.Contains(Container(211).ListItem.Property(widgetStyle.sel9),List)</visible>
+						</control>
+						<control type="button" id="100908">
+							<description>Change list widget.sel9 text 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31704</label>
+							<label2>$VAR[WidgetListLabelVarX2S9]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel9)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel9)) + String.Contains(Container(211).ListItem.Property(widgetStyle.sel9),List) + !String.IsEqual(Container(211).ListItem.Property(widgetArt.sel9),Banner) + !String.IsEqual(Container(211).ListItem.Property(widgetType.sel9),system) + !String.IsEqual(Container(211).ListItem.Property(widgetType.sel9),weather)</visible>
+						</control>
+						<control type="radiobutton" id="100909">
+							<description>Enable panel widget.sel9 info 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel9))">SetProperty(customProperty,widgetPanelInfo.sel9)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel9))">SetProperty(customProperty,widgetPanelInfo.sel9)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel9))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel9))</selected>
+							<label>31705</label>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel9)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel9)) + !String.Contains(Container(211).ListItem.Property(widgetStyle.sel9),List)</visible>
+						</control>
+						<control type="radiobutton" id="100910">
+							<description>Enable widget.sel9 hide 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31289</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel9))">SetProperty(customProperty,widgetHide.sel9)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel9))">SetProperty(customProperty,widgetHide.sel9)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel9))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel9))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel9)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel9))</visible>
+						</control>
+						<control type="radiobutton" id="100911">
+							<description>Disable widget.sel9 fanart 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31444</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel9))">SetProperty(customProperty,widgetDisableFanart.sel9)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel9))">SetProperty(customProperty,widgetDisableFanart.sel9)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel9))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel9))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel9)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel9))</visible>
+						</control>
+						<control type="radiobutton" id="171009">
+							<description>Show the overall widget row title</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>Show Widget Title</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel9))">SetProperty(customProperty,widgetShowRowTitle.sel9)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel9))">SetProperty(customProperty,widgetShowRowTitle.sel9)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel9))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel9))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel9)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel9))</visible>
+						</control>
+						<control type="group" id="100912">
+							<width>1401</width>
+							<height>81</height>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel9)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel9))</visible>
+							<control type="button" id="100913">
+								<description>Change widget.sel9 1 limit</description>
+								<width>370</width>
+								<onup>100911</onup>
+								<ondown>100902</ondown>
+								<onright>100914</onright>
+								<include>SettingsButtonSkinShortcuts</include>
+								<label>Limit to:</label>
+								<textoffsetx>-30</textoffsetx>								
+								<label2>$VAR[WidgetLimitLabelVarX2S9]</label2>
+							</control>
+							<control type="button" id="100914">
+								<description>Change widget.sel9 1 sort by</description>
+								<left>387</left>
+								<width>370</width>
+								<onup>100911</onup>
+								<ondown>100902</ondown>
+								<onleft>100913</onleft>
+								<onright>100915</onright>
+								<include>SettingsButtonSkinShortcuts</include>
+								<label>Sort by:</label>
+								<label2>$VAR[WidgetSortbyLabelVarX2S9]</label2>
+							</control>
+							<control type="button" id="100915">
+								<description>Change widget.sel9 1 sort order</description>
+								<left>775</left>
+								<width>370</width>
+								<onup>100911</onup>
+								<ondown>100902</ondown>
+								<onleft>100914</onleft>
+								<include>SettingsButtonSkinShortcuts</include>
+								<label>Sort order:</label>
+								<label2>$VAR[WidgetSortLabelVarX2S9]</label2>
+							</control>
+						</control>
+					</control>
+				</control><control type="group">
+					<visible>String.IsEqual(Window(Home).Property(skinshortcuts-management-widget),sel10)</visible>
+					<control type="button" id="101000">
+						<include>FullscreenDimensions</include>
+						<height>1141</height>
+						<onclick>back</onclick>
+						<texturefocus/>
+						<texturenofocus/>
+					</control>
+					<control type="grouplist" id="101001">
+						<left>712</left>
+						<top>32</top>
+						<width>1125</width>
+						<height>810</height>
+						<onup>101001</onup>
+						<ondown>101001</ondown>
+						<scrolltime tween="quadratic" easing="out">200</scrolltime>
+						<control type="button" id="101002">
+							<description>Change widget.sel10 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>$ADDON[script.skinshortcuts 32044]</label>
+							<label2>$INFO[Container(211).ListItem.Property(widgetName.sel10)]</label2>
+							<onclick>SetProperty(widgetID,sel10)</onclick><onclick>SendClick(312)</onclick><onclick>SetProperty(customProperty,widgetArt.sel10)</onclick><onclick>SendClick(404)</onclick></control>
+						<control type="button" id="95720"><include>SettingsButtonSkinShortcuts</include><label>Move widget left</label><label2>To slot 9</label2><visible>String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onclick>RunScript(special://skin/resources/scripts/x2_reorder_widgets.py,slot=10,direction=left)</onclick></control><control type="button" id="95721"><include>SettingsButtonSkinShortcuts</include><label>Move widget right</label><label2>To slot 11</label2><visible>String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onclick>RunScript(special://skin/resources/scripts/x2_reorder_widgets.py,slot=10,direction=right)</onclick></control><control type="button" id="101003">
+							<description>Change widget.sel10 style 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31701</label>
+							<label2>$VAR[WidgetStyleLabelVarX2S10]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel10))</visible>
+						</control>
+						<control type="button" id="101004">
+							<description>Change widget.sel10 art 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>$LOCALIZE[31706]</label>
+							<label2>$VAR[WidgetArtLabelVarX2S10]</label2>
+							<visible>[!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel10)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel10))] + [!String.IsEqual(Container(211).ListItem.Property(widgetType.sel10),system) | !String.Contains(Container(211).ListItem.Property(widgetStyle.sel10),List)]</visible>
+						</control>
+						<control type="button" id="101005">
+							<description>Change widget.sel10 case 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>$LOCALIZE[31707]</label>
+							<label2>$VAR[WidgetCaseLabelVarX2S10]</label2>
+							<visible>[!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel10)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel10))] + [!String.IsEqual(Container(211).ListItem.Property(widgetType.sel10),system) | !String.Contains(Container(211).ListItem.Property(widgetStyle.sel10),List)]</visible>
+						</control>
+						<control type="button" id="101006">
+							<description>Change widget.sel10 background 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31702</label>
+							<label2>$VAR[WidgetBackgroundLabelVarX2S10]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel10)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel10)) + !Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+						</control>
+						<control type="button" id="101007">
+							<description>Change widget.sel10 title 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31703</label>
+							<label2>$VAR[WidgetTitleLabelVarX2S10]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel10)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel10)) + !String.Contains(Container(211).ListItem.Property(widgetStyle.sel10),List)</visible>
+						</control>
+						<control type="button" id="101008">
+							<description>Change list widget.sel10 text 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31704</label>
+							<label2>$VAR[WidgetListLabelVarX2S10]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel10)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel10)) + String.Contains(Container(211).ListItem.Property(widgetStyle.sel10),List) + !String.IsEqual(Container(211).ListItem.Property(widgetArt.sel10),Banner) + !String.IsEqual(Container(211).ListItem.Property(widgetType.sel10),system) + !String.IsEqual(Container(211).ListItem.Property(widgetType.sel10),weather)</visible>
+						</control>
+						<control type="radiobutton" id="101009">
+							<description>Enable panel widget.sel10 info 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel10))">SetProperty(customProperty,widgetPanelInfo.sel10)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel10))">SetProperty(customProperty,widgetPanelInfo.sel10)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel10))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel10))</selected>
+							<label>31705</label>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel10)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel10)) + !String.Contains(Container(211).ListItem.Property(widgetStyle.sel10),List)</visible>
+						</control>
+						<control type="radiobutton" id="101010">
+							<description>Enable widget.sel10 hide 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31289</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel10))">SetProperty(customProperty,widgetHide.sel10)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel10))">SetProperty(customProperty,widgetHide.sel10)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel10))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel10))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel10)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel10))</visible>
+						</control>
+						<control type="radiobutton" id="101011">
+							<description>Disable widget.sel10 fanart 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31444</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel10))">SetProperty(customProperty,widgetDisableFanart.sel10)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel10))">SetProperty(customProperty,widgetDisableFanart.sel10)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel10))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel10))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel10)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel10))</visible>
+						</control>
+						<control type="radiobutton" id="171010">
+							<description>Show the overall widget row title</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>Show Widget Title</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel10))">SetProperty(customProperty,widgetShowRowTitle.sel10)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel10))">SetProperty(customProperty,widgetShowRowTitle.sel10)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel10))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel10))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel10)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel10))</visible>
+						</control>
+						<control type="group" id="101012">
+							<width>1401</width>
+							<height>81</height>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel10)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel10))</visible>
+							<control type="button" id="101013">
+								<description>Change widget.sel10 1 limit</description>
+								<width>370</width>
+								<onup>101011</onup>
+								<ondown>101002</ondown>
+								<onright>101014</onright>
+								<include>SettingsButtonSkinShortcuts</include>
+								<label>Limit to:</label>
+								<textoffsetx>-30</textoffsetx>								
+								<label2>$VAR[WidgetLimitLabelVarX2S10]</label2>
+							</control>
+							<control type="button" id="101014">
+								<description>Change widget.sel10 1 sort by</description>
+								<left>387</left>
+								<width>370</width>
+								<onup>101011</onup>
+								<ondown>101002</ondown>
+								<onleft>101013</onleft>
+								<onright>101015</onright>
+								<include>SettingsButtonSkinShortcuts</include>
+								<label>Sort by:</label>
+								<label2>$VAR[WidgetSortbyLabelVarX2S10]</label2>
+							</control>
+							<control type="button" id="101015">
+								<description>Change widget.sel10 1 sort order</description>
+								<left>775</left>
+								<width>370</width>
+								<onup>101011</onup>
+								<ondown>101002</ondown>
+								<onleft>101014</onleft>
+								<include>SettingsButtonSkinShortcuts</include>
+								<label>Sort order:</label>
+								<label2>$VAR[WidgetSortLabelVarX2S10]</label2>
+							</control>
+						</control>
+					</control>
+				</control><control type="group">
+					<visible>String.IsEqual(Window(Home).Property(skinshortcuts-management-widget),sel11)</visible>
+					<control type="button" id="101100">
+						<include>FullscreenDimensions</include>
+						<height>1141</height>
+						<onclick>back</onclick>
+						<texturefocus/>
+						<texturenofocus/>
+					</control>
+					<control type="grouplist" id="101101">
+						<left>712</left>
+						<top>32</top>
+						<width>1125</width>
+						<height>810</height>
+						<onup>101101</onup>
+						<ondown>101101</ondown>
+						<scrolltime tween="quadratic" easing="out">200</scrolltime>
+						<control type="button" id="101102">
+							<description>Change widget.sel11 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>$ADDON[script.skinshortcuts 32044]</label>
+							<label2>$INFO[Container(211).ListItem.Property(widgetName.sel11)]</label2>
+							<onclick>SetProperty(widgetID,sel11)</onclick><onclick>SendClick(312)</onclick><onclick>SetProperty(customProperty,widgetArt.sel11)</onclick><onclick>SendClick(404)</onclick></control>
+						<control type="button" id="95722"><include>SettingsButtonSkinShortcuts</include><label>Move widget left</label><label2>To slot 10</label2><visible>String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onclick>RunScript(special://skin/resources/scripts/x2_reorder_widgets.py,slot=11,direction=left)</onclick></control><control type="button" id="95723"><include>SettingsButtonSkinShortcuts</include><label>Move widget right</label><label2>To slot 12</label2><visible>String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onclick>RunScript(special://skin/resources/scripts/x2_reorder_widgets.py,slot=11,direction=right)</onclick></control><control type="button" id="101103">
+							<description>Change widget.sel11 style 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31701</label>
+							<label2>$VAR[WidgetStyleLabelVarX2S11]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel11))</visible>
+						</control>
+						<control type="button" id="101104">
+							<description>Change widget.sel11 art 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>$LOCALIZE[31706]</label>
+							<label2>$VAR[WidgetArtLabelVarX2S11]</label2>
+							<visible>[!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel11)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel11))] + [!String.IsEqual(Container(211).ListItem.Property(widgetType.sel11),system) | !String.Contains(Container(211).ListItem.Property(widgetStyle.sel11),List)]</visible>
+						</control>
+						<control type="button" id="101105">
+							<description>Change widget.sel11 case 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>$LOCALIZE[31707]</label>
+							<label2>$VAR[WidgetCaseLabelVarX2S11]</label2>
+							<visible>[!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel11)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel11))] + [!String.IsEqual(Container(211).ListItem.Property(widgetType.sel11),system) | !String.Contains(Container(211).ListItem.Property(widgetStyle.sel11),List)]</visible>
+						</control>
+						<control type="button" id="101106">
+							<description>Change widget.sel11 background 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31702</label>
+							<label2>$VAR[WidgetBackgroundLabelVarX2S11]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel11)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel11)) + !Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+						</control>
+						<control type="button" id="101107">
+							<description>Change widget.sel11 title 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31703</label>
+							<label2>$VAR[WidgetTitleLabelVarX2S11]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel11)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel11)) + !String.Contains(Container(211).ListItem.Property(widgetStyle.sel11),List)</visible>
+						</control>
+						<control type="button" id="101108">
+							<description>Change list widget.sel11 text 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31704</label>
+							<label2>$VAR[WidgetListLabelVarX2S11]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel11)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel11)) + String.Contains(Container(211).ListItem.Property(widgetStyle.sel11),List) + !String.IsEqual(Container(211).ListItem.Property(widgetArt.sel11),Banner) + !String.IsEqual(Container(211).ListItem.Property(widgetType.sel11),system) + !String.IsEqual(Container(211).ListItem.Property(widgetType.sel11),weather)</visible>
+						</control>
+						<control type="radiobutton" id="101109">
+							<description>Enable panel widget.sel11 info 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel11))">SetProperty(customProperty,widgetPanelInfo.sel11)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel11))">SetProperty(customProperty,widgetPanelInfo.sel11)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel11))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel11))</selected>
+							<label>31705</label>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel11)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel11)) + !String.Contains(Container(211).ListItem.Property(widgetStyle.sel11),List)</visible>
+						</control>
+						<control type="radiobutton" id="101110">
+							<description>Enable widget.sel11 hide 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31289</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel11))">SetProperty(customProperty,widgetHide.sel11)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel11))">SetProperty(customProperty,widgetHide.sel11)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel11))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel11))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel11)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel11))</visible>
+						</control>
+						<control type="radiobutton" id="101111">
+							<description>Disable widget.sel11 fanart 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31444</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel11))">SetProperty(customProperty,widgetDisableFanart.sel11)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel11))">SetProperty(customProperty,widgetDisableFanart.sel11)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel11))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel11))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel11)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel11))</visible>
+						</control>
+						<control type="radiobutton" id="171011">
+							<description>Show the overall widget row title</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>Show Widget Title</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel11))">SetProperty(customProperty,widgetShowRowTitle.sel11)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel11))">SetProperty(customProperty,widgetShowRowTitle.sel11)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel11))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel11))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel11)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel11))</visible>
+						</control>
+						<control type="group" id="101112">
+							<width>1401</width>
+							<height>81</height>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel11)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel11))</visible>
+							<control type="button" id="101113">
+								<description>Change widget.sel11 1 limit</description>
+								<width>370</width>
+								<onup>101111</onup>
+								<ondown>101102</ondown>
+								<onright>101114</onright>
+								<include>SettingsButtonSkinShortcuts</include>
+								<label>Limit to:</label>
+								<textoffsetx>-30</textoffsetx>								
+								<label2>$VAR[WidgetLimitLabelVarX2S11]</label2>
+							</control>
+							<control type="button" id="101114">
+								<description>Change widget.sel11 1 sort by</description>
+								<left>387</left>
+								<width>370</width>
+								<onup>101111</onup>
+								<ondown>101102</ondown>
+								<onleft>101113</onleft>
+								<onright>101115</onright>
+								<include>SettingsButtonSkinShortcuts</include>
+								<label>Sort by:</label>
+								<label2>$VAR[WidgetSortbyLabelVarX2S11]</label2>
+							</control>
+							<control type="button" id="101115">
+								<description>Change widget.sel11 1 sort order</description>
+								<left>775</left>
+								<width>370</width>
+								<onup>101111</onup>
+								<ondown>101102</ondown>
+								<onleft>101114</onleft>
+								<include>SettingsButtonSkinShortcuts</include>
+								<label>Sort order:</label>
+								<label2>$VAR[WidgetSortLabelVarX2S11]</label2>
+							</control>
+						</control>
+					</control>
+				</control><control type="group">
+					<visible>String.IsEqual(Window(Home).Property(skinshortcuts-management-widget),sel12)</visible>
+					<control type="button" id="101200">
+						<include>FullscreenDimensions</include>
+						<height>1141</height>
+						<onclick>back</onclick>
+						<texturefocus/>
+						<texturenofocus/>
+					</control>
+					<control type="grouplist" id="101201">
+						<left>712</left>
+						<top>32</top>
+						<width>1125</width>
+						<height>810</height>
+						<onup>101201</onup>
+						<ondown>101201</ondown>
+						<scrolltime tween="quadratic" easing="out">200</scrolltime>
+						<control type="button" id="101202">
+							<description>Change widget.sel12 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>$ADDON[script.skinshortcuts 32044]</label>
+							<label2>$INFO[Container(211).ListItem.Property(widgetName.sel12)]</label2>
+							<onclick>SetProperty(widgetID,sel12)</onclick><onclick>SendClick(312)</onclick><onclick>SetProperty(customProperty,widgetArt.sel12)</onclick><onclick>SendClick(404)</onclick></control>
+						<control type="button" id="95724"><include>SettingsButtonSkinShortcuts</include><label>Move widget left</label><label2>To slot 11</label2><visible>String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onclick>RunScript(special://skin/resources/scripts/x2_reorder_widgets.py,slot=12,direction=left)</onclick></control><control type="button" id="95725"><include>SettingsButtonSkinShortcuts</include><label>Move widget right</label><label2>To slot 13</label2><visible>String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onclick>RunScript(special://skin/resources/scripts/x2_reorder_widgets.py,slot=12,direction=right)</onclick></control><control type="button" id="101203">
+							<description>Change widget.sel12 style 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31701</label>
+							<label2>$VAR[WidgetStyleLabelVarX2S12]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel12))</visible>
+						</control>
+						<control type="button" id="101204">
+							<description>Change widget.sel12 art 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>$LOCALIZE[31706]</label>
+							<label2>$VAR[WidgetArtLabelVarX2S12]</label2>
+							<visible>[!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel12)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel12))] + [!String.IsEqual(Container(211).ListItem.Property(widgetType.sel12),system) | !String.Contains(Container(211).ListItem.Property(widgetStyle.sel12),List)]</visible>
+						</control>
+						<control type="button" id="101205">
+							<description>Change widget.sel12 case 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>$LOCALIZE[31707]</label>
+							<label2>$VAR[WidgetCaseLabelVarX2S12]</label2>
+							<visible>[!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel12)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel12))] + [!String.IsEqual(Container(211).ListItem.Property(widgetType.sel12),system) | !String.Contains(Container(211).ListItem.Property(widgetStyle.sel12),List)]</visible>
+						</control>
+						<control type="button" id="101206">
+							<description>Change widget.sel12 background 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31702</label>
+							<label2>$VAR[WidgetBackgroundLabelVarX2S12]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel12)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel12)) + !Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+						</control>
+						<control type="button" id="101207">
+							<description>Change widget.sel12 title 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31703</label>
+							<label2>$VAR[WidgetTitleLabelVarX2S12]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel12)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel12)) + !String.Contains(Container(211).ListItem.Property(widgetStyle.sel12),List)</visible>
+						</control>
+						<control type="button" id="101208">
+							<description>Change list widget.sel12 text 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31704</label>
+							<label2>$VAR[WidgetListLabelVarX2S12]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel12)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel12)) + String.Contains(Container(211).ListItem.Property(widgetStyle.sel12),List) + !String.IsEqual(Container(211).ListItem.Property(widgetArt.sel12),Banner) + !String.IsEqual(Container(211).ListItem.Property(widgetType.sel12),system) + !String.IsEqual(Container(211).ListItem.Property(widgetType.sel12),weather)</visible>
+						</control>
+						<control type="radiobutton" id="101209">
+							<description>Enable panel widget.sel12 info 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel12))">SetProperty(customProperty,widgetPanelInfo.sel12)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel12))">SetProperty(customProperty,widgetPanelInfo.sel12)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel12))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel12))</selected>
+							<label>31705</label>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel12)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel12)) + !String.Contains(Container(211).ListItem.Property(widgetStyle.sel12),List)</visible>
+						</control>
+						<control type="radiobutton" id="101210">
+							<description>Enable widget.sel12 hide 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31289</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel12))">SetProperty(customProperty,widgetHide.sel12)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel12))">SetProperty(customProperty,widgetHide.sel12)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel12))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel12))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel12)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel12))</visible>
+						</control>
+						<control type="radiobutton" id="101211">
+							<description>Disable widget.sel12 fanart 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31444</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel12))">SetProperty(customProperty,widgetDisableFanart.sel12)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel12))">SetProperty(customProperty,widgetDisableFanart.sel12)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel12))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel12))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel12)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel12))</visible>
+						</control>
+						<control type="radiobutton" id="171012">
+							<description>Show the overall widget row title</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>Show Widget Title</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel12))">SetProperty(customProperty,widgetShowRowTitle.sel12)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel12))">SetProperty(customProperty,widgetShowRowTitle.sel12)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel12))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel12))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel12)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel12))</visible>
+						</control>
+						<control type="group" id="101212">
+							<width>1401</width>
+							<height>81</height>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel12)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel12))</visible>
+							<control type="button" id="101213">
+								<description>Change widget.sel12 1 limit</description>
+								<width>370</width>
+								<onup>101211</onup>
+								<ondown>101202</ondown>
+								<onright>101214</onright>
+								<include>SettingsButtonSkinShortcuts</include>
+								<label>Limit to:</label>
+								<textoffsetx>-30</textoffsetx>								
+								<label2>$VAR[WidgetLimitLabelVarX2S12]</label2>
+							</control>
+							<control type="button" id="101214">
+								<description>Change widget.sel12 1 sort by</description>
+								<left>387</left>
+								<width>370</width>
+								<onup>101211</onup>
+								<ondown>101202</ondown>
+								<onleft>101213</onleft>
+								<onright>101215</onright>
+								<include>SettingsButtonSkinShortcuts</include>
+								<label>Sort by:</label>
+								<label2>$VAR[WidgetSortbyLabelVarX2S12]</label2>
+							</control>
+							<control type="button" id="101215">
+								<description>Change widget.sel12 1 sort order</description>
+								<left>775</left>
+								<width>370</width>
+								<onup>101211</onup>
+								<ondown>101202</ondown>
+								<onleft>101214</onleft>
+								<include>SettingsButtonSkinShortcuts</include>
+								<label>Sort order:</label>
+								<label2>$VAR[WidgetSortLabelVarX2S12]</label2>
+							</control>
+						</control>
+					</control>
+				</control><control type="group">
+					<visible>String.IsEqual(Window(Home).Property(skinshortcuts-management-widget),sel13)</visible>
+					<control type="button" id="101300">
+						<include>FullscreenDimensions</include>
+						<height>1141</height>
+						<onclick>back</onclick>
+						<texturefocus/>
+						<texturenofocus/>
+					</control>
+					<control type="grouplist" id="101301">
+						<left>712</left>
+						<top>32</top>
+						<width>1125</width>
+						<height>810</height>
+						<onup>101301</onup>
+						<ondown>101301</ondown>
+						<scrolltime tween="quadratic" easing="out">200</scrolltime>
+						<control type="button" id="101302">
+							<description>Change widget.sel13 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>$ADDON[script.skinshortcuts 32044]</label>
+							<label2>$INFO[Container(211).ListItem.Property(widgetName.sel13)]</label2>
+							<onclick>SetProperty(widgetID,sel13)</onclick><onclick>SendClick(312)</onclick><onclick>SetProperty(customProperty,widgetArt.sel13)</onclick><onclick>SendClick(404)</onclick></control>
+						<control type="button" id="95726"><include>SettingsButtonSkinShortcuts</include><label>Move widget left</label><label2>To slot 12</label2><visible>String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onclick>RunScript(special://skin/resources/scripts/x2_reorder_widgets.py,slot=13,direction=left)</onclick></control><control type="button" id="95727"><include>SettingsButtonSkinShortcuts</include><label>Move widget right</label><label2>To slot 14</label2><visible>String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onclick>RunScript(special://skin/resources/scripts/x2_reorder_widgets.py,slot=13,direction=right)</onclick></control><control type="button" id="101303">
+							<description>Change widget.sel13 style 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31701</label>
+							<label2>$VAR[WidgetStyleLabelVarX2S13]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel13))</visible>
+						</control>
+						<control type="button" id="101304">
+							<description>Change widget.sel13 art 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>$LOCALIZE[31706]</label>
+							<label2>$VAR[WidgetArtLabelVarX2S13]</label2>
+							<visible>[!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel13)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel13))] + [!String.IsEqual(Container(211).ListItem.Property(widgetType.sel13),system) | !String.Contains(Container(211).ListItem.Property(widgetStyle.sel13),List)]</visible>
+						</control>
+						<control type="button" id="101305">
+							<description>Change widget.sel13 case 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>$LOCALIZE[31707]</label>
+							<label2>$VAR[WidgetCaseLabelVarX2S13]</label2>
+							<visible>[!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel13)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel13))] + [!String.IsEqual(Container(211).ListItem.Property(widgetType.sel13),system) | !String.Contains(Container(211).ListItem.Property(widgetStyle.sel13),List)]</visible>
+						</control>
+						<control type="button" id="101306">
+							<description>Change widget.sel13 background 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31702</label>
+							<label2>$VAR[WidgetBackgroundLabelVarX2S13]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel13)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel13)) + !Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+						</control>
+						<control type="button" id="101307">
+							<description>Change widget.sel13 title 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31703</label>
+							<label2>$VAR[WidgetTitleLabelVarX2S13]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel13)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel13)) + !String.Contains(Container(211).ListItem.Property(widgetStyle.sel13),List)</visible>
+						</control>
+						<control type="button" id="101308">
+							<description>Change list widget.sel13 text 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31704</label>
+							<label2>$VAR[WidgetListLabelVarX2S13]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel13)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel13)) + String.Contains(Container(211).ListItem.Property(widgetStyle.sel13),List) + !String.IsEqual(Container(211).ListItem.Property(widgetArt.sel13),Banner) + !String.IsEqual(Container(211).ListItem.Property(widgetType.sel13),system) + !String.IsEqual(Container(211).ListItem.Property(widgetType.sel13),weather)</visible>
+						</control>
+						<control type="radiobutton" id="101309">
+							<description>Enable panel widget.sel13 info 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel13))">SetProperty(customProperty,widgetPanelInfo.sel13)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel13))">SetProperty(customProperty,widgetPanelInfo.sel13)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel13))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel13))</selected>
+							<label>31705</label>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel13)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel13)) + !String.Contains(Container(211).ListItem.Property(widgetStyle.sel13),List)</visible>
+						</control>
+						<control type="radiobutton" id="101310">
+							<description>Enable widget.sel13 hide 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31289</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel13))">SetProperty(customProperty,widgetHide.sel13)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel13))">SetProperty(customProperty,widgetHide.sel13)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel13))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel13))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel13)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel13))</visible>
+						</control>
+						<control type="radiobutton" id="101311">
+							<description>Disable widget.sel13 fanart 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31444</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel13))">SetProperty(customProperty,widgetDisableFanart.sel13)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel13))">SetProperty(customProperty,widgetDisableFanart.sel13)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel13))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel13))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel13)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel13))</visible>
+						</control>
+						<control type="radiobutton" id="171013">
+							<description>Show the overall widget row title</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>Show Widget Title</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel13))">SetProperty(customProperty,widgetShowRowTitle.sel13)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel13))">SetProperty(customProperty,widgetShowRowTitle.sel13)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel13))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel13))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel13)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel13))</visible>
+						</control>
+						<control type="group" id="101312">
+							<width>1401</width>
+							<height>81</height>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel13)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel13))</visible>
+							<control type="button" id="101313">
+								<description>Change widget.sel13 1 limit</description>
+								<width>370</width>
+								<onup>101311</onup>
+								<ondown>101302</ondown>
+								<onright>101314</onright>
+								<include>SettingsButtonSkinShortcuts</include>
+								<label>Limit to:</label>
+								<textoffsetx>-30</textoffsetx>								
+								<label2>$VAR[WidgetLimitLabelVarX2S13]</label2>
+							</control>
+							<control type="button" id="101314">
+								<description>Change widget.sel13 1 sort by</description>
+								<left>387</left>
+								<width>370</width>
+								<onup>101311</onup>
+								<ondown>101302</ondown>
+								<onleft>101313</onleft>
+								<onright>101315</onright>
+								<include>SettingsButtonSkinShortcuts</include>
+								<label>Sort by:</label>
+								<label2>$VAR[WidgetSortbyLabelVarX2S13]</label2>
+							</control>
+							<control type="button" id="101315">
+								<description>Change widget.sel13 1 sort order</description>
+								<left>775</left>
+								<width>370</width>
+								<onup>101311</onup>
+								<ondown>101302</ondown>
+								<onleft>101314</onleft>
+								<include>SettingsButtonSkinShortcuts</include>
+								<label>Sort order:</label>
+								<label2>$VAR[WidgetSortLabelVarX2S13]</label2>
+							</control>
+						</control>
+					</control>
+				</control><control type="group">
+					<visible>String.IsEqual(Window(Home).Property(skinshortcuts-management-widget),sel14)</visible>
+					<control type="button" id="101400">
+						<include>FullscreenDimensions</include>
+						<height>1141</height>
+						<onclick>back</onclick>
+						<texturefocus/>
+						<texturenofocus/>
+					</control>
+					<control type="grouplist" id="101401">
+						<left>712</left>
+						<top>32</top>
+						<width>1125</width>
+						<height>810</height>
+						<onup>101401</onup>
+						<ondown>101401</ondown>
+						<scrolltime tween="quadratic" easing="out">200</scrolltime>
+						<control type="button" id="101402">
+							<description>Change widget.sel14 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>$ADDON[script.skinshortcuts 32044]</label>
+							<label2>$INFO[Container(211).ListItem.Property(widgetName.sel14)]</label2>
+							<onclick>SetProperty(widgetID,sel14)</onclick><onclick>SendClick(312)</onclick><onclick>SetProperty(customProperty,widgetArt.sel14)</onclick><onclick>SendClick(404)</onclick></control>
+						<control type="button" id="95728"><include>SettingsButtonSkinShortcuts</include><label>Move widget left</label><label2>To slot 13</label2><visible>String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onclick>RunScript(special://skin/resources/scripts/x2_reorder_widgets.py,slot=14,direction=left)</onclick></control><control type="button" id="95729"><include>SettingsButtonSkinShortcuts</include><label>Move widget right</label><label2>To slot 15</label2><visible>String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onclick>RunScript(special://skin/resources/scripts/x2_reorder_widgets.py,slot=14,direction=right)</onclick></control><control type="button" id="101403">
+							<description>Change widget.sel14 style 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31701</label>
+							<label2>$VAR[WidgetStyleLabelVarX2S14]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel14))</visible>
+						</control>
+						<control type="button" id="101404">
+							<description>Change widget.sel14 art 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>$LOCALIZE[31706]</label>
+							<label2>$VAR[WidgetArtLabelVarX2S14]</label2>
+							<visible>[!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel14)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel14))] + [!String.IsEqual(Container(211).ListItem.Property(widgetType.sel14),system) | !String.Contains(Container(211).ListItem.Property(widgetStyle.sel14),List)]</visible>
+						</control>
+						<control type="button" id="101405">
+							<description>Change widget.sel14 case 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>$LOCALIZE[31707]</label>
+							<label2>$VAR[WidgetCaseLabelVarX2S14]</label2>
+							<visible>[!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel14)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel14))] + [!String.IsEqual(Container(211).ListItem.Property(widgetType.sel14),system) | !String.Contains(Container(211).ListItem.Property(widgetStyle.sel14),List)]</visible>
+						</control>
+						<control type="button" id="101406">
+							<description>Change widget.sel14 background 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31702</label>
+							<label2>$VAR[WidgetBackgroundLabelVarX2S14]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel14)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel14)) + !Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+						</control>
+						<control type="button" id="101407">
+							<description>Change widget.sel14 title 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31703</label>
+							<label2>$VAR[WidgetTitleLabelVarX2S14]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel14)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel14)) + !String.Contains(Container(211).ListItem.Property(widgetStyle.sel14),List)</visible>
+						</control>
+						<control type="button" id="101408">
+							<description>Change list widget.sel14 text 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31704</label>
+							<label2>$VAR[WidgetListLabelVarX2S14]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel14)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel14)) + String.Contains(Container(211).ListItem.Property(widgetStyle.sel14),List) + !String.IsEqual(Container(211).ListItem.Property(widgetArt.sel14),Banner) + !String.IsEqual(Container(211).ListItem.Property(widgetType.sel14),system) + !String.IsEqual(Container(211).ListItem.Property(widgetType.sel14),weather)</visible>
+						</control>
+						<control type="radiobutton" id="101409">
+							<description>Enable panel widget.sel14 info 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel14))">SetProperty(customProperty,widgetPanelInfo.sel14)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel14))">SetProperty(customProperty,widgetPanelInfo.sel14)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel14))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel14))</selected>
+							<label>31705</label>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel14)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel14)) + !String.Contains(Container(211).ListItem.Property(widgetStyle.sel14),List)</visible>
+						</control>
+						<control type="radiobutton" id="101410">
+							<description>Enable widget.sel14 hide 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31289</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel14))">SetProperty(customProperty,widgetHide.sel14)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel14))">SetProperty(customProperty,widgetHide.sel14)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel14))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel14))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel14)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel14))</visible>
+						</control>
+						<control type="radiobutton" id="101411">
+							<description>Disable widget.sel14 fanart 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31444</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel14))">SetProperty(customProperty,widgetDisableFanart.sel14)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel14))">SetProperty(customProperty,widgetDisableFanart.sel14)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel14))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel14))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel14)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel14))</visible>
+						</control>
+						<control type="radiobutton" id="171014">
+							<description>Show the overall widget row title</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>Show Widget Title</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel14))">SetProperty(customProperty,widgetShowRowTitle.sel14)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel14))">SetProperty(customProperty,widgetShowRowTitle.sel14)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel14))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel14))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel14)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel14))</visible>
+						</control>
+						<control type="group" id="101412">
+							<width>1401</width>
+							<height>81</height>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel14)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel14))</visible>
+							<control type="button" id="101413">
+								<description>Change widget.sel14 1 limit</description>
+								<width>370</width>
+								<onup>101411</onup>
+								<ondown>101402</ondown>
+								<onright>101414</onright>
+								<include>SettingsButtonSkinShortcuts</include>
+								<label>Limit to:</label>
+								<textoffsetx>-30</textoffsetx>								
+								<label2>$VAR[WidgetLimitLabelVarX2S14]</label2>
+							</control>
+							<control type="button" id="101414">
+								<description>Change widget.sel14 1 sort by</description>
+								<left>387</left>
+								<width>370</width>
+								<onup>101411</onup>
+								<ondown>101402</ondown>
+								<onleft>101413</onleft>
+								<onright>101415</onright>
+								<include>SettingsButtonSkinShortcuts</include>
+								<label>Sort by:</label>
+								<label2>$VAR[WidgetSortbyLabelVarX2S14]</label2>
+							</control>
+							<control type="button" id="101415">
+								<description>Change widget.sel14 1 sort order</description>
+								<left>775</left>
+								<width>370</width>
+								<onup>101411</onup>
+								<ondown>101402</ondown>
+								<onleft>101414</onleft>
+								<include>SettingsButtonSkinShortcuts</include>
+								<label>Sort order:</label>
+								<label2>$VAR[WidgetSortLabelVarX2S14]</label2>
+							</control>
+						</control>
+					</control>
+				</control><control type="group">
+					<visible>String.IsEqual(Window(Home).Property(skinshortcuts-management-widget),sel15)</visible>
+					<control type="button" id="101500">
+						<include>FullscreenDimensions</include>
+						<height>1141</height>
+						<onclick>back</onclick>
+						<texturefocus/>
+						<texturenofocus/>
+					</control>
+					<control type="grouplist" id="101501">
+						<left>712</left>
+						<top>32</top>
+						<width>1125</width>
+						<height>810</height>
+						<onup>101501</onup>
+						<ondown>101501</ondown>
+						<scrolltime tween="quadratic" easing="out">200</scrolltime>
+						<control type="button" id="101502">
+							<description>Change widget.sel15 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>$ADDON[script.skinshortcuts 32044]</label>
+							<label2>$INFO[Container(211).ListItem.Property(widgetName.sel15)]</label2>
+							<onclick>SetProperty(widgetID,sel15)</onclick><onclick>SendClick(312)</onclick><onclick>SetProperty(customProperty,widgetArt.sel15)</onclick><onclick>SendClick(404)</onclick></control>
+						<control type="button" id="95730"><include>SettingsButtonSkinShortcuts</include><label>Move widget left</label><label2>To slot 14</label2><visible>String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onclick>RunScript(special://skin/resources/scripts/x2_reorder_widgets.py,slot=15,direction=left)</onclick></control><control type="button" id="95731"><include>SettingsButtonSkinShortcuts</include><label>Move widget right</label><label2/><visible>String.IsEqual(Container(211).ListItem.Property(selectorEnabled),true)</visible><onclick>RunScript(special://skin/resources/scripts/x2_reorder_widgets.py,slot=15,direction=right)</onclick><enable>false</enable></control><control type="button" id="101503">
+							<description>Change widget.sel15 style 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31701</label>
+							<label2>$VAR[WidgetStyleLabelVarX2S15]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel15))</visible>
+						</control>
+						<control type="button" id="101504">
+							<description>Change widget.sel15 art 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>$LOCALIZE[31706]</label>
+							<label2>$VAR[WidgetArtLabelVarX2S15]</label2>
+							<visible>[!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel15)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel15))] + [!String.IsEqual(Container(211).ListItem.Property(widgetType.sel15),system) | !String.Contains(Container(211).ListItem.Property(widgetStyle.sel15),List)]</visible>
+						</control>
+						<control type="button" id="101505">
+							<description>Change widget.sel15 case 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>$LOCALIZE[31707]</label>
+							<label2>$VAR[WidgetCaseLabelVarX2S15]</label2>
+							<visible>[!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel15)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel15))] + [!String.IsEqual(Container(211).ListItem.Property(widgetType.sel15),system) | !String.Contains(Container(211).ListItem.Property(widgetStyle.sel15),List)]</visible>
+						</control>
+						<control type="button" id="101506">
+							<description>Change widget.sel15 background 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31702</label>
+							<label2>$VAR[WidgetBackgroundLabelVarX2S15]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel15)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel15)) + !Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+						</control>
+						<control type="button" id="101507">
+							<description>Change widget.sel15 title 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31703</label>
+							<label2>$VAR[WidgetTitleLabelVarX2S15]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel15)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel15)) + !String.Contains(Container(211).ListItem.Property(widgetStyle.sel15),List)</visible>
+						</control>
+						<control type="button" id="101508">
+							<description>Change list widget.sel15 text 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31704</label>
+							<label2>$VAR[WidgetListLabelVarX2S15]</label2>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel15)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel15)) + String.Contains(Container(211).ListItem.Property(widgetStyle.sel15),List) + !String.IsEqual(Container(211).ListItem.Property(widgetArt.sel15),Banner) + !String.IsEqual(Container(211).ListItem.Property(widgetType.sel15),system) + !String.IsEqual(Container(211).ListItem.Property(widgetType.sel15),weather)</visible>
+						</control>
+						<control type="radiobutton" id="101509">
+							<description>Enable panel widget.sel15 info 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel15))">SetProperty(customProperty,widgetPanelInfo.sel15)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel15))">SetProperty(customProperty,widgetPanelInfo.sel15)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel15))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetPanelInfo.sel15))</selected>
+							<label>31705</label>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel15)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel15)) + !String.Contains(Container(211).ListItem.Property(widgetStyle.sel15),List)</visible>
+						</control>
+						<control type="radiobutton" id="101510">
+							<description>Enable widget.sel15 hide 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31289</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel15))">SetProperty(customProperty,widgetHide.sel15)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel15))">SetProperty(customProperty,widgetHide.sel15)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel15))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetHide.sel15))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel15)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel15))</visible>
+						</control>
+						<control type="radiobutton" id="101511">
+							<description>Disable widget.sel15 fanart 1</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>31444</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel15))">SetProperty(customProperty,widgetDisableFanart.sel15)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel15))">SetProperty(customProperty,widgetDisableFanart.sel15)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel15))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetDisableFanart.sel15))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel15)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel15))</visible>
+						</control>
+						<control type="radiobutton" id="171015">
+							<description>Show the overall widget row title</description>
+							<include>SettingsButtonSkinShortcuts</include>
+							<label>Show Widget Title</label>
+							<onclick condition="!String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel15))">SetProperty(customProperty,widgetShowRowTitle.sel15)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel15))">SetProperty(customProperty,widgetShowRowTitle.sel15)</onclick>
+							<onclick condition="String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel15))">SetProperty(customValue,true)</onclick>
+							<onclick>SendClick(404)</onclick>
+							<selected>!String.IsEmpty(Container(211).ListItem.Property(widgetShowRowTitle.sel15))</selected>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel15)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel15))</visible>
+						</control>
+						<control type="group" id="101512">
+							<width>1401</width>
+							<height>81</height>
+							<visible>!String.IsEmpty(Container(211).ListItem.Property(widgetPath.sel15)) + !String.IsEmpty(Container(211).ListItem.Property(widgetStyle.sel15))</visible>
+							<control type="button" id="101513">
+								<description>Change widget.sel15 1 limit</description>
+								<width>370</width>
+								<onup>101511</onup>
+								<ondown>101502</ondown>
+								<onright>101514</onright>
+								<include>SettingsButtonSkinShortcuts</include>
+								<label>Limit to:</label>
+								<textoffsetx>-30</textoffsetx>								
+								<label2>$VAR[WidgetLimitLabelVarX2S15]</label2>
+							</control>
+							<control type="button" id="101514">
+								<description>Change widget.sel15 1 sort by</description>
+								<left>387</left>
+								<width>370</width>
+								<onup>101511</onup>
+								<ondown>101502</ondown>
+								<onleft>101513</onleft>
+								<onright>101515</onright>
+								<include>SettingsButtonSkinShortcuts</include>
+								<label>Sort by:</label>
+								<label2>$VAR[WidgetSortbyLabelVarX2S15]</label2>
+							</control>
+							<control type="button" id="101515">
+								<description>Change widget.sel15 1 sort order</description>
+								<left>775</left>
+								<width>370</width>
+								<onup>101511</onup>
+								<ondown>101502</ondown>
+								<onleft>101514</onleft>
+								<include>SettingsButtonSkinShortcuts</include>
+								<label>Sort order:</label>
+								<label2>$VAR[WidgetSortLabelVarX2S15]</label2>
+							</control>
+						</control>
+					</control>
+				</control></control>
 			<control type="textbox">
 				<include>SettingsTextboxValuesSS</include>
 				<label>$VAR[SkinShortcutsDescriptionVar]</label>

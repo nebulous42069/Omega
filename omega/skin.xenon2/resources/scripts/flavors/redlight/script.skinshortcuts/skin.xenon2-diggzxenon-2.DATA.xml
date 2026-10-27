@@ -1,0 +1,50 @@
+<shortcuts>
+	<shortcut>
+		<defaultID />
+		<label>Xenon Setup</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/flavors.gif</thumb>
+		<action>RunScript(special://home/addons/skin.xenon2/resources/scripts/xenon_setup.py)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.program.maxql</defaultID>
+		<label>Account Tools</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/10804k.gif</thumb>
+		<action>RunScript(special://home/addons/skin.xenon2/resources/scripts/reauthorize/entry.py)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>colorwhite-b-maintenance-b-color</defaultID>
+		<label>Simple Clean</label>
+		<label2>Custom item</label2>
+		<icon>DefaultFolder.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/clean.png</thumb>
+		<action>RunAddOn(script.simpleclean)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.video.4kwallpapers</defaultID>
+		<label>Diggz Wallpapers</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/wallpapers.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.4kwallpapers",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.program.chef21</defaultID>
+		<label>Chef Wizard</label>
+		<label2>Program</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/chef.png</thumb>
+		<action>ActivateWindow(Programs,"plugin://plugin.program.chef21",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Advanced Settings</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/advanced.png</thumb>
+		<action>PlayMedia("plugin://plugin.program.chef21/?url=&amp;mode=29&amp;name=%5BB%5D%5BCOLOR+snow%5DAdvanced+Settings+K21%5B%2FCOLOR%5D%5B%2FB%5D&amp;icon=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.chef21%5Cresources%5Cicon.png&amp;fanart=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.chef21%5Cresources%5Cfanart.jpg&amp;description=%5BB%5D%5BCOLOR+snow%5DA+list+of+presets+to+set+the+cache+size+based+on+your+device%27s+RAM+size.%5B%2FCOLOR%5D%5B%2FB%5D&amp;name2=&amp;version=&amp;kodi=&amp;sf_options=winID%3D10025%26_options_sf")</action>
+		</shortcut>
+	</shortcuts>

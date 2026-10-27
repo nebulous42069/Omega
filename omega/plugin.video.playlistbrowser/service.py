@@ -3,13 +3,9 @@
 import json
 import os
 import time
-import gzip
-import xml.etree.ElementTree as ET
-from urllib.request import Request, urlopen
 
 import xbmc
 import xbmcgui
-import xbmcvfs
 
 from main import (PROFILE, _playlist_cache_paths, get_int_setting,
                   load_sources, log, parse_json, parse_m3u, read_text)
@@ -48,14 +44,17 @@ def refresh_due_playlists(hours):
 
 
 def refresh_all(monitor):
-    sources = [s for s in load_sources() if not getattr(s, 'alias_source', None)]
+    sources = load_sources()
+    refreshed_epgs = set()
     failures = 0
     for source in sources:
         if monitor.abortRequested():
             return
-        if not refresh_playlist(source):
+        if not getattr(source, 'alias_source', None) and not refresh_playlist(source):
             failures += 1
-        if source.epg:
+        epg_key = source._cache_paths()[0] if source.epg else None
+        if epg_key and epg_key not in refreshed_epgs:
+            refreshed_epgs.add(epg_key)
             try:
                 if not refresh_epg_file(source):
                     failures += 1
@@ -71,40 +70,13 @@ def refresh_all(monitor):
 
 
 def refresh_epg_file(source):
-    """Update the XML cache without constructing every programme in memory."""
-    xml_path, gz_path = source._cache_paths()
-    temp_path = xml_path + '.refresh.tmp'
+    """Refresh the same shared cache used by foreground widget requests."""
     try:
-        if source.epg.startswith(('http://', 'https://')):
-            req = Request(source.epg, headers={'User-Agent': 'Mozilla/5.0 (Kodi Addon)'})
-            with urlopen(req, timeout=90) as response:
-                data = response.read()
-        else:
-            stream = xbmcvfs.File(source.epg)
-            try:
-                data = stream.read()
-            finally:
-                stream.close()
-            if isinstance(data, str):
-                data = data.encode('utf-8')
-        xml_data = gzip.decompress(data) if data[:2] == b'\x1f\x8b' else data
-        with open(temp_path, 'wb') as output:
-            output.write(xml_data)
-        # Check the document before replacing a working cache.
-        root = next(ET.iterparse(temp_path, events=('start',)))[1]
-        if root.tag.rsplit('}', 1)[-1].lower() != 'tv':
-            raise ValueError('EPG response is not XMLTV')
-        os.replace(temp_path, xml_path)
-        if os.path.exists(gz_path):
-            os.remove(gz_path)  # prevent the normal reader using an older gzip cache
-        log(f"Background EPG cache updated for source {source.idx}")
-        return True
+        _, updated = source._cached_epg(force=True)
+        return updated
     except Exception as exc:
-        log(f"Background EPG download failed for source {source.idx}: {exc}")
+        log(f"Background EPG download failed for source {source.idx}: {type(exc).__name__}")
         return False
-    finally:
-        if os.path.exists(temp_path):
-            os.remove(temp_path)
 
 
 def run():

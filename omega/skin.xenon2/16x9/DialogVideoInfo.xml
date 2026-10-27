@@ -1,23 +1,60 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <window>
-	<defaultcontrol>8</defaultcontrol>
+	<defaultcontrol always="true">8</defaultcontrol>
+
+	<coordinates>
+		<left>0</left>
+		<top>0</top>
+	</coordinates>
+	<include>X2DVI_dialogeffect</include>
+	<depth>DepthDialog+</depth>
+	
+	<onload>ClearProperty(X2DVI.ShowCast,home)</onload>
+	<onload>ClearProperty(X2DVI.PersonTmdbId,home)</onload>
+	<onload condition="![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + String.IsEqual(ListItem.DBType,movie)">SetProperty(X2DVI.OriginTmdbType,movie,home)</onload>
+	<onload condition="![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + String.IsEqual(ListItem.DBType,tvshow)">SetProperty(X2DVI.OriginTmdbType,tv,home)</onload>
+	<onload condition="![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + String.IsEqual(ListItem.DBType,episode)">SetProperty(X2DVI.OriginTmdbType,tv,home)</onload>
+	<onload condition="![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + !String.IsEmpty(ListItem.DBID)">SetProperty(X2DVI.OriginDbid,$INFO[ListItem.DBID],home)</onload>
+	<onload condition="![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + !String.IsEmpty(ListItem.UniqueID(tmdb))">SetProperty(X2DVI.OriginTmdbId,$INFO[ListItem.UniqueID(tmdb)],home)</onload>
+	<onload condition="![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + String.IsEmpty(ListItem.UniqueID(tmdb)) + !String.IsEmpty(ListItem.Property(tmdb_id))">SetProperty(X2DVI.OriginTmdbId,$INFO[ListItem.Property(tmdb_id)],home)</onload>
+	<onload condition="[String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + !String.IsEmpty(ListItem.Property(TMDb_ID))">SetProperty(X2DVI.PersonTmdbId,$INFO[ListItem.Property(TMDb_ID)],home)</onload>
+	<onload condition="[String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + String.IsEmpty(ListItem.Property(TMDb_ID)) + !String.IsEmpty(ListItem.Property(tmdb_id))">SetProperty(X2DVI.PersonTmdbId,$INFO[ListItem.Property(tmdb_id)],home)</onload>
+	<onunload>ClearProperty(X2DVI.TrailerInfo.Active,home)</onunload>
+	<onunload>ClearProperty(X2DVI.ShowCast,home)</onunload>
+	<onunload>ClearProperty(X2DVI.PersonTmdbId,home)</onunload>
 	
 	<onload condition="System.AddonIsEnabled(script.extendedinfo) + Skin.HasSetting(AutoExtendedInfo)">Dialog.Close(all)</onload>
 	<onload condition="System.AddonIsEnabled(script.extendedinfo) + Skin.HasSetting(AutoExtendedInfo) + String.IsEqual(ListItem.DBType,movie)">RunScript(script.extendedinfo,info=extendedinfo,dbid=$INFO[ListItem.DBID],id=$INFO[ListItem.UniqueID(tmdb)],imdb_id=$INFO[ListItem.IMDBNumber],name=$INFO[Listitem.Title])</onload>
 	<onload condition="System.AddonIsEnabled(script.extendedinfo) + Skin.HasSetting(AutoExtendedInfo) + String.IsEqual(ListItem.DBType,tvshow)">RunScript(script.extendedinfo,info=extendedtvinfo,dbid=$INFO[ListItem.DBID],id=$INFO[ListItem.UniqueID(tmdb)],tvdb_id=$INFO[ListItem.UniqueID(tvdb)],name=$INFO[Listitem.Title])</onload>
 	<onload condition="System.AddonIsEnabled(script.extendedinfo) + Skin.HasSetting(AutoExtendedInfo) + String.IsEqual(ListItem.DBType,season)">RunScript(script.extendedinfo,info=seasoninfo,tvshow=$INFO[Listitem.TVShowTitle],season=$INFO[ListItem.Season])</onload>
 	<onload condition="System.AddonIsEnabled(script.extendedinfo) + Skin.HasSetting(AutoExtendedInfo) + String.IsEqual(ListItem.DBType,episode)">RunScript(script.extendedinfo,info=extendedepisodeinfo,tvshow=$INFO[Listitem.TVShowTitle],season=$INFO[ListItem.Season],episode=$INFO[ListItem.Episode])</onload>
+	<onload condition="![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)]">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=videoinfo,tmdb=$INFO[ListItem.UniqueID(tmdb)],tmdbprop=$INFO[ListItem.Property(tmdb_id)],tmdbshow=$INFO[ListItem.Property(tmdbshow_id)],imdb=$INFO[ListItem.IMDBNumber],dbtype=$INFO[ListItem.DBType],media_type=$INFO[ListItem.Property(tmdb_type)],season=$INFO[ListItem.Season],episode=$INFO[ListItem.Episode])</onload>
+	<!-- Normal video-info pages should always land on a stable focusable control.
+	     This also prevents Back from falling through to a stale TMDb person DialogVideoInfo instance underneath. -->
+	<onload condition="![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + !String.IsEqual(Window(Home).Property(X2DVI.ReturnToCast),true)">SetFocus(8)</onload>
+	<!-- When returning from a TMDb person page, reopen the original movie/show info and focus Play/Browse rather than the Cast row.
+	     Focusing Cast again can leave the person page underneath and causes Back to loop between the two dialogs. -->
+	<onload condition="![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + String.IsEqual(Window(Home).Property(X2DVI.ReturnToCast),true)">SetProperty(X2DVI.ShowCast,true,home)</onload>
+	<onload condition="![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + String.IsEqual(Window(Home).Property(X2DVI.ReturnToCast),true)">SetFocus(5505)</onload>
+	<!-- Person pages need a static initial focus for remote navigation.
+	     The dynamic TMDb credit rows may not have content yet during onload. -->
+	<onload condition="[String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)]">SetFocus(8005)</onload>
 	
-	<controls>
+	<!-- Playback may close native Video Info. The bridge reopens its captured
+         item with this marker, so expose the embedded trailer player. -->
+    <onload condition="!String.IsEmpty(Window(Home).Property(X2DVI.TrailerInfo.Pending)) + Player.HasVideo">SetProperty(X2DVI.TrailerInfo.Active,true,home)</onload>
+    <onload condition="!String.IsEmpty(Window(Home).Property(X2DVI.TrailerInfo.Pending)) + Player.HasVideo">SetFocus(1515)</onload>
+
+	<onunload>ClearProperty(X2DVI.Request,home)</onunload><controls>
 		<control type="group">
 			<visible>!Window.IsVisible(FileBrowser)</visible>
 			<control type="image">
 				<description>background image</description>
-				<left>-5</left>
-				<top>-5</top>
-				<width>1930</width>
+				<left>0</left>
+				<top>0</top>
+				<width>1920</width>
 				<height>1080</height>
-				<texture border="40">$VAR[SelectBack]</texture>
+				<texture border="40">$VAR[X2DVI_SelectBack]</texture>
 			</control>
 			<control type="image">
 				<description>Dialog Header image</description>
@@ -25,7 +62,7 @@
 				<top>24</top>
 				<width>1800</width>
 				<height>60</height>
-				<texture>$VAR[DialogPath]dialogheader.png</texture>
+				<texture>$VAR[X2DVI_DialogPath]dialogheader.png</texture>
 			</control>
 			<control type="label" id="1">
 				<description>header label</description>
@@ -44,13 +81,14 @@
 				<description>Close Window button</description>
 				<left>1800</left>
 				<top>24</top>
-				<onclick>PreviousMenu</onclick>
-				<include>DialogCloseButton</include>
+				<onclick condition="![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)]">ClearProperty(X2DVI.TrailerInfo.Pending,home)</onclick>
+                        <onclick condition="![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + !String.IsEqual(Window(Home).Property(X2DVI.ActorSession),true)">PreviousMenu</onclick>
+				<include>X2DVI_DialogCloseButton</include>
 				<onleft>450</onleft>
 				<onright>450</onright>
 				<onup>450</onup>
 				<ondown>450</ondown>
-			</control>
+			<onclick condition="[String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)]">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=returnorigin,tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + String.IsEqual(Window(Home).Property(X2DVI.ActorSession),true)">Dialog.Close(all,true)</onclick><onclick condition="![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + String.IsEqual(Window(Home).Property(X2DVI.ActorSession),true)">ActivateWindow(Home)</onclick><onclick condition="![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + String.IsEqual(Window(Home).Property(X2DVI.ActorSession),true)">ClearProperty(X2DVI.ActorSession,home)</onclick></control>
 			<control type="group">
 				<animation effect="fade" delay="300" start="0" end="100" time="150">WindowOpen</animation>
 				<animation effect="fade" start="100" end="0" time="150">WindowClose</animation>
@@ -62,20 +100,20 @@
 					<align>left</align>
 					<itemgap>3</itemgap>
 					<orientation>horizontal</orientation>
-					<include>VisibleFadeEffect</include>
-					<visible>!Control.IsVisible(50) + [String.IsEqual(ListItem.DBTYPE,movie) | String.IsEqual(ListItem.DBTYPE,episode) | String.IsEqual(ListItem.DBTYPE,musicvideo)] + !Control.HasFocus(15)</visible>
-					<include>VideoCodecFlaggingConditions</include>
-					<include>AudioCodecFlaggingConditions</include>
-					<include>AudioChannelsFlaggingConditions</include>
-					<include>AspectCodecFlaggingConditions</include>
-					<include>SpecialFeaturesFlaggingConditions</include>
-					<include>VideoTypeHackFlaggingConditions</include>
+					<include>X2DVI_VisibleFadeEffect</include>
+					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + !Control.IsVisible(50) + [String.IsEqual(ListItem.DBTYPE,movie) | String.IsEqual(ListItem.DBTYPE,episode) | String.IsEqual(ListItem.DBTYPE,musicvideo)] + ![Control.HasFocus(1515) | [Player.HasVideo + String.IsEqual(Window(Home).Property(X2DVI.TrailerInfo.Active),true)]]</visible>
+					<include>X2DVI_VideoCodecFlaggingConditions</include>
+					<include>X2DVI_AudioCodecFlaggingConditions</include>
+					<include>X2DVI_AudioChannelsFlaggingConditions</include>
+					<include>X2DVI_AspectCodecFlaggingConditions</include>
+					<include>X2DVI_SpecialFeaturesFlaggingConditions</include>
+					<include>X2DVI_VideoTypeHackFlaggingConditions</include>
 				</control>
 				<control type="group">
 					<top>135</top>
 					<left>200</left>
-					<visible>Control.HasFocus(15)</visible>
-					<include>VisibleFadeEffect</include>
+					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + [Control.HasFocus(1515) | [Player.HasVideo + String.IsEqual(Window(Home).Property(X2DVI.TrailerInfo.Active),true)]]</visible>
+					<include>X2DVI_VisibleFadeEffect</include>
 					<control type="image">
 						<description>Border</description>
 						<left>0</left>
@@ -102,8 +140,8 @@
 						<shadowcolor>black</shadowcolor>
 						<align>center</align>
 						<aligny>center</aligny>
-						<label>Press to View Trailer</label>
-					</control>
+						<label>Play Trailer</label>
+					<visible>!Player.HasVideo</visible></control>
 					<control type="videowindow">
 						<description>No Fanart Back</description>
 						<left>8</left>
@@ -114,10 +152,10 @@
 					</control>
 				</control>
 				<control type="group">
-					<visible>[!String.IsEqual(ListItem.DBTYPE,tvshow) + !String.IsEqual(ListItem.DBTYPE,episode) + !String.IsEqual(ListItem.DBTYPE,musicvideo)] + ![Control.HasFocus(12) | Control.HasFocus(15)]</visible>
+					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + [!String.IsEqual(ListItem.DBTYPE,tvshow) + !String.IsEqual(ListItem.DBTYPE,episode) + !String.IsEqual(ListItem.DBTYPE,musicvideo)] + ![Control.HasFocus(12) | [Control.HasFocus(1515) | [Player.HasVideo + String.IsEqual(Window(Home).Property(X2DVI.TrailerInfo.Active),true)]]]</visible>
 					<top>135</top>
 					<left>60</left>
-					<include>VisibleFadeEffect</include>
+					<include>X2DVI_VisibleFadeEffect</include>
 					<control type="image">
 						<left>0</left>
 						<top>0</top>
@@ -126,7 +164,7 @@
 						<aspectratio>stretch</aspectratio>
 						<bordertexture border="5">button-nofocus.png</bordertexture>
 						<bordersize>4</bordersize>
-						<texture background="true">$VAR[PosterThumb]</texture>
+						<texture background="true">$VAR[X2DVI_PosterThumb]</texture>
 					</control>
 					<control type="image">
 						<left>6</left>
@@ -138,6 +176,7 @@
 						<colordiffuse>AAFFFFFF</colordiffuse>
 					</control>
 					<control type="list" id="49">
+						<onfocus>ClearProperty(X2DVI.ShowCast,home)</onfocus>
 						<left>435</left>
 						<top>-6</top>
 						<width>975</width>
@@ -146,7 +185,7 @@
 						<onright>49</onright>
 						<onup>9000</onup>
 						<ondown>61</ondown>
-						<pagecontrol></pagecontrol>
+						<pagecontrol/>
 						<scrolltime>200</scrolltime>
 						<itemlayout height="45">
 							<control type="label">
@@ -157,12 +196,12 @@
 								<font>font14</font>
 								<align>right</align>
 								<aligny>center</aligny>
-								<textcolor>$VAR[ThemeLabelColor]</textcolor>
+								<textcolor>$VAR[X2DVI_MainColorOne]</textcolor>
 								<selectedcolor>selected</selectedcolor>
 								<info>ListItem.Label</info>
-								<visible>!Control.HasFocus(15)</visible>
+								<visible>![Control.HasFocus(1515) | [Player.HasVideo + String.IsEqual(Window(Home).Property(X2DVI.TrailerInfo.Active),true)]]</visible>
 							</control>
-							<visible>!Control.HasFocus(15)</visible>
+							<visible>![Control.HasFocus(1515) | [Player.HasVideo + String.IsEqual(Window(Home).Property(X2DVI.TrailerInfo.Active),true)]]</visible>
 								<control type="label">
 								<left>262</left>
 								<top>0</top>
@@ -183,8 +222,8 @@
 								<width>975</width>
 								<height>45</height>
 								<visible>Control.HasFocus(49)</visible>
-								<texture colordiffuse="$VAR[ThemeLabelColor]">$VAR[SelectMenuItem]</texture>
-								<include>VisibleFadeEffect</include>
+								<texture colordiffuse="$VAR[X2DVI_MainColorOne]">$VAR[X2DVI_SelectMenuItem]</texture>
+								<include>X2DVI_VisibleFadeEffect</include>
 							</control>
 							<control type="label">
 								<left>8</left>
@@ -194,7 +233,7 @@
 								<font>font14</font>
 								<align>right</align>
 								<aligny>center</aligny>
-								<textcolor>$VAR[ThemeLabelColor]</textcolor>
+								<textcolor>$VAR[X2DVI_MainColorOne]</textcolor>
 								<selectedcolor>selected</selectedcolor>
 								<info>ListItem.Label</info>
 							</control>
@@ -244,7 +283,7 @@
 								<visible>!String.IsEmpty(ListItem.Year)</visible>
 							</item>
 							<item>
-								<label>Premiered:</label>
+								<label>$LOCALIZE[31322]:</label>
 								<label2>$INFO[ListItem.Premiered]</label2>
 								<visible>!String.IsEmpty(ListItem.Premiered)</visible>
 							</item>
@@ -280,7 +319,7 @@
 							</item>
 							<item>
 								<label>$LOCALIZE[2050]:</label>
-								<label2>$VAR[DurationInMinutes]</label2>
+								<label2>$VAR[X2DVI_DurationInMinutes]</label2>
 								<visible>!String.IsEmpty(ListItem.Duration)</visible>
 							</item>
 							<item>
@@ -320,10 +359,10 @@
 					</control>
 				</control>
 				<control type="group">
-					<visible>String.IsEqual(ListItem.DBTYPE,tvshow) + !Control.HasFocus(12) + !Control.HasFocus(15)</visible>
+					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + String.IsEqual(ListItem.DBTYPE,tvshow) + !Control.HasFocus(12) + ![Control.HasFocus(1515) | [Player.HasVideo + String.IsEqual(Window(Home).Property(X2DVI.TrailerInfo.Active),true)]]</visible>
 					<top>135</top>
 					<left>60</left>
-					<include>VisibleFadeEffect</include>
+					<include>X2DVI_VisibleFadeEffect</include>
 					<control type="image">
 						<left>0</left>
 						<top>0</top>
@@ -332,7 +371,7 @@
 						<aspectratio>stretch</aspectratio>
 						<bordertexture border="5">button-nofocus.png</bordertexture>
 						<bordersize>4</bordersize>
-						<texture background="true">$VAR[PosterThumb]</texture>
+						<texture background="true">$VAR[X2DVI_PosterThumb]</texture>
 					</control>
 					<control type="image">
 						<left>6</left>
@@ -344,6 +383,7 @@
 						<colordiffuse>AAFFFFFF</colordiffuse>
 					</control>
 					<control type="list" id="49">
+						<onfocus>ClearProperty(X2DVI.ShowCast,home)</onfocus>
 						<left>435</left>
 						<top>30</top>
 						<width>975</width>
@@ -352,7 +392,7 @@
 						<onright>49</onright>
 						<onup>9000</onup>
 						<ondown>61</ondown>
-						<pagecontrol></pagecontrol>
+						<pagecontrol/>
 						<scrolltime>200</scrolltime>
 						<itemlayout height="45">
 							<control type="label">
@@ -363,11 +403,11 @@
 								<font>font14</font>
 								<align>right</align>
 								<aligny>center</aligny>
-								<textcolor>$VAR[ThemeLabelColor]</textcolor>
+								<textcolor>$VAR[X2DVI_MainColorOne]</textcolor>
 								<selectedcolor>selected</selectedcolor>
 								<info>ListItem.Label</info>
 							</control>
-							<visible>!Control.HasFocus(15)</visible>
+							<visible>![Control.HasFocus(1515) | [Player.HasVideo + String.IsEqual(Window(Home).Property(X2DVI.TrailerInfo.Active),true)]]</visible>
 								<control type="label">
 								<left>262</left>
 								<top>0</top>
@@ -388,8 +428,8 @@
 								<width>975</width>
 								<height>45</height>
 								<visible>Control.HasFocus(49)</visible>
-								<texture colordiffuse="$VAR[ThemeLabelColor]">$VAR[SelectMenuItem]</texture>
-								<include>VisibleFadeEffect</include>
+								<texture colordiffuse="$VAR[X2DVI_MainColorOne]">$VAR[X2DVI_SelectMenuItem]</texture>
+								<include>X2DVI_VisibleFadeEffect</include>
 							</control>
 							<control type="label">
 								<left>8</left>
@@ -399,7 +439,7 @@
 								<font>font14</font>
 								<align>right</align>
 								<aligny>center</aligny>
-								<textcolor>$VAR[ThemeLabelColor]</textcolor>
+								<textcolor>$VAR[X2DVI_MainColorOne]</textcolor>
 								<selectedcolor>selected</selectedcolor>
 								<info>ListItem.Label</info>
 							</control>
@@ -419,7 +459,7 @@
 						<content>
 							<!-- Premiered (First Aired) -->
 							<item>
-							  <label>Premiered:</label>
+							  <label>$LOCALIZE[31322]:</label>
 							  <label2>$INFO[ListItem.Premiered]</label2>
 							  <visible>!String.IsEmpty(ListItem.Premiered)</visible>
 							</item>
@@ -489,10 +529,10 @@
 					</control>
 				</control>
 				<control type="group">
-					<visible>String.IsEqual(ListItem.DBTYPE,episode) + !Control.HasFocus(12)</visible>
+					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + String.IsEqual(ListItem.DBTYPE,episode) + !Control.HasFocus(12)</visible>
 					<top>135</top>
 					<left>60</left>
-					<include>VisibleFadeEffect</include>
+					<include>X2DVI_VisibleFadeEffect</include>
 					<control type="image">
 						<left>0</left>
 						<top>0</top>
@@ -514,6 +554,7 @@
 						<texture background="true" flipy="true" diffuse="diffuse_mirror2.png">$INFO[ListItem.Icon]</texture>
 					</control>
 					<control type="list" id="49">
+						<onfocus>ClearProperty(X2DVI.ShowCast,home)</onfocus>
 						<left>585</left>
 						<top>0</top>
 						<width>825</width>
@@ -522,7 +563,7 @@
 						<onright>49</onright>
 						<onup>9000</onup>
 						<ondown>61</ondown>
-						<pagecontrol></pagecontrol>
+						<pagecontrol/>
 						<scrolltime>200</scrolltime>
 						<itemlayout height="45">
 							<control type="label">
@@ -533,11 +574,11 @@
 								<font>font14</font>
 								<align>right</align>
 								<aligny>center</aligny>
-								<textcolor>$VAR[ThemeLabelColor]</textcolor>
+								<textcolor>$VAR[X2DVI_MainColorOne]</textcolor>
 								<selectedcolor>selected</selectedcolor>
 								<info>ListItem.Label</info>
 							</control>
-							<visible>!Control.HasFocus(15)</visible>
+							<visible>![Control.HasFocus(1515) | [Player.HasVideo + String.IsEqual(Window(Home).Property(X2DVI.TrailerInfo.Active),true)]]</visible>
 								<control type="label">
 								<left>262</left>
 								<top>0</top>
@@ -558,8 +599,8 @@
 								<width>825</width>
 								<height>45</height>
 								<visible>Control.HasFocus(49)</visible>
-								<texture colordiffuse="$VAR[ThemeLabelColor]">$VAR[SelectMenuItem]</texture>
-								<include>VisibleFadeEffect</include>
+								<texture colordiffuse="$VAR[X2DVI_MainColorOne]">$VAR[X2DVI_SelectMenuItem]</texture>
+								<include>X2DVI_VisibleFadeEffect</include>
 							</control>
 							<control type="label">
 								<left>8</left>
@@ -569,7 +610,7 @@
 								<font>font14</font>
 								<align>right</align>
 								<aligny>center</aligny>
-								<textcolor>$VAR[ThemeLabelColor]</textcolor>
+								<textcolor>$VAR[X2DVI_MainColorOne]</textcolor>
 								<selectedcolor>selected</selectedcolor>
 								<info>ListItem.Label</info>
 							</control>
@@ -662,7 +703,7 @@
 							</item>
 							<item>
 								<label>$LOCALIZE[2050]:</label>
-								<label2>$VAR[DurationInMinutes]</label2>
+								<label2>$VAR[X2DVI_DurationInMinutes]</label2>
 								<visible>!String.IsEmpty(ListItem.Duration)</visible>
 							</item>
 							<item>
@@ -687,10 +728,10 @@
 					</control>
 				</control>
 				<control type="group">
-					<visible>String.IsEqual(ListItem.DBTYPE,musicvideo) + !Control.HasFocus(12)</visible>
+					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + String.IsEqual(ListItem.DBTYPE,musicvideo) + !Control.HasFocus(12)</visible>
 					<top>135</top>
 					<left>60</left>
-					<include>VisibleFadeEffect</include>
+					<include>X2DVI_VisibleFadeEffect</include>
 					<control type="image">
 						<left>0</left>
 						<top>0</top>
@@ -702,6 +743,7 @@
 						<texture background="true">$INFO[ListItem.Icon]</texture>
 					</control>
 					<control type="list" id="49">
+						<onfocus>ClearProperty(X2DVI.ShowCast,home)</onfocus>
 						<left>585</left>
 						<top>30</top>
 						<width>825</width>
@@ -710,7 +752,7 @@
 						<onright>49</onright>
 						<onup>9000</onup>
 						<ondown>61</ondown>
-						<pagecontrol></pagecontrol>
+						<pagecontrol/>
 						<scrolltime>200</scrolltime>
 						<itemlayout height="45">
 							<control type="label">
@@ -721,11 +763,11 @@
 								<font>font14</font>
 								<align>right</align>
 								<aligny>center</aligny>
-								<textcolor>$VAR[ThemeLabelColor]</textcolor>
+								<textcolor>$VAR[X2DVI_MainColorOne]</textcolor>
 								<selectedcolor>selected</selectedcolor>
 								<info>ListItem.Label</info>
 							</control>
-							<visible>!Control.HasFocus(15)</visible>
+							<visible>![Control.HasFocus(1515) | [Player.HasVideo + String.IsEqual(Window(Home).Property(X2DVI.TrailerInfo.Active),true)]]</visible>
 								<control type="label">
 								<left>262</left>
 								<top>0</top>
@@ -746,8 +788,8 @@
 								<width>825</width>
 								<height>45</height>
 								<visible>Control.HasFocus(49)</visible>
-								<texture colordiffuse="$VAR[ThemeLabelColor]">$VAR[SelectMenuItem]</texture>
-								<include>VisibleFadeEffect</include>
+								<texture colordiffuse="$VAR[X2DVI_MainColorOne]">$VAR[X2DVI_SelectMenuItem]</texture>
+								<include>X2DVI_VisibleFadeEffect</include>
 							</control>
 							<control type="label">
 								<left>8</left>
@@ -757,7 +799,7 @@
 								<font>font14</font>
 								<align>right</align>
 								<aligny>center</aligny>
-								<textcolor>$VAR[ThemeLabelColor]</textcolor>
+								<textcolor>$VAR[X2DVI_MainColorOne]</textcolor>
 								<selectedcolor>selected</selectedcolor>
 								<info>ListItem.Label</info>
 							</control>
@@ -812,7 +854,7 @@
 							</item>
 							<item>
 								<label>$LOCALIZE[2050]:</label>
-								<label2>$VAR[DurationInMinutes]</label2>
+								<label2>$VAR[X2DVI_DurationInMinutes]</label2>
 								<visible>!String.IsEmpty(ListItem.Duration)</visible>
 							</item>
 							<item>
@@ -830,195 +872,1013 @@
 					<control type="image">
 						<left>585</left>
 						<top>555</top>
-						<width>960</width>
+						<width>1375</width>
 						<height>6</height>
 						<aspectratio>stretch</aspectratio>
 						<texture>separator.png</texture>
 					</control>
 				</control>
 				<control type="label">
-					<right>195</right>
+					<right>250</right>
 					<top>720</top>
 					<width>600</width>
 					<height>45</height>
-					<font>font13_title</font>
+					<font>font14_title</font>
 					<textcolor>grey2</textcolor>
 					<shadowcolor>black</shadowcolor>
 					<scroll>true</scroll>
 					<align>right</align>
 					<aligny>center</aligny>
-					<label>[COLOR=blue]$LOCALIZE[207][/COLOR]$INFO[Container(400).CurrentPage, ( $LOCALIZE[31024] ]$INFO[Container(400).NumPages,/, )]</label>
-					<visible>Control.IsVisible(400)</visible>
+					<label>[COLOR=$VAR[X2DVI_MainColorOne]]$LOCALIZE[207][/COLOR]$INFO[Container(400).CurrentPage, ( $LOCALIZE[31024] ]$INFO[Container(400).NumPages,/, )]</label>
+					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + Control.IsVisible(400) + ![Control.HasFocus(1515) | [Player.HasVideo + String.IsEqual(Window(Home).Property(X2DVI.TrailerInfo.Active),true)]]</visible>
 				</control>
 				<control type="label">
-					<right>195</right>
+					<right>250</right>
 					<top>720</top>
 					<width>600</width>
 					<height>45</height>
-					<font>font13_title</font>
+					<font>font14_title</font>
 					<textcolor>grey2</textcolor>
 					<shadowcolor>black</shadowcolor>
 					<scroll>true</scroll>
 					<align>right</align>
 					<aligny>center</aligny>
-					<label>[COLOR=blue]$LOCALIZE[206][/COLOR]$INFO[Container(50).CurrentPage, ( $LOCALIZE[31024] ]$INFO[Container(50).NumPages,/, )]</label>
-					<visible>Control.HasFocus(5)</visible>
+					<label>[COLOR=$VAR[X2DVI_MainColorOne]]$LOCALIZE[206][/COLOR]$INFO[Container(50).CurrentPage, ( $LOCALIZE[31024] ]$INFO[Container(50).NumPages,/, )]</label>
+					<visible>false</visible>
+				</control>
+				<control type="label">
+					<right>250</right>
+					<top>720</top>
+					<width>600</width>
+					<height>45</height>
+					<font>font14_title</font>
+					<textcolor>grey2</textcolor>
+					<shadowcolor>black</shadowcolor>
+					<scroll>true</scroll>
+					<align>right</align>
+					<aligny>center</aligny>
+					<label>[COLOR=$VAR[X2DVI_MainColorOne]]$LOCALIZE[206][/COLOR]$INFO[Container(5050).CurrentPage, ( $LOCALIZE[31024] ]$INFO[Container(5050).NumPages,/, )]</label>
+					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + [Control.HasFocus(5505) | Control.HasFocus(5050) | String.IsEqual(Window(Home).Property(X2DVI.ShowCast),true)] + !String.IsEmpty(Window(Home).Property(X2DVI.Cast.1.Name)) + ![Control.HasFocus(1515) | [Player.HasVideo + String.IsEqual(Window(Home).Property(X2DVI.TrailerInfo.Active),true)]]</visible>
 				</control>
 				<control type="spincontrol" id="61">
 					<description>Next page button</description>
+						<onfocus>ClearProperty(X2DVI.ShowCast,home)</onfocus>
 					<left>180r</left>
-					<top>728</top>
+					<top>650</top>
 					<subtype>page</subtype>
-					<font />
+					<font/>
 					<onleft>61</onleft>
 					<onright>61</onright>
 					<ondown>9000</ondown>
 					<onup>49</onup>
-					<textcolor />
+					<textcolor/>
+					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + ![Control.HasFocus(1515) | [Player.HasVideo + String.IsEqual(Window(Home).Property(X2DVI.TrailerInfo.Active),true)]]</visible>
 					<showonepage>true</showonepage>
-					<visible>Control.HasFocus(5)</visible>
 				</control>
 				<control type="textbox" id="400">
 					<description>Description Value for Movies</description>
-					<left>315</left>
-					<top>791</top>
-					<width>1545</width>
+					<left>60</left>
+					<top>790</top>
+					<width>1810</width>
 					<height>180</height>
-					<font>font13</font>
+					<font>font24_title</font>
 					<align>justify</align>
 					<textcolor>white</textcolor>
 					<pagecontrol>61</pagecontrol>
-					<label>$INFO[ListItem.Plot]</label>
-					<autoscroll time="3000" delay="4000" repeat="5000">!Control.HasFocus(61) + Skin.HasSetting(AutoScroll)</autoscroll>
-					<visible>Control.HasFocus(8)</visible>
-				</control>
-				<control type="image">
-					<description>Actor image</description>
-					<left>315</left>
-					<top>720</top>
-					<width>240</width>
-					<height>240</height>
-					<texture>$INFO[Container(50).Listitem.Icon]</texture>
-					<aspectratio>keep</aspectratio>
-					<visible>Control.HasFocus(5)</visible>
+					<label>$VAR[X2DVI_VideoDescription]</label>
+					<include condition="Skin.HasSetting(AutoScroll) + !Skin.HasSetting(AutoScroll.Slow)">X2DVI_StandardAutoScroll</include>
+					<include condition="Skin.HasSetting(AutoScroll) + Skin.HasSetting(AutoScroll.Slow)">X2DVI_SlowerAutoScroll</include>
+					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + ![Control.HasFocus(5505) | Control.HasFocus(50) | Control.HasFocus(5050) | String.IsEqual(Window(Home).Property(X2DVI.ShowCast),true)] + ![Control.HasFocus(1515) | [Player.HasVideo + String.IsEqual(Window(Home).Property(X2DVI.TrailerInfo.Active),true)]]</visible>
 				</control>
 				<control type="panel" id="50">
-					<left>570</left>
-					<top>780</top>
-					<width>1290</width>
-					<height>180</height>
+					<description>Kodi cast fallback when online cast is unavailable</description>
+					<onfocus>SetProperty(X2DVI.ShowCast,true,home)</onfocus>
+					<left>60</left>
+					<top>750</top>
+					<width>1810</width>
+					<height>220</height>
 					<onleft>9000</onleft>
-					<onright>61</onright>
+					<onright>50</onright>
 					<onup>61</onup>
 					<ondown>9000</ondown>
+					<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[ListItem.Label]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick>
+					<onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[ListItem.Label]')</onclick>
+					<oninfo condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[ListItem.Label]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</oninfo>
+					<oninfo condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[ListItem.Label]')</oninfo>
+					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + [Control.HasFocus(5505) | Control.HasFocus(50) | String.IsEqual(Window(Home).Property(X2DVI.ShowCast),true)] + String.IsEmpty(Window(Home).Property(X2DVI.Cast.1.Name)) + ![Control.HasFocus(1515) | [Player.HasVideo + String.IsEqual(Window(Home).Property(X2DVI.TrailerInfo.Active),true)]]</visible>
 					<viewtype label="">list</viewtype>
 					<pagecontrol>61</pagecontrol>
 					<scrolltime>200</scrolltime>
-					<orientation>vertical</orientation>
-					<visible>Control.HasFocus(5)</visible>
-					<itemlayout height="60" width="645">
+					<orientation>horizontal</orientation>
+					<itemlayout height="220" width="200">
 						<control type="image">
-							<left>0</left>
+							<left>8</left>
 							<top>0</top>
-							<width>645</width>
-							<height>60</height>
+							<width>184</width>
+							<height>220</height>
 							<texture border="5">button-nofocus.png</texture>
 						</control>
+						<control type="image">
+							<left>18</left>
+							<top>10</top>
+							<width>164</width>
+							<height>164</height>
+							<aspectratio>scale</aspectratio>
+							<texture background="true">$INFO[ListItem.Icon]</texture>
+						</control>
 						<control type="label">
-							<description>Actor and Role</description>
-							<left>15</left>
-							<top>0</top>
-							<width>615</width>
-							<height>60</height>
+							<description>Actor Name</description>
+							<left>12</left>
+							<top>176</top>
+							<width>176</width>
+							<height>24</height>
 							<font>font12</font>
-							<align>left</align>
+							<align>center</align>
 							<aligny>center</aligny>
+							<textcolor>white</textcolor>
 							<selectedcolor>white</selectedcolor>
-							<label>$INFO[ListItem.Label]$INFO[ListItem.Label2, $LOCALIZE[20347] ,]</label>
-							<visible>Control.HasFocus(5)</visible>
+							<scroll>true</scroll>
+							<label>$INFO[ListItem.Label]</label>
+						</control>
+						<control type="label">
+							<description>Actor Role</description>
+							<left>12</left>
+							<top>198</top>
+							<width>176</width>
+							<height>20</height>
+							<font>font10</font>
+							<align>center</align>
+							<aligny>center</aligny>
+							<textcolor>grey2</textcolor>
+							<selectedcolor>white</selectedcolor>
+							<scroll>true</scroll>
+							<label>$INFO[ListItem.Label2]</label>
+							<visible>!String.IsEmpty(ListItem.Label2)</visible>
 						</control>
 					</itemlayout>
-					<focusedlayout height="60" width="645">
+					<focusedlayout height="220" width="200">
 						<control type="image">
-							<left>0</left>
+							<left>8</left>
 							<top>0</top>
-							<width>645</width>
-							<height>60</height>
-							<visible>!Control.HasFocus(5)</visible>
+							<width>184</width>
+							<height>220</height>
+							<visible>!Control.HasFocus(50) + !Control.HasFocus(5050)</visible>
 							<texture border="5">button-nofocus.png</texture>
 						</control>
 						<control type="image">
-							<left>0</left>
+							<left>8</left>
 							<top>0</top>
-							<width>645</width>
-							<height>60</height>
-							<visible>Control.HasFocus(50)</visible>
-							<texture border="5">button-focus2.png</texture>
+							<width>184</width>
+							<height>220</height>
+							<visible>Control.HasFocus(50) | Control.HasFocus(5050)</visible>
+							<texture border="5" colordiffuse="$VAR[X2DVI_MainColorOne]">$VAR[X2DVI_SelectButton2]</texture>
+						</control>
+						<control type="image">
+							<left>18</left>
+							<top>10</top>
+							<width>164</width>
+							<height>164</height>
+							<aspectratio>scale</aspectratio>
+							<texture background="true">$INFO[ListItem.Icon]</texture>
 						</control>
 						<control type="label">
-							<description>Actor and Role</description>
-							<left>15</left>
-							<top>0</top>
-							<width>615</width>
-							<height>60</height>
+							<description>Actor Name</description>
+							<left>12</left>
+							<top>176</top>
+							<width>176</width>
+							<height>24</height>
 							<font>font12</font>
-							<align>left</align>
+							<align>center</align>
 							<aligny>center</aligny>
+							<textcolor>white</textcolor>
 							<selectedcolor>white</selectedcolor>
-							<label>$INFO[ListItem.Label]$INFO[ListItem.Label2, $LOCALIZE[20347] ,]</label>
+							<scroll>true</scroll>
+							<label>$INFO[ListItem.Label]</label>
+						</control>
+						<control type="label">
+							<description>Actor Role</description>
+							<left>12</left>
+							<top>198</top>
+							<width>176</width>
+							<height>20</height>
+							<font>font10</font>
+							<align>center</align>
+							<aligny>center</aligny>
+							<textcolor>grey2</textcolor>
+							<selectedcolor>white</selectedcolor>
+							<scroll>true</scroll>
+							<label>$INFO[ListItem.Label2]</label>
+							<visible>!String.IsEmpty(ListItem.Label2)</visible>
 						</control>
 					</focusedlayout>
+				<onback condition="String.IsEqual(Window(Home).Property(X2DVI.ActorSession),true)">Dialog.Close(all,true)</onback><onback condition="String.IsEqual(Window(Home).Property(X2DVI.ActorSession),true)">ActivateWindow(Home)</onback><onback condition="String.IsEqual(Window(Home).Property(X2DVI.ActorSession),true)">ClearProperty(X2DVI.ActorSession,home)</onback></control>
+				<control type="panel" id="5050">
+					<description>CastHelper cast row. Actor clicks are routed through the bundled Xenon Cast Helper mode=openperson so the original DialogVideoInfo is closed before TMDb Helper opens the person page.</description>
+					<onfocus>SetProperty(X2DVI.ShowCast,true,home)</onfocus>
+					<left>60</left>
+					<top>750</top>
+					<width>1810</width>
+					<height>220</height>
+					<onleft>9000</onleft>
+					<onright>5050</onright>
+					<onup>61</onup>
+					<ondown>9000</ondown>
+					<onback>ClearProperty(X2DVI.TrailerInfo.Pending,home)</onback>
+                        <onback>ClearProperty(X2DVI.ShowCast,home)</onback>
+					<onback>Dialog.Close(all,true)</onback>
+					<oninfo condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[ListItem.Label]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</oninfo>
+					<oninfo condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[ListItem.Label]')</oninfo>
+					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)] + [Control.HasFocus(5505) | Control.HasFocus(5050) | String.IsEqual(Window(Home).Property(X2DVI.ShowCast),true)] + !String.IsEmpty(Window(Home).Property(X2DVI.Cast.1.Name)) + ![Control.HasFocus(1515) | [Player.HasVideo + String.IsEqual(Window(Home).Property(X2DVI.TrailerInfo.Active),true)]]</visible>
+					<viewtype label="">list</viewtype>
+					<pagecontrol>61</pagecontrol>
+					<scrolltime>200</scrolltime>
+					<orientation>horizontal</orientation>
+					<itemlayout height="220" width="200">
+						<control type="image">
+							<left>8</left>
+							<top>0</top>
+							<width>184</width>
+							<height>220</height>
+							<texture border="5">button-nofocus.png</texture>
+						</control>
+						<control type="image">
+							<left>18</left>
+							<top>10</top>
+							<width>164</width>
+							<height>164</height>
+							<aspectratio>scale</aspectratio>
+							<texture background="true">$INFO[ListItem.Icon]</texture>
+						</control>
+						<control type="label">
+							<description>Actor Name</description>
+							<left>12</left>
+							<top>176</top>
+							<width>176</width>
+							<height>24</height>
+							<font>font12</font>
+							<align>center</align>
+							<aligny>center</aligny>
+							<textcolor>white</textcolor>
+							<selectedcolor>white</selectedcolor>
+							<scroll>true</scroll>
+							<label>$INFO[ListItem.Label]</label>
+						</control>
+						<control type="label">
+							<description>Actor Role</description>
+							<left>12</left>
+							<top>198</top>
+							<width>176</width>
+							<height>20</height>
+							<font>font10</font>
+							<align>center</align>
+							<aligny>center</aligny>
+							<textcolor>grey2</textcolor>
+							<selectedcolor>white</selectedcolor>
+							<scroll>true</scroll>
+							<label>$INFO[ListItem.Label2]</label>
+							<visible>!String.IsEmpty(ListItem.Label2)</visible>
+						</control>
+					</itemlayout>
+					<focusedlayout height="220" width="200">
+						<control type="image">
+							<left>8</left>
+							<top>0</top>
+							<width>184</width>
+							<height>220</height>
+							<visible>!Control.HasFocus(50) + !Control.HasFocus(5050)</visible>
+							<texture border="5">button-nofocus.png</texture>
+						</control>
+						<control type="image">
+							<left>8</left>
+							<top>0</top>
+							<width>184</width>
+							<height>220</height>
+							<visible>Control.HasFocus(50) | Control.HasFocus(5050)</visible>
+							<texture border="5" colordiffuse="$VAR[X2DVI_MainColorOne]">$VAR[X2DVI_SelectButton2]</texture>
+						</control>
+						<control type="image">
+							<left>18</left>
+							<top>10</top>
+							<width>164</width>
+							<height>164</height>
+							<aspectratio>scale</aspectratio>
+							<texture background="true">$INFO[ListItem.Icon]</texture>
+						</control>
+						<control type="label">
+							<description>Actor Name</description>
+							<left>12</left>
+							<top>176</top>
+							<width>176</width>
+							<height>24</height>
+							<font>font12</font>
+							<align>center</align>
+							<aligny>center</aligny>
+							<textcolor>white</textcolor>
+							<selectedcolor>white</selectedcolor>
+							<scroll>true</scroll>
+							<label>$INFO[ListItem.Label]</label>
+						</control>
+						<control type="label">
+							<description>Actor Role</description>
+							<left>12</left>
+							<top>198</top>
+							<width>176</width>
+							<height>20</height>
+							<font>font10</font>
+							<align>center</align>
+							<aligny>center</aligny>
+							<textcolor>grey2</textcolor>
+							<selectedcolor>white</selectedcolor>
+							<scroll>true</scroll>
+							<label>$INFO[ListItem.Label2]</label>
+							<visible>!String.IsEmpty(ListItem.Label2)</visible>
+						</control>
+					</focusedlayout>
+					<content>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.1.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.1.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.1.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.1.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.1.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.1.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.2.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.2.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.2.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.2.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.2.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.2.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.3.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.3.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.3.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.3.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.3.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.3.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.4.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.4.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.4.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.4.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.4.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.4.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.5.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.5.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.5.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.5.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.5.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.5.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.6.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.6.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.6.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.6.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.6.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.6.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.7.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.7.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.7.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.7.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.7.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.7.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.8.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.8.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.8.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.8.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.8.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.8.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.9.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.9.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.9.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.9.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.9.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.9.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.10.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.10.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.10.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.10.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.10.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.10.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.11.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.11.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.11.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.11.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.11.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.11.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.12.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.12.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.12.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.12.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.12.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.12.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.13.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.13.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.13.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.13.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.13.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.13.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.14.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.14.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.14.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.14.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.14.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.14.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.15.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.15.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.15.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.15.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.15.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.15.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.16.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.16.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.16.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.16.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.16.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.16.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.17.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.17.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.17.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.17.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.17.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.17.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.18.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.18.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.18.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.18.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.18.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.18.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.19.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.19.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.19.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.19.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.19.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.19.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.20.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.20.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.20.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.20.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.20.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.20.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.21.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.21.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.21.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.21.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.21.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.21.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.22.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.22.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.22.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.22.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.22.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.22.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.23.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.23.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.23.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.23.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.23.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.23.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.24.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.24.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.24.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.24.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.24.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.24.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.25.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.25.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.25.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.25.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.25.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.25.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.26.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.26.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.26.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.26.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.26.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.26.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.27.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.27.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.27.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.27.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.27.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.27.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.28.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.28.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.28.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.28.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.28.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.28.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.29.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.29.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.29.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.29.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.29.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.29.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.30.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.30.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.30.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.30.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.30.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.30.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.31.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.31.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.31.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.31.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.31.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.31.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.32.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.32.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.32.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.32.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.32.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.32.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.33.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.33.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.33.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.33.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.33.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.33.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.34.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.34.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.34.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.34.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.34.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.34.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.35.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.35.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.35.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.35.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.35.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.35.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.36.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.36.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.36.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.36.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.36.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.36.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.37.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.37.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.37.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.37.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.37.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.37.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.38.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.38.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.38.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.38.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.38.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.38.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.39.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.39.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.39.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.39.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.39.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.39.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.40.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.40.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.40.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.40.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.40.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.40.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.41.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.41.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.41.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.41.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.41.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.41.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.42.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.42.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.42.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.42.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.42.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.42.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.43.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.43.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.43.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.43.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.43.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.43.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.44.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.44.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.44.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.44.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.44.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.44.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.45.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.45.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.45.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.45.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.45.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.45.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.46.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.46.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.46.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.46.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.46.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.46.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.47.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.47.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.47.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.47.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.47.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.47.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.48.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.48.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.48.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.48.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.48.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.48.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.49.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.49.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.49.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.49.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.49.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.49.Name)]')</onclick></item>
+						<item>
+							<label>$INFO[Window(Home).Property(X2DVI.Cast.50.Name)]</label>
+							<label2>$INFO[Window(Home).Property(X2DVI.Cast.50.Role)]</label2>
+							<icon>$INFO[Window(Home).Property(X2DVI.Cast.50.Thumb)]</icon>
+							<visible>!String.IsEmpty(Window(Home).Property(X2DVI.Cast.50.Name))</visible>
+						<onclick condition="System.HasAddon(plugin.video.themoviedb.helper)">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=openperson,person='$ESCINFO[Window(Home).Property(X2DVI.Cast.50.Name)]',tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onclick><onclick condition="!System.HasAddon(plugin.video.themoviedb.helper) + System.HasAddon(script.extendedinfo)">RunScript(script.extendedinfo,info=extendedactorinfo,name='$ESCINFO[Window(Home).Property(X2DVI.Cast.50.Name)]')</onclick></item>
+					</content>
+				<onback condition="String.IsEqual(Window(Home).Property(X2DVI.ActorSession),true)">ActivateWindow(Home)</onback><onback condition="String.IsEqual(Window(Home).Property(X2DVI.ActorSession),true)">ClearProperty(X2DVI.ActorSession,home)</onback></control>
+
+				<!-- TMDb Helper person/actor information layout -->
+				<control type="group">
+					<description>TMDb Helper Person Info</description>
+					<visible>[String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)]</visible>
+					<include>X2DVI_VisibleFadeEffect</include>
+
+					<!-- Hidden focus target used by onback from person controls. It reopens the original video info item instead of letting TMDb Helper loop back to the same person DialogVideoInfo page. -->
+					<control type="button" id="8899">
+						<description>Return to original video info from TMDb person page</description>
+						<left>-2000</left>
+						<top>-2000</top>
+						<width>1</width>
+						<height>1</height>
+						<label/>
+						<!-- Use CastHelper to close the current TMDb person dialog first, then reopen the original title.
+						     Doing both directly in XML leaves the person DialogVideoInfo underneath and Back loops between dialogs. -->
+						<onfocus condition="!String.IsEmpty(Window(Home).Property(X2DVI.OriginTmdbId))">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=returnorigin,tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onfocus>
+						<onfocus condition="String.IsEmpty(Window(Home).Property(X2DVI.OriginTmdbId)) + !String.IsEmpty(Window(Home).Property(X2DVI.OriginDbid))">RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=returnorigin,dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onfocus>
+						<onfocus condition="String.IsEmpty(Window(Home).Property(X2DVI.OriginTmdbId)) + String.IsEmpty(Window(Home).Property(X2DVI.OriginDbid))">Dialog.Close(all,true)</onfocus>
+					</control>
+
+					<!-- Top person page. This stays on the first remote page and gives the credits room to grow below. -->
+					<control type="group">
+						<description>Person biography and facts page</description>
+						<include>X2DVI_VisibleFadeEffect</include>
+						<!-- Keep this page focusable while the credits page is active; fade it instead of hiding it so remote Up from 8500 can return to the facts list. -->
+						<animation effect="fade" start="100" end="0" time="120" condition="Control.HasFocus(8500) | Control.HasFocus(8600)">Conditional</animation>
+						<control type="image">
+							<left>60</left>
+							<top>110</top>
+							<width>360</width>
+							<height>540</height>
+							<aspectratio>scale</aspectratio>
+							<bordertexture border="5">button-nofocus.png</bordertexture>
+							<bordersize>4</bordersize>
+							<texture background="true">$INFO[ListItem.Thumb]</texture>
+						</control>
+						<control type="image">
+							<left>68</left>
+							<top>118</top>
+							<width>344</width>
+							<height>524</height>
+							<aspectratio>scale</aspectratio>
+							<texture background="true">$INFO[ListItem.Icon]</texture>
+							<visible>String.IsEmpty(ListItem.Thumb)</visible>
+						</control>
+						<control type="label">
+							<left>455</left>
+							<top>108</top>
+							<width>1405</width>
+							<height>56</height>
+							<font>font35_title</font>
+							<textcolor>selected</textcolor>
+							<shadowcolor>black</shadowcolor>
+							<scroll>true</scroll>
+							<label>$INFO[ListItem.Label]</label>
+						</control>
+						<control type="list" id="8005">
+							<description>Person facts</description>
+							<left>455</left>
+							<top>170</top>
+							<width>1405</width>
+							<height>144</height>
+							<onleft>8005</onleft>
+							<onright>8005</onright>
+							<onup>8005</onup>
+							<ondown>8500</ondown>
+							<onback>RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=returnorigin,tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onback>
+							<pagecontrol/>
+							<scrolltime>200</scrolltime>
+							<itemlayout height="36">
+								<control type="label"><left>0</left><top>0</top><width>230</width><height>36</height><font>font14</font><align>right</align><aligny>center</aligny><textcolor>$VAR[X2DVI_MainColorOne]</textcolor><label>$INFO[ListItem.Label]</label></control>
+								<control type="label"><left>250</left><top>0</top><width>1110</width><height>36</height><font>font14</font><align>left</align><aligny>center</aligny><textcolor>white</textcolor><scroll>true</scroll><label>$INFO[ListItem.Label2]</label></control>
+							</itemlayout>
+							<focusedlayout height="36">
+								<control type="image"><left>0</left><top>0</top><width>1360</width><height>36</height><visible>Control.HasFocus(8005)</visible><texture colordiffuse="$VAR[X2DVI_MainColorOne]">$VAR[X2DVI_SelectMenuItem]</texture></control>
+								<control type="label"><left>0</left><top>0</top><width>230</width><height>36</height><font>font14</font><align>right</align><aligny>center</aligny><textcolor>$VAR[X2DVI_MainColorOne]</textcolor><label>$INFO[ListItem.Label]</label></control>
+								<control type="label"><left>250</left><top>0</top><width>1110</width><height>36</height><font>font14</font><align>left</align><aligny>center</aligny><textcolor>white</textcolor><scroll>true</scroll><label>$INFO[ListItem.Label2]</label></control>
+							</focusedlayout>
+							<content>
+								<item><label>Born:</label><label2>$INFO[ListItem.Property(Born)]</label2><visible>!String.IsEmpty(ListItem.Property(Born))</visible></item>
+								<item><label>Birthday:</label><label2>$INFO[ListItem.Property(Birthday)]</label2><visible>!String.IsEmpty(ListItem.Property(Birthday))</visible></item>
+								<item><label>Age:</label><label2>$INFO[ListItem.Property(Age)]</label2><visible>!String.IsEmpty(ListItem.Property(Age))</visible></item>
+								<item><label>Died:</label><label2>$INFO[ListItem.Property(Deathday)]</label2><visible>!String.IsEmpty(ListItem.Property(Deathday))</visible></item>
+								<item><label>Known For:</label><label2>$INFO[ListItem.Property(Known_For)]</label2><visible>!String.IsEmpty(ListItem.Property(Known_For))</visible></item>
+								<item><label>Department:</label><label2>$INFO[ListItem.Property(Department)]</label2><visible>!String.IsEmpty(ListItem.Property(Department))</visible></item>
+								<item><label>Job:</label><label2>$INFO[ListItem.Property(Job)]</label2><visible>!String.IsEmpty(ListItem.Property(Job))</visible></item>
+								<item><label>Role:</label><label2>$INFO[ListItem.Property(Role)]</label2><visible>!String.IsEmpty(ListItem.Property(Role))</visible></item>
+								<item><label>Aliases:</label><label2>$INFO[ListItem.Property(Aliases)]</label2><visible>!String.IsEmpty(ListItem.Property(Aliases))</visible></item>
+								<item><label>Movie Credits:</label><label2>$INFO[ListItem.Property(numitems.tmdb.movies.cast)] cast / $INFO[ListItem.Property(numitems.tmdb.movies.crew)] crew / $INFO[ListItem.Property(numitems.tmdb.movies.total)] total</label2><visible>!String.IsEmpty(ListItem.Property(numitems.tmdb.movies.total))</visible></item>
+								<item><label>TV Credits:</label><label2>$INFO[ListItem.Property(numitems.tmdb.tvshows.cast)] cast / $INFO[ListItem.Property(numitems.tmdb.tvshows.crew)] crew / $INFO[ListItem.Property(numitems.tmdb.tvshows.total)] total</label2><visible>!String.IsEmpty(ListItem.Property(numitems.tmdb.tvshows.total))</visible></item>
+							</content>
+						</control>
+						<control type="image"><left>455</left><top>330</top><width>1405</width><height>6</height><aspectratio>stretch</aspectratio><texture>separator.png</texture></control>
+						<control type="label"><left>455</left><top>342</top><width>1405</width><height>38</height><font>font16_title</font><textcolor>$VAR[X2DVI_MainColorOne]</textcolor><label>Biography</label></control>
+						<control type="textbox" id="8400"><left>455</left><top>384</top><width>1405</width><height>318</height><font>font14</font><align>justify</align><textcolor>white</textcolor><label>$INFO[ListItem.Property(Biography)]</label><visible>!String.IsEmpty(ListItem.Property(Biography))</visible><autoscroll time="3000" delay="5000" repeat="7000">!Control.HasFocus(8500) + !Control.HasFocus(8600)</autoscroll><onback>RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=returnorigin,tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onback></control>
+						<control type="textbox" id="8401"><left>455</left><top>384</top><width>1405</width><height>318</height><font>font14</font><align>justify</align><textcolor>white</textcolor><label>$INFO[ListItem.Plot]</label><visible>String.IsEmpty(ListItem.Property(Biography)) + !String.IsEmpty(ListItem.Plot)</visible><autoscroll time="3000" delay="5000" repeat="7000">!Control.HasFocus(8500) + !Control.HasFocus(8600)</autoscroll><onback>RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=returnorigin,tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onback></control>
+						<control type="label"><left>60</left><top>714</top><width>1800</width><height>42</height><font>font14_title</font><align>center</align><aligny>center</aligny><textcolor>grey2</textcolor><label>Press Down for movie and TV credits</label><visible>Control.HasFocus(8005)</visible></control>
+					</control>
+
+					<!-- Credit rows live lower on the first page, then slide up when focused. Kodi calls this UI; I call it controlled falling. -->
+					<control type="group">
+						<description>Scrollable person credits page</description>
+						<animation effect="slide" start="0,0" end="0,-680" time="220" condition="Control.HasFocus(8500) | Control.HasFocus(8600)">Conditional</animation>
+						<control type="label">
+							<left>60</left>
+							<top>790</top>
+							<width>1810</width>
+							<height>38</height>
+							<font>font16_title</font>
+							<textcolor>$VAR[X2DVI_MainColorOne]</textcolor>
+							<label>Movies as Cast</label>
+							<visible>!String.IsEmpty(ListItem.Property(numitems.tmdb.movies.cast)) | !String.IsEmpty(ListItem.Property(Movie.Cast.1.Title))</visible>
+						</control>
+						<control type="panel" id="8500">
+							<description>Person movie cast credits from TMDb Helper</description>
+							<left>60</left>
+							<top>832</top>
+							<width>1810</width>
+							<height>330</height>
+							<onleft>8500</onleft>
+							<onright>8500</onright>
+							<onup>8005</onup>
+							<ondown>8600</ondown>
+							<onback>RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=returnorigin,tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onback>
+							<onclick condition="System.HasAddon(plugin.video.themoviedb.helper) + !String.IsEmpty(Container(8500).ListItem.Property(TMDb_ID))">RunScript(plugin.video.themoviedb.helper,add_tmdb=$INFO[Container(8500).ListItem.Property(TMDb_ID)],tmdb_type=movie,call_auto=1190)</onclick>
+							<onclick condition="System.HasAddon(plugin.video.themoviedb.helper) + String.IsEmpty(Container(8500).ListItem.Property(TMDb_ID)) + !String.IsEmpty(Container(8500).ListItem.Property(tmdb_id))">RunScript(plugin.video.themoviedb.helper,add_tmdb=$INFO[Container(8500).ListItem.Property(tmdb_id)],tmdb_type=movie,call_auto=1190)</onclick>
+							<onclick condition="System.HasAddon(plugin.video.themoviedb.helper) + String.IsEmpty(Container(8500).ListItem.Property(TMDb_ID)) + String.IsEmpty(Container(8500).ListItem.Property(tmdb_id)) + !String.IsEmpty(Container(8500).ListItem.UniqueID(tmdb))">RunScript(plugin.video.themoviedb.helper,add_tmdb=$INFO[Container(8500).ListItem.UniqueID(tmdb)],tmdb_type=movie,call_auto=1190)</onclick>
+							<visible>!String.IsEmpty(ListItem.Property(numitems.tmdb.movies.cast)) | !String.IsEmpty(ListItem.Property(Movie.Cast.1.Title))</visible>
+							<orientation>horizontal</orientation>
+							<scrolltime>200</scrolltime>
+							<itemlayout height="330" width="248">
+								<control type="image">
+									<left>8</left><top>0</top><width>232</width><height>330</height>
+									<texture border="5">button-nofocus.png</texture>
+								</control>
+								<control type="image"><left>33</left><top>10</top><width>182</width><height>250</height><aspectratio>scale</aspectratio><texture background="true">$INFO[ListItem.Art(poster)]</texture><visible>!String.IsEmpty(ListItem.Art(poster))</visible></control>
+								<control type="image"><left>33</left><top>10</top><width>182</width><height>250</height><aspectratio>scale</aspectratio><texture background="true">$INFO[ListItem.Icon]</texture><visible>String.IsEmpty(ListItem.Art(poster)) + !String.IsEmpty(ListItem.Icon)</visible></control>
+								<control type="image"><left>33</left><top>10</top><width>182</width><height>250</height><aspectratio>scale</aspectratio><texture background="true">$INFO[ListItem.Thumb]</texture><visible>String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Icon) + !String.IsEmpty(ListItem.Thumb)</visible></control>
+								<control type="image"><left>33</left><top>10</top><width>182</width><height>250</height><aspectratio>scale</aspectratio><texture background="true">$INFO[ListItem.Art(fanart)]</texture><visible>String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Icon) + String.IsEmpty(ListItem.Thumb) + !String.IsEmpty(ListItem.Art(fanart))</visible></control>
+								<control type="image"><left>33</left><top>10</top><width>182</width><height>250</height><aspectratio>scale</aspectratio><texture background="true">DefaultVideo.png</texture><visible>String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Icon) + String.IsEmpty(ListItem.Thumb) + String.IsEmpty(ListItem.Art(fanart))</visible></control>
+								<control type="label"><left>14</left><top>264</top><width>220</width><height>36</height><font>font12</font><align>center</align><aligny>center</aligny><textcolor>white</textcolor><scroll>true</scroll><label>$INFO[ListItem.Label]</label></control>
+								<control type="label"><left>14</left><top>300</top><width>220</width><height>26</height><font>font11</font><align>center</align><aligny>center</aligny><textcolor>grey2</textcolor><scroll>true</scroll><label>$INFO[ListItem.Property(Character)]</label><visible>!String.IsEmpty(ListItem.Property(Character))</visible></control>
+								<control type="label"><left>14</left><top>300</top><width>220</width><height>26</height><font>font11</font><align>center</align><aligny>center</aligny><textcolor>grey2</textcolor><scroll>true</scroll><label>$INFO[ListItem.Label2]</label><visible>String.IsEmpty(ListItem.Property(Character)) + !String.IsEmpty(ListItem.Label2)</visible></control>
+							</itemlayout>
+							<focusedlayout height="330" width="248">
+								<control type="image">
+									<left>8</left><top>0</top><width>232</width><height>330</height>
+									<texture border="5" colordiffuse="$VAR[X2DVI_MainColorOne]">$VAR[X2DVI_SelectButton2]</texture>
+								</control>
+								<control type="image"><left>33</left><top>10</top><width>182</width><height>250</height><aspectratio>scale</aspectratio><texture background="true">$INFO[ListItem.Art(poster)]</texture><visible>!String.IsEmpty(ListItem.Art(poster))</visible></control>
+								<control type="image"><left>33</left><top>10</top><width>182</width><height>250</height><aspectratio>scale</aspectratio><texture background="true">$INFO[ListItem.Icon]</texture><visible>String.IsEmpty(ListItem.Art(poster)) + !String.IsEmpty(ListItem.Icon)</visible></control>
+								<control type="image"><left>33</left><top>10</top><width>182</width><height>250</height><aspectratio>scale</aspectratio><texture background="true">$INFO[ListItem.Thumb]</texture><visible>String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Icon) + !String.IsEmpty(ListItem.Thumb)</visible></control>
+								<control type="image"><left>33</left><top>10</top><width>182</width><height>250</height><aspectratio>scale</aspectratio><texture background="true">$INFO[ListItem.Art(fanart)]</texture><visible>String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Icon) + String.IsEmpty(ListItem.Thumb) + !String.IsEmpty(ListItem.Art(fanart))</visible></control>
+								<control type="image"><left>33</left><top>10</top><width>182</width><height>250</height><aspectratio>scale</aspectratio><texture background="true">DefaultVideo.png</texture><visible>String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Icon) + String.IsEmpty(ListItem.Thumb) + String.IsEmpty(ListItem.Art(fanart))</visible></control>
+								<control type="label"><left>14</left><top>264</top><width>220</width><height>36</height><font>font12</font><align>center</align><aligny>center</aligny><textcolor>white</textcolor><scroll>true</scroll><label>$INFO[ListItem.Label]</label></control>
+								<control type="label"><left>14</left><top>300</top><width>220</width><height>26</height><font>font11</font><align>center</align><aligny>center</aligny><textcolor>selected</textcolor><scroll>true</scroll><label>$INFO[ListItem.Property(Character)]</label><visible>!String.IsEmpty(ListItem.Property(Character))</visible></control>
+								<control type="label"><left>14</left><top>300</top><width>220</width><height>26</height><font>font11</font><align>center</align><aligny>center</aligny><textcolor>selected</textcolor><scroll>true</scroll><label>$INFO[ListItem.Label2]</label><visible>String.IsEmpty(ListItem.Property(Character)) + !String.IsEmpty(ListItem.Label2)</visible></control>
+							</focusedlayout>
+							<content>$VAR[X2DVI_PersonMoviesPath]</content>
+						</control>
+						<control type="label">
+							<left>60</left>
+							<top>1180</top>
+							<width>1810</width>
+							<height>38</height>
+							<font>font16_title</font>
+							<textcolor>$VAR[X2DVI_MainColorOne]</textcolor>
+							<label>TV Shows as Cast</label>
+							<visible>!String.IsEmpty(ListItem.Property(numitems.tmdb.tvshows.cast)) | !String.IsEmpty(ListItem.Property(TVShow.Cast.1.Title))</visible>
+						</control>
+						<control type="panel" id="8600">
+							<description>Person TV cast credits from TMDb Helper</description>
+							<left>60</left>
+							<top>1222</top>
+							<width>1810</width>
+							<height>330</height>
+							<onleft>8600</onleft>
+							<onright>8600</onright>
+							<onup>8500</onup>
+							<ondown>8600</ondown>
+							<onback>RunScript(special://skin/resources/scripts/x2_dialog_cast.py,mode=returnorigin,tmdb=$INFO[Window(Home).Property(X2DVI.OriginTmdbId)],dbid=$INFO[Window(Home).Property(X2DVI.OriginDbid)],tmdb_type=$INFO[Window(Home).Property(X2DVI.OriginTmdbType)])</onback>
+							<onclick condition="System.HasAddon(plugin.video.themoviedb.helper) + !String.IsEmpty(Container(8600).ListItem.Property(TMDb_ID))">RunScript(plugin.video.themoviedb.helper,add_tmdb=$INFO[Container(8600).ListItem.Property(TMDb_ID)],tmdb_type=tv,call_auto=1190)</onclick>
+							<onclick condition="System.HasAddon(plugin.video.themoviedb.helper) + String.IsEmpty(Container(8600).ListItem.Property(TMDb_ID)) + !String.IsEmpty(Container(8600).ListItem.Property(tmdb_id))">RunScript(plugin.video.themoviedb.helper,add_tmdb=$INFO[Container(8600).ListItem.Property(tmdb_id)],tmdb_type=tv,call_auto=1190)</onclick>
+							<onclick condition="System.HasAddon(plugin.video.themoviedb.helper) + String.IsEmpty(Container(8600).ListItem.Property(TMDb_ID)) + String.IsEmpty(Container(8600).ListItem.Property(tmdb_id)) + !String.IsEmpty(Container(8600).ListItem.UniqueID(tmdb))">RunScript(plugin.video.themoviedb.helper,add_tmdb=$INFO[Container(8600).ListItem.UniqueID(tmdb)],tmdb_type=tv,call_auto=1190)</onclick>
+							<visible>!String.IsEmpty(ListItem.Property(numitems.tmdb.tvshows.cast)) | !String.IsEmpty(ListItem.Property(TVShow.Cast.1.Title))</visible>
+							<orientation>horizontal</orientation>
+							<scrolltime>200</scrolltime>
+							<itemlayout height="330" width="248">
+								<control type="image">
+									<left>8</left><top>0</top><width>232</width><height>330</height>
+									<texture border="5">button-nofocus.png</texture>
+								</control>
+								<control type="image"><left>33</left><top>10</top><width>182</width><height>250</height><aspectratio>scale</aspectratio><texture background="true">$INFO[ListItem.Art(poster)]</texture><visible>!String.IsEmpty(ListItem.Art(poster))</visible></control>
+								<control type="image"><left>33</left><top>10</top><width>182</width><height>250</height><aspectratio>scale</aspectratio><texture background="true">$INFO[ListItem.Icon]</texture><visible>String.IsEmpty(ListItem.Art(poster)) + !String.IsEmpty(ListItem.Icon)</visible></control>
+								<control type="image"><left>33</left><top>10</top><width>182</width><height>250</height><aspectratio>scale</aspectratio><texture background="true">$INFO[ListItem.Thumb]</texture><visible>String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Icon) + !String.IsEmpty(ListItem.Thumb)</visible></control>
+								<control type="image"><left>33</left><top>10</top><width>182</width><height>250</height><aspectratio>scale</aspectratio><texture background="true">$INFO[ListItem.Art(fanart)]</texture><visible>String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Icon) + String.IsEmpty(ListItem.Thumb) + !String.IsEmpty(ListItem.Art(fanart))</visible></control>
+								<control type="image"><left>33</left><top>10</top><width>182</width><height>250</height><aspectratio>scale</aspectratio><texture background="true">DefaultVideo.png</texture><visible>String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Icon) + String.IsEmpty(ListItem.Thumb) + String.IsEmpty(ListItem.Art(fanart))</visible></control>
+								<control type="label"><left>14</left><top>264</top><width>220</width><height>36</height><font>font12</font><align>center</align><aligny>center</aligny><textcolor>white</textcolor><scroll>true</scroll><label>$INFO[ListItem.Label]</label></control>
+								<control type="label"><left>14</left><top>300</top><width>220</width><height>26</height><font>font11</font><align>center</align><aligny>center</aligny><textcolor>grey2</textcolor><scroll>true</scroll><label>$INFO[ListItem.Property(Character)]</label><visible>!String.IsEmpty(ListItem.Property(Character))</visible></control>
+								<control type="label"><left>14</left><top>300</top><width>220</width><height>26</height><font>font11</font><align>center</align><aligny>center</aligny><textcolor>grey2</textcolor><scroll>true</scroll><label>$INFO[ListItem.Label2]</label><visible>String.IsEmpty(ListItem.Property(Character)) + !String.IsEmpty(ListItem.Label2)</visible></control>
+							</itemlayout>
+							<focusedlayout height="330" width="248">
+								<control type="image">
+									<left>8</left><top>0</top><width>232</width><height>330</height>
+									<texture border="5" colordiffuse="$VAR[X2DVI_MainColorOne]">$VAR[X2DVI_SelectButton2]</texture>
+								</control>
+								<control type="image"><left>33</left><top>10</top><width>182</width><height>250</height><aspectratio>scale</aspectratio><texture background="true">$INFO[ListItem.Art(poster)]</texture><visible>!String.IsEmpty(ListItem.Art(poster))</visible></control>
+								<control type="image"><left>33</left><top>10</top><width>182</width><height>250</height><aspectratio>scale</aspectratio><texture background="true">$INFO[ListItem.Icon]</texture><visible>String.IsEmpty(ListItem.Art(poster)) + !String.IsEmpty(ListItem.Icon)</visible></control>
+								<control type="image"><left>33</left><top>10</top><width>182</width><height>250</height><aspectratio>scale</aspectratio><texture background="true">$INFO[ListItem.Thumb]</texture><visible>String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Icon) + !String.IsEmpty(ListItem.Thumb)</visible></control>
+								<control type="image"><left>33</left><top>10</top><width>182</width><height>250</height><aspectratio>scale</aspectratio><texture background="true">$INFO[ListItem.Art(fanart)]</texture><visible>String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Icon) + String.IsEmpty(ListItem.Thumb) + !String.IsEmpty(ListItem.Art(fanart))</visible></control>
+								<control type="image"><left>33</left><top>10</top><width>182</width><height>250</height><aspectratio>scale</aspectratio><texture background="true">DefaultVideo.png</texture><visible>String.IsEmpty(ListItem.Art(poster)) + String.IsEmpty(ListItem.Icon) + String.IsEmpty(ListItem.Thumb) + String.IsEmpty(ListItem.Art(fanart))</visible></control>
+								<control type="label"><left>14</left><top>264</top><width>220</width><height>36</height><font>font12</font><align>center</align><aligny>center</aligny><textcolor>white</textcolor><scroll>true</scroll><label>$INFO[ListItem.Label]</label></control>
+								<control type="label"><left>14</left><top>300</top><width>220</width><height>26</height><font>font11</font><align>center</align><aligny>center</aligny><textcolor>selected</textcolor><scroll>true</scroll><label>$INFO[ListItem.Property(Character)]</label><visible>!String.IsEmpty(ListItem.Property(Character))</visible></control>
+								<control type="label"><left>14</left><top>300</top><width>220</width><height>26</height><font>font11</font><align>center</align><aligny>center</aligny><textcolor>selected</textcolor><scroll>true</scroll><label>$INFO[ListItem.Label2]</label><visible>String.IsEmpty(ListItem.Property(Character)) + !String.IsEmpty(ListItem.Label2)</visible></control>
+							</focusedlayout>
+							<content>$VAR[X2DVI_PersonTVPath]</content>
+						</control>
+					</control>
 				</control>
+
 				<control type="grouplist" id="9000">
+					<onback>ClearProperty(X2DVI.TrailerInfo.Pending,home)</onback>
+                        <onback>ClearProperty(X2DVI.ShowCast,home)</onback>
+					<onback>Dialog.Close(all,true)</onback>
+					<visible>![String.IsEqual(ListItem.Property(tmdb_type),person) | String.IsEqual(ListItem.Property(item.tmdb_type),person)]</visible>
+				<control type="togglebutton" id="1515">
+                    <description>Play/Stop Trailer Windowed</description>
+						<onback>ClearProperty(X2DVI.TrailerInfo.Pending,home)</onback>
+                        <onback>ClearProperty(X2DVI.ShowCast,home)</onback>
+						<onback>Dialog.Close(all,true)</onback>
+						<onfocus>ClearProperty(X2DVI.ShowCast,home)</onfocus>
+                    <include>X2DVI_ButtonInfoDialogsCommonValues</include>
+                    <include>X2DVI_NormalButton</include>
+                    <include>X2DVI_AltButton</include>
+                    <label>Play Trailer</label>
+                    <altlabel>Stop Trailer</altlabel>
+                    <usealttexture>Player.HasVideo</usealttexture>
+                    <onclick condition="Player.HasVideo">ClearProperty(X2DVI.TrailerInfo.Pending,home)</onclick>
+                    <onclick condition="Player.HasVideo">PlayerControl(Stop)</onclick>
+                    <onclick condition="!Player.HasVideo">RunScript(special://skin/resources/scripts/x2_dialog_trailer.py,?imdb=$INFO[ListItem.IMDBNumber]&amp;tmdb=$INFO[ListItem.Property(tmdb_id)]&amp;tmdbshow=$INFO[ListItem.Property(tmdbshow_id)]&amp;dbtype=$INFO[ListItem.DBType]&amp;mediatype=$INFO[ListItem.MediaType]&amp;title=$INFO[ListItem.Title]&amp;tvshowtitle=$INFO[ListItem.TVShowTitle]&amp;year=$INFO[ListItem.Year]&amp;windowed=1)</onclick>
+					<visible>!String.IsEqual(ListItem.DBTYPE,episode)</visible>
+                <onback condition="String.IsEqual(Window(Home).Property(X2DVI.ActorSession),true)">ActivateWindow(Home)</onback><onback condition="String.IsEqual(Window(Home).Property(X2DVI.ActorSession),true)">ClearProperty(X2DVI.ActorSession,home)</onback></control>
+				<control type="togglebutton" id="8">
+						<description>Play/browse to Show</description>
+						<onback>ClearProperty(X2DVI.TrailerInfo.Pending,home)</onback>
+                        <onback>ClearProperty(X2DVI.ShowCast,home)</onback>
+						<onback>Dialog.Close(all,true)</onback>
+						<onfocus>ClearProperty(X2DVI.ShowCast,home)</onfocus>
+						<include>X2DVI_ButtonInfoDialogsCommonValues</include>
+						<label>208</label>
+						<include>X2DVI_NormalButton</include>
+						<include>X2DVI_AltButton</include>
+						<altlabel>1024</altlabel>
+						<usealttexture>String.IsEqual(ListItem.DBTYPE,tvshow)</usealttexture>
+					<onback condition="String.IsEqual(Window(Home).Property(X2DVI.ActorSession),true)">ActivateWindow(Home)</onback><onback condition="String.IsEqual(Window(Home).Property(X2DVI.ActorSession),true)">ClearProperty(X2DVI.ActorSession,home)</onback></control>
 					<left>315</left>
 					<top>990</top>
-					<width>1545</width>
+					<width>1290</width>
 					<height>60</height>
 					<itemgap>3</itemgap>
 					<align>center</align>
 					<orientation>horizontal</orientation>
 					<onleft>9000</onleft>
 					<onright>9000</onright>
-					<onup>50</onup>
+					<onup condition="Control.IsVisible(5050)">5050</onup>
+					<onup>5050</onup>
 					<ondown>49</ondown>
-					<control type="togglebutton" id="8">
-						<description>Play/browse to Show</description>
-						<include>ButtonInfoDialogsCommonValues</include>
-						<label>208</label>
-						<alttexturefocus border="2">button-focus.png</alttexturefocus>
-						<alttexturenofocus border="2">button-nofocus.png</alttexturenofocus>
-						<altlabel>1024</altlabel>
-						<usealttexture>String.IsEqual(ListItem.DBTYPE,tvshow) | String.IsEqual(ListItem.DBTYPE,set)</usealttexture>
-					</control>					
-					<control type="togglebutton" id="15">
-						<description>Play/Stop Trailer Windowed</description>
-						<include>ButtonInfoDialogsCommonValues</include>
-						<include>NormalButton</include>
-						<include>AltButton</include>
-						<label>Play Trailer</label>
-						<altlabel>Stop Trailer</altlabel>
-						<usealttexture>Player.HasVideo</usealttexture>
-						<onclick condition="Player.HasVideo">PlayerControl(Stop)</onclick>
-						<onclick condition="!Player.HasVideo">RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.IMDBNumber]&amp;tmdb=$INFO[ListItem.Property(tmdb_id)]&amp;tmdbshow=$INFO[ListItem.Property(tmdbshow_id)]&amp;dbtype=$INFO[ListItem.DBType]&amp;mediatype=$INFO[ListItem.MediaType]&amp;title=$INFO[ListItem.Title]&amp;tvshowtitle=$INFO[ListItem.TVShowTitle]&amp;year=$INFO[ListItem.Year]&amp;windowed=1)</onclick>
-						<visible>!String.IsEqual(ListItem.DBTYPE,episode)</visible>
-					</control>
-					<control type="button" id="5">
-						<description>Cast/Review</description>
-						<include>ButtonInfoDialogsCommonValues</include>
-						<label>poop</label>
-					</control>
+					
+					
+                
+    					
+					<control type="button" id="1227">
+						<description>Special Features button</description>
+						<onback>ClearProperty(X2DVI.TrailerInfo.Pending,home)</onback>
+                        <onback>ClearProperty(X2DVI.ShowCast,home)</onback>
+						<onback>Dialog.Close(all,true)</onback>
+						<onfocus>ClearProperty(X2DVI.ShowCast,home)</onfocus>
+						<label>$LOCALIZE[31054]</label>
+						<include>X2DVI_ButtonInfoDialogsCommonValues</include>
+						<include>X2DVI_NormalButton</include>
+						<include>X2DVI_AltButton</include>
+						<onclick>RunScript(plugin.video.specialfeatures,ListItem)</onclick>
+						<visible>String.IsEqual(Window(home).Property(SpecialFeatures.Visible),true)</visible>
+					<onback condition="String.IsEqual(Window(Home).Property(X2DVI.ActorSession),true)">ActivateWindow(Home)</onback><onback condition="String.IsEqual(Window(Home).Property(X2DVI.ActorSession),true)">ClearProperty(X2DVI.ActorSession,home)</onback></control>
+					<control type="button" id="1228">
+						<description>Library Editor</description>
+						<onback>ClearProperty(X2DVI.TrailerInfo.Pending,home)</onback>
+                        <onback>ClearProperty(X2DVI.ShowCast,home)</onback>
+						<onback>Dialog.Close(all,true)</onback>
+						<onfocus>ClearProperty(X2DVI.ShowCast,home)</onfocus>
+						<include>X2DVI_ButtonInfoDialogsCommonValues</include>
+						<include>X2DVI_NormalButton</include>
+						<include>X2DVI_AltButton</include>
+						<label>$LOCALIZE[21450] [LOWERCASE]$LOCALIZE[15101][/LOWERCASE]</label>
+						<onclick>RunScript(script.libraryeditor,DBID=$INFO[ListItem.DBID])</onclick>
+						<visible>System.HasAddon(script.libraryeditor) + !String.IsEmpty(ListItem.DBID) + !Container.Content(Seasons)</visible>
+					<onback condition="String.IsEqual(Window(Home).Property(X2DVI.ActorSession),true)">ActivateWindow(Home)</onback><onback condition="String.IsEqual(Window(Home).Property(X2DVI.ActorSession),true)">ClearProperty(X2DVI.ActorSession,home)</onback></control>
+					<control type="button" id="5505">
+						<description>Cast</description>
+						<onback>ClearProperty(X2DVI.TrailerInfo.Pending,home)</onback>
+                        <onback>ClearProperty(X2DVI.ShowCast,home)</onback>
+						<onback>Dialog.Close(all,true)</onback>
+							<onfocus>SetProperty(X2DVI.ShowCast,true,home)</onfocus>
+						<include>X2DVI_ButtonInfoDialogsCommonValues</include>
+						<label>206</label>
+						<onclick condition="!String.IsEmpty(Window(Home).Property(X2DVI.Cast.1.Name))">SetFocus(5050)</onclick>
+					<onclick condition="String.IsEmpty(Window(Home).Property(X2DVI.Cast.1.Name)) + Integer.IsGreater(Container(50).NumItems,0)">SetFocus(50)</onclick><onback condition="String.IsEqual(Window(Home).Property(X2DVI.ActorSession),true)">ActivateWindow(Home)</onback><onback condition="String.IsEqual(Window(Home).Property(X2DVI.ActorSession),true)">ClearProperty(X2DVI.ActorSession,home)</onback></control>
 					<control type="button" id="106">
 						<description>ExtendedInfo</description>
-						<include>ButtonInfoDialogsCommonValues</include>
+						<onback>ClearProperty(X2DVI.TrailerInfo.Pending,home)</onback>
+                        <onback>ClearProperty(X2DVI.ShowCast,home)</onback>
+						<onback>Dialog.Close(all,true)</onback>
+						<onfocus>ClearProperty(X2DVI.ShowCast,home)</onfocus>
+						<include>X2DVI_ButtonInfoDialogsCommonValues</include>
 						<label>Extended Info</label>
-						<onclick>PreviousMenu</onclick>
+						<onclick>ClearProperty(X2DVI.TrailerInfo.Pending,home)</onclick>
+                        <onclick>PreviousMenu</onclick>
 						<onclick condition="String.IsEqual(ListItem.DBType,movie)">RunScript(script.extendedinfo,info=extendedinfo,dbid=$INFO[ListItem.DBID],id=$INFO[ListItem.UniqueID(tmdb)],imdb_id=$INFO[ListItem.IMDBNumber],year=$INFO[ListItem.Year],name=$INFO[ListItem.Title])</onclick>
 						<onclick condition="String.IsEqual(ListItem.DBType,tvshow)">RunScript(script.extendedinfo,info=extendedtvinfo,dbid=$INFO[ListItem.DBID],id=$INFO[ListItem.UniqueID(tmdb)],tvdb_id=$INFO[ListItem.UniqueID(tvdb)],name=$INFO[ListItem.Title])</onclick>
 						<onclick condition="String.IsEqual(ListItem.DBType,episode)">RunScript(script.extendedinfo,info=extendedepisodeinfo,tvshow=$INFO[ListItem.TVShowTitle],season=$INFO[ListItem.Season],episode=$INFO[ListItem.Episode])</onclick>
 						<enable>System.HasAddon(script.extendedinfo)</enable>
 						<visible>[Container.Content(movies) | Container.Content(tvshows) | Container.Content(episodes)] + System.HasAddon(script.extendedinfo) + !Skin.HasSetting(EnableCustomVideoInfoScript)</visible>
-					</control>
-				</control>
+					<onback condition="String.IsEqual(Window(Home).Property(X2DVI.ActorSession),true)">ActivateWindow(Home)</onback><onback condition="String.IsEqual(Window(Home).Property(X2DVI.ActorSession),true)">ClearProperty(X2DVI.ActorSession,home)</onback></control>
+					<control type="button" id="132">
+						<description>Options (Context Menu)</description>
+						<onback>ClearProperty(X2DVI.TrailerInfo.Pending,home)</onback>
+                        <onback>ClearProperty(X2DVI.ShowCast,home)</onback>
+						<onback>Dialog.Close(all,true)</onback>
+						<onfocus>ClearProperty(X2DVI.ShowCast,home)</onfocus>
+						<include>X2DVI_ButtonInfoDialogsCommonValues</include>
+						<label>Options</label>
+						<onclick>ClearProperty(X2DVI.TrailerInfo.Pending,home)</onclick>
+                        <onclick>PreviousMenu</onclick>
+						<onclick condition="String.IsEqual(ListItem.DBType,movie)">AlarmClock(openctxmenu,Action(ContextMenu),00:00:01,silent)</onclick>
+						<onclick condition="[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,episode)]">AlarmClock(openctxmenu,Action(ContextMenu),00:00:02,silent)</onclick>
+					<onback condition="String.IsEqual(Window(Home).Property(X2DVI.ActorSession),true)">ActivateWindow(Home)</onback><onback condition="String.IsEqual(Window(Home).Property(X2DVI.ActorSession),true)">ClearProperty(X2DVI.ActorSession,home)</onback></control>
+    
+					<control type="button" id="107">
+						<description>MoreInfo</description>
+						<onback>ClearProperty(X2DVI.TrailerInfo.Pending,home)</onback>
+                        <onback>ClearProperty(X2DVI.ShowCast,home)</onback>
+						<onback>Dialog.Close(all,true)</onback>
+						<onfocus>ClearProperty(X2DVI.ShowCast,home)</onfocus>
+						<include>X2DVI_ButtonInfoDialogsCommonValues</include>
+						<label>22082</label>
+						<onclick>ClearProperty(X2DVI.TrailerInfo.Pending,home)</onclick>
+                        <onclick>PreviousMenu</onclick>
+						<onclick>RunScript($INFO[Skin.String(CustomVideoInfoScript)])</onclick>
+						<enable>!String.IsEmpty(Skin.String(CustomVideoInfoScript))</enable>
+						<visible>Skin.HasSetting(EnableCustomVideoInfoScript)</visible>
+					<onback condition="String.IsEqual(Window(Home).Property(X2DVI.ActorSession),true)">ActivateWindow(Home)</onback><onback condition="String.IsEqual(Window(Home).Property(X2DVI.ActorSession),true)">ClearProperty(X2DVI.ActorSession,home)</onback></control><control type="button" id="7">
+						<description>Set my rating</description>
+						<onback>ClearProperty(X2DVI.TrailerInfo.Pending,home)</onback>
+                        <onback>ClearProperty(X2DVI.ShowCast,home)</onback>
+						<onback>Dialog.Close(all,true)</onback>
+						<onfocus>ClearProperty(X2DVI.ShowCast,home)</onfocus>
+						<include>X2DVI_ButtonInfoDialogsCommonValues</include>
+						<label>38023</label>
+						<visible>Control.IsEnabled(7)</visible>
+					<onback condition="String.IsEqual(Window(Home).Property(X2DVI.ActorSession),true)">ActivateWindow(Home)</onback><onback condition="String.IsEqual(Window(Home).Property(X2DVI.ActorSession),true)">ClearProperty(X2DVI.ActorSession,home)</onback></control>
+					<!--<control type="button" id="204">
+						<description>YouTube</description>
+						<include>ButtonInfoDialogsCommonValues</include>
+						<label>31942</label>
+						<onclick>RunScript(script.extendedinfo,info=youtubesearch,id=$INFO[ListItem.Title])</onclick>
+						<enable>System.HasAddon(script.extendedinfo)</enable>
+						<visible>[Container.Content(movies) | Container.Content(tvshows)] + System.HasAddon(script.extendedinfo)</visible>
+					</control>-->
+					<control type="button" id="102">
+						<description>Fetch TvTunes stuff</description>
+						<onback>ClearProperty(X2DVI.TrailerInfo.Pending,home)</onback>
+                        <onback>ClearProperty(X2DVI.ShowCast,home)</onback>
+						<onback>Dialog.Close(all,true)</onback>
+						<onfocus>ClearProperty(X2DVI.ShowCast,home)</onfocus>
+						<include>X2DVI_ButtonInfoDialogsCommonValues</include>
+						<label>TV Tunes</label>
+						<onclick>RunScript(script.tvtunes,mode=solo)</onclick>
+						<visible>System.HasAddon(script.tvtunes) + [!Skin.HasSetting(DisableTVTunes) + [Container.Content(TVShows) | Container.Content(movies) | Container.Content(musicvideos)] + String.IsEmpty(Window(movieinformation).Property("TvTunes_HideVideoInfoButton"))]</visible>
+					<onback condition="String.IsEqual(Window(Home).Property(X2DVI.ActorSession),true)">ActivateWindow(Home)</onback><onback condition="String.IsEqual(Window(Home).Property(X2DVI.ActorSession),true)">ClearProperty(X2DVI.ActorSession,home)</onback></control>
+				<onback condition="String.IsEqual(Window(Home).Property(X2DVI.ActorSession),true)">ActivateWindow(Home)</onback><onback condition="String.IsEqual(Window(Home).Property(X2DVI.ActorSession),true)">ClearProperty(X2DVI.ActorSession,home)</onback></control>
 				<control type="button">
 					<description>left Arrow</description>
 					<left>255</left>
@@ -1029,7 +1889,7 @@
 					<texturenofocus>arrow-big-left.png</texturenofocus>
 					<!--onclick>Control.Move(9000,-1)</onclick-->
 					<visible>Container(9000).HasPrevious</visible>
-					<include>VisibleFadeEffect</include>
+					<include>X2DVI_VisibleFadeEffect</include>
 				</control>
 				<control type="button">
 					<description>right Arrow</description>
@@ -1040,7 +1900,7 @@
 					<texturefocus>arrow-big-right.png</texturefocus>
 					<texturenofocus>arrow-big-right.png</texturenofocus>
 					<visible>Container(9000).HasNext</visible>
-					<include>VisibleFadeEffect</include>
+					<include>X2DVI_VisibleFadeEffect</include>
 				</control>
 			</control>
 		</control>

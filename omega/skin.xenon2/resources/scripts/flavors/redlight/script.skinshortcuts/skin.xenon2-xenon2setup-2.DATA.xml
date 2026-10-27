@@ -1,0 +1,10 @@
+<shortcuts>
+	<shortcut>
+		<defaultID />
+		<label>Xenon 2 Flavors</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/flavors.gif</thumb>
+		<action>ActivateWindow(Programs,"plugin://plugin.program.diggzflavors/?url=https%3A%2F%2Fraw.githubusercontent.com%2FBuildtexts69%2Fomegabuilds%2Fmain%2FX2%2F23flavors.xml&amp;mode=1&amp;name=Xenon+2+Flavors&amp;icon=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.diggzflavors%5Cresources%5Cicon.png&amp;fanart=C%3A%5CUsers%5Cjeddi%5CAppData%5CRoaming%5CKodi%5Caddons%5Cplugin.program.diggzflavors%5Cresources%5Cfanart.jpg&amp;description=&amp;name2=&amp;version=&amp;section=Xenon2",return)</action>
+		</shortcut>
+	</shortcuts>

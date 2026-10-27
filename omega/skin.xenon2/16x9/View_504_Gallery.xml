@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <includes>
 	<include name="View_504_Gallery">
 		<control type="group">
@@ -98,9 +98,9 @@
 				<onright>504</onright>
 				<onup>SetProperty(MediaMenu,True,Home)</onup>
 				<onup>SetFocus(9050)</onup>
-				<ondown condition="Control.IsVisible(50461)">50461</ondown>
-				<ondown condition="Control.IsVisible(615) + !Control.IsVisible(50461)">616</ondown>
-				<ondown condition="!Control.IsVisible(615) + !Control.IsVisible(50461)">4400</ondown>
+				<ondown condition="!Container(504).ListItem.IsParentFolder + [String.IsEqual(Container(504).ListItem.DBType,movie) | String.IsEqual(Container(504).ListItem.DBType,tvshow) | [String.IsEmpty(Container(504).ListItem.DBType) + [Container(504).Content(movies) | Container(504).Content(tvshows)]]]">RunScript(special://skin/resources/scripts/x2_view_trailer.py,504)</ondown><ondown condition="![!Container(504).ListItem.IsParentFolder + [String.IsEqual(Container(504).ListItem.DBType,movie) | String.IsEqual(Container(504).ListItem.DBType,tvshow) | [String.IsEmpty(Container(504).ListItem.DBType) + [Container(504).Content(movies) | Container(504).Content(tvshows)]]]] + [Control.IsVisible(50461)]">50461</ondown>
+				<ondown condition="![!Container(504).ListItem.IsParentFolder + [String.IsEqual(Container(504).ListItem.DBType,movie) | String.IsEqual(Container(504).ListItem.DBType,tvshow) | [String.IsEmpty(Container(504).ListItem.DBType) + [Container(504).Content(movies) | Container(504).Content(tvshows)]]]] + [Control.IsVisible(615) + !Control.IsVisible(50461)]">616</ondown>
+				<ondown condition="![!Container(504).ListItem.IsParentFolder + [String.IsEqual(Container(504).ListItem.DBType,movie) | String.IsEqual(Container(504).ListItem.DBType,tvshow) | [String.IsEmpty(Container(504).ListItem.DBType) + [Container(504).Content(movies) | Container(504).Content(tvshows)]]]] + [!Control.IsVisible(615) + !Control.IsVisible(50461)]">4400</ondown>
 				<preloaditems>2</preloaditems>
 				<focusposition>1</focusposition>
 				<orientation>horizontal</orientation>

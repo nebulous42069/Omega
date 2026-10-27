@@ -1,0 +1,1 @@
+Optional local overrides: place a PNG or JPG named with the numeric DaddyLive ID here, for example 44.png. Profile overrides under addon_data/plugin.video.playlistbrowser/dlhd/logos survive plugin updates and are preferred.

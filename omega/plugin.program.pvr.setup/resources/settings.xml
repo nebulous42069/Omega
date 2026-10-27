@@ -1,2 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <settings>
+  <category label="TV launcher">
+    <setting id="open_tv" type="action" label="Open TV using selected preset" action="RunScript(plugin.program.pvr.setup,open_tv)" option="close"/>
+    <setting id="open_guide" type="action" label="Open guide using selected preset" action="RunScript(plugin.program.pvr.setup,open_guide)" option="close"/>
+    <setting id="choose_group" type="action" label="Choose default group for a preset" action="RunScript(plugin.program.pvr.setup,choose_default_group)" option="close"/>
+  </category>
 </settings>

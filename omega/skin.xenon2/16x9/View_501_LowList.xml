@@ -1,9 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <includes>
 	<!-- Video LowList -->
 	<include name="VideoLowList">
 		<control type="group">
 			<visible>Control.IsVisible(501) + !Window.IsActive(addoninformation)</visible>
+
+
 			<include>ViewAnimation</include>
 			<control type="group">
 				<animation effect="slide" end="0,-203.375" condition="!Skin.HasSetting(nohighlist)">Conditional</animation>
@@ -134,14 +136,10 @@
 						<include>DefaultButtonsValues</include>
 						<visible>!String.IsEmpty(ListItem.Duration) + Skin.HasSetting(Enable.HourMinuteDuration)</visible>
 					</control>
-					<control type="button">
-						<label>[COLOR $VAR[ThemeLabelColor]]$LOCALIZE[31019]:[/COLOR][CR]$INFO[ListItem.Studio]</label>
-						<width>650</width>
+					<control type="image"><width>650</width>
 						<height>95</height>
-						<include>DefaultButtonsValues</include>
-						<visible>!String.IsEmpty(ListItem.Studio) + Container.Content(episodes)</visible>
-					</control>
-					<control type="button">
+						<visible>false</visible>
+					<aspectratio align="left">keep</aspectratio><texture background="true">$VAR[X2VideoStudioLogo]</texture><colordiffuse>white</colordiffuse></control><control type="button">
 						<label>[COLOR $VAR[ThemeLabelColor]]$LOCALIZE[515]:[/COLOR][CR]$INFO[ListItem.Genre]</label>
 						<width>650</width>
 						<height>95</height>
@@ -149,34 +147,7 @@
 						<visible>!String.IsEmpty(ListItem.Genre)</visible>
 					</control>
 				</control>
-				<control type="grouplist">
-					<visible>Container.Content(tvshows) | Container.Content(seasons)</visible>
-					<include>VisibleFadeAnimation</include>
-					<control type="button">
-						<label>[COLOR $VAR[ThemeLabelColor]]$LOCALIZE[31010]:[/COLOR][CR]$INFO[Container(9143).ListItem.Property(Next_Aired),, • ]$INFO[Container(9143).ListItem.Property(Last_Aired.Season),S]$INFO[Container(9143).ListItem.Property(Last_Aired.Episode),E, - ]$INFO[Container(9143).ListItem.Property(Next_Aired.Name)]</label>
-						<width>650</width>
-						<include>DefaultButtonsValues</include>
-						<visible>!String.IsEmpty(Container(9143).ListItem.Property(Next_Aired)) + !Skin.HasSetting(Disable.NextAired)</visible>
-					</control>
-					<control type="button">
-						<label>[COLOR $VAR[ThemeLabelColor]]$LOCALIZE[126]:[/COLOR][CR]$INFO[Container(9143).ListItem.Property(Status)]</label>
-						<width>650</width>
-						<include>DefaultButtonsValues</include>
-						<visible>[Container.Content(tvshows) | Container.Content(seasons)] + [!String.IsEmpty(Container(9143).ListItem.Property(Status)) + String.IsEmpty(Container(9143).ListItem.Property(Next_Aired)) + !Skin.HasSetting(Disable.NextAired)] + [Skin.HasSetting(nohighlist) | !Skin.HasSetting(nohighlist)]</visible>
-					</control>
-					<control type="button">
-						<label>[COLOR $VAR[ThemeLabelColor]]$LOCALIZE[515]:[/COLOR][CR]$INFO[ListItem.Genre]</label>
-						<width>650</width>
-						<include>DefaultButtonsValues</include>
-						<visible>!Skin.HasSetting(nohighlist) | [System.AddonIsEnabled(plugin.video.themoviedb.helper) + Skin.HasSetting(Disable.NextAired) + Skin.HasSetting(nohighlist)] | [!System.AddonIsEnabled(plugin.video.themoviedb.helper) + Skin.HasSetting(nohighlist)]</visible>
-					</control>
-					<control type="button">
-						<label>[COLOR $VAR[ThemeLabelColor]]$LOCALIZE[31324]:[/COLOR][CR]$INFO[ListItem.Premiered]</label>
-						<width>650</width>
-						<include>DefaultButtonsValues</include>
-						<visible>!String.IsEmpty(ListItem.Premiered) + !Skin.HasSetting(nohighlist) + [System.AddonIsEnabled(plugin.video.themoviedb.helper) + Skin.HasSetting(Disable.NextAired) + !Skin.HasSetting(nohighlist)] | [!System.AddonIsEnabled(plugin.video.themoviedb.helper) + !Skin.HasSetting(nohighlist)]</visible>
-					</control>
-				</control>
+				
 				<control type="grouplist">
 					<visible>Container.Content(movies) + !ListItem.IsCollection + ![Skin.HasSetting(nohighlist) + Skin.HasSetting(Enable.LowListMoviePlot)]</visible>
 					<include>VisibleFadeAnimation</include>
@@ -355,13 +326,6 @@
 					<include>DefaultButtonsValues</include>
 					<autoscroll time="3000" delay="4000" repeat="5000">Skin.HasSetting(Enable.AutoScroll) + !Control.HasFocus(50161)</autoscroll>
 				</control>
-				<control type="image">
-					<top>255</top>				
-					<width>235</width>
-					<height>85</height>
-					<texture>trailer.png</texture>
-					<visible>!Player.HasMedia + !String.IsEmpty(ListItem.Trailer)</visible>					
-				</control>				
 				<control type="scrollbar" id="50161">
 					<left>636</left>
 					<top>99</top>
@@ -443,7 +407,7 @@
 			</control>
 			<control type="group" id="501104">
 				<left>1270</left>
-				<top>738</top>
+				<top>822</top>
 				<visible>[Container.Content(tvshows) | Container.Content(seasons)] + !Skin.HasSetting(nohighlist)</visible>
 				<include>VisibleFadeAnimation</include>
 				<control type="textbox" id="70">
@@ -451,7 +415,7 @@
 					<left>15</left>
 					<top>8</top>
 					<width>615</width>
-					<height>250</height>
+					<height>160</height>
 					<font>font14_textbox</font>
 					<pagecontrol>50164</pagecontrol>
 					<include>DefaultButtonsValues</include>
@@ -461,7 +425,7 @@
 					<left>636</left>
 					<top>4</top>
 					<width>14</width>
-					<height>257</height>
+					<height>177</height>
 					<onup>PageUp(70)</onup>
 					<ondown>PageUp(70)</ondown>
 					<onleft>50</onleft>
@@ -567,7 +531,7 @@
 				</control>
 			</control>
 			<control type="group">
-				<left>1256</left>
+				<left>80</left>
 				<top>1000</top>
 				<control type="group">
 					<visible>!ListItem.IsCollection</visible>
@@ -607,101 +571,7 @@
 						<visible>!String.IsEmpty(ListItem.AudioChannels) + !Container.Content(seasons)</visible>
 					</control>
 				</control>
-				<control type="group">
-					<control type="group">
-						<top>-6</top>
-						<width>162.5</width>
-						<visible>!String.IsEmpty(ListItem.Property(TotalSeasons)) + Container.Content(tvshows)</visible>
-						<include>VisibleFadeAnimation</include>
-						<control type="label">
-							<top>2</top>
-							<width>162.5</width>
-							<height>60</height>
-							<align>center</align>
-							<label>$INFO[ListItem.Property(TotalSeasons)]</label>
-							<font>font48_bold</font>
-							<wrapmultiline>true</wrapmultiline>
-							<textcolor>grey</textcolor>
-						</control>
-						<control type="label">
-							<top>52</top>
-							<width>162.5</width>
-							<height>30</height>
-							<align>center</align>
-							<label>[LOWERCASE]$VAR[OneOrMoreSeasonsVar][/LOWERCASE]</label>
-							<font>font12</font>
-							<textcolor>grey</textcolor>
-						</control>
-					</control>
-					<control type="group">
-						<top>-6</top>
-						<left>162.5</left>
-						<width>162.5</width>
-						<visible>[Container.Content(tvshows) | Container.Content(seasons)] + !String.IsEmpty(ListItem.Property(TotalEpisodes))</visible>
-						<include>VisibleFadeAnimation</include>
-						<animation effect="slide" end="-162.5" condition="Container.Content(seasons)">Conditional</animation>
-						<control type="label">
-							<top>2</top>
-							<width>162.5</width>
-							<height>60</height>
-							<align>center</align>
-							<label>$INFO[ListItem.Property(TotalEpisodes)]</label>
-							<font>font48_bold</font>
-							<wrapmultiline>true</wrapmultiline>
-							<textcolor>grey</textcolor>
-						</control>
-						<control type="label">
-							<top>52</top>
-							<width>162.5</width>
-							<height>30</height>
-							<align>center</align>
-							<label>[LOWERCASE]$VAR[OneOrMoreEpisodesVar][/LOWERCASE]</label>
-							<font>font12</font>
-							<textcolor>grey</textcolor>
-						</control>
-					</control>
-					<control type="group">
-						<top>-6</top>
-						<left>162.5</left>
-						<width>162.5</width>
-						<visible>Container.Content(tvshows) | Container.Content(seasons)</visible>
-						<include>VisibleFadeAnimation</include>
-						<animation effect="slide" end="162.5" condition="Container.Content(tvshows)">Conditional</animation>
-						<control type="label">
-							<width>165</width>
-							<top>2</top>
-							<height>60</height>
-							<align>center</align>
-							<label>[B]$INFO[ListItem.Property(UnWatchedEpisodes)][/B]</label>
-							<font>font48_bold</font>
-							<wrapmultiline>true</wrapmultiline>
-							<textcolor>$VAR[UnWatchedEpColor]</textcolor>
-						</control>
-						<control type="label">
-							<top>52</top>
-							<width>165</width>
-							<height>30</height>
-							<align>center</align>
-							<label>[LOWERCASE]$LOCALIZE[16101][/LOWERCASE]</label>
-							<font>font12</font>
-							<textcolor>$VAR[UnWatchedEpColor]</textcolor>
-						</control>
-					</control>
-					<control type="image">
-						<left>339</left>
-						<colordiffuse>grey2</colordiffuse>
-						<include>MediaFlagValues</include>
-						<texture>$VAR[PathFlagsStudios]$INFO[ListItem.Studio,,.png]</texture>
-						<visible>[!Container.Content(tvshows) + !Container.Content(episodes) + !Container.Content(movies)]</visible>
-					</control>
-					<control type="image">
-						<left>506</left>
-						<colordiffuse>grey2</colordiffuse>
-						<include>MediaFlagValues</include>
-						<texture fallback="flags/default/mpaa/NR.png">$VAR[MediaFlagsPathVar]/mpaa/$VAR[RatingFlagVar]</texture>
-						<visible>!ListItem.IsParentFolder + [!Container.Content(episodes) + !Container.Content(movies)] + !ListItem.IsCollection</visible>
-					</control>
-				</control>
+				
 			</control>
 			<control type="list" id="501">
 				<left>450</left>
@@ -711,9 +581,8 @@
 				<include condition="Skin.HasSetting(nohighlist)">LowListHeightLow</include>
 				<onleft>SetProperty(MediaMenu,True,Home)</onleft>
 				<onleft>SetFocus(9050)</onleft>
-				<onright condition="!String.IsEmpty(ListItem.Trailer)">PlayMedia("$INFO[ListItem.Trailer]")</onright>
-				<onright condition="!Control.IsVisible(50160) + Control.IsVisible(50161)">50161</onright>
-				<onright condition="!Control.IsVisible(50160) + !Control.IsVisible(50161)">4400</onright>
+				<onright condition="!Container(501).ListItem.IsParentFolder + [String.IsEqual(Container(501).ListItem.DBType,movie) | String.IsEqual(Container(501).ListItem.DBType,tvshow) | [String.IsEmpty(Container(501).ListItem.DBType) + [Container(501).Content(movies) | Container(501).Content(tvshows)]]]">RunScript(special://skin/resources/scripts/x2_view_trailer.py,501)</onright><onright condition="![!Container(501).ListItem.IsParentFolder + [String.IsEqual(Container(501).ListItem.DBType,movie) | String.IsEqual(Container(501).ListItem.DBType,tvshow) | [String.IsEmpty(Container(501).ListItem.DBType) + [Container(501).Content(movies) | Container(501).Content(tvshows)]]]] + [!Control.IsVisible(50160) + Control.IsVisible(50161)]">50161</onright>
+				<onright condition="![!Container(501).ListItem.IsParentFolder + [String.IsEqual(Container(501).ListItem.DBType,movie) | String.IsEqual(Container(501).ListItem.DBType,tvshow) | [String.IsEmpty(Container(501).ListItem.DBType) + [Container(501).Content(movies) | Container(501).Content(tvshows)]]]] + [!Control.IsVisible(50160) + !Control.IsVisible(50161)]">4400</onright>
 				<onup>501</onup>
 				<ondown>501</ondown>
 				<pagecontrol>50160</pagecontrol>
@@ -1091,7 +960,150 @@
 				<showonepage>false</showonepage>
 				<animation effect="slide" end="0,-203.375" time="120" condition="!Skin.HasSetting(nohighlist)">Conditional</animation>
 			</control>
-		</control>
+		<control type="group"><description>View 501 TV metadata above counters</description><left>1270</left><top>530</top><width>650</width><height>180</height><visible>!ListItem.IsParentFolder + [Container.Content(tvshows) | Container.Content(seasons)]</visible><control type="grouplist">
+					<visible>Container.Content(tvshows) | Container.Content(seasons)</visible>
+					<include>VisibleFadeAnimation</include>
+					<control type="button"><height>60</height>
+						<label>[COLOR $VAR[ThemeLabelColor]]$LOCALIZE[31010]:[/COLOR][CR]$INFO[Container(9143).ListItem.Property(Next_Aired),, • ]$INFO[Container(9143).ListItem.Property(Last_Aired.Season),S]$INFO[Container(9143).ListItem.Property(Last_Aired.Episode),E, - ]$INFO[Container(9143).ListItem.Property(Next_Aired.Name)]</label>
+						<width>650</width>
+						<include>DefaultButtonsValues</include>
+						<visible>!String.IsEmpty(Container(9143).ListItem.Property(Next_Aired)) + !Skin.HasSetting(Disable.NextAired)</visible>
+					</control>
+					<control type="button"><height>60</height>
+						<label>[COLOR $VAR[ThemeLabelColor]]$LOCALIZE[126]:[/COLOR][CR]$INFO[Container(9143).ListItem.Property(Status)]</label>
+						<width>650</width>
+						<include>DefaultButtonsValues</include>
+						<visible>[Container.Content(tvshows) | Container.Content(seasons)] + [!String.IsEmpty(Container(9143).ListItem.Property(Status)) + String.IsEmpty(Container(9143).ListItem.Property(Next_Aired)) + !Skin.HasSetting(Disable.NextAired)] + [Skin.HasSetting(nohighlist) | !Skin.HasSetting(nohighlist)]</visible>
+					</control>
+					<control type="button"><height>60</height>
+						<label>[COLOR $VAR[ThemeLabelColor]]$LOCALIZE[515]:[/COLOR][CR]$INFO[ListItem.Genre]</label>
+						<width>650</width>
+						<include>DefaultButtonsValues</include>
+						<visible>!Skin.HasSetting(nohighlist) | [System.AddonIsEnabled(plugin.video.themoviedb.helper) + Skin.HasSetting(Disable.NextAired) + Skin.HasSetting(nohighlist)] | [!System.AddonIsEnabled(plugin.video.themoviedb.helper) + Skin.HasSetting(nohighlist)]</visible>
+					</control>
+					<control type="button"><height>60</height>
+						<label>[COLOR $VAR[ThemeLabelColor]]$LOCALIZE[31324]:[/COLOR][CR]$INFO[ListItem.Premiered]</label>
+						<width>650</width>
+						<include>DefaultButtonsValues</include>
+						<visible>!String.IsEmpty(ListItem.Premiered) + !Skin.HasSetting(nohighlist) + [System.AddonIsEnabled(plugin.video.themoviedb.helper) + Skin.HasSetting(Disable.NextAired) + !Skin.HasSetting(nohighlist)] | [!System.AddonIsEnabled(plugin.video.themoviedb.helper) + !Skin.HasSetting(nohighlist)]</visible>
+					</control>
+				</control>
+				</control>
+<control type="group"><description>View 501 TV counters in reserved right column</description><left>1285</left><top>724</top><width>615</width><height>82</height><visible>!ListItem.IsParentFolder + !ListItem.IsCollection + [Container.Content(tvshows) | Container.Content(seasons)]</visible><control type="grouplist">
+										<left>0</left>
+										<width>615</width>
+										<orientation>horizontal</orientation>
+										<control type="group">
+											<width>205</width>
+											<visible>!String.IsEmpty(ListItem.Property(TotalSeasons))</visible>
+											<control type="label">
+												<top>2</top>
+												<height>60</height>
+												<align>center</align>
+												<label>$INFO[ListItem.Property(TotalSeasons)]</label>
+												<font>font48_bold</font>
+												<wrapmultiline>true</wrapmultiline>
+												<textcolor>grey</textcolor>
+											<width>205</width></control>
+											<control type="label">
+												<top>52</top>
+												<height>30</height>
+												<align>center</align>
+												<label>[LOWERCASE]$VAR[OneOrMoreSeasonsVar][/LOWERCASE]</label>
+												<font>font12</font>
+												<textcolor>grey</textcolor>
+											<width>205</width></control>
+										</control>
+										<control type="group">
+											<visible>!String.IsEmpty(ListItem.Property(TotalEpisodes))</visible>
+											<width>205</width>
+											<control type="label">
+												<top>2</top>
+												<height>60</height>
+												<align>center</align>
+												<label>$INFO[ListItem.Property(TotalEpisodes)]</label>
+												<font>font48_bold</font>
+												<wrapmultiline>true</wrapmultiline>
+												<textcolor>grey</textcolor>
+											<width>205</width></control>
+											<control type="label">
+												<top>52</top>
+												<height>30</height>
+												<align>center</align>
+												<label>[LOWERCASE]$VAR[OneOrMoreEpisodesVar][/LOWERCASE]</label>
+												<font>font12</font>
+												<textcolor>grey</textcolor>
+											<width>205</width></control>
+										</control>
+										<control type="group">
+											<visible>!String.IsEmpty(ListItem.Property(UnWatchedEpisodes))</visible>
+											<width>205</width>
+											<control type="label">
+												<height>60</height>
+												<align>center</align>
+												<label>$INFO[ListItem.Property(UnWatchedEpisodes)]</label>
+												<font>font48_bold</font>
+												<wrapmultiline>true</wrapmultiline>
+												<textcolor>$VAR[UnWatchedEpColor]</textcolor>
+											<width>205</width></control>
+											<control type="label">
+												<top>52</top>
+												<height>30</height>
+												<align>center</align>
+												<label>[LOWERCASE]$LOCALIZE[16101][/LOWERCASE]</label>
+												<font>font12</font>
+												<textcolor>$VAR[UnWatchedEpColor]</textcolor>
+											<width>205</width></control>
+										</control>
+									<height>82</height><visible>Container.Content(tvshows)</visible></control>
+								<control type="grouplist">
+											<left>0</left>
+											<width>615</width>
+											<orientation>horizontal</orientation>
+											<control type="group">
+												<visible>!String.IsEmpty(ListItem.Property(TotalEpisodes))</visible>
+												<width>205</width>
+												<control type="label">
+													<top>2</top>
+													<height>60</height>
+													<align>center</align>
+													<label>$INFO[ListItem.Property(TotalEpisodes)]</label>
+													<font>font48_bold</font>
+													<wrapmultiline>true</wrapmultiline>
+													<textcolor>grey</textcolor>
+												<width>205</width></control>
+												<control type="label">
+													<top>52</top>
+													<height>30</height>
+													<align>center</align>
+													<label>[LOWERCASE]$VAR[OneOrMoreEpisodesVar][/LOWERCASE]</label>
+													<font>font12</font>
+													<textcolor>grey</textcolor>
+												<width>205</width></control>
+											</control>
+											<control type="group">
+												<visible>!String.IsEmpty(ListItem.Property(UnWatchedEpisodes))</visible>
+												<width>205</width>
+												<control type="label">
+													<height>60</height>
+													<align>center</align>
+													<label>$INFO[ListItem.Property(UnWatchedEpisodes)]</label>
+													<font>font48_bold</font>
+													<wrapmultiline>true</wrapmultiline>
+													<textcolor>$VAR[UnWatchedEpColor]</textcolor>
+												<width>205</width></control>
+												<control type="label">
+													<top>52</top>
+													<height>30</height>
+													<align>center</align>
+													<label>[LOWERCASE]$LOCALIZE[16101][/LOWERCASE]</label>
+													<font>font12</font>
+													<textcolor>$VAR[UnWatchedEpColor]</textcolor>
+												<width>205</width></control>
+											</control>
+										<height>82</height><visible>Container.Content(seasons)</visible></control>
+									</control>
+</control>
 	</include>
 	<!-- Music LowList -->
 	<include name="MusicLowList">
@@ -1231,13 +1243,13 @@
 				<height>427</height>
 				<onleft>SetProperty(MediaMenu,True,Home)</onleft>
 				<onleft>SetFocus(9050)</onleft>
-				<onright>50160</onright>
+				<onright condition="!Container(501).ListItem.IsParentFolder + [String.IsEqual(Container(501).ListItem.DBType,movie) | String.IsEqual(Container(501).ListItem.DBType,tvshow) | [String.IsEmpty(Container(501).ListItem.DBType) + [Container(501).Content(movies) | Container(501).Content(tvshows)]]]">RunScript(special://skin/resources/scripts/x2_view_trailer.py,501)</onright><onright condition="![!Container(501).ListItem.IsParentFolder + [String.IsEqual(Container(501).ListItem.DBType,movie) | String.IsEqual(Container(501).ListItem.DBType,tvshow) | [String.IsEmpty(Container(501).ListItem.DBType) + [Container(501).Content(movies) | Container(501).Content(tvshows)]]]]">50160</onright>
 				<onup>501</onup>
 				<ondown>501</ondown>
 				<pagecontrol>50160</pagecontrol>
-				<onright condition="Control.IsVisible(50160)">50160</onright>
-				<onright condition="!Control.IsVisible(50160) + Control.IsVisible(50162)">50162</onright>
-				<onright condition="!Control.IsVisible(50160) + !Control.IsVisible(50162)">4400</onright>
+				<onright condition="![!Container(501).ListItem.IsParentFolder + [String.IsEqual(Container(501).ListItem.DBType,movie) | String.IsEqual(Container(501).ListItem.DBType,tvshow) | [String.IsEmpty(Container(501).ListItem.DBType) + [Container(501).Content(movies) | Container(501).Content(tvshows)]]]] + [Control.IsVisible(50160)]">50160</onright>
+				<onright condition="![!Container(501).ListItem.IsParentFolder + [String.IsEqual(Container(501).ListItem.DBType,movie) | String.IsEqual(Container(501).ListItem.DBType,tvshow) | [String.IsEmpty(Container(501).ListItem.DBType) + [Container(501).Content(movies) | Container(501).Content(tvshows)]]]] + [!Control.IsVisible(50160) + Control.IsVisible(50162)]">50162</onright>
+				<onright condition="![!Container(501).ListItem.IsParentFolder + [String.IsEqual(Container(501).ListItem.DBType,movie) | String.IsEqual(Container(501).ListItem.DBType,tvshow) | [String.IsEmpty(Container(501).ListItem.DBType) + [Container(501).Content(movies) | Container(501).Content(tvshows)]]]] + [!Control.IsVisible(50160) + !Control.IsVisible(50162)]">4400</onright>
 				<viewtype label="$LOCALIZE[31241]">list</viewtype>
 				<visible>Container.Content(albums) | Container.Content(artists) | Container.Content(songs) | [Window.IsActive(music) + Container.Content(files)]</visible>
 				<scrolltime tween="quadratic" easing="out">200</scrolltime>
@@ -1591,8 +1603,8 @@
 				<include condition="Skin.HasSetting(nohighlistgame)">LowListHeightLow</include>
 				<onleft>SetProperty(MediaMenu,True,Home)</onleft>
 				<onleft>SetFocus(9050)</onleft>
-				<onright condition="Control.IsVisible(50160)">50160</onright>
-				<onright condition="!Control.IsVisible(50160)">50162</onright>
+				<onright condition="!Container(501).ListItem.IsParentFolder + [String.IsEqual(Container(501).ListItem.DBType,movie) | String.IsEqual(Container(501).ListItem.DBType,tvshow) | [String.IsEmpty(Container(501).ListItem.DBType) + [Container(501).Content(movies) | Container(501).Content(tvshows)]]]">RunScript(special://skin/resources/scripts/x2_view_trailer.py,501)</onright><onright condition="![!Container(501).ListItem.IsParentFolder + [String.IsEqual(Container(501).ListItem.DBType,movie) | String.IsEqual(Container(501).ListItem.DBType,tvshow) | [String.IsEmpty(Container(501).ListItem.DBType) + [Container(501).Content(movies) | Container(501).Content(tvshows)]]]] + [Control.IsVisible(50160)]">50160</onright>
+				<onright condition="![!Container(501).ListItem.IsParentFolder + [String.IsEqual(Container(501).ListItem.DBType,movie) | String.IsEqual(Container(501).ListItem.DBType,tvshow) | [String.IsEmpty(Container(501).ListItem.DBType) + [Container(501).Content(movies) | Container(501).Content(tvshows)]]]] + [!Control.IsVisible(50160)]">50162</onright>
 				<onup>501</onup>
 				<ondown>501</ondown>
 				<pagecontrol>50160</pagecontrol>

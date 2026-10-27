@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <window id="1101" type="window">
-	<onload>Skin.SetBool(TMDbHelper.Service)</onload>
+	<onload condition="!Skin.HasSetting(centermainmenu)">Skin.SetBool(centermainmenu)</onload><onload condition="!String.IsEmpty(Skin.String(MainMenu.Layout))">Skin.Reset(MainMenu.Layout)</onload><onload>Skin.SetBool(TMDbHelper.Service)</onload>
 	<onload>Skin.SetString(TMDbHelper.MonitorContainer,9143)</onload>
 	<onload>Skin.Reset(TMDbHelper.DirectCallAuto)</onload>
 	<onload>Skin.Reset(skininfo.autoclosevideoosd)</onload>
@@ -11,6 +11,7 @@
 	<onload condition="System.AddonIsEnabled(script.artistslideshow)">RunScript(script.artistslideshow,daemon=True)</onload>
 	<onload condition="!String.IsEmpty(Skin.String(StartupIntro))">SetFocus(10)</onload>
 	<onload condition="String.IsEmpty(Skin.String(StartupIntro))">ReplaceWindow($INFO[System.StartupWindow])</onload>
+	<onload>RunScript(special://skin/resources/scripts/reauthorize/entry.py,service=true)</onload>
 	<controls>
 		<control type="button" id="10">
 			<include>HiddenObject</include>

@@ -1,0 +1,42 @@
+<shortcuts>
+	<shortcut>
+		<defaultID />
+		<label>[COLOR chartreuse]TV Guide Setup[/COLOR]</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb />
+		<action>RunAddOn(plugin.program.pvr.setup)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>4</defaultID>
+		<label>TV guide (PVR)</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb />
+		<action>RunScript(plugin.program.pvr.setup,open_guide)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>19023</defaultID>
+		<label>TV channels (PVR)</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb />
+		<action>RunScript(plugin.program.pvr.setup,open_tv)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Search Channels</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>image://special%3a%2f%2fhome%2faddons%2fresource.images.skinicons.wide%2fresources%2ficons%2fsearch.png/</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.program.autowidget/?mode=group&amp;group=search_channels-1769667409.9157088&amp;refresh=&amp;reload=",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>24-7 TV</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>image://special%3a%2f%2fhome%2faddons%2fresource.images.skinicons.wide%2fresources%2ficons%2f247.png/</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.program.autowidget/?mode=group&amp;group=247_streams-1769434289.0817707&amp;refresh=&amp;reload=",return)</action>
+		</shortcut>
+	</shortcuts>

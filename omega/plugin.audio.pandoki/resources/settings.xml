@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<settings version="1">
+    <section id="plugin.audio.pandoki">
+        <category id="profile" label="30026">
+            <group id="1" label="">
+                <setting id="prof"  type="integer"  label="30000"  help="">
+                    <level>0</level>
+                    <default>0</default>
+                    <constraints>
+                        <options>
+                            <option label="Account1">0</option>
+                            <option label="Account2">1</option>
+                            <option label="Account3">2</option>
+                        </options>
+                    </constraints>
+                    <control type="spinner" format="string"/>
+                </setting>
+                
+                <setting id="username0"  type="string"  label="30001"  help="">
+                    <level>0</level>
+                    <constraints>
+                        <allowempty>true</allowempty>
+                    </constraints>
+                    <control type="edit" format="string">
+                        <heading>30001</heading>
+                    </control>
+                    <dependencies>
+                        <dependency type="visible" setting="prof">0</dependency>
+                    </dependencies>
+                </setting>
+                    
+                <setting id="password0"  type="string"  label="30002"  help="">
+                    <level>0</level>
+                    <constraints>
+                        <allowempty>true</allowempty>
+                    </constraints>
+                    <control type="edit" format="string">
+                        <heading>30002</heading>
+                        <hidden>true</hidden>
+                    </control>
+                    <dependencies>
+                        <dependency type="visible" setting="prof">0</dependency>
+                    </dependencies>
+                </setting>
+                
+                <setting id="one0"  type="boolean"  label="30003"  help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                    <dependencies>
+                        <dependency type="visible" setting="prof">0</dependency>
+                    </dependencies>
+                </setting>
+                
+                <setting id="username1"  type="string"  label="30001"  help="">
+                    <level>0</level>
+                    <constraints>
+                        <allowempty>true</allowempty>
+                    </constraints>
+                    <control type="edit" format="string">
+                        <heading>30001</heading>
+                    </control>
+                    <dependencies>
+                        <dependency type="visible" setting="prof">1</dependency>
+                    </dependencies>
+                </setting>
+                
+                <setting id="password1"  type="string"  label="30002"  help="">
+                    <level>0</level>
+                    <constraints>
+                        <allowempty>true</allowempty>
+                    </constraints>
+                    <control type="edit" format="string">
+                        <heading>30002</heading>
+                        <hidden>true</hidden>
+                    </control>
+                    <dependencies>
+                        <dependency type="visible" setting="prof">1</dependency>
+                    </dependencies>
+                </setting>
+                
+                <setting id="one1"  type="boolean"  label="30003"  help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                    <dependencies>
+                        <dependency type="visible" setting="prof">1</dependency>
+                    </dependencies>
+                </setting>
+                
+                <setting id="username2"  type="string"  label="30001"  help="">
+                    <level>0</level>
+                    <constraints>
+                        <allowempty>true</allowempty>
+                    </constraints>
+                    <control type="edit" format="string">
+                        <heading>30001</heading>
+                    </control>
+                    <dependencies>
+                        <dependency type="visible" setting="prof">2</dependency>
+                    </dependencies>
+                </setting>
+                
+                <setting id="password2"  type="string"  label="30002"  help="">
+                    <level>0</level>
+                    <constraints>
+                        <allowempty>true</allowempty>
+                    </constraints>
+                    <control type="edit" format="string">
+                        <heading>30002</heading>
+                        <hidden>true</hidden>
+                    </control>
+                    <dependencies>
+                        <dependency type="visible" setting="prof">2</dependency>
+                    </dependencies>
+                </setting>
+                
+                <setting id="one2"  type="boolean"  label="30003"  help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                    <dependencies>
+                        <dependency type="visible" setting="prof">2</dependency>
+                    </dependencies>
+                </setting>
+            </group>
+            <group id="2" label="">
+                <setting id="proxy"  type="integer"  label="30004"  help="">
+                    <level>1</level>
+                    <default>0</default>
+                    <constraints>
+                        <options>
+                            <option label="Global">0</option>
+                            <option label="None">1</option>
+                            <option label="Custom">2</option>
+                        </options>
+                    </constraints>
+                    <control type="spinner" format="string"/>
+                </setting>
+                    
+                <setting id="sni"  type="boolean"  label="30005"  help="">
+                    <level>1</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                    <dependencies>
+                        <dependency type="visible" operator="!is" setting="proxy">1</dependency>
+                    </dependencies>
+                </setting>
+                
+                <setting id="proxy_host"  type="string"  label="30006"  help="">
+                    <level>1</level>
+                    <constraints>
+                        <allowempty>true</allowempty>
+                    </constraints>
+                    <control type="edit" format="string">
+                        <heading>30006</heading>
+                    </control>
+                    <dependencies>
+                        <dependency type="visible" setting="proxy">2</dependency>
+                    </dependencies>
+                </setting>
+                
+                <setting id="proxy_port"  type="integer"  label="30007"  help="">
+                    <level>1</level>
+                    <default>0</default>
+                    <control type="edit" format="integer">
+                        <heading>30007</heading>
+                    </control>
+                    <dependencies>
+                        <dependency type="visible" setting="proxy">2</dependency>
+                    </dependencies>
+                </setting>
+                
+                <setting id="proxy_user"  type="string"  label="30008"  help="">
+                    <level>1</level>
+                    <constraints>
+                        <allowempty>true</allowempty>
+                    </constraints>
+                    <control type="edit" format="string">
+                        <heading>30008</heading>
+                    </control>
+                    <dependencies>
+                        <dependency type="visible" setting="proxy">2</dependency>
+                    </dependencies>
+                </setting>
+                
+                <setting id="proxy_pass"  type="string"  label="30002"  help="">
+                    <level>1</level>
+                    <constraints>
+                        <allowempty>true</allowempty>
+                    </constraints>
+                    <control type="edit" format="string">
+                        <heading>30002</heading>
+                        <hidden>true</hidden>
+                    </control>
+                    <dependencies>
+                        <dependency type="visible" setting="proxy">2</dependency>
+                    </dependencies>
+                </setting>
+            </group>
+        </category>
+        <category id="settings" label="30009">
+            <group id="3" label="">
+                <setting id="autoplay"  type="boolean"  label="30010"  help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+                
+                <setting id="sort"  type="integer"  label="30011"  help="">
+                    <level>0</level>
+                    <default>0</default>
+                    <constraints>
+                        <options>
+                            <option label="Newest">0</option>
+                            <option label="A-Z">1</option>
+                            <option label="Oldest">2</option>
+                        </options>
+                    </constraints>
+                    <control type="spinner" format="string"/>
+                </setting>
+                
+                <setting id="quality"  type="integer"  label="30012"  help="">
+                    <level>0</level>
+                    <default>2</default>
+                    <constraints>
+                        <options>
+                            <option label="Low">0</option>
+                            <option label="Medium">1</option>
+                            <option label="High">2</option>
+                        </options>
+                    </constraints>
+                    <control type="spinner" format="string"/>
+                </setting>
+                
+                <setting id="rating"  type="integer"  label="30013"  help="">
+                    <level>0</level>
+                    <default>0</default>
+                    <constraints>
+                        <options>
+                            <option label="Basic">0</option>
+                            <option label="Expert">1</option>
+                        </options>
+                    </constraints>
+                    <control type="spinner" format="string"/>
+                </setting>
+                
+                <setting id="mode"  type="integer"  label="30014"  help="">
+                    <level>0</level>
+                    <default>0</default>
+                    <constraints>
+                        <options>
+                            <option label="Stream Only">0</option>
+                            <option label="Cache Only">1</option>
+                        </options>
+                    </constraints>
+                    <control type="spinner" format="string"/>
+                </setting>
+                
+                <setting id="maxdownload"  type="integer"  label="30015"  help="">
+                    <level>0</level>
+                    <default>3</default>
+                    <constraints>
+                        <minimum>1</minimum>
+                        <step>1</step>
+                        <maximum>6</maximum>
+                    </constraints>
+                    <control type="slider" format="integer">
+                        <popup>false</popup>
+                    </control>
+                    <dependencies>
+                        <dependency type="visible" operator="!is" setting="mode">0</dependency>
+                    </dependencies>
+                </setting>
+                
+                <setting id="m3u"  type="boolean"  label="30016"  help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                    <dependencies>
+                        <dependency type="visible" operator="!is" setting="mode">0</dependency>
+                    </dependencies>
+                </setting>
+                
+                <setting id="skip"  type="boolean"  label="30017"  help="">
+                    <level>0</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                    <dependencies>
+                        <dependency type="visible" operator="!is" setting="mode">0</dependency>
+                    </dependencies>
+                </setting>
+                
+            </group>
+        </category>
+        <category id="advanced"  label="30018">
+            <group id="4" label="">
+                <setting id="debug"  type="boolean"  label="30019"  help="">
+                    <level>2</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+                
+                <setting id="notification"  type="boolean"  label="30020"  help="">        
+                    <level>1</level>
+                    <default>false</default>
+                    <control type="toggle"/>
+                </setting>
+                
+                <setting id="history"  type="integer"  label="30021"  help="">
+                    <level>2</level>
+                    <default>14</default>
+                    <constraints>
+                        <minimum>0</minimum>
+                        <step>1</step>
+                        <maximum>50</maximum>
+                    </constraints>
+                    <control type="slider" format="integer">
+                        <popup>false</popup>
+                    </control>
+                </setting>
+                
+                <setting id="adsize"  type="integer"  label="30022"  help="This is help">
+                    <level>2</level>
+                    <default>272</default>
+                    <constraints>
+                        <minimum>8</minimum>
+                        <step>8</step>
+                        <maximum>1024</maximum>
+                    </constraints>
+                    <control type="slider" format="integer">
+                        <popup>false</popup>
+                    </control>
+                </setting>
+                
+                <setting id="delay"  type="integer"  label="30023"  help="">
+                    <level>3</level>
+                    <default>7</default>
+                    <constraints>
+                        <minimum>1</minimum>
+                        <step>1</step>
+                        <maximum>30</maximum>
+                    </constraints>
+                    <control type="slider" format="integer">
+                        <popup>false</popup>
+                    </control>
+                </setting>
+                
+                <setting id="station0"  type="string"  label="30027"  help="">
+                    <level>0</level>
+                    <constraints>
+                        <allowempty>true</allowempty>
+                    </constraints>
+                    <control type="edit" format="string">
+                        <heading>30001</heading>
+                    </control>
+                    <dependencies>
+                        <dependency type="visible" setting="prof">0</dependency>
+                    </dependencies>
+                </setting>
+
+            </group>
+        </category>
+        <category id="folders"  label="30024">
+            <group id="5" label="">
+                <setting id="cache"  type="path"  label="30025"  help="">
+                    <level>1</level>
+                    <default>special://userdata/addon_data/plugin.audio.pandoki/Cache</default>
+                    <constraints>
+                        <writable>true</writable>
+                        <allowempty>true</allowempty>
+                    </constraints>
+                    <control type="button" format="path">
+                        <heading>32025</heading>
+                    </control>
+                </setting>
+
+                <setting id="library"  type="path"  label="30028"  help="not used">
+                    <level>3</level>
+                    <default>special://userdata/addon_data/plugin.audio.pandoki/Library</default>
+                    <constraints>
+                        <writable>true</writable>
+                        <allowempty>true</allowempty>
+                    </constraints>
+                    <control type="button" format="path">
+                        <heading>32028</heading>
+                    </control>
+                </setting>
+            </group>
+        </category>
+    </section>
+</settings>

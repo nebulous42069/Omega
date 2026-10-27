@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <includes>
 	<!-- Constants -->
 	<constant name="FanartCrossfadeTime">500</constant>
@@ -15,18 +15,18 @@
 		<top>-300</top>
 		<width>1</width>
 		<height>1</height>
-		<texturefocus />
-		<texturenofocus />
-		<label />
-		<font />
+		<texturefocus/>
+		<texturenofocus/>
+		<label/>
+		<font/>
 	</include>
 	<include name="HiddenList">
 		<left>-100</left>
 		<top>-100</top>
 		<width>100</width>
 		<height>100</height>
-		<itemlayout height="100" width="100" />
-		<focusedlayout height="100" width="100" />
+		<itemlayout height="100" width="100"/>
+		<focusedlayout height="100" width="100"/>
 	</include>
 	<!-- Buttons -->
 	<include name="ButtonTopbarCommonvalues">
@@ -166,16 +166,16 @@
 	</include>
 	<!-- PARAM -->
 	<include name="ExtendedInfoListLayout">
-		<param name="PanelID" />
+		<param name="PanelID"/>
 		<param name="overlayVisibility">!String.IsEmpty(ListItem.Property(DBID))</param>
 		<param name="labelVisibility">false</param>
-		<param name="label" default="$INFO[ListItem.Label2]" />
-		<param name="label1" default="$INFO[ListItem.Label]" />
-		<param name="label2" default="$INFO[ListItem.Year]" />
-		<param name="texture" default="$VAR[PosterVar]" />
-		<param name="content" />
-		<param name="sortby" />
-		<param name="limit" />
+		<param name="label" default="$INFO[ListItem.Label2]"/>
+		<param name="label1" default="$INFO[ListItem.Label]"/>
+		<param name="label2" default="$INFO[ListItem.Year]"/>
+		<param name="texture" default="$VAR[PosterVar]"/>
+		<param name="content"/>
+		<param name="sortby"/>
+		<param name="limit"/>
 		<definition>
 			<left>15</left>
 			<width>1196</width>
@@ -342,7 +342,7 @@
 		</definition>
 	</include>
 	<include name="VideoCastItem">
-		<param name="CastListItemID" />
+		<param name="CastListItemID"/>
 		<definition>
 			<item>
 				<label>$INFO[Container(50).ListItemAbsolute($PARAM[CastListItemID]).Label]</label>
@@ -658,7 +658,7 @@
 		</include>
 	</include>
 	<include name="CustomColorRadioButton">
-		<param name="ColorStringVar" />
+		<param name="ColorStringVar"/>
 		<definition>
 			<width>1401</width>
 			<height>90</height>
@@ -673,5 +673,5 @@
 	</include>
 	<!-- EXP -->
 	<expression name="HasVerticalMenuWithExtended">String.IsEqual(Skin.String(MainMenu.Layout),vertical) + [String.Contains(Container(9000).ListItem.Property(widgetStyle),Extended) + ControlGroup(90010).HasFocus] | [String.Contains(Container(9000).ListItem.Property(widgetStyle.2),Extended) + ControlGroup(90020).HasFocus]</expression>
-	<expression name="WidgetFanartVisible">[[String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart)) + ControlGroup(90010).HasFocus] | [String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.2)) + ControlGroup(90020).HasFocus]]</expression>
+	<expression name="WidgetFanartVisible">[[[String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart)) + ControlGroup(90010).HasFocus] | [String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.2)) + ControlGroup(90020).HasFocus]]] | [String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel2)) + ControlGroup(96002).HasFocus] | [String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel3)) + ControlGroup(96003).HasFocus] | [String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel4)) + ControlGroup(96004).HasFocus] | [String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel5)) + ControlGroup(96005).HasFocus] | [String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel6)) + ControlGroup(96006).HasFocus] | [String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel7)) + ControlGroup(96007).HasFocus] | [String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel8)) + ControlGroup(96008).HasFocus] | [String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel9)) + ControlGroup(96009).HasFocus] | [String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel10)) + ControlGroup(96010).HasFocus] | [String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel11)) + ControlGroup(96011).HasFocus] | [String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel12)) + ControlGroup(96012).HasFocus] | [String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel13)) + ControlGroup(96013).HasFocus] | [String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel14)) + ControlGroup(96014).HasFocus] | [String.IsEmpty(Container(9000).ListItem.Property(widgetDisableFanart.sel15)) + ControlGroup(96015).HasFocus]</expression>
 </includes>

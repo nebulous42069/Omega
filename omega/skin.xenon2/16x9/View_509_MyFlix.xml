@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <includes>
 	<include name="View_509_MyFlix">
 		<control type="group">
@@ -317,15 +317,8 @@
 				<onright>509</onright>
 				<onup>SetProperty(MediaMenu,True,Home)</onup>
 				<onup>SetFocus(9050)</onup>
-				<ondown condition="String.IsEqual(ListItem.DBType,movie)">RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.IMDBNumber]&amp;tmdb=$INFO[ListItem.Property(tmdb_id)]&amp;tmdbshow=$INFO[ListItem.Property(tmdbshow_id)]&amp;dbtype=$INFO[ListItem.DBType]&amp;mediatype=$INFO[ListItem.MediaType]&amp;title=$INFO[ListItem.Title]&amp;tvshowtitle=$INFO[ListItem.TVShowTitle]&amp;year=$INFO[ListItem.Year])</ondown>
-				<ondown condition="String.IsEqual(ListItem.DBType,tvshow) + !String.IsEmpty(ListItem.IMDBNumber)">
-				RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.IMDBNumber]&amp;dbtype=$INFO[ListItem.DBType]&amp;title=$INFO[ListItem.TVShowTitle])</ondown>
-				<ondown condition="String.IsEqual(ListItem.DBType,tvshow) + String.IsEmpty(ListItem.IMDBNumber) + !String.IsEmpty(ListItem.UniqueID(imdb))">
-				RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.UniqueID(imdb)]&amp;dbtype=$INFO[ListItem.DBType]&amp;title=$INFO[ListItem.TVShowTitle])</ondown>
-				<ondown condition="String.IsEqual(ListItem.DBType,tvshow) + String.IsEmpty(ListItem.IMDBNumber) + String.IsEmpty(ListItem.UniqueID(imdb)) + !String.IsEmpty(ListItem.Property(tmdbshow_id))">
-				RunScript(script.trailer.bridge,?tmdbshow=$INFO[ListItem.Property(tmdbshow_id)]&amp;dbtype=$INFO[ListItem.DBType]&amp;title=$INFO[ListItem.TVShowTitle])</ondown>				
-				<ondown condition="Control.IsVisible(50960)">50960</ondown>
-				<ondown condition="!Control.IsVisible(50960)">4400</ondown>
+				<ondown condition="!Container(509).ListItem.IsParentFolder + [String.IsEqual(Container(509).ListItem.DBType,movie) | String.IsEqual(Container(509).ListItem.DBType,tvshow) | [String.IsEmpty(Container(509).ListItem.DBType) + [Container(509).Content(movies) | Container(509).Content(tvshows)]]]">RunScript(special://skin/resources/scripts/x2_view_trailer.py,509)</ondown><ondown condition="![!Container(509).ListItem.IsParentFolder + [String.IsEqual(Container(509).ListItem.DBType,movie) | String.IsEqual(Container(509).ListItem.DBType,tvshow) | [String.IsEmpty(Container(509).ListItem.DBType) + [Container(509).Content(movies) | Container(509).Content(tvshows)]]]] + [Control.IsVisible(50960)]">50960</ondown>
+				<ondown condition="![!Container(509).ListItem.IsParentFolder + [String.IsEqual(Container(509).ListItem.DBType,movie) | String.IsEqual(Container(509).ListItem.DBType,tvshow) | [String.IsEmpty(Container(509).ListItem.DBType) + [Container(509).Content(movies) | Container(509).Content(tvshows)]]]] + [!Control.IsVisible(50960)]">4400</ondown>
 				<viewtype label="$LOCALIZE[31244]">bigwrap</viewtype>
 				<pagecontrol>50960</pagecontrol>
 				<orientation>horizontal</orientation>

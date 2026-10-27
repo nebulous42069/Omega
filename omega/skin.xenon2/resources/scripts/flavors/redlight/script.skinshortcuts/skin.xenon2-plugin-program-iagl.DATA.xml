@@ -1,0 +1,82 @@
+<shortcuts>
+	<shortcut>
+		<defaultID>plugin.program.iagl</defaultID>
+		<label>[COLOR chartreuse]1 - Install Arcade[/COLOR]</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>thumb</thumb>
+		<action>InstallAddon(plugin.program.iagl)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>[COLOR chartreuse]2 - First Run[/COLOR]</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb />
+		<action>RunAddon(plugin.program.iagl)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>IAGL Settings</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb />
+		<action>addon.opensettings(plugin.program.iagl)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Setup Controllers</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb />
+		<action>ActivateWindow("10820","DialogGameControllers.xml",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.program.retrobiostool</defaultID>
+		<label>BIOS Installer</label>
+		<label2>Program</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>thumb</thumb>
+		<action>ActivateWindow(Programs,"plugin://plugin.program.retrobiostool",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.program.iagl/history</defaultID>
+		<label>Play History</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>image://special%3a%2f%2fhome%2faddons%2fplugin.program.iagl%2fassets%2fdefault%2fhistory_thumb.png/</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.program.iagl/history",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.program.iagl/favorites</defaultID>
+		<label>Favorites</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>image://https%3a%2f%2fraw.githubusercontent.com%2fzach-morris%2fiagl.media%2fmaster%2fdefault%2fbrowse%2fthumb%2fFavorites.png/</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.program.iagl/favorites",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.program.iagl/search</defaultID>
+		<label>Search</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>image://https%3a%2f%2fraw.githubusercontent.com%2fzach-morris%2fiagl.media%2fmaster%2fdefault%2fbrowse%2fthumb%2fSearch.png/</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.program.iagl/search",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Game Addons</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb />
+		<action>ActivateWindow(10040,"addons://user/category.gameaddons",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>downloadedgames</defaultID>
+		<label>Downloaded Games</label>
+		<label2>Favourite</label2>
+		<icon>DefaultFolder.png</icon>
+		<thumb />
+		<action>ActivateWindow(10003,"special://home/userdata/addon_data/plugin.program.iagl/game_cache/",return)</action>
+		</shortcut>
+	</shortcuts>

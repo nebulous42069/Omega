@@ -1,0 +1,5399 @@
+{
+  "channels": {
+    "521": {
+      "name": "#Vamos Spain",
+      "file": "channel-521.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "501": {
+      "name": "18+ (Player-01)",
+      "file": "img-27afb9792b5d2c95b3a0.png",
+      "placeholder": false,
+      "source_url": "https://connect.ddishtv.mn/img/logo/18+.png"
+    },
+    "502": {
+      "name": "18+ (Player-02)",
+      "file": "img-27afb9792b5d2c95b3a0.png",
+      "placeholder": false,
+      "source_url": "https://connect.ddishtv.mn/img/logo/18+.png"
+    },
+    "503": {
+      "name": "18+ (Player-03)",
+      "file": "img-27afb9792b5d2c95b3a0.png",
+      "placeholder": false,
+      "source_url": "https://connect.ddishtv.mn/img/logo/18+.png"
+    },
+    "504": {
+      "name": "18+ (Player-04)",
+      "file": "img-27afb9792b5d2c95b3a0.png",
+      "placeholder": false,
+      "source_url": "https://connect.ddishtv.mn/img/logo/18+.png"
+    },
+    "505": {
+      "name": "18+ (Player-05)",
+      "file": "img-27afb9792b5d2c95b3a0.png",
+      "placeholder": false,
+      "source_url": "https://connect.ddishtv.mn/img/logo/18+.png"
+    },
+    "506": {
+      "name": "18+ (Player-06)",
+      "file": "img-27afb9792b5d2c95b3a0.png",
+      "placeholder": false,
+      "source_url": "https://connect.ddishtv.mn/img/logo/18+.png"
+    },
+    "507": {
+      "name": "18+ (Player-07)",
+      "file": "img-27afb9792b5d2c95b3a0.png",
+      "placeholder": false,
+      "source_url": "https://connect.ddishtv.mn/img/logo/18+.png"
+    },
+    "508": {
+      "name": "18+ (Player-08)",
+      "file": "img-27afb9792b5d2c95b3a0.png",
+      "placeholder": false,
+      "source_url": "https://connect.ddishtv.mn/img/logo/18+.png"
+    },
+    "509": {
+      "name": "18+ (Player-09)",
+      "file": "img-27afb9792b5d2c95b3a0.png",
+      "placeholder": false,
+      "source_url": "https://connect.ddishtv.mn/img/logo/18+.png"
+    },
+    "510": {
+      "name": "18+ (Player-10)",
+      "file": "img-27afb9792b5d2c95b3a0.png",
+      "placeholder": false,
+      "source_url": "https://connect.ddishtv.mn/img/logo/18+.png"
+    },
+    "511": {
+      "name": "18+ (Player-11)",
+      "file": "img-27afb9792b5d2c95b3a0.png",
+      "placeholder": false,
+      "source_url": "https://connect.ddishtv.mn/img/logo/18+.png"
+    },
+    "512": {
+      "name": "18+ (Player-12)",
+      "file": "img-27afb9792b5d2c95b3a0.png",
+      "placeholder": false,
+      "source_url": "https://connect.ddishtv.mn/img/logo/18+.png"
+    },
+    "513": {
+      "name": "18+ (Player-13)",
+      "file": "img-27afb9792b5d2c95b3a0.png",
+      "placeholder": false,
+      "source_url": "https://connect.ddishtv.mn/img/logo/18+.png"
+    },
+    "514": {
+      "name": "18+ (Player-14)",
+      "file": "img-27afb9792b5d2c95b3a0.png",
+      "placeholder": false,
+      "source_url": "https://connect.ddishtv.mn/img/logo/18+.png"
+    },
+    "515": {
+      "name": "18+ (Player-15)",
+      "file": "img-27afb9792b5d2c95b3a0.png",
+      "placeholder": false,
+      "source_url": "https://connect.ddishtv.mn/img/logo/18+.png"
+    },
+    "516": {
+      "name": "18+ (Player-16)",
+      "file": "img-27afb9792b5d2c95b3a0.png",
+      "placeholder": false,
+      "source_url": "https://connect.ddishtv.mn/img/logo/18+.png"
+    },
+    "517": {
+      "name": "18+ (Player-17)",
+      "file": "img-27afb9792b5d2c95b3a0.png",
+      "placeholder": false,
+      "source_url": "https://connect.ddishtv.mn/img/logo/18+.png"
+    },
+    "518": {
+      "name": "18+ (Player-18)",
+      "file": "img-27afb9792b5d2c95b3a0.png",
+      "placeholder": false,
+      "source_url": "https://connect.ddishtv.mn/img/logo/18+.png"
+    },
+    "519": {
+      "name": "18+ (Player-19)",
+      "file": "img-27afb9792b5d2c95b3a0.png",
+      "placeholder": false,
+      "source_url": "https://connect.ddishtv.mn/img/logo/18+.png"
+    },
+    "520": {
+      "name": "18+ (Player-20)",
+      "file": "img-27afb9792b5d2c95b3a0.png",
+      "placeholder": false,
+      "source_url": "https://connect.ddishtv.mn/img/logo/18+.png"
+    },
+    "857": {
+      "name": "20 Mediaset Italy",
+      "file": "img-02b8c907cb6d5e7208d9.png",
+      "placeholder": false,
+      "source_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/20_Mediaset_2018.svg/960px-20_Mediaset_2018.svg.png"
+    },
+    "726": {
+      "name": "3sat DE",
+      "file": "img-a437853bd52a186eb52f.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/germany/3sat-de.png"
+    },
+    "360": {
+      "name": "5 USA",
+      "file": "img-c84009271066d304cffc.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/5-usa-uk.png"
+    },
+    "800": {
+      "name": "6'eren Denmark",
+      "file": "img-343753d581f3b87bff30.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/nordic/denmark/6eren-dk.png"
+    },
+    "963": {
+      "name": "6ter France",
+      "file": "img-fc8c5a32ee9c11e3f453.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/6ter-fr.png"
+    },
+    "868": {
+      "name": "8Sky Cinema Suspense Italy",
+      "file": "channel-868.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "1011": {
+      "name": "A Spor Turkey",
+      "file": "img-a909d55490abf1bd447c.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/turkey/a-spor-tr.png"
+    },
+    "269": {
+      "name": "A Sport PK",
+      "file": "channel-269.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "302": {
+      "name": "A&E USA",
+      "file": "img-77ce77108020b044ae90.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/a-and-e-us.png"
+    },
+    "766": {
+      "name": "ABC NY USA",
+      "file": "img-fb7e609dd6ba8fe8731d.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/abc-us.png"
+    },
+    "51": {
+      "name": "ABC USA",
+      "file": "img-fb7e609dd6ba8fe8731d.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/abc-us.png"
+    },
+    "609": {
+      "name": "Abu Dhabi Sports 1 Premium",
+      "file": "channel-609.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "600": {
+      "name": "Abu Dhabi Sports 1 UAE",
+      "file": "channel-600.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "610": {
+      "name": "Abu Dhabi Sports 2 Premium",
+      "file": "channel-610.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "601": {
+      "name": "Abu Dhabi Sports 2 UAE",
+      "file": "channel-601.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "664": {
+      "name": "ACC Network USA",
+      "file": "img-0ecbae1ce5a4093d7d60.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/acc-network-us.png"
+    },
+    "295": {
+      "name": "Adult Swim",
+      "file": "channel-295.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "206": {
+      "name": "AHC (American Heroes Channel)",
+      "file": "channel-206.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "784": {
+      "name": "Alkass Four",
+      "file": "img-d058b3ed52ecc07f23bf.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/iDL65Wu.png"
+    },
+    "781": {
+      "name": "Alkass One",
+      "file": "img-ad753100aca2a611960b.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/10mmlha.png"
+    },
+    "783": {
+      "name": "Alkass Three",
+      "file": "img-2355c8e3529b942d82e2.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/d57BdFh.png"
+    },
+    "782": {
+      "name": "Alkass Two",
+      "file": "img-ac2b72d3889c7f4a2a33.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/8w61kFX.png"
+    },
+    "923": {
+      "name": "Altitude Sports",
+      "file": "img-a2645a86a542b6eb895a.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/TzWflKZ.png"
+    },
+    "303": {
+      "name": "AMC USA",
+      "file": "img-010255b4a402dbb76f89.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/amc-us.png"
+    },
+    "304": {
+      "name": "Animal Planet",
+      "file": "channel-304.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "531": {
+      "name": "Antena 3 Spain",
+      "file": "img-8e1cf2a0b8fe90b82774.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/spain/antena-3-es.png"
+    },
+    "283": {
+      "name": "Antenna TV USA",
+      "file": "img-87a8e49393ccb365ef3e.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/ocs2DeU.png"
+    },
+    "579": {
+      "name": "Arena Sport 1 BiH",
+      "file": "channel-579.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "432": {
+      "name": "Arena Sport 1 Croatia",
+      "file": "img-a9172ae1c5e7269ec096.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/croatia/arena-sport-1-hr.png"
+    },
+    "134": {
+      "name": "Arena Sport 1 Premium",
+      "file": "channel-134.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "429": {
+      "name": "Arena Sport 1 Serbia",
+      "file": "img-5c2590b559d8a4a22871.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/serbia/arena-sport-1-rs.png"
+    },
+    "945": {
+      "name": "Arena Sport 10 Serbia",
+      "file": "img-dbc6e8d2aecae444ca30.png",
+      "placeholder": false,
+      "source_url": "https://static.wikia.nocookie.net/logopedia/images/8/8f/Arena_Sport_10_Short.png/revision/latest?cb=20261004120130"
+    },
+    "433": {
+      "name": "Arena Sport 2 Croatia",
+      "file": "img-54b9a8cfaef39a5d0920.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/croatia/arena-sport-2-hr.png"
+    },
+    "135": {
+      "name": "Arena Sport 2 Premium",
+      "file": "img-a26833fc6c577d851c2b.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/ztOmQ7P.png"
+    },
+    "430": {
+      "name": "Arena Sport 2 Serbia",
+      "file": "img-e59b62e036084cb5c0d2.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/serbia/arena-sport-2-rs.png"
+    },
+    "434": {
+      "name": "Arena Sport 3 Croatia",
+      "file": "img-c90251c6edcb85919271.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/croatia/arena-sport-3-hr.png"
+    },
+    "139": {
+      "name": "Arena Sport 3 Premium",
+      "file": "img-901d1fcf37b95a6822fe.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/gpqemLf.png"
+    },
+    "431": {
+      "name": "Arena Sport 3 Serbia",
+      "file": "img-ef4884855d2153a0c84b.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/serbia/arena-sport-3-rs.png"
+    },
+    "580": {
+      "name": "Arena Sport 4 Croatia",
+      "file": "img-faf6d5f9557f0d7eae89.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/croatia/arena-sport-4-hr.png"
+    },
+    "581": {
+      "name": "Arena Sport 4 Serbia",
+      "file": "img-db999e593e40afcabe98.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/serbia/arena-sport-4-rs.png"
+    },
+    "940": {
+      "name": "Arena Sport 5 Serbia",
+      "file": "img-b2faf6a291958b85f5a4.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/serbia/arena-sport-5-rs.png"
+    },
+    "941": {
+      "name": "Arena Sport 6 Serbia",
+      "file": "img-a53522e07b05fdfd4d40.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/serbia/arena-sport-6-rs.png"
+    },
+    "942": {
+      "name": "Arena Sport 7 Serbia",
+      "file": "img-c3f5b62f842a67e90255.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/serbia/arena-sport-7-rs.png"
+    },
+    "943": {
+      "name": "Arena Sport 8 Serbia",
+      "file": "img-228b02eb721a50da224c.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/serbia/arena-sport-8-rs.png"
+    },
+    "944": {
+      "name": "Arena Sport 9 Serbia",
+      "file": "img-aea6ad5ca1ccf5980d92.png",
+      "placeholder": false,
+      "source_url": "https://static.wikia.nocookie.net/logopedia/images/2/20/Arena_Sport_9_Short.png/revision/latest?cb=20261004115813"
+    },
+    "612": {
+      "name": "Arena Sports Tenis Serbia",
+      "file": "img-e64f308de89a16dcb19c.png",
+      "placeholder": false,
+      "source_url": "https://static.wikia.nocookie.net/logopedia/images/3/3c/Arena_Tenis_%282025%29.png/revision/latest?cb=20260203123422"
+    },
+    "725": {
+      "name": "Arte DE",
+      "file": "img-61a0a35a7e7c199c0614.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/germany/arte-de.png"
+    },
+    "958": {
+      "name": "Arte France",
+      "file": "img-3f93c3076a06b836054e.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/arte-fr.png"
+    },
+    "370": {
+      "name": "Astro Cricket",
+      "file": "img-11eff22d33ac972a5514.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/malaysia/astro-cricket-my.png"
+    },
+    "123": {
+      "name": "Astro SuperSport 1",
+      "file": "channel-123.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "124": {
+      "name": "Astro SuperSport 2",
+      "file": "channel-124.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "125": {
+      "name": "Astro SuperSport 3",
+      "file": "channel-125.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "126": {
+      "name": "Astro SuperSport 4",
+      "file": "channel-126.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "1000": {
+      "name": "ATV Turkey",
+      "file": "img-0ff6d6098dc67c40b04f.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/turkey/atv-tr.png"
+    },
+    "961": {
+      "name": "Automoto La chaîne",
+      "file": "img-8bb0992b1a825b0c4ad2.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/ebf2uc7.png"
+    },
+    "717": {
+      "name": "AXN Movies Portugal",
+      "file": "img-4e2ae3a16b1bc4ad63db.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/portugal/axn-movies-pt.png"
+    },
+    "742": {
+      "name": "AXS TV USA",
+      "file": "img-348aaf3a2b74b02fbe32.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/axs-tv-us.png"
+    },
+    "844": {
+      "name": "Azteca 7 MX",
+      "file": "img-64b51f7c971f6059fddc.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/mexico/azteca-7-mx.png"
+    },
+    "934": {
+      "name": "Azteca Uno MX",
+      "file": "img-1c54b29c6fd315dc08f2.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/mexico/azteca-uno-mx.png"
+    },
+    "275": {
+      "name": "Bandsports Brasil",
+      "file": "img-6e9ad632aaecd9fa98d3.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/brazil/band-sports-br.png"
+    },
+    "522": {
+      "name": "Barca TV Spain",
+      "file": "img-641cb6c42c2ad78545de.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/spain/barca-tv-es.png"
+    },
+    "305": {
+      "name": "BBC America (BBCA)",
+      "file": "img-b9dd69980089c7544532.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/bbc-america-us.png"
+    },
+    "359": {
+      "name": "BBC Four UK",
+      "file": "img-c6f10fcdb793501f39b7.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/bbc-four-uk.png"
+    },
+    "349": {
+      "name": "BBC News Channel HD",
+      "file": "channel-349.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "356": {
+      "name": "BBC One UK",
+      "file": "img-2168de748f294bd1eae3.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/bbc-one-uk.png"
+    },
+    "358": {
+      "name": "BBC Three UK",
+      "file": "img-1ede5cddaaf9fd6db9c9.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/bbc-three-uk.png"
+    },
+    "357": {
+      "name": "BBC Two UK",
+      "file": "img-ba16153bef97d8f150dd.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/bbc-two-uk.png"
+    },
+    "91": {
+      "name": "beIN Sports 1 Arabic",
+      "file": "channel-91.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "116": {
+      "name": "beIN SPORTS 1 France",
+      "file": "img-cba153e7bf72d94aeab8.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/bein-sports-fr.png"
+    },
+    "712": {
+      "name": "beIN Sports 1 Malaysia",
+      "file": "channel-712.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "62": {
+      "name": "beIN SPORTS 1 Turkey",
+      "file": "channel-62.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "92": {
+      "name": "beIN Sports 2 Arabic",
+      "file": "channel-92.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "117": {
+      "name": "beIN SPORTS 2 France",
+      "file": "img-cba153e7bf72d94aeab8.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/bein-sports-fr.png"
+    },
+    "713": {
+      "name": "beIN Sports 2 Malaysia",
+      "file": "channel-713.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "63": {
+      "name": "beIN SPORTS 2 Turkey",
+      "file": "channel-63.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "93": {
+      "name": "beIN Sports 3 Arabic",
+      "file": "channel-93.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "118": {
+      "name": "beIN SPORTS 3 France",
+      "file": "img-cba153e7bf72d94aeab8.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/bein-sports-fr.png"
+    },
+    "714": {
+      "name": "beIN Sports 3 Malaysia",
+      "file": "channel-714.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "64": {
+      "name": "beIN SPORTS 3 Turkey",
+      "file": "channel-64.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "94": {
+      "name": "beIN Sports 4 Arabic",
+      "file": "channel-94.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "67": {
+      "name": "beIN SPORTS 4 Turkey",
+      "file": "channel-67.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "95": {
+      "name": "beIN Sports 5 Arabic",
+      "file": "channel-95.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "1010": {
+      "name": "bein Sports 5 Turkey",
+      "file": "channel-1010.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "96": {
+      "name": "beIN Sports 6 Arabic",
+      "file": "channel-96.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "97": {
+      "name": "beIN Sports 7 Arabic",
+      "file": "channel-97.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "98": {
+      "name": "beIN Sports 8 Arabic",
+      "file": "channel-98.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "99": {
+      "name": "beIN Sports 9 Arabic",
+      "file": "channel-99.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "491": {
+      "name": "beIN SPORTS Australia 1",
+      "file": "channel-491.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "492": {
+      "name": "beIN SPORTS Australia 2",
+      "file": "channel-492.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "493": {
+      "name": "beIN SPORTS Australia 3",
+      "file": "channel-493.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "372": {
+      "name": "beIN SPORTS en Espa単ol",
+      "file": "channel-372.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "578": {
+      "name": "BeIN Sports HD Qatar",
+      "file": "img-f0b33e1307a770a88ba0.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/RLrMBlm.png"
+    },
+    "500": {
+      "name": "beIN Sports MAX 10 France",
+      "file": "img-cba153e7bf72d94aeab8.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/bein-sports-fr.png"
+    },
+    "494": {
+      "name": "beIN Sports MAX 4 France",
+      "file": "img-cba153e7bf72d94aeab8.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/bein-sports-fr.png"
+    },
+    "495": {
+      "name": "beIN Sports MAX 5 France",
+      "file": "img-cba153e7bf72d94aeab8.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/bein-sports-fr.png"
+    },
+    "496": {
+      "name": "beIN Sports MAX 6 France",
+      "file": "img-cba153e7bf72d94aeab8.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/bein-sports-fr.png"
+    },
+    "497": {
+      "name": "beIN Sports MAX 7 France",
+      "file": "img-cba153e7bf72d94aeab8.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/bein-sports-fr.png"
+    },
+    "498": {
+      "name": "beIN Sports MAX 8 France",
+      "file": "img-cba153e7bf72d94aeab8.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/bein-sports-fr.png"
+    },
+    "499": {
+      "name": "beIN Sports MAX 9 France",
+      "file": "img-cba153e7bf72d94aeab8.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/bein-sports-fr.png"
+    },
+    "597": {
+      "name": "beIN SPORTS MAX AR",
+      "file": "channel-597.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "61": {
+      "name": "beIN Sports MENA English 1",
+      "file": "channel-61.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "90": {
+      "name": "beIN Sports MENA English 2",
+      "file": "channel-90.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "425": {
+      "name": "BeIN SPORTS USA",
+      "file": "img-00555dd1d98c699b0154.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/bein-sports-us.png"
+    },
+    "100": {
+      "name": "beIN SPORTS XTRA 1",
+      "file": "img-066ff41ad4495dd6c7ea.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/O9lTxQA.png"
+    },
+    "380": {
+      "name": "Benfica TV PT",
+      "file": "img-6097b235ed55db0426ad.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/l6LACto.png"
+    },
+    "306": {
+      "name": "BET USA",
+      "file": "img-7d716120f1c93d0dafb0.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/bet-us.png"
+    },
+    "957": {
+      "name": "BFM TV France",
+      "file": "img-c7659d63ee199fa33a85.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/bfm-tv-fr.png"
+    },
+    "891": {
+      "name": "Big Brother S28 CAM 1",
+      "file": "channel-891.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "892": {
+      "name": "Big Brother S28 CAM 2",
+      "file": "channel-892.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "893": {
+      "name": "Big Brother S28 CAM 3",
+      "file": "channel-893.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "894": {
+      "name": "Big Brother S28 CAM 4",
+      "file": "channel-894.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "895": {
+      "name": "Big Brother S28 Quadview",
+      "file": "channel-895.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "397": {
+      "name": "BIG TEN Network (BTN USA)",
+      "file": "img-6694869feb2b75e7a2af.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/big-ten-network-us.png"
+    },
+    "476": {
+      "name": "BNT 1 Bulgaria",
+      "file": "img-3effd9e3646da7bbc49f.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/bulgaria/bnt-1-bg.png"
+    },
+    "477": {
+      "name": "BNT 2 Bulgaria",
+      "file": "img-3e2e7e439e7f7031e0bc.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/bulgaria/bnt-2-bg.png"
+    },
+    "478": {
+      "name": "BNT 3 Bulgaria",
+      "file": "img-af1dc93c01f8068e18e1.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/bulgaria/bnt-3-bg.png"
+    },
+    "648": {
+      "name": "Boomerang",
+      "file": "channel-648.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "737": {
+      "name": "BR Fernsehen DE",
+      "file": "img-18ffa476fae2de79ba36.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/germany/br-fernsehen-de.png"
+    },
+    "307": {
+      "name": "Bravo USA",
+      "file": "img-1e24af1734b17664d3b7.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/bravo-us.png"
+    },
+    "481": {
+      "name": "bTV Action Bulgaria",
+      "file": "img-2b87c292efc202a73149.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/bulgaria/btv-action-bg.png"
+    },
+    "479": {
+      "name": "bTV Bulgaria",
+      "file": "img-5fc84d48bfb302ae8b04.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/bulgaria/btv-bg.png"
+    },
+    "484": {
+      "name": "bTV Lady Bulgaria",
+      "file": "img-da9d7de782e2dc302386.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/bulgaria/btv-lady-bg.png"
+    },
+    "813": {
+      "name": "C More Hits Sweden",
+      "file": "channel-813.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "750": {
+      "name": "C SPAN 1",
+      "file": "img-42a6087741596d6f8c20.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/c-span-1-us.png"
+    },
+    "956": {
+      "name": "C8 France",
+      "file": "img-7373ec79e5881fd235a6.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/c8-fr.png"
+    },
+    "540": {
+      "name": "Canal 11 Portugal",
+      "file": "img-6a2f5c80152e6c4b6304.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/portugal/canal11-pt.png"
+    },
+    "805": {
+      "name": "CANAL 9 Denmark",
+      "file": "img-63066aab7cfe25548a1e.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/nordic/denmark/canal-9-dk.png"
+    },
+    "983": {
+      "name": "Canal+ Extra 1 Poland",
+      "file": "img-8bfe70dc748f1cd9d0da.png",
+      "placeholder": false,
+      "source_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Canal%2B_Extra_1.png/960px-Canal%2B_Extra_1.png"
+    },
+    "984": {
+      "name": "Canal+ Extra 2 Poland",
+      "file": "img-105b60ab0d853e746aa2.png",
+      "placeholder": false,
+      "source_url": "https://programtv.naziemna.info/images/tvstation/150x60/canalplusextra2.png"
+    },
+    "985": {
+      "name": "Canal+ Extra 3 Poland",
+      "file": "img-86a181e468001b4b28a8.png",
+      "placeholder": false,
+      "source_url": "https://programtv.naziemna.info/images/tvstation/150x60/canalplusextra3.png"
+    },
+    "986": {
+      "name": "Canal+ Extra 4 Poland",
+      "file": "img-0951af0c73147550b2fd.png",
+      "placeholder": false,
+      "source_url": "https://programtv.naziemna.info/images/tvstation/150x60/canalplusextra4.png"
+    },
+    "987": {
+      "name": "Canal+ Extra 5 Poland",
+      "file": "img-64ecb620eff9c54dd930.png",
+      "placeholder": false,
+      "source_url": "https://programtv.naziemna.info/images/tvstation/150x60/canalplusextra5.png"
+    },
+    "988": {
+      "name": "Canal+ Extra 6 Poland",
+      "file": "img-5f8d5ea9e2f6d57e79c7.png",
+      "placeholder": false,
+      "source_url": "https://programtv.naziemna.info/images/tvstation/150x60/canalplusextra6.png"
+    },
+    "989": {
+      "name": "Canal+ Extra 7 Poland",
+      "file": "img-0e83ea1aa8a86432450c.png",
+      "placeholder": false,
+      "source_url": "https://programtv.naziemna.info/images/tvstation/150x60/canalplusextra7.png"
+    },
+    "567": {
+      "name": "Canal+ Family Poland",
+      "file": "channel-567.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "463": {
+      "name": "Canal+ Foot France",
+      "file": "img-120c8fd3531b6dfadd3b.png",
+      "placeholder": false,
+      "source_url": "https://upload.wikimedia.org/wikipedia/commons/e/eb/Canal%2BFoot.png"
+    },
+    "273": {
+      "name": "Canal+ Formula 1",
+      "file": "img-4cb2c8b17c8f9411773a.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/wVCBBYM.png"
+    },
+    "121": {
+      "name": "Canal+ France",
+      "file": "img-d3d880259e3c8ed07d93.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/5HcyMnW.png"
+    },
+    "271": {
+      "name": "Canal+ MotoGP France",
+      "file": "img-1b9f14e48347e0a475c9.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/CnJE2M0.png"
+    },
+    "566": {
+      "name": "Canal+ Premium Poland",
+      "file": "img-dae857998a4d8ba426fa.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/J8qzBV1.png"
+    },
+    "570": {
+      "name": "Canal+ Seriale Poland",
+      "file": "img-53a436bec60891f7bf43.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/B55Rl3T.png"
+    },
+    "486": {
+      "name": "Canal+ Sport 1 Afrique",
+      "file": "channel-486.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "487": {
+      "name": "Canal+ Sport 2 Afrique",
+      "file": "channel-487.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "1043": {
+      "name": "Canal+ Sport 2 CZ",
+      "file": "channel-1043.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "73": {
+      "name": "Canal+ Sport 2 Poland",
+      "file": "img-e2fcb1b086fc9f420ed1.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/Aq2hnUj.png"
+    },
+    "1064": {
+      "name": "Canal+ Sport 2 SK",
+      "file": "channel-1064.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "488": {
+      "name": "Canal+ Sport 3 Afrique",
+      "file": "channel-488.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "1044": {
+      "name": "Canal+ Sport 3 CZ",
+      "file": "channel-1044.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "259": {
+      "name": "Canal+ Sport 3 Poland",
+      "file": "img-76d795f5d88817ac34ae.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/QZwPFa8.png"
+    },
+    "1065": {
+      "name": "Canal+ Sport 3 SK",
+      "file": "channel-1065.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "489": {
+      "name": "Canal+ Sport 4 Afrique",
+      "file": "channel-489.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "1045": {
+      "name": "Canal+ Sport 4 CZ",
+      "file": "channel-1045.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "1066": {
+      "name": "Canal+ Sport 4 SK",
+      "file": "channel-1066.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "490": {
+      "name": "Canal+ Sport 5 Afrique",
+      "file": "channel-490.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "1046": {
+      "name": "Canal+ Sport 5 CZ",
+      "file": "channel-1046.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "75": {
+      "name": "Canal+ Sport 5 Poland",
+      "file": "img-a4021b94c7f33166a439.png",
+      "placeholder": false,
+      "source_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/CANAL%2B_Sport_5.png/960px-CANAL%2B_Sport_5.png"
+    },
+    "1047": {
+      "name": "Canal+ Sport 6 CZ",
+      "file": "channel-1047.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "1048": {
+      "name": "Canal+ Sport 7 CZ",
+      "file": "channel-1048.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "1049": {
+      "name": "Canal+ Sport 8 CZ",
+      "file": "channel-1049.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "1020": {
+      "name": "Canal+ Sport CZ",
+      "file": "channel-1020.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "122": {
+      "name": "Canal+ Sport France",
+      "file": "img-3cce00513f660f55cf70.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/EOXnU15.png"
+    },
+    "48": {
+      "name": "Canal+ Sport Poland",
+      "file": "img-9d2d297d230c9d447a5e.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/E0WTMa2.png"
+    },
+    "1063": {
+      "name": "Canal+ Sport SK",
+      "file": "channel-1063.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "464": {
+      "name": "Canal+ Sport360",
+      "file": "img-78cf9f65b4fdecf4256d.png",
+      "placeholder": false,
+      "source_url": "https://upload.wikimedia.org/wikipedia/commons/6/64/Canal%2BSport_360.png"
+    },
+    "936": {
+      "name": "Canal5 MX",
+      "file": "img-2814ca65f22fa6574ab4.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/mexico/canal-5-mx.png"
+    },
+    "339": {
+      "name": "Cartoon Network",
+      "file": "channel-339.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "832": {
+      "name": "CBC CA",
+      "file": "img-1a49c139aa80d91c205b.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/canada/cbc-ca.png"
+    },
+    "910": {
+      "name": "CBS Sports Golazo",
+      "file": "channel-910.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "308": {
+      "name": "CBS Sports Network (CBSSN)",
+      "file": "img-595c138df39bad7ccbb1.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/cbs-sports-network-us.png"
+    },
+    "52": {
+      "name": "CBS USA",
+      "file": "img-99e9db81716de1a6338e.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/cbs-logo-white-us.png"
+    },
+    "767": {
+      "name": "CBSNY USA",
+      "file": "img-99e9db81716de1a6338e.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/cbs-logo-white-us.png"
+    },
+    "547": {
+      "name": "Channel 10 Israe",
+      "file": "channel-547.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "548": {
+      "name": "Channel 11 Israel",
+      "file": "channel-548.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "549": {
+      "name": "Channel 12 Israel",
+      "file": "channel-549.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "551": {
+      "name": "Channel 13 Israel",
+      "file": "img-073040cf499a5dd174e1.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/eFM3bTq.png"
+    },
+    "552": {
+      "name": "Channel 14 Israel",
+      "file": "img-18e3c49398c6af22d3b5.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/israel/channel14-il.png"
+    },
+    "354": {
+      "name": "Channel 4 UK",
+      "file": "img-af3bd69b3e8129b8bc0e.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/channel-4-uk.png"
+    },
+    "355": {
+      "name": "Channel 5 UK",
+      "file": "img-66839b6818e185d914e9.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/channel-5-uk.png"
+    },
+    "546": {
+      "name": "Channel 9 Israel",
+      "file": "img-c4765e94fd9a4a5db348.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/israel/channel9-il.png"
+    },
+    "776": {
+      "name": "Chicago Sports Network",
+      "file": "img-41a4019f20ce1b9fb3e3.png",
+      "placeholder": false,
+      "source_url": "https://upload.wikimedia.org/wikipedia/commons/6/68/Chicago_Sports_Network_Logo.png"
+    },
+    "374": {
+      "name": "Cinemax USA",
+      "file": "img-51f6188e290e0254a9d7.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/cinemax-us.png"
+    },
+    "831": {
+      "name": "Citytv",
+      "file": "channel-831.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "933": {
+      "name": "Claro Sports MX",
+      "file": "img-1cc241a6f51aa5ebfe2c.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/n0kd17r.png"
+    },
+    "715": {
+      "name": "Cleo TV",
+      "file": "img-8854224dcf3a092717ec.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/US0T6DC.png"
+    },
+    "647": {
+      "name": "CMT USA",
+      "file": "img-c97633ffd64f7f814b3e.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/cmt-us.png"
+    },
+    "790": {
+      "name": "CMTV Portugal",
+      "file": "img-f0dbb4e2968f5bcfd3af.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/portugal/cmtv-pt.png"
+    },
+    "309": {
+      "name": "CNBC USA",
+      "file": "img-e5a7715fbccafb96e69f.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/cnbc-us.png"
+    },
+    "964": {
+      "name": "CNews France",
+      "file": "img-5d252484290ad11eb2af.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/c-news-fr.png"
+    },
+    "345": {
+      "name": "CNN USA",
+      "file": "img-3468c95ed0a8fbe1f4ea.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/cnn-us.png"
+    },
+    "89": {
+      "name": "Combate Brasil",
+      "file": "img-ee1e6c6f3405cd27647f.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/ZPYK5jr.png"
+    },
+    "310": {
+      "name": "Comedy Central",
+      "file": "channel-310.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "696": {
+      "name": "Comet USA",
+      "file": "img-b85171a5a4288eacfe07.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/comet-us.png"
+    },
+    "697": {
+      "name": "Cooking Channel USA",
+      "file": "img-10f1dd06758fa2151bd2.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/cooking-channel-us.png"
+    },
+    "281": {
+      "name": "Court TV USA",
+      "file": "img-4e8e158b7be788e53000.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/court-tv-us.png"
+    },
+    "748": {
+      "name": "COZI TV USA",
+      "file": "img-2c9db13ff6bb43148527.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/cozi-tv-us.png"
+    },
+    "669": {
+      "name": "Crime+ Investigation USA",
+      "file": "channel-669.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "1033": {
+      "name": "CT Sport CZ",
+      "file": "img-2991c4cc4e863e94292d.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/czech-republic/ct-sport-cz.png"
+    },
+    "1035": {
+      "name": "CT1 HD CZ",
+      "file": "img-9d8310ff5e0cc08b970a.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/czech-republic/ct1-cz.png"
+    },
+    "1036": {
+      "name": "CT2 HD CZ",
+      "file": "img-67a679d6220ec349fdbc.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/czech-republic/ct2-cz.png"
+    },
+    "838": {
+      "name": "CTV 2 Canada",
+      "file": "img-c2ab87433fd9ae26a6b4.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/canada/ctv-2-ca.png"
+    },
+    "602": {
+      "name": "CTV Canada",
+      "file": "img-9c9ca552af1e885deaad.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/canada/ctv-ca.png"
+    },
+    "535": {
+      "name": "Cuatro Spain",
+      "file": "img-dc6556e4ebba25c3f1c3.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/spain/cuatro-es.png"
+    },
+    "866": {
+      "name": "CW Philly",
+      "file": "img-a83368eaf112a11b4f71.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/cw-us.png"
+    },
+    "280": {
+      "name": "CW PIX 11 USA",
+      "file": "img-a83368eaf112a11b4f71.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/cw-us.png"
+    },
+    "300": {
+      "name": "CW USA",
+      "file": "img-a83368eaf112a11b4f71.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/cw-us.png"
+    },
+    "911": {
+      "name": "Cytavision Sports 1 Cyprus",
+      "file": "channel-911.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "912": {
+      "name": "Cytavision Sports 2 Cyprus",
+      "file": "channel-912.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "913": {
+      "name": "Cytavision Sports 3 Cyprus",
+      "file": "channel-913.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "914": {
+      "name": "Cytavision Sports 4 Cyprus",
+      "file": "channel-914.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "915": {
+      "name": "Cytavision Sports 5 Cyprus",
+      "file": "channel-915.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "916": {
+      "name": "Cytavision Sports 6 Cyprus",
+      "file": "channel-916.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "917": {
+      "name": "Cytavision Sports 7 Cyprus",
+      "file": "channel-917.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "1051": {
+      "name": "Dajto SK",
+      "file": "channel-1051.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "348": {
+      "name": "Dave",
+      "file": "channel-348.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "426": {
+      "name": "DAZN 1 Bar DE",
+      "file": "img-74713332f916ae4ca39a.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/germany/dazn-de.png"
+    },
+    "445": {
+      "name": "DAZN 1 Spain",
+      "file": "img-416a275b480afddf2325.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/spain/dazn-1-es.png"
+    },
+    "230": {
+      "name": "DAZN 1 UK",
+      "file": "img-66b65528b5d8a5c32f2f.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/dazn1-uk.png"
+    },
+    "427": {
+      "name": "DAZN 2 Bar DE",
+      "file": "img-74713332f916ae4ca39a.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/germany/dazn-de.png"
+    },
+    "446": {
+      "name": "DAZN 2 Spain",
+      "file": "img-c100d9dfa1e41288c001.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/spain/dazn-2-es.png"
+    },
+    "447": {
+      "name": "DAZN 3 Spain",
+      "file": "img-60e26fa1df77cbf3db41.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/spain/dazn-3-es.png"
+    },
+    "448": {
+      "name": "DAZN 4 Spain",
+      "file": "img-0811ff6aaa9399dfbaa5.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/spain/dazn-4-es.png"
+    },
+    "537": {
+      "name": "DAZN F1 ES",
+      "file": "img-9dc6582fc1544a9848c9.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/spain/dazn-f1-es.png"
+    },
+    "538": {
+      "name": "DAZN LaLiga",
+      "file": "img-584ca51972cfe4389326.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/spain/dazn-laliga-es.png"
+    },
+    "960": {
+      "name": "DAZN Ligue 1 France",
+      "file": "channel-960.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "918": {
+      "name": "DAZN Portugal FIFA Mundial de Clubes",
+      "file": "channel-918.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "877": {
+      "name": "DAZN ZONA Italy",
+      "file": "channel-877.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "651": {
+      "name": "Destination America",
+      "file": "img-161488d64c080923dbb2.png",
+      "placeholder": false,
+      "source_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Destination_America_logo.svg/960px-Destination_America_logo.svg.png"
+    },
+    "482": {
+      "name": "Diema Bulgaria",
+      "file": "img-cbdb0fd1bdd1d8845d12.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/bulgaria/diema-bg.png"
+    },
+    "485": {
+      "name": "Diema Family Bulgaria",
+      "file": "img-93f62457e613dc0a898b.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/bulgaria/diema-family-bg.png"
+    },
+    "466": {
+      "name": "Diema Sport 2 Bulgaria",
+      "file": "img-6a8c84a9e097c1bfb658.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/bulgaria/diema-sport2-4k-bg.png"
+    },
+    "467": {
+      "name": "Diema Sport 3 Bulgaria",
+      "file": "img-f7636df7a0efe05f7322.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/bulgaria/diema-sport3-4k-bg.png"
+    },
+    "465": {
+      "name": "Diema Sport Bulgaria",
+      "file": "img-5a4c821176a662d7dcd3.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/bulgaria/diema-sport-hd-bg.png"
+    },
+    "400": {
+      "name": "Digi Sport 1 Romania",
+      "file": "img-f311a66f0f170e008e6c.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/romania/digi-sport-1-ro.png"
+    },
+    "401": {
+      "name": "Digi Sport 2 Romania",
+      "file": "img-edcffc7c88bcc6cb3c16.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/romania/digi-sport-2-ro.png"
+    },
+    "402": {
+      "name": "Digi Sport 3 Romania",
+      "file": "img-8dbd46d8f0ed01a25283.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/romania/digi-sport-3-ro.png"
+    },
+    "403": {
+      "name": "Digi Sport 4 Romania",
+      "file": "img-b9468ee299825dd1c94a.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/romania/digi-sport-4-ro.png"
+    },
+    "313": {
+      "name": "Discovery Channel",
+      "file": "channel-313.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "657": {
+      "name": "Discovery Family",
+      "file": "img-4a9eb05b4e42b661bec1.png",
+      "placeholder": false,
+      "source_url": "https://i.ibb.co/CK3VrYmc/IMG-2812.png"
+    },
+    "311": {
+      "name": "Discovery Life Channel",
+      "file": "channel-311.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "661": {
+      "name": "Discovery Turbo",
+      "file": "channel-661.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "285": {
+      "name": "Discovery Velocity CA",
+      "file": "img-37492ceb1026884ba90b.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/canada/discovery-velocity-ca.png"
+    },
+    "312": {
+      "name": "Disney Channel",
+      "file": "channel-312.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "652": {
+      "name": "Disney JR",
+      "file": "channel-652.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "314": {
+      "name": "Disney XD",
+      "file": "channel-314.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "801": {
+      "name": "DR1 Denmark",
+      "file": "img-c9918bbea26d68eee364.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/nordic/denmark/dr1-dk.png"
+    },
+    "802": {
+      "name": "DR2 Denmark",
+      "file": "img-95d8c5f1c29648120ee2.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/nordic/denmark/dr2-dk.png"
+    },
+    "828": {
+      "name": "DSTV kykNET & kie",
+      "file": "channel-828.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "827": {
+      "name": "DSTV M-Net",
+      "file": "channel-827.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "786": {
+      "name": "DSTV Mzansi Magic",
+      "file": "channel-786.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "608": {
+      "name": "Dubai Racing 2 UAE",
+      "file": "channel-608.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "604": {
+      "name": "Dubai Sports 1 UAE",
+      "file": "channel-604.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "605": {
+      "name": "Dubai Sports 2 UAE",
+      "file": "channel-605.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "606": {
+      "name": "Dubai Sports 3 UAE",
+      "file": "channel-606.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "315": {
+      "name": "E! Entertainment Television",
+      "file": "channel-315.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "363": {
+      "name": "E4 Channel",
+      "file": "channel-363.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "71": {
+      "name": "Eleven Sports 1 Poland",
+      "file": "channel-71.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "455": {
+      "name": "Eleven Sports 1 Portugal",
+      "file": "img-e65296401be293b122ef.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/portugal/eleven-sports-1-pt.png"
+    },
+    "72": {
+      "name": "Eleven Sports 2 Poland",
+      "file": "img-3109142e8f43a918d3f2.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/bTIRgqG.png"
+    },
+    "456": {
+      "name": "Eleven Sports 2 Portugal",
+      "file": "img-c443530a4751d4fd4e00.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/portugal/eleven-sports-2-pt.png"
+    },
+    "428": {
+      "name": "Eleven Sports 3 Poland",
+      "file": "img-fbadee63cfc79b37e226.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/bWjGol4.png"
+    },
+    "457": {
+      "name": "Eleven Sports 3 Portugal",
+      "file": "img-8d2b912ac0a91ad9a1e9.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/portugal/eleven-sports-3-pt.png"
+    },
+    "999": {
+      "name": "Eleven Sports 4 Poland",
+      "file": "img-6c4b756f06c8ee69571b.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/SEKXaAW.png"
+    },
+    "458": {
+      "name": "Eleven Sports 4 Portugal",
+      "file": "img-54826332f9db2531aa27.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/portugal/eleven-sports-4-pt.png"
+    },
+    "459": {
+      "name": "Eleven Sports 5 Portugal",
+      "file": "img-43407c9329fb6291d27b.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/portugal/eleven-sports-5-pt.png"
+    },
+    "774": {
+      "name": "ERT 1 Greece",
+      "file": "img-317829be1ec9081e8244.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/greece/ert1-gr.png"
+    },
+    "925": {
+      "name": "ESPN 1 MX",
+      "file": "channel-925.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "379": {
+      "name": "ESPN 1 NL",
+      "file": "img-630a711ce66b756411ea.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/netherlands/espn-nl.png"
+    },
+    "926": {
+      "name": "ESPN 2 MX",
+      "file": "channel-926.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "386": {
+      "name": "ESPN 2 NL",
+      "file": "img-a4ad375da1da5cf07893.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/netherlands/espn-2-nl.png"
+    },
+    "927": {
+      "name": "ESPN 3 MX",
+      "file": "channel-927.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "888": {
+      "name": "ESPN 3 NL",
+      "file": "img-1407f0817f9998194a24.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/netherlands/espn-3-nl.png"
+    },
+    "928": {
+      "name": "ESPN 4 MX",
+      "file": "channel-928.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "149": {
+      "name": "ESPN Argentina",
+      "file": "img-2210af008cecb1f77489.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/argentina/espn-ar.png"
+    },
+    "81": {
+      "name": "ESPN Brasil",
+      "file": "img-31a715ff3dad054be7ff.png",
+      "placeholder": false,
+      "source_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/ESPN_wordmark.svg/960px-ESPN_wordmark.svg.png"
+    },
+    "375": {
+      "name": "ESPN Deportes",
+      "file": "img-59b8871136ccd5fc07da.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/espn-deportes-us.png"
+    },
+    "387": {
+      "name": "ESPN Premium Argentina",
+      "file": "img-d01ad88adddbe7ba032a.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/argentina/espn-premium-ar.png"
+    },
+    "44": {
+      "name": "ESPN USA",
+      "file": "img-a278811df0f6bc98c2ff.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/espn-us.png"
+    },
+    "150": {
+      "name": "ESPN2 Argentina",
+      "file": "img-a54742cdd05fa02d16bc.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/argentina/espn-2-ar.png"
+    },
+    "82": {
+      "name": "ESPN2 Brasil",
+      "file": "channel-82.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "45": {
+      "name": "ESPN2 USA",
+      "file": "img-fffb4852c41db1006811.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/espn-2-us.png"
+    },
+    "798": {
+      "name": "ESPN3 Argentina",
+      "file": "img-e115f7875b43d9a51f74.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/argentina/espn-3-ar.png"
+    },
+    "83": {
+      "name": "ESPN3 Brasil",
+      "file": "img-fb45567d52fd874ef991.png",
+      "placeholder": false,
+      "source_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/ESPN3_Logo.png/960px-ESPN3_Logo.png"
+    },
+    "85": {
+      "name": "ESPN4 Brasil",
+      "file": "img-5239545379c27adc2e2b.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/brazil/espn-4-br.png"
+    },
+    "288": {
+      "name": "ESPNews",
+      "file": "img-ecaaf5f2460a55df63b4.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/espnews-us.png"
+    },
+    "316": {
+      "name": "ESPNU USA",
+      "file": "img-8222d2e563c04fb424e0.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/espn-u-us.png"
+    },
+    "772": {
+      "name": "Eurosport 1 France",
+      "file": "img-acf284ebdabc346dd489.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/eurosport-1-fr.png"
+    },
+    "41": {
+      "name": "EuroSport 1 Greece",
+      "file": "channel-41.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "878": {
+      "name": "EuroSport 1 Italy",
+      "file": "channel-878.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "233": {
+      "name": "Eurosport 1 NL",
+      "file": "img-753f6311fe4c167bc1e8.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/netherlands/eurosport-1-nl.png"
+    },
+    "57": {
+      "name": "EuroSport 1 Poland",
+      "file": "channel-57.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "524": {
+      "name": "EuroSport 1 Spain",
+      "file": "img-04344a7c4779e41aff24.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/spain/eurosport-1-es.png"
+    },
+    "231": {
+      "name": "Eurosport 1 SW",
+      "file": "channel-231.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "773": {
+      "name": "Eurosport 2 France",
+      "file": "img-2801a73a2a11879477c0.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/eurosport-2-fr.png"
+    },
+    "42": {
+      "name": "EuroSport 2 Greece",
+      "file": "channel-42.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "879": {
+      "name": "EuroSport 2 Italy",
+      "file": "channel-879.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "234": {
+      "name": "Eurosport 2 NL",
+      "file": "img-f9c052d9b7d2660977ee.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/netherlands/eurosport-2-nl.png"
+    },
+    "58": {
+      "name": "EuroSport 2 Poland",
+      "file": "channel-58.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "525": {
+      "name": "EuroSport 2 Spain",
+      "file": "img-8108c0d6350546c57517.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/spain/eurosport-2-es.png"
+    },
+    "232": {
+      "name": "Eurosport 2 SW",
+      "file": "channel-232.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "890": {
+      "name": "FanDuel Sports Network Arizona",
+      "file": "channel-890.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "896": {
+      "name": "FanDuel Sports Network Midwest",
+      "file": "img-ceb22f096742695223ea.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/EjqmI1v.png"
+    },
+    "897": {
+      "name": "FanDuel Sports Network New Orleans",
+      "file": "channel-897.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "898": {
+      "name": "FanDuel Sports Network North",
+      "file": "img-2139c0d7d16d252907e5.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/VCy962a.png"
+    },
+    "899": {
+      "name": "FanDuel Sports Network Ohio",
+      "file": "img-447ae22891e5265287db.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/dcNrFyg.png"
+    },
+    "900": {
+      "name": "FanDuel Sports Network Oklahoma",
+      "file": "img-120fdf979ffaa98c3eb4.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/iUZ7jIx.png"
+    },
+    "902": {
+      "name": "FanDuel Sports Network SoCal",
+      "file": "channel-902.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "903": {
+      "name": "FanDuel Sports Network South",
+      "file": "img-bf87d41af027f92c8ec1.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/gU37xzJ.png"
+    },
+    "904": {
+      "name": "FanDuel Sports Network Southeast",
+      "file": "img-ef3291d9bcbd8174ab30.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/BUmngwB.png"
+    },
+    "905": {
+      "name": "FanDuel Sports Network Sun",
+      "file": "img-81c710d92234e3391708.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/TvrHLaH.png"
+    },
+    "906": {
+      "name": "FanDuel Sports Network West",
+      "file": "img-d4ccd356ea15c20574b6.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/0s0Vc5X.png"
+    },
+    "907": {
+      "name": "FanDuel Sports Network Wisconsin",
+      "file": "img-8522b2d48dc795fdaea0.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/w7pVHNW.png"
+    },
+    "744": {
+      "name": "Fashion TV",
+      "file": "channel-744.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "751": {
+      "name": "FETV - Family Entertainment Television",
+      "file": "channel-751.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "757": {
+      "name": "Fight Network",
+      "file": "img-7783e5eb63dbfa3fa7b4.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/vlKPZHR.png"
+    },
+    "688": {
+      "name": "Film4 UK",
+      "file": "img-6a13ef702306f0013946.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/film-4-uk.png"
+    },
+    "568": {
+      "name": "FilmBox Premium Poland",
+      "file": "img-a7df67415b28e078730a.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/poland/filmbox-premium-pl.png"
+    },
+    "297": {
+      "name": "Fox Business",
+      "file": "img-77d941606b58fe757803.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/fox-business-us.png"
+    },
+    "369": {
+      "name": "Fox Cricket",
+      "file": "img-652d532c5a2d0dc18eed.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/V8hb6tJ.png"
+    },
+    "643": {
+      "name": "FOX Deportes USA",
+      "file": "img-e70e25c80219aa48fe61.png",
+      "placeholder": false,
+      "source_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/FOX_Deportes_logo.png/960px-FOX_Deportes_logo.png"
+    },
+    "483": {
+      "name": "FOX HD Bulgaria",
+      "file": "channel-483.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "347": {
+      "name": "Fox News",
+      "file": "img-11e74244a6fcae6489a9.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/fox-news-us.png"
+    },
+    "756": {
+      "name": "FOX Soccer Plus",
+      "file": "img-3f693991b00328b8038f.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/fox-soccer-plus-us.png"
+    },
+    "929": {
+      "name": "Fox Sports 1 MX",
+      "file": "channel-929.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "39": {
+      "name": "Fox Sports 1 USA",
+      "file": "img-77f0f24ce12e59c942b4.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/fox-sports-1-us.png"
+    },
+    "788": {
+      "name": "Fox Sports 2 Argentina",
+      "file": "img-e1adccdc0cdb2aa59963.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/argentina/fox-sports-2-ar.png"
+    },
+    "930": {
+      "name": "Fox Sports 2 MX",
+      "file": "channel-930.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "758": {
+      "name": "Fox Sports 2 USA",
+      "file": "img-0450a798ef7d74b58a50.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/fox-sports-2-us.png"
+    },
+    "789": {
+      "name": "Fox Sports 3 Argentina",
+      "file": "img-3e836830c74d530df41b.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/argentina/fox-sports-3-ar.png"
+    },
+    "931": {
+      "name": "Fox Sports 3 MX",
+      "file": "channel-931.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "820": {
+      "name": "FOX Sports 502 AU",
+      "file": "channel-820.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "821": {
+      "name": "FOX Sports 503 AU",
+      "file": "img-295326334d01daa4ee3a.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/australia/fox-sports-503-au.png"
+    },
+    "822": {
+      "name": "FOX Sports 504 AU",
+      "file": "channel-822.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "823": {
+      "name": "FOX Sports 505 AU",
+      "file": "img-44439f38582409d980b9.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/australia/fox-sports-505-au.png"
+    },
+    "824": {
+      "name": "FOX Sports 506 AU",
+      "file": "img-d067034296be5ef3798e.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/australia/fox-sports-506-au.png"
+    },
+    "825": {
+      "name": "FOX Sports 507 AU",
+      "file": "img-f5b56e468f5ab651d1b0.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/australia/fox-sports-507-au.png"
+    },
+    "787": {
+      "name": "Fox Sports Argentina",
+      "file": "img-cca3a38da987e56b70ee.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/argentina/fox-sports-ar.png"
+    },
+    "830": {
+      "name": "Fox Sports Premium MX",
+      "file": "img-001cf5471553c5de5b44.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/mexico/fox-sports-premium-mx.png"
+    },
+    "54": {
+      "name": "FOX USA",
+      "file": "img-84cd73653c8ea2140bec.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/fox-us.png"
+    },
+    "775": {
+      "name": "Fox Weather Channel",
+      "file": "img-e42c26039b3473e9866f.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/fox-weather-us.png"
+    },
+    "768": {
+      "name": "FOXNY USA",
+      "file": "img-84cd73653c8ea2140bec.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/fox-us.png"
+    },
+    "950": {
+      "name": "France 2",
+      "file": "img-c64a8a2f17f2a8e977ba.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/france-2-fr.png"
+    },
+    "951": {
+      "name": "France 3",
+      "file": "img-46c4647d7db99b7ff625.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/france-3-fr.png"
+    },
+    "952": {
+      "name": "France 4",
+      "file": "img-b65d1592b323c39b3e18.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/france-4-fr.png"
+    },
+    "953": {
+      "name": "France 5",
+      "file": "img-8b05d979ead8624c6ca0.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/france-5-fr.png"
+    },
+    "301": {
+      "name": "Freeform",
+      "file": "img-ba3e5a102291823898c5.png",
+      "placeholder": false,
+      "source_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Freeform_2022_pink.svg/1920px-Freeform_2022_pink.svg.png"
+    },
+    "279": {
+      "name": "FUSE TV USA",
+      "file": "channel-279.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "381": {
+      "name": "FX Movie Channel",
+      "file": "img-ecd0249ec2c8c514d892.png",
+      "placeholder": false,
+      "source_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/FX_Movies_logo.svg/960px-FX_Movies_logo.svg.png"
+    },
+    "317": {
+      "name": "FX USA",
+      "file": "img-8e575a828245745554eb.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/fx-us.png"
+    },
+    "298": {
+      "name": "FXX USA",
+      "file": "img-e877e9f3ef8c57f441b8.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/fxx-us.png"
+    },
+    "665": {
+      "name": "FYI",
+      "file": "img-dace90973eadc973f92f.png",
+      "placeholder": false,
+      "source_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/FYI%2C_logo.svg/960px-FYI%2C_logo.svg.png"
+    },
+    "743": {
+      "name": "Galavisi贸n USA",
+      "file": "channel-743.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "319": {
+      "name": "Game Show Network",
+      "file": "img-f82fc49ab07085500aff.png",
+      "placeholder": false,
+      "source_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Game_Show_Network_2018.svg/960px-Game_Show_Network_2018.svg.png"
+    },
+    "836": {
+      "name": "Global CA",
+      "file": "img-41d5835cf40c7be9b433.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/canada/global-ca.png"
+    },
+    "761": {
+      "name": "Globo RIO",
+      "file": "channel-761.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "760": {
+      "name": "Globo SP",
+      "file": "channel-760.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "530": {
+      "name": "GOL PLAY Spain",
+      "file": "img-11f3ac7c22019b29e384.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/spain/gol-play-es.png"
+    },
+    "687": {
+      "name": "Gold UK",
+      "file": "img-9fd559a3b9e7d350e20d.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/gold-uk.png"
+    },
+    "318": {
+      "name": "GOLF Channel USA",
+      "file": "img-7f160c1f94b9487ea98a.png",
+      "placeholder": false,
+      "source_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Golf_Channel_logo_2025.svg/960px-Golf_Channel_logo_2025.svg.png"
+    },
+    "699": {
+      "name": "Great American Family Channel (GAC)",
+      "file": "channel-699.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "752": {
+      "name": "Grit Channel",
+      "file": "channel-752.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "296": {
+      "name": "Hallmark Movies & Mysterie",
+      "file": "channel-296.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "846": {
+      "name": "Happy TV Serbia",
+      "file": "img-7591bb8c98206c41c20f.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/serbia/happy-tv-rs.png"
+    },
+    "690": {
+      "name": "HBO Comedy USA",
+      "file": "img-657fe568f6a3e8039934.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hbo-comedy-us.png"
+    },
+    "691": {
+      "name": "HBO Family USA",
+      "file": "img-70535fc9685c87f83449.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hbo-family-us.png"
+    },
+    "692": {
+      "name": "HBO Latino USA",
+      "file": "img-89ccccb8686426c1d86c.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hbo-latino-us.png"
+    },
+    "569": {
+      "name": "HBO Poland",
+      "file": "img-5c9ec6a427bb73d391ae.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/poland/hbo-pl.png"
+    },
+    "693": {
+      "name": "HBO Signature USA",
+      "file": "img-74bbdb856683521fa2a4.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hd/hbo-signature-hd-us.png"
+    },
+    "321": {
+      "name": "HBO USA",
+      "file": "img-0d985522a56459a112dc.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hbo-us.png"
+    },
+    "694": {
+      "name": "HBO Zone USA",
+      "file": "img-491503615c9c13fd779a.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hd/hbo-zone-hd-us.png"
+    },
+    "689": {
+      "name": "HBO2 USA",
+      "file": "img-9657f1bcfedceb845400.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/hd/hbo-2-hd-us.png"
+    },
+    "323": {
+      "name": "Headline News",
+      "file": "channel-323.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "282": {
+      "name": "Heroes & Icons (H&I) USA",
+      "file": "img-c7fc5814a802d0dd07c9.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/heroes-and-icons-us.png"
+    },
+    "382": {
+      "name": "HGTV",
+      "file": "channel-382.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "322": {
+      "name": "History USA",
+      "file": "img-e7eb0f29d9c485694810.png",
+      "placeholder": false,
+      "source_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/History_%282021%29.svg/500px-History_%282021%29.svg.png"
+    },
+    "553": {
+      "name": "HOT3 Israel",
+      "file": "img-77c5cefd3112bbe1ae2c.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/israel/hot3-il.png"
+    },
+    "656": {
+      "name": "IFC TV USA",
+      "file": "channel-656.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "324": {
+      "name": "Investigation Discovery (ID USA)",
+      "file": "img-36ec6624ecec6c47cf7f.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/investigation-discovery-us.png"
+    },
+    "325": {
+      "name": "ION USA",
+      "file": "channel-325.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "854": {
+      "name": "Italia 1 Italy",
+      "file": "channel-854.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "350": {
+      "name": "ITV 1 UK",
+      "file": "img-f7d3a1dd242c48225995.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/itv-1-uk.png"
+    },
+    "351": {
+      "name": "ITV 2 UK",
+      "file": "img-26249966cc1f294d0348.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/itv-2-uk.png"
+    },
+    "352": {
+      "name": "ITV 3 UK",
+      "file": "img-6d7cbf55fbe96ab70437.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/itv-3-uk.png"
+    },
+    "353": {
+      "name": "ITV 4 UK",
+      "file": "img-93d1bd21117658f29df8.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/itv-4-uk.png"
+    },
+    "876": {
+      "name": "ITV Quiz",
+      "file": "img-54ff2ecf917911c8c3b7.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/itv-quiz-uk.png"
+    },
+    "1050": {
+      "name": "JOJ SK",
+      "file": "img-9064c9334c12f340eb8b.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/slovakia/joj-sk.png"
+    },
+    "1052": {
+      "name": "JOJ Šport SK",
+      "file": "img-91d4efa124c6f8344ced.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/slovakia/joj-sport-sk.png"
+    },
+    "731": {
+      "name": "Kabel Eins (Kabel 1) DE",
+      "file": "img-b710b323a2c109a9ebeb.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/germany/kabel-eins-de.png"
+    },
+    "803": {
+      "name": "Kanal 4 Denmark",
+      "file": "img-1431a4cc2c843d3a838f.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/nordic/denmark/kanal-4-dk.png"
+    },
+    "804": {
+      "name": "Kanal 5 Denmark",
+      "file": "img-9965654f8519fa227bb3.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/nordic/denmark/kanal-5-dk.png"
+    },
+    "1001": {
+      "name": "Kanal D Turkey",
+      "file": "img-b170d0acaf2406ab1955.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/turkey/kanal-d-tr.png"
+    },
+    "645": {
+      "name": "L'Equipe France",
+      "file": "img-f0265cfe2251d092bd8d.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/lequipe-fr.png"
+    },
+    "534": {
+      "name": "La Sexta Spain",
+      "file": "img-b6865051374c95c23e49.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/spain/lasexta-es.png"
+    },
+    "855": {
+      "name": "La7 Italy",
+      "file": "img-c5c058ead336dbf62fbb.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/italy/la7-it.png"
+    },
+    "856": {
+      "name": "LA7d HD+ Italy",
+      "file": "img-377599c9f4b25963f0ad.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/italy/la7d-it.png"
+    },
+    "539": {
+      "name": "LaLiga SmartBank TV",
+      "file": "channel-539.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "276": {
+      "name": "LaLigaTV UK",
+      "file": "img-4adc0770bf0ab5a7a239.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/laliga-tv-uk.png"
+    },
+    "924": {
+      "name": "Las Estrellas",
+      "file": "img-1b6ac85ed313b524395a.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/g5ShxZ7.png"
+    },
+    "278": {
+      "name": "Law & Crime Network",
+      "file": "channel-278.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "962": {
+      "name": "LCI France",
+      "file": "img-dca0268287fc5fa4b9b0.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/lci-fr.png"
+    },
+    "389": {
+      "name": "Lifetime Movies Network",
+      "file": "channel-389.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "326": {
+      "name": "Lifetime Network",
+      "file": "channel-326.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "826": {
+      "name": "Liverpool TV (LFC TV)",
+      "file": "channel-826.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "849": {
+      "name": "Logo TV USA",
+      "file": "channel-849.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "265": {
+      "name": "M4 Sports Hungary",
+      "file": "img-7e7136c5deb5860d172a.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/hungary/m4-sport-hu.png"
+    },
+    "470": {
+      "name": "M6 France",
+      "file": "img-379add1a0e32e5017fc2.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/m6-fr.png"
+    },
+    "622": {
+      "name": "Magenta Sport 1 HD",
+      "file": "channel-622.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "623": {
+      "name": "Magenta Sport 2 HD",
+      "file": "channel-623.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "624": {
+      "name": "Magenta Sport 3 HD",
+      "file": "channel-624.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "625": {
+      "name": "Magenta Sport 4 HD",
+      "file": "channel-625.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "626": {
+      "name": "Magenta Sport 5 HD",
+      "file": "channel-626.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "627": {
+      "name": "Magenta Sport 6 HD",
+      "file": "channel-627.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "628": {
+      "name": "Magenta Sport 7 HD",
+      "file": "channel-628.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "629": {
+      "name": "Magenta Sport 8 HD",
+      "file": "channel-629.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "630": {
+      "name": "Magenta Sport 9 HD",
+      "file": "channel-630.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "299": {
+      "name": "Magnolia Network",
+      "file": "channel-299.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "770": {
+      "name": "Marquee Sports Network",
+      "file": "img-84f5ce0d86d33a49a0c6.png",
+      "placeholder": false,
+      "source_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Marquee_Sports_Network_Logo.svg/960px-Marquee_Sports_Network_Logo.svg.png"
+    },
+    "829": {
+      "name": "MASN USA",
+      "file": "img-7d57e59076fc21977c1a.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/masn-us.png"
+    },
+    "136": {
+      "name": "Match Football 1 Russia",
+      "file": "channel-136.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "137": {
+      "name": "Match Football 2 Russia",
+      "file": "channel-137.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "138": {
+      "name": "Match Football 3 Russia",
+      "file": "channel-138.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "573": {
+      "name": "Match Premier Russia",
+      "file": "img-3a96d60950c36753fa3a.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/russia/match-premier-ru.png"
+    },
+    "127": {
+      "name": "Match TV Russia",
+      "file": "channel-127.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "472": {
+      "name": "Max Sport 1 Bulgaria",
+      "file": "img-a5e0b9909a30e9171e49.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/bulgaria/max-sport-1-bg.png"
+    },
+    "779": {
+      "name": "Max Sport 1 Croatia",
+      "file": "img-a59f9f2167d045dab540.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/croatia/maxsport1-hr.png"
+    },
+    "473": {
+      "name": "Max Sport 2 Bulgaria",
+      "file": "img-640ccdda65ffd396614d.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/bulgaria/max-sport-2-bg.png"
+    },
+    "780": {
+      "name": "Max Sport 2 Croatia",
+      "file": "img-b8ee51b9f7ae379f6ab2.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/croatia/maxsport2-hr.png"
+    },
+    "474": {
+      "name": "Max Sport 3 Bulgaria",
+      "file": "img-ed20773296c803f6943f.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/bulgaria/max-sport-3-bg.png"
+    },
+    "475": {
+      "name": "Max Sport 4 Bulgaria",
+      "file": "img-8db54a157c77a143b814.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/bulgaria/max-sport-4-bg.png"
+    },
+    "733": {
+      "name": "MDR DE",
+      "file": "img-8245b1ed8d905be4968b.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/germany/mdr-de.png"
+    },
+    "662": {
+      "name": "METV USA",
+      "file": "img-033ec8edc459824b6835.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/me-tv-us.png"
+    },
+    "791": {
+      "name": "MGM+ USA / Epix",
+      "file": "channel-791.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "399": {
+      "name": "MLB Network USA",
+      "file": "img-83a143475883a3727ca7.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/mlb-network-us.png"
+    },
+    "778": {
+      "name": "Monumental Sports Network",
+      "file": "channel-778.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "563": {
+      "name": "Motowizja Poland",
+      "file": "img-4205e9aa536aa7f47685.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/poland/motowizja-pl.png"
+    },
+    "438": {
+      "name": "Movistar Deportes 2 Spain",
+      "file": "channel-438.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "526": {
+      "name": "Movistar Deportes 3 Spain",
+      "file": "channel-526.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "527": {
+      "name": "Movistar Deportes 4 Spain",
+      "file": "channel-527.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "436": {
+      "name": "Movistar Deportes Spain",
+      "file": "channel-436.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "528": {
+      "name": "Movistar Golf Spain",
+      "file": "channel-528.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "84": {
+      "name": "Movistar Laliga",
+      "file": "channel-84.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "435": {
+      "name": "Movistar Liga de Campeones",
+      "file": "channel-435.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "437": {
+      "name": "Movistar Supercopa de España",
+      "file": "channel-437.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "765": {
+      "name": "MSG USA",
+      "file": "img-ee3a7372a1b92fe7ab79.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/msg-us.png"
+    },
+    "327": {
+      "name": "MSNBC",
+      "file": "channel-327.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "806": {
+      "name": "MTV Denmark",
+      "file": "img-cb40f363cbef7d312119.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/nordic/denmark/mtv-dk.png"
+    },
+    "990": {
+      "name": "MTV Poland",
+      "file": "img-112262215e71ed818a08.png",
+      "placeholder": false,
+      "source_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/MTV_2021_%28brand_version%29.svg/960px-MTV_2021_%28brand_version%29.svg.png"
+    },
+    "367": {
+      "name": "MTV UK",
+      "file": "img-d85f5f25b7da469f839f.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/mtv-uk.png"
+    },
+    "371": {
+      "name": "MTV USA",
+      "file": "img-333c4b31b6c863f81ace.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/mtv-us.png"
+    },
+    "749": {
+      "name": "Mundotoro TV Spain",
+      "file": "channel-749.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "377": {
+      "name": "MUTV UK",
+      "file": "img-37e22662513e3faaf15c.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/mutv-uk.png"
+    },
+    "654": {
+      "name": "MY9TV USA",
+      "file": "channel-654.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "745": {
+      "name": "Nat Geo Wild USA",
+      "file": "img-8d8ca4676925919d7db5.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/nat-geo-wild-us.png"
+    },
+    "328": {
+      "name": "National Geographic (NGC)",
+      "file": "channel-328.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "404": {
+      "name": "NBA TV USA",
+      "file": "img-0bf1c121e0c275885644.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/nba-tv-us.png"
+    },
+    "753": {
+      "name": "NBC Sports Bay Area",
+      "file": "img-8f073a7aabdb5943a5e6.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/MTgUVKx.png"
+    },
+    "754": {
+      "name": "NBC Sports Boston",
+      "file": "img-fa269a2b5adaf7168e3f.png",
+      "placeholder": false,
+      "source_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/NBC_Sports_Boston.png/960px-NBC_Sports_Boston.png"
+    },
+    "755": {
+      "name": "NBC Sports California",
+      "file": "img-fc6c993c4be54c0ffb06.png",
+      "placeholder": false,
+      "source_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/NBC_Sports_California.png/960px-NBC_Sports_California.png"
+    },
+    "777": {
+      "name": "NBC Sports Philadelphia",
+      "file": "img-ba9cb098834072a4a1ff.png",
+      "placeholder": false,
+      "source_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/NBC_Sports_Philadelphia.png/960px-NBC_Sports_Philadelphia.png"
+    },
+    "845": {
+      "name": "NBC Universo",
+      "file": "img-992667d0f31372b2126f.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/nbc-universo-us.png"
+    },
+    "53": {
+      "name": "NBC USA",
+      "file": "img-58c5681715625fcbe42f.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/nbc-us.png"
+    },
+    "277": {
+      "name": "NBC10 Philadelphia",
+      "file": "channel-277.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "769": {
+      "name": "NBCNY USA",
+      "file": "img-58c5681715625fcbe42f.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/nbc-us.png"
+    },
+    "736": {
+      "name": "NDR DE",
+      "file": "img-4b7a2076a32936097366.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/germany/ndr-de.png"
+    },
+    "762": {
+      "name": "NESN USA",
+      "file": "img-0c665d34f5075e9feb98.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/nesn-us.png"
+    },
+    "613": {
+      "name": "Newsmax USA",
+      "file": "channel-613.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "292": {
+      "name": "NewsNation USA",
+      "file": "img-56f9fcc1f656e811182e.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/news-nation-us.png"
+    },
+    "405": {
+      "name": "NFL Network",
+      "file": "img-a29acb8e9790d880e4d2.png",
+      "placeholder": false,
+      "source_url": "https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/NFL_Network_logo.svg/960px-NFL_Network_logo.svg.png"
+    },
+    "667": {
+      "name": "NFL RedZone",
+      "file": "img-152cd35b706b5044a509.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/5lPqQj5.png"
+    },
+    "663": {
+      "name": "NHL Network USA",
+      "file": "img-ba1f6fcfacc3c9f0c3a9.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/nhl-network-us.png"
+    },
+    "330": {
+      "name": "NICK",
+      "file": "channel-330.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "329": {
+      "name": "NICK JR",
+      "file": "channel-329.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "666": {
+      "name": "Nick Music",
+      "file": "img-f82ee75fa4889033f69d.png",
+      "placeholder": false,
+      "source_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/30/NickMusic_Logo_%282023%29.png/960px-NickMusic_Logo_%282023%29.png"
+    },
+    "649": {
+      "name": "Nicktoons",
+      "file": "channel-649.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "835": {
+      "name": "Noovo CA",
+      "file": "img-f7ffeacb8a9e37979050.png",
+      "placeholder": false,
+      "source_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Noovo_logo.png/960px-Noovo_logo.png"
+    },
+    "1034": {
+      "name": "Nova HD CZ",
+      "file": "img-2cd2b04937c370ac2b2a.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/czech-republic/nova-cz.png"
+    },
+    "847": {
+      "name": "Nova S Serbia",
+      "file": "img-b01d777f55c4f97ad5b4.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/sU8UPPY.png"
+    },
+    "1021": {
+      "name": "Nova Sport 1 CZ",
+      "file": "img-88fd363293d6f85c6b4d.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/czech-republic/nova-sport-1-cz.png"
+    },
+    "1022": {
+      "name": "Nova Sport 2 CZ",
+      "file": "img-d98a5753e92f40583c6f.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/czech-republic/nova-sport-2-cz.png"
+    },
+    "1023": {
+      "name": "Nova Sport 3 CZ",
+      "file": "img-f360e189cbac0e8c50da.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/czech-republic/nova-sport-3-cz.png"
+    },
+    "1060": {
+      "name": "Nova Sport 3 SK",
+      "file": "img-40d4f85bb090f4f353fa.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/slovakia/nova-sport-3-sk-sk.png"
+    },
+    "1024": {
+      "name": "Nova Sport 4 CZ",
+      "file": "img-e1e9adef882cb3c5f087.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/czech-republic/nova-sport-4-cz.png"
+    },
+    "1061": {
+      "name": "Nova Sport 4 SK",
+      "file": "img-86770d2890712844c3c5.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/slovakia/nova-sport-4-sk-sk.png"
+    },
+    "1025": {
+      "name": "Nova Sport 5 CZ",
+      "file": "img-881c3bc729ef6f73bf26.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/czech-republic/nova-sport-5-cz.png"
+    },
+    "1062": {
+      "name": "Nova Sport 5 SK",
+      "file": "channel-1062.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "1026": {
+      "name": "Nova Sport 6 CZ",
+      "file": "img-92fc8e2548c9507b0bca.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/czech-republic/nova-sport-6-cz.png"
+    },
+    "468": {
+      "name": "Nova Sport Bulgaria",
+      "file": "img-d2c9a90016fe47787b33.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/bulgaria/nova-sport-bg.png"
+    },
+    "582": {
+      "name": "Nova Sport Serbia",
+      "file": "img-dbf36d6ffa1bdd7634b0.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/K9uJmvP.png"
+    },
+    "631": {
+      "name": "Nova Sports 1 Greece",
+      "file": "img-57d9b046537d8d1bb20a.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/greece/nova-sports-1-gr.png"
+    },
+    "632": {
+      "name": "Nova Sports 2 Greece",
+      "file": "img-ead5497ff8e68efc98de.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/greece/nova-sports-2-gr.png"
+    },
+    "633": {
+      "name": "Nova Sports 3 Greece",
+      "file": "img-6cd97e1434c306d1a255.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/greece/nova-sports-3-gr.png"
+    },
+    "634": {
+      "name": "Nova Sports 4 Greece",
+      "file": "img-f06ceafc2b2419e4e7aa.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/greece/nova-sports-4-gr.png"
+    },
+    "635": {
+      "name": "Nova Sports 5 Greece",
+      "file": "img-dd7b2434722b1af4c732.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/greece/nova-sports-5-gr.png"
+    },
+    "636": {
+      "name": "Nova Sports 6 Greece",
+      "file": "img-0bd8d139290822b49a00.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/greece/nova-sports-6-gr.png"
+    },
+    "639": {
+      "name": "Nova Sports News Greece",
+      "file": "img-0e6ba89288dc4f914682.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/greece/nova-sports-news-gr.png"
+    },
+    "599": {
+      "name": "Nova Sports Premier League Greece",
+      "file": "img-b8fe74c927250fc1820a.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/aOPBuEa.png"
+    },
+    "638": {
+      "name": "Nova Sports Prime Greece",
+      "file": "img-37853f4e7f26b7435c68.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/greece/nova-sports-prime-gr.png"
+    },
+    "637": {
+      "name": "Nova Sports Start Greece",
+      "file": "img-902dfcd62ff5df83bede.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/greece/nova-sports-start-gr.png"
+    },
+    "480": {
+      "name": "Nova TV Bulgaria",
+      "file": "channel-480.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "1003": {
+      "name": "NOW TV Turkey",
+      "file": "channel-1003.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "541": {
+      "name": "ONE 1 HD Israel",
+      "file": "channel-541.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "542": {
+      "name": "ONE 2 HD Israel",
+      "file": "img-2901a56d67b06c823a8c.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/israel/one2-il.png"
+    },
+    "1039": {
+      "name": "OnePlay MD2 CZ",
+      "file": "channel-1039.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "1040": {
+      "name": "OnePlay MD3 CZ",
+      "file": "channel-1040.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "1041": {
+      "name": "OnePlay MD4 CZ",
+      "file": "channel-1041.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "1027": {
+      "name": "Oneplay Sport 1 CZ",
+      "file": "img-41d880c00d9755f37875.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/czech-republic/oneplay-sport-1-cz.png"
+    },
+    "1028": {
+      "name": "Oneplay Sport 2 CZ",
+      "file": "img-26cc773bf33bd874b59b.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/czech-republic/oneplay-sport-2-cz.png"
+    },
+    "1029": {
+      "name": "Oneplay Sport 3 CZ",
+      "file": "img-f3076ea4843aae33d7b0.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/czech-republic/oneplay-sport-3-cz.png"
+    },
+    "1038": {
+      "name": "OnePlay Sport 4 CZ",
+      "file": "img-e627ca3fa0c00a75488a.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/czech-republic/oneplay-sport-4-cz.png"
+    },
+    "611": {
+      "name": "OnTime Sports",
+      "file": "img-88173f496797638f4f2f.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/NIMiorz.png"
+    },
+    "331": {
+      "name": "Oprah Winfrey Network (OWN)",
+      "file": "channel-331.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "439": {
+      "name": "Orange Sport 1 Romania",
+      "file": "img-fadc8b119926a2bb02a6.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/romania/orange-sport-1-ro.png"
+    },
+    "440": {
+      "name": "Orange Sport 2 Romania",
+      "file": "img-771a517a81e7f977a3a7.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/romania/orange-sport-2-ro.png"
+    },
+    "441": {
+      "name": "Orange Sport 3 Romania",
+      "file": "img-b5ea00e61990b2916d9f.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/romania/orange-sport-3-ro.png"
+    },
+    "442": {
+      "name": "Orange Sport 4 Romania",
+      "file": "img-fdb2b76949aac1d70636.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/romania/orange-sport-4-ro.png"
+    },
+    "848": {
+      "name": "Outdoor Channel USA",
+      "file": "img-87d5c1969d2308e7927a.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/outdoor-channel-us.png"
+    },
+    "332": {
+      "name": "Oxygen True Crime",
+      "file": "channel-332.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "287": {
+      "name": "Pac-12 Network USA",
+      "file": "img-378d8cf38e87393bb982.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/pac-12-network-us.png"
+    },
+    "334": {
+      "name": "Paramount Network",
+      "file": "channel-334.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "210": {
+      "name": "PBS USA",
+      "file": "img-7a25995d87967e4a4230.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/pbs-us.png"
+    },
+    "43": {
+      "name": "PDC TV",
+      "file": "channel-43.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "564": {
+      "name": "Polsat Film Poland",
+      "file": "img-84b26430775a729322c9.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/poland/polsat-film-pl.png"
+    },
+    "443": {
+      "name": "Polsat News Poland",
+      "file": "img-9d0ff3fa2e57198e6335.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/poland/polsat-news-pl.png"
+    },
+    "562": {
+      "name": "Polsat Poland",
+      "file": "img-feed01140213225e3331.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/poland/polsat-pl.png"
+    },
+    "50": {
+      "name": "Polsat Sport 2 Poland",
+      "file": "img-6d06ceef79267049bba9.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/poland/polsat-sport-2-pl.png"
+    },
+    "129": {
+      "name": "Polsat Sport 3 Poland",
+      "file": "img-c4d32f044ac82f37dfd7.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/poland/polsat-sport-3-pl.png"
+    },
+    "993": {
+      "name": "Polsat Sport Extra 1 HD Poland",
+      "file": "img-b09bde4b7cef43224744.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/poland/polsat-sport-extra-1-pl.png"
+    },
+    "994": {
+      "name": "Polsat Sport Extra 2 HD Poland",
+      "file": "img-d644e9d2497426b7879a.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/poland/polsat-sport-extra-2-pl.png"
+    },
+    "995": {
+      "name": "Polsat Sport Extra 3 HD Poland",
+      "file": "img-4e655282fc48fe5a5399.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/poland/polsat-sport-extra-3-pl.png"
+    },
+    "996": {
+      "name": "Polsat Sport Extra 4 HD Poland",
+      "file": "img-edb2ed5e3ea4cfc5d727.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/poland/polsat-sport-extra-4-pl.png"
+    },
+    "997": {
+      "name": "Polsat Sport Fight HD Poland",
+      "file": "img-969e128d571879c0840f.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/poland/polsat-sport-fight-pl.png"
+    },
+    "998": {
+      "name": "Polsat Sport NEWS HD Poland",
+      "file": "img-d926bd292581846aa8d4.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/poland/polsat-sport-news-pl.png"
+    },
+    "47": {
+      "name": "Polsat Sport Poland",
+      "file": "img-5b389dfacad2a7e53e37.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/poland/polsat-sport-pl.png"
+    },
+    "991": {
+      "name": "Polsat Sport Premium 1 Super HD PL",
+      "file": "channel-991.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "992": {
+      "name": "Polsat Sport Premium 2 Super HD PL",
+      "file": "channel-992.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "653": {
+      "name": "POP TV USA",
+      "file": "channel-653.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "718": {
+      "name": "Porto Canal Portugal",
+      "file": "img-c76c0d2b7ef55ab9249e.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/portugal/porto-canal-pt.png"
+    },
+    "88": {
+      "name": "Premier Brasil",
+      "file": "img-6ce141ed143919f0a11c.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/brazil/premiere-br.png"
+    },
+    "1030": {
+      "name": "Premier Sport 1 CZ",
+      "file": "img-a122f5651e1a94a8df8f.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/czech-republic/premier-sport-1-cz.png"
+    },
+    "1031": {
+      "name": "Premier Sport 2 CZ",
+      "file": "img-179d419bdb93616e81c2.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/czech-republic/premier-sport-2-cz.png"
+    },
+    "1032": {
+      "name": "Premier Sport 3 CZ",
+      "file": "img-60bbe5331735ca7b2555.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/czech-republic/premier-sport-3-cz.png"
+    },
+    "771": {
+      "name": "Premier Sports Ireland 1",
+      "file": "img-9b9edcef51158c935973.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/eOybZMU.png"
+    },
+    "799": {
+      "name": "Premier Sports Ireland 2",
+      "file": "img-9798dd827b68c5fae783.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/Fx1n84p.png"
+    },
+    "583": {
+      "name": "Prima Sport 1",
+      "file": "img-d6c6025198ca22d7e881.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/9XA1UpZ.png"
+    },
+    "584": {
+      "name": "Prima Sport 2",
+      "file": "img-4fab6ca0ad29a4857870.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/hROcepe.png"
+    },
+    "585": {
+      "name": "Prima Sport 3",
+      "file": "img-8553ff2e61ef6726912a.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/ocvt5Va.png"
+    },
+    "586": {
+      "name": "Prima Sport 4",
+      "file": "img-63470a42712a4e3fe10a.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/lqaIIhc.png"
+    },
+    "843": {
+      "name": "Prima TV RO",
+      "file": "img-fff23404824b2cb29644.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/romania/prima-tv-ro.png"
+    },
+    "730": {
+      "name": "ProSieben (PRO7) DE",
+      "file": "img-0ed7e38da4a759d0b34e.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/germany/pro-sieben-de.png"
+    },
+    "450": {
+      "name": "PTV Sports",
+      "file": "img-a20f8856def49809c6af.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/CPm6GHA.png"
+    },
+    "646": {
+      "name": "Racer TV USA",
+      "file": "channel-646.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "555": {
+      "name": "Racing Tv UK",
+      "file": "img-8c712fa0c5b59b713d44.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/racing-tv-uk.png"
+    },
+    "850": {
+      "name": "Rai 1 Italy",
+      "file": "img-5c68026180c2b4e17d03.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/italy/rai-1-it.png"
+    },
+    "851": {
+      "name": "Rai 2 Italy",
+      "file": "img-52731f10c6fd6f373941.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/italy/rai-2-it.png"
+    },
+    "852": {
+      "name": "Rai 3 Italy",
+      "file": "img-a71e5d27a37bbf022d25.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/italy/rai-3-it.png"
+    },
+    "853": {
+      "name": "Rai 4 Italy",
+      "file": "img-4b6fe5d479bee289e57a.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/italy/rai-4-it.png"
+    },
+    "858": {
+      "name": "Rai Premium Italy",
+      "file": "img-1c08c03ddb91f5c7ac11.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/italy/rai-premium-it.png"
+    },
+    "882": {
+      "name": "Rai Sport Italy",
+      "file": "img-324a9267b0ae2f0f6995.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/italy/rai-sport-it.png"
+    },
+    "607": {
+      "name": "Rally Tv",
+      "file": "img-0fc611129b6ffc7da06e.png",
+      "placeholder": false,
+      "source_url": "https://i.postimg.cc/WtLq2C7c/logo-Rally-Tv1.png"
+    },
+    "840": {
+      "name": "RDS 2 CA",
+      "file": "img-d85269af74121e09f9bc.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/canada/rds-2-ca.png"
+    },
+    "839": {
+      "name": "RDS CA",
+      "file": "img-de8dd31d4337a4d001a9.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/canada/rds-ca.png"
+    },
+    "841": {
+      "name": "RDS Info CA",
+      "file": "img-03cc24f9eee3d4399e83.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/canada/rds-info-ca.png"
+    },
+    "523": {
+      "name": "Real Madrid TV Spain",
+      "file": "img-99bf945ad4784cfa7cd0.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/spain/real-madrid-tv-es.png"
+    },
+    "293": {
+      "name": "Reelz Channel",
+      "file": "channel-293.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "471": {
+      "name": "Ring Bulgaria",
+      "file": "img-1ac04f73a4d63b55d78d.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/bulgaria/ring-bg.png"
+    },
+    "119": {
+      "name": "RMC Sport 1 France",
+      "file": "img-15c09d06bedf59a6f6d1.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/rmc-sport-1-fr.png"
+    },
+    "120": {
+      "name": "RMC Sport 2 France",
+      "file": "img-a9c59c6ad4a574e75224.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/rmc-sport-2-fr.png"
+    },
+    "954": {
+      "name": "RMC Story France",
+      "file": "img-9b1fe808a11f2b1934a4.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/rmc-story-fr.png"
+    },
+    "920": {
+      "name": "Root Sports Northwest",
+      "file": "channel-920.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "364": {
+      "name": "RTE 1",
+      "file": "img-982b26e289cb0326b7b6.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/8uZSZdS.png"
+    },
+    "365": {
+      "name": "RTE 2",
+      "file": "img-7500825911d26ae59e04.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/ireland/rte-2-ie.png"
+    },
+    "740": {
+      "name": "RTL DE",
+      "file": "img-85733370e3d10fea26d8.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/germany/rtl-de.png"
+    },
+    "390": {
+      "name": "RTL7 Netherland",
+      "file": "channel-390.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "719": {
+      "name": "RTP 1 Portugal",
+      "file": "img-7c50763c4aeaf28df329.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/portugal/rtp-1-pt.png"
+    },
+    "720": {
+      "name": "RTP 2 Portugal",
+      "file": "img-cec052665c4993fbac9d.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/portugal/rtp-2-pt.png"
+    },
+    "721": {
+      "name": "RTP 3 Portugal",
+      "file": "img-f4d33bd7ffec47df4ab3.png",
+      "placeholder": false,
+      "source_url": "https://cdn-images.rtp.pt/common/img/channels/logos/color/horizontal/rtpnoticias_2026.png"
+    },
+    "670": {
+      "name": "S4C UK",
+      "file": "img-303c4b6e55afa05e50e7.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/s4c-uk.png"
+    },
+    "729": {
+      "name": "SAT.1 DE",
+      "file": "img-5c2f212f69dc581f6bd8.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/germany/sat-1-de.png"
+    },
+    "883": {
+      "name": "SBS6 NL",
+      "file": "img-0d2a466f9cc5a80fb59f.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/netherlands/sbs6-nl.png"
+    },
+    "294": {
+      "name": "Science Channel",
+      "file": "channel-294.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "385": {
+      "name": "SEC Network USA",
+      "file": "img-78e496f8321c67a37dc4.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/sec-network-us.png"
+    },
+    "811": {
+      "name": "SEE Denmark",
+      "file": "img-0aaffed2ccd22acdf13a.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/nordic/denmark/see-dk.png"
+    },
+    "1002": {
+      "name": "Show TV Turkey",
+      "file": "img-d9b918473ef1fd342eac.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/1l7SCCu.png"
+    },
+    "792": {
+      "name": "Showtime 2 USA (SHO2) USA",
+      "file": "img-54dee3ab6e056f408d2b.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/showtime-2-us.png"
+    },
+    "794": {
+      "name": "Showtime Extreme USA",
+      "file": "img-a5cd8e7b0df1a0ee6c4c.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/showtime-extreme-us.png"
+    },
+    "795": {
+      "name": "Showtime Family Zone (SHO Family Zone) USA",
+      "file": "img-f94e16b34735de53f459.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/showtime-family-zone-us.png"
+    },
+    "796": {
+      "name": "Showtime Next (SHO Next) USA",
+      "file": "img-fe71e1bf629d2b299b06.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/showtime-next-us.png"
+    },
+    "793": {
+      "name": "Showtime Showcase USA",
+      "file": "img-67a7a9bd0cf4f0908b7c.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/showtime-showcase-us.png"
+    },
+    "333": {
+      "name": "Showtime USA",
+      "file": "img-bb92ffefb6e1ffcfa07b.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/showtime-us.png"
+    },
+    "797": {
+      "name": "Showtime Women USA",
+      "file": "img-2e631c8bdfe295423b5d.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/showtime-women-us.png"
+    },
+    "722": {
+      "name": "SIC Portugal",
+      "file": "img-e74b5ffcd892238991d5.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/portugal/sic-pt.png"
+    },
+    "732": {
+      "name": "Sixx DE",
+      "file": "img-99440583a149036c66fe.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/germany/sixx-de.png"
+    },
+    "683": {
+      "name": "Sky Arts UK",
+      "file": "img-6516d1bcd41448e4b7d2.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/sky-arts-uk.png"
+    },
+    "362": {
+      "name": "Sky Atlantic",
+      "file": "channel-362.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "871": {
+      "name": "Sky Calcio 1 (251) Italy",
+      "file": "channel-871.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "872": {
+      "name": "Sky Calcio 2 (252) Italy",
+      "file": "channel-872.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "873": {
+      "name": "Sky Calcio 3 (253) Italy",
+      "file": "channel-873.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "874": {
+      "name": "Sky Calcio 4 (254) Italy",
+      "file": "channel-874.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "861": {
+      "name": "Sky Cinema Action Italy",
+      "file": "img-d19132282e2642d57730.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/italy/sky-cinema-action-it.png"
+    },
+    "677": {
+      "name": "Sky Cinema Action UK",
+      "file": "img-8d43e0276712617010b4.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/sky-cinema-action-uk.png"
+    },
+    "675": {
+      "name": "Sky Cinema Animation UK",
+      "file": "img-8d685fe307c2bc613010.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/sky-cinema-animation-uk.png"
+    },
+    "859": {
+      "name": "Sky Cinema Collection Italy",
+      "file": "img-80c82292eb10b78a06b2.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/italy/sky-cinema-collection-it.png"
+    },
+    "862": {
+      "name": "Sky Cinema Comedy Italy",
+      "file": "img-e34abad36ee5b4fd5f9f.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/italy/sky-cinema-comedy-it.png"
+    },
+    "678": {
+      "name": "Sky Cinema Comedy UK",
+      "file": "img-9357580ad6bba531560c.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/sky-cinema-comedy-uk.png"
+    },
+    "867": {
+      "name": "Sky Cinema Drama Italy",
+      "file": "img-a6765a2befc7b071fe68.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/italy/sky-cinema-drama-it.png"
+    },
+    "680": {
+      "name": "Sky Cinema Drama UK",
+      "file": "img-25d4f24577ab4b495603.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/sky-cinema-drama-uk.png"
+    },
+    "865": {
+      "name": "Sky Cinema Family Italy",
+      "file": "img-2ecb96184418e50149fd.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/italy/sky-cinema-family-it.png"
+    },
+    "676": {
+      "name": "Sky Cinema Family UK",
+      "file": "img-cbb2c5ce517542702310.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/sky-cinema-family-uk.png"
+    },
+    "674": {
+      "name": "Sky Cinema Greats UK",
+      "file": "img-02ec2769d31345d4edd9.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/sky-cinema-greats-uk.png"
+    },
+    "673": {
+      "name": "Sky Cinema Hits UK",
+      "file": "img-a91258144fe32ba7f0ed.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/sky-cinema-hits-uk.png"
+    },
+    "671": {
+      "name": "Sky Cinema Premiere UK",
+      "file": "img-715864a6caabb31a98b2.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/sky-cinema-premiere-uk.png"
+    },
+    "864": {
+      "name": "Sky Cinema Romance Italy",
+      "file": "img-f87154e30ff42299998b.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/italy/sky-cinema-romance-it.png"
+    },
+    "681": {
+      "name": "Sky Cinema Sci-Fi Horror UK",
+      "file": "img-493f7c5c61610cf77781.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/sky-cinema-uk.png"
+    },
+    "672": {
+      "name": "Sky Cinema Select UK",
+      "file": "img-8349fe83436be4cc8051.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/sky-cinema-select-uk.png"
+    },
+    "679": {
+      "name": "Sky Cinema Thriller UK",
+      "file": "img-35b5210dcd5dec05c062.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/sky-cinema-thriller-uk.png"
+    },
+    "863": {
+      "name": "Sky Cinema Uno +24 Italy",
+      "file": "img-14c943f88babe8b2deb2.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/italy/sky-cinema-it.png"
+    },
+    "860": {
+      "name": "Sky Cinema Uno Italy",
+      "file": "img-549808aeaa9d2dd75027.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/italy/sky-cinema-uno-it.png"
+    },
+    "684": {
+      "name": "Sky Comedy UK",
+      "file": "img-053447583bb6ad9a479b.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/sky-comedy-uk.png"
+    },
+    "685": {
+      "name": "Sky Crime",
+      "file": "channel-685.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "686": {
+      "name": "Sky History",
+      "file": "channel-686.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "708": {
+      "name": "Sky MAX UK",
+      "file": "img-c168707008eb75428327.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/sky-max-uk.png"
+    },
+    "695": {
+      "name": "Sky NEWS UK",
+      "file": "img-71ffb21e692c29210a56.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/sky-news-uk.png"
+    },
+    "880": {
+      "name": "Sky Serie Italy",
+      "file": "img-edfb4506ff6bdf7cba9d.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/italy/sky-serie-it.png"
+    },
+    "682": {
+      "name": "Sky Showcase UK",
+      "file": "img-a2beb221bc7ce3080efe.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/sky-showcase-uk.png"
+    },
+    "588": {
+      "name": "Sky Sport 1 NZ",
+      "file": "img-69dea4682e96f25fb177.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/new-zealand/sky-sport-1-nz.png"
+    },
+    "589": {
+      "name": "Sky Sport 2 NZ",
+      "file": "img-d4640c5eb79c7311be21.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/new-zealand/sky-sport-2-nz.png"
+    },
+    "869": {
+      "name": "Sky Sport 24 Italy",
+      "file": "img-06effa3796565ee1c98b.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/italy/sky-sport-24-it.png"
+    },
+    "590": {
+      "name": "Sky Sport 3 NZ",
+      "file": "img-430697ebd0318c6717d7.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/new-zealand/sky-sport-3-nz.png"
+    },
+    "591": {
+      "name": "Sky Sport 4 NZ",
+      "file": "img-544dfeb2c445d4d516ad.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/new-zealand/sky-sport-4-nz.png"
+    },
+    "592": {
+      "name": "Sky Sport 5 NZ",
+      "file": "img-165cfe71db44af01b38c.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/new-zealand/sky-sport-5-nz.png"
+    },
+    "593": {
+      "name": "Sky Sport 6 NZ",
+      "file": "img-d13bdeabff1d9558b7a4.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/new-zealand/sky-sport-6-nz.png"
+    },
+    "594": {
+      "name": "Sky Sport 7 NZ",
+      "file": "img-af72b1a0a4d12b029be9.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/new-zealand/sky-sport-7-nz.png"
+    },
+    "595": {
+      "name": "Sky Sport 8 NZ",
+      "file": "img-668b6de8e9b7d5554fe4.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/new-zealand/sky-sport-8-nz.png"
+    },
+    "596": {
+      "name": "Sky Sport 9 NZ",
+      "file": "img-3028606ba872b9073283.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/new-zealand/sky-sport-9-nz.png"
+    },
+    "462": {
+      "name": "Sky Sport Arena Italy",
+      "file": "img-bd6101b3d17ba99aa4f9.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/italy/sky-sport-arena-it.png"
+    },
+    "559": {
+      "name": "Sky Sport Austria 1 HD",
+      "file": "img-6ef95c0e1bc3652b4674.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/austria/sky-sport-austria-1-at.png"
+    },
+    "875": {
+      "name": "Sky Sport Basket Italy",
+      "file": "img-557f1ec07cb7650b8a3b.png",
+      "placeholder": false,
+      "source_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Sky_Sport_Basket_-_Logo_2025.svg/960px-Sky_Sport_Basket_-_Logo_2025.svg.png"
+    },
+    "558": {
+      "name": "Sky Sport Bundesliga 1 HD",
+      "file": "channel-558.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "946": {
+      "name": "Sky Sport Bundesliga 2",
+      "file": "img-f9636979cb1b8d79200b.png",
+      "placeholder": false,
+      "source_url": "https://upload.wikimedia.org/wikipedia/de/thumb/8/86/Sky_Sport_Bundesliga_2_Logo_2020.png/960px-Sky_Sport_Bundesliga_2_Logo_2020.png"
+    },
+    "947": {
+      "name": "Sky Sport Bundesliga 3",
+      "file": "img-706beaaa642ae46fcca1.png",
+      "placeholder": false,
+      "source_url": "https://upload.wikimedia.org/wikipedia/de/thumb/d/de/Sky_Sport_Bundesliga_3_Logo_2020.png/960px-Sky_Sport_Bundesliga_3_Logo_2020.png"
+    },
+    "948": {
+      "name": "Sky Sport Bundesliga 4",
+      "file": "img-d85acfb79b39f93b38eb.png",
+      "placeholder": false,
+      "source_url": "https://upload.wikimedia.org/wikipedia/de/thumb/f/f6/Sky_Sport_Bundesliga_4_Logo_2020.png/960px-Sky_Sport_Bundesliga_4_Logo_2020.png"
+    },
+    "949": {
+      "name": "Sky Sport Bundesliga 5",
+      "file": "img-556b564c9b427552a179.png",
+      "placeholder": false,
+      "source_url": "https://upload.wikimedia.org/wikipedia/de/thumb/c/cd/Sky_Sport_Bundesliga_5_Logo_2020.png/960px-Sky_Sport_Bundesliga_5_Logo_2020.png"
+    },
+    "870": {
+      "name": "Sky Sport Calcio Italy",
+      "file": "img-6fb671d2244d6d7058dd.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/italy/sky-sport-calcio-it.png"
+    },
+    "577": {
+      "name": "Sky Sport F1 Italy",
+      "file": "img-ca58f3a9ec91ee18782c.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/italy/sky-sport-f1-it.png"
+    },
+    "460": {
+      "name": "Sky Sport MAX Italy",
+      "file": "img-5f4a1cf9fe51b03f13d3.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/italy/sky-sport-max-it.png"
+    },
+    "557": {
+      "name": "Sky Sport Mix DE",
+      "file": "img-111315e069b808174def.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/germany/sky-sport/sky-sport-mix-de.png"
+    },
+    "575": {
+      "name": "Sky Sport MotoGP Italy",
+      "file": "img-1f56b528b5fe1c5d72f5.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/italy/sky-sport-motogp-it.png"
+    },
+    "587": {
+      "name": "Sky Sport Select NZ",
+      "file": "img-f8f592df970fbea88873.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/new-zealand/sky-sport-select-nz.png"
+    },
+    "576": {
+      "name": "Sky Sport Tennis Italy",
+      "file": "img-288e5f757bb39cc3a236.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/italy/sky-sport-tennis-it.png"
+    },
+    "556": {
+      "name": "Sky Sport Top Event DE",
+      "file": "img-4cf35dbd151a6335612b.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/germany/sky-sport/sky-sport-top-event-de.png"
+    },
+    "461": {
+      "name": "Sky Sport UNO Italy",
+      "file": "img-ff95b86fc4d2e76e8145.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/italy/sky-sport-uno-it.png"
+    },
+    "240": {
+      "name": "Sky Sports 1 DE",
+      "file": "img-d5cb06db231af6a45ce7.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/germany/sky-sport/sky-sport-1-de.png"
+    },
+    "241": {
+      "name": "Sky Sports 2 DE",
+      "file": "img-ec259fce30b0cb26cc07.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/germany/sky-sport/sky-sport-2-de.png"
+    },
+    "37": {
+      "name": "Sky Sports Action UK",
+      "file": "img-72960740ef9f3c1a6a9f.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/sky-sports-action-uk.png"
+    },
+    "65": {
+      "name": "Sky Sports Cricket",
+      "file": "img-99b308caa4a48f9d1fdf.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/sky-sports-cricket-uk.png"
+    },
+    "274": {
+      "name": "Sky Sports F1 DE",
+      "file": "img-1f0fb586e87918efee1b.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/germany/sky-sport/sky-sport-f1-de.png"
+    },
+    "60": {
+      "name": "Sky Sports F1 UK",
+      "file": "img-7ab8933c8214ec4d0f18.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/sky-sports-f1-uk.png"
+    },
+    "35": {
+      "name": "Sky Sports Football UK",
+      "file": "img-64d2d6f03cb0e08eafb7.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/sky-sports-football-uk.png"
+    },
+    "785": {
+      "name": "Sky Sports Golf DE",
+      "file": "img-eae22f95bef1d0798176.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/germany/sky-sport/sky-sport-golf-de.png"
+    },
+    "574": {
+      "name": "Sky Sports Golf Italy",
+      "file": "img-14ccd6c6ec02cc2f03f7.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/italy/sky-sport-golf-it.png"
+    },
+    "70": {
+      "name": "Sky Sports Golf UK",
+      "file": "img-b56ce499fe89c48ce483.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/sky-sports-golf-uk.png"
+    },
+    "38": {
+      "name": "Sky Sports Main Event",
+      "file": "img-e86577a8acc2e6d7a074.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/sky-sports-main-event-uk.png"
+    },
+    "449": {
+      "name": "Sky Sports MIX UK",
+      "file": "img-ffe4c5238975300c461d.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/sky-sports-mix-uk.png"
+    },
+    "366": {
+      "name": "Sky Sports News UK",
+      "file": "img-7e8664e5743bff30d515.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/sky-sports-news-uk.png"
+    },
+    "130": {
+      "name": "Sky sports Premier League",
+      "file": "img-fa156c173ab40a57d6dd.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/sky-sports-premier-league-uk.png"
+    },
+    "554": {
+      "name": "Sky Sports Racing UK",
+      "file": "img-183387520b50a898ff95.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/sky-sports-racing-uk.png"
+    },
+    "884": {
+      "name": "Sky Sports Tennis DE",
+      "file": "img-84dbbc3438aa5b89ae13.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/germany/sky-sport/sky-sport-tennis-de.png"
+    },
+    "46": {
+      "name": "Sky Sports Tennis UK",
+      "file": "img-18b001056bfd079f1b26.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/sky-sports-tennis-uk.png"
+    },
+    "36": {
+      "name": "Sky Sports+ Plus",
+      "file": "img-f76e563e08a70db4f193.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/hd/sky-sports-uhd-uk.png"
+    },
+    "881": {
+      "name": "Sky UNO Italy",
+      "file": "img-bfe00afe5d423f796c8e.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/italy/sky-uno-it.png"
+    },
+    "361": {
+      "name": "Sky Witness HD",
+      "file": "channel-361.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "603": {
+      "name": "Smithsonian Channel",
+      "file": "channel-603.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "885": {
+      "name": "SONY TEN 1",
+      "file": "img-65cc6cc346b9ff4a57c6.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/india/sony-ten-1-in.png"
+    },
+    "886": {
+      "name": "SONY TEN 2",
+      "file": "img-dec0e9c0417856df64e8.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/india/sony-ten-2-in.png"
+    },
+    "887": {
+      "name": "SONY TEN 3",
+      "file": "img-b90ddbf47e14e0985a4f.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/india/sony-ten-3-in.png"
+    },
+    "921": {
+      "name": "Space City Home Network",
+      "file": "channel-921.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "764": {
+      "name": "Spectrum Sportsnet LA",
+      "file": "channel-764.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "982": {
+      "name": "Spectrum SportsNet USA",
+      "file": "img-be14be4219203edacd2b.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/spectrum-sportsnet-us.png"
+    },
+    "1042": {
+      "name": "Sport 1 CZ",
+      "file": "img-dcc3145177ab6cefeb88.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/X5X3tKC.png"
+    },
+    "140": {
+      "name": "Sport 1 Israel",
+      "file": "img-3daea5bef7bc5b571c3d.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/israel/sport1-il.png"
+    },
+    "141": {
+      "name": "Sport 2 Israel",
+      "file": "img-3cca65788325526f09d6.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/israel/sport2-il.png"
+    },
+    "142": {
+      "name": "Sport 3 Israel",
+      "file": "img-e6cb4c6b298aa653cdc0.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/israel/sport3-il.png"
+    },
+    "143": {
+      "name": "Sport 4 Israel",
+      "file": "img-7f551306e23d3d50b441.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/israel/sport4-il.png"
+    },
+    "148": {
+      "name": "Sport 5 Gold Israel",
+      "file": "channel-148.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "144": {
+      "name": "Sport 5 Israel",
+      "file": "channel-144.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "146": {
+      "name": "Sport 5 Live Israel",
+      "file": "channel-146.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "145": {
+      "name": "Sport 5 PLUS Israel",
+      "file": "channel-145.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "147": {
+      "name": "Sport 5 Star Israel",
+      "file": "channel-147.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "965": {
+      "name": "Sport en France",
+      "file": "img-2ba2353469cf039b6fdd.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/sport-en-france-fr.png"
+    },
+    "101": {
+      "name": "Sport Klub 1 Croatia",
+      "file": "img-047f7d5ed84e762fa54a.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/croatia/sportklub-1-hr.png"
+    },
+    "102": {
+      "name": "Sport Klub 2 Croatia",
+      "file": "img-2667f3104aa8fd722b73.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/croatia/sportklub-2-hr.png"
+    },
+    "103": {
+      "name": "Sport Klub 3 Croatia",
+      "file": "img-32093f998dfccfc3b756.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/croatia/sportklub-3-hr.png"
+    },
+    "104": {
+      "name": "Sport Klub 4 Croatia",
+      "file": "img-6ad2510754b7a272aacf.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/croatia/sportklub-4-hr.png"
+    },
+    "710": {
+      "name": "Sport KLUB Golf Croatia",
+      "file": "img-2b9fd62e0cbe771378a5.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/croatia/sportklub-golf-hr.png"
+    },
+    "453": {
+      "name": "Sport Klub HD Croatia",
+      "file": "img-8fb70032253e817613e5.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/croatia/sportklub-hr.png"
+    },
+    "49": {
+      "name": "Sport TV1 Portugal",
+      "file": "img-2109eb6639aeed05e569.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/portugal/sport-tv-1-pt.png"
+    },
+    "74": {
+      "name": "Sport TV2 Portugal",
+      "file": "img-5f0780a724f6b8953bb3.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/portugal/sport-tv-2-pt.png"
+    },
+    "454": {
+      "name": "Sport TV3 Portugal",
+      "file": "img-fc7a0a574061826127ac.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/portugal/sport-tv-3-pt.png"
+    },
+    "289": {
+      "name": "Sport TV4 Portugal",
+      "file": "img-276d1feff88bef84cc86.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/portugal/sport-tv-4-pt.png"
+    },
+    "290": {
+      "name": "Sport TV5 Portugal",
+      "file": "img-b41f116b0a5e512c9727.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/portugal/sport-tv-5-pt.png"
+    },
+    "291": {
+      "name": "Sport TV6 Portugal",
+      "file": "img-b41a7aad6342f9b31eb6.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/portugal/sport-tv-6-pt.png"
+    },
+    "641": {
+      "name": "Sport1 Germany",
+      "file": "img-29058e9956096201d46b.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/germany/sport1-de.png"
+    },
+    "571": {
+      "name": "SportDigital Fussball",
+      "file": "img-2764741751242abe58e4.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/NDbWxqF.png"
+    },
+    "640": {
+      "name": "Sportdigital1+ Germany",
+      "file": "img-64eaa6c20bf538e8c6de.png",
+      "placeholder": false,
+      "source_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Sportdigital1%2B_Logo_2025.svg/3840px-Sportdigital1%2B_Logo_2025.svg.png"
+    },
+    "716": {
+      "name": "Sporting TV Portugal",
+      "file": "img-510f82bb4c2cd29de014.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/portugal/sporting-tv-pt.png"
+    },
+    "409": {
+      "name": "Sportsnet 360",
+      "file": "img-75c7355b668ef841de18.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/canada/sportsnet-360-ca.png"
+    },
+    "408": {
+      "name": "Sportsnet East",
+      "file": "img-3bed6250982842210b7a.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/canada/sportsnet-east-ca.png"
+    },
+    "759": {
+      "name": "SportsNet New York (SNY)",
+      "file": "channel-759.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "411": {
+      "name": "Sportsnet One",
+      "file": "img-7f43399817cbc84682c7.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/canada/sportsnet-one-ca.png"
+    },
+    "406": {
+      "name": "Sportsnet Ontario",
+      "file": "img-189cc889e67fc8115e53.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/canada/sportsnet-ontario-ca.png"
+    },
+    "922": {
+      "name": "SportsNet Pittsburgh",
+      "file": "channel-922.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "407": {
+      "name": "Sportsnet West",
+      "file": "img-96a910eca529d727bb6b.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/canada/sportsnet-west-ca.png"
+    },
+    "410": {
+      "name": "Sportsnet World",
+      "file": "img-cf6334fa46477a6495cf.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/canada/sportsnet-world-ca.png"
+    },
+    "78": {
+      "name": "SporTV Brasil",
+      "file": "img-c65fb0b7a3c69e8828b5.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/brazil/sportv-br.png"
+    },
+    "79": {
+      "name": "SporTV2 Brasil",
+      "file": "img-fd9c173a4371f11b757a.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/brazil/sportv2-br.png"
+    },
+    "80": {
+      "name": "SporTV3 Brasil",
+      "file": "img-9aad3d215cf95bdc28df.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/brazil/sportv3-br.png"
+    },
+    "739": {
+      "name": "SR Fernsehen DE",
+      "file": "img-78669dfa118ae3c9e704.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/germany/sr-fernsehen-de.png"
+    },
+    "614": {
+      "name": "SSC Sport 1",
+      "file": "channel-614.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "615": {
+      "name": "SSC Sport 2",
+      "file": "channel-615.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "616": {
+      "name": "SSC Sport 3",
+      "file": "channel-616.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "617": {
+      "name": "SSC Sport 4",
+      "file": "channel-617.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "618": {
+      "name": "SSC Sport 5",
+      "file": "channel-618.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "619": {
+      "name": "SSC Sport Extra 1",
+      "file": "channel-619.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "620": {
+      "name": "SSC Sport Extra 2",
+      "file": "channel-620.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "621": {
+      "name": "SSC Sport Extra 3",
+      "file": "channel-621.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "267": {
+      "name": "Star Sports 1 IN",
+      "file": "img-44a9070e15db0d78f6b6.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/india/star-sports-1-in.png"
+    },
+    "268": {
+      "name": "Star Sports Hindi IN",
+      "file": "channel-268.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "1004": {
+      "name": "Star TV Turkey",
+      "file": "img-8c39b00aae6ada63879c.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/turkey/star-tv-tr.png"
+    },
+    "970": {
+      "name": "Starz Cinema",
+      "file": "img-84fe436812269c464a3e.png",
+      "placeholder": false,
+      "source_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ef/Starz_Cinema_Logo_2022.svg/960px-Starz_Cinema_Logo_2022.svg.png"
+    },
+    "971": {
+      "name": "Starz Comedy",
+      "file": "img-4f0431851f14693497b4.png",
+      "placeholder": false,
+      "source_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/32/Starz_Comedy_Logo_2022.svg/960px-Starz_Comedy_Logo_2022.svg.png"
+    },
+    "972": {
+      "name": "Starz Edge",
+      "file": "img-16d75acafb334c1c68d7.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/MvH3Cz2.png"
+    },
+    "976": {
+      "name": "Starz Encore Action",
+      "file": "img-dbd8cae116927f97b75f.png",
+      "placeholder": false,
+      "source_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/93/Starz_Encore_Action_Logo_2022.svg/960px-Starz_Encore_Action_Logo_2022.svg.png"
+    },
+    "977": {
+      "name": "Starz Encore Black",
+      "file": "img-6aee0ea83ef3fd49db36.png",
+      "placeholder": false,
+      "source_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/20/Starz_Encore_Black_Logo_2022.svg/960px-Starz_Encore_Black_Logo_2022.svg.png"
+    },
+    "978": {
+      "name": "Starz Encore Classic",
+      "file": "img-83f9ce4d09188e615009.png",
+      "placeholder": false,
+      "source_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Starz_Encore_Classic_Logo_2022.svg/960px-Starz_Encore_Classic_Logo_2022.svg.png"
+    },
+    "979": {
+      "name": "Starz Encore Family",
+      "file": "img-1b918afd087eff5b6dfe.png",
+      "placeholder": false,
+      "source_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/43/Starz_Encore_Family_Logo_2022.svg/960px-Starz_Encore_Family_Logo_2022.svg.png"
+    },
+    "975": {
+      "name": "Starz Encore",
+      "file": "img-a28b1befb51e1201e29d.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/5ieoKO1.png"
+    },
+    "980": {
+      "name": "Starz Encore Suspense",
+      "file": "img-acdabe20726eb1eca0e6.png",
+      "placeholder": false,
+      "source_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cf/Starz_Encore_Suspense_Logo_2022.svg/960px-Starz_Encore_Suspense_Logo_2022.svg.png"
+    },
+    "981": {
+      "name": "Starz Encore Westerns",
+      "file": "img-4381d7c1f32167958681.png",
+      "placeholder": false,
+      "source_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ae/Starz_Encore_Westerns_Logo_2022.svg/960px-Starz_Encore_Westerns_Logo_2022.svg.png"
+    },
+    "335": {
+      "name": "Starz",
+      "file": "img-266678835f6df2ba1fd7.png",
+      "placeholder": false,
+      "source_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/03/Starz_2022.svg/960px-Starz_2022.svg.png"
+    },
+    "973": {
+      "name": "Starz In Black",
+      "file": "img-a1dba7edc30460791130.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/g51a2le.png"
+    },
+    "974": {
+      "name": "Starz Kids & Family",
+      "file": "img-c6965bf446306a8dee4e.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/eE9FzEP.png"
+    },
+    "284": {
+      "name": "StarzPlay CricLife 1 HD",
+      "file": "channel-284.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "658": {
+      "name": "Sundance TV",
+      "file": "channel-658.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "738": {
+      "name": "SUPER RTL DE",
+      "file": "img-e6c92b4127912b14b399.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/germany/hd/super-rtl-hd-de.png"
+    },
+    "420": {
+      "name": "SuperSport Action",
+      "file": "img-38385c694e3264f1b1f8.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/south-africa/supersport-action-za.png"
+    },
+    "368": {
+      "name": "SuperSport Cricket",
+      "file": "img-e1eb5c4560d056cf252c.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/south-africa/supersport-cricket-za.png"
+    },
+    "56": {
+      "name": "Supersport Football",
+      "file": "img-9392715ada57229370c4.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/south-africa/supersport-football-za.png"
+    },
+    "422": {
+      "name": "SuperSport Golf",
+      "file": "img-3d10edc8ba6c5c7d8c0c.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/south-africa/supersport-golf-za.png"
+    },
+    "412": {
+      "name": "SuperSport Grandstand",
+      "file": "img-33154b640c25d0ef37de.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/south-africa/supersport-grandstand-za.png"
+    },
+    "415": {
+      "name": "SuperSport LaLiga",
+      "file": "channel-415.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "572": {
+      "name": "SuperSport MaXimo 1",
+      "file": "img-489b4a624127eb455fc0.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/south-africa/supersport-maximo1-za.png"
+    },
+    "424": {
+      "name": "SuperSport Motorsport",
+      "file": "img-0ea36866bba5caecc56c.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/south-africa/supersport-motorsport-za.png"
+    },
+    "414": {
+      "name": "SuperSport Premier league",
+      "file": "img-30fb79b1a0f068346bd8.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/south-africa/supersport-premier-league-za.png"
+    },
+    "413": {
+      "name": "SuperSport PSL",
+      "file": "img-176f474f92a2853fef4f.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/south-africa/supersport-psl-za.png"
+    },
+    "421": {
+      "name": "SuperSport Rugby",
+      "file": "img-2418d657c8dff43a4c77.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/south-africa/supersport-rugby-za.png"
+    },
+    "423": {
+      "name": "SuperSport Tennis",
+      "file": "img-16d0e037eb7ccb9d8c2a.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/south-africa/supersport-tennis-za.png"
+    },
+    "416": {
+      "name": "SuperSport Variety 1",
+      "file": "img-63624b242dfc9b5c5d30.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/south-africa/supersport-variety1-za.png"
+    },
+    "417": {
+      "name": "SuperSport Variety 2",
+      "file": "img-46d370f8739bd194fe36.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/south-africa/supersport-variety2-za.png"
+    },
+    "418": {
+      "name": "SuperSport Variety 3",
+      "file": "img-cdce27950ff306af3256.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/south-africa/supersport-variety3-za.png"
+    },
+    "419": {
+      "name": "SuperSport Variety 4",
+      "file": "img-9bb07d728d3ce0e7b550.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/south-africa/supersport-variety4-za.png"
+    },
+    "735": {
+      "name": "SWR DE",
+      "file": "img-fe20f4b127f7cee5af88.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/germany/swr-de.png"
+    },
+    "373": {
+      "name": "SYFY USA",
+      "file": "img-ddcbd603198b02e54ae1.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/syfy-us.png"
+    },
+    "270": {
+      "name": "T Sports BD",
+      "file": "img-d15f7ab9751628b14d8b.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/2JzlorD.png"
+    },
+    "336": {
+      "name": "TBS USA",
+      "file": "img-810afea3197f326c92fd.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/tbs-us.png"
+    },
+    "644": {
+      "name": "TCM USA",
+      "file": "img-82c50a74411d869f41ec.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/tcm-us.png"
+    },
+    "650": {
+      "name": "TeenNick",
+      "file": "channel-650.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "532": {
+      "name": "Telecinco Spain",
+      "file": "img-986b51d9c19f4bc9a14c.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/spain/telecinco-es.png"
+    },
+    "529": {
+      "name": "Teledeporte Spain (TDP)",
+      "file": "img-b13108a412fdb4119891.png",
+      "placeholder": false,
+      "source_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/TDP_2026.svg/960px-TDP_2026.svg.png"
+    },
+    "131": {
+      "name": "Telemundo",
+      "file": "img-f1796a2102fea4382a3f.png",
+      "placeholder": false,
+      "source_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Telemundo_logo_2018.svg/960px-Telemundo_logo_2018.svg.png"
+    },
+    "741": {
+      "name": "Ten Sports PK",
+      "file": "channel-741.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "40": {
+      "name": "Tennis Channel",
+      "file": "img-68a4a20d8c2ff619c9b5.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/tennis-channel-us.png"
+    },
+    "709": {
+      "name": "Tennis+ 10",
+      "file": "channel-709.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "711": {
+      "name": "Tennis+ 12",
+      "file": "channel-711.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "469": {
+      "name": "TF1 France",
+      "file": "img-8f36528ab4cd6055e9d6.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/tf1-fr.png"
+    },
+    "384": {
+      "name": "The Food Network",
+      "file": "channel-384.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "320": {
+      "name": "The Hallmark Channel",
+      "file": "channel-320.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "394": {
+      "name": "The Weather Channel",
+      "file": "channel-394.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "337": {
+      "name": "TLC",
+      "file": "channel-337.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "698": {
+      "name": "TMC Channel USA",
+      "file": "channel-698.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "955": {
+      "name": "TMC France",
+      "file": "img-14c0e685df1a5e941c3f.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/tmc-fr.png"
+    },
+    "1037": {
+      "name": "TN Live CZ",
+      "file": "channel-1037.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "87": {
+      "name": "TNT Brasil",
+      "file": "img-7d0e4f010f7cbc62d69c.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/brazil/tnt-br.png"
+    },
+    "31": {
+      "name": "TNT Sports 1 UK",
+      "file": "img-f1b01ec761843a5bef34.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/tnt-sports-1-uk.png"
+    },
+    "32": {
+      "name": "TNT Sports 2 UK",
+      "file": "img-690c85e199d9ab4d4084.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/tnt-sports-2-uk.png"
+    },
+    "33": {
+      "name": "TNT Sports 3 UK",
+      "file": "img-30fc13281b8156e9a0c8.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/tnt-sports-3-uk.png"
+    },
+    "34": {
+      "name": "TNT Sports 4 UK",
+      "file": "img-3db0cef10f8ac0db18f4.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/tnt-sports-4-uk.png"
+    },
+    "388": {
+      "name": "TNT Sports Argentina",
+      "file": "img-03d568443623bfe01398.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/argentina/tnt-sports-ar.png"
+    },
+    "642": {
+      "name": "TNT Sports HD Chile",
+      "file": "img-15635212e2633f55d0bb.png",
+      "placeholder": false,
+      "source_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/TNT_Sports_2021_logo.svg/960px-TNT_Sports_2021_logo.svg.png"
+    },
+    "338": {
+      "name": "TNT USA",
+      "file": "img-0754510357b2f7d216ec.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/tnt-us.png"
+    },
+    "340": {
+      "name": "Travel Channel",
+      "file": "channel-340.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "889": {
+      "name": "TRT Spor TR",
+      "file": "img-611076fc4a2741c4d62a.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/turkey/trt-spor-tr.png"
+    },
+    "341": {
+      "name": "TruTV USA",
+      "file": "img-dfe11e669de5dc86bbcd.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/tru-tv-us.png"
+    },
+    "111": {
+      "name": "TSN1",
+      "file": "img-7276a550e429adec65c4.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/canada/tsn-1-ca.png"
+    },
+    "112": {
+      "name": "TSN2",
+      "file": "img-974728fce06d10271021.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/canada/tsn-2-ca.png"
+    },
+    "113": {
+      "name": "TSN3",
+      "file": "img-b3c5ae619b3234a5f0d9.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/canada/tsn-3-ca.png"
+    },
+    "114": {
+      "name": "TSN4",
+      "file": "img-b5263c5c9c3833a70eef.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/canada/tsn-4-ca.png"
+    },
+    "115": {
+      "name": "TSN5",
+      "file": "img-4c61fe6177db1dad83e7.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/canada/tsn-5-ca.png"
+    },
+    "935": {
+      "name": "TUDN MX",
+      "file": "img-f58b865ea735ab1b1294.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/mexico/tudn-mx.png"
+    },
+    "66": {
+      "name": "TUDN USA",
+      "file": "img-823de4956e6f31f63ddc.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/tudn-us.png"
+    },
+    "814": {
+      "name": "TV 2 Sport 2 Norway",
+      "file": "img-610c894638775103de7a.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/nordic/norway/tv2-sport2-no.png"
+    },
+    "812": {
+      "name": "TV 2 Sport Norway",
+      "file": "channel-812.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "660": {
+      "name": "TV ONE USA",
+      "file": "img-a71c9aab7e52cb4e94be.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/tthm8Q5.png"
+    },
+    "807": {
+      "name": "TV2 Bornholm Denmark",
+      "file": "img-d23b40263ded661f4d46.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/nordic/denmark/tv2-bornholm-dk.png"
+    },
+    "817": {
+      "name": "TV2 Denmark",
+      "file": "img-6c07280b4d72672e8af1.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/nordic/denmark/tv2-dk.png"
+    },
+    "810": {
+      "name": "TV2 Sport Denmark",
+      "file": "img-a7b982e68b52c7393653.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/nordic/denmark/tv2-sport-dk.png"
+    },
+    "808": {
+      "name": "TV2 Sport X Denmark",
+      "file": "img-1ef27e79688e677691fc.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/nordic/denmark/tv2-sport-x-dk.png"
+    },
+    "818": {
+      "name": "TV2 Zulu",
+      "file": "img-cc9d1a53390a2ebf8b3e.png",
+      "placeholder": false,
+      "source_url": "https://upload.wikimedia.org/wikipedia/en/thumb/4/42/TV_2_Zulu.svg/960px-TV_2_Zulu.svg.png"
+    },
+    "223": {
+      "name": "TV3 Max Denmark",
+      "file": "img-5e31c925e59f3a2a3d8d.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/nordic/denmark/tv3-max-dk.png"
+    },
+    "809": {
+      "name": "TV3 Sport Denmark",
+      "file": "img-f47d0c807b3356689ef6.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/nordic/denmark/tv3-sport-dk.png"
+    },
+    "819": {
+      "name": "TV3+ Denmark",
+      "file": "img-68f4eafdeaf2698a9559.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/nordic/denmark/tv3-dk.png"
+    },
+    "747": {
+      "name": "TV4 Football Sweden",
+      "file": "channel-747.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "700": {
+      "name": "TV4 Hockey",
+      "file": "img-257ccf1a80cff77b3191.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/GZ0rLfa.png"
+    },
+    "702": {
+      "name": "TV4 Motor",
+      "file": "img-7db04ea2ce6f7d5ba439.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/IWEOuwZ.png"
+    },
+    "703": {
+      "name": "TV4 Sport Live 1",
+      "file": "img-f2028d623034a8cf4ef9.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/rveZPpn.png"
+    },
+    "704": {
+      "name": "TV4 Sport Live 2",
+      "file": "img-07273c4b6a0a16d91031.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/a59DoEM.png"
+    },
+    "705": {
+      "name": "TV4 Sport Live 3",
+      "file": "img-03e8ad5353ae7e4b1a03.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/zkPpXQB.png"
+    },
+    "706": {
+      "name": "TV4 Sport Live 4",
+      "file": "img-c6151eb4108d76e832e8.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/KBHOg6D.png"
+    },
+    "707": {
+      "name": "TV4 Sportkanalen",
+      "file": "img-695b7a12c0366ce49524.png",
+      "placeholder": false,
+      "source_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/TV4_Sportkanalen_Logo_2023.svg/960px-TV4_Sportkanalen_Logo_2023.svg.png"
+    },
+    "701": {
+      "name": "TV4 Tennis",
+      "file": "img-3572dce3db6daa9b5e11.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/ZW4rCG1.png"
+    },
+    "1005": {
+      "name": "TV8 Turkey",
+      "file": "img-3fc55e9fc008d8db664c.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/turkey/tv8-tr.png"
+    },
+    "834": {
+      "name": "TVA Sports 2",
+      "file": "img-4013a9d88f9187f5d02c.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/canada/tva-sports-2-ca.png"
+    },
+    "833": {
+      "name": "TVA Sports",
+      "file": "img-132af3fcba7585b16a8c.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/canada/tva-sports-ca.png"
+    },
+    "932": {
+      "name": "TVC Deportes MX",
+      "file": "img-c6cbe661654f39f3b0f0.png",
+      "placeholder": false,
+      "source_url": "https://upload.wikimedia.org/wikipedia/commons/e/e8/TVCDeportes.png"
+    },
+    "533": {
+      "name": "TVE La 1 Spain",
+      "file": "channel-533.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "536": {
+      "name": "TVE La 2 Spain",
+      "file": "channel-536.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "723": {
+      "name": "TVI Portugal",
+      "file": "img-a265f2e62078e89ee932.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/portugal/tvi-pt.png"
+    },
+    "724": {
+      "name": "TVI Reality Portugal",
+      "file": "img-636b2ec60f259b51e86a.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/portugal/tvi-reality-pt.png"
+    },
+    "342": {
+      "name": "TVLAND",
+      "file": "img-c363467df692247f036e.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/VNNS4mF.png"
+    },
+    "565": {
+      "name": "TVN HD Poland",
+      "file": "img-3e27a862db97784b7b4a.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/poland/tvn-pl.png"
+    },
+    "444": {
+      "name": "TVN24 Poland",
+      "file": "img-7c442f21529830242eeb.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/poland/tvn24-pl.png"
+    },
+    "842": {
+      "name": "TVO CA",
+      "file": "img-128bed0c9f1bb409955b.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/canada/tvo-ca.png"
+    },
+    "452": {
+      "name": "TVP INFO",
+      "file": "img-2174f654af078de9a0f8.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/poland/tvp-info-pl.png"
+    },
+    "128": {
+      "name": "TVP Sport Poland",
+      "file": "img-ff2c9b697090a98fa158.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/poland/tvp-sport-pl.png"
+    },
+    "560": {
+      "name": "TVP1 Poland",
+      "file": "img-83a65a37be9c2544239e.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/poland/tvp1-pl.png"
+    },
+    "561": {
+      "name": "TVP2 Poland",
+      "file": "img-aee5c6d7f6e6675a3b5c.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/poland/tvp2-pl.png"
+    },
+    "746": {
+      "name": "TYC Sports Argentina",
+      "file": "img-e884a64c175d6e9ae0ff.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/argentina/tyc-sports-ar.png"
+    },
+    "133": {
+      "name": "Unimas",
+      "file": "img-c9e5032a319ea51cb608.png",
+      "placeholder": false,
+      "source_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Logo_UniM%C3%A1s_2021.svg/960px-Logo_UniM%C3%A1s_2021.svg.png"
+    },
+    "668": {
+      "name": "Universal Kids USA",
+      "file": "img-dd5cdb26797f290c49de.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/universal-kids-us.png"
+    },
+    "132": {
+      "name": "Univision",
+      "file": "img-0be1bc097aec4c84475e.png",
+      "placeholder": false,
+      "source_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Logo_Univision_2019.svg/960px-Logo_Univision_2019.svg.png"
+    },
+    "343": {
+      "name": "USA Network",
+      "file": "img-fa2829a024ee8a714faa.png",
+      "placeholder": false,
+      "source_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/USA_Network_logo_%282016%29.svg/960px-USA_Network_logo_%282016%29.svg.png"
+    },
+    "816": {
+      "name": "V Film Family",
+      "file": "img-6b51a5c18cdfc2f0e774.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/K6fQ8pe.png"
+    },
+    "815": {
+      "name": "V Film Premiere",
+      "file": "img-6b6539fd21485fd665d9.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/QdFKe21.png"
+    },
+    "272": {
+      "name": "V Sport Motor Sweden",
+      "file": "img-79c3d947fd2c061a7c4a.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/nordic/sweden/v-sport-motor-se.png"
+    },
+    "378": {
+      "name": "Veronica NL Netherland",
+      "file": "channel-378.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "344": {
+      "name": "VH1 USA",
+      "file": "img-9c00679f3513598427d7.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/vh1-us.png"
+    },
+    "451": {
+      "name": "Viaplay Sports 1 UK",
+      "file": "img-386aee70075b4095be0e.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/viaplay-sports-1-uk.png"
+    },
+    "550": {
+      "name": "Viaplay Sports 2 UK",
+      "file": "img-4247b24ac150e6f87066.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/viaplay-sports-2-uk.png"
+    },
+    "659": {
+      "name": "VICE TV",
+      "file": "img-7d1b1795a97414a88a05.png",
+      "placeholder": false,
+      "source_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Vice_TV_logo.svg/960px-Vice_TV_logo.svg.png"
+    },
+    "260": {
+      "name": "Vodafone Sport",
+      "file": "channel-260.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "1053": {
+      "name": "Voyo Special 1 SK",
+      "file": "channel-1053.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "1054": {
+      "name": "Voyo Special 2 SK",
+      "file": "channel-1054.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "1055": {
+      "name": "Voyo Special 3 SK",
+      "file": "channel-1055.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "1056": {
+      "name": "Voyo Special 4 SK",
+      "file": "channel-1056.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "1057": {
+      "name": "Voyo Special 7 SK",
+      "file": "channel-1057.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "1058": {
+      "name": "Voyo Special 8 SK",
+      "file": "channel-1058.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "1059": {
+      "name": "Voyo Special 9 SK",
+      "file": "channel-1059.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "391": {
+      "name": "VTV+ Uruguay",
+      "file": "channel-391.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "959": {
+      "name": "W9 France",
+      "file": "img-801cca02d6029d5862ab.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/france/w9-fr.png"
+    },
+    "734": {
+      "name": "WDR DE",
+      "file": "img-005a59dd930e63e06a20.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/germany/wdr-de.png"
+    },
+    "655": {
+      "name": "WETV USA",
+      "file": "img-44fe18bb484b5fb0b653.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/we-tv-us.png"
+    },
+    "598": {
+      "name": "Willow 2 Cricket",
+      "file": "channel-598.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "346": {
+      "name": "Willow Cricket",
+      "file": "channel-346.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "392": {
+      "name": "Win Sports+ Columbia",
+      "file": "channel-392.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "376": {
+      "name": "WWE Network",
+      "file": "channel-376.png",
+      "placeholder": true,
+      "source_url": null
+    },
+    "543": {
+      "name": "Yes Movies Action Israel",
+      "file": "img-d1e2b306e321ddcf9570.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/israel/yes-movies-action-il.png"
+    },
+    "545": {
+      "name": "Yes Movies Comedy Israel",
+      "file": "img-67fe8d86f8a7aa538434.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/d5J2Dq1.png"
+    },
+    "544": {
+      "name": "Yes Movies Kids Israel",
+      "file": "img-ef5e985589103c6e0a29.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/israel/yes-movies-kids-il.png"
+    },
+    "763": {
+      "name": "YES Network USA",
+      "file": "img-b5f893c30f9fbe47ff80.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/yes-network-us.png"
+    },
+    "837": {
+      "name": "Yes TV CA",
+      "file": "img-e5d0684f6f6aeb28df9c.png",
+      "placeholder": false,
+      "source_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/YesTV_Canada.svg/960px-YesTV_Canada.svg.png"
+    },
+    "286": {
+      "name": "YTV CA",
+      "file": "img-6cdc9cbb2b763a44f7e6.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/canada/ytv-ca.png"
+    },
+    "727": {
+      "name": "ZDF DE",
+      "file": "img-d0235191b8f83016c94a.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/germany/zdf-de.png"
+    },
+    "728": {
+      "name": "ZDF Info DE",
+      "file": "img-c1301cc291bb44105c41.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/germany/zdf-info-de.png"
+    },
+    "398": {
+      "name": "Ziggo Sport 2 NL",
+      "file": "img-19f66eaf81f354d921cb.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/netherlands/ziggo-sport-2-nl.png"
+    },
+    "919": {
+      "name": "Ziggo Sport 3 NL",
+      "file": "img-84ccb24937d85fd58bbb.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/netherlands/ziggo-sport-3-nl.png"
+    },
+    "396": {
+      "name": "Ziggo Sport 4 NL",
+      "file": "img-344bc6109b7ab41cc20d.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/netherlands/ziggo-sport-4-nl.png"
+    },
+    "383": {
+      "name": "Ziggo Sport 5 NL",
+      "file": "img-72fc70afbb02bf1cd15d.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/netherlands/ziggo-sport-5-nl.png"
+    },
+    "901": {
+      "name": "Ziggo Sport 6 NL",
+      "file": "img-3c16138d80411327eaa5.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/netherlands/ziggo-sport-6-nl.png"
+    },
+    "393": {
+      "name": "Ziggo Sport NL",
+      "file": "img-fd97914f6ead1d4803fe.png",
+      "placeholder": false,
+      "source_url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/netherlands/ziggo-sport-nl.png"
+    },
+    "395": {
+      "name": "МАТЧ! БОЕЦ Russia",
+      "file": "img-e4c038ab82379de6a6be.png",
+      "placeholder": false,
+      "source_url": "https://i.imgur.com/DogOkA4.png"
+    }
+  },
+  "default": "default.png"
+}

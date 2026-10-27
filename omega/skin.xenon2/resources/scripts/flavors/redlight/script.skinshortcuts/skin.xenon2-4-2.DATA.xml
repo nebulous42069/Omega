@@ -1,0 +1,202 @@
+<shortcuts>
+	<shortcut>
+		<defaultID>plugin.video.playlistbrowser</defaultID>
+		<label>Diggz TV Guide Lite</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/diggztvguide.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.playlistbrowser",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Mac's &amp; Mayhem</label>
+		<label2>Custom item</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/madtitan.png</thumb>
+		<action>ActivateWindow(10025,"plugin://plugin.video.madtitansports/get_list/https://magnetic.website/MAD_TITAN_SPORTS/SPORTS/LEAGUE/METAL_METAL.json",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.video.daddylive</defaultID>
+		<label>Daddylive</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/daddylive.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.daddylive",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>LIve And Local News</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/news.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.program.autowidget/?mode=group&amp;group=live_and_local_news-1769407649.50683&amp;refresh=&amp;reload=",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Live On Youtube</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/ytkiosk.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.yt.kiosk/?action=chip&amp;label=Live&amp;url=https%3A%2F%2Fwww.youtube.com%2Flive%3Fgl%3DUS%26hl%3Den%26persist_gl%3D1%26persist_hl%3D1",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.video.madtitansports/get_list/https://magnetic.website/MAD_TITAN_SPORTS/LIVETV/livetv.json</defaultID>
+		<label>Mad Titan Live TV</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/madtitan.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.madtitansports/get_list/https://magnetic.website/MAD_TITAN_SPORTS/LIVETV/livetv.json",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>metalchris.cwlive.epg</defaultID>
+		<label>CW Live EPG</label>
+		<label2>Program</label2>
+		<icon>DefaultAddon.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/cwepg.png</thumb>
+		<action>RunAddOn(metalchris.cwlive.epg)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>metalchris.tcltv.epg</defaultID>
+		<label>TCL TV+ EPG</label>
+		<label2>Program</label2>
+		<icon>DefaultAddon.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/tclepg.png</thumb>
+		<action>RunAddOn(metalchris.tcltv.epg)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>metalchris.lgchannels.epg</defaultID>
+		<label>LG Channels EPG</label>
+		<label2>Program</label2>
+		<icon>DefaultAddon.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/lgepg.png</thumb>
+		<action>RunAddOn(metalchris.lgchannels.epg)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>metalchris.xumoplay.epg</defaultID>
+		<label>XumoPlay EPG</label>
+		<label2>Program</label2>
+		<icon>DefaultAddon.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/xumoepg.png</thumb>
+		<action>RunAddOn(metalchris.xumoplay.epg)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>metalchris.localnow.epg</defaultID>
+		<label>LocalNow EPG</label>
+		<label2>Program</label2>
+		<icon>DefaultAddon.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/localnowepg.png</thumb>
+		<action>RunAddOn(metalchris.localnow.epg)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.video.playlistbee</defaultID>
+		<label>Playlist Bee</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/bee.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.playlistbee",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Ghost Live TV</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/ghost.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.ghost/?mode=189&amp;iconimage=https%3A%2F%2Fthechains24.com%2FPornKing%2Fghost.png&amp;fanart=https%3A%2F%2Fthechains24.com%2FPornKing%2Ffanart.jpg&amp;description=Live+TV&amp;url=https%3A%2F%2Fthechains24.com%2FPornKing%2FNew%2520Live%2520tv%2520Ghost%2FEntairt.xml&amp;name=Live+TV&amp;image_master=&amp;heb_name=+&amp;last_id=&amp;dates=+&amp;data=+&amp;original_title=+&amp;id=+&amp;season=+&amp;episode=+&amp;tmdbid=+&amp;eng_name=+&amp;show_original_year=+&amp;isr=0&amp;fav_status=false&amp;all_w=%7B%7D&amp;search_db=&amp;mypass=&amp;iconimage=https%3A%2F%2Fthechains24.com%2FPornKing%2Fghost.png&amp;fanart=https%3A%2F%2Fthechains24.com%2FPornKing%2Ffanart.jpg&amp;description=Live+TV&amp;url=https%3A%2F%2Fthechains24.com%2FPornKing%2FNew%2520Live%2520tv%2520Ghost%2FEntairt.xml&amp;name=Live+TV&amp;image_master=&amp;heb_name=+&amp;last_id=&amp;dates=+&amp;data=+&amp;original_title=+&amp;id=+&amp;season=+&amp;episode=+&amp;tmdbid=+&amp;eng_name=+&amp;show_original_year=+&amp;fav_status=false&amp;all_w=%7B%7D&amp;search_db=&amp;mypass=&amp;video_data=%7B%22title%22%3A+%22Live+TV%22%2C+%22mediatype%22%3A+%22movie%22%2C+%22TVshowtitle%22%3A+%22%22%2C+%22season%22%3A+0%2C+%22episode%22%3A+0%2C+%22OriginalTitle%22%3A+%22+%22%2C+%22rating%22%3A+%220%22%2C+%22plot%22%3A+%22Live+TV%22%2C+%22Tag%22%3A+%22None%22%2C+%22id%22%3A+%22+%22%7D&amp;video_data=%7B%22title%22%3A+%22Live+TV%22%2C+%22mediatype%22%3A+%22movie%22%2C+%22TVshowtitle%22%3A+%22%22%2C+%22season%22%3A+0%2C+%22episode%22%3A+0%2C+%22OriginalTitle%22%3A+%22+%22%2C+%22rating%22%3A+%220%22%2C+%22plot%22%3A+%22Live+TV%22%2C+%22Tag%22%3A+%22None%22%2C+%22id%22%3A+%22+%22%7D",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.video.iptvlister</defaultID>
+		<label>IPTV Lister</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/iptvlister.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.iptvlister",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>slyguy.pluto.tv.provider</defaultID>
+		<label>Pluto TV</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/pluto.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://slyguy.pluto.tv.provider",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>slyguy.samsung.tv.plus</defaultID>
+		<label>Samsung TV Plus</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/samsungtv.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://slyguy.samsung.tv.plus",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>slyguy.plex.live</defaultID>
+		<label>Plex Live</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/plex.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://slyguy.plex.live",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.video.lgchannels</defaultID>
+		<label>LG Channels</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/lg.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.lgchannels",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>slyguy.roku</defaultID>
+		<label>Roku</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/roku.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://slyguy.roku",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.video.xumoplay</defaultID>
+		<label>Xumo Play</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/xumo.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.xumoplay",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>slyguy.pbs.live</defaultID>
+		<label>PBS Live</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/pbstv.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://slyguy.pbs.live",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>slyguy.roku</defaultID>
+		<label>Roku</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/roku.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://slyguy.roku",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.video.iplayerwww</defaultID>
+		<label>iPlayer WWW</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/iplayer.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.iplayerwww",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.video.cbc</defaultID>
+		<label>Canadian Broadcasting Corp (CBC)</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/cbc.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.cbc",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID>plugin.video.raitv</defaultID>
+		<label>Rai Play (Italian)</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/raiplay.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.raitv",return)</action>
+		</shortcut>
+	</shortcuts>

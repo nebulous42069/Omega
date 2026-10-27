@@ -3,12 +3,13 @@ import sys, os, json, time, gzip, re, io, urllib.parse
 from urllib.request import urlopen, Request
 from datetime import datetime, timezone, timedelta
 import xml.etree.ElementTree as ET
+from epg_cache import cache_paths, read_epg, clear_epg
 
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon, xbmcvfs
 
 ADDON = xbmcaddon.Addon()
 ADDON_ID = ADDON.getAddonInfo('id')
-VERSION = "2.7.1-fixed"
+VERSION = "2.8.5-integrated-daddylive"
 HANDLE = int(sys.argv[1]) if len(sys.argv) > 1 and str(sys.argv[1]).lstrip('-').isdigit() else -1
 BASE_URL = sys.argv[0] if sys.argv else ''
 
@@ -359,10 +360,30 @@ def _norm(s):
 class Source:
     def __init__(self, idx, name, m3u, js, epg):
         self.idx = idx; self.name = name or f"Playlist {idx}"
-        self.m3u = m3u or ''; self.js = js or ''; self.epg = epg or ''
+        self.m3u = m3u or ''; self.js = js or ''; self.epg = (epg or '').strip()
         self.channels = None; self.epg_channels = {}; self.progs = {}
     def _cache_paths(self):
-        base = os.path.join(PROFILE, f'epg_{self.idx}.xml'); return base, base + '.gz'
+        return cache_paths(PROFILE, self.epg)
+    def _epg_source_indices(self):
+        return [self.idx] + [s.idx for s in load_sources() if s.epg == self.epg]
+    def _download_epg(self):
+        if self.epg.startswith(('http://', 'https://')):
+            req = Request(self.epg, headers={'User-Agent': 'Mozilla/5.0 (Kodi Addon)'})
+            with urlopen(req, timeout=90) as response:
+                return response.read()
+        stream = xbmcvfs.File(self.epg)
+        try:
+            # Binary reads preserve local gzip bytes.
+            return bytes(stream.readBytes())
+        finally:
+            stream.close()
+    def _cached_epg(self, force=False):
+        return read_epg(PROFILE, self.epg, self._epg_source_indices(),
+                        self._download_epg,
+                        max(1, get_int_setting('EPG_TTL_HOURS', 24)),
+                        force=force, log=log)
+    def clear_epg_cache(self):
+        clear_epg(PROFILE, self.epg, self._epg_source_indices(), log=log)
     def load_channels(self):
         if getattr(self, 'alias_source', None):
             target = next((s for s in load_sources() if s.name == self.alias_source and s.idx != self.idx), None)
@@ -402,50 +423,11 @@ class Source:
     
     def load_epg(self):
         if not self.epg: return {}, {}
-        cache_xml, cache_gz = self._cache_paths()
-        ttl_hours = max(1, get_int_setting('EPG_TTL_HOURS', 24))
-        need_refresh = not os.path.isfile(cache_xml)
-        if not need_refresh:
-            try:
-                age = time.time() - os.path.getmtime(cache_xml)
-                if age > (ttl_hours * 3600):
-                    need_refresh = True
-            except Exception:
-                pass
         try:
-            xml_bytes = None
-            if need_refresh:
-                if self.epg.startswith(('http://','https://')):
-                    req = Request(self.epg, headers={'User-Agent':'Mozilla/5.0 (Kodi Addon)'})
-                    with urlopen(req, timeout=90) as resp: data = resp.read()
-                else:
-                    try:
-                        f = xbmcvfs.File(self.epg); data = f.read(); f.close()
-                        if not isinstance(data, bytes): data = str(data).encode('utf-8','ignore')
-                    except Exception:
-                        with open(self.epg, 'rb') as fh: data = fh.read()
-                is_gz_ext = self.epg.lower().endswith('.gz')
-                is_gz_sig = len(data)>=2 and data[:2]==b'\x1f\x8b'
-                looks_xml = data.strip()[:1] == b'<'
-                if is_gz_ext or is_gz_sig: _write_bytes(cache_gz, data)
-                if is_gz_ext or is_gz_sig:
-                    try: xml_bytes = gzip.decompress(data)
-                    except Exception:
-                        try:
-                            with gzip.GzipFile(fileobj=io.BytesIO(data)) as gf: xml_bytes = gf.read()
-                        except Exception as de: log(f"EPG gzip decompress failed (src {self.idx}): {de}"); xml_bytes = None
-                if xml_bytes is None and looks_xml: xml_bytes = data
-                if xml_bytes is not None: _write_bytes(cache_xml, xml_bytes)
-            else:
-                if os.path.isfile(cache_gz):
-                    try:
-                        with open(cache_gz, 'rb') as gh: gz_bytes = gh.read()
-                        xml_bytes = gzip.decompress(gz_bytes)
-                    except Exception as ge: log(f"EPG cache gz decompress failed (src {self.idx}): {ge}"); xml_bytes = None
-                if xml_bytes is None and os.path.isfile(cache_xml):
-                    with open(cache_xml, 'rb') as fh: xml_bytes = fh.read()
+            xml_bytes, need_refresh = self._cached_epg()
         except Exception as e:
-            log(f"EPG fetch failed (src {self.idx}): {e}"); xml_bytes = None
+            log(f"EPG fetch failed (src {self.idx}): {type(e).__name__}")
+            return {}, {}
         if not xml_bytes: return {}, {}
 
         try:
@@ -621,8 +603,14 @@ def load_baked_in_sources(base_idx_start: int = 100):
                 next_id += 1
             name = pick(item, 'name', 'Name', 'display_name') or f"Baked {idx}"
             m3u = pick(item, 'm3u', 'm3u_url', 'M3U', 'M3U_URL')
+            if item.get('integrated_dlhd'):
+                folder = ADDON.getSetting('DLHD_folder') or ADDON.getAddonInfo('profile')
+                m3u = folder.rstrip('/\\') + '/daddylive.m3u'
             js  = pick(item, 'json', 'json_url', 'JSON', 'JSON_URL')
             epg = pick(item, 'epg', 'epg_xml', 'epg_url', 'EPG', 'EPG_XML', 'EPG_URL')
+            if item.get('integrated_dlhd'):
+                from dlhd.epg import GUIDE_URL
+                epg = GUIDE_URL if ADDON.getSetting('DLHD_epg') != 'false' else ''
             alias_source = pick(item, 'alias_source')
             alias_group = pick(item, 'alias_group')
             # A group reference can replace a playlist URL.
@@ -729,9 +717,10 @@ def _fmt_ampm_time(dt):
         return ''
 # ---------- Extra actions ----------
 def _epg_cache_path_for(idx: int):
-    try: prof = xbmcvfs.translatePath(ADDON.getAddonInfo('profile'))
-    except Exception: prof = xbmc.translatePath(ADDON.getAddonInfo('profile'))
-    return os.path.join(prof, f'epg_{idx}.xml')
+    src = next((s for s in load_sources() if s.idx == idx), None)
+    if src is None or not src.epg:
+        raise ValueError('Source has no EPG')
+    return src._cache_paths()[0]
 def _epg_cache_gz_for(idx: int): return _epg_cache_path_for(idx) + '.gz'
 
 
@@ -777,32 +766,35 @@ def _maybe_run_iptv_merge_for_source(src_idx: int):
             log(f"IPTV Merge: triggering Run Merge via RunPlugin for src {src_idx}")
             xbmc.executebuiltin('RunPlugin("plugin://plugin.program.iptv.merge/?_=merge")')
 
-            # Brief pause so Merge begins writing, then clear ONLY this source's EPG cache
+            # Brief pause so Merge begins writing, then invalidate its shared EPG cache
             try:
                 xbmc.sleep(800)
             except Exception:
                 pass
             try:
-                path_xml = _epg_cache_path_for(src_idx); path_gz = _epg_cache_gz_for(src_idx)
-                for fp in (path_xml, path_gz):
-                    try:
-                        if os.path.exists(fp): os.remove(fp)
-                    except Exception as ee:
-                        log(f"IPTV Merge: failed clearing {fp}: {ee}")
-                log(f"IPTV Merge: cleared EPG cache for src {src_idx} after merge trigger")
+                if src.epg:
+                    src.clear_epg_cache()
+                log(f"IPTV Merge: cleared shared EPG cache for src {src_idx} after merge trigger")
             except Exception as ce:
                 log(f"IPTV Merge: error clearing EPG cache (src {src_idx}): {ce}")
     except Exception as e:
         log(f"IPTV Merge trigger error (src {src_idx}): {e}")
 
 def refresh_epg(src_idx: int):
-    path_xml = _epg_cache_path_for(src_idx); path_gz = _epg_cache_gz_for(src_idx)
+    src = next((s for s in load_sources() if s.idx == src_idx), None)
+    if src is None or not src.epg:
+        notify('Playlist Browser', 'Source has no EPG configured.')
+        return
     try:
-        if os.path.exists(path_xml): os.remove(path_xml)
-        if os.path.exists(path_gz): os.remove(path_gz)
-        notify('Playlist Browser', 'EPG cache cleared. Reloading…')
+        _, updated = src._cached_epg(force=True)
+        if not updated:
+            notify('Playlist Browser', 'EPG refresh failed. Previous cache retained.', xbmcgui.NOTIFICATION_ERROR, 4000)
+            return
+        notify('Playlist Browser', 'Shared EPG refreshed. Reloading…')
     except Exception as e:
-        notify('Playlist Browser', f'EPG refresh failed: {e}', xbmcgui.NOTIFICATION_ERROR, 4000); log(f"EPG refresh cleanup failed: {e}")
+        notify('Playlist Browser', 'EPG refresh failed.', xbmcgui.NOTIFICATION_ERROR, 4000)
+        log(f"EPG refresh failed: {type(e).__name__}")
+        return
     show_guide_now(src_idx)
 
 def _playlist_cache_paths(idx: int, src: 'Source'):
@@ -965,6 +957,18 @@ def list_favorites():
 # ---------- UI ----------
     xbmcplugin.endOfDirectory(HANDLE)
 
+def dlhd_exported(path, content):
+    """Update matching source caches immediately without fetching EPGs."""
+    parsed = parse_m3u(content)
+    target = xbmcvfs.translatePath(path).replace('\\','/')
+    for source in load_sources():
+        if source.m3u and xbmcvfs.translatePath(source.m3u).replace('\\','/') == target:
+            raw_path, cache_path = _playlist_cache_paths(source.idx, source)
+            _write_text(raw_path, content)
+            _write_json(cache_path, parsed)
+    log(f'DaddyLive export updated: {len(parsed)} channels')
+
+
 def list_root():
     log("Addon entry")
     sources = load_sources()
@@ -977,6 +981,10 @@ def list_root():
     except Exception:
         set_art(li_fav)
     xbmcplugin.addDirectoryItem(HANDLE, build_url({'action': 'favorites'}), li_fav, isFolder=True)
+
+    li_dlhd = xbmcgui.ListItem(label='DaddyLive tools')
+    set_art(li_dlhd)
+    xbmcplugin.addDirectoryItem(HANDLE, build_url({'action':'dlhd'}), li_dlhd, isFolder=True)
 
     # Optional auto-start behavior (unchanged)
     start_mode = get_int_setting('START_MODE', 0)
@@ -1260,7 +1268,11 @@ def router(paramstring):
     log("Router start")
     params = dict(urllib.parse.parse_qsl(paramstring[1:])) if paramstring else {}
     action = params.get('action')
-    if action == 'settings': ADDON.openSettings()
+    if action == 'dlhd':
+        from dlhd.ui import run
+        values = {key:[value] for key,value in params.items()}
+        run(params.get('tool',''), HANDLE, BASE_URL, values, on_export=dlhd_exported)
+    elif action == 'settings': ADDON.openSettings()
     elif action == 'refresh_epg': refresh_epg(int(params.get('src','0') or '0'))
     elif action == 'refresh_channels': refresh_channels(int(params.get('src','0') or '0'))
     elif action == 'write_match_report': write_match_report(int(params.get('src','0') or '0'))

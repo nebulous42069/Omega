@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <includes>
 	<include name="ShiftPosterThumbs">
 		<control type="image">
@@ -138,15 +138,8 @@
 				<onup condition="!ListItem.IsParentFolder">4401</onup>
 				<onleft>57</onleft>
 				<onright>57</onright>
-				<ondown condition="String.IsEqual(ListItem.DBType,movie)">RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.IMDBNumber]&amp;tmdb=$INFO[ListItem.Property(tmdb_id)]&amp;tmdbshow=$INFO[ListItem.Property(tmdbshow_id)]&amp;dbtype=$INFO[ListItem.DBType]&amp;mediatype=$INFO[ListItem.MediaType]&amp;title=$INFO[ListItem.Title]&amp;tvshowtitle=$INFO[ListItem.TVShowTitle]&amp;year=$INFO[ListItem.Year])</ondown>
-				<ondown condition="String.IsEqual(ListItem.DBType,tvshow) + !String.IsEmpty(ListItem.IMDBNumber)">
-				RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.IMDBNumber]&amp;dbtype=$INFO[ListItem.DBType]&amp;title=$INFO[ListItem.TVShowTitle])</ondown>
-				<ondown condition="String.IsEqual(ListItem.DBType,tvshow) + String.IsEmpty(ListItem.IMDBNumber) + !String.IsEmpty(ListItem.UniqueID(imdb))">
-				RunScript(script.trailer.bridge,?imdb=$INFO[ListItem.UniqueID(imdb)]&amp;dbtype=$INFO[ListItem.DBType]&amp;title=$INFO[ListItem.TVShowTitle])</ondown>
-				<ondown condition="String.IsEqual(ListItem.DBType,tvshow) + String.IsEmpty(ListItem.IMDBNumber) + String.IsEmpty(ListItem.UniqueID(imdb)) + !String.IsEmpty(ListItem.Property(tmdbshow_id))">
-				RunScript(script.trailer.bridge,?tmdbshow=$INFO[ListItem.Property(tmdbshow_id)]&amp;dbtype=$INFO[ListItem.DBType]&amp;title=$INFO[ListItem.TVShowTitle])</ondown>				
-				<ondown condition="Control.IsVisible(95760)">95760</ondown>
-				<ondown condition="!Control.IsVisible(95760)">4400</ondown>
+				<ondown condition="!Container(57).ListItem.IsParentFolder + [String.IsEqual(Container(57).ListItem.DBType,movie) | String.IsEqual(Container(57).ListItem.DBType,tvshow) | [String.IsEmpty(Container(57).ListItem.DBType) + [Container(57).Content(movies) | Container(57).Content(tvshows)]]]">RunScript(special://skin/resources/scripts/x2_view_trailer.py,57)</ondown><ondown condition="![!Container(57).ListItem.IsParentFolder + [String.IsEqual(Container(57).ListItem.DBType,movie) | String.IsEqual(Container(57).ListItem.DBType,tvshow) | [String.IsEmpty(Container(57).ListItem.DBType) + [Container(57).Content(movies) | Container(57).Content(tvshows)]]]] + [Control.IsVisible(95760)]">95760</ondown>
+				<ondown condition="![!Container(57).ListItem.IsParentFolder + [String.IsEqual(Container(57).ListItem.DBType,movie) | String.IsEqual(Container(57).ListItem.DBType,tvshow) | [String.IsEmpty(Container(57).ListItem.DBType) + [Container(57).Content(movies) | Container(57).Content(tvshows)]]]] + [!Control.IsVisible(95760)]">4400</ondown>
 				<orientation>horizontal</orientation>
 				<viewtype label="31079">BigWrap</viewtype>
 				<pagecontrol>95760</pagecontrol>
@@ -225,7 +218,7 @@
 				<onup>SetFocus(9050)</onup>
 				<onleft>57</onleft>
 				<onright>57</onright>
-				<ondown>95760</ondown>
+				<ondown condition="!Container(57).ListItem.IsParentFolder + [String.IsEqual(Container(57).ListItem.DBType,movie) | String.IsEqual(Container(57).ListItem.DBType,tvshow) | [String.IsEmpty(Container(57).ListItem.DBType) + [Container(57).Content(movies) | Container(57).Content(tvshows)]]]">RunScript(special://skin/resources/scripts/x2_view_trailer.py,57)</ondown><ondown condition="![!Container(57).ListItem.IsParentFolder + [String.IsEqual(Container(57).ListItem.DBType,movie) | String.IsEqual(Container(57).ListItem.DBType,tvshow) | [String.IsEmpty(Container(57).ListItem.DBType) + [Container(57).Content(movies) | Container(57).Content(tvshows)]]]]">95760</ondown>
 				<orientation>horizontal</orientation>
 				<viewtype label="31079">BigWrap</viewtype>
 				<pagecontrol>95760</pagecontrol>
@@ -314,7 +307,7 @@
 				<onup>SetFocus(9050)</onup>
 				<onleft>57</onleft>
 				<onright>57</onright>
-				<ondown>95760</ondown>
+				<ondown condition="!Container(57).ListItem.IsParentFolder + [String.IsEqual(Container(57).ListItem.DBType,movie) | String.IsEqual(Container(57).ListItem.DBType,tvshow) | [String.IsEmpty(Container(57).ListItem.DBType) + [Container(57).Content(movies) | Container(57).Content(tvshows)]]]">RunScript(special://skin/resources/scripts/x2_view_trailer.py,57)</ondown><ondown condition="![!Container(57).ListItem.IsParentFolder + [String.IsEqual(Container(57).ListItem.DBType,movie) | String.IsEqual(Container(57).ListItem.DBType,tvshow) | [String.IsEmpty(Container(57).ListItem.DBType) + [Container(57).Content(movies) | Container(57).Content(tvshows)]]]]">95760</ondown>
 				<orientation>horizontal</orientation>
 				<viewtype label="31079">BigWrap</viewtype>
 				<pagecontrol>95760</pagecontrol>

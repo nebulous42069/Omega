@@ -252,6 +252,15 @@
 			<onclick>Addon.OpenSettings(script.cu.lrclyrics)</onclick>
 			<visible>System.HasAddon(script.cu.lrclyrics) + System.AddonIsEnabled(script.cu.lrclyrics)</visible>
 		</control>
+		<control type="radiobutton" id="90219">
+            <description>Automatically display CU LRC lyrics in the music player</description>
+            <width>1498</width>
+            <radioposx>1396</radioposx>
+            <label>Automatically start lyrics</label>
+            <onclick>Skin.ToggleSetting(Disable.AutoLyrics)</onclick>
+            <selected>!Skin.HasSetting(Disable.AutoLyrics)</selected>
+            <enable>System.AddonIsEnabled(script.cu.lrclyrics)</enable>
+        </control>
 		<control type="radiobutton" id="90205">
 			<description>Hide Player Controls</description>
 			<width>1498</width>
