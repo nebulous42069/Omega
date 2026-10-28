@@ -881,6 +881,13 @@ class FlavorWizard(Wizard):
 class TrackingWizard(AuthorizationWizard):
     entries = TRACKING_SERVICES
 
+    def onInit(self):
+        super().onInit()
+        job = getattr(self, 'handoff_job', '')
+        if job:
+            xbmcgui.Window(10000).setProperty('Xenon2.Setup.TrackingReady.' + job, 'true')
+            xbmc.log('Xenon Setup: final Tracking page initialized.', xbmc.LOGINFO)
+
 
 class HomeMenusWizard(Wizard):
     def onInit(self):
@@ -968,34 +975,37 @@ def save_state(mode, choices, outcomes=None):
         json.dump({'mode': mode, 'choices': choices, 'outcomes': outcomes or []}, stream, indent=2)
 
 
-RESUME_HELPER = 'import errno\nimport os\n\nclass WizardSessionLock:\n    """Kernel-owned lock: stale files do not block future sessions."""\n    def __init__(self, path):\n        self.path = path\n        self.stream = None\n\n    def acquire(self):\n        os.makedirs(os.path.dirname(self.path), exist_ok=True)\n        stream = open(self.path, \'a+b\')\n        try:\n            if os.name == \'nt\':\n                import msvcrt\n                # msvcrt locks a byte range; keep byte zero present in the file.\n                stream.seek(0, os.SEEK_END)\n                if stream.tell() == 0:\n                    stream.write(b\'0\')\n                    stream.flush()\n                stream.seek(0)\n                msvcrt.locking(stream.fileno(), msvcrt.LK_NBLCK, 1)\n            else:\n                import fcntl\n                fcntl.flock(stream.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)\n        except OSError as exc:\n            stream.close()\n            if exc.errno in (errno.EACCES, errno.EAGAIN) or getattr(exc, \'winerror\', None) in (32, 33, 36):\n                return False\n            raise\n        except BaseException:\n            stream.close()\n            raise\n        self.stream = stream\n        return True\n\n    def release(self):\n        if self.stream is not None:\n            # Closing releases the OS lock, including after an exception.\n            self.stream.close()\n            self.stream = None\n\n\nimport json\nimport os\nimport time\nimport xbmc\nimport xbmcgui\n\nmonitor = xbmc.Monitor()\nhome = xbmcgui.Window(10000)\n# Wait for the actual wizard owner; stale Home properties are not locks.\nprobe = WizardSessionLock(os.path.join(os.path.dirname(__file__), \'wizard-session.lock\'))\nlimit = time.monotonic() + 30\nwhile not probe.acquire():\n    if time.monotonic() >= limit or monitor.waitForAbort(0.2):\n        xbmc.log(\'Xenon Setup: tracking handoff stopped; wizard session lock is still held.\', xbmc.LOGWARNING)\n        raise SystemExit\ntry:\n    home.clearProperty(\'Xenon2.Setup.Running\')\nfinally:\n    probe.release()\ntry:\n    request = {\'jsonrpc\': \'2.0\', \'id\': 1, \'method\': \'Addons.ExecuteAddon\',\n               \'params\': {\'addonid\': \'script.skinshortcuts\',\n                          \'params\': [\'type=buildxml&mainmenuID=9000&levels=2&group=mainmenu|buttonmenu\'],\n                          \'wait\': True}}\n    result = json.loads(xbmc.executeJSONRPC(json.dumps(request)))\n    if \'error\' in result:\n        raise RuntimeError(str(result[\'error\']))\n    # The build script has ended. Allow the skin reload and modal animations to settle.\n    if monitor.waitForAbort(1):\n        raise SystemExit\n    quiet_since = None\n    limit = time.monotonic() + 120\n    while time.monotonic() < limit and not monitor.abortRequested():\n        if xbmc.getCondVisibility(\'System.HasActiveModalDialog\'):\n            quiet_since = None\n        elif quiet_since is None:\n            quiet_since = time.monotonic()\n        elif time.monotonic() - quiet_since >= 2:\n            xbmc.executebuiltin(\'RunScript("\' + WIZARD_PATH + \'",resume_tracking)\')\n            break\n        if monitor.waitForAbort(0.2):\n            break\nexcept Exception as exc:\n    xbmc.log(\'Xenon 2 tracking handoff: \' + str(exc), xbmc.LOGERROR)\n    xbmcgui.Dialog().notification(\'Xenon 2 Setup\', \'Menus saved. Could not reopen tracking setup; see Kodi log.\')\n'
+RESUME_HELPER = 'import errno\nimport os\nimport json\nimport time\nimport xbmc\nimport xbmcgui\n\nclass WizardSessionLock:\n    """Kernel-owned lock: stale files do not block future sessions."""\n    def __init__(self, path):\n        self.path = path\n        self.stream = None\n\n    def acquire(self):\n        os.makedirs(os.path.dirname(self.path), exist_ok=True)\n        stream = open(self.path, \'a+b\')\n        try:\n            if os.name == \'nt\':\n                import msvcrt\n                # msvcrt locks a byte range; keep byte zero present in the file.\n                stream.seek(0, os.SEEK_END)\n                if stream.tell() == 0:\n                    stream.write(b\'0\')\n                    stream.flush()\n                stream.seek(0)\n                msvcrt.locking(stream.fileno(), msvcrt.LK_NBLCK, 1)\n            else:\n                import fcntl\n                fcntl.flock(stream.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)\n        except OSError as exc:\n            stream.close()\n            if exc.errno in (errno.EACCES, errno.EAGAIN) or getattr(exc, \'winerror\', None) in (32, 33, 36):\n                return False\n            raise\n        except BaseException:\n            stream.close()\n            raise\n        self.stream = stream\n        return True\n\n    def release(self):\n        if self.stream is not None:\n            # Closing releases the OS lock, including after an exception.\n            self.stream.close()\n            self.stream = None\n\ndef resume_tracking():\n    monitor = xbmc.Monitor()\n    home = xbmcgui.Window(10000)\n    profile = os.path.dirname(__file__)\n    checkpoint = os.path.join(profile, \'tracking-handoff.json\')\n    ready_key = \'Xenon2.Setup.TrackingReady.\' + JOB\n    def log(message):\n        xbmc.log(\'Xenon Setup: tracking handoff: \' + message, xbmc.LOGINFO)\n    try:\n        probe = WizardSessionLock(os.path.join(profile, \'wizard-session.lock\'))\n        limit = time.monotonic() + 45\n        while not probe.acquire():\n            if time.monotonic() >= limit or monitor.waitForAbort(0.2):\n                raise RuntimeError(\'saving wizard did not release its session lock\')\n        probe.release()\n        log(\'saving session released; requesting menu rebuild\')\n        # Do not block this helper on a synchronous JSON-RPC wait during reload.\n        request = {\'jsonrpc\': \'2.0\', \'id\': 1, \'method\': \'Addons.ExecuteAddon\',\n                   \'params\': {\'addonid\': \'script.skinshortcuts\',\n                              \'params\': [\'type=buildxml&mainmenuID=9000&levels=2&group=mainmenu|buttonmenu\'],\n                              \'wait\': False}}\n        result = json.loads(xbmc.executeJSONRPC(json.dumps(request)))\n        if \'error\' in result:\n            raise RuntimeError(\'menu rebuild launch failed\')\n        # Android can take longer to initialize the skin and its startup scripts.\n        if monitor.waitForAbort(3):\n            return\n        quiet_since = None\n        attempts = 0\n        next_attempt = 0\n        deadline = time.monotonic() + 180\n        while not monitor.abortRequested() and time.monotonic() < deadline:\n            if not os.path.isfile(checkpoint):\n                log(\'checkpoint completed or cancelled\')\n                return\n            if home.getProperty(ready_key) == \'true\':\n                log(\'final Tracking page acknowledged\')\n                return\n            busy = (home.getProperty(\'skinshortcuts-isrunning\').lower() == \'true\'\n                    or xbmc.getCondVisibility(\'System.HasActiveModalDialog\')\n                    or not xbmc.getCondVisibility(\'Window.IsActive(home)\')\n                    or xbmc.getSkinDir() != \'skin.xenon2\')\n            now = time.monotonic()\n            if busy:\n                quiet_since = None\n            elif quiet_since is None:\n                quiet_since = now\n            elif now - quiet_since >= 5 and now >= next_attempt:\n                # A live wizard may be doing work before its final dialog opens.\n                if probe.acquire():\n                    probe.release()\n                    if attempts >= 4:\n                        raise RuntimeError(\'wizard did not acknowledge the final page\')\n                    attempts += 1\n                    log(\'opening final Tracking page (attempt %d)\' % attempts)\n                    xbmc.executebuiltin(\'RunScript(%s,resume_tracking)\' % WIZARD_PATH)\n                    next_attempt = now + 20\n                    quiet_since = None\n            if monitor.waitForAbort(0.2):\n                return\n        if not monitor.abortRequested():\n            raise RuntimeError(\'timed out waiting for skin readiness or Tracking page\')\n    except Exception as exc:\n        xbmc.log(\'Xenon Setup: tracking handoff failed: \' + str(exc), xbmc.LOGERROR)\n        xbmcgui.Dialog().notification(\'Xenon Setup\', \'Menus saved. Open Xenon Setup again to continue Tracking setup.\')\n\n\nresume_tracking()\n'
 
 
 def schedule_tracking_resume(mode, choices, flavor_index, menu_choices):
     os.makedirs(PROFILE, exist_ok=True)
     checkpoint = os.path.join(PROFILE, 'tracking-handoff.json')
+    job = uuid.uuid4().hex
     with open(checkpoint + '.tmp', 'w', encoding='utf-8') as stream:
         json.dump({'mode': mode, 'choices': choices, 'flavor_index': flavor_index,
-                   'menu_choices': menu_choices}, stream)
+                   'menu_choices': menu_choices, 'job': job}, stream)
         stream.flush()
         os.fsync(stream.fileno())
     os.replace(checkpoint + '.tmp', checkpoint)
     helper_path = os.path.join(PROFILE, 'resume_tracking.py')
     with open(helper_path, 'w', encoding='utf-8') as stream:
-        stream.write('WIZARD_PATH = ' + repr(os.path.abspath(__file__)) + '\n')
+        stream.write('WIZARD_PATH = ' + repr('special://home/addons/skin.xenon2/resources/scripts/xenon_setup.py') + '\n')
+        stream.write('JOB = ' + repr(job) + '\n')
         stream.write(RESUME_HELPER)
     xbmc.executebuiltin('RunScript("%s")' % helper_path)
 
 
 def load_tracking_resume():
-    if 'resume_tracking' not in sys.argv[1:]:
-        return None
     checkpoint = os.path.join(PROFILE, 'tracking-handoff.json')
+    if not os.path.isfile(checkpoint):
+        return None
     with open(checkpoint, encoding='utf-8') as stream:
         data = json.load(stream)
     if data.get('mode') not in ('free', 'debrid') or not 0 <= data.get('flavor_index', -1) < len(flavors_for(data['mode'])):
         raise ValueError('Invalid tracking handoff checkpoint')
-    os.remove(checkpoint)  # Consume once; normal launches still start at Step 1.
+    # Retain until the user finishes or backs out of the final page. A failed
+    # automatic launch can be resumed by opening Setup manually.
     return data
 
 
@@ -1054,6 +1064,7 @@ def run():
         xbmcgui.Dialog().notification('Xenon Setup', 'A setup session is already running.')
         return
     token = uuid.uuid4().hex
+    resume = None
     try:
         if home.getProperty(lock):
             xbmc.log('Xenon Setup: recovered a stale running flag; OS session lock is free.', xbmc.LOGINFO)
@@ -1085,9 +1096,16 @@ def run():
             window.auth_index = tracking_index if stage == 'tracking' else auth_index
             window.flavor_index = flavor_index
             window.menu_choices = menu_choices
+            window.handoff_job = resume.get('job', '') if resume else ''
             window.doModal()
             result, mode = window.result, window.mode
             if stage == 'tracking':
+                if result in ('finish', 'back'):
+                    checkpoint = os.path.join(PROFILE, 'tracking-handoff.json')
+                    if os.path.isfile(checkpoint):
+                        os.remove(checkpoint)
+                    if resume and resume.get('job'):
+                        home.clearProperty('Xenon2.Setup.TrackingReady.' + resume['job'])
                 tracking_index = window.auth_index
             else:
                 auth_index = window.auth_index
@@ -1182,6 +1200,8 @@ def run():
         xbmcgui.Dialog().ok('Xenon 2 Setup', 'The wizard could not finish. See the Kodi log for details.')
     finally:
         try:
+            if resume and resume.get('job'):
+                home.clearProperty('Xenon2.Setup.TrackingReady.' + resume['job'])
             if home.getProperty(lock) == token:
                 home.clearProperty(lock)
         finally:

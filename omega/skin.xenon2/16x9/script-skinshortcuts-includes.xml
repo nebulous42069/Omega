@@ -1,0 +1,1445 @@
+<includes>
+	<include name="skinshortcuts-mainmenu">
+		<item id="1">
+			<property name="id">$NUMBER[1]</property>
+			<label>Xenon Setup</label>
+			<label2>Custom item</label2>
+			<icon>special://skin/extras/icons/DefaultAddonService.png</icon>
+			<thumb />
+			<property name="widgetName.2">-Start Xenon Setup-</property>
+			<property name="widgetType.2">custom</property>
+			<property name="widgetStyle.2">Compact Panel</property>
+			<property name="widgetCase.2">Glass</property>
+			<property name="widgetPanelInfo">true</property>
+			<property name="widgetDisableFanart">true</property>
+			<onclick condition="String.IsEqual(ListItem.Property(path),ActivateWindow(1129))">SetProperty(CustomSelect,search,Home)</onclick>
+			<onclick>ActivateWindow(Settings)</onclick>
+			<property name="path">ActivateWindow(Settings)</property>
+			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
+			<property name="submenuVisibility">xenonsetup</property>
+			<property name="hasSubmenu">True</property>
+			</item>
+		</include>
+	<include />
+	<include name="skinshortcuts-submenu">
+		<item id="1">
+			<property name="id">$NUMBER[1]</property>
+			<property name="mainmenuid">1</property>
+			<label>Welcome</label>
+			<label2>Custom item</label2>
+			<icon>DefaultShortcut.png</icon>
+			<thumb />
+			<onclick>RunScript(special://home/addons/skin.xenon2/resources/scripts/xenon_setup.py)</onclick>
+			<property name="path">RunScript(special://home/addons/skin.xenon2/resources/scripts/xenon_setup.py)</property>
+			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),xenonsetup)</visible>
+			<property name="isSubmenu">True</property>
+			</item>
+		</include>
+	<include />
+	<include name="skinshortcuts-submenu-1" />
+	<include />
+	<include name="skinshortcuts-submenu-2">
+		<item id="1">
+			<property name="id">$NUMBER[1]</property>
+			<property name="mainmenuid">1</property>
+			<label>Xenon Setup</label>
+			<label2>Custom item</label2>
+			<icon>DefaultShortcut.png</icon>
+			<thumb>special://home/addons/resource.images.skinicons.wide/resources/xenonsetup.png</thumb>
+			<onclick>RunScript(special://home/addons/skin.xenon2/resources/scripts/xenon_setup.py)</onclick>
+			<property name="path">RunScript(special://home/addons/skin.xenon2/resources/scripts/xenon_setup.py)</property>
+			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),xenonsetup)</visible>
+			<property name="isSubmenu">True</property>
+			</item>
+		</include>
+	<include name="skinshortcuts-group-xenonsetup">
+		<item id="1">
+			<property name="id">$NUMBER[1]</property>
+			<property name="mainmenuid">1</property>
+			<label>Welcome</label>
+			<label2>Custom item</label2>
+			<icon>DefaultShortcut.png</icon>
+			<thumb />
+			<onclick>RunScript(special://home/addons/skin.xenon2/resources/scripts/xenon_setup.py)</onclick>
+			<property name="path">RunScript(special://home/addons/skin.xenon2/resources/scripts/xenon_setup.py)</property>
+			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
+			<property name="isSubmenu">True</property>
+			</item>
+		</include>
+	<include name="skinshortcuts-group-alt-xenonsetup">
+		<item id="1">
+			<property name="id">$NUMBER[1]</property>
+			<property name="mainmenuid">1</property>
+			<label>Welcome</label>
+			<label2>Custom item</label2>
+			<icon>DefaultShortcut.png</icon>
+			<thumb />
+			<onclick>RunScript(special://home/addons/skin.xenon2/resources/scripts/xenon_setup.py)</onclick>
+			<property name="path">RunScript(special://home/addons/skin.xenon2/resources/scripts/xenon_setup.py)</property>
+			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Window(10000).Property(submenuVisibility),xenonsetup)</visible>
+			<property name="isSubmenu">True</property>
+			</item>
+		</include>
+	<include name="skinshortcuts-group-xenonsetup-1">
+		<description>No items</description>
+		</include>
+	<include name="skinshortcuts-group-alt-xenonsetup-1">
+		<description>No items</description>
+		</include>
+	<include name="skinshortcuts-group-xenonsetup-2">
+		<item id="1">
+			<property name="id">$NUMBER[1]</property>
+			<property name="mainmenuid">1</property>
+			<label>Xenon Setup</label>
+			<label2>Custom item</label2>
+			<icon>DefaultShortcut.png</icon>
+			<thumb>special://home/addons/resource.images.skinicons.wide/resources/xenonsetup.png</thumb>
+			<onclick>RunScript(special://home/addons/skin.xenon2/resources/scripts/xenon_setup.py)</onclick>
+			<property name="path">RunScript(special://home/addons/skin.xenon2/resources/scripts/xenon_setup.py)</property>
+			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
+			<property name="isSubmenu">True</property>
+			</item>
+		</include>
+	<include name="skinshortcuts-group-alt-xenonsetup-2">
+		<item id="1">
+			<property name="id">$NUMBER[1]</property>
+			<property name="mainmenuid">1</property>
+			<label>Xenon Setup</label>
+			<label2>Custom item</label2>
+			<icon>DefaultShortcut.png</icon>
+			<thumb>special://home/addons/resource.images.skinicons.wide/resources/xenonsetup.png</thumb>
+			<onclick>RunScript(special://home/addons/skin.xenon2/resources/scripts/xenon_setup.py)</onclick>
+			<property name="path">RunScript(special://home/addons/skin.xenon2/resources/scripts/xenon_setup.py)</property>
+			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Window(10000).Property(submenuVisibility),xenonsetup)</visible>
+			<property name="isSubmenu">True</property>
+			</item>
+		</include>
+	<include name="skinshortcuts-group-buttonmenu">
+		<description>No items</description>
+		</include>
+	<include name="skinshortcuts-group-alt-buttonmenu">
+		<description>No items</description>
+		</include>
+	<include name="skinshortcuts-group-buttonmenu-1">
+		<description>No items</description>
+		</include>
+	<include name="skinshortcuts-group-alt-buttonmenu-1">
+		<description>No items</description>
+		</include>
+	<include name="skinshortcuts-group-buttonmenu-2">
+		<description>No items</description>
+		</include>
+	<include name="skinshortcuts-group-alt-buttonmenu-2">
+		<description>No items</description>
+		</include>
+	<include name="skinshortcuts-template-widget2">
+		<include condition="String.IsEqual(System.ProfileName,Master user)">skinshortcuts-template-widget2-Master user</include>
+		</include>
+	<include name="skinshortcuts-template-widget2-Master user">
+		<control type="group">
+			<animation effect="slide" end="0,-20" condition="false">Conditional</animation>
+			<visible>String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),xenonsetup)</visible>
+			<control type="group">
+				<visible>Integer.IsGreater(Container(80211).NumItems,0)</visible>
+				<control type="group">
+					<top>146</top>
+					<control type="group">
+						<include condition="!String.IsEmpty(Skin.String(Widget.Trans))">HomeWidgetFade</include>
+						<centerleft>50%</centerleft>
+						<top>-21</top>
+						<width>1472.5</width>
+						<height>315</height>
+						<control type="image">
+							<left>-10</left>
+							<width>1520</width>
+							<height>315</height>
+							<texture colordiffuse="$VAR[HomeWidgetBackColor]" border="40">$VAR[HomeWidgetBackgroundVar]</texture>
+							<visible>!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+							</control>
+						<control type="image">
+							<left>-10</left>
+							<width>1520</width>
+							<height>315</height>
+							<texture colordiffuse="FF0B0B0B" border="40">None</texture>
+							<visible>!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + !Skin.HasSetting(Enable.GlobalWidgetBack)</visible>
+							</control>
+						</control>
+					<include content="PanelLabel">
+						<param name="id">80211</param>
+						<param name="Label" />
+						<param name="Title">$VAR[HomeWidgetInfoTitleVar]</param>
+						<param name="labelFont">font13_title</param>
+						<param name="labelBottom">250</param>
+						<param name="labelWidth">710</param>
+						<param name="labelLeft">243</param>
+						<param name="labelRight">965.5</param>
+						<param name="labelTitle">false</param>
+						</include>
+					<control type="label">
+						<top>250</top>
+						<centerleft>50%</centerleft>
+						<width>710</width>
+						<height>auto</height>
+						<align>center</align>
+						<font>font13</font>
+						<shadowcolor>black</shadowcolor>
+						<textcolor>grey2</textcolor>
+						<label>-Start Xenon Setup-</label>
+						<visible>true + ![Control.HasFocus(80211) + false]</visible>
+						</control>
+					</control>
+				</control>
+			<control type="group">
+				<top>146</top>
+				<control type="panel" id="80211">
+					<left>242.5</left>
+					<width>1435</width>
+					<height>233</height>
+					<orientation>horizontal</orientation>
+					<animation effect="slide" start="0,0" end="538.15,0" time="0" condition="!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Integer.IsEqual(Container(80211).NumItems,1)">Conditional</animation>
+					<animation effect="slide" start="0,0" end="358.8,0" time="0" condition="!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Integer.IsEqual(Container(80211).NumItems,2)">Conditional</animation>
+					<animation effect="slide" start="0,0" end="179.45,0" time="0" condition="!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Integer.IsEqual(Container(80211).NumItems,3)">Conditional</animation>
+					<animation effect="slide" start="0,0" end="0.1,0" time="0" condition="!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Integer.IsEqual(Container(80211).NumItems,4)">Conditional</animation>
+					<animation effect="slide" start="0,0" end="0,0" time="0" condition="!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Integer.IsEqual(Container(80211).NumItems,5)">Conditional</animation>
+					<animation effect="slide" start="0,0" end="0,0" time="0" condition="!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Integer.IsEqual(Container(80211).NumItems,6)">Conditional</animation>
+					<animation effect="slide" start="0,0" end="0,0" time="0" condition="!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Integer.IsEqual(Container(80211).NumItems,7)">Conditional</animation>
+					<animation effect="slide" start="0,0" end="0,0" time="0" condition="!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Integer.IsEqual(Container(80211).NumItems,8)">Conditional</animation>
+					<animation effect="slide" start="0,0" end="0,0" time="0" condition="!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Integer.IsEqual(Container(80211).NumItems,9)">Conditional</animation>
+					<preloaditems>2</preloaditems>
+					<scrolltime tween="quadratic" easing="out">300</scrolltime>
+					<include>skinshortcuts-template-HorizontalNavigation2</include>
+					<include content="LandscapeArt">
+						<param name="containerWidth">358.7</param>
+						<param name="containerHeight">199</param>
+						<param name="Texture">$INFO[ListItem.Art(thumb)]</param>
+						<param name="leftArt">6.5</param>
+						<param name="topArt">4</param>
+						<param name="widthArt">345.7</param>
+						<param name="heightArt">191</param>
+						<param name="topFakeDiscArt">4</param>
+						<param name="leftCase">2.5</param>
+						<param name="topCase">0</param>
+						<param name="widthCase">353.7</param>
+						<param name="heightCase">199</param>
+						<param name="labelHeight">40</param>
+						<param name="labelFont">font11</param>
+						<param name="fallbackFont">fontCDalbum</param>
+						<param name="fallbackVisible">false</param>
+						<param name="Aspect">scale</param>
+						<param name="Aligny">top</param>
+						<param name="Diffuse" />
+						<param name="Case">homewidgets/cases/glass/landscape.png</param>
+						<param name="labelVisible">false</param>
+						<param name="labelFocusVisible">false</param>
+						<param name="isWeather">false</param>
+						<param name="weatherTop" />
+						<param name="weatherHeight" />
+						<param name="weatherTop1" />
+						<param name="weatherTop2" />
+						<param name="weatherTop3" />
+						<param name="weatherFont">font12</param>
+						</include>
+					<content>
+						<item>
+							<label2>$LOCALIZE[19055]</label2>
+							<icon>NotAvailable.png</icon>
+							<thumb>NotAvailable.png</thumb>
+							<visible>!false + String.IsEmpty(Container(80211).ListItem(1).Label)</visible>
+							</item>
+						<item>
+							<label2>$LOCALIZE[19055]</label2>
+							<icon>DefaultAddonNone.png</icon>
+							<thumb>DefaultAddonNone.png</thumb>
+							<visible>false + String.IsEmpty(Container(80211).ListItem(1).Label)</visible>
+							</item>
+						</content>
+					<content target="" sortby="" sortorder="" limit="" browse="never">
+						<include>skinshortcuts-submenu-2</include>
+						</content>
+					</control>
+				</control>
+			</control>
+		</include>
+	<include name="skinshortcuts-template-HorizontalNavigation2">
+		<include condition="String.IsEqual(System.ProfileName,Master user)">skinshortcuts-template-HorizontalNavigation2-Master user</include>
+		</include>
+	<include name="skinshortcuts-template-HorizontalNavigation2-Master user">
+		<onup condition="!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Skin.HasSetting(centermainmenu)">9000</onup>
+		<onup condition="String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Control.IsVisible(90010)">90010</onup>
+		<onup condition="String.IsEqual(Skin.String(MainMenu.Layout),vertical) + !Control.IsVisible(90010) + [Control.IsVisible(9027) | System.HasMediaDVD]">9020</onup>
+		<onup condition="String.IsEqual(Skin.String(MainMenu.Layout),vertical) + !Control.IsVisible(90010) + ![Control.IsVisible(9027) | System.HasMediaDVD]">9000</onup>
+		<ondown condition="[!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Control.IsVisible(90020) + Skin.HasSetting(centermainmenu) + !Player.HasMedia] + ![!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + String.IsEqual(Container(9000).ListItem.Property(selectorEnabled),true) + !Skin.HasSetting(centermainmenu)]">9081</ondown>
+		<ondown condition="[!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Control.IsVisible(90020) + Skin.HasSetting(centermainmenu) + Player.HasMedia] + ![!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + String.IsEqual(Container(9000).ListItem.Property(selectorEnabled),true) + !Skin.HasSetting(centermainmenu)]">600</ondown>
+		<ondown condition="[!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Control.IsVisible(90020) + Skin.HasSetting(centermainmenu)] + ![!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + String.IsEqual(Container(9000).ListItem.Property(selectorEnabled),true) + !Skin.HasSetting(centermainmenu)]">90020</ondown>
+		<ondown condition="[[!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Control.IsVisible(90010) + !Skin.HasSetting(centermainmenu)] + ![!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + String.IsEqual(Container(9000).ListItem.Property(selectorEnabled),true)]] + ![!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + String.IsEqual(Container(9000).ListItem.Property(selectorEnabled),true) + !Skin.HasSetting(centermainmenu)]">90010</ondown>
+		<ondown condition="[!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + !Control.IsVisible(90010) + [System.HasMediaDVD | Control.IsVisible(9027)] + !Skin.HasSetting(centermainmenu)] + ![!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + String.IsEqual(Container(9000).ListItem.Property(selectorEnabled),true) + !Skin.HasSetting(centermainmenu)]">9020</ondown>
+		<ondown condition="[!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + !Control.IsVisible(90010) + ![System.HasMediaDVD | Control.IsVisible(9027)] + !Skin.HasSetting(centermainmenu)] + ![!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + String.IsEqual(Container(9000).ListItem.Property(selectorEnabled),true) + !Skin.HasSetting(centermainmenu)]">9000</ondown>
+		<ondown condition="[String.IsEqual(Skin.String(MainMenu.Layout),vertical) + [Control.IsVisible(9027) | System.HasMediaDVD]] + ![!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + String.IsEqual(Container(9000).ListItem.Property(selectorEnabled),true) + !Skin.HasSetting(centermainmenu)]">9020</ondown>
+		<ondown condition="[String.IsEqual(Skin.String(MainMenu.Layout),vertical) + ![Control.IsVisible(9027) | System.HasMediaDVD]] + ![!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + String.IsEqual(Container(9000).ListItem.Property(selectorEnabled),true) + !Skin.HasSetting(centermainmenu)]">9000</ondown>
+		<onleft condition="String.IsEqual(Skin.String(MainMenu.Layout),vertical)">9000</onleft>
+		<onback>9000</onback>
+		<ondown condition="!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + String.IsEqual(Container(9000).ListItem.Property(selectorEnabled),true) + !Skin.HasSetting(centermainmenu)">94000</ondown>
+		</include>
+	<variable name="X2OnDemand80211">
+		<value condition="[Window.IsActive(home) + String.IsEqual(Container(9000).ListItem.Property(id),1)] | String.IsEqual(Window(Home).Property(X2WidgetLoaded.X2OnDemand80211),true)" />
+		<value />
+		</variable>
+	<include name="skinshortcuts-template-widget1">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-HorizontalNavigation1">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetPoster">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetPoster.2">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetFanArt">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetFanArt.2">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetLandscape">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetLandscape.2">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetClearArt">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetClearArt.2">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetClearLogo">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetClearLogo.2">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetThumb">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetThumb.2">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetCharacterArt">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetCharacterArt.2">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetBanner">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetBanner.2">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetTitle">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetTitle.2">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetTitle2">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetTitle2.2">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherForecastContent">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherTodayContent">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherTomorrowContent">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemContent">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemUptime">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemBattery">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemNetwork">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemVideo">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemCPU">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemMemory">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemStorage">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemPVR">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemVersion">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-X2Selector">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-widget1X2S2">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-HorizontalNavigation1X2S2">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetPosterX2S2">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetFanArtX2S2">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetLandscapeX2S2">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetClearArtX2S2">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetClearLogoX2S2">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetThumbX2S2">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetCharacterArtX2S2">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetBannerX2S2">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetTitleX2S2">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetTitle2X2S2">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherForecastContentX2S2">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherTodayContentX2S2">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherTomorrowContentX2S2">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemContentX2S2">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemUptimeX2S2">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemBatteryX2S2">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemNetworkX2S2">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemVideoX2S2">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemCPUX2S2">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemMemoryX2S2">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemStorageX2S2">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemPVRX2S2">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemVersionX2S2">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-widget1X2S3">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-HorizontalNavigation1X2S3">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetPosterX2S3">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetFanArtX2S3">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetLandscapeX2S3">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetClearArtX2S3">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetClearLogoX2S3">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetThumbX2S3">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetCharacterArtX2S3">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetBannerX2S3">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetTitleX2S3">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetTitle2X2S3">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherForecastContentX2S3">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherTodayContentX2S3">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherTomorrowContentX2S3">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemContentX2S3">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemUptimeX2S3">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemBatteryX2S3">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemNetworkX2S3">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemVideoX2S3">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemCPUX2S3">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemMemoryX2S3">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemStorageX2S3">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemPVRX2S3">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemVersionX2S3">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-widget1X2S4">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-HorizontalNavigation1X2S4">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetPosterX2S4">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetFanArtX2S4">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetLandscapeX2S4">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetClearArtX2S4">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetClearLogoX2S4">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetThumbX2S4">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetCharacterArtX2S4">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetBannerX2S4">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetTitleX2S4">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetTitle2X2S4">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherForecastContentX2S4">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherTodayContentX2S4">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherTomorrowContentX2S4">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemContentX2S4">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemUptimeX2S4">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemBatteryX2S4">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemNetworkX2S4">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemVideoX2S4">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemCPUX2S4">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemMemoryX2S4">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemStorageX2S4">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemPVRX2S4">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemVersionX2S4">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-widget1X2S5">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-HorizontalNavigation1X2S5">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetPosterX2S5">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetFanArtX2S5">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetLandscapeX2S5">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetClearArtX2S5">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetClearLogoX2S5">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetThumbX2S5">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetCharacterArtX2S5">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetBannerX2S5">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetTitleX2S5">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetTitle2X2S5">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherForecastContentX2S5">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherTodayContentX2S5">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherTomorrowContentX2S5">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemContentX2S5">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemUptimeX2S5">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemBatteryX2S5">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemNetworkX2S5">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemVideoX2S5">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemCPUX2S5">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemMemoryX2S5">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemStorageX2S5">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemPVRX2S5">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemVersionX2S5">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-widget1X2S6">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-HorizontalNavigation1X2S6">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetPosterX2S6">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetFanArtX2S6">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetLandscapeX2S6">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetClearArtX2S6">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetClearLogoX2S6">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetThumbX2S6">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetCharacterArtX2S6">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetBannerX2S6">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetTitleX2S6">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetTitle2X2S6">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherForecastContentX2S6">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherTodayContentX2S6">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherTomorrowContentX2S6">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemContentX2S6">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemUptimeX2S6">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemBatteryX2S6">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemNetworkX2S6">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemVideoX2S6">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemCPUX2S6">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemMemoryX2S6">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemStorageX2S6">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemPVRX2S6">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemVersionX2S6">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-widget1X2S7">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-HorizontalNavigation1X2S7">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetPosterX2S7">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetFanArtX2S7">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetLandscapeX2S7">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetClearArtX2S7">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetClearLogoX2S7">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetThumbX2S7">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetCharacterArtX2S7">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetBannerX2S7">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetTitleX2S7">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetTitle2X2S7">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherForecastContentX2S7">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherTodayContentX2S7">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherTomorrowContentX2S7">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemContentX2S7">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemUptimeX2S7">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemBatteryX2S7">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemNetworkX2S7">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemVideoX2S7">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemCPUX2S7">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemMemoryX2S7">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemStorageX2S7">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemPVRX2S7">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemVersionX2S7">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-widget1X2S8">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-HorizontalNavigation1X2S8">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetPosterX2S8">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetFanArtX2S8">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetLandscapeX2S8">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetClearArtX2S8">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetClearLogoX2S8">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetThumbX2S8">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetCharacterArtX2S8">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetBannerX2S8">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetTitleX2S8">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetTitle2X2S8">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherForecastContentX2S8">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherTodayContentX2S8">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherTomorrowContentX2S8">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemContentX2S8">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemUptimeX2S8">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemBatteryX2S8">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemNetworkX2S8">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemVideoX2S8">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemCPUX2S8">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemMemoryX2S8">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemStorageX2S8">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemPVRX2S8">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemVersionX2S8">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-widget1X2S9">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-HorizontalNavigation1X2S9">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetPosterX2S9">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetFanArtX2S9">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetLandscapeX2S9">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetClearArtX2S9">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetClearLogoX2S9">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetThumbX2S9">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetCharacterArtX2S9">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetBannerX2S9">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetTitleX2S9">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetTitle2X2S9">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherForecastContentX2S9">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherTodayContentX2S9">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherTomorrowContentX2S9">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemContentX2S9">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemUptimeX2S9">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemBatteryX2S9">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemNetworkX2S9">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemVideoX2S9">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemCPUX2S9">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemMemoryX2S9">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemStorageX2S9">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemPVRX2S9">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemVersionX2S9">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-widget1X2S10">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-HorizontalNavigation1X2S10">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetPosterX2S10">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetFanArtX2S10">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetLandscapeX2S10">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetClearArtX2S10">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetClearLogoX2S10">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetThumbX2S10">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetCharacterArtX2S10">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetBannerX2S10">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetTitleX2S10">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetTitle2X2S10">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherForecastContentX2S10">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherTodayContentX2S10">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherTomorrowContentX2S10">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemContentX2S10">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemUptimeX2S10">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemBatteryX2S10">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemNetworkX2S10">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemVideoX2S10">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemCPUX2S10">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemMemoryX2S10">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemStorageX2S10">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemPVRX2S10">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemVersionX2S10">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-widget1X2S11">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-HorizontalNavigation1X2S11">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetPosterX2S11">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetFanArtX2S11">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetLandscapeX2S11">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetClearArtX2S11">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetClearLogoX2S11">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetThumbX2S11">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetCharacterArtX2S11">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetBannerX2S11">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetTitleX2S11">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetTitle2X2S11">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherForecastContentX2S11">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherTodayContentX2S11">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherTomorrowContentX2S11">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemContentX2S11">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemUptimeX2S11">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemBatteryX2S11">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemNetworkX2S11">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemVideoX2S11">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemCPUX2S11">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemMemoryX2S11">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemStorageX2S11">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemPVRX2S11">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemVersionX2S11">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-widget1X2S12">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-HorizontalNavigation1X2S12">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetPosterX2S12">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetFanArtX2S12">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetLandscapeX2S12">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetClearArtX2S12">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetClearLogoX2S12">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetThumbX2S12">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetCharacterArtX2S12">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetBannerX2S12">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetTitleX2S12">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetTitle2X2S12">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherForecastContentX2S12">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherTodayContentX2S12">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherTomorrowContentX2S12">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemContentX2S12">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemUptimeX2S12">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemBatteryX2S12">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemNetworkX2S12">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemVideoX2S12">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemCPUX2S12">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemMemoryX2S12">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemStorageX2S12">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemPVRX2S12">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemVersionX2S12">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-widget1X2S13">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-HorizontalNavigation1X2S13">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetPosterX2S13">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetFanArtX2S13">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetLandscapeX2S13">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetClearArtX2S13">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetClearLogoX2S13">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetThumbX2S13">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetCharacterArtX2S13">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetBannerX2S13">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetTitleX2S13">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetTitle2X2S13">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherForecastContentX2S13">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherTodayContentX2S13">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherTomorrowContentX2S13">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemContentX2S13">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemUptimeX2S13">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemBatteryX2S13">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemNetworkX2S13">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemVideoX2S13">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemCPUX2S13">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemMemoryX2S13">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemStorageX2S13">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemPVRX2S13">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemVersionX2S13">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-widget1X2S14">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-HorizontalNavigation1X2S14">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetPosterX2S14">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetFanArtX2S14">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetLandscapeX2S14">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetClearArtX2S14">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetClearLogoX2S14">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetThumbX2S14">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetCharacterArtX2S14">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetBannerX2S14">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetTitleX2S14">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetTitle2X2S14">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherForecastContentX2S14">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherTodayContentX2S14">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherTomorrowContentX2S14">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemContentX2S14">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemUptimeX2S14">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemBatteryX2S14">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemNetworkX2S14">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemVideoX2S14">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemCPUX2S14">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemMemoryX2S14">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemStorageX2S14">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemPVRX2S14">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemVersionX2S14">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-widget1X2S15">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-HorizontalNavigation1X2S15">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetPosterX2S15">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetFanArtX2S15">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetLandscapeX2S15">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetClearArtX2S15">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetClearLogoX2S15">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetThumbX2S15">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetCharacterArtX2S15">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetBannerX2S15">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetTitleX2S15">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WidgetTitle2X2S15">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherForecastContentX2S15">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherTodayContentX2S15">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-WeatherTomorrowContentX2S15">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemContentX2S15">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemUptimeX2S15">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemBatteryX2S15">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemNetworkX2S15">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemVideoX2S15">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemCPUX2S15">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemMemoryX2S15">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemStorageX2S15">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemPVRX2S15">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	<include name="skinshortcuts-template-SystemVersionX2S15">
+		<description>This include was built automatically as the template didn't match any menu items</description>
+		</include>
+	</includes>
