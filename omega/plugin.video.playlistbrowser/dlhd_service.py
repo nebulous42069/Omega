@@ -56,6 +56,8 @@ while not monitor.abortRequested():
                 with relay.lock:
                     relay.sessions.clear()
                     relay.selected.clear()
+                    relay.failures.clear()
+                    relay.blocked.clear()
                 relay.base = base
             relay.automatic = addon.getSetting('DLHD_automatic') != 'false'
             try: scheduler.tick()

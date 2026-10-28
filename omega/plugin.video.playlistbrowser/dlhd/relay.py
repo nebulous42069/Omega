@@ -12,6 +12,7 @@ from dlhd.debuglog import LOG, reason
 
 
 from dlhd.segments import unwrap
+from dlhd.media_check import validate_media, validate_mp4
 
 
 class Relay(ThreadingHTTPServer):
@@ -22,16 +23,19 @@ class Relay(ThreadingHTTPServer):
         self.automatic = automatic
         self.log_path = log_path
         self.selected = {}
+        self.failures = {}
+        self.blocked = {}
+        self.selection_locks = {}
         self.sessions = {}
         self.resources = OrderedDict()
         self.lock = threading.RLock()
         self.slots = threading.BoundedSemaphore(8)
         super().__init__(('127.0.0.1', port), Handler)
         self.origin = 'http://127.0.0.1:{}'.format(self.server_port)
-    def resource(self, url, referer):
+    def resource(self, url, referer, context=None, role="media", encrypted=False):
         key = secrets.token_urlsafe(18)
         with self.lock:
-            self.resources[key] = (url, referer)
+            self.resources[key] = (url, referer, context, role, encrypted)
             while len(self.resources) > 10000:
                 self.resources.popitem(last=False)
         return self.origin + '/resource/' + key
@@ -83,36 +87,65 @@ class Relay(ThreadingHTTPServer):
                 if len(keydata) != 16:
                     raise ValueError('HLS AES key has invalid length')
                 encrypted = True
-            segment, kind, _ = resolver.fetch(urljoin(target, media[0]), session['referer'])
-            if not segment:
-                raise ValueError('Media segment is empty')
-            if encrypted:
-                if len(segment) < 188 or len(segment) % 16 or segment.lstrip().startswith(b'<'):
-                    raise ValueError('Encrypted media segment has invalid length')
-            else:
-                segment = unwrap(segment)
-                ts = len(segment) > 188 and segment[0] == 71 and segment[188] == 71
-                mp4 = len(segment) >= 8 and segment[4:8] in (b'ftyp', b'styp', b'moof', b'sidx')
-                if not ts and not mp4:
-                    raise ValueError('Media segment is not recognized as MPEG-TS or fragmented MP4')
+            passed = 0
+            for uri in media[:3]:
+                segment, kind, _ = resolver.fetch(urljoin(target, uri), session['referer'])
+                try:
+                    validate_media(unwrap(segment) if not encrypted else segment, encrypted)
+                    passed += 1
+                except ValueError as error:
+                    LOG.info('probe sample rejected: %s', reason(error))
+                if passed >= 2:
+                    break
+            if passed < 2:
+                raise ValueError('Source did not provide two usable media samples')
             init = re.search(r'#EXT-X-MAP:[^\n]*URI="([^"]+)"', text)
             if init:
                 initdata, _, _ = resolver.fetch(urljoin(target, init.group(1)), session['referer'])
-                if len(initdata) < 8 or initdata[4:8] not in (b'ftyp', b'moov'):
-                    raise ValueError('Invalid MP4 initialization segment')
+                validate_mp4(initdata, initialization=True)
             return
         raise ValueError('Too many nested HLS playlists')
 
+    def media_failure(self, context):
+        if not context or not context[2]:return
+        channel, player, automatic = context
+        key = (channel, player)
+        with self.lock:
+            count = self.failures.get(key, 0) + 1
+            self.failures[key] = count
+            if count < 2:return
+            self.blocked[key] = time.time() + 120
+            cached = self.selected.get(channel)
+            if cached and cached[0] == player:self.selected.pop(channel, None)
+            self.sessions.pop(key, None)
+        LOG.warning('source excluded channel=%s player=%s failures=%s; next playlist request will try alternatives', channel, player, count)
+
+    def media_success(self, context):
+        if context:
+            with self.lock:self.failures.pop(context[:2], None)
+
+    def is_blocked(self, context):
+        if not context or not context[2]:return False
+        with self.lock:return time.time() < self.blocked.get(context[:2], 0)
+
     def choose(self, channel):
+        # Kodi may request the same playlist concurrently while probing it.
+        with self.lock:
+            lock = self.selection_locks.setdefault(channel, threading.Lock())
+        with lock:return self._choose(channel)
+
+    def _choose(self, channel):
         with self.lock:
             cached = self.selected.get(channel)
-            if cached and time.time() < cached[1]:
+            if cached and time.time() < cached[1] and time.time() >= self.blocked.get((channel, cached[0]), 0):
                 LOG.info('auto channel=%s cached_player=%s', channel, cached[0])
                 return cached[0]
         for player in resolver.SERVERS:
+            with self.lock:
+                if time.time() < self.blocked.get((channel, player), 0):continue
             started = time.monotonic()
             LOG.info('test channel=%s player=%s started', channel, player)
-            resolver.REQUEST.deadline = time.monotonic() + 4
+            resolver.REQUEST.deadline = time.monotonic() + 12
             try:
                 session = self.session(channel, player)
                 self.probe(session)
@@ -121,23 +154,29 @@ class Relay(ThreadingHTTPServer):
                 LOG.info('test channel=%s player=%s result=PASS elapsed=%.2fs', channel, player, time.monotonic() - started)
                 return player
             except Exception as error:
+                with self.lock:self.blocked[(channel, player)] = time.time() + 30
                 LOG.warning('test channel=%s player=%s result=FAIL reason=%s elapsed=%.2fs', channel, player, reason(error), time.monotonic() - started)
             finally:
                 del resolver.REQUEST.deadline
-        raise ValueError('All six players failed the source check. Open View debugging log for details.')
+        raise ValueError('No available source passed the media checks; failing sources are temporarily excluded. See debugging log.')
 
 
-def rewrite(text, target, referer, relay):
-    def local(uri):
-        return relay.resource(urljoin(target, uri), referer)
+def rewrite(text, target, referer, relay, context=None):
+    encrypted = False
+    master = '#EXT-X-STREAM-INF' in text
+    def local(uri, role='media'):
+        return relay.resource(urljoin(target, uri), referer, context, role, encrypted)
     rows = []
     for line in text.splitlines():
         if line.startswith('#EXT-X-PROGRAM-DATE-TIME:'):
             continue
         if line.startswith('#'):
-            line = re.sub(r'URI="([^"]+)"', lambda m: 'URI="' + local(m.group(1)) + '"', line)
+            if line.startswith('#EXT-X-KEY:'):
+                encrypted = 'METHOD=NONE' not in line
+            role = 'key' if line.startswith('#EXT-X-KEY:') else 'init' if line.startswith('#EXT-X-MAP:') else 'other'
+            line = re.sub(r'URI="([^"]+)"', lambda m: 'URI="' + local(m.group(1), role) + '"', line)
         elif line.strip():
-            line = local(line.strip())
+            line = local(line.strip(), 'playlist' if master else 'media')
         rows.append(line)
     return '\n'.join(rows) + '\n'
 
@@ -166,10 +205,15 @@ class Handler(BaseHTTPRequestHandler):
             # Avoid exposing signed URLs or token-bearing upstream errors.
             message = reason(error)
             LOG.warning('relay request failed: %s', message)
-            self.reply(502, message, 'text/plain; charset=utf-8')
+            try:self.reply(502, message, 'text/plain; charset=utf-8')
+            except (BrokenPipeError, ConnectionResetError, ConnectionAbortedError):
+                LOG.info('playback client disconnected before error reply')
         finally:
             self.server.slots.release()
     def handle_get(self):
+        context = None
+        role = 'playlist'
+        encrypted = False
         parsed = urlsplit(self.path)
         if parsed.path == '/health':
             self.reply(200, 'ok', 'text/plain')
@@ -187,8 +231,10 @@ class Handler(BaseHTTPRequestHandler):
         if match:
             channel = match.group(1)
             player = parse_qs(parsed.query).get('server', ['stream'])[0]
-            if self.server.automatic or player == 'auto':
+            automatic = self.server.automatic or player == 'auto'
+            if automatic:
                 player = self.server.choose(channel)
+            context = (channel, player, automatic)
             LOG.info('play channel=%s player=%s', channel, player)
             session = self.server.session(channel, player)
             for attempt in range(2):
@@ -206,17 +252,39 @@ class Handler(BaseHTTPRequestHandler):
             if not entry:
                 self.reply(410, 'Resource expired; reopen the channel', 'text/plain')
                 return
-            target, ref = entry
-            data, kind, final = resolver.fetch(target, ref)
+            target, ref, context, role, encrypted = entry
+            if self.server.is_blocked(context):
+                channel = context[0]
+                player = self.server.choose(channel)
+                if role == 'media':
+                    raise ValueError('Source changed; reload the channel to continue')
+                if role not in ('key', 'init', 'other'):
+                    session = self.server.session(channel, player)
+                    data, kind, final = self.server.playlist_fetch(session)
+                    ref = session['referer']
+                    context = (channel, player, True)
+                else:
+                    raise ValueError('Source changed; reload the channel to continue')
+            else:
+                try:data, kind, final = resolver.fetch(target, ref)
+                except Exception:
+                    if role not in ('key','init','other'):self.server.media_failure(context)
+                    raise
         else:
             self.reply(404, 'Not found', 'text/plain')
             return
         if data.lstrip(b'\xef\xbb\xbf \r\n\t').startswith(b'#EXTM3U'):
-            data = rewrite(data.decode('utf-8-sig'), final, ref, self.server)
+            data = rewrite(data.decode('utf-8-sig'), final, ref, self.server, context)
             kind = 'application/vnd.apple.mpegurl'
         else:
             original = data
-            data = unwrap(data)
+            data = unwrap(data) if not encrypted else data
+            if role == 'media':
+                try:validate_media(data, encrypted)
+                except ValueError:
+                    self.server.media_failure(context)
+                    raise
+                self.server.media_success(context)
             if data is not original or (len(data) > 188 and data[0] == 71 and data[188] == 71):
                 LOG.info('segment format=mpeg-ts wrapped=%s input_bytes=%s output_bytes=%s', data is not original, len(original), len(data))
                 kind = 'video/mp2t'

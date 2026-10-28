@@ -165,6 +165,8 @@ def playlist(items, origin, server, logos=None, epg=None, epg_url=None):
         name = display_name(name)
         name = ' '.join(name.replace('"', "'").split())
         logo = (logos or {}).get(int(channel), '')
+        from dlhd.logo_paths import portable_logo
+        logo = portable_logo(logo)
         from dlhd.logos import safe_logo_reference
         logo_attr = ' tvg-logo="{}"'.format(logo) if safe_logo_reference(logo) else ''
         mapping=(epg or {}).get(int(channel), {})

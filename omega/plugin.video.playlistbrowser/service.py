@@ -13,6 +13,13 @@ from main import (PROFILE, _playlist_cache_paths, get_int_setting,
 REQUEST_PATH = os.path.join(PROFILE, 'refresh_all.request')
 
 def refresh_playlist(source, hours=None):
+    if getattr(source, 'integrated_dlhd', False) and not __import__('xbmcvfs').exists(source.m3u):
+        try:
+            from dlhd.exporter import ensure_playlist
+            ensure_playlist(__import__('xbmcaddon').Addon('plugin.video.playlistbrowser'))
+        except Exception as error:
+            log('DaddyLive first-run export pending: ' + type(error).__name__)
+            return False
     _, cache_path = _playlist_cache_paths(source.idx, source)
     if hours is not None and os.path.isfile(cache_path):
         try:

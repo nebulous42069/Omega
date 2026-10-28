@@ -8,9 +8,9 @@ import epg_processed
 
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon, xbmcvfs
 
-ADDON = xbmcaddon.Addon()
+ADDON = xbmcaddon.Addon('plugin.video.playlistbrowser')
 ADDON_ID = ADDON.getAddonInfo('id')
-VERSION = "2.8.8-integrated-daddylive"
+VERSION = "2.8.12-integrated-daddylive"
 HANDLE = int(sys.argv[1]) if len(sys.argv) > 1 and str(sys.argv[1]).lstrip('-').isdigit() else -1
 BASE_URL = sys.argv[0] if sys.argv else ''
 
@@ -394,6 +394,19 @@ class Source:
             return [ch for ch in target.load_channels()
                     if (ch.get('group') or '').strip() == self.alias_group.strip()]
         if self.channels is not None: return self.channels
+        if getattr(self, 'integrated_dlhd', False) and not xbmcvfs.exists(self.m3u):
+            try:
+                from dlhd.exporter import ensure_playlist
+                log('Missing DaddyLive M3U: waiting for first-run export before loading widget')
+                ensure_playlist(ADDON)
+                # Ignore any leftover channel JSON from a previous device/export.
+                self.channels = parse_m3u(read_text(self.m3u))
+                _, ch_json_path = _playlist_cache_paths(self.idx, self)
+                _write_json(ch_json_path, self.channels)
+                return self.channels
+            except Exception as error:
+                log('DaddyLive initialization not ready: ' + type(error).__name__)
+                return []
         # Prefer cached channels JSON (written by 'Refresh channels now')
         try:
             raw_path, ch_json_path = _playlist_cache_paths(self.idx, self)
@@ -630,6 +643,7 @@ def load_baked_in_sources(base_idx_start: int = 100):
             if not (m3u or js or (alias_source and alias_group)):
                 continue
             s = Source(idx, name, m3u, js, epg)
+            s.integrated_dlhd = bool(item.get('integrated_dlhd'))
             s.alias_source = alias_source
             s.alias_group = alias_group
             try:
@@ -686,7 +700,8 @@ def channel_logo(ch, src: 'Source'):
         epg_key = src.match_epg_key(ch)
         if epg_key and src.epg_channels.get(epg_key, {}).get('logo'):
             logo = src.epg_channels[epg_key]['logo']
-    return logo or ''
+    from dlhd.logo_paths import portable_logo
+    return portable_logo(logo or '')
 
 def nice_time(dt):
     try:

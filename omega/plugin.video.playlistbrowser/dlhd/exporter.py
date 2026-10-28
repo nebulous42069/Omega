@@ -110,12 +110,71 @@ def refresh(addon,origin,on_export=None):
         os.rmdir(lock)
 
 
+def repair_logo_paths(addon, on_export=None):
+    """Repair an existing transferred M3U without fetching channels or guides."""
+    from dlhd.logo_paths import portable_playlist
+    path=output_path(addon)
+    if not xbmcvfs.exists(path):return False
+    folder=profile_folder(addon)
+    os.makedirs(folder,exist_ok=True)
+    lock=os.path.join(folder,'export.lock')
+    try:os.mkdir(lock)
+    except FileExistsError:return False
+    try:
+        source=xbmcvfs.File(path)
+        try:content=source.read()
+        finally:source.close()
+        if isinstance(content,bytes):content=content.decode('utf-8-sig','replace')
+        repaired=portable_playlist(content)
+        if repaired!=content:
+            atomic_write(path,repaired)
+            if on_export:on_export(path,repaired)
+            LOG.info('Repaired transferred bundled-logo paths in M3U')
+        return True
+    finally:os.rmdir(lock)
+
+
+def ensure_playlist(addon, on_export=None, timeout=180):
+    """First-run gate shared by widgets and the startup service."""
+    path=output_path(addon)
+    if xbmcvfs.exists(path):return path
+    if addon.getSetting('DLHD_enabled')=='false':
+        raise ValueError('Enable the DaddyLive relay to create the missing playlist')
+    folder=profile_folder(addon)
+    os.makedirs(folder,exist_ok=True)
+    lock=os.path.join(folder,'export.lock')
+    monitor=__import__('xbmc').Monitor()
+    deadline=time.monotonic()+timeout
+    while not xbmcvfs.exists(path):
+        if monitor.abortRequested():raise ValueError('Playlist initialization cancelled')
+        if time.monotonic()>=deadline:
+            raise ValueError('DaddyLive playlist is still initializing; try the widget again shortly')
+        try:busy=os.path.isdir(lock) and time.time()-os.path.getmtime(lock)<=15*60
+        except FileNotFoundError:busy=False
+        if busy:
+            monitor.waitForAbort(0.25)
+            continue
+        try:
+            port=int(addon.getSetting('DLHD_port') or '8769')
+            refresh(addon,'http://127.0.0.1:'+str(port),on_export)
+        except ValueError:
+            if os.path.isdir(lock):
+                monitor.waitForAbort(0.25)
+                continue
+            raise
+    return path
+
+
 class Scheduler:
     def __init__(self,addon,origin,on_export=None):
         self.addon,self.origin,self.on_export=addon,origin,on_export
         self.worker=None
         self.last_check=0
+        self.logo_paths_checked=False
     def due(self,now):
+        # Missing output is initialization, independent of periodic refresh.
+        if not xbmcvfs.exists(output_path(self.addon)):
+            return True
         if self.addon.getSetting('DLHD_auto_refresh')=='false':return False
         try:hours=max(1,int(self.addon.getSetting('DLHD_refresh_hours') or '48'))
         except ValueError:hours=48
@@ -134,6 +193,9 @@ class Scheduler:
         if self.worker and self.worker.is_alive():return
         if self.last_check and now-self.last_check<60:return
         self.last_check=now
+        if not self.logo_paths_checked:
+            try:self.logo_paths_checked=repair_logo_paths(self.addon,self.on_export)
+            except Exception as error:LOG.warning('Logo path repair pending: %s',reason(error))
         if self.due(now):
             self.worker=threading.Thread(target=self.run,daemon=True)
             self.worker.start()
