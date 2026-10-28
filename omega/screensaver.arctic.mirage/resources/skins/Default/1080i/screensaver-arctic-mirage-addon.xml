@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <window>
-    <defaultcontrol always="true">1297</defaultcontrol>
+    <defaultcontrol always="true">1301</defaultcontrol>
     <backgroundcolor>FF000000</backgroundcolor>
     <coordinates>
         <system>1</system>
@@ -8,6 +8,20 @@
         <top>0</top>
     </coordinates>
     <controls>
+        <!-- Focus this empty button, never the content list: Python owns Select. -->
+        <control type="button" id="1301">
+            <left>-1000</left>
+            <top>-1000</top>
+            <width>1</width>
+            <height>1</height>
+            <label />
+            <texturefocus />
+            <texturenofocus />
+            <onup>1301</onup>
+            <ondown>1301</ondown>
+            <onleft>1301</onleft>
+            <onright>1301</onright>
+        </control>
         <!-- Hidden list that loads the widget path chosen via script.skinshortcuts. -->
         <control type="list" id="1297">
             <left>-1000</left>
@@ -30,8 +44,8 @@
             <aspectratio scalediffuse="false">scale</aspectratio>
             <fadetime>800</fadetime>
             <texture background="true">$INFO[Container(1297).ListItem.Art(fanart)]</texture>
-            <animation effect="zoom" start="110" end="130" center="auto" time="10000" tween="sine" easing="inout" pulse="true" condition="true">Conditional</animation>
-            <animation effect="slide" start="-30,-30" end="30,30" time="6000" tween="sine" easing="inout" pulse="true" condition="true">Conditional</animation>
+            <animation effect="zoom" start="110" end="145" center="auto" time="10000" tween="sine" easing="inout" pulse="true" condition="true">Conditional</animation>
+            <animation effect="slide" start="-15,-15" end="15,15" time="3000" tween="sine" easing="inout" pulse="true" condition="true">Conditional</animation>
         </control>
 
         <!-- Fallback image for lists that expose thumb/poster but no fanart. -->
@@ -44,7 +58,7 @@
             <aspectratio scalediffuse="false">scale</aspectratio>
             <fadetime>800</fadetime>
             <texture background="true">$INFO[Container(1297).ListItem.Art(thumb)]</texture>
-            <animation effect="zoom" start="105" end="125" center="auto" time="10000" tween="sine" easing="inout" pulse="true" condition="true">Conditional</animation>
+            <animation effect="zoom" start="110" end="145" center="auto" time="10000" tween="sine" easing="inout" pulse="true" condition="true">Conditional</animation>
         </control>
 
         <control type="image">
@@ -56,7 +70,7 @@
             <aspectratio scalediffuse="false">scale</aspectratio>
             <fadetime>800</fadetime>
             <texture background="true">$INFO[Container(1297).ListItem.Art(poster)]</texture>
-            <animation effect="zoom" start="105" end="125" center="auto" time="10000" tween="sine" easing="inout" pulse="true" condition="true">Conditional</animation>
+            <animation effect="zoom" start="110" end="145" center="auto" time="10000" tween="sine" easing="inout" pulse="true" condition="true">Conditional</animation>
         </control>
 
         <!-- Tiny hidden control expected by resources/lib/screensaver.py. -->
@@ -125,14 +139,14 @@
             <label>$INFO[Container(1297).ListItem.Plot]</label>
         </control>
 
-        <!-- DOWN shortcut hint; this label cannot be clicked or focused. -->
+        <!-- UP shortcut hint; this label cannot be clicked or focused. -->
         <control type="label" id="1299">
             <left>1460</left>
             <top>1010</top>
             <width>460</width>
-            <height>90</height>
+            <height>50</height>
             <visible>String.IsEqual(Window.Property(screensaver.arctic.mirage.info_enabled),true) + !String.IsEmpty(Container(1297).ListItem.FileNameAndPath)</visible>
-            <label>Press DOWN For Info</label>
+            <label>Press UP For Info</label>
             <font>Mirage_Small</font>
             <textcolor>99FFFFFF</textcolor>
             <focusedcolor>FFFFFFFF</focusedcolor>

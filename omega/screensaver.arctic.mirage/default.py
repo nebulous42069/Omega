@@ -26,14 +26,13 @@ if __name__ == '__main__':
         screensaver_gui._capture_stop = True
         screensaver_gui.release_input_control()
 
-    # Open Video Info only after an explicit DOWN request and after the
-    # screensaver dialog has closed, using the captured item.
+    # Launch the captured item only after the modal dialog has closed.
     try:
         if screensaver_gui.should_open_info_after_close():
             xbmc.sleep(250)
             screensaver_gui.open_last_item_info()
     except Exception as exc:
-        utils.log('Post-screensaver Video Info open failed: {}'.format(exc), xbmc.LOGERROR)
+        utils.log('Post-screensaver action failed: {}'.format(exc), xbmc.LOGERROR)
 
     del screensaver_gui
     sys.modules.clear()

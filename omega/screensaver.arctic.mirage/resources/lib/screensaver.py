@@ -10,11 +10,12 @@ from resources.lib import utils
 WIDGET_LIST_ID = 1297
 HIDDEN_IMAGE_ID = 1298
 INFO_BUTTON_ID = 1299
+INPUT_BUTTON_ID = 1301
 
 ACTION_PREVIOUS_MENU = 10
 ACTION_NAV_BACK = 92
 ACTION_STOP = 13
-ACTION_MOVE_DOWN = 4
+ACTION_MOVE_UP = 3
 
 OPEN_INFO_ON_WAKE_SETTING = 'open_info_on_wake'
 RESTORE_PAUSED_VIDEO_OSD_SETTING = 'restore_paused_video_osd'
@@ -114,6 +115,7 @@ class Screensaver(xbmcgui.WindowXMLDialog):
         self._paused_video_wake_requested = False
         self._exit_requested = False
         self._info_requested = False
+        self._requested_item = {}
         self._ready = False
         self._capture_stop = False
         self._last_item = {}
@@ -131,7 +133,8 @@ class Screensaver(xbmcgui.WindowXMLDialog):
     def onInit(self):
         self.character = self.getControl(HIDDEN_IMAGE_ID)
         self._ready = True
-        self.setProperty('screensaver.arctic.mirage.info_enabled', 'true' if self.open_info_on_wake else '')
+        self.setProperty('screensaver.arctic.mirage.info_enabled', 'true')
+        self.setFocusId(INPUT_BUTTON_ID)
 
         if self.path:
             self.setProperty('screensaver.arctic.mirage.path', self.path)
@@ -170,22 +173,24 @@ class Screensaver(xbmcgui.WindowXMLDialog):
         # A real deactivation still cannot identify a button.
         self.close_screensaver()
 
-    def onAction(self, action):
-        action_id = action.getId()
-
-        if action_id in (ACTION_PREVIOUS_MENU, ACTION_NAV_BACK, ACTION_STOP):
-            self._exit_requested = True
-        elif action_id == ACTION_MOVE_DOWN:
-            if self.open_info_on_wake and not self._paused_video_should_take_priority():
-                self.capture_selected_item()
+    def _request_action(self, action_id):
+        # Keep focus off the content list so Select cannot launch its item.
+        # Only UP requests info; all other input dismisses the screensaver.
+        with self._lifecycle_lock:
+            if self._capture_stop:
+                return
+            if action_id == ACTION_MOVE_UP:
+                self._requested_item = dict(self.capture_selected_item() or {})
                 self._info_requested = True
+            else:
+                self._exit_requested = True
+            self.close_screensaver()
 
-        # Every other action wakes normally, without opening Video Info.
-        self.close_screensaver()
+    def onAction(self, action):
+        self._request_action(action.getId())
 
     def onClick(self, control_id):
-        # Mouse/touch and OK are ordinary wake actions, never info requests.
-        self.close_screensaver()
+        self._request_action(0)
 
     def _start_capture_thread(self):
         if self._capture_thread:
@@ -196,9 +201,6 @@ class Screensaver(xbmcgui.WindowXMLDialog):
         self._capture_thread.start()
 
     def _take_input_control(self):
-        if not self.open_info_on_wake:
-            return True
-
         # Core screensaver wake consumes the first physical key. Release that
         # core state now, while retaining our modal WindowXMLDialog. Inhibition
         # also prevents Kodi from launching a second screensaver over this one.
@@ -227,7 +229,7 @@ class Screensaver(xbmcgui.WindowXMLDialog):
             # Kodi schedules StopScript for a Python screensaver on wake. The
             # modal dialog now owns its lifetime, so cancel that shutdown alarm.
             xbmc.executebuiltin('CancelAlarm(sssssscreensaver,true)', wait=True)
-        utils.log('Screensaver dialog now owns input; DOWN opens Video Info')
+        utils.log('Screensaver dialog now owns input; UP opens Video Info; other buttons dismiss')
         return True
 
     def _capture_loop(self):
@@ -241,7 +243,8 @@ class Screensaver(xbmcgui.WindowXMLDialog):
                     return
                 if self._ready:
                     self.capture_selected_item(log_failures=False)
-                self.exit_monitor.waitForAbort(1.0)
+                # UP captures the current item again before opening info.
+                self.exit_monitor.waitForAbort(5.0)
         except Exception as exc:
             utils.log('Screensaver input worker failed: {}'.format(exc), xbmc.LOGERROR)
             self.close_screensaver()
@@ -368,15 +371,7 @@ class Screensaver(xbmcgui.WindowXMLDialog):
             return False
 
     def should_open_info_after_close(self):
-        # Require an explicit DOWN request. A captured item or a generic
-        # screensaver wake must never open info. Paused video OSD takes priority.
-        return bool(
-            self.open_info_on_wake
-            and not self._exit_requested
-            and not self.should_restore_paused_video_osd_after_close()
-            and self._info_requested
-            and self._last_item
-        )
+        return bool(self._info_requested and not self._exit_requested and self._requested_item)
 
     def _make_info_listitem(self, snapshot):
         snapshot = snapshot or {}
@@ -454,7 +449,7 @@ class Screensaver(xbmcgui.WindowXMLDialog):
         return listitem
 
     def open_last_item_info(self):
-        snapshot = self._last_item or {}
+        snapshot = self._requested_item or {}
         if not snapshot:
             utils.log('No captured widget item available for Video Info dialog', xbmc.LOGWARNING)
             return False
