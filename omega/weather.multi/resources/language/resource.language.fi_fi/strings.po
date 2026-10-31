@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Kodi add-ons\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2022-07-20 11:14+0000\n"
+"PO-Revision-Date: 2026-06-08 22:04+0000\n"
 "Last-Translator: Oskari Lavinto <olavinto@protonmail.com>\n"
 "Language-Team: Finnish <https://kodi.weblate.cloud/projects/kodi-add-ons-weather/weather-multi/fi_fi/>\n"
 "Language: fi_fi\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.13\n"
+"X-Generator: Weblate 2026.6.1\n"
 
 msgctxt "Addon Summary"
 msgid "Weather forecast from several providers"
@@ -92,6 +92,26 @@ msgstr "Saadaksesi laajempia säätietoja, hanki API-avain osoitteesta: https://
 msgctxt "#32135"
 msgid "To use maps, get an api key at: http://openweathermap.org/appid"
 msgstr "Käyttääksesi karttoja, hanki API-avain osoitteesta: http://openweathermap.org/appid"
+
+msgctxt "#32196"
+msgid "Partly Cloudy With Thunderstorms"
+msgstr ""
+
+msgctxt "#32197"
+msgid "Mostly Cloudy With Flurries"
+msgstr ""
+
+msgctxt "#32198"
+msgid "Partly Sunny With Flurries"
+msgstr ""
+
+msgctxt "#32199"
+msgid "Mostly Cloudy With Snow"
+msgstr ""
+
+msgctxt "#32200"
+msgid "Scattered Thunderstorms Night"
+msgstr ""
 
 msgctxt "#32201"
 msgid "Thunderstorm with light rain"
@@ -245,29 +265,53 @@ msgctxt "#32238"
 msgid "Unknown Precipitation"
 msgstr "Tuntematonta sadetta"
 
+msgctxt "#32239"
+msgid "Partly Sunny"
+msgstr ""
+
+msgctxt "#32240"
+msgid "Intermittent Clouds"
+msgstr ""
+
+msgctxt "#32241"
+msgid "Hazy Sunshine"
+msgstr ""
+
+msgctxt "#32242"
+msgid "Hazy Moonlight"
+msgstr ""
+
+msgctxt "#32243"
+msgid "Ice"
+msgstr ""
+
+msgctxt "#32244"
+msgid "Mostly Cloudy With Showers"
+msgstr ""
+
 msgctxt "#32245"
 msgid "Flurries"
-msgstr ""
+msgstr "Kevyttä lumisadetta"
 
 msgctxt "#32246"
 msgid "Mostly Sunny"
-msgstr ""
+msgstr "Enimmäkseen aurinkoista"
 
 msgctxt "#32247"
 msgid "Mostly Clear"
-msgstr ""
+msgstr "Enimmäkseen selkeää"
 
 msgctxt "#32248"
 msgid "Rain And Snow"
-msgstr ""
+msgstr "Vesi- ja lumisadetta"
 
 msgctxt "#32249"
 msgid "Fog"
-msgstr ""
+msgstr "Sumua"
 
 msgctxt "#32250"
 msgid "Frigid"
-msgstr ""
+msgstr "Jäätävää"
 
 msgctxt "#32251"
 msgid "Tornado"
@@ -291,7 +335,7 @@ msgstr "Ukkosia"
 
 msgctxt "#32256"
 msgid "Mixed Rain and Snow"
-msgstr "Vesi- ja lumisadetta"
+msgstr "Vesi- ja lumi-sekasadetta"
 
 msgctxt "#32257"
 msgid "Mixed Rain and Sleet"
@@ -442,19 +486,27 @@ msgid "Scattered Showers"
 msgstr "Hajanaisia sadekuuroja"
 
 msgctxt "#32294"
-msgid "Scattered Snow Showers"
-msgstr "Hajanaisia lumikuuroja"
+msgid "Partly Sunny With Showers"
+msgstr ""
 
 msgctxt "#32295"
-msgid "Scattered Thundershowers"
-msgstr "Hajanaisia ukkoskuuroja"
+msgid "Partly Cloudy With Showers"
+msgstr ""
 
 msgctxt "#32296"
 msgid "Mostly Sunny"
-msgstr ""
+msgstr "Enimmäkseen aurinkoista"
 
 msgctxt "#32297"
 msgid "Mostly Clear"
+msgstr "Enimmäkseen selkeää"
+
+msgctxt "#32298"
+msgid "Mostly Cloudy With Thunderstorms"
+msgstr ""
+
+msgctxt "#32299"
+msgid "Partly Sunny With Thunderstorms"
 msgstr ""
 
 msgctxt "#32300"
@@ -488,3 +540,11 @@ msgstr "Viimeinen neljännes"
 msgctxt "#32307"
 msgid "Waning Crescent"
 msgstr "Hiipuva puolikuu"
+
+#~ msgctxt "#32294"
+#~ msgid "Scattered Snow Showers"
+#~ msgstr "Hajanaisia lumikuuroja"
+
+#~ msgctxt "#32295"
+#~ msgid "Scattered Thundershowers"
+#~ msgstr "Hajanaisia ukkoskuuroja"

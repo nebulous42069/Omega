@@ -22,12 +22,44 @@ class Weather():
             set_property('Current.Pollen'              , data['conditions']['conditions']['pollen']['value'])
         else:
             set_property('Current.Pollen'              , '')
-        if data['location']['outlook'] in ['Mostly Cloudy', 'Partly Cloudy', 'Fair']:
-            condition = '%s Day' % data['location']['outlook']
+        if data['location']['outlook'].lower() in DAYNIGHT:
+            # yahoo does not tell if this current icon refers to day or nighttime, nor does it provide the current local time of the location
+            # so first figure out the current time from the hourly forecasts. the first item is always 'now', which isn't helpful so skip it
+            if len(data['forecasts'][0]['conditionsForecasts']) > 1: # make sure there's at least two items left in the hourly forecast for today
+                for item in data['forecasts'][0]['conditionsForecasts']:
+                    if item['time'] == 'Now' or item['text'] == 'Sunrise' or item['text'] == 'Sunset':
+                        continue
+                    approxtime  = item['time'] # time of the 'next' hour
+                    if approxtime == 'Midnight':
+                        approxtime = '12 AM'
+                    elif approxtime == 'Noon':
+                        approxtime = '12 PM'
+                    break
+            else:
+                for item in data['forecasts'][1]['conditionsForecasts']: # at +/- 11PM we have only 'now' in the hourly forecast, so look at the next day
+                    if item['text'] == 'Sunrise' or item['text'] == 'Sunset':
+                        continue
+                    approxtime  = item['time'] # time of the 'next' hour
+                    if approxtime == 'Midnight':
+                        approxtime = '12 AM'
+                    elif approxtime == 'Noon':
+                        approxtime = '12 PM'
+                    break
+            approxhour = time.strptime(approxtime, '%I %p')
+            currenthour = approxhour.tm_hour - 1 # substract 1 hour to get the 'current' hour
+            # let's define day and night based on sunrise and sunset
+            sunrise = time.strptime(data['location']['sunrise'], '%I:%M %p')
+            sunset = time.strptime(data['location']['sunset'], '%I:%M %p')
+            sunrisehour = sunrise.tm_hour
+            sunsethour = sunset.tm_hour
+            if currenthour < sunrisehour or currenthour >= sunsethour: # current hour is after sunset and before sunrise: it's night
+                condition = '%s Night' % data['location']['outlook']
+            else:
+                condition = '%s Day' % data['location']['outlook'] # current hour is between sunrise and sunset; it's day
         else:
             condition = data['location']['outlook']
-        set_property('Current.OutlookIcon'         , '%s.png' % OUTLOOK[condition]) # Kodi translates it to Current.ConditionIcon
-        set_property('Current.FanartCode'          , OUTLOOK[condition])
+        set_property('Current.OutlookIcon'         , '%s.png' % get_outlook(condition)) # Kodi translates it to Current.ConditionIcon
+        set_property('Current.FanartCode'          , get_outlook(condition))
         set_property('Current.Wind'                , convert_speed(data['forecasts'][0]['windForecasts'][0]['speed'], 'mph', 'kmh'))
         set_property('Current.WindDirection'       , xbmc.getLocalizedString(WINDDIR[data['forecasts'][0]['windForecasts'][0]['direction']]))
         set_property('Current.Humidity'            , data['conditions']['condition']['value'].rstrip('%'))
@@ -55,6 +87,7 @@ class Weather():
         set_property('Today.Sunrise'               , convert_datetime(data['location']['sunrise'], 'ampm', None, None))
         set_property('Today.Sunset'                , convert_datetime(data['location']['sunset'], 'ampm', None, None))
         set_property('Today.Moonphase'             , MOONPHASE[data['conditions']['conditions']['moon']['title'].lower()])
+        set_property('Today.MoonphaseIcon'         , data['conditions']['conditions']['moon']['icon'])
         set_property('Today.IsFetched'             , 'true')
     #hourly - extended
         skip = []
@@ -65,16 +98,16 @@ class Weather():
             set_property('Hourly.%i.Time'          % (count + 1), convert_datetime(item['time'], 'ampm', None, None))
             set_property('Hourly.%i.ShortDate'     % (count + 1), xbmc.getLocalizedString(33006))
             set_property('Hourly.%i.Temperature'   % (count + 1), convert_temp(item['temperature'], 'F') + TEMPUNIT)
-            set_property('Hourly.%i.Outlook'       % (count + 1), CONDITION.get(item['iconLabel'], item['iconLabel']))
-            if item['iconLabel'] in ['Mostly Cloudy', 'Partly Cloudy', 'Fair']:
+            set_property('Hourly.%i.Outlook'       % (count + 1), get_condition(item['iconLabel']))
+            if item['iconLabel'].lower() in DAYNIGHT:
                 if 'Night' in item['icon']:
                     condition = '%s Night' % item['iconLabel']
                 else:
                     condition = '%s Day' % item['iconLabel']
             else:
                 condition = item['iconLabel']
-            set_property('Hourly.%i.OutlookIcon'   % (count + 1), '%s.png' % OUTLOOK[condition])
-            set_property('Hourly.%i.FanartCode'    % (count + 1), OUTLOOK[condition])
+            set_property('Hourly.%i.OutlookIcon'   % (count + 1), '%s.png' % get_outlook(condition))
+            set_property('Hourly.%i.FanartCode'    % (count + 1), get_outlook(condition))
         for count, item in enumerate(data['forecasts'][0]['precipitationForecasts']):
             if count in skip:
                 continue
@@ -98,16 +131,16 @@ class Weather():
                 set_property('Hourly.%i.Time'            % (offset + count + 1), convert_datetime(item['time'], 'ampm', None, None))
                 set_property('Hourly.%i.ShortDate'       % (offset + count + 1), xbmc.getLocalizedString(33007))
                 set_property('Hourly.%i.Temperature'     % (offset + count + 1), convert_temp(item['temperature'], 'F') + TEMPUNIT)
-                set_property('Hourly.%i.Outlook'         % (offset + count + 1), CONDITION.get(item['iconLabel'], item['iconLabel']))
-                if item['iconLabel'] in ['Mostly Cloudy', 'Partly Cloudy', 'Fair']:
+                set_property('Hourly.%i.Outlook'         % (offset + count + 1), get_condition(item['iconLabel']))
+                if item['iconLabel'].lower() in DAYNIGHT:
                     if 'Night' in item['icon']:
                         condition = '%s Night' % item['iconLabel']
                     else:
                         condition = '%s Day' % item['iconLabel']
                 else:
                     condition = item['iconLabel']
-                set_property('Hourly.%i.OutlookIcon'     % (offset + count + 1), '%s.png' % OUTLOOK[condition])
-                set_property('Hourly.%i.FanartCode'      % (offset + count + 1), OUTLOOK[condition])
+                set_property('Hourly.%i.OutlookIcon'     % (offset + count + 1), '%s.png' % get_outlook(condition))
+                set_property('Hourly.%i.FanartCode'      % (offset + count + 1), get_outlook(condition))
                 if (offset + count + 1) == 24:
                     break
             for count, item in enumerate(data['forecasts'][1]['precipitationForecasts']):
@@ -141,12 +174,12 @@ class Weather():
             set_property('Day%i.HighTemp'        % count, convert_temp(item['highTemperature'], 'F', 'C'))
             set_property('Day%i.LowTemp'         % count, convert_temp(item['lowTemperature'], 'F', 'C'))
             set_property('Day%i.Outlook'         % count, item['iconLabel'])
-            if item['iconLabel'] in ['Mostly Cloudy', 'Partly Cloudy', 'Fair']:
+            if item['iconLabel'].lower() in DAYNIGHT:
                 condition = '%s Day' % item['iconLabel']
             else:
                 condition = item['iconLabel']
-            set_property('Day%i.OutlookIcon'      % count, '%s.png' % OUTLOOK[condition])
-            set_property('Day%i.FanartCode'       % count, OUTLOOK[condition])
+            set_property('Day%i.OutlookIcon'      % count, '%s.png' % get_outlook(condition))
+            set_property('Day%i.FanartCode'       % count, get_outlook(condition))
             if count == MAXDAYS:
                 break
     #daily - extended
@@ -165,12 +198,12 @@ class Weather():
                 set_property('Daily.%i.LongDate'     % (count + 1), '')
             set_property('Daily.%i.HighTemperature'  % (count + 1), convert_temp(item['highTemperature'], 'F') + TEMPUNIT)
             set_property('Daily.%i.LowTemperature'   % (count + 1), convert_temp(item['lowTemperature'], 'F') + TEMPUNIT)
-            set_property('Daily.%i.Outlook'          % (count + 1), CONDITION.get(item['iconLabel'], item['iconLabel']))
+            set_property('Daily.%i.Outlook'          % (count + 1), get_condition(item['iconLabel']))
 
-            if item['iconLabel'] in ['Mostly Cloudy', 'Partly Cloudy', 'Fair']:
+            if item['iconLabel'].lower() in DAYNIGHT:
                 condition = '%s Day' % item['iconLabel']
             else:
                 condition = item['iconLabel']
-            set_property('Daily.%i.OutlookIcon'      % (count + 1), '%s.png' % OUTLOOK[condition])
-            set_property('Daily.%i.FanartCode'       % (count + 1), OUTLOOK[condition])
+            set_property('Daily.%i.OutlookIcon'      % (count + 1), '%s.png' % get_outlook(condition))
+            set_property('Daily.%i.FanartCode'       % (count + 1), get_outlook(condition))
         set_property('Daily.IsFetched'               , 'true')

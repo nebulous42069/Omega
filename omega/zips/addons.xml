@@ -3259,7 +3259,7 @@ v0.2.3
 			<fanart>resources/fanart.jpg</fanart>
 		</assets>
 	</extension>
-</addon><addon id="weather.multi" name="Multi Weather" version="1.0.6" provider-name="ronie">
+</addon><addon id="weather.multi" name="Multi Weather" version="1.2.0" provider-name="ronie">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0" />
 		<import addon="script.openweathermap.maps" version="1.0.4" />
@@ -3279,6 +3279,6 @@ v0.2.3
 			<icon>resources/icon.png</icon>
 			<fanart>resources/fanart.jpg</fanart>
 		</assets>
-		<news>- New Version</news>
+		<news>- Fix Yahoo Weather</news>
 	</extension>
 </addon></addons>

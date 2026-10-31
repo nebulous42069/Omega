@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Kodi add-ons\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2025-11-16 11:13+0000\n"
+"PO-Revision-Date: 2026-02-08 11:13+0000\n"
 "Last-Translator: rimasx <riks_12@hot.ee>\n"
 "Language-Team: Estonian <https://kodi.weblate.cloud/projects/kodi-add-ons-weather/weather-multi/et_ee/>\n"
 "Language: et_ee\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14.3\n"
+"X-Generator: Weblate 5.15.2\n"
 
 msgctxt "Addon Summary"
 msgid "Weather forecast from several providers"
@@ -93,6 +93,26 @@ msgctxt "#32135"
 msgid "To use maps, get an api key at: http://openweathermap.org/appid"
 msgstr "Kaartide kasutamiseks hangi api võti aadressilt: http://openweathermap.org/appid"
 
+msgctxt "#32196"
+msgid "Partly Cloudy With Thunderstorms"
+msgstr ""
+
+msgctxt "#32197"
+msgid "Mostly Cloudy With Flurries"
+msgstr ""
+
+msgctxt "#32198"
+msgid "Partly Sunny With Flurries"
+msgstr ""
+
+msgctxt "#32199"
+msgid "Mostly Cloudy With Snow"
+msgstr ""
+
+msgctxt "#32200"
+msgid "Scattered Thunderstorms Night"
+msgstr ""
+
 msgctxt "#32201"
 msgid "Thunderstorm with light rain"
 msgstr "Äikesetorm koos vähese vihmaga"
@@ -131,7 +151,7 @@ msgstr "Uduvihm"
 
 msgctxt "#32210"
 msgid "Heavy Drizzle"
-msgstr "Tugev vihm"
+msgstr "Tugev uduvihm"
 
 msgctxt "#32211"
 msgid "Light Rain"
@@ -183,7 +203,7 @@ msgstr "Lörts"
 
 msgctxt "#32223"
 msgid "Heavy sleet"
-msgstr "Kõva lörtsisadu"
+msgstr "Tugev lörtsisadu"
 
 msgctxt "#32224"
 msgid "Snow shower"
@@ -207,7 +227,7 @@ msgstr "Suits"
 
 msgctxt "#32229"
 msgid "Haze"
-msgstr "Hägune"
+msgstr "Vine"
 
 msgctxt "#32230"
 msgid "Sand/dust"
@@ -239,35 +259,59 @@ msgstr "Pilves selgimistega"
 
 msgctxt "#32237"
 msgid "Overcast clouds"
-msgstr "Enamasti pilves"
+msgstr "Lauspilves"
 
 msgctxt "#32238"
 msgid "Unknown Precipitation"
 msgstr "Teadmata sademed"
 
+msgctxt "#32239"
+msgid "Partly Sunny"
+msgstr ""
+
+msgctxt "#32240"
+msgid "Intermittent Clouds"
+msgstr ""
+
+msgctxt "#32241"
+msgid "Hazy Sunshine"
+msgstr ""
+
+msgctxt "#32242"
+msgid "Hazy Moonlight"
+msgstr ""
+
+msgctxt "#32243"
+msgid "Ice"
+msgstr ""
+
+msgctxt "#32244"
+msgid "Mostly Cloudy With Showers"
+msgstr ""
+
 msgctxt "#32245"
 msgid "Flurries"
-msgstr ""
+msgstr "Lumehood"
 
 msgctxt "#32246"
 msgid "Mostly Sunny"
-msgstr ""
+msgstr "Peamiselt päikeseline"
 
 msgctxt "#32247"
 msgid "Mostly Clear"
-msgstr ""
+msgstr "Peamiselt selge"
 
 msgctxt "#32248"
 msgid "Rain And Snow"
-msgstr ""
+msgstr "Vihm ja lumi"
 
 msgctxt "#32249"
 msgid "Fog"
-msgstr ""
+msgstr "Udu"
 
 msgctxt "#32250"
 msgid "Frigid"
-msgstr ""
+msgstr "Külm"
 
 msgctxt "#32251"
 msgid "Tornado"
@@ -303,7 +347,7 @@ msgstr "Lumi ja lörts"
 
 msgctxt "#32259"
 msgid "Freezing Drizzle"
-msgstr "Külmavihm"
+msgstr "Jäine uduvihm"
 
 msgctxt "#32260"
 msgid "Drizzle"
@@ -323,7 +367,7 @@ msgstr "Vihm"
 
 msgctxt "#32264"
 msgid "Snow Flurries"
-msgstr "Lomehood"
+msgstr "Lumehood"
 
 msgctxt "#32265"
 msgid "Light Snow Showers"
@@ -331,7 +375,7 @@ msgstr "Kerged lumehood"
 
 msgctxt "#32266"
 msgid "Blowing Snow"
-msgstr "Hootine lumesadu"
+msgstr "Pinnatuisk"
 
 msgctxt "#32267"
 msgid "Snow"
@@ -395,7 +439,7 @@ msgstr "Päikeseline"
 
 msgctxt "#32282"
 msgid "Fair"
-msgstr "Ilus"
+msgstr "Peamiselt selge"
 
 msgctxt "#32283"
 msgid "Mixed Rain and Hail"
@@ -411,11 +455,11 @@ msgstr "Üksikud äikesetormid"
 
 msgctxt "#32286"
 msgid "Scattered Thunderstorms"
-msgstr "Hajutatud äikesetormid"
+msgstr "Hajusad äikesetormid"
 
 msgctxt "#32287"
 msgid "Scattered Showers"
-msgstr "Hajutatud dušid"
+msgstr "Hajusad hoovihmad"
 
 msgctxt "#32288"
 msgid "Heavy Rain"
@@ -423,7 +467,7 @@ msgstr "Tugev vihm"
 
 msgctxt "#32289"
 msgid "Scattered Snow Showers"
-msgstr "Hajutatud lumehood"
+msgstr "Hajusad lumehood"
 
 msgctxt "#32290"
 msgid "Heavy Snow"
@@ -442,12 +486,12 @@ msgid "Scattered Showers"
 msgstr "Hajutatud vihmahood"
 
 msgctxt "#32294"
-msgid "Scattered Snow Showers"
-msgstr "Hajutatud lumehood"
+msgid "Partly Sunny With Showers"
+msgstr ""
 
 msgctxt "#32295"
-msgid "Scattered Thundershowers"
-msgstr "Hajutatud äikesevihmad"
+msgid "Partly Cloudy With Showers"
+msgstr ""
 
 msgctxt "#32296"
 msgid "Mostly Sunny"
@@ -456,6 +500,14 @@ msgstr "Peamiselt päikeseline"
 msgctxt "#32297"
 msgid "Mostly Clear"
 msgstr "Peamiselt selge"
+
+msgctxt "#32298"
+msgid "Mostly Cloudy With Thunderstorms"
+msgstr ""
+
+msgctxt "#32299"
+msgid "Partly Sunny With Thunderstorms"
+msgstr ""
 
 msgctxt "#32300"
 msgid "New Moon"
@@ -488,3 +540,11 @@ msgstr "Viimane veerand"
 msgctxt "#32307"
 msgid "Waning Crescent"
 msgstr "Kahanev poolkuu"
+
+#~ msgctxt "#32294"
+#~ msgid "Scattered Snow Showers"
+#~ msgstr "Hajutatud lumehood"
+
+#~ msgctxt "#32295"
+#~ msgid "Scattered Thundershowers"
+#~ msgstr "Hajutatud äikesevihmad"

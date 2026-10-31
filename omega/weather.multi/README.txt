@@ -71,6 +71,7 @@ Today.IsFetched
 Today.Sunrise
 Today.Sunset
 Today.MoonPhase
+Today.MoonPhaseIcon            (eg. 'WaningGibbous')
 
 
 HOURLY [1-24]
@@ -88,7 +89,7 @@ Hourly.%i.WindSpeed
 Hourly.%i.WindDirection        (eg. 'SSW')
 
 
-DAILY [1-10] (Yahoo)
+DAILY [1-8] (Yahoo)
 ------------
 Daily.IsFetched
 Daily.%i.LongDay               (eg. 'Monday')
