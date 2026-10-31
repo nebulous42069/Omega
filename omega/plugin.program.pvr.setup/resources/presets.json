@@ -2,7 +2,7 @@
   {
     "name": "Setup Diggz Pick",
     "xml": "diggzpick",
-    "default_group": ""
+    "default_group": "Channels-USA-"
   },
   {
     "name": "Setup DaddyLive",
@@ -12,16 +12,16 @@
   {
     "name": "Setup Doms Guide",
     "xml": "dguide",
-    "default_group": ""
+    "default_group": "TV"
   },
   {
     "name": "Setup The Loop PVR TV Guide",
     "xml": "loop",
-    "default_group": ""
+    "default_group": ">World Entertainment<"
   },
   {
     "name": "Setup Mad Titan PVR TV Guide",
     "xml": "mt",
-    "default_group": ""
+    "default_group": "US Entertainment"
   }
 ]

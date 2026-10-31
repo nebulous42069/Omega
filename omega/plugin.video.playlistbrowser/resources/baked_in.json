@@ -58,7 +58,7 @@
     "name": "For TV Widget",
     "alias_source": "Daddy Live",
     "alias_group": "Channels-USA-",
-    "epg": "https://raw.githubusercontent.com/acidjesuz/EPGTalk/master/guide.xml.gz",
+    "epg": "",
     "icon": "",
     "fanart": "",
     "source_id": 106
@@ -67,7 +67,7 @@
     "name": "For TV Widget 2",
     "alias_source": "Daddy Live",
     "alias_group": "Channels-UK-",
-    "epg": "https://raw.githubusercontent.com/acidjesuz/EPGTalk/master/guide.xml.gz",
+    "epg": "",
     "icon": "",
     "fanart": "",
     "source_id": 105
@@ -76,7 +76,7 @@
     "name": "For TV Widget 3",
     "alias_source": "Daddy Live",
     "alias_group": "Channels-Italy-",
-    "epg": "https://raw.githubusercontent.com/acidjesuz/EPGTalk/master/guide.xml.gz",
+    "epg": "",
     "icon": "",
     "fanart": "",
     "source_id": 104
@@ -85,7 +85,7 @@
     "name": "For Sports Widget",
     "alias_source": "Daddy Live",
     "alias_group": "Sports-USA-",
-    "epg": "https://raw.githubusercontent.com/acidjesuz/EPGTalk/master/guide.xml.gz",
+    "epg": "",
     "icon": "",
     "fanart": "",
     "source_id": 103
@@ -94,7 +94,7 @@
     "name": "For Sports Widget 2",
     "alias_source": "Daddy Live",
     "alias_group": "Sports-UK-",
-    "epg": "https://raw.githubusercontent.com/acidjesuz/EPGTalk/master/guide.xml.gz",
+    "epg": "",
     "icon": "",
     "fanart": "",
     "source_id": 102
@@ -103,7 +103,7 @@
     "name": "For Sports Widget 3",
     "alias_source": "Daddy Live",
     "alias_group": "Sports-Canada-",
-    "epg": "https://raw.githubusercontent.com/acidjesuz/EPGTalk/master/guide.xml.gz",
+    "epg": "",
     "icon": "",
     "fanart": "",
     "source_id": 101
