@@ -1920,15 +1920,9 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.sc19
       <fanart>resources/media/fanart.jpg</fanart>
     </assets>
   </extension>
-</addon><addon id="repository.diggz" name="Diggz Repository" version="28" provider-name="Diggz">
+</addon><addon id="repository.diggz" name="Diggz Repository" version="29" provider-name="Diggz">
     <extension point="xbmc.addon.repository" name="Diggz Repository">
-        <dir minversion="21.90.0">
-            <info compressed="false">https://raw.githubusercontent.com/nebulous42069/22/master/22/zips/addons.xml</info>
-            <checksum>https://raw.githubusercontent.com/nebulous42069/22/master/22/zips/addons.xml.md5</checksum>
-            <datadir zip="true">https://raw.githubusercontent.com/nebulous42069/22/master/22/zips/</datadir>
-			<hashes>false</hashes>
-        </dir>
-        <dir minversion="21.0.0" maxversion="21.89.0">
+        <dir minversion="21.0.0" maxversion="22.89.0">
             <info compressed="false">https://raw.githubusercontent.com/nebulous42069/Omega/main/omega/zips/addons.xml</info>
             <checksum>https://raw.githubusercontent.com/nebulous42069/Omega/main/omega/zips/addons.xml.md5</checksum>
             <datadir zip="true">https://raw.githubusercontent.com/nebulous42069/Omega/main/omega/zips/</datadir>
@@ -3239,7 +3233,7 @@ v0.2.3
 			<fanart>resources/fanart.jpg</fanart>
 		</assets>
 	</extension>
-</addon><addon id="skin.xenon2" version="430.99.21" name="[B][COLOR gold]Diggz Xenon[/COLOR][/B]  (Mid Power)" provider-name="SiLVO, Diggz">
+</addon><addon id="skin.xenon2" version="430.99.22" name="[B][COLOR gold]Diggz Xenon[/COLOR][/B]  (Mid Power)" provider-name="SiLVO, Diggz">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0" />
 		<import addon="script.module.requests" version="2.19.1" />
