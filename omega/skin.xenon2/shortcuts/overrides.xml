@@ -26,7 +26,7 @@
 	<warn heading="19098" message="31377">ActivateWindow(Settings)</warn>
 	<warn heading="19098" message="31377">ActivateWindow(SkinSettings)</warn>
 <defaultwidgetsGetMore>False</defaultwidgetsGetMore>
-	<thumbnailBrowseDefault>special://home/addons/resource.images.skinicons.wide/resources/icons/</thumbnailBrowseDefault>
+	<thumbnailBrowseDefault>special://skin/media/icons/</thumbnailBrowseDefault>
 	<!-- Backgrounds -->
 	<backgroundBrowse>True</backgroundBrowse>
 	<background label="$LOCALIZE[31548]">Kodi.Movie.Fanart</background>
@@ -389,9 +389,9 @@
 			</node>
 			<!-- Weather -->
 			<node label="12600">
-				<shortcut label="10508" icon="$VAR[WeatherIconsPathVar]$INFO[Weather.FanartCode]$VAR[WeatherIconsExtVar]" condition="!String.IsEmpty(Weather.Plugin)" widget="addon" widgetType="weather">$INCLUDE[skinshortcuts-template-WeatherForecastContent]</shortcut>
-				<shortcut label="33006" icon="$VAR[WeatherIconsPathVar]$INFO[Weather.FanartCode]$VAR[WeatherIconsExtVar]" condition="!String.IsEmpty(Weather.Plugin)" widget="addon" widgetType="weather">$INCLUDE[skinshortcuts-template-WeatherTodayContent]</shortcut>
-				<shortcut label="33007" icon="$VAR[WeatherIconsPathVar]$INFO[Weather.FanartCode]$VAR[WeatherIconsExtVar]" condition="!String.IsEmpty(Weather.Plugin)" widget="addon" widgetType="weather">$INCLUDE[skinshortcuts-template-WeatherTomorrowContent]</shortcut>
+				<shortcut label="10508" icon="$VAR[X2SafeWeatherImage2]" condition="!String.IsEmpty(Weather.Plugin)" widget="addon" widgetType="weather">$INCLUDE[skinshortcuts-template-WeatherForecastContent]</shortcut>
+				<shortcut label="33006" icon="$VAR[X2SafeWeatherImage2]" condition="!String.IsEmpty(Weather.Plugin)" widget="addon" widgetType="weather">$INCLUDE[skinshortcuts-template-WeatherTodayContent]</shortcut>
+				<shortcut label="33007" icon="$VAR[X2SafeWeatherImage2]" condition="!String.IsEmpty(Weather.Plugin)" widget="addon" widgetType="weather">$INCLUDE[skinshortcuts-template-WeatherTomorrowContent]</shortcut>
 			</node>
 		</node>
 		<!-- Favourites -->

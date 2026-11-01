@@ -4,15 +4,15 @@
 		<label>TMDB Helper</label>
 		<label2>Custom item</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/tmdbh.png</thumb>
-		<action>ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper",return)</action>
+		<thumb>special://skin/media/icons/tmdbh.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=dir_tv&amp;tmdb_type=None&amp;reload=%24INFO%5BWindow%28Home%29.Property%28TMDbHelper.Widgets.Reload%29%5D&amp;widget=true",return)</action>
 		</shortcut>
 	<shortcut>
 		<defaultID />
 		<label>Umbrella TV</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/umbrella.png</thumb>
+		<thumb>special://skin/media/icons/umbrella.png</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.umbrella/?action=tvNavigator&amp;folderName=Discover+TV+Shows",return)</action>
 		</shortcut>
 	<shortcut>
@@ -20,7 +20,7 @@
 		<label>POV TV</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/pov.png</thumb>
+		<thumb>special://skin/media/icons/pov.png</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.pov/?name=32029&amp;iconImage=tv.png&amp;mode=navigator.main&amp;action=TVShowList",return)</action>
 		</shortcut>
 	<shortcut>
@@ -28,15 +28,23 @@
 		<label>Red Light TV</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/fenlight.png</thumb>
+		<thumb>special://skin/media/icons/fenlight.png</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.redlight/?name=32029&amp;iconImage=tv&amp;mode=navigator.main&amp;action=TVShowList",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Absolution TV</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://skin/media/icons/absolution.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.absolution/?action=tvNavigator",return)</action>
 		</shortcut>
 	<shortcut>
 		<defaultID />
 		<label>Seren TV Shows</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/seren.png</thumb>
+		<thumb>special://skin/media/icons/seren.png</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.seren/?action=showsHome",return)</action>
 		</shortcut>
 	<shortcut>
@@ -44,7 +52,7 @@
 		<label>The Crew TV</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/crew.png</thumb>
+		<thumb>special://skin/media/icons/crew.png</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.thecrew/?action=tvNavigator",return)</action>
 		</shortcut>
 	<shortcut>
@@ -52,7 +60,7 @@
 		<label>Pluto TV</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/pluto.png</thumb>
+		<thumb>special://skin/media/icons/pluto.png</thumb>
 		<action>ActivateWindow(Videos,"plugin://slyguy.pluto.tv.provider/?_=live_tv&amp;code=us",return)</action>
 		</shortcut>
 	<shortcut>
@@ -60,7 +68,7 @@
 		<label>Samsung TV</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/samsungtv.png</thumb>
+		<thumb>special://skin/media/icons/samsungtv.png</thumb>
 		<action>ActivateWindow(Videos,"plugin://slyguy.samsung.tv.plus/?_=live_tv&amp;code=us",return)</action>
 		</shortcut>
 	<shortcut>
@@ -68,7 +76,7 @@
 		<label>A&amp;E Free</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/APPTV/ustvgo/ae.png</thumb>
+		<thumb>special://skin/media/APPTV/ustvgo/ae.png</thumb>
 		<action>ActivateWindow(Videos,"plugin://metalchris.video.aetv_free",return)</action>
 		</shortcut>
 	<shortcut>
@@ -76,7 +84,7 @@
 		<label>History Channel Free</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/APPTV/ustvgo/history.png</thumb>
+		<thumb>special://skin/media/APPTV/ustvgo/history.png</thumb>
 		<action>ActivateWindow(Videos,"plugin://metalchris.video.history_free",return)</action>
 		</shortcut>
 	<shortcut>
@@ -84,7 +92,7 @@
 		<label>Xumo TV</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/xumo.png</thumb>
+		<thumb>special://skin/media/icons/xumo.png</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.xumoplay/?url=https%3A%2F%2Fplay.xumo.com%2Ftv-shows&amp;mode=18&amp;name=On+Demand+TV+Shows",return)</action>
 		</shortcut>
 	</shortcuts>

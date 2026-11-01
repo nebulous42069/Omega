@@ -240,13 +240,13 @@ def wiping():
 	return _wiping
 
 def function_monitor(func, query='0.0'):
-	func()
-	sleep(100)
-	openSettings(query)
-	while not condVisibility('Window.IsVisible(addonsettings)'):
-		sleep(250)
-	sleep(100)
-	release_active_monitor()
+	# The embedded skin owns its settings window; native addonsettings may never appear.
+	try:
+		result = func()
+		openSettings(query)
+		return result
+	finally:
+		release_active_monitor()
 
 def refresh_debugReversed(): # called from service "onSettingsChanged" to clear accountmgr.log if setting to reverse has been changed
 	if window.getProperty('accountmgr.debug.reversed') != setting('debug.reversed'):

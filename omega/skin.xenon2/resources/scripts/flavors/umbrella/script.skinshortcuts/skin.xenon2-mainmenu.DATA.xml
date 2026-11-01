@@ -26,18 +26,18 @@
 	<shortcut>
 		<defaultID />
 		<label>Movies</label>
-		<label2>Video Add-On</label2>
+		<label2>Custom item</label2>
 		<icon>DefaultShortcut.png</icon>
 		<thumb>thumb</thumb>
-		<action>ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=dir_movie&amp;tmdb_type=None&amp;widget=true&amp;reload=$INFO[Window(Home).Property(TMDbHelper.Widgets.Reload)]&amp;reload=$INFO[Window(Home).Property(TMDbHelper.Widgets.Reload)]",return)</action>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.umbrella/?action=movieNavigator&amp;folderName=Discover+Movies",return)</action>
 		</shortcut>
 	<shortcut>
 		<defaultID />
 		<label>TV shows</label>
-		<label2>Video Add-On</label2>
+		<label2>Custom item</label2>
 		<icon>DefaultShortcut.png</icon>
 		<thumb>thumb</thumb>
-		<action>ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=dir_tv&amp;tmdb_type=None&amp;widget=true&amp;reload=$INFO[Window(Home).Property(TMDbHelper.Widgets.Reload)]&amp;reload=$INFO[Window(Home).Property(TMDbHelper.Widgets.Reload)]",return)</action>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.umbrella/?action=tvNavigator&amp;folderName=Discover+TV+Shows",return)</action>
 		</shortcut>
 	<shortcut>
 		<defaultID />

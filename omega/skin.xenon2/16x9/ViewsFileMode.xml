@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <includes>
     <include name="CommonRootView">
         <control type="group">
@@ -94,7 +94,7 @@
                         <width>24</width>
                         <height>24</height>
                         <texture>OverlayWatching.png</texture>
-                        <visible>Window.IsVisible(Videos) + ListItem.IsResumable</visible>
+                        <visible>Window.IsVisible(Videos) + [ListItem.IsResumable | [[[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + [[Integer.IsGreater(ListItem.Property(WatchedEpisodePercent),0) + Integer.IsLess(ListItem.Property(WatchedEpisodePercent),100)] | [Integer.IsGreater(ListItem.Property(WatchedEpisodes),0) + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)]]] + !Skin.HasSetting(Disable.Resumable)]]</visible>
                     </control>
                     <control type="image">
                         <left>982</left>
@@ -103,7 +103,7 @@
                         <height>24</height>
                         <texture>$INFO[ListItem.Overlay]</texture>
                         <aspectratio>keep</aspectratio>
-                        <visible>Window.IsVisible(Videos) + !ListItem.IsResumable</visible>
+                        <visible>Window.IsVisible(Videos) + ![ListItem.IsResumable | [[[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + [[Integer.IsGreater(ListItem.Property(WatchedEpisodePercent),0) + Integer.IsLess(ListItem.Property(WatchedEpisodePercent),100)] | [Integer.IsGreater(ListItem.Property(WatchedEpisodes),0) + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)]]] + !Skin.HasSetting(Disable.Resumable)]]</visible>
                     </control>
                 </itemlayout>
                 <focusedlayout height="60" width="870">
@@ -194,7 +194,7 @@
                         <width>24</width>
                         <height>24</height>
                         <texture>OverlayWatching.png</texture>
-                        <visible>Window.IsVisible(Videos) + ListItem.IsResumable</visible>
+                        <visible>Window.IsVisible(Videos) + [ListItem.IsResumable | [[[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + [[Integer.IsGreater(ListItem.Property(WatchedEpisodePercent),0) + Integer.IsLess(ListItem.Property(WatchedEpisodePercent),100)] | [Integer.IsGreater(ListItem.Property(WatchedEpisodes),0) + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)]]] + !Skin.HasSetting(Disable.Resumable)]]</visible>
                     </control>
                     <control type="image">
                         <left>982</left>
@@ -203,7 +203,7 @@
                         <height>24</height>
                         <texture>$INFO[ListItem.Overlay]</texture>
                         <aspectratio>keep</aspectratio>
-                        <visible>Window.IsVisible(Videos) + !ListItem.IsResumable</visible>
+                        <visible>Window.IsVisible(Videos) + ![ListItem.IsResumable | [[[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + [[Integer.IsGreater(ListItem.Property(WatchedEpisodePercent),0) + Integer.IsLess(ListItem.Property(WatchedEpisodePercent),100)] | [Integer.IsGreater(ListItem.Property(WatchedEpisodes),0) + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)]]] + !Skin.HasSetting(Disable.Resumable)]]</visible>
                     </control>
                 </focusedlayout>
             </control>
@@ -407,7 +407,7 @@
                         <width>45</width>
                         <height>45</height>
                         <texture>OverlayWatching.png</texture>
-                        <visible>ListItem.IsResumable</visible>
+                        <visible>[ListItem.IsResumable | [[[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + [[Integer.IsGreater(ListItem.Property(WatchedEpisodePercent),0) + Integer.IsLess(ListItem.Property(WatchedEpisodePercent),100)] | [Integer.IsGreater(ListItem.Property(WatchedEpisodes),0) + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)]]] + !Skin.HasSetting(Disable.Resumable)]]</visible>
                     </control>
                     <control type="image">
                         <left>255</left>
@@ -416,7 +416,7 @@
                         <height>45</height>
                         <aspectratio>keep</aspectratio>
                         <texture>$INFO[ListItem.Overlay]</texture>
-                        <visible>!ListItem.IsResumable</visible>
+                        <visible>![ListItem.IsResumable | [[[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + [[Integer.IsGreater(ListItem.Property(WatchedEpisodePercent),0) + Integer.IsLess(ListItem.Property(WatchedEpisodePercent),100)] | [Integer.IsGreater(ListItem.Property(WatchedEpisodes),0) + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)]]] + !Skin.HasSetting(Disable.Resumable)]]</visible>
                     </control>
                 </itemlayout>
                 <focusedlayout condition="!Container.Content(Movies) + !Container.Content(Seasons) + !Container.Content(TVShows) + !Container.Content(Sets)" height="279" width="324">
@@ -494,7 +494,7 @@
                         <width>45</width>
                         <height>45</height>
                         <texture>OverlayWatching.png</texture>
-                        <visible>ListItem.IsResumable</visible>
+                        <visible>[ListItem.IsResumable | [[[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + [[Integer.IsGreater(ListItem.Property(WatchedEpisodePercent),0) + Integer.IsLess(ListItem.Property(WatchedEpisodePercent),100)] | [Integer.IsGreater(ListItem.Property(WatchedEpisodes),0) + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)]]] + !Skin.HasSetting(Disable.Resumable)]]</visible>
                     </control>
                     <control type="image">
                         <left>255</left>
@@ -503,7 +503,7 @@
                         <height>45</height>
                         <aspectratio>keep</aspectratio>
                         <texture>$INFO[ListItem.Overlay]</texture>
-                        <visible>!ListItem.IsResumable</visible>
+                        <visible>![ListItem.IsResumable | [[[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + [[Integer.IsGreater(ListItem.Property(WatchedEpisodePercent),0) + Integer.IsLess(ListItem.Property(WatchedEpisodePercent),100)] | [Integer.IsGreater(ListItem.Property(WatchedEpisodes),0) + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)]]] + !Skin.HasSetting(Disable.Resumable)]]</visible>
                     </control>
                 </focusedlayout>
                 <itemlayout condition="Container.Content(Movies) | Container.Content(Seasons) | Container.Content(TVShows) | Container.Content(Sets)" height="419" width="324">
@@ -535,7 +535,7 @@
                         <width>45</width>
                         <height>45</height>
                         <texture>OverlayWatching.png</texture>
-                        <visible>ListItem.IsResumable</visible>
+                        <visible>[ListItem.IsResumable | [[[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + [[Integer.IsGreater(ListItem.Property(WatchedEpisodePercent),0) + Integer.IsLess(ListItem.Property(WatchedEpisodePercent),100)] | [Integer.IsGreater(ListItem.Property(WatchedEpisodes),0) + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)]]] + !Skin.HasSetting(Disable.Resumable)]]</visible>
                     </control>
                     <control type="image">
                         <left>255</left>
@@ -544,7 +544,7 @@
                         <height>45</height>
                         <aspectratio>keep</aspectratio>
                         <texture>$INFO[ListItem.Overlay]</texture>
-                        <visible>!ListItem.IsResumable</visible>
+                        <visible>![ListItem.IsResumable | [[[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + [[Integer.IsGreater(ListItem.Property(WatchedEpisodePercent),0) + Integer.IsLess(ListItem.Property(WatchedEpisodePercent),100)] | [Integer.IsGreater(ListItem.Property(WatchedEpisodes),0) + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)]]] + !Skin.HasSetting(Disable.Resumable)]]</visible>
                     </control>
                 </itemlayout>
                 <focusedlayout condition="Container.Content(Movies) | Container.Content(Seasons) | Container.Content(TVShows) | Container.Content(Sets)" height="419" width="324">
@@ -576,7 +576,7 @@
                         <width>45</width>
                         <height>45</height>
                         <texture>OverlayWatching.png</texture>
-                        <visible>ListItem.IsResumable</visible>
+                        <visible>[ListItem.IsResumable | [[[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + [[Integer.IsGreater(ListItem.Property(WatchedEpisodePercent),0) + Integer.IsLess(ListItem.Property(WatchedEpisodePercent),100)] | [Integer.IsGreater(ListItem.Property(WatchedEpisodes),0) + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)]]] + !Skin.HasSetting(Disable.Resumable)]]</visible>
                     </control>
                     <control type="image">
                         <left>255</left>
@@ -585,7 +585,7 @@
                         <height>45</height>
                         <aspectratio>keep</aspectratio>
                         <texture>$INFO[ListItem.Overlay]</texture>
-                        <visible>!ListItem.IsResumable</visible>
+                        <visible>![ListItem.IsResumable | [[[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + [[Integer.IsGreater(ListItem.Property(WatchedEpisodePercent),0) + Integer.IsLess(ListItem.Property(WatchedEpisodePercent),100)] | [Integer.IsGreater(ListItem.Property(WatchedEpisodes),0) + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)]]] + !Skin.HasSetting(Disable.Resumable)]]</visible>
                     </control>
                 </focusedlayout>
             </control>
@@ -654,7 +654,7 @@
                         <width>52</width>
                         <height>52</height>
                         <texture>OverlayWatching.png</texture>
-                        <visible>ListItem.IsResumable</visible>
+                        <visible>[ListItem.IsResumable | [[[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + [[Integer.IsGreater(ListItem.Property(WatchedEpisodePercent),0) + Integer.IsLess(ListItem.Property(WatchedEpisodePercent),100)] | [Integer.IsGreater(ListItem.Property(WatchedEpisodes),0) + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)]]] + !Skin.HasSetting(Disable.Resumable)]]</visible>
                     </control>
                     <control type="image">
                         <left>375</left>
@@ -663,7 +663,7 @@
                         <height>52</height>
                         <aspectratio>keep</aspectratio>
                         <texture>$INFO[ListItem.Overlay]</texture>
-                        <visible>!ListItem.IsResumable</visible>
+                        <visible>![ListItem.IsResumable | [[[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + [[Integer.IsGreater(ListItem.Property(WatchedEpisodePercent),0) + Integer.IsLess(ListItem.Property(WatchedEpisodePercent),100)] | [Integer.IsGreater(ListItem.Property(WatchedEpisodes),0) + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)]]] + !Skin.HasSetting(Disable.Resumable)]]</visible>
                     </control>
                 </itemlayout>
                 <focusedlayout height="202" width="810" condition="!Skin.HasSetting(HideWideViewLabels)">
@@ -695,7 +695,7 @@
                         <width>52</width>
                         <height>52</height>
                         <texture>OverlayWatching.png</texture>
-                        <visible>ListItem.IsResumable</visible>
+                        <visible>[ListItem.IsResumable | [[[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + [[Integer.IsGreater(ListItem.Property(WatchedEpisodePercent),0) + Integer.IsLess(ListItem.Property(WatchedEpisodePercent),100)] | [Integer.IsGreater(ListItem.Property(WatchedEpisodes),0) + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)]]] + !Skin.HasSetting(Disable.Resumable)]]</visible>
                     </control>
                     <control type="image">
                         <left>375</left>
@@ -704,7 +704,7 @@
                         <height>52</height>
                         <aspectratio>keep</aspectratio>
                         <texture>$INFO[ListItem.Overlay]</texture>
-                        <visible>!ListItem.IsResumable</visible>
+                        <visible>![ListItem.IsResumable | [[[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + [[Integer.IsGreater(ListItem.Property(WatchedEpisodePercent),0) + Integer.IsLess(ListItem.Property(WatchedEpisodePercent),100)] | [Integer.IsGreater(ListItem.Property(WatchedEpisodes),0) + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)]]] + !Skin.HasSetting(Disable.Resumable)]]</visible>
                     </control>
                 </focusedlayout>
                 <itemlayout height="162" width="810" condition="Skin.HasSetting(HideWideViewLabels)">
@@ -724,7 +724,7 @@
                         <width>52</width>
                         <height>52</height>
                         <texture>OverlayWatching.png</texture>
-                        <visible>ListItem.IsResumable</visible>
+                        <visible>[ListItem.IsResumable | [[[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + [[Integer.IsGreater(ListItem.Property(WatchedEpisodePercent),0) + Integer.IsLess(ListItem.Property(WatchedEpisodePercent),100)] | [Integer.IsGreater(ListItem.Property(WatchedEpisodes),0) + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)]]] + !Skin.HasSetting(Disable.Resumable)]]</visible>
                     </control>
                     <control type="image">
                         <left>375</left>
@@ -733,7 +733,7 @@
                         <height>52</height>
                         <aspectratio>keep</aspectratio>
                         <texture>$INFO[ListItem.Overlay]</texture>
-                        <visible>!ListItem.IsResumable</visible>
+                        <visible>![ListItem.IsResumable | [[[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + [[Integer.IsGreater(ListItem.Property(WatchedEpisodePercent),0) + Integer.IsLess(ListItem.Property(WatchedEpisodePercent),100)] | [Integer.IsGreater(ListItem.Property(WatchedEpisodes),0) + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)]]] + !Skin.HasSetting(Disable.Resumable)]]</visible>
                     </control>
                 </itemlayout>
                 <focusedlayout height="162" width="810" condition="Skin.HasSetting(HideWideViewLabels)">
@@ -753,7 +753,7 @@
                         <width>52</width>
                         <height>52</height>
                         <texture>OverlayWatching.png</texture>
-                        <visible>ListItem.IsResumable</visible>
+                        <visible>[ListItem.IsResumable | [[[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + [[Integer.IsGreater(ListItem.Property(WatchedEpisodePercent),0) + Integer.IsLess(ListItem.Property(WatchedEpisodePercent),100)] | [Integer.IsGreater(ListItem.Property(WatchedEpisodes),0) + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)]]] + !Skin.HasSetting(Disable.Resumable)]]</visible>
                     </control>
                     <control type="image">
                         <left>375</left>
@@ -762,7 +762,7 @@
                         <height>52</height>
                         <aspectratio>keep</aspectratio>
                         <texture>$INFO[ListItem.Overlay]</texture>
-                        <visible>!ListItem.IsResumable</visible>
+                        <visible>![ListItem.IsResumable | [[[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + [[Integer.IsGreater(ListItem.Property(WatchedEpisodePercent),0) + Integer.IsLess(ListItem.Property(WatchedEpisodePercent),100)] | [Integer.IsGreater(ListItem.Property(WatchedEpisodes),0) + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)]]] + !Skin.HasSetting(Disable.Resumable)]]</visible>
                     </control>
                 </focusedlayout>
             </control>
@@ -915,7 +915,7 @@
                         <width>30</width>
                         <height>24</height>
                         <texture>OverlayWatching.png</texture>
-                        <visible>Window.IsVisible(Videos) + ListItem.IsResumable</visible>
+                        <visible>Window.IsVisible(Videos) + [ListItem.IsResumable | [[[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + [[Integer.IsGreater(ListItem.Property(WatchedEpisodePercent),0) + Integer.IsLess(ListItem.Property(WatchedEpisodePercent),100)] | [Integer.IsGreater(ListItem.Property(WatchedEpisodes),0) + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)]]] + !Skin.HasSetting(Disable.Resumable)]]</visible>
                     </control>
                     <control type="image">
                         <left>1575</left>
@@ -924,7 +924,7 @@
                         <height>24</height>
                         <texture>$INFO[ListItem.Overlay]</texture>
                         <aspectratio>keep</aspectratio>
-                        <visible>Window.IsVisible(Videos) + !ListItem.IsResumable</visible>
+                        <visible>Window.IsVisible(Videos) + ![ListItem.IsResumable | [[[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + [[Integer.IsGreater(ListItem.Property(WatchedEpisodePercent),0) + Integer.IsLess(ListItem.Property(WatchedEpisodePercent),100)] | [Integer.IsGreater(ListItem.Property(WatchedEpisodes),0) + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)]]] + !Skin.HasSetting(Disable.Resumable)]]</visible>
                     </control>
                 </itemlayout>
                 <focusedlayout height="60" width="1620">
@@ -1052,7 +1052,7 @@
                         <width>30</width>
                         <height>24</height>
                         <texture>OverlayWatching.png</texture>
-                        <visible>Window.IsVisible(Videos) + ListItem.IsResumable</visible>
+                        <visible>Window.IsVisible(Videos) + [ListItem.IsResumable | [[[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + [[Integer.IsGreater(ListItem.Property(WatchedEpisodePercent),0) + Integer.IsLess(ListItem.Property(WatchedEpisodePercent),100)] | [Integer.IsGreater(ListItem.Property(WatchedEpisodes),0) + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)]]] + !Skin.HasSetting(Disable.Resumable)]]</visible>
                     </control>
                     <control type="image">
                         <left>1575</left>
@@ -1061,7 +1061,7 @@
                         <height>24</height>
                         <texture>$INFO[ListItem.Overlay]</texture>
                         <aspectratio>keep</aspectratio>
-                        <visible>Window.IsVisible(Videos) + !ListItem.IsResumable</visible>
+                        <visible>Window.IsVisible(Videos) + ![ListItem.IsResumable | [[[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + [[Integer.IsGreater(ListItem.Property(WatchedEpisodePercent),0) + Integer.IsLess(ListItem.Property(WatchedEpisodePercent),100)] | [Integer.IsGreater(ListItem.Property(WatchedEpisodes),0) + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)]]] + !Skin.HasSetting(Disable.Resumable)]]</visible>
                     </control>
                 </focusedlayout>
             </control>

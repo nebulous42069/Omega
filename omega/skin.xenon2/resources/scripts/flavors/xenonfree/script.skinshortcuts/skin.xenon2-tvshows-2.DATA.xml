@@ -4,7 +4,7 @@
 		<label>TMDBH TV</label>
 		<label2>Custom item</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/tmdbh.png</thumb>
+		<thumb>special://skin/media/icons/tmdbh.png</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=dir_tv&amp;tmdb_type=None&amp;reload=%24INFO%5BWindow%28Home%29.Property%28TMDbHelper.Widgets.Reload%29%5D&amp;widget=true",return)</action>
 		</shortcut>
 	<shortcut>
@@ -12,7 +12,7 @@
 		<label>Look TV</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/lookmovies.png</thumb>
+		<thumb>special://skin/media/icons/lookmovies.png</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.lookmovietomb/?mode=listmenus&amp;url=series&amp;page=1&amp;title=%5BCOLOR+khaki%5D%5BB%5DTV+Shows%5B%2FCOLOR%5D%5B%2FB%5D&amp;image=special%3A%2F%2Fhome%2Faddons%2Fplugin.video.lookmovietomb%2Fresources%2F..%2Ficon.png&amp;infoLabels=%257B%2527title%2527%253A%2B%2527%255BCOLOR%2Bkhaki%255D%255BB%255DTV%2BShows%255B%252FCOLOR%255D%255B%252FB%255D%2527%257D",return)</action>
 		</shortcut>
 	<shortcut>
@@ -20,7 +20,7 @@
 		<label>Gratis Red TV Shows</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/gratisred.png</thumb>
+		<thumb>special://skin/media/icons/gratisred.png</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.gratisred/?action=tvshows_menu",return)</action>
 		</shortcut>
 	<shortcut>
@@ -28,7 +28,7 @@
 		<label>9 Movies TV</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/9movies.png</thumb>
+		<thumb>special://skin/media/icons/9movies.png</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.9movies/?mode=tv",return)</action>
 		</shortcut>
 	<shortcut>
@@ -36,7 +36,7 @@
 		<label>TMDB TV</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/tmdb.png</thumb>
+		<thumb>special://skin/media/icons/tmdb.png</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.tmdbmovies/?mode=tv_menu",return)</action>
 		</shortcut>
 	<shortcut>
@@ -44,7 +44,7 @@
 		<label>VidSCR TV</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/vidscr.png</thumb>
+		<thumb>special://skin/media/icons/vidscr.png</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.vidscr/?action=tv_root",return)</action>
 		</shortcut>
 	<shortcut>
@@ -52,7 +52,7 @@
 		<label>BlackLodge TV</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/blacklodge.png</thumb>
+		<thumb>special://skin/media/icons/blacklodge.png</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.blacklodge/?action=tvNavigator",return)</action>
 		</shortcut>
 	<shortcut>
@@ -60,7 +60,7 @@
 		<label>TV Free</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/tvfree.png</thumb>
+		<thumb>special://skin/media/icons/tvfree.png</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.tvfree",return)</action>
 		</shortcut>
 	<shortcut>
@@ -68,7 +68,7 @@
 		<label>Twisted</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/twisted.png</thumb>
+		<thumb>special://skin/media/icons/twisted.png</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.twisted",return)</action>
 		</shortcut>
 	<shortcut>
@@ -76,7 +76,7 @@
 		<label>A&amp;E Free</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/APPTV/ustvgo/ae.png</thumb>
+		<thumb>special://skin/media/APPTV/ustvgo/ae.png</thumb>
 		<action>ActivateWindow(Videos,"plugin://metalchris.video.aetv_free",return)</action>
 		</shortcut>
 	<shortcut>
@@ -84,7 +84,7 @@
 		<label>History Channel Free</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/APPTV/ustvgo/history.png</thumb>
+		<thumb>special://skin/media/APPTV/ustvgo/history.png</thumb>
 		<action>ActivateWindow(Videos,"plugin://metalchris.video.history_free",return)</action>
 		</shortcut>
 	<shortcut>
@@ -92,7 +92,7 @@
 		<label>Pluto TV</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/pluto.png</thumb>
+		<thumb>special://skin/media/icons/pluto.png</thumb>
 		<action>ActivateWindow(Videos,"plugin://slyguy.pluto.tv.provider/?_=live_tv&amp;code=us",return)</action>
 		</shortcut>
 	<shortcut>
@@ -100,7 +100,7 @@
 		<label>Samsung TV</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/samsungtv.png</thumb>
+		<thumb>special://skin/media/icons/samsungtv.png</thumb>
 		<action>ActivateWindow(Videos,"plugin://slyguy.samsung.tv.plus/?_=live_tv&amp;code=us",return)</action>
 		</shortcut>
 	<shortcut>
@@ -108,7 +108,7 @@
 		<label>Xumo TV</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/xumo.png</thumb>
+		<thumb>special://skin/media/icons/xumo.png</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.xumoplay/?url=https%3A%2F%2Fplay.xumo.com%2Ftv-shows&amp;mode=18&amp;name=On+Demand+TV+Shows",return)</action>
 		</shortcut>
 	</shortcuts>

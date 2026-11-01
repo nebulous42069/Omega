@@ -157,7 +157,7 @@ for param in sys.argv[1:]:
     # RunScript(addon, action=X&mode=Y) has no comma, so Kodi passes the whole
     # thing as one sys.argv element - splitting only on '=' left 'mode' folded
     # into action's own value ('X&mode=Y'), matching no elif branch below.
-    # Every viewAuthorizations/serviceRevoke/backupService/restoreService row
+    # Every serviceRevoke/backupService/restoreService row
     # depends on this second param; split each element on '&' first.
     for piece in param.split('&'):
         if '=' in piece:
@@ -202,8 +202,8 @@ if action and not any(i in action for i in ['Auth', 'Revoke']):
 # still underneath). On skins with a slower close (Confluence/Xonfluence) the account
 # dialog, status window or re-opened settings then collide with it: the row "just
 # exits settings" or settings comes back blank. Clear the stack first, once, for all
-# actions; viewAuthorizations/serviceRevoke do their own below.
-if action and action not in ('viewAuthorizations', 'serviceRevoke'):
+# actions; serviceRevoke does its own below.
+if action and action != 'serviceRevoke':
     _wait_for_modal_close()
 
 if action is None:
@@ -230,7 +230,7 @@ elif action == 'findSignins':
 elif action == 'openSettings':
     _reload_and_open_settings(query)
 
-elif action == 'statusDashboard':
+elif action in ('statusDashboard', 'viewAuthorizations'):
     from reauthorize.windows.status import open_status
     open_status()
     _reload_and_open_settings()
@@ -602,24 +602,6 @@ elif action == 'imdbRevoke':
     control.release_active_monitor()
     _reload_and_open_settings()
 
-elif action == 'viewAuthorizations':
-    # Opens the read-only account-info viewer (window 10001, a Kodi content
-    # window hosting reauthorize-core's plugin listing) in place of settings --
-    # see _wait_for_modal_close for why every dialog gets force-closed first.
-    # Closing those dialogs means "return" leaves the user on whatever window
-    # was underneath them (My Add-ons -> Services, if that's how they opened
-    # ReAuthorize) once they back out, rather than back inside ReAuthorize
-    # itself. A 2026-09-29 attempt at auto-reopening settings after that hit a
-    # separate, native Kodi dead end (backing out of a plugin-populated content
-    # window opened via ActivateWindow(...,return) can land on an empty
-    # plugin:// reload that errors, needing an extra Back) -- reverted rather
-    # than chase Kodi's own content-window internals further tonight. Plain
-    # Back landing on the Services browser was already confirmed acceptable.
-    mode = params.get('mode', '')
-    if mode:
-        _wait_for_modal_close()
-        xbmc.executebuiltin('ActivateWindow(10001,plugin://script.module.reauthorize-core/?mode=%s,return)' % mode)
-
 elif action == 'serviceRevoke':
     # This row used to only fire router.py's legacy 'addon<svc>' mode, which
     # wipes a fixed ~21-addon list in reauthorize-core's debridit_*.py that
@@ -707,8 +689,7 @@ elif action == 'serviceRevoke':
         xbmc.executebuiltin('PlayMedia(plugin://script.module.reauthorize-core/?mode=addontrakt&name=all)')
     elif mode:
         # Trakt's addontrakt (and anything else not covered above) keeps going
-        # through router.py directly -- same modal-dialog race as
-        # viewAuthorizations, so the same wait applies here.
+        # through router.py directly; wait for settings to finish closing.
         _wait_for_modal_close()
         xbmc.executebuiltin('PlayMedia(plugin://script.module.reauthorize-core/?mode=%s&name=all)' % mode)
 
@@ -790,7 +771,12 @@ elif action == 'simklAcct':
 
 elif action == 'simklAuth':
     from reauthorize.modules.auth import simkl
-    control.function_monitor(simkl.Simkl().auth)
+    # The embedded settings loop reopens its own window after this action.
+    # Waiting for Kodi's native addonsettings window here never completes.
+    try:
+        simkl.Simkl().auth()
+    finally:
+        control.release_active_monitor()
     if control.setting('simkl.token'):
         from reauthorize.modules.sync import simkl_sync
         from reauthorize.modules import restart_hint
@@ -807,7 +793,12 @@ elif action == 'simklAuth':
 
 elif action == 'simklRevoke':
     from reauthorize.modules.auth import simkl
-    control.function_monitor(simkl.Simkl().revoke)
+    # The embedded settings loop reopens its own window after this action.
+    # Waiting for Kodi's native addonsettings window here never completes.
+    try:
+        simkl.Simkl().revoke()
+    finally:
+        control.release_active_monitor()
     # Take it out of the add-ons too, and give them their own Simkl app key back. Until 1.3.9
     # a Simkl Revoke only cleared ReAuthorize's copy and every add-on kept the sign-in.
     if not control.setting('simkl.token'):

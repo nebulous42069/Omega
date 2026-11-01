@@ -1359,7 +1359,7 @@
 				<control type="group">
 					<left>40</left>
 					<top>82</top>
-					<visible>!Player.IsInternetStream + !VideoPlayer.Content(livetv)</visible>
+					<visible>!VideoPlayer.Content(livetv)</visible>
 					<control type="image">
 						<left>90</left>
 						<top>-30</top>
@@ -1369,7 +1369,7 @@
 						<aspectratio align="left">keep</aspectratio>
 						<fadetime>300</fadetime>
 						<animation effect="rotate" end="-360" center="auto" time="8333" loop="true" reversible="false" condition="!Player.Paused">Conditional</animation>
-						<texture background="true" diffuse="thumbs/boxes/cdart_mask.png">$VAR[PlayerArtworkDiscVar]</texture>
+						<texture background="true" diffuse="special://skin/media/x2_music/disc_mask.png">$VAR[X2HomeMusicDiscVar]</texture>
 						<bordersize>30</bordersize>
 					</control>
 					<control type="image">
@@ -1378,7 +1378,7 @@
 						<width>356</width>
 						<height>356</height>
 						<aspectratio align="center">scale</aspectratio>
-						<texture diffuse="thumbs/boxes/cdcover_mask2.png" fallback="DefaultAlbumCover.png">$INFO[Player.Art(thumb)]</texture>
+						<texture background="true" diffuse="thumbs/boxes/cdcover_mask2.png" fallback="DefaultAlbumCover.png">$VAR[X2MusicAlbumVar]</texture>
 						<bordertexture border="28">thumbs/boxes/cd_shadow2.png</bordertexture>
 						<bordersize>28</bordersize>
 					</control>
@@ -1432,7 +1432,7 @@
 				<control type="group">
 					<left>40</left>
 					<top>82</top>
-					<visible>Player.IsInternetStream | VideoPlayer.Content(livetv)</visible>
+					<visible>VideoPlayer.Content(livetv)</visible>
 					<control type="image">
 						<width>340</width>
 						<height>340</height>

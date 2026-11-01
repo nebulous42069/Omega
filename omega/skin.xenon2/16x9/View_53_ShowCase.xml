@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version='1.0' encoding='UTF-8'?>
 <includes>
 	<include name="scmfixed">
 		<control type="fixedlist" id="53">
@@ -28,8 +28,8 @@
 		<focusposition>3</focusposition>
 		<orientation>horizontal</orientation>
 		<preloaditems>2</preloaditems>
-		<itemlayout height="525" width="155" condition="![Skin.HasSetting(noshowcaseflow) + !Control.IsVisible(6000)]" />
-		<focusedlayout height="525" width="155" condition="![Skin.HasSetting(noshowcaseflow) + !Control.IsVisible(6000)]" />
+		<itemlayout height="525" width="155" condition="![Skin.HasSetting(noshowcaseflow) + !Control.IsVisible(6000)]"/>
+		<focusedlayout height="525" width="155" condition="![Skin.HasSetting(noshowcaseflow) + !Control.IsVisible(6000)]"/>
 		<itemlayout height="525" width="294" condition="Skin.HasSetting(noshowcaseflow)">
 			<control type="group">
 				<top>30</top>
@@ -153,7 +153,7 @@
 			<control type="group">
 				<top>570</top>
 				<left>55</left>
-				<camera x="960" y="810" />
+				<camera x="960" y="810"/>
 				<control type="group" id="6001">
 					<visible>Container.OnNext + !Skin.HasSetting(noshowcaseflow)</visible>
 					<animation effect="slide" end="-135,0" time="200" reversible="false">Hidden</animation>
@@ -413,8 +413,8 @@
 						<visible>!String.IsEmpty(Container(53).ListItemNoWrap(-6).FolderPath) | !Skin.HasSetting(ShowCaseWrapList)</visible>
 						<animation effect="rotatey" center="-135" start="-55" end="-55" time="0" condition="true">Conditional</animation>
 						<animation type="Conditional" condition="Skin.HasSetting(noshowcaseflow)">
-							<effect type="rotatey" center="-135" end="55" time="640" tween="cubic" easing="inout" />
-							<effect type="slide" end="-1028" time="640" tween="cubic" easing="inout" />
+							<effect type="rotatey" center="-135" end="55" time="640" tween="cubic" easing="inout"/>
+							<effect type="slide" end="-1028" time="640" tween="cubic" easing="inout"/>
 						</animation>
 						<include>MovieShowCaseItem-6</include>
 					</control>
@@ -423,8 +423,8 @@
 						<visible>!String.IsEmpty(Container(53).ListItemNoWrap(-5).FolderPath) | !Skin.HasSetting(ShowCaseWrapList)</visible>
 						<animation effect="rotatey" center="0" start="-55" end="-55" time="0" condition="true">Conditional</animation>
 						<animation type="Conditional" condition="Skin.HasSetting(noshowcaseflow)">
-							<effect type="rotatey" center="0" end="55" time="640" tween="cubic" easing="inout" />
-							<effect type="slide" end="-866" time="640" tween="cubic" easing="inout" />
+							<effect type="rotatey" center="0" end="55" time="640" tween="cubic" easing="inout"/>
+							<effect type="slide" end="-866" time="640" tween="cubic" easing="inout"/>
 						</animation>
 						<include>MovieShowCaseItem-5</include>
 					</control>
@@ -433,8 +433,8 @@
 						<visible>!String.IsEmpty(Container(53).ListItemNoWrap(-4).FolderPath) | !Skin.HasSetting(ShowCaseWrapList)</visible>
 						<animation effect="rotatey" center="135" start="-55" end="-55" time="0" condition="true">Conditional</animation>
 						<animation type="Conditional" condition="Skin.HasSetting(noshowcaseflow)">
-							<effect type="rotatey" center="135" end="55" time="640" tween="cubic" easing="inout" />
-							<effect type="slide" end="-704" time="640" tween="cubic" easing="inout" />
+							<effect type="rotatey" center="135" end="55" time="640" tween="cubic" easing="inout"/>
+							<effect type="slide" end="-704" time="640" tween="cubic" easing="inout"/>
 						</animation>
 						<include>MovieShowCaseItem-4</include>
 					</control>
@@ -443,8 +443,8 @@
 						<visible>!String.IsEmpty(Container(53).ListItemNoWrap(-3).FolderPath) | !Skin.HasSetting(ShowCaseWrapList)</visible>
 						<animation effect="rotatey" center="270" start="-55" end="-55" time="0" condition="true">Conditional</animation>
 						<animation type="Conditional" condition="Skin.HasSetting(noshowcaseflow)">
-							<effect type="rotatey" center="270" end="55" time="640" tween="cubic" easing="inout" />
-							<effect type="slide" end="-543" time="640" tween="cubic" easing="inout" />
+							<effect type="rotatey" center="270" end="55" time="640" tween="cubic" easing="inout"/>
+							<effect type="slide" end="-543" time="640" tween="cubic" easing="inout"/>
 						</animation>
 						<include>MovieShowCaseItem-3</include>
 					</control>
@@ -453,8 +453,8 @@
 						<visible>!String.IsEmpty(Container(53).ListItemNoWrap(-2).FolderPath) | !Skin.HasSetting(ShowCaseWrapList)</visible>
 						<animation effect="rotatey" center="405" start="-55" end="-55" time="0" condition="true">Conditional</animation>
 						<animation type="Conditional" condition="Skin.HasSetting(noshowcaseflow)">
-							<effect type="rotatey" center="405" end="55" time="640" tween="cubic" easing="inout" />
-							<effect type="slide" end="-384" time="640" tween="cubic" easing="inout" />
+							<effect type="rotatey" center="405" end="55" time="640" tween="cubic" easing="inout"/>
+							<effect type="slide" end="-384" time="640" tween="cubic" easing="inout"/>
 						</animation>
 						<include>MovieShowCaseItem-2</include>
 					</control>
@@ -463,8 +463,8 @@
 						<visible>!String.IsEmpty(Container(53).ListItemNoWrap(-1).FolderPath) | !Skin.HasSetting(ShowCaseWrapList)</visible>
 						<animation effect="rotatey" center="540" start="-55" end="-55" time="0" condition="true">Conditional</animation>
 						<animation type="Conditional" condition="Skin.HasSetting(noshowcaseflow)">
-							<effect type="rotatey" center="540" end="55" time="640" tween="cubic" easing="inout" />
-							<effect type="slide" end="-226" time="640" tween="cubic" easing="inout" />
+							<effect type="rotatey" center="540" end="55" time="640" tween="cubic" easing="inout"/>
+							<effect type="slide" end="-226" time="640" tween="cubic" easing="inout"/>
 						</animation>
 						<include>MovieShowCaseItem-1</include>
 					</control>
@@ -473,8 +473,8 @@
 						<visible>!String.IsEmpty(Container(53).ListItemNoWrap(6).FolderPath) | !Skin.HasSetting(ShowCaseWrapList)</visible>
 						<animation effect="rotatey" center="1965" start="55" end="55" time="0" condition="true">Conditional</animation>
 						<animation type="Conditional" condition="Skin.HasSetting(noshowcaseflow)">
-							<effect type="rotatey" center="1965" end="-55" time="640" tween="cubic" easing="inout" />
-							<effect type="slide" end="1028" time="640" tween="cubic" easing="inout" />
+							<effect type="rotatey" center="1965" end="-55" time="640" tween="cubic" easing="inout"/>
+							<effect type="slide" end="1028" time="640" tween="cubic" easing="inout"/>
 						</animation>
 						<include>MovieShowCaseItem6</include>
 					</control>
@@ -483,8 +483,8 @@
 						<visible>!String.IsEmpty(Container(53).ListItemNoWrap(5).FolderPath) | !Skin.HasSetting(ShowCaseWrapList)</visible>
 						<animation effect="rotatey" center="1830" start="55" end="55" time="0" condition="true">Conditional</animation>
 						<animation type="Conditional" condition="Skin.HasSetting(noshowcaseflow)">
-							<effect type="rotatey" center="1830" end="-55" time="640" tween="cubic" easing="inout" />
-							<effect type="slide" end="866" time="640" tween="cubic" easing="inout" />
+							<effect type="rotatey" center="1830" end="-55" time="640" tween="cubic" easing="inout"/>
+							<effect type="slide" end="866" time="640" tween="cubic" easing="inout"/>
 						</animation>
 						<include>MovieShowCaseItem5</include>
 					</control>
@@ -493,8 +493,8 @@
 						<visible>!String.IsEmpty(Container(53).ListItemNoWrap(4).FolderPath) | !Skin.HasSetting(ShowCaseWrapList)</visible>
 						<animation effect="rotatey" center="1695" start="55" end="55" time="0" condition="true">Conditional</animation>
 						<animation type="Conditional" condition="Skin.HasSetting(noshowcaseflow)">
-							<effect type="rotatey" center="1695" end="-55" time="640" tween="cubic" easing="inout" />
-							<effect type="slide" end="704" time="640" tween="cubic" easing="inout" />
+							<effect type="rotatey" center="1695" end="-55" time="640" tween="cubic" easing="inout"/>
+							<effect type="slide" end="704" time="640" tween="cubic" easing="inout"/>
 						</animation>
 						<include>MovieShowCaseItem4</include>
 					</control>
@@ -503,8 +503,8 @@
 						<visible>!String.IsEmpty(Container(53).ListItemNoWrap(3).FolderPath) | !Skin.HasSetting(ShowCaseWrapList)</visible>
 						<animation effect="rotatey" center="1560" start="55" end="55" time="0" condition="true">Conditional</animation>
 						<animation type="Conditional" condition="Skin.HasSetting(noshowcaseflow)">
-							<effect type="rotatey" center="1560" end="-55" time="640" tween="cubic" easing="inout" />
-							<effect type="slide" end="543" time="640" tween="cubic" easing="inout" />
+							<effect type="rotatey" center="1560" end="-55" time="640" tween="cubic" easing="inout"/>
+							<effect type="slide" end="543" time="640" tween="cubic" easing="inout"/>
 						</animation>
 						<include>MovieShowCaseItem3</include>
 					</control>
@@ -513,8 +513,8 @@
 						<visible>!String.IsEmpty(Container(53).ListItemNoWrap(2).FolderPath) | !Skin.HasSetting(ShowCaseWrapList)</visible>
 						<animation effect="rotatey" center="1425" start="55" end="55" time="0" condition="true">Conditional</animation>
 						<animation type="Conditional" condition="Skin.HasSetting(noshowcaseflow)">
-							<effect type="rotatey" center="1425" end="-55" time="640" tween="cubic" easing="inout" />
-							<effect type="slide" end="384" time="640" tween="cubic" easing="inout" />
+							<effect type="rotatey" center="1425" end="-55" time="640" tween="cubic" easing="inout"/>
+							<effect type="slide" end="384" time="640" tween="cubic" easing="inout"/>
 						</animation>
 						<include>MovieShowCaseItem2</include>
 					</control>
@@ -523,8 +523,8 @@
 						<visible>!String.IsEmpty(Container(53).ListItemNoWrap(1).FolderPath) | !Skin.HasSetting(ShowCaseWrapList)</visible>
 						<animation effect="rotatey" center="1290" start="55" end="55" time="0" condition="true">Conditional</animation>
 						<animation type="Conditional" condition="Skin.HasSetting(noshowcaseflow)">
-							<effect type="rotatey" center="1290" end="-55" time="640" tween="cubic" easing="inout" />
-							<effect type="slide" end="226" time="640" tween="cubic" easing="inout" />
+							<effect type="rotatey" center="1290" end="-55" time="640" tween="cubic" easing="inout"/>
+							<effect type="slide" end="226" time="640" tween="cubic" easing="inout"/>
 						</animation>
 						<include>MovieShowCaseItem1</include>
 					</control>
@@ -599,9 +599,9 @@
 		<visible>[!String.IsEmpty(Skin.String(53.Movies.DisableOverlay)) + Container.Content(movies)] | [!String.IsEmpty(Skin.String(53.TV.DisableOverlay)) + Container.Content(tvshows)] | [!String.IsEmpty(Skin.String(53.Sets.DisableOverlay)) + Container.Content(sets)] | [!String.IsEmpty(Skin.String(53.Seasons.DisableOverlay)) + Container.Content(seasons)] | [!String.IsEmpty(Skin.String(53.MusicVideos.DisableOverlay)) + Container.Content(musicvideos)]</visible>
 	</include>
 	<include name="ShowCaseItemContent">
-		<param name="ListItem.Position" />
-		<param name="ShowcaseItemVar" />
-		<param name="ShowcaseResVar" />
+		<param name="ListItem.Position"/>
+		<param name="ShowcaseItemVar"/>
+		<param name="ShowcaseResVar"/>
 		<definition>
 			<control type="image">
 				<texture background="true">$VAR[CaseBackPathVar]$PARAM[ShowcaseResVar]</texture>
@@ -1116,57 +1116,57 @@
 		<value>trailer.png</value>
 	</variable>
 	<variable name="IconOverlay-1Var">
-		<value condition="ListItem(-1).IsResumable + !Skin.HasSetting(Disable.Resumable)">overlays/resumable.png</value>
+		<value condition="[ListItem(-1).IsResumable | [[[String.IsEqual(ListItem(-1).DBType,tvshow) | String.IsEqual(ListItem(-1).DBType,season)] + [[Integer.IsGreater(ListItem(-1).Property(WatchedEpisodePercent),0) + Integer.IsLess(ListItem(-1).Property(WatchedEpisodePercent),100)] | [Integer.IsGreater(ListItem(-1).Property(WatchedEpisodes),0) + Integer.IsGreater(ListItem(-1).Property(UnWatchedEpisodes),0)]]]]] + !Skin.HasSetting(Disable.Resumable)">overlays/resumable.png</value>
 		<value condition="!Skin.HasSetting(Disable.OverlayUnwatched) + String.IsEqual(ListItem(-1).Overlay,OverlayUnwatched.png)">overlays/OverlayUnwatched.png</value>
 		<value condition="!Skin.HasSetting(Disable.OverlayWatched) + String.IsEqual(ListItem(-1).Overlay,OverlayWatched.png)">overlays/OverlayWatched.png</value>
 	</variable>
 	<variable name="IconOverlay0Var">
-		<value condition="ListItem.IsResumable + !Skin.HasSetting(Disable.Resumable)">overlays/resumable.png</value>
+		<value condition="[ListItem.IsResumable | [[[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season)] + [[Integer.IsGreater(ListItem.Property(WatchedEpisodePercent),0) + Integer.IsLess(ListItem.Property(WatchedEpisodePercent),100)] | [Integer.IsGreater(ListItem.Property(WatchedEpisodes),0) + Integer.IsGreater(ListItem.Property(UnWatchedEpisodes),0)]]]]] + !Skin.HasSetting(Disable.Resumable)">overlays/resumable.png</value>
 		<value condition="!Skin.HasSetting(Disable.OverlayUnwatched) + String.IsEqual(ListItem.Overlay,OverlayUnwatched.png)">overlays/OverlayUnwatched.png</value>
 		<value condition="!Skin.HasSetting(Disable.OverlayWatched) + String.IsEqual(ListItem.Overlay,OverlayWatched.png)">overlays/OverlayWatched.png</value>
 	</variable>
 	<variable name="IconOverlay1Var">
-		<value condition="ListItem(1).IsResumable + !Skin.HasSetting(Disable.Resumable)">overlays/resumable.png</value>
+		<value condition="[ListItem(1).IsResumable | [[[String.IsEqual(ListItem(1).DBType,tvshow) | String.IsEqual(ListItem(1).DBType,season)] + [[Integer.IsGreater(ListItem(1).Property(WatchedEpisodePercent),0) + Integer.IsLess(ListItem(1).Property(WatchedEpisodePercent),100)] | [Integer.IsGreater(ListItem(1).Property(WatchedEpisodes),0) + Integer.IsGreater(ListItem(1).Property(UnWatchedEpisodes),0)]]]]] + !Skin.HasSetting(Disable.Resumable)">overlays/resumable.png</value>
 		<value condition="!Skin.HasSetting(Disable.OverlayUnwatched) + String.IsEqual(ListItem(1).Overlay,OverlayUnwatched.png)">overlays/OverlayUnwatched.png</value>
 		<value condition="!Skin.HasSetting(Disable.OverlayWatched) + String.IsEqual(ListItem(1).Overlay,OverlayWatched.png)">overlays/OverlayWatched.png</value>
 	</variable>
 	<variable name="IconOverlay2Var">
-		<value condition="ListItem(2).IsResumable + !Skin.HasSetting(Disable.Resumable)">overlays/resumable.png</value>
+		<value condition="[ListItem(2).IsResumable | [[[String.IsEqual(ListItem(2).DBType,tvshow) | String.IsEqual(ListItem(2).DBType,season)] + [[Integer.IsGreater(ListItem(2).Property(WatchedEpisodePercent),0) + Integer.IsLess(ListItem(2).Property(WatchedEpisodePercent),100)] | [Integer.IsGreater(ListItem(2).Property(WatchedEpisodes),0) + Integer.IsGreater(ListItem(2).Property(UnWatchedEpisodes),0)]]]]] + !Skin.HasSetting(Disable.Resumable)">overlays/resumable.png</value>
 		<value condition="!Skin.HasSetting(Disable.OverlayUnwatched) + String.IsEqual(ListItem(2).Overlay,OverlayUnwatched.png)">overlays/OverlayUnwatched.png</value>
 		<value condition="!Skin.HasSetting(Disable.OverlayWatched) + String.IsEqual(ListItem(2).Overlay,OverlayWatched.png)">overlays/OverlayWatched.png</value>
 	</variable>
 	<variable name="IconOverlay3Var">
-		<value condition="ListItem(3).IsResumable + !Skin.HasSetting(Disable.Resumable)">overlays/resumable.png</value>
+		<value condition="[ListItem(3).IsResumable | [[[String.IsEqual(ListItem(3).DBType,tvshow) | String.IsEqual(ListItem(3).DBType,season)] + [[Integer.IsGreater(ListItem(3).Property(WatchedEpisodePercent),0) + Integer.IsLess(ListItem(3).Property(WatchedEpisodePercent),100)] | [Integer.IsGreater(ListItem(3).Property(WatchedEpisodes),0) + Integer.IsGreater(ListItem(3).Property(UnWatchedEpisodes),0)]]]]] + !Skin.HasSetting(Disable.Resumable)">overlays/resumable.png</value>
 		<value condition="!Skin.HasSetting(Disable.OverlayUnwatched) + String.IsEqual(ListItem(3).Overlay,OverlayUnwatched.png)">overlays/OverlayUnwatched.png</value>
 		<value condition="!Skin.HasSetting(Disable.OverlayWatched) + String.IsEqual(ListItem(3).Overlay,OverlayWatched.png)">overlays/OverlayWatched.png</value>
 	</variable>
 	<variable name="IconOverlay4Var">
-		<value condition="ListItem(4).IsResumable + !Skin.HasSetting(Disable.Resumable)">overlays/resumable.png</value>
+		<value condition="[ListItem(4).IsResumable | [[[String.IsEqual(ListItem(4).DBType,tvshow) | String.IsEqual(ListItem(4).DBType,season)] + [[Integer.IsGreater(ListItem(4).Property(WatchedEpisodePercent),0) + Integer.IsLess(ListItem(4).Property(WatchedEpisodePercent),100)] | [Integer.IsGreater(ListItem(4).Property(WatchedEpisodes),0) + Integer.IsGreater(ListItem(4).Property(UnWatchedEpisodes),0)]]]]] + !Skin.HasSetting(Disable.Resumable)">overlays/resumable.png</value>
 		<value condition="!Skin.HasSetting(Disable.OverlayUnwatched) + String.IsEqual(ListItem(4).Overlay,OverlayUnwatched.png)">overlays/OverlayUnwatched.png</value>
 		<value condition="!Skin.HasSetting(Disable.OverlayWatched) + String.IsEqual(ListItem(4).Overlay,OverlayWatched.png)">overlays/OverlayWatched.png</value>
 	</variable>
 	<variable name="IconOverlay5Var">
-		<value condition="ListItem(5).IsResumable + !Skin.HasSetting(Disable.Resumable)">overlays/resumable.png</value>
+		<value condition="[ListItem(5).IsResumable | [[[String.IsEqual(ListItem(5).DBType,tvshow) | String.IsEqual(ListItem(5).DBType,season)] + [[Integer.IsGreater(ListItem(5).Property(WatchedEpisodePercent),0) + Integer.IsLess(ListItem(5).Property(WatchedEpisodePercent),100)] | [Integer.IsGreater(ListItem(5).Property(WatchedEpisodes),0) + Integer.IsGreater(ListItem(5).Property(UnWatchedEpisodes),0)]]]]] + !Skin.HasSetting(Disable.Resumable)">overlays/resumable.png</value>
 		<value condition="!Skin.HasSetting(Disable.OverlayUnwatched) + String.IsEqual(ListItem(5).Overlay,OverlayUnwatched.png)">overlays/OverlayUnwatched.png</value>
 		<value condition="!Skin.HasSetting(Disable.OverlayWatched) + String.IsEqual(ListItem(5).Overlay,OverlayWatched.png)">overlays/OverlayWatched.png</value>
 	</variable>
 	<variable name="IconOverlay6Var">
-		<value condition="ListItem(6).IsResumable + !Skin.HasSetting(Disable.Resumable)">overlays/resumable.png</value>
+		<value condition="[ListItem(6).IsResumable | [[[String.IsEqual(ListItem(6).DBType,tvshow) | String.IsEqual(ListItem(6).DBType,season)] + [[Integer.IsGreater(ListItem(6).Property(WatchedEpisodePercent),0) + Integer.IsLess(ListItem(6).Property(WatchedEpisodePercent),100)] | [Integer.IsGreater(ListItem(6).Property(WatchedEpisodes),0) + Integer.IsGreater(ListItem(6).Property(UnWatchedEpisodes),0)]]]]] + !Skin.HasSetting(Disable.Resumable)">overlays/resumable.png</value>
 		<value condition="!Skin.HasSetting(Disable.OverlayUnwatched) + String.IsEqual(ListItem(6).Overlay,OverlayUnwatched.png)">overlays/OverlayUnwatched.png</value>
 		<value condition="!Skin.HasSetting(Disable.OverlayWatched) + String.IsEqual(ListItem(6).Overlay,OverlayWatched.png)">overlays/OverlayWatched.png</value>
 	</variable>
 	<variable name="IconOverlay7Var">
-		<value condition="ListItem(7).IsResumable + !Skin.HasSetting(Disable.Resumable)">overlays/resumable.png</value>
+		<value condition="[ListItem(7).IsResumable | [[[String.IsEqual(ListItem(7).DBType,tvshow) | String.IsEqual(ListItem(7).DBType,season)] + [[Integer.IsGreater(ListItem(7).Property(WatchedEpisodePercent),0) + Integer.IsLess(ListItem(7).Property(WatchedEpisodePercent),100)] | [Integer.IsGreater(ListItem(7).Property(WatchedEpisodes),0) + Integer.IsGreater(ListItem(7).Property(UnWatchedEpisodes),0)]]]]] + !Skin.HasSetting(Disable.Resumable)">overlays/resumable.png</value>
 		<value condition="!Skin.HasSetting(Disable.OverlayUnwatched) + String.IsEqual(ListItem(7).Overlay,OverlayUnwatched.png)">overlays/OverlayUnwatched.png</value>
 		<value condition="!Skin.HasSetting(Disable.OverlayWatched) + String.IsEqual(ListItem(7).Overlay,OverlayWatched.png)">overlays/OverlayWatched.png</value>
 	</variable>
 	<variable name="IconOverlay8Var">
-		<value condition="ListItem(8).IsResumable + !Skin.HasSetting(Disable.Resumable)">overlays/resumable.png</value>
+		<value condition="[ListItem(8).IsResumable | [[[String.IsEqual(ListItem(8).DBType,tvshow) | String.IsEqual(ListItem(8).DBType,season)] + [[Integer.IsGreater(ListItem(8).Property(WatchedEpisodePercent),0) + Integer.IsLess(ListItem(8).Property(WatchedEpisodePercent),100)] | [Integer.IsGreater(ListItem(8).Property(WatchedEpisodes),0) + Integer.IsGreater(ListItem(8).Property(UnWatchedEpisodes),0)]]]]] + !Skin.HasSetting(Disable.Resumable)">overlays/resumable.png</value>
 		<value condition="!Skin.HasSetting(Disable.OverlayUnwatched) + String.IsEqual(ListItem(8).Overlay,OverlayUnwatched.png)">overlays/OverlayUnwatched.png</value>
 		<value condition="!Skin.HasSetting(Disable.OverlayWatched) + String.IsEqual(ListItem(8).Overlay,OverlayWatched.png)">overlays/OverlayWatched.png</value>
 	</variable>
 	<variable name="IconOverlay9Var">
-		<value condition="ListItem(9).IsResumable + !Skin.HasSetting(Disable.Resumable)">overlays/resumable.png</value>
+		<value condition="[ListItem(9).IsResumable | [[[String.IsEqual(ListItem(9).DBType,tvshow) | String.IsEqual(ListItem(9).DBType,season)] + [[Integer.IsGreater(ListItem(9).Property(WatchedEpisodePercent),0) + Integer.IsLess(ListItem(9).Property(WatchedEpisodePercent),100)] | [Integer.IsGreater(ListItem(9).Property(WatchedEpisodes),0) + Integer.IsGreater(ListItem(9).Property(UnWatchedEpisodes),0)]]]]] + !Skin.HasSetting(Disable.Resumable)">overlays/resumable.png</value>
 		<value condition="!Skin.HasSetting(Disable.OverlayUnwatched) + String.IsEqual(ListItem(9).Overlay,OverlayUnwatched.png)">overlays/OverlayUnwatched.png</value>
 		<value condition="!Skin.HasSetting(Disable.OverlayWatched) + String.IsEqual(ListItem(9).Overlay,OverlayWatched.png)">overlays/OverlayWatched.png</value>
 	</variable>
@@ -1215,8 +1215,8 @@
 				<aspectratio>keep</aspectratio>
 				<texture background="true">$INFO[Container(4500).ListItemAbsolute(0).Art(discart)]</texture>
 				<animation type="Conditional" condition="[!String.IsEmpty(Control.GetLabel(4446)) + Control.IsVisible(4446)]" reversible="false">
-					<effect type="slide" start="1100,0" end="0,0" delay="0" time="2600" tween="cubic" easing="inout" />
-					<effect type="rotate" start="0" center="auto" end="720" delay="0" time="2600" tween="cubic" easing="inout" />
+					<effect type="slide" start="1100,0" end="0,0" delay="0" time="2600" tween="cubic" easing="inout"/>
+					<effect type="rotate" start="0" center="auto" end="720" delay="0" time="2600" tween="cubic" easing="inout"/>
 				</animation>
 				<visible>!String.IsEmpty(Container(4500).ListItemAbsolute(0).Art(discart))</visible>
 			</control>
@@ -1224,8 +1224,8 @@
 				<aspectratio>keep</aspectratio>
 				<texture background="true">$INFO[Container(4500).ListItemAbsolute(1).Art(discart)]</texture>
 				<animation type="Conditional" condition="[!String.IsEmpty(Control.GetLabel(4446)) + Control.IsVisible(4446)]" reversible="false">
-					<effect type="slide" start="1100,0" end="0,0" delay="500" time="2600" tween="cubic" easing="inout" />
-					<effect type="rotate" start="0" center="auto" end="720" delay="500" time="2600" tween="cubic" easing="inout" />
+					<effect type="slide" start="1100,0" end="0,0" delay="500" time="2600" tween="cubic" easing="inout"/>
+					<effect type="rotate" start="0" center="auto" end="720" delay="500" time="2600" tween="cubic" easing="inout"/>
 				</animation>
 				<visible>!String.IsEmpty(Container(4500).ListItemAbsolute(1).Art(discart))</visible>
 			</control>
@@ -1233,8 +1233,8 @@
 				<aspectratio>keep</aspectratio>
 				<texture background="true">$INFO[Container(4500).ListItemAbsolute(2).Art(discart)]</texture>
 				<animation type="Conditional" condition="[!String.IsEmpty(Control.GetLabel(4446)) + Control.IsVisible(4446)]" reversible="false">
-					<effect type="slide" start="1100,0" end="0,0" delay="1000" time="2600" tween="cubic" easing="inout" />
-					<effect type="rotate" start="0" center="auto" end="720" delay="1000" time="2600" tween="cubic" easing="inout" />
+					<effect type="slide" start="1100,0" end="0,0" delay="1000" time="2600" tween="cubic" easing="inout"/>
+					<effect type="rotate" start="0" center="auto" end="720" delay="1000" time="2600" tween="cubic" easing="inout"/>
 				</animation>
 				<visible>!String.IsEmpty(Container(4500).ListItemAbsolute(2).Art(discart))</visible>
 			</control>
@@ -1242,8 +1242,8 @@
 				<aspectratio>keep</aspectratio>
 				<texture background="true">$INFO[Container(4500).ListItemAbsolute(3).Art(discart)]</texture>
 				<animation type="Conditional" condition="[!String.IsEmpty(Control.GetLabel(4446)) + Control.IsVisible(4446)]" reversible="false">
-					<effect type="slide" start="1100,0" end="0,0" delay="1500" time="2600" tween="cubic" easing="inout" />
-					<effect type="rotate" start="0" center="auto" end="720" delay="1500" time="2600" tween="cubic" easing="inout" />
+					<effect type="slide" start="1100,0" end="0,0" delay="1500" time="2600" tween="cubic" easing="inout"/>
+					<effect type="rotate" start="0" center="auto" end="720" delay="1500" time="2600" tween="cubic" easing="inout"/>
 				</animation>
 				<visible>!String.IsEmpty(Container(4500).ListItemAbsolute(3).Art(discart))</visible>
 			</control>
@@ -1251,8 +1251,8 @@
 				<aspectratio>keep</aspectratio>
 				<texture background="true">$INFO[Container(4500).ListItemAbsolute(4).Art(discart)]</texture>
 				<animation type="Conditional" condition="[!String.IsEmpty(Control.GetLabel(4446)) + Control.IsVisible(4446)]" reversible="false">
-					<effect type="slide" start="1100,0" end="0,0" delay="2000" time="2600" tween="cubic" easing="inout" />
-					<effect type="rotate" start="0" center="auto" end="720" delay="2000" time="2600" tween="cubic" easing="inout" />
+					<effect type="slide" start="1100,0" end="0,0" delay="2000" time="2600" tween="cubic" easing="inout"/>
+					<effect type="rotate" start="0" center="auto" end="720" delay="2000" time="2600" tween="cubic" easing="inout"/>
 				</animation>
 				<visible>!String.IsEmpty(Container(4500).ListItemAbsolute(4).Art(discart))</visible>
 			</control>
@@ -1260,8 +1260,8 @@
 				<aspectratio>keep</aspectratio>
 				<texture background="true">$INFO[Container(4500).ListItemAbsolute(5).Art(discart)]</texture>
 				<animation type="Conditional" condition="[!String.IsEmpty(Control.GetLabel(4446)) + Control.IsVisible(4446)]" reversible="false">
-					<effect type="slide" start="1100,0" end="0,0" delay="2500" time="2600" tween="cubic" easing="inout" />
-					<effect type="rotate" start="0" center="auto" end="720" delay="2500" time="2600" tween="cubic" easing="inout" />
+					<effect type="slide" start="1100,0" end="0,0" delay="2500" time="2600" tween="cubic" easing="inout"/>
+					<effect type="rotate" start="0" center="auto" end="720" delay="2500" time="2600" tween="cubic" easing="inout"/>
 				</animation>
 				<visible>!String.IsEmpty(Container(4500).ListItemAbsolute(5).Art(discart))</visible>
 			</control>
@@ -1269,8 +1269,8 @@
 				<aspectratio>keep</aspectratio>
 				<texture background="true">$INFO[Container(4500).ListItemAbsolute(6).Art(discart)]</texture>
 				<animation type="Conditional" condition="[!String.IsEmpty(Control.GetLabel(4446)) + Control.IsVisible(4446)]" reversible="false">
-					<effect type="slide" start="1100,0" end="0,0" delay="3000" time="2600" tween="cubic" easing="inout" />
-					<effect type="rotate" start="0" center="auto" end="720" delay="3000" time="2600" tween="cubic" easing="inout" />
+					<effect type="slide" start="1100,0" end="0,0" delay="3000" time="2600" tween="cubic" easing="inout"/>
+					<effect type="rotate" start="0" center="auto" end="720" delay="3000" time="2600" tween="cubic" easing="inout"/>
 				</animation>
 				<visible>!String.IsEmpty(Container(4500).ListItemAbsolute(6).Art(discart))</visible>
 			</control>
@@ -1278,8 +1278,8 @@
 				<aspectratio>keep</aspectratio>
 				<texture background="true">$INFO[Container(4500).ListItemAbsolute(7).Art(discart)]</texture>
 				<animation type="Conditional" condition="[!String.IsEmpty(Control.GetLabel(4446)) + Control.IsVisible(4446)]" reversible="false">
-					<effect type="slide" start="1100,0" end="0,0" delay="3500" time="2600" tween="cubic" easing="inout" />
-					<effect type="rotate" start="0" center="auto" end="720" delay="3500" time="2600" tween="cubic" easing="inout" />
+					<effect type="slide" start="1100,0" end="0,0" delay="3500" time="2600" tween="cubic" easing="inout"/>
+					<effect type="rotate" start="0" center="auto" end="720" delay="3500" time="2600" tween="cubic" easing="inout"/>
 				</animation>
 				<visible>!String.IsEmpty(Container(4500).ListItemAbsolute(7).Art(discart))</visible>
 			</control>
@@ -1417,10 +1417,10 @@
 			</control>
 			<control type="group">
 				<animation type="Conditional" reversible="false" condition="[!String.IsEmpty(Control.GetLabel(4445)) + Control.IsVisible(4445)]">
-					<effect type="rotatey" center="19" end="90" time="440" tween="cubic" easing="in" />
-					<effect type="rotatey" center="19" start="90" end="90" time="0" delay="440" />
-					<effect type="fade" start="0" end="100" time="0" delay="400" />
-					<effect type="rotatey" center="19" start="-90" end="-40" time="440" delay="440" tween="cubic" />
+					<effect type="rotatey" center="19" end="90" time="440" tween="cubic" easing="in"/>
+					<effect type="rotatey" center="19" start="90" end="90" time="0" delay="440"/>
+					<effect type="fade" start="0" end="100" time="0" delay="400"/>
+					<effect type="rotatey" center="19" start="-90" end="-40" time="440" delay="440" tween="cubic"/>
 				</animation>
 				<control type="image">
 					<texture background="true">$VAR[CaseTypePathVar]set.png</texture>
@@ -1542,10 +1542,10 @@
 			</control>
 			<control type="group">
 				<animation type="Conditional" reversible="false" condition="[!String.IsEmpty(Control.GetLabel(4445)) + Control.IsVisible(4445)]">
-					<effect type="rotatey" center="278" end="-90" time="1040" tween="cubic" easing="in" />
-					<effect type="rotatey" center="278" start="-90" end="-90" time="0" delay="1040" />
-					<effect type="fade" start="0" end="100" time="0" delay="1000" />
-					<effect type="rotatey" center="278" start="90" end="38" time="440" delay="1040" tween="cubic" />
+					<effect type="rotatey" center="278" end="-90" time="1040" tween="cubic" easing="in"/>
+					<effect type="rotatey" center="278" start="-90" end="-90" time="0" delay="1040"/>
+					<effect type="fade" start="0" end="100" time="0" delay="1000"/>
+					<effect type="rotatey" center="278" start="90" end="38" time="440" delay="1040" tween="cubic"/>
 				</animation>
 				<control type="image">
 					<left>18</left>
@@ -1680,8 +1680,8 @@
 					</control>
 					<control type="group">
 						<animation type="Conditional" reversible="false" condition="[!String.IsEmpty(Control.GetLabel(4445)) + Control.IsVisible(4445)]">
-							<effect type="fade" start="0" end="100" time="0" delay="1100" />
-							<effect type="rotatey" center="130" start="48" end="180" time="50" delay="1000" tween="cubic" />
+							<effect type="fade" start="0" end="100" time="0" delay="1100"/>
+							<effect type="rotatey" center="130" start="48" end="180" time="50" delay="1000" tween="cubic"/>
 						</animation>
 						<top>5</top>
 						<left>-8</left>
@@ -1738,10 +1738,10 @@
 			</control>
 			<control type="group">
 				<animation type="Conditional" reversible="false" condition="[!String.IsEmpty(Control.GetLabel(4445)) + Control.IsVisible(4445)]">
-					<effect type="rotatey" center="300" end="-90" time="1040" tween="cubic" easing="in" />
-					<effect type="rotatey" center="300" start="-90" end="-90" time="0" delay="1040" />
-					<effect type="fade" start="100" end="0" time="0" delay="1000" />
-					<effect type="rotatey" center="300" start="90" end="0" time="440" delay="1040" tween="cubic" />
+					<effect type="rotatey" center="300" end="-90" time="1040" tween="cubic" easing="in"/>
+					<effect type="rotatey" center="300" start="-90" end="-90" time="0" delay="1040"/>
+					<effect type="fade" start="100" end="0" time="0" delay="1000"/>
+					<effect type="rotatey" center="300" start="90" end="0" time="440" delay="1040" tween="cubic"/>
 				</animation>
 				<control type="image">
 					<left>18</left>
@@ -1754,10 +1754,10 @@
 			</control>
 			<control type="group">
 				<animation type="Conditional" reversible="false" condition="[!String.IsEmpty(Control.GetLabel(4445)) + Control.IsVisible(4445)]">
-					<effect type="rotatey" center="0" end="90" time="440" tween="cubic" easing="in" />
-					<effect type="rotatey" center="0" start="90" end="90" time="0" delay="440" />
-					<effect type="fade" start="100" end="0" time="0" delay="400" />
-					<effect type="rotatey" center="0" start="-90" end="0" time="440" delay="440" tween="cubic" />
+					<effect type="rotatey" center="0" end="90" time="440" tween="cubic" easing="in"/>
+					<effect type="rotatey" center="0" start="90" end="90" time="0" delay="440"/>
+					<effect type="fade" start="100" end="0" time="0" delay="400"/>
+					<effect type="rotatey" center="0" start="-90" end="0" time="440" delay="440" tween="cubic"/>
 				</animation>
 				<control type="image">
 					<include>MovieShowcaseThumb</include>

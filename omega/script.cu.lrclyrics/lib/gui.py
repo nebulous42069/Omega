@@ -122,15 +122,24 @@ class MAIN():
     def get_lyrics(self, song, prefetch):
         log('searching memory for lyrics', debug=self.DEBUG)
         lyrics = self.get_lyrics_from_memory(song)
+        if lyrics and not prefetch and getattr(lyrics, '_prefetched_static', False):
+            # A prefetch miss/plain-text result must not lock the playing song
+            # out of a later synchronized result. Retry once on actual playback.
+            lyrics._prefetched_static = False
+            replacement = self.find_lyrics(song) if song.title and self.proceed() else None
+            if replacement and replacement.lyrics and replacement.lrc:
+                self.fetchedLyrics = [item for item in self.fetchedLyrics if item.song != song]
+                self.save_lyrics_to_memory(replacement)
+                self.save_lyrics_to_file(replacement)
+                lyrics = replacement
         if lyrics:
             if lyrics.lyrics:
                 log('found lyrics in memory', debug=self.DEBUG)
             else:
                 log('no lyrics found on previous search', debug=self.DEBUG)
             return lyrics
-        # searching lyrics for the current song and no pre-fetched lyrics available, hide the gui
-        if not prefetch:
-            self.CULRC_NOLYRICS = True
+        # Keep the existing GUI alive during a track change. myPlayerChanged
+        # signals no-lyrics only after the search actually finishes without lyrics.
         if song.title and self.proceed():
             lyrics = self.find_lyrics(song)
             if lyrics.lyrics and self.SETTING_STRIP:
@@ -146,6 +155,7 @@ class MAIN():
             lyrics.song = song
             lyrics.source = ''
             lyrics.lyrics = ''
+        lyrics._prefetched_static = bool(prefetch and not lyrics.lrc)
         if self.proceed():
             self.save_lyrics_to_memory(lyrics)
         return lyrics
@@ -480,6 +490,10 @@ class GUI(xbmcgui.WindowXMLDialog):
         self.syncadjust = 0.0
         self.saved_syncadjust = 0.0
         self.selectedlyric = 0
+        self.allowtimer = True
+        self.waiting_for_song = False
+        self.pOverlay = []
+        self.overlay_times = []
         self.lyrics = lyrics
         self.stop_refresh()
         self.reset_controls()
@@ -510,7 +524,16 @@ class GUI(xbmcgui.WindowXMLDialog):
             elif not xbmc.getCondVisibility('Window.IsVisible(12006)'):
                 # we're not on the visualisation screen anymore
                 self.exit_gui('quit')
-            if self.allowtimer and self.lyrics.lrc and self.pOverlay:
+            # Clear the previous track while the next lyrics are downloading,
+            # without destroying/reopening the animation window.
+            current_song = Song.current(opt=self.lyricssettings)
+            changing = current_song and self.lyrics.song != current_song
+            if changing and not self.waiting_for_song:
+                self.waiting_for_song = True
+                self.pOverlay = []
+                self.overlay_times = []
+                self.reset_controls()
+            if not changing and self.allowtimer and self.lyrics.lrc and self.pOverlay:
                 self.refresh()
             xbmc.sleep(50)
         # music ended, close the gui

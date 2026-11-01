@@ -158,11 +158,9 @@ def run_main(arguments):
     if params.get('action') == 'wizardRestore':
         from wizard_support import restore_and_sync
         return restore_and_sync()
-    if params.get('action') == 'wizardStatus':
+    if params.get('action') in ('wizardStatus', 'statusDashboard', 'viewAuthorizations'):
         from wizard_support import show_status
         return show_status()
-    if params.get('action') == 'viewAuthorizations':
-        return view_authorizations(params.get('mode', ''))
     previous = sys.argv
     try:
         sys.argv = [os.path.join(OWN[MAIN_ID], 'lib', 'default.py')] + list(arguments)
@@ -218,42 +216,6 @@ def report_error(exc, stage):
                   (stage, type(exc).__name__, trace), REAL_XBMC.LOGERROR)
 
 
-def view_authorizations(mode):
-    global _CORE_ITEMS
-    methods = {
-        'realdebrid': 'debrid_menu', 'premiumize': 'premiumize_menu',
-        'alldebrid': 'alldebrid_menu', 'torbox': 'torbox_menu',
-        'easydebrid': 'easydebrid_menu', 'offcloud': 'offcloud_menu',
-        'easynews': 'easynews_menu', 'filepursuit': 'filepursuit_menu',
-        'trakt': 'trakt_menu',
-    }
-    if mode not in methods:
-        GUI.Dialog().ok('ReAuthorize', 'This authorization viewer is not supported.')
-        return
-    from libs.gui import menu
-    from libs.common import directory
-    original = directory._add_menu_item
-    previous_items = _CORE_ITEMS
-    _CORE_ITEMS = []
-    def capture(display, params, *args, **kwargs):
-        # Only informational account rows. No plugin links, settings links,
-        # separators, or legacy management routes are executed by this viewer.
-        if params and params.get('name') and not params.get('mode'):
-            _CORE_ITEMS.append(str(display))
-    directory._add_menu_item = capture
-    try:
-        getattr(menu, methods[mode])()
-        labels = list(_CORE_ITEMS)
-    finally:
-        directory._add_menu_item = original
-        _CORE_ITEMS = previous_items
-    if not labels:
-        GUI.Dialog().ok('ReAuthorize - Authorizations', 'No supported installed add-ons were found for this service.')
-        return
-    while GUI.Dialog().select('ReAuthorize - Authorizations', labels) >= 0:
-        pass  # Read-only; selecting a status cannot invoke another action.
-
-
 def run_core(query):
     params = dict(parse_qsl(query))
     if params.get('mode') == 'wipeclean' and params.get('name') == 'all':
@@ -266,7 +228,9 @@ def run_core(query):
             return Router().dispatch(-1, query)
         finally:
             sys.argv = previous
-    return view_authorizations(params.get('mode', ''))
+    # Legacy account-viewer links open the same dashboard as Manage > View Status.
+    from wizard_support import show_status
+    return show_status()
 
 
 def text_label(value):

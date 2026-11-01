@@ -426,6 +426,22 @@
 							<onclick>SetProperty(CustomSelect,defaultbackground,Home)</onclick>
 							<onclick>ActivateWindow(1129)</onclick>
 						</control>
+                        <control type="button" id="20991">
+                            <include>SettingsButtonCommonValues</include>
+                            <label>Set Fanart.tv API key for CD artwork</label>
+                            <onclick>Skin.SetString(X2.MusicArtwork.FanartKey)</onclick>
+                        </control>
+                        <control type="button" id="20992">
+                            <include>SettingsButtonCommonValues</include>
+                            <label>Clear Fanart.tv API key</label>
+                            <onclick>Skin.Reset(X2.MusicArtwork.FanartKey)</onclick>
+                        </control>
+                        <control type="radiobutton" id="20990">
+                            <include>SettingsButtonCommonValues</include>
+                            <label>Look up album covers and CD artwork online</label>
+                            <onclick>Skin.ToggleSetting(Disable.StreamMusicArtwork)</onclick>
+                            <selected>!Skin.HasSetting(Disable.StreamMusicArtwork)</selected>
+                        </control>
 						<control type="radiobutton" id="20008">
 							<include>SettingsButtonCommonValues</include>
 							<label>$LOCALIZE[31218]</label>

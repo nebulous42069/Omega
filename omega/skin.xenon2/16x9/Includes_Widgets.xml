@@ -191,7 +191,7 @@
 				<texture>$PARAM[Case]</texture>
 				<visible>$PARAM[caseVisible]</visible>
 			</control>
-		</control>
+		<include content="X2WidgetWatchedStatus"><param name="item">Container($PARAM[id]).ListItem</param><param name="left">$PARAM[leftArt]</param><param name="top">$PARAM[topArt]</param><param name="width">$PARAM[widthArt]</param><param name="height">$PARAM[heightArt]</param></include></control>
 	</include>
 	<include name="ListSquareArt">
 		<control type="group">
@@ -239,7 +239,7 @@
 				<height>$PARAM[heightCase]</height>
 				<texture>$PARAM[Case]</texture>
 			</control>
-		</control>
+		<include content="X2WidgetWatchedStatus"><param name="item">Container($PARAM[id]).ListItem</param><param name="left">$PARAM[leftArt]</param><param name="top">$PARAM[topArt]</param><param name="width">$PARAM[widthArt]</param><param name="height">$PARAM[heightArt]</param></include></control>
 	</include>
 	<include name="ListLandscapeArt">
 		<control type="group">
@@ -273,7 +273,7 @@
 				<texture>$PARAM[Case]</texture>
 				<visible>$PARAM[caseVisible]</visible>
 			</control>
-		</control>
+		<include content="X2WidgetWatchedStatus"><param name="item">Container($PARAM[id]).ListItem</param><param name="left">$PARAM[leftArt]</param><param name="top">$PARAM[topArt]</param><param name="width">$PARAM[widthArt]</param><param name="height">$PARAM[heightArt]</param></include></control>
 	</include>
 	<!-- List Container Content -->
 	<include name="ListBannerArt">
@@ -325,7 +325,7 @@
 					<height>$PARAM[heightCase]</height>
 					<texture>$PARAM[Case]</texture>
 				</control>
-			</control>
+			<include content="X2WidgetWatchedStatus"><param name="item">ListItem</param><param name="left">$PARAM[leftArt]</param><param name="top">$PARAM[topArt]</param><param name="width">$PARAM[widthArt]</param><param name="height">$PARAM[heightArt]</param></include></control>
 		</itemlayout>
 		<focusedlayout width="300" height="61">
 			<control type="group">
@@ -385,7 +385,7 @@
 					<height>$PARAM[heightCase]</height>
 					<texture>$PARAM[Case]</texture>
 				</control>
-			</control>
+			<include content="X2WidgetWatchedStatus"><param name="item">ListItem</param><param name="left">$PARAM[leftArt]</param><param name="top">$PARAM[topArt]</param><param name="width">$PARAM[widthArt]</param><param name="height">$PARAM[heightArt]</param></include></control>
 		</focusedlayout>
 	</include>
 	<include name="List">
@@ -393,7 +393,7 @@
 			<control type="group">
 				<include condition="!String.IsEmpty(Skin.String(Widget.Trans))">HomeWidgetFade</include>
 				<control type="label">
-					<width>300</width>
+					<width>260</width>
 					<height>50</height>
 					<font>font12</font>
 					<textoffsetx>15</textoffsetx>
@@ -401,7 +401,7 @@
 					<label>$INFO[ListItem.Label]</label>
 				</control>
 			</control>
-		</itemlayout>
+		<include content="X2WidgetWatchedStatus"><param name="item">ListItem</param><param name="left">0</param><param name="top">5</param><param name="width">300</param><param name="height">40</param></include></itemlayout>
 		<focusedlayout height="50" width="300">
 			<control type="image">
 				<width>300</width>
@@ -410,14 +410,14 @@
 				<visible>Control.HasFocus($PARAM[id])</visible>
 			</control>
 			<control type="label">
-				<width>300</width>
+				<width>260</width>
 				<height>50</height>
 				<font>font12</font>
 				<textoffsetx>15</textoffsetx>
 				<shadowcolor>shadow</shadowcolor>
 				<label>$INFO[ListItem.Label]</label>
 			</control>
-		</focusedlayout>
+		<include content="X2WidgetWatchedStatus"><param name="item">ListItem</param><param name="left">0</param><param name="top">5</param><param name="width">300</param><param name="height">40</param></include></focusedlayout>
 	</include>
 	<include name="ListSystem">
 		<itemlayout height="50" width="300">
@@ -551,7 +551,7 @@
 					<aspectratio aligny="$PARAM[caseAligny]">$PARAM[caseAspect]</aspectratio>
 					<texture>$PARAM[Case]</texture>
 				</control>
-			<top>24</top></control>
+			<top>24</top><include content="X2WidgetWatchedStatus"><param name="item">ListItem</param><param name="left">$PARAM[leftArt]</param><param name="top">$PARAM[topArt]</param><param name="width">$PARAM[widthArt]</param><param name="height">$PARAM[heightArt]</param></include></control>
 		</itemlayout>
 		<focusedlayout width="$PARAM[containerWidth]" height="$PARAM[containerHeight]">
 			<control type="group">
@@ -597,7 +597,7 @@
 					<aspectratio aligny="$PARAM[caseAligny]">$PARAM[caseAspect]</aspectratio>
 					<texture>$PARAM[Case]</texture>
 				</control>
-			<top>24</top></control>
+			<top>24</top><include content="X2WidgetWatchedStatus"><param name="item">ListItem</param><param name="left">$PARAM[leftArt]</param><param name="top">$PARAM[topArt]</param><param name="width">$PARAM[widthArt]</param><param name="height">$PARAM[heightArt]</param></include></control>
 		</focusedlayout>
 	</include>
 	<include name="SquareArt">
@@ -665,7 +665,7 @@
 					<height>$PARAM[heightCase]</height>
 					<texture>$PARAM[Case]</texture>
 				</control>
-			</control>
+			<include content="X2WidgetWatchedStatus"><param name="item">ListItem</param><param name="left">$PARAM[leftArt]</param><param name="top">$PARAM[topArt]</param><param name="width">$PARAM[widthArt]</param><param name="height">$PARAM[heightArt]</param></include></control>
 		</itemlayout>
 		<focusedlayout width="$PARAM[containerWidth]" height="$PARAM[containerHeight]" condition="!$PARAM[isWeather]">
 			<control type="group">
@@ -739,7 +739,7 @@
 					<height>$PARAM[heightCase]</height>
 					<texture>$PARAM[Case]</texture>
 				</control>
-			</control>
+			<include content="X2WidgetWatchedStatus"><param name="item">ListItem</param><param name="left">$PARAM[leftArt]</param><param name="top">$PARAM[topArt]</param><param name="width">$PARAM[widthArt]</param><param name="height">$PARAM[heightArt]</param></include></control>
 		</focusedlayout>
 		<itemlayout width="$PARAM[containerWidth]" height="$PARAM[containerHeight]" condition="$PARAM[isWeather]">
 			<control type="group">
@@ -821,7 +821,7 @@
 					<height>$PARAM[heightCase]</height>
 					<texture>$PARAM[Case]</texture>
 				</control>
-			</control>
+			<include content="X2WidgetWatchedStatus"><param name="item">ListItem</param><param name="left">$PARAM[leftArt]</param><param name="top">$PARAM[topArt]</param><param name="width">$PARAM[widthArt]</param><param name="height">$PARAM[heightArt]</param></include></control>
 		</itemlayout>
 		<focusedlayout width="$PARAM[containerWidth]" height="$PARAM[containerHeight]" condition="$PARAM[isWeather]">
 			<control type="group">
@@ -911,7 +911,7 @@
 					<height>$PARAM[heightCase]</height>
 					<texture>$PARAM[Case]</texture>
 				</control>
-			</control>
+			<include content="X2WidgetWatchedStatus"><param name="item">ListItem</param><param name="left">$PARAM[leftArt]</param><param name="top">$PARAM[topArt]</param><param name="width">$PARAM[widthArt]</param><param name="height">$PARAM[heightArt]</param></include></control>
 		</focusedlayout>
 	</include>
 	<include name="LandscapeArt">
@@ -976,7 +976,7 @@
 					<height>$PARAM[heightCase]</height>
 					<texture>$PARAM[Case]</texture>
 				</control>
-			</control>
+			<include content="X2WidgetWatchedStatus"><param name="item">ListItem</param><param name="left">$PARAM[leftArt]</param><param name="top">$PARAM[topArt]</param><param name="width">$PARAM[widthArt]</param><param name="height">$PARAM[heightArt]</param></include></control>
 		</itemlayout>
 		<focusedlayout width="$PARAM[containerWidth]" height="$PARAM[containerHeight]">
 			<control type="group">
@@ -1048,7 +1048,7 @@
 					<height>$PARAM[heightCase]</height>
 					<texture>$PARAM[Case]</texture>
 				</control>
-			</control>
+			<include content="X2WidgetWatchedStatus"><param name="item">ListItem</param><param name="left">$PARAM[leftArt]</param><param name="top">$PARAM[topArt]</param><param name="width">$PARAM[widthArt]</param><param name="height">$PARAM[heightArt]</param></include></control>
 		</focusedlayout>
 	</include>
 	<include name="BannerArt">
@@ -1121,7 +1121,7 @@
 					<height>$PARAM[heightCase]</height>
 					<texture>$PARAM[Case]</texture>
 				</control>
-			</control>
+			<include content="X2WidgetWatchedStatus"><param name="item">ListItem</param><param name="left">$PARAM[leftArt]</param><param name="top">$PARAM[topArt]</param><param name="width">$PARAM[widthArt]</param><param name="height">$PARAM[heightArt]</param></include></control>
 		</itemlayout>
 		<focusedlayout width="$PARAM[containerWidth]" height="$PARAM[containerHeight]">
 			<control type="group">
@@ -1201,7 +1201,7 @@
 					<height>$PARAM[heightCase]</height>
 					<texture>$PARAM[Case]</texture>
 				</control>
-			</control>
+			<include content="X2WidgetWatchedStatus"><param name="item">ListItem</param><param name="left">$PARAM[leftArt]</param><param name="top">$PARAM[topArt]</param><param name="width">$PARAM[widthArt]</param><param name="height">$PARAM[heightArt]</param></include></control>
 		</focusedlayout>
 	</include>
 <include name="X2GlobePosterFocus3">
@@ -1234,4 +1234,4 @@
 				<visible>false</visible></control>
 		</focusedlayout>
 	</include>
-	</includes>
+	<include name="X2WidgetWatchedStatus"><!-- Shared by list/panel art and explicitly positioned globe posters. Item is always the artwork item, never the home-menu item. --><control type="group"><left>$PARAM[left]</left><top>$PARAM[top]</top><width>$PARAM[width]</width><height>$PARAM[height]</height><visible>!String.IsEmpty($PARAM[item].Label) + !$PARAM[item].IsParentFolder + [String.IsEqual($PARAM[item].DBType,movie) | String.IsEqual($PARAM[item].DBType,tvshow) | String.IsEqual($PARAM[item].DBType,season) | String.IsEqual($PARAM[item].DBType,episode) | String.IsEqual($PARAM[item].Overlay,OverlayWatched.png) | String.IsEqual($PARAM[item].Overlay,OverlayUnwatched.png)]</visible><control type="image"><right>6</right><top>6</top><width>28</width><height>28</height><aspectratio>keep</aspectratio><texture>overlays/resumable.png</texture><visible>[$PARAM[item].IsResumable | [[String.IsEqual($PARAM[item].DBType,tvshow) | String.IsEqual($PARAM[item].DBType,season)] + [[Integer.IsGreater($PARAM[item].Property(WatchedEpisodePercent),0) + Integer.IsLess($PARAM[item].Property(WatchedEpisodePercent),100)] | [Integer.IsGreater($PARAM[item].Property(WatchedEpisodes),0) + Integer.IsGreater($PARAM[item].Property(UnWatchedEpisodes),0)]]]] + !Skin.HasSetting(Disable.Resumable)</visible></control><control type="image"><right>6</right><top>6</top><width>28</width><height>28</height><aspectratio>keep</aspectratio><texture>overlays/OverlayWatched.png</texture><visible>[String.IsEqual($PARAM[item].Overlay,OverlayWatched.png) | Integer.IsGreater($PARAM[item].PlayCount,0) | String.IsEqual($PARAM[item].Property(WatchedEpisodePercent),100)] + !Skin.HasSetting(Disable.OverlayWatched) + ![[$PARAM[item].IsResumable | [[String.IsEqual($PARAM[item].DBType,tvshow) | String.IsEqual($PARAM[item].DBType,season)] + [[Integer.IsGreater($PARAM[item].Property(WatchedEpisodePercent),0) + Integer.IsLess($PARAM[item].Property(WatchedEpisodePercent),100)] | [Integer.IsGreater($PARAM[item].Property(WatchedEpisodes),0) + Integer.IsGreater($PARAM[item].Property(UnWatchedEpisodes),0)]]]] + !Skin.HasSetting(Disable.Resumable)]</visible></control><control type="image"><right>6</right><top>6</top><width>28</width><height>28</height><aspectratio>keep</aspectratio><texture>overlays/OverlayUnwatched.png</texture><visible>[String.IsEqual($PARAM[item].Overlay,OverlayUnwatched.png) | [String.IsEqual($PARAM[item].PlayCount,0) + [String.IsEqual($PARAM[item].DBType,movie) | String.IsEqual($PARAM[item].DBType,tvshow) | String.IsEqual($PARAM[item].DBType,season) | String.IsEqual($PARAM[item].DBType,episode)]]] + ![String.IsEqual($PARAM[item].Overlay,OverlayWatched.png) | Integer.IsGreater($PARAM[item].PlayCount,0) | String.IsEqual($PARAM[item].Property(WatchedEpisodePercent),100)] + !Skin.HasSetting(Disable.OverlayUnwatched) + ![[$PARAM[item].IsResumable | [[String.IsEqual($PARAM[item].DBType,tvshow) | String.IsEqual($PARAM[item].DBType,season)] + [[Integer.IsGreater($PARAM[item].Property(WatchedEpisodePercent),0) + Integer.IsLess($PARAM[item].Property(WatchedEpisodePercent),100)] | [Integer.IsGreater($PARAM[item].Property(WatchedEpisodes),0) + Integer.IsGreater($PARAM[item].Property(UnWatchedEpisodes),0)]]]] + !Skin.HasSetting(Disable.Resumable)]</visible></control></control></include></includes>

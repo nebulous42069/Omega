@@ -7,12 +7,13 @@
 		<onstop condition="![Window.IsVisible(DialogSettings.xml) | Window.IsVisible(SubtitleSearch) | Window.IsVisible(VideoBookmarks) | Window.IsVisible(1114) | Window.IsVisible(FileBrowser) | Window.IsVisible(addonsettings) | Window.IsVisible(selectdialog)]">Dialog.Close(videoosd)</onstop>
 	</timer>
 	<timer>
-		<name>autoclosemusicosd</name>
-		<start reset="true">Window.IsActive(musicosd) + !System.IdleTime(1) + !String.IsEmpty(Skin.String(AutoCloseMusicOSD))</start>
-		<reset>!System.IdleTime(1) + Window.IsActive(musicosd) + !String.IsEmpty(Skin.String(AutoCloseMusicOSD)) + Integer.IsGreaterOrEqual(Skin.TimerElapsedSecs(AutoCloseMusicOSD), 1)</reset>
-		<stop>!Window.IsActive(musicosd) | String.IsEmpty(Skin.String(AutoCloseMusicOSD)) | [Window.IsActive(musicosd) + !String.IsEmpty(Skin.String(AutoCloseMusicOSD)) + Integer.IsGreaterOrEqual(Skin.TimerElapsedSecs(AutoCloseMusicOSD),Skin.Numeric(AutoCloseMusicOSD))]</stop>
-		<onstop condition="![Window.IsVisible(DialogSettings.xml) | Window.IsVisible(1114) | Window.IsVisible(FileBrowser) | Window.IsVisible(addonsettings) | Window.IsVisible(selectdialog)]">Dialog.Close(musicosd)</onstop>
-	</timer>
+        <name>autoclosemusicosd</name>
+        <description>Music OSD inactivity timeout; close only on expiry.</description>
+        <start reset="true">Window.IsActive(musicosd) + !String.IsEmpty(Skin.String(AutoCloseMusicOSD))</start>
+        <reset>Window.IsActive(musicosd) + !System.IdleTime(1) + Integer.IsGreaterOrEqual(Skin.TimerElapsedSecs(autoclosemusicosd),1)</reset>
+        <stop>!Window.IsActive(musicosd) | String.IsEmpty(Skin.String(AutoCloseMusicOSD)) | Integer.IsGreaterOrEqual(Skin.TimerElapsedSecs(autoclosemusicosd),Skin.Numeric(AutoCloseMusicOSD))</stop>
+        <onstop condition="Window.IsActive(musicosd) + !String.IsEmpty(Skin.String(AutoCloseMusicOSD)) + Integer.IsGreaterOrEqual(Skin.TimerElapsedSecs(autoclosemusicosd),Skin.Numeric(AutoCloseMusicOSD)) + ![Window.IsVisible(DialogSettings.xml) | Window.IsVisible(1114) | Window.IsVisible(FileBrowser) | Window.IsVisible(addonsettings) | Window.IsVisible(selectdialog)]">Dialog.Close(musicosd)</onstop>
+    </timer>
 	<timer>
 		<name>takescreenshot</name>
 		<stop>Integer.IsGreaterOrEqual(Skin.TimerElapsedSecs(takescreenshot),3)</stop>
@@ -28,4 +29,15 @@
 		<stop>Integer.IsGreaterOrEqual(Skin.TimerElapsedSecs(askdefaultbackground),3)</stop>
 		<onstop>ActivateWindow(1126)</onstop>
 	</timer>
+    <timer>
+        <name>x2initialmusicinfo</name>
+        <description>Initial album/disc panel; independent of the lyrics dialog.</description>
+        <reset>[Window.IsVisible(visualisation) + !System.IdleTime(1) + Integer.IsGreaterOrEqual(Skin.TimerElapsedSecs(x2initialmusicinfo),1)] | Window.IsVisible(1114) | Window.IsVisible(selectdialog)</reset>
+        <stop>!Window.IsVisible(visualisation) | [!String.IsEmpty(Skin.String(AutoCloseMusicOSD)) + Integer.IsGreaterOrEqual(Skin.TimerElapsedSecs(x2initialmusicinfo),Skin.Numeric(AutoCloseMusicOSD))]</stop>
+    </timer>
+    <timer>
+        <name>x2initialmusicinfoguard</name>
+        <description>Ignore Kodi's initial automatic info interval until it ends.</description>
+        <stop>!Window.IsVisible(visualisation) | !Player.ShowInfo</stop>
+    </timer>
 </timers>

@@ -4,15 +4,15 @@
 		<label>TMDB Helper</label>
 		<label2>Custom item</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/tmdbh.png</thumb>
-		<action>ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper",return)</action>
+		<thumb>special://skin/media/icons/tmdbh.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.themoviedb.helper/?info=dir_movie&amp;tmdb_type=None&amp;reload=%24INFO%5BWindow%28Home%29.Property%28TMDbHelper.Widgets.Reload%29%5D&amp;widget=true",return)</action>
 		</shortcut>
 	<shortcut>
 		<defaultID />
 		<label>Umbrella Movies</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/umbrella.png</thumb>
+		<thumb>special://skin/media/icons/umbrella.png</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.umbrella/?action=movieNavigator&amp;folderName=Discover+Movies",return)</action>
 		</shortcut>
 	<shortcut>
@@ -20,7 +20,7 @@
 		<label>POV Movies</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/pov.png</thumb>
+		<thumb>special://skin/media/icons/pov.png</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.pov/?name=32028&amp;iconImage=movies.png&amp;mode=navigator.main&amp;action=MovieList",return)</action>
 		</shortcut>
 	<shortcut>
@@ -28,15 +28,23 @@
 		<label>Red Light Movies</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/fenlight.png</thumb>
+		<thumb>special://skin/media/icons/fenlight.png</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.redlight/?name=32028&amp;iconImage=movies&amp;mode=navigator.main&amp;action=MovieList",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
+		<label>Absolution Movies</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>special://skin/media/icons/absolution.png</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.absolution/?action=movieNavigator",return)</action>
 		</shortcut>
 	<shortcut>
 		<defaultID />
 		<label>Seren Movies</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/seren.png</thumb>
+		<thumb>special://skin/media/icons/seren.png</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.seren/?action=moviesHome",return)</action>
 		</shortcut>
 	<shortcut>
@@ -44,7 +52,7 @@
 		<label>The Crew Movies</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/crew.png</thumb>
+		<thumb>special://skin/media/icons/crew.png</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.thecrew/?action=movieNavigator",return)</action>
 		</shortcut>
 	<shortcut>
@@ -52,7 +60,7 @@
 		<label>Pluto Movies</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/pluto.png</thumb>
+		<thumb>special://skin/media/icons/pluto.png</thumb>
 		<action>ActivateWindow(Videos,"plugin://slyguy.pluto.tv.provider/?_=live_tv&amp;code=us&amp;group=Movies",return)</action>
 		</shortcut>
 	<shortcut>
@@ -60,7 +68,7 @@
 		<label>[COLOR=white]Black and White Movies[/COLOR]</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/blacknwhite.png</thumb>
+		<thumb>special://skin/media/icons/blacknwhite.png</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.bnwmovie19/?url=Black_and_White&amp;mode=1&amp;name=%5BCOLOR%3Dwhite%5DBlack+and+White+Movies%5B%2FCOLOR%5D&amp;iconimage=special%3A%2F%2Fhome%2Faddons%2Fplugin.video.bnwmovie19%2Ficon.png&amp;fanart=special%3A%2F%2Fhome%2Faddons%2Fplugin.video.bnwmovie19%2Ffanart.jpg&amp;description=Black+and+White+movies",return)</action>
 		</shortcut>
 	<shortcut>
@@ -68,7 +76,7 @@
 		<label>Samsung TV Movies</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/samsungtv.png</thumb>
+		<thumb>special://skin/media/icons/samsungtv.png</thumb>
 		<action>ActivateWindow(Videos,"plugin://slyguy.samsung.tv.plus/?_=live_tv&amp;code=us&amp;group=Movies",return)</action>
 		</shortcut>
 	<shortcut>
@@ -76,7 +84,7 @@
 		<label>Xumo Movies</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/xumo.png</thumb>
+		<thumb>special://skin/media/icons/xumo.png</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.xumoplay/?url=https%3A%2F%2Fplay.xumo.com%2Ffree-movies&amp;mode=18&amp;name=On+Demand+Movies",return)</action>
 		</shortcut>
 	</shortcuts>

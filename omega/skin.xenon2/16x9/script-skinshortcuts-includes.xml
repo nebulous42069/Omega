@@ -45,7 +45,7 @@
 			<label>Xenon Setup</label>
 			<label2>Custom item</label2>
 			<icon>DefaultShortcut.png</icon>
-			<thumb>special://home/addons/resource.images.skinicons.wide/resources/xenonsetup.png</thumb>
+			<thumb>special://skin/media/xenonsetup.png</thumb>
 			<onclick>RunScript(special://home/addons/skin.xenon2/resources/scripts/xenon_setup.py)</onclick>
 			<property name="path">RunScript(special://home/addons/skin.xenon2/resources/scripts/xenon_setup.py)</property>
 			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Container(9000).ListItem.Property(submenuVisibility),xenonsetup)</visible>
@@ -93,7 +93,7 @@
 			<label>Xenon Setup</label>
 			<label2>Custom item</label2>
 			<icon>DefaultShortcut.png</icon>
-			<thumb>special://home/addons/resource.images.skinicons.wide/resources/xenonsetup.png</thumb>
+			<thumb>special://skin/media/xenonsetup.png</thumb>
 			<onclick>RunScript(special://home/addons/skin.xenon2/resources/scripts/xenon_setup.py)</onclick>
 			<property name="path">RunScript(special://home/addons/skin.xenon2/resources/scripts/xenon_setup.py)</property>
 			<visible>String.IsEqual(System.ProfileName,Master user)</visible>
@@ -107,7 +107,7 @@
 			<label>Xenon Setup</label>
 			<label2>Custom item</label2>
 			<icon>DefaultShortcut.png</icon>
-			<thumb>special://home/addons/resource.images.skinicons.wide/resources/xenonsetup.png</thumb>
+			<thumb>special://skin/media/xenonsetup.png</thumb>
 			<onclick>RunScript(special://home/addons/skin.xenon2/resources/scripts/xenon_setup.py)</onclick>
 			<property name="path">RunScript(special://home/addons/skin.xenon2/resources/scripts/xenon_setup.py)</property>
 			<visible>[String.IsEqual(System.ProfileName,Master user)] + String.IsEqual(Window(10000).Property(submenuVisibility),xenonsetup)</visible>

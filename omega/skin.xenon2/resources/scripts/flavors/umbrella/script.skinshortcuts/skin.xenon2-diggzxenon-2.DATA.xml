@@ -4,7 +4,7 @@
 		<label>Xenon Setup</label>
 		<label2>Custom item</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/flavors.gif</thumb>
+		<thumb>special://skin/media/icons/flavors.gif</thumb>
 		<action>RunScript(special://home/addons/skin.xenon2/resources/scripts/xenon_setup.py)</action>
 		</shortcut>
 	<shortcut>
@@ -12,7 +12,7 @@
 		<label>Account Tools</label>
 		<label2>Custom item</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/10804k.gif</thumb>
+		<thumb>special://skin/media/icons/10804k.gif</thumb>
 		<action>RunScript(special://home/addons/skin.xenon2/resources/scripts/reauthorize/entry.py)</action>
 		</shortcut>
 	<shortcut>
@@ -20,7 +20,7 @@
 		<label>Simple Clean</label>
 		<label2>Custom item</label2>
 		<icon>DefaultFolder.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/clean.png</thumb>
+		<thumb>special://skin/media/icons/clean.png</thumb>
 		<action>RunAddOn(script.simpleclean)</action>
 		</shortcut>
 	<shortcut>
@@ -28,7 +28,7 @@
 		<label>Diggz Wallpapers</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/wallpapers.png</thumb>
+		<thumb>special://skin/media/icons/wallpapers.png</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.4kwallpapers",return)</action>
 		</shortcut>
 	<shortcut>
@@ -36,7 +36,7 @@
 		<label>Chef Wizard</label>
 		<label2>Program</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/chef.png</thumb>
+		<thumb>special://skin/media/icons/chef.png</thumb>
 		<action>ActivateWindow(Programs,"plugin://plugin.program.chef21",return)</action>
 		</shortcut>
 	<shortcut>
@@ -44,7 +44,7 @@
 		<label>Advanced Settings</label>
 		<label2>Custom item</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/advanced.png</thumb>
+		<thumb>special://skin/media/icons/advanced.png</thumb>
 		<action>PlayMedia("plugin://plugin.program.chef21/?url=&amp;mode=29&amp;name=%5BB%5D%5BCOLOR+snow%5DAdvanced+Settings+K21%5B%2FCOLOR%5D%5B%2FB%5D&amp;icon=special%3A%2F%2Fhome%2Faddons%2Fplugin.program.chef21%2Fresources%2Ficon.png&amp;fanart=special%3A%2F%2Fhome%2Faddons%2Fplugin.program.chef21%2Fresources%2Ffanart.jpg&amp;description=%5BB%5D%5BCOLOR+snow%5DA+list+of+presets+to+set+the+cache+size+based+on+your+device%27s+RAM+size.%5B%2FCOLOR%5D%5B%2FB%5D&amp;name2=&amp;version=&amp;kodi=&amp;sf_options=winID%3D10025%26_options_sf")</action>
 		</shortcut>
 	</shortcuts>

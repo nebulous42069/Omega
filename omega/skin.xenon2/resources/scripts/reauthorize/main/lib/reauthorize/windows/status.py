@@ -102,7 +102,7 @@ class StatusDashboard(xbmcgui.WindowXMLDialog):
 					elif authed:
 						col = 'FFFFBB33'
 					else:
-						col = '44FFFFFF'
+						col = '18FFFFFF'
 				item.setProperty('col_%s' % svc_id, col)
 
 			item.setProperty('addon_id', aid)

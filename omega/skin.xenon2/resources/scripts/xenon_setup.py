@@ -31,37 +31,37 @@ CATALOG = {
         {
             "id": "plugin.video.lookmovietomb",
             "name": "LookMovieTomb",
-            "icon": "special://home/addons/resource.images.skinicons.wide/resources/icons/lookmovies.png"
+            "icon": "special://skin/media/icons/lookmovies.png"
         },
         {
             "id": "plugin.video.tmdbmovies",
             "name": "TMDB Movies",
-            "icon": "special://home/addons/resource.images.skinicons.wide/resources/icons/tmdb.png"
+            "icon": "special://skin/media/icons/tmdb.png"
         },
         {
             "id": "plugin.video.gratisred",
             "name": "Gratis Red",
-            "icon": "special://home/addons/resource.images.skinicons.wide/resources/icons/gratisred.png"
+            "icon": "special://skin/media/icons/gratisred.png"
         },
         {
             "id": "plugin.video.9movies",
             "name": "9 Movies",
-            "icon": "special://home/addons/resource.images.skinicons.wide/resources/icons/9movies.png"
+            "icon": "special://skin/media/icons/9movies.png"
         },
         {
             "id": "plugin.video.vidscr",
             "name": "Vidscr",
-            "icon": "special://home/addons/resource.images.skinicons.wide/resources/icons/vidscr.png"
+            "icon": "special://skin/media/icons/vidscr.png"
         },
         {
             "id": "plugin.video.blacklodge",
             "name": "BlackLodge",
-            "icon": "special://home/addons/resource.images.skinicons.wide/resources/icons/blacklodge.png"
+            "icon": "special://skin/media/icons/blacklodge.png"
         },
         {
             "id": "plugin.video.twisted",
             "name": "Twisted",
-            "icon": "special://home/addons/resource.images.skinicons.wide/resources/icons/twisted.png"
+            "icon": "special://skin/media/icons/twisted.png"
         }
     ],
     "debrid": [
@@ -69,27 +69,32 @@ CATALOG = {
         {
             "id": "plugin.video.umbrella",
             "name": "Umbrella",
-            "icon": "special://home/addons/resource.images.skinicons.wide/resources/icons/umbrella.png"
+            "icon": "special://skin/media/icons/umbrella.png"
         },
         {
             "id": "plugin.video.redlight",
             "name": "Redlight",
-            "icon": "special://home/addons/resource.images.skinicons.wide/resources/icons/redlight.png"
+            "icon": "special://skin/media/icons/fenlight.png"
         },
         {
             "id": "plugin.video.seren",
             "name": "Seren",
-            "icon": "special://home/addons/resource.images.skinicons.wide/resources/icons/seren.png"
+            "icon": "special://skin/media/icons/seren.png"
+        },
+        {
+            "id": "plugin.video.absolution",
+            "name": "Absolution",
+            "icon": "special://skin/media/icons/absolution.png"
         },
         {
             "id": "plugin.video.thecrew",
             "name": "The Crew",
-            "icon": "special://home/addons/resource.images.skinicons.wide/resources/icons/crew.png"
+            "icon": "special://skin/media/icons/crew.png"
         },
         {
             "id": "plugin.video.pov",
             "name": "POV",
-            "icon": "special://home/addons/resource.images.skinicons.wide/resources/icons/pov.png"
+            "icon": "special://skin/media/icons/pov.png"
         }       
     ]
 }
@@ -169,7 +174,7 @@ FLAVORS = [
         "name": "The Movie Database Helper",
         "addon": "plugin.video.themoviedb.helper",
         "folder": "tmdbhelper",
-        "icon": "special://home/addons/resource.images.skinicons.wide/resources/icons/tmdbh.png",
+        "icon": "special://skin/media/icons/tmdbh.png",
         "always_labels": [
             "1036",
             "24001",
@@ -181,7 +186,7 @@ FLAVORS = [
         "name": "Red Light",
         "addon": "plugin.video.redlight",
         "folder": "redlight",
-        "icon": "special://home/addons/resource.images.skinicons.wide/resources/icons/fenlight.png",
+        "icon": "special://skin/media/icons/fenlight.png",
         "always_labels": [
             "1036",
             "24001",
@@ -193,7 +198,7 @@ FLAVORS = [
         "name": "Umbrella",
         "addon": "plugin.video.umbrella",
         "folder": "umbrella",
-        "icon": "special://home/addons/resource.images.skinicons.wide/resources/umbrella.png",
+        "icon": "special://skin/media/umbrella.png",
         "always_labels": [
             "1036",
             "24001",
@@ -208,7 +213,7 @@ FREE_FLAVORS = [
         "name": "Xenon Free",
         "addon": "",
         "folder": "xenonfree",
-        "icon": "special://home/addons/resource.images.skinicons.wide/resources/free.png",
+        "icon": "special://skin/media/free.png",
         "always_labels": [
             "1036",
             "24001",
@@ -448,6 +453,8 @@ class Wizard(xbmcgui.WindowXMLDialog):
     def onInit(self):
         choosing = self.stage == 'source'
         visible = {100, 101, 301} if choosing else {750, 300, 301, 400, 401, 600, 601, 602, 603, 303 if self.mode == 'debrid' else 305}
+        if not choosing and self.mode == 'debrid':
+            visible.discard(300)
         show_step(self, visible)
         self.getControl(10).setLabel('Xenon Setup')
         self.getControl(11).setLabel('Step 1 - Choose your links' if choosing else 'Step 2 - Choose %s add-ons' % self.mode.upper())
@@ -464,6 +471,14 @@ class Wizard(xbmcgui.WindowXMLDialog):
             self.update_addon_list(0)
             next_button = self.getControl(303 if self.mode == 'debrid' else 305)
             self.getControl(301).controlRight(next_button)
+            if self.mode == 'debrid':
+                next_button.setPosition(990, 830)
+                next_button.setWidth(750)
+                next_button.controlLeft(self.getControl(301))
+                next_button.controlRight(self.getControl(301))
+                self.getControl(301).controlLeft(next_button)
+                listing.controlDown(next_button)
+                listing.controlRight(next_button)
             for cid in (300, 301, 303 if self.mode == 'debrid' else 305):
                 self.getControl(cid).controlUp(listing)
                 self.getControl(cid).controlDown(listing)
@@ -491,8 +506,13 @@ class Wizard(xbmcgui.WindowXMLDialog):
 
     def refresh(self):
         count = len(pending_addons(self.catalog[self.mode], self.choices[self.mode]))
-        self.getControl(300).setLabel('Install (%d) add-ons' % count)
-        self.getControl(300).setEnabled(count > 0)
+        if self.mode == 'debrid':
+            self.getControl(303).setLabel('Install (%d) Addons/Next' % count)
+            # Zero pending installs means the selected add-ons are already installed.
+            self.getControl(303).setEnabled(True)
+        else:
+            self.getControl(300).setLabel('Install (%d) add-ons' % count)
+            self.getControl(300).setEnabled(count > 0)
 
     def onClick(self, cid):
         if cid in (600, 601) and self.stage == 'addons':
@@ -521,8 +541,8 @@ class Wizard(xbmcgui.WindowXMLDialog):
         elif cid == 305 and self.mode == 'free':
             self.result = 'flavor'
             self.close()
-        elif cid == 303 and self.mode == 'debrid':
-            self.result = 'authorize'
+        elif cid == 303 and self.stage == 'addons' and self.mode == 'debrid':
+            self.result = 'install'
             self.close()
         elif cid in (300, 301):
             self.result = 'install' if cid == 300 else ('back' if self.stage != 'source' else 'exit')
@@ -1184,7 +1204,8 @@ def run():
                     xbmc.executebuiltin('Skin.SetString(Xenon2.Setup.LinkMode,%s)' % mode)
                     xbmc.executebuiltin('Skin.SetBool(Xenon2.Setup.AddonsComplete)')
                     # Add-on installation completion is separate from service authorization.
-                    xbmcgui.Dialog().ok('Add-on setup complete', text)
+                    if mode != 'debrid':
+                        xbmcgui.Dialog().ok('Add-on setup complete', text)
                     recovery_checked = check_saved_logins(monitor)
                     if not recovery_checked:
                         stage = 'addons'

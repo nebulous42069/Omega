@@ -55,7 +55,7 @@ class Auth:
 				api_key = '05a454b451f2f9003fbca293744e4a85'
 
 			url = self.auth_base_link + '/token/new?api_key=%s' % api_key
-			result = requests.get(url).json()
+			result = requests.get(url, timeout=15).json()
 			token = result.get('request_token')
 
 			url2 = self.auth_base_link + '/token/validate_with_login?api_key=%s' % api_key
@@ -63,13 +63,13 @@ class Auth:
 				'username': username,
 				'password': password,
 				'request_token': token,
-			}).json()
+			}, timeout=15).json()
 			if not result2.get('success'):
 				msg = result2.get('status_message', 'Invalid username or password.')
 				return control.notification(title='ReAuthorize', message='TMDB: %s' % msg, icon=tmdb_icon, time=6000)
 
 			url3 = self.auth_base_link + '/session/new?api_key=%s' % api_key
-			result3 = requests.post(url3, data={'request_token': token}).json()
+			result3 = requests.post(url3, data={'request_token': token}, timeout=15).json()
 			if result3.get('success') is True:
 				session_id = result3.get('session_id')
 				if xbmcgui.Dialog().yesno('ReAuthorize', 'TMDB login confirmed for [B]%s[/B]. Authorize now?' % username,
@@ -94,7 +94,7 @@ class Auth:
 			if control.setting('tmdb.session_id') == '': return
 			url = self.auth_base_link + '/session?api_key=%s' % API_key
 			post = {"session_id": "%s" % control.setting('tmdb.session_id')}
-			result = requests.delete(url, data=post).json()
+			result = requests.delete(url, data=post, timeout=15).json()
 			if result.get('success') is True:
 				control.setSetting('tmdb.session_id', '')
 				settings_display.sync_authorized_display_values()

@@ -1,5 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<includes>			
+<includes>
+    <variable name="X2HomeWeatherIconImage">
+        <value condition="!String.IsEmpty(Window(Weather).Property(Current.FanartCode))">$VAR[X2SafeWeatherImage1]</value>
+        <value></value>
+    </variable>
+			
     <include file="Viewsweather.xml" />
     <include file="IncludesDialogSelect.xml" />	
     <include file="IncludesBackgroundBuilding.xml" />
@@ -111,7 +116,7 @@
                     <timeperimage>70</timeperimage>
                     <fadetime>1</fadetime>
                     <randomize>false</randomize>
-                    <imagepath>$VAR[WeatherIconPath]$INFO[Window(Weather).Property(Current.FanartCode)]$VAR[WeatherIconExt]</imagepath>
+                    <imagepath>$VAR[X2HomeWeatherIconImage]</imagepath>
                 </control>
                 <control type="label" id="1">
                     <description>Location label</description>

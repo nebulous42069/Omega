@@ -494,7 +494,7 @@
 				        <fadetime>1</fadetime>
 				        <randomize>false</randomize>
                         <aspectratio>keep</aspectratio>
-                        <imagepath>$VAR[WeatherIconPath]$INFO[Window.Property(36Hour.1.FanartCode)]$VAR[WeatherIconExt]</imagepath>
+                        <imagepath>$VAR[X2SafeWeatherImage11]</imagepath>
                     </control>
                     <control type="label">
                         <left>180</left>
@@ -562,7 +562,7 @@
 				        <fadetime>1</fadetime>
 				        <randomize>false</randomize>
                         <aspectratio>keep</aspectratio>
-                        <imagepath>$VAR[WeatherIconPath]$INFO[Window.Property(36Hour.2.FanartCode)]$VAR[WeatherIconExt]</imagepath>
+                        <imagepath>$VAR[X2SafeWeatherImage12]</imagepath>
                     </control>
                     <control type="label">
                         <left>180</left>
@@ -630,7 +630,7 @@
 				        <fadetime>1</fadetime>
 				        <randomize>false</randomize>
                         <aspectratio>keep</aspectratio>
-                        <imagepath>$VAR[WeatherIconPath]$INFO[Window.Property(36Hour.3.FanartCode)]$VAR[WeatherIconExt]</imagepath>
+                        <imagepath>$VAR[X2SafeWeatherImage13]</imagepath>
                     </control>
                     <control type="label">
                         <left>180</left>
@@ -725,7 +725,7 @@
 				        <fadetime>1</fadetime>
 				        <randomize>false</randomize>
                         <aspectratio>keep</aspectratio>
-                        <imagepath>$VAR[WeatherIconPath]$INFO[Window.Property(Weekend.1.FanartCode)]$VAR[WeatherIconExt]</imagepath>
+                        <imagepath>$VAR[X2SafeWeatherImage14]</imagepath>
                     </control>
                     <control type="label">
                         <left>210</left>
@@ -815,7 +815,7 @@
 				        <fadetime>1</fadetime>
 				        <randomize>false</randomize>
                         <aspectratio>keep</aspectratio>
-                        <imagepath>$VAR[WeatherIconPath]$INFO[Window.Property(Weekend.2.FanartCode)]$VAR[WeatherIconExt]</imagepath>
+                        <imagepath>$VAR[X2SafeWeatherImage15]</imagepath>
                     </control>
                     <control type="label">
                         <left>210</left>

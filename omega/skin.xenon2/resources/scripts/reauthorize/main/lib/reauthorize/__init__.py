@@ -125,7 +125,8 @@ def realdebridRefreshToken():
 
 
 def openMASettings(query=None):
-	control.openSettings(query)
-	while not control.condVisibility('Window.IsVisible(addonsettings)'):
-		control.sleep(250)
-	control.release_active_monitor()
+	# openSettings supports both native and embedded windows without a native-window wait.
+	try:
+		return control.openSettings(query)
+	finally:
+		control.release_active_monitor()

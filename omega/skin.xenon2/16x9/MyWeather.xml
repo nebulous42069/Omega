@@ -171,7 +171,7 @@
 				            <fadetime>1</fadetime>
 				            <randomize>false</randomize>
                             <aspectratio>keep</aspectratio>
-                            <imagepath>$VAR[WeatherIconPath]$INFO[Window.Property(Current.FanartCode)]$VAR[WeatherIconExt]</imagepath>
+                            <imagepath>$VAR[X2SafeWeatherImage3]</imagepath>
                         </control>
                     </control>
                     <control type="label">

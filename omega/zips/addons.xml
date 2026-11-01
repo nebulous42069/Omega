@@ -716,7 +716,7 @@ Use this to quickly and easily organize your Favourites.
 				<screenshot />
 		</assets>
 	</extension>
-</addon><addon id="plugin.program.pvr.setup" name="PVR/EPG Quick Setup" version="1.4.8" provider-name="Diggz">
+</addon><addon id="plugin.program.pvr.setup" name="PVR/EPG Quick Setup" version="1.4.9" provider-name="Diggz">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
     </requires>
@@ -975,7 +975,7 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.cb20
         <description lang="es_ES">NewsON proporciona acceso instantáneo a emisiones en directo o a la carta de más de 175 emisoras locales en 114 mercados de Estados Unidos. Acceda a noticiarios emitidos hasta 48 horas después de su emisión y comparta historias interesantes con la función integrada para compartir en redes sociales directamente desde la aplicación. Busque una emisora local con el mapa interactivo o vea la emisora más cercana en teléfonos inteligentes, tabletas o reproductores de transmisiones Roku. Guarde sus emisoras favoritas y manténgase al día con las alertas de noticias de última hora enviadas directamente a los dispositivos móviles desde la fuente local de las noticias. Mantente conectado en cualquier momento y lugar sin necesidad de suscribirte a la televisión por cable ni de iniciar sesión.</description>
         <description lang="it_IT">NewsON fornisce accesso istantaneo a trasmissioni in diretta o su richiesta da oltre 175 stazioni locali in 114 mercati statunitensi. Accedi ai notiziari fino a 48 ore dopo la loro messa in onda e condividi storie interessanti con la funzione di condivisione integrata sui social media direttamente dall'app. Cerca una stazione locale con la mappa interattiva o guarda la stazione più vicina a te su smartphone, tablet o lettori streaming Roku. Salva le stazioni preferite e tieniti aggiornato con gli avvisi delle ultime notizie inviati direttamente ai dispositivi mobili dalla fonte locale delle notizie. Rimani connesso sempre e ovunque senza abbonamento via cavo o registrazione.</description>
     </extension>
-</addon><addon id="plugin.video.playlistbrowser" name="Diggz TV Guide Lite" version="2.8.13" provider-name="Diggz">
+</addon><addon id="plugin.video.playlistbrowser" name="Diggz TV Guide Lite" version="2.8.14" provider-name="Diggz">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
   </requires>
@@ -2141,7 +2141,7 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.sc19
         <website />
         <source />
     </extension>
-</addon><addon id="script.cu.lrclyrics" name="CU LRC Lyrics" version="6.7.6.3" provider-name="Taxigps, ronie">
+</addon><addon id="script.cu.lrclyrics" name="CU LRC Lyrics" version="6.7.6.4" provider-name="Taxigps, ronie">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0" />
 		<import addon="script.module.beautifulsoup4" version="4.8.2+matrix.1" />
@@ -2150,7 +2150,7 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.sc19
 		<import addon="script.module.requests" version="2.22.0+matrix.1" />
 	</requires>
 	<extension point="xbmc.python.lyrics" library="default.py" />
-	
+	<extension point="xbmc.service" library="default.py" />
 	<extension point="xbmc.addon.metadata">
 		<summary lang="be_BY">CU LRC Lyrics</summary>
 		<summary lang="bg_BG">CU LRC Лирики</summary>
@@ -3239,7 +3239,7 @@ v0.2.3
 			<fanart>resources/fanart.jpg</fanart>
 		</assets>
 	</extension>
-</addon><addon id="skin.xenon2" version="430.99.20" name="[B][COLOR gold]Diggz Xenon[/COLOR][/B]  (Mid Power)" provider-name="SiLVO, Diggz">
+</addon><addon id="skin.xenon2" version="430.99.21" name="[B][COLOR gold]Diggz Xenon[/COLOR][/B]  (Mid Power)" provider-name="SiLVO, Diggz">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0" />
 		<import addon="script.module.requests" version="2.19.1" />

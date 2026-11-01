@@ -4,7 +4,7 @@
 		<label>Pandoki (US)</label>
 		<label2>Music Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/pandora.png</thumb>
+		<thumb>special://skin/media/icons/pandora.png</thumb>
 		<action>ActivateWindow(Music,"plugin://plugin.audio.pandoki",return)</action>
 		</shortcut>
 	<shortcut>
@@ -12,7 +12,7 @@
 		<label>Pluto Music</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/pluto.png</thumb>
+		<thumb>special://skin/media/icons/pluto.png</thumb>
 		<action>ActivateWindow(Videos,"plugin://slyguy.pluto.tv.provider/?_=live_tv&amp;code=us&amp;group=Music+Videos",return)</action>
 		</shortcut>
 	<shortcut>
@@ -20,7 +20,7 @@
 		<label>Music On Youtube</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/ytkiosk.png</thumb>
+		<thumb>special://skin/media/icons/ytkiosk.png</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.yt.kiosk/?action=chip&amp;label=Music&amp;url=https%3A%2F%2Fwww.youtube.com%2Fchannel%2FUC-9-kyTW8ZkZNDHQJ6FgpwQ%3Fgl%3DUS%26hl%3Den%26persist_gl%3D1%26persist_hl%3D1",return)</action>
 		</shortcut>
 	<shortcut>
@@ -28,7 +28,7 @@
 		<label>MP3 Streams</label>
 		<label2>Custom item</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/mp3streams.png</thumb>
+		<thumb>special://skin/media/icons/mp3streams.png</thumb>
 		<action>ActivateWindow(Music,"plugin://plugin.audio.m3sr2019",return)</action>
 		</shortcut>
 	<shortcut>
@@ -36,7 +36,7 @@
 		<label>Diggz LITT Radio</label>
 		<label2>Music Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/littradio.png</thumb>
+		<thumb>special://skin/media/icons/littradio.png</thumb>
 		<action>ActivateWindow(Music,"plugin://plugin.audio.dashradio",return)</action>
 		</shortcut>
 	<shortcut>
@@ -44,7 +44,7 @@
 		<label>World Star Hip Hop</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/worldstar.png</thumb>
+		<thumb>special://skin/media/icons/worldstar.png</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.worldstarhiphop",return)</action>
 		</shortcut>
 	<shortcut>
@@ -52,7 +52,7 @@
 		<label>myTuner</label>
 		<label2>Music Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/tuner.png</thumb>
+		<thumb>special://skin/media/icons/tuner.png</thumb>
 		<action>ActivateWindow(Music,"plugin://plugin.audio.mytuner",return)</action>
 		</shortcut>
 	<shortcut>
@@ -60,7 +60,7 @@
 		<label>SoundCloud</label>
 		<label2>Music Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/soundcloud.png</thumb>
+		<thumb>special://skin/media/icons/soundcloud.png</thumb>
 		<action>ActivateWindow(Music,"plugin://plugin.audio.soundcloud",return)</action>
 		</shortcut>
 	<shortcut>
@@ -68,7 +68,7 @@
 		<label>Radio</label>
 		<label2>Custom item</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/radio.png</thumb>
+		<thumb>special://skin/media/icons/radio.png</thumb>
 		<action>ActivateWindow(Music,"plugin://plugin.audio.radio_de_light",return)</action>
 		</shortcut>
 	<shortcut>
@@ -76,7 +76,7 @@
 		<label>Mixcloud</label>
 		<label2>Music Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/mixcloud.png</thumb>
+		<thumb>special://skin/media/icons/mixcloud.png</thumb>
 		<action>ActivateWindow(Music,"plugin://plugin.audio.mixcloud",return)</action>
 		</shortcut>
 	<shortcut>
@@ -84,7 +84,7 @@
 		<label>Essential</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/essential.jpg</thumb>
+		<thumb>special://skin/media/icons/essential.jpg</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.essential",return)</action>
 		</shortcut>
 	<shortcut>
@@ -92,7 +92,7 @@
 		<label>Kodi Karaoke</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/karaoke.png</thumb>
+		<thumb>special://skin/media/icons/karaoke.png</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.kodikaraoke",return)</action>
 		</shortcut>
 	<shortcut>
@@ -100,7 +100,7 @@
 		<label>Xumo Music</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>
-		<thumb>special://home/addons/resource.images.skinicons.wide/resources/icons/xumo.png</thumb>
+		<thumb>special://skin/media/icons/xumo.png</thumb>
 		<action>ActivateWindow(Videos,"plugin://plugin.video.xumoplay?mode=3&amp;url=https%3A%2F%2Fvalencia-app-mds.xumo.com%2Fv2%2F&amp;name=Music+%26+Radio",return)</action>
 		</shortcut>
 	</shortcuts>

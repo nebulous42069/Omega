@@ -25,6 +25,14 @@
 		</shortcut>
 	<shortcut>
 		<defaultID />
+		<label>TV Networks</label>
+		<label2>Video Add-On</label2>
+		<icon>DefaultShortcut.png</icon>
+		<thumb>image://C%3a%5cUsers%5cjeddi%5cAppData%5cRoaming%5cKodi%5caddons%5cplugin.video.umbrella%5cresources%5cartwork%5cumbrella%5cnetworks.png/</thumb>
+		<action>ActivateWindow(Videos,"plugin://plugin.video.umbrella/?action=tvNetworks&amp;folderName=Networks+%28TMDb%29",return)</action>
+		</shortcut>
+	<shortcut>
+		<defaultID />
 		<label>Official Lists (MDBList)</label>
 		<label2>Video Add-On</label2>
 		<icon>DefaultShortcut.png</icon>

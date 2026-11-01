@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <window>
+	<onload>RunScript(special://skin/resources/scripts/x2_music_artwork.py)</onload>
 	<onload>RunScript(special://skin/resources/scripts/x2_widget_first_use.py)</onload>
 	<onload condition="!Skin.HasSetting(centermainmenu)">Skin.SetBool(centermainmenu)</onload><onload condition="!String.IsEmpty(Skin.String(MainMenu.Layout))">Skin.Reset(MainMenu.Layout)</onload><defaultcontrol always="true">9000</defaultcontrol>
 	<onload>RunScript(script.skinshortcuts,type=buildxml&amp;mainmenuID=9000&amp;levels=2&amp;group=mainmenu|buttonmenu)</onload>

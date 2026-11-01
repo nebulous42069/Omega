@@ -2986,21 +2986,24 @@
 							<aspectratio align="right">keep</aspectratio>
 							<texture fallback="rating0.png">$INFO[ListItem.UserRating,flags/rating/,.png]</texture>
 							<colordiffuse>grey3</colordiffuse>
-							<visible>!ListItem.IsParentFolder</visible>
+							<visible>!ListItem.IsParentFolder + !String.IsEmpty(ListItem.UserRating) + !String.IsEqual(ListItem.UserRating,0)</visible>
 						</control>
 						<control type="label">
 							<left>200</left>
 							<width>900</width>
 							<height>60</height>
 							<font>font15</font>
+                            <selectedcolor>white</selectedcolor>
 							<textcolor>grey2</textcolor>
 							<label>$INFO[ListItem.Label]</label>
+                            <animation effect="slide" start="0,0" end="-170,0" time="0" condition="ListItem.IsParentFolder | String.IsEmpty(ListItem.UserRating) | String.IsEqual(ListItem.UserRating,0)">Conditional</animation>
 						</control>
 						<control type="label">
 							<left>210</left>
 							<width>900</width>
 							<height>60</height>
 							<font>font15</font>
+                            <selectedcolor>white</selectedcolor>
 							<align>right</align>
 							<textcolor>grey2</textcolor>
 							<label>$INFO[ListItem.Label2]</label>
@@ -3021,20 +3024,23 @@
 							<height>50</height>
 							<aspectratio align="right">keep</aspectratio>
 							<texture fallback="rating0.png">$INFO[ListItem.UserRating,flags/rating/,.png]</texture>
-							<visible>!ListItem.IsParentFolder</visible>
+							<visible>!ListItem.IsParentFolder + !String.IsEmpty(ListItem.UserRating) + !String.IsEqual(ListItem.UserRating,0)</visible>
 						</control>
 						<control type="label">
 							<left>200</left>
 							<width>900</width>
 							<height>60</height>
 							<font>font15</font>
+                            <selectedcolor>white</selectedcolor>
 							<label>$INFO[ListItem.Label]</label>
+                            <animation effect="slide" start="0,0" end="-170,0" time="0" condition="ListItem.IsParentFolder | String.IsEmpty(ListItem.UserRating) | String.IsEqual(ListItem.UserRating,0)">Conditional</animation>
 						</control>
 						<control type="label">
 							<left>210</left>
 							<width>900</width>
 							<height>60</height>
 							<font>font15</font>
+                            <selectedcolor>white</selectedcolor>
 							<align>right</align>
 							<label>$INFO[ListItem.Label2]</label>
 						</control>
@@ -3052,6 +3058,7 @@
 							<width>1080</width>
 							<height>60</height>
 							<font>font15</font>
+                            <selectedcolor>white</selectedcolor>
 							<textcolor>grey2</textcolor>
 							<label>$INFO[ListItem.Label]</label>
 						</control>
@@ -3060,6 +3067,7 @@
 							<width>1080</width>
 							<height>60</height>
 							<font>font15</font>
+                            <selectedcolor>white</selectedcolor>
 							<align>right</align>
 							<textcolor>grey2</textcolor>
 							<label>$INFO[ListItem.Label2]</label>
@@ -3078,6 +3086,7 @@
 							<width>1080</width>
 							<height>60</height>
 							<font>font15</font>
+                            <selectedcolor>white</selectedcolor>
 							<label>$INFO[ListItem.Label]</label>
 						</control>
 						<control type="label">
@@ -3085,6 +3094,7 @@
 							<width>1080</width>
 							<height>60</height>
 							<font>font15</font>
+                            <selectedcolor>white</selectedcolor>
 							<align>right</align>
 							<label>$INFO[ListItem.Label2]</label>
 						</control>
