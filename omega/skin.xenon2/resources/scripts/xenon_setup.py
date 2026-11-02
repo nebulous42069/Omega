@@ -10,6 +10,7 @@ import time
 import sys
 import shutil
 import tempfile
+import traceback
 import hashlib
 import uuid
 import errno
@@ -780,6 +781,18 @@ def directory_manifest(path):
     return files
 
 
+def copy_flavor_contents(source, destination):
+    """Copy data without chmod/utime metadata operations on Android storage."""
+    os.makedirs(destination, exist_ok=True)
+    for parent, directories, names in os.walk(source):
+        target = os.path.join(destination, os.path.relpath(parent, source))
+        os.makedirs(target, exist_ok=True)
+        for name in directories:
+            os.makedirs(os.path.join(target, name), exist_ok=True)
+        for name in names:
+            shutil.copyfile(os.path.join(parent, name), os.path.join(target, name))
+
+
 def apply_flavor(flavor, menu_ids=None, refresh=True):
     source = flavor_directory(flavor)
     source_manifest = directory_manifest(source)
@@ -805,7 +818,7 @@ def apply_flavor(flavor, menu_ids=None, refresh=True):
     rollback = live + '.wizard-rollback-' + str(time.time_ns()) if live_manifest is not None else None
     moved_original = False
     try:
-        shutil.copytree(source, stage, dirs_exist_ok=True)
+        copy_flavor_contents(source, stage)
         if directory_manifest(stage) != source_manifest or directory_manifest(source) != source_manifest:
             raise ValueError('The flavor source changed while copying. No live changes made.')
         with open(os.path.join(stage, 'skin.xenon2-mainmenu.DATA.xml'), 'wb') as stream:
@@ -1149,6 +1162,7 @@ def run():
                 try:
                     apply_flavor(flavors_for(mode)[flavor_index], menu_choices.get(flavors_for(mode)[flavor_index]['id'], []), refresh=False)
                 except (OSError, ValueError, ET.ParseError) as exc:
+                    xbmc.log('Xenon Setup: could not apply Home menus\n' + traceback.format_exc(), xbmc.LOGERROR)
                     xbmcgui.Dialog().ok('Could not apply Home menus', str(exc))
                     stage = 'menus'
                     continue
