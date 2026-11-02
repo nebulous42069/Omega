@@ -641,19 +641,68 @@ def authorization_status(service_id):
     return bool(keys) and all(values.get(key, '').strip() for key in keys)
 
 def check_saved_logins(monitor):
-    if not reauthorize_ready(start_service=False):
+    """Let users skip optional recovery before starting any backup work."""
+    if monitor.abortRequested():
         return False
-    progress = xbmcgui.DialogProgressBG()
-    progress.create('Saved login check', 'Checking backups and sending saved logins to installed add-ons')
-    try:
-        result = launch_authorization({'action': 'wizardRestore'}, monitor)
-    finally:
-        progress.close()
-    if not result and not monitor.abortRequested():
-        xbmcgui.Dialog().ok('Saved login check', 'The backup check did not complete. Returning to add-on selections; no successful restore has been assumed.')
-    if result:
-        reauthorize_ready()  # Resume normal renewal/new-add-on monitoring.
-    return result
+    choice = xbmcgui.Dialog().select('Saved logins', [
+        'Continue without restoring',
+        'Check backups and restore saved logins',
+        'Return to add-on selections'])
+    if choice == 0:
+        xbmc.log('Xenon Setup: user skipped optional backup recovery before launch.', xbmc.LOGINFO)
+        return True
+    if choice != 1:
+        return False
+    window = xbmcgui.Window(10000)
+    job = None
+    state = ''
+    while not monitor.abortRequested():
+        progress = xbmcgui.DialogProgressBG()
+        result = False
+        try:
+            if not reauthorize_ready(start_service=False):
+                state = 'unavailable'
+            else:
+                # Retry a pending job by waiting again, never by starting a
+                # second restore that could queue behind the same action lock.
+                if job is None or state == 'error':
+                    job = 'backup' + str(time.time_ns())
+                    name = 'Xenon.ReAuthorize.Job.' + job
+                    window.clearProperty(name)
+                    xbmc.executebuiltin('RunScript(special://skin/resources/scripts/reauthorize/entry.py,action=wizardRestore,job=%s,wizard=true)' % job)
+                progress.create('Saved login check', 'Checking saved logins (up to 90 seconds). Recovery choices appear if the check cannot finish.')
+                deadline = time.monotonic() + 90
+                while not monitor.abortRequested() and time.monotonic() < deadline:
+                    state = window.getProperty(name)
+                    if state in ('done', 'error'):
+                        result = state == 'done'
+                        break
+                    if monitor.waitForAbort(0.25):
+                        return False
+        except Exception:
+            state = 'error'
+            xbmc.log('Xenon Setup: backup check exception\n' + traceback.format_exc(), xbmc.LOGERROR)
+        finally:
+            progress.close()
+        if monitor.abortRequested():
+            return False
+        if result:
+            window.clearProperty(name)
+            reauthorize_ready()
+            return True
+        xbmc.log('Xenon Setup: backup check incomplete (state=%s); offering recovery choices.' % (state or 'no completion signal'), xbmc.LOGWARNING)
+        choice = xbmcgui.Dialog().select('Saved login check could not finish', [
+            'Continue setup without waiting for restore',
+            'Retry / wait another 90 seconds',
+            'Return to add-on selections'])
+        if choice == 0:
+            # True means the optional check was handled, not that a restore
+            # succeeded. A pending embedded action may still finish later.
+            xbmc.log('Xenon Setup: user continued without a confirmed restore; a pending check may still finish.', xbmc.LOGINFO)
+            return True
+        if choice != 1:
+            return False
+    return False
 
 
 class AuthorizationWizard(Wizard):
