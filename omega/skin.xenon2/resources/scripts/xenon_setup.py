@@ -981,6 +981,9 @@ class HomeMenusWizard(Wizard):
             listing.selectItem(max(0, min(len(self.options) - 1, index + (-1 if cid == 600 else 1))))
             self.setFocusId(740)
         elif cid == 740 and self.options:
+            if not 0 <= index < len(self.options):
+                self.setFocusId(740)
+                return
             option = self.options[index]
             if not self.available[option['id']]:
                 xbmcgui.Dialog().ok('Menu unavailable', 'This label is no longer present in the selected flavor.')
@@ -990,7 +993,10 @@ class HomeMenusWizard(Wizard):
                 selected.remove(option['id'])
             else:
                 selected.append(option['id'])
-            self.update_list(index)
+            # Keep the list, scroll position and focused row intact on Android.
+            listing.getListItem(index).setProperty(
+                'checked', 'true' if option['id'] in selected else 'false')
+            self.setFocusId(740)
         elif cid == 306:
             if reauthorize_ready():
                 self.auth_index = listing.getSelectedPosition()
