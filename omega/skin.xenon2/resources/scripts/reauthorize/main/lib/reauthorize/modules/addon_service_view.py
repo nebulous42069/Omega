@@ -420,3 +420,9 @@ def build_service_icons_row(services):
     """
     icon_paths = [get_service_icon_path(svc) for svc in services]
     return ','.join(icon_paths)
+
+# Separate TMDb Helper providers expose their own credential state.
+_SERVICE_ADDONS['trakt'].append('script.module.tmdbhelper.sync.trakt')
+_SERVICE_ADDONS.setdefault('mdblist', []).append('script.module.tmdbhelper.sync.mdblist')
+_ADDON_LABELS['script.module.tmdbhelper.sync.trakt'] = 'TMDb Helper - Trakt provider'
+_ADDON_LABELS['script.module.tmdbhelper.sync.mdblist'] = 'TMDb Helper - MDbList provider'

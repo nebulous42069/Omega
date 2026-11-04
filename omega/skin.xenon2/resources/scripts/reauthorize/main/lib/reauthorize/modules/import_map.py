@@ -689,3 +689,6 @@ SETTINGS.setdefault('script.module.resolveurl', {}).update({'TorBoxResolver_apik
 SETTINGS.setdefault('plugin.video.prism', {}).update({'tmdb.apikey':'tmdb.api.key'})
 SETTINGS.setdefault('plugin.video.moria', {}).update({'trakt.user':'trakt.username','trakt.token':'trakt.token','trakt.refresh':'trakt.refresh'})
 SETTINGS.get('plugin.video.otaku', {}).pop('simkl.login', None)
+
+# TMDb Helper 6.20 separate API-key provider.
+SETTINGS['script.module.tmdbhelper.sync.mdblist'] = {'apikey': 'mdb.api.key'}

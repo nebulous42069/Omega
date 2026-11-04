@@ -244,7 +244,7 @@ class Trakt():
 		return self.call("oauth/token", data=data, with_auth=False, return_str=True)
 
 	# The add-ons that keep the whole Trakt sign-in as one JSON value (see sync/trakt_wipe.py).
-	_JSON_SIGNINS = (('plugin.video.themoviedb.helper', 'trakt_token'), ('script.trakt', 'authorization'))
+	_JSON_SIGNINS = (('script.module.tmdbhelper.sync.trakt', 'token'), ('plugin.video.themoviedb.helper', 'trakt_token'), ('script.trakt', 'authorization'))
 	MAX_CANDIDATES = 12
 
 	@classmethod

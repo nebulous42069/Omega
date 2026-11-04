@@ -631,15 +631,6 @@ class Auth:
                                         pass
                                             
                                     else:                           
-                                        with open(var.path_tmdbh,'r') as f:
-                                            data = f.read()
-
-                                        client = data.replace(var.tmdbh_client,var.client_am).replace(var.tmdbh_secret,var.secret_am)
-
-                                        with open(var.path_tmdbh,'w') as f:
-                                            f.write(client)
-                                                
-                                        addon = xbmcaddon.Addon("plugin.video.themoviedb.helper")
                                         your_expires_float = float(your_expires)
                                         your_expires_rnd = int(your_expires_float)
                                         import json
@@ -647,7 +638,17 @@ class Auth:
                                         tmdbh_data = json.dumps({'access_token': your_token, 'refresh_token': your_refresh,
                                             'token_type': 'bearer', 'expires_in': lifetime,
                                             'created_at': your_expires_rnd - lifetime, 'scope': 'public'})
-                                        addon.setSettingString("trakt_token", tmdbh_data)
+                                        from reauthorize.modules import tmdbh_compat
+                                        if tmdbh_compat.installed(tmdbh_compat.TRAKT):
+                                            tmdbh_compat.sync_trakt(tmdbh_data, var.client_am, var.secret_am)
+                                        else:
+                                            with open(var.path_tmdbh, 'r') as f:
+                                                data = f.read()
+                                            client = data.replace(var.tmdbh_client, var.client_am).replace(var.tmdbh_secret, var.secret_am)
+                                            with open(var.path_tmdbh, 'w') as f:
+                                                f.write(client)
+                                            xbmcaddon.Addon('plugin.video.themoviedb.helper').setSettingString('trakt_token', tmdbh_data)
+                                        addon = xbmcaddon.Addon('plugin.video.themoviedb.helper')
                                         addon.setSetting("startup_notifications", 'false')
                 except:
                         sync_support.failed()

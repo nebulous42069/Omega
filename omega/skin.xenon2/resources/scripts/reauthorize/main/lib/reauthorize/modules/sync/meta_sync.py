@@ -514,9 +514,13 @@ class Auth:
                                         addon = xbmcaddon.Addon("plugin.video.themoviedb.helper")
                                         addon.setSetting("omdb_apikey", your_omdb_api)
                                         
-                                if (your_mdb_api or control.wiping()) and (not str(your_mdb_api) == str(chk_mdb_api) or str(chk_mdb_api) == ''):
+                                if your_mdb_api or control.wiping():
                                         addon = xbmcaddon.Addon("plugin.video.themoviedb.helper")
-                                        addon.setSetting("mdblist_apikey", your_mdb_api)
+                                        from reauthorize.modules import tmdbh_compat
+                                        if tmdbh_compat.installed(tmdbh_compat.MDBLIST):
+                                            tmdbh_compat.sync_mdblist(your_mdb_api)
+                                        else:
+                                            addon.setSetting("mdblist_apikey", your_mdb_api)
                 except:
                         sync_support.failed()
                         xbmc.log('%s: TMDBh Metadata Failed!' % var.amgr, xbmc.LOGINFO)

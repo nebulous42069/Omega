@@ -230,6 +230,20 @@ def _collect():
             for setting_id, value in _read_database(addon_id, spec).items():
                 held.setdefault(spec['keys'][setting_id], {})[value] = setting_id
         collected[addon_id] = held
+    # Trakt is a JSON bundle; scalar settings mappings cannot express it.
+    import json
+    addon_id = 'script.module.tmdbhelper.sync.trakt'
+    if _installed(addon_id):
+        try:
+            raw = xbmcaddon.Addon(addon_id).getSetting('token')
+            token = json.loads(raw) if raw else {}
+            held = collected.setdefault(addon_id, {})
+            for source, target in (('access_token', 'trakt.token'), ('refresh_token', 'trakt.refresh')):
+                value = token.get(source)
+                if isinstance(value, str) and _is_value(value):
+                    held.setdefault(target, {})[value] = 'token.' + source
+        except (ValueError, TypeError, AttributeError):
+            pass
     return collected
 
 

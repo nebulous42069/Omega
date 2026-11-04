@@ -30,6 +30,7 @@ TRAKT_KEYS = ('trakt.token', 'trakt.refresh', 'trakt.expires', 'trakt.username')
 # Add-ons that keep the whole Trakt sign-in as one JSON value in a single setting. import_map
 # cannot see these (the value is not equal to any one ReAuthorize setting), so they are named.
 _JSON_SETTINGS = {
+    'script.module.tmdbhelper.sync.trakt': ('token',),
     'plugin.video.themoviedb.helper': ('trakt_token',),
     'script.trakt': ('authorization',),
 }
@@ -114,6 +115,8 @@ def wipe_addons():
     """Blank Trakt in every installed add-on ReAuthorize knows about. Returns how many values changed."""
     from reauthorize.modules import import_map
     changed = 0
+    from reauthorize.modules.tmdbh_compat import clear_trakt_session
+    clear_trakt_session()
     targets = {}
     for addon_id, mapping in getattr(import_map, 'SETTINGS', {}).items():
         targets[addon_id] = {s for s, key in mapping.items() if key in TRAKT_KEYS}
