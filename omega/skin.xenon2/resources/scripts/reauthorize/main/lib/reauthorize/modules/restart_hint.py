@@ -58,6 +58,14 @@ def key_files():
                 pass
     except Exception:
         pass
+    try:
+        from reauthorize.modules import tmdbh_compat
+        for candidate in tmdbh_compat.key_paths():
+            if os.path.isfile(candidate):
+                with open(candidate, 'rb') as stream:
+                    state[candidate] = hashlib.md5(stream.read()).hexdigest()
+    except Exception:
+        pass
     return state
 
 

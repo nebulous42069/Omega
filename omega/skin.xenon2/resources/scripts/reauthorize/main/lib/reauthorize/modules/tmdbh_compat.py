@@ -53,10 +53,12 @@ def configure_trakt_client(client_id, client_secret):
     api = api.replace(marker, replacement)
     ast.parse(keys)
     ast.parse(api)
+    changed = False
     for path, content in ((keys_path, keys), (api_path, api)):
         with open(path, encoding='utf-8') as stream:
             original = stream.read()
         if original != content:
+            changed = True
             temporary = path + '.reauthorize-tmp'
             try:
                 with open(temporary, 'w', encoding='utf-8') as stream:
@@ -65,6 +67,8 @@ def configure_trakt_client(client_id, client_secret):
             finally:
                 if os.path.exists(temporary):
                     os.remove(temporary)
+
+    return changed
 
 
 def sync_trakt(token_json, client_id, client_secret):
@@ -85,3 +89,31 @@ def sync_mdblist(api_key):
     # Prevent migration from restoring an old key after an intentional wipe.
     if installed('plugin.video.themoviedb.helper'):
         xbmcaddon.Addon('plugin.video.themoviedb.helper').setSetting('mdblist_apikey', '')
+
+
+def key_paths():
+    base = xbmcvfs.translatePath('special://home/addons/%s/resources/lib/tmdbhelper_sync_trakt/api/' % TRAKT)
+    return [os.path.join(base, name) for name in ('keys.py', 'api.py')]
+
+
+def repair_provider(account):
+    """Reapply client compatibility after provider updates, without repeated token resets."""
+    from libs.common import var
+    if not installed(TRAKT):
+        return False
+    access = account.getSetting('trakt.token')
+    if not access or account.getSetting('trakt.auto_push.consent') == 'false':
+        return False
+    changed = configure_trakt_client(var.client_am, var.secret_am)
+    destination = xbmcaddon.Addon(TRAKT)
+    if changed or not destination.getSetting('token'):
+        lifetime = int(float(account.getSetting('trakt.lifetime') or 604800))
+        expires = int(float(account.getSetting('trakt.expires') or 0))
+        if not expires or not account.getSetting('trakt.refresh'):
+            raise ValueError('ReAuthorize Trakt sign-in needs a refresh token and expiry before provider recovery')
+        bundle = json.dumps({
+            'access_token': access, 'refresh_token': account.getSetting('trakt.refresh'),
+            'token_type': 'bearer', 'expires_in': lifetime,
+            'created_at': expires - lifetime, 'scope': 'public'})
+        sync_trakt(bundle, var.client_am, var.secret_am)
+    return changed

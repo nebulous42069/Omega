@@ -150,6 +150,23 @@ def _resend_after_settings_repair(addon_ids):
         xbmc.log('[ReAuthorize Settings] sending the sign-ins again failed: %s' % e, LOGINFO)
 
 
+def _repair_tmdbh_provider():
+    """Watch the separate Trakt provider throughout the running Kodi session."""
+    if control.setting('api.service') != 'true':
+        return
+    try:
+        from reauthorize.modules import tmdbh_compat, restart_hint, own_settings
+        before = restart_hint.key_files()
+        changed = tmdbh_compat.repair_provider(own_settings.addon())
+        if changed:
+            restart_hint.note_for_next_start(before, 'TMDb Helper Trakt provider update')
+            restart_hint.mark()
+            xbmc.log('[ReAuthorize] TMDb Helper Trakt provider repaired; restart Kodi to load the updated OAuth client.', LOGINFO)
+    except Exception as exc:
+        # No OAuth request bodies, secrets or account values in diagnostics.
+        xbmc.log('[ReAuthorize] TMDb Helper provider repair failed (%s); use Trakt Sync and check provider compatibility.' % type(exc).__name__, LOGINFO)
+
+
 def _keep_signed_in():
     # control.monitor, never a new xbmc.Monitor(): one made AFTER Kodi asked the script to stop
     # never hears about it and waits the full six hours. 1.3.7 made a new one here, so closing
@@ -161,6 +178,7 @@ def _keep_signed_in():
         _refresh_punchplay()
         _adopt_trakt()
         _link_new_addons(at_start=False)
+        _repair_tmdbh_provider()
         since_renew_check += NEW_ADDON_CHECK_SECONDS
         if since_renew_check >= RENEW_CHECK_SECONDS:
             since_renew_check = 0
@@ -524,8 +542,13 @@ def check_api():
             if first_pass: _step('key check: reading key files')
             key_files_before = restart_hint.key_files()
             for chk, chkset, path, old_client, old_secret, label in _api_addons():
+                if label == 'TMDb Helper':
+                    from reauthorize.modules import tmdbh_compat
+                    if tmdbh_compat.installed(tmdbh_compat.TRAKT):
+                        continue  # The provider-specific repair below owns this layout.
                 if xbmcvfs.exists(chk) and xbmcvfs.exists(chkset):
                     _inject_file_keys(path, old_client, old_secret, label)
+            _repair_tmdbh_provider()
 
             # The Crew 3.x - its key lines are swapped by pattern (sync/crew_trakt.py), which the
             # plain search-and-replace above cannot do; an update of Crew puts its own key back.
