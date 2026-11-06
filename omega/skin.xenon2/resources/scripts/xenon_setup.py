@@ -830,6 +830,14 @@ def directory_manifest(path):
     return files
 
 
+def sync_file_if_available(stream):
+    """Xbox UWP Python omits fsync; retain it on runtimes that provide it."""
+    stream.flush()
+    fsync = getattr(os, 'fsync', None)
+    if fsync is not None:
+        fsync(stream.fileno())
+
+
 def copy_flavor_contents(source, destination):
     """Copy data without chmod/utime metadata operations on Android storage."""
     os.makedirs(destination, exist_ok=True)
@@ -873,7 +881,7 @@ def apply_flavor(flavor, menu_ids=None, refresh=True):
         with open(os.path.join(stage, 'skin.xenon2-mainmenu.DATA.xml'), 'wb') as stream:
             stream.write(updated)
             stream.flush()
-            os.fsync(stream.fileno())
+            sync_file_if_available(stream)
         if directory_manifest(live) != live_manifest:
             raise ValueError('The current Skin Shortcuts profile changed while saving. Please try again.')
         if rollback:
@@ -1074,7 +1082,7 @@ def schedule_tracking_resume(mode, choices, flavor_index, menu_choices):
         json.dump({'mode': mode, 'choices': choices, 'flavor_index': flavor_index,
                    'menu_choices': menu_choices, 'job': job}, stream)
         stream.flush()
-        os.fsync(stream.fileno())
+        sync_file_if_available(stream)
     os.replace(checkpoint + '.tmp', checkpoint)
     helper_path = os.path.join(PROFILE, 'resume_tracking.py')
     with open(helper_path, 'w', encoding='utf-8') as stream:
