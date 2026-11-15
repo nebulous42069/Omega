@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="resource.images.skinbackgrounds.xenon" name="Skin Backgrounds - Xenon" version="0.0.2" provider-name="Helly">
+<addon id="resource.images.skinbackgrounds.xenon" name="Skin Backgrounds - Xenon" version="0.0.3" provider-name="Helly">
 	<extension point="kodi.resource.images" compile="false" type="skinbackgrounds" />
 	<requires>
 		<import addon="kodi.resource" version="1.0.0"/>

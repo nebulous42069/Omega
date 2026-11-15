@@ -969,7 +969,7 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.sc19
 		<description lang="en">Skin Backgrounds Pack - Xenon Design</description>
 		<platform>all</platform>
 	</extension>
-</addon><addon id="resource.images.skinbackgrounds.xenon" name="Skin Backgrounds - Xenon" version="0.0.2" provider-name="Helly">
+</addon><addon id="resource.images.skinbackgrounds.xenon" name="Skin Backgrounds - Xenon" version="0.0.3" provider-name="Helly">
 	<extension point="kodi.resource.images" compile="false" type="skinbackgrounds" />
 	<requires>
 		<import addon="kodi.resource" version="1.0.0" />
