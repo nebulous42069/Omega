@@ -1,0 +1,1 @@
+# resource.images.skinicons.wide
