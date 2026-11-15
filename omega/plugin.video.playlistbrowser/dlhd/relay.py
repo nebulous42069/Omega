@@ -11,6 +11,7 @@ from dlhd import resolver
 from dlhd.debuglog import LOG, reason
 
 
+from dlhd.sealed import unseal
 from dlhd.segments import unwrap
 from dlhd.media_check import validate_media, validate_mp4
 
@@ -39,26 +40,37 @@ class Relay(ThreadingHTTPServer):
             while len(self.resources) > 10000:
                 self.resources.popitem(last=False)
         return self.origin + '/resource/' + key
-    def session(self, channel, player, force=False):
+    def session(self, channel, player, force=False, player_url=None):
         with self.lock:
             key = (channel, player)
             entry = self.sessions.get(key)
             if force or not entry or time.time() >= entry['until']:
-                entry = resolver.resolve(self.base, channel, player)
+                if not player_url and entry:
+                    player_url = entry.get('player_url')
+                entry = resolver.resolve(self.base, channel, player, player_url)
+                entry['player_url'] = player_url
                 self.sessions[key] = entry
             return entry
 
     def playlist_fetch(self, session, target=None):
         target = target or session['url']
         meta, ref = session['meta'], session['referer']
-        if meta.get('edge') and urlsplit(target).netloc == urlsplit(meta['edge']).netloc:
-            token_data, _, _ = resolver.fetch(meta['edge'].rstrip('/') + '/api/playlist-token?' + urlencode({'slug': meta['slug']}), ref)
-            token = json.loads(token_data)['token']
-            parts = urlsplit(target)
-            query = parse_qs(parts.query)
-            query.update({'t': [token], '_': [str(int(time.time() * 1000))]})
-            target = urlunsplit(parts._replace(query=urlencode(query, doseq=True)))
-        return resolver.fetch(target, ref)
+        token_url = meta.get('token_url')
+        if not token_url or urlsplit(target).netloc != urlsplit(token_url).netloc:
+            return resolver.fetch(target, ref)
+        LOG.info('Requesting HLS playlist token host=%s ticket=%s',
+                 urlsplit(token_url).hostname, 'tk' in parse_qs(urlsplit(token_url).query))
+        token_data, _, _ = resolver.fetch(token_url, ref)
+        authorization = json.loads(token_data)
+        token = authorization.get('token')
+        if not isinstance(token, str) or not token:
+            raise ValueError('Playlist token endpoint returned no token')
+        parts = urlsplit(target)
+        query = parse_qs(parts.query, keep_blank_values=True)
+        query.update({'t': [token], '_': [str(int(time.time() * 1000))]})
+        target = urlunsplit(parts._replace(query=urlencode(query, doseq=True)))
+        data, kind, final = resolver.fetch(target, ref)
+        return unseal(data, authorization.get('k')), kind, final
 
     def probe(self, session):
         data, _, target = self.playlist_fetch(session)
@@ -140,14 +152,28 @@ class Relay(ThreadingHTTPServer):
             if cached and time.time() < cached[1] and time.time() >= self.blocked.get((channel, cached[0]), 0):
                 LOG.info('auto channel=%s cached_player=%s', channel, cached[0])
                 return cached[0]
-        for player in resolver.SERVERS:
+        with self.lock:
+            candidates = [player for player in resolver.ADVERTISED_SERVERS
+                          if time.time() >= self.blocked.get((channel, player), 0)]
+        if not candidates:
+            raise ValueError('All DaddyLive players are temporarily unavailable')
+        try:
+            resolver.REQUEST.deadline = time.monotonic() + 5
+            advertised = resolver.discover_players(self.base, channel)
+        except Exception as error:
+            LOG.info('Player discovery failed: %s; trying default paths', reason(error))
+            advertised = {}
+        finally:
+            del resolver.REQUEST.deadline
+        order = dict.fromkeys((*advertised, *resolver.SERVERS))
+        for player in order:
             with self.lock:
                 if time.time() < self.blocked.get((channel, player), 0):continue
             started = time.monotonic()
             LOG.info('test channel=%s player=%s started', channel, player)
             resolver.REQUEST.deadline = time.monotonic() + 12
             try:
-                session = self.session(channel, player)
+                session = self.session(channel, player, player_url=advertised.get(player))
                 self.probe(session)
                 with self.lock:
                     self.selected[channel] = (player, min(session['until'], time.time() + 120))
@@ -266,7 +292,12 @@ class Handler(BaseHTTPRequestHandler):
                 else:
                     raise ValueError('Source changed; reload the channel to continue')
             else:
-                try:data, kind, final = resolver.fetch(target, ref)
+                try:
+                    if role == 'playlist' and context:
+                        session = self.server.session(context[0], context[1])
+                        data, kind, final = self.server.playlist_fetch(session, target)
+                    else:
+                        data, kind, final = resolver.fetch(target, ref)
                 except Exception:
                     if role not in ('key','init','other'):self.server.media_failure(context)
                     raise

@@ -1,5 +1,6 @@
 """Experimental, standard-library Python implementation of selected upstream formats."""
 import base64
+import binascii
 import html
 import json
 import re
@@ -7,7 +8,7 @@ import time
 import threading
 from dlhd.debuglog import LOG, reason
 from dlhd.groups import group_for, sort_key, display_name
-from urllib.parse import urljoin, urlsplit
+from urllib.parse import urlencode, urljoin, urlsplit
 from urllib.request import Request, urlopen
 from html.parser import HTMLParser
 
@@ -15,6 +16,7 @@ UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/130.0.
 REQUEST = threading.local()
 
 SERVERS = ('stream', 'cast', 'watch', 'plus', 'casting', 'player')
+ADVERTISED_SERVERS = (*SERVERS, 'hub')
 
 
 def b64(value):
@@ -50,11 +52,13 @@ def fetch(url, referer='', limit=32 * 1024 * 1024):
 class Links(HTMLParser):
     def __init__(self):
         super().__init__()
-        self.frames, self.channels = [], []
+        self.frames, self.channels, self.players = [], [], []
         self.anchor = None
         self.text = []
     def handle_starttag(self, tag, attrs):
         a = dict(attrs)
+        if a.get('data-url'):
+            self.players.append(a['data-url'])
         if tag == 'iframe' and a.get('src'):
             self.frames.append(a)
         if tag == 'a':
@@ -65,7 +69,7 @@ class Links(HTMLParser):
             self.text.append(data)
     def handle_endtag(self, tag):
         if tag == 'a' and self.anchor is not None:
-            href = self.anchor.get('href', '')
+            href = self.anchor.get('href') or ''
             match = re.search(r'(?:[?&]id=|stream-)(\d+)|/(\d+)/?$', href)
             name = ' '.join(' '.join(self.text).split()) or self.anchor.get('title', '')
             if match and name:
@@ -83,27 +87,64 @@ def channels(base):
     return sorted(found.items(), key=lambda item: item[1].casefold())
 
 
-def extract(source):
+def extract(source, page=''):
     source = html.unescape(source).replace('\\/', '/')
     match = re.search(r'window\._econfig\s*=\s*[\'"]([^\'"]+)', source)
     if match:
-        raw = base64.b64decode(match.group(1)).decode('latin1')
-        size = (len(raw) + 3) // 4
-        pieces = [''] * 4
-        for i, target in enumerate((2, 0, 3, 1)):
-            chunk = raw[i * size:(i + 1) * size]
-            pieces[target] = b64(chunk[:3] + chunk[4:])
-        config = json.loads(b64(''.join(pieces)))
-        key = 'stream_url_nop2p' if config.get('p2p') is False or config.get('url_nop2p') else 'stream_url'
-        return config.get(key) or config.get('stream_url') or config.get('stream_url_nop2p'), {}
-    match = re.search(r'var\s+_\w+\s*=\s*\[([\d,\s]+)\]\s*,\s*_\w+\s*=\s*(\d+)\s*,\s*_\w+\s*=\s*(\d+)', source)
+        try:
+            raw = base64.b64decode(match.group(1)).decode('latin1')
+            size = (len(raw) + 3) // 4
+            pieces = [''] * 4
+            for i, target in enumerate((2, 0, 3, 1)):
+                chunk = raw[i * size:(i + 1) * size]
+                pieces[target] = b64(chunk[:3] + chunk[4:])
+            config = json.loads(b64(''.join(pieces)))
+            target = config.get('stream_url_nop2p') or config.get('stream_url')
+            if isinstance(target, str) and target:
+                return target, {}
+        except (ValueError, TypeError, AttributeError, binascii.Error):
+            LOG.info("Player configuration could not be decoded; checking alternate formats")
+    match = re.search(r'(?:var|let|const)\s+\w+\s*=\s*\[([\d,\s]+)\]\s*,\s*\w+\s*=\s*(\d+)\s*,\s*\w+\s*=\s*(\d+)', source)
     if match:
         source = ''.join(chr(((int(n) ^ int(match.group(2))) - int(match.group(3))) & 255) for n in match.group(1).split(',') if n.strip())
+        token_link = re.search(r'loadStreamUrl\(\s*["\']([^"\']+)', source)
+        if token_link and page:
+            token_url = urljoin(page, token_link.group(1).replace('\\/', '/'))
+            token = urlsplit(token_url).path.rstrip('/').rsplit('/', 1)[-1]
+            if token:
+                raw, _, _ = fetch(token_url, urljoin(page, '/'))
+                if len(raw) > 1:
+                    target = ''.join(chr(byte ^ ord(token[i % len(token)]) ^ ((raw[0] + i) & 255))
+                                     for i, byte in enumerate(raw[1:])).strip()
+                    if target.startswith(('http://', 'https://')):
+                        return target, {}
     src = re.search(r'const\s+SRC\s*=\s*"([^"]+)"', source)
     edge = re.search(r'const\s+EDGE\s*=\s*"([^"]+)"', source)
     slug = re.search(r'const\s+CHANNEL\s*=\s*"([^"]+)"', source)
-    if src and edge and slug and urlsplit(src.group(1)).netloc == urlsplit(edge.group(1)).netloc:
-        return src.group(1), {'edge': edge.group(1), 'slug': slug.group(1)}
+    if src:
+        target = urljoin(page, src.group(1))
+        token_origin = urljoin(page, edge.group(1)) if edge else ''
+        ticket = re.search(r'const\s+TICKET\s*=\s*"([^"]+)"', source)
+        if (token_origin and slug and (ticket or 'playlist-token' in source)
+                and urlsplit(target).netloc == urlsplit(token_origin).netloc):
+            params = {'slug': slug.group(1)}
+            if ticket:
+                params['tk'] = ticket.group(1)
+            token_url = token_origin.rstrip('/') + '/api/playlist-token?' + urlencode(params)
+            return target, {'token_url': token_url}
+        return target, {}
+    stream_urls = re.search(r'const\s+streamUrls\s*=\s*(\[[^\]]*\])', source)
+    if stream_urls:
+        try:
+            entries = json.loads(stream_urls.group(1))
+        except ValueError:
+            entries = []
+        for entry in entries:
+            if isinstance(entry, dict):
+                entry = next((entry[key] for key in ('url', 'src', 'file', 'stream_url')
+                              if isinstance(entry.get(key), str) and entry[key]), None)
+            if isinstance(entry, str) and entry:
+                return entry, {}
     decoder = re.search(r'function (\w+)\(s\)\{[^}]*atob', source)
     if decoder:
         variables = dict(re.findall(r"var (\w+)='([A-Za-z0-9+/=_-]+)'", source))
@@ -126,10 +167,25 @@ def extract(source):
     return None
 
 
-def resolve(base, channel, server):
-    if server not in SERVERS or not str(channel).isdigit() or int(channel) < 1:
+def discover_players(base, channel):
+    watch = base.rstrip('/') + '/watch.php?id=' + str(channel)
+    data, _, final = fetch(watch, base)
+    parser = Links()
+    parser.feed(data.decode('utf-8', 'replace'))
+    players = {}
+    for value in parser.players:
+        url = urljoin(final, value.strip())
+        parts = urlsplit(url)
+        server = parts.path.strip('/').split('/', 1)[0]
+        if parts.scheme in ('http', 'https') and parts.hostname and server in ADVERTISED_SERVERS:
+            players.setdefault(server, url)
+    return players
+
+
+def resolve(base, channel, server, player_url=None):
+    if server not in ADVERTISED_SERVERS or not str(channel).isdigit() or int(channel) < 1:
         raise ValueError('Invalid channel or player')
-    page = base.rstrip('/') + '/{}/stream-{}.php'.format(server, channel)
+    page = player_url or base.rstrip('/') + '/{}/stream-{}.php'.format(server, channel)
     referer = base.rstrip('/') + '/watch.php?id=' + str(channel)
     visited = set()
     for depth in range(8):
@@ -139,14 +195,16 @@ def resolve(base, channel, server):
         data, _, page = fetch(page, referer)
         source = data.decode('utf-8', 'replace')
         LOG.info('resolve channel=%s player=%s hop=%s host=%s', channel, server, depth, urlsplit(page).hostname)
-        result = extract(source) if depth else None
+        result = extract(source, page) if depth or server == 'hub' else None
         if result:
             target, meta = result
+            target = urljoin(page, target)
+            page = urljoin(page, '/')
             expiry = re.search(r'[?&]e=(\d+)', target)
             return {'url': target, 'referer': page, 'meta': meta, 'until': min(float(expiry.group(1)) - 45, time.time() + 240) if expiry else time.time() + 240}
         parser = Links()
         parser.feed(source)
-        preferred = [f for f in parser.frames if f.get('id') == 'thatframe'] or [f for f in parser.frames if 'video' in f.get('class', '')] or parser.frames
+        preferred = [f for f in parser.frames if f.get('id') == 'thatframe'] or [f for f in parser.frames if 'video' in (f.get('class') or '')] or parser.frames
         next_page = preferred[-1]['src'] if preferred else None
         if not next_page and 'wikisport' in page:
             fid = re.search(r'fid\s*=\s*[\'"]([^\'"]+)', source)
