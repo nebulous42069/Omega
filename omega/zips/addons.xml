@@ -979,7 +979,7 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.sc19
 		<description lang="en">Skin Backgrounds Pack - Xenon Design</description>
 		<platform>all</platform>
 	</extension>
-</addon><addon id="resource.images.skinicons.wide" name="Skin Icons - Wide" version="420.1.0.5" provider-name="marcelveldt, cartman.dos">
+</addon><addon id="resource.images.skinicons.wide" name="Skin Icons - Wide" version="420.1.0.6" provider-name="marcelveldt, cartman.dos">
 	<extension point="kodi.resource.images" compile="false" type="skinicons" />
 	<requires>
 		<import addon="kodi.resource" version="1.0.0" />
