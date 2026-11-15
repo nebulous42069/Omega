@@ -35,42 +35,46 @@
             <focusedlayout />
         </control>
 
-        <!-- Main fanart/image. -->
-        <control type="image">
-            <left>0</left>
-            <top>0</top>
-            <width>1920</width>
-            <height>1080</height>
-            <aspectratio scalediffuse="false">scale</aspectratio>
-            <fadetime>800</fadetime>
-            <texture background="true">$INFO[Container(1297).ListItem.Art(fanart)]</texture>
-            <animation effect="zoom" start="110" end="145" center="auto" time="10000" tween="sine" easing="inout" pulse="true" condition="true">Conditional</animation>
-            <animation effect="slide" start="-15,-15" end="15,15" time="3000" tween="sine" easing="inout" pulse="true" condition="true">Conditional</animation>
-        </control>
+        <!-- Keep the artwork layers in sync through image changes. -->
+        <control type="group">
+            <animation type="Conditional" condition="String.IsEqual(Window.Property(screensaver.arctic.mirage.pan_and_zoom),true)" pulse="true">
+                <effect type="zoom" start="105" end="115" center="960,540" time="18000" tween="sine" easing="inout" />
+                <effect type="slide" start="-18,-12" end="18,12" time="18000" tween="sine" easing="inout" />
+            </animation>
 
-        <!-- Fallback image for lists that expose thumb/poster but no fanart. -->
-        <control type="image">
-            <left>0</left>
-            <top>0</top>
-            <width>1920</width>
-            <height>1080</height>
-            <visible>String.IsEmpty(Container(1297).ListItem.Art(fanart))</visible>
-            <aspectratio scalediffuse="false">scale</aspectratio>
-            <fadetime>800</fadetime>
-            <texture background="true">$INFO[Container(1297).ListItem.Art(thumb)]</texture>
-            <animation effect="zoom" start="110" end="145" center="auto" time="10000" tween="sine" easing="inout" pulse="true" condition="true">Conditional</animation>
-        </control>
+            <!-- Main fanart/image. -->
+            <control type="image">
+                <left>0</left>
+                <top>0</top>
+                <width>1920</width>
+                <height>1080</height>
+                <aspectratio scalediffuse="false">scale</aspectratio>
+                <fadetime>800</fadetime>
+                <texture background="true">$INFO[Container(1297).ListItem.Art(fanart)]</texture>
+            </control>
 
-        <control type="image">
-            <left>0</left>
-            <top>0</top>
-            <width>1920</width>
-            <height>1080</height>
-            <visible>String.IsEmpty(Container(1297).ListItem.Art(fanart)) + String.IsEmpty(Container(1297).ListItem.Art(thumb))</visible>
-            <aspectratio scalediffuse="false">scale</aspectratio>
-            <fadetime>800</fadetime>
-            <texture background="true">$INFO[Container(1297).ListItem.Art(poster)]</texture>
-            <animation effect="zoom" start="110" end="145" center="auto" time="10000" tween="sine" easing="inout" pulse="true" condition="true">Conditional</animation>
+            <!-- Fallback image for lists that expose thumb/poster but no fanart. -->
+            <control type="image">
+                <left>0</left>
+                <top>0</top>
+                <width>1920</width>
+                <height>1080</height>
+                <visible>String.IsEmpty(Container(1297).ListItem.Art(fanart))</visible>
+                <aspectratio scalediffuse="false">scale</aspectratio>
+                <fadetime>800</fadetime>
+                <texture background="true">$INFO[Container(1297).ListItem.Art(thumb)]</texture>
+            </control>
+
+            <control type="image">
+                <left>0</left>
+                <top>0</top>
+                <width>1920</width>
+                <height>1080</height>
+                <visible>String.IsEmpty(Container(1297).ListItem.Art(fanart)) + String.IsEmpty(Container(1297).ListItem.Art(thumb))</visible>
+                <aspectratio scalediffuse="false">scale</aspectratio>
+                <fadetime>800</fadetime>
+                <texture background="true">$INFO[Container(1297).ListItem.Art(poster)]</texture>
+            </control>
         </control>
 
         <!-- Tiny hidden control expected by resources/lib/screensaver.py. -->

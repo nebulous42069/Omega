@@ -134,6 +134,8 @@ class Screensaver(xbmcgui.WindowXMLDialog):
         self.character = self.getControl(HIDDEN_IMAGE_ID)
         self._ready = True
         self.setProperty('screensaver.arctic.mirage.info_enabled', 'true')
+        self.setProperty('screensaver.arctic.mirage.pan_and_zoom',
+                         str(utils.get_bool_setting('pan_and_zoom', True)).lower())
         self.setFocusId(INPUT_BUTTON_ID)
 
         if self.path:

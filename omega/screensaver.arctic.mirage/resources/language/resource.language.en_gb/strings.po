@@ -53,3 +53,7 @@ msgstr ""
 msgctxt "#32008"
 msgid "Return to paused video OSD when video is paused"
 msgstr ""
+
+msgctxt "#32009"
+msgid "Pan and zoom artwork"
+msgstr ""
