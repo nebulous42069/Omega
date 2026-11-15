@@ -325,6 +325,16 @@
 
 	</category>
 
+	<category label="Tools">
+		<setting type="lsep" label="Set Max Resolution" />
+		<setting type="action" label="Set 4K Max" option="close" action="RunScript(script.module.authorizediggz, action=setUHD)" />
+		<setting type="action" label="Set 1080p Max" option="close" action="RunScript(script.module.authorizediggz, action=setHD)" />
+		<setting type="action" label="Set 720p Max" option="close" action="RunScript(script.module.authorizediggz, action=setSD)" />
+		<setting type="lsep" label="Set Source Select/Autoplay" />
+		<setting type="action" label="Set Source Select" option="close" action="RunScript(script.module.authorizediggz, action=setDIR)" />
+		<setting type="action" label="Set Autoplay" option="close" action="RunScript(script.module.authorizediggz, action=setAUTO)" />
+	</category>
+
 	<!-- ═══════════════════════════════════════════════════════════
 	     TAB 6 - BACKUP & DEVICE
 	     Auto-Vault - Server Sync - Per-service

@@ -1267,7 +1267,7 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.sc19
 		</assets>
 		<news>- code refactor</news>
 	</extension>
-</addon><addon id="script.module.authorizediggz" name="Diggz Account Manager" version="1.4.5.30" provider-name="Zaxxon709, Hermit Murman, Diggz">
+</addon><addon id="script.module.authorizediggz" name="Diggz Account Manager" version="1.4.5.33" provider-name="Zaxxon709, Hermit Murman, Diggz">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
         <import addon="script.module.requests" version="2.19.1" />
@@ -1955,7 +1955,7 @@ v0.2.3
 		<description lang="en_NZ">FENtastic Plus is a modified version of the default Estuary skin for Kodi. It is intended for use with Fen Light, Red Light, The Gears, Umbrella, POV, TMDbH.[CR][CR]See [B]CHANGELOG[/B] located in Skin settings » Extra info for latest changes.</description>
 		<description lang="en_US">FENtastic Plus is a modified version of the default Estuary skin for Kodi. It is intended for use with Fen Light, Red Light, The Gears, Umbrella, POV, TMDbH.[CR][CR]See [B]CHANGELOG[/B] located in Skin settings » Extra info for latest changes.</description>
 	</extension>
-</addon><addon id="skin.xenon2" version="430.99.30" name="[B][COLOR gold]Diggz Xenon[/COLOR][/B]  (Mid Power)" provider-name="SiLVO, Diggz">
+</addon><addon id="skin.xenon2" version="430.99.31" name="[B][COLOR gold]Diggz Xenon[/COLOR][/B]  (Mid Power)" provider-name="SiLVO, Diggz">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0" />
 		<import addon="script.module.requests" version="2.19.1" />

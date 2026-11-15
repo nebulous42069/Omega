@@ -164,6 +164,12 @@ def run_main(arguments):
     # follow-ups, or the legacy Core router's management actions.
     params = dict(piece.strip().split('=', 1)
                   for arg in arguments for piece in arg.split('&') if '=' in piece)
+    action = params.get('action')
+    if action in ('setUHD', 'setHD', 'setSD', 'setDIR', 'setAUTO'):
+        from reauthorize.modules import playback_preferences
+        playback_preferences.apply(action)
+        Addon(MAIN_ID).openSettings()
+        return
     if params.get('action') == 'wizardTrackingPreference':
         from reauthorize.modules.tracking_preference import apply_from_wizard
         return apply_from_wizard()

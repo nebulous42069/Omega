@@ -733,6 +733,7 @@
 		<pagecontrol/>
 		<itemlayout height="70" width="500" condition="String.IsEmpty(Skin.String(MainMenu.Layout))">
 			<control type="label">
+				<animation effect="fade" start="100" end="30" time="0" condition="true">Conditional</animation>
 				<top>26</top>			
 				<width>500</width>
 				<height>70</height>
@@ -793,7 +794,8 @@
 			</control>			
 		</focusedlayout>
 		<itemlayout height="70" width="640" condition="String.IsEqual(Skin.String(MainMenu.Layout),3)">
-			<control type="label">	
+			<control type="label">
+				<animation effect="fade" start="100" end="30" time="0" condition="true">Conditional</animation>	
 				<top>26</top>			
 				<width>640</width>
 				<height>70</height>

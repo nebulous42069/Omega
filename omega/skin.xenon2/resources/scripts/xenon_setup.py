@@ -1,4 +1,4 @@
-"""Single-file Xenon 2 wizard: source -> selection -> installation -> results.
+"""Xenon 2 wizard: source -> selection -> installation -> results.
 
 Flow: links, add-ons, Debrid authorization, favorite, Home checklist, save menus, tracking, Finish.
 """
@@ -21,7 +21,9 @@ import xbmcgui
 import xbmcaddon
 import xbmcvfs
 
-# Copy this single file into skin.xenon2/resources/scripts/.
+import xenon_flavor_updates
+
+# Install alongside xenon_flavor_updates.py in skin.xenon2/resources/scripts/.
 # Launch: RunScript(special://skin/resources/scripts/xenon_setup.py)
 # Kodi 21/22 test build. No companion add-on installation required.
 # User choices and generated UI files stay in this Kodi profile.
@@ -98,8 +100,12 @@ CATALOG = {
             "icon": "special://home/addons/resource.images.skinicons.wide/resources/icons/pov.png"
         },
         {
-            "id": "plugin.video.aliunde",
-            "name": "Aliunde"
+            "id": "plugin.video.thechains",
+            "name": "Chains"
+        },
+        {
+            "id": "plugin.video.prism",
+            "name": "Prism"
         },
         {
             "id": "plugin.video.aliundek19",
@@ -110,132 +116,24 @@ CATALOG = {
             "name": "AniVerse"
         },
         {
-            "id": "plugin.video.base",
-            "name": "Base"
-        },
-        {
             "id": "plugin.video.blacklightning",
             "name": "Black Lightning"
-        },
-        {
-            "id": "plugin.video.blueballs",
-            "name": "Blue Balls"
-        },
-        {
-            "id": "plugin.video.thechains",
-            "name": "Chains"
-        },
-        {
-            "id": "plugin.video.chainsgenocide",
-            "name": "Chains Genocide"
-        },
-        {
-            "id": "plugin.video.coalition",
-            "name": "Coalition"
-        },
-        {
-            "id": "plugin.video.cosmos",
-            "name": "Cosmos"
-        },
-        {
-            "id": "plugin.video.cumination",
-            "name": "Cumination"
-        },
-        {
-            "id": "plugin.video.gears",
-            "name": "Gears"
-        },
-        {
-            "id": "plugin.video.genocide",
-            "name": "Genocide"
-        },
-        {
-            "id": "plugin.video.ghost",
-            "name": "Ghost"
-        },
-        {
-            "id": "plugin.video.gratisred",
-            "name": "GratisRed"
-        },
-        {
-            "id": "plugin.video.homelander",
-            "name": "Homelander"
-        },
-        {
-            "id": "plugin.video.infinity",
-            "name": "Infinity"
-        },
-        {
-            "id": "plugin.video.nightwing",
-            "name": "Nightwing"
-        },
-        {
-            "id": "plugin.video.nine",
-            "name": "Nine"
-        },
-        {
-            "id": "plugin.video.orion",
-            "name": "Orion"
         },
         {
             "id": "plugin.video.otaku",
             "name": "Otaku"
         },
         {
-            "id": "plugin.video.patriot",
-            "name": "Patriot"
-        },
-        {
-            "id": "plugin.video.premiumizerx",
-            "name": "PremiumizerX"
-        },
-        {
-            "id": "plugin.video.prism",
-            "name": "Prism"
-        },
-        {
             "id": "plugin.video.quicksilver",
             "name": "Quicksilver"
-        },
-        {
-            "id": "plugin.video.realizerx",
-            "name": "RealizerX"
         },
         {
             "id": "plugin.video.salts",
             "name": "Salts"
         },
         {
-            "id": "plugin.video.scrubsv2",
-            "name": "Scrubs V2"
-        },
-        {
             "id": "plugin.video.shadow",
             "name": "Shadow"
-        },
-        {
-            "id": "plugin.video.shazam",
-            "name": "Shazam"
-        },
-        {
-            "id": "plugin.video.syncher",
-            "name": "Syncher"
-        },
-        {
-            "id": "plugin.video.thearchives",
-            "name": "The Archives"
-        },
-        {
-            "id": "plugin.video.tmdbmovies",
-            "name": "TMDb Movies"
-        },
-        {
-            "id": "plugin.video.twisted",
-            "name": "Twisted"
-        },
-        {
-            "id": "plugin.video.youtubetheater",
-            "name": "Youtube Theater"
         }
     ]
 }
@@ -305,63 +203,9 @@ SERVICES = [
 # Each flavor is a complete read-only script.skinshortcuts folder.
 # Labels within that flavor identify checklist entries; duplicate labels are grouped.
 MENU_FILE = 'special://profile/addon_data/script.skinshortcuts/skin.xenon2-mainmenu.DATA.xml'
-FLAVOR_ROOT = 'special://skin/resources/scripts/flavors/'
 # Setup launcher entries are hidden after applying a flavor.
 DISABLED_SETUP_LABELS = ['Xenon Setup', 'Xenon 2 Setup', 'Xenon2 Setup']
-# Debrid favorite add-ons (Free favorites are configured separately below).
-FLAVORS = [
-    {
-        "id": "tmdbhelper",
-        "name": "The Movie Database Helper",
-        "addon": "plugin.video.themoviedb.helper",
-        "folder": "tmdbhelper",
-        "icon": "special://home/addons/resource.images.skinicons.wide/resources/icons/tmdbh.png",
-        "always_labels": [
-            "1036",
-            "24001",
-            "Diggz Xenon"
-        ]
-    },
-    {
-        "id": "redlight",
-        "name": "Red Light",
-        "addon": "plugin.video.redlight",
-        "folder": "redlight",
-        "icon": "special://home/addons/resource.images.skinicons.wide/resources/icons/fenlight.png",
-        "always_labels": [
-            "1036",
-            "24001",
-            "Diggz Xenon"
-        ]
-    },
-    {
-        "id": "umbrella",
-        "name": "Umbrella",
-        "addon": "plugin.video.umbrella",
-        "folder": "umbrella",
-        "icon": "special://home/addons/resource.images.skinicons.wide/resources/umbrella.png",
-        "always_labels": [
-            "1036",
-            "24001",
-            "Diggz Xenon"
-        ]
-    }
-]
-# Free profiles skip Debrid authorization. Tracking authorization remains shared.
-FREE_FLAVORS = [
-    {
-        "id": "xenonfree",
-        "name": "Xenon Free",
-        "addon": "",
-        "folder": "xenonfree",
-        "icon": "special://home/addons/resource.images.skinicons.wide/resources/free.png",
-        "always_labels": [
-            "1036",
-            "24001",
-            "Diggz Xenon"
-        ]
-    }
-]
+
 
 TRACKING_SERVICES = [
     {
@@ -624,10 +468,6 @@ def pending_addons(entries, selected_ids):
     return pending
 
 
-def flavors_for(mode):
-    return FREE_FLAVORS if mode == 'free' else FLAVORS
-
-
 def show_step(window, visible):
     for id in [750, 306, 100, 101, 200, 201, 202, 300, 301, 400, 401, 500, 501, 502, 600, 602, 601, 603, 303, 304, 700, 710, 711, 305, 720, 721, 722, 740, 741, 742]:
         window.getControl(id).setVisible(id in visible)
@@ -729,7 +569,7 @@ class Wizard(xbmcgui.WindowXMLDialog):
             self.getControl(750).getListItem(index).setProperty('checked', 'true' if entry['id'] in selected else 'false')
             self.refresh()
         elif cid == 305 and self.mode == 'free':
-            self.result = 'flavor'
+            self.result = 'playback'
             self.close()
         elif cid == 303 and self.stage == 'addons' and self.mode == 'debrid':
             self.result = 'install'
@@ -775,6 +615,26 @@ def service_icon(entry):
 REAUTHORIZE_ID = 'script.module.authorizediggz'
 
 
+PLAYBACK_PRESETS = (
+    ('Max Resolution', (('Keep current', ''), ('4K', 'setUHD'),
+                        ('1080p', 'setHD'), ('720p', 'setSD'))),
+    ('Source Selection', (('Keep current', ''), ('Source Select', 'setDIR'),
+                          ('Autoplay', 'setAUTO'))),
+)
+PLAYBACK_ACTIONS = {action for _, options in PLAYBACK_PRESETS for _, action in options if action}
+
+
+def playback_presets_available():
+    if not xbmc.getCondVisibility('System.AddonIsEnabled(%s)' % REAUTHORIZE_ID):
+        return False
+    try:
+        version = xbmcaddon.Addon(REAUTHORIZE_ID).getAddonInfo('version')
+        prefix = re.match(r'\d+(?:\.\d+)*', version)
+        return bool(prefix and tuple(map(int, prefix.group().split('.'))) >= (1, 4, 5, 31))
+    except RuntimeError:
+        return False
+
+
 def reauthorize_ready():
     if xbmc.getCondVisibility('System.AddonIsEnabled(%s)' % REAUTHORIZE_ID):
         return True
@@ -784,8 +644,10 @@ def reauthorize_ready():
 
 def launch_authorization(entry, monitor, timeout=1800):
     """Await the Diggz Account Manager action's completion, without opening add-on settings."""
-    if entry['action'] not in ({service['action'] for service in SERVICES + TRACKING_SERVICES} | {'wizardRestore', 'wizardStatus', 'wizardTrackingPreference'}):
-        raise ValueError('Unknown authorization action')
+    if entry['action'] not in ({service['action'] for service in SERVICES + TRACKING_SERVICES}
+                               | {'wizardRestore', 'wizardStatus', 'wizardTrackingPreference'}
+                               | PLAYBACK_ACTIONS):
+        raise ValueError('Unknown Diggz Account Manager action')
     job = str(time.time_ns())
     window = xbmcgui.Window(10000)
     name = 'Xenon.ReAuthorize.Job.' + job
@@ -797,13 +659,26 @@ def launch_authorization(entry, monitor, timeout=1800):
             state = window.getProperty(name)
             if state in ('done', 'error'):
                 if state == 'error':
-                    xbmcgui.Dialog().ok('Diggz Account Manager', 'The authorization action could not finish. Check the Kodi log. No success has been assumed.')
+                    xbmcgui.Dialog().ok('Diggz Account Manager', 'The requested action could not finish. Check the Kodi log.')
                 return state == 'done'
             if monitor.waitForAbort(0.25):
                 return False
         return False
     finally:
         window.clearProperty(name)
+
+
+def apply_playback_presets(selections, monitor):
+    for index, (_, options) in enumerate(PLAYBACK_PRESETS):
+        action = options[selections[index]][1]
+        if not action:
+            continue
+        if not launch_authorization({'action': action}, monitor):
+            if not monitor.abortRequested():
+                xbmcgui.Dialog().notification('Xenon Setup', 'Playback preset could not be confirmed.')
+            return False
+        selections[index] = 0
+    return True
 
 
 SERVICE_CREDENTIALS = {
@@ -954,13 +829,6 @@ class AuthorizationWizard(Wizard):
             self.close()
 
 
-def flavor_directory(flavor):
-    folder = flavor.get('folder', flavor['id'])
-    if not re.fullmatch(r'[a-z0-9_-]+', folder):
-        raise ValueError('Invalid flavor folder name')
-    return os.path.join(xbmcvfs.translatePath(FLAVOR_ROOT), folder, 'script.skinshortcuts')
-
-
 def profile_entries(data, flavor):
     root = ET.fromstring(data)
     if root.tag != 'shortcuts':
@@ -977,14 +845,6 @@ def profile_entries(data, flavor):
     if set(flavor['always_labels']) & set(DISABLED_SETUP_LABELS):
         raise ValueError('An always-on label is also configured as a setup label.')
     return root, grouped
-
-
-def read_flavor_menu(flavor):
-    path = os.path.join(flavor_directory(flavor), 'skin.xenon2-mainmenu.DATA.xml')
-    with open(path, 'rb') as stream:
-        data = stream.read()
-    profile_entries(data, flavor)
-    return data
 
 
 def display_menu_label(label):
@@ -1044,12 +904,12 @@ def copy_flavor_contents(source, destination):
             shutil.copyfile(os.path.join(parent, name), os.path.join(target, name))
 
 
-def apply_flavor(flavor, menu_ids=None, refresh=True):
-    source = flavor_directory(flavor)
+def apply_flavor(flavor, menu_ids=None, refresh=True, *, source, version, keep_backup=False):
     source_manifest = directory_manifest(source)
     if source_manifest is None:
         raise ValueError('Flavor folder not found: ' + source)
-    original_menu = read_flavor_menu(flavor)
+    with open(os.path.join(source, 'skin.xenon2-mainmenu.DATA.xml'), 'rb') as stream:
+        original_menu = stream.read()
     updated = plan_home_menus(original_menu, flavor, menu_ids or [])
     # Validate every supplied menu/submenu file before touching the live folder.
     for relative in source_manifest:
@@ -1092,12 +952,13 @@ def apply_flavor(flavor, menu_ids=None, refresh=True):
         if os.path.isdir(stage):
             shutil.rmtree(stage)
     # Rollback exists only for the swap; successful installs retain no history.
-    if moved_original and rollback and os.path.isdir(rollback):
+    if moved_original and rollback and not keep_backup and os.path.isdir(rollback):
         try:
             shutil.rmtree(rollback)
         except OSError as exc:
             xbmc.log('Xenon Setup: could not remove temporary rollback folder %s: %s' % (rollback, exc), xbmc.LOGWARNING)
     xbmc.executebuiltin('Skin.SetString(Xenon2.Setup.Flavor,%s)' % flavor['id'])
+    xbmc.executebuiltin('Skin.SetString(Xenon2.Setup.FlavorVersion,%s)' % version)
     if refresh:
         xbmc.executebuiltin('RunScript(script.skinshortcuts,type=buildxml&mainmenuID=9000&levels=2&group=mainmenu|buttonmenu)')
     return None
@@ -1116,6 +977,49 @@ def flavor_icon(entry):
     return os.path.join(ROOT, 'resources', 'skins', 'Default', 'media', 'placeholder.png')
 
 
+class PlaybackWizard(Wizard):
+    def onInit(self):
+        visible = {301, 304, 720} if self.available else {301, 304}
+        show_step(self, visible)
+        self.getControl(10).setLabel('Xenon Setup')
+        self.getControl(11).setLabel('Playback Preferences')
+        message = ('Choose settings for supported installed add-ons, or leave them as they are.'
+                   if self.available else
+                   'Playback presets require Diggz Account Manager 1.4.5.31 or newer. You can continue setup.')
+        self.getControl(12).setLabel(message)
+        back, next_button = self.getControl(301), self.getControl(304)
+        back.setLabel('Back')
+        next_button.setLabel('Continue')
+        back.controlRight(next_button)
+        next_button.controlLeft(back)
+        listing = self.getControl(720)
+        if self.available:
+            listing.reset()
+            for (label, options), selected in zip(PLAYBACK_PRESETS, self.presets):
+                listing.addItem(xbmcgui.ListItem(label='%s: %s' % (label, options[selected][0])))
+            back.controlUp(listing)
+            next_button.controlUp(listing)
+            listing.controlLeft(back)
+        self.setFocusId(720 if self.available else 304)
+
+    def onClick(self, cid):
+        if cid in (301, 304):
+            self.result = 'back' if cid == 301 else 'playback_continue'
+            self.close()
+        elif cid == 720 and self.available:
+            listing = self.getControl(720)
+            index = listing.getSelectedPosition()
+            if not 0 <= index < len(PLAYBACK_PRESETS):
+                return
+            title, options = PLAYBACK_PRESETS[index]
+            choice = xbmcgui.Dialog().select(title, [label for label, _ in options],
+                                             preselect=self.presets[index])
+            if 0 <= choice < len(options):
+                self.presets[index] = choice
+                listing.getListItem(index).setLabel('%s: %s' % (title, options[choice][0]))
+            self.setFocusId(720)
+
+
 class FlavorWizard(Wizard):
     def onInit(self):
         show_step(self, {301, 304, 721, 722, 720, 600, 601, 602, 603})
@@ -1130,7 +1034,7 @@ class FlavorWizard(Wizard):
         self.getControl(304).setLabel('Choose Home Menus')
         listing = self.getControl(720)
         listing.reset()
-        for entry in flavors_for(self.mode):
+        for entry in self.flavors:
             item = xbmcgui.ListItem(label=entry['name'])
             item.setProperty('flavor_icon', flavor_icon(entry))
             listing.addItem(item)
@@ -1149,12 +1053,15 @@ class FlavorWizard(Wizard):
     def onClick(self, cid):
         listing = self.getControl(720)
         if cid in (600, 601):
-            index = max(0, min(len(flavors_for(self.mode)) - 1,
+            index = max(0, min(len(self.flavors) - 1,
                               listing.getSelectedPosition() + (-1 if cid == 600 else 1)))
             listing.selectItem(index)
             self.setFocusId(720)
         elif cid in (720, 304):
-            self.flavor_index = listing.getSelectedPosition()
+            index = listing.getSelectedPosition()
+            if not 0 <= index < len(self.flavors):
+                return
+            self.flavor_index = index
             self.result = 'menus'
             self.close()
         elif cid == 301:
@@ -1173,19 +1080,51 @@ class TrackingWizard(AuthorizationWizard):
             xbmc.log('Xenon Setup: final Tracking page initialized.', xbmc.LOGINFO)
 
 
+def menu_enabled(entries):
+    return all(entry.findtext('disabled', '').strip().lower() != 'true' for entry in entries)
+
+
+def choose_update_menus(flavor, source):
+    with open(os.path.join(source, 'skin.xenon2-mainmenu.DATA.xml'), 'rb') as stream:
+        menu = stream.read()
+    _, new_groups = profile_entries(menu, flavor)
+    try:
+        with open(xbmcvfs.translatePath(MENU_FILE), 'rb') as stream:
+            _, old_groups = profile_entries(stream.read(), {'always_labels': []})
+    except FileNotFoundError:
+        old_groups = {}
+    except (OSError, ValueError, ET.ParseError):
+        xbmc.log('Xenon Setup: could not read current menu selections; using flavor defaults.', xbmc.LOGWARNING)
+        old_groups = {}
+    selected = [label for label, entries in new_groups.items()
+                if menu_enabled(old_groups.get(label, entries))]
+    prepare_ui()
+    window = HomeMenusWizard('wizard.xml', ROOT, 'Default', '1080i')
+    window.configure('flavor-update', flavor['mode'], {}, CATALOG)
+    window.flavors = [flavor]
+    window.flavor_index = 0
+    window.flavor_menu = menu
+    window.menu_choices = {flavor['id']: selected}
+    window.doModal()
+    if window.result == 'tracking':
+        return window.menu_choices[flavor['id']]
+    return None
+
+
 class HomeMenusWizard(Wizard):
     def onInit(self):
         show_step(self, {740, 741, 742, 301, 304, 600, 601, 602, 603})
         self.getControl(10).setLabel('Xenon Setup')
         self.getControl(11).setLabel('Choose Your Home Menus')
         self.getControl(12).setLabel('Add-ons, Favourites and Xenon are always enabled. Xenon Setup is disabled when you save.')
-        self.getControl(301).setLabel('Back')
-        self.getControl(304).setLabel('Save & Continue')
-        flavor = flavors_for(self.mode)[self.flavor_index]
+        updating = self.stage == 'flavor-update'
+        self.getControl(301).setLabel('Cancel' if updating else 'Back')
+        self.getControl(304).setLabel('Save & Update' if updating else 'Save & Continue')
+        flavor = self.flavors[self.flavor_index]
         try:
-            root, grouped = profile_entries(read_flavor_menu(flavor), flavor)
+            _, grouped = profile_entries(self.flavor_menu, flavor)
         except (OSError, ValueError, ET.ParseError) as exc:
-            xbmcgui.Dialog().ok('Flavor folder unavailable', str(exc))
+            xbmcgui.Dialog().ok('Flavor menus unavailable', str(exc))
             self.result = 'back'
             self.close()
             return
@@ -1195,7 +1134,7 @@ class HomeMenusWizard(Wizard):
         self.available = {o['id']: True for o in self.options}
         if flavor['id'] not in self.menu_choices:
             self.menu_choices[flavor['id']] = [o['id'] for o in self.options if
-                all(entry.findtext('disabled', 'False') != 'True' for entry in grouped[o['id']])]
+                menu_enabled(grouped[o['id']])]
         self.menu_choices[flavor['id']] = [label for label in self.menu_choices[flavor['id']] if label in self.available]
         self.update_list(0)
         listing = self.getControl(740)
@@ -1210,7 +1149,7 @@ class HomeMenusWizard(Wizard):
     def update_list(self, selected):
         listing = self.getControl(740)
         listing.reset()
-        flavor = flavors_for(self.mode)[self.flavor_index]
+        flavor = self.flavors[self.flavor_index]
         checked = self.menu_choices[flavor['id']]
         for option in self.options:
             available = self.available[option['id']]
@@ -1239,7 +1178,7 @@ class HomeMenusWizard(Wizard):
             if not self.available[option['id']]:
                 xbmcgui.Dialog().ok('Menu unavailable', 'This label is no longer present in the selected flavor.')
                 return
-            selected = self.menu_choices[flavors_for(self.mode)[self.flavor_index]['id']]
+            selected = self.menu_choices[self.flavors[self.flavor_index]['id']]
             if option['id'] in selected:
                 selected.remove(option['id'])
             else:
@@ -1268,12 +1207,12 @@ def save_state(mode, choices, outcomes=None):
 RESUME_HELPER = 'import errno\nimport os\nimport json\nimport time\nimport xbmc\nimport xbmcgui\n\nclass WizardSessionLock:\n    """Kernel-owned lock: stale files do not block future sessions."""\n    def __init__(self, path):\n        self.path = path\n        self.stream = None\n\n    def acquire(self):\n        os.makedirs(os.path.dirname(self.path), exist_ok=True)\n        stream = open(self.path, \'a+b\')\n        try:\n            if os.name == \'nt\':\n                import msvcrt\n                # msvcrt locks a byte range; keep byte zero present in the file.\n                stream.seek(0, os.SEEK_END)\n                if stream.tell() == 0:\n                    stream.write(b\'0\')\n                    stream.flush()\n                stream.seek(0)\n                msvcrt.locking(stream.fileno(), msvcrt.LK_NBLCK, 1)\n            else:\n                import fcntl\n                fcntl.flock(stream.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)\n        except OSError as exc:\n            stream.close()\n            if exc.errno in (errno.EACCES, errno.EAGAIN) or getattr(exc, \'winerror\', None) in (32, 33, 36):\n                return False\n            raise\n        except BaseException:\n            stream.close()\n            raise\n        self.stream = stream\n        return True\n\n    def release(self):\n        if self.stream is not None:\n            # Closing releases the OS lock, including after an exception.\n            self.stream.close()\n            self.stream = None\n\ndef resume_tracking():\n    monitor = xbmc.Monitor()\n    home = xbmcgui.Window(10000)\n    profile = os.path.dirname(__file__)\n    checkpoint = os.path.join(profile, \'tracking-handoff.json\')\n    ready_key = \'Xenon2.Setup.TrackingReady.\' + JOB\n    def log(message):\n        xbmc.log(\'Xenon Setup: tracking handoff: \' + message, xbmc.LOGINFO)\n    try:\n        probe = WizardSessionLock(os.path.join(profile, \'wizard-session.lock\'))\n        limit = time.monotonic() + 45\n        while not probe.acquire():\n            if time.monotonic() >= limit or monitor.waitForAbort(0.2):\n                raise RuntimeError(\'saving wizard did not release its session lock\')\n        probe.release()\n        log(\'saving session released; requesting menu rebuild\')\n        # Do not block this helper on a synchronous JSON-RPC wait during reload.\n        request = {\'jsonrpc\': \'2.0\', \'id\': 1, \'method\': \'Addons.ExecuteAddon\',\n                   \'params\': {\'addonid\': \'script.skinshortcuts\',\n                              \'params\': [\'type=buildxml&mainmenuID=9000&levels=2&group=mainmenu|buttonmenu\'],\n                              \'wait\': False}}\n        result = json.loads(xbmc.executeJSONRPC(json.dumps(request)))\n        if \'error\' in result:\n            raise RuntimeError(\'menu rebuild launch failed\')\n        # Android can take longer to initialize the skin and its startup scripts.\n        if monitor.waitForAbort(3):\n            return\n        quiet_since = None\n        attempts = 0\n        next_attempt = 0\n        deadline = time.monotonic() + 180\n        while not monitor.abortRequested() and time.monotonic() < deadline:\n            if not os.path.isfile(checkpoint):\n                log(\'checkpoint completed or cancelled\')\n                return\n            if home.getProperty(ready_key) == \'true\':\n                log(\'final Tracking page acknowledged\')\n                return\n            busy = (home.getProperty(\'skinshortcuts-isrunning\').lower() == \'true\'\n                    or xbmc.getCondVisibility(\'System.HasActiveModalDialog\')\n                    or not xbmc.getCondVisibility(\'Window.IsActive(home)\')\n                    or xbmc.getSkinDir() != \'skin.xenon2\')\n            now = time.monotonic()\n            if busy:\n                quiet_since = None\n            elif quiet_since is None:\n                quiet_since = now\n            elif now - quiet_since >= 5 and now >= next_attempt:\n                # A live wizard may be doing work before its final dialog opens.\n                if probe.acquire():\n                    probe.release()\n                    if attempts >= 4:\n                        raise RuntimeError(\'wizard did not acknowledge the final page\')\n                    attempts += 1\n                    log(\'opening final Tracking page (attempt %d)\' % attempts)\n                    xbmc.executebuiltin(\'RunScript(%s,resume_tracking)\' % WIZARD_PATH)\n                    next_attempt = now + 20\n                    quiet_since = None\n            if monitor.waitForAbort(0.2):\n                return\n        if not monitor.abortRequested():\n            raise RuntimeError(\'timed out waiting for skin readiness or Tracking page\')\n    except Exception as exc:\n        xbmc.log(\'Xenon Setup: tracking handoff failed: \' + str(exc), xbmc.LOGERROR)\n        xbmcgui.Dialog().notification(\'Xenon Setup\', \'Menus saved. Open Xenon Setup again to continue Tracking setup.\')\n\n\nresume_tracking()\n'
 
 
-def schedule_tracking_resume(mode, choices, flavor_index, menu_choices):
+def schedule_tracking_resume(mode, choices, flavor_id, menu_choices):
     os.makedirs(PROFILE, exist_ok=True)
     checkpoint = os.path.join(PROFILE, 'tracking-handoff.json')
     job = uuid.uuid4().hex
     with open(checkpoint + '.tmp', 'w', encoding='utf-8') as stream:
-        json.dump({'mode': mode, 'choices': choices, 'flavor_index': flavor_index,
+        json.dump({'mode': mode, 'choices': choices, 'flavor_id': flavor_id,
                    'menu_choices': menu_choices, 'job': job}, stream)
         stream.flush()
         sync_file_if_available(stream)
@@ -1292,7 +1231,7 @@ def load_tracking_resume():
         return None
     with open(checkpoint, encoding='utf-8') as stream:
         data = json.load(stream)
-    if data.get('mode') not in ('free', 'debrid') or not 0 <= data.get('flavor_index', -1) < len(flavors_for(data['mode'])):
+    if data.get('mode') not in ('free', 'debrid'):
         raise ValueError('Invalid tracking handoff checkpoint')
     # Retain until the user finishes or backs out of the final page. A failed
     # automatic launch can be resumed by opening Setup manually.
@@ -1355,6 +1294,8 @@ def run():
         return
     token = uuid.uuid4().hex
     resume = None
+    flavor_download = None
+    downloaded_flavor = None
     try:
         if home.getProperty(lock):
             xbmc.log('Xenon Setup: recovered a stale running flag; OS session lock is free.', xbmc.LOGINFO)
@@ -1370,28 +1311,95 @@ def run():
         monitor = xbmc.Monitor()
         auth_index = 0
         flavor_index = 0
+        flavor_catalog = None
+        flavor_id = xbmc.getInfoLabel('Skin.String(Xenon2.Setup.Flavor)')
         tracking_index = 0
         menu_choices = {}
         recovery_checked = False
+        playback_presets = [0] * len(PLAYBACK_PRESETS)
         resume = load_tracking_resume()
         if resume:
             mode, stage = resume['mode'], 'tracking'
             choices = resume['choices']
-            flavor_index = resume['flavor_index']
+            flavor_id = resume.get('flavor_id', flavor_id)
             menu_choices = resume['menu_choices']
         while not monitor.abortRequested():
-            window_type = {'flavor': FlavorWizard, 'authorize': AuthorizationWizard, 'menus': HomeMenusWizard, 'tracking': TrackingWizard}.get(stage, Wizard)
+            window_type = {'flavor': FlavorWizard, 'authorize': AuthorizationWizard,
+                           'menus': HomeMenusWizard, 'tracking': TrackingWizard,
+                           'playback': PlaybackWizard}.get(stage, Wizard)
             visible_catalog = catalog
             if stage == 'addons':
                 entries = available_choices(catalog[mode], repository_addons())
                 visible_catalog = {**catalog, mode: entries}
                 visible_ids = {entry['id'] for entry in entries}
                 choices[mode] = [addon_id for addon_id in choices[mode] if addon_id in visible_ids]
+            if stage in ('flavor', 'menus'):
+                try:
+                    if flavor_catalog is None:
+                        progress = xbmcgui.DialogProgressBG()
+                        progress.create('Xenon Setup', 'Loading online flavors')
+                        try:
+                            flavor_catalog = xenon_flavor_updates.load_flavors()
+                        finally:
+                            progress.close()
+                    flavors = [entry for entry in flavor_catalog.values() if entry['mode'] == mode]
+                    if not flavors:
+                        raise ValueError('No %s flavors are published.' % mode)
+                    flavor_index = next((i for i, entry in enumerate(flavors)
+                                         if entry['id'] == flavor_id), 0)
+                    if stage == 'menus' and flavors[flavor_index]['id'] != flavor_id:
+                        stage = 'flavor'
+                        continue
+                except Exception as exc:
+                    xbmc.log('Xenon Setup: could not load online flavors\n' + traceback.format_exc(), xbmc.LOGERROR)
+                    xbmcgui.Dialog().ok('Could not load online flavors', str(exc))
+                    stage = 'authorize' if mode == 'debrid' else 'addons'
+                    continue
+                if monitor.abortRequested():
+                    break
+            if stage == 'menus':
+                flavor = flavors[flavor_index]
+                if downloaded_flavor != flavor['id']:
+                    if flavor_download is not None:
+                        flavor_download.cleanup()
+                        flavor_download = None
+                    downloaded_flavor = None
+                    progress = xbmcgui.DialogProgressBG()
+                    progress.create('Xenon Setup', 'Downloading %s' % flavor['name'])
+                    error = None
+                    try:
+                        flavor_download = tempfile.TemporaryDirectory(prefix='flavor-setup-', dir=PROFILE)
+                        version = xenon_flavor_updates.download_flavor(flavor, flavor_download.name)
+                        path = os.path.join(flavor_download.name, 'skin.xenon2-mainmenu.DATA.xml')
+                        with open(path, 'rb') as stream:
+                            flavor_menu = stream.read()
+                        profile_entries(flavor_menu, flavor)
+                        downloaded_flavor = flavor['id']
+                    except Exception as exc:
+                        xbmc.log('Xenon Setup: flavor download failed (%s)\n%s'
+                                 % (flavor['id'], traceback.format_exc()), xbmc.LOGERROR)
+                        error = str(exc)
+                    finally:
+                        progress.close()
+                    if monitor.abortRequested():
+                        break
+                    if error is not None:
+                        xbmcgui.Dialog().ok('Could not load online flavor', error)
+                        stage = 'flavor'
+                        continue
             window = window_type('wizard.xml', ROOT, 'Default', '1080i')
             window.configure(stage, mode, choices, visible_catalog)
             window.auth_index = tracking_index if stage == 'tracking' else auth_index
             window.flavor_index = flavor_index
+            if stage in ('flavor', 'menus'):
+                window.flavors = flavors
+            if stage == 'playback':
+                playback_available = playback_presets_available()
+                window.available = playback_available
+                window.presets = playback_presets
             window.menu_choices = menu_choices
+            if stage == 'menus':
+                window.flavor_menu = flavor_menu
             window.handoff_job = resume.get('job', '') if resume else ''
             window.doModal()
             result, mode = window.result, window.mode
@@ -1419,7 +1427,19 @@ def run():
             if result == 'exit':
                 break
             if result == 'back':
-                stage = {'tracking': 'menus', 'menus': 'flavor', 'flavor': 'authorize' if mode == 'debrid' else 'addons', 'authorize': 'addons', 'addons': 'source'}.get(stage, 'source')
+                stage = {'tracking': 'menus', 'menus': 'flavor',
+                         'flavor': 'authorize' if mode == 'debrid' else 'playback',
+                         'authorize': 'playback', 'playback': 'addons', 'addons': 'source'}.get(stage, 'source')
+            elif result == 'playback':
+                stage = 'playback'
+            elif result == 'playback_continue':
+                if playback_available and not apply_playback_presets(playback_presets, monitor):
+                    continue
+                if not recovery_checked:
+                    recovery_checked = check_saved_logins(monitor)
+                    if not recovery_checked:
+                        continue
+                stage = 'authorize' if mode == 'debrid' else 'flavor'
             elif result == 'flavor':
                 if stage == 'addons' and not recovery_checked:
                     recovery_checked = check_saved_logins(monitor)
@@ -1427,18 +1447,21 @@ def run():
                         continue
                 stage = 'flavor'
             elif result == 'menus':
+                flavor_id = flavors[flavor_index]['id']
                 stage = 'menus'
             elif result == 'tracking':
                 # Commit the flavor before any tracking action can restart Kodi.
                 try:
-                    apply_flavor(flavors_for(mode)[flavor_index], menu_choices.get(flavors_for(mode)[flavor_index]['id'], []), refresh=False)
+                    flavor = flavors[flavor_index]
+                    apply_flavor(flavor, menu_choices.get(flavor['id'], []), refresh=False,
+                                 source=flavor_download.name, version=version)
                 except (OSError, ValueError, ET.ParseError) as exc:
                     xbmc.log('Xenon Setup: could not apply Home menus\n' + traceback.format_exc(), xbmc.LOGERROR)
                     xbmcgui.Dialog().ok('Could not apply Home menus', str(exc))
                     stage = 'menus'
                     continue
                 # A separate script owns the refresh and reopens only the final page.
-                schedule_tracking_resume(mode, choices, flavor_index, menu_choices)
+                schedule_tracking_resume(mode, choices, flavor_id, menu_choices)
                 break
             elif result == 'authorize':
                 if not recovery_checked:
@@ -1461,8 +1484,7 @@ def run():
             elif result == 'install':
                 selected = pending_addons(visible_catalog[mode], choices[mode])
                 if not selected:
-                    recovery_checked = check_saved_logins(monitor)
-                    stage = ('authorize' if mode == 'debrid' else 'flavor') if recovery_checked else 'addons'
+                    stage = 'playback'
                     continue
                 outcomes = []
                 progress = xbmcgui.DialogProgressBG()
@@ -1485,28 +1507,16 @@ def run():
                 all_ready = len(outcomes) == len(selected) and all(
                     o['status'] in ('Ready', 'Already enabled') for o in outcomes)
                 text = '\n'.join('%s: %s' % (o['name'], o['status']) for o in outcomes)
-                if mode == 'debrid':
-                    text += '\n\nContinue to authorize your services with Diggz Account Manager.'
                 if all_ready:
                     xbmc.executebuiltin('Skin.SetString(Xenon2.Setup.LinkMode,%s)' % mode)
                     xbmc.executebuiltin('Skin.SetBool(Xenon2.Setup.AddonsComplete)')
-                    # Add-on installation completion is separate from service authorization.
                     if mode != 'debrid':
                         xbmcgui.Dialog().ok('Add-on setup complete', text)
-                    recovery_checked = check_saved_logins(monitor)
-                    if not recovery_checked:
-                        stage = 'addons'
-                        continue
-                    if mode == 'debrid':
-                        stage = 'authorize'
-                        continue
-                    stage = 'flavor'
+                    stage = 'playback'
                     continue
                 if xbmcgui.Dialog().yesno('Review installation results', text,
                                           nolabel='Review selections', yeslabel='Continue setup'):
-                    recovery_checked = check_saved_logins(monitor)
-                    if recovery_checked:
-                        stage = 'authorize' if mode == 'debrid' else 'flavor'
+                    stage = 'playback'
     except Exception as exc:
         xbmc.log('Xenon 2 Setup: %s' % exc, xbmc.LOGERROR)
         xbmcgui.Dialog().ok('Xenon 2 Setup', 'The wizard could not finish. See the Kodi log for details.')
@@ -1516,10 +1526,15 @@ def run():
                 home.clearProperty('Xenon2.Setup.TrackingReady.' + resume['job'])
             if home.getProperty(lock) == token:
                 home.clearProperty(lock)
+            if flavor_download is not None:
+                flavor_download.cleanup()
         finally:
             session.release()
         xbmc.log('Xenon Setup: wizard session ended; session lock released.', xbmc.LOGINFO)
 
 
 if __name__ == '__main__':
-    run()
+    if len(sys.argv) > 1 and sys.argv[1] in ('check-flavor-update', 'check-flavor-update-now'):
+        xenon_flavor_updates.check(sys.modules[__name__], manual=sys.argv[1] == 'check-flavor-update-now')
+    else:
+        run()

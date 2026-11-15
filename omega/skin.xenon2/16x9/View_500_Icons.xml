@@ -466,6 +466,7 @@
 				<param name="height">722</param>
 			</include>
 			<control type="panel" id="500">
+				<viewtype label="536">icon</viewtype>
 				<left>120</left>
 				<top>179</top>
 				<width>1680</width>
