@@ -9,9 +9,9 @@ LOG = logging.getLogger('dlhd.export')
 LOG.addHandler(logging.NullHandler())
 
 
-def setup(folder):
+def setup(folder, filename='debug.log'):
     os.makedirs(folder, exist_ok=True)
-    path = os.path.join(folder, 'debug.log')
+    path = os.path.join(folder, filename)
     for existing in list(LOG.handlers):
         if isinstance(existing, RotatingFileHandler):
             LOG.removeHandler(existing)

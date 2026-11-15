@@ -5,6 +5,10 @@ import time
 import urllib.parse as up
 import urllib.request as urlreq
 import re
+import tempfile
+import json
+import uuid
+import hashlib
 
 import xbmc
 import xbmcaddon
@@ -45,6 +49,8 @@ try:
 except Exception:
     pass
 CAT_THUMB_DIR = os.path.join(PROFILE_DIR, "cat_thumbs")
+CATALOG_CACHE = os.path.join(PROFILE_DIR, "wallpaperscraft_categories.json")
+CATALOG_MAX_AGE = 24 * 60 * 60
 try:
     if not xbmcvfs.exists(CAT_THUMB_DIR):
         xbmcvfs.mkdirs(CAT_THUMB_DIR)
@@ -79,23 +85,20 @@ def _addon_path(*parts):
     base = xbmcvfs.translatePath(ADDON.getAddonInfo("path"))
     return os.path.join(base, *parts)
 
-def _http_get_small(url, timeout=5, max_bytes=400 * 1024):
+def _set_tile_art(item, art):
+    item.setArt({"thumb": art, "icon": art, "poster": art, "landscape": art, "fanart": art})
+
+
+def _http_get_small(url, timeout=5, max_bytes=2 * 1024 * 1024):
     try:
-        req = urlreq.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-        with urlreq.urlopen(req, timeout=timeout) as r:
-            chunks, total = [], 0
-            while True:
-                buf = r.read(min(64 * 1024, max_bytes - total))
-                if not buf:
-                    break
-                chunks.append(buf)
-                total += len(buf)
-                if total >= max_bytes:
-                    break
-            return b"".join(chunks)
+        req = urlreq.Request(url, headers={"User-Agent": "Mozilla/5.0", "Referer": BASE_SITE})
+        with urlreq.urlopen(req, timeout=timeout) as response:
+            image = response.read(max_bytes + 1)
+        if len(image) <= max_bytes and image.startswith(b"\xff\xd8") and image.endswith(b"\xff\xd9"):
+            return image
     except Exception as e:
         _log(f"thumb fetch failed: {e}")
-        return b""
+    return b""
 
 def _cat_cache_path(slug):
     return os.path.join(CAT_THUMB_DIR, f"{slug}.jpg")
@@ -152,6 +155,18 @@ def _should_abort():
         return False
 
 def _category_entries():
+    try:
+        with open(CATALOG_CACHE, encoding="utf-8") as cached:
+            entries = json.load(cached)
+        if isinstance(entries, list) and entries and all(
+            isinstance(entry, list) and len(entry) == 3
+            and isinstance(entry[0], str) and isinstance(entry[1], str)
+            and re.fullmatch(r"[a-z0-9_-]+", entry[1]) and entry[2] == "catalog"
+            for entry in entries
+        ):
+            return entries
+    except (OSError, ValueError):
+        pass
     return [
         ("3D", "3d", "catalog"),
         ("Abstract", "abstract", "catalog"),
@@ -174,12 +189,12 @@ def _category_entries():
         ("Fantasy", "fantasy", "catalog"),
         ("Food", "food", "catalog"),
         ("Holidays", "holidays", "catalog"),
+        ("Love", "love", "catalog"),
         ("Macro", "macro", "catalog"),
         ("Music", "music", "catalog"),
         ("Nature", "nature", "catalog"),
         ("Sport", "sport", "catalog"),
         ("Technologies", "hi-tech", "catalog"),
-        ("TV Series", "tv-series", "tag"),
         ("Words", "words", "catalog"),
     ]
 
@@ -191,16 +206,17 @@ def show_root():
 
     # Search
     li = xbmcgui.ListItem(label="Search…")
-    li.setArt({"icon": "DefaultAddonsSearch.png", "thumb": "DefaultAddonsSearch.png"})
+    _set_tile_art(li, _addon_path("resources", "media", "search.png"))
     xbmcplugin.addDirectoryItem(HANDLE, _url(mode="search_prompt"), li, isFolder=False)
 
     # My Wallpapers (browse downloaded folder)
     mi = xbmcgui.ListItem(label="My Wallpapers")
-    mi.setArt({"icon": "DefaultFolder.png", "thumb": "DefaultFolder.png"})
+    catalog_art = _addon_path("resources", "media", "catalog_default.png")
+    _set_tile_art(mi, catalog_art)
     xbmcplugin.addDirectoryItem(HANDLE, _url(mode="my_wallpapers", dir=_get_download_dir()), mi, isFolder=True)
     # Diggz Wallpapers source
     di = xbmcgui.ListItem(label="Diggz Wallpapers")
-    di.setArt({"icon": "DefaultFolder.png", "thumb": "DefaultFolder.png"})
+    _set_tile_art(di, catalog_art)
     xbmcplugin.addDirectoryItem(HANDLE, _url(mode="diggz_root"), di, isFolder=True)
 
 
@@ -210,17 +226,18 @@ def show_root():
         li = xbmcgui.ListItem(label=title)
         thumb = _cat_thumb(slug)
         if thumb:
-            li.setArt({"thumb": thumb, "icon": thumb, "poster": thumb, "fanart": thumb})
+            _set_tile_art(li, thumb)
         url = _url(mode="category", kind=kind, slug=slug, page="1", title=title)
         xbmcplugin.addDirectoryItem(HANDLE, url, li, isFolder=True)
 
     xbmcplugin.endOfDirectory(HANDLE, cacheToDisc=False)
 
-    # Schedule background warming (only if dynamic thumbs enabled)
-    if not _get_bool("use_static_thumbs", False):
-        # Cancel previous runs and schedule a new one 1s after open
-        xbmc.executebuiltin('CancelAlarm(wcthumbs,true)')
-        xbmc.executebuiltin(f'AlarmClock(wcthumbs,RunPlugin("{_url(mode="warm_thumbs", idx="0")}"),00:00:01,true)')
+    if _catalog_needs_refresh() or (
+        not _get_bool("use_static_thumbs", False) and any(
+            not xbmcvfs.exists(_cat_cache_path(slug)) for _, slug, _ in entries
+        )
+    ):
+        xbmc.executebuiltin(f'RunPlugin("{_url(mode="warm_thumbs")}")')
 
 def search_prompt(_params):
     """Prompt for a query, then open the Search results (page 1)."""
@@ -248,18 +265,63 @@ def search_prompt(_params):
 
 
 
-def warm_thumbs(params):
-    """No-op stub to handle any leftover scheduled calls safely."""
+def _catalog_needs_refresh():
     try:
-        xbmc.executebuiltin('CancelAlarm(wcthumbs,true)')
-    except Exception:
-        pass
-    try:
-        xbmcplugin.endOfDirectory(HANDLE, cacheToDisc=False)
-    except Exception:
-        pass
-    return
+        return time.time() - os.path.getmtime(CATALOG_CACHE) >= CATALOG_MAX_AGE
+    except OSError:
+        return True
 
+
+def warm_thumbs(_params):
+    window = xbmcgui.Window(10000)
+    running = f"{ADDON_ID}.warming_category_thumbs"
+    if window.getProperty(running):
+        return
+    window.setProperty(running, "true")
+    try:
+        if _catalog_needs_refresh() and not _should_abort():
+            try:
+                entries = wc.list_categories()
+                if entries:
+                    _write_cache_file(CATALOG_CACHE, json.dumps(entries).encode("utf-8"))
+            except Exception as e:
+                _log(f"catalog refresh failed: {e}")
+        if _get_bool("use_static_thumbs", False):
+            return
+
+        for _, slug, kind in _category_entries():
+            if _should_abort():
+                break
+            cached = _cat_cache_path(slug)
+            if xbmcvfs.exists(cached):
+                continue
+            try:
+                items, _ = wc.list_wallpapers(kind, slug, 1)
+                previews = [item.get("preview") for item in items[:5]]
+                previews += [item.get("thumb") for item in items[:3]]
+                for thumb in dict.fromkeys(previews):
+                    if not thumb or _should_abort():
+                        continue
+                    image = _http_get_small(thumb)
+                    if image:
+                        _write_cache_file(cached, image)
+                        break
+            except Exception as e:
+                _log(f"category thumb failed for {slug}: {e}")
+    finally:
+        window.clearProperty(running)
+
+
+def _write_cache_file(path, data):
+    # Publish the cache entry only after the entire file has been written.
+    staged = tempfile.NamedTemporaryFile(dir=os.path.dirname(path), delete=False)
+    try:
+        with staged:
+            staged.write(data)
+        os.replace(staged.name, path)
+    finally:
+        if os.path.exists(staged.name):
+            os.remove(staged.name)
 
 
 def list_search_results(params):
@@ -318,11 +380,12 @@ def list_search_results(params):
         if th:
             li.setArt({"thumb": th, "icon": th, "poster": th, "fanart": th})
         _set_video_title(li, lbl)
-        url = _url(mode="wallpaper", page_url=it.get("href",""), title=lbl)
+        url = _url(mode="wallpaper", page_url=it.get("href",""), title=lbl, thumb=th or "")
         xbmcplugin.addDirectoryItem(HANDLE, url, li, isFolder=True)
 
     if has_next:
         nli = xbmcgui.ListItem(label=f"Next (page {page+1})")
+        _set_tile_art(nli, _addon_path("resources", "media", "next_page.png"))
         _set_video_title(nli, f"{query} — page {page+1}")
         nurl = _url(mode="search", q=query, page=str(page+1))
         xbmcplugin.addDirectoryItem(HANDLE, nurl, nli, isFolder=True)
@@ -393,11 +456,12 @@ def list_category(params):
         if th:
             li.setArt({"thumb": th, "icon": th, "poster": th, "fanart": th})
         _set_video_title(li, lbl)
-        url = _url(mode="wallpaper", page_url=it.get("href",""), title=lbl)
+        url = _url(mode="wallpaper", page_url=it.get("href",""), title=lbl, thumb=th or "")
         xbmcplugin.addDirectoryItem(HANDLE, url, li, isFolder=True)
 
     if has_next:
         nli = xbmcgui.ListItem(label=f"Next (page {page+1})")
+        _set_tile_art(nli, _addon_path("resources", "media", "next_page.png"))
         _set_video_title(nli, f"{title} — page {page+1}")
         nurl = _url(mode="category", kind=kind, slug=slug, page=str(page+1), title=title)
         xbmcplugin.addDirectoryItem(HANDLE, nurl, nli, isFolder=True)
@@ -417,6 +481,7 @@ def _set_video_title(li, title):
 def wallpaper_menu(params):
     page_url = params.get("page_url","")
     title    = params.get("title","Wallpaper")
+    preview  = params.get("thumb", "")
 
     xbmcplugin.setContent(HANDLE, "files")
 
@@ -449,7 +514,7 @@ def wallpaper_menu(params):
     for display_lbl, label_raw, s in picks:
         img_url = s.get("url") or page_url
         li = xbmcgui.ListItem(label=f"Download {display_lbl}")
-        th = s.get("thumb", "")
+        th = preview or s.get("thumb", "")
         if th:
             li.setArt({"thumb": th, "icon": th})
         url = _url(mode="download_image", img=img_url, title=title, label=label_raw, ref=page_url)
@@ -476,19 +541,7 @@ def download_image(params):
     dest_dir = _get_download_dir()
 
     base = _sanitize_name(f"{title}_{label}" if label else title)
-    p = up.urlparse(img_url)
-    ext = os.path.splitext(os.path.basename(p.path))[1].lower() or ".jpg"
-    if ext not in (".jpg", ".jpeg", ".png"):
-        ext = ".jpg"
-
-    i = 0
-    while True:
-        name = f"{base}{'' if i == 0 else f'_{i}'}{ext}"
-        full = os.path.join(dest_dir, name)
-        if not xbmcvfs.exists(full):
-            dest_path = full
-            break
-        i += 1
+    staged = os.path.join(dest_dir, f".wallpaper-{uuid.uuid4().hex}.part")
 
     headers = {
         "User-Agent": ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -499,34 +552,48 @@ def download_image(params):
         headers["Referer"] = referer
 
     dp = xbmcgui.DialogProgress()
-    dp.create("4K Wallpapers", "Starting download...")
     try:
+        dp.create("4K Wallpapers", "Starting download...")
         req = urlreq.Request(img_url, headers=headers)
-        with urlreq.urlopen(req, timeout=20) as r:
-            total = int(r.headers.get("Content-Length", "0")) or 0
-            f = xbmcvfs.File(dest_path, "w")
+        with urlreq.urlopen(req, timeout=20) as response:
+            total = int(response.headers.get("Content-Length") or 0)
+            if dp.iscanceled():
+                return
+            first = response.read(1024 * 1024)
+            ext = _download_image_extension(first)
+            if not ext:
+                raise ValueError("Server response is not a supported image")
+
+            written = 0
+            last_update = 0
+            file = xbmcvfs.File(staged, "w")
             try:
-                chunk = 1024 * 1024
-                read = 0
-                last = 0
-                while True:
+                chunk = first
+                while chunk:
                     if dp.iscanceled():
                         return
-                    buf = r.read(chunk)
-                    if not buf:
-                        break
-                    f.write(buf)
-                    read += len(buf)
-                    now = time.time()
-                    if now - last > 0.1:
-                        pct = int((read * 100) / total) if total else 0
-                        dp.update(max(0, min(100, pct)),
-                                  f"Downloading...\\n{read//1024//1024} / {total//1024//1024} MB")
-                        last = now
+                    if not file.write(bytearray(chunk)):
+                        raise OSError("Could not write wallpaper")
+                    written += len(chunk)
+                    now = time.monotonic()
+                    if now - last_update > 0.1:
+                        percent = min(99, written * 100 // total) if total else 0
+                        message = f"Downloading… {written / (1024 * 1024):.1f} MB"
+                        if total:
+                            message += f" / {total / (1024 * 1024):.1f} MB"
+                        dp.update(percent, message)
+                        last_update = now
+                    chunk = response.read(1024 * 1024)
             finally:
-                f.close()
-        dp.update(100, "Finishing...")
-        xbmcgui.Dialog().notification("4K Wallpapers", f"Saved to:\\n{dest_dir}",
+                file.close()
+            if total and written != total:
+                raise OSError(f"Incomplete wallpaper: received {written} of {total} bytes")
+
+        if dp.iscanceled():
+            return
+        saved_path = _publish_download(staged, dest_dir, base, ext)
+        dp.update(100, "Download complete")
+        xbmcgui.Dialog().notification("4K Wallpapers", f"Saved {os.path.basename(saved_path)}",
                                       xbmcgui.NOTIFICATION_INFO, 3500)
     except Exception as e:
         _log(f"Download failed: {e}")
@@ -534,10 +601,45 @@ def download_image(params):
                                       xbmcgui.NOTIFICATION_ERROR, 3000)
     finally:
         try:
+            if xbmcvfs.exists(staged) and not xbmcvfs.delete(staged):
+                _log(f"Could not remove temporary wallpaper: {staged}")
+        finally:
             dp.close()
-        except Exception:
-            pass
-    xbmcplugin.endOfDirectory(HANDLE, cacheToDisc=False)
+            xbmcplugin.endOfDirectory(HANDLE, cacheToDisc=False)
+
+
+def _download_image_extension(data):
+    if data.startswith(b"\xff\xd8\xff"):
+        return ".jpg"
+    if data.startswith(b"\x89PNG\r\n\x1a\n"):
+        return ".png"
+    if data.startswith(b"RIFF") and data[8:12] == b"WEBP":
+        return ".webp"
+    return ""
+
+
+def _publish_download(staged, dest_dir, base, ext):
+    index = 0
+    while True:
+        suffix = f"_{index}" if index else ""
+        path = os.path.join(dest_dir, f"{base}{suffix}{ext}")
+        index += 1
+        # Reserve the name across add-on invocations, including VFS destinations.
+        key = hashlib.sha256(os.path.normcase(path).encode("utf-8")).hexdigest()
+        lock = os.path.join(PROFILE_DIR, f"download-{key}.lock")
+        try:
+            os.mkdir(lock)
+        except FileExistsError:
+            continue
+        try:
+            if xbmcvfs.exists(path):
+                continue
+            if not xbmcvfs.rename(staged, path):
+                raise OSError("Could not move wallpaper into place")
+            return path
+        finally:
+            os.rmdir(lock)
+
 
 # -------------------------------
 # My Wallpapers: browse, view, delete, import
@@ -552,14 +654,23 @@ def my_wallpapers(params):
 
     # Top actions
     imp1 = xbmcgui.ListItem(label="[Import single image…]")
+    art = _addon_path("resources", "media", "import_single.png")
+    if not xbmcvfs.exists(art):
+        art = _addon_path("resources", "media", "catalog_default.png")
+    _set_tile_art(imp1, art)
     xbmcplugin.addDirectoryItem(HANDLE, _url(mode="import_image"), imp1, isFolder=False)
     imp2 = xbmcgui.ListItem(label="[Import multiple images…]")
+    art = _addon_path("resources", "media", "import_multiple.png")
+    if not xbmcvfs.exists(art):
+        art = _addon_path("resources", "media", "catalog_default.png")
+    _set_tile_art(imp2, art)
     xbmcplugin.addDirectoryItem(HANDLE, _url(mode="import_folder"), imp2, isFolder=False)
 
     dl = _get_download_dir().rstrip("/\\")
     if os.path.normpath(cur) != os.path.normpath(dl):
         par = os.path.dirname(cur.rstrip("/\\")) or cur
         pli = xbmcgui.ListItem(label="↥ Parent folder")
+        _set_tile_art(pli, _addon_path("resources", "media", "parent_folder.png"))
         xbmcplugin.addDirectoryItem(HANDLE, _url(mode="my_wallpapers", dir=par), pli, isFolder=True)
 
     try:

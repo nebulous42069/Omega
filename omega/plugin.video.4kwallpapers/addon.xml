@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="plugin.video.4kwallpapers"
        name="Diggz 4K Wallpapers"
-       version="1.3.17"
+       version="1.3.23"
        provider-name="Diggz">
   <requires>
     <import addon="xbmc.python" version="3.0.1"/>

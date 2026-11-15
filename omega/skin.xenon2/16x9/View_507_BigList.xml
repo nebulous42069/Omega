@@ -329,13 +329,13 @@
 				<width>200</width>
 				<height>200</height>
 				<aspectratio>scale</aspectratio>
-				<texture background="true">$INFO[ListItem.Icon]</texture>
+				<texture background="true">$VAR[X2ParentAwareTexture2Var]</texture>
 				<visible>Container.Content(albums) | Container.Content(songs)</visible>
 			</control>
 			<control type="image">
 				<width>346</width>
 				<height>195</height>
-				<texture background="true">$INFO[ListItem.Art(fanart)]</texture>
+				<texture background="true">$VAR[X2ParentAwareTexture6Var]</texture>
 				<aspectratio>scale</aspectratio>
 				<visible>![Container.Content(episodes) | Container.Content(albums) | Container.Content(songs)]</visible>
 			</control>

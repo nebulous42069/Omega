@@ -1,3 +1,9 @@
+# NewsON Addon v2.0.1
+
+- Use station details to list live broadcasts, 24/7 streams, and recent videos.
+- Resolve playback URLs on every click and explicitly identify HLS streams to Kodi.
+- Read featured broadcasts from the current NewsON home response.
+
 # NewsON Addon v2.0.0 - Changelog
 
 ## Major Changes (v2.0.0)

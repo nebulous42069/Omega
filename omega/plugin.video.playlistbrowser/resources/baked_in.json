@@ -8,9 +8,17 @@
     "source_id": 110
   },
   {
-    "name": "Whiplash TV",
-    "m3u": "https://raw.githubusercontent.com/BuddyChewChew/whiplash-epg/refs/heads/main/playlist.m3u",
-    "epg": "https://raw.githubusercontent.com/BuddyChewChew/whiplash-epg/refs/heads/main/epg.xml",
+    "name": "Buddy Chew",
+    "m3u": "https://raw.githubusercontent.com/tutw/platinsport-m3u-updater/refs/heads/main/lista_scraper_acestream_api.m3u",
+    "epg": "https://s.id/d9sEPG",
+    "icon": "",
+    "fanart": "",
+    "source_id": 125
+  },
+  {
+    "name": "IPTV-ORG",
+    "m3u": "https://iptv-org.github.io/iptv/regions/noram.m3u",
+    "epg": "",
     "source_id": 112
   },
   {
@@ -55,9 +63,41 @@
     "integrated_dlhd": true
   },
   {
+   "name": "M3u 2",
+   "m3u": "https://raw.githubusercontent.com/marasiganjosephursaiz-crypto/IPTV-PH-AND-US.M3U/refs/heads/main/CarloMarasigancafe2.m3u",
+   "epg": "",
+   "icon": "",
+   "fanart": "",
+   "source_id": 119
+  },
+  {
+   "name": "M3u 5",
+   "m3u": "https://raw.githubusercontent.com/marasiganjosephursaiz-crypto/IPTV-PH-AND-US.M3U/refs/heads/main/JoeMarasiganTV.m3u",
+   "epg": "",
+   "icon": "",
+   "fanart": "",
+   "source_id": 121
+  },
+  {
+   "name": "M3u 6",
+   "m3u": "https://raw.githubusercontent.com/marasiganjosephursaiz-crypto/IPTV-PH-AND-US.M3U/refs/heads/main/US%20TV.M3U8",
+   "epg": "",
+   "icon": "",
+   "fanart": "",
+   "source_id": 122
+  },
+  {
+   "name": "M3u 7",
+   "m3u": "https://raw.githubusercontent.com/marasiganjosephursaiz-crypto/IPTV-PH-AND-US.M3U/refs/heads/main/carlomarasigancafe.m3u",
+   "epg": "",
+   "icon": "",
+   "fanart": "",
+   "source_id": 123
+  },
+  {
     "name": "For TV Widget",
-    "alias_source": "Daddy Live",
-    "alias_group": "Channels-USA-",
+    "alias_source": "Doms List",
+    "alias_group": "TV",
     "epg": "",
     "icon": "",
     "fanart": "",
@@ -65,8 +105,8 @@
   },
   {
     "name": "For TV Widget 2",
-    "alias_source": "Daddy Live",
-    "alias_group": "Channels-UK-",
+    "alias_source": "M3u 7",
+    "alias_group": "Movie Channels",
     "epg": "",
     "icon": "",
     "fanart": "",
@@ -74,36 +114,35 @@
   },
   {
     "name": "For TV Widget 3",
-    "alias_source": "Daddy Live",
-    "alias_group": "Channels-Italy-",
-    "epg": "",
+    "m3u": "https://livetvbuilder.replit.app/api/download/m3u?zip=96457&providerId=big-150&country=US",
+    "epg": "https://livetvbuilder.replit.app/api/download/epg?zip=96457&providerId=big-150&country=US",
     "icon": "",
     "fanart": "",
     "source_id": 104
   },
   {
     "name": "For Sports Widget",
-    "alias_source": "Daddy Live",
-    "alias_group": "Sports-USA-",
-    "epg": "",
+    "alias_source": "TV Builder Channels",
+    "alias_group": "Sports",
+    "epg": "https://livetvbuilder.replit.app/api/download/epg?zip=96457&providerId=big-150&country=US",
     "icon": "",
     "fanart": "",
     "source_id": 103
   },
   {
     "name": "For Sports Widget 2",
-    "alias_source": "Daddy Live",
-    "alias_group": "Sports-UK-",
-    "epg": "",
+    "alias_source": "Mad Titan TV Guide",
+    "alias_group": "Sports Networks",
+    "epg": "https://magnetic.website/jet/epg/merged_epg.xml.gz",
     "icon": "",
     "fanart": "",
     "source_id": 102
   },
   {
     "name": "For Sports Widget 3",
-    "alias_source": "Daddy Live",
-    "alias_group": "Sports-Canada-",
-    "epg": "",
+    "alias_source": "Mad Titan TV Guide",
+    "alias_group": "Sports Networks Regional",
+    "epg": "https://magnetic.website/jet/epg/merged_epg.xml.gz",
     "icon": "",
     "fanart": "",
     "source_id": 101

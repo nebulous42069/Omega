@@ -260,7 +260,7 @@
                     <height>810</height>
                     <aspectratio aligny="bottom">keep</aspectratio>
                     <fadetime>IconCrossfadeTime</fadetime>
-                    <texture background="true" fallback="DefaultVideoCover.png">$INFO[ListItem.Art(fanart)]</texture>
+                    <texture background="true" fallback="DefaultVideoCover.png">$VAR[X2ParentAwareTexture6Var]</texture>
                     <bordertexture border="8">ThumbShadow.png</bordertexture>
                     <bordersize>8</bordersize>
                     <visible>Container.Content(Episodes) + Skin.HasSetting(HideEpisodeThumb) + !String.IsEqual(ListItem.Label,..)</visible>
@@ -386,7 +386,7 @@
                         <aspectratio>scale</aspectratio>
                         <bordertexture border="5">button-nofocus.png</bordertexture>
                         <include>TextureBorderViews</include>
-                        <texture background="true" fallback="DefaultVideoCover.png">$INFO[ListItem.Art(fanart)]</texture>
+                        <texture background="true" fallback="DefaultVideoCover.png">$VAR[X2ParentAwareTexture6Var]</texture>
                         <visible>Container.Content(Episodes) + Skin.HasSetting(HideEpisodeThumb) + !String.IsEqual(ListItem.Label,..)</visible>
                     </control>
                     <control type="label">
@@ -473,7 +473,7 @@
                         <aspectratio>scale</aspectratio>
                         <bordertexture border="5" colordiffuse="$VAR[ThemeLabelColor]">folder-focus.png</bordertexture>
                         <include>TextureBorderViews</include>
-                        <texture background="true" fallback="DefaultVideoCover.png">$INFO[ListItem.Art(fanart)]</texture>
+                        <texture background="true" fallback="DefaultVideoCover.png">$VAR[X2ParentAwareTexture6Var]</texture>
                         <visible>Container.Content(Episodes) + Skin.HasSetting(HideEpisodeThumb) + !String.IsEqual(ListItem.Label,..)</visible>
                     </control>
                     <control type="label">
@@ -842,7 +842,7 @@
                         <top>6</top>
                         <width>60</width>
                         <height>48</height>
-                        <texture background="true" fallback="DefaultVideoCover.png">$INFO[ListItem.Art(fanart)]</texture>
+                        <texture background="true" fallback="DefaultVideoCover.png">$VAR[X2ParentAwareTexture6Var]</texture>
                         <aspectratio>keep</aspectratio>
                         <visible>Container.Content(Episodes) + Skin.HasSetting(HideEpisodeThumb) + !String.IsEqual(ListItem.Label,..)</visible>
                     </control>
@@ -979,7 +979,7 @@
                         <top>6</top>
                         <width>60</width>
                         <height>48</height>
-                        <texture background="true" fallback="DefaultVideoCover.png">$INFO[ListItem.Art(fanart)]</texture>
+                        <texture background="true" fallback="DefaultVideoCover.png">$VAR[X2ParentAwareTexture6Var]</texture>
                         <aspectratio>keep</aspectratio>
                         <visible>Container.Content(Episodes) + Skin.HasSetting(HideEpisodeThumb) + !String.IsEqual(ListItem.Label,..)</visible>
                     </control>

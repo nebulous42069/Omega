@@ -233,7 +233,7 @@
 								<width>1000</width>
 								<height>181</height>
 								<aspectratio>scale</aspectratio>
-								<texture background="true">$INFO[Container(51).ListItem.Art(fanart)]</texture>
+								<texture background="true">$VAR[X2ParentAwareTexture10Var]</texture>
 								<fadetime>300</fadetime>
 							</control>
 							<control type="image">
@@ -284,7 +284,7 @@
 								<width>1000</width>
 								<height>181</height>
 								<aspectratio>scale</aspectratio>
-								<texture background="true">$INFO[Container(51).ListItem.Art(fanart)]</texture>
+								<texture background="true">$VAR[X2ParentAwareTexture10Var]</texture>
 								<bordertexture colordiffuse="$VAR[ThemeLabelColor]" border="8">thumbs/thumbnail_focused.png</bordertexture>
 								<bordersize>6</bordersize>
 							</control>
@@ -323,7 +323,7 @@
 								<width>1000</width>
 								<height>181</height>
 								<aspectratio>scale</aspectratio>
-								<texture background="true">$INFO[Container(51).ListItem.Art(fanart)]</texture>
+								<texture background="true">$VAR[X2ParentAwareTexture10Var]</texture>
 								<fadetime>300</fadetime>
 							</control>
 							<control type="image">
@@ -374,7 +374,7 @@
 								<width>1000</width>
 								<height>181</height>
 								<aspectratio>scale</aspectratio>
-								<texture background="true">$INFO[Container(51).ListItem.Art(fanart)]</texture>
+								<texture background="true">$VAR[X2ParentAwareTexture10Var]</texture>
 								<bordertexture colordiffuse="$VAR[ThemeLabelColor]" border="8">thumbs/thumbnail_focused.png</bordertexture>
 								<bordersize>6</bordersize>
 							</control>
@@ -451,7 +451,7 @@
 						<width>300</width>
 						<height>300</height>
 						<aspectratio>scale</aspectratio>
-						<texture background="true">$INFO[ListItem.Icon]</texture>
+						<texture background="true">$VAR[X2ParentAwareTexture2Var]</texture>
 						<bordertexture border="2">thumbs/panel_border3.png</bordertexture>
 						<bordersize>2</bordersize>
 						<colordiffuse>BAffffff</colordiffuse>
@@ -467,7 +467,7 @@
 							<width>300</width>
 							<height>300</height>
 							<aspectratio>scale</aspectratio>
-							<texture background="true">$INFO[ListItem.Icon]</texture>
+							<texture background="true">$VAR[X2ParentAwareTexture2Var]</texture>
 							<bordertexture colordiffuse="$VAR[ThemeLabelColor]" border="8">thumbs/thumbnail_focused.png</bordertexture>
 							<bordersize>6</bordersize>
 						</control>
@@ -478,7 +478,7 @@
 						<width>300</width>
 						<height>300</height>
 						<aspectratio>scale</aspectratio>
-						<texture background="true">$INFO[ListItem.Icon]</texture>
+						<texture background="true">$VAR[X2ParentAwareTexture2Var]</texture>
 						<bordertexture border="2">thumbs/panel_border3.png</bordertexture>
 						<bordersize>2</bordersize>
 						<colordiffuse>BAffffff</colordiffuse>
@@ -509,7 +509,7 @@
 							<width>300</width>
 							<height>300</height>
 							<aspectratio>scale</aspectratio>
-							<texture background="true">$INFO[ListItem.Icon]</texture>
+							<texture background="true">$VAR[X2ParentAwareTexture2Var]</texture>
 							<bordertexture colordiffuse="$VAR[ThemeLabelColor]" border="8">thumbs/thumbnail_focused.png</bordertexture>
 							<bordersize>6</bordersize>
 						</control>
@@ -539,7 +539,7 @@
 						<width>300</width>
 						<height>300</height>
 						<aspectratio>scale</aspectratio>
-						<texture background="true">$INFO[ListItem.Icon]</texture>
+						<texture background="true">$VAR[X2ParentAwareTexture2Var]</texture>
 						<bordertexture border="2">thumbs/panel_border3.png</bordertexture>
 						<bordersize>2</bordersize>
 						<colordiffuse>BAffffff</colordiffuse>
@@ -564,7 +564,7 @@
 							<width>300</width>
 							<height>300</height>
 							<aspectratio>scale</aspectratio>
-							<texture background="true">$INFO[ListItem.Icon]</texture>
+							<texture background="true">$VAR[X2ParentAwareTexture2Var]</texture>
 							<bordertexture colordiffuse="$VAR[ThemeLabelColor]" border="8">thumbs/thumbnail_focused.png</bordertexture>
 							<bordersize>6</bordersize>
 						</control>
@@ -603,7 +603,7 @@
 					<width>680</width>
 					<height>400</height>
 					<aspectratio>scale</aspectratio>
-					<texture background="true">$INFO[Container(51).ListItem.Art(fanart)]</texture>
+					<texture background="true">$VAR[X2ParentAwareTexture10Var]</texture>
 					<fadetime>300</fadetime>
 					<bordertexture border="2">thumbs/panel_border3.png</bordertexture>
 					<bordersize>2</bordersize>
@@ -712,7 +712,7 @@
 						<width>300</width>
 						<height>300</height>
 						<aspectratio>scale</aspectratio>
-						<texture background="true">$INFO[ListItem.Icon]</texture>
+						<texture background="true">$VAR[X2ParentAwareTexture2Var]</texture>
 						<bordertexture border="2">thumbs/panel_border3.png</bordertexture>
 						<bordersize>2</bordersize>
 						<colordiffuse>BAffffff</colordiffuse>
@@ -737,7 +737,7 @@
 							<width>300</width>
 							<height>300</height>
 							<aspectratio>scale</aspectratio>
-							<texture background="true">$INFO[ListItem.Icon]</texture>
+							<texture background="true">$VAR[X2ParentAwareTexture2Var]</texture>
 							<bordertexture colordiffuse="$VAR[ThemeLabelColor]" border="8">thumbs/thumbnail_focused.png</bordertexture>
 							<bordersize>6</bordersize>
 						</control>
@@ -775,7 +775,7 @@
 					<width>680</width>
 					<height>400</height>
 					<aspectratio>scale</aspectratio>
-					<texture background="true" fallback="special://skin/extras/backgrounds/default_livecases.jpg">$INFO[Container(51).ListItem.Art(fanart)]</texture>
+					<texture background="true" fallback="special://skin/extras/backgrounds/default_livecases.jpg">$VAR[X2ParentAwareTexture10Var]</texture>
 					<fadetime>300</fadetime>
 					<bordertexture border="2">thumbs/panel_border3.png</bordertexture>
 					<bordersize>2</bordersize>

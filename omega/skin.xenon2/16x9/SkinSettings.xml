@@ -286,6 +286,12 @@
 							<onclick>Skin.ToggleSetting(HideSystemBars)</onclick>
 							<selected>Skin.HasSetting(HideSystemBars)</selected>
 						</control>
+						<control type="radiobutton" id="10489">
+							<include>SettingsButtonCommonValues</include>
+							<label>Show Home floor</label>
+							<onclick>Skin.ToggleSetting(Disable.HomeFloor)</onclick>
+							<selected>!Skin.HasSetting(Disable.HomeFloor)</selected>
+						</control>
 						<control type="button" id="1005">
 							<include>SettingsButtonCommonValues</include>
 							<label>$LOCALIZE[13305]</label>

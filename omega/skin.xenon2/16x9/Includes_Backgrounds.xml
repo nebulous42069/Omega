@@ -100,7 +100,7 @@
 					<height>475</height>
 					<texture>floorx.png</texture>
 					<include>HomeTransparentEffect25</include>
-					<visible>!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Skin.HasSetting(centermainmenu)</visible>					
+					<visible>!String.IsEqual(Skin.String(MainMenu.Layout),vertical) + Skin.HasSetting(centermainmenu) + !Skin.HasSetting(Disable.HomeFloor)</visible>					
 				</control>
 			</control>
 			<control type="image">

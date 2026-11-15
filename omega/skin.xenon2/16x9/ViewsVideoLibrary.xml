@@ -1225,7 +1225,7 @@
                         <height>315</height>
                         <aspectratio>keep</aspectratio>
                         <fadetime>IconCrossfadeTime</fadetime>
-                        <texture background="true">$INFO[ListItem.Icon]</texture>
+                        <texture background="true">$VAR[X2ParentAwareTexture2Var]</texture>
                         <bordertexture border="8">ThumbShadow.png</bordertexture>
                         <bordersize>8</bordersize>
                         <visible>String.IsEqual(ListItem.Label,..) | !Skin.HasSetting(HideEpisodeThumb)</visible>
@@ -1237,7 +1237,7 @@
                         <height>315</height>
                         <aspectratio>keep</aspectratio>
                         <fadetime>IconCrossfadeTime</fadetime>
-                        <texture background="true">$INFO[ListItem.Art(fanart)]</texture>
+                        <texture background="true">$VAR[X2ParentAwareTexture6Var]</texture>
                         <bordertexture border="8">ThumbShadow.png</bordertexture>
                         <bordersize>8</bordersize>
                         <visible>Skin.HasSetting(HideEpisodeThumb) + !String.IsEqual(ListItem.Label,..)</visible>
@@ -1252,7 +1252,7 @@
                         <height>275</height>
                         <aspectratio>keep</aspectratio>
                         <fadetime>IconCrossfadeTime</fadetime>
-                        <texture background="true">$INFO[ListItem.Icon]</texture>
+                        <texture background="true">$VAR[X2ParentAwareTexture2Var]</texture>
                         <bordertexture border="8">ThumbShadow.png</bordertexture>
                         <bordersize>8</bordersize>
                         <visible>String.IsEqual(ListItem.Label,..) | !Skin.HasSetting(HideEpisodeThumb)</visible>
@@ -1264,7 +1264,7 @@
                         <height>275</height>
                         <aspectratio>keep</aspectratio>
                         <fadetime>IconCrossfadeTime</fadetime>
-                        <texture background="true">$INFO[ListItem.Art(fanart)]</texture>
+                        <texture background="true">$VAR[X2ParentAwareTexture6Var]</texture>
                         <bordertexture border="8">ThumbShadow.png</bordertexture>
                         <bordersize>8</bordersize>
                         <visible>Skin.HasSetting(HideEpisodeThumb) + !String.IsEqual(ListItem.Label,..)</visible>
@@ -1736,7 +1736,7 @@
                     <height>429</height>
                     <aspectratio>scale</aspectratio>
                     <fadetime>IconCrossfadeTime</fadetime>
-                    <texture background="true" fallback="Fanart_Fallback_Small.jpg">$INFO[ListItem.Art(fanart)]</texture>
+                    <texture background="true" fallback="Fanart_Fallback_Small.jpg">$VAR[X2ParentAwareTexture6Var]</texture>
                     <visible>String.IsEmpty(Control.GetLabel(5045)) | Skin.HasSetting(Disable504FanArt)</visible>
                     <visible>String.IsEqual(ListItem.DBType,movie)</visible>
                     <bordertexture background="true" border="8">ThumbShadow.png</bordertexture>
@@ -1749,7 +1749,7 @@
                     <height>429</height>
                     <aspectratio>keep</aspectratio>
                     <fadetime>IconCrossfadeTime</fadetime>
-                    <texture background="true" fallback="Fanart_Fallback_Small.jpg">$INFO[ListItem.Icon]</texture>
+                    <texture background="true" fallback="Fanart_Fallback_Small.jpg">$VAR[X2ParentAwareTexture2Var]</texture>
                     <visible>String.IsEqual(ListItem.DBType,video) | String.IsEqual(ListItem.DBType,album) | String.IsEqual(ListItem.DBType,musicvideo) | String.IsEmpty(ListItem.DBType)</visible>
                     <bordertexture background="true" border="8">ThumbShadow.png</bordertexture>
                     <bordersize>8</bordersize>
@@ -1761,7 +1761,7 @@
                     <height>488</height>
                     <aspectratio>scale</aspectratio>
                     <fadetime>IconCrossfadeTime</fadetime>
-                    <texture background="true" fallback="Fanart_Fallback_Small.jpg">$INFO[ListItem.Art(fanart)]</texture>
+                    <texture background="true" fallback="Fanart_Fallback_Small.jpg">$VAR[X2ParentAwareTexture6Var]</texture>
                     <visible>String.IsEqual(ListItem.DBType,tvshow)</visible>
                     <bordertexture background="true" border="8">ThumbShadow.png</bordertexture>
                     <bordersize>8</bordersize>
@@ -1913,7 +1913,7 @@
                     <height>429</height>
                     <aspectratio>scale</aspectratio>
                     <fadetime>IconCrossfadeTime</fadetime>
-                    <texture background="true">$INFO[ListItem.Icon]</texture>
+                    <texture background="true">$VAR[X2ParentAwareTexture2Var]</texture>
                     <bordertexture background="true" border="8">ThumbShadow.png</bordertexture>
                     <bordersize>8</bordersize>
                     <visible>String.IsEqual(ListItem.Label,..) | !Skin.HasSetting(HideEpisodeThumb)</visible>
@@ -1925,7 +1925,7 @@
                     <height>429</height>
                     <aspectratio>scale</aspectratio>
                     <fadetime>IconCrossfadeTime</fadetime>
-                    <texture background="true">$INFO[ListItem.Art(fanart)]</texture>
+                    <texture background="true">$VAR[X2ParentAwareTexture6Var]</texture>
                     <bordertexture background="true" border="8">ThumbShadow.png</bordertexture>
                     <bordersize>8</bordersize>
                     <visible>Skin.HasSetting(HideEpisodeThumb) + !String.IsEqual(ListItem.Label,..)</visible>
@@ -2188,7 +2188,7 @@
                         <aspectratio align="left" aligny="bottom">keep</aspectratio>
                         <bordertexture border="5">button-nofocus.png</bordertexture>
                         <include>TextureBorderViews</include>
-                        <texture background="true">$INFO[ListItem.Art(banner)]</texture>
+                        <texture background="true">$VAR[X2ParentAwareTexture5Var]</texture>
                         <visible>!String.IsEmpty(ListItem.Art(banner))</visible>
                     </control>
                     <control type="image">
@@ -2239,7 +2239,7 @@
                         <aspectratio align="left" aligny="bottom">keep</aspectratio>
                         <bordertexture border="5" colordiffuse="$VAR[ThemeLabelColor]">folder-focus.png</bordertexture>
                         <include>TextureBorderViews</include>
-                        <texture background="true">$INFO[ListItem.Art(banner)]</texture>
+                        <texture background="true">$VAR[X2ParentAwareTexture5Var]</texture>
                         <visible>!String.IsEmpty(ListItem.Art(banner))</visible>
                     </control>
                     <control type="image">
@@ -2332,7 +2332,7 @@
                     <height>590</height>
                     <aspectratio scalediffuse="false">scale</aspectratio>
                     <fadetime>IconCrossfadeTime</fadetime>
-                    <texture diffuse="Fanart_Diffuse.png" background="true" fallback="Fanart_Fallback_Small.jpg">$INFO[ListItem.Art(fanart)]</texture>
+                    <texture diffuse="Fanart_Diffuse.png" background="true" fallback="Fanart_Fallback_Small.jpg">$VAR[X2ParentAwareTexture6Var]</texture>
                     <visible>String.IsEmpty(Control.GetLabel(5045)) | Skin.HasSetting(Disable504FanArt)</visible>
                 </control>
                 <control type="image">
@@ -2462,7 +2462,7 @@
                     <height>590</height>
                     <aspectratio scalediffuse="false">scale</aspectratio>
                     <fadetime>IconCrossfadeTime</fadetime>
-                    <texture diffuse="Fanart_Diffuse.png" background="true" fallback="Fanart_Fallback_Small.jpg">$INFO[ListItem.Art(fanart)]</texture>
+                    <texture diffuse="Fanart_Diffuse.png" background="true" fallback="Fanart_Fallback_Small.jpg">$VAR[X2ParentAwareTexture6Var]</texture>
                 </control>
                 <control type="image">
                     <left>15</left>
@@ -2537,7 +2537,7 @@
                     <height>630</height>
                     <aspectratio scalediffuse="false">scale</aspectratio>
                     <fadetime>IconCrossfadeTime</fadetime>
-                    <texture diffuse="Fanart_Diffuse.png" background="true" fallback="Fanart_Fallback_Small.jpg">$INFO[ListItem.Art(fanart)]</texture>
+                    <texture diffuse="Fanart_Diffuse.png" background="true" fallback="Fanart_Fallback_Small.jpg">$VAR[X2ParentAwareTexture6Var]</texture>
                 </control>
                 <control type="label">
                     <left>15</left>
@@ -2602,7 +2602,7 @@
                     <height>590</height>
                     <aspectratio scalediffuse="false">scale</aspectratio>
                     <fadetime>IconCrossfadeTime</fadetime>
-                    <texture diffuse="Fanart_Diffuse.png" background="true" fallback="Fanart_Fallback_Small.jpg">$INFO[ListItem.icon]</texture>
+                    <texture diffuse="Fanart_Diffuse.png" background="true" fallback="Fanart_Fallback_Small.jpg">$VAR[X2ParentAwareTexture7Var]</texture>
                     <visible>!String.IsEqual(ListItem.Label,..) + Skin.HasSetting(EpisodeBackground)</visible>
                 </control>
                 <control type="image">
@@ -2612,7 +2612,7 @@
                     <height>590</height>
                     <aspectratio scalediffuse="false">scale</aspectratio>
                     <fadetime>IconCrossfadeTime</fadetime>
-                    <texture diffuse="Fanart_Diffuse.png" background="true" fallback="Fanart_Fallback_Small.jpg">$INFO[ListItem.Art(fanart)]</texture>
+                    <texture diffuse="Fanart_Diffuse.png" background="true" fallback="Fanart_Fallback_Small.jpg">$VAR[X2ParentAwareTexture6Var]</texture>
                     <visible>!String.IsEqual(ListItem.Label,..) + !Skin.HasSetting(EpisodeBackground)</visible>
                 </control>
                 <control type="image">
@@ -2763,7 +2763,7 @@
                     <height>660</height>
                     <aspectratio align="left" aligny="bottom">keep</aspectratio>
                     <fadetime>IconCrossfadeTime</fadetime>
-                    <texture background="true">$INFO[ListItem.Icon]</texture>
+                    <texture background="true">$VAR[X2ParentAwareTexture2Var]</texture>
                     <bordertexture border="8">ThumbShadow.png</bordertexture>
                     <bordersize>8</bordersize>
                     <visible>String.IsEqual(ListItem.Label,..) | [!Skin.HasSetting(EpisodeBackground) + !Skin.HasSetting(HideEpisodeThumb)]</visible>
@@ -2775,7 +2775,7 @@
                     <height>660</height>
                     <aspectratio align="left" aligny="bottom">keep</aspectratio>
                     <fadetime>IconCrossfadeTime</fadetime>
-                    <texture background="true">$INFO[ListItem.Art(fanart)]</texture>
+                    <texture background="true">$VAR[X2ParentAwareTexture6Var]</texture>
                     <bordertexture border="8">ThumbShadow.png</bordertexture>
                     <bordersize>8</bordersize>
                     <visible>!String.IsEqual(ListItem.Label,..)</visible>

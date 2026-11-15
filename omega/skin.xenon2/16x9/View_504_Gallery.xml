@@ -118,7 +118,7 @@
 							<visible>!Window.IsActive(pictures)</visible>
 							<width>1125</width>
 							<height>633</height>
-							<texture fallback="special://skin/extras/backgrounds/fallback_movies.jpg" background="true">$INFO[ListItem.Art(fanart)]</texture>
+							<texture fallback="special://skin/extras/backgrounds/fallback_movies.jpg" background="true">$VAR[X2ParentAwareTexture6Var]</texture>
 							<aspectratio align="center" aligny="center">scale</aspectratio>
 							<colordiffuse>BAffffff</colordiffuse>
 						</control>
@@ -126,7 +126,7 @@
 							<visible>Window.IsActive(pictures)</visible>
 							<width>1125</width>
 							<height>633</height>
-							<texture background="true">$INFO[ListItem.Art(thumb)]</texture>
+							<texture background="true">$VAR[X2ParentAwareTexture8Var]</texture>
 							<aspectratio align="center" aligny="center">keep</aspectratio>
 							<colordiffuse>BAffffff</colordiffuse>
 						</control>
@@ -153,7 +153,7 @@
 							<visible>!Window.IsActive(pictures)</visible>
 							<width>1125</width>
 							<height>633</height>
-							<texture fallback="special://skin/extras/backgrounds/fallback_movies.jpg" background="true">$INFO[ListItem.Art(fanart)]</texture>
+							<texture fallback="special://skin/extras/backgrounds/fallback_movies.jpg" background="true">$VAR[X2ParentAwareTexture6Var]</texture>
 							<aspectratio align="center" aligny="center">scale</aspectratio>
 							<bordertexture colordiffuse="$VAR[ThemeLabelColor]" border="8">thumbs/thumbnail_focused.png</bordertexture>
 							<bordersize>8</bordersize>
@@ -179,7 +179,7 @@
 							<visible>Window.IsActive(pictures)</visible>
 							<width>1125</width>
 							<height>633</height>
-							<texture background="true">$INFO[ListItem.Art(thumb)]</texture>
+							<texture background="true">$VAR[X2ParentAwareTexture8Var]</texture>
 							<aspectratio align="center" aligny="center">keep</aspectratio>
 							<bordertexture colordiffuse="$VAR[ThemeLabelColor]" border="8">thumbs/thumbnail_focused.png</bordertexture>
 							<bordersize>8</bordersize>

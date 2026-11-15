@@ -1369,7 +1369,7 @@
 						<aspectratio align="left">keep</aspectratio>
 						<fadetime>300</fadetime>
 						<animation effect="rotate" end="-360" center="auto" time="8333" loop="true" reversible="false" condition="!Player.Paused">Conditional</animation>
-						<texture background="true" diffuse="special://skin/media/x2_music/disc_mask.png">$VAR[X2HomeMusicDiscVar]</texture>
+						<texture background="true" diffuse="special://home/addons/resource.images.skinicons.wide/resources/x2_music/disc_mask.png">$VAR[X2HomeMusicDiscVar]</texture>
 						<bordersize>30</bordersize>
 					</control>
 					<control type="image">

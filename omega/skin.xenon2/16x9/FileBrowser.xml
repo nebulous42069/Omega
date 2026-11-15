@@ -86,7 +86,7 @@
                         <top>4</top>
                         <width>120</width>
                         <height>120</height>
-                        <texture>$INFO[Listitem.Icon]</texture>
+                        <texture>$VAR[X2ParentAwareTexture1Var]</texture>
                         <aspectratio>keep</aspectratio>
                         <colordiffuse>33FFFFFF</colordiffuse>
                         <bordertexture border="3">black-back2.png</bordertexture>
@@ -129,7 +129,7 @@
                         <top>4</top>
                         <width>120</width>
                         <height>120</height>
-                        <texture>$INFO[Listitem.Icon]</texture>
+                        <texture>$VAR[X2ParentAwareTexture1Var]</texture>
                         <aspectratio>keep</aspectratio>
                         <bordertexture border="3">black-back2.png</bordertexture>
                         <bordersize>2</bordersize>
@@ -172,7 +172,7 @@
                         <top>4</top>
                         <width>120</width>
                         <height>120</height>
-                        <texture>$INFO[Listitem.Icon]</texture>
+                        <texture>$VAR[X2ParentAwareTexture1Var]</texture>
                         <aspectratio>keep</aspectratio>
                         <colordiffuse>33FFFFFF</colordiffuse>
                         <bordertexture border="3">black-back2.png</bordertexture>
@@ -215,7 +215,7 @@
                         <top>4</top>
                         <width>120</width>
                         <height>120</height>
-                        <texture>$INFO[Listitem.Icon]</texture>
+                        <texture>$VAR[X2ParentAwareTexture1Var]</texture>
                         <aspectratio>keep</aspectratio>
                         <bordertexture border="3">black-back2.png</bordertexture>
                         <bordersize>2</bordersize>
@@ -332,7 +332,7 @@
                         <align>center</align>
                         <aspectratio align="center">keep</aspectratio>
                         <fadetime>IconCrossfadeTime</fadetime>
-                        <texture diffuse="episodematte.png">$INFO[ListItem.Icon]</texture>
+                        <texture diffuse="episodematte.png">$VAR[X2ParentAwareTexture2Var]</texture>
                         <bordertexture border="8">ThumbShadow.png</bordertexture>
                         <bordersize>8</bordersize>
                         <visible>!String.Contains(Control.GetLabel(416),*)</visible>
@@ -343,7 +343,7 @@
                         <align>center</align>
                         <aspectratio align="center">keep</aspectratio>
                         <fadetime>IconCrossfadeTime</fadetime>
-                        <texture diffuse="episodematte.png" flipx="true">$INFO[ListItem.Icon]</texture>
+                        <texture diffuse="episodematte.png" flipx="true">$VAR[X2ParentAwareTexture2Var]</texture>
                         <bordertexture border="8">ThumbShadow.png</bordertexture>
                         <bordersize>8</bordersize>
                         <visible>String.Contains(Control.GetLabel(416),*)</visible>

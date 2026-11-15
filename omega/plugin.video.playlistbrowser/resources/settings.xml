@@ -87,7 +87,7 @@
     <setting id="DLHD_auto_refresh" type="bool" label="Automatically regenerate DaddyLive M3U" default="true" />
     <setting id="DLHD_refresh_hours" type="number" label="DaddyLive M3U refresh interval (hours)" default="48" />
     <setting id="DLHD_epg" type="bool" label="Match USA/UK channels to EPGTalk combined guide" default="true" />
-    <setting id="DLHD_base" type="text" label="Source website base URL" default="https://dlive.sx" />
+    <setting id="DLHD_base" type="text" label="Source website base URL" default="https://thedaddy.li" />
     <setting id="DLHD_port" type="number" label="Local relay port (restart Kodi after changing)" default="8769" />
     <setting id="DLHD_automatic" type="bool" label="Automatically choose first working player" default="true" />
     <setting id="DLHD_player" type="enum" label="Manual player (when automatic selection is off)" values="Player 1|Player 2|Player 3|Player 4|Player 5|Player 6" default="0" />

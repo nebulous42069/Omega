@@ -716,7 +716,7 @@ Use this to quickly and easily organize your Favourites.
 				<screenshot />
 		</assets>
 	</extension>
-</addon><addon id="plugin.program.pvr.setup" name="PVR/EPG Quick Setup" version="1.4.9" provider-name="Diggz">
+</addon><addon id="plugin.program.pvr.setup" name="PVR/EPG Quick Setup" version="1.5.0" provider-name="Diggz">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
     </requires>
@@ -772,7 +772,7 @@ Use this to quickly and easily organize your Favourites.
   </assets>
   <news />
 </extension>
-</addon><addon id="plugin.video.4kwallpapers" name="Diggz 4K Wallpapers" version="1.3.17" provider-name="Diggz">
+</addon><addon id="plugin.video.4kwallpapers" name="Diggz 4K Wallpapers" version="1.3.23" provider-name="Diggz">
   <requires>
     <import addon="xbmc.python" version="3.0.1" />
   </requires>
@@ -938,7 +938,7 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.cb20
             <fanart>fanart.jpg</fanart>
         </assets>
     </extension>
-</addon><addon id="plugin.video.newson" version="2.0.0" name="NewsON" provider-name="Lunatixz">
+</addon><addon id="plugin.video.newson" version="2.0.1" name="NewsON" provider-name="Lunatixz">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
         <import addon="script.module.six" version="1.0.0" />
@@ -975,7 +975,7 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.cb20
         <description lang="es_ES">NewsON proporciona acceso instantáneo a emisiones en directo o a la carta de más de 175 emisoras locales en 114 mercados de Estados Unidos. Acceda a noticiarios emitidos hasta 48 horas después de su emisión y comparta historias interesantes con la función integrada para compartir en redes sociales directamente desde la aplicación. Busque una emisora local con el mapa interactivo o vea la emisora más cercana en teléfonos inteligentes, tabletas o reproductores de transmisiones Roku. Guarde sus emisoras favoritas y manténgase al día con las alertas de noticias de última hora enviadas directamente a los dispositivos móviles desde la fuente local de las noticias. Mantente conectado en cualquier momento y lugar sin necesidad de suscribirte a la televisión por cable ni de iniciar sesión.</description>
         <description lang="it_IT">NewsON fornisce accesso istantaneo a trasmissioni in diretta o su richiesta da oltre 175 stazioni locali in 114 mercati statunitensi. Accedi ai notiziari fino a 48 ore dopo la loro messa in onda e condividi storie interessanti con la funzione di condivisione integrata sui social media direttamente dall'app. Cerca una stazione locale con la mappa interattiva o guarda la stazione più vicina a te su smartphone, tablet o lettori streaming Roku. Salva le stazioni preferite e tieniti aggiornato con gli avvisi delle ultime notizie inviati direttamente ai dispositivi mobili dalla fonte locale delle notizie. Rimani connesso sempre e ovunque senza abbonamento via cavo o registrazione.</description>
     </extension>
-</addon><addon id="plugin.video.playlistbrowser" name="Diggz TV Guide Lite" version="2.8.14" provider-name="Diggz">
+</addon><addon id="plugin.video.playlistbrowser" name="Diggz TV Guide Lite" version="2.8.15" provider-name="Diggz">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
   </requires>
@@ -2426,6 +2426,27 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.sc19
 		</assets>
 		<news>- code refactor</news>
 	</extension>
+</addon><addon id="script.module.authorizediggz" name="Diggz Account Manager" version="1.4.5.30" provider-name="Zaxxon709, Hermit Murman, Diggz">
+    <requires>
+        <import addon="xbmc.python" version="3.0.0" />
+        <import addon="script.module.requests" version="2.19.1" />
+        </requires>
+    <extension point="xbmc.service" library="service.py" start="startup" />
+    <extension point="xbmc.python.script" library="entry.py">
+        <provides>executable video</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <reuselanguageinvoker>false</reuselanguageinvoker>
+        <summary lang="en">Diggz Account Manager</summary>
+        <description>Diggz Account Manager</description>
+        <platform>all</platform>
+        <license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
+        <disclaimer lang="en">The author is not responsible for the use of this addon. [CR]The author is in no way affiliated with Kodi, Team Kodi, or the XBMC Foundation.[CR]This is a Non-profit resource, organized solely for educational purposes which is protected under the Fair-Use doctrine of the Copyright Act, Specifically section 107, which does promote freedom of expression, by permitting the unlicensed use of copyright-protected works.</disclaimer>
+        <assets>
+            <icon>main/icon.png</icon>
+            <fanart>main/fanart.jpg</fanart>
+        </assets>
+    </extension>
 </addon><addon id="script.module.curl_cffi" name="curl_cffi" version="0.15.0" provider-name="Unknown">
 
   <requires>
@@ -3233,7 +3254,7 @@ v0.2.3
 			<fanart>resources/fanart.jpg</fanart>
 		</assets>
 	</extension>
-</addon><addon id="skin.xenon2" version="430.99.29" name="[B][COLOR gold]Diggz Xenon[/COLOR][/B]  (Mid Power)" provider-name="SiLVO, Diggz">
+</addon><addon id="skin.xenon2" version="430.99.30" name="[B][COLOR gold]Diggz Xenon[/COLOR][/B]  (Mid Power)" provider-name="SiLVO, Diggz">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0" />
 		<import addon="script.module.requests" version="2.19.1" />

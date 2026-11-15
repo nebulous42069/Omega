@@ -4,9 +4,11 @@ import os
 import threading
 import time
 import uuid
+import xbmcaddon
 import xbmcvfs
 from dlhd import resolver
 from dlhd.debuglog import LOG, reason
+from dlhd.source import source_base, source_host
 
 
 def profile_folder(addon):
@@ -79,7 +81,9 @@ def refresh(addon,origin,on_export=None):
     except OSError:
         raise ValueError('A DaddyLive M3U refresh is already running. Try again shortly.')
     try:
-        items=resolver.channels(addon.getSetting('DLHD_base') or 'https://dlive.sx')
+        base = source_base(addon)
+        LOG.info('M3U refresh source host=%s', source_host(base))
+        items = resolver.channels(base)
         if not items:raise ValueError('Channel list is empty; existing M3U retained')
         logos={}
         status='logos disabled'
@@ -200,11 +204,12 @@ class Scheduler:
             self.worker=threading.Thread(target=self.run,daemon=True)
             self.worker.start()
     def run(self):
+        addon = xbmcaddon.Addon('plugin.video.playlistbrowser')
         try:
             LOG.info('Scheduled M3U refresh started')
-            refresh(self.addon,self.origin,self.on_export)
+            refresh(addon,self.origin,self.on_export)
         except Exception as error:
             LOG.warning('Scheduled M3U refresh failed: %s; retry in one hour',reason(error))
-            state=read_state(self.addon)
-            state.update({'path':output_path(self.addon),'retry_after':time.time()+3600})
-            save_state(self.addon,state)
+            state=read_state(addon)
+            state.update({'path':output_path(addon),'retry_after':time.time()+3600})
+            save_state(addon,state)

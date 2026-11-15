@@ -26,7 +26,7 @@
 	<warn heading="19098" message="31377">ActivateWindow(Settings)</warn>
 	<warn heading="19098" message="31377">ActivateWindow(SkinSettings)</warn>
 <defaultwidgetsGetMore>False</defaultwidgetsGetMore>
-	<thumbnailBrowseDefault>special://skin/media/icons/</thumbnailBrowseDefault>
+	<thumbnailBrowseDefault>special://home/addons/resource.images.skinicons.wide/resources/icons/</thumbnailBrowseDefault>
 	<!-- Backgrounds -->
 	<backgroundBrowse>True</backgroundBrowse>
 	<background label="$LOCALIZE[31548]">Kodi.Movie.Fanart</background>

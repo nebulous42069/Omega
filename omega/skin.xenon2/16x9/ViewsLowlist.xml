@@ -154,7 +154,7 @@
                         <height>720</height>
                         <aspectratio aligny="bottom">keep</aspectratio>
                         <fadetime>IconCrossfadeTime</fadetime>
-                        <texture background="true" diffuse="ClearCase/EmptyCaseMask.png">$INFO[ListItem.Icon]</texture>
+                        <texture background="true" diffuse="ClearCase/EmptyCaseMask.png">$VAR[X2ParentAwareTexture2Var]</texture>
                         <visible>String.IsEmpty(ListItem.thumbnailImage)</visible>
                     </control>
                 </control>

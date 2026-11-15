@@ -53,7 +53,7 @@
 							<width>560</width>
 							<height>110</height>
 							<aspectratio>scale</aspectratio>
-							<texture colordiffuse="BAFFFFFF" background="true">$INFO[ListItem.Art(fanart)]</texture>
+							<texture colordiffuse="BAFFFFFF" background="true">$VAR[X2ParentAwareTexture6Var]</texture>
 							<bordertexture border="2">thumbs/panel_border3.png</bordertexture>
 							<bordersize>4</bordersize>
 						</control>
@@ -103,7 +103,7 @@
 								<width>560</width>
 								<height>110</height>
 								<aspectratio>scale</aspectratio>
-								<texture background="true">$INFO[ListItem.Art(fanart)]</texture>
+								<texture background="true">$VAR[X2ParentAwareTexture6Var]</texture>
 								<bordertexture colordiffuse="$VAR[ThemeLabelColor]" border="8">thumbs/thumbnail_focused.png</bordertexture>
 								<bordersize>8</bordersize>
 							</control>

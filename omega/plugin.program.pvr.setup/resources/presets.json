@@ -2,7 +2,7 @@
   {
     "name": "Setup Diggz Pick",
     "xml": "diggzpick",
-    "default_group": "Channels-USA-"
+    "default_group": "TV"
   },
   {
     "name": "Setup DaddyLive",

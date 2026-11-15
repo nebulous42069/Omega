@@ -38,7 +38,7 @@
 								<aspectratio>scale</aspectratio>
 								<bordertexture colordiffuse="shadow" border="8">thumbs/thumbnail_focused.png</bordertexture>
 								<bordersize>6</bordersize>
-								<texture background="true">$INFO[ListItem.Art(fanart)]</texture>
+								<texture background="true">$VAR[X2ParentAwareTexture6Var]</texture>
 								<fadetime>300</fadetime>
 							</control>
 							<control type="image">
@@ -91,7 +91,7 @@
 								<aspectratio>scale</aspectratio>
 								<bordertexture colordiffuse="$VAR[ThemeLabelColor]" border="8">thumbs/thumbnail_focused.png</bordertexture>
 								<bordersize>6</bordersize>
-								<texture background="true">$INFO[ListItem.Art(fanart)]</texture>
+								<texture background="true">$VAR[X2ParentAwareTexture6Var]</texture>
 								<fadetime>300</fadetime>
 							</control>
 							<control type="image">

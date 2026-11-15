@@ -56,7 +56,7 @@
                 <width>1020</width>
                 <height>585</height>
                 <aspectratio>keep</aspectratio>
-                <texture>$INFO[ListItem.Icon]</texture>
+                <texture>$VAR[X2ParentAwareTexture2Var]</texture>
                 <visible>!Player.HasVideo</visible>
             </control>
             <control type="videowindow">
@@ -346,7 +346,7 @@
                         <top>6</top>
                         <width>75</width>
                         <height>75</height>
-                        <texture>$INFO[ListItem.Icon]</texture>
+                        <texture>$VAR[X2ParentAwareTexture2Var]</texture>
                         <aspectratio>keep</aspectratio>
                     </control>
                     <control type="image">
@@ -442,7 +442,7 @@
                         <top>6</top>
                         <width>75</width>
                         <height>75</height>
-                        <texture>$INFO[ListItem.Icon]</texture>
+                        <texture>$VAR[X2ParentAwareTexture2Var]</texture>
                         <aspectratio>keep</aspectratio>
                     </control>
                     <control type="image">
@@ -544,7 +544,7 @@
                 <top>30</top>
                 <width>260</width>
                 <height>176</height>
-                <texture>$INFO[ListItem.Icon]</texture>
+                <texture>$VAR[X2ParentAwareTexture2Var]</texture>
                 <aspectratio>keep</aspectratio>
                 <visible>!String.IsEmpty(Listitem.Icon)</visible>
             </control>
@@ -554,7 +554,7 @@
                 <width>465</width>
                 <height>261</height>
                 <aspectratio>keep</aspectratio>
-                <texture>$INFO[ListItem.Icon]</texture>
+                <texture>$VAR[X2ParentAwareTexture2Var]</texture>
                 <visible>!Player.HasVideo</visible>
             </control>			
             <control type="videowindow">
@@ -700,7 +700,7 @@
                         <top>3</top>
                         <width>52</width>
                         <height>52</height>
-                        <texture>$INFO[ListItem.Icon]</texture>
+                        <texture>$VAR[X2ParentAwareTexture2Var]</texture>
                         <aspectratio>keep</aspectratio>
                     </control>
                     <control type="label">
@@ -796,7 +796,7 @@
                         <top>3</top>
                         <width>52</width>
                         <height>52</height>
-                        <texture>$INFO[ListItem.Icon]</texture>
+                        <texture>$VAR[X2ParentAwareTexture2Var]</texture>
                         <aspectratio>keep</aspectratio>
                     </control>
                     <control type="label">
@@ -997,7 +997,7 @@
                         <top>6</top>
                         <width>75</width>
                         <height>75</height>
-                        <texture>$INFO[ListItem.Icon]</texture>
+                        <texture>$VAR[X2ParentAwareTexture2Var]</texture>
                         <aspectratio>keep</aspectratio>
                     </control>
                     <control type="image">
@@ -1093,7 +1093,7 @@
                         <top>6</top>
                         <width>75</width>
                         <height>75</height>
-                        <texture>$INFO[ListItem.Icon]</texture>
+                        <texture>$VAR[X2ParentAwareTexture2Var]</texture>
                         <aspectratio>keep</aspectratio>
                     </control>
                     <control type="image">
@@ -1157,7 +1157,7 @@
                     <width>1170</width>
                     <height>645</height>
                     <aspectratio>keep</aspectratio>
-                    <texture>$INFO[ListItem.Icon]</texture>
+                    <texture>$VAR[X2ParentAwareTexture2Var]</texture>
                     <visible>!Player.HasVideo</visible>
                 </control>				
                 <control type="videowindow">
@@ -1269,7 +1269,7 @@
                         <posy>8</posy>
                         <width>255</width>
                         <height>210</height>
-                        <texture>$INFO[ListItem.Icon]</texture>
+                        <texture>$VAR[X2ParentAwareTexture2Var]</texture>
                         <visible>Control.IsVisible(5060) + String.IsEmpty(ListItem.PlotOutline)</visible>
                         <animation effect="fade" start="100" end="0" time="2000" condition="Player.HasVideo + System.IdleTime(10) + !Skin.HasSetting(HideNowPlayingInfo)">Conditional</animation>
                     </control>
@@ -1381,7 +1381,7 @@
                         <top>12</top>
                         <width>60</width>
                         <height>39</height>
-                        <texture>$INFO[ListItem.Icon]</texture>
+                        <texture>$VAR[X2ParentAwareTexture2Var]</texture>
                         <aspectratio>keep</aspectratio>
                     </control>
                     <control type="image">
@@ -1462,7 +1462,7 @@
                         <top>12</top>
                         <width>60</width>
                         <height>39</height>
-                        <texture>$INFO[ListItem.Icon]</texture>
+                        <texture>$VAR[X2ParentAwareTexture2Var]</texture>
                         <aspectratio>keep</aspectratio>
                     </control>
                     <control type="image">
@@ -1502,7 +1502,7 @@
                     <height>429</height>
                     <aspectratio>keep</aspectratio>
                     <fadetime>IconCrossfadeTime</fadetime>
-                    <texture background="true">$INFO[ListItem.Icon]</texture>
+                    <texture background="true">$VAR[X2ParentAwareTexture2Var]</texture>
                     <bordertexture background="true" border="8">ThumbShadow.png</bordertexture>
                     <bordersize>8</bordersize>
                     <visible>!Player.HasVideo</visible>

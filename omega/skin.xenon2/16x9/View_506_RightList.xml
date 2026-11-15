@@ -317,7 +317,7 @@
 						<left>-29</left>
 						<width>460</width>
 						<height>460</height>
-						<texture background="true">$INFO[ListItem.Icon]</texture>
+						<texture background="true">$VAR[X2ParentAwareTexture2Var]</texture>
 						<fadetime>IconCrossfadeTime</fadetime>
 						<bordertexture border="20">thumbs/thumb_shadow.png</bordertexture>
 						<bordersize>20</bordersize>

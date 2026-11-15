@@ -8,10 +8,11 @@ import xbmcgui
 import xbmcplugin
 import xbmcvfs
 from dlhd import resolver
+from dlhd.source import source_base, source_host
 
 
 def run(tool, handle, root, params=None, on_export=None):
-    addon = xbmcaddon.Addon()
+    addon = xbmcaddon.Addon('plugin.video.playlistbrowser')
     params = dict(params or {})
     action = tool
     dialog = xbmcgui.Dialog()
@@ -56,7 +57,7 @@ def run(tool, handle, root, params=None, on_export=None):
                     match = re.search(r'tvg-id="(\d+)"', header)
                     if match and int(match.group(1)) > 0:
                         items[int(match.group(1))] = name.strip()
-        return sorted(items.items(), key=lambda item: item[1].casefold()) if items else resolver.channels((addon.getSetting('DLHD_base') or 'https://dlive.sx'))
+        return sorted(items.items(), key=lambda item: item[1].casefold()) if items else resolver.channels(source_base(addon))
 
 
     try:
@@ -89,10 +90,11 @@ def run(tool, handle, root, params=None, on_export=None):
                 dialog.textviewer('EPGTalk channel matching report', text)
             elif action in ('log', 'exportlog'):
                 text = 'Playlist Browser version: ' + addon.getAddonInfo('version')
+                text += '\nConfigured source host: ' + source_host(source_base(addon))
                 text += '\nKodi: ' + xbmc.getInfoLabel('System.BuildVersion')
                 text += '\nRelay enabled: ' + str(addon.getSetting('DLHD_enabled') != 'false')
                 text += '\nPort setting: ' + repr(addon.getSetting('DLHD_port'))[:16]
-                for filename in ('startup.log', 'debug.log'):
+                for filename in ('startup.log', 'debug.log', 'manual-refresh.log'):
                     log_path = addon.getAddonInfo('profile').rstrip('/\\') + '/dlhd/' + filename
                     text += '\n\n--- ' + filename + ' ---\n'
                     if not xbmcvfs.exists(log_path):
@@ -118,7 +120,9 @@ def run(tool, handle, root, params=None, on_export=None):
             elif action == 'check':
                 dialog.ok(addon.getAddonInfo('name'), 'Local relay is running. This does not verify upstream stream availability.')
             elif action == 'export':
-                from dlhd.exporter import refresh
+                from dlhd.debuglog import setup
+                from dlhd.exporter import profile_folder, refresh
+                setup(profile_folder(addon), 'manual-refresh.log')
                 path, channel_count, logo_count, logo_status = refresh(addon, origin, on_export)
                 dialog.ok('M3U created', '{} channels; {} logos ({})\n{}\nRefresh channels in Playlist Browser, then open Channel Groups.'.format(channel_count, logo_count, logo_status, xbmcvfs.translatePath(path)))
             elif action == 'play':

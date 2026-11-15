@@ -536,7 +536,7 @@ class NewsOn(object):
 
         for row in rows:
             row_id = str(row.get('id', ''))
-            row_title = row.get('title', 'Content')
+            row_title = row.get('title') or 'Content'
             row_type = row.get('type', '')
 
             # Skip certain row types
@@ -795,7 +795,7 @@ class NewsOn(object):
         for row in rows:
             row_type = row.get('type', '')
             row_id = str(row.get('id', ''))
-            row_title = row.get('title', 'Content')
+            row_title = row.get('title') or 'Content'
 
             if row_type == 'VOD_ROW':
                 # Most Recent section - display as folder
@@ -963,7 +963,7 @@ class NewsOn(object):
         for row in rows:
             row_type = row.get('type', '')
             row_id = str(row.get('id', ''))
-            row_title = row.get('title', 'Content')
+            row_title = row.get('title') or 'Content'
             items = row.get('items', [])
 
             # Skip certain row types
@@ -1154,7 +1154,18 @@ class NewsOn(object):
                 # Link to the show's detail page
                 self.addDir(show_title, (viewEndpoint, 'sportsshow', show_item_id), infoArt=infoArt)
 
-        elif content_type in ['whatson_row', 'whatson_header', 'autoplay_header', 'breaking']:
+        elif content_type == 'autoplay_header':
+            item = target_row.get('item') or {}
+            playables = item.get('playables') or {}
+            for key, title in (('live', 'Live newscast'), ('alwayson', '24/7 stream'),
+                               ('vod', 'Latest newscast')):
+                playable = playables.get(key)
+                if playable:
+                    video = dict(playable, title=title, station=item.get('station'),
+                                 tags=['LIVE'] if key != 'vod' else [])
+                    self.buildVideoItem((video, key))
+
+        elif content_type in ['whatson_row', 'whatson_header', 'breaking']:
             # Display videos or stations depending on item type
             if items and len(items) > 0:
                 first_item_type = items[0].get('type', '')
@@ -1179,26 +1190,24 @@ class NewsOn(object):
         if opt is None:
             self.addDir('Live Now', (browseDetails, chid, 'live'))
             self.addDir('Recent Videos', (browseDetails, chid, 'recent'))
-        else:
-            if opt == 'live':
-                # Get live content for this station
-                home_data = self.getHomeData()
-                for row in home_data.get('rows', []):
-                    if row.get('type') == 'VOD_ROW' and 'live' in row.get('title', '').lower():
-                        items = row.get('items', [])
-                        for item in items:
-                            if item.get('station', {}).get('id') == chid:
-                                self.buildVideoItem((item, 'live'))
+            return
 
-            elif opt == 'recent':
-                # Get recent videos for this station
-                home_data = self.getHomeData()
-                for row in home_data.get('rows', []):
-                    if row.get('type') == 'VOD_ROW':
-                        items = row.get('items', [])
-                        for item in items:
-                            if item.get('station', {}).get('id') == chid:
-                                self.buildVideoItem((item, 'vod'))
+        endpoint = BASE_API + '/detail/station/' + urllib.parse.quote(str(chid), safe='')
+        data = self.openURL(endpoint, params={'platformType': 'website'},
+                            life=None if opt == 'live' else datetime.timedelta(minutes=15))
+        if opt == 'live':
+            item = data.get('item') or {}
+            playables = item.get('playables') or {}
+            for key, title in (('live', 'Live newscast'), ('alwayson', '24/7 stream')):
+                playable = playables.get(key)
+                if playable:
+                    video = dict(playable, title=title, station=item.get('station'),
+                                 tags=['LIVE'])
+                    self.buildVideoItem((video, 'live'))
+        elif opt == 'recent':
+            for row in data.get('rows', []):
+                if row.get('type') == 'VOD_ROW':
+                    self.poolList(self.buildVideoItem, row.get('items') or [], 'vod')
 
 
     ## BUILD ITEM FUNCTIONS ##
@@ -1240,7 +1249,7 @@ class NewsOn(object):
         airDate     = item.get('airDate', 0)
         imageUrl    = item.get('imageUrl', CLIPART)
         videoType   = item.get('videoType', 'program')
-        tags        = item.get('tags', [])
+        tags        = item.get('tags') or []
 
         station     = item.get('station', {})
         station_id  = station.get('id', '') if station else ''
@@ -1337,16 +1346,18 @@ class NewsOn(object):
             param_str = json.dumps(params) if params else ''
             cacheName = '%s.openURL, url = %s.%s'%(ADDON_NAME, url, param_str)
 
-            cacheresponse = self.cache.get(cacheName)
-            if cacheresponse:
-                return json.loads(cacheresponse)
+            if life is not None:
+                cacheresponse = self.cache.get(cacheName)
+                if cacheresponse:
+                    return json.loads(cacheresponse)
 
             response = client.get(url, params=params, timeout=30)
 
             if response and response.ok:
                 data = response.json()
-                self.cache.set(cacheName, json.dumps(data),
-                             checksum=len(json.dumps(data)), expiration=life)
+                if life is not None:
+                    self.cache.set(cacheName, json.dumps(data),
+                                   checksum=len(json.dumps(data)), expiration=life)
                 return data
             else:
                 log("openURL Failed! Status: %s"%(response.status_code if response else 'None'), xbmc.LOGERROR)
@@ -1361,45 +1372,43 @@ class NewsOn(object):
 
     def playVideo(self, url_or_id, opt='live', videoType='program'):
         """Play video content"""
-        log('playVideo, url_or_id = %s, opt = %s, videoType = %s'%(url_or_id, opt, videoType))
-
-        stream_url = None
-
+        sources = []
         if opt == 'vod':
-            # Get stream URL from /v5api/item/{videoType}/{videoId} endpoint
-            try:
-                endpoint = BASE_API + '/item/%s/%s' % (videoType, url_or_id)
-                log('Fetching stream from: %s' % endpoint)
-
-                data = self.openURL(endpoint, params={'platformType': 'website'}, life=datetime.timedelta(minutes=15))
-
-                if data:
-                    sources = data.get('sources', [])
-                    if sources and len(sources) > 0:
-                        stream_url = sources[0].get('file', '')
-                        stream_type = sources[0].get('type', 'HLS')
-                        log('Found stream: %s (type: %s)' % (stream_url, stream_type))
-                    else:
-                        log('No sources found in API response', xbmc.LOGERROR)
-                else:
-                    log('Empty response from item endpoint', xbmc.LOGERROR)
-
-            except Exception as e:
-                log('Failed to fetch stream URL: %s' % str(e), xbmc.LOGERROR)
-
-            if not stream_url:
-                log('Could not find stream URL for VOD ID: %s (type: %s)'%(url_or_id, videoType), xbmc.LOGERROR)
-                xbmcgui.Dialog().notification(ADDON_NAME, 'Stream not found', ICON, 4000)
-                return
+            endpoint = BASE_API + '/item/%s/%s' % (
+                urllib.parse.quote(str(videoType), safe=''),
+                urllib.parse.quote(str(url_or_id), safe=''))
+            # Playback responses can contain short-lived URLs.
+            data = self.openURL(endpoint, params={'platformType': 'website'}, life=None)
+            if isinstance(data, dict):
+                sources = data.get('sources') or []
         else:
-            stream_url = decodeString(url_or_id)
+            sources = [{'file': decodeString(url_or_id)}]
 
-        # Play the stream
-        log('Playing stream: %s' % stream_url)
-        liz = xbmcgui.ListItem(path=stream_url)
-        liz.setProperty('IsPlayable', 'true')
-        liz.setProperty('IsInternetStream', 'true')
-        xbmcplugin.setResolvedUrl(ROUTER.handle, True, liz)
+        for source in sources:
+            if not isinstance(source, dict):
+                continue
+            stream_url = source.get('file')
+            if not isinstance(stream_url, str):
+                continue
+            try:
+                parsed = urllib.parse.urlsplit(stream_url)
+            except ValueError:
+                continue
+            if parsed.scheme not in ('http', 'https') or not parsed.netloc:
+                continue
+
+            liz = xbmcgui.ListItem(path=stream_url)
+            liz.setProperty('IsPlayable', 'true')
+            liz.setProperty('IsInternetStream', 'true')
+            if str(source.get('type')).lower() == 'hls' or parsed.path.lower().endswith('.m3u8'):
+                liz.setMimeType('application/vnd.apple.mpegurl')
+                liz.setContentLookup(False)
+            xbmcplugin.setResolvedUrl(ROUTER.handle, True, liz)
+            return
+
+        log('NewsON returned no usable playback source', xbmc.LOGERROR)
+        xbmcgui.Dialog().notification(ADDON_NAME, 'Stream not found', ICON, 4000)
+        xbmcplugin.setResolvedUrl(ROUTER.handle, False, xbmcgui.ListItem())
 
 
     ## HELPER FUNCTIONS ##

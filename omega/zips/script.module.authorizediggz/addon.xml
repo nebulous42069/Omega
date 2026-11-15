@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<addon id="script.module.authorizediggz" name="Diggz Account Manager" version="1.4.5.30" provider-name="Zaxxon709, Hermit Murman, Diggz">
+    <requires>
+        <import addon="xbmc.python" version="3.0.0" />
+        <import addon="script.module.requests" version="2.19.1" />
+        </requires>
+    <extension point="xbmc.service" library="service.py" start="startup" />
+    <extension point="xbmc.python.script" library="entry.py">
+        <provides>executable video</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <reuselanguageinvoker>false</reuselanguageinvoker>
+        <summary lang="en">Diggz Account Manager</summary>
+        <description>Diggz Account Manager</description>
+        <platform>all</platform>
+        <license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
+        <disclaimer lang="en">The author is not responsible for the use of this addon. [CR]The author is in no way affiliated with Kodi, Team Kodi, or the XBMC Foundation.[CR]This is a Non-profit resource, organized solely for educational purposes which is protected under the Fair-Use doctrine of the Copyright Act, Specifically section 107, which does promote freedom of expression, by permitting the unlicensed use of copyright-protected works.</disclaimer>
+        <assets>
+            <icon>main/icon.png</icon>
+            <fanart>main/fanart.jpg</fanart>
+        </assets>
+    </extension>
+</addon>

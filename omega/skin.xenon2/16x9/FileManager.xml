@@ -46,7 +46,7 @@
                 <width>120</width>
                 <height>120</height>
                 <aspectratio>keep</aspectratio>
-                <info>Container(20).ListItem.Icon</info>
+                <texture>$VAR[X2ParentAwareTexture3Var]</texture>
                 <bordertexture border="5">button-nofocus.png</bordertexture>
                 <bordersize>3</bordersize>
             </control>
@@ -212,7 +212,7 @@
                 <width>120</width>
                 <height>120</height>
                 <aspectratio>keep</aspectratio>
-                <info>Container(21).ListItem.Icon</info>
+                <texture>$VAR[X2ParentAwareTexture4Var]</texture>
                 <bordertexture border="5">button-nofocus.png</bordertexture>
                 <bordersize>3</bordersize>
             </control>

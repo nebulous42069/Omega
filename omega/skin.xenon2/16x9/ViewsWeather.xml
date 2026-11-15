@@ -1232,7 +1232,7 @@
                         <top>0</top>
                         <width>885</width>
                         <height>705</height>
-                        <texture>$INFO[ListItem.Icon]</texture>
+                        <texture>$VAR[X2ParentAwareTexture2Var]</texture>
                         <aspectratio>scale</aspectratio>
                     </control>
                     <control type="image">
@@ -1261,7 +1261,7 @@
                         <top>0</top>
                         <width>885</width>
                         <height>705</height>
-                        <texture>$INFO[ListItem.Icon]</texture>
+                        <texture>$VAR[X2ParentAwareTexture2Var]</texture>
                         <aspectratio>scale</aspectratio>
                     </control>
                     <control type="image">

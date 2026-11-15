@@ -136,7 +136,7 @@
                     <height>360</height>
                     <aspectratio>keep</aspectratio>
                     <fadetime>200</fadetime>
-                    <texture background="true">$INFO[ListItem.Icon]</texture>
+                    <texture background="true">$VAR[X2ParentAwareTexture2Var]</texture>
                     <bordertexture border="8">ThumbShadow.png</bordertexture>
                     <bordersize>8</bordersize>
                 </control>
@@ -241,7 +241,7 @@
                         <bordertexture border="5">button-nofocus.png</bordertexture>
                         <include>TextureBorderViews</include>
                         <fadetime>100</fadetime>
-                        <texture background="true">$INFO[Listitem.Icon]</texture>
+                        <texture background="true">$VAR[X2ParentAwareTexture1Var]</texture>
                         <aspectratio>keep</aspectratio>
                     </control>
                     <control type="image">
@@ -253,7 +253,7 @@
                         <include>TextureBorderViews</include>
                         <fadetime>100</fadetime>
                         <colordiffuse>ff333333</colordiffuse>
-                        <texture background="true">$INFO[Listitem.Icon]</texture>
+                        <texture background="true">$VAR[X2ParentAwareTexture1Var]</texture>
                         <aspectratio>keep</aspectratio>
                         <visible>!String.IsEmpty(ListItem.AddonBroken)</visible>
                     </control>
@@ -294,7 +294,7 @@
                         <bordertexture border="5" colordiffuse="$VAR[ThemeLabelColor]">folder-focus.png</bordertexture>
                         <include>TextureBorderViews</include>
                         <fadetime>100</fadetime>
-                        <texture background="true">$INFO[Listitem.Icon]</texture>
+                        <texture background="true">$VAR[X2ParentAwareTexture1Var]</texture>
                         <aspectratio>keep</aspectratio>
                     </control>
                     <control type="image">
@@ -306,7 +306,7 @@
                         <include>TextureBorderViews</include>
                         <fadetime>100</fadetime>
                         <colordiffuse>ff333333</colordiffuse>
-                        <texture background="true">$INFO[Listitem.Icon]</texture>
+                        <texture background="true">$VAR[X2ParentAwareTexture1Var]</texture>
                         <aspectratio>keep</aspectratio>
                         <visible>!String.IsEmpty(ListItem.AddonBroken)</visible>
                     </control>

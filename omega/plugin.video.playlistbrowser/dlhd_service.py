@@ -34,12 +34,15 @@ while not monitor.abortRequested():
         from dlhd.debuglog import LOG, setup, reason
         from dlhd.relay import Relay
         from dlhd.exporter import Scheduler
+        from dlhd.source import source_base, source_host
         log_path = setup(xbmcvfs.translatePath(folder))
         port = int(addon.getSetting('DLHD_port') or '8769')
         if not 1024 <= port <= 65535:
             raise ValueError('Relay port must be between 1024 and 65535')
-        LOG.info('Integrated relay version=%s starting port=%s', addon.getAddonInfo('version'), port)
-        relay = Relay(port, addon.getSetting('DLHD_base') or 'https://dlive.sx', addon.getSetting('DLHD_automatic') != 'false', log_path)
+        base = source_base(addon)
+        LOG.info('Integrated relay version=%s starting port=%s source_host=%s',
+                 addon.getAddonInfo('version'), port, source_host(base))
+        relay = Relay(port, base, addon.getSetting('DLHD_automatic') != 'false', log_path)
         thread = threading.Thread(target=relay.serve_forever, daemon=True)
         thread.start()
         serving = True
@@ -51,15 +54,17 @@ while not monitor.abortRequested():
         while not monitor.waitForAbort(1):
             if not thread.is_alive():
                 raise RuntimeError('Relay serving thread stopped')
-            base = addon.getSetting('DLHD_base') or 'https://dlive.sx'
+            current_addon = xbmcaddon.Addon('plugin.video.playlistbrowser')
+            base = source_base(current_addon)
             if relay.base != base:
                 with relay.lock:
                     relay.sessions.clear()
                     relay.selected.clear()
                     relay.failures.clear()
                     relay.blocked.clear()
-                relay.base = base
-            relay.automatic = addon.getSetting('DLHD_automatic') != 'false'
+                    relay.base = base
+                LOG.info('Relay source changed host=%s', source_host(base))
+            relay.automatic = current_addon.getSetting('DLHD_automatic') != 'false'
             try: scheduler.tick()
             except Exception as error: LOG.warning('Scheduler check failed: %s', reason(error))
     except Exception as error:

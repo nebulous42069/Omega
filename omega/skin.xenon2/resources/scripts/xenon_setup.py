@@ -32,37 +32,37 @@ CATALOG = {
         {
             "id": "plugin.video.lookmovietomb",
             "name": "LookMovieTomb",
-            "icon": "special://skin/media/icons/lookmovies.png"
+            "icon": "special://home/addons/resource.images.skinicons.wide/resources/icons/lookmovies.png"
         },
         {
             "id": "plugin.video.tmdbmovies",
             "name": "TMDB Movies",
-            "icon": "special://skin/media/icons/tmdb.png"
+            "icon": "special://home/addons/resource.images.skinicons.wide/resources/icons/tmdb.png"
         },
         {
             "id": "plugin.video.gratisred",
             "name": "Gratis Red",
-            "icon": "special://skin/media/icons/gratisred.png"
+            "icon": "special://home/addons/resource.images.skinicons.wide/resources/icons/gratisred.png"
         },
         {
             "id": "plugin.video.9movies",
             "name": "9 Movies",
-            "icon": "special://skin/media/icons/9movies.png"
+            "icon": "special://home/addons/resource.images.skinicons.wide/resources/icons/9movies.png"
         },
         {
             "id": "plugin.video.vidscr",
             "name": "Vidscr",
-            "icon": "special://skin/media/icons/vidscr.png"
+            "icon": "special://home/addons/resource.images.skinicons.wide/resources/icons/vidscr.png"
         },
         {
             "id": "plugin.video.blacklodge",
             "name": "BlackLodge",
-            "icon": "special://skin/media/icons/blacklodge.png"
+            "icon": "special://home/addons/resource.images.skinicons.wide/resources/icons/blacklodge.png"
         },
         {
             "id": "plugin.video.twisted",
             "name": "Twisted",
-            "icon": "special://skin/media/icons/twisted.png"
+            "icon": "special://home/addons/resource.images.skinicons.wide/resources/icons/twisted.png"
         }
     ],
     "debrid": [
@@ -70,33 +70,173 @@ CATALOG = {
         {
             "id": "plugin.video.umbrella",
             "name": "Umbrella",
-            "icon": "special://skin/media/icons/umbrella.png"
+            "icon": "special://home/addons/resource.images.skinicons.wide/resources/icons/umbrella.png"
         },
         {
             "id": "plugin.video.redlight",
             "name": "Redlight",
-            "icon": "special://skin/media/icons/fenlight.png"
+            "icon": "special://home/addons/resource.images.skinicons.wide/resources/icons/fenlight.png"
         },
         {
             "id": "plugin.video.seren",
             "name": "Seren",
-            "icon": "special://skin/media/icons/seren.png"
+            "icon": "special://home/addons/resource.images.skinicons.wide/resources/icons/seren.png"
         },
         {
             "id": "plugin.video.absolution",
             "name": "Absolution",
-            "icon": "special://skin/media/icons/absolution.png"
+            "icon": "special://home/addons/resource.images.skinicons.wide/resources/icons/absolution.png"
         },
         {
             "id": "plugin.video.thecrew",
             "name": "The Crew",
-            "icon": "special://skin/media/icons/crew.png"
+            "icon": "special://home/addons/resource.images.skinicons.wide/resources/icons/crew.png"
         },
         {
             "id": "plugin.video.pov",
             "name": "POV",
-            "icon": "special://skin/media/icons/pov.png"
-        }       
+            "icon": "special://home/addons/resource.images.skinicons.wide/resources/icons/pov.png"
+        },
+        {
+            "id": "plugin.video.aliunde",
+            "name": "Aliunde"
+        },
+        {
+            "id": "plugin.video.aliundek19",
+            "name": "Aliunde K19"
+        },
+        {
+            "id": "plugin.video.aniverse",
+            "name": "AniVerse"
+        },
+        {
+            "id": "plugin.video.base",
+            "name": "Base"
+        },
+        {
+            "id": "plugin.video.blacklightning",
+            "name": "Black Lightning"
+        },
+        {
+            "id": "plugin.video.blueballs",
+            "name": "Blue Balls"
+        },
+        {
+            "id": "plugin.video.thechains",
+            "name": "Chains"
+        },
+        {
+            "id": "plugin.video.chainsgenocide",
+            "name": "Chains Genocide"
+        },
+        {
+            "id": "plugin.video.coalition",
+            "name": "Coalition"
+        },
+        {
+            "id": "plugin.video.cosmos",
+            "name": "Cosmos"
+        },
+        {
+            "id": "plugin.video.cumination",
+            "name": "Cumination"
+        },
+        {
+            "id": "plugin.video.gears",
+            "name": "Gears"
+        },
+        {
+            "id": "plugin.video.genocide",
+            "name": "Genocide"
+        },
+        {
+            "id": "plugin.video.ghost",
+            "name": "Ghost"
+        },
+        {
+            "id": "plugin.video.gratisred",
+            "name": "GratisRed"
+        },
+        {
+            "id": "plugin.video.homelander",
+            "name": "Homelander"
+        },
+        {
+            "id": "plugin.video.infinity",
+            "name": "Infinity"
+        },
+        {
+            "id": "plugin.video.nightwing",
+            "name": "Nightwing"
+        },
+        {
+            "id": "plugin.video.nine",
+            "name": "Nine"
+        },
+        {
+            "id": "plugin.video.orion",
+            "name": "Orion"
+        },
+        {
+            "id": "plugin.video.otaku",
+            "name": "Otaku"
+        },
+        {
+            "id": "plugin.video.patriot",
+            "name": "Patriot"
+        },
+        {
+            "id": "plugin.video.premiumizerx",
+            "name": "PremiumizerX"
+        },
+        {
+            "id": "plugin.video.prism",
+            "name": "Prism"
+        },
+        {
+            "id": "plugin.video.quicksilver",
+            "name": "Quicksilver"
+        },
+        {
+            "id": "plugin.video.realizerx",
+            "name": "RealizerX"
+        },
+        {
+            "id": "plugin.video.salts",
+            "name": "Salts"
+        },
+        {
+            "id": "plugin.video.scrubsv2",
+            "name": "Scrubs V2"
+        },
+        {
+            "id": "plugin.video.shadow",
+            "name": "Shadow"
+        },
+        {
+            "id": "plugin.video.shazam",
+            "name": "Shazam"
+        },
+        {
+            "id": "plugin.video.syncher",
+            "name": "Syncher"
+        },
+        {
+            "id": "plugin.video.thearchives",
+            "name": "The Archives"
+        },
+        {
+            "id": "plugin.video.tmdbmovies",
+            "name": "TMDb Movies"
+        },
+        {
+            "id": "plugin.video.twisted",
+            "name": "Twisted"
+        },
+        {
+            "id": "plugin.video.youtubetheater",
+            "name": "Youtube Theater"
+        }
     ]
 }
 # Custom service artwork paths. Falls back to ReAuthorize artwork, then a placeholder.
@@ -105,61 +245,61 @@ SERVICES = [
         "name": "Real Debrid",
         "id": "realdebrid",
         "action": "realdebridAuth",
-        "icon": "special://skin/media/setup/services/realdebrid.png"
+        "icon": "special://home/addons/resource.images.skinicons.wide/resources/setup/services/realdebrid.png"
     },
     {
         "name": "Premiumize",
         "id": "premiumize",
         "action": "premiumizeAuth",
-        "icon": "special://skin/media/setup/services/premiumize.png"
+        "icon": "special://home/addons/resource.images.skinicons.wide/resources/setup/services/premiumize.png"
     },
     {
         "name": "AllDebrid",
         "id": "alldebrid",
         "action": "alldebridAuth",
-        "icon": "special://skin/media/setup/services/alldebrid.png"
+        "icon": "special://home/addons/resource.images.skinicons.wide/resources/setup/services/alldebrid.png"
     },
     {
         "name": "TorBox",
         "id": "torbox",
         "action": "torboxAuth",
-        "icon": "special://skin/media/setup/services/torbox.png"
+        "icon": "special://home/addons/resource.images.skinicons.wide/resources/setup/services/torbox.png"
     },
     {
         "name": "Easy Debrid",
         "id": "easydebrid",
         "action": "easydebridAuth",
-        "icon": "special://skin/media/setup/services/easydebrid.png"
+        "icon": "special://home/addons/resource.images.skinicons.wide/resources/setup/services/easydebrid.png"
     },
     {
         "name": "OffCloud",
         "id": "offcloud",
         "action": "offcloudAuth",
-        "icon": "special://skin/media/setup/services/offcloud.png"
+        "icon": "special://home/addons/resource.images.skinicons.wide/resources/setup/services/offcloud.png"
     },
     {
         "name": "Easynews",
         "id": "easynews",
         "action": "easynewsAuth",
-        "icon": "special://skin/media/setup/services/easynews.png"
+        "icon": "special://home/addons/resource.images.skinicons.wide/resources/setup/services/easynews.png"
     },
     {
         "name": "FilePursuit",
         "id": "filepursuit",
         "action": "filepursuitAuth",
-        "icon": "special://skin/media/setup/services/filepursuit.png"
+        "icon": "special://home/addons/resource.images.skinicons.wide/resources/setup/services/filepursuit.png"
     },
     {
         "name": "Linksnappy",
         "id": "linksnappy",
         "action": "linksnappyAuth",
-        "icon": "special://skin/media/setup/services/linksnappy.png"
+        "icon": "special://home/addons/resource.images.skinicons.wide/resources/setup/services/linksnappy.png"
     },
     {
         "name": "Debrid-Link",
         "id": "debridlink",
         "action": "debridlinkAuth",
-        "icon": "special://skin/media/setup/services/debridlink.png"
+        "icon": "special://home/addons/resource.images.skinicons.wide/resources/setup/services/debridlink.png"
     }
 ]
 # Each flavor is a complete read-only script.skinshortcuts folder.
@@ -175,7 +315,7 @@ FLAVORS = [
         "name": "The Movie Database Helper",
         "addon": "plugin.video.themoviedb.helper",
         "folder": "tmdbhelper",
-        "icon": "special://skin/media/icons/tmdbh.png",
+        "icon": "special://home/addons/resource.images.skinicons.wide/resources/icons/tmdbh.png",
         "always_labels": [
             "1036",
             "24001",
@@ -187,7 +327,7 @@ FLAVORS = [
         "name": "Red Light",
         "addon": "plugin.video.redlight",
         "folder": "redlight",
-        "icon": "special://skin/media/icons/fenlight.png",
+        "icon": "special://home/addons/resource.images.skinicons.wide/resources/icons/fenlight.png",
         "always_labels": [
             "1036",
             "24001",
@@ -199,7 +339,7 @@ FLAVORS = [
         "name": "Umbrella",
         "addon": "plugin.video.umbrella",
         "folder": "umbrella",
-        "icon": "special://skin/media/umbrella.png",
+        "icon": "special://home/addons/resource.images.skinicons.wide/resources/umbrella.png",
         "always_labels": [
             "1036",
             "24001",
@@ -214,7 +354,7 @@ FREE_FLAVORS = [
         "name": "Xenon Free",
         "addon": "",
         "folder": "xenonfree",
-        "icon": "special://skin/media/free.png",
+        "icon": "special://home/addons/resource.images.skinicons.wide/resources/free.png",
         "always_labels": [
             "1036",
             "24001",
@@ -228,19 +368,37 @@ TRACKING_SERVICES = [
         "id": "trakt",
         "name": "Trakt",
         "action": "traktAuth",
-        "icon": "special://skin/media/setup/tracking/trakt.png"
+        "icon": "special://home/addons/resource.images.skinicons.wide/resources/tracking/trakt.png"
     },
     {
         "id": "simkl",
         "name": "Simkl",
         "action": "simklAuth",
-        "icon": "special://skin/media/setup/tracking/simkl.png"
+        "icon": "special://home/addons/resource.images.skinicons.wide/resources/tracking/simkl.png"
     },
     {
         "id": "mdblist",
         "name": "MDBList",
         "action": "mdblistOAuthAuth",
-        "icon": "special://skin/media/setup/tracking/mdblist.png"
+        "icon": "special://home/addons/resource.images.skinicons.wide/resources/tracking/mdblist.png"
+    },
+    {
+        "id": "punchplay",
+        "name": "PunchPlay",
+        "action": "punchplayAuth",
+        "icon": "special://home/addons/resource.images.skinicons.wide/resources/tracking/punchplay.png"
+    },
+    {
+        "id": "lastfm",
+        "name": "Last.fm",
+        "action": "lastfmAuth",
+        "icon": "special://home/addons/resource.images.skinicons.wide/resources/tracking/lastfm.png"
+    },
+    {
+        "id": "tmdb",
+        "name": "TMDB Account",
+        "action": "tmdbAuth",
+        "icon": "special://home/addons/resource.images.skinicons.wide/resources/tracking/tmdb.png"
     }
 ]
 LAYOUT = '<window>\n  <defaultcontrol always="true">100</defaultcontrol>\n  <coordinates />\n  <controls>\n    <control type="image">\n      <left>0</left>\n      <top>0</top>\n      <width>1920</width>\n      <height>1080</height>\n      <texture>panel.png</texture>\n    </control>\n    <control type="image">\n      <left>0</left>\n      <top>0</top>\n      <width>1920</width>\n      <height>1080</height>\n      <texture colordiffuse="__THEME__">circuit.png</texture>\n    </control>\n    <control type="image">\n      <left>180</left>\n      <top>175</top>\n      <width>1560</width>\n      <height>6</height>\n      <texture colordiffuse="__THEME__">accent.png</texture>\n    </control>\n    <control type="label" id="10">\n      <left>180</left>\n      <top>83</top>\n      <width>1560</width>\n      <height>82</height>\n      <font>font_MainMenu</font>\n      <textcolor>__THEME__</textcolor>\n      <wrapmultiline>true</wrapmultiline>\n      <label />\n      <align>center</align>\n      <aligny>center</aligny>\n    </control>\n    <control type="label" id="11">\n      <left>180</left>\n      <top>205</top>\n      <width>1560</width>\n      <height>65</height>\n      <font>font13</font>\n      <textcolor>FFFFFFFF</textcolor>\n      <wrapmultiline>true</wrapmultiline>\n      <label />\n    </control>\n    <control type="label" id="12">\n      <left>180</left>\n      <top>290</top>\n      <width>1560</width>\n      <height>90</height>\n      <font>font13</font>\n      <textcolor>FFFFFFFF</textcolor>\n      <wrapmultiline>true</wrapmultiline>\n      <label />\n    </control>\n    <control type="button" id="100">\n      <left>180</left>\n      <top>420</top>\n      <width>750</width>\n      <height>88</height>\n      <label>FREE</label>\n      <font>font13</font>\n      <textcolor>FFFFFFFF</textcolor>\n      <disabledcolor>FF777777</disabledcolor>\n      <aligny>center</aligny>\n      <textoffsetx>25</textoffsetx>\n      <texturefocus colordiffuse="__THEME__">focus.png</texturefocus>\n      <texturenofocus>button.png</texturenofocus>\n      <onup>301</onup>\n      <ondown>301</ondown>\n      <onleft>101</onleft>\n      <onright>101</onright>\n    </control>\n    <control type="button" id="101">\n      <left>990</left>\n      <top>420</top>\n      <width>750</width>\n      <height>88</height>\n      <label>Debrid</label>\n      <font>font13</font>\n      <textcolor>FFFFFFFF</textcolor>\n      <disabledcolor>FF777777</disabledcolor>\n      <aligny>center</aligny>\n      <textoffsetx>25</textoffsetx>\n      <texturefocus colordiffuse="__THEME__">focus.png</texturefocus>\n      <texturenofocus>button.png</texturenofocus>\n      <onup>301</onup>\n      <ondown>301</ondown>\n      <onleft>100</onleft>\n      <onright>100</onright>\n    </control>\n    <control type="radiobutton" id="200">\n      <left>330</left>\n      <top>400</top>\n      <width>900</width>\n      <height>88</height>\n      <label />\n      <font>font13</font>\n      <textcolor>FFFFFFFF</textcolor>\n      <disabledcolor>FF777777</disabledcolor>\n      <aligny>center</aligny>\n      <textoffsetx>25</textoffsetx>\n      <texturefocus colordiffuse="__THEME__">focus.png</texturefocus>\n      <texturenofocus>button.png</texturenofocus>\n      <onup>301</onup>\n      <ondown>201</ondown>\n      <onleft>600</onleft>\n      <onright>301</onright>\n      <radiowidth>44</radiowidth>\n      <radioheight>44</radioheight>\n      <radioposx>825</radioposx>\n      <radioposy>22</radioposy>\n      <textureradioonfocus>checked.png</textureradioonfocus>\n      <textureradioonnofocus>checked.png</textureradioonnofocus>\n      <textureradioofffocus>unchecked.png</textureradioofffocus>\n      <textureradiooffnofocus>unchecked.png</textureradiooffnofocus>\n    </control>\n    <control type="radiobutton" id="201">\n      <left>330</left>\n      <top>515</top>\n      <width>900</width>\n      <height>88</height>\n      <label />\n      <font>font13</font>\n      <textcolor>FFFFFFFF</textcolor>\n      <disabledcolor>FF777777</disabledcolor>\n      <aligny>center</aligny>\n      <textoffsetx>25</textoffsetx>\n      <texturefocus colordiffuse="__THEME__">focus.png</texturefocus>\n      <texturenofocus>button.png</texturenofocus>\n      <onup>200</onup>\n      <ondown>202</ondown>\n      <onleft>600</onleft>\n      <onright>301</onright>\n      <radiowidth>44</radiowidth>\n      <radioheight>44</radioheight>\n      <radioposx>825</radioposx>\n      <radioposy>22</radioposy>\n      <textureradioonfocus>checked.png</textureradioonfocus>\n      <textureradioonnofocus>checked.png</textureradioonnofocus>\n      <textureradioofffocus>unchecked.png</textureradioofffocus>\n      <textureradiooffnofocus>unchecked.png</textureradiooffnofocus>\n    </control>\n    <control type="radiobutton" id="202">\n      <left>330</left>\n      <top>630</top>\n      <width>900</width>\n      <height>88</height>\n      <label />\n      <font>font13</font>\n      <textcolor>FFFFFFFF</textcolor>\n      <disabledcolor>FF777777</disabledcolor>\n      <aligny>center</aligny>\n      <textoffsetx>25</textoffsetx>\n      <texturefocus colordiffuse="__THEME__">focus.png</texturefocus>\n      <texturenofocus>button.png</texturenofocus>\n      <onup>201</onup>\n      <ondown>301</ondown>\n      <onleft>600</onleft>\n      <onright>301</onright>\n      <radiowidth>44</radiowidth>\n      <radioheight>44</radioheight>\n      <radioposx>825</radioposx>\n      <radioposy>22</radioposy>\n      <textureradioonfocus>checked.png</textureradioonfocus>\n      <textureradioonnofocus>checked.png</textureradioonnofocus>\n      <textureradioofffocus>unchecked.png</textureradioofffocus>\n      <textureradiooffnofocus>unchecked.png</textureradiooffnofocus>\n    </control>\n    <control type="button" id="300">\n      <left>670</left>\n      <top>830</top>\n      <width>1070</width>\n      <height>88</height>\n      <label>Install (0) add-ons</label>\n      <font>font13</font>\n      <textcolor>FFFFFFFF</textcolor>\n      <disabledcolor>FF777777</disabledcolor>\n      <aligny>center</aligny>\n      <textoffsetx>25</textoffsetx>\n      <texturefocus colordiffuse="__THEME__">focus.png</texturefocus>\n      <texturenofocus>button.png</texturenofocus>\n      <onup>202</onup>\n      <ondown>200</ondown>\n      <onleft>301</onleft>\n      <onright>301</onright>\n    </control>\n    <control type="button" id="301">\n      <left>180</left>\n      <top>830</top>\n      <width>460</width>\n      <height>88</height>\n      <label>Back</label>\n      <font>font13</font>\n      <textcolor>FFFFFFFF</textcolor>\n      <disabledcolor>FF777777</disabledcolor>\n      <aligny>center</aligny>\n      <textoffsetx>25</textoffsetx>\n      <texturefocus colordiffuse="__THEME__">focus.png</texturefocus>\n      <texturenofocus>button.png</texturenofocus>\n      <onup>202</onup>\n      <ondown>200</ondown>\n      <onleft>300</onleft>\n      <onright>306</onright>\n    </control>\n    <control type="image" id="400">\n      <left>1335</left>\n      <top>415</top>\n      <width>340</width>\n      <height>290</height>\n      <texture>$INFO[Container(750).ListItem.Property(addon_icon)]</texture>\n      <aspectratio>keep</aspectratio>\n    </control>\n    <control type="label" id="401">\n      <left>1290</left>\n      <top>720</top>\n      <width>430</width>\n      <height>55</height>\n      <font>font13</font>\n      <textcolor>FFFFFFFF</textcolor>\n      <align>center</align>\n      <label>$INFO[Container(750).ListItem.Label]</label>\n    </control>\n    <control type="label" id="500">\n      <left>920</left>\n      <top>422</top>\n      <width>200</width>\n      <height>44</height>\n      <font>font13</font>\n      <textcolor>__THEME__</textcolor>\n      <align>center</align>\n      <aligny>center</aligny>\n      <label>Installed</label>\n    </control>\n    <control type="label" id="501">\n      <left>920</left>\n      <top>537</top>\n      <width>200</width>\n      <height>44</height>\n      <font>font13</font>\n      <textcolor>__THEME__</textcolor>\n      <align>center</align>\n      <aligny>center</aligny>\n      <label>Installed</label>\n    </control>\n    <control type="label" id="502">\n      <left>920</left>\n      <top>652</top>\n      <width>200</width>\n      <height>44</height>\n      <font>font13</font>\n      <textcolor>__THEME__</textcolor>\n      <align>center</align>\n      <aligny>center</aligny>\n      <label>Installed</label>\n    </control>\n    <control type="button" id="600">\n      <left>180</left>\n      <top>455</top>\n      <width>110</width>\n      <height>110</height>\n      <label />\n      <texturefocus colordiffuse="__THEME__">focus.png</texturefocus>\n      <texturenofocus>button.png</texturenofocus>\n      <onup>601</onup>\n      <ondown>601</ondown>\n      <onleft>301</onleft>\n      <onright>200</onright>\n    </control>\n    <control type="image" id="602">\n      <left>195</left>\n      <top>470</top>\n      <width>80</width>\n      <height>80</height>\n      <texture>arrow_up.png</texture>\n    </control>\n    <control type="button" id="601">\n      <left>180</left>\n      <top>590</top>\n      <width>110</width>\n      <height>110</height>\n      <label />\n      <texturefocus colordiffuse="__THEME__">focus.png</texturefocus>\n      <texturenofocus>button.png</texturenofocus>\n      <onup>600</onup>\n      <ondown>600</ondown>\n      <onleft>301</onleft>\n      <onright>200</onright>\n    </control>\n    <control type="image" id="603">\n      <left>195</left>\n      <top>605</top>\n      <width>80</width>\n      <height>80</height>\n      <texture>arrow_down.png</texture>\n    </control>\n    <control type="button" id="303">\n      <left>1280</left>\n      <top>830</top>\n      <width>460</width>\n      <height>88</height>\n      <label>Authorize Debrid</label>\n      <font>font13</font>\n      <textcolor>FFFFFFFF</textcolor>\n      <aligny>center</aligny>\n      <textoffsetx>20</textoffsetx>\n      <texturefocus colordiffuse="__THEME__">focus.png</texturefocus>\n      <texturenofocus>button.png</texturenofocus>\n      <onup>202</onup>\n      <ondown>200</ondown>\n      <onleft>300</onleft>\n      <onright>301</onright>\n    </control>\n    <control type="button" id="304">\n      <left>1260</left>\n      <top>830</top>\n      <width>480</width>\n      <height>88</height>\n      <label>Finish</label>\n      <font>font13</font>\n      <textcolor>FFFFFFFF</textcolor>\n      <aligny>center</aligny>\n      <textoffsetx>20</textoffsetx>\n      <texturefocus colordiffuse="__THEME__">focus.png</texturefocus>\n      <texturenofocus>button.png</texturenofocus>\n      <onup>700</onup>\n      <ondown>700</ondown>\n      <onleft>306</onleft>\n      <onright>301</onright>\n    </control>\n    <control type="list" id="700">\n      <left>330</left>\n      <top>400</top>\n      <width>900</width>\n      <height>345</height>\n      <onup>301</onup>\n      <ondown>306</ondown>\n      <onleft>600</onleft>\n      <onright>304</onright>\n      <scrolltime>150</scrolltime>\n      <itemlayout height="115" width="900">\n        <control type="image">\n          <left>0</left>\n          <top>0</top>\n          <width>900</width>\n          <height>88</height>\n          <texture>button.png</texture>\n        </control>\n        <control type="label">\n          <left>25</left>\n          <top>0</top>\n          <width>565</width>\n          <height>88</height>\n          <font>font13</font>\n          <textcolor>FFFFFFFF</textcolor>\n          <aligny>center</aligny>\n          <label>$INFO[ListItem.Label]</label>\n        </control>\n      <control type="image"><left>590</left><top>22</top><width>300</width><height>44</height><texture colordiffuse="FF247A45">button.png</texture><visible>String.IsEqual(ListItem.Property(authorized),true)</visible></control><control type="image"><left>590</left><top>22</top><width>300</width><height>44</height><texture colordiffuse="FF803B3B">button.png</texture><visible>String.IsEqual(ListItem.Property(authorized),false)</visible></control><control type="label"><left>600</left><top>0</top><width>280</width><height>88</height><font>font12</font><align>right</align><aligny>center</aligny><textcolor>FFFFFFFF</textcolor><label>$INFO[ListItem.Property(auth_status)]</label></control></itemlayout>\n      <focusedlayout height="115" width="900">\n        <control type="image">\n          <left>0</left>\n          <top>0</top>\n          <width>900</width>\n          <height>88</height>\n          <texture colordiffuse="__THEME__">focus.png</texture>\n        </control>\n        <control type="label">\n          <left>25</left>\n          <top>0</top>\n          <width>565</width>\n          <height>88</height>\n          <font>font13</font>\n          <textcolor>FFFFFFFF</textcolor>\n          <aligny>center</aligny>\n          <label>$INFO[ListItem.Label]</label>\n        </control>\n      <control type="image"><left>590</left><top>22</top><width>300</width><height>44</height><texture colordiffuse="FF247A45">button.png</texture><visible>String.IsEqual(ListItem.Property(authorized),true)</visible></control><control type="image"><left>590</left><top>22</top><width>300</width><height>44</height><texture colordiffuse="FF803B3B">button.png</texture><visible>String.IsEqual(ListItem.Property(authorized),false)</visible></control><control type="label"><left>600</left><top>0</top><width>280</width><height>88</height><font>font12</font><align>right</align><aligny>center</aligny><textcolor>FFFFFFFF</textcolor><label>$INFO[ListItem.Property(auth_status)]</label></control></focusedlayout>\n    </control>\n    <control type="image" id="710">\n      <left>1335</left>\n      <top>415</top>\n      <width>340</width>\n      <height>290</height>\n      <texture>$INFO[Container(700).ListItem.Property(service_icon)]</texture>\n      <aspectratio>keep</aspectratio>\n    </control>\n    <control type="label" id="711">\n      <left>1290</left>\n      <top>720</top>\n      <width>430</width>\n      <height>55</height>\n      <font>font13</font>\n      <textcolor>FFFFFFFF</textcolor>\n      <align>center</align>\n      <label>$INFO[Container(700).ListItem.Label]</label>\n    </control>\n    <control type="button" id="305">\n      <left>1280</left>\n      <top>830</top>\n      <width>460</width>\n      <height>88</height>\n      <label>Select Flavor</label>\n      <font>font13</font>\n      <textcolor>FFFFFFFF</textcolor>\n      <aligny>center</aligny>\n      <textoffsetx>20</textoffsetx>\n      <texturefocus colordiffuse="__THEME__">focus.png</texturefocus>\n      <texturenofocus>button.png</texturenofocus>\n      <onup>202</onup>\n      <ondown>200</ondown>\n      <onleft>300</onleft>\n      <onright>301</onright>\n    </control>\n    <control type="list" id="720">\n      <left>330</left>\n      <top>400</top>\n      <width>900</width>\n      <height>345</height>\n      <onup>301</onup>\n      <ondown>304</ondown>\n      <onleft>600</onleft>\n      <onright>304</onright>\n      <scrolltime>150</scrolltime>\n      <itemlayout height="115" width="900">\n        <control type="image">\n          <left>0</left>\n          <top>0</top>\n          <width>900</width>\n          <height>88</height>\n          <texture>button.png</texture>\n        </control>\n        <control type="label">\n          <left>25</left>\n          <top>0</top>\n          <width>850</width>\n          <height>88</height>\n          <font>font13</font>\n          <textcolor>FFFFFFFF</textcolor>\n          <aligny>center</aligny>\n          <label>$INFO[ListItem.Label]</label>\n        </control>\n      </itemlayout>\n      <focusedlayout height="115" width="900">\n        <control type="image">\n          <left>0</left>\n          <top>0</top>\n          <width>900</width>\n          <height>88</height>\n          <texture colordiffuse="__THEME__">focus.png</texture>\n        </control>\n        <control type="label">\n          <left>25</left>\n          <top>0</top>\n          <width>850</width>\n          <height>88</height>\n          <font>font13</font>\n          <textcolor>FFFFFFFF</textcolor>\n          <aligny>center</aligny>\n          <label>$INFO[ListItem.Label]</label>\n        </control>\n      </focusedlayout>\n    </control>\n    <control type="image" id="721">\n      <left>1335</left>\n      <top>415</top>\n      <width>340</width>\n      <height>290</height>\n      <texture>$INFO[Container(720).ListItem.Property(flavor_icon)]</texture>\n      <aspectratio>keep</aspectratio>\n    </control>\n    <control type="label" id="722">\n      <left>1290</left>\n      <top>720</top>\n      <width>430</width>\n      <height>55</height>\n      <font>font13</font>\n      <textcolor>FFFFFFFF</textcolor>\n      <align>center</align>\n      <label>$INFO[Container(720).ListItem.Label]</label>\n    </control>\n    <control type="list" id="740">\n      <left>330</left>\n      <top>400</top>\n      <width>900</width>\n      <height>345</height>\n      <onup>301</onup>\n      <ondown>304</ondown>\n      <onleft>600</onleft>\n      <onright>304</onright>\n      <scrolltime>150</scrolltime>\n      <itemlayout height="115" width="900">\n        <control type="image">\n          <left>0</left>\n          <top>0</top>\n          <width>900</width>\n          <height>88</height>\n          <texture>button.png</texture>\n        </control>\n        <control type="label">\n          <left>25</left>\n          <top>0</top>\n          <width>740</width>\n          <height>88</height>\n          <font>font13</font>\n          <textcolor>FFFFFFFF</textcolor>\n          <aligny>center</aligny>\n          <label>$INFO[ListItem.Label]</label>\n          <focusedcolor>FFFFFFFF</focusedcolor>\n          <disabledcolor>FF888888</disabledcolor>\n        </control>\n        <control type="image">\n          <left>825</left>\n          <top>22</top>\n          <width>44</width>\n          <height>44</height>\n          <texture>checked.png</texture>\n          <visible>String.IsEqual(ListItem.Property(checked),true)</visible>\n        </control>\n        <control type="image">\n          <left>825</left>\n          <top>22</top>\n          <width>44</width>\n          <height>44</height>\n          <texture>unchecked.png</texture>\n          <visible>!String.IsEqual(ListItem.Property(checked),true)</visible>\n        </control>\n      </itemlayout>\n      <focusedlayout height="115" width="900">\n        <control type="image">\n          <left>0</left>\n          <top>0</top>\n          <width>900</width>\n          <height>88</height>\n          <texture>button.png</texture>\n        </control>\n        <control type="image">\n          <left>0</left>\n          <top>0</top>\n          <width>900</width>\n          <height>88</height>\n          <texture colordiffuse="__THEME__">focus.png</texture>\n          <visible>Control.HasFocus(740)</visible>\n        </control>\n        <control type="label">\n          <left>25</left>\n          <top>0</top>\n          <width>740</width>\n          <height>88</height>\n          <font>font13</font>\n          <textcolor>FFFFFFFF</textcolor>\n          <aligny>center</aligny>\n          <label>$INFO[ListItem.Label]</label>\n          <focusedcolor>FFFFFFFF</focusedcolor>\n          <disabledcolor>FF888888</disabledcolor>\n        </control>\n        <control type="image">\n          <left>825</left>\n          <top>22</top>\n          <width>44</width>\n          <height>44</height>\n          <texture>checked.png</texture>\n          <visible>String.IsEqual(ListItem.Property(checked),true)</visible>\n        </control>\n        <control type="image">\n          <left>825</left>\n          <top>22</top>\n          <width>44</width>\n          <height>44</height>\n          <texture>unchecked.png</texture>\n          <visible>!String.IsEqual(ListItem.Property(checked),true)</visible>\n        </control>\n      </focusedlayout>\n    </control>\n    <control type="image" id="741">\n      <left>1335</left>\n      <top>415</top>\n      <width>340</width>\n      <height>290</height>\n      <texture>$INFO[Container(740).ListItem.Property(menu_icon)]</texture>\n      <aspectratio>keep</aspectratio>\n    </control>\n    <control type="label" id="742">\n      <left>1290</left>\n      <top>720</top>\n      <width>430</width>\n      <height>55</height>\n      <font>font13</font>\n      <textcolor>FFFFFFFF</textcolor>\n      <align>center</align>\n      <label>$INFO[Container(740).ListItem.Label]</label>\n    </control>\n  <control type="button" id="306">\n      <left>720</left>\n      <top>830</top>\n      <width>460</width>\n      <height>88</height>\n      <label>View Status</label>\n      <font>font13</font>\n      <textcolor>FFFFFFFF</textcolor>\n      <disabledcolor>FF777777</disabledcolor>\n      <aligny>center</aligny>\n      <textoffsetx>25</textoffsetx>\n      <texturefocus colordiffuse="__THEME__">focus.png</texturefocus>\n      <texturenofocus>button.png</texturenofocus>\n      <onup>700</onup>\n      <ondown>700</ondown>\n      <onleft>301</onleft>\n      <onright>304</onright>\n    </control>\n    <control type="list" id="750">\n      <left>330</left>\n      <top>400</top>\n      <width>900</width>\n      <height>345</height>\n      <onup>301</onup>\n      <ondown>300</ondown>\n      <onleft>600</onleft>\n      <onright>300</onright>\n      <scrolltime>150</scrolltime>\n      <itemlayout height="115" width="900">\n        <control type="image">\n          <left>0</left>\n          <top>0</top>\n          <width>900</width>\n          <height>88</height>\n          <texture>button.png</texture>\n        </control>\n        <control type="label">\n          <left>25</left>\n          <top>0</top>\n          <width>595</width>\n          <height>88</height>\n          <font>font13</font>\n          <textcolor>FFFFFFFF</textcolor>\n          <aligny>center</aligny>\n          <label>$INFO[ListItem.Label]</label>\n          <focusedcolor>FFFFFFFF</focusedcolor>\n          <disabledcolor>FF888888</disabledcolor>\n        </control>\n        <control type="image">\n          <left>825</left>\n          <top>22</top>\n          <width>44</width>\n          <height>44</height>\n          <texture>checked.png</texture>\n          <visible>String.IsEqual(ListItem.Property(checked),true)</visible>\n        </control>\n        <control type="image">\n          <left>825</left>\n          <top>22</top>\n          <width>44</width>\n          <height>44</height>\n          <texture>unchecked.png</texture>\n          <visible>!String.IsEqual(ListItem.Property(checked),true)</visible>\n        </control>\n      <control type="label"><left>625</left><top>0</top><width>180</width><height>88</height><font>font13</font><textcolor>FFFFFFFF</textcolor><align>right</align><aligny>center</aligny><label>Installed</label><visible>String.IsEqual(ListItem.Property(installed),true)</visible></control></itemlayout>\n      <focusedlayout height="115" width="900">\n        <control type="image">\n          <left>0</left>\n          <top>0</top>\n          <width>900</width>\n          <height>88</height>\n          <texture>button.png</texture>\n        </control>\n        <control type="image">\n          <left>0</left>\n          <top>0</top>\n          <width>900</width>\n          <height>88</height>\n          <texture colordiffuse="__THEME__">focus.png</texture>\n          <visible>Control.HasFocus(750)</visible>\n        </control>\n        <control type="label">\n          <left>25</left>\n          <top>0</top>\n          <width>595</width>\n          <height>88</height>\n          <font>font13</font>\n          <textcolor>FFFFFFFF</textcolor>\n          <aligny>center</aligny>\n          <label>$INFO[ListItem.Label]</label>\n          <focusedcolor>FFFFFFFF</focusedcolor>\n          <disabledcolor>FF888888</disabledcolor>\n        </control>\n        <control type="image">\n          <left>825</left>\n          <top>22</top>\n          <width>44</width>\n          <height>44</height>\n          <texture>checked.png</texture>\n          <visible>String.IsEqual(ListItem.Property(checked),true)</visible>\n        </control>\n        <control type="image">\n          <left>825</left>\n          <top>22</top>\n          <width>44</width>\n          <height>44</height>\n          <texture>unchecked.png</texture>\n          <visible>!String.IsEqual(ListItem.Property(checked),true)</visible>\n        </control>\n      <control type="label"><left>625</left><top>0</top><width>180</width><height>88</height><font>font13</font><textcolor>FFFFFFFF</textcolor><align>right</align><aligny>center</aligny><label>Installed</label><visible>String.IsEqual(ListItem.Property(installed),true)</visible></control></focusedlayout>\n    </control>\n    </controls>\n</window>'
@@ -285,6 +443,20 @@ def status(addon_id):
         return rpc('Addons.GetAddonDetails', {
             'addonid': addon_id, 'properties': ['enabled']}).get('addon')
     except RuntimeError:
+        return None
+
+
+def repository_addons():
+    """Return Kodi's installable add-on IDs, or None if the list is unavailable."""
+    try:
+        result = rpc('Addons.GetAddons', {'installed': False})
+        limits = result.get('limits', {})
+        addons = result.get('addons', [])
+        if not isinstance(addons, list) or limits.get('total') != len(addons):
+            return None
+        return {addon['addonid'] for addon in addons}
+    except (RuntimeError, ValueError, TypeError, KeyError, AttributeError):
+        xbmc.log('Xenon Setup: could not read the repository add-on list.', xbmc.LOGWARNING)
         return None
 
 
@@ -389,7 +561,7 @@ class InstallConfirmation:
         self.home.clearProperty(self.key)
 
 
-def install_one(addon_id, monitor, timeout=180, addon_name=None):
+def install_one(addon_id, monitor, timeout=180, addon_name=None, available=None):
     """Return a verified outcome; a timeout never means confirmed failure."""
     if not re.fullmatch(r'plugin\.video\.[a-z0-9_.-]+', addon_id):
         raise ValueError('Invalid add-on ID')
@@ -397,6 +569,9 @@ def install_one(addon_id, monitor, timeout=180, addon_name=None):
     if details and details.get('enabled'):
         return 'Already enabled'
     if not details:
+        if available is not None and addon_id not in available:
+            xbmc.log('Xenon Setup: skipped %s because Kodi did not list it as installable.' % addon_id, xbmc.LOGINFO)
+            return 'Skipped (not available in configured repositories)'
         confirmation = InstallConfirmation(addon_name, monitor, timeout)
         confirmation.start()
         try:
@@ -429,10 +604,24 @@ def initial_choices(catalog):
             for branch, entries in catalog.items()}
 
 
-def pending_addons(entries, selected_ids):
-    """Only checked add-ons absent from Kodi belong in the install queue."""
+def available_choices(entries, available):
+    """Keep installed add-ons and anything Kodi can currently install."""
+    if available is None:
+        return entries
     return [entry for entry in entries
-            if entry['id'] in selected_ids and status(entry['id']) is None]
+            if entry['id'] in available or status(entry['id']) is not None]
+
+
+def pending_addons(entries, selected_ids):
+    """Checked add-ons must be installed and enabled before continuing."""
+    pending = []
+    for entry in entries:
+        if entry['id'] not in selected_ids:
+            continue
+        details = status(entry['id'])
+        if not details or not details.get('enabled'):
+            pending.append(entry)
+    return pending
 
 
 def flavors_for(mode):
@@ -573,7 +762,8 @@ def service_icon(entry):
     if icon and xbmcvfs.exists(icon):
         return icon
     try:
-        path = xbmcvfs.translatePath('special://skin/resources/scripts/reauthorize/main/')
+        path = xbmcvfs.translatePath(xbmcaddon.Addon(REAUTHORIZE_ID).getAddonInfo('path'))
+        path = os.path.join(path, 'main')
         icon = os.path.join(path, 'resources', 'icons', entry['id'] + '.png')
         if xbmcvfs.exists(icon):
             return icon
@@ -582,35 +772,32 @@ def service_icon(entry):
     return os.path.join(ROOT, 'resources', 'skins', 'Default', 'media', 'placeholder.png')
 
 
-def reauthorize_ready(start_service=True):
-    path = 'special://skin/resources/scripts/reauthorize/entry.py'
-    if not xbmcvfs.exists(path):
-        xbmcgui.Dialog().ok('ReAuthorize required', 'The embedded ReAuthorize files are missing from the skin scripts folder.')
-        return False
-    if xbmc.getCondVisibility('System.AddonIsEnabled(script.module.reauthorize)'):
-        xbmcgui.Dialog().ok('Embedded ReAuthorize', 'Disable the standalone ReAuthorize add-on before using this version. Your saved sign-ins are kept.')
-        return False
-    if start_service:
-        xbmc.executebuiltin('RunScript(%s,service=true)' % path)
-    return True
+REAUTHORIZE_ID = 'script.module.authorizediggz'
+
+
+def reauthorize_ready():
+    if xbmc.getCondVisibility('System.AddonIsEnabled(%s)' % REAUTHORIZE_ID):
+        return True
+    xbmcgui.Dialog().ok('Diggz Account Manager required', 'Install and enable the standalone Diggz Account Manager add-on to manage saved logins.')
+    return False
 
 
 def launch_authorization(entry, monitor, timeout=1800):
-    """Await the embedded action's completion, without opening add-on settings."""
-    if entry['action'] not in ({service['action'] for service in SERVICES + TRACKING_SERVICES} | {'wizardRestore', 'wizardStatus'}):
+    """Await the Diggz Account Manager action's completion, without opening add-on settings."""
+    if entry['action'] not in ({service['action'] for service in SERVICES + TRACKING_SERVICES} | {'wizardRestore', 'wizardStatus', 'wizardTrackingPreference'}):
         raise ValueError('Unknown authorization action')
     job = str(time.time_ns())
     window = xbmcgui.Window(10000)
     name = 'Xenon.ReAuthorize.Job.' + job
     window.clearProperty(name)
-    xbmc.executebuiltin('RunScript(special://skin/resources/scripts/reauthorize/entry.py,action=%s,job=%s,wizard=true)' % (entry['action'], job))
+    xbmc.executebuiltin('RunScript(%s,action=%s,job=%s,wizard=true)' % (REAUTHORIZE_ID, entry['action'], job))
     deadline = time.monotonic() + timeout
     try:
         while not monitor.abortRequested() and time.monotonic() < deadline:
             state = window.getProperty(name)
             if state in ('done', 'error'):
                 if state == 'error':
-                    xbmcgui.Dialog().ok('ReAuthorize', 'The authorization action could not finish. Check the Kodi log. No success has been assumed.')
+                    xbmcgui.Dialog().ok('Diggz Account Manager', 'The authorization action could not finish. Check the Kodi log. No success has been assumed.')
                 return state == 'done'
             if monitor.waitForAbort(0.25):
                 return False
@@ -628,15 +815,19 @@ SERVICE_CREDENTIALS = {
     'easynews': ('easynews.username', 'easynews.password'),
     'filepursuit': ('filepursuit.api.key',), 'trakt': ('trakt.token',),
     'simkl': ('simkl.token',), 'mdblist': ('mdblist.oauth.token',),
+    'punchplay': ('punchplay.token',), 'tmdb': ('tmdb.session_id',),
+    'lastfm': ('lastfm.username', 'lastfm.password'),
 }
 
 def authorization_status(service_id):
-    path = xbmcvfs.translatePath('special://profile/addon_data/script.module.reauthorize/settings.xml')
+    path = xbmcvfs.translatePath('special://profile/addon_data/script.module.authorizediggz/settings.xml')
     try:
         root = ET.parse(path).getroot()
         values = {row.get('id'): row.get('value', row.text or '') for row in root.iter('setting')}
     except (OSError, ET.ParseError):
         return False
+    if service_id == 'lastfm' and values.get('lastfm.session.key', '').strip():
+        return True
     keys = SERVICE_CREDENTIALS.get(service_id, ())
     return bool(keys) and all(values.get(key, '').strip() for key in keys)
 
@@ -660,7 +851,7 @@ def check_saved_logins(monitor):
         progress = xbmcgui.DialogProgressBG()
         result = False
         try:
-            if not reauthorize_ready(start_service=False):
+            if not reauthorize_ready():
                 state = 'unavailable'
             else:
                 # Retry a pending job by waiting again, never by starting a
@@ -669,7 +860,7 @@ def check_saved_logins(monitor):
                     job = 'backup' + str(time.time_ns())
                     name = 'Xenon.ReAuthorize.Job.' + job
                     window.clearProperty(name)
-                    xbmc.executebuiltin('RunScript(special://skin/resources/scripts/reauthorize/entry.py,action=wizardRestore,job=%s,wizard=true)' % job)
+                    xbmc.executebuiltin('RunScript(%s,action=wizardRestore,job=%s,wizard=true)' % (REAUTHORIZE_ID, job))
                 progress.create('Saved login check', 'Checking saved logins (up to 90 seconds). Recovery choices appear if the check cannot finish.')
                 deadline = time.monotonic() + 90
                 while not monitor.abortRequested() and time.monotonic() < deadline:
@@ -688,7 +879,6 @@ def check_saved_logins(monitor):
             return False
         if result:
             window.clearProperty(name)
-            reauthorize_ready()
             return True
         xbmc.log('Xenon Setup: backup check incomplete (state=%s); offering recovery choices.' % (state or 'no completion signal'), xbmc.LOGWARNING)
         choice = xbmcgui.Dialog().select('Saved login check could not finish', [
@@ -711,7 +901,7 @@ class AuthorizationWizard(Wizard):
         show_step(self, {710, 711, 301, 304, 306, 600, 601, 602, 603, 700})
         self.getControl(10).setLabel('Xenon Setup')
         self.getControl(11).setLabel('Final Step - Authorize Your Tracking Service' if self.stage == 'tracking' else 'Step 3 - Authorize Debrid')
-        self.getControl(12).setLabel('Your Home menus are saved. Choose a tracking service to authorize with ReAuthorize.' if self.stage == 'tracking' else 'Choose a service to authorize with ReAuthorize. If It shows Authorized, then you do not need to authorize again..')
+        self.getControl(12).setLabel('Your Home menus are saved. Choose a tracking service to authorize with Diggz Account Manager.' if self.stage == 'tracking' else 'Choose a service to authorize with Diggz Account Manager. If It shows Authorized, then you do not need to authorize again..')
         for cid in (100, 101, 200, 201, 202, 300, 303, 305, 400, 401, 500, 501, 502, 720, 721, 722):
             self.getControl(cid).setVisible(False)
         for cid in (301, 304, 306, 600, 601, 602, 603, 700, 710, 711):
@@ -727,6 +917,7 @@ class AuthorizationWizard(Wizard):
             item.setProperty('auth_status', 'Authorized' if authorized else 'Not Authorized')
             item.setProperty('authorized', 'true' if authorized else 'false')
             listing.addItem(item)
+        self.auth_index = max(0, min(self.auth_index, len(self.entries) - 1))
         listing.selectItem(self.auth_index)
         self.getControl(301).controlRight(self.getControl(306))
         self.getControl(301).controlUp(listing)
@@ -747,7 +938,10 @@ class AuthorizationWizard(Wizard):
             self.setFocusId(700)
         elif cid == 700:
             if reauthorize_ready():
-                self.auth_index = listing.getSelectedPosition()
+                index = listing.getSelectedPosition()
+                if not 0 <= index < len(self.entries):
+                    return
+                self.auth_index = index
                 self.result = 'service'
                 self.close()
         elif cid == 306:
@@ -1005,7 +1199,7 @@ class HomeMenusWizard(Wizard):
         self.menu_choices[flavor['id']] = [label for label in self.menu_choices[flavor['id']] if label in self.available]
         self.update_list(0)
         listing = self.getControl(740)
-        self.getControl(301).controlRight(self.getControl(306))
+        self.getControl(301).controlRight(self.getControl(304))
         self.getControl(301).controlUp(listing)
         self.getControl(304).controlUp(listing)
         self.getControl(304).controlDown(listing)
@@ -1187,14 +1381,28 @@ def run():
             menu_choices = resume['menu_choices']
         while not monitor.abortRequested():
             window_type = {'flavor': FlavorWizard, 'authorize': AuthorizationWizard, 'menus': HomeMenusWizard, 'tracking': TrackingWizard}.get(stage, Wizard)
+            visible_catalog = catalog
+            if stage == 'addons':
+                entries = available_choices(catalog[mode], repository_addons())
+                visible_catalog = {**catalog, mode: entries}
+                visible_ids = {entry['id'] for entry in entries}
+                choices[mode] = [addon_id for addon_id in choices[mode] if addon_id in visible_ids]
             window = window_type('wizard.xml', ROOT, 'Default', '1080i')
-            window.configure(stage, mode, choices, catalog)
+            window.configure(stage, mode, choices, visible_catalog)
             window.auth_index = tracking_index if stage == 'tracking' else auth_index
             window.flavor_index = flavor_index
             window.menu_choices = menu_choices
             window.handoff_job = resume.get('job', '') if resume else ''
             window.doModal()
             result, mode = window.result, window.mode
+            if stage == 'tracking' and result == 'finish':
+                if xbmc.getCondVisibility('System.AddonIsEnabled(%s)' % REAUTHORIZE_ID):
+                    if not launch_authorization({'action': 'wizardTrackingPreference'}, monitor):
+                        if monitor.abortRequested():
+                            break
+                        tracking_index = window.auth_index
+                        del window
+                        continue
             if stage == 'tracking':
                 if result in ('finish', 'back'):
                     checkpoint = os.path.join(PROFILE, 'tracking-handoff.json')
@@ -1203,7 +1411,7 @@ def run():
                     if resume and resume.get('job'):
                         home.clearProperty('Xenon2.Setup.TrackingReady.' + resume['job'])
                 tracking_index = window.auth_index
-            else:
+            elif stage == 'authorize':
                 auth_index = window.auth_index
             flavor_index = window.flavor_index
             del window
@@ -1251,7 +1459,7 @@ def run():
             elif result == 'next':
                 stage = 'addons'
             elif result == 'install':
-                selected = pending_addons(catalog[mode], choices[mode])
+                selected = pending_addons(visible_catalog[mode], choices[mode])
                 if not selected:
                     recovery_checked = check_saved_logins(monitor)
                     stage = ('authorize' if mode == 'debrid' else 'flavor') if recovery_checked else 'addons'
@@ -1260,12 +1468,14 @@ def run():
                 progress = xbmcgui.DialogProgressBG()
                 progress.create('Xenon 2 Setup', 'Preparing selected add-ons')
                 try:
+                    available = repository_addons()
                     for i, entry in enumerate(selected):
                         if monitor.abortRequested():
                             break
                         progress.update(int(100 * i / len(selected)), 'Xenon 2 Setup',
                                         '%d/%d: Installing %s' % (i + 1, len(selected), entry['name']))
-                        outcome = install_one(entry['id'], monitor, addon_name=entry['name'])
+                        outcome = install_one(entry['id'], monitor, addon_name=entry['name'],
+                                              available=available)
                         outcomes.append({'id': entry['id'], 'name': entry['name'], 'status': outcome})
                 finally:
                     progress.close()
@@ -1276,7 +1486,7 @@ def run():
                     o['status'] in ('Ready', 'Already enabled') for o in outcomes)
                 text = '\n'.join('%s: %s' % (o['name'], o['status']) for o in outcomes)
                 if mode == 'debrid':
-                    text += '\n\nContinue to authorize your services with ReAuthorize.'
+                    text += '\n\nContinue to authorize your services with Diggz Account Manager.'
                 if all_ready:
                     xbmc.executebuiltin('Skin.SetString(Xenon2.Setup.LinkMode,%s)' % mode)
                     xbmc.executebuiltin('Skin.SetBool(Xenon2.Setup.AddonsComplete)')
@@ -1292,7 +1502,11 @@ def run():
                         continue
                     stage = 'flavor'
                     continue
-                xbmcgui.Dialog().ok('Review installation results', text + '\n\nReturning to your selections. Check repositories or retry. An unconfirmed installation may still finish in Kodi.')
+                if xbmcgui.Dialog().yesno('Review installation results', text,
+                                          nolabel='Review selections', yeslabel='Continue setup'):
+                    recovery_checked = check_saved_logins(monitor)
+                    if recovery_checked:
+                        stage = 'authorize' if mode == 'debrid' else 'flavor'
     except Exception as exc:
         xbmc.log('Xenon 2 Setup: %s' % exc, xbmc.LOGERROR)
         xbmcgui.Dialog().ok('Xenon 2 Setup', 'The wizard could not finish. See the Kodi log for details.')

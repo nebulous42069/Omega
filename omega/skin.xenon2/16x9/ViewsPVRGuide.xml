@@ -83,7 +83,7 @@
                         <top>6</top>
                         <width>68</width>
                         <height>66</height>
-                        <texture>$INFO[ListItem.Icon]</texture>
+                        <texture>$VAR[X2ParentAwareTexture2Var]</texture>
                         <aspectratio>keep</aspectratio>
                     </control>
                     <control type="label" id="1">
@@ -134,7 +134,7 @@
                         <top>6</top>
                         <width>68</width>
                         <height>66</height>
-                        <texture>$INFO[ListItem.Icon]</texture>
+                        <texture>$VAR[X2ParentAwareTexture2Var]</texture>
                         <aspectratio>keep</aspectratio>
                     </control>
                     <control type="label" id="1">
@@ -238,7 +238,7 @@
                     <top>9</top>
                     <width>195</width>
                     <height>195</height>
-                    <texture background="true">$INFO[ListItem.Icon]</texture>
+                    <texture background="true">$VAR[X2ParentAwareTexture2Var]</texture>
                     <aspectratio align="center" aligny="top">keep</aspectratio>
                 </control>
                 <control type="label">

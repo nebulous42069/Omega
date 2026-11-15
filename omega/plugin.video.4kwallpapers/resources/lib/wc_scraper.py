@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 import re
-from urllib.parse import urljoin, quote_plus as _qp
+from html.parser import HTMLParser
+from urllib.parse import urljoin, urlsplit, quote_plus as _qp
 from urllib.request import Request, urlopen
+from urllib.error import HTTPError
 import time, random
 
 # Optional Kodi logging
@@ -43,27 +45,6 @@ _RE_ITEM_LOOSE = re.compile(
 _RE_ITEM_ANY = re.compile(r'href="/wallpaper/(?P<slug>[a-z0-9_\\-]+)"', re.I)
 _RE_REL_NEXT = re.compile(r'rel="next"', re.I)
 
-# ---------- regex (sizes) ----------
-# Accept relative/absolute, single/double quotes, optional trailing slash and query strings
-_RE_SIZE_DOWNLOAD = re.compile(
-    r'href\\s*=\\s*["\\\'](?P<u>/(?:download|image|images)/[a-z0-9_\\-]+(?:_[0-9]+)?/(?P<label>\\d{3,4}x\\d{3,4})(?:/)?(?:\\?[^"\\\']*)?)["\\\']',
-    re.I
-)
-_RE_SIZE_DOWNLOAD_ABS = re.compile(
-    r'href\\s*=\\s*["\\\'](?P<u>https?://[^"\\\']*/(?:download|image|images)/[a-z0-9_\\-]+(?:_[0-9]+)?/(?P<label>\\d{3,4}x\\d{3,4})(?:/)?(?:\\?[^"\\\']*)?)["\\\']',
-    re.I
-)
-_RE_SIZE_DATA = re.compile(
-    r'data-(?:href|url)\\s*=\\s*["\\\'](?P<u>/(?:download|image|images)/[a-z0-9_\\-]+(?:_[0-9]+)?/(?P<label>\\d{3,4}x\\d{3,4})(?:/)?(?:\\?[^"\\\']*)?)["\\\']',
-    re.I
-)
-_RE_SIZE_ABSFILE = re.compile(
-    r'href\\s*=\\s*["\\\'](?P<u>(?:https?:)?//[^"\\\']+?_(?P<label>\\d{3,4}x\\d{3,4})\\.(?:jpe?g|png))["\\\']', re.I
-)
-_RE_SIZE_TEXTFILE = re.compile(
-    r'href\\s*=\\s*["\\\'](?P<u>[^"\\\']+\\.(?:jpe?g|png))["\\\'][^>]*>\\s*(?P<label>\\d{3,4}x\\d{3,4})\\s*<', re.I
-)
-
 _RE_WALLPAPER_SLUG = re.compile(r'/wallpaper/([a-z0-9_\\-]+)', re.I)
 _RE_DOWNLOAD_SLUG  = re.compile(r'/download/([a-z0-9_\\-]+)', re.I)
 
@@ -103,35 +84,74 @@ def _fetch(url: str, timeout: int = 8) -> str:
             pass
         raise
 
-def _head_or_probe(url: str, timeout: int = 6, referer: str = "") -> bool:
-    """Return True if URL exists (200/206/302), HEAD first then tiny GET with Range."""
+def _head_or_probe(url: str, timeout: int = 4, referer: str = "") -> bool:
+    """Check an image URL, using a range request when HEAD is unsupported."""
     headers = {"User-Agent": UA}
     if referer:
         headers["Referer"] = referer
     try:
-        _log(f"HEAD {url}")
         req = Request(url, headers=headers, method="HEAD")
-        with urlopen(req, timeout=timeout) as r:
-            code = getattr(r, "status", 200)
-            ok = 200 <= code < 400
-            _log(f"HEAD {code} {'OK' if ok else 'NO'}")
-            if ok:
+        with urlopen(req, timeout=timeout) as response:
+            content_type = response.headers.get("Content-Type", "").lower()
+            if content_type.startswith("image/"):
                 return True
-    except Exception as e:
+            if content_type.startswith("text/"):
+                return False
+    except HTTPError as e:
+        if e.code not in (403, 405, 501):
+            return False
+    except OSError as e:
         _log(f"HEAD failed: {e}")
+        return False
     try:
-        headers2 = dict(headers)
-        headers2["Range"] = "bytes=0-0"  # tiny probe
-        _log(f"GET(probe) {url}")
-        req = Request(url, headers=headers2)
-        with urlopen(req, timeout=timeout) as r:
-            code = getattr(r, "status", 200)
-            ok = (200 <= code < 400) or code == 206
-            _log(f"GET {code} {'OK' if ok else 'NO'}")
-            return ok
-    except Exception as e:
+        req = Request(url, headers={**headers, "Range": "bytes=0-11"})
+        with urlopen(req, timeout=timeout) as response:
+            prefix = response.read(12)
+            return prefix.startswith((b"\xff\xd8\xff", b"\x89PNG\r\n\x1a\n"))
+    except OSError as e:
         _log(f"GET probe failed: {e}")
         return False
+
+
+class _CatalogLinks(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.entries = {}
+        self.slug = None
+        self.label = []
+
+    def handle_starttag(self, tag, attrs):
+        if tag != "a":
+            return
+        self.slug = None
+        self.label = []
+        href = dict(attrs).get("href")
+        if not href:
+            return
+        url = urlsplit(urljoin(BASE, href))
+        match = re.fullmatch(r"/catalog/([a-z0-9_-]+)/?", url.path)
+        if url.hostname == "wallpaperscraft.com" and not url.query and match:
+            self.slug = match[1]
+
+    def handle_data(self, data):
+        if self.slug:
+            self.label.append(data)
+
+    def handle_endtag(self, tag):
+        if tag == "a" and self.slug:
+            title = " ".join("".join(self.label).split())
+            title = re.sub(r"(?<=\D)\s*\d[\d,]*$", "", title).strip()
+            if title:
+                self.entries.setdefault(self.slug, (title, self.slug, "catalog"))
+            self.slug = None
+
+
+def list_categories():
+    parser = _CatalogLinks()
+    parser.feed(_fetch(BASE, timeout=8))
+    parser.close()
+    return list(parser.entries.values())
+
 
 # ---------- parse listings ----------
 def _best_src_from_srcset(srcset: str) -> str:
@@ -169,6 +189,14 @@ def _parse_items(html: str):
     ABS_ANY = re.compile(r'href="(?P<href>(?:https?:)?//[^"\']*/wallpaper/(?P<slug>[a-z0-9_\-]+))"', re.I)
     CDN_ANY = re.compile(r'(?:https?:)?//[^"\']*/image/single/(?P<slug>[a-z0-9_\-]+)_\d+x\d+\.(?:jpe?g|png)', re.I)
 
+    previews = {}
+    preview_pattern = re.compile(
+        r"(?:https?:)?//images\.wallpaperscraft\.com/image/single/"
+        r"(?P<slug>[a-z0-9_-]+)_[0-9]+x[0-9]+\.jpe?g", re.I
+    )
+    for match in preview_pattern.finditer(html):
+        previews.setdefault(match["slug"].lower(), urljoin(BASE, match[0]))
+
     def best_src_from_srcset(srcset):
         best = ""
         if not srcset:
@@ -203,7 +231,12 @@ def _parse_items(html: str):
             grid = "https:" + grid
         thumb = f"{CDN_BASE}{slug}_1280x720.jpg" if slug else grid
         title = slug.replace("_", " ").replace("-", " ").title()
-        out.append({"title": title, "thumb": thumb or grid, "href": _norm_url(urljoin(BASE, href))})
+        out.append({
+            "title": title,
+            "thumb": thumb or grid,
+            "preview": previews.get(slug.lower(), ""),
+            "href": _norm_url(urljoin(BASE, href)),
+        })
 
     for rx in (REL_STRICT, ABS_STRICT):
         for m in rx.finditer(html):
@@ -286,16 +319,6 @@ def _slug_from_url(u: str) -> str:
         return m.group(1)
     return ""
 
-def _collect_sizes_from_html(html: str, want: set, found: dict):
-    count_before = len(found)
-    for rx in (_RE_SIZE_DOWNLOAD, _RE_SIZE_DOWNLOAD_ABS, _RE_SIZE_DATA,
-               _RE_SIZE_ABSFILE, _RE_SIZE_TEXTFILE):
-        for m in rx.finditer(html or ""):
-            label = (m.group("label") or "").lower()
-            if label in want and label not in found:
-                found[label] = _norm_url(m.group("u"))
-    _log(f"_collect_sizes_from_html added {len(found) - count_before}")
-
 # ---------- public API ----------
 
 def list_wallpapers(kind: str, slug: str, page: int = 1):
@@ -360,57 +383,42 @@ def list_search(query: str, page: int = 1):
     return items, has_next
 
 def list_sizes(page_url: str):
-    # Only return 4K and/or 1080p that the site actually offers.
-    want = ["3840x2160", "4096x2160", "1920x1080"]  # priority order
-    want_set = set([w.lower() for w in want])
-    found = {}
+    slug = _slug_from_url(page_url)
+    if not slug:
+        return []
 
-    _log(f"list_sizes for {page_url}")
-    # A) Parse sizes from the wallpaper page HTML
     try:
         html = _fetch(page_url, timeout=8)
     except Exception as e:
         _log(f"fetch wallpaper page failed: {e}")
         html = ""
-    _collect_sizes_from_html(html, want_set, found)
 
-    # B) If still missing, try the "download index" page (lists sizes in the HTML on many slugs)
-    slug = _slug_from_url(page_url)
-    _log(f"slug = {slug}")
-    if slug and len(found) < 2:
-        idx = urljoin(BASE, f"download/{slug}/1024x768")
-        try:
-            h2 = _fetch(idx, timeout=8)
-            _collect_sizes_from_html(h2, want_set, found)
-        except Exception as e:
-            _log(f"fetch download index failed: {e}")
+    direct_pattern = re.compile(
+        rf"(?:https?:)?//images\.wallpaperscraft\.com/image/single/"
+        rf"{re.escape(slug)}_(?P<label>3840x2160|4096x2160|1920x1080)\.(?:jpe?g|png)\b",
+        re.I,
+    )
+    direct = {}
+    for match in direct_pattern.finditer(html):
+        direct.setdefault(match["label"].lower(), urljoin(BASE, match[0]))
 
-    # C) If still missing, PROBE the CDN directly (works even when site hides sizes)
-    #    Try .jpg then .png, with Referer to the wallpaper page and Range=0-0 probe.
-    if slug:
-        for label in want:
-            key = label.lower()
-            if key in found:
-                continue
-            for ext in (".jpg", ".png"):
-                cdn_url = f"{CDN_BASE}{slug}_{label}{ext}"
-                if _head_or_probe(cdn_url, timeout=6, referer=page_url):
-                    found[key] = cdn_url
-                    _log(f"probe CDN OK -> {label} ({ext})")
-                    break
+    sizes = []
+    for alternatives in (("3840x2160", "4096x2160"), ("1920x1080",)):
+        # A published URL already satisfies this menu entry.
+        label = next((size for size in alternatives if size in direct), None)
+        if label:
+            url = direct[label]
+        else:
+            label, url = _find_size_on_cdn(slug, alternatives, page_url)
+        if url:
+            sizes.append({"label": label, "url": url, "thumb": url})
+    return sizes
 
-    _log(f"found labels: {list(found.keys())}")
 
-    out = []
-    if "3840x2160" in found:
-        u = found["3840x2160"]
-        out.append({"label": "3840x2160", "url": u, "thumb": u})
-    elif "4096x2160" in found:
-        u = found["4096x2160"]
-        out.append({"label": "4096x2160", "url": u, "thumb": u})
-    if "1920x1080" in found:
-        u = found["1920x1080"]
-        out.append({"label": "1920x1080", "url": u, "thumb": u})
-
-    _log(f"list_sizes returning {len(out)} entries")
-    return out
+def _find_size_on_cdn(slug, alternatives, referer):
+    for label in alternatives:
+        for ext in (".jpg", ".png"):
+            url = f"{CDN_BASE}{slug}_{label}{ext}"
+            if _head_or_probe(url, referer=referer):
+                return label, url
+    return "", ""

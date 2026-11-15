@@ -1,5 +1,50 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <includes>
+	<variable name="X2ParentAwareTexture1Var">
+		<value condition="Listitem.IsParentFolder">special://skin/extras/icons/X2ParentFolder.png</value>
+		<value>$INFO[Listitem.Icon]</value>
+	</variable>
+	<variable name="X2ParentAwareTexture2Var">
+		<value condition="ListItem.IsParentFolder">special://skin/extras/icons/X2ParentFolder.png</value>
+		<value>$INFO[ListItem.Icon]</value>
+	</variable>
+	<variable name="X2ParentAwareTexture3Var">
+		<value condition="Container(20).ListItem.IsParentFolder">special://skin/extras/icons/X2ParentFolder.png</value>
+		<value>$INFO[Container(20).ListItem.Icon]</value>
+	</variable>
+	<variable name="X2ParentAwareTexture4Var">
+		<value condition="Container(21).ListItem.IsParentFolder">special://skin/extras/icons/X2ParentFolder.png</value>
+		<value>$INFO[Container(21).ListItem.Icon]</value>
+	</variable>
+	<variable name="X2ParentAwareTexture5Var">
+		<value condition="ListItem.IsParentFolder">special://skin/extras/icons/X2ParentFolder.png</value>
+		<value>$INFO[ListItem.Art(banner)]</value>
+	</variable>
+	<variable name="X2ParentAwareTexture6Var">
+		<value condition="ListItem.IsParentFolder">special://skin/extras/icons/X2ParentFolder.png</value>
+		<value>$INFO[ListItem.Art(fanart)]</value>
+	</variable>
+	<variable name="X2ParentAwareTexture7Var">
+		<value condition="ListItem.IsParentFolder">special://skin/extras/icons/X2ParentFolder.png</value>
+		<value>$INFO[ListItem.icon]</value>
+	</variable>
+	<variable name="X2ParentAwareTexture8Var">
+		<value condition="ListItem.IsParentFolder">special://skin/extras/icons/X2ParentFolder.png</value>
+		<value>$INFO[ListItem.Art(thumb)]</value>
+	</variable>
+	<variable name="X2ParentAwareTexture9Var">
+		<value condition="ListItem.IsParentFolder">special://skin/extras/icons/X2ParentFolder.png</value>
+		<value>$INFO[ListItem.Icon,views/list/]</value>
+	</variable>
+	<variable name="X2ParentAwareTexture10Var">
+		<value condition="Container(51).ListItem.IsParentFolder">special://skin/extras/icons/X2ParentFolder.png</value>
+		<value>$INFO[Container(51).ListItem.Art(fanart)]</value>
+	</variable>
+	<variable name="X2ParentAwareTexture11Var">
+		<value condition="Container(60350).ListItem.IsParentFolder">special://skin/extras/icons/X2ParentFolder.png</value>
+		<value>$INFO[Container(60350).ListItem.Icon]</value>
+	</variable>
+
 	<variable name="SkinVariablesContentVar">
 		<value condition="String.IsEqual(Container.Content,genres) + Window.IsVisible(MyMusicNav.xml)">genres-music</value>
 		<value condition="!String.IsEmpty(Container.Content)">$INFO[Container.Content]</value>
@@ -16,14 +61,17 @@
 		<value>musicdb://artists/$INFO[ListItem.DBID]/*</value>
 	</variable>
 	<variable name="JukeBoxArtistThumbVar">
+		<value condition="ListItem.IsParentFolder">special://skin/extras/icons/X2ParentFolder.png</value>
 		<value condition="Container.Content(albums)">$INFO[Container.Art(thumb)]</value>
 		<value>$INFO[ListItem.Thumb]</value>
 	</variable>
 	<variable name="BannerThumb">
+		<value condition="ListItem.IsParentFolder">special://skin/extras/icons/X2ParentFolder.png</value>
 		<value condition="!String.IsEmpty(ListItem.Art(banner))">$INFO[ListItem.Art(banner)]</value>
 		<value>$INFO[ListItem.Icon]</value>
 	</variable>
 	<variable name="PosterThumb">
+		<value condition="ListItem.IsParentFolder">special://skin/extras/icons/X2ParentFolder.png</value>
 		<value condition="!String.IsEmpty(ListItem.Art(poster))">$INFO[ListItem.Art(poster)]</value>
 		<value>$INFO[ListItem.Icon]</value>
 	</variable>
@@ -398,6 +446,7 @@
 		<value>$LOCALIZE[106]</value>
 	</variable>
 	<variable name="PosterVar">
+		<value condition="ListItem.IsParentFolder">special://skin/extras/icons/X2ParentFolder.png</value>
 		<value condition="String.IsEqual(ListItem.DBTYPE,episode) + !String.IsEmpty(ListItem.Art(season.poster))">$INFO[ListItem.Art(season.poster)]</value>
 		<value condition="String.IsEqual(ListItem.DBTYPE,episode) + !String.IsEmpty(ListItem.Art(tvshow.poster))">$INFO[ListItem.Art(tvshow.poster)]</value>
 		<value condition="!String.IsEmpty(ListItem.Art(poster))">$INFO[ListItem.Art(poster)]</value>
@@ -431,6 +480,7 @@
 		<value>$LOCALIZE[20360]</value>
 	</variable>
 	<variable name="NoSpoilerIconVar">
+		<value condition="ListItem.IsParentFolder">special://skin/extras/icons/X2ParentFolder.png</value>
 		<value condition="Container.Content(episodes) + String.IsEqual(ListItem.Overlay,OverlayUnwatched.png) + String.IsEqual(ListItem.Icon,OverlaySpoiler.png) + !String.IsEmpty(ListItem.Art(tvshow.landscape))">$INFO[ListItem.Art(tvshow.landscape)]</value>
 		<value condition="Container.Content(episodes) + String.IsEqual(ListItem.Overlay,OverlayUnwatched.png) + String.IsEqual(ListItem.Icon,OverlaySpoiler.png) + !String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.Art(fanart)]</value>
 		<value condition="Container.Content(episodes) + String.IsEqual(ListItem.Overlay,OverlayUnwatched.png) + String.IsEqual(ListItem.Icon,OverlaySpoiler.png) + !String.IsEmpty(Container.Art(tvshow.fanart))">$INFO[Container.Art(tvshow.fanart)]</value>
@@ -734,6 +784,7 @@
 	</variable>
 	<variable name="PosterThumbVar">
 		<value condition="Window.Next(home)"/>
+		<value condition="ListItem.IsParentFolder">special://skin/extras/icons/X2ParentFolder.png</value>
 		<value condition="Container.Content(genres) + !String.IsEmpty(Skin.String(moviegenreicons.path))">$INFO[Skin.String(moviegenreicons.path)]$INFO[ListItem.Label]$INFO[Skin.String(moviegenreicons.ext)]</value>
 		<value condition="Container.Content(genres) + !Skin.HasSetting(coloredflags)">$INFO[ListItem.Label,special://skin/extras/moviegenres/default/,.jpg]</value>
 		<value condition="Container.Content(genres) + Skin.HasSetting(coloredflags)">$INFO[ListItem.Label,special://skin/extras/moviegenres/colored/,.jpg]</value>
@@ -748,6 +799,7 @@
 	</variable>
 	<variable name="FocusedPosterThumbVar">
 		<value condition="Window.Next(home)"/>
+		<value condition="ListItem.IsParentFolder">special://skin/extras/icons/X2ParentFolder.png</value>
 		<value condition="Container.Content(genres) + !Skin.HasSetting(coloredflags)">$INFO[ListItem.Label,special://skin/extras/moviegenres/default/,.jpg]</value>
 		<value condition="Container.Content(genres) + Skin.HasSetting(coloredflags)">$INFO[ListItem.Label,special://skin/extras/moviegenres/colored/,.jpg]</value>
 		<value condition="!String.IsEmpty(ListItem.Art(poster1))">$INFO[Control.GetLabel(4412)]</value>

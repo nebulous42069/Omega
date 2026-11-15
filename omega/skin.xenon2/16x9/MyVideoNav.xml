@@ -177,7 +177,11 @@
 			<content sortby="year" sortorder="ascending">$VAR[MovieSetsPathVar]</content>
 		</control>
 		<include condition="System.AddonIsEnabled(script.embuary.helper)">EmbuaryHelperContentList</include>
-		<include condition="System.AddonIsEnabled(plugin.video.themoviedb.helper)">TMDbHelperContentList</include>
+		<!-- Skip monitor lookups on add-on menu folders without a usable TMDb ID. -->
+		<control type="list" id="9143">
+			<include>HiddenList</include>
+			<visible>System.AddonIsEnabled(plugin.video.themoviedb.helper) + [![ListItem.IsFolder + [String.StartsWith(Container.FolderPath,plugin://) | String.StartsWith(ListItem.FolderPath,plugin://)]] | Integer.IsGreater(ListItem.UniqueID(tmdb),0) | Integer.IsGreater(ListItem.UniqueID(tvshow.tmdb),0)]</visible>
+		</control>
 		<include>CommonBackground</include>
 		<control type="group">
 			<visible>Control.IsVisible(52) | Control.IsVisible(53) | Control.IsVisible(57) | [Control.IsVisible(58) + Skin.HasSetting(BannerPlex) + Skin.HasSetting(Disable.BannerWallInfo)] | Control.IsVisible(59)</visible>
@@ -1104,7 +1108,7 @@
 						<width>580</width>
 						<height>90</height>
 						<fadetime>200</fadetime>
-						<texture background="true">$INFO[ListItem.Art(banner)]</texture>
+						<texture background="true">$VAR[X2ParentAwareTexture5Var]</texture>
 						<visible>[Control.IsVisible(52) + !Container.Content(sets) + Skin.HasSetting(Enable.Landscape.Logo) + Skin.HasSetting(Enable.Landscape.BannerLogo)] | [Control.IsVisible(52) + Container.Content(sets) + Skin.HasSetting(Enable.Landscape.SetLogo) + Skin.HasSetting(Enable.Landscape.SetBannerLogo)] | [Control.IsVisible(53) + !Container.Content(sets) + Skin.HasSetting(Enable.ShowCase.Logo) + Skin.HasSetting(Enable.ShowCase.BannerLogo)] | [Control.IsVisible(53) + Container.Content(sets) + Skin.HasSetting(Enable.ShowCase.SetLogo) + Skin.HasSetting(Enable.ShowCase.SetBannerLogo)] | [Control.IsVisible(53) + Container.Content(musicvideos) + Skin.HasSetting(Enable.ShowCase.MusicVidLogo) + Skin.HasSetting(Enable.ShowCase.MusicVidBannerLogo)] | [Control.IsVisible(53) + Container.Content(seasons) + Skin.HasSetting(Enable.ShowCase.SeasonBanner)] | [Control.IsVisible(503) + !Container.Content(sets) + Skin.HasSetting(Enable.Wall.Logo) + Skin.HasSetting(Enable.Wall.BannerLogo)] | [Control.IsVisible(503) + Container.Content(sets) + Skin.HasSetting(Enable.Wall.SetLogo) + Skin.HasSetting(Enable.Wall.SetBannerLogo)] | [Control.IsVisible(503) + Container.Content(seasons) + Skin.HasSetting(Enable.Wall.SeasonBanner)]</visible>
 						<animation effect="slide" end="0,15" time="0" condition="Control.IsVisible(52)">Conditional</animation>
 					</control>

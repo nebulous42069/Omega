@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<defaultcontrol>100</defaultcontrol>
+	<controls>
+
+		<!-- Diffused splash background -->
+		<control type="image">
+			<left>0</left>
+			<top>0</top>
+			<width>1920</width>
+			<height>1080</height>
+			<texture>common/splash_bg.jpg</texture>
+		</control>
+
+		<!-- Dark overlay -->
+		<control type="image">
+			<left>0</left>
+			<top>0</top>
+			<width>1920</width>
+			<height>1080</height>
+			<texture colordiffuse="CC0E0E0E">common/white.png</texture>
+		</control>
+
+		<!-- ── Outer background panel ── -->
+		<control type="group">
+			<left>260</left>
+			<top>40</top>
+			<control type="group">
+				<width>1400</width>
+
+				<!-- Main background -->
+				<control type="image">
+					<height>1000</height>
+					<texture colordiffuse="DDffffff">common/splash.jpg</texture>
+				</control>
+
+				<!-- Header bar -->
+				<control type="image">
+					<height>90</height>
+					<texture colordiffuse="EE1A1A1A">common/white.png</texture>
+				</control>
+
+				<!-- Header icon -->
+				<control type="image">
+					<left>12</left>
+					<top>8</top>
+					<width>74</width>
+					<height>74</height>
+					<aspectratio>keep</aspectratio>
+					<texture colordiffuse="FFFFFFFF">common/icon.png</texture>
+				</control>
+
+				<!-- Header title -->
+				<control type="label">
+					<left>100</left>
+					<top>0</top>
+					<width>1000</width>
+					<height>90</height>
+					<font>font20</font>
+					<textcolor>FFFFFFFF</textcolor>
+					<aligny>center</aligny>
+					<label>Diggz Account Manager - Build Status</label>
+				</control>
+
+				<!-- Legend: right side of header -->
+				<control type="label">
+					<left>560</left>
+					<top>0</top>
+					<width>820</width>
+					<height>90</height>
+					<font>font12</font>
+					<textcolor>FFFFFFFF</textcolor>
+					<align>right</align>
+					<aligny>center</aligny>
+					<label>[COLOR FFFFFFFF]Bright = Credentials found   [/COLOR][COLOR FFFFBB33]? = Unknown   [/COLOR][COLOR FFFFFFFF]Dim = None detected[/COLOR]</label>
+				</control>
+
+				<!-- Subtitle bar -->
+				<control type="image">
+					<left>0</left>
+					<top>90</top>
+					<width>1400</width>
+					<height>50</height>
+					<texture colordiffuse="CC222222">common/white.png</texture>
+				</control>
+
+				<!-- Subtitle text -->
+				<control type="label">
+					<left>16</left>
+					<top>90</top>
+					<width>1370</width>
+					<height>50</height>
+					<font>font13</font>
+					<textcolor>FFFFFFFF</textcolor>
+					<aligny>center</aligny>
+					<label>Stored credentials by add-on. ResolveURL badges reflect credentials stored in the shared resolver.</label>
+				</control>
+
+				<!-- Divider line below subtitle -->
+				<control type="image">
+					<left>0</left>
+					<top>140</top>
+					<width>1400</width>
+					<height>2</height>
+					<texture colordiffuse="FF444444">common/white.png</texture>
+				</control>
+
+				<!-- ── Column heading band ── -->
+				<control type="image">
+					<left>0</left>
+					<top>142</top>
+					<width>1400</width>
+					<height>36</height>
+					<texture colordiffuse="EE1E1E1E">common/white.png</texture>
+				</control>
+				<control type="label">
+					<left>74</left>
+					<top>142</top>
+					<width>440</width>
+					<height>36</height>
+					<font>font12</font>
+					<textcolor>FFA8D4FF</textcolor>
+					<aligny>center</aligny>
+					<label>INSTALLED ADDON</label>
+				</control>
+				<!-- divider tick, aligned with the per-row column divider at x=540 -->
+				<control type="image">
+					<left>540</left>
+					<top>146</top>
+					<width>2</width>
+					<height>28</height>
+					<texture colordiffuse="FF444444">common/white.png</texture>
+				</control>
+				<control type="label">
+					<left>566</left>
+					<top>142</top>
+					<width>420</width>
+					<height>36</height>
+					<font>font12</font>
+					<textcolor>FFA8D4FF</textcolor>
+					<aligny>center</aligny>
+					<label>STORED SERVICE CREDENTIALS</label>
+				</control>
+				<!-- Row count / scroll hint (id=300) - text set by status.py -->
+				<control type="label" id="300">
+					<left>1000</left>
+					<top>142</top>
+					<width>368</width>
+					<height>36</height>
+					<font>font12</font>
+					<textcolor>FFFFFFFF</textcolor>
+					<align>right</align>
+					<aligny>center</aligny>
+					<label></label>
+				</control>
+
+				<!-- ── Service status list (read-only) ── -->
+				<control type="list" id="100">
+					<left>0</left>
+					<top>178</top>
+					<width>1400</width>
+					<height>748</height>
+					<onup>100</onup>
+					<ondown>200</ondown>
+					<pagecontrol>60</pagecontrol>
+					<itemlayout height="72">
+						<!-- row background (unfocused) -->
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>1400</width>
+							<height>72</height>
+							<texture colordiffuse="AA2A2A2A">common/white.png</texture>
+						</control>
+						<!-- separator line -->
+						<control type="image">
+							<left>0</left>
+							<top>71</top>
+							<width>1400</width>
+							<height>1</height>
+							<texture colordiffuse="FF353535">common/white.png</texture>
+						</control>
+						<!-- addon icon -->
+						<control type="image">
+							<left>18</left>
+							<top>16</top>
+							<width>40</width>
+							<height>40</height>
+							<aspectratio>keep</aspectratio>
+							<texture>$INFO[ListItem.Art(icon)]</texture>
+						</control>
+						<!-- addon name -->
+						<control type="label">
+							<left>74</left>
+							<top>0</top>
+							<width>408</width>
+							<height>72</height>
+							<font>font16</font>
+							<textcolor>FFFFFFFF</textcolor>
+							<aligny>center</aligny>
+							<label>$INFO[ListItem.Label]</label>
+						</control>
+						<control type="image"><left>494</left><top>19</top><width>34</width><height>34</height><aspectratio>keep</aspectratio><texture colordiffuse="$INFO[ListItem.Property(resolver_color)]">$INFO[ListItem.Art(resolver)]</texture></control>
+						<!-- vertical divider: installed | authorized -->
+						<control type="image">
+							<left>540</left>
+							<top>12</top>
+							<width>2</width>
+							<height>48</height>
+							<texture colordiffuse="FF404040">common/white.png</texture>
+						</control>
+						<!-- Service icon strip (state by col_<service> property) -->
+						<control type="image"><left>566</left><top>18</top><width>36</width><height>36</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(icon_trakt)]</texture><colordiffuse>$INFO[ListItem.Property(col_trakt)]</colordiffuse></control>
+						<control type="label"><left>566</left><top>10</top><width>36</width><height>50</height><font>font16</font><textcolor>FFFFBB33</textcolor><align>center</align><aligny>center</aligny><label>?</label><visible>String.IsEqual(ListItem.Property(unknown_trakt),true)</visible></control>
+						<control type="image"><left>614</left><top>18</top><width>36</width><height>36</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(icon_realdebrid)]</texture><colordiffuse>$INFO[ListItem.Property(col_realdebrid)]</colordiffuse></control>
+						<control type="label"><left>614</left><top>10</top><width>36</width><height>50</height><font>font16</font><textcolor>FFFFBB33</textcolor><align>center</align><aligny>center</aligny><label>?</label><visible>String.IsEqual(ListItem.Property(unknown_realdebrid),true)</visible></control>
+						<control type="image"><left>662</left><top>18</top><width>36</width><height>36</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(icon_premiumize)]</texture><colordiffuse>$INFO[ListItem.Property(col_premiumize)]</colordiffuse></control>
+						<control type="label"><left>662</left><top>10</top><width>36</width><height>50</height><font>font16</font><textcolor>FFFFBB33</textcolor><align>center</align><aligny>center</aligny><label>?</label><visible>String.IsEqual(ListItem.Property(unknown_premiumize),true)</visible></control>
+						<control type="image"><left>710</left><top>18</top><width>36</width><height>36</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(icon_alldebrid)]</texture><colordiffuse>$INFO[ListItem.Property(col_alldebrid)]</colordiffuse></control>
+						<control type="label"><left>710</left><top>10</top><width>36</width><height>50</height><font>font16</font><textcolor>FFFFBB33</textcolor><align>center</align><aligny>center</aligny><label>?</label><visible>String.IsEqual(ListItem.Property(unknown_alldebrid),true)</visible></control>
+						<control type="image"><left>758</left><top>18</top><width>36</width><height>36</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(icon_torbox)]</texture><colordiffuse>$INFO[ListItem.Property(col_torbox)]</colordiffuse></control>
+						<control type="label"><left>758</left><top>10</top><width>36</width><height>50</height><font>font16</font><textcolor>FFFFBB33</textcolor><align>center</align><aligny>center</aligny><label>?</label><visible>String.IsEqual(ListItem.Property(unknown_torbox),true)</visible></control>
+						<control type="image"><left>806</left><top>18</top><width>36</width><height>36</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(icon_easydebrid)]</texture><colordiffuse>$INFO[ListItem.Property(col_easydebrid)]</colordiffuse></control>
+						<control type="label"><left>806</left><top>10</top><width>36</width><height>50</height><font>font16</font><textcolor>FFFFBB33</textcolor><align>center</align><aligny>center</aligny><label>?</label><visible>String.IsEqual(ListItem.Property(unknown_easydebrid),true)</visible></control>
+						<control type="image"><left>854</left><top>18</top><width>36</width><height>36</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(icon_offcloud)]</texture><colordiffuse>$INFO[ListItem.Property(col_offcloud)]</colordiffuse></control>
+						<control type="label"><left>854</left><top>10</top><width>36</width><height>50</height><font>font16</font><textcolor>FFFFBB33</textcolor><align>center</align><aligny>center</aligny><label>?</label><visible>String.IsEqual(ListItem.Property(unknown_offcloud),true)</visible></control>
+						<control type="image"><left>902</left><top>18</top><width>36</width><height>36</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(icon_debridlink)]</texture><colordiffuse>$INFO[ListItem.Property(col_debridlink)]</colordiffuse></control>
+						<control type="label"><left>902</left><top>10</top><width>36</width><height>50</height><font>font16</font><textcolor>FFFFBB33</textcolor><align>center</align><aligny>center</aligny><label>?</label><visible>String.IsEqual(ListItem.Property(unknown_debridlink),true)</visible></control>
+						<control type="image"><left>950</left><top>18</top><width>36</width><height>36</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(icon_easynews)]</texture><colordiffuse>$INFO[ListItem.Property(col_easynews)]</colordiffuse></control>
+						<control type="label"><left>950</left><top>10</top><width>36</width><height>50</height><font>font16</font><textcolor>FFFFBB33</textcolor><align>center</align><aligny>center</aligny><label>?</label><visible>String.IsEqual(ListItem.Property(unknown_easynews),true)</visible></control>
+						<control type="image"><left>998</left><top>18</top><width>36</width><height>36</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(icon_filepursuit)]</texture><colordiffuse>$INFO[ListItem.Property(col_filepursuit)]</colordiffuse></control>
+						<control type="label"><left>998</left><top>10</top><width>36</width><height>50</height><font>font16</font><textcolor>FFFFBB33</textcolor><align>center</align><aligny>center</aligny><label>?</label><visible>String.IsEqual(ListItem.Property(unknown_filepursuit),true)</visible></control>
+						<control type="image"><left>1046</left><top>18</top><width>36</width><height>36</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(icon_tmdb)]</texture><colordiffuse>$INFO[ListItem.Property(col_tmdb)]</colordiffuse></control>
+						<control type="label"><left>1046</left><top>10</top><width>36</width><height>50</height><font>font16</font><textcolor>FFFFBB33</textcolor><align>center</align><aligny>center</aligny><label>?</label><visible>String.IsEqual(ListItem.Property(unknown_tmdb),true)</visible></control>
+						<control type="image"><left>1094</left><top>18</top><width>36</width><height>36</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(icon_simkl)]</texture><colordiffuse>$INFO[ListItem.Property(col_simkl)]</colordiffuse></control>
+						<control type="label"><left>1094</left><top>10</top><width>36</width><height>50</height><font>font16</font><textcolor>FFFFBB33</textcolor><align>center</align><aligny>center</aligny><label>?</label><visible>String.IsEqual(ListItem.Property(unknown_simkl),true)</visible></control>
+						<control type="image"><left>1142</left><top>18</top><width>36</width><height>36</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(icon_punchplay)]</texture><colordiffuse>$INFO[ListItem.Property(col_punchplay)]</colordiffuse></control>
+						<control type="label"><left>1142</left><top>10</top><width>36</width><height>50</height><font>font16</font><textcolor>FFFFBB33</textcolor><align>center</align><aligny>center</aligny><label>?</label><visible>String.IsEqual(ListItem.Property(unknown_punchplay),true)</visible></control>
+						<control type="image"><left>1190</left><top>18</top><width>36</width><height>36</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(icon_mdblist)]</texture><colordiffuse>$INFO[ListItem.Property(col_mdblist)]</colordiffuse></control>
+						<control type="label"><left>1190</left><top>10</top><width>36</width><height>50</height><font>font16</font><textcolor>FFFFBB33</textcolor><align>center</align><aligny>center</aligny><label>?</label><visible>String.IsEqual(ListItem.Property(unknown_mdblist),true)</visible></control>
+						<control type="image"><left>1238</left><top>18</top><width>36</width><height>36</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(icon_fanarttv)]</texture><colordiffuse>$INFO[ListItem.Property(col_fanarttv)]</colordiffuse></control>
+						<control type="label"><left>1238</left><top>10</top><width>36</width><height>50</height><font>font16</font><textcolor>FFFFBB33</textcolor><align>center</align><aligny>center</aligny><label>?</label><visible>String.IsEqual(ListItem.Property(unknown_fanarttv),true)</visible></control>
+						<control type="image"><left>1286</left><top>18</top><width>36</width><height>36</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(icon_youtube)]</texture><colordiffuse>$INFO[ListItem.Property(col_youtube)]</colordiffuse></control>
+						<control type="label"><left>1286</left><top>10</top><width>36</width><height>50</height><font>font16</font><textcolor>FFFFBB33</textcolor><align>center</align><aligny>center</aligny><label>?</label><visible>String.IsEqual(ListItem.Property(unknown_youtube),true)</visible></control>
+						<control type="image"><left>1334</left><top>18</top><width>36</width><height>36</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(icon_torrentclaw)]</texture><colordiffuse>$INFO[ListItem.Property(col_torrentclaw)]</colordiffuse></control>
+						<control type="label"><left>1334</left><top>10</top><width>36</width><height>50</height><font>font16</font><textcolor>FFFFBB33</textcolor><align>center</align><aligny>center</aligny><label>?</label><visible>String.IsEqual(ListItem.Property(unknown_torrentclaw),true)</visible></control>
+					</itemlayout>
+					<focusedlayout height="72">
+						<!-- row background (focused) -->
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>1400</width>
+							<height>72</height>
+							<texture colordiffuse="AA303030">common/white.png</texture>
+						</control>
+						<!-- left accent bar when focused -->
+						<control type="image">
+							<left>0</left>
+							<top>0</top>
+							<width>4</width>
+							<height>72</height>
+							<texture colordiffuse="FF6688AA">common/white.png</texture>
+						</control>
+						<!-- separator line -->
+						<control type="image">
+							<left>0</left>
+							<top>71</top>
+							<width>1400</width>
+							<height>1</height>
+							<texture colordiffuse="FF404040">common/white.png</texture>
+						</control>
+						<!-- addon icon -->
+						<control type="image">
+							<left>18</left>
+							<top>16</top>
+							<width>40</width>
+							<height>40</height>
+							<aspectratio>keep</aspectratio>
+							<texture>$INFO[ListItem.Art(icon)]</texture>
+						</control>
+						<!-- addon name -->
+						<control type="label">
+							<left>74</left>
+							<top>0</top>
+							<width>408</width>
+							<height>72</height>
+							<font>font16</font>
+							<textcolor>FFFFFFFF</textcolor>
+							<aligny>center</aligny>
+							<label>$INFO[ListItem.Label]</label>
+						</control>
+						<control type="image"><left>494</left><top>19</top><width>34</width><height>34</height><aspectratio>keep</aspectratio><texture colordiffuse="$INFO[ListItem.Property(resolver_color)]">$INFO[ListItem.Art(resolver)]</texture></control>
+						<!-- vertical divider: installed | authorized -->
+						<control type="image">
+							<left>540</left>
+							<top>12</top>
+							<width>2</width>
+							<height>48</height>
+							<texture colordiffuse="FF556677">common/white.png</texture>
+						</control>
+						<!-- Service icon strip (state by col_<service> property) -->
+						<control type="image"><left>566</left><top>18</top><width>36</width><height>36</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(icon_trakt)]</texture><colordiffuse>$INFO[ListItem.Property(col_trakt)]</colordiffuse></control>
+						<control type="label"><left>566</left><top>10</top><width>36</width><height>50</height><font>font16</font><textcolor>FFFFBB33</textcolor><align>center</align><aligny>center</aligny><label>?</label><visible>String.IsEqual(ListItem.Property(unknown_trakt),true)</visible></control>
+						<control type="image"><left>614</left><top>18</top><width>36</width><height>36</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(icon_realdebrid)]</texture><colordiffuse>$INFO[ListItem.Property(col_realdebrid)]</colordiffuse></control>
+						<control type="label"><left>614</left><top>10</top><width>36</width><height>50</height><font>font16</font><textcolor>FFFFBB33</textcolor><align>center</align><aligny>center</aligny><label>?</label><visible>String.IsEqual(ListItem.Property(unknown_realdebrid),true)</visible></control>
+						<control type="image"><left>662</left><top>18</top><width>36</width><height>36</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(icon_premiumize)]</texture><colordiffuse>$INFO[ListItem.Property(col_premiumize)]</colordiffuse></control>
+						<control type="label"><left>662</left><top>10</top><width>36</width><height>50</height><font>font16</font><textcolor>FFFFBB33</textcolor><align>center</align><aligny>center</aligny><label>?</label><visible>String.IsEqual(ListItem.Property(unknown_premiumize),true)</visible></control>
+						<control type="image"><left>710</left><top>18</top><width>36</width><height>36</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(icon_alldebrid)]</texture><colordiffuse>$INFO[ListItem.Property(col_alldebrid)]</colordiffuse></control>
+						<control type="label"><left>710</left><top>10</top><width>36</width><height>50</height><font>font16</font><textcolor>FFFFBB33</textcolor><align>center</align><aligny>center</aligny><label>?</label><visible>String.IsEqual(ListItem.Property(unknown_alldebrid),true)</visible></control>
+						<control type="image"><left>758</left><top>18</top><width>36</width><height>36</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(icon_torbox)]</texture><colordiffuse>$INFO[ListItem.Property(col_torbox)]</colordiffuse></control>
+						<control type="label"><left>758</left><top>10</top><width>36</width><height>50</height><font>font16</font><textcolor>FFFFBB33</textcolor><align>center</align><aligny>center</aligny><label>?</label><visible>String.IsEqual(ListItem.Property(unknown_torbox),true)</visible></control>
+						<control type="image"><left>806</left><top>18</top><width>36</width><height>36</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(icon_easydebrid)]</texture><colordiffuse>$INFO[ListItem.Property(col_easydebrid)]</colordiffuse></control>
+						<control type="label"><left>806</left><top>10</top><width>36</width><height>50</height><font>font16</font><textcolor>FFFFBB33</textcolor><align>center</align><aligny>center</aligny><label>?</label><visible>String.IsEqual(ListItem.Property(unknown_easydebrid),true)</visible></control>
+						<control type="image"><left>854</left><top>18</top><width>36</width><height>36</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(icon_offcloud)]</texture><colordiffuse>$INFO[ListItem.Property(col_offcloud)]</colordiffuse></control>
+						<control type="label"><left>854</left><top>10</top><width>36</width><height>50</height><font>font16</font><textcolor>FFFFBB33</textcolor><align>center</align><aligny>center</aligny><label>?</label><visible>String.IsEqual(ListItem.Property(unknown_offcloud),true)</visible></control>
+						<control type="image"><left>902</left><top>18</top><width>36</width><height>36</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(icon_debridlink)]</texture><colordiffuse>$INFO[ListItem.Property(col_debridlink)]</colordiffuse></control>
+						<control type="label"><left>902</left><top>10</top><width>36</width><height>50</height><font>font16</font><textcolor>FFFFBB33</textcolor><align>center</align><aligny>center</aligny><label>?</label><visible>String.IsEqual(ListItem.Property(unknown_debridlink),true)</visible></control>
+						<control type="image"><left>950</left><top>18</top><width>36</width><height>36</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(icon_easynews)]</texture><colordiffuse>$INFO[ListItem.Property(col_easynews)]</colordiffuse></control>
+						<control type="label"><left>950</left><top>10</top><width>36</width><height>50</height><font>font16</font><textcolor>FFFFBB33</textcolor><align>center</align><aligny>center</aligny><label>?</label><visible>String.IsEqual(ListItem.Property(unknown_easynews),true)</visible></control>
+						<control type="image"><left>998</left><top>18</top><width>36</width><height>36</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(icon_filepursuit)]</texture><colordiffuse>$INFO[ListItem.Property(col_filepursuit)]</colordiffuse></control>
+						<control type="label"><left>998</left><top>10</top><width>36</width><height>50</height><font>font16</font><textcolor>FFFFBB33</textcolor><align>center</align><aligny>center</aligny><label>?</label><visible>String.IsEqual(ListItem.Property(unknown_filepursuit),true)</visible></control>
+						<control type="image"><left>1046</left><top>18</top><width>36</width><height>36</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(icon_tmdb)]</texture><colordiffuse>$INFO[ListItem.Property(col_tmdb)]</colordiffuse></control>
+						<control type="label"><left>1046</left><top>10</top><width>36</width><height>50</height><font>font16</font><textcolor>FFFFBB33</textcolor><align>center</align><aligny>center</aligny><label>?</label><visible>String.IsEqual(ListItem.Property(unknown_tmdb),true)</visible></control>
+						<control type="image"><left>1094</left><top>18</top><width>36</width><height>36</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(icon_simkl)]</texture><colordiffuse>$INFO[ListItem.Property(col_simkl)]</colordiffuse></control>
+						<control type="label"><left>1094</left><top>10</top><width>36</width><height>50</height><font>font16</font><textcolor>FFFFBB33</textcolor><align>center</align><aligny>center</aligny><label>?</label><visible>String.IsEqual(ListItem.Property(unknown_simkl),true)</visible></control>
+						<control type="image"><left>1142</left><top>18</top><width>36</width><height>36</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(icon_punchplay)]</texture><colordiffuse>$INFO[ListItem.Property(col_punchplay)]</colordiffuse></control>
+						<control type="label"><left>1142</left><top>10</top><width>36</width><height>50</height><font>font16</font><textcolor>FFFFBB33</textcolor><align>center</align><aligny>center</aligny><label>?</label><visible>String.IsEqual(ListItem.Property(unknown_punchplay),true)</visible></control>
+						<control type="image"><left>1190</left><top>18</top><width>36</width><height>36</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(icon_mdblist)]</texture><colordiffuse>$INFO[ListItem.Property(col_mdblist)]</colordiffuse></control>
+						<control type="label"><left>1190</left><top>10</top><width>36</width><height>50</height><font>font16</font><textcolor>FFFFBB33</textcolor><align>center</align><aligny>center</aligny><label>?</label><visible>String.IsEqual(ListItem.Property(unknown_mdblist),true)</visible></control>
+						<control type="image"><left>1238</left><top>18</top><width>36</width><height>36</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(icon_fanarttv)]</texture><colordiffuse>$INFO[ListItem.Property(col_fanarttv)]</colordiffuse></control>
+						<control type="label"><left>1238</left><top>10</top><width>36</width><height>50</height><font>font16</font><textcolor>FFFFBB33</textcolor><align>center</align><aligny>center</aligny><label>?</label><visible>String.IsEqual(ListItem.Property(unknown_fanarttv),true)</visible></control>
+						<control type="image"><left>1286</left><top>18</top><width>36</width><height>36</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(icon_youtube)]</texture><colordiffuse>$INFO[ListItem.Property(col_youtube)]</colordiffuse></control>
+						<control type="label"><left>1286</left><top>10</top><width>36</width><height>50</height><font>font16</font><textcolor>FFFFBB33</textcolor><align>center</align><aligny>center</aligny><label>?</label><visible>String.IsEqual(ListItem.Property(unknown_youtube),true)</visible></control>
+						<control type="image"><left>1334</left><top>18</top><width>36</width><height>36</height><aspectratio>keep</aspectratio><texture>$INFO[ListItem.Art(icon_torrentclaw)]</texture><colordiffuse>$INFO[ListItem.Property(col_torrentclaw)]</colordiffuse></control>
+						<control type="label"><left>1334</left><top>10</top><width>36</width><height>50</height><font>font16</font><textcolor>FFFFBB33</textcolor><align>center</align><aligny>center</aligny><label>?</label><visible>String.IsEqual(ListItem.Property(unknown_torrentclaw),true)</visible></control>
+					</focusedlayout>
+				</control>
+
+				<!-- ── List scrollbar (id=60, linked via <pagecontrol> on the list) ──
+				     showonepage=false hides it entirely when every addon already fits,
+				     so small builds look exactly as they do now. -->
+				<control type="scrollbar" id="60">
+					<left>1368</left>
+					<top>178</top>
+					<width>10</width>
+					<height>748</height>
+					<orientation>vertical</orientation>
+					<showonepage>false</showonepage>
+					<onleft>100</onleft>
+					<onright>100</onright>
+					<texturesliderbackground colordiffuse="55000000">common/white.png</texturesliderbackground>
+					<texturesliderbar colordiffuse="FF4E5A66">common/white.png</texturesliderbar>
+					<texturesliderbarfocus colordiffuse="FF6688AA">common/white.png</texturesliderbarfocus>
+					<textureslidernib colordiffuse="00000000">common/white.png</textureslidernib>
+					<textureslidernibfocus colordiffuse="00000000">common/white.png</textureslidernibfocus>
+				</control>
+
+				<!-- Divider above button bar -->
+				<control type="image">
+					<left>0</left>
+					<top>926</top>
+					<width>1400</width>
+					<height>2</height>
+					<texture colordiffuse="FF444444">common/white.png</texture>
+				</control>
+
+				<!-- ── Close button (id=200) ── -->
+				<control type="button" id="200">
+					<left>565</left>
+					<top>934</top>
+					<width>270</width>
+					<height>58</height>
+					<onup>100</onup>
+					<label>Close</label>
+					<font>font14</font>
+					<textcolor>FFFFFFFF</textcolor>
+					<focusedcolor>FFFFFFFF</focusedcolor>
+					<texturefocus colordiffuse="FF6688AA">common/white.png</texturefocus>
+					<texturenofocus colordiffuse="FF333333">common/white.png</texturenofocus>
+					<align>center</align>
+					<aligny>center</aligny>
+					<textoffsetx>8</textoffsetx>
+				</control>
+
+			</control>
+		</control>
+
+	</controls>
+</window>

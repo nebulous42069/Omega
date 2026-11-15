@@ -1148,7 +1148,7 @@
 					<width>440</width>
 					<height>640</height>
 					<aspectratio aligny="bottom">keep</aspectratio>
-					<texture background="true">$INFO[ListItem.Icon]</texture>
+					<texture background="true">$VAR[X2ParentAwareTexture2Var]</texture>
 					<fadetime>IconCrossfadeTime</fadetime>
 					<bordertexture border="20">thumbs/thumb_shadow.png</bordertexture>
 					<bordersize>20</bordersize>
