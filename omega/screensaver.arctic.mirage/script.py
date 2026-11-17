@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 import sys
+import time
 
 import xbmc
 import xbmcaddon
+import xbmcgui
 
 from resources.lib import utils
 
 _addon = xbmcaddon.Addon()
-_id = _addon.getAddonInfo('id')
 
 
 def get_params():
@@ -25,27 +26,41 @@ def get_params():
     return params
 
 
-def run_and_sync(call):
-    before_path = utils.get_skin_string(utils.SKIN_PATH_STRING)
-    before_name = utils.get_skin_string(utils.SKIN_NAME_STRING)
+def pick_widget():
+    utils.prepare_widget_picker()
+    xbmc.executebuiltin(choose_path(), wait=True)
 
-    xbmc.executebuiltin(call, wait=True)
-
-    # In normal Kodi builds, wait=True returns after Skin Shortcuts / Skin.SetString
-    # finishes. The short poll below covers builds where the skin string is
-    # updated slightly after the called script returns.
-    for _ in range(20):
-        path = utils.get_skin_string(utils.SKIN_PATH_STRING)
-        name = utils.get_skin_string(utils.SKIN_NAME_STRING)
-        if path != before_path or name != before_name or path or name:
+    # RunScript may return while Skin Shortcuts is still loading or showing
+    # its picker. Leave the baseline in the skin so startup can collect any
+    # selection that arrives after this script exits.
+    monitor = xbmc.Monitor()
+    deadline = time.monotonic() + 10
+    while not monitor.abortRequested():
+        if xbmc.getCondVisibility('System.HasActiveModalDialog'):
+            deadline = time.monotonic() + 2
+        elif time.monotonic() >= deadline:
             break
-        xbmc.sleep(250)
+        if utils.sync_pending_widget_selection():
+            show_widget_path()
+            return
+        if monitor.waitForAbort(0.25):
+            return
+    if not monitor.abortRequested() and utils.sync_pending_widget_selection():
+        show_widget_path()
 
-    return utils.sync_addon_settings_from_skinstrings()
+
+def show_widget_path():
+    path = utils.get_active_widget_path()
+    xbmcgui.Dialog().textviewer(_addon.getLocalizedString(32012),
+                               path or _addon.getLocalizedString(32013))
 
 
-def change_label():
-    return 'Skin.SetString({})'.format(utils.SKIN_NAME_STRING)
+def edit_widget_path():
+    keyboard = xbmc.Keyboard(utils.get_active_widget_path(), _addon.getLocalizedString(32010))
+    keyboard.doModal()
+    if keyboard.isConfirmed():
+        utils.save_manual_widget_path(keyboard.getText())
+        show_widget_path()
 
 
 def choose_path():
@@ -53,21 +68,25 @@ def choose_path():
             'type=widgets'
             '&showNone=False'
             '&skinWidgetName={0}'
-            '&skinWidgetPath={1})'.format(utils.SKIN_NAME_STRING, utils.SKIN_PATH_STRING))
+            '&skinWidgetPath={1})'.format(utils.SKIN_NAME_STRING, utils.SKIN_PICKER_PATH))
 
 
 if __name__ == '__main__':
     params = get_params()
     mode = params.get('mode')
 
-    call = None
-    if mode == 'label':
-        call = change_label()
-    elif mode == 'choose':
-        call = choose_path()
-
-    if call:
-        run_and_sync(call)
+    if mode == 'showpath':
+        show_widget_path()
+    elif mode in ('choose', 'editpath'):
+        try:
+            if mode == 'choose':
+                pick_widget()
+            else:
+                edit_widget_path()
+        except OSError as exc:
+            utils.log('Could not save widget path in the add-on folder: {}'.format(exc),
+                      xbmc.LOGERROR)
+            xbmcgui.Dialog().ok(_addon.getAddonInfo('name'), _addon.getLocalizedString(32011))
     elif mode == 'installfonts':
         utils.install_mirage_fonts_into_active_skin()
     elif mode == 'restorefonts':

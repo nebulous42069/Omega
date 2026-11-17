@@ -57,3 +57,19 @@ msgstr "Volver al OSD del video pausado cuando el video está pausado"
 msgctxt "#32009"
 msgid "Pan and zoom artwork"
 msgstr "Desplazar y ampliar las imágenes"
+
+msgctxt "#32010"
+msgid "View or edit widget path"
+msgstr "Ver o editar la ruta del widget"
+
+msgctxt "#32011"
+msgid "Could not save the widget path. Check that the add-on folder is writable."
+msgstr "No se pudo guardar la ruta. Comprueba que se pueda escribir en la carpeta del complemento."
+
+msgctxt "#32012"
+msgid "Show saved widget path"
+msgstr "Mostrar la ruta guardada del widget"
+
+msgctxt "#32013"
+msgid "No widget path has been saved."
+msgstr "No hay ninguna ruta de widget guardada."

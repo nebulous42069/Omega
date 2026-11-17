@@ -28,7 +28,7 @@
             <top>-1000</top>
             <width>1</width>
             <height>1</height>
-            <content sortby="random">$INFO[Skin.String(screensaver.arctic.mirage.path)]</content>
+            <content sortby="random">$INFO[Window.Property(screensaver.arctic.mirage.path)]</content>
             <autoscroll time="20000">true</autoscroll>
             <orientation>horizontal</orientation>
             <itemlayout />

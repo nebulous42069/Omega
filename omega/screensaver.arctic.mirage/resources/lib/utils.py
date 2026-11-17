@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
+import hashlib
 import os
 import re
 import shutil
+import tempfile
 
 import xbmc
 import xbmcaddon
@@ -19,6 +21,8 @@ PATH_SETTING = 'path'
 NAME_SETTING = 'name'
 SKIN_PATH_STRING = '{}.path'.format(_id)
 SKIN_NAME_STRING = '{}.name'.format(_id)
+SKIN_PICKER_PATH = '{}.picker_path'.format(_id)
+SKIN_PICKER_BASELINE = '{}.picker_file_baseline'.format(_id)
 
 
 def log(msg, level=xbmc.LOGDEBUG):
@@ -56,13 +60,6 @@ def get_skin_string(setting):
     return xbmc.getInfoLabel('Skin.String({})'.format(setting)) or ''
 
 
-def set_skin_string(setting, value):
-    # Keep this simple: Kodi's Skin.SetString builtin is the supported path for
-    # skin strings. Most widget paths are plugin:// URLs and are safe here.
-    value = value or ''
-    return xbmc.executebuiltin('Skin.SetString({},{})'.format(setting, value), wait=True)
-
-
 def get_saved_widget_path():
     return (
         get_setting_string(PATH_SETTING)
@@ -70,6 +67,44 @@ def get_saved_widget_path():
         or get_skin_string(SKIN_PATH_STRING)
         or ''
     )
+
+
+def _widget_path_file():
+    addon_path = translate_path(_addon.getAddonInfo('path'))
+    return os.path.join(addon_path, 'resources', 'widget-path.txt')
+
+
+def get_active_widget_path():
+    try:
+        with open(_widget_path_file(), encoding='utf-8-sig') as config:
+            packaged_path = config.read().strip()
+    except FileNotFoundError:
+        packaged_path = ''
+    except (OSError, UnicodeError) as exc:
+        log('Could not read bundled widget path: {}'.format(exc), xbmc.LOGWARNING)
+        packaged_path = ''
+
+    return packaged_path or get_saved_widget_path()
+
+
+def save_widget_path(path):
+    target = _widget_path_file()
+    temporary = None
+    try:
+        with tempfile.NamedTemporaryFile(mode='w', encoding='utf-8',
+                                         dir=os.path.dirname(target), delete=False) as config:
+            temporary = config.name
+            config.write(path.strip() + '\n')
+        os.replace(temporary, target)
+        temporary = None
+    finally:
+        if temporary:
+            os.unlink(temporary)
+
+
+def save_manual_widget_path(path):
+    save_widget_path(path)
+    _remember_picker_path(get_skin_string(SKIN_PICKER_PATH))
 
 
 def get_saved_widget_name():
@@ -81,51 +116,51 @@ def get_saved_widget_name():
     )
 
 
-def save_widget_path(path):
-    path = path or ''
-    set_setting_string(PATH_SETTING, path)
-    # Also keep the old full-id setting name populated for compatibility with
-    # earlier builds of this add-on.
-    set_setting_string(SKIN_PATH_STRING, path)
-
-
-def save_widget_name(name):
-    name = name or ''
-    set_setting_string(NAME_SETTING, name)
-    set_setting_string(SKIN_NAME_STRING, name)
-
-
-def sync_addon_settings_from_skinstrings():
-    """Copy Skin Shortcuts' Skin.String values into persistent add-on settings."""
-    path = get_skin_string(SKIN_PATH_STRING)
-    name = get_skin_string(SKIN_NAME_STRING)
-
-    if path:
-        save_widget_path(path)
-        log('Saved widget path to add-on settings: {}'.format(path))
+def _set_skin_string(setting, value):
+    if value:
+        escaped = value.replace('\\', '\\\\').replace('"', '\\"')
+        xbmc.executebuiltin('Skin.SetString({},"{}")'.format(setting, escaped), wait=True)
     else:
-        log('No Skin.String widget path found to save')
+        xbmc.executebuiltin('Skin.Reset({})'.format(setting), wait=True)
 
+
+def _path_fingerprint(path):
+    return hashlib.sha256(path.encode('utf-8')).hexdigest()
+
+
+def _remember_picker_path(path):
+    _set_skin_string(SKIN_PICKER_BASELINE, _path_fingerprint(path))
+
+
+def prepare_widget_picker():
+    # Save any result left by an earlier picker before starting another one.
+    sync_pending_widget_selection()
+    path = get_active_widget_path()
+    _remember_picker_path(path)
+    _set_skin_string(SKIN_PICKER_PATH, path)
+    _set_skin_string(SKIN_NAME_STRING, get_saved_widget_name())
+
+
+def sync_pending_widget_selection():
+    """Save a new Skin Shortcuts path once, without overriding manual edits."""
+    baseline = get_skin_string(SKIN_PICKER_BASELINE)
+    path = get_skin_string(SKIN_PICKER_PATH)
+    if not baseline or not path or _path_fingerprint(path) == baseline:
+        return False
+
+    # An update or manual edit may have replaced the path while the picker was open.
+    if _path_fingerprint(get_active_widget_path()) != baseline:
+        _remember_picker_path(path)
+        return False
+
+    save_widget_path(path)
+    _remember_picker_path(path)
+    name = get_skin_string(SKIN_NAME_STRING)
     if name:
-        save_widget_name(name)
-        log('Saved widget name to add-on settings: {}'.format(name))
+        set_setting_string(NAME_SETTING, name)
 
-    return path, name
-
-
-def sync_skinstrings_from_addon_settings():
-    """Populate Skin.String values from add-on settings before XML loads."""
-    path = get_saved_widget_path()
-    name = get_saved_widget_name()
-
-    if path:
-        set_skin_string(SKIN_PATH_STRING, path)
-        log('Synced widget path to Skin.String: {}'.format(path))
-    if name:
-        set_skin_string(SKIN_NAME_STRING, name)
-        log('Synced widget name to Skin.String: {}'.format(name))
-
-    return path, name
+    log('Saved widget path from Skin Shortcuts')
+    return True
 
 
 MIRAGE_FONT_FILES = ('Mirage-Regular.ttf', 'Mirage-Bold.ttf')

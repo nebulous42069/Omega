@@ -107,7 +107,7 @@ class Screensaver(xbmcgui.WindowXMLDialog):
 
     def __init__(self, *args, **kwargs):
         self.exit_monitor = self.ExitMonitor(self.onScreensaverDeactivated)
-        self.path = utils.get_saved_widget_path()
+        self.path = utils.get_active_widget_path()
         self.name = utils.get_saved_widget_name()
         self.open_info_on_wake = utils.get_bool_setting(OPEN_INFO_ON_WAKE_SETTING, True)
         self.restore_paused_video_osd = utils.get_bool_setting(RESTORE_PAUSED_VIDEO_OSD_SETTING, True)
@@ -222,8 +222,12 @@ class Screensaver(xbmcgui.WindowXMLDialog):
             if self._handoff_complete.wait(0.1):
                 break
         else:
-            utils.log('Screensaver input handoff timed out', xbmc.LOGERROR)
-            return False
+            with self._lifecycle_lock:
+                self._handoff_pending = False
+            utils.log('Screensaver input handoff timed out; using normal Kodi wake handling',
+                      xbmc.LOGWARNING)
+            self.release_input_control()
+            return not self._capture_stop
 
         with self._lifecycle_lock:
             if self._capture_stop:

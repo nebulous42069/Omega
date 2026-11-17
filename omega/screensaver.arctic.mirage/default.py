@@ -13,10 +13,10 @@ _xml = 'screensaver-arctic-mirage-addon.xml'
 
 
 if __name__ == '__main__':
-    # The XML uses Skin.String(...) for the widget list content, so make sure
-    # the skin strings are populated from the add-on settings before the window
-    # is created.
-    utils.sync_skinstrings_from_addon_settings()
+    try:
+        utils.sync_pending_widget_selection()
+    except Exception as exc:
+        utils.log('Could not recover widget selection: {}'.format(exc), xbmc.LOGWARNING)
 
     screensaver_gui = Screensaver(_xml, _path, 'Default', '1080i')
     try:

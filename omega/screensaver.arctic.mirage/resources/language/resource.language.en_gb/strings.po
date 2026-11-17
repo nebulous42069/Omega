@@ -57,3 +57,19 @@ msgstr ""
 msgctxt "#32009"
 msgid "Pan and zoom artwork"
 msgstr ""
+
+msgctxt "#32010"
+msgid "View or edit widget path"
+msgstr ""
+
+msgctxt "#32011"
+msgid "Could not save the widget path. Check that the add-on folder is writable."
+msgstr ""
+
+msgctxt "#32012"
+msgid "Show saved widget path"
+msgstr ""
+
+msgctxt "#32013"
+msgid "No widget path has been saved."
+msgstr ""
