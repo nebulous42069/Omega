@@ -179,6 +179,12 @@ def _keep_signed_in():
         _adopt_trakt()
         _link_new_addons(at_start=False)
         _repair_tmdbh_provider()
+        try:
+            from reauthorize.modules.sync import mdblist_oauth_sync
+            mdblist_oauth_sync.repair_umbrella()
+        except Exception as exc:
+            xbmc.log('[Diggz Account Manager] Umbrella MDBList repair failed (%s).'
+                     % type(exc).__name__, LOGINFO)
         since_renew_check += NEW_ADDON_CHECK_SECONDS
         if since_renew_check >= RENEW_CHECK_SECONDS:
             since_renew_check = 0

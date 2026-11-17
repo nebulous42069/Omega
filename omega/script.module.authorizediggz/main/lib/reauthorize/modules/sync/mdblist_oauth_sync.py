@@ -17,11 +17,12 @@
     1.4.0: the add-ons that take an MDBList ACCOUNT sign-in themselves get it too (ADDONS below; each
     read from the add-on, 2026-10-10). MDBList renews a sign-in only under the app that made it, so
     where an add-on lets a setting choose its app id, that setting gets Diggz Account Manager's; Umbrella's id is
-    a line in its code and is left alone, because it renews only after MDBList refuses its token and
-    Diggz Account Manager renews (and re-sends) at half the 30 days. A sign-out takes Diggz Account Manager's sign-in only
+    a line in its code and is updated for the managed session. Diggz Account Manager
+    renews and re-sends its credentials on its existing schedule. A sign-out takes Diggz Account Manager's sign-in only
     out of the add-ons that hold it; a wipe clears them all.
 """
 
+import hashlib
 import json
 import os
 import re
@@ -30,6 +31,7 @@ import time
 
 import xbmc
 import xbmcaddon
+import xbmcgui
 import xbmcvfs
 
 from reauthorize.modules.control import accountmgr
@@ -179,6 +181,88 @@ def _held(addon_id):
     return addon.getSetting(ids[0]), addon.getSetting(ids[1])
 
 
+_UMBRELLA_NATIVE = 'mdblist.umbrella.client'
+_UMBRELLA_SESSION = 'mdblist.umbrella.session'
+_UMBRELLA_ID = re.compile(r'^_CLIENT_ID\s*=\s*(["\'])([^"\']+)\1', re.M)
+
+
+def _umbrella_source():
+    path = xbmcvfs.translatePath(xbmcaddon.Addon(UMBRELLA).getAddonInfo('path'))
+    return os.path.join(path, 'resources', 'lib', 'modules', 'mdblist.py')
+
+
+def _umbrella_client(path):
+    with open(path, encoding='utf-8') as stream:
+        matches = _UMBRELLA_ID.findall(stream.read())
+    if len(matches) != 1:
+        raise ValueError('Unrecognized Umbrella MDBList client ID')
+    return matches[0][1]
+
+
+def _session_digest(access, refresh):
+    credential = refresh or access
+    return hashlib.sha256(credential.encode('utf-8')).hexdigest() if credential else ''
+
+
+def _sync_umbrella(account, held, only_missing):
+    from reauthorize.modules.sync_support import patch_constants
+
+    access, refresh = held
+    digest = _session_digest(access, refresh)
+    saved = accountmgr.getSetting(_UMBRELLA_SESSION)
+    native = accountmgr.getSetting(_UMBRELLA_NATIVE)
+    path = _umbrella_source()
+    current, ours = _umbrella_client(path), _our_id()
+    same_session = bool((access and access == account['token'])
+                        or (refresh and refresh == account['refresh'])
+                        or (digest and digest == saved))
+    # A renewed token may differ from the original while our patched module
+    # is still installed. Remember that token before the next Umbrella update.
+    rotated = bool(saved and native and current == ours and digest)
+    if digest and not (same_session or rotated):
+        return False
+    patched = False
+    if current != ours:
+        accountmgr.setSetting(_UMBRELLA_NATIVE, current)
+        patched = patch_constants(path, {'_CLIENT_ID': ours})
+        if patched:
+            _log('Umbrella MDBList client updated; restart Kodi to reload Umbrella')
+            xbmcgui.Dialog().notification('Diggz Account Manager',
+                                          "Restart Kodi to reload Umbrella's MDBList sign-in.")
+    if access and (only_missing or held == (account['token'], account['refresh'])):
+        if saved != digest:
+            accountmgr.setSetting(_UMBRELLA_SESSION, digest)
+        return patched
+    _write(UMBRELLA, account)
+    if _held(UMBRELLA) != (account['token'], account['refresh']):
+        raise RuntimeError('Umbrella MDBList settings did not save')
+    accountmgr.setSetting(_UMBRELLA_SESSION, _session_digest(account['token'], account['refresh']))
+    return True
+
+
+def repair_umbrella():
+    """Check the managed session after an Umbrella add-on update."""
+    account = _account()
+    if account['token'] and _ready(UMBRELLA):
+        held = _held(UMBRELLA)
+        if held[0]:
+            return _sync_umbrella(account, held, only_missing=True)
+    return False
+
+
+def _restore_umbrella_client():
+    from reauthorize.modules.sync_support import patch_constants
+
+    native = accountmgr.getSetting(_UMBRELLA_NATIVE)
+    if native:
+        path = _umbrella_source()
+        if _umbrella_client(path) == _our_id():
+            patch_constants(path, {'_CLIENT_ID': native})
+            _log('Umbrella MDBList client restored; restart Kodi to reload Umbrella')
+    accountmgr.setSetting(_UMBRELLA_NATIVE, '')
+    accountmgr.setSetting(_UMBRELLA_SESSION, '')
+
+
 def _account():
     try:
         expires = int(float(accountmgr.getSetting('mdblist.oauth.expires') or 0))
@@ -284,10 +368,14 @@ def push_addons(only_missing=False):
         try:
             if not _ready(addon_id):
                 continue
-            held = _held(addon_id)[0]
-            if held == a['token'] or (only_missing and held):
-                continue
-            _write(addon_id, a)
+            held = _held(addon_id)
+            if addon_id == UMBRELLA:
+                if not _sync_umbrella(a, held, only_missing):
+                    continue
+            else:
+                if held[0] == a['token'] or (only_missing and held[0]):
+                    continue
+                _write(addon_id, a)
             sent += 1
             _log('sign-in sent to %s' % addon_id)
         except Exception as e:
@@ -302,8 +390,13 @@ def wipe_addons(token=None):
         try:
             if not _ready(addon_id):
                 continue
-            held = _held(addon_id)[0]
-            if not held or (token and held != token):
+            access, refresh = _held(addon_id)
+            managed = (addon_id == UMBRELLA and
+                       _session_digest(access, refresh) == accountmgr.getSetting(_UMBRELLA_SESSION)
+                       and bool(access or refresh))
+            if addon_id == UMBRELLA and (not token or access == token or managed):
+                _restore_umbrella_client()
+            if not (access or refresh) or (token and access != token and not managed):
                 continue
             _clear(addon_id)
             cleared += 1

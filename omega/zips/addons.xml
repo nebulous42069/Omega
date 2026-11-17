@@ -1268,7 +1268,7 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.sc19
 		</assets>
 		<news>- code refactor</news>
 	</extension>
-</addon><addon id="script.module.authorizediggz" name="Diggz Account Manager" version="1.4.5.33" provider-name="Zaxxon709, Hermit Murman, Diggz">
+</addon><addon id="script.module.authorizediggz" name="Diggz Account Manager" version="1.4.5.34" provider-name="Zaxxon709, Hermit Murman, Diggz">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
         <import addon="script.module.requests" version="2.19.1" />

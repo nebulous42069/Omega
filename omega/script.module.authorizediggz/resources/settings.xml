@@ -359,6 +359,8 @@
 		<setting id="owner.leaks.seen" type="text" label="" default="" visible="false" />
 		<setting id="trakt.lifetime" type="text" label="" default="" visible="false" />
 		<setting id="mdblist.scrobbler.client" type="text" label="" default="" visible="false" />
+		<setting id="mdblist.umbrella.client" type="text" label="" default="" visible="false" />
+		<setting id="mdblist.umbrella.session" type="text" label="" default="" visible="false" />
 		<setting id="simkl.all_push.done" type="text" label="" default="" visible="false" />
 		<setting id="sync.known_addons" type="text" label="" default="" visible="false" />
 		<setting id="sync.catchup.done" type="text" label="" default="" visible="false" />
