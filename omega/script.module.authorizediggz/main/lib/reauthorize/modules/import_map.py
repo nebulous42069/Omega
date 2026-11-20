@@ -514,8 +514,6 @@ SETTINGS = {
         "easynews.user": "easynews.username",
         "fanart_tv.api_key": "fanart.tv.api.key",
         "filepursuittoken": "filepursuit.api.key",
-        "imdbuser": "imdb.user",
-        "mdblist.api": "mdb.api.key",
         "mdblist.refresh.token": "mdblist.oauth.refresh",
         "mdblist.token": "mdblist.oauth.token",
         "offcloudtoken": "offcloud.token",

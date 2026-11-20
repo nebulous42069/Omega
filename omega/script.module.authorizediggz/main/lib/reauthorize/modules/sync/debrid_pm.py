@@ -129,32 +129,8 @@ class Auth:
 
     #Umbrella PM
         try:
-                if xbmcvfs.exists(var.chk_umb):
-                        chk_auth_umb = xbmcaddon.Addon('plugin.video.umbrella').getSetting("premiumizetoken")
-                        chk_auth_umb_rd = xbmcaddon.Addon('plugin.video.umbrella').getSetting("realdebridtoken")
-                        chk_auth_umb_ad = xbmcaddon.Addon('plugin.video.umbrella').getSetting("alldebridtoken")
-                        if sync_support.needs('plugin.video.umbrella', [('premiumizeusername',your_pm_username),('premiumizetoken',your_pm_token)]):
-                                
-                                addon = xbmcaddon.Addon("plugin.video.umbrella")
-                                addon.setSetting("premiumizeusername", your_pm_username)
-                                addon.setSetting("premiumizetoken", your_pm_token)
-
-                                enabled_pm = ("true" if your_pm_token and not control.wiping() else "false")
-                                addon.setSetting("premiumize.enable", enabled_pm)
-
-                                if str(chk_auth_umb_rd) != '':
-                                        enabled_rd = ("true")
-                                        addon.setSetting("alldebrid.enable", enabled_rd)
-                                else:
-                                        enabled_rd = ("false")
-                                        addon.setSetting("realdebrid.enable", enabled_rd)
-
-                                if str(chk_auth_umb_ad) != '':
-                                        enabled_ad = ("true")
-                                        addon.setSetting("alldebrid.enable", enabled_ad)
-                                else:
-                                        enabled_ad = ("false")
-                                        addon.setSetting("alldebrid.enable", enabled_ad)
+            if xbmcvfs.exists(var.chk_umb) and ((your_pm_token) or control.wiping()):
+                sync_support.put('plugin.video.umbrella', [('premiumizeusername', '' if control.wiping() else your_pm_username), ('premiumizetoken', '' if control.wiping() else your_pm_token), ('premiumize.enable', 'true' if your_pm_token and not control.wiping() else 'false')], wipe=control.wiping())
         except:
                 sync_support.failed('plugin.video.umbrella')
                 xbmc.log('%s: Umbrella Premiumize Failed!' % var.amgr, xbmc.LOGINFO)

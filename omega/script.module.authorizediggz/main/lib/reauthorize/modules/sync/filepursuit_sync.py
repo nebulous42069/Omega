@@ -20,17 +20,8 @@ class Auth:
                
         #Umbrella
                 try:
-                        if xbmcvfs.exists(var.chk_umb): #Check that the addon is installed and settings.xml exists
-                                
-                                #Get add-on setting to compare
-                                chk_file = xbmcaddon.Addon('plugin.video.umbrella').getSetting("filepursuittoken")
-                                enable_file = ("true")
-                                
-                                #Write data to settings.xml
-                                if sync_support.needs('plugin.video.umbrella', [('filepursuittoken',your_file_api)]):
-                                        addon = xbmcaddon.Addon("plugin.video.umbrella")
-                                        addon.setSetting("filepursuit.enable", enable_file)
-                                        addon.setSetting("filepursuittoken", your_file_api)
+                    if xbmcvfs.exists(var.chk_umb) and ((your_file_api) or control.wiping()):
+                        sync_support.put('plugin.video.umbrella', [('filepursuittoken', '' if control.wiping() else your_file_api), ('filepursuit.enable', 'true' if your_file_api and not control.wiping() else 'false')], wipe=control.wiping())
                 except:
                         sync_support.failed('plugin.video.umbrella')
                         xbmc.log('%s: Umbrella FilePursuit Failed!' % var.amgr, xbmc.LOGINFO)
@@ -41,7 +32,7 @@ class Auth:
                         if xbmcvfs.exists(var.chk_infinity):
                                 
                                 chk_file = xbmcaddon.Addon('plugin.video.infinity').getSetting("filepursuit.api")
-                                enable_file = ("true")
+                                enable_file = ("true" if your_file_api and not control.wiping() else "false")
                                 
                                 if sync_support.needs('plugin.video.infinity', [('filepursuit.api',your_file_api)]):
                                         addon = xbmcaddon.Addon("plugin.video.infinity")

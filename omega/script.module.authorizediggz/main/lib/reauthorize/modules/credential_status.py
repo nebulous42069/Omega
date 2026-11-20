@@ -57,6 +57,19 @@ def scan(rows, services, account):
                 if state == 'missing' and valid_bundle(grant) and grant['access_token'] == account.getSetting('simkl.token'):
                     pending[pair] = 'simkl'
                 continue
+            if pair == ('plugin.video.umbrella', 'mdblist'):
+                if state == 'missing' and all(importer._is_value(account.getSetting(k)) for k in ('mdblist.oauth.token', 'mdblist.oauth.refresh')):
+                    pending[pair] = 'mdbo'
+                continue
+            if pair == ('plugin.video.umbrella', 'tmdb'):
+                from reauthorize.modules.auth.tmdb import bundle
+                grant = bundle(account.getSetting('tmdb.authorization'))
+                if grant:
+                    dest = xbmcaddon.Addon(receiver)
+                    if (dest.getSetting('tmdb.v4.accesstoken') != grant['access_token'] or
+                            dest.getSetting('tmdb.v4.accountid') != grant['account_id']):
+                        pending[pair] = 'meta'
+                    continue
             if pair == (TMDB_HELPER, 'tmdb'):
                 from reauthorize.modules.auth.tmdb import bundle
                 if state == 'missing' and bundle(account.getSetting('tmdb.authorization')):
@@ -111,6 +124,11 @@ def scan(rows, services, account):
 def read_state(addon_id, service_id, keys, held):
     if (addon_id, service_id) in dashboard_catalog.UNKNOWN:
         return 'unknown'
+    if addon_id == 'plugin.video.umbrella' and service_id == 'easydebrid':
+        from reauthorize.modules import sync_support
+        schema = sync_support.declared_settings(xbmcaddon.Addon(addon_id))
+        if schema is not None and any(schema.get(k, 'action') == 'action' for k in ('easydebridtoken', 'easydebrid.enable')):
+            return 'unknown'
     if addon_id == 'plugin.video.prism' and service_id in ('offcloud', 'torbox'):
         from reauthorize.modules import sync_support
         schema = sync_support.declared_settings(xbmcaddon.Addon(addon_id))
@@ -153,6 +171,13 @@ def read_state(addon_id, service_id, keys, held):
         return 'present' if tmdbh_compat.simkl_present() else 'missing'
     if addon_id == tmdbh_compat.TVDB and service_id == 'tvdb':
         return 'present' if xbmcaddon.Addon(addon_id).getSetting('apikey').strip() else 'missing'
+    if addon_id == 'plugin.video.umbrella' and service_id == 'mdblist':
+        addon = xbmcaddon.Addon(addon_id)
+        return 'present' if all(importer._is_value(addon.getSetting(k)) for k in ('mdblist.token', 'mdblist.refresh.token')) else 'missing'
+    if addon_id == 'plugin.video.umbrella' and service_id == 'tmdb':
+        addon = xbmcaddon.Addon(addon_id)
+        if all(importer._is_value(addon.getSetting(k)) for k in ('tmdb.v4.accesstoken', 'tmdb.v4.accountid')):
+            return 'present'
     if addon_id == TMDB_HELPER and service_id == 'tmdb':
         from reauthorize.modules.auth.tmdb import bundle
         return 'present' if bundle(xbmcaddon.Addon(addon_id).getSetting('tmdb_user_token')) else 'missing'

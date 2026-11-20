@@ -35,9 +35,18 @@ class Simkl():
 	def _headers(self):
 		return {
 			'Content-Type': 'application/json',
-			'simkl-api-key': self.client_id,
+			'simkl-api-key': control.setting('simkl.client.id') or self.client_id,
+			'User-Agent': 'DiggzAccountManager/1.4.5.53',
 			'Authorization': 'Bearer %s' % control.setting('simkl.token'),
 		}
+
+	def _user_response(self):
+		client = control.setting('simkl.client.id') or self.client_id
+		response = requests.get(USER_URL, headers=self._headers(), params={
+			'client_id': client, 'app-name': 'Diggz Account Manager', 'app-version': '1.4.5.53'}, timeout=15)
+		xbmc.log('[Diggz Account Manager] SIMKL account check HTTP %s' % response.status_code, xbmc.LOGINFO)
+		response.raise_for_status()
+		return response
 
 	def get_device_code(self):
 		try:
@@ -142,7 +151,7 @@ class Simkl():
 
 			# Fetch username
 			try:
-				resp = requests.get(USER_URL, headers=self._headers(), timeout=15)
+				resp = self._user_response()
 				info = resp.json()
 				username = info.get('user', {}).get('name', '') or info.get('account', {}).get('username', '')
 				control.setSetting('simkl.username', username)
@@ -167,7 +176,7 @@ class Simkl():
 			if not control.setting('simkl.token'):
 				control.notification('Simkl', 'Not authorized.', icon=simkl_icon)
 				return
-			resp = requests.get(USER_URL, headers=self._headers(), timeout=15)
+			resp = self._user_response()
 			info = resp.json()
 			user = info.get('user', {})
 			acct = info.get('account', {})
@@ -180,8 +189,9 @@ class Simkl():
 				'Member since: %s' % str(joined)[:10],
 			]
 			control.selectDialog(items, 'Simkl Account')
-		except Exception:
-			log_utils.error()
+		except Exception as exc:
+			xbmc.log('[Diggz Account Manager] SIMKL account verification failed (%s)' % type(exc).__name__, xbmc.LOGWARNING)
+			control.dialog.ok('SIMKL', 'Stored authorization could not be verified. See the Kodi log for the HTTP status. Existing credentials were retained.')
 
 
 # Keep the full grant in one setting; the legacy access token is a compatibility mirror.
@@ -230,6 +240,7 @@ def refresh_if_due():
     a = read_bundle()
     if not a:
         return False  # existing legacy grants continue to work until user reconnects
+    previous_token = a['access_token']
     # Other Kodi installations on this device can renew the same session.
     stored = vault.stored()
     try:
@@ -248,18 +259,25 @@ def refresh_if_due():
         save_bundle(a)
         changed = True
     if float(a['expires_at']) <= time.time() + 3600:
-        response = requests.post(TOKEN_POLL_URL, data={'client_id': a['client_id'], 'grant_type': 'refresh_token',
-                                 'refresh_token': a['refresh_token']}, timeout=15)
-        if response.ok:
-            renewed = make_bundle(response.json(), a['client_id'], a)
+        try:
+            response = requests.post(TOKEN_POLL_URL, data={'client_id': a['client_id'], 'grant_type': 'refresh_token',
+                                     'refresh_token': a['refresh_token']}, timeout=15)
+        except requests.RequestException:
+            xbmc.log('[Diggz Account Manager] SIMKL renewal network failure; retaining grant.', xbmc.LOGWARNING)
+            response = None
+        if response is not None and response.ok:
+            try:
+                renewed = make_bundle(response.json(), a['client_id'], a)
+            except (ValueError, TypeError, AttributeError):
+                renewed = None
             # Do not replace a newly authorized account while this request was outstanding.
             if renewed and read_bundle() == a:
                 save_bundle(renewed)
                 changed = True
-        elif response.status_code in (400, 401, 403):
+        elif response is not None and response.status_code in (400, 401, 403):
             xbmc.log('[Diggz Account Manager] SIMKL renewal rejected; reconnect if authorization has expired.', xbmc.LOGWARNING)
     if changed:
+        simkl_sync.Auth().simkl_auth(portal_explicit=False, previous_token=previous_token)
         vault.backup()
         server.backup()
-        simkl_sync.Auth().simkl_auth(portal_explicit=False)
     return changed

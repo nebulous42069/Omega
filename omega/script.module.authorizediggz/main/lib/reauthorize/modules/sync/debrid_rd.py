@@ -90,36 +90,8 @@ class Auth:
 
     #Umbrella RD
         try:
-                if xbmcvfs.exists(var.chk_umb):
-                        chk_auth_umb = xbmcaddon.Addon('plugin.video.umbrella').getSetting("realdebridtoken")
-                        chk_auth_umb_pm = xbmcaddon.Addon('plugin.video.umbrella').getSetting("premiumizetoken")
-                        chk_auth_umb_ad = xbmcaddon.Addon('plugin.video.umbrella').getSetting("alldebridtoken")
-                        if sync_support.needs('plugin.video.umbrella', [('realdebridusername',your_rd_username),('realdebridtoken',your_rd_token),('realdebrid.clientid',your_rd_client_id),('realdebridrefresh',your_rd_refresh),('realdebridsecret',your_rd_secret)]):
-                        
-                                addon = xbmcaddon.Addon("plugin.video.umbrella")
-                                addon.setSetting("realdebridusername", your_rd_username)
-                                addon.setSetting("realdebridtoken", your_rd_token)
-                                addon.setSetting("realdebrid.clientid", your_rd_client_id)
-                                addon.setSetting("realdebridrefresh", your_rd_refresh)
-                                addon.setSetting("realdebridsecret", your_rd_secret)
-
-                                enabled_rd = ("true" if your_rd_token and not control.wiping() else "false")
-                                addon.setSetting("realdebrid.enable", enabled_rd)
-
-                 
-                                if str(chk_auth_umb_pm) != '':
-                                        enabled_pm = ("true")
-                                        addon.setSetting("premiumize.enable", enabled_pm)
-                                else:
-                                        enabled_pm = ("false")
-                                        addon.setSetting("premiumize.enable", enabled_pm)
-
-                                if str(chk_auth_umb_ad) != '':
-                                        enabled_ad = ("true")
-                                        addon.setSetting("alldebrid.enable", enabled_ad)
-                                else:
-                                        enabled_ad = ("false")
-                                        addon.setSetting("alldebrid.enable", enabled_ad)
+            if xbmcvfs.exists(var.chk_umb) and ((your_rd_token) or control.wiping()):
+                sync_support.put('plugin.video.umbrella', [('realdebridusername', '' if control.wiping() else your_rd_username), ('realdebridtoken', '' if control.wiping() else your_rd_token), ('realdebrid.clientid', '' if control.wiping() else your_rd_client_id), ('realdebridrefresh', '' if control.wiping() else your_rd_refresh), ('realdebridsecret', '' if control.wiping() else your_rd_secret), ('realdebrid.enable', 'true' if your_rd_token and not control.wiping() else 'false')], wipe=control.wiping())
         except:
                 sync_support.failed('plugin.video.umbrella')
                 xbmc.log('%s: Umbrella Real-Debrid Failed!' % var.amgr, xbmc.LOGINFO)

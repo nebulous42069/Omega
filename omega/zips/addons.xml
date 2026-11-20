@@ -1171,7 +1171,7 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.sc19
 		</assets>
 		<news>- support for internet radio stations must now be enabled through settings</news>
 	</extension>
-</addon><addon id="script.diggzportal" name="  [B][COLOR white]Diggz Portal[/COLOR][/B]" version="10.24.56" provider-name="fryhenryj">
+</addon><addon id="script.diggzportal" name="  [B][COLOR white]Diggz Portal[/COLOR][/B]" version="10.24.57" provider-name="fryhenryj">
 	<requires>
 		<import addon="tmdbm.trailers" version="1.0.40" />
 		<import addon="xbmc.python" version="3.0.0" />
@@ -1358,7 +1358,7 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.sc19
 		</assets>
 		<news>- code refactor</news>
 	</extension>
-</addon><addon id="script.module.authorizediggz" name="Diggz Account Manager" version="1.4.5.52" provider-name="Zaxxon709, Hermit Murman, Diggz">
+</addon><addon id="script.module.authorizediggz" name="Diggz Account Manager" version="1.4.5.53" provider-name="Zaxxon709, Hermit Murman, Diggz">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
         <import addon="script.module.requests" version="2.19.1" />

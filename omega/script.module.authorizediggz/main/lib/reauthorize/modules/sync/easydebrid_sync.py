@@ -22,20 +22,15 @@ class Auth:
     def easydebrid_auth(self):
         from reauthorize.modules import control
         from reauthorize.modules.sync import salts_sync
-        sent = salts_sync.send('easyd')
-        if not control.wiping():
-            return sent
+        try:
+            salts_sync.send('easyd')
+        except Exception:
+            sync_support.failed('plugin.video.salts')
 
     #Umbrella
         try:
-                if xbmcvfs.exists(var.chk_umb) and xbmcvfs.exists(var.chkset_umb):
-                        chk_auth_umb = xbmcaddon.Addon('plugin.video.umbrella').getSetting("easydebridtoken")
-                        if sync_support.needs('plugin.video.umbrella', [('easydebridtoken',your_token)]):
-                        
-                                addon = xbmcaddon.Addon("plugin.video.umbrella")
-                                addon.setSetting("easydebridtoken", your_token)
-                                addon.setSetting("easydebrid.enable", ('true' if your_token and not control.wiping() else 'false'))
-
+            if xbmcvfs.exists(var.chk_umb) and ((your_token) or control.wiping()):
+                sync_support.put('plugin.video.umbrella', [('easydebridtoken', '' if control.wiping() else your_token), ('easydebrid.enable', 'true' if your_token and not control.wiping() else 'false')], wipe=control.wiping())
         except:
                 sync_support.failed('plugin.video.umbrella')
                 xbmc.log('%s: Umbrella Easy Debrid Failed!' % var.amgr, xbmc.LOGINFO)

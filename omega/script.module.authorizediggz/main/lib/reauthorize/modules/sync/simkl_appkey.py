@@ -91,7 +91,7 @@ def _rewrite(label, addon_id, relative, change, done):
         xbmc.log('%s %s %s' % (LOG_TAG, done, label), xbmc.LOGINFO)
         return True
     except Exception as e:
-        xbmc.log('%s could not change the Simkl app key in %s: %s' % (LOG_TAG, label, e), xbmc.LOGINFO)
+        xbmc.log('%s could not change the Simkl app key in %s: %s' % (LOG_TAG, label, type(e).__name__), xbmc.LOGINFO)
         return False
 
 
@@ -103,6 +103,28 @@ def ensure(addon_id, client):
         if target == addon_id:
             return _rewrite(label, target, relative, lambda text: swap_key(text, name, client), 'Simkl app key set in')
     return False
+
+
+def matches(addon_id, client):
+    """Read back the actual constant; unchanged and failed writes are distinct."""
+    if not client:
+        return False
+    for _, target, relative, name in TARGETS:
+        if target == addon_id:
+            try:
+                with open(path_of(target, relative), encoding='utf-8') as stream:
+                    found = list(_line(name).finditer(stream.read()))
+                return len(found) == 1 and found[0].group('value') == client
+            except (OSError, UnicodeError):
+                return False
+    return False
+
+
+def ensure_verified(addon_id, client):
+    changed = ensure(addon_id, client)
+    if not matches(addon_id, client):
+        raise RuntimeError('SIMKL application ID verification failed')
+    return changed
 
 
 def ensure_all(client):

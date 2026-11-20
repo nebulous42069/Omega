@@ -61,10 +61,14 @@ def get_actor_window(window_type):
 
 
 		def onClick(self, control_id):
+			from resources.lib.tmdb_helper import cancel_on_portal_input
+			cancel_on_portal_input(self)
 			super(DialogActorInfo, self).onClick(control_id)
 			ch.serve(control_id, self)
 
 		def onAction(self, action):
+			from resources.lib.tmdb_helper import cancel_on_portal_input
+			cancel_on_portal_input(self, action)
 			super(DialogActorInfo, self).onAction(action)
 			ch.serve_action(action, self.getFocusId(), self)
 

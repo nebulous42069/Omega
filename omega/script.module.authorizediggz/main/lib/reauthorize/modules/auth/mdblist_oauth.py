@@ -180,9 +180,14 @@ def _renew_with(refresh):
     """True if MDBList accepted this refresh token (and the new pair is stored)."""
     if not refresh:
         return False
+    snapshot = (control.setting(TOKEN), control.setting(REFRESH))
     status, token = _post('/oauth/token/', {'grant_type': 'refresh_token', 'refresh_token': refresh,
                                            'client_id': CLIENT_ID})
     if status == 200 and isinstance(token, dict) and token.get('access_token'):
+        if snapshot != (control.setting(TOKEN), control.setting(REFRESH)):
+            return False
+        if not token.get('refresh_token'):
+            token['refresh_token'] = refresh
         _store(token)
         return True
     return False

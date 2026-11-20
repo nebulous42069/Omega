@@ -129,32 +129,8 @@ class Auth:
 
     #Umbrella AD
         try:
-                if xbmcvfs.exists(var.chk_umb):
-                        chk_auth_umb = xbmcaddon.Addon('plugin.video.umbrella').getSetting("alldebridtoken")
-                        chk_auth_umb_rd = xbmcaddon.Addon('plugin.video.umbrella').getSetting("realdebridtoken")
-                        chk_auth_umb_pm = xbmcaddon.Addon('plugin.video.umbrella').getSetting("premiumizetoken")
-                        if sync_support.needs('plugin.video.umbrella', [('alldebridusername',your_ad_username),('alldebridtoken',your_ad_token)]):
-
-                                addon = xbmcaddon.Addon("plugin.video.umbrella")
-                                addon.setSetting("alldebridusername", your_ad_username)
-                                addon.setSetting("alldebridtoken", your_ad_token)
-
-                                enabled_ad = ("true" if your_ad_token and not control.wiping() else "false")
-                                addon.setSetting("alldebrid.enable", enabled_ad)
-
-                                if str(chk_auth_umb_rd) != '':
-                                        enabled_rd = ("true")
-                                        addon.setSetting("alldebrid.enable", enabled_rd)
-                                else:
-                                        enabled_rd = ("false")
-                                        addon.setSetting("realdebrid.enable", enabled_rd)
-                        
-                                if str(chk_auth_umb_pm) != '':
-                                        enabled_pm = ("true")
-                                        addon.setSetting("premiumize.enable", enabled_pm)
-                                else:
-                                        enabled_pm = ("false")
-                                        addon.setSetting("premiumize.enable", enabled_pm)
+            if xbmcvfs.exists(var.chk_umb) and ((your_ad_token) or control.wiping()):
+                sync_support.put('plugin.video.umbrella', [('alldebridusername', '' if control.wiping() else your_ad_username), ('alldebridtoken', '' if control.wiping() else your_ad_token), ('alldebrid.enable', 'true' if your_ad_token and not control.wiping() else 'false')], wipe=control.wiping())
         except:
                 sync_support.failed('plugin.video.umbrella')
                 xbmc.log('%s: Umbrella All-Debrid Failed!' % var.amgr, xbmc.LOGINFO)

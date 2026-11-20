@@ -106,7 +106,14 @@ def _read_tokens():
 
 def scrobbler_refresh_token():
     """The refresh token the Scrobbler holds now (it may have renewed on its own), or ''."""
-    return str(_read_tokens().get('refresh_token') or '')
+    data = _read_tokens()
+    access, refresh = data.get('access_token'), data.get('refresh_token')
+    if refresh and refresh != accountmgr.getSetting('mdblist.oauth.refresh'):
+        from reauthorize.modules.auth.mdblist_oauth import _username
+        name = accountmgr.getSetting('mdblist.oauth.username')
+        if not name or not access or _username(access).casefold() != name.casefold():
+            return ''
+    return str(refresh or '')
 
 
 POV, UMBRELLA, REDLIGHT, COSMOS, TMDBMOVIES = ('plugin.video.pov', 'plugin.video.umbrella', 'plugin.video.redlight',
@@ -205,8 +212,8 @@ def _umbrella_client(path):
 
 
 def _session_digest(access, refresh):
-    credential = refresh or access
-    return hashlib.sha256(credential.encode('utf-8')).hexdigest() if credential else ''
+    # Store a digest of the pair, not just refresh: an access-only change can also be a renewal.
+    return 'v2:' + hashlib.sha256(json.dumps([access, refresh], separators=(',', ':')).encode('utf-8')).hexdigest() if access or refresh else ''
 
 
 def _sync_umbrella(account, held, only_missing):
@@ -215,16 +222,21 @@ def _sync_umbrella(account, held, only_missing):
     access, refresh = held
     digest = _session_digest(access, refresh)
     saved = accountmgr.getSetting(_UMBRELLA_SESSION)
-    native = accountmgr.getSetting(_UMBRELLA_NATIVE)
     path = _umbrella_source()
     current, ours = _umbrella_client(path), _our_id()
-    same_session = bool((access and access == account['token'])
-                        or (refresh and refresh == account['refresh'])
-                        or (digest and digest == saved))
-    # A renewed token may differ from the original while our patched module
-    # is still installed. Remember that token before the next Umbrella update.
-    rotated = bool(saved and native and current == ours and digest)
-    if digest and not (same_session or rotated):
+    same_session = bool((access and access == account['token']) or (digest and digest == saved))
+    # Upgrade the old refresh-only marker only when the current pair is provably central.
+    # If the marker is legacy and access differs, preserve it rather than guessing which pair is newer.
+    # A locally changed pair may be newer or may belong to another account.
+    rotated = bool(saved and current == ours and digest and not same_session)
+    if rotated:
+        # Do not overwrite a possibly newer refresh token or assume it is our account.
+        from reauthorize.modules import sync_support
+        sync_support.warning(UMBRELLA, 'MDBList token changed locally; preserving it pending account verification')
+        return False
+    if digest and not same_session:
+        from reauthorize.modules import sync_support
+        sync_support.warning(UMBRELLA, 'MDBList has a different local session; existing credentials retained')
         return False
     patched = False
     if current != ours:
@@ -234,7 +246,9 @@ def _sync_umbrella(account, held, only_missing):
             _log('Umbrella MDBList client updated; restart Kodi to reload Umbrella')
             xbmcgui.Dialog().notification('Diggz Account Manager',
                                           "Restart Kodi to reload Umbrella's MDBList sign-in.")
-    if access and (only_missing or held == (account['token'], account['refresh'])):
+    if _umbrella_client(path) != ours:
+        raise RuntimeError('Umbrella MDBList application ID verification failed')
+    if access and held == (account['token'], account['refresh']):
         if saved != digest:
             accountmgr.setSetting(_UMBRELLA_SESSION, digest)
         return patched
@@ -302,7 +316,9 @@ def _write(addon_id, a):
                    ('mdblist.expires', str(a['expires'] or made + LIFETIME)), ('mdblist.client_id', _our_id()),
                    ('mdblist_user', a['user']), ('mdbl_indicators_active', 'true')])
     elif addon_id == UMBRELLA:
-        _set(UMBRELLA, [('mdblist.token', a['token']), ('mdblist.refresh.token', a['refresh'])])
+        from reauthorize.modules import sync_support
+        if not sync_support.put(UMBRELLA, [('mdblist.token', a['token']), ('mdblist.refresh.token', a['refresh'])], wipe=True):
+            raise RuntimeError('Umbrella MDBList credential write failed')
     elif addon_id == REDLIGHT:
         from reauthorize.modules.db import redlight_db
         redlight_db.push([('mdblist.token', a['token']), ('mdblist.refresh', a['refresh']),
@@ -347,7 +363,9 @@ def _clear(addon_id):
                    ('mdbl_indicators_active', 'false'),
                    ('mdblist.client_id', _shipped_default(POV, 'mdblist.client_id'))])
     elif addon_id == UMBRELLA:
-        _set(UMBRELLA, [('mdblist.token', ''), ('mdblist.refresh.token', '')])
+        from reauthorize.modules import sync_support
+        if not sync_support.put(UMBRELLA, [('mdblist.token', ''), ('mdblist.refresh.token', '')], wipe=True):
+            raise RuntimeError('Umbrella MDBList credential wipe failed')
     elif addon_id == REDLIGHT:
         from reauthorize.modules import control
         from reauthorize.modules.db import redlight_db
@@ -393,9 +411,8 @@ def push_addons(only_missing=False):
             sent += 1
             _log('sign-in sent to %s' % addon_id)
         except Exception as e:
-            if addon_id == PORTAL:
-                from reauthorize.modules import sync_support
-                sync_support.failed(addon_id)
+            from reauthorize.modules import sync_support
+            sync_support.failed(addon_id)
             _log('could not send the sign-in to %s: %s' % (addon_id, type(e).__name__))
     return sent
 
@@ -465,7 +482,22 @@ def addon_refresh_tokens():
     for addon_id in ADDONS:
         try:
             if _ready(addon_id):
-                refresh = _held(addon_id)[1]
+                access, refresh = _held(addon_id)
+                if addon_id == UMBRELLA:
+                    # Never renew an unrelated local account. Verify identity before using a rotated pair.
+                    from reauthorize.modules.auth.mdblist_oauth import _username
+                    name = accountmgr.getSetting('mdblist.oauth.username')
+                    if (_umbrella_client(_umbrella_source()) != _our_id() or not name or
+                            not accountmgr.getSetting(_UMBRELLA_SESSION) or
+                            (_session_digest(access, refresh) != accountmgr.getSetting(_UMBRELLA_SESSION)
+                             and (not access or _username(access).casefold() != name.casefold()))):
+                        continue
+                    accountmgr.setSetting(_UMBRELLA_SESSION, _session_digest(access, refresh))
+                if addon_id != UMBRELLA and refresh and refresh != accountmgr.getSetting('mdblist.oauth.refresh'):
+                    from reauthorize.modules.auth.mdblist_oauth import _username
+                    name = accountmgr.getSetting('mdblist.oauth.username')
+                    if not name or not access or _username(access).casefold() != name.casefold():
+                        continue
                 if refresh and refresh not in found:
                     found.append(refresh)
         except Exception:
@@ -511,8 +543,11 @@ def ensure():
     added = push_addons(only_missing=True) > 0
     if not installed():
         return added
-    if _read_tokens().get('access_token') == accountmgr.getSetting('mdblist.oauth.token'):
-        _swap_id(True)          # an update of the Scrobbler restores its own id
+    held = _read_tokens()
+    if held.get('access_token'):
+        if held.get('access_token') == accountmgr.getSetting('mdblist.oauth.token'):
+            _swap_id(True)
+        # A changed pair may have been renewed independently. Do not overwrite it on startup.
         return added
     return push()
 

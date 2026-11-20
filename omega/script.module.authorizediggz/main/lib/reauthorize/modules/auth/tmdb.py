@@ -31,6 +31,37 @@ def sync_helper(wipe=False):
     if wipe or bundle(raw):
         return sync_support.put(HELPER, [(FIELD, '' if wipe else raw)], wipe=wipe)
 
+def sync_umbrella(wipe=False):
+    aid = 'plugin.video.umbrella'
+    if not sync_support.installed(aid):
+        return True
+    grant = bundle(control.setting('tmdb.authorization'))
+    if not grant and not wipe:
+        return True
+    addon = sync_support._Addon(aid)
+    pairs = [('tmdb.v4.accesstoken', '' if wipe else grant['access_token']),
+             ('tmdb.v4.accountid', '' if wipe else grant['account_id'])]
+    # The read token is application identification, not personal authorization.
+    # Preserve the user's independent read token when wiping a grant.
+    if not wipe:
+        pairs.insert(0, ('tmdb.v4.readtoken', APP_READ_TOKEN))
+    elif addon.getSetting('tmdb.v4.readtoken') == APP_READ_TOKEN:
+        pairs.append(('tmdb.v4.readtoken', ''))
+    return sync_support.put(aid, pairs, wipe=wipe)
+
+
+def clear_umbrella_matching(raw, session):
+    aid = 'plugin.video.umbrella'
+    if not sync_support.installed(aid):
+        return
+    addon = sync_support._Addon(aid)
+    grant = bundle(raw)
+    if grant and addon.getSetting('tmdb.v4.accesstoken') == grant['access_token']:
+        sync_umbrella(wipe=True)
+    if session and addon.getSetting('tmdb.sessionid') == session:
+        sync_support.put(aid, [('tmdb.sessionid', ''), ('tmdbusername', ''), ('tmdbpassword', '')], wipe=True)
+
+
 def clear_helper_matching(raw):
     if not bundle(raw) or not sync_support.installed(HELPER):
         return
@@ -184,6 +215,7 @@ class Auth:
                 control.setSetting('tmdb.username', converted['username'])
                 control.setSetting('tmdb.password', '')
             helper_ok = sync_helper()
+            umbrella_ok = sync_umbrella()
             portal_ok = False
             if converted and portal_sync.supports_converted():
                 portal_ok = portal_sync.converted_tmdb(converted)
@@ -192,6 +224,8 @@ class Auth:
             sync_tmdb_display_values()
             if sync_support.installed(HELPER) and not helper_ok:
                 dialog.ok('TMDB Account', 'TMDB V4 authorization saved, but TMDb Helper synchronization failed. Use Sync Addons to retry.')
+            elif not umbrella_ok:
+                dialog.ok('TMDB Account', 'Authorization saved, but Umbrella synchronization could not finish. Use Sync Addons to retry.')
             elif portal_sync.installed() and not portal_ok:
                 dialog.ok('TMDB Account', 'TMDB V4 authorization saved for TMDb Helper. Diggz Portal synchronization could not finish. Update Portal and use Sync Addons to retry. Existing legacy credentials were preserved.')
             else:
@@ -226,6 +260,7 @@ class Auth:
             except Exception:
                 failed = True
         clear_helper_matching(raw)
+        clear_umbrella_matching(raw, session)
         portal_sync.revoke_tmdb(session)
         for k in ('tmdb.authorization', 'tmdb.session_id', 'tmdb.username', 'tmdb.password', PORTAL_FIELD):
             control.setSetting(k, '')

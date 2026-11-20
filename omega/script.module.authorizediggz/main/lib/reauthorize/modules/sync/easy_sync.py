@@ -58,16 +58,8 @@ class Auth:
 
         #Umbrella
                 try:
-                        if xbmcvfs.exists(var.chk_umb):
-
-                                chk_easy = xbmcaddon.Addon('plugin.video.umbrella').getSetting("easynews.password")
-                                enable_easy = ("false" if control.wiping() else "true")
-                                     
-                                if sync_support.needs('plugin.video.umbrella', [('easynews.user',your_easy_user),('easynews.password',your_easy_pass)]):
-                                        addon = xbmcaddon.Addon("plugin.video.umbrella")
-                                        addon.setSetting("easynews.enable", enable_easy)
-                                        addon.setSetting("easynews.user", your_easy_user)
-                                        addon.setSetting("easynews.password", your_easy_pass)
+                    if xbmcvfs.exists(var.chk_umb) and ((your_easy_user and your_easy_pass) or control.wiping()):
+                        sync_support.put('plugin.video.umbrella', [('easynews.user', '' if control.wiping() else your_easy_user), ('easynews.password', '' if control.wiping() else your_easy_pass), ('easynews.enable', 'true' if your_easy_user and your_easy_pass and not control.wiping() else 'false')], wipe=control.wiping())
                 except:
                         sync_support.failed('plugin.video.umbrella')
                         xbmc.log('%s: Umbrella Easynews Failed!' % var.amgr, xbmc.LOGINFO)

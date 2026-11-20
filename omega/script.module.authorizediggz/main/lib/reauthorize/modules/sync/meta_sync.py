@@ -141,43 +141,10 @@ class Auth:
                 
         #Umbrella
                 try:
-                        if xbmcvfs.exists(var.chk_umb):
-
-                                chk_fanart_api = xbmcaddon.Addon('plugin.video.umbrella').getSetting("fanart_tv.api_key")
-                                chk_mdb_api = xbmcaddon.Addon('plugin.video.umbrella').getSetting("mdblist.api")
-                                chk_imdb_api = xbmcaddon.Addon('plugin.video.umbrella').getSetting("imdbuser")    
-                                chk_tmdb_api = xbmcaddon.Addon('plugin.video.umbrella').getSetting("tmdb.apikey")
-                                chk_tmdb_user = xbmcaddon.Addon('plugin.video.umbrella').getSetting("tmdbusername")
-                                chk_tmdb_pass = xbmcaddon.Addon('plugin.video.umbrella').getSetting("tmdbpassword")
-                                chk_tmdb_session = xbmcaddon.Addon('plugin.video.umbrella').getSetting("tmdb.sessionid")
-                                
-                                if (your_fanart_api or control.wiping()) and (not str(your_fanart_api) == str(chk_fanart_api) or str(chk_fanart_api) == ''):
-                                        addon = xbmcaddon.Addon("plugin.video.umbrella")
-                                        addon.setSetting("fanart_tv.api_key", your_fanart_api)
-
-                                if (your_mdb_api or control.wiping()) and (not str(your_mdb_api) == str(chk_mdb_api) or str(chk_mdb_api) == ''):
-                                        addon = xbmcaddon.Addon("plugin.video.umbrella")
-                                        pass  # This Umbrella uses MDBList OAuth, not this obsolete field.
-
-                                if (your_imdb_api or control.wiping()) and (not str(your_imdb_api) == str(chk_imdb_api) or str(chk_imdb_api) == ''):
-                                        addon = xbmcaddon.Addon("plugin.video.umbrella")
-                                        addon.setSetting("imdbuser", your_imdb_api)
-                                        
-                                if (your_tmdb_api or control.wiping()) and (not str(your_tmdb_api) == str(chk_tmdb_api) or str(chk_tmdb_api) == ''):
-                                        addon = xbmcaddon.Addon("plugin.video.umbrella")
-                                        addon.setSetting("tmdb.apikey", your_tmdb_api)
-
-                                if (your_tmdb_user or control.wiping()) and (not str(your_tmdb_user) == str(chk_tmdb_user) or str(chk_tmdb_user) == ''):
-                                        addon = xbmcaddon.Addon("plugin.video.umbrella")
-                                        addon.setSetting("tmdbusername", your_tmdb_user)
-
-                                if (your_tmdb_pass or control.wiping()) and (not str(your_tmdb_pass) == str(chk_tmdb_pass) or str(chk_tmdb_pass) == ''):
-                                        addon = xbmcaddon.Addon("plugin.video.umbrella")
-                                        addon.setSetting("tmdbpassword", your_tmdb_pass)
-
-                                if (your_tmdb_session or control.wiping()) and (not str(your_tmdb_session) == str(chk_tmdb_session) or str(chk_tmdb_session) == ''):
-                                        addon = xbmcaddon.Addon("plugin.video.umbrella")
-                                        addon.setSetting("tmdb.sessionid", your_tmdb_session)
+                    if xbmcvfs.exists(var.chk_umb):
+                        sync_support.put('plugin.video.umbrella', [('fanart_tv.api_key', your_fanart_api)], wipe=control.wiping())
+                        sync_support.put('plugin.video.umbrella', [('tmdb.apikey', your_tmdb_api), ('tmdbusername', your_tmdb_user), ('tmdbpassword', your_tmdb_pass), ('tmdb.sessionid', your_tmdb_session)], wipe=control.wiping())
+                        tmdb.sync_umbrella(wipe=control.wiping() and not tmdb.bundle(accountmgr.getSetting('tmdb.authorization')))
                 except:
                         sync_support.failed('plugin.video.umbrella')
                         xbmc.log('%s: Umbrella Metadata Failed!' % var.amgr, xbmc.LOGINFO)

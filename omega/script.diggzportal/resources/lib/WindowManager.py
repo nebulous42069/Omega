@@ -687,6 +687,8 @@ class WindowManager(object):
 		Utils.hide_busy()
 		gc.collect()
 		self.show_modal_with_trailers(dialog)
+		if self._feature_playback_exit:
+			return  # Do not close the selected player's dialogs during modal unwind.
 
 		xbmcgui.Window(10000).clearProperty('currently_popping')
 		if xbmcgui.Window(10000).getProperty(str(addon_ID_short())+'_running') == 'True':
@@ -746,17 +748,50 @@ class WindowManager(object):
 
 	def show_modal_with_trailers(self, dialog):
 		from resources.lib.YouTube import play_fullscreen_and_wait
-		while not xbmc.Monitor().abortRequested():
-			dialog.doModal()
-			request = getattr(dialog, '_pending_trailer', None)
-			if request is None:
-				return
-			dialog._pending_trailer = None
-			url, item, focus, position = request
-			if not play_fullscreen_and_wait(url, item):
-				return
-			dialog._trailer_restore_focus = (focus, position)
-			xbmc.log('Diggz Portal: restoring dialog after trailer', xbmc.LOGINFO)
+		from resources.lib.tmdb_helper import cancel_pending_playback
+		previous = getattr(self, '_modal_owner', None)
+		if previous is None:
+			self._feature_playback_exit = False
+		self._modal_owner = dialog
+		try:
+			while not xbmc.Monitor().abortRequested():
+				dialog._portal_modal_active = True
+				dialog._portal_feature_started = False
+				try:
+					dialog.doModal()
+				finally:
+					dialog._portal_modal_active = False
+					cancel_pending_playback(dialog)
+				if dialog._portal_feature_started:
+					self._feature_playback_exit = True
+					self.active_dialog = None
+					home = xbmcgui.Window(10000)
+					for prop in ('infodialogs.active', 'diggzportal_started', 'currently_popping',
+							 'diggzportal_window_number', 'focus_id', 'position', 'pop_stack_focus_id',
+							 'pop_stack_position', str(addon_ID_short())+'_running'):
+						home.clearProperty(prop)
+					# Clear only Portal navigation state. Never stop the new player.
+					try:
+						self.window_stack_empty()
+					except Exception as exc:
+						xbmc.log('Diggz Portal: playback navigation cleanup: ' + type(exc).__name__, xbmc.LOGWARNING)
+					if xbmc.Player().isPlayingVideo() and not xbmc.getCondVisibility('Window.IsActive(fullscreenvideo)'):
+						xbmc.executebuiltin('ActivateWindow(fullscreenvideo)')
+					xbmc.log('Diggz Portal: movie/episode playback started; Portal closed', xbmc.LOGINFO)
+					return
+				if self._feature_playback_exit:
+					return  # A nested Portal dialog already completed the handoff.
+				request = getattr(dialog, '_pending_trailer', None)
+				if request is None:
+					return
+				dialog._pending_trailer = None
+				url, item, focus, position = request
+				if not play_fullscreen_and_wait(url, item):
+					return
+				dialog._trailer_restore_focus = (focus, position)
+				xbmc.log('Diggz Portal: restoring dialog after trailer', xbmc.LOGINFO)
+		finally:
+			self._modal_owner = previous
 
 	def open_dialog(self, dialog, prev_window):
 		xbmcgui.Window(10000).setProperty('diggzportal_started', 'True')
@@ -782,6 +817,8 @@ class WindowManager(object):
 			Utils.hide_busy()
 			gc.collect()
 			self.show_modal_with_trailers(dialog)
+			if self._feature_playback_exit:
+				return
 			currently_popping = xbmcgui.Window(10000).getProperty('currently_popping')
 			xbmcgui.Window(10000).clearProperty('currently_popping')
 
@@ -818,6 +855,12 @@ class DialogXML(xbmcgui.WindowXMLDialog):
 	def __init__(self, *args, **kwargs):
 		xbmcgui.WindowXMLDialog.__init__(self)
 		self.window_type = 'dialog'
+
+	def close(self):
+		from resources.lib.tmdb_helper import cancel_pending_playback
+		self._portal_modal_active = False
+		cancel_pending_playback(self)
+		return super(DialogXML, self).close()
 
 	def onInit(self):
 		try:

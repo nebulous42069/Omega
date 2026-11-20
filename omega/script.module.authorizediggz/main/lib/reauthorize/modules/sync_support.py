@@ -196,7 +196,9 @@ def needs(addon_id, pairs):
               'ad.token': 'ad.enabled', 'alldebrid.apikey': 'alldebrid.enabled',
               'alldebridtoken': 'alldebrid.enable', 'tb.token': 'tb.enabled',
               'torboxtoken': 'torbox.enable', 'ed.token': 'ed.enabled',
-              'easydebridtoken': 'easydebrid.enable'}
+              'easydebridtoken': 'easydebrid.enable', 'oc.token': 'oc.enabled',
+              'offcloudtoken': 'offcloud.enable', 'filepursuittoken': 'filepursuit.enable',
+              'filepursuit.api': 'filepursuit.enable'}
     if addon_id == 'plugin.video.prism':
         enable['tb.token'] = 'torbox.enabled'
     elif addon_id not in ('plugin.video.seren', 'plugin.video.pov', 'plugin.video.umbrella'):
@@ -401,8 +403,9 @@ def clear_matching(before, source_keys):
     from reauthorize.modules import import_map
     from reauthorize.modules.sync import tmdbmovies_sync
     if 'tmdb.authorization' in source_keys:
-        from reauthorize.modules.auth.tmdb import clear_helper_matching
+        from reauthorize.modules.auth.tmdb import clear_helper_matching, clear_umbrella_matching
         clear_helper_matching(before.get('tmdb.authorization'))
+        clear_umbrella_matching(before.get('tmdb.authorization'), before.get('tmdb.session_id'))
         from reauthorize.modules.auth.tmdb import bundle, portal_bundle, PORTAL_FIELD
         from reauthorize.modules.sync import portal_sync
         converted = portal_bundle(before.get(PORTAL_FIELD), bundle(before.get('tmdb.authorization')))

@@ -82,19 +82,22 @@ def ensure_keys():
             held = addon.getSetting(setting)
             if held and held != token:
                 continue
-            touched = simkl_appkey.ensure(addon_id, client)
+            if not addon.preflight([(setting, token)]):
+                continue
+            touched = simkl_appkey.ensure_verified(addon_id, client)
             if held != token:
                 addon.setSetting(setting, token)
-                if addon_id == 'plugin.video.umbrella':
-                    addon.setSetting('simklusername', username)
-                elif addon_id == 'plugin.video.gratisred':
+                if addon_id == 'plugin.video.gratisred':
                     _write(addon, _gratisred_values(token, username or 'Simkl', True))
                 xbmc.log('[Diggz Account Manager Simkl] sign-in put back in %s' % addon_id, xbmc.LOGINFO)
+                touched = True
+            if addon_id == 'plugin.video.umbrella' and username and addon.getSetting('simklusername') != username:
+                addon.setSetting('simklusername', username)
                 touched = True
             if touched:
                 changed += 1
         except Exception:
-            sync_support.failed()
+            sync_support.failed(addon_id)
             xbmc.log('%s: Simkl key check failed for %s' % (var.amgr, addon_id), xbmc.LOGINFO)
     return changed
 
@@ -143,7 +146,7 @@ def sync_portal(linking, wiping=False, explicit=True):
 
 
 class Auth:
-    def simkl_auth(self, portal_explicit=True):
+    def simkl_auth(self, portal_explicit=True, previous_token=None):
         accountmgr    = own_settings.addon()
         your_token    = accountmgr.getSetting('simkl.token')
         your_username = accountmgr.getSetting('simkl.username')
@@ -175,18 +178,23 @@ class Auth:
                 sync_support.failed('script.module.tmdbhelper.sync.simkl')
                 xbmc.log('[Diggz Account Manager] TMDb Helper SIMKL sync failed', xbmc.LOGWARNING)
 
-        # Umbrella - its app key is a line in resources/lib/modules/simkl.py
+        # Umbrella: access token only. Verify the existing application-key mapping before writing.
         try:
-            if xbmcvfs.exists(var.chk_umb):
-                if linking:
-                    simkl_appkey.ensure('plugin.video.umbrella', app_client)
-                elif wiping:
-                    simkl_appkey.restore('plugin.video.umbrella')
+            if xbmcvfs.exists(var.chk_umb) and (linking or wiping):
                 addon = xbmcaddon.Addon('plugin.video.umbrella')
-                if addon.getSetting('simkltoken') != your_token or not addon.getSetting('simkltoken'):
-                    addon.setSetting('simkltoken',   your_token)
-                    addon.setSetting('simklusername', your_username)
-        except:
+                pairs = [('simkltoken', your_token if linking else ''), ('simklusername', shown_user if linking else '')]
+                held = addon.getSetting('simkltoken')
+                if linking and not portal_explicit and held and held not in (your_token, previous_token):
+                    sync_support.warning('plugin.video.umbrella', 'SIMKL holds a different local token; automatic renewal did not overwrite it')
+                elif addon.preflight(pairs):
+                    if linking:
+                        simkl_appkey.ensure_verified('plugin.video.umbrella', app_client)
+                    _write(addon, pairs)
+                    if any(addon.getSetting(k) != v for k, v in pairs):
+                        raise RuntimeError('Umbrella SIMKL credential readback failed')
+                    if wiping:
+                        simkl_appkey.restore('plugin.video.umbrella')
+        except Exception:
             sync_support.failed('plugin.video.umbrella')
             xbmc.log('%s: Simkl Umbrella sync failed!' % var.amgr, xbmc.LOGINFO)
 

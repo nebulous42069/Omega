@@ -303,6 +303,8 @@ def get_tmdb_window(window_type):
 			return info
 
 		def onClick(self, control_id):
+			from resources.lib.tmdb_helper import cancel_on_portal_input
+			cancel_on_portal_input(self)
 			# Dedicated pointer controls do not depend on Kodi focusing a hidden group.
 			if control_id == 9020:
 				self.setProperty('PortalBladePinned', 'true')
@@ -357,6 +359,8 @@ def get_tmdb_window(window_type):
 			super(DialogVideoList, self).onFocus(control_id)
 
 		def onAction(self, action):
+			from resources.lib.tmdb_helper import cancel_on_portal_input
+			cancel_on_portal_input(self, action)
 			ident = action.getId()
 			focus = self.getFocusId()
 			pinned = self.getProperty('PortalBladePinned') == 'true'

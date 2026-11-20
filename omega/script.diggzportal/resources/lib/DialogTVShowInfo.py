@@ -107,11 +107,15 @@ def get_tvshow_window(window_type):
 
 
 		def onClick(self, control_id):
+			from resources.lib.tmdb_helper import cancel_on_portal_input
+			cancel_on_portal_input(self)
 			if account_actions.button(self, control_id): return
 			super(DialogTVShowInfo, self).onClick(control_id)
 			ch.serve(control_id, self)
 
 		def onAction(self, action):
+			from resources.lib.tmdb_helper import cancel_on_portal_input
+			cancel_on_portal_input(self, action)
 			if action.getId() == xbmcgui.ACTION_CONTEXT_MENU and self.getFocusId() in (8, 9, 10):
 				return account_actions.menu(self, account_actions.target(self))
 			super(DialogTVShowInfo, self).onAction(action)

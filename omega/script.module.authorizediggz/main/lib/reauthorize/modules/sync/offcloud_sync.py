@@ -22,13 +22,12 @@ class Auth:
     def offcloud_auth(self):
     #Umbrella
         try:
-                if xbmcvfs.exists(var.chk_umb):
-                        chk_auth_umb = xbmcaddon.Addon('plugin.video.umbrella').getSetting("offcloudtoken")
-                        if sync_support.needs('plugin.video.umbrella', [('offcloudtoken',your_token)]):
-
-                                addon = xbmcaddon.Addon("plugin.video.umbrella")
-                                addon.setSetting("offcloudtoken", your_token)
-                                addon.setSetting("offcloud.enable", ('true' if your_token and not control.wiping() else 'false'))
+            if xbmcvfs.exists(var.chk_umb) and ((your_token) or control.wiping()):
+                username = accountmgr.getSetting('offcloud.userid') or accountmgr.getSetting('offcloud.user')
+                pairs = [('offcloudtoken', '' if control.wiping() else your_token), ('offcloud.enable', 'true' if your_token and not control.wiping() else 'false')]
+                if username or control.wiping():
+                    pairs.append(('offcloud.username', '' if control.wiping() else username))
+                sync_support.put('plugin.video.umbrella', pairs, wipe=control.wiping())
         except:
                 sync_support.failed('plugin.video.umbrella')
                 xbmc.log('%s: Umbrella OffCloud Failed!' % var.amgr, xbmc.LOGINFO)

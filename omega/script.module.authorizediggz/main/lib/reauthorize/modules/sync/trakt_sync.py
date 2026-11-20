@@ -142,8 +142,7 @@ class Auth:
                                         addon.setSetting("trakt.clientid", var.client_am)
                                         addon.setSetting("trakt.clientsecret", var.secret_am)
                                         addon.setSetting("trakt.authed.clientid", var.client_am)
-                                        addon.set_optional("trakt.scrobble", 'true')
-                                        addon.set_optional("resume.source", '1')  
+
                 except:
                         sync_support.failed('plugin.video.umbrella')
                         xbmc.log('%s: Umbrella Trakt Failed!' % var.amgr, xbmc.LOGINFO)
