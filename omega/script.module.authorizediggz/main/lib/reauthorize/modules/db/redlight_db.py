@@ -20,7 +20,7 @@ import sqlite3
 import xbmc
 import xbmcvfs
 from libs.common import var
-from reauthorize.modules import control
+from reauthorize.modules import control, sync_support
 
 _RELOAD = ('RunPlugin(plugin://plugin.video.redlight/?mode=sync_settings'
            '&silent=true&load_properties=false&force=true)')
@@ -42,16 +42,23 @@ def push(values, require_first=True, *, reload_settings=True):
     its token. Empty values are always skipped rather than blanking whatever
     Red Light already holds. Returns the number of rows that changed.
     """
-    if not available():
+    if not sync_support.profile_ready('plugin.video.redlight', var.redlight_settings_db):
         return 0
     if control.wiping():
         return _reset(values)
     if require_first and not values[0][1]:
         return 0
     changed = 0
-    conn = sqlite3.connect(var.redlight_settings_db, timeout=10)
+    conn = sqlite3.connect(var.redlight_settings_db, timeout=3)
     try:
         with conn:
+            required = [values[0][0]] if require_first and values else []
+            if values and values[0][0] == 'tb.token':
+                required.append('tb.enabled')
+            for sid in required:
+                if conn.execute('SELECT 1 FROM settings WHERE setting_id=?', (sid,)).fetchone() is None:
+                    sync_support.warning('plugin.video.redlight', 'incompatible; missing database setting: ' + sid)
+                    return 0
             for setting_id, value in values:
                 if not value:
                     continue
@@ -59,8 +66,10 @@ def push(values, require_first=True, *, reload_settings=True):
                                    'WHERE setting_id = ? AND setting_value IS NOT ?',
                                    (value, setting_id, value))
                 changed += cur.rowcount
+                if setting_id in required and conn.execute('SELECT setting_value FROM settings WHERE setting_id=?', (setting_id,)).fetchone() != (value,):
+                    raise RuntimeError('Setting readback did not match')
     except Exception as e:
-        xbmc.log('%s: Red Light settings.db write failed: %s' % (var.amgr, e), xbmc.LOGINFO)
+        xbmc.log('%s: Red Light settings.db write failed: %s' % (var.amgr, type(e).__name__), xbmc.LOGINFO)
         raise
     finally:
         conn.close()
@@ -75,11 +84,15 @@ def _reset(values):
     Red Light's own default for it, instead of skipping blank values the way a normal
     push does. That is what makes a reset reach a token already sitting in Red Light.
     """
-    conn = sqlite3.connect(var.redlight_settings_db, timeout=10)
+    conn = sqlite3.connect(var.redlight_settings_db, timeout=3)
     changed = 0
     try:
         with conn:
             for setting_id, _ in values:
+                if setting_id.endswith('.enabled'):
+                    cur = conn.execute("UPDATE settings SET setting_value='false' WHERE setting_id=? AND setting_value IS NOT 'false'", (setting_id,))
+                    changed += cur.rowcount
+                    continue
                 try:
                     cur = conn.execute('UPDATE settings SET setting_value = setting_default '
                                        'WHERE setting_id = ? AND setting_value IS NOT setting_default',
@@ -90,7 +103,7 @@ def _reset(values):
                                        (setting_id,))
                 changed += cur.rowcount
     except Exception as e:
-        xbmc.log('%s: Red Light settings.db wipe failed: %s' % (var.amgr, e), xbmc.LOGINFO)
+        xbmc.log('%s: Red Light settings.db wipe failed: %s' % (var.amgr, type(e).__name__), xbmc.LOGINFO)
         raise
     finally:
         conn.close()

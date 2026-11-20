@@ -64,7 +64,10 @@ class _Settings(object):
 
 	def setSetting(self, key, value):
 		with _settings_lock:
-			xbmcaddon.Addon(ADDON_ID).setSetting(key, value)
+			from reauthorize.modules.own_settings import reconcile_service_flags
+			raw_addon = xbmcaddon.Addon(ADDON_ID)
+			raw_addon.setSetting(key, value)
+			reconcile_service_flags(raw_addon, key)
 		# A sign-in written here is this device's own: stamp it (owner.py), so a
 		# copy of it in a build is recognised as foreign on any other device.
 		if value and str(value).lower() not in ('true', 'false'):

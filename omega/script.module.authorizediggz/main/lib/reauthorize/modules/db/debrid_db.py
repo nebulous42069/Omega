@@ -228,7 +228,7 @@ def auth_affen_rd():
     try:
         conn = create_conn(var.affen_settings_db)
         with conn:
-            connect_rd(conn, ('true', 'rd.enabled'))
+            connect_rd(conn, ('true' if your_rd_token else 'false', 'rd.enabled'))
             connect_rd(conn, (your_rd_token, 'rd.token'))
             connect_rd(conn, (your_rd_username, 'rd.account_id'))
             connect_rd(conn, (your_rd_client_id, 'rd.client_id'))
@@ -243,7 +243,7 @@ def auth_affen_pm():
     try:
         conn = create_conn(var.affen_settings_db)
         with conn:
-            connect_pm(conn, ('true', 'pm.enabled'))
+            connect_pm(conn, ('true' if your_pm_token else 'false', 'pm.enabled'))
             connect_pm(conn, (your_pm_token, 'pm.token'))
             connect_pm(conn, (your_pm_username, 'pm.account_id'))
     except:
@@ -255,7 +255,7 @@ def auth_affen_ad():
     try:
         conn = create_conn(var.affen_settings_db)
         with conn:
-            connect_ad(conn, ('true', 'ad.enabled'))
+            connect_ad(conn, ('true' if your_ad_token else 'false', 'ad.enabled'))
             connect_ad(conn, (your_ad_token, 'ad.token'))
             connect_ad(conn, (your_ad_username, 'ad.account_id'))
     except:
@@ -329,7 +329,7 @@ def auth_gears_rd():
     try:
         conn = create_conn(_GEARS_DB)
         with conn:
-            connect_rd(conn, ('true', 'rd.enabled'))
+            connect_rd(conn, ('true' if your_rd_token else 'false', 'rd.enabled'))
             connect_rd(conn, (your_rd_token, 'rd.token'))
             connect_rd(conn, (your_rd_username, 'rd.account_id'))
             connect_rd(conn, (your_rd_client_id, 'rd.client_id'))
@@ -361,7 +361,7 @@ def auth_gears_pm():
     try:
         conn = create_conn(_GEARS_DB)
         with conn:
-            connect_pm(conn, ('true', 'pm.enabled'))
+            connect_pm(conn, ('true' if your_pm_token else 'false', 'pm.enabled'))
             connect_pm(conn, (your_pm_token, 'pm.token'))
             connect_pm(conn, (your_pm_username, 'pm.account_id'))
     except:
@@ -390,7 +390,7 @@ def auth_gears_ad():
     try:
         conn = create_conn(_GEARS_DB)
         with conn:
-            connect_ad(conn, ('true', 'ad.enabled'))
+            connect_ad(conn, ('true' if your_ad_token else 'false', 'ad.enabled'))
             connect_ad(conn, (your_ad_token, 'ad.token'))
             connect_ad(conn, (your_ad_username, 'ad.account_id'))
     except:

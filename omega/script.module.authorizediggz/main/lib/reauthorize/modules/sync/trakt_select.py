@@ -63,4 +63,6 @@ def installed_addons():
         path = getattr(var, chk, None)
         if path and xbmcvfs.exists(path):
             installed.append(label)
+    if xbmcvfs.exists('special://home/addons/script.diggzportal/'):
+        installed.append('Diggz Portal')
     return installed

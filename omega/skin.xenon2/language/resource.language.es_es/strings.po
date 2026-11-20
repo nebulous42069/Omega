@@ -526,8 +526,8 @@ msgid "TheMovieDb Helper provides details about movies, tvshows and actors from 
 msgstr "TheMovieDb Helper provee detalles sobre las películas, series de TV y elencos de TMDb."
 
 msgctxt "#31127"
-msgid "Enable Extended Info integration"
-msgstr "Activar la integración de Info. Extendida"
+msgid "Enable additional recommendations (Embuary Helper)"
+msgstr "Activar recomendaciones adicionales (Embuary Helper)"
 
 msgctxt "#31128"
 msgid "Channels View"
@@ -802,8 +802,8 @@ msgid "Show time remaining on fullscreen info"
 msgstr "Mostrar tiempo restante en información de pantalla completa"
 
 msgctxt "#31196"
-msgid "Replace default with Extended Info (some features and extras (+) will be unavailable)"
-msgstr "Reemplazar por defecto con Información Extendida (algunas características y extras (+) no estarán disponibles)"
+msgid "Replace default with Diggz Portal Info (some features and extras (+) will be unavailable)"
+msgstr "Reemplazar por defecto con Diggz Portal Info (algunas características y extras (+) no estarán disponibles)"
 
 msgctxt "#31197"
 msgid "Enable info rating (works with US Ratings only)"
@@ -1050,8 +1050,8 @@ msgid "Movie set titles"
 msgstr "Títulos de Saga"
 
 msgctxt "#31258"
-msgid "Blur background (extended info dialog)"
-msgstr "Difuminar el fondo (diálogo de información extendida)"
+msgid "Blur background (information dialog)"
+msgstr "Difuminar el fondo (diálogo de información)"
 
 msgctxt "#31259"
 msgid "Center"
@@ -2222,8 +2222,8 @@ msgid "Kodi random music fanart"
 msgstr "Fanart de música aleatorio de Kodi"
 
 msgctxt "#31551"
-msgid "Embuary Helper provides the Alphabet Jump Letter Bar, scraped ratings from Rotten Tomatoes and MetaCritic in fullscreen info. It also adds Similar and more from director when you Enable Extended Info integration in the settings for Video & Music information."
-msgstr "Embuary Helper proporciona la Barra con Saltos por Letra y valoraciones raspadas de Rotten Tomatoes y MetaCritic a pantalla completa. También añade Similares y Más del director cuando se activa la Integración de Información Extendida en los ajustes de Información de Vídeo & Música."
+msgid "Embuary Helper provides the Alphabet Jump Letter Bar, scraped ratings from Rotten Tomatoes and MetaCritic in fullscreen info. It also adds Similar and more from director when you enable additional recommendations in the settings for Video & Music information."
+msgstr "Embuary Helper proporciona la Barra con Saltos por Letra y valoraciones raspadas de Rotten Tomatoes y MetaCritic a pantalla completa. También añade Similares y Más del director cuando se activan las recomendaciones adicionales en los ajustes de Información de Vídeo y Música."
 
 msgctxt "#31552"
 msgid "Set the displayed name of the menu item."
@@ -2842,8 +2842,8 @@ msgid "Use this setting to override the location of the Trailers button when usi
 msgstr "Utiliza esta configuración para anular la ubicación del botón Trailers cuando utilices la configuración Predeterminada para el botón PreshowExperience."
 
 msgctxt "#31855"
-msgid "Enable this setting to replace the Default info with online info provided by the ExtendedInfo script. You can use the Xenon version or the Defaults provided by the script if you enable the option in the settings for ExtendedInfo."
-msgstr "Active esta opción para reemplazar la información Predeterminada con información en línea provista por el script ExtendedInfo. Puede utilizar la versión Xenon o las Predeterminadas provistas por el script, si activa la opción en los ajustes de ExtendedInfo."
+msgid "Enable this setting to replace the default information dialog with Diggz Portal Info. Choose your preferred layout in Diggz Portal settings."
+msgstr "Active esta opción para reemplazar el diálogo de información predeterminado con Diggz Portal Info. Elija la disposición que prefiera en los ajustes de Diggz Portal."
 
 msgctxt "#31856"
 msgid "Use this to select the multi-fanart cycle speed skin wide."
@@ -3006,8 +3006,8 @@ msgid "Choose which overlays to show on thumbs in icon based views. Note that th
 msgstr "Elegir que capas mostrar en miniatura en las vistas basadas en icono. La marca \"Continuar\" tiene preferencia sobre cualquier estado de visionado. Tras activar una capa se debe activar también en los ajustes de cada vista. "
 
 msgctxt "#31945"
-msgid "This toggles the layout of the List view. Default is a 7 item layout with extended info, \"Slim List\" is a 14 item, more basic layout"
-msgstr "Esto cambia la disposición de la vista Lista. Por defecto se disponen 7 elementos con información extendida, \"Lista Estrecha\" son 14 elementos, una disposición más básica"
+msgid "This toggles the layout of the List view. Default is a 7 item layout with detailed information, \"Slim List\" is a 14 item, more basic layout"
+msgstr "Esto cambia la disposición de la vista Lista. Por defecto se disponen 7 elementos con información detallada, \"Lista Estrecha\" son 14 elementos, una disposición más básica"
 
 msgctxt "#31950"
 msgid "WEATHER"

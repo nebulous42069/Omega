@@ -30,6 +30,7 @@ MARK = '# ReAuthorize; was: '
 
 # (label, add-on folder, file inside it, the name on the left of the '=')
 TARGETS = (
+    ('TMDb Helper SIMKL', 'script.module.tmdbhelper.sync.simkl', 'resources/lib/tmdbhelper_sync_simkl/keys.py', 'CLIENT_ID'),
     ('Umbrella', 'plugin.video.umbrella', 'resources/lib/modules/simkl.py', 'simklclientid'),
     ('Simkl scrobbler', 'script.simkl', 'resources/lib/api_simkl.py', 'APIKEY'),
     ('The Archives', 'plugin.video.thearchives', 'resources/lib/util/dev_api.py', 'SIMKL_CLIENT_ID'),
@@ -61,8 +62,10 @@ def _marked(name):
 def swap_key(text, name, client):
     """The file's text with Diggz Account Manager's Simkl app key on the 'name = ...' line."""
     def swap(m):
-        if MARK in m.group('tail') or m.group('value') == client:
+        if m.group('value') == client:
             return m.group(0)
+        if MARK in m.group('tail'):
+            return m.group('head') + repr(client) + m.group('tail')
         return "%s'%s'  %s%s%s%s" % (m.group('head'), client, MARK, m.group('quote'), m.group('value'), m.group('quote'))
     return _line(name).sub(swap, text, count=1)
 

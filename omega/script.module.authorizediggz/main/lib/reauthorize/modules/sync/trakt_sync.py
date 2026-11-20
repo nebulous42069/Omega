@@ -23,6 +23,13 @@ xbmcaddon = sync_support.addon_api(xbmcaddon)
 class Auth:
     def trakt_auth(self):
         accountmgr = own_settings.addon()
+        from reauthorize.modules import tmdbh_compat, control
+        if not control.wiping():
+            newer = tmdbh_compat.newer_trakt(accountmgr, var.client_am)
+            if newer:
+                for key, value in [('trakt.token', newer['access_token']), ('trakt.refresh', newer['refresh_token']), ('trakt.expires', tmdbh_compat.bundle_expiry(newer)), ('trakt.lifetime', newer['expires_in'])]:
+                    own_settings.addon().setSetting(key, str(value))
+                accountmgr = own_settings.addon()
         your_token = accountmgr.getSetting("trakt.token")
         your_username = accountmgr.getSetting("trakt.username")
         your_refresh = accountmgr.getSetting("trakt.refresh")
@@ -34,6 +41,8 @@ class Auth:
         else:
             from reauthorize.modules.sync import salts_sync
             salts_sync.send_trakt(your_token, your_refresh, your_expires)
+        from reauthorize.modules.sync import portal_sync
+        portal_sync.trakt(your_token, your_refresh, your_expires, your_username)
         #Every installed add-on gets Trakt. This used to depend on the user picking
         #one primary add-on into trakt_sync_list.json, and a build wipe deleted that
         #file, leaving Trakt pushed nowhere. ReAuthorize now renews the token itself
@@ -62,7 +71,7 @@ class Auth:
                                         your_expires_str = str(your_expires_rnd)
                                         addon.setSetting("trakt.expires", your_expires_str)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.seren')
                         xbmc.log('%s: Seren Trakt Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
     #Coalition
@@ -88,7 +97,7 @@ class Auth:
                                             addon.setSetting("trakt.indicators_active", 'true')
                                             addon.setSetting("watched_indicators", '1')
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.coalition')
                         xbmc.log('%s: Coalition Trakt Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
             
@@ -113,7 +122,7 @@ class Auth:
                                                 or addon.getSetting("watched_indicators") != '2'):
                                             addon.setSetting("watched_indicators", '1')
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.pov')
                         xbmc.log('%s: POV Trakt Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
         
@@ -136,7 +145,7 @@ class Auth:
                                         addon.set_optional("trakt.scrobble", 'true')
                                         addon.set_optional("resume.source", '1')  
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.umbrella')
                         xbmc.log('%s: Umbrella Trakt Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -158,7 +167,7 @@ class Auth:
                                         addon.setSetting("trakt.scrobble", 'true')
                                         addon.setSetting("resume.source", '1')  
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.infinity')
                         xbmc.log('%s: Infinity Trakt Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
             
@@ -184,7 +193,7 @@ class Auth:
                                         addon.setSetting("trakt_refresh_token", your_refresh)
                                         addon.setSetting("trakt_expires_at", your_expires)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.shadow')
                         xbmc.log('%s: Shadow Trakt Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
         
@@ -210,7 +219,7 @@ class Auth:
                                         addon.setSetting("trakt_refresh_token", your_refresh)
                                         addon.setSetting("trakt_expires_at", your_expires)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.ghost')
                         xbmc.log('%s: Ghost Trakt Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -236,7 +245,7 @@ class Auth:
                                         addon.setSetting("trakt_refresh_token", your_refresh)
                                         addon.setSetting("trakt_expires_at", your_expires)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.blueballs')
                         xbmc.log('%s: Blue Balls Trakt Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -262,7 +271,7 @@ class Auth:
                                         addon.setSetting("trakt_refresh_token", your_refresh)
                                         addon.setSetting("trakt_expires_at", your_expires)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.twisted')
                         xbmc.log('%s: Twisted Trakt Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -288,7 +297,7 @@ class Auth:
                                         addon.setSetting("trakt_refresh_token", your_refresh)
                                         addon.setSetting("trakt_expires_at", your_expires)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.base')
                         xbmc.log('%s: Base Trakt Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
         
@@ -314,7 +323,7 @@ class Auth:
                                         addon.setSetting("trakt_refresh_token", your_refresh)
                                         addon.setSetting("trakt_expires_at", your_expires)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.thechains')
                         xbmc.log('%s: Chain Reaction Trakt Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
         
@@ -340,7 +349,7 @@ class Auth:
                                         addon.setSetting("trakt_refresh_token", your_refresh)
                                         addon.setSetting("trakt_expires_at", your_expires)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.patriot')
                         xbmc.log('%s: Patriot Trakt Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -366,7 +375,7 @@ class Auth:
                                         addon.setSetting("trakt_refresh_token", your_refresh)
                                         addon.setSetting("trakt_expires_at", your_expires)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.blacklightning')
                         xbmc.log('%s: Black Lightning Trakt Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
             
@@ -387,7 +396,7 @@ class Auth:
                                         addon.setSetting("trakt.client_id", var.client_am)
                                         addon.setSetting("trakt.client_secret", var.secret_am)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.homelander')
                         xbmc.log('%s: Homelander Trakt Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
         
@@ -408,7 +417,7 @@ class Auth:
                                         addon.setSetting("trakt.client_id", var.client_am)
                                         addon.setSetting("trakt.client_secret", var.secret_am)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.quicksilver')
                         xbmc.log('%s: Quicksilver Trakt Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -435,7 +444,7 @@ class Auth:
                                         addon.setSetting("trakt.refresh", your_refresh)
                                         addon.setSetting("trakt.isauthed", 'true')
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.chainsgenocide')
                         xbmc.log('%s: Chains Genocide Trakt Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
             
@@ -456,7 +465,7 @@ class Auth:
                                             addon.setSetting("trakt.client_id", var.client_am)
                                             addon.setSetting("trakt.client_secret", var.secret_am)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.absolution')
                         xbmc.log('%s: Absolution Trakt Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -477,7 +486,7 @@ class Auth:
                                             addon.setSetting("trakt.client_id", var.client_am)
                                             addon.setSetting("trakt.client_secret", var.secret_am)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.shazam')
                         xbmc.log('%s: Shazam Trakt Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
             
@@ -512,7 +521,7 @@ class Auth:
                                             addon.setSetting("trakt.client_id", var.client_am)
                                             addon.setSetting("trakt.client_secret", var.secret_am)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.nightwing')
                         xbmc.log('%s: Nightwing Trakt Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -536,7 +545,7 @@ class Auth:
                                             addon.setSetting("trakt.refresh", your_refresh)
                                             addon.setSetting("trakt.authed", 'yes')
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.scrubsv2')
                         xbmc.log('%s: Scrubs V2 Trakt Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -573,7 +582,7 @@ class Auth:
                                         addon = xbmcaddon.Addon('plugin.video.themoviedb.helper')
                                         addon.setSetting("startup_notifications", 'false')
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.themoviedb.helper')
                         xbmc.log('%s: TMDBh Trakt Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -610,7 +619,7 @@ class Auth:
                                         trakt_data = '%s%s%s%s%s%s}' %(token, your_token, refresh, your_refresh, expires, your_expires_rnd)
                                         addon.setSetting("authorization", trakt_data)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('script.trakt')
                         xbmc.log('%s: Trakt Addon Trakt Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -637,7 +646,7 @@ class Auth:
                                             addon.setSetting("trakt.refresh", your_refresh)
                                             addon.setSetting("trakt.expires", your_expires)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('script.module.allaccounts')
                         xbmc.log('%s: All Accounts Trakt Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
             
@@ -664,7 +673,7 @@ class Auth:
                                             addon.setSetting("trakt.refresh", your_refresh)
                                             addon.setSetting("trakt.expires", your_expires)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('script.module.myaccounts')
                         xbmc.log('%s: My Accounts Trakt Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -685,7 +694,7 @@ class Auth:
                                             addon.setSetting("trakt.refresh_token", your_refresh)
                                             addon.setSetting("trakt.user_id", 'me' if your_token else '')
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.madtitansports')
                         xbmc.log('%s: Mad Titan Sports Trakt Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -714,7 +723,7 @@ class Auth:
                                         xbmcvfs.delete(var.gears_trakt_db)
                                         var.remake_settings()
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.gears')
                         xbmc.log('%s: Gears Trakt Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -746,7 +755,7 @@ class Auth:
                                             addon.setSetting("trakt.client_id", var.client_am)
                                             addon.setSetting("trakt.client_secret", var.secret_am)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.genocide')
                         xbmc.log('%s: Genocide Trakt Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -774,7 +783,7 @@ class Auth:
                                             addon.setSetting("trakt_client_id", var.client_am)
                                             addon.setSetting("trakt_client_secret", var.secret_am)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.aliundek19')
                         xbmc.log('%s: Aliunde K19 Trakt Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -817,7 +826,7 @@ class Auth:
                                             #when it has one, and every addon that refreshes on its
                                             #own spends the refresh token the others share.
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.gratisred')
                         xbmc.log('%s: GratisRed Trakt Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -832,7 +841,7 @@ class Auth:
                                             addon.setSetting("trakt_refresh", your_refresh)
                                             addon.setSetting("trakt_enabled", 'true')
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.orion')
                         xbmc.log('%s: Orion Trakt Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -872,7 +881,7 @@ class Auth:
                                             addon.setSetting("trakt_client_secret", var.secret_am)
                                             addon.setSetting("trakt_auth_done", 'true')
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.cosmos')
                         xbmc.log('%s: Cosmos Trakt Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -888,7 +897,7 @@ class Auth:
                                             addon.setSetting("trakt.expires", your_expires)
                                             addon.setSetting("trakt.user_id", your_username)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.thearchives')
                         xbmc.log('%s: The Archives Trakt Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -905,7 +914,7 @@ class Auth:
                                             addon.setSetting("trakt.client_id", var.client_am)
                                             addon.setSetting("trakt.client_secret", var.secret_am)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.fidoK19')
                         xbmc.log('%s: FidoK19 Trakt Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -922,7 +931,7 @@ class Auth:
                                             addon.setSetting("trakt.client_id", var.client_am)
                                             addon.setSetting("trakt.client_secret", var.secret_am)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.torquelite')
                         xbmc.log('%s: TorqueLite Trakt Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -939,7 +948,7 @@ class Auth:
                                             addon.setSetting("trakt.client_id", var.client_am)
                                             addon.setSetting("trakt.client_secret", var.secret_am)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.torquelive')
                         xbmc.log('%s: TorqueLive Trakt Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -958,7 +967,7 @@ class Auth:
                                             addon.setSetting("trakt_access_token", your_token)
                                             addon.setSetting("trakt_refresh_token", your_refresh)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.program.rdtplayer')
                         xbmc.log('%s: Diamond Media Player Trakt Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -1003,7 +1012,7 @@ class Auth:
                                             addon.setSetting("trakt_refresh_token", your_refresh)
                                             addon.setSetting("trakt_expires_at", your_expires)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.youtubetheater')
                         xbmc.log('%s: Youtube Theater Trakt Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 

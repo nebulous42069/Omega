@@ -17,6 +17,10 @@ CREW_FALLBACK = {
     'premiumize': ('premiumizetoken',),
 }
 DIRECT_FIELDS = {
+    'script.diggzportal': {'trakt': ('access_token', 'refresh_token', 'token_expires', 'trakt_oauth_client'),
+                           'tmdb': ('tmdb_session', 'tmdb_account'),
+                           'simkl': ('simkl_manager_grant',),
+                           'mdblist': ('mdblist_access_token', 'mdblist_refresh_token', 'mdblist_expires', 'mdblist_identity')},
     'plugin.video.tmdbmovies': {'trakt': ('trakt_access_token', 'trakt_refresh_token')},
     'plugin.video.thecrew': CREW_FALLBACK,
     # The Archives stores its own TMDB account session. The metadata sender
@@ -53,6 +57,7 @@ DIRECT_FIELDS = {
 # These indicators are read-only until there is a verified ReAuthorize sender.
 # Existing senders may still be used for the specific pairs listed here.
 DIRECT_SYNC = {
+    ('script.diggzportal', 'trakt'), ('script.diggzportal', 'tmdb'), ('script.diggzportal', 'mdblist'), ('script.diggzportal', 'simkl'),
     ('plugin.video.tmdbmovies', 'trakt'),
     ('plugin.video.otaku', 'alldebrid'), ('plugin.video.otaku', 'torbox'),
     ('plugin.video.pov', 'offcloud'), ('plugin.video.pov', 'torbox'),
@@ -70,6 +75,7 @@ def services():
     definitions.append({'id': 'debridlink', 'label': 'Debrid-Link',
                         'token_key': 'debridlink.token',
                         'icon': addon_service_view.get_service_icon_path('debridlink')})
+    definitions.extend([{'id': 'tvdb', 'label': 'TVDb', 'token_key': 'tvdb.api.key', 'icon': ''}, {'id': 'omdb', 'label': 'OMDb', 'token_key': 'omdb.api.key', 'icon': ''}])
     return definitions
 
 
@@ -99,10 +105,12 @@ def rows(installed):
             result.setdefault(addon_id, set()).add(service)
     if installed('plugin.video.redlight'):
         result.setdefault('plugin.video.redlight', set()).add('offcloud')
-    # Provider rows own the credentials once these modules are installed.
-    core = result.get('plugin.video.themoviedb.helper', set())
-    if installed(tmdbh_compat.TRAKT):
-        core.discard('trakt')
-    if installed(tmdbh_compat.MDBLIST):
-        core.discard('mdblist')
+    # One visible Helper row; credentials still read from provider modules.
+    if installed(tmdbh_compat.HELPER):
+        core = result.setdefault(tmdbh_compat.HELPER, set())
+        for provider, service in ((tmdbh_compat.TRAKT, 'trakt'), (tmdbh_compat.MDBLIST, 'mdblist'), (tmdbh_compat.SIMKL, 'simkl'), (tmdbh_compat.TVDB, 'tvdb')):
+            if installed(provider):
+                result.pop(provider, None)
+                core.add(service)
+        core.update(('omdb', 'tmdb'))
     return result

@@ -173,6 +173,15 @@ class Trakt():
 	def adopt_and_send(self):
 		"""adopt_newer_from_vault(), and when it took over, send the pair to every add-on and back it up
 		(the server copy may still hold the old one). True if it took over."""
+		from reauthorize.modules import tmdbh_compat, own_settings
+		bundle = tmdbh_compat.newer_trakt(own_settings.addon(), self.client_id)
+		if bundle:
+			self.token = bundle['access_token']
+			self.expires_at = tmdbh_compat.bundle_expiry(bundle)
+			for key, value in [('trakt.token', self.token), ('trakt.refresh', bundle['refresh_token']), ('trakt.expires', self.expires_at), ('trakt.lifetime', bundle['expires_in'])]:
+				control.setSetting(key, str(int(value)) if key in ('trakt.expires', 'trakt.lifetime') else str(value))
+			self._resend()
+			return True
 		if self.adopt_newer_from_vault():
 			self._resend()
 			return True

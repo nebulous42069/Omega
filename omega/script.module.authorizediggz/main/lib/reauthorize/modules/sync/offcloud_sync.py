@@ -28,9 +28,9 @@ class Auth:
 
                                 addon = xbmcaddon.Addon("plugin.video.umbrella")
                                 addon.setSetting("offcloudtoken", your_token)
-                                addon.setSetting("offcloud.enable", "true")
+                                addon.setSetting("offcloud.enable", ('true' if your_token and not control.wiping() else 'false'))
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.umbrella')
                 xbmc.log('%s: Umbrella OffCloud Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -42,9 +42,9 @@ class Auth:
 
                                 addon = xbmcaddon.Addon("plugin.video.pov")
                                 addon.setSetting("oc.token", your_token)
-                                addon.setSetting("oc.enabled", "true")
+                                addon.setSetting("oc.enabled", ('true' if your_token and not control.wiping() else 'false'))
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.pov')
                 xbmc.log('%s: POV OffCloud Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -56,9 +56,9 @@ class Auth:
 
                                 addon = xbmcaddon.Addon("plugin.video.infinity")
                                 addon.setSetting("offcloudtoken", your_token)
-                                addon.setSetting("offcloud.enable", "true")
+                                addon.setSetting("offcloud.enable", ('true' if your_token and not control.wiping() else 'false'))
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.infinity')
                 xbmc.log('%s: Infinity OffCloud Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -70,10 +70,10 @@ class Auth:
 
                                 addon = xbmcaddon.Addon("plugin.video.cosmos")
                                 addon.setSetting("oc_api_key", your_token)
-                                addon.setSetting("oc_enabled", "true")
-                                addon.setSetting("oc_auth_done", "true")
+                                addon.setSetting("oc_enabled", ('true' if your_token and not control.wiping() else 'false'))
+                                addon.setSetting("oc_auth_done", ('true' if your_token and not control.wiping() else 'false'))
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.cosmos')
                 xbmc.log('%s: Cosmos OffCloud Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -90,9 +90,9 @@ class Auth:
 
                                 addon = xbmcaddon.Addon("script.module.resolveurl")
                                 addon.setSetting("OffCloudResolver_apikey", your_token)
-                                addon.setSetting("OffCloudResolver_enabled", "true")
+                                addon.setSetting("OffCloudResolver_enabled", ('true' if your_token and not control.wiping() else 'false'))
         except:
-                sync_support.failed()
+                sync_support.failed('script.module.resolveurl')
                 xbmc.log('%s: ResolveURL OffCloud Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -100,7 +100,7 @@ class Auth:
         try:
                 from reauthorize.modules.db import redlight_db
                 redlight_db.push([('oc.token', your_token),
-                                  ('oc.enabled', 'true')])
+                                  ('oc.enabled', ('true' if your_token and not control.wiping() else 'false'))])
         except:
                 sync_support.failed()
                 xbmc.log('%s: Red Light OffCloud Failed!' % var.amgr, xbmc.LOGINFO)
@@ -114,7 +114,7 @@ class Auth:
                                 addon = xbmcaddon.Addon("plugin.program.rdtplayer")
                                 addon.setSetting("offcloud_api_key", your_token)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.program.rdtplayer')
                 xbmc.log('%s: Diamond Media Player OffCloud Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 

@@ -111,7 +111,8 @@ def scrobbler_refresh_token():
 
 POV, UMBRELLA, REDLIGHT, COSMOS, TMDBMOVIES = ('plugin.video.pov', 'plugin.video.umbrella', 'plugin.video.redlight',
                                               'plugin.video.cosmos', 'plugin.video.tmdbmovies')
-ADDONS = (POV, UMBRELLA, REDLIGHT, COSMOS, TMDBMOVIES)
+PORTAL = 'script.diggzportal'
+ADDONS = (POV, UMBRELLA, REDLIGHT, COSMOS, TMDBMOVIES, PORTAL)
 # POV 6.09: signed in = mdblist_user (+ mdblist.token); renews with its mdblist.client_id setting when
 #   mdblist.expires (whole seconds) is near; mdbl_indicators_active only shows its watched-provider choice.
 # Umbrella 6.7.90: signed in = mdblist.token; mdblist.refresh.token; app id is a constant in its code.
@@ -131,6 +132,9 @@ def _settings_ready(addon_id):
 
 
 def _ready(addon_id):
+    if addon_id == PORTAL:
+        from reauthorize.modules.sync import portal_sync
+        return portal_sync.installed()
     if addon_id == REDLIGHT:
         from reauthorize.modules.db import redlight_db
         return redlight_db.available()
@@ -176,7 +180,8 @@ def _held(addon_id):
         rows = _redlight_rows('mdblist.token', 'mdblist.refresh')
         return rows.get('mdblist.token', ''), rows.get('mdblist.refresh', '')
     ids = {POV: ('mdblist.token', 'mdblist.refresh'), UMBRELLA: ('mdblist.token', 'mdblist.refresh.token'),
-           TMDBMOVIES: ('mdblist_access_token', 'mdblist_refresh_token')}[addon_id]
+           TMDBMOVIES: ('mdblist_access_token', 'mdblist_refresh_token'),
+           PORTAL: ('mdblist_access_token', 'mdblist_refresh_token')}[addon_id]
     addon = xbmcaddon.Addon(addon_id)
     return addon.getSetting(ids[0]), addon.getSetting(ids[1])
 
@@ -289,7 +294,10 @@ def _write(addon_id, a):
     # always written the same way and an add-on is not rewritten at every check.
     made = a['expires'] - LIFETIME if a['expires'] else int(time.time())
     lifetime = str(LIFETIME)
-    if addon_id == POV:
+    if addon_id == PORTAL:
+        from reauthorize.modules.sync import portal_sync
+        portal_sync.mdblist(a)
+    elif addon_id == POV:
         _set(POV, [('mdblist.token', a['token']), ('mdblist.refresh', a['refresh']),
                    ('mdblist.expires', str(a['expires'] or made + LIFETIME)), ('mdblist.client_id', _our_id()),
                    ('mdblist_user', a['user']), ('mdbl_indicators_active', 'true')])
@@ -331,7 +339,10 @@ def _shipped_default(addon_id, setting_id):
 
 
 def _clear(addon_id):
-    if addon_id == POV:
+    if addon_id == PORTAL:
+        from reauthorize.modules.sync import portal_sync
+        portal_sync.clear_mdblist()
+    elif addon_id == POV:
         _set(POV, [('mdblist.token', ''), ('mdblist.refresh', ''), ('mdblist.expires', ''), ('mdblist_user', ''),
                    ('mdbl_indicators_active', 'false'),
                    ('mdblist.client_id', _shipped_default(POV, 'mdblist.client_id'))])
@@ -373,13 +384,19 @@ def push_addons(only_missing=False):
                 if not _sync_umbrella(a, held, only_missing):
                     continue
             else:
+                if addon_id == PORTAL and held[0] == a['token']:
+                    _write(addon_id, a)  # repair incomplete bundles without rotating identity
+                    continue
                 if held[0] == a['token'] or (only_missing and held[0]):
                     continue
                 _write(addon_id, a)
             sent += 1
             _log('sign-in sent to %s' % addon_id)
         except Exception as e:
-            _log('could not send the sign-in to %s: %s' % (addon_id, e))
+            if addon_id == PORTAL:
+                from reauthorize.modules import sync_support
+                sync_support.failed(addon_id)
+            _log('could not send the sign-in to %s: %s' % (addon_id, type(e).__name__))
     return sent
 
 

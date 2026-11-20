@@ -121,6 +121,7 @@ _SERVICE_ADDONS = {
         'script.module.myaccounts',
     ],
     'tmdb': [
+        'plugin.video.themoviedb.helper',
         'plugin.video.seren',
         'plugin.video.umbrella', 'plugin.video.infinity',
         'plugin.video.orion', 'plugin.video.otaku', 'plugin.video.redlight',
@@ -430,3 +431,7 @@ _SERVICE_ADDONS['trakt'].append('script.module.tmdbhelper.sync.trakt')
 _SERVICE_ADDONS.setdefault('mdblist', []).append('script.module.tmdbhelper.sync.mdblist')
 _ADDON_LABELS['script.module.tmdbhelper.sync.trakt'] = 'TMDb Helper - Trakt provider'
 _ADDON_LABELS['script.module.tmdbhelper.sync.mdblist'] = 'TMDb Helper - MDbList provider'
+
+for _service in ('trakt', 'tmdb', 'mdblist', 'simkl'):
+    _SERVICE_ADDONS[_service].append('script.diggzportal')
+_ADDON_LABELS['script.diggzportal'] = 'Diggz Portal'

@@ -83,6 +83,13 @@ def png_payload(data):
             for i in range(0,stride,4):
                 rgb.extend(row[i:i+3])
         previous = row
+    if rgb[:4] == b'KWP1':
+        if len(rgb) < 8:
+            raise ValueError('Truncated KWP1 segment header')
+        size = int.from_bytes(rgb[4:8], 'big')
+        if not size or size > len(rgb) - 8:
+            raise ValueError('KWP1 segment length is invalid')
+        return bytes(rgb[8:8 + size])
     if rgb[:8] != b'TIKTIKPX' or len(rgb) < 12:
         raise ValueError('PNG wrapper is missing the expected pixel payload marker')
     size = int.from_bytes(rgb[8:12], 'big')

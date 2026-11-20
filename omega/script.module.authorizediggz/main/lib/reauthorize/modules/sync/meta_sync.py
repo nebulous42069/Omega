@@ -29,6 +29,15 @@ from reauthorize.modules import sync_support
 xbmcaddon = sync_support.addon_api(xbmcaddon)
 class Auth:
         def meta_auth(self):
+                from reauthorize.modules.sync import portal_sync
+                from reauthorize.modules.auth import tmdb
+                tmdb.sync_portal(wipe=control.wiping() and not accountmgr.getSetting('tmdb.authorization') and not accountmgr.getSetting('tmdb.session_id'))
+                tmdb.sync_helper(wipe=control.wiping() and not accountmgr.getSetting('tmdb.authorization'))
+                from reauthorize.modules import tmdbh_compat
+                try:
+                        tmdbh_compat.sync_tvdb('' if control.wiping() else accountmgr.getSetting('tvdb.api.key'), wipe=control.wiping())
+                except Exception:
+                        sync_support.failed()
         #Seren
                 try:
                         if xbmcvfs.exists(var.chk_seren): #Check that the addon is installed and settings.xml exists
@@ -53,7 +62,7 @@ class Auth:
                                         addon = xbmcaddon.Addon("plugin.video.seren")
                                         addon.setSetting("tmdb.apikey", your_tmdb_api)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.seren')
                         xbmc.log('%s: Seren Metadata Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
                 
@@ -95,7 +104,7 @@ class Auth:
                                                 from reauthorize.modules.db import meta_db
                                                 meta_db.auth_gears_tmdb()
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.gears')
                         xbmc.log('%s: Gears Metadata Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -125,7 +134,7 @@ class Auth:
                                         addon = xbmcaddon.Addon("plugin.video.coalition")
                                         addon.setSetting("tmdb_api", your_tmdb_api)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.coalition')
                         xbmc.log('%s: Coalition Metadata Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -170,7 +179,7 @@ class Auth:
                                         addon = xbmcaddon.Addon("plugin.video.umbrella")
                                         addon.setSetting("tmdb.sessionid", your_tmdb_session)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.umbrella')
                         xbmc.log('%s: Umbrella Metadata Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -214,7 +223,7 @@ class Auth:
                                         addon = xbmcaddon.Addon("plugin.video.infinity")
                                         addon.setSetting("tmdb.sessionid", your_tmdb_session)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.infinity')
                         xbmc.log('%s: Infinity Metadata Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
                 
@@ -239,7 +248,7 @@ class Auth:
                                         addon = xbmcaddon.Addon("plugin.video.thecrew")
                                         addon.setSetting("tm.user", your_tmdb_api)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.thecrew')
                         xbmc.log('%s: The Crew Metadata Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
                 
@@ -265,7 +274,7 @@ class Auth:
                                         addon = xbmcaddon.Addon("plugin.video.homelander")
                                         addon.setSetting("tm.user", your_tmdb_api)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.homelander')
                         xbmc.log('%s: Homelander Metadata Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
                 
@@ -291,7 +300,7 @@ class Auth:
                                         addon = xbmcaddon.Addon("plugin.video.quicksilver")
                                         addon.setSetting("tm.user", your_tmdb_api)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.quicksilver')
                         xbmc.log('%s: Quicksilver Metadata Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -317,7 +326,7 @@ class Auth:
                                         addon = xbmcaddon.Addon("plugin.video.chainsgenocide")
                                         addon.setSetting("tm.user", your_tmdb_api)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.chainsgenocide')
                         xbmc.log('%s: Chains Genocide Metadata Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -355,7 +364,7 @@ class Auth:
                                         addon = xbmcaddon.Addon("plugin.video.genocide")
                                         addon.setSetting("tmdb.username", your_tmdb_user)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.genocide')
                         xbmc.log('%s: Genocide Metadata Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -381,7 +390,7 @@ class Auth:
                                         addon = xbmcaddon.Addon("plugin.video.shazam")
                                         addon.setSetting("tm.user", your_tmdb_api)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.shazam')
                         xbmc.log('%s: Shazam Metadata Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -406,7 +415,7 @@ class Auth:
                                         addon = xbmcaddon.Addon("plugin.video.moria")
                                         addon.setSetting("tm.user", your_tmdb_api)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.moria')
                         xbmc.log('%s: Moria Metadata Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -431,7 +440,7 @@ class Auth:
                                         addon = xbmcaddon.Addon("plugin.video.nightwing")
                                         addon.setSetting("tm.user", your_tmdb_api)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.nightwing')
                         xbmc.log('%s: Nightwing Metadata Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -457,7 +466,7 @@ class Auth:
                                         addon = xbmcaddon.Addon("plugin.video.absolution")
                                         addon.setSetting("tm.user", your_tmdb_api)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.absolution')
                         xbmc.log('%s: Absolution Metadata Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
                 
@@ -487,7 +496,7 @@ class Auth:
                                         else:
                                             addon.setSetting("mdblist_apikey", your_mdb_api)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.themoviedb.helper')
                         xbmc.log('%s: TMDBh Metadata Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -523,7 +532,7 @@ class Auth:
                                         addon.setSetting("override_tmdb_key", enable_tmdb)
                                         
                 except:
-                        sync_support.failed()
+                        sync_support.failed('script.module.metahandler')
                         xbmc.log('%s: Metahandler Metadata Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -557,7 +566,7 @@ class Auth:
                                         addon = xbmcaddon.Addon("script.module.pvr.artwork")
                                         addon.setSetting("use_tmdb", enable_tmdb)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('script.module.pvr.artwork')
                         xbmc.log('%s: PVR Artwork Module Metadata Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -599,7 +608,7 @@ class Auth:
                                         addon = xbmcaddon.Addon("script.module.allaccounts")
                                         addon.setSetting("tmdb.session_id", your_tmdb_session)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('script.module.allaccounts')
                         xbmc.log('%s: All Accounts Metadata Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
                 
@@ -640,7 +649,7 @@ class Auth:
                                         addon = xbmcaddon.Addon("script.module.myaccounts")
                                         addon.setSetting("tmdb.session_id", your_tmdb_session)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('script.module.myaccounts')
                         xbmc.log('%s: My Accounts Metadata Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -692,7 +701,7 @@ class Auth:
                                         addon.setSetting("mdblist.api_key", your_mdb_api)
                                         addon.setSetting("mdblist.username", your_mdb_user if your_mdb_api else '')
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.thearchives')
                         xbmc.log('%s: The Archives MDBList Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -710,7 +719,7 @@ class Auth:
                                         addon = xbmcaddon.Addon("plugin.video.gratisred")
                                         addon.setSetting("fanart.api", your_fanart_api)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.gratisred')
                         xbmc.log('%s: GratisRed Metadata Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -726,7 +735,7 @@ class Auth:
                                 if (your_mdb_api or control.wiping()) and (not str(your_mdb_api) == str(chk_mdb) or str(chk_mdb) == ''):
                                         xbmcaddon.Addon("plugin.video.cosmos").setSetting("mdblist_api_key", your_mdb_api)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.cosmos')
                         xbmc.log('%s: Cosmos Metadata Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -759,7 +768,7 @@ class Auth:
                                         addon = xbmcaddon.Addon("plugin.video.fidoK19")
                                         addon.setSetting("tmdb.api_key", your_tmdb_api)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.fidoK19')
                         xbmc.log('%s: FidoK19 Metadata Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -771,7 +780,7 @@ class Auth:
                                         addon = xbmcaddon.Addon("plugin.video.aliundek19")
                                         addon.setSetting("tmdb_api", your_tmdb_api)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.aliundek19')
                         xbmc.log('%s: Aliunde K19 Metadata Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -783,7 +792,7 @@ class Auth:
                                         addon = xbmcaddon.Addon("plugin.video.torquelite")
                                         addon.setSetting("tmdb.api_key", your_tmdb_api)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.torquelite')
                         xbmc.log('%s: TorqueLite Metadata Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -795,7 +804,7 @@ class Auth:
                                         addon = xbmcaddon.Addon("plugin.video.torquelive")
                                         addon.setSetting("tmdb.api_key", your_tmdb_api)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.torquelive')
                         xbmc.log('%s: TorqueLive Metadata Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -813,7 +822,7 @@ class Auth:
                                         addon = xbmcaddon.Addon("plugin.video.prism")
                                         addon.setSetting("mdblist.apikey", your_mdb_api)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.prism')
                         xbmc.log('%s: Prism Metadata Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -830,7 +839,7 @@ class Auth:
                                         addon = xbmcaddon.Addon("plugin.video.tmdbmovies")
                                         addon.setSetting("mdblist_api", your_mdb_api)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.tmdbmovies')
                         xbmc.log('%s: TMDb Movies Metadata Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -846,7 +855,7 @@ class Auth:
                                         addon = xbmcaddon.Addon("plugin.video.youtubetheater")
                                         addon.setSetting("imdb_user", your_imdb_api)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.youtubetheater')
                         xbmc.log('%s: Youtube Theater Metadata Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 

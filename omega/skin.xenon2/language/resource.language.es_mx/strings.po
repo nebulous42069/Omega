@@ -526,7 +526,7 @@ msgid "TheMovieDb Helper provides details about movies, tvshows and actors from 
 msgstr ""
 
 msgctxt "#31127"
-msgid "Enable Extended Info integration"
+msgid "Enable additional recommendations (Embuary Helper)"
 msgstr ""
 
 msgctxt "#31128"
@@ -802,7 +802,7 @@ msgid "Show time remaining on fullscreen info"
 msgstr ""
 
 msgctxt "#31196"
-msgid "Replace default with Extended Info (some features and extras (+) will be unavailable)"
+msgid "Replace default with Diggz Portal Info (some features and extras (+) will be unavailable)"
 msgstr ""
 
 msgctxt "#31197"
@@ -1050,7 +1050,7 @@ msgid "Movie set titles"
 msgstr ""
 
 msgctxt "#31258"
-msgid "Blur background (extended info dialog)"
+msgid "Blur background (information dialog)"
 msgstr ""
 
 msgctxt "#31259"
@@ -2222,7 +2222,7 @@ msgid "Kodi random music fanart"
 msgstr ""
 
 msgctxt "#31551"
-msgid "Embuary Helper provides the Alphabet Jump Letter Bar, scraped ratings from Rotten Tomatoes and MetaCritic in fullscreen info. It also adds Similar and more from director when you Enable Extended Info integration in the settings for Video & Music information."
+msgid "Embuary Helper provides the Alphabet Jump Letter Bar, scraped ratings from Rotten Tomatoes and MetaCritic in fullscreen info. It also adds Similar and more from director when you enable additional recommendations in the settings for Video & Music information."
 msgstr ""
 
 msgctxt "#31552"
@@ -2847,7 +2847,7 @@ msgid "Use this setting to override the location of the Trailers button when usi
 msgstr ""
 
 msgctxt "#31855"
-msgid "Enable this setting to replace the Default info with online info provided by the ExtendedInfo script. You can use the Xenon version or the Defaults provided by the script if you enable the option in the settings for ExtendedInfo."
+msgid "Enable this setting to replace the default information dialog with Diggz Portal Info. Choose your preferred layout in Diggz Portal settings."
 msgstr ""
 
 msgctxt "#31856"
@@ -3015,8 +3015,8 @@ msgid "Choose which overlays to show on thumbs in icon based views. Note that th
 msgstr ""
 
 msgctxt "#31945"
-msgid "This toggles the layout of the List view. Default is a 7 item layout with extended info, \"Slim List\" is a 14 item, more basic layout"
-msgstr "Esto cambia la disposición de la vista de lista. Por defecto es una disposición de 7 elementos con información extendida, \"Lista delgada\" es una disposición de 14 elementos más básica"
+msgid "This toggles the layout of the List view. Default is a 7 item layout with detailed information, \"Slim List\" is a 14 item, more basic layout"
+msgstr "Esto cambia la disposición de la vista Lista. Por defecto se disponen 7 elementos con información detallada, \"Lista Estrecha\" son 14 elementos, una disposición más básica"
 
 msgctxt "#31950"
 msgid "WEATHER"

@@ -2785,7 +2785,7 @@
             </control>
         </control>
     </include>
-	<!-- Extended Info -->
+	<!-- Additional information and Embuary Helper lists -->
 	<include name="ExtendedInfoMovieLists">
 		<control type="panel" id="90011">
 			<visible allowhiddenfocus="true">Integer.IsGreater(Container(90011).NumItems,0)</visible>

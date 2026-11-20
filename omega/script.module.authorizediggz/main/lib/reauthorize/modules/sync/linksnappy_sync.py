@@ -25,6 +25,6 @@ class Auth:
                                 addon.setSetting("ls_username", your_username)
                                 addon.setSetting("ls_password", your_password)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.cosmos')
                 xbmc.log('%s: Cosmos Linksnappy Failed!' % var.amgr, xbmc.LOGINFO)
                 pass

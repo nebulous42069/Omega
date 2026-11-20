@@ -74,71 +74,72 @@
 		<setting type="action" label="Authorize AllDebrid" option="close" action="RunScript(script.module.authorizediggz, action=alldebridAuth)" visible="eq(-6,)" />
 
 		<setting type="lsep" label="TorBox" />
-		<setting id="torbox.enabled" type="bool" label="Enable TorBox" default="false" visible="true" />
+		<!-- Legacy compatibility flag; derived from the saved token, not a user preference. -->
+		<setting id="torbox.enabled" type="bool" label="Enable TorBox" default="false" visible="false" />
 		<setting id="torbox.token" type="text" label="" default="" visible="false" />
-		<setting id="torbox.authorized.display" type="text" label="Status" default="" enable="false" visible="!eq(0,)" />
-		<setting type="action" label="Authorize TorBox" option="close" action="RunScript(script.module.authorizediggz, action=torboxAuth)" visible="eq(-1,)" />
-		<setting type="action" label="Sync Add-ons" option="close" action="RunScript(script.module.authorizediggz, action=torboxReSync)" visible="eq(-4,true) + !eq(-2,)" />
-		<setting type="action" label="View Status" option="close" action="RunScript(script.module.authorizediggz, action=statusDashboard)" visible="eq(-5,true) + !eq(-3,)" />
-		<setting type="action" label="Revoke" option="close" action="RunScript(script.module.authorizediggz, action=serviceRevoke&amp;mode=addontb)" visible="eq(-6,true) + !eq(-4,)" />
+		<setting id="torbox.authorized.display" type="text" label="Status" default="" enable="false" visible="!eq(-1,)" />
+		<setting type="action" label="Authorize TorBox" option="close" action="RunScript(script.module.authorizediggz, action=torboxAuth)" visible="eq(-2,)" />
+		<setting type="action" label="Sync Add-ons" option="close" action="RunScript(script.module.authorizediggz, action=torboxReSync)" visible="!eq(-3,)" />
+		<setting type="action" label="View Status" option="close" action="RunScript(script.module.authorizediggz, action=statusDashboard)" visible="!eq(-4,)" />
+		<setting type="action" label="Revoke" option="close" action="RunScript(script.module.authorizediggz, action=serviceRevoke&amp;mode=addontb)" visible="!eq(-5,)" />
 
 		<setting type="lsep" label="Easy Debrid" />
-		<setting id="easydebrid.enabled" type="bool" label="Enable Easy Debrid" default="false" visible="true" />
+		<setting id="easydebrid.enabled" type="bool" label="Enable Easy Debrid" default="false" visible="false" />
 		<setting id="easydebrid.token" type="text" label="" default="" visible="false" />
-		<setting id="easydebrid.authorized.display" type="text" label="Status" default="" enable="false" visible="!eq(0,)" />
-		<setting type="action" label="Authorize Easy Debrid" option="close" action="RunScript(script.module.authorizediggz, action=easydebridAuth)" visible="eq(-1,)" />
-		<setting type="action" label="Sync Add-ons" option="close" action="RunScript(script.module.authorizediggz, action=easydebridReSync)" visible="eq(-4,true) + !eq(-2,)" />
-		<setting type="action" label="View Status" option="close" action="RunScript(script.module.authorizediggz, action=statusDashboard)" visible="eq(-5,true) + !eq(-3,)" />
-		<setting type="action" label="Revoke" option="close" action="RunScript(script.module.authorizediggz, action=serviceRevoke&amp;mode=addoned)" visible="eq(-6,true) + !eq(-4,)" />
+		<setting id="easydebrid.authorized.display" type="text" label="Status" default="" enable="false" visible="!eq(-1,)" />
+		<setting type="action" label="Authorize Easy Debrid" option="close" action="RunScript(script.module.authorizediggz, action=easydebridAuth)" visible="eq(-2,)" />
+		<setting type="action" label="Sync Add-ons" option="close" action="RunScript(script.module.authorizediggz, action=easydebridReSync)" visible="!eq(-3,)" />
+		<setting type="action" label="View Status" option="close" action="RunScript(script.module.authorizediggz, action=statusDashboard)" visible="!eq(-4,)" />
+		<setting type="action" label="Revoke" option="close" action="RunScript(script.module.authorizediggz, action=serviceRevoke&amp;mode=addoned)" visible="!eq(-5,)" />
 
 		<setting type="lsep" label="OffCloud" />
-		<setting id="offcloud.enabled" type="bool" label="Enable OffCloud" default="false" visible="true" />
+		<setting id="offcloud.enabled" type="bool" label="Enable OffCloud" default="false" visible="false" />
 		<setting id="offcloud.token" type="text" label="" default="" visible="false" />
 		<setting id="offcloud.userid" type="text" label="" default="" visible="false" />
 		<setting id="offcloud.user" type="text" label="" default="" visible="false" />
 		<setting id="offcloud.pass" type="text" label="" default="" visible="false" />
-		<setting id="offcloud.authorized.display" type="text" label="Status" default="" enable="false" visible="!eq(0,)" />
-		<setting type="action" label="Authorize OffCloud" option="close" action="RunScript(script.module.authorizediggz, action=offcloudAuth)" visible="eq(-1,)" />
-		<setting type="action" label="Sync Add-ons" option="close" action="RunScript(script.module.authorizediggz, action=offcloudReSync)" visible="eq(-7,true) + !eq(-2,)" />
-		<setting type="action" label="View Status" option="close" action="RunScript(script.module.authorizediggz, action=statusDashboard)" visible="eq(-8,true) + !eq(-3,)" />
-		<setting type="action" label="Revoke" option="close" action="RunScript(script.module.authorizediggz, action=serviceRevoke&amp;mode=addonoffc)" visible="eq(-9,true) + !eq(-4,)" />
+		<setting id="offcloud.authorized.display" type="text" label="Status" default="" enable="false" visible="!eq(-4,)" />
+		<setting type="action" label="Authorize OffCloud" option="close" action="RunScript(script.module.authorizediggz, action=offcloudAuth)" visible="eq(-5,)" />
+		<setting type="action" label="Sync Add-ons" option="close" action="RunScript(script.module.authorizediggz, action=offcloudReSync)" visible="!eq(-6,)" />
+		<setting type="action" label="View Status" option="close" action="RunScript(script.module.authorizediggz, action=statusDashboard)" visible="!eq(-7,)" />
+		<setting type="action" label="Revoke" option="close" action="RunScript(script.module.authorizediggz, action=serviceRevoke&amp;mode=addonoffc)" visible="!eq(-8,)" />
 
 		<setting type="lsep" label="Easynews" />
-		<setting id="easynews.enabled" type="bool" label="Enable Easynews" default="false" visible="true" />
+		<setting id="easynews.enabled" type="bool" label="Enable Easynews" default="false" visible="false" />
 		<setting id="easynews.username" type="text" label="" default="" visible="false" />
-		<setting id="easynews.username.display" type="text" label="Username" default="" enable="false" visible="!eq(0,)" />
-		<setting id="easynews.password.display" type="text" label="Password" default="" enable="false" visible="!eq(-1,)" />
 		<setting id="easynews.password" type="text" label="" default="" visible="false" />
-		<setting type="action" label="Authorize Easynews" option="close" action="RunScript(script.module.authorizediggz, action=easynewsAuth)" visible="eq(-3,)" />
-		<setting type="action" label="Sync Add-ons" option="close" action="RunScript(script.module.authorizediggz, action=easynewsReSync)" visible="eq(-6,true) + !eq(-4,)" />
-		<setting type="action" label="View Status" option="close" action="RunScript(script.module.authorizediggz, action=statusDashboard)" visible="eq(-7,true) + !eq(-5,)" />
-		<setting type="action" label="Revoke" option="close" action="RunScript(script.module.authorizediggz, action=serviceRevoke&amp;mode=addoneasy)" visible="eq(-8,true) + !eq(-6,)" />
+		<setting id="easynews.username.display" type="text" label="Username" default="" enable="false" visible="!eq(-2,) + !eq(-1,)" />
+		<setting id="easynews.password.display" type="text" label="Password" default="" enable="false" visible="!eq(-3,) + !eq(-2,)" />
+		<setting type="action" label="Authorize Easynews" option="close" action="RunScript(script.module.authorizediggz, action=easynewsAuth)" visible="eq(-4,) | eq(-3,)" />
+		<setting type="action" label="Sync Add-ons" option="close" action="RunScript(script.module.authorizediggz, action=easynewsReSync)" visible="!eq(-5,) + !eq(-4,)" />
+		<setting type="action" label="View Status" option="close" action="RunScript(script.module.authorizediggz, action=statusDashboard)" visible="!eq(-6,) + !eq(-5,)" />
+		<setting type="action" label="Revoke" option="close" action="RunScript(script.module.authorizediggz, action=serviceRevoke&amp;mode=addoneasy)" visible="!eq(-7,) + !eq(-6,)" />
 
 		<setting type="lsep" label="FilePursuit" />
-		<setting id="filepursuit.enabled" type="bool" label="Enable FilePursuit" default="false" visible="true" />
+		<setting id="filepursuit.enabled" type="bool" label="Enable FilePursuit" default="false" visible="false" />
 		<setting id="filepursuit.api.key" type="text" label="" default="" visible="false" />
-		<setting id="filepursuit.authorized.display" type="text" label="Status" default="" enable="false" visible="!eq(0,)" />
-		<setting type="action" label="Authorize FilePursuit" option="close" action="RunScript(script.module.authorizediggz, action=filepursuitAuth)" visible="eq(-1,)" />
-		<setting type="action" label="Sync Add-ons" option="close" action="RunScript(script.module.authorizediggz, action=filepursuitReSync)" visible="eq(-4,true) + !eq(-2,)" />
-		<setting type="action" label="View Status" option="close" action="RunScript(script.module.authorizediggz, action=statusDashboard)" visible="eq(-5,true) + !eq(-3,)" />
-		<setting type="action" label="Revoke" option="close" action="RunScript(script.module.authorizediggz, action=serviceRevoke&amp;mode=addonfile)" visible="eq(-6,true) + !eq(-4,)" />
+		<setting id="filepursuit.authorized.display" type="text" label="Status" default="" enable="false" visible="!eq(-1,)" />
+		<setting type="action" label="Authorize FilePursuit" option="close" action="RunScript(script.module.authorizediggz, action=filepursuitAuth)" visible="eq(-2,)" />
+		<setting type="action" label="Sync Add-ons" option="close" action="RunScript(script.module.authorizediggz, action=filepursuitReSync)" visible="!eq(-3,)" />
+		<setting type="action" label="View Status" option="close" action="RunScript(script.module.authorizediggz, action=statusDashboard)" visible="!eq(-4,)" />
+		<setting type="action" label="Revoke" option="close" action="RunScript(script.module.authorizediggz, action=serviceRevoke&amp;mode=addonfile)" visible="!eq(-5,)" />
 
 		<setting type="lsep" label="Linksnappy" />
-		<setting id="linksnappy.enabled" type="bool" label="Enable Linksnappy" default="false" visible="true" />
+		<setting id="linksnappy.enabled" type="bool" label="Enable Linksnappy" default="false" visible="false" />
 		<setting id="linksnappy.username" type="text" label="" default="" visible="false" />
-		<setting id="linksnappy.username.display" type="text" label="Username" default="" enable="false" visible="!eq(0,)" />
 		<setting id="linksnappy.password" type="text" label="" default="" visible="false" />
-		<setting type="action" label="Authorize Linksnappy" option="close" action="RunScript(script.module.authorizediggz, action=linksnappyAuth)" visible="eq(-2,)" />
-		<setting type="action" label="Sync Add-ons" option="close" action="RunScript(script.module.authorizediggz, action=linksnappyReSync)" visible="eq(-5,true) + !eq(-3,)" />
-		<setting type="action" label="Revoke" option="close" action="RunScript(script.module.authorizediggz, action=linksnappyRevoke)" visible="eq(-6,true) + !eq(-4,)" />
+		<setting id="linksnappy.username.display" type="text" label="Username" default="" enable="false" visible="!eq(-2,) + !eq(-1,)" />
+		<setting type="action" label="Authorize Linksnappy" option="close" action="RunScript(script.module.authorizediggz, action=linksnappyAuth)" visible="eq(-3,) | eq(-2,)" />
+		<setting type="action" label="Sync Add-ons" option="close" action="RunScript(script.module.authorizediggz, action=linksnappyReSync)" visible="!eq(-4,) + !eq(-3,)" />
+		<setting type="action" label="Revoke" option="close" action="RunScript(script.module.authorizediggz, action=linksnappyRevoke)" visible="!eq(-5,) + !eq(-4,)" />
 
 		<setting type="lsep" label="Debrid-Link" />
-		<setting id="debridlink.enabled" type="bool" label="Enable Debrid-Link" default="false" visible="true" />
+		<setting id="debridlink.enabled" type="bool" label="Enable Debrid-Link" default="false" visible="false" />
 		<setting id="debridlink.token" type="text" label="" default="" visible="false" />
-		<setting id="debridlink.authorized.display" type="text" label="Status" default="" enable="false" visible="!eq(0,)" />
-		<setting type="action" label="Authorize Debrid-Link" option="close" action="RunScript(script.module.authorizediggz, action=debridlinkAuth)" visible="eq(-1,)" />
-		<setting type="action" label="Sync Add-ons" option="close" action="RunScript(script.module.authorizediggz, action=debridlinkReSync)" visible="eq(-4,true) + !eq(-2,)" />
-		<setting type="action" label="Revoke" option="close" action="RunScript(script.module.authorizediggz, action=debridlinkRevoke)" visible="eq(-5,true) + !eq(-3,)" />
+		<setting id="debridlink.authorized.display" type="text" label="Status" default="" enable="false" visible="!eq(-1,)" />
+		<setting type="action" label="Authorize Debrid-Link" option="close" action="RunScript(script.module.authorizediggz, action=debridlinkAuth)" visible="eq(-2,)" />
+		<setting type="action" label="Sync Add-ons" option="close" action="RunScript(script.module.authorizediggz, action=debridlinkReSync)" visible="!eq(-3,)" />
+		<setting type="action" label="Revoke" option="close" action="RunScript(script.module.authorizediggz, action=debridlinkRevoke)" visible="!eq(-4,)" />
 
 	</category>
 
@@ -166,6 +167,7 @@
 		<setting type="action" label="Authorize Trakt for Kodi" option="close" action="RunScript(script.module.authorizediggz, action=traktAuth)" visible="eq(-6,)" />
 
 		<setting type="lsep" label="Simkl" />
+		<setting id="simkl.authorization" type="text" visible="false" label="" default="" />
 		<setting id="simkl.token" type="text" visible="false" label="" default="" />
 		<setting id="simkl.client.id" type="text" visible="false" label="" default="" />
 		<setting id="simkl.username" type="text" label="" default="" visible="false" />
@@ -173,7 +175,8 @@
 		<setting type="action" label="Sync Add-ons" option="close" action="RunScript(script.module.authorizediggz, action=simklReSync)" visible="!eq(-1,)" />
 		<setting type="action" label="Account Info" option="close" action="RunScript(script.module.authorizediggz, action=simklAcct)" visible="!eq(-2,)" />
 		<setting type="action" label="Revoke" option="close" action="RunScript(script.module.authorizediggz, action=simklRevoke)" visible="!eq(-3,)" />
-		<setting type="action" label="Authorize Simkl" option="close" action="RunScript(script.module.authorizediggz, action=simklAuth)" visible="eq(-4,)" />
+		<setting type="action" label="Reconnect / upgrade SIMKL authorization" option="close" action="RunScript(script.module.authorizediggz, action=simklAuth)" visible="!eq(-4,)" />
+		<setting type="action" label="Authorize Simkl" option="close" action="RunScript(script.module.authorizediggz, action=simklAuth)" visible="eq(-5,)" />
 
 		<setting type="lsep" label="Last.fm" />
 		<setting id="lastfm.session.key" type="text" label="" default="" visible="false" />
@@ -220,9 +223,12 @@
 		<setting id="tmdb.password.display" type="text" label="" default="" visible="false" />
 		<setting id="tmdb.username.display" type="text" label="Username" default="" enable="false" visible="!eq(1,)" />
 		<setting id="tmdb.session_id" type="text" label="" default="" visible="false" />
+		<setting id="tmdb.authorization" type="text" default="" option="hidden" visible="false" />
+		<setting id="tmdb.portal.authorization" type="text" default="" option="hidden" visible="false" />
 		<setting label="[COLOR yellow]Help - TMDB Setup[/COLOR]" type="action" option="close" action="RunScript(script.module.authorizediggz, action=ShowHelpTMDb)" />
-		<setting type="action" label="Authorize TMDB Account" option="close" action="RunScript(script.module.authorizediggz, action=tmdbAuth)" visible="eq(-2,)" />
-		<setting type="action" label="Revoke TMDB Account" option="close" action="RunScript(script.module.authorizediggz, action=tmdbRevoke)" visible="!eq(-3,)" />
+		<setting type="action" label="Authorize / Upgrade TMDB Account" option="close" action="RunScript(script.module.authorizediggz, action=tmdbAuth)" />
+		<setting type="action" label="Revoke TMDB Account" option="close" action="RunScript(script.module.authorizediggz, action=tmdbRevoke)" />
+		<setting type="action" label="Sync Addons" option="close" action="RunScript(script.module.authorizediggz, action=tmdbSync)" />
 
 	</category>
 
@@ -259,7 +265,11 @@
 		<setting id="mdb.api.key" type="text" label="" default="" visible="false" />
 		<setting id="mdb.api.key.display" type="text" label="" default="" visible="false" />
 
-		<setting type="lsep" label="OMDb" />
+        <setting type="lsep" label="TVDb" />
+        <setting id="tvdb.api.key" type="text" label="TVDb API Key" default="" option="hidden" />
+        <setting type="action" label="Sync TVDb to TMDb Helper" option="close" action="RunScript(script.module.authorizediggz, action=tvdbSync)" />
+        <setting type="action" label="Remove TVDb API Key" option="close" action="RunScript(script.module.authorizediggz, action=tvdbRevoke)" />
+        <setting type="lsep" label="OMDb" />
 		<setting id="omdb.api.key" type="text" label="" default="" visible="false" />
 		<setting id="omdb.api.key.display" type="text" label="API Key" default="" enable="false" visible="!eq(0,)" />
 		<setting type="action" label="Enter API Key" option="close" action="RunScript(script.module.authorizediggz, action=omdbAuth)" visible="eq(-1,)" />

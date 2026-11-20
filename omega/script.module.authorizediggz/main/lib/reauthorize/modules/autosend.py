@@ -52,5 +52,5 @@ def send_if_changed(action, before, notify=None):
             pass
     failed = sync_all.run_all_syncs(include_trakt=False, only=(tag,))
     xbmc.log('%s %s sent to the add-ons after the sign-in%s' % (
-        LOG_TAG, tag, ' (failed: %s)' % ', '.join(failed) if failed else ''), xbmc.LOGINFO)
+        LOG_TAG, tag, ' (see target diagnostics)' if failed.has_issues else ''), xbmc.LOGINFO)
     return label, failed

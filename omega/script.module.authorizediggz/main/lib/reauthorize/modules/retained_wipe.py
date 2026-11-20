@@ -111,6 +111,7 @@ def wipe_retained_data():
     for extra in (trakt_wipe._JSON_SETTINGS, trakt_wipe._ALSO_BLANK):
         for addon, fields in extra.items():
             targets.setdefault(addon, {}).update({key: '' for key in fields})
+    targets.setdefault('script.diggzportal', {}).update({key: '' for key in ('tmdb_account', 'tmdb_session_client', 'mdblist_identity', 'mdblist_key')})
     crew_fields = targets.setdefault('plugin.video.thecrew', {})
     for key in crew_trakt._signin_ids():
         crew_fields.setdefault(key, '0' if key in ('trakt.expires', 'trakt.expires_at') else '')

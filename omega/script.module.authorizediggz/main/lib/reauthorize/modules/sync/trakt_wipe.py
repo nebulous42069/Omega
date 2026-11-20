@@ -30,6 +30,7 @@ TRAKT_KEYS = ('trakt.token', 'trakt.refresh', 'trakt.expires', 'trakt.username')
 # Add-ons that keep the whole Trakt sign-in as one JSON value in a single setting. import_map
 # cannot see these (the value is not equal to any one ReAuthorize setting), so they are named.
 _JSON_SETTINGS = {
+    'script.diggzportal': ('trakt_token',),
     'script.module.tmdbhelper.sync.trakt': ('token',),
     'plugin.video.themoviedb.helper': ('trakt_token',),
     'script.trakt': ('authorization',),
@@ -40,6 +41,7 @@ _JSON_SETTINGS = {
 # Retired add-ons are no longer sent anything, so import_map no longer lists them, but a box can
 # still hold what an earlier version sent: Moria (unmaintained, 1.4.0).
 _ALSO_BLANK = {
+    'script.diggzportal': ('trakt_slug', 'trakt_user_name', 'trakt_oauth_client'),
     'plugin.video.umbrella': ('trakt.authed.clientid',),
     'plugin.video.madtitansports': ('trakt.user_id',),
     'plugin.video.moria': ('trakt.user', 'trakt.token', 'trakt.refresh'),
@@ -154,6 +156,9 @@ def wipe_addons():
             changed += 1
     except Exception as e:
         xbmc.log('%s could not clear The Crew: %s' % (LOG_TAG, e), xbmc.LOGINFO)
+    from reauthorize.modules.sync import portal_sync
+    if portal_sync.installed():
+        portal_sync.invalidate('trakt')
     clear_trakt_session()
     from reauthorize.modules.sync import tmdbmovies_sync
     if _installed(tmdbmovies_sync.ADDON_ID):

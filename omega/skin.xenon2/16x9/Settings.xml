@@ -147,13 +147,13 @@
                     </item>
                     <item id="8">
                         <label>15016</label>
-                        <label2>[B]GAME SETTINGS[/B][CR][CR]Configure rewind support & options ·  Configure keyboard use and number of keyboard players</label2>
+                        <label2>[B]GAME SETTINGS[/B][CR][CR]Configure rewind support &amp; options ·  Configure keyboard use and number of keyboard players</label2>
                         <onclick>ActivateWindow(GameSettings)</onclick>
                         <visible>System.GetBool(gamesgeneral.enable)</visible>
                     </item>
                     <item id="4">
                         <label>14204</label>
-                        <label2>[B]PVR SETTINGS[/B][CR][CR]Configure how the channels & guide are managed  · Configure how Live TV and recordings are managed</label2>
+                        <label2>[B]PVR SETTINGS[/B][CR][CR]Configure how the channels &amp; guide are managed  · Configure how Live TV and recordings are managed</label2>
                         <onclick>ActivateWindow(PVRSettings)</onclick>
                     </item>
                     <item id="5">
@@ -163,7 +163,7 @@
                     </item>
                     <item id="6">
                         <label>14036</label>
-                        <label2>[B]SERVICES SETTINGS[/B][CR][CR]Configure & manage media sharing services · Configure web server · Configure & manage the weather service</label2>
+                        <label2>[B]SERVICES SETTINGS[/B][CR][CR]Configure &amp; manage media sharing services · Configure web server · Configure &amp; manage the weather service</label2>
                         <onclick>ActivateWindow(ServiceSettings)</onclick>
                     </item>
                     <item id="7">

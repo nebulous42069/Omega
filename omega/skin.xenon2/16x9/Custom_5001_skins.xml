@@ -140,7 +140,7 @@
 				<item>
 					<label>Search Movie And TV Portal</label>
 					<onclick>Dialog.Close(5001)</onclick>					
-					<onclick>PlayMedia("plugin://script.extendedinfo?info=search_menu")</onclick>
+					<onclick>RunScript(script.diggzportal,info=search_menu)</onclick>
 				</item>
 				<item>
 					<label>Search Trakt Lists</label>

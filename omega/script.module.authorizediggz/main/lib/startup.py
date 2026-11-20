@@ -143,7 +143,7 @@ def _resend_after_settings_repair(addon_ids):
     try:
         include_trakt = bool(control.setting('trakt.token')) and control.setting('trakt.auto_push.consent') != 'false'
         xbmc.log('[Diggz Account Manager Settings] sending the sign-ins again to %s' % ', '.join(addon_ids), LOGINFO)
-        failed = run_all_syncs(include_trakt=include_trakt)
+        failed = run_all_syncs(include_trakt=include_trakt, portal_explicit=False)
         if failed:
             xbmc.log('[Diggz Account Manager Settings] sync failed for: %s' % ', '.join(failed), LOGINFO)
     except Exception as e:
@@ -167,28 +167,41 @@ def _repair_tmdbh_provider():
         xbmc.log('[Diggz Account Manager] TMDb Helper provider repair failed (%s); use Trakt Sync and check provider compatibility.' % type(exc).__name__, LOGINFO)
 
 
-def _keep_signed_in():
-    # control.monitor, never a new xbmc.Monitor(): one made AFTER Kodi asked the script to stop
-    # never hears about it and waits the full six hours. 1.3.7 made a new one here, so closing
-    # Kodi in its first five minutes (while check_api was still looping) left this script to
-    # be killed ("script didn't stop in 5 seconds", found on the bench 2026-10-04).
+def _wait_for_abort(seconds):
+    """Short waits also check abortRequested, so an upgrade need not wait for a long sleep."""
     monitor = control.monitor
-    since_renew_check = 0
-    while not monitor.waitForAbort(NEW_ADDON_CHECK_SECONDS):
-        _refresh_punchplay()
-        _adopt_trakt()
-        _link_new_addons(at_start=False)
-        _repair_tmdbh_provider()
+    deadline = time.monotonic() + seconds
+    while not monitor.abortRequested():
+        remaining = deadline - time.monotonic()
+        if remaining <= 0:
+            return False
+        if monitor.waitForAbort(min(1, remaining)):
+            return True
+    return True
+
+
+def _keep_signed_in():
+    next_renew = time.monotonic() + RENEW_CHECK_SECONDS
+    while not _wait_for_abort(NEW_ADDON_CHECK_SECONDS):
+        for task in (_refresh_punchplay, _refresh_simkl, _adopt_trakt,
+                     lambda: _link_new_addons(at_start=False), _repair_tmdbh_provider):
+            if control.monitor.abortRequested():
+                return
+            task()
+        if control.monitor.abortRequested():
+            return
         try:
             from reauthorize.modules.sync import mdblist_oauth_sync
             mdblist_oauth_sync.repair_umbrella()
         except Exception as exc:
-            xbmc.log('[Diggz Account Manager] Umbrella MDBList repair failed (%s).'
-                     % type(exc).__name__, LOGINFO)
-        since_renew_check += NEW_ADDON_CHECK_SECONDS
-        if since_renew_check >= RENEW_CHECK_SECONDS:
-            since_renew_check = 0
+            xbmc.log('[Diggz Account Manager] Umbrella MDBList repair failed (%s).' % type(exc).__name__, LOGINFO)
+        if time.monotonic() >= next_renew:
+            next_renew = time.monotonic() + RENEW_CHECK_SECONDS
+            if control.monitor.abortRequested():
+                return
             _refresh_trakt()
+            if control.monitor.abortRequested():
+                return
             _refresh_mdblist()
 
 
@@ -329,7 +342,7 @@ def _shared_backup_notice():
     # forever, until it quietly breaks once the real owner resets it.
     wipe_tags = {_WIPE_TAG[prefix] for _, prefix in shown if prefix in _WIPE_TAG}
     if wipe_tags:
-        run_all_syncs(include_trakt=False, wipe=wipe_tags)
+        run_all_syncs(include_trakt=False, wipe=wipe_tags, portal_explicit=False)
 
     # Both backups still hold them. Start both again from what is left.
     vault.clear()
@@ -379,11 +392,27 @@ def _resend_after_key_swap():
     try:
         from reauthorize.modules.sync_all import run_all_syncs
         include_trakt = bool(accountmgr.getSetting('trakt.token')) and accountmgr.getSetting('trakt.auto_push.consent') != 'false'
-        failed = run_all_syncs(include_trakt=include_trakt)
+        failed = run_all_syncs(include_trakt=include_trakt, portal_explicit=False)
         xbmc.log('[ script.module.authorizediggz ]  Sign-ins sent again after an add-on key change%s.'
                  % (' (failed: %s)' % ', '.join(failed) if failed else ''), LOGINFO)
     except Exception as e:
         xbmc.log('[ script.module.authorizediggz ]  Re-send after a key change failed: %s' % e, LOGINFO)
+
+
+def _refresh_simkl():
+    try:
+        from reauthorize.modules.auth import simkl
+        simkl.refresh_if_due()
+        from reauthorize.modules import tmdbh_compat, restart_hint
+        bundle = simkl.read_bundle()
+        if bundle and tmdbh_compat.installed(tmdbh_compat.SIMKL):
+            held = tmdbh_compat.read_bundle(tmdbh_compat.SIMKL, 'authorization')
+            if not held or held.get('session_id') == bundle.get('session_id'):
+                before = restart_hint.key_files()
+                tmdbh_compat.sync_simkl(bundle)
+                restart_hint.note_for_next_start(before, 'SIMKL provider')
+    except Exception as exc:
+        xbmc.log('[Diggz Account Manager] SIMKL renewal failed (%s)' % type(exc).__name__, LOGINFO)
 
 
 def _link_simkl():
@@ -400,11 +429,19 @@ def _link_simkl():
         from reauthorize.modules.sync import simkl_sync
         before = restart_hint.key_files()
         if accountmgr.getSetting('simkl.all_push.done') != 'true':
-            simkl_sync.Auth().simkl_auth()
+            simkl_sync.Auth().simkl_auth(portal_explicit=False)
             accountmgr.setSetting('simkl.all_push.done', 'true')
             xbmc.log('[ script.module.authorizediggz ]  Simkl sent to every installed add-on (first start after updating).', LOGINFO)
         else:
             simkl_sync.ensure_keys()
+            try:
+                portal = xbmcaddon.Addon('script.diggzportal')
+                if portal.getSetting('simkl_managed')=='true' or (portal.getSetting('simkl_optout')!='true' and not portal.getSetting('simkl_authorization') and not portal.getSetting('simkl_manager_grant')):
+                    simkl_sync.sync_portal(True, explicit=False)
+            except Exception: pass
+            from reauthorize.modules.auth.simkl import read_bundle
+            from reauthorize.modules import tmdbh_compat
+            tmdbh_compat.sync_simkl(read_bundle())
         restart_hint.note_for_next_start(before, 'Simkl')
     except Exception as e:
         xbmc.log('[ script.module.authorizediggz ]  Sending Simkl to add-ons failed: %s' % e, LOGINFO)
@@ -548,6 +585,8 @@ def check_api():
             if first_pass: _step('key check: reading key files')
             key_files_before = restart_hint.key_files()
             for chk, chkset, path, old_client, old_secret, label in _api_addons():
+                if monitor.abortRequested():
+                    return
                 if label == 'TMDb Helper':
                     from reauthorize.modules import tmdbh_compat
                     if tmdbh_compat.installed(tmdbh_compat.TRAKT):
@@ -646,7 +685,7 @@ def check_api():
         if first_pass:
             _step('key check: first pass done')
             first_pass = False
-        if monitor.waitForAbort(10):
+        if _wait_for_abort(10):
             break
 
 
@@ -715,10 +754,16 @@ else:
             _run_auto_restore_unlocked()
 
     def _run_auto_restore_unlocked():
+        if control.monitor.abortRequested():
+            return
         if not any(accountmgr.getSetting(k) for k in vault.CREDENTIAL_KEYS if vault.is_credential_key(k)):
             server.auto_restore()
+        if control.monitor.abortRequested():
+            return
         vault.restore_missing_keys()  # fill in anything the server backup didn't have
         _sync_settings_display_values()
+        if control.monitor.abortRequested():
+            return
         _refresh_trakt()  # a restored token may be old; renew before it is pushed out
         _refresh_punchplay()  # a restored PunchPlay token is always old: they last an hour
 
@@ -739,8 +784,10 @@ else:
             else:
                 include_trakt = (consent == 'true')
 
+        if control.monitor.abortRequested():
+            return
         try:
-            failed = run_all_syncs(include_trakt=include_trakt)  # push restored credentials into every installed addon
+            failed = run_all_syncs(include_trakt=include_trakt, portal_explicit=False)  # push restored credentials into every installed addon
             if failed:
                 xbmc.log('[ script.module.authorizediggz ]  Auto-restore: sync failed for: %s' % ', '.join(failed), LOGINFO)
         except Exception as e:
@@ -749,7 +796,11 @@ else:
         if include_trakt and accountmgr.getSetting('trakt.token'):
             accountmgr.setSetting('trakt.all_push.done', 'true')  # the push above covered it
             accountmgr.setSetting('api.service', 'true')  # keeps the Trakt keys patched after add-on updates
+        if control.monitor.abortRequested():
+            return
         vault.backup()
+        if control.monitor.abortRequested():
+            return
         server.backup()
         xbmc.log('[ script.module.authorizediggz ]  Auto-restore complete (new build detected).', LOGINFO)
 
@@ -776,13 +827,15 @@ else:
     else:
         xbmc.log('[ script.module.authorizediggz ]  Credentials present - auto-restore skipped.', LOGINFO)
         _step('renewal checks')
-        _refresh_trakt()
-        _refresh_mdblist()
-        _refresh_punchplay()
+        for task in (_refresh_trakt, _refresh_mdblist, _refresh_punchplay):
+            if control.monitor.abortRequested():
+                raise SystemExit
+            task()
         _step('re-send after a key swap')
         _resend_after_key_swap()
         _step('one-time pushes')
         _push_trakt_once()
+        _refresh_simkl()
         _link_simkl()
         _step('new add-ons')
         _link_new_addons(at_start=True)
@@ -811,7 +864,11 @@ else:
 
     # ACCOUNT EXPIRES NOTIFICATION
     _step('account expiry check')
-    PremAccntNotification().run()
+    if not control.monitor.abortRequested():
+        try:
+            PremAccntNotification().run()
+        except Exception as exc:
+            xbmc.log('[Diggz Account Manager] Expiry check failed (%s).' % type(exc).__name__, xbmc.LOGWARNING)
     _step('account expiry check done')
 
     # GENOCIDE TRAKT SYNC
@@ -843,3 +900,4 @@ else:
     # for it themselves (each renewal kills the other copies).
     _step('start-up finished; staying up for renewals and new add-ons')
     _keep_signed_in()
+    _step('stopped')

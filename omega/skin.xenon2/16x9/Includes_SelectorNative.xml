@@ -1190,7 +1190,7 @@
 		<value condition="String.Contains(Container.ListItem.Filename,webdl) | String.Contains(Container.ListItem.Filename,web-dl) | String.Contains(Container.ListItem.Filename,webtv) | String.Contains(Container.ListItem.Filename,web-tv)">webdl.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.VideoResolution)">$INFO[Container.ListItem.VideoResolution]p.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.Property(VideoResolution))">$INFO[Container.ListItem.Property(VideoResolution)]p.png</value>
-		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,extendedinfo)]">trailers.png</value>
+		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,script.diggzportal)]">trailers.png</value>
 		<value/>
 	</variable>
   <variable name="HomeWidgetCharacterArtVarX2S2">
@@ -1217,7 +1217,7 @@
 		<value condition="String.Contains(Container.ListItem.Filename,webdl) | String.Contains(Container.ListItem.Filename,web-dl) | String.Contains(Container.ListItem.Filename,webtv) | String.Contains(Container.ListItem.Filename,web-tv)">discart/webdl.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.VideoResolution)">discart/$INFO[Container.ListItem.VideoResolution]p.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.Property(VideoResolution))">discart/$INFO[Container.ListItem.Property(VideoResolution)]p.png</value>
-		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,extendedinfo)]">discart/trailers.png</value>
+		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,script.diggzportal)]">discart/trailers.png</value>
 		<value/>
 	</variable>
   <variable name="HomeWidgetFanArtVarX2S2">
@@ -2799,7 +2799,7 @@
 		<value condition="String.Contains(Container.ListItem.Filename,webdl) | String.Contains(Container.ListItem.Filename,web-dl) | String.Contains(Container.ListItem.Filename,webtv) | String.Contains(Container.ListItem.Filename,web-tv)">webdl.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.VideoResolution)">$INFO[Container.ListItem.VideoResolution]p.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.Property(VideoResolution))">$INFO[Container.ListItem.Property(VideoResolution)]p.png</value>
-		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,extendedinfo)]">trailers.png</value>
+		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,script.diggzportal)]">trailers.png</value>
 		<value/>
 	</variable>
   <variable name="HomeWidgetCharacterArtVarX2S3">
@@ -2826,7 +2826,7 @@
 		<value condition="String.Contains(Container.ListItem.Filename,webdl) | String.Contains(Container.ListItem.Filename,web-dl) | String.Contains(Container.ListItem.Filename,webtv) | String.Contains(Container.ListItem.Filename,web-tv)">discart/webdl.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.VideoResolution)">discart/$INFO[Container.ListItem.VideoResolution]p.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.Property(VideoResolution))">discart/$INFO[Container.ListItem.Property(VideoResolution)]p.png</value>
-		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,extendedinfo)]">discart/trailers.png</value>
+		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,script.diggzportal)]">discart/trailers.png</value>
 		<value/>
 	</variable>
   <variable name="HomeWidgetFanArtVarX2S3">
@@ -4408,7 +4408,7 @@
 		<value condition="String.Contains(Container.ListItem.Filename,webdl) | String.Contains(Container.ListItem.Filename,web-dl) | String.Contains(Container.ListItem.Filename,webtv) | String.Contains(Container.ListItem.Filename,web-tv)">webdl.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.VideoResolution)">$INFO[Container.ListItem.VideoResolution]p.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.Property(VideoResolution))">$INFO[Container.ListItem.Property(VideoResolution)]p.png</value>
-		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,extendedinfo)]">trailers.png</value>
+		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,script.diggzportal)]">trailers.png</value>
 		<value/>
 	</variable>
   <variable name="HomeWidgetCharacterArtVarX2S4">
@@ -4435,7 +4435,7 @@
 		<value condition="String.Contains(Container.ListItem.Filename,webdl) | String.Contains(Container.ListItem.Filename,web-dl) | String.Contains(Container.ListItem.Filename,webtv) | String.Contains(Container.ListItem.Filename,web-tv)">discart/webdl.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.VideoResolution)">discart/$INFO[Container.ListItem.VideoResolution]p.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.Property(VideoResolution))">discart/$INFO[Container.ListItem.Property(VideoResolution)]p.png</value>
-		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,extendedinfo)]">discart/trailers.png</value>
+		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,script.diggzportal)]">discart/trailers.png</value>
 		<value/>
 	</variable>
   <variable name="HomeWidgetFanArtVarX2S4">
@@ -6017,7 +6017,7 @@
 		<value condition="String.Contains(Container.ListItem.Filename,webdl) | String.Contains(Container.ListItem.Filename,web-dl) | String.Contains(Container.ListItem.Filename,webtv) | String.Contains(Container.ListItem.Filename,web-tv)">webdl.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.VideoResolution)">$INFO[Container.ListItem.VideoResolution]p.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.Property(VideoResolution))">$INFO[Container.ListItem.Property(VideoResolution)]p.png</value>
-		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,extendedinfo)]">trailers.png</value>
+		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,script.diggzportal)]">trailers.png</value>
 		<value/>
 	</variable>
   <variable name="HomeWidgetCharacterArtVarX2S5">
@@ -6044,7 +6044,7 @@
 		<value condition="String.Contains(Container.ListItem.Filename,webdl) | String.Contains(Container.ListItem.Filename,web-dl) | String.Contains(Container.ListItem.Filename,webtv) | String.Contains(Container.ListItem.Filename,web-tv)">discart/webdl.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.VideoResolution)">discart/$INFO[Container.ListItem.VideoResolution]p.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.Property(VideoResolution))">discart/$INFO[Container.ListItem.Property(VideoResolution)]p.png</value>
-		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,extendedinfo)]">discart/trailers.png</value>
+		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,script.diggzportal)]">discart/trailers.png</value>
 		<value/>
 	</variable>
   <variable name="HomeWidgetFanArtVarX2S5">
@@ -7626,7 +7626,7 @@
 		<value condition="String.Contains(Container.ListItem.Filename,webdl) | String.Contains(Container.ListItem.Filename,web-dl) | String.Contains(Container.ListItem.Filename,webtv) | String.Contains(Container.ListItem.Filename,web-tv)">webdl.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.VideoResolution)">$INFO[Container.ListItem.VideoResolution]p.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.Property(VideoResolution))">$INFO[Container.ListItem.Property(VideoResolution)]p.png</value>
-		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,extendedinfo)]">trailers.png</value>
+		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,script.diggzportal)]">trailers.png</value>
 		<value/>
 	</variable>
   <variable name="HomeWidgetCharacterArtVarX2S6">
@@ -7653,7 +7653,7 @@
 		<value condition="String.Contains(Container.ListItem.Filename,webdl) | String.Contains(Container.ListItem.Filename,web-dl) | String.Contains(Container.ListItem.Filename,webtv) | String.Contains(Container.ListItem.Filename,web-tv)">discart/webdl.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.VideoResolution)">discart/$INFO[Container.ListItem.VideoResolution]p.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.Property(VideoResolution))">discart/$INFO[Container.ListItem.Property(VideoResolution)]p.png</value>
-		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,extendedinfo)]">discart/trailers.png</value>
+		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,script.diggzportal)]">discart/trailers.png</value>
 		<value/>
 	</variable>
   <variable name="HomeWidgetFanArtVarX2S6">
@@ -9235,7 +9235,7 @@
 		<value condition="String.Contains(Container.ListItem.Filename,webdl) | String.Contains(Container.ListItem.Filename,web-dl) | String.Contains(Container.ListItem.Filename,webtv) | String.Contains(Container.ListItem.Filename,web-tv)">webdl.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.VideoResolution)">$INFO[Container.ListItem.VideoResolution]p.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.Property(VideoResolution))">$INFO[Container.ListItem.Property(VideoResolution)]p.png</value>
-		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,extendedinfo)]">trailers.png</value>
+		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,script.diggzportal)]">trailers.png</value>
 		<value/>
 	</variable>
   <variable name="HomeWidgetCharacterArtVarX2S7">
@@ -9262,7 +9262,7 @@
 		<value condition="String.Contains(Container.ListItem.Filename,webdl) | String.Contains(Container.ListItem.Filename,web-dl) | String.Contains(Container.ListItem.Filename,webtv) | String.Contains(Container.ListItem.Filename,web-tv)">discart/webdl.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.VideoResolution)">discart/$INFO[Container.ListItem.VideoResolution]p.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.Property(VideoResolution))">discart/$INFO[Container.ListItem.Property(VideoResolution)]p.png</value>
-		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,extendedinfo)]">discart/trailers.png</value>
+		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,script.diggzportal)]">discart/trailers.png</value>
 		<value/>
 	</variable>
   <variable name="HomeWidgetFanArtVarX2S7">
@@ -10844,7 +10844,7 @@
 		<value condition="String.Contains(Container.ListItem.Filename,webdl) | String.Contains(Container.ListItem.Filename,web-dl) | String.Contains(Container.ListItem.Filename,webtv) | String.Contains(Container.ListItem.Filename,web-tv)">webdl.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.VideoResolution)">$INFO[Container.ListItem.VideoResolution]p.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.Property(VideoResolution))">$INFO[Container.ListItem.Property(VideoResolution)]p.png</value>
-		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,extendedinfo)]">trailers.png</value>
+		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,script.diggzportal)]">trailers.png</value>
 		<value/>
 	</variable>
   <variable name="HomeWidgetCharacterArtVarX2S8">
@@ -10871,7 +10871,7 @@
 		<value condition="String.Contains(Container.ListItem.Filename,webdl) | String.Contains(Container.ListItem.Filename,web-dl) | String.Contains(Container.ListItem.Filename,webtv) | String.Contains(Container.ListItem.Filename,web-tv)">discart/webdl.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.VideoResolution)">discart/$INFO[Container.ListItem.VideoResolution]p.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.Property(VideoResolution))">discart/$INFO[Container.ListItem.Property(VideoResolution)]p.png</value>
-		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,extendedinfo)]">discart/trailers.png</value>
+		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,script.diggzportal)]">discart/trailers.png</value>
 		<value/>
 	</variable>
   <variable name="HomeWidgetFanArtVarX2S8">
@@ -12453,7 +12453,7 @@
 		<value condition="String.Contains(Container.ListItem.Filename,webdl) | String.Contains(Container.ListItem.Filename,web-dl) | String.Contains(Container.ListItem.Filename,webtv) | String.Contains(Container.ListItem.Filename,web-tv)">webdl.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.VideoResolution)">$INFO[Container.ListItem.VideoResolution]p.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.Property(VideoResolution))">$INFO[Container.ListItem.Property(VideoResolution)]p.png</value>
-		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,extendedinfo)]">trailers.png</value>
+		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,script.diggzportal)]">trailers.png</value>
 		<value/>
 	</variable>
   <variable name="HomeWidgetCharacterArtVarX2S9">
@@ -12480,7 +12480,7 @@
 		<value condition="String.Contains(Container.ListItem.Filename,webdl) | String.Contains(Container.ListItem.Filename,web-dl) | String.Contains(Container.ListItem.Filename,webtv) | String.Contains(Container.ListItem.Filename,web-tv)">discart/webdl.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.VideoResolution)">discart/$INFO[Container.ListItem.VideoResolution]p.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.Property(VideoResolution))">discart/$INFO[Container.ListItem.Property(VideoResolution)]p.png</value>
-		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,extendedinfo)]">discart/trailers.png</value>
+		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,script.diggzportal)]">discart/trailers.png</value>
 		<value/>
 	</variable>
   <variable name="HomeWidgetFanArtVarX2S9">
@@ -14062,7 +14062,7 @@
 		<value condition="String.Contains(Container.ListItem.Filename,webdl) | String.Contains(Container.ListItem.Filename,web-dl) | String.Contains(Container.ListItem.Filename,webtv) | String.Contains(Container.ListItem.Filename,web-tv)">webdl.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.VideoResolution)">$INFO[Container.ListItem.VideoResolution]p.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.Property(VideoResolution))">$INFO[Container.ListItem.Property(VideoResolution)]p.png</value>
-		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,extendedinfo)]">trailers.png</value>
+		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,script.diggzportal)]">trailers.png</value>
 		<value/>
 	</variable>
   <variable name="HomeWidgetCharacterArtVarX2S10">
@@ -14089,7 +14089,7 @@
 		<value condition="String.Contains(Container.ListItem.Filename,webdl) | String.Contains(Container.ListItem.Filename,web-dl) | String.Contains(Container.ListItem.Filename,webtv) | String.Contains(Container.ListItem.Filename,web-tv)">discart/webdl.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.VideoResolution)">discart/$INFO[Container.ListItem.VideoResolution]p.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.Property(VideoResolution))">discart/$INFO[Container.ListItem.Property(VideoResolution)]p.png</value>
-		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,extendedinfo)]">discart/trailers.png</value>
+		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,script.diggzportal)]">discart/trailers.png</value>
 		<value/>
 	</variable>
   <variable name="HomeWidgetFanArtVarX2S10">
@@ -15652,7 +15652,7 @@
 		<value condition="String.Contains(Container.ListItem.Filename,webdl) | String.Contains(Container.ListItem.Filename,web-dl) | String.Contains(Container.ListItem.Filename,webtv) | String.Contains(Container.ListItem.Filename,web-tv)">webdl.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.VideoResolution)">$INFO[Container.ListItem.VideoResolution]p.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.Property(VideoResolution))">$INFO[Container.ListItem.Property(VideoResolution)]p.png</value>
-		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,extendedinfo)]">trailers.png</value>
+		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,script.diggzportal)]">trailers.png</value>
 		<value/>
 	</variable><variable name="HomeWidgetCharacterArtVarX2S11">
 		<value condition="!String.IsEmpty(ListItem.Art(tvshow.characterart))">$INFO[ListItem.Art(tvshow.characterart)]</value>
@@ -15675,7 +15675,7 @@
 		<value condition="String.Contains(Container.ListItem.Filename,webdl) | String.Contains(Container.ListItem.Filename,web-dl) | String.Contains(Container.ListItem.Filename,webtv) | String.Contains(Container.ListItem.Filename,web-tv)">discart/webdl.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.VideoResolution)">discart/$INFO[Container.ListItem.VideoResolution]p.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.Property(VideoResolution))">discart/$INFO[Container.ListItem.Property(VideoResolution)]p.png</value>
-		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,extendedinfo)]">discart/trailers.png</value>
+		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,script.diggzportal)]">discart/trailers.png</value>
 		<value/>
 	</variable><variable name="HomeWidgetFanArtVarX2S11">
 		<value condition="!String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.Art(fanart)]</value>
@@ -17191,7 +17191,7 @@
 		<value condition="String.Contains(Container.ListItem.Filename,webdl) | String.Contains(Container.ListItem.Filename,web-dl) | String.Contains(Container.ListItem.Filename,webtv) | String.Contains(Container.ListItem.Filename,web-tv)">webdl.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.VideoResolution)">$INFO[Container.ListItem.VideoResolution]p.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.Property(VideoResolution))">$INFO[Container.ListItem.Property(VideoResolution)]p.png</value>
-		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,extendedinfo)]">trailers.png</value>
+		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,script.diggzportal)]">trailers.png</value>
 		<value/>
 	</variable><variable name="HomeWidgetCharacterArtVarX2S12">
 		<value condition="!String.IsEmpty(ListItem.Art(tvshow.characterart))">$INFO[ListItem.Art(tvshow.characterart)]</value>
@@ -17214,7 +17214,7 @@
 		<value condition="String.Contains(Container.ListItem.Filename,webdl) | String.Contains(Container.ListItem.Filename,web-dl) | String.Contains(Container.ListItem.Filename,webtv) | String.Contains(Container.ListItem.Filename,web-tv)">discart/webdl.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.VideoResolution)">discart/$INFO[Container.ListItem.VideoResolution]p.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.Property(VideoResolution))">discart/$INFO[Container.ListItem.Property(VideoResolution)]p.png</value>
-		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,extendedinfo)]">discart/trailers.png</value>
+		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,script.diggzportal)]">discart/trailers.png</value>
 		<value/>
 	</variable><variable name="HomeWidgetFanArtVarX2S12">
 		<value condition="!String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.Art(fanart)]</value>
@@ -18730,7 +18730,7 @@
 		<value condition="String.Contains(Container.ListItem.Filename,webdl) | String.Contains(Container.ListItem.Filename,web-dl) | String.Contains(Container.ListItem.Filename,webtv) | String.Contains(Container.ListItem.Filename,web-tv)">webdl.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.VideoResolution)">$INFO[Container.ListItem.VideoResolution]p.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.Property(VideoResolution))">$INFO[Container.ListItem.Property(VideoResolution)]p.png</value>
-		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,extendedinfo)]">trailers.png</value>
+		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,script.diggzportal)]">trailers.png</value>
 		<value/>
 	</variable><variable name="HomeWidgetCharacterArtVarX2S13">
 		<value condition="!String.IsEmpty(ListItem.Art(tvshow.characterart))">$INFO[ListItem.Art(tvshow.characterart)]</value>
@@ -18753,7 +18753,7 @@
 		<value condition="String.Contains(Container.ListItem.Filename,webdl) | String.Contains(Container.ListItem.Filename,web-dl) | String.Contains(Container.ListItem.Filename,webtv) | String.Contains(Container.ListItem.Filename,web-tv)">discart/webdl.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.VideoResolution)">discart/$INFO[Container.ListItem.VideoResolution]p.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.Property(VideoResolution))">discart/$INFO[Container.ListItem.Property(VideoResolution)]p.png</value>
-		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,extendedinfo)]">discart/trailers.png</value>
+		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,script.diggzportal)]">discart/trailers.png</value>
 		<value/>
 	</variable><variable name="HomeWidgetFanArtVarX2S13">
 		<value condition="!String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.Art(fanart)]</value>
@@ -20269,7 +20269,7 @@
 		<value condition="String.Contains(Container.ListItem.Filename,webdl) | String.Contains(Container.ListItem.Filename,web-dl) | String.Contains(Container.ListItem.Filename,webtv) | String.Contains(Container.ListItem.Filename,web-tv)">webdl.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.VideoResolution)">$INFO[Container.ListItem.VideoResolution]p.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.Property(VideoResolution))">$INFO[Container.ListItem.Property(VideoResolution)]p.png</value>
-		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,extendedinfo)]">trailers.png</value>
+		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,script.diggzportal)]">trailers.png</value>
 		<value/>
 	</variable><variable name="HomeWidgetCharacterArtVarX2S14">
 		<value condition="!String.IsEmpty(ListItem.Art(tvshow.characterart))">$INFO[ListItem.Art(tvshow.characterart)]</value>
@@ -20292,7 +20292,7 @@
 		<value condition="String.Contains(Container.ListItem.Filename,webdl) | String.Contains(Container.ListItem.Filename,web-dl) | String.Contains(Container.ListItem.Filename,webtv) | String.Contains(Container.ListItem.Filename,web-tv)">discart/webdl.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.VideoResolution)">discart/$INFO[Container.ListItem.VideoResolution]p.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.Property(VideoResolution))">discart/$INFO[Container.ListItem.Property(VideoResolution)]p.png</value>
-		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,extendedinfo)]">discart/trailers.png</value>
+		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,script.diggzportal)]">discart/trailers.png</value>
 		<value/>
 	</variable><variable name="HomeWidgetFanArtVarX2S14">
 		<value condition="!String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.Art(fanart)]</value>
@@ -21808,7 +21808,7 @@
 		<value condition="String.Contains(Container.ListItem.Filename,webdl) | String.Contains(Container.ListItem.Filename,web-dl) | String.Contains(Container.ListItem.Filename,webtv) | String.Contains(Container.ListItem.Filename,web-tv)">webdl.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.VideoResolution)">$INFO[Container.ListItem.VideoResolution]p.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.Property(VideoResolution))">$INFO[Container.ListItem.Property(VideoResolution)]p.png</value>
-		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,extendedinfo)]">trailers.png</value>
+		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,script.diggzportal)]">trailers.png</value>
 		<value/>
 	</variable><variable name="HomeWidgetCharacterArtVarX2S15">
 		<value condition="!String.IsEmpty(ListItem.Art(tvshow.characterart))">$INFO[ListItem.Art(tvshow.characterart)]</value>
@@ -21831,7 +21831,7 @@
 		<value condition="String.Contains(Container.ListItem.Filename,webdl) | String.Contains(Container.ListItem.Filename,web-dl) | String.Contains(Container.ListItem.Filename,webtv) | String.Contains(Container.ListItem.Filename,web-tv)">discart/webdl.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.VideoResolution)">discart/$INFO[Container.ListItem.VideoResolution]p.png</value>
 		<value condition="!String.IsEmpty(Container.ListItem.Property(VideoResolution))">discart/$INFO[Container.ListItem.Property(VideoResolution)]p.png</value>
-		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,extendedinfo)]">discart/trailers.png</value>
+		<value condition="String.IsEmpty(Container.ListItem.Property(VideoResolution)) + String.IsEmpty(Container.ListItem.TVShowTitle) + [!String.IsEmpty(Container.ListItem.Trailer) | String.Contains(Container.ListItem.FolderPath,script.diggzportal)]">discart/trailers.png</value>
 		<value/>
 	</variable><variable name="HomeWidgetFanArtVarX2S15">
 		<value condition="!String.IsEmpty(ListItem.Art(fanart))">$INFO[ListItem.Art(fanart)]</value>

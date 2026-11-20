@@ -3,6 +3,7 @@ import os
 import ast
 import tempfile
 import threading
+import sys
 import xml.etree.ElementTree as ET
 
 import xbmc
@@ -23,19 +24,50 @@ _TRAKT_ACTION_USERNAME_ADDONS = frozenset({
 })
 
 
+class IncompatibleSetting(RuntimeError):
+    pass
+
+
 def begin():
     _state.errors = set()
     _state.reached = set()
+    _state.warnings = set()
+    _state.last_addon = None
 
 
-def failed(addon_id='adapter'):
+def _ensure():
     if not hasattr(_state, 'errors'):
         begin()
+
+
+def warning(addon_id, reason):
+    _ensure()
+    item = (addon_id, reason)
+    if item not in _state.warnings:
+        _state.warnings.add(item)
+        xbmc.log('[Diggz Account Manager] Skipped %s: %s' % item, xbmc.LOGWARNING)
+
+
+def warnings():
+    return sorted(getattr(_state, 'warnings', ()))
+
+
+def failed(addon_id=None):
+    _ensure()
+    if isinstance(sys.exc_info()[1], IncompatibleSetting):
+        return
+    if addon_id is None and _state.last_addon in _state.errors:
+        return
+    addon_id = addon_id or 'adapter'
     _state.errors.add(addon_id)
 
 
 def errors():
     return sorted(getattr(_state, 'errors', ()))
+
+
+def reached():
+    return sorted(getattr(_state, 'reached', ()))
 
 
 def declared_settings(addon):
@@ -54,14 +86,14 @@ def profile_ready(addon_id, path):
         return False
     if xbmcvfs.exists(path):
         return True
-    failed(addon_id)
-    xbmc.log('[Diggz Account Manager] Open %s once to initialize its storage, then retry sync.' %
-             addon_id, xbmc.LOGWARNING)
+    warning(addon_id, 'not initialized; open the add-on once and retry')
     return False
 
 
 class _Addon:
     def __init__(self, addon_id):
+        _ensure()
+        _state.last_addon = addon_id
         self.id = addon_id
         self.raw = _real_addon(addon_id)
         self.schema = declared_settings(self.raw)
@@ -69,7 +101,29 @@ class _Addon:
     def __getattr__(self, name):
         return getattr(self.raw, name)
 
+    def _writable(self, key):
+        legacy = key == 'trakt.user' and self.id in _TRAKT_ACTION_USERNAME_ADDONS
+        return self.schema is None or (key in self.schema and (self.schema[key] != 'action' or legacy))
+
+    def _value(self, key, value):
+        value = str(value)
+        kind = (self.schema or {}).get(key, '')
+        if value == '' and kind in ('integer', 'number', 'float'):
+            return '0'
+        if value == '' and kind in ('bool', 'boolean'):
+            return 'false'
+        return value
+
+    def preflight(self, pairs):
+        missing = sorted({key for key, value in pairs if not self._writable(key)
+                          and (value != '' or self.getSetting(key) != '')})
+        if missing:
+            warning(self.id, 'incompatible; missing writable setting(s): ' + ', '.join(missing))
+            return False
+        return True
+
     def getSetting(self, key):
+        _state.last_addon = self.id
         try:
             return _real_addon(self.id).getSetting(key)
         except Exception:
@@ -77,25 +131,38 @@ class _Addon:
             raise
 
     def setSetting(self, key, value):
+        _state.last_addon = self.id
         try:
-            value = str(value)
-            legacy_username = key == 'trakt.user' and self.id in _TRAKT_ACTION_USERNAME_ADDONS
-            if self.schema is not None and (key not in self.schema or
-                                           (self.schema[key] == 'action' and not legacy_username)):
+            value = self._value(key, value)
+            if not self._writable(key):
                 if value == '' and self.getSetting(key) == '':
                     return
-                xbmc.log('[Diggz Account Manager] %s does not declare a writable %s setting. '
-                         'Check the installed add-on version.' % (self.id, key), xbmc.LOGWARNING)
-                raise RuntimeError('Target setting is missing or read-only')
-            # A fresh handle avoids reverting a concurrent setting snapshot.
-            _real_addon(self.id).setSetting(key, value)
-            if _real_addon(self.id).getSetting(key) != value:
-                xbmc.log('[Diggz Account Manager] %s did not save %s. If newly installed, open the add-on once and retry sync.' %
+                warning(self.id, 'incompatible; missing writable setting: ' + key)
+                raise IncompatibleSetting('Target setting is missing or read-only')
+            # Avoid Kodi's onSettingsChanged broadcast for unchanged values.
+            if self.getSetting(key) != value:
+                raw = _real_addon(self.id)
+                kind = (self.schema or {}).get(key, '')
+                # Otaku uses Kodi's typed schema. Use the matching native setter.
+                if self.id == 'plugin.video.otaku' and kind in ('boolean', 'integer', 'number', 'string'):
+                    settings = raw.getSettings()
+                    methods = {'boolean': ('setBool', value.lower() == 'true'),
+                               'string': ('setString', value)}
+                    if kind == 'integer':
+                        methods[kind] = ('setInt', int(value))
+                    elif kind == 'number':
+                        methods[kind] = ('setNumber', float(value))
+                    method, typed = methods[kind]
+                    getattr(settings, method)(key, typed)
+                else:
+                    raw.setSetting(key, value)
+            if self.getSetting(key) != value:
+                xbmc.log('[Diggz Account Manager] %s did not save %s. Open the add-on once and retry.' %
                          (self.id, key), xbmc.LOGWARNING)
                 raise RuntimeError('Setting readback did not match')
-            if not hasattr(_state, 'reached'):
-                begin()
             _state.reached.add(self.id)
+        except IncompatibleSetting:
+            raise
         except Exception:
             failed(self.id)
             raise
@@ -103,7 +170,7 @@ class _Addon:
     setSettingString = setSetting
 
     def set_optional(self, key, value):
-        if self.schema is None or key in self.schema and self.schema[key] != 'action':
+        if self._writable(key):
             self.setSetting(key, value)
 
 
@@ -122,7 +189,7 @@ def addon_api(api):
 def needs(addon_id, pairs):
     from reauthorize.modules import control
     addon = _Addon(addon_id)
-    values = [(key, str(value)) for key, value in pairs if value or control.wiping()]
+    values = [(key, addon._value(key, value)) for key, value in pairs if value or control.wiping()]
     enable = {'rd.token': 'rd.enabled', 'rd.auth': 'realdebrid.enabled',
               'realdebridtoken': 'realdebrid.enable', 'pm.token': 'pm.enabled',
               'premiumize.token': 'premiumize.enabled', 'premiumizetoken': 'premiumize.enable',
@@ -130,14 +197,19 @@ def needs(addon_id, pairs):
               'alldebridtoken': 'alldebrid.enable', 'tb.token': 'tb.enabled',
               'torboxtoken': 'torbox.enable', 'ed.token': 'ed.enabled',
               'easydebridtoken': 'easydebrid.enable'}
-    # Apply only verified naming conventions; do not invent a missing field.
     if addon_id == 'plugin.video.prism':
         enable['tb.token'] = 'torbox.enabled'
     elif addon_id not in ('plugin.video.seren', 'plugin.video.pov', 'plugin.video.umbrella'):
         enable = {}
-    if any(value and key in enable and addon.getSetting(enable[key]) != 'true' for key, value in values):
+    flags = [(enable[key], 'true' if value else 'false') for key, value in values
+             if key in enable and addon._writable(enable[key])]
+    if not addon.preflight(values):
+        return False
+    if any(addon.getSetting(key) != value for key, value in values + flags):
         return True
-    return any(addon.getSetting(key) != value for key, value in values)
+    if values:
+        _state.reached.add(addon_id)
+    return False
 
 
 def installed(addon_id):
@@ -149,11 +221,14 @@ def put(addon_id, pairs, wipe=False):
         return False
     try:
         addon = _Addon(addon_id)
+        pairs = [(key, addon._value(key, value)) for key, value in pairs if value or wipe]
+        if not addon.preflight(pairs):
+            return False
         for key, value in pairs:
-            if value or wipe:
-                if addon.getSetting(key) != str(value):
-                    addon.setSetting(key, str(value))
+            addon.setSetting(key, value)
         return True
+    except IncompatibleSetting:
+        return False
     except Exception as exc:
         failed(addon_id)
         xbmc.log('[Diggz Account Manager] Follow-up sync failed for %s (%s).' %
@@ -187,7 +262,8 @@ def clear_setting(addon_id, key, credential_key=None):
     numeric = kind in ('integer', 'number', 'float') or credential_key == 'trakt.expires'
     boolean = kind in ('bool', 'boolean')
     wanted = '0' if numeric else ('false' if boolean else '')
-    addon.setSetting(key, wanted)
+    if addon.getSetting(key) != wanted:
+        addon.setSetting(key, wanted)
     actual = _real_addon(addon_id).getSetting(key)
     if numeric:
         try:
@@ -281,8 +357,9 @@ def extra(tag):
         if value or wipe:
             put('plugin.video.seren', [('offcloud.apikey', value), ('offcloud.enabled', 'false' if wipe else 'true')], wipe)
             put('script.module.resolveurl', [('OffCloudResolver_apikey', value), ('OffCloudResolver_enabled', 'false' if wipe else 'true')], wipe)
-    elif tag in ('rd', 'pm', 'ad'):
-        prefix = {'rd': 'RealDebridResolver', 'pm': 'PremiumizeMeResolver', 'ad': 'AllDebridResolver'}[tag]
+    elif tag in ('rd', 'pm'):
+        # AllDebrid's adapter verifies the token before enabling the resolver.
+        prefix = {'rd': 'RealDebridResolver', 'pm': 'PremiumizeMeResolver'}[tag]
         put('script.module.resolveurl', [(prefix + '_enabled', 'false' if wipe else 'true')], wipe)
     elif tag == 'meta':
         value = get('mdb.api.key')
@@ -293,30 +370,62 @@ def extra(tag):
             put('plugin.video.prism', [('tmdb.apikey', value)], wipe)
 
 
+def _disable_matching(addon, sid, key):
+    if not key.endswith('.token') and key not in ('easynews.password', 'linksnappy.password', 'filepursuit.api.key'):
+        return
+    service = key.split('.')[0]
+    short = {'torbox': 'tb', 'realdebrid': 'rd', 'premiumize': 'pm',
+             'alldebrid': 'ad', 'easydebrid': 'ed', 'offcloud': 'oc'}.get(service, service)
+    candidates = (service + '.enabled', service + '.enable', short + '.enabled',
+                  service + '_enabled', short + '_enabled', short + '_auth_done',
+                  'debrid_use_' + ('tr' if service == 'torbox' else short),
+                  'provider.easynews' if service == 'easynews' else '',
+                  'provider.easy' if service == 'easynews' else '',
+                  'enable_easynews' if service == 'easynews' else '',
+                  'RealDebridResolver_login' if service == 'realdebrid' else '',
+                  {'torbox': 'TorBoxResolver_enabled', 'realdebrid': 'RealDebridResolver_enabled',
+                   'premiumize': 'PremiumizeMeResolver_enabled', 'alldebrid': 'AllDebridResolver_enabled',
+                   'offcloud': 'OffCloudResolver_enabled'}.get(service, ''))
+    for flag in set(candidates):
+        if flag and addon.schema and addon.schema.get(flag) in ('bool', 'boolean'):
+            addon.setSetting(flag, 'false')
+    if addon.id == 'plugin.video.otaku':
+        addon.set_optional(service + '.auth.status', '')
+        addon.set_optional(service + '.username', '')
+        if service == 'realdebrid':
+            addon.set_optional('realdebrid.expiry', '0')
+
+
 def clear_matching(before, source_keys):
     """Remove only values matching the credential snapshot being signed out."""
     from reauthorize.modules import import_map
     from reauthorize.modules.sync import tmdbmovies_sync
+    if 'tmdb.authorization' in source_keys:
+        from reauthorize.modules.auth.tmdb import clear_helper_matching
+        clear_helper_matching(before.get('tmdb.authorization'))
+        from reauthorize.modules.auth.tmdb import bundle, portal_bundle, PORTAL_FIELD
+        from reauthorize.modules.sync import portal_sync
+        converted = portal_bundle(before.get(PORTAL_FIELD), bundle(before.get('tmdb.authorization')))
+        if converted:
+            portal_sync.revoke_tmdb(converted['session_id'])
     for addon_id, mapping in import_map.SETTINGS.items():
-        if not installed(addon_id):
+        if not installed(addon_id) or not source_keys.intersection(mapping.values()):
             continue
-        addon = _Addon(addon_id)
-        for sid, key in mapping.items():
-            if key in source_keys and before.get(key) and addon.getSetting(sid) == before[key]:
+        try:
+            addon = _Addon(addon_id)
+            for sid, key in mapping.items():
+                if key not in source_keys or not before.get(key) or not addon._writable(sid):
+                    continue
+                if addon.getSetting(sid) != before[key]:
+                    continue
                 addon.setSetting(sid, '')
+                _disable_matching(addon, sid, key)
                 if addon_id == tmdbmovies_sync.ADDON_ID and sid in tmdbmovies_sync.CLOUD_STATUS:
                     tmdbmovies_sync.status(tmdbmovies_sync.CLOUD_STATUS[sid], 'Disconnected')
-    # Supplemental integrations are not present in the original generated map.
-    pairs = [('plugin.video.seren', 'torbox.token', 'torbox.token'),
-             ('script.module.resolveurl', 'TorBoxResolver_apikey', 'torbox.token'),
-             ('plugin.video.seren', 'offcloud.apikey', 'offcloud.token'),
-             ('plugin.video.seren', 'mdblist.apikey', 'mdb.api.key'),
-             ('plugin.video.prism', 'tmdb.apikey', 'tmdb.api.key')]
-    for aid, sid, key in pairs:
-        if key in source_keys and before.get(key) and installed(aid):
-            addon = _Addon(aid)
-            if addon.getSetting(sid) == before[key]:
-                addon.setSetting(sid, '')
+        except IncompatibleSetting:
+            continue
+        except Exception:
+            failed(addon_id)
     if 'realdebrid.token' in source_keys and before.get('realdebrid.token'):
         from reauthorize.modules.sync import aniverse_sync
         try:
@@ -346,15 +455,32 @@ def clear_matching(before, source_keys):
         path = xbmcvfs.translatePath('special://profile/addon_data/%s/%s' % (aid, spec['file']))
         if not os.path.isfile(path):
             continue
-        conn = sqlite3.connect(path, timeout=10)
+        if not source_keys.intersection(spec['keys'].values()):
+            continue
+        conn = None
+        changed = False
         try:
+            conn = sqlite3.connect(path, timeout=3)
             with conn:
                 for sid, key in spec['keys'].items():
                     if key in source_keys and before.get(key):
-                        conn.execute("UPDATE settings SET setting_value='' WHERE setting_id=? AND setting_value=?", (sid, before[key]))
+                        cur = conn.execute("UPDATE settings SET setting_value='' WHERE setting_id=? AND setting_value=?", (sid, before[key]))
+                        if cur.rowcount:
+                            changed = True
+                            if conn.execute('SELECT setting_value FROM settings WHERE setting_id=?', (sid,)).fetchone() != ('',):
+                                raise RuntimeError('Credential wipe readback did not match')
+                            if sid in ('tb.token', 'rd.token', 'pm.token', 'ad.token', 'oc.token', 'ed.token'):
+                                flag = sid.split('.')[0] + '.enabled'
+                                conn.execute("UPDATE settings SET setting_value='false' WHERE setting_id=?", (flag,))
+                                row = conn.execute('SELECT setting_value FROM settings WHERE setting_id=?', (flag,)).fetchone()
+                                if row is not None and row != ('false',):
+                                    raise RuntimeError('Enable flag wipe readback did not match')
+        except Exception:
+            failed(aid)
         finally:
-            conn.close()
-        if aid == 'plugin.video.redlight':
+            if conn is not None:
+                conn.close()
+        if changed and aid == 'plugin.video.redlight':
             xbmc.executebuiltin('RunPlugin(plugin://plugin.video.redlight/?mode=sync_settings&silent=true&load_properties=false&force=true)')
 
 
@@ -364,15 +490,6 @@ def after_action(action, before):
         return
     if action in autosend.TAG_FOR_ACTION:
         return  # autosend uses the runner, which invokes extra()
-    resync = {'premiumizeReSync': 'pm', 'alldebridReSync': 'ad',
-              'offcloudReSync': 'offc', 'easynewsReSync': 'easy', 'traktAuth': 'trakt', 'traktReSync': 'trakt'}
-    if action in resync:
-        try:
-            extra(resync[action])
-        except Exception as exc:
-            failed(resync[action])
-            xbmc.log('[Diggz Account Manager] Follow-up sync failed for %s (%s).' %
-                     (resync[action], type(exc).__name__), xbmc.LOGWARNING)
     revoked = {'realdebridRevoke': 'realdebrid.', 'premiumizeRevoke': 'premiumize.',
                'alldebridRevoke': 'alldebrid.', 'torboxRevoke': 'torbox.',
                'easydebridRevoke': 'easydebrid.', 'debridlinkRevoke': 'debridlink.', 'offcloudRevoke': 'offcloud.',
@@ -381,14 +498,18 @@ def after_action(action, before):
                'omdbRevoke': 'omdb.', 'imdbRevoke': 'imdb.', 'tmdbRevoke': 'tmdb.'}
     prefix = revoked.get(action)
     if prefix:
+        begin()
         keys = {k for k, value in before.items() if k.startswith(prefix) and value and not control.setting(k)}
         if keys:
             clear_matching(before, keys)
     elif action == 'removeService':
         keys = {k for k, value in before.items() if value and not control.setting(k)}
         clear_matching(before, keys)
-    if errors():
-        control.notification(title='Diggz Account Manager', message='Some add-on settings could not be verified: ' + ', '.join(errors()), time=7000)
+    if prefix or action == 'removeService':
+        if errors() or warnings():
+            details = ['%s: %s' % item for item in warnings()]
+            details += ['%s: credential removal could not be verified' % aid for aid in errors()]
+            control.dialog.ok('Diggz Account Manager', '[CR]'.join(details))
 
 
 def scrub_crew_simkl():

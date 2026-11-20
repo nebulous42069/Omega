@@ -618,7 +618,6 @@ SETTINGS = {
         "tmdb_apikey": "tmdb.api.key"
     },
     "script.module.resolveurl": {
-        "AllDebridResolver_client_id": "alldebrid.username",
         "AllDebridResolver_token": "alldebrid.token",
         "OffCloudResolver_apikey": "offcloud.token",
         "PremiumizeMeResolver_token": "premiumize.token",
@@ -710,6 +709,7 @@ SETTINGS.get('plugin.video.otaku', {}).pop('simkl.login', None)
 
 # TMDb Helper 6.20 separate API-key provider.
 SETTINGS['script.module.tmdbhelper.sync.mdblist'] = {'apikey': 'mdb.api.key'}
+SETTINGS['script.module.tmdbhelper.sync.tvdb'] = {'apikey': 'tvdb.api.key'}
 
 # Current POV and Otaku credential schemas. Keep legacy keys for older installs.
 SETTINGS['plugin.video.pov']['rd.account_id'] = 'realdebrid.username'
@@ -719,8 +719,17 @@ SETTINGS['plugin.video.otaku'].update({
     'realdebrid.secret': 'realdebrid.secret',
     'realdebrid.refresh': 'realdebrid.refresh',
     'realdebrid.token': 'realdebrid.token',
+    'realdebrid.expiry': 'realdebrid.expires',
     'alldebrid.token': 'alldebrid.token',
     'torbox.token': 'torbox.token',
 })
 
 DATABASES['plugin.video.redlight']['keys'].setdefault('oc.token', 'offcloud.token')
+
+SETTINGS['script.diggzportal'] = {'access_token': 'trakt.token', 'refresh_token': 'trakt.refresh',
+    'token_expires': 'trakt.expires', 'trakt_user_name': 'trakt.username', 'tmdb_session': 'tmdb.session_id',
+    'mdblist_access_token': 'mdblist.oauth.token', 'mdblist_refresh_token': 'mdblist.oauth.refresh',
+    'mdblist_expires': 'mdblist.oauth.expires'}
+
+# Native TMDb Helper account credential (not a metadata API key).
+SETTINGS.setdefault("plugin.video.themoviedb.helper", {})["tmdb_user_token"] = "tmdb.authorization"

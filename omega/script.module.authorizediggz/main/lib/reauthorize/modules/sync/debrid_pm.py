@@ -40,7 +40,7 @@ class Auth:
                                 addon.setSetting("premiumize.premiumstatus", premium_stat)
                                 
                                 #Enable authorized debrid services
-                                enabled_pm = ("true")
+                                enabled_pm = ("true" if your_pm_token and not control.wiping() else "false")
                                 addon.setSetting("premiumize.enabled", enabled_pm)
 
                                 if str(chk_auth_seren_rd) != '': #Check if Real-Debrid is authorized
@@ -57,7 +57,7 @@ class Auth:
                                         enabled_ad = ("false")
                                         addon.setSetting("alldebrid.enabled", enabled_ad)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.seren')
                 xbmc.log('%s: Seren Premiumize Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -73,7 +73,7 @@ class Auth:
                                 addon.setSetting("pm.account_id", your_pm_username)
                                 addon.setSetting("pm.token", your_pm_token)
 
-                                enabled_pm = ("true")
+                                enabled_pm = ("true" if your_pm_token and not control.wiping() else "false")
                                 addon.setSetting("pm.enabled", enabled_pm)
 
                                 if str(chk_auth_coal_rd) != '':
@@ -90,7 +90,7 @@ class Auth:
                                         enabled_ad = ("false")
                                         addon.setSetting("ad.enabled", enabled_ad)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.coalition')
                 xbmc.log('%s: Coalition Premiumize Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
             
@@ -106,7 +106,7 @@ class Auth:
                                 addon.setSetting("pm.account_id", your_pm_username)
                                 addon.setSetting("pm.token", your_pm_token)
 
-                                enabled_pm = ("true")
+                                enabled_pm = ("true" if your_pm_token and not control.wiping() else "false")
                                 addon.setSetting("pm.enabled", enabled_pm)
 
                                 if str(chk_auth_pov_rd) != '':
@@ -123,7 +123,7 @@ class Auth:
                                         enabled_ad = ("false")
                                         addon.setSetting("ad.enabled", enabled_ad)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.pov')
                 xbmc.log('%s: POV Premiumize Failed!' % var.amgr, xbmc.LOGINFO)
                 pass                
 
@@ -139,7 +139,7 @@ class Auth:
                                 addon.setSetting("premiumizeusername", your_pm_username)
                                 addon.setSetting("premiumizetoken", your_pm_token)
 
-                                enabled_pm = ("true")
+                                enabled_pm = ("true" if your_pm_token and not control.wiping() else "false")
                                 addon.setSetting("premiumize.enable", enabled_pm)
 
                                 if str(chk_auth_umb_rd) != '':
@@ -156,7 +156,7 @@ class Auth:
                                         enabled_ad = ("false")
                                         addon.setSetting("alldebrid.enable", enabled_ad)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.umbrella')
                 xbmc.log('%s: Umbrella Premiumize Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -172,7 +172,7 @@ class Auth:
                                 addon.setSetting("premiumizeusername", your_pm_username)
                                 addon.setSetting("premiumizetoken", your_pm_token)
 
-                                enabled_pm = ("true")
+                                enabled_pm = ("true" if your_pm_token and not control.wiping() else "false")
                                 addon.setSetting("premiumize.enable", enabled_pm)
 
                                 if str(chk_auth_infinity_rd) != '':
@@ -189,7 +189,7 @@ class Auth:
                                         enabled_ad = ("false")
                                         addon.setSetting("alldebrid.enable", enabled_ad)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.infinity')
                 xbmc.log('%s: Infinity Premiumize Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
             
@@ -223,7 +223,7 @@ class Auth:
                                         ad_use = ("false")
                                         addon.setSetting("debrid_use_ad", ad_use)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.shadow')
                 xbmc.log('%s: Shadow Premiumize Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -244,7 +244,7 @@ class Auth:
                                 d_select = ("1")
                                 addon.setSetting("debrid_select", d_select)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.blueballs')
                 xbmc.log('%s: Blue Balls Premiumize Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -278,7 +278,7 @@ class Auth:
                                         ad_use = ("false")
                                         addon.setSetting("debrid_use_ad", ad_use)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.twisted')
                 xbmc.log('%s: Twisted Premiumize Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -310,7 +310,7 @@ class Auth:
                                         ad_use = ("false")
                                         addon.setSetting("debrid_use_ad", ad_use)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.aliundek19')
                 xbmc.log('%s: Aliunde K19 Premiumize Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
         
@@ -331,7 +331,7 @@ class Auth:
                                 d_select = ("1")
                                 addon.setSetting("debrid_select", d_select)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.ghost')
                 xbmc.log('%s: Ghost Premiumize Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
             
@@ -349,7 +349,7 @@ class Auth:
                                 d_select = ("1")
                                 addon.setSetting("debrid_select", d_select)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.base')
                 xbmc.log('%s: Base Premiumize Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -370,7 +370,7 @@ class Auth:
                                 d_select = ("1")
                                 addon.setSetting("debrid_select", d_select)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.thechains')
                 xbmc.log('%s: Chains Premiumize Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -397,7 +397,7 @@ class Auth:
                                 d_select = ("1")
                                 addon.setSetting("debrid_select", d_select)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.patriot')
                 xbmc.log('%s: Patriot Premiumize Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -431,7 +431,7 @@ class Auth:
                                         ad_use = ("false")
                                         addon.setSetting("debrid_use_ad", ad_use)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.blacklightning')
                 xbmc.log('%s: Black Lightning Premiumize Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -447,28 +447,20 @@ class Auth:
                                 addon.setSetting("premiumize.username", your_pm_username)
                                 addon.setSetting("premiumize.token", your_pm_token)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.chainsgenocide')
                 xbmc.log('%s: Chains Genocide Premiumize Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
             
      #Otaku PM
         try:
-                        
-
-                if xbmcvfs.exists(var.chk_otaku):
-                        chk_auth_otaku = xbmcaddon.Addon('plugin.video.otaku').getSetting("premiumize.token")
-                        if sync_support.needs('plugin.video.otaku', [('premiumize.username',your_pm_username),('premiumize.token',your_pm_token)]):
-                                
-                                addon = xbmcaddon.Addon("plugin.video.otaku")
-                                addon.setSetting("premiumize.username", your_pm_username)
-                                addon.setSetting("premiumize.token", your_pm_token)
-
-                                enabled_pm = ("true")
-                                addon.setSetting("premiumize.enabled", enabled_pm)
-        except:
-                sync_support.failed()
-                xbmc.log('%s: Otaku Premiumize Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
+                if sync_support.installed('plugin.video.otaku'):
+                        pairs = [('premiumize.username', your_pm_username), ('premiumize.token', your_pm_token),
+                                 ('premiumize.enabled', ('true' if your_pm_token and not control.wiping() else 'false') if your_pm_token and not control.wiping() else 'false')]
+                        if control.wiping():
+                                pairs.append(('premiumize.auth.status', ''))
+                        sync_support.put('plugin.video.otaku', pairs, wipe=control.wiping())
+        except Exception:
+                sync_support.failed('plugin.video.otaku')
 
      #Premiumizer PM
         try:
@@ -483,7 +475,7 @@ class Auth:
                                 addon.setSetting("premiumize.token", your_pm_token)
                                 addon.setSetting("premiumize.refresh", '315360000')
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.premiumizerx')
                 xbmc.log('%s: Premiumizer Premiumize Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
             
@@ -499,7 +491,7 @@ class Auth:
                                 addon.setSetting("premiumize.username", your_pm_username)
                                 addon.setSetting("premiumize.token", your_pm_token)
         except:
-                sync_support.failed()
+                sync_support.failed('script.module.allaccounts')
                 xbmc.log('%s: All Accounts Premiumize Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
             
@@ -515,7 +507,7 @@ class Auth:
                                 addon.setSetting("premiumize.username", your_pm_username)
                                 addon.setSetting("premiumize.token", your_pm_token)
         except:
-                sync_support.failed()
+                sync_support.failed('script.module.myaccounts')
                 xbmc.log('%s: My Accounts Premiumize Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
             
@@ -533,7 +525,7 @@ class Auth:
                                 cache_only = ("true")
                                 addon.setSetting("PremiumizeMeResolver_cached_only", cache_only)
         except:
-                sync_support.failed()
+                sync_support.failed('script.module.resolveurl')
                 xbmc.log('%s: ResolveURL Premiumize Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -559,7 +551,7 @@ class Auth:
                             debrid_db.auth_gears_pm()
                             var.remake_settings()
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.gears')
                 xbmc.log('%s: Gears Premiumize Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -572,7 +564,7 @@ class Auth:
                                 addon.setSetting("premiumize.token", your_pm_token)
                                 addon.setSetting("premiumize.username", your_pm_username)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.genocide')
                 xbmc.log('%s: Genocide Premiumize Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -583,9 +575,9 @@ class Auth:
                         if sync_support.needs('plugin.video.orion', [('pm_token',your_pm_token)]):
                                 addon = xbmcaddon.Addon("plugin.video.orion")
                                 addon.setSetting("pm_token", your_pm_token)
-                                addon.setSetting("pm_enabled", 'true')
+                                addon.setSetting("pm_enabled", ('true' if your_pm_token and not control.wiping() else 'false'))
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.orion')
                 xbmc.log('%s: Orion Premiumize Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -594,7 +586,7 @@ class Auth:
                 from reauthorize.modules.db import redlight_db
                 redlight_db.push([('pm.token', your_pm_token),
                                   ('pm.account_id', your_pm_username),
-                                  ('pm.enabled', 'true')])
+                                  ('pm.enabled', ('true' if your_pm_token and not control.wiping() else 'false'))])
         except:
                 sync_support.failed()
                 xbmc.log('%s: Red Light Premiumize Failed!' % var.amgr, xbmc.LOGINFO)
@@ -607,9 +599,9 @@ class Auth:
                         if sync_support.needs('plugin.video.cosmos', [('pm_access_token',your_pm_token)]):
                                 addon = xbmcaddon.Addon("plugin.video.cosmos")
                                 addon.setSetting("pm_access_token", your_pm_token)
-                                addon.setSetting("pm_auth_done", 'true')
+                                addon.setSetting("pm_auth_done", ('true' if your_pm_token and not control.wiping() else 'false'))
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.cosmos')
                 xbmc.log('%s: Cosmos Premiumize Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -620,9 +612,9 @@ class Auth:
                         if sync_support.needs('plugin.video.thearchives', [('pm.token',your_pm_token)]):
                                 addon = xbmcaddon.Addon("plugin.video.thearchives")
                                 addon.setSetting("pm.token", your_pm_token)
-                                addon.setSetting("pm.enabled", 'true')
+                                addon.setSetting("pm.enabled", ('true' if your_pm_token and not control.wiping() else 'false'))
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.thearchives')
                 xbmc.log('%s: The Archives Premiumize Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -634,7 +626,7 @@ class Auth:
                                 addon = xbmcaddon.Addon("plugin.program.rdtplayer")
                                 addon.setSetting("premiumize_api_key", your_pm_token)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.program.rdtplayer')
                 xbmc.log('%s: Diamond Media Player Premiumize Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -657,9 +649,9 @@ class Auth:
                                 addon = xbmcaddon.Addon("plugin.video.prism")
                                 addon.setSetting("premiumize.token", your_pm_token)
                                 addon.setSetting("premiumize.username", your_pm_username)
-                                addon.setSetting("premiumize.enabled", 'true')
+                                addon.setSetting("premiumize.enabled", ('true' if your_pm_token and not control.wiping() else 'false'))
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.prism')
                 xbmc.log('%s: Prism Premiumize Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -678,9 +670,9 @@ class Auth:
                         if sync_support.needs('plugin.video.youtubetheater', [('premiumize.token',your_pm_token)]):
                                 addon = xbmcaddon.Addon("plugin.video.youtubetheater")
                                 addon.setSetting("premiumize.token", your_pm_token)
-                                addon.setSetting("debrid_use_pm", 'true')
+                                addon.setSetting("debrid_use_pm", ('true' if your_pm_token and not control.wiping() else 'false'))
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.youtubetheater')
                 xbmc.log('%s: Youtube Theater Premiumize Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 

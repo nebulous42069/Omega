@@ -40,7 +40,7 @@ class Auth:
                                 addon.setSetting("alldebrid.premiumstatus", premium_stat)
                                 
                                 #Enable authorized debrid services
-                                enabled_ad = ("true")
+                                enabled_ad = ("true" if your_ad_token and not control.wiping() else "false")
                                 addon.setSetting("alldebrid.enabled", enabled_ad)
 
                                 if str(chk_auth_seren_rd) != '': #Check if Real-Debrid is authorized
@@ -57,7 +57,7 @@ class Auth:
                                         enabled_pm = ("false")
                                         addon.setSetting("premiumize.enabled", enabled_pm)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.seren')
                 xbmc.log('%s: Seren All-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -73,7 +73,7 @@ class Auth:
                                 addon.setSetting("ad.account_id", your_ad_username)
                                 addon.setSetting("ad.token", your_ad_token)
 
-                                enabled_ad = ("true")
+                                enabled_ad = ("true" if your_ad_token and not control.wiping() else "false")
                                 addon.setSetting("ad.enabled", enabled_ad)
 
                                 if str(chk_auth_coal_rd) != '':
@@ -90,7 +90,7 @@ class Auth:
                                         enabled_pm = ("false")
                                         addon.setSetting("pm.enabled", enabled_pm)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.coalition')
                 xbmc.log('%s: Coalition All-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
             
@@ -106,7 +106,7 @@ class Auth:
                                 addon.setSetting("ad.account_id", your_ad_username)
                                 addon.setSetting("ad.token", your_ad_token)
 
-                                enabled_ad = ("true")
+                                enabled_ad = ("true" if your_ad_token and not control.wiping() else "false")
                                 addon.setSetting("ad.enabled", enabled_ad)
 
                                 if str(chk_auth_pov_rd) != '':
@@ -123,7 +123,7 @@ class Auth:
                                         enabled_pm = ("false")
                                         addon.setSetting("pm.enabled", enabled_pm)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.pov')
                 xbmc.log('%s: POV All-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass                
 
@@ -139,7 +139,7 @@ class Auth:
                                 addon.setSetting("alldebridusername", your_ad_username)
                                 addon.setSetting("alldebridtoken", your_ad_token)
 
-                                enabled_ad = ("true")
+                                enabled_ad = ("true" if your_ad_token and not control.wiping() else "false")
                                 addon.setSetting("alldebrid.enable", enabled_ad)
 
                                 if str(chk_auth_umb_rd) != '':
@@ -156,7 +156,7 @@ class Auth:
                                         enabled_pm = ("false")
                                         addon.setSetting("premiumize.enable", enabled_pm)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.umbrella')
                 xbmc.log('%s: Umbrella All-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -172,7 +172,7 @@ class Auth:
                                 addon.setSetting("alldebridusername", your_ad_username)
                                 addon.setSetting("alldebridtoken", your_ad_token)
 
-                                enabled_ad = ("true")
+                                enabled_ad = ("true" if your_ad_token and not control.wiping() else "false")
                                 addon.setSetting("alldebrid.enable", enabled_ad)
 
                                 if str(chk_auth_infinity_rd) != '':
@@ -189,7 +189,7 @@ class Auth:
                                         enabled_pm = ("false")
                                         addon.setSetting("premiumize.enable", enabled_pm)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.infinity')
                 xbmc.log('%s: Infinity All-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
             
@@ -207,7 +207,7 @@ class Auth:
                                 addon.setSetting("alldebrid.username", your_ad_username)
                                 addon.setSetting("alldebrid.token", your_ad_token)
 
-                                enabled_ad = ("true")
+                                enabled_ad = ("true" if your_ad_token and not control.wiping() else "false")
                                 addon.setSetting("debrid_use_ad", enabled_ad)
 
                                 if str(chk_auth_shadow_rd) != '':
@@ -224,7 +224,7 @@ class Auth:
                                         pm_use = ("false")
                                         addon.setSetting("debrid_use_pm", pm_use)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.shadow')
                 xbmc.log('%s: Shadow All-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -246,7 +246,7 @@ class Auth:
                                 d_select = ("2")
                                 addon.setSetting("debrid_select", d_select)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.blueballs')
                 xbmc.log('%s: Blue Balls All-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -264,7 +264,7 @@ class Auth:
                                 addon.setSetting("alldebrid.username", your_ad_username)
                                 addon.setSetting("alldebrid.token", your_ad_token)
 
-                                enabled_ad = ("true")
+                                enabled_ad = ("true" if your_ad_token and not control.wiping() else "false")
                                 addon.setSetting("debrid_use_ad", enabled_ad)
 
                                 if str(chk_auth_twisted_rd) != '':
@@ -281,7 +281,7 @@ class Auth:
                                         pm_use = ("false")
                                         addon.setSetting("debrid_use_pm", pm_use)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.twisted')
                 xbmc.log('%s: Twisted All-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -297,7 +297,7 @@ class Auth:
                                 addon.setSetting("alldebrid.username", your_ad_username)
                                 addon.setSetting("alldebrid.token", your_ad_token)
 
-                                enabled_ad = ("true")
+                                enabled_ad = ("true" if your_ad_token and not control.wiping() else "false")
                                 addon.setSetting("debrid_use_ad", enabled_ad)
 
                                 if str(chk_auth_aliunde_rd) != '':
@@ -314,7 +314,7 @@ class Auth:
                                         pm_use = ("false")
                                         addon.setSetting("debrid_use_pm", pm_use)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.aliundek19')
                 xbmc.log('%s: Aliunde K19 All-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
                 
@@ -336,7 +336,7 @@ class Auth:
                                 d_select = ("2")
                                 addon.setSetting("debrid_select", d_select)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.ghost')
                 xbmc.log('%s: Ghost All-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -355,7 +355,7 @@ class Auth:
                                 d_select = ("2")
                                 addon.setSetting("debrid_select", d_select)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.base')
                 xbmc.log('%s: Base All-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -377,7 +377,7 @@ class Auth:
                                 d_select = ("2")
                                 addon.setSetting("debrid_select", d_select)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.thechains')
                 xbmc.log('%s: Chains All-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -399,7 +399,7 @@ class Auth:
                                 d_select = ("2")
                                 addon.setSetting("debrid_select", d_select)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.patriot')
                 xbmc.log('%s: Patriot All-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -417,7 +417,7 @@ class Auth:
                                 addon.setSetting("alldebrid.username", your_ad_username)
                                 addon.setSetting("alldebrid.token", your_ad_token)
 
-                                enabled_ad = ("true")
+                                enabled_ad = ("true" if your_ad_token and not control.wiping() else "false")
                                 addon.setSetting("debrid_use_ad", enabled_ad)
 
                                 if str(chk_auth_blackl_rd) != '':
@@ -434,7 +434,7 @@ class Auth:
                                         pm_use = ("false")
                                         addon.setSetting("debrid_use_pm", pm_use)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.blacklightning')
                 xbmc.log('%s: Black Lightning All-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -450,7 +450,7 @@ class Auth:
                                 addon.setSetting("alldebrid.username", your_ad_username)
                                 addon.setSetting("alldebrid.token", your_ad_token)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.chainsgenocide')
                 xbmc.log('%s: Chains Genocide All-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
             
@@ -462,7 +462,7 @@ class Auth:
                 sync_support.put('plugin.video.otaku', [
                     ('alldebrid.username', your_ad_username),
                     (token_key, your_ad_token),
-                    ('alldebrid.enabled', 'true' if your_ad_token else 'false'),
+                    ('alldebrid.enabled', ('true' if your_ad_token and not control.wiping() else 'false') if your_ad_token else 'false'),
                 ], wipe=control.wiping())
         except Exception:
             sync_support.failed('plugin.video.otaku')
@@ -480,7 +480,7 @@ class Auth:
                                 addon.setSetting("alldebrid.username", your_ad_username)
                                 addon.setSetting("alldebrid.token", your_ad_token)
         except:
-                sync_support.failed()
+                sync_support.failed('script.module.allaccounts')
                 xbmc.log('%s: All Accounts All-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
             
@@ -496,7 +496,7 @@ class Auth:
                                 addon.setSetting("alldebrid.username", your_ad_username)
                                 addon.setSetting("alldebrid.token", your_ad_token)
         except:
-                sync_support.failed()
+                sync_support.failed('script.module.myaccounts')
                 xbmc.log('%s: My Accounts All-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
             
@@ -505,17 +505,15 @@ class Auth:
                         
                         
                 if xbmcvfs.exists(var.chk_rurl):
-                        chk_auth_rurl = xbmcaddon.Addon('script.module.resolveurl').getSetting("AllDebridResolver_token")
-                        if sync_support.needs('script.module.resolveurl', [('AllDebridResolver_client_id',your_ad_username),('AllDebridResolver_token',your_ad_token)]):
-
-                                addon = xbmcaddon.Addon("script.module.resolveurl")
-                                pass  # The AllDebrid resolver has no username client-id field.
-                                addon.setSetting("AllDebridResolver_token", your_ad_token)
-
-                                cache_only = ("true")
-                                addon.setSetting("AllDebridResolver_cached_only", cache_only)
+                        # ResolveURL's AllDebrid resolver authenticates with a bearer API key.
+                        # Verify credentials and enablement together; do not alter cache preferences.
+                        if your_ad_token or control.wiping():
+                                sync_support.put('script.module.resolveurl', [
+                                    ('AllDebridResolver_token', your_ad_token),
+                                    ('AllDebridResolver_enabled', 'true' if your_ad_token and not control.wiping() else 'false'),
+                                ], wipe=control.wiping())
         except:
-                sync_support.failed()
+                sync_support.failed('script.module.resolveurl')
                 xbmc.log('%s: ResolveURL All-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -541,7 +539,7 @@ class Auth:
                             debrid_db.auth_gears_ad()
                             var.remake_settings()
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.gears')
                 xbmc.log('%s: Gears All-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -554,7 +552,7 @@ class Auth:
                                 addon.setSetting("alldebrid.token", your_ad_token)
                                 addon.setSetting("alldebrid.username", your_ad_username)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.genocide')
                 xbmc.log('%s: Genocide All-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -565,9 +563,9 @@ class Auth:
                         if sync_support.needs('plugin.video.orion', [('ad_token',your_ad_token)]):
                                 addon = xbmcaddon.Addon("plugin.video.orion")
                                 addon.setSetting("ad_token", your_ad_token)
-                                addon.setSetting("ad_enabled", 'true')
+                                addon.setSetting("ad_enabled", ('true' if your_ad_token and not control.wiping() else 'false'))
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.orion')
                 xbmc.log('%s: Orion All-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -576,7 +574,7 @@ class Auth:
                 from reauthorize.modules.db import redlight_db
                 redlight_db.push([('ad.token', your_ad_token),
                                   ('ad.account_id', your_ad_username),
-                                  ('ad.enabled', 'true')])
+                                  ('ad.enabled', ('true' if your_ad_token and not control.wiping() else 'false'))])
         except:
                 sync_support.failed()
                 xbmc.log('%s: Red Light All-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
@@ -589,9 +587,9 @@ class Auth:
                         if sync_support.needs('plugin.video.cosmos', [('ad_api_key',your_ad_token)]):
                                 addon = xbmcaddon.Addon("plugin.video.cosmos")
                                 addon.setSetting("ad_api_key", your_ad_token)
-                                addon.setSetting("ad_auth_done", 'true')
+                                addon.setSetting("ad_auth_done", ('true' if your_ad_token and not control.wiping() else 'false'))
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.cosmos')
                 xbmc.log('%s: Cosmos All-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -602,9 +600,9 @@ class Auth:
                         if sync_support.needs('plugin.video.thearchives', [('ad.token',your_ad_token)]):
                                 addon = xbmcaddon.Addon("plugin.video.thearchives")
                                 addon.setSetting("ad.token", your_ad_token)
-                                addon.setSetting("ad.enabled", 'true')
+                                addon.setSetting("ad.enabled", ('true' if your_ad_token and not control.wiping() else 'false'))
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.thearchives')
                 xbmc.log('%s: The Archives All-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -616,9 +614,9 @@ class Auth:
                                 addon = xbmcaddon.Addon("plugin.video.prism")
                                 addon.setSetting("alldebrid.apikey", your_ad_token)
                                 addon.setSetting("alldebrid.username", your_ad_username)
-                                addon.setSetting("alldebrid.enabled", 'true')
+                                addon.setSetting("alldebrid.enabled", ('true' if your_ad_token and not control.wiping() else 'false'))
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.prism')
                 xbmc.log('%s: Prism All-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -630,9 +628,9 @@ class Auth:
                                 addon = xbmcaddon.Addon("plugin.video.youtubetheater")
                                 addon.setSetting("alldebrid.token", your_ad_token)
                                 addon.setSetting("alldebrid.username", your_ad_username)
-                                addon.setSetting("debrid_use_ad", 'true')
+                                addon.setSetting("debrid_use_ad", ('true' if your_ad_token and not control.wiping() else 'false'))
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.youtubetheater')
                 xbmc.log('%s: Youtube Theater All-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 

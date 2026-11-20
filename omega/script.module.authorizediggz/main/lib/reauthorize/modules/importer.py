@@ -54,6 +54,7 @@ ADOPTABLE = (
     ('tmdb', 'TMDb API key', ('tmdb.api.key',), ()),
     ('fanart', 'Fanart.tv API key', ('fanart.tv.api.key',), ()),
     ('omdb', 'OMDb API key', ('omdb.api.key',), ()),
+    ('tvdb', 'TVDb API key', ('tvdb.api.key',), ()),
     ('mdblist', 'MDBList API key', ('mdb.api.key',), ()),
     ('youtube', 'YouTube API keys',
      ('youtube.api.key', 'youtube.api.id', 'youtube.api.secret'), ()),
@@ -70,9 +71,7 @@ REPORT_ONLY = (
 _PLACEHOLDERS = ('', 'none', 'null', 'empty_setting', '0', '-1', 'true', 'false')
 
 # Optional keys are display names. Only take them from a setting whose name
-# says it holds one - sync writes a username into a few oddly named fields
-# (ResolveURL's AllDebridResolver_client_id), and reading those back would
-# adopt whatever the addon keeps there instead.
+# says it holds one, rather than treating unrelated identifier fields as usernames.
 _NAME_LIKE = re.compile(r'user|account|login|name', re.I)
 
 _SETTING_BLOCK = re.compile(r'<setting\b([^>]*?)(?:/>|>(.*?)</setting>)', re.S)
@@ -222,6 +221,8 @@ def _collect():
         mapping = import_map.SETTINGS.get(addon_id, {})
         if mapping:
             for setting_id, value in _read_settings(addon_id, list(mapping)).items():
+                if addon_id == 'script.diggzportal' and setting_id == 'tmdb_session' and xbmcaddon.Addon(addon_id).getSetting('tmdb_session_client') == 'v4-compatible':
+                    continue
                 held.setdefault(mapping[setting_id], {})[value] = setting_id
         spec = import_map.DATABASES.get(addon_id)
         if spec:
@@ -492,7 +493,9 @@ def run(explicit=False):
         return False
     labels = [f.label for f in adoptable if f.service in adopted]
     message = 'Added %s' % ', '.join(labels)
-    if failed:
-        message += ' - could not reach: %s' % ', '.join(failed)
+    if getattr(failed, 'has_issues', bool(failed)):
+        from reauthorize.modules.sync_all import show_result
+        show_result(failed)
+        message += ' - see synchronization report'
     control.notification(message=message)
     return True

@@ -58,9 +58,9 @@ CREDENTIAL_KEYS = [
     # TorrentClaw (1.4.4): the user's own free key
     'torrentclaw.api.key',
     # Metadata
-    'fanart.tv.api.key', 'omdb.api.key', 'mdb.api.key', 'mdb.username', 'imdb.user',
+    'fanart.tv.api.key', 'tvdb.api.key', 'omdb.api.key', 'mdb.api.key', 'mdb.username', 'imdb.user',
     'audiodb.api.key', 'tmdb.api.key', 'tmdb.username', 'tmdb.password',
-    'tmdb.session_id',
+    'tmdb.session_id', 'tmdb.authorization', 'tmdb.portal.authorization',
     # YouTube - the keys, plus the sign-in itself (access_manager.json), which
     # a build install would otherwise wipe and make the user redo several times
     'youtube.api.key', 'youtube.api.id', 'youtube.api.secret', 'youtube.tokens',
@@ -71,7 +71,7 @@ CREDENTIAL_KEYS = [
     'sync.yt.service', 'sync.ext.service', 'api.service',
     'sync.linksnappy.service', 'sync.debridlink.service', 'sync.lastfm.service',
     # Simkl
-    'simkl.token', 'simkl.username', 'simkl.client.id',
+    'simkl.token', 'simkl.username', 'simkl.client.id', 'simkl.authorization',
     # MDBList account sign-in (1.3.7; the API key under Metadata is mdb.api.key)
     'mdblist.oauth.token', 'mdblist.oauth.refresh', 'mdblist.oauth.expires', 'mdblist.oauth.username',
     # PunchPlay (1.4.1). The refresh token changes at every renewal: auth/punchplay.py.
@@ -261,6 +261,21 @@ def keep_newer_pairs(credentials, backed_up=None):
     if backed_up is None:
         backed_up = stored()
     kept = []
+    # SIMKL can retain the same refresh token across renewals. Compare the session and expiry instead.
+    try:
+        mine = json.loads(credentials.get('simkl.authorization') or '{}')
+        theirs = json.loads(backed_up.get('simkl.authorization') or '{}')
+        if (mine.get('session_id') and mine.get('session_id') == theirs.get('session_id')
+                and mine.get('client_id') == theirs.get('client_id')
+                and mine.get('access_token') == credentials.get('simkl.token')
+                and theirs.get('access_token') == backed_up.get('simkl.token')
+                and theirs.get('refresh_token') and float(theirs['expires_at']) > float(mine['expires_at'])):
+            for key in ('simkl.authorization', 'simkl.token', 'simkl.client.id', 'simkl.username'):
+                if backed_up.get(key):
+                    credentials[key] = backed_up[key]
+            kept.append('SIMKL')
+    except (ValueError, TypeError, KeyError, AttributeError):
+        pass
     for name, (token, refresh, expires), extra in PAIRED:
         mine, theirs = credentials.get(refresh), backed_up.get(refresh)
         if not (mine and credentials.get(token) and theirs and backed_up.get(token)) or mine == theirs:
@@ -286,6 +301,7 @@ def backup():
     global _LAST_ERROR
     _LAST_ERROR = None
     try:
+        own_settings.sync_service_flags()
         addon = own_settings.addon()
         credentials = {}
         for key in CREDENTIAL_KEYS:
@@ -385,6 +401,7 @@ def restore():
         addon = own_settings.addon()
         for key, val in credentials.items():
             addon.setSetting(key, val)
+        own_settings.sync_service_flags()
         from reauthorize.modules import owner   # owner imports vault, so not at the top
         owner.claim()
 
@@ -456,6 +473,7 @@ def restore_missing_keys():
             if val and not addon.getSetting(key):
                 addon.setSetting(key, val)
                 filled += 1
+        own_settings.sync_service_flags()
         if filled:
             from reauthorize.modules import owner
             owner.claim()

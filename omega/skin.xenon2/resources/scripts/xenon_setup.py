@@ -694,17 +694,44 @@ SERVICE_CREDENTIALS = {
     'lastfm': ('lastfm.username', 'lastfm.password'),
 }
 
-def authorization_status(service_id):
-    path = xbmcvfs.translatePath('special://profile/addon_data/script.module.authorizediggz/settings.xml')
+def read_service_credentials():
+    """Read the active Account Manager settings once per authorization page."""
+    keys = {key for group in SERVICE_CREDENTIALS.values() for key in group}
+    keys.update(('tmdb.authorization', 'lastfm.session.key'))
     try:
-        root = ET.parse(path).getroot()
-        values = {row.get('id'): row.get('value', row.text or '') for row in root.iter('setting')}
-    except (OSError, ET.ParseError):
-        return False
-    if service_id == 'lastfm' and values.get('lastfm.session.key', '').strip():
+        addon = xbmcaddon.Addon(REAUTHORIZE_ID)
+        return {key: addon.getSetting(key) for key in keys}
+    except (RuntimeError, OSError, ValueError, TypeError) as exc:
+        xbmc.log('Xenon Setup: account status unavailable (%s).' % type(exc).__name__, xbmc.LOGWARNING)
+        return None
+
+
+def credential_present(value):
+    return isinstance(value, str) and value.strip().casefold() not in (
+        '', 'true', 'false', 'none', 'null', '0', '{}', '[]')
+
+
+def authorization_status(service_id, values):
+    """Stored credential presence, not live service validation."""
+    if values is None:
+        return None
+    if service_id == 'tmdb':
+        if credential_present(values.get('tmdb.session_id')):
+            return True
+        # V4 account approval is independent of legacy V3 compatibility.
+        # Match Account Manager's auth/tmdb.py bundle validation.
+        try:
+            grant = json.loads(values.get('tmdb.authorization') or '{}')
+            return isinstance(grant, dict) and all(
+                isinstance(grant.get(key), str) and grant[key].strip()
+                for key in ('access_token', 'account_id'))
+        except (ValueError, TypeError):
+            return False
+    if service_id == 'lastfm' and credential_present(values.get('lastfm.session.key')):
         return True
     keys = SERVICE_CREDENTIALS.get(service_id, ())
-    return bool(keys) and all(values.get(key, '').strip() for key in keys)
+    return bool(keys) and all(credential_present(values.get(key)) for key in keys)
+
 
 def check_saved_logins(monitor):
     """Let users skip optional recovery before starting any backup work."""
@@ -785,12 +812,13 @@ class AuthorizationWizard(Wizard):
         self.getControl(304).setLabel('Finish' if self.stage == 'tracking' else 'Select Xenon Flavor')
         listing = self.getControl(700)
         listing.reset()
+        credentials = read_service_credentials()
         for entry in self.entries:
             item = xbmcgui.ListItem(label=entry['name'])
             item.setProperty('service_icon', service_icon(entry))
-            authorized = authorization_status(entry['id'])
-            item.setProperty('auth_status', 'Authorized' if authorized else 'Not Authorized')
-            item.setProperty('authorized', 'true' if authorized else 'false')
+            authorized = authorization_status(entry['id'], credentials)
+            item.setProperty('auth_status', 'Unknown' if authorized is None else ('Authorized' if authorized else 'Not Authorized'))
+            item.setProperty('authorized', 'unknown' if authorized is None else ('true' if authorized else 'false'))
             listing.addItem(item)
         self.auth_index = max(0, min(self.auth_index, len(self.entries) - 1))
         listing.selectItem(self.auth_index)

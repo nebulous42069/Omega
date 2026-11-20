@@ -47,12 +47,23 @@ def connect_tb(conn, setting):
 
 _GEARS_DB = xbmcvfs.translatePath('special://profile/addon_data/plugin.video.gears/databases/settings.db')
 
-def auth_gears_tb():
+def auth_gears_tb(token=None):
+    from reauthorize.modules import sync_support
+    token = your_tb_token if token is None else token
+    pairs = [('tb.token', token), ('tb.enabled', 'true' if token else 'false')]
+    conn = sqlite3.connect(_GEARS_DB, timeout=3)
     try:
-        conn = create_conn(_GEARS_DB)
         with conn:
-            connect_tb(conn, ('true', 'tb.enabled'))
-            connect_tb(conn, (your_tb_token, 'tb.token'))
-    except:
-        xbmc.log('%s: TorBox_db Gears Failed!' % var.amgr, xbmc.LOGINFO)
-        pass
+            for key, value in pairs:
+                if conn.execute('SELECT setting_value FROM settings WHERE setting_id=?', (key,)).fetchone() is None:
+                    sync_support.warning('plugin.video.gears', 'incompatible; missing database setting: ' + key)
+                    return False
+            changed = False
+            for key, value in pairs:
+                cur = conn.execute('UPDATE settings SET setting_value=? WHERE setting_id=? AND setting_value IS NOT ?', (value, key, value))
+                changed = changed or bool(cur.rowcount)
+                if conn.execute('SELECT setting_value FROM settings WHERE setting_id=?', (key,)).fetchone() != (value,):
+                    raise RuntimeError('Setting readback did not match')
+            return changed
+    finally:
+        conn.close()

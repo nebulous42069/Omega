@@ -31,7 +31,7 @@ class Auth:
             ('rd.client_id', your_rd_client_id),
             ('rd.refresh', your_rd_refresh),
             ('rd.secret', your_rd_secret),
-            ('realdebrid.enabled', 'true' if your_rd_token else 'false'),
+            ('realdebrid.enabled', ('true' if your_rd_token and not control.wiping() else 'false') if your_rd_token else 'false'),
         ], wipe=control.wiping())
 
     #Coalition RD
@@ -49,7 +49,7 @@ class Auth:
                                 addon.setSetting("rd.refresh", your_rd_refresh)
                                 addon.setSetting("rd.secret", your_rd_secret)
 
-                                enabled_rd = ("true")
+                                enabled_rd = ("true" if your_rd_token and not control.wiping() else "false")
                                 addon.setSetting("rd.enabled", enabled_rd)
 
                                 if str(chk_auth_coal_pm) != '':
@@ -66,7 +66,7 @@ class Auth:
                                         enabled_ad = ("false")
                                         addon.setSetting("ad.enabled", enabled_ad)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.coalition')
                 xbmc.log('%s: Coalition Real-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
             
@@ -81,10 +81,10 @@ class Auth:
                             ('rd.secret', your_rd_secret),
                             ('rd.refresh', your_rd_refresh),
                             ('rd.token', your_rd_token),
-                            ('rd.enabled', 'true' if your_rd_token else 'false'),
+                            ('rd.enabled', ('true' if your_rd_token and not control.wiping() else 'false') if your_rd_token else 'false'),
                         ], wipe=control.wiping())
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.pov')
                 xbmc.log('%s: POV Real-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -103,7 +103,7 @@ class Auth:
                                 addon.setSetting("realdebridrefresh", your_rd_refresh)
                                 addon.setSetting("realdebridsecret", your_rd_secret)
 
-                                enabled_rd = ("true")
+                                enabled_rd = ("true" if your_rd_token and not control.wiping() else "false")
                                 addon.setSetting("realdebrid.enable", enabled_rd)
 
                  
@@ -121,7 +121,7 @@ class Auth:
                                         enabled_ad = ("false")
                                         addon.setSetting("alldebrid.enable", enabled_ad)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.umbrella')
                 xbmc.log('%s: Umbrella Real-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -140,7 +140,7 @@ class Auth:
                                 addon.setSetting("realdebridrefresh", your_rd_refresh)
                                 addon.setSetting("realdebridsecret", your_rd_secret)
 
-                                enabled_rd = ("true")
+                                enabled_rd = ("true" if your_rd_token and not control.wiping() else "false")
                                 addon.setSetting("realdebrid.enable", enabled_rd)
 
                  
@@ -158,7 +158,7 @@ class Auth:
                                         enabled_ad = ("false")
                                         addon.setSetting("alldebrid.enable", enabled_ad)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.infinity')
                 xbmc.log('%s: Infinity Real-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
             
@@ -195,7 +195,7 @@ class Auth:
                                         ad_use = ("false")
                                         addon.setSetting("debrid_use_ad", ad_use)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.shadow')
                 xbmc.log('%s: Shadow Real-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
         
@@ -219,7 +219,7 @@ class Auth:
                                 d_select = ("0")
                                 addon.setSetting("debrid_select", d_select)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.ghost')
                 xbmc.log('%s: Ghost Real-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -243,7 +243,7 @@ class Auth:
                                 d_select = ("0")
                                 addon.setSetting("debrid_select", d_select)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.blueballs')
                 xbmc.log('%s: Blue Balls Real-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -280,7 +280,7 @@ class Auth:
                                         ad_use = ("false")
                                         addon.setSetting("debrid_use_ad", ad_use)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.twisted')
                 xbmc.log('%s: Twisted Real-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -315,7 +315,7 @@ class Auth:
                                         ad_use = ("false")
                                         addon.setSetting("debrid_use_ad", ad_use)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.aliundek19')
                 xbmc.log('%s: Aliunde K19 Real-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -336,7 +336,7 @@ class Auth:
                                 d_select = ("0")
                                 addon.setSetting("debrid_select", d_select)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.base')
                 xbmc.log('%s: Base Real-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -360,7 +360,7 @@ class Auth:
                                 d_select = ("0")
                                 addon.setSetting("debrid_select", d_select)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.thechains')
                 xbmc.log('%s: Chains Real-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -381,7 +381,7 @@ class Auth:
                                 d_select = ("0")
                                 addon.setSetting("debrid_select", d_select)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.patriot')
                 xbmc.log('%s: Patriot Real-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -418,7 +418,7 @@ class Auth:
                                         ad_use = ("false")
                                         addon.setSetting("debrid_use_ad", ad_use)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.blacklightning')
                 xbmc.log('%s: Black Lightning Real-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -437,7 +437,7 @@ class Auth:
                                 addon.setSetting("realdebrid.refresh", your_rd_refresh)
                                 addon.setSetting("realdebrid.secret", your_rd_secret)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.chainsgenocide')
                 xbmc.log('%s: Chains Genocide Real-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
             
@@ -454,12 +454,15 @@ class Auth:
                     (prefix + 'secret', your_rd_secret),
                     (prefix + 'refresh', your_rd_refresh),
                 ]
-                if current and addon.getSetting(token_key) != your_rd_token:
-                    # Otaku checks this on startup and renews expired credentials.
-                    pairs.append(('realdebrid.expiry', '0'))
+                if current:
+                    expiry = control.setting('realdebrid.expires')
+                    if control.wiping() or expiry.isdigit():
+                        pairs.append(('realdebrid.expiry', '0' if control.wiping() else expiry))
+                    if control.wiping():
+                        pairs.append(('realdebrid.auth.status', ''))
                 pairs.extend([
                     (token_key, your_rd_token),
-                    ('realdebrid.enabled', 'true' if your_rd_token else 'false'),
+                    ('realdebrid.enabled', ('true' if your_rd_token and not control.wiping() else 'false') if your_rd_token else 'false'),
                 ])
                 sync_support.put('plugin.video.otaku', pairs, wipe=control.wiping())
         except Exception:
@@ -496,7 +499,7 @@ class Auth:
                                 addon.setSetting("realdebrid.refresh", your_rd_refresh)
                                 addon.setSetting("realdebrid.secret", your_rd_secret)
         except:
-                sync_support.failed()
+                sync_support.failed('script.module.allaccounts')
                 xbmc.log('%s: All Accounts Real-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
             
@@ -515,7 +518,7 @@ class Auth:
                                 addon.setSetting("realdebrid.refresh", your_rd_refresh)
                                 addon.setSetting("realdebrid.secret", your_rd_secret)
         except:
-                sync_support.failed()
+                sync_support.failed('script.module.myaccounts')
                 xbmc.log('%s: My Accounts Real-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
             
@@ -528,7 +531,7 @@ class Auth:
                         
                         if sync_support.needs('script.module.resolveurl', [('RealDebridResolver_login',your_rd_username),('RealDebridResolver_token',your_rd_token),('RealDebridResolver_client_id',your_rd_client_id),('RealDebridResolver_refresh',your_rd_refresh),('RealDebridResolver_client_secret',your_rd_secret)]):
                                 addon = xbmcaddon.Addon("script.module.resolveurl")
-                                addon.setSetting("RealDebridResolver_login", "true")
+                                addon.setSetting("RealDebridResolver_login", ('true' if your_rd_token and not control.wiping() else 'false'))
                                 addon.setSetting("RealDebridResolver_token", your_rd_token)
                                 addon.setSetting("RealDebridResolver_client_id", your_rd_client_id)
                                 addon.setSetting("RealDebridResolver_refresh", your_rd_refresh)
@@ -537,7 +540,7 @@ class Auth:
                                 cache_only = ("true")
                                 addon.setSetting("RealDebridResolver_cached_only", cache_only)
         except:
-                sync_support.failed()
+                sync_support.failed('script.module.resolveurl')
                 xbmc.log('%s: ResolveURL Real-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -592,7 +595,7 @@ class Auth:
                                 debrid_db.disable_gears_ad()
                             var.remake_settings()
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.gears')
                 xbmc.log('%s: Gears Real-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -607,9 +610,9 @@ class Auth:
                                 addon.setSetting("realdebrid.client_id", your_rd_client_id)
                                 addon.setSetting("realdebrid.refresh", your_rd_refresh)
                                 addon.setSetting("realdebrid.secret", your_rd_secret)
-                                addon.setSetting("realdebrid.enable", 'true')
+                                addon.setSetting("realdebrid.enable", ('true' if your_rd_token and not control.wiping() else 'false'))
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.genocide')
                 xbmc.log('%s: Genocide Real-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -630,9 +633,9 @@ class Auth:
                                 # the bare except swallowed it - which meant
                                 # rd_enabled below never ran and Orion got a
                                 # token it would not use.
-                                addon.setSetting("rd_enabled", 'true')
+                                addon.setSetting("rd_enabled", ('true' if your_rd_token and not control.wiping() else 'false'))
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.orion')
                 xbmc.log('%s: Orion Real-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -644,7 +647,7 @@ class Auth:
                                   ('rd.client_id', your_rd_client_id),
                                   ('rd.secret', your_rd_secret),
                                   ('rd.account_id', your_rd_username),
-                                  ('rd.enabled', 'true')])
+                                  ('rd.enabled', ('true' if your_rd_token and not control.wiping() else 'false'))])
         except:
                 sync_support.failed()
                 xbmc.log('%s: Red Light Real-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
@@ -660,9 +663,9 @@ class Auth:
                                 addon.setSetting("rd_refresh_token", your_rd_refresh)
                                 addon.setSetting("rd_client_id", your_rd_client_id)
                                 addon.setSetting("rd_client_secret", your_rd_secret)
-                                addon.setSetting("rd_auth_done", 'true')
+                                addon.setSetting("rd_auth_done", ('true' if your_rd_token and not control.wiping() else 'false'))
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.cosmos')
                 xbmc.log('%s: Cosmos Real-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -679,7 +682,7 @@ class Auth:
                                 addon.setSetting("rd.client_id", your_rd_client_id)
                                 addon.setSetting("rd.refresh", your_rd_refresh)
                                 addon.setSetting("rd.secret", your_rd_secret)
-                                addon.setSetting("rd.enabled", 'true')
+                                addon.setSetting("rd.enabled", ('true' if your_rd_token and not control.wiping() else 'false'))
 
                                 if str(chk_auth_thearchives_pm) != '':
                                         addon.setSetting("pm.enabled", 'true')
@@ -691,7 +694,7 @@ class Auth:
                                 else:
                                         addon.setSetting("ad.enabled", 'false')
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.thearchives')
                 xbmc.log('%s: The Archives Real-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -703,7 +706,7 @@ class Auth:
                                 addon = xbmcaddon.Addon("plugin.program.rdtplayer")
                                 addon.setSetting("api_key", your_rd_token)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.program.rdtplayer')
                 xbmc.log('%s: Diamond Media Player Real-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -717,9 +720,9 @@ class Auth:
                                 addon.setSetting("rd.refresh", your_rd_refresh)
                                 addon.setSetting("rd.client_id", your_rd_client_id)
                                 addon.setSetting("rd.secret", your_rd_secret)
-                                addon.setSetting("realdebrid.enabled", 'true')
+                                addon.setSetting("realdebrid.enabled", ('true' if your_rd_token and not control.wiping() else 'false'))
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.prism')
                 xbmc.log('%s: Prism Real-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -746,9 +749,9 @@ class Auth:
                                 addon.setSetting("rd.refresh", your_rd_refresh)
                                 addon.setSetting("rd.client_id", your_rd_client_id)
                                 addon.setSetting("rd.secret", your_rd_secret)
-                                addon.setSetting("debrid_use_rd", 'true')
+                                addon.setSetting("debrid_use_rd", ('true' if your_rd_token and not control.wiping() else 'false'))
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.youtubetheater')
                 xbmc.log('%s: Youtube Theater Real-Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 

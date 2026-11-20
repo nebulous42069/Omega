@@ -34,10 +34,10 @@ class Auth:
                         
                                 addon = xbmcaddon.Addon("plugin.video.umbrella")
                                 addon.setSetting("easydebridtoken", your_token)
-                                addon.setSetting("easydebrid.enable", 'true')
+                                addon.setSetting("easydebrid.enable", ('true' if your_token and not control.wiping() else 'false'))
 
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.umbrella')
                 xbmc.log('%s: Umbrella Easy Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -50,10 +50,10 @@ class Auth:
                                 addon = xbmcaddon.Addon("plugin.video.pov")
                                 addon.setSetting("ed.token", your_token)
                                 addon.setSetting("ed.account_id", your_acct_id)
-                                addon.setSetting("ed.enabled", 'true')
+                                addon.setSetting("ed.enabled", ('true' if your_token and not control.wiping() else 'false'))
 
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.pov')
                 xbmc.log('%s: POV Easy Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -66,11 +66,11 @@ class Auth:
                                 addon = xbmcaddon.Addon("plugin.video.infinity")
                                 addon.setSetting("easydebridtoken", your_token)
                                 addon.setSetting("easydebrid.username", your_acct_id)
-                                addon.setSetting("easydebrid.enable", 'true')
+                                addon.setSetting("easydebrid.enable", ('true' if your_token and not control.wiping() else 'false'))
                                 addon.setSetting("easydebrid.expirynotice", '0')
 
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.infinity')
                 xbmc.log('%s: Infinity Easy Debrid Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 

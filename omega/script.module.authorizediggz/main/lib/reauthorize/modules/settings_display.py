@@ -2,7 +2,7 @@
 
 import re
 
-from reauthorize.modules import control
+from reauthorize.modules import control, own_settings
 
 _MASK = '**************'
 
@@ -34,6 +34,7 @@ def _set_display(raw_key, display_key, mask=False):
 
 def sync_authorized_display_values():
     """Populate display-only fields for authorized services."""
+    own_settings.sync_service_flags()
     # The version that is running, first row of the first tab (asked for by the user, 2026-10-13).
     # Embedded copy: show its version without standalone repository status.
     try:
@@ -63,17 +64,17 @@ def sync_authorized_display_values():
     else:
         _put('offcloud.authorized.display', '')
 
-    if control.setting('easynews.password'):
+    if control.setting('easynews.username') and control.setting('easynews.password'):
         _set_display('easynews.username', 'easynews.username.display')
         _set_display('easynews.password', 'easynews.password.display', mask=True)
     else:
         _put('easynews.username.display', '')
         _put('easynews.password.display', '')
 
-    if control.setting('torbox.token'):
-        _put('torbox.authorized.display', 'Authorized')
-    else:
-        _put('torbox.authorized.display', '')
+    # Authorization is the source of truth. Repair old profiles and restored
+    # backups that had a valid token but a disabled compatibility flag.
+    torbox_authorized = bool(control.setting('torbox.token'))
+    _put('torbox.authorized.display', 'Authorized' if torbox_authorized else '')
 
     if control.setting('easydebrid.token'):
         _put('easydebrid.authorized.display', 'Authorized')
@@ -90,7 +91,7 @@ def sync_authorized_display_values():
     else:
         _put('debridlink.authorized.display', '')
 
-    if control.setting('linksnappy.username'):
+    if control.setting('linksnappy.username') and control.setting('linksnappy.password'):
         _set_display('linksnappy.username', 'linksnappy.username.display')
     else:
         _put('linksnappy.username.display', '')
@@ -138,7 +139,7 @@ def sync_authorized_display_values():
         _set_display('tmdb.password', 'tmdb.password.display', mask=True)
     else:
         _put('tmdb.api.key.display', '')
-        _put('tmdb.username.display', '')
+        _put('tmdb.username.display', 'Authorized (V4)' if control.setting('tmdb.authorization') else '')
         _put('tmdb.password.display', '')
 
     _set_display('fanart.tv.api.key', 'fanart.tv.api.key.display')

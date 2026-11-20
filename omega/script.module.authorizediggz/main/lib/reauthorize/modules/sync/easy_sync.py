@@ -27,7 +27,7 @@ class Auth:
                         if xbmcvfs.exists(var.chk_coal):
 
                                 chk_easy = xbmcaddon.Addon('plugin.video.coalition').getSetting("easynews_password")
-                                enable_easy = ("true")
+                                enable_easy = ("false" if control.wiping() else "true")
                          
                                 if sync_support.needs('plugin.video.coalition', [('easynews_user',your_easy_user),('easynews_password',your_easy_pass)]):
                                         addon = xbmcaddon.Addon("plugin.video.coalition")
@@ -35,7 +35,7 @@ class Auth:
                                         addon.setSetting("easynews_user", your_easy_user)
                                         addon.setSetting("easynews_password", your_easy_pass)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.coalition')
                         xbmc.log('%s: Coalition Easynews Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
                 
@@ -44,7 +44,7 @@ class Auth:
                         if xbmcvfs.exists(var.chk_pov) and (accountmgr.getSetting("easynews.password") != '' or control.wiping()):
 
                                 chk_easy = xbmcaddon.Addon('plugin.video.pov').getSetting("easynews_password")
-                                enable_easy = ("true")
+                                enable_easy = ("false" if control.wiping() else "true")
                                      
                                 if sync_support.needs('plugin.video.pov', [('easynews_user',your_easy_user),('easynews_password',your_easy_pass)]):
                                         addon = xbmcaddon.Addon("plugin.video.pov")
@@ -52,7 +52,7 @@ class Auth:
                                         addon.setSetting("easynews_user", your_easy_user)
                                         addon.setSetting("easynews_password", your_easy_pass)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.pov')
                         xbmc.log('%s: POV Easynews Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -61,7 +61,7 @@ class Auth:
                         if xbmcvfs.exists(var.chk_umb):
 
                                 chk_easy = xbmcaddon.Addon('plugin.video.umbrella').getSetting("easynews.password")
-                                enable_easy = ("true")
+                                enable_easy = ("false" if control.wiping() else "true")
                                      
                                 if sync_support.needs('plugin.video.umbrella', [('easynews.user',your_easy_user),('easynews.password',your_easy_pass)]):
                                         addon = xbmcaddon.Addon("plugin.video.umbrella")
@@ -69,7 +69,7 @@ class Auth:
                                         addon.setSetting("easynews.user", your_easy_user)
                                         addon.setSetting("easynews.password", your_easy_pass)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.umbrella')
                         xbmc.log('%s: Umbrella Easynews Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -78,7 +78,7 @@ class Auth:
                         if xbmcvfs.exists(var.chk_infinity):
 
                                 chk_easy = xbmcaddon.Addon('plugin.video.infinity').getSetting("easynews.password")
-                                enable_easy = ("true")
+                                enable_easy = ("false" if control.wiping() else "true")
                                      
                                 if sync_support.needs('plugin.video.infinity', [('easynews.user',your_easy_user),('easynews.password',your_easy_pass)]):
                                         addon = xbmcaddon.Addon("plugin.video.infinity")
@@ -86,7 +86,7 @@ class Auth:
                                         addon.setSetting("easynews.user", your_easy_user)
                                         addon.setSetting("easynews.password", your_easy_pass)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.infinity')
                         xbmc.log('%s: Infinity Easynews Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
                 
@@ -103,7 +103,7 @@ class Auth:
                                         addon.setSetting("easynews.user", your_easy_user)
                                         addon.setSetting("easynews.password", your_easy_pass)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.thecrew')
                         xbmc.log('%s: The Crew Easynews Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -120,7 +120,7 @@ class Auth:
                                         addon.setSetting("easynews.username", your_easy_user)
                                         addon.setSetting("easynews.password", your_easy_pass)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('script.module.allaccounts')
                         xbmc.log('%s: All Accounts Easynews Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
                 
@@ -137,7 +137,7 @@ class Auth:
                                         addon.setSetting("easynews.username", your_easy_user)
                                         addon.setSetting("easynews.password", your_easy_pass)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('script.module.myaccounts')
                         xbmc.log('%s: My Accounts Easynews Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -150,7 +150,7 @@ class Auth:
                                 addon.setSetting("easynews.username", your_easy_user)
                                 addon.setSetting("easynews.password", your_easy_pass)
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.genocide')
                 xbmc.log('%s: Genocide Easynews Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -159,7 +159,7 @@ class Auth:
                 from reauthorize.modules.db import redlight_db
                 redlight_db.push([('easynews_password', your_easy_pass),
                                   ('easynews_user', your_easy_user),
-                                  ('provider.easynews', 'true')])
+                                  ('provider.easynews', ('false' if control.wiping() else 'true'))])
         except:
                 sync_support.failed()
                 xbmc.log('%s: Red Light Easynews Failed!' % var.amgr, xbmc.LOGINFO)
@@ -173,9 +173,9 @@ class Auth:
                                 addon = xbmcaddon.Addon("plugin.video.thearchives")
                                 addon.setSetting("easynews.username", your_easy_user)
                                 addon.setSetting("easynews.password", your_easy_pass)
-                                addon.setSetting("provider.easynews", 'true')
+                                addon.setSetting("provider.easynews", ('false' if control.wiping() else 'true'))
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.thearchives')
                 xbmc.log('%s: The Archives Easynews Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -187,9 +187,9 @@ class Auth:
                                 addon = xbmcaddon.Addon("plugin.video.cosmos")
                                 addon.setSetting("easynews_username", your_easy_user)
                                 addon.setSetting("easynews_password", your_easy_pass)
-                                addon.setSetting("easynews_enabled", 'true')
+                                addon.setSetting("easynews_enabled", ('false' if control.wiping() else 'true'))
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.cosmos')
                 xbmc.log('%s: Cosmos Easynews Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -201,9 +201,9 @@ class Auth:
                                 addon = xbmcaddon.Addon("plugin.program.rdtplayer")
                                 addon.setSetting("easynews_user", your_easy_user)
                                 addon.setSetting("easynews_password", your_easy_pass)
-                                addon.setSetting("enable_easynews", 'true')
+                                addon.setSetting("enable_easynews", ('false' if control.wiping() else 'true'))
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.program.rdtplayer')
                 xbmc.log('%s: Diamond Media Player Easynews Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 
@@ -215,9 +215,9 @@ class Auth:
                                 addon = xbmcaddon.Addon("plugin.video.youtubetheater")
                                 addon.setSetting("easynews.user", your_easy_user)
                                 addon.setSetting("easynews.password", your_easy_pass)
-                                addon.setSetting("provider.easy", 'true')
+                                addon.setSetting("provider.easy", ('false' if control.wiping() else 'true'))
         except:
-                sync_support.failed()
+                sync_support.failed('plugin.video.youtubetheater')
                 xbmc.log('%s: Youtube Theater Easynews Failed!' % var.amgr, xbmc.LOGINFO)
                 pass
 

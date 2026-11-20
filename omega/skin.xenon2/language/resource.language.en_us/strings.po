@@ -526,8 +526,8 @@ msgid "TheMovieDb Helper provides details about movies, tvshows and actors from 
 msgstr ""
 
 msgctxt "#31127"
-msgid "Enable Extended Info integration"
-msgstr "Enable Extended Info integration"
+msgid "Enable additional recommendations (Embuary Helper)"
+msgstr "Enable additional recommendations (Embuary Helper)"
 
 msgctxt "#31128"
 msgid "Channels View"
@@ -802,8 +802,8 @@ msgid "Show time remaining on fullscreen info"
 msgstr "Show time remaining on fullscreen info"
 
 msgctxt "#31196"
-msgid "Replace default with Extended Info (some features and extras (+) will be unavailable)"
-msgstr "Replace default with Extended Info (some features and extras (+) will be unavailable)"
+msgid "Replace default with Diggz Portal Info (some features and extras (+) will be unavailable)"
+msgstr "Replace default with Diggz Portal Info (some features and extras (+) will be unavailable)"
 
 msgctxt "#31197"
 msgid "Enable info rating (works with US Ratings only)"
@@ -1050,8 +1050,8 @@ msgid "Movie set titles"
 msgstr "Movie set titles"
 
 msgctxt "#31258"
-msgid "Blur background (extended info dialog)"
-msgstr "Blur background (extended info dialog)"
+msgid "Blur background (information dialog)"
+msgstr "Blur background (information dialog)"
 
 msgctxt "#31259"
 msgid "Center"
@@ -2222,8 +2222,8 @@ msgid "Kodi random music fanart"
 msgstr "Kodi random music fanart"
 
 msgctxt "#31551"
-msgid "Embuary Helper provides the Alphabet Jump Letter Bar, scraped ratings from Rotten Tomatoes and MetaCritic in fullscreen info. It also adds Similar and more from director when you Enable Extended Info integration in the settings for Video & Music information."
-msgstr "Embuary Helper provides the Alphabet Jump Letter Bar, scraped ratings from Rotten Tomatoes and MetaCritic in fullscreen info. It also adds Similar and more from director when you Enable Extended Info integration in the settings for Video & Music information."
+msgid "Embuary Helper provides the Alphabet Jump Letter Bar, scraped ratings from Rotten Tomatoes and MetaCritic in fullscreen info. It also adds Similar and more from director when you enable additional recommendations in the settings for Video & Music information."
+msgstr "Embuary Helper provides the Alphabet Jump Letter Bar, scraped ratings from Rotten Tomatoes and MetaCritic in fullscreen info. It also adds Similar and more from director when you enable additional recommendations in the settings for Video & Music information."
 
 msgctxt "#31552"
 msgid "Set the displayed name of the menu item."
@@ -2842,8 +2842,8 @@ msgid "Use this setting to override the location of the Trailers button when usi
 msgstr ""
 
 msgctxt "#31855"
-msgid "Enable this setting to replace the Default info with online info provided by the ExtendedInfo script. You can use the Xenon version or the Defaults provided by the script if you enable the option in the settings for ExtendedInfo."
-msgstr "Enable this setting to replace the Default info with online info provided by the ExtendedInfo script. You can use the Xenon version or the Defaults provided by the script if you enable the option in the settings for ExtendedInfo."
+msgid "Enable this setting to replace the default information dialog with Diggz Portal Info. Choose your preferred layout in Diggz Portal settings."
+msgstr "Enable this setting to replace the default information dialog with Diggz Portal Info. Choose your preferred layout in Diggz Portal settings."
 
 msgctxt "#31856"
 msgid "Use this to select the multi-fanart cycle speed skin wide."
@@ -3006,8 +3006,8 @@ msgid "Choose which overlays to show on thumbs in icon based views. Note that th
 msgstr "Choose which overlays to show on thumbs in icon based views. Note that the \"Resume\" flag takes precedent over any watched status. After activating an overlay you must also enable it in each views settings. "
 
 msgctxt "#31945"
-msgid "This toggles the layout of the List view. Default is a 7 item layout with extended info, \"Slim List\" is a 14 item, more basic layout"
-msgstr "This toggles the layout of the List view. Default is a 7 item layout with extended info, \"Slim List\" is a 14 item, more basic layout"
+msgid "This toggles the layout of the List view. Default is a 7 item layout with detailed information, \"Slim List\" is a 14 item, more basic layout"
+msgstr "This toggles the layout of the List view. Default is a 7 item layout with detailed information, \"Slim List\" is a 14 item, more basic layout"
 
 msgctxt "#31950"
 msgid "WEATHER"

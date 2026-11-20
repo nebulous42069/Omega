@@ -108,9 +108,11 @@ def _send_new_signin():
     """
     try:
         from reauthorize.modules import autosend
-        autosend.send_if_changed(
+        sent = autosend.send_if_changed(
             action, _signins_at_start,
             notify=lambda label: notification('Diggz Account Manager', 'Sending %s to your add-ons...' % label, icon=amgr_icon))
+        if sent and getattr(sent[1], 'has_issues', bool(sent[1])):
+            _show_sync_result(sent[1], amgr_icon)
     except Exception as e:
         xbmc.log('[Diggz Account Manager] sending the new sign-in failed: %s' % e, xbmc.LOGINFO)
 
@@ -125,7 +127,7 @@ def _reload_and_open_settings(query=None):
     xbmc.sleep(500)
     control.openSettings(query, 'script.module.authorizediggz')
 
-from reauthorize.modules.sync_all import run_all_syncs as _run_all_syncs, META_KEYS as _META_KEYS
+from reauthorize.modules.sync_all import run_all_syncs as _run_all_syncs, META_KEYS as _META_KEYS, show_result as _show_sync_result
 
 # What the backup set holds as this action starts; _backup_if_signins_changed() compares against it.
 try:
@@ -136,19 +138,22 @@ except Exception:
 
 def _run_meta_sync():
     if any(control.setting(k) for k in _META_KEYS):
-        notification('Diggz Account Manager', 'Sync in progress, please wait!', icon=amgr_icon)
-        try:
-            from reauthorize.modules.sync import meta_sync
-            meta_sync.Auth().meta_auth()
-            control.setSetting('sync.meta.service', 'true')
-        except:
-            pass
-        xbmc.sleep(2000)
-        notification('Diggz Account Manager', 'Sync Complete!', icon=amgr_icon)
-        _reload_and_open_settings()
+        _show_sync_result(_run_all_syncs(include_trakt=False, only=('meta',)), amgr_icon)
     else:
         notification('Diggz Account Manager', 'No Meta Data to Sync!', icon=amgr_icon)
-        _reload_and_open_settings()
+    _reload_and_open_settings()
+
+def _sync_restored_credentials():
+    """Explicit restore already has user consent; retain the existing Trakt auto-link choice."""
+    from startup import _refresh_trakt, _refresh_mdblist, _refresh_simkl, _refresh_punchplay
+    include_trakt = control.setting('trakt.auto_push.consent') != 'false'
+    if include_trakt:
+        _refresh_trakt()
+    _refresh_mdblist()
+    _refresh_simkl()
+    _refresh_punchplay()
+    _show_sync_result(_run_all_syncs(include_trakt=include_trakt, portal_explicit=False), amgr_icon)
+
 
 control.set_active_monitor()
 
@@ -253,10 +258,12 @@ elif action == 'traktAuth':
         # so the user is not left holding a login that nothing is using.
         from reauthorize.modules.sync import trakt_sync, trakt_select
         notification('Diggz Account Manager', 'Sending Trakt to your add-ons...', icon=trakt_icon)
-        trakt_sync.Auth().trakt_auth()
+        result = _run_all_syncs(only=('trakt',))
+        if result.has_issues:
+            _show_sync_result(result, trakt_icon)
         targets = trakt_select.installed_addons()
-        control.setSetting('trakt.all_push.done', 'true')
-        control.setSetting('sync.tk.service', 'true' if targets else 'false')
+        control.setSetting('trakt.all_push.done', 'true' if not result else '')
+        control.setSetting('sync.tk.service', 'true' if targets and not result else 'false')
         if targets:
             accountmgr.setSetting('api.service', 'true')
         from reauthorize.modules import vault, server
@@ -266,7 +273,7 @@ elif action == 'traktAuth':
         if targets:
             restart = xbmcgui.Dialog().yesno(
                 'Diggz Account Manager',
-                'Trakt linked and sent to %d add-on%s.[CR][CR]Restart Kodi so they all pick it up.[CR][CR]Restart now, or finish setting up other services first?'
+                'Trakt linked; %d installed add-on%s considered for synchronization.[CR][CR]Restart Kodi to load any changed keys.[CR][CR]Restart now, or finish setting up other services first?' 
                 % (len(targets), '' if len(targets) == 1 else 's'),
                 nolabel='Later', yeslabel='Restart Now')
             if restart:
@@ -284,10 +291,8 @@ elif action == 'traktReSync':
     notification('Diggz Account Manager', 'Sync in progress, please wait!', icon=trakt_icon)
     xbmc.sleep(3000)
     key_files_before = restart_hint.key_files()
-    trakt_sync.Auth().trakt_auth()
-    xbmc.sleep(1000)
+    _show_sync_result(_run_all_syncs(only=('trakt',)), trakt_icon)
     accountmgr.setSetting("api.service", "true")
-    notification('Diggz Account Manager', 'Sync Complete!', icon=trakt_icon)
     # An add-on whose key file was just swapped only reads it when Kodi starts.
     if control.setting('trakt.token') and restart_hint.ask(key_files_before):
         os._exit(1)
@@ -307,10 +312,7 @@ elif action == 'realdebridAuth':
     _reload_and_open_settings()
 
 elif action == 'realdebridReSync':
-    from reauthorize.modules.sync_all import run_all_syncs
-    failed = run_all_syncs(include_trakt=False, only=('rd',))
-    message = 'Could not finish syncing: ' + ', '.join(failed) if failed else 'Sync Complete!'
-    notification('Diggz Account Manager', message, icon=rd_icon)
+    _show_sync_result(_run_all_syncs(include_trakt=False, only=('rd',)), rd_icon)
     _reload_and_open_settings()
 
 elif action == 'realdebridRevoke':
@@ -333,12 +335,7 @@ elif action == 'premiumizeAuth':
     _reload_and_open_settings()
 
 elif action == 'premiumizeReSync':
-    notification('Diggz Account Manager', 'Sync in progress, please wait!', icon=pm_icon)
-    xbmc.sleep(3000)
-    from reauthorize.modules.sync import debrid_pm
-    debrid_pm.Auth().premiumize_auth()
-    xbmc.sleep(1000)
-    notification('Diggz Account Manager', 'Sync Complete!', icon=pm_icon)
+    _show_sync_result(_run_all_syncs(include_trakt=False, only=('pm',)), pm_icon)
     _reload_and_open_settings()
 
 elif action == 'premiumizeRevoke':
@@ -361,12 +358,7 @@ elif action == 'alldebridAuth':
     _reload_and_open_settings()
 
 elif action == 'alldebridReSync':
-    notification('Diggz Account Manager', 'Sync in progress, please wait!', icon=ad_icon)
-    xbmc.sleep(3000)
-    from reauthorize.modules.sync import debrid_ad
-    debrid_ad.Auth().alldebrid_auth()
-    xbmc.sleep(1000)
-    notification('Diggz Account Manager', 'Sync Complete!', icon=ad_icon)
+    _show_sync_result(_run_all_syncs(include_trakt=False, only=('ad',)), ad_icon)
     _reload_and_open_settings()
 
 elif action == 'alldebridRevoke':
@@ -390,10 +382,7 @@ elif action == 'torboxRevoke':
     _reload_and_open_settings()
 
 elif action == 'torboxReSync':
-    from reauthorize.modules.sync_all import run_all_syncs
-    failed = run_all_syncs(include_trakt=False, only=('torbox',))
-    message = 'Could not finish syncing: ' + ', '.join(failed) if failed else 'Sync Complete!'
-    notification('Diggz Account Manager', message, icon=torbox_icon)
+    _show_sync_result(_run_all_syncs(include_trakt=False, only=('torbox',)), torbox_icon)
     _reload_and_open_settings()
 
 elif action == 'easydebridAuth':
@@ -411,10 +400,7 @@ elif action == 'easydebridRevoke':
     _reload_and_open_settings()
 
 elif action == 'easydebridReSync':
-    from reauthorize.modules.sync_all import run_all_syncs
-    failed = run_all_syncs(include_trakt=False, only=('easyd',))
-    message = 'Could not finish syncing: ' + ', '.join(failed) if failed else 'Sync Complete!'
-    notification('Diggz Account Manager', message, icon=easyd_icon)
+    _show_sync_result(_run_all_syncs(include_trakt=False, only=('easyd',)), easyd_icon)
     _reload_and_open_settings()
 
 elif action == 'offcloudAuth':
@@ -432,12 +418,7 @@ elif action == 'offcloudRevoke':
     _reload_and_open_settings()
 
 elif action == 'offcloudReSync':
-    notification('Diggz Account Manager', 'Sync in progress, please wait!', icon=offcloud_icon)
-    xbmc.sleep(3000)
-    from reauthorize.modules.sync import offcloud_sync
-    offcloud_sync.Auth().offcloud_auth()
-    xbmc.sleep(1000)
-    notification('Diggz Account Manager', 'Sync Complete!', icon=offcloud_icon)
+    _show_sync_result(_run_all_syncs(include_trakt=False, only=('offc',)), offcloud_icon)
     _reload_and_open_settings()
 
 elif action == 'easynewsAuth':
@@ -449,12 +430,7 @@ elif action == 'easynewsAuth':
     _reload_and_open_settings()
 
 elif action == 'easynewsReSync':
-    notification('Diggz Account Manager', 'Sync in progress, please wait!', icon=easy_icon)
-    xbmc.sleep(3000)
-    from reauthorize.modules.sync import easy_sync
-    easy_sync.Auth().easy_auth()
-    xbmc.sleep(1000)
-    notification('Diggz Account Manager', 'Sync Complete!', icon=easy_icon)
+    _show_sync_result(_run_all_syncs(include_trakt=False, only=('easy',)), easy_icon)
     _reload_and_open_settings()
 
 elif action == 'filepursuitAuth':
@@ -466,12 +442,7 @@ elif action == 'filepursuitAuth':
     _reload_and_open_settings()
 
 elif action == 'filepursuitReSync':
-    notification('Diggz Account Manager', 'Sync in progress, please wait!', icon=file_icon)
-    xbmc.sleep(3000)
-    from reauthorize.modules.sync import filepursuit_sync
-    filepursuit_sync.Auth().file_auth()
-    xbmc.sleep(1000)
-    notification('Diggz Account Manager', 'Sync Complete!', icon=file_icon)
+    _show_sync_result(_run_all_syncs(include_trakt=False, only=('filep',)), file_icon)
     _reload_and_open_settings()
 
 elif action == 'linksnappyAuth':
@@ -489,12 +460,7 @@ elif action == 'linksnappyRevoke':
     _reload_and_open_settings()
 
 elif action == 'linksnappyReSync':
-    notification('Diggz Account Manager', 'Sync in progress, please wait!', icon=linksnappy_icon)
-    xbmc.sleep(3000)
-    from reauthorize.modules.sync import linksnappy_sync
-    linksnappy_sync.Auth().linksnappy_auth()
-    xbmc.sleep(1000)
-    notification('Diggz Account Manager', 'Sync Complete!', icon=linksnappy_icon)
+    _show_sync_result(_run_all_syncs(include_trakt=False, only=('linksnappy',)), linksnappy_icon)
     _reload_and_open_settings()
 
 elif action == 'debridlinkAuth':
@@ -512,18 +478,20 @@ elif action == 'debridlinkRevoke':
     _reload_and_open_settings()
 
 elif action == 'debridlinkReSync':
-    from reauthorize.modules.sync_all import run_all_syncs
-    failed = run_all_syncs(include_trakt=False, only=('debridlink',))
-    message = 'Could not finish syncing: ' + ', '.join(failed) if failed else 'Sync Complete!'
-    notification('Diggz Account Manager', message, icon=debridlink_icon)
+    _show_sync_result(_run_all_syncs(include_trakt=False, only=('debridlink',)), debridlink_icon)
     _reload_and_open_settings()
 
 elif action == 'tmdbAuth':
     from reauthorize.modules.auth import tmdb
     tmdb.Auth().create_session_id()
-    if control.setting('tmdb.api.key') or control.setting('tmdb.session_id'):
+    if control.setting('tmdb.api.key') or control.setting('tmdb.session_id') or control.setting('tmdb.authorization'):
         control.setSetting('sync.meta.service', 'true')
     xbmc.sleep(2000)
+    _reload_and_open_settings()
+
+elif action == 'tmdbSync':
+    from reauthorize.modules.sync_all import run_all_syncs
+    _show_sync_result(run_all_syncs(include_trakt=False, only=('meta',)), tmdb_icon)
     _reload_and_open_settings()
 
 elif action == 'tmdbRevoke':
@@ -568,6 +536,16 @@ elif action == 'audiodbAuth':
 elif action == 'audiodbRevoke':
     from reauthorize.modules.auth import audiodb
     audiodb.AudioDB().revoke()
+    control.release_active_monitor()
+    _reload_and_open_settings()
+
+elif action in ('tvdbSync', 'tvdbRevoke'):
+    from reauthorize.modules import tmdbh_compat
+    if action == 'tvdbRevoke':
+        control.setSetting('tvdb.api.key', '')
+    tmdbh_compat.sync_tvdb(control.setting('tvdb.api.key'), wipe=action == 'tvdbRevoke')
+    if control.setting('tvdb.api.key'):
+        control.setSetting('sync.meta.service', 'true')
     control.release_active_monitor()
     _reload_and_open_settings()
 
@@ -629,51 +607,54 @@ elif action == 'serviceRevoke':
     if mode == 'addondebrid_rd':
         from reauthorize.modules.auth import realdebrid
         realdebrid.RealDebrid().revoke()
-        _run_all_syncs(include_trakt=False, wipe={'rd'})
+        if not control.setting('realdebrid.token'):
+            _show_sync_result(_run_all_syncs(include_trakt=False, wipe={'rd'}, only=('rd',)), amgr_icon)
         control.release_active_monitor()
         _reload_and_open_settings()
     elif mode == 'addondebrid_pm':
         from reauthorize.modules.auth import premiumize
         premiumize.Premiumize().revoke()
-        _run_all_syncs(include_trakt=False, wipe={'pm'})
+        if not control.setting('premiumize.token'):
+            _show_sync_result(_run_all_syncs(include_trakt=False, wipe={'pm'}, only=('pm',)), amgr_icon)
         control.release_active_monitor()
         _reload_and_open_settings()
     elif mode == 'addondebrid_ad':
         from reauthorize.modules.auth import alldebrid
         alldebrid.AllDebrid().revoke()
-        _run_all_syncs(include_trakt=False, wipe={'ad'})
+        if not control.setting('alldebrid.token'):
+            _show_sync_result(_run_all_syncs(include_trakt=False, wipe={'ad'}, only=('ad',)), amgr_icon)
         control.release_active_monitor()
         _reload_and_open_settings()
     elif mode == 'addontb':
         from reauthorize.modules.auth import torbox
         torbox.Torbox().revoke()
         if not control.setting('torbox.token'):
-            _run_all_syncs(include_trakt=False, wipe={'torbox'})
+            _show_sync_result(_run_all_syncs(include_trakt=False, wipe={'torbox'}, only=('torbox',)), amgr_icon)
         control.release_active_monitor()
         _reload_and_open_settings()
     elif mode == 'addoned':
         from reauthorize.modules.auth import easydebrid
         easydebrid.Easydebrid().revoke()
         if not control.setting('easydebrid.token'):
-            _run_all_syncs(include_trakt=False, wipe={'easyd'})
+            _show_sync_result(_run_all_syncs(include_trakt=False, wipe={'easyd'}, only=('easyd',)), amgr_icon)
         control.release_active_monitor()
         _reload_and_open_settings()
     elif mode == 'addonoffc':
         from reauthorize.modules.auth import offcloud
         offcloud.Offcloud().revoke()
         if not control.setting('offcloud.token'):
-            _run_all_syncs(include_trakt=False, wipe={'offc'})
+            _show_sync_result(_run_all_syncs(include_trakt=False, wipe={'offc'}, only=('offc',)), amgr_icon)
         control.release_active_monitor()
         _reload_and_open_settings()
     elif mode == 'addoneasy':
         control.setSetting('easynews.username', '')
         control.setSetting('easynews.password', '')
-        _run_all_syncs(include_trakt=False, wipe={'easy'})
+        _show_sync_result(_run_all_syncs(include_trakt=False, wipe={'easy'}, only=('easy',)), amgr_icon)
         control.release_active_monitor()
         _reload_and_open_settings()
     elif mode == 'addonfile':
         control.setSetting('filepursuit.api.key', '')
-        _run_all_syncs(include_trakt=False, wipe={'filep'})
+        _show_sync_result(_run_all_syncs(include_trakt=False, wipe={'filep'}, only=('filep',)), amgr_icon)
         control.release_active_monitor()
         _reload_and_open_settings()
     elif mode == 'addontrakt':
@@ -698,18 +679,10 @@ elif action == 'mdblistOAuthAuth':
     _reload_and_open_settings()
 
 elif action == 'mdblistOAuthReSync':
-    # One MDBList: sends the account sign-in and the API key, whichever are there.
-    from reauthorize.modules.sync import mdblist_oauth_sync
-    sent = bool(control.setting('mdblist.oauth.token')) and mdblist_oauth_sync.push()
-    if control.setting('mdb.api.key'):
-        from reauthorize.modules.sync import meta_sync
-        meta_sync.Auth().meta_auth()
-        control.setSetting('sync.meta.service', 'true')
-        sent = True
-    if sent:
-        notification('Diggz Account Manager', 'MDBList sent to your add-ons.', icon=amgr_icon)
+    if control.setting('mdblist.oauth.token') or control.setting('mdb.api.key'):
+        _show_sync_result(_run_all_syncs(include_trakt=False, only=('mdbo', 'meta')), amgr_icon)
     else:
-        notification('Diggz Account Manager', 'No MDBList add-on to send it to.', icon=amgr_icon)
+        notification('Diggz Account Manager', 'Authorize MDBList first.', icon=amgr_icon)
     _reload_and_open_settings()
 
 elif action == 'mdblistOAuthRevoke':
@@ -770,17 +743,17 @@ elif action == 'simklAuth':
     from reauthorize.modules.auth import simkl
     # Waiting for Kodi's native addonsettings window here never completes.
     try:
-        simkl.Simkl().auth()
+        simkl_authorized = simkl.Simkl().auth()
     finally:
         control.release_active_monitor()
-    if control.setting('simkl.token'):
+    if simkl_authorized and control.setting('simkl.token'):
         from reauthorize.modules.sync import simkl_sync
         from reauthorize.modules import restart_hint
         notification('Diggz Account Manager', 'Simkl sync in progress...', icon=simkl_icon)
         key_files_before = restart_hint.key_files()
-        simkl_sync.Auth().simkl_auth()
-        control.setSetting('simkl.all_push.done', 'true')
-        notification('Diggz Account Manager', 'Simkl sync complete!', icon=simkl_icon)
+        result = _run_all_syncs(include_trakt=False, only=('simkl',))
+        control.setSetting('simkl.all_push.done', 'true' if not result else '')
+        _show_sync_result(result, simkl_icon)
         if restart_hint.pending() or restart_hint.key_files() != key_files_before:
             _backup_if_signins_changed()          # "Restart Now" leaves before the settings reopen
         if restart_hint.ask(key_files_before):
@@ -806,8 +779,7 @@ elif action == 'simklReSync':
     from reauthorize.modules import restart_hint
     notification('Diggz Account Manager', 'Simkl sync in progress...', icon=simkl_icon)
     key_files_before = restart_hint.key_files()
-    simkl_sync.Auth().simkl_auth()
-    notification('Diggz Account Manager', 'Simkl Sync Complete!', icon=simkl_icon)
+    _show_sync_result(_run_all_syncs(include_trakt=False, only=('simkl',)), simkl_icon)
     if control.setting('simkl.token') and restart_hint.ask(key_files_before):
         os._exit(1)
     _reload_and_open_settings()
@@ -816,9 +788,7 @@ elif action == 'youtubeReSync':
     if control.setting('youtube.api.key') and control.setting('youtube.api.id') and control.setting('youtube.api.secret'):
         notification('Diggz Account Manager', 'YouTube sync in progress...', icon=youtube_icon)
         from reauthorize.modules.sync import youtube_sync
-        youtube_sync.Auth().youtube_auth()
-        control.setSetting('sync.yt.service', 'true')
-        notification('Diggz Account Manager', 'YouTube sync complete!', icon=youtube_icon)
+        _show_sync_result(_run_all_syncs(include_trakt=False, only=('yt',)), youtube_icon)
     else:
         notification('Diggz Account Manager', 'YouTube: Enter all three API credentials first.', icon=youtube_icon)
     _reload_and_open_settings()
@@ -897,8 +867,7 @@ elif action == 'metaReSync':
 
 elif action == 'ReSyncAll':
     failed = _run_all_syncs()
-    if failed:
-        dialog.ok('Diggz Account Manager', 'Could not sync: %s.[CR][CR]For newly installed add-ons, open them once and retry. See kodi.log for the affected settings.' % ', '.join(failed))
+    _show_sync_result(failed, amgr_icon)
     _reload_and_open_settings()
 
 elif action == 'ShowChangelog':
@@ -992,10 +961,13 @@ elif action == 'vaultRestore':
     if not vault.vault_has_data():
         notification('Diggz Account Manager', 'Vault: No backup found.')
     else:
-        yes = dialog.yesno('Diggz Account Manager', 'Restore credentials from vault? This will overwrite your current settings.', 'Cancel', 'Restore')
+        yes = dialog.yesno('Diggz Account Manager', 'Restore credentials from vault and sync them to your linked add-ons? This will overwrite your current settings.', 'Cancel', 'Restore')
         if yes:
-            vault.restore()
-            notification('Diggz Account Manager', 'Vault: Credentials restored. Restart Kodi to sync.')
+            if vault.restore():
+                notification('Diggz Account Manager', 'Vault: Credentials restored.')
+                _sync_restored_credentials()
+            else:
+                notification('Diggz Account Manager', 'Vault: Restore failed. See kodi.log.')
     _reload_and_open_settings()
 
 elif action == 'vaultClear':
@@ -1016,9 +988,11 @@ elif action == 'serverBackup':
 elif action == 'serverRestore':
     from reauthorize.modules import server
     xbmc.sleep(500)
-    yes = dialog.yesno('Diggz Account Manager', 'Restore credentials from server? This will overwrite your current settings.', 'Cancel', 'Restore')
+    yes = dialog.yesno('Diggz Account Manager', 'Restore credentials from server and sync them to your linked add-ons? This will overwrite your current settings.', 'Cancel', 'Restore')
     if yes:
-        if server.restore(): notification('Diggz Account Manager', 'Server: Credentials restored.')
+        if server.restore():
+            notification('Diggz Account Manager', 'Server: Credentials restored.')
+            _sync_restored_credentials()
         else: notification('Diggz Account Manager', 'Server: No backup found or restore failed.')
     _reload_and_open_settings()
 
@@ -1060,8 +1034,9 @@ elif action == 'backupAll':
             problems = []
             if not vault_ok:
                 problems.append(vault.failure_message())
-            if failed:
-                problems.append('Could not sync: %s' % ', '.join(failed))
+            if failed.has_issues:
+                _show_sync_result(failed, amgr_icon)
+                problems.append('See synchronization report for details.')
 
             if problems:
                 notification('Diggz Account Manager', '  '.join(problems), icon=amgr_icon, time=7000)
@@ -1116,7 +1091,7 @@ elif action == 'restoreService':
     xbmc.sleep(500)
     yes = dialog.yesno(
         'Diggz Account Manager - Restore',
-        'Restore credentials from backup? This will overwrite your current settings.',
+        'Restore credentials from backup and sync them to your linked add-ons? This will overwrite your current settings.',
         'Cancel', 'Restore')
     if yes:
         ok = server.restore()
@@ -1132,6 +1107,7 @@ elif action == 'restoreService':
 
         if ok:
             notification('Diggz Account Manager', 'Credentials restored from %s.' % source)
+            _sync_restored_credentials()
         elif server_down:
             notification('Diggz Account Manager', 'Could not reach the server, and no local vault backup exists.')
         else:
@@ -1178,11 +1154,11 @@ elif action == 'deviceReset':
             'filepursuit.api.key', 'filepursuit.enabled', 'torrentclaw.api.key',
             'linksnappy.username', 'linksnappy.password', 'linksnappy.enabled',
             'debridlink.token', 'debridlink.enabled',
-            'simkl.token', 'simkl.username', 'simkl.client.id',
+            'simkl.token', 'simkl.username', 'simkl.client.id', 'simkl.authorization',
             'lastfm.api.key', 'lastfm.api.secret', 'lastfm.session.key', 'lastfm.username',
             'fanart.tv.api.key', 'omdb.api.key', 'mdb.api.key', 'mdb.username', 'imdb.user',
             'mdblist.oauth.token', 'mdblist.oauth.refresh', 'mdblist.oauth.expires', 'mdblist.oauth.username',
-            'tmdb.api.key', 'tmdb.username', 'tmdb.password', 'tmdb.session_id',
+            'tmdb.api.key', 'tmdb.username', 'tmdb.password', 'tmdb.session_id', 'tmdb.authorization', 'tmdb.portal.authorization',
             'audiodb.api.key',
             'youtube.api.key', 'youtube.api.id', 'youtube.api.secret',
             'sync.tk.service', 'sync.rd.service', 'sync.pm.service', 'sync.ad.service',
@@ -1261,11 +1237,11 @@ elif action == 'prepareDistribution':
             'filepursuit.api.key', 'torrentclaw.api.key',
             'linksnappy.username', 'linksnappy.password',
             'debridlink.token',
-            'simkl.token', 'simkl.username', 'simkl.client.id',
+            'simkl.token', 'simkl.username', 'simkl.client.id', 'simkl.authorization',
             'lastfm.api.key', 'lastfm.api.secret', 'lastfm.session.key', 'lastfm.username',
             'fanart.tv.api.key', 'omdb.api.key', 'mdb.api.key', 'mdb.username', 'imdb.user',
             'mdblist.oauth.token', 'mdblist.oauth.refresh', 'mdblist.oauth.expires', 'mdblist.oauth.username',
-            'tmdb.api.key', 'tmdb.username', 'tmdb.password', 'tmdb.session_id',
+            'tmdb.api.key', 'tmdb.username', 'tmdb.password', 'tmdb.session_id', 'tmdb.authorization', 'tmdb.portal.authorization',
             'audiodb.api.key',
             'youtube.api.key', 'youtube.api.id', 'youtube.api.secret',
             'sync.tk.service', 'sync.rd.service', 'sync.pm.service', 'sync.ad.service',
@@ -1365,10 +1341,7 @@ elif action == 'silentReAuthorize':
     xbmc.sleep(1000)
     try:
         failed = _run_all_syncs()
-        if failed:
-            notification('Diggz Account Manager', 'Re-authorized, but failed: %s' % ', '.join(failed), icon=amgr_icon, time=6000)
-        else:
-            notification('Diggz Account Manager', 'Done! All services have been re-authorized.', icon=amgr_icon)
+        _show_sync_result(failed, amgr_icon)
     except Exception as e:
         xbmc.log('[Diggz Account Manager] silentReAuthorize failed: %s' % e, xbmc.LOGERROR)
         notification('Diggz Account Manager', 'Re-authorize failed - see kodi.log for details.', icon=amgr_icon, time=6000)
@@ -1400,7 +1373,8 @@ elif action == 'removeService':
             ('youtube.api.key',     ['youtube.api.id', 'youtube.api.secret'], 'YouTube for Kodi'),
         ]),
         ('Metadata', [
-            ('tmdb.api.key',        ['tmdb.username', 'tmdb.session_id'], 'TMDB'),
+            ('tmdb.session_id',     ['tmdb.username', 'tmdb.password', 'tmdb.authorization', 'tmdb.portal.authorization'], 'TMDB Account'),
+            ('tmdb.api.key',        [], 'TMDB API Key'),
             ('fanart.tv.api.key',   [],                    'Fanart.TV'),
             ('mdb.api.key',         [],                    'MDBList'),
         ]),

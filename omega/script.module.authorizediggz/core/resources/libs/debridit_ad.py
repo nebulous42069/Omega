@@ -273,8 +273,8 @@ DEBRIDID = {
         'fanart'   : os.path.join(CONFIG.ADDONS, 'script.module.resolveurl', 'fanart.jpg'),
         'file'     : os.path.join(CONFIG.DEBRIDFOLD_AD, 'rurl_ad'),
         'settings' : os.path.join(CONFIG.ADDON_DATA, 'script.module.resolveurl', 'settings.xml'),
-        'default'  : 'AllDebridResolver_client_id',
-        'data'     : ['AllDebridResolver_client_id', 'AllDebridResolver_enabled', 'AllDebridResolver_login', 'AllDebridResolver_priority', 'AllDebridResolver_token', 'AllDebridResolver_torrents', 'AllDebridResolver_cached_only'],
+        'default'  : 'AllDebridResolver_token',
+        'data'     : [ 'AllDebridResolver_enabled', 'AllDebridResolver_login', 'AllDebridResolver_priority', 'AllDebridResolver_token', 'AllDebridResolver_torrents', 'AllDebridResolver_cached_only'],
         'activate' : 'Addon.OpenSettings(script.module.resolveurl)'}
 }
 
@@ -383,7 +383,9 @@ def update_debrid(do, who):
                 for setting in root.findall('debrid'):
                     id = setting.find('id').text
                     value = setting.find('value').text
-                    addonid.setSetting(id, value)
+                    if who == 'rurlad' and id not in data:
+                        continue
+                    addonid.setSetting(id, value or '')
                 
                 user = addonid.getSetting(default)
                 CONFIG.set_setting(saved, user)
@@ -448,6 +450,11 @@ def auto_update(who):
             elif not u == su:
                 dialog = xbmcgui.Dialog()
 
+                if who == 'rurlad':
+                    if dialog.yesno(CONFIG.ADDONTITLE, 'ResolveURL AllDebrid credentials changed. Save the updated authorization?'):
+                        debrid_it('update', who)
+                    return
+
                 if dialog.yesno(CONFIG.ADDONTITLE,
                                     "Would you like to save the [COLOR {0}]Debrid Info[/COLOR] for [COLOR {1}]{2}[/COLOR]?".format(CONFIG.COLOR2, CONFIG.COLOR1, n),
                                     "Addon: [COLOR springgreen][B]{0}[/B][/COLOR]".format(u),
@@ -478,8 +485,9 @@ def import_list(who):
             for setting in root.findall('debrid'):
                 id = setting.find('id').text
                 value = setting.find('value').text
-            
-                addonid.setSetting(id, value)
+                if who == 'rurlad' and id not in DEBRIDID[who]['data']:
+                    continue
+                addonid.setSetting(id, value or '')
 
             logging.log_notify("[COLOR {0}]{1}[/COLOR]".format(CONFIG.COLOR1, name),
                        '[COLOR {0}]Debrid Info: Imported![/COLOR]'.format(CONFIG.COLOR2))

@@ -1,0 +1,1 @@
+Adapted from python-qrcode 8.2 (https://github.com/lincolnloop/python-qrcode). Image factories and public convenience rendering removed; imports relocated and annotations adapted for Kodi Python. See LICENSE.

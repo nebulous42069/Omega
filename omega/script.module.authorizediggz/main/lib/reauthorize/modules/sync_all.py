@@ -6,11 +6,12 @@
 """
 
 import xbmc
+import threading
 from reauthorize.modules import control
 
 META_KEYS = [
-    'fanart.tv.api.key', 'omdb.api.key', 'mdb.api.key', 'imdb.user',
-    'tmdb.api.key', 'tmdb.session_id', 'tmdb.username', 'audiodb.api.key',
+    'fanart.tv.api.key', 'tvdb.api.key', 'omdb.api.key', 'mdb.api.key', 'imdb.user',
+    'tmdb.api.key', 'tmdb.session_id', 'tmdb.authorization', 'tmdb.portal.authorization', 'tmdb.username', 'audiodb.api.key',
 ]
 
 _SERVICE_LABELS = {
@@ -27,35 +28,68 @@ _SERVICE_LABELS = {
 _wipe_tags = ()
 # When set, the only services this run sends (modules/autosend.py: one service, right after its sign-in).
 _only_tags = ()
+_sync_lock = threading.RLock()
 
 
-def _try(label, failed, fn):
-    """
-    Run one service's sync in isolation - a single failure must never block the rest.
-    A service being wiped runs with control.wiping() on, so blocks that would skip a
-    blank value write it instead.
-    """
+class SyncResult(list):
+    """Backward compatible list of actual failed services, plus per-target diagnostics."""
+    def __init__(self):
+        super().__init__()
+        self.details = []
+        self.completed = []
+
+    @property
+    def has_issues(self):
+        return bool(self or self.details)
+
+    def message(self):
+        if not self.has_issues:
+            return 'Synchronization complete.'
+        lines = ['Synchronization finished with ' + ('errors.' if self else 'compatibility warnings.')]
+        lines.extend('%s / %s: %s' % item for item in self.details)
+        lines.append('These results concern receiving add-ons, not the validity of your account. See kodi.log for details.')
+        return '[CR]'.join(lines)
+
+
+def show_result(result, icon=None):
+    import xbmcgui
+    if getattr(result, 'has_issues', bool(result)):
+        xbmcgui.Dialog().textviewer('Diggz Account Manager', result.message().replace('[CR]', '\n'))
+    else:
+        control.notification(title='Diggz Account Manager', message='Synchronization complete.', icon=icon)
+
+
+def _try(label, result, fn):
     if _only_tags and label not in _only_tags:
         return
     from reauthorize.modules import sync_support
+    if control.monitor.abortRequested():
+        result.append(_SERVICE_LABELS.get(label, label))
+        result.details.append((_SERVICE_LABELS.get(label, label), 'service', 'cancelled during Kodi shutdown'))
+        return
     sync_support.begin()
+    name = _SERVICE_LABELS.get(label, label)
     control.set_wiping(label in _wipe_tags)
     try:
         fn()
         sync_support.extra(label)
-        if sync_support.errors():
-            flag = {'trakt':'tk','meta':'meta','rd':'rd','pm':'pm','ad':'ad','torbox':'torbox','easyd':'easyd','offc':'offc','easy':'easy','filep':'filep','linksnappy':'linksnappy','lastfm':'lastfm'}.get(label)
-            if flag:
-                control.setSetting('sync.%s.service' % flag, '')
-            failed.append(_SERVICE_LABELS.get(label, label))
-    except Exception as e:
-        xbmc.log('[Diggz Account Manager] run_all_syncs: %s sync failed: %s' % (label, e), xbmc.LOGERROR)
-        failed.append(_SERVICE_LABELS.get(label, label))
+    except Exception as exc:
+        sync_support.failed()
+        xbmc.log('[Diggz Account Manager] %s sync failed (%s).' % (name, type(exc).__name__), xbmc.LOGERROR)
     finally:
-        if _SERVICE_LABELS.get(label, label) in failed:
-            flag = {'trakt':'tk','meta':'meta','rd':'rd','pm':'pm','ad':'ad','torbox':'torbox','easyd':'easyd','offc':'offc','easy':'easy','filep':'filep','linksnappy':'linksnappy','lastfm':'lastfm'}.get(label)
+        for aid, reason in sync_support.warnings():
+            result.details.append((name, aid, reason))
+            xbmc.log('[Diggz Account Manager] %s / %s: %s' % (name, aid, reason), xbmc.LOGWARNING)
+        for aid in sync_support.errors():
+            result.details.append((name, aid, 'write or verification failed'))
+            xbmc.log('[Diggz Account Manager] %s / %s: write or verification failed' % (name, aid), xbmc.LOGERROR)
+        if sync_support.errors():
+            result.append(name)
+            flag = {'trakt':'tk','meta':'meta','rd':'rd','pm':'pm','ad':'ad','torbox':'torbox','easyd':'easyd','offc':'offc','easy':'easy','filep':'filep','linksnappy':'linksnappy','lastfm':'lastfm','yt':'yt'}.get(label)
             if flag:
                 control.setSetting('sync.%s.service' % flag, '')
+        elif not sync_support.warnings():
+            result.completed.append(name)
         control.set_wiping(False)
 
 
@@ -78,10 +112,10 @@ def refresh_sync_modules():
             try:
                 importlib.reload(module)
             except Exception as e:
-                xbmc.log('[ script.module.authorizediggz ]  could not reload %s: %s' % (name, e), xbmc.LOGINFO)
+                xbmc.log('[ script.module.authorizediggz ]  could not reload %s: %s' % (name, type(e).__name__), xbmc.LOGINFO)
 
 
-def run_all_syncs(include_trakt=True, wipe=(), only=()):
+def run_all_syncs(include_trakt=True, wipe=(), only=(), portal_explicit=True):
     """
     Push every authorized service's credentials to its installed addons.
     include_trakt=False skips the Trakt push only - used when the user hasn't
@@ -109,6 +143,13 @@ def run_all_syncs(include_trakt=True, wipe=(), only=()):
     Red Light is told to reload its settings once, after every service has
     written, instead of once per service. See db/redlight_db.py.
     """
+    with _sync_lock:
+        return _run_sync_locked(include_trakt, wipe, only, portal_explicit)
+
+
+def _run_sync_locked(include_trakt, wipe, only, portal_explicit):
+    from reauthorize.modules.own_settings import sync_service_flags
+    sync_service_flags()
     refresh_sync_modules()
     from reauthorize.modules.db import redlight_db
     global _wipe_tags, _only_tags
@@ -116,15 +157,15 @@ def run_all_syncs(include_trakt=True, wipe=(), only=()):
     _only_tags = set(only)
     redlight_db.begin_batch()
     try:
-        return _sync_each(include_trakt, wipe)
+        return _sync_each(include_trakt, wipe, portal_explicit)
     finally:
         _wipe_tags = ()
         _only_tags = ()
         redlight_db.end_batch()
 
 
-def _sync_each(include_trakt, wipe=()):
-    failed = []
+def _sync_each(include_trakt, wipe=(), portal_explicit=True):
+    failed = SyncResult()
 
     if include_trakt and control.setting('trakt.token'):
         def _tk():
@@ -167,7 +208,9 @@ def _sync_each(include_trakt, wipe=()):
             sent = easydebrid_sync.Auth().easydebrid_auth()
             control.setSetting('sync.easyd.service', 'true' if sent and 'easyd' not in wipe else '')
             if 'easyd' not in wipe and not sent:
-                raise RuntimeError('EasyDebrid could not be sent to SALTS')
+                from reauthorize.modules import sync_support
+                if not sync_support.errors() and not sync_support.warnings():
+                    sync_support.warning('plugin.video.salts', 'no eligible receiving add-on')
         _try('easyd', failed, _easyd)
 
     if control.setting('offcloud.token') or 'offc' in wipe:
@@ -177,7 +220,7 @@ def _sync_each(include_trakt, wipe=()):
             control.setSetting('sync.offc.service', '' if 'offc' in wipe else 'true')
         _try('offc', failed, _offc)
 
-    if control.setting('easynews.password') or 'easy' in wipe:
+    if (control.setting('easynews.username') and control.setting('easynews.password')) or 'easy' in wipe:
         def _easy():
             from reauthorize.modules.sync import easy_sync
             easy_sync.Auth().easy_auth()
@@ -191,7 +234,7 @@ def _sync_each(include_trakt, wipe=()):
             control.setSetting('sync.filep.service', '' if 'filep' in wipe else 'true')
         _try('filep', failed, _filep)
 
-    if control.setting('linksnappy.username') or 'linksnappy' in wipe:
+    if (control.setting('linksnappy.username') and control.setting('linksnappy.password')) or 'linksnappy' in wipe:
         def _linksnappy():
             from reauthorize.modules.sync import linksnappy_sync
             linksnappy_sync.Auth().linksnappy_auth()
@@ -204,13 +247,15 @@ def _sync_each(include_trakt, wipe=()):
             sent = debridlink_sync.Auth().debridlink_auth()
             control.setSetting('sync.debridlink.service', 'true' if sent and 'debridlink' not in wipe else '')
             if 'debridlink' not in wipe and not sent:
-                raise RuntimeError('Debrid-Link could not be sent to SALTS')
+                from reauthorize.modules import sync_support
+                if not sync_support.errors() and not sync_support.warnings():
+                    sync_support.warning('plugin.video.salts', 'no eligible receiving add-on')
         _try('debridlink', failed, _debridlink)
 
     if control.setting('simkl.token') or 'simkl' in wipe:
         def _simkl():
             from reauthorize.modules.sync import simkl_sync
-            simkl_sync.Auth().simkl_auth()
+            simkl_sync.Auth().simkl_auth(portal_explicit=portal_explicit)
         _try('simkl', failed, _simkl)
 
     if control.setting('lastfm.password') or control.setting('lastfm.session.key') or 'lastfm' in wipe:

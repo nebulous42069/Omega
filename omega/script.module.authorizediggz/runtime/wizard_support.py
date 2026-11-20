@@ -13,7 +13,7 @@ LOGIN_GROUPS = (
     ('easynews.username', 'easynews.password'),
     ('filepursuit.api.key',), ('torrentclaw.api.key',),
     ('fanart.tv.api.key',), ('omdb.api.key',), ('mdb.api.key',),
-    ('audiodb.api.key',), ('tmdb.api.key',), ('tmdb.session_id',),
+    ('audiodb.api.key',), ('tmdb.api.key',), ('tmdb.session_id',), ('tmdb.authorization',),
     ('tmdb.username', 'tmdb.password'),
     ('youtube.tokens',), ('youtube.api.key',),
 )

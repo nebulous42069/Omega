@@ -1,4 +1,6 @@
 import xbmc
+import json
+import os
 import xbmcaddon
 from reauthorize.modules import own_settings  # one read or write of our settings at a time
 import xbmcvfs
@@ -107,8 +109,41 @@ def sign_out_addons():
         control.set_wiping(False)
 
 
+def sync_portal(linking, wiping=False, explicit=True):
+    if not xbmcvfs.exists('special://home/addons/script.diggzportal/'):
+        return
+    from reauthorize.modules.auth.simkl import read_bundle
+    from reauthorize.modules import sync_support
+    portal=xbmcaddon.Addon('script.diggzportal')
+    schema=sync_support.declared_settings(portal)
+    if schema is not None and 'simkl_managed' not in schema: return
+    def clear_cache():
+        folder=xbmcvfs.translatePath(portal.getAddonInfo('profile'))
+        if os.path.isdir(folder):
+            for name in os.listdir(folder):
+                if name.startswith('simkl_private_') or name=='history_simkl.json':
+                    try: os.remove(os.path.join(folder,name))
+                    except OSError: pass
+    if wiping:
+        if portal.getSetting('simkl_managed')=='true':
+            clear_cache()
+            _write(portal,[('simkl_manager_grant',''),('simkl_managed','false'),('simkl_optout','true')])
+        return
+    if not linking: return
+    if not explicit and portal.getSetting('simkl_managed')!='true' and (portal.getSetting('simkl_optout')=='true' or portal.getSetting('simkl_authorization')): return
+    bundle=read_bundle()
+    # The standalone grant is retained separately; central sync chooses managed mode.
+    if not bundle:
+        a=own_settings.addon(); bundle=dict(access_token=a.getSetting('simkl.token'),client_id=_client(a.getSetting('simkl.client.id')))
+    if bundle.get('access_token'):
+        try: previous=json.loads(portal.getSetting('simkl_manager_grant') or '{}')
+        except (ValueError,TypeError): previous={}
+        if not isinstance(previous,dict) or previous.get('session_id')!=bundle.get('session_id') or (not bundle.get('session_id') and previous.get('access_token')!=bundle.get('access_token')) or portal.getSetting('simkl_managed')!='true': clear_cache()
+        _write(portal,[('simkl_manager_grant',json.dumps(bundle)),('simkl_managed','true'),('simkl_optout','false')])
+
+
 class Auth:
-    def simkl_auth(self):
+    def simkl_auth(self, portal_explicit=True):
         accountmgr    = own_settings.addon()
         your_token    = accountmgr.getSetting('simkl.token')
         your_username = accountmgr.getSetting('simkl.username')
@@ -119,6 +154,26 @@ class Auth:
         linking    = bool(your_token) and not wiping          # a sign-in to hand out
         app_client = _client(your_client) if linking else ''   # blank on a wipe: the add-on's own key again
         shown_user = your_username or ('Simkl' if linking else '')
+        try:
+            sync_portal(linking,wiping,portal_explicit)
+        except Exception:
+            sync_support.failed('script.diggzportal')
+            xbmc.log('[Diggz Account Manager] SIMKL Portal sync failed',xbmc.LOGWARNING)
+        if wiping:
+            try:
+                from reauthorize.modules import tmdbh_compat
+                tmdbh_compat.clear_simkl()
+            except Exception:
+                sync_support.failed()
+
+        if linking:
+            try:
+                from reauthorize.modules import tmdbh_compat
+                from reauthorize.modules.auth.simkl import read_bundle
+                tmdbh_compat.sync_simkl(read_bundle())
+            except Exception:
+                sync_support.failed('script.module.tmdbhelper.sync.simkl')
+                xbmc.log('[Diggz Account Manager] TMDb Helper SIMKL sync failed', xbmc.LOGWARNING)
 
         # Umbrella - its app key is a line in resources/lib/modules/simkl.py
         try:
@@ -132,7 +187,7 @@ class Auth:
                     addon.setSetting('simkltoken',   your_token)
                     addon.setSetting('simklusername', your_username)
         except:
-            sync_support.failed()
+            sync_support.failed('plugin.video.umbrella')
             xbmc.log('%s: Simkl Umbrella sync failed!' % var.amgr, xbmc.LOGINFO)
 
         # Infinity
@@ -145,7 +200,7 @@ class Auth:
                     if your_client or control.wiping():
                         addon.setSetting('simkl.apikey', your_client)
         except:
-            sync_support.failed()
+            sync_support.failed('plugin.video.infinity')
             xbmc.log('%s: Simkl Infinity sync failed!' % var.amgr, xbmc.LOGINFO)
 
         # Otaku 5.3.4: simkl.login is an action, not a credential.
@@ -156,7 +211,7 @@ class Auth:
                 if addon.getSetting('simkl.api.key') != your_client or not addon.getSetting('simkl.api.key'):
                     addon.setSetting('simkl.api.key', your_client)
         except:
-            sync_support.failed()
+            sync_support.failed('plugin.video.genocide')
             xbmc.log('%s: Simkl Genocide sync failed!' % var.amgr, xbmc.LOGINFO)
 
         # The Archives - its app key is a line in resources/lib/util/dev_api.py
@@ -170,7 +225,7 @@ class Auth:
                 if addon.getSetting('simkl.access_token') != your_token or not addon.getSetting('simkl.access_token'):
                     addon.setSetting('simkl.access_token', your_token)
         except:
-            sync_support.failed()
+            sync_support.failed('plugin.video.thearchives')
             xbmc.log('%s: Simkl The Archives sync failed!' % var.amgr, xbmc.LOGINFO)
 
         # Prism - a 'simkl.client_id' setting wins over its own key. Its own sign-ins carry a
@@ -188,7 +243,7 @@ class Auth:
                     _write(addon, [('simkl.client_id', app_client), ('simkl.refresh', ''), ('simkl.token_expires', '0'),
                                    ('simkl.auth_version', 'v2' if linking else '')])
         except:
-            sync_support.failed()
+            sync_support.failed('plugin.video.prism')
             xbmc.log('%s: Simkl Prism sync failed!' % var.amgr, xbmc.LOGINFO)
 
         # Red Light - settings.db. Signed in = simkl.user + simkl.token; a key in simkl.client that
@@ -228,7 +283,7 @@ class Auth:
                                ('simkl_username', your_username if linking else ''),
                                ('simkl_status', status)])
         except:
-            sync_support.failed()
+            sync_support.failed('plugin.video.tmdbmovies')
             xbmc.log('%s: Simkl TMDb Movies sync failed!' % var.amgr, xbmc.LOGINFO)
 
         # The Crew - 'simkl.client_id' is used instead of its own key. Signed in = simkl.token.
@@ -240,7 +295,7 @@ class Auth:
                                ('simkl.token', your_token),
                                ('simkl.user', shown_user)])
         except:
-            sync_support.failed()
+            sync_support.failed('plugin.video.thecrew')
             xbmc.log('%s: Simkl The Crew sync failed!' % var.amgr, xbmc.LOGINFO)
 
         # Cosmos - built with ReAuthorize in mind: its simkl.py reads 'simkl_access_token' from its
@@ -264,7 +319,7 @@ class Auth:
                     if xbmcvfs.exists(leftover):
                         xbmcvfs.delete(leftover)
         except:
-            sync_support.failed()
+            sync_support.failed('plugin.video.cosmos')
             xbmc.log('%s: Simkl Cosmos sync failed!' % var.amgr, xbmc.LOGINFO)
 
         # GratisRed - its app key is a line in resources/lib/modules/simkl.py (a user's report, 2026-10-05)
@@ -276,7 +331,7 @@ class Auth:
                     simkl_appkey.restore('plugin.video.gratisred')
                 _write(xbmcaddon.Addon('plugin.video.gratisred'), _gratisred_values(your_token, shown_user, linking))
         except:
-            sync_support.failed()
+            sync_support.failed('plugin.video.gratisred')
             xbmc.log('%s: Simkl GratisRed sync failed!' % var.amgr, xbmc.LOGINFO)
 
         # Simkl scrobbler (script.simkl) - its app key is a line in resources/lib/api_simkl.py
@@ -289,5 +344,5 @@ class Auth:
                 addon = xbmcaddon.Addon('script.simkl')
                 _write(addon, [('token', your_token)])
         except:
-            sync_support.failed()
+            sync_support.failed('script.simkl')
             xbmc.log('%s: Simkl scrobbler sync failed!' % var.amgr, xbmc.LOGINFO)

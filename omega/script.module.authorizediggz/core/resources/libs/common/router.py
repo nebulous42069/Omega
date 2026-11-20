@@ -227,55 +227,6 @@ class Router:
             xbmc.executebuiltin('Container.Refresh()')
 
         # TRAKT MANAGER
-        elif mode == 'savetrakt':  # Save Trakt Data
-            traktit.trakt_it('update', name)
-        elif mode == 'savetrakt_acctmgr':  # Save Trakt Data via Account Manager settings menu
-            if not var.backup_path:
-                xbmcgui.Dialog().ok('Diggz Account Manager', 'No backup path set! Please set a backup path in Account Manager settings.')
-                xbmc.executebuiltin('Dialog.Close(all,true)')
-                xbmc.executebuiltin("Addon.openSettings(script.module.authorizediggz)")
-            else:
-                if accountmgr.getSetting('trakt.token') != '':
-                    traktit.trakt_it('update', name)
-                    var.backup_synclist()
-                    accountmgr.setSetting('tk_backup_date', date)
-                    xbmcgui.Dialog().notification('Diggz Account Manager', 'Trakt Backup Complete!', trakt_icon, 3000)
-                else:
-                    xbmcgui.Dialog().notification('Diggz Account Manager', 'No Trakt Data to Backup!', trakt_icon, 3000)
-                    xbmc.sleep(3000)
-                    xbmc.executebuiltin('Dialog.Close(all,true)')
-                    xbmc.executebuiltin('Addon.OpenSettings(script.module.authorizediggz)')
-        elif mode == 'restoretrakt':  # Recover All Saved Trakt Data
-            try:
-                if xbmcvfs.exists(var.trakt_backup): # Skip restore if no trakt folder present in backup folder
-                    path = os.listdir(var.trakt_backup)
-                    if len(path) != 0: # Skip restore if no saved data in backup folder
-                        var.restore_synclist()
-                        traktit.trakt_it_restore('restore', name)
-                        accountmgr.setSetting("trakt.synclist", 'true')
-                        accountmgr.setSetting("sync.tk.service", "true")
-                        if xbmcvfs.exists(var.chk_genocide):
-                            # Every installed add-on is a Trakt target now; there is no list file to look in.
-                            accountmgr.setSetting("genocide_traktsync", 'true')
-                        else:
-                            pass
-                        accountmgr.setSetting("api.service", "true") #Enable API Check Service
-                        xbmcgui.Dialog().notification('Diggz Account Manager', 'Trakt Data Restored!', trakt_icon, 3000)
-                        xbmc.sleep(3000)
-                        _close_kodi_or_later()
-                    else:
-                        xbmcgui.Dialog().notification('Diggz Account Manager', 'No Trakt Data to Restore!', trakt_icon, 3000)
-                        xbmc.sleep(3000)
-                        xbmc.executebuiltin('Dialog.Close(all,true)')
-                        xbmc.executebuiltin('Addon.OpenSettings(script.module.authorizediggz)')
-                else:
-                    xbmcgui.Dialog().notification('Diggz Account Manager', 'No Trakt Data to Restore!', trakt_icon, 3000)
-                    xbmc.sleep(3000)
-                    xbmc.executebuiltin('Dialog.Close(all,true)')
-                    xbmc.executebuiltin('Addon.OpenSettings(script.module.authorizediggz)')
-            except:
-                xbmc.log('%s: Router.py Restore Trakt Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
         elif mode == 'addontrakt':  # Clear All Addon Trakt Data
             #Revoke Account Manager/Custom API keys for all add-ons
             if accountmgr.getSetting('trakt.token') != '':
@@ -584,38 +535,9 @@ class Router:
             xbmcgui.Dialog().notification('Diggz Account Manager', 'All Add-ons Revoked!', trakt_icon, 3000)
             xbmc.sleep(3000)
             _close_kodi_or_later()
-        elif mode == 'cleartrakt':  # Clear All Saved Trakt Data
-            try:
-                if xbmcvfs.exists(var.trakt_backup): # Skip clearing data if no Trakt folder present in backup folder
-                    path = os.listdir(var.trakt_backup)
-                    if len(path) != 0: # Skip clearing data if no saved data in backup folder
-                        accountmgr.setSetting('tk_backup_date', 'Date: 0000-00-00   Time: 00:00')
-                        data = os.listdir(var.trakt_backup)
-                        for file in data:
-                                files = os.path.join(var.trakt_backup, file)
-                                if os.path.isfile(files):
-                                        os.remove(files)
-                        xbmcgui.Dialog().notification('Diggz Account Manager', 'Trakt Data Cleared!', trakt_icon, 3000)
-                    else:
-                        xbmcgui.Dialog().notification('Diggz Account Manager', 'No Trakt Data to Clear!', trakt_icon, 3000)
-                        xbmc.sleep(3000)
-                        xbmc.executebuiltin('Dialog.Close(all,true)')
-                        xbmc.executebuiltin('Addon.OpenSettings(script.module.authorizediggz)')
-                else:
-                    xbmcgui.Dialog().notification('Diggz Account Manager', 'No Trakt Data to Clear!', trakt_icon, 3000)
-                    xbmc.sleep(3000)
-                    xbmc.executebuiltin('Dialog.Close(all,true)')
-                    xbmc.executebuiltin('Addon.OpenSettings(script.module.authorizediggz)')
-            except:
-                xbmc.log('%s: Router.py Clear Trakt Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
         elif mode == 'opentraktsettings':  # Authorize Trakt
             traktit.open_settings_trakt(name)
             xbmc.executebuiltin('Container.Refresh()')
-        elif mode == 'updatetrakt':  # Update Saved Trakt Data
-            traktit.auto_update('all')
-            
-        # DEBRID MANAGER RD
         elif mode == 'savedebrid_rd':  # Save Debrid Data
             debridit_rd.debrid_it('update', name)
             jsonit.realizer_bk()
@@ -1270,46 +1192,6 @@ class Router:
             extit.auto_update('all')
             
         #META DATA MANAGER
-        elif mode == 'savemeta':  # Save Meta Data
-            metait_all.debrid_it('update', name)
-        elif mode == 'savemeta_acctmgr':  # Save Meta Data via Account Manager settings menu
-            if not var.backup_path:
-                xbmcgui.Dialog().ok('Diggz Account Manager', 'No backup path set! Please set a backup path in Account Manager settings.')
-                xbmc.executebuiltin('Dialog.Close(all,true)')
-                xbmc.executebuiltin("Addon.openSettings(script.module.authorizediggz)")
-            else:
-                if accountmgr.getSetting('fanart.tv.api.key') != '' or accountmgr.getSetting('omdb.api.key') != '' or accountmgr.getSetting('mdb.api.key') != '' or accountmgr.getSetting('imdb.user') != '' or accountmgr.getSetting('tmdb.api.key') != '' or accountmgr.getSetting('tmdb.username') != '' or accountmgr.getSetting('tvdb.api.key') != '':
-                    metait_all.debrid_it('update', name)
-                    accountmgr.setSetting('md_backup_date', date)
-                    xbmcgui.Dialog().notification('Diggz Account Manager', 'Metadata Backup Complete!', amgr_icon, 3000)
-                else:
-                    xbmcgui.Dialog().notification('Diggz Account Manager', 'No Metadata to Backup!', amgr_icon, 3000)
-                    xbmc.sleep(3000)
-                    xbmc.executebuiltin('Dialog.Close(all,true)')
-                    xbmc.executebuiltin('Addon.OpenSettings(script.module.authorizediggz)')
-        elif mode == 'restoremeta':  # Recover All Saved Meta Data
-            try:
-                if xbmcvfs.exists(var.meta_backup): # Skip restore if no meta folder present in backup folder
-                    path = os.listdir(var.meta_backup)
-                    if len(path) != 0: # Skip restore if no saved data in backup folder
-                        metait_all.debrid_it('restore', name)
-                        accountmgr.setSetting("sync.meta.service", "true")
-                        xbmcgui.Dialog().notification('Diggz Account Manager', 'Metadata Restored!', amgr_icon, 3000)
-                        xbmc.sleep(3000)
-                        _close_kodi_or_later()
-                    else:
-                        xbmcgui.Dialog().notification('Diggz Account Manager', 'No Metadata to Restore!', amgr_icon, 3000)
-                        xbmc.sleep(3000)
-                        xbmc.executebuiltin('Dialog.Close(all,true)')
-                        xbmc.executebuiltin('Addon.OpenSettings(script.module.authorizediggz)')
-                else:
-                    xbmcgui.Dialog().notification('Diggz Account Manager', 'No Metadata to Restore!', amgr_icon, 3000)
-                    xbmc.sleep(3000)
-                    xbmc.executebuiltin('Dialog.Close(all,true)')
-                    xbmc.executebuiltin('Addon.OpenSettings(script.module.authorizediggz)')
-            except:
-                xbmc.log('%s: Router.py Restore Metadata Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
         elif mode == 'addonmeta':  # Clear All Addon Meta Data
             metait_all.debrid_it('wipeaddon', name)
             accountmgr.setSetting("sync.meta.service", "false")
@@ -1317,35 +1199,6 @@ class Router:
             xbmcgui.Dialog().notification('Diggz Account Manager', 'All Add-ons Revoked!', amgr_icon, 3000)
             xbmc.sleep(3000)
             _close_kodi_or_later()
-        elif mode == 'clearmeta':  # Clear All Saved Meta Data
-            try:
-                if xbmcvfs.exists(var.meta_backup): # Skip clearing data if no meta folder present in backup folder
-                    path = os.listdir(var.meta_backup)
-                    if len(path) != 0: # Skip clearing data if no saved data in backup folder
-                        accountmgr.setSetting('md_backup_date', 'Date: 0000-00-00   Time: 00:00')
-                        data = os.listdir(var.meta_backup)
-                        for file in data:
-                                files = os.path.join(var.meta_backup, file)
-                                if os.path.isfile(files):
-                                        os.remove(files)
-                        xbmcgui.Dialog().notification('Diggz Account Manager', 'Metadata Cleared!', amgr_icon, 3000)
-                    else:
-                        xbmcgui.Dialog().notification('Diggz Account Manager', 'No Metadata to Clear!', amgr_icon, 3000)
-                        xbmc.sleep(3000)
-                        xbmc.executebuiltin('Dialog.Close(all,true)')
-                        xbmc.executebuiltin('Addon.OpenSettings(script.module.authorizediggz)')
-                else:
-                    xbmcgui.Dialog().notification('Diggz Account Manager', 'No Metadata to Clear!', amgr_icon, 3000)
-                    xbmc.sleep(3000)
-                    xbmc.executebuiltin('Dialog.Close(all,true)')
-                    xbmc.executebuiltin('Addon.OpenSettings(script.module.authorizediggz)')
-            except:
-                xbmc.log('%s: Router.py Clear Metadata Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-        elif mode == 'updatemeta':  # Update Saved Meta Data
-            metait_all.auto_update('all')
-            
-        #REVOKE ALL DEBRID ACCOUNTS
         elif mode == 'revokeall':  # Clear Addon Data for all Debrid services
             if accountmgr.getSetting('realdebrid.token') == '' and accountmgr.getSetting('premiumize.token') == '' and accountmgr.getSetting('alldebrid.token') == '': # If no accounts are authorized notify user
                 xbmcgui.Dialog().notification('Diggz Account Manager', 'No Active Debrid Accounts!', amgr_icon, 3000) # If Accounts authorized notify user
@@ -1806,31 +1659,26 @@ class Router:
                 if not str(var.setting('torbox.token')) == '':
                     tbit.tb_it('wipeaddon', name)
                     accountmgr.setSetting("sync.torbox.service", "false")
-                    accountmgr.setSetting("torbox.enabled", 'false')
 
                 #Revoke Easy Debrid
                 if not str(var.setting('easydebrid.token')) == '':
                     edit.ed_it('wipeaddon', name)
                     accountmgr.setSetting("sync.easyd.service", "false")
-                    accountmgr.setSetting("easydebrid.enabled", 'false')
                     
                 #Revoke OffCloud
                 if not str(var.setting('offcloud.token')) == '':
                     offit.offc_it('wipeaddon', name)
                     accountmgr.setSetting("sync.offc.service", "false")
-                    accountmgr.setSetting("offcloud.enabled", 'false')
                     
                 #Revoke Easynews
                 if not str(var.setting('easynews.password')) == '':
                     easyit.easy_it('wipeaddon', name)
                     accountmgr.setSetting("sync.easy.service", "false")
-                    accountmgr.setSetting("easynews.enabled", 'false')
 
                 #Revoke Filepursuit
                 if not str(var.setting('filepursuit.api.key')) == '':
                     fileit.filep_it('wipeaddon', name)
                     accountmgr.setSetting("sync.filep.service", "false")
-                    accountmgr.setSetting("filepursuit.enabled", 'false')
 
                 #Revoke External Providers
                 if not str(var.setting('ext.provider')) == '':

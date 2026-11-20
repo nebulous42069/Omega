@@ -20,202 +20,63 @@ from reauthorize.modules import sync_support
 xbmcaddon = sync_support.addon_api(xbmcaddon)
 class Auth:
     def torbox_auth(self):
-    #Umbrella
+        wipe = control.wiping()
+        token = '' if wipe else your_token
+        account_id = '' if wipe else your_acct_id
+        enabled = 'true' if token else 'false'
+        if not token and not wipe:
+            return
+        targets = {
+            'plugin.video.umbrella': [('torboxtoken', token), ('torbox.username', account_id), ('torbox.enable', enabled)],
+            'plugin.video.pov': [('tb.token', token), ('tb.account_id', account_id), ('tb.enabled', enabled), ('tb.expires', '0')],
+            'plugin.video.infinity': [('torboxtoken', token), ('torbox.username', account_id), ('torbox.enable', enabled), ('torbox.expirynotice', '0')],
+            'plugin.video.genocide': [('torbox.token', token), ('torbox.username', account_id)],
+            'plugin.video.orion': [('tb_token', token), ('tb_enabled', enabled)],
+            'plugin.video.thearchives': [('tb.token', token), ('tb.enabled', enabled)],
+            'plugin.video.cosmos': [('tb_api_key', token), ('tb_auth_done', enabled)],
+            'plugin.program.rdtplayer': [('torbox_token', token)],
+            'plugin.video.prism': [('tb.token', token), ('torbox.enabled', enabled)],
+            'plugin.video.youtubetheater': [('tb.token', token), ('debrid_use_tr', enabled)],
+        }
+        # Expiry metadata was previously reset only on a token change.
+        for aid, pairs in targets.items():
+            if not sync_support.installed(aid):
+                continue
+            try:
+                addon = xbmcaddon.Addon(aid)
+                if not addon._writable(pairs[0][0]):
+                    sync_support.warning(aid, 'incompatible; missing writable setting: ' + pairs[0][0])
+                    continue
+                if not wipe and addon.getSetting(pairs[0][0]) == token:
+                    pairs = [(k, v) for k, v in pairs if k not in ('tb.expires', 'torbox.expirynotice')]
+                sync_support.put(aid, pairs, wipe=wipe)
+            except Exception:
+                sync_support.failed(aid)
         try:
-                if xbmcvfs.exists(var.chk_umb):
-                        chk_auth_umb = xbmcaddon.Addon('plugin.video.umbrella').getSetting("torboxtoken")
-                        if sync_support.needs('plugin.video.umbrella', [('torboxtoken',your_token),('torbox.username',your_acct_id)]):
-                        
-                                addon = xbmcaddon.Addon("plugin.video.umbrella")
-                                addon.setSetting("torboxtoken", your_token)
-                                addon.setSetting("torbox.username", your_acct_id)
-                                addon.setSetting("torbox.enable", 'true')
-
-        except:
-                sync_support.failed()
-                xbmc.log('%s: Umbrella TorBox Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-    #POV
-        try:
-                if xbmcvfs.exists(var.chk_pov):
-                        chk_auth_pov = xbmcaddon.Addon('plugin.video.pov').getSetting("tb.token")
-                        if sync_support.needs('plugin.video.pov', [('tb.token',your_token),('tb.account_id',your_acct_id)]):
-
-                                addon = xbmcaddon.Addon("plugin.video.pov")
-                                addon.setSetting("tb.token", your_token)
-                                addon.setSetting("tb.account_id", your_acct_id)
-                                addon.setSetting("tb.enabled", 'true')
-                                addon.setSetting("tb.expires", '0')
-
-        except:
-                sync_support.failed()
-                xbmc.log('%s: POV TorBox Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-    #Infinity
-        try:
-                if xbmcvfs.exists(var.chk_infinity):
-                        chk_auth_infinity = xbmcaddon.Addon('plugin.video.infinity').getSetting("torboxtoken")
-                        if sync_support.needs('plugin.video.infinity', [('torboxtoken',your_token),('torbox.username',your_acct_id)]):
-
-                                addon = xbmcaddon.Addon("plugin.video.infinity")
-                                addon.setSetting("torboxtoken", your_token)
-                                addon.setSetting("torbox.username", your_acct_id)
-                                addon.setSetting("torbox.enable", 'true')
-                                addon.setSetting("torbox.expirynotice", '0')
-
-        except:
-                sync_support.failed()
-                xbmc.log('%s: Infinity TorBox Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-        # Otaku TorBox
-        try:
-            if xbmcvfs.exists(var.chk_otaku):
+            if sync_support.installed('plugin.video.otaku'):
                 addon = xbmcaddon.Addon('plugin.video.otaku')
                 current = 'torbox.token' in (addon.schema or {})
-                sync_support.put('plugin.video.otaku', [
-                    ('torbox.token' if current else 'tb.apikey', your_token),
-                    ('torbox.enabled' if current else 'tb.enabled', 'true' if your_token else 'false'),
-                ], wipe=control.wiping())
+                pairs = [('torbox.token' if current else 'tb.apikey', token),
+                         ('torbox.enabled' if current else 'tb.enabled', enabled)]
+                if wipe and current:
+                    pairs.extend([('torbox.username', ''), ('torbox.auth.status', '')])
+                sync_support.put('plugin.video.otaku', pairs, wipe=wipe)
         except Exception:
             sync_support.failed('plugin.video.otaku')
-            xbmc.log('%s: Otaku TorBox Failed!' % var.amgr, xbmc.LOGINFO)
-
-    #Gears TorBox
         try:
-                if sync_support.profile_ready('plugin.video.gears', var.gears_settings_db):
-
-                    from reauthorize.modules.db import torbox_db
-                    conn = torbox_db.create_conn(var.gears_settings_db)
-
-                    with conn:
-                        cursor = conn.cursor()
-                        cursor.execute('''SELECT setting_value FROM settings WHERE setting_id = ?''', ('tb.token',))
-                        auth_tb = cursor.fetchone()
-                        chk_auth_gears = str(auth_tb)
-                        cursor.close()
-
-                        for char in char_remov:
-                            chk_auth_gears = chk_auth_gears.replace(char, "")
-
-                        if not str(your_token) == chk_auth_gears:
-                            from reauthorize.modules.db import torbox_db
-                            torbox_db.auth_gears_tb()
-                            var.remake_settings()
-        except:
-                sync_support.failed()
-                xbmc.log('%s: Gears TorBox Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-    #Genocide (plugin.video.genocide) TorBox
+            if sync_support.profile_ready('plugin.video.gears', var.gears_settings_db):
+                from reauthorize.modules.db import torbox_db
+                if torbox_db.auth_gears_tb(token):
+                    var.remake_settings()
+        except Exception:
+            sync_support.failed('plugin.video.gears')
         try:
-                if xbmcvfs.exists(var.chk_newgenocide):
-                        chk_auth_newgenocide = xbmcaddon.Addon('plugin.video.genocide').getSetting("torbox.token")
-                        if sync_support.needs('plugin.video.genocide', [('torbox.token',your_token),('torbox.username',your_acct_id)]):
-                                addon = xbmcaddon.Addon("plugin.video.genocide")
-                                addon.setSetting("torbox.token", your_token)
-                                addon.setSetting("torbox.username", your_acct_id)
-        except:
-                sync_support.failed()
-                xbmc.log('%s: Genocide TorBox Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-    #Orion TorBox
-        try:
-                if xbmcvfs.exists(var.chk_orion):
-                        chk_auth_orion = xbmcaddon.Addon('plugin.video.orion').getSetting("tb_token")
-                        if sync_support.needs('plugin.video.orion', [('tb_token',your_token)]):
-                                addon = xbmcaddon.Addon("plugin.video.orion")
-                                addon.setSetting("tb_token", your_token)
-                                addon.setSetting("tb_enabled", 'true')
-        except:
-                sync_support.failed()
-                xbmc.log('%s: Orion TorBox Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-    #Red Light TorBox
-        try:
-                from reauthorize.modules.db import redlight_db
-                redlight_db.push([('tb.token', your_token),
-                                  ('tb.enabled', 'true')])
-        except:
-                sync_support.failed()
-                xbmc.log('%s: Red Light TorBox Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-    #The Archives TorBox
-        try:
-                if xbmcvfs.exists(var.chk_thearchives):
-                        chk_auth_thearchives = xbmcaddon.Addon('plugin.video.thearchives').getSetting("tb.token")
-                        if sync_support.needs('plugin.video.thearchives', [('tb.token',your_token)]):
-
-                                addon = xbmcaddon.Addon("plugin.video.thearchives")
-                                addon.setSetting("tb.token", your_token)
-                                addon.setSetting("tb.enabled", 'true')
-        except:
-                sync_support.failed()
-                xbmc.log('%s: The Archives TorBox Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-    #Cosmos TorBox
-        try:
-                if xbmcvfs.exists(var.chk_cosmos):
-                        chk_auth_cosmos = xbmcaddon.Addon('plugin.video.cosmos').getSetting("tb_api_key")
-                        if sync_support.needs('plugin.video.cosmos', [('tb_api_key',your_token)]):
-                                addon = xbmcaddon.Addon("plugin.video.cosmos")
-                                addon.setSetting("tb_api_key", your_token)
-                                addon.setSetting("tb_auth_done", 'true')
-        except:
-                sync_support.failed()
-                xbmc.log('%s: Cosmos TorBox Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-    #Diamond Media Player TorBox
-        try:
-                if xbmcvfs.exists(var.chk_rdtplayer):
-                        chk_auth_rdtplayer = xbmcaddon.Addon('plugin.program.rdtplayer').getSetting("torbox_token")
-                        if sync_support.needs('plugin.program.rdtplayer', [('torbox_token',your_token)]):
-                                addon = xbmcaddon.Addon("plugin.program.rdtplayer")
-                                addon.setSetting("torbox_token", your_token)
-        except:
-                sync_support.failed()
-                xbmc.log('%s: Diamond Media Player TorBox Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-    #Prism TorBox
-    #tb.token isn't in settings.xml (visible="false" with no id= match in that file);
-    #confirmed from Prism's own resources/lib/debrid/torbox.py: TB_TOKEN_KEY = "tb.token".
-        try:
-                if xbmcvfs.exists(var.chk_prism):
-                        chk_auth_prism = xbmcaddon.Addon('plugin.video.prism').getSetting("tb.token")
-                        if sync_support.needs('plugin.video.prism', [('tb.token',your_token)]):
-                                addon = xbmcaddon.Addon("plugin.video.prism")
-                                addon.setSetting("tb.token", your_token)
-                                addon.setSetting("torbox.enabled", 'true')
-        except:
-                sync_support.failed()
-                xbmc.log('%s: Prism TorBox Failed!' % var.amgr, xbmc.LOGINFO)
-                pass
-
-    # TMDb Movies cloud account
+            from reauthorize.modules.db import redlight_db
+            redlight_db.push([('tb.token', token), ('tb.enabled', enabled)])
+        except Exception:
+            sync_support.failed('plugin.video.redlight')
         try:
             from reauthorize.modules.sync import tmdbmovies_sync
-            tmdbmovies_sync.cloud('torbox_api_key', your_token, wipe=control.wiping())
+            tmdbmovies_sync.cloud('torbox_api_key', token, wipe=wipe)
         except Exception:
             sync_support.failed('plugin.video.tmdbmovies')
-            xbmc.log('%s: TMDb Movies cloud status could not be saved.' % var.amgr, xbmc.LOGWARNING)
-
-    #Youtube Theater TorBox
-        try:
-                if xbmcvfs.exists(var.chk_youtubetheater):
-                        chk_auth_ytheater = xbmcaddon.Addon('plugin.video.youtubetheater').getSetting("tb.token")
-                        if sync_support.needs('plugin.video.youtubetheater', [('tb.token',your_token)]):
-                                addon = xbmcaddon.Addon("plugin.video.youtubetheater")
-                                addon.setSetting("tb.token", your_token)
-                                addon.setSetting("debrid_use_tr", 'true')
-        except:
-                sync_support.failed()
-                xbmc.log('%s: Youtube Theater TorBox Failed!' % var.amgr, xbmc.LOGINFO)
-                pass

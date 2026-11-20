@@ -1,7 +1,1 @@
-
-Information:
-Some features of TMDb V3 API require a session_ID. You must enter a username and password and then "Authorize TMDb" if the addon using this supports importing your own personal lists.  If you do not use personal lists on TMDb, or do not wish to import your lists, then you can leave this section blank and use only your TMDb API key.
-
-How to Authorize:
-1. Enter your TMDb API Key, Username, and Password into the required fields
-2. Select 'Authorize TMDb' to create a session_id
+TMDB account authorization[CR][CR]Choose Authorize / Upgrade TMDB Account in Tracking & Accounts. Scan the QR code with your phone, or choose Open in Browser on desktop Kodi. Sign in on the official TMDB website and approve access. Account Manager detects approval automatically, converts the V4 grant to a V3 session and synchronizes supported add-ons. No password is entered into Account Manager.[CR][CR]The QR code is generated locally and expires with the request token (15 minutes). Cancel preserves existing credentials.[CR][CR]Sync Addons sends V4 authorization to TMDb Helper and V3 to Diggz Portal. Existing V3-only accounts need to be upgraded once.[CR][CR]A TMDB metadata API key is separate from personal account authorization.

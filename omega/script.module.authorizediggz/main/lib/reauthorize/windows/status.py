@@ -117,7 +117,13 @@ class StatusDashboard(xbmcgui.WindowXMLDialog):
 			item = self.getControl(100).getSelectedItem()
 			if item:
 				aid = item.getProperty('addon_id')
-				if aid:
+				if aid == 'plugin.video.themoviedb.helper':
+					from reauthorize.modules import tmdbh_compat
+					choices = [('TMDb Helper', aid)] + [(label, provider) for label, provider in [('Trakt', tmdbh_compat.TRAKT), ('MDBList', tmdbh_compat.MDBLIST), ('SIMKL', tmdbh_compat.SIMKL), ('TVDb', tmdbh_compat.TVDB)] if tmdbh_compat.installed(provider)]
+					selected = xbmcgui.Dialog().select('TMDb Helper settings', [label for label, provider in choices])
+					if selected >= 0:
+						xbmc.executebuiltin('Addon.OpenSettings(%s)' % choices[selected][1])
+				elif aid:
 					xbmc.executebuiltin('Addon.OpenSettings(%s)' % aid)
 
 	def onAction(self, action):
@@ -156,6 +162,6 @@ def open_status():
             if restart_hint.note_for_next_start(before, 'View Status sync'):
                 restart_hint.mark()
                 dialog.ok('Diggz Account Manager', 'Restart Kodi to load the updated app keys.')
-            if failed:
-                dialog.ok('Diggz Account Manager', 'Could not finish syncing: %s.[CR][CR]Open any newly installed add-ons once and retry. See kodi.log for the affected settings.' % ', '.join(failed))
+            if failed.has_issues:
+                dialog.ok('Diggz Account Manager', failed.message())
     window.doModal()

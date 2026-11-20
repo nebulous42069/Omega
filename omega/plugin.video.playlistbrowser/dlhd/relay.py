@@ -165,7 +165,7 @@ class Relay(ThreadingHTTPServer):
             advertised = {}
         finally:
             del resolver.REQUEST.deadline
-        order = dict.fromkeys((*advertised, *resolver.SERVERS))
+        order = dict.fromkeys(('plus', *advertised, *resolver.SERVERS))
         for player in order:
             with self.lock:
                 if time.time() < self.blocked.get((channel, player), 0):continue

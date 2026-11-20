@@ -65,7 +65,7 @@ _SERVICE_LABELS = {
 _RESULT_SERVICES  = ['trakt', 'realdebrid', 'premiumize', 'alldebrid', 'torbox', 'simkl', 'easynews', 'tmdb', 'youtube']
 _PROGRESS_BAR_MAX = 1200
 
-_META_KEYS = ('fanart.tv.api.key', 'tmdb.api.key', 'tmdb.username',
+_META_KEYS = ('fanart.tv.api.key', 'tmdb.api.key', 'tmdb.username', 'tmdb.session_id', 'tmdb.authorization', 'tmdb.portal.authorization',
               'audiodb.api.key', 'omdb.api.key', 'mdb.api.key', 'imdb.user')
 
 

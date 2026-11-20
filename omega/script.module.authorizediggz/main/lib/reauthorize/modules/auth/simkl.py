@@ -7,6 +7,9 @@ import requests
 import xbmc
 import xbmcaddon
 import os
+import time
+import uuid
+import json
 
 from reauthorize.modules import control
 from reauthorize.modules import log_utils
@@ -40,7 +43,7 @@ class Simkl():
 		try:
 			resp = requests.post(
 				DEVICE_CODE_URL,
-				data={'client_id': self.client_id},
+				data={'client_id': self.client_id, 'scope': 'media:read media:write'},
 				timeout=15,
 			)
 		except requests.RequestException as exc:
@@ -95,7 +98,7 @@ class Simkl():
 			if not isinstance(data, dict):
 				data = {}
 			if resp.ok and data.get('access_token'):
-				result['token'] = data['access_token']
+				result['token'] = data
 				return True
 			error = data.get('error')
 			if error == 'authorization_pending':
@@ -130,8 +133,12 @@ class Simkl():
 				if not expired or not control.dialog.yesno('Simkl', 'The code expired. Request a new code?'):
 					return False
 
-			control.setSetting('simkl.token', token)
-			control.setSetting('simkl.client.id', SIMKL_CLIENT_ID)
+			bundle = make_bundle(token, self.client_id)
+			if not bundle:
+				control.dialog.ok('Simkl', 'SIMKL did not return a renewable read/write grant. Existing accounts were not changed.')
+				return False
+			save_bundle(bundle)
+			control.setSetting('simkl.username', '')
 
 			# Fetch username
 			try:
@@ -149,6 +156,8 @@ class Simkl():
 			return False
 
 	def revoke(self):
+		control.setSetting('simkl.authorization', '')
+		control.setSetting('simkl.client.id', '')
 		control.setSetting('simkl.token', '')
 		control.setSetting('simkl.username', '')
 		control.dialog.ok('Simkl', 'Simkl account removed from Diggz Account Manager.')
@@ -173,3 +182,84 @@ class Simkl():
 			control.selectDialog(items, 'Simkl Account')
 		except Exception:
 			log_utils.error()
+
+
+# Keep the full grant in one setting; the legacy access token is a compatibility mirror.
+def make_bundle(data, client, previous=None):
+    previous = previous or {}
+    scope = data.get('scope') or previous.get('scope') or ''
+    refresh = data.get('refresh_token') or previous.get('refresh_token')
+    try:
+        lifetime = int(data.get('expires_in') or 0)
+    except (TypeError, ValueError):
+        return None
+    if not data.get('access_token') or not refresh or lifetime <= 0 or not {'media:read', 'media:write'}.issubset(scope.split()):
+        return None
+    return dict(client_id=client, session_id=previous.get('session_id') or uuid.uuid4().hex,
+                access_token=data['access_token'], refresh_token=refresh,
+                expires_at=time.time()+lifetime, scope=scope)
+
+
+def read_bundle():
+    try:
+        a = json.loads(control.setting('simkl.authorization') or '{}')
+        if valid_bundle(a) and a['access_token'] == control.setting('simkl.token'):
+            return a
+    except (ValueError, TypeError, KeyError):
+        pass
+    return {}
+
+
+def valid_bundle(a):
+    try:
+        return bool(a['client_id'] == SIMKL_CLIENT_ID and a['session_id'] and a['access_token'] and a['refresh_token']
+                    and float(a['expires_at']) > 0 and {'media:read','media:write'}.issubset(a['scope'].split()))
+    except (ValueError, TypeError, KeyError, AttributeError):
+        return False
+
+
+def save_bundle(a):
+    control.setSetting('simkl.authorization', json.dumps(a))
+    control.setSetting('simkl.client.id', a['client_id'])
+    control.setSetting('simkl.token', a['access_token'])
+
+
+def refresh_if_due():
+    from reauthorize.modules import tmdbh_compat, vault, server
+    from reauthorize.modules.sync import simkl_sync
+    a = read_bundle()
+    if not a:
+        return False  # existing legacy grants continue to work until user reconnects
+    # Other Kodi installations on this device can renew the same session.
+    stored = vault.stored()
+    try:
+        backup = json.loads(stored.get('simkl.authorization') or '{}')
+    except (TypeError, ValueError):
+        backup = {}
+    changed = False
+    if valid_bundle(backup) and backup['session_id'] == a['session_id'] and float(backup['expires_at']) > float(a['expires_at']):
+        a = backup
+        save_bundle(a)
+        changed = True
+    # Only adopt the exact same authorization session, never a different account.
+    other = tmdbh_compat.read_bundle(tmdbh_compat.SIMKL, 'authorization') if tmdbh_compat.installed(tmdbh_compat.SIMKL) else {}
+    if valid_bundle(other) and other['session_id'] == a['session_id'] and float(other['expires_at']) > float(a['expires_at']):
+        a = other
+        save_bundle(a)
+        changed = True
+    if float(a['expires_at']) <= time.time() + 3600:
+        response = requests.post(TOKEN_POLL_URL, data={'client_id': a['client_id'], 'grant_type': 'refresh_token',
+                                 'refresh_token': a['refresh_token']}, timeout=15)
+        if response.ok:
+            renewed = make_bundle(response.json(), a['client_id'], a)
+            # Do not replace a newly authorized account while this request was outstanding.
+            if renewed and read_bundle() == a:
+                save_bundle(renewed)
+                changed = True
+        elif response.status_code in (400, 401, 403):
+            xbmc.log('[Diggz Account Manager] SIMKL renewal rejected; reconnect if authorization has expired.', xbmc.LOGWARNING)
+    if changed:
+        vault.backup()
+        server.backup()
+        simkl_sync.Auth().simkl_auth(portal_explicit=False)
+    return changed

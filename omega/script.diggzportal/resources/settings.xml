@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<settings>
+	<category label="General">
+		<setting label="Browser Layout" type="lsep"/>
+		<setting label="Mouse / Touchscreen Support" type="bool" id="mouse_touch_support" default="false"/>
+		<setting label="Netflix view (Browser and information screens)" type="bool" id="netflix_view" default="false"/>
+		<setting label="Netflix view (Information screens only)" type="bool" id="netflix_info_view" default="false"/>
+		<setting label="Automatically play trailers in Netflix view (Browser and information screens)" type="bool" id="autoplay_trailer" default="false"/>
+		<setting label="TMDB Options" type="lsep"/>
+		<setting label="Metadata language" type="select" values="bg|cs|da|de|el|en|es|fi|fr|he|hr|hu|it|ja|ko|nl|no|pl|pt|ru|sl|sv|tr|zh" id="LanguageID" default="en"/>
+		<setting label="Include adult content" type="bool" id="include_adults" default="false"/>
+		<setting label="Fanart Clear Logo Lookups?" type="bool" id="fanart_clearlogos" default="true"/>
+	</category>
+	<category label="Accounts">
+		<setting label="token_expires" type="text" id="token_expires" default="" visible="false"/>
+		<setting label="refresh_token" type="text" id="refresh_token" default="" visible="false"/>
+		<setting label="access_token" type="text" id="access_token" default="" visible="false"/>
+		<setting label="trakt_token" type="text" id="trakt_token" default="" visible="false"/>
+		<setting label="Trakt User Slug" id="trakt_slug" type="text" default="" visible="false"/>
+		<setting label="Trakt User Name" id="trakt_user_name" type="text" default="" visible="false"/>
+		<setting label="TMDb session" type="text" id="tmdb_session" default="" visible="false"/>
+		<setting label="TMDb account" type="text" id="tmdb_account" default="" visible="false"/>
+		<setting label="TMDb session application" type="text" id="tmdb_session_client" default="" visible="false"/>
+		<setting label="mdblist_access_token" type="text" id="mdblist_access_token" default="" visible="false"/>
+		<setting label="mdblist_refresh_token" type="text" id="mdblist_refresh_token" default="" visible="false"/>
+		<setting label="mdblist_expires" type="text" id="mdblist_expires" default="" visible="false"/>
+		<setting label="mdblist_identity" type="text" id="mdblist_identity" default="" visible="false"/>
+		<setting label="trakt_oauth_client" type="text" id="trakt_oauth_client" default="" visible="false"/>
+		<setting label="mdblist_key" type="text" id="mdblist_key" default="" visible="false"/>
+		<setting label="Authorize TMDb" type="action" action="RunScript(script.diggzportal,info=account_login,source=tmdb)"/>
+		<setting label="Disconnect TMDb" type="action" action="RunScript(script.diggzportal,info=account_logout,source=tmdb)"/>
+		<setting label="Authorize Trakt" type="action" action="RunScript(script.diggzportal,info=login_trakt)"/>
+		<setting label="Disconnect Trakt" type="action" action="RunScript(script.diggzportal,info=account_logout,source=trakt)"/>
+		<setting label="Authorize MDBList (device code)" type="action" action="RunScript(script.diggzportal,info=account_login,source=mdblist)"/>
+		<setting label="Disconnect MDBList" type="action" action="RunScript(script.diggzportal,info=account_logout,source=mdblist)"/>
+		<setting label="simkl_authorization" type="text" id="simkl_authorization" default="" visible="false"/>
+		<setting label="simkl_manager_grant" type="text" id="simkl_manager_grant" default="" visible="false"/>
+		<setting label="simkl_optout" type="bool" id="simkl_optout" default="false" visible="false"/>
+		<setting label="simkl_managed" type="bool" id="simkl_managed" default="false" visible="false"/>
+		<setting label="Authorize SIMKL (standalone device code)" type="action" action="RunScript(script.diggzportal,info=account_login,source=simkl)"/>
+		<setting label="Disconnect SIMKL" type="action" action="RunScript(script.diggzportal,info=account_logout,source=simkl)"/>
+		<setting label="Watched history indicators (Trakt / MDBList / SIMKL)" type="bool" id="trakt_watched_stats" default="true"/>
+		<setting label="Refresh watched history" type="action" action="RunScript(script.diggzportal,info=account_history)"/>
+	</category>
+	<category label="Content Filtering">
+		<setting label="Hide providers, networks and studios with too few results" type="bool" id="catalog_hide_empty" default="true"/>
+		<setting label="Minimum results on first page (1-20)" type="number" id="catalog_min_category_results" default="10"/>
+		<setting label="Set any minimum to 0 to disable it" type="lsep"/>
+		<setting label="Movies" type="lsep"/>
+		<setting label="Minimum vote count" type="text" id="catalog_movie_votes" default="50"/>
+		<setting label="Minimum popularity" type="text" id="catalog_movie_popularity" default="5"/>
+		<setting label="Minimum rating (0-10)" type="text" id="catalog_movie_rating" default="0"/>
+		<setting label="Minimum runtime (minutes)" type="text" id="catalog_movie_runtime" default="70"/>
+		<setting label="TV Shows" type="lsep"/>
+		<setting label="Minimum vote count" type="text" id="catalog_tv_votes" default="20"/>
+		<setting label="Minimum popularity" type="text" id="catalog_tv_popularity" default="3"/>
+		<setting label="Minimum rating (0-10)" type="text" id="catalog_tv_rating" default="0"/>
+	</category>
+	<category label="Appearance">
+		<setting label="Focused item glow color" type="select" id="poster_border_color" values="White|Silver|Red|Blue|Cyan|Green|Gold|Purple|Orange|None" default="White"/>
+		<setting label="Poster glass effect" type="bool" id="poster_glass" default="true"/>
+	</category>
+	<category label="Maintenance">
+		<setting label="Clear cache..." type="action" action="RunScript(script.diggzportal,info=deletecache)"/>
+		<setting label="Clear expired cache" type="action" action="RunScript(script.diggzportal,info=auto_clean_cache)"/>
+		<setting label="Automatically clear expired cache on startup" type="bool" id="auto_clean_cache_bool" default="true"/>
+	</category>
+</settings>

@@ -12,7 +12,7 @@ from urllib.parse import urlencode, urljoin, urlsplit
 from urllib.request import Request, urlopen
 from html.parser import HTMLParser
 
-UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/130.0.0.0 Safari/537.36'
+UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/154.0.0.0 Safari/537.36'
 REQUEST = threading.local()
 
 SERVERS = ('stream', 'cast', 'watch', 'plus', 'casting', 'player')
@@ -89,6 +89,26 @@ def channels(base):
 
 def extract(source, page=''):
     source = html.unescape(source).replace('\\/', '/')
+    config_match = re.search(r'data-config=["\']([^"\']+)["\']', source)
+    if config_match and page:
+        page = page.split('#', 1)[0]
+        config_url = urljoin(page, config_match.group(1))
+        data, _, _ = fetch(config_url, page)
+        config = json.loads(data)
+        sources = config.get('sources') if isinstance(config, dict) else None
+        if isinstance(sources, list):
+            for candidate in sources:
+                if not isinstance(candidate, str) or '.m3u8' not in candidate:
+                    continue
+                candidate = urljoin(page, candidate)
+                try:
+                    manifest, _, _ = fetch(candidate, page)
+                except Exception as error:
+                    LOG.info('Configured playlist unavailable: %s', reason(error))
+                    continue
+                if manifest.lstrip(b'\xef\xbb\xbf \r\n\t').startswith(b'#EXTM3U'):
+                    return candidate, {}
+        raise ValueError('Player configuration contains no available HLS source')
     match = re.search(r'window\._econfig\s*=\s*[\'"]([^\'"]+)', source)
     if match:
         try:
@@ -107,7 +127,8 @@ def extract(source, page=''):
     match = re.search(r'(?:var|let|const)\s+\w+\s*=\s*\[([\d,\s]+)\]\s*,\s*\w+\s*=\s*(\d+)\s*,\s*\w+\s*=\s*(\d+)', source)
     if match:
         source = ''.join(chr(((int(n) ^ int(match.group(2))) - int(match.group(3))) & 255) for n in match.group(1).split(',') if n.strip())
-        token_link = re.search(r'loadStreamUrl\(\s*["\']([^"\']+)', source)
+        token_link = (re.search(r'loadStreamUrl\(\s*["\']([^"\']+)', source)
+                      or re.search(r'"ticketUrl"\s*:\s*"([^"]+)', source))
         if token_link and page:
             token_url = urljoin(page, token_link.group(1).replace('\\/', '/'))
             token = urlsplit(token_url).path.rstrip('/').rsplit('/', 1)[-1]
@@ -125,6 +146,9 @@ def extract(source, page=''):
         target = urljoin(page, src.group(1))
         token_origin = urljoin(page, edge.group(1)) if edge else ''
         ticket = re.search(r'const\s+TICKET\s*=\s*"([^"]+)"', source)
+        if (re.search(r'const\s+(?:TSITE|CHAL)\b', source)
+                and not ticket and 'playlist-token' not in source):
+            raise ValueError('Player requires a browser challenge; trying another source')
         if (token_origin and slug and (ticket or 'playlist-token' in source)
                 and urlsplit(target).netloc == urlsplit(token_origin).netloc):
             params = {'slug': slug.group(1)}

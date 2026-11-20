@@ -32,7 +32,7 @@ class Auth:
                                         addon.setSetting("filepursuit.enable", enable_file)
                                         addon.setSetting("filepursuittoken", your_file_api)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.umbrella')
                         xbmc.log('%s: Umbrella FilePursuit Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
 
@@ -48,7 +48,7 @@ class Auth:
                                         addon.setSetting("filepursuit.enable", enable_file)
                                         addon.setSetting("filepursuit.api", your_file_api)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('plugin.video.infinity')
                         xbmc.log('%s: Infinity FilePursuit Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
                 
@@ -64,7 +64,7 @@ class Auth:
                                         addon = xbmcaddon.Addon("script.module.allaccounts")
                                         addon.setSetting("filepursuit.api.key", your_file_api)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('script.module.allaccounts')
                         xbmc.log('%s: All Accounts FilePursuit Failed!' % var.amgr, xbmc.LOGINFO)
                         pass
                 
@@ -80,6 +80,6 @@ class Auth:
                                         addon = xbmcaddon.Addon("script.module.myaccounts")
                                         addon.setSetting("filepursuit.api.key", your_file_api)
                 except:
-                        sync_support.failed()
+                        sync_support.failed('script.module.myaccounts')
                         xbmc.log('%s: My Accounts FilePursuit Failed!' % var.amgr, xbmc.LOGINFO)
                         pass

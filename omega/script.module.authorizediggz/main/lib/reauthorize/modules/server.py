@@ -51,7 +51,7 @@ CREDENTIAL_KEYS = vault.CREDENTIAL_KEYS
 
 PRIMARY_KEYS = [
     'realdebrid.token', 'premiumize.token', 'alldebrid.token',
-    'trakt.token', 'torbox.token', 'easydebrid.token', 'simkl.token',
+    'trakt.token', 'torbox.token', 'easydebrid.token', 'simkl.token', 'tmdb.session_id', 'tmdb.authorization',
 ]
 
 
@@ -233,6 +233,7 @@ def backup():
     if not _server_enabled():
         return False
     try:
+        own_settings.sync_service_flags()
         addon = own_settings.addon()
         credentials = {k: addon.getSetting(k) for k in CREDENTIAL_KEYS if addon.getSetting(k)}
         # Never send an older Trakt / PunchPlay pair than the one the local backup holds (vault.keep_newer_pairs).
@@ -293,6 +294,7 @@ def restore():
         addon = own_settings.addon()
         for key, val in credentials.items():
             addon.setSetting(key, val)
+        own_settings.sync_service_flags()
         owner.claim()   # a restore is this device putting its own sign-ins back
 
         xbmc.log('%s Credentials restored from server.' % LOG_TAG, xbmc.LOGINFO)

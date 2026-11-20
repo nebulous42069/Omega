@@ -844,7 +844,7 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.cb20
         <description lang="es_ES">NewsON proporciona acceso instantáneo a emisiones en directo o a la carta de más de 175 emisoras locales en 114 mercados de Estados Unidos. Acceda a noticiarios emitidos hasta 48 horas después de su emisión y comparta historias interesantes con la función integrada para compartir en redes sociales directamente desde la aplicación. Busque una emisora local con el mapa interactivo o vea la emisora más cercana en teléfonos inteligentes, tabletas o reproductores de transmisiones Roku. Guarde sus emisoras favoritas y manténgase al día con las alertas de noticias de última hora enviadas directamente a los dispositivos móviles desde la fuente local de las noticias. Mantente conectado en cualquier momento y lugar sin necesidad de suscribirte a la televisión por cable ni de iniciar sesión.</description>
         <description lang="it_IT">NewsON fornisce accesso istantaneo a trasmissioni in diretta o su richiesta da oltre 175 stazioni locali in 114 mercati statunitensi. Accedi ai notiziari fino a 48 ore dopo la loro messa in onda e condividi storie interessanti con la funzione di condivisione integrata sui social media direttamente dall'app. Cerca una stazione locale con la mappa interattiva o guarda la stazione più vicina a te su smartphone, tablet o lettori streaming Roku. Salva le stazioni preferite e tieniti aggiornato con gli avvisi delle ultime notizie inviati direttamente ai dispositivi mobili dalla fonte locale delle notizie. Rimani connesso sempre e ovunque senza abbonamento via cavo o registrazione.</description>
     </extension>
-</addon><addon id="plugin.video.playlistbrowser" name="Diggz TV Guide Lite" version="2.8.17" provider-name="Diggz">
+</addon><addon id="plugin.video.playlistbrowser" name="Diggz TV Guide Lite" version="2.8.18" provider-name="Diggz">
   <requires>
     <import addon="xbmc.python" version="3.0.0" />
     <import addon="script.module.pycryptodome" optional="true" />
@@ -1060,7 +1060,7 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.sc19
             <fanart>fanart.png</fanart>
         </assets>
     </extension>
-</addon><addon id="script.autorunsxenon2" name="Autoruns Xenon2" version="20" provider-name="fight night, Jon Bovi">
+</addon><addon id="script.autorunsxenon2" name="Autoruns Xenon2" version="21" provider-name="fight night, Jon Bovi">
     <requires>
         <import addon="xbmc.python" version="3.0.1" />
         <import addon="script.module.six" />
@@ -1068,6 +1068,8 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.sc19
         <import addon="visualization.waveform" />
         <import addon="resource.images.studios.white" />
         <import addon="resource.images.studios.coloured" version="1.0.0" />
+		<import addon="plugin.video.imdb.trailers" version="2.1.23" />
+		<import addon="script.diggzportal" />
     </requires>
     <extension point="xbmc.python.pluginsource" library="default.py">
         <provides>executable</provides>
@@ -1168,6 +1170,53 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.sc19
 			<icon>resources/icon.png</icon>
 		</assets>
 		<news>- support for internet radio stations must now be enabled through settings</news>
+	</extension>
+</addon><addon id="script.diggzportal" name="  [B][COLOR white]Diggz Portal[/COLOR][/B]" version="10.24.56" provider-name="fryhenryj">
+	<requires>
+		<import addon="tmdbm.trailers" version="1.0.40" />
+		<import addon="xbmc.python" version="3.0.0" />
+		<import addon="repository.jurialmunkey" version="2.2" optional="true" />
+		<import addon="script.module.requests" version="2.25.1+matrix.1" />
+		<import addon="script.module.infotagger" version="0.0.1" optional="true" />
+		<import addon="script.skin.helper.service" version="1.1.3" optional="true" />
+		<import addon="resource.images.studios.white" version="0.0.28" />
+		<import addon="script.module.pil" version="0.6.0" />
+		<import addon="script.module.dateutil" version="2.8.1" />
+		<import addon="plugin.video.themoviedb.helper" version="4.4.6" />
+		<import addon="plugin.program.autocompletion" version="2.0.2" optional="true" />
+		<import addon="skin.estuary_fix" version="4.1.2a" optional="true" />
+		<import addon="script.module.qrcode" version="6.1.0" />
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="plugin.py">
+		<provides>video</provides>
+	</extension>
+	<extension point="xbmc.python.script" library="script.py" />
+	<extension point="kodi.context.item">
+		<menu id="kodi.core.main">
+			<item library="context.py">
+				<label>Diggz Portal</label>
+				<visible>String.IsEqual(ListItem.dbtype,movie) | String.IsEqual(ListItem.dbtype,tvshow) | String.IsEqual(ListItem.dbtype,season) | String.IsEqual(ListItem.dbtype,episode) | String.IsEqual(ListItem.dbtype,actor) | String.IsEqual(ListItem.dbtype,director)</visible>
+			</item>
+		</menu>
+	</extension>
+	<extension point="xbmc.service" library="service.py" start="login" />
+	<extension point="xbmc.addon.metadata">
+		<reuselanguageinvoker>true</reuselanguageinvoker>
+		<platform>all</platform>
+		<summary>Diggz Portal</summary>
+		<description>This script offers various possibilities to display online content inside skins as well as a complete MovieDB browser including info dialogs for various media types. Movie and episode playback choices are provided by TMDb Helper.</description>
+		<assets>
+			<icon>icon.png</icon>
+			<fanart>fanart.jpg</fanart>
+			<screenshot>resources/screenshot1.jpg</screenshot>
+			<screenshot>resources/screenshot2.jpg</screenshot>
+			<screenshot>resources/screenshot3.jpg</screenshot>
+		</assets>
+		<news>6.2.3 - Fix TV Show trailers
+		6.2.2 - Added ability to search using the tvdb_id for "extendedepisodeinfo"
+		6.2.1 - Fix context menu now available for widgets pointing to Diggz Portal's video addon items
+		6.2.0 - Added context menu force "player select" to the play button, available via "c" and long press "enter" button
+		</news>
 	</extension>
 </addon><addon id="script.diggzskins" name="Diggz Skin Switcher" version="501" provider-name="Diggz">
   <requires>
@@ -1309,7 +1358,7 @@ All changes on GitHub: https://github.com/aitschti/plugin.video.sc19
 		</assets>
 		<news>- code refactor</news>
 	</extension>
-</addon><addon id="script.module.authorizediggz" name="Diggz Account Manager" version="1.4.5.34" provider-name="Zaxxon709, Hermit Murman, Diggz">
+</addon><addon id="script.module.authorizediggz" name="Diggz Account Manager" version="1.4.5.52" provider-name="Zaxxon709, Hermit Murman, Diggz">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
         <import addon="script.module.requests" version="2.19.1" />
@@ -1997,7 +2046,7 @@ v0.2.3
 		<description lang="en_NZ">FENtastic Plus is a modified version of the default Estuary skin for Kodi. It is intended for use with Fen Light, Red Light, The Gears, Umbrella, POV, TMDbH.[CR][CR]See [B]CHANGELOG[/B] located in Skin settings » Extra info for latest changes.</description>
 		<description lang="en_US">FENtastic Plus is a modified version of the default Estuary skin for Kodi. It is intended for use with Fen Light, Red Light, The Gears, Umbrella, POV, TMDbH.[CR][CR]See [B]CHANGELOG[/B] located in Skin settings » Extra info for latest changes.</description>
 	</extension>
-</addon><addon id="skin.xenon2" version="430.99.32" name="[B][COLOR gold]Diggz Xenon[/COLOR][/B]  (Mid Power)" provider-name="SiLVO, Diggz">
+</addon><addon id="skin.xenon2" version="430.99.33" name="[B][COLOR gold]Diggz Xenon[/COLOR][/B]  (Mid Power)" provider-name="SiLVO, Diggz">
 	<requires>
 		<import addon="xbmc.python" version="3.0.0" />
 		<import addon="script.module.requests" version="2.19.1" />

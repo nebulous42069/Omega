@@ -16,6 +16,7 @@
 	polling and calls close() itself when done.
 """
 
+import os
 import threading
 import time
 import xbmc
@@ -31,6 +32,8 @@ class DeviceAuthDialog(xbmcgui.WindowXMLDialog):
 		super(DeviceAuthDialog, self).__init__(*args)  # positional only - Kodi C extension ignores extra kwargs
 		self.service_name = ''
 		self.qr_url = ''
+		self.local_qr_data = None
+		self.qr_controls = []
 		self.verification_url = ''
 		self.user_code = ''
 		self.poll_func = None
@@ -46,13 +49,40 @@ class DeviceAuthDialog(xbmcgui.WindowXMLDialog):
 		self.getControl(102).setLabel('Go to: %s' % self.verification_url)
 		self.getControl(103).setLabel(self.user_code)
 		self.getControl(104).setLabel('Waiting for you to approve on your phone or browser...')
+		self._render_qr()
+		self._thread = threading.Thread(target=self._poll_loop)
+		self._thread.daemon = True
+		self._thread.start()
+
+	def _render_qr(self):
+		if self.local_qr_data:
+			try:
+				# Match the existing TMDB local QR renderer. In this XML the
+				# 360px white backing is at (510+270, 160+110).
+				from reauthorize.modules.qr_local import qr_rectangles
+				main_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
+				texture = os.path.join(main_path, 'resources', 'skins', 'default', 'media', 'common', 'qr_black.png')
+				if not os.path.isfile(texture):
+					raise FileNotFoundError('Packaged QR texture missing')
+				self.qr_controls = [xbmcgui.ControlImage(x, y, w, h, texture, 0, '0xFFFFFFFF')
+				                    for x, y, w, h in qr_rectangles(self.local_qr_data, 780, 270, 360)]
+				self.addControls(self.qr_controls)
+				xbmc.log('[Diggz Account Manager] Local device QR controls added: %d' % len(self.qr_controls), xbmc.LOGINFO)
+				return
+			except Exception as exc:
+				# Keep private verification parameters out of logs and the
+				# public QR service: the caller supplies a public fallback URL.
+				for c in self.qr_controls:
+					try:
+						self.removeControl(c)
+					except Exception:
+						pass
+				self.qr_controls = []
+				xbmc.log('[Diggz Account Manager] Local device QR rendering failed: %s' % type(exc).__name__, xbmc.LOGERROR)
 		try:
 			self.getControl(100).setImage(self.qr_url)
 		except Exception:
 			pass
-		self._thread = threading.Thread(target=self._poll_loop)
-		self._thread.daemon = True
-		self._thread.start()
 
 	def _poll_loop(self):
 		deadline = time.monotonic() + self.expires_in
@@ -112,7 +142,7 @@ class DeviceAuthDialog(xbmcgui.WindowXMLDialog):
 			self.close()
 
 
-def run(service_name, qr_url, verification_url, user_code, poll_func, interval=5, expires_in=900):
+def run(service_name, qr_url, verification_url, user_code, poll_func, interval=5, expires_in=900, local_qr_data=None):
 	"""
 	Shows the QR/code device-authorization dialog and blocks (doModal)
 	until the flow ends. poll_func() is called roughly every `interval`
@@ -125,6 +155,7 @@ def run(service_name, qr_url, verification_url, user_code, poll_func, interval=5
 	w = DeviceAuthDialog('device_auth.xml', addon_path, 'default', '1080i')
 	w.service_name = service_name
 	w.qr_url = qr_url
+	w.local_qr_data = local_qr_data
 	w.verification_url = verification_url
 	w.user_code = user_code
 	w.poll_func = poll_func
