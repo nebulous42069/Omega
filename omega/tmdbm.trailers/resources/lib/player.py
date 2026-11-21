@@ -3031,6 +3031,11 @@ def play_youtube(video_id, title=None, genre=None, year=None,
                 max_height = h
                 max_width = fmt.get('width', 0) or 0
 
+        # DASH requires the correct MIME type and no Kodi-side content sniffing.
+        # Without these, Kodi may issue an HTTP HEAD or hand the MPD to FFmpeg
+        # instead of inputstream.adaptive (especially on Android).
+        li.setMimeType('application/dash+xml')
+        li.setContentLookup(False)
         li.setPath(proxy_url)
         li.setProperty(IA_PROP, 'inputstream.adaptive')
         if max_width and max_height:

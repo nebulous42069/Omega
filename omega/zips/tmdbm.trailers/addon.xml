@@ -1,11 +1,12 @@
 <?xml version='1.0' encoding='utf-8'?>
 <addon id="tmdbm.trailers"
-       version="1.0.40"
+       version="1.0.42"
        name="[B][COLOR FF00CED1]TMDbM [COLOR FFF70D1A]Trailers[/COLOR][/B]"
        provider-name="[B][COLOR FF6AFB92]Angelitto[/COLOR][/B]">
     <requires>
         <import addon="xbmc.python" version="3.0.0" />
         <import addon="script.module.requests" version="2.22.0" />
+        <import addon="inputstream.adaptive" version="19.0.0" />
     </requires>
     <extension point="xbmc.python.pluginsource" library="resources/lib/default.py">
         <provides>video</provides>
