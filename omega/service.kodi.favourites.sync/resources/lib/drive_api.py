@@ -212,6 +212,36 @@ class DriveClient:
         files = data.get("files") or []
         return normalize_metadata(files[0]) if files else None
 
+    def list_appdata_files(self, name_prefix):
+        """List *all* matching appDataFolder files, including additional pages.
+
+        Each device owns one journal, so using pageSize=1 would silently lose
+        changes from most of the household.
+        """
+        files = []
+        page_token = None
+        while True:
+            params = {
+                "q": "trashed=false and '%s' in parents and name contains '%s'" % (
+                    APPDATA_FOLDER, name_prefix.replace("'", "\\'")),
+                "pageSize": 1000,
+                "fields": "nextPageToken,files(id,name,modifiedTime,version,size)",
+                "spaces": APPDATA_FOLDER,
+            }
+            if page_token:
+                params["pageToken"] = page_token
+            data = _request_json("%s?%s" % (DRIVE_FILES_API, urlencode(params)), headers=self._auth_header())
+            for item in (data.get("files") or []):
+                metadata = normalize_metadata(item)
+                if metadata and metadata.get("name", "").startswith(name_prefix):
+                    files.append(metadata)
+            page_token = data.get("nextPageToken")
+            if not page_token:
+                break
+            if len(files) > 10000:
+                raise DriveError("Too many sync journals in Google Drive")
+        return files
+
     def resolve_remote(self, file_id, folder_id, filename, remote_mode="appdata"):
         if remote_mode == "file_id" and file_id:
             return self.get_file(file_id)

@@ -5,11 +5,12 @@ from resources.lib.kodi_compat import (
     get_setting_string,
     log,
     notify,
+    offer_first_import_restart,
     show_ok_dialog,
 )
 from resources.lib.oauth_bridge import OAuthBridgeClient
 from resources.lib.pairing_dialog import create_pairing_dialog
-from resources.lib.sync_engine import persist_oauth_tokens
+from resources.lib.sync_engine import persist_oauth_tokens, perform_sync
 
 
 def _update_pairing_dialog(dialog, percent, line1, line2="", line3=""):
@@ -48,6 +49,7 @@ def pair_google_drive(addon=None):
     interval = max(2, int(pairing.get("interval", 5)))
     expires_in = max(interval, int(pairing.get("expires_in", 600)))
 
+    paired = False
     dialog = create_pairing_dialog(
         addon,
         "Kodi Favourites Sync",
@@ -61,7 +63,7 @@ def pair_google_drive(addon=None):
             _update_pairing_dialog(
                 dialog,
                 percent,
-                "Scan the QR code with your phone and approve Google Drive access.",
+                "Scan QR code to authorize Google Drive.",
                 "URL: %s" % verification_uri,
                 "Code: %s | %ss remaining" % (user_code or "-", remaining),
             )
@@ -97,8 +99,8 @@ def pair_google_drive(addon=None):
                 )
                 persist_oauth_tokens(addon, tokens)
                 log("Token persistence returned successfully", addon=addon)
-                notify(addon, "Kodi Favourites Sync", "Google Drive connected successfully")
-                return True
+                paired = True
+                break
             if state == "failed":
                 raise DriveError(status.get("last_error") or "Browser pairing failed")
             if monitor.waitForAbort(interval):
@@ -110,6 +112,24 @@ def pair_google_drive(addon=None):
         return False
     finally:
         dialog.close()
+
+    if paired:
+        # Run the first merge using the SAME Kodi add-on settings instance that
+        # just stored OAuth tokens. On some Kodi builds the settings screen
+        # temporarily exposes stale values to another launched plugin process.
+        # This also makes a freshly paired, empty Kodi profile join immediately.
+        result = perform_sync(addon=addon, reason="pairing")
+        if result["status"] == "ok":
+            if not offer_first_import_restart(addon, result):
+                notify(addon, "Kodi Favourites Sync", result["message"])
+        else:
+            log("Drive paired, but initial sync failed: %s" % result["message"], level="warning", addon=addon)
+            show_ok_dialog(
+                "Kodi Favourites Sync",
+                "Google Drive connected, but the first favourites sync failed: %s. "
+                "Use Sync favourites now to retry." % result["message"],
+            )
+        return True
 
     show_ok_dialog(
         "Kodi Favourites Sync",

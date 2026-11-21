@@ -3,7 +3,7 @@ from urllib.parse import parse_qsl
 
 from resources.lib.kodi_compat import get_addon, log, set_setting_string
 from resources.lib.pairing_flow import pairing_entrypoint
-from resources.lib.sync_engine import manual_sync_entrypoint
+from resources.lib.sync_engine import manual_sync_entrypoint, show_sync_status_entrypoint, reload_favourites_entrypoint
 
 
 def _query_params():
@@ -25,6 +25,12 @@ def run():
         return
     if action == "sync_now":
         manual_sync_entrypoint()
+        return
+    if action == "status":
+        show_sync_status_entrypoint()
+        return
+    if action == "reload_favourites":
+        reload_favourites_entrypoint()
         return
 
     log("Unknown plugin action: %s" % (action or "<none>"), level="warning", addon=addon)

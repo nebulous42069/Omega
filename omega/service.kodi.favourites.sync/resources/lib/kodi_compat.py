@@ -100,6 +100,125 @@ def show_yesno_dialog(heading, message, yeslabel="Yes", nolabel="No"):
     return xbmcgui.Dialog().yesno(heading, message, yeslabel=yeslabel, nolabel=nolabel)
 
 
+def reload_current_profile():
+    """Reload Kodi's active profile so Kodi reads newly synced favourites.xml.
+
+    Only call after an explicit user choice. Profile reloads may close Kodi's
+    current window or interrupt playback and should never happen in a service
+    background sync. JSON-RPC safely quotes profile names.
+    """
+    if xbmc is None:
+        return False
+    profile_name = xbmc.getInfoLabel("System.ProfileName")
+    if not profile_name:
+        raise RuntimeError("Kodi did not report the active profile name")
+    request = json.dumps({
+        "jsonrpc": "2.0", "id": 1,
+        "method": "Profiles.LoadProfile",
+        "params": {"profile": profile_name, "prompt": True},
+    })
+    response = json.loads(xbmc.executeJSONRPC(request))
+    if "error" in response:
+        raise RuntimeError("Kodi profile reload was refused: %s" % response["error"].get("message", "unknown error"))
+    return True
+
+
+def offer_reload_after_sync(addon, result):
+    """Offer a user-approved refresh after a foreground download only."""
+    if result.get("status") != "ok" or not result.get("changed_local_file") or xbmc is None:
+        return False
+    count = result.get("count", 0)
+    confirmed = show_yesno_dialog(
+        "Kodi Favourites Sync",
+        "Saved %s synced favourite(s) to Kodi userdata. "
+        "Kodi may still show an older in-memory list. "
+        "Reload the active Kodi profile now to display them? "
+        "This may close open windows or interrupt playback. "
+        "Choose No to reload later or restart Kodi instead." % count,
+        yeslabel="Reload now", nolabel="Later",
+    )
+    if not confirmed:
+        return False
+    try:
+        return reload_current_profile()
+    except Exception as exc:
+        log("Could not reload Kodi profile: %s" % exc, level="warning", addon=addon)
+        show_ok_dialog("Kodi Favourites Sync", "Could not reload the Kodi profile. Restart Kodi to display the synced favourites. (%s)" % exc)
+        return False
+
+
+def offer_first_import_restart(addon, result):
+    """Offer a normal Kodi exit after the first cloud favourites import.
+
+    Historical function name retained for callers. Kodi must read the updated
+    favourites.xml on its next launch, but a forced profile reload is slow and
+    RestartApp is not cross-platform. Only the user's explicit confirmation
+    requests a normal Quit; never force-kill the Kodi process.
+
+    Return True if the first-import prompt was shown, including when declined.
+    """
+    if not (
+        result.get("status") == "ok"
+        and result.get("changed_local_file")
+        and result.get("first_cloud_import")
+        and result.get("imported_count", 0) > 0
+    ) or xbmc is None:
+        return False
+
+    count = int(result["imported_count"])
+    message = (
+        "Favourites backup found! "
+        "Downloaded %d favourite(s) from Google Drive and saved them to Kodi. "
+        "Close Kodi now and reopen it to load your imported favourites? "
+        "Choose Later to close Kodi yourself when convenient." % count
+    )
+    if show_yesno_dialog("Kodi Favourites Sync", message,
+                         yeslabel="Close Kodi", nolabel="Later"):
+        try:
+            # Kodi's built-in Quit performs a normal cross-platform shutdown.
+            # Do not call RestartApp, os.kill, or force-stop on Android.
+            xbmc.executebuiltin("Quit")
+        except Exception as exc:
+            log("Could not close Kodi after first import: %s" % exc,
+                level="error", addon=addon)
+            show_ok_dialog(
+                "Kodi Favourites Sync",
+                "Could not close Kodi automatically. Close and reopen Kodi "
+                "to display your imported favourites.",
+            )
+    return True
+
+
+def offer_manual_sync_close(addon, result):
+    """Offer a normal, cross-platform Kodi exit after a manual sync.
+
+    The XML may have been written by *this* sync or a background sync during
+    the same Kodi process. A new Kodi launch will read the saved favourites.
+    Returns True when the Yes/No dialog was displayed, even if declined.
+    """
+    if xbmc is None or result.get("status") != "ok":
+        return False
+    count = int(result.get("count", 0))
+    message = (
+        "Favourites synchronized. %d favourite(s) saved in Kodi's shared collection. "
+        "The updated favourites.xml is already on this device, but Kodi may "
+        "still be showing its previously loaded favourites. "
+        "Close Kodi now and reopen it to display the latest favourites? "
+        "Choose Later to close Kodi yourself when convenient." % count
+    )
+    if show_yesno_dialog("Kodi Favourites Sync", message,
+                         yeslabel="Close Kodi", nolabel="Later"):
+        try:
+            xbmc.executebuiltin("Quit")
+        except Exception as exc:
+            log("Could not close Kodi after manual sync: %s" % exc,
+                level="error", addon=addon)
+            show_ok_dialog("Kodi Favourites Sync",
+                           "Could not close Kodi automatically. Close and reopen Kodi "
+                           "to display synced favourites.")
+    return True
+
+
 def progress_dialog(heading, line1=""):
     if xbmcgui is None:
         return StandaloneProgressDialog(heading, line1)
@@ -195,6 +314,27 @@ def get_setting_string(addon, key, default=""):
     except Exception:  # pragma: no cover
         return default
     return value if value != "" else default
+
+
+def get_enum_index(addon, key, default=0):
+    """Read a Kodi enum without triggering an Invalid setting type log error.
+
+    Kodi's getSettingString() is for text values, not integer-backed enums.
+    Older settings APIs expose enum indices through getSetting() instead.
+    """
+    getter = getattr(addon, "getSettingInt", None)
+    if callable(getter):
+        try:
+            return int(getter(key))
+        except (TypeError, ValueError, RuntimeError, AttributeError):
+            pass
+    try:
+        raw = addon.getSetting(key)
+        if raw is None or raw == "":
+            return int(default)
+        return int(raw)
+    except (TypeError, ValueError, RuntimeError, AttributeError):
+        return int(default)
 
 
 def get_setting_bool(addon, key, default=False):

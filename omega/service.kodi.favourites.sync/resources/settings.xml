@@ -2,15 +2,20 @@
 <settings>
   <category label="General">
     <setting id="pair_google_drive_action" type="action" label="Pair Google Drive now" action="RunPlugin(plugin://service.kodi.favourites.sync/?action=pair_google_drive)"/>
+    <setting id="text_only_pairing" type="bool" label="Use text-only pairing window (no QR)" default="false"/>
     <setting id="sync_on_startup" type="bool" label="Sync on Kodi startup" default="true"/>
-  </category>
-  <category label="Google OAuth">
-    <setting id="oauth_refresh_token" type="text" label="OAuth refresh token" default=""/>
+    <setting id="sync_periodically" type="bool" label="Automatically sync while Kodi is running" default="true"/>
+    <setting id="sync_interval" type="enum" label="Sync interval" values="1 minute|5 minutes|15 minutes|30 minutes" default="1"/>
+    <setting id="reduce_idle_sync" type="bool" label="Reduce sync frequency when idle" default="true"/>
+    <setting id="sync_now_action" type="action" label="Sync favourites now" action="RunPlugin(plugin://service.kodi.favourites.sync/?action=sync_now)"/>
+    <setting id="sync_status_action" type="action" label="Show last sync status" action="RunPlugin(plugin://service.kodi.favourites.sync/?action=status)"/>
+    <setting id="reload_favourites_action" type="action" label="Refresh displayed favourites (reload Kodi profile)" action="RunPlugin(plugin://service.kodi.favourites.sync/?action=reload_favourites)"/>
+    <setting id="oauth_refresh_token" type="text" label="OAuth refresh token" default="" visible="false"/>
     <setting id="oauth_refresh_secret" type="text" label="OAuth refresh secret cache" default="" visible="false"/>
-    <setting id="oauth_access_token" type="text" label="OAuth access token cache" default=""/>
-    <setting id="oauth_access_token_expires_at" type="text" label="OAuth access token expiry cache" default=""/>
-    <setting id="oauth_scope" type="text" label="OAuth granted scope cache" default=""/>
-    <setting id="oauth_bridge_url" type="text" label="OAuth bridge URL" default="https://auth-bridge-rho.vercel.app"/>
+    <setting id="oauth_access_token" type="text" label="OAuth access token cache" default="" visible="false"/>
+    <setting id="oauth_access_token_expires_at" type="text" label="OAuth access token expiry cache" default="" visible="false"/>
+    <setting id="oauth_scope" type="text" label="OAuth granted scope cache" default="" visible="false"/>
+    <setting id="oauth_bridge_url" type="text" label="OAuth bridge URL" default="https://auth-bridge-rho.vercel.app" visible="false"/>
     <setting id="upload_local_changes" type="bool" label="Allow uploading newer local favourites.xml" default="true" visible="false"/>
     <setting id="log_verbose" type="bool" label="Enable verbose logging" default="false" visible="false"/>
     <setting id="pair_on_next_startup" type="bool" label="Launch Google Drive pairing on next Kodi startup" default="false" visible="false"/>

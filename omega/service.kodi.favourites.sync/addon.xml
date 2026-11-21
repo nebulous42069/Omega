@@ -1,26 +1,111 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="service.kodi.favourites.sync"
-       name="Kodi Favourites Sync"
-       version="0.2.36"
-       provider-name="Codex">
+       name="Diggz Kodi Favourites Sync"
+       version="0.3.16"
+       provider-name="Codex, Diggz">
   <requires>
     <import addon="xbmc.python" version="3.0.0"/>
+    <import addon="script.module.qrcode" version="6.1.0"/>
   </requires>
-  <extension point="xbmc.service" library="service.py" start="startup"/>
+  <extension point="xbmc.service" library="service.py"/>
   <extension point="xbmc.python.script" library="sync_now.py"/>
   <extension point="xbmc.python.script" library="pair_google_drive.py"/>
   <extension point="xbmc.python.pluginsource" library="plugin.py"/>
   <extension point="xbmc.addon.metadata">
     <summary lang="en_GB">Sync Kodi favourites.xml with Google Drive</summary>
-    <description lang="en_GB">A minimal background service add-on that syncs Kodi favourites.xml with Google Drive using OAuth refresh tokens.</description>
+    <description lang="en_GB">Two-way household favourites merging via independent Google Drive device journals. Pair each Kodi device to the same account; restart Kodi after incoming changes.</description>
     <assets>
       <icon>resources/icon.png</icon>
       <fanart>resources/fanart.jpg</fanart>
     </assets>
     <platform>all</platform>
     <license>MIT</license>
-    <source>https://example.invalid/service.kodi.favourites.sync</source>
-    <news>v0.2.36
+    <news>v0.3.16
+- Cache revision-verified Google Drive journals and skip downloading unchanged versions
+- Avoid re-writing identical local sync journals, snapshots, and cloud caches
+- Optional idle polling backoff (default on): 5 minutes to 15/30 minutes after long inactivity
+
+v0.3.15
+- Remove the Google OAuth settings category from the user interface
+- Preserve every OAuth and internal setting ID as hidden settings under General for backwards compatibility
+
+v0.3.14
+- Show a persistent result dialog after Sync favourites now instead of a brief notification
+- Offer Close Kodi / Later after any manual sync that updates favourites.xml, not just first import
+- Remember pending display updates from background syncs until Kodi actually restarts
+- Show a small background progress indicator during manual Google Drive sync
+
+v0.3.13
+- Convert recognized Kodi-local thumbnail paths to portable special:// references during sync
+- Normalize safe quoted Kodi filesystem paths inside favourite actions, too
+- Migrate recognized old cloud paths using append-only add/remove events without rewriting other devices' journals
+- Preserve network URLs, plugin links and unrelated local file paths without guessing
+
+v0.3.12
+- Use the same first-import Close Kodi prompt on all platforms, with Kodi's normal Quit builtin rather than RestartApp
+- Preserve Later option; never force-stop Kodi or reload its profile automatically
+
+v0.3.11
+- On the first import of existing favourites from Google Drive, offer an optional Kodi restart (Windows/Linux) or exit-and-reopen (Android/macOS)
+- Only prompt if unseen cloud favourites were actually written to userdata; never prompt on routine synchronizations
+- Continue preserving local favourites and independent two-way device journals
+
+v0.3.10
+- Sync at startup and periodically without a profile reload prompt
+- No unsolicited background download notifications; manual sync still reports status
+- Pairing and Sync Now save favourites silently without reloading Kodi
+
+v0.3.9
+- Fix Google account authorization persistence on Android/Kodi 22 using verified local add-on userdata credentials
+
+v0.3.8
+- Synchronize immediately after pairing; handle a missing userdata favourites.xml
+
+v0.3.7
+- Shorten the QR pairing instruction so it fits on one line and is no longer clipped by the custom dialog
+
+v0.3.6
+- Remove redundant pairing code beside QR countdown; retain full activation URL and QR
+- Keep the same countdown in the alternate QR fallback window
+
+v0.3.5
+- Fix QR image generator on Kodi Python 3.8 by using Kodi's supported script.module.qrcode 6.1+ dependency
+- Remove incompatible bundled QRCode 8.x Python library entirely
+- Continue writing PNGs without PIL, keep QR pairing enabled by default and both Kodi QR display paths
+
+v0.3.4
+- Make QR the actual default for upgraded installs, ignoring stale v0.3.1 pairing mode enums
+- Use an XML-independent QR dialog if the custom XML window cannot load
+- Report QR errors clearly in the fallback dialog and Kodi log rather than silently switching modes
+- Defer window controls updates until XML initialization completes
+
+v0.3.3
+- Fix pairing crash on Kodi with Python 3.8 by making bundled QR encoder type aliases compatible
+- Lazily load the QR encoder so an encoder failure cannot crash the entire pairing menu
+- Read integer enum settings using getSettingInt to avoid Invalid setting type at service startup
+- Keep QR as the default pairing method, with the skin-native text dialog as fallback
+
+v0.3.2
+- Default pairing to QR for fresh installs; preserve previously saved pairing-style choices
+- Read pairing-style enum using Kodi integer or legacy settings APIs
+- Generate QR images completely offline with bundled Python QR encoder (no third-party QR image service)
+- Report QR startup failures in the Kodi log and clean up temporary QR files
+
+v0.3.1
+- Default Google Drive pairing to Kodi native skin-styled progress dialog
+- Keep optional QR window with separate readable URL, status, code and Cancel layout
+- Fall back to native pairing if third-party QR image generation fails
+
+v0.3.0
+- Merge favourites across devices on initial connection without deleting existing entries
+- Use independent per-device Google Drive journals to avoid concurrent whole-file overwrites
+- Synchronize additions and observed deletions, including after a device was offline
+- Enable the previously commented-out service and add 1/5/15/30-minute automatic sync
+- Validate XML/journals, retain local backup copies, and atomically replace favourites.xml
+- Import the existing Google Drive favourites.xml on first v2 sync and preserve the legacy copy
+- Add Sync Now and Last Sync Status settings; restart Kodi after remote changes
+
+v0.2.36
 - Stop using `datetime.strptime` for Google Drive timestamps so Shield startup sync does not crash while parsing remote modified times
 
 v0.2.35
