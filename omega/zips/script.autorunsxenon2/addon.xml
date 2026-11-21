@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <addon id="script.autorunsxenon2"
        name="Autoruns Xenon2"
-       version="21"
+       version="22"
        provider-name="fight night, Jon Bovi">
     <requires>
         <import addon="xbmc.python" version="3.0.1" />
@@ -12,6 +12,7 @@
         <import addon="resource.images.studios.coloured" version="1.0.0" />
 		<import addon="plugin.video.imdb.trailers" version="2.1.23" />
 		<import addon="script.diggzportal" />
+		<import addon="tmdbm.trailers" version="1.0.42" />
     </requires>
     <extension point="xbmc.python.pluginsource" library="default.py">
         <provides>executable</provides>
