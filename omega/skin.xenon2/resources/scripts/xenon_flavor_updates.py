@@ -13,6 +13,7 @@ import zipfile
 
 import xbmc
 import xbmcgui
+import xbmcvfs
 
 # Paste the public HTTPS URL of flavors.json between these quotes.
 MANIFEST_URL = 'https://raw.githubusercontent.com/Buildtexts69/omegabuilds/main/Xenon_Flavors/flavors.json'
@@ -80,10 +81,43 @@ def _validate_release(release):
         raise ValueError('Invalid flavor SHA-256')
 
 
+def _write_extracted_file(path, data):
+    """Write through Kodi's VFS, with native I/O as a compatibility fallback."""
+    vfs_error = None
+    stream = None
+    try:
+        stream = xbmcvfs.File(path, 'wb')
+        if stream is None:
+            raise IOError('Kodi VFS could not open the destination')
+        result = stream.write(data)
+        if result is False:
+            raise IOError('Kodi VFS could not write the destination')
+    except Exception as exc:
+        vfs_error = exc
+    finally:
+        if stream is not None:
+            stream.close()
+
+    if vfs_error is not None:
+        try:
+            with open(path, 'wb') as stream:
+                stream.write(data)
+                stream.flush()
+        except Exception as native_error:
+            raise IOError(
+                'Kodi VFS write failed (%s); native write failed (%s)'
+                % (vfs_error, native_error)
+            )
+
+    if not os.path.isfile(path) or os.path.getsize(path) != len(data):
+        raise IOError('Extracted file failed its size check: ' + os.path.basename(path))
+
+
 def _extract(release, destination):
     data = _download(release['url'], MAX_ARCHIVE)
     if hashlib.sha256(data).hexdigest() != release['sha256'].lower():
         raise ValueError('Flavor checksum mismatch')
+    os.makedirs(destination, exist_ok=True)
     with zipfile.ZipFile(io.BytesIO(data)) as archive:
         files = [entry for entry in archive.infolist() if not entry.is_dir()]
         if len(files) > 250 or sum(entry.file_size for entry in files) > MAX_ARCHIVE:
@@ -93,13 +127,30 @@ def _extract(release, destination):
             if not entry.filename.startswith(PREFIX):
                 raise ValueError('Unexpected flavor ZIP layout')
             name = entry.filename[len(PREFIX):]
-            if not re.fullmatch(r'(?:skin\.xenon2-[a-zA-Z0-9_.-]+\.DATA\.xml|skin\.xenon2\.properties|settings\.xml)', name):
+            if not re.fullmatch(
+                    r'(?:skin\.xenon2-[a-zA-Z0-9_.-]+\.DATA\.xml|skin\.xenon2\.properties|settings\.xml)',
+                    name):
                 raise ValueError('Unexpected flavor filename')
             if name.casefold() in seen:
                 raise ValueError('Duplicate flavor filename')
             seen.add(name.casefold())
-            with open(os.path.join(destination, name), 'wb') as stream:
-                stream.write(archive.read(entry))
+
+            # Refuse special ZIP records masquerading as ordinary files.
+            file_type = (entry.external_attr >> 16) & 0o170000
+            if file_type not in (0, 0o100000):
+                raise ValueError('Flavor ZIP contains a non-regular file: ' + name)
+
+            output_path = os.path.join(destination, name)
+            payload = archive.read(entry)
+            try:
+                _write_extracted_file(output_path, payload)
+            except Exception as exc:
+                xbmc.log(
+                    'Xenon Flavor Update: could not write %s (%s): %s'
+                    % (name, type(exc).__name__, str(exc)),
+                    xbmc.LOGERROR
+                )
+                raise
 
 
 def download_flavor(flavor, destination):
