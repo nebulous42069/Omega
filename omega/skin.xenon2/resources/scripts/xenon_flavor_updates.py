@@ -5,7 +5,6 @@ import io
 import json
 import os
 import re
-import tempfile
 import time
 import urllib.parse
 import urllib.request
@@ -13,7 +12,6 @@ import zipfile
 
 import xbmc
 import xbmcgui
-import xbmcvfs
 
 # Paste the public HTTPS URL of flavors.json between these quotes.
 MANIFEST_URL = 'https://raw.githubusercontent.com/Buildtexts69/omegabuilds/main/Xenon_Flavors/flavors.json'
@@ -81,43 +79,19 @@ def _validate_release(release):
         raise ValueError('Invalid flavor SHA-256')
 
 
-def _write_extracted_file(path, data):
-    """Write through Kodi's VFS, with native I/O as a compatibility fallback."""
-    vfs_error = None
-    stream = None
-    try:
-        stream = xbmcvfs.File(path, 'wb')
-        if stream is None:
-            raise IOError('Kodi VFS could not open the destination')
-        result = stream.write(data)
-        if result is False:
-            raise IOError('Kodi VFS could not write the destination')
-    except Exception as exc:
-        vfs_error = exc
-    finally:
-        if stream is not None:
-            stream.close()
-
-    if vfs_error is not None:
-        try:
-            with open(path, 'wb') as stream:
-                stream.write(data)
-                stream.flush()
-        except Exception as native_error:
-            raise IOError(
-                'Kodi VFS write failed (%s); native write failed (%s)'
-                % (vfs_error, native_error)
-            )
-
-    if not os.path.isfile(path) or os.path.getsize(path) != len(data):
-        raise IOError('Extracted file failed its size check: ' + os.path.basename(path))
+def is_flavor_filename(name, flags=0):
+    return re.fullmatch(
+        r'(?:skin\.xenon2-[a-zA-Z0-9_.-]+\.DATA\.xml|skin\.xenon2\.properties|settings\.xml)',
+        name, flags,
+    ) is not None
 
 
-def _extract(release, destination):
+def download_flavor(release):
+    """Download and validate the selected preset before touching the profile."""
     data = _download(release['url'], MAX_ARCHIVE)
     if hashlib.sha256(data).hexdigest() != release['sha256'].lower():
         raise ValueError('Flavor checksum mismatch')
-    os.makedirs(destination, exist_ok=True)
+    preset = {}
     with zipfile.ZipFile(io.BytesIO(data)) as archive:
         files = [entry for entry in archive.infolist() if not entry.is_dir()]
         if len(files) > 250 or sum(entry.file_size for entry in files) > MAX_ARCHIVE:
@@ -127,9 +101,7 @@ def _extract(release, destination):
             if not entry.filename.startswith(PREFIX):
                 raise ValueError('Unexpected flavor ZIP layout')
             name = entry.filename[len(PREFIX):]
-            if not re.fullmatch(
-                    r'(?:skin\.xenon2-[a-zA-Z0-9_.-]+\.DATA\.xml|skin\.xenon2\.properties|settings\.xml)',
-                    name):
+            if not is_flavor_filename(name):
                 raise ValueError('Unexpected flavor filename')
             if name.casefold() in seen:
                 raise ValueError('Duplicate flavor filename')
@@ -140,23 +112,10 @@ def _extract(release, destination):
             if file_type not in (0, 0o100000):
                 raise ValueError('Flavor ZIP contains a non-regular file: ' + name)
 
-            output_path = os.path.join(destination, name)
-            payload = archive.read(entry)
-            try:
-                _write_extracted_file(output_path, payload)
-            except Exception as exc:
-                xbmc.log(
-                    'Xenon Flavor Update: could not write %s (%s): %s'
-                    % (name, type(exc).__name__, str(exc)),
-                    xbmc.LOGERROR
-                )
-                raise
-
-
-def download_flavor(flavor, destination):
-    """Download the selected release into a private, empty directory."""
-    _extract(flavor, destination)
-    return flavor['version']
+            preset[name] = archive.read(entry)
+    if 'skin.xenon2-mainmenu.DATA.xml' not in preset:
+        raise ValueError('The flavor is missing its main menu.')
+    return preset
 
 
 def _skin_string(name):
@@ -237,19 +196,18 @@ def _check_active(setup, dialog, monitor, flavor_id, manual):
     if choice != 1:
         return
     try:
-        with tempfile.TemporaryDirectory(prefix='flavor-update-', dir=setup.PROFILE) as source:
-            progress = xbmcgui.DialogProgressBG()
-            progress.create(TITLE, 'Downloading and checking the flavor update')
-            try:
-                _extract(release, source)
-            finally:
-                progress.close()
-            if monitor.abortRequested() or _skin_string(ACTIVE) != flavor_id:
-                return
-            selected = setup.choose_update_menus(flavor, source)
-            if selected is None or monitor.abortRequested() or _skin_string(ACTIVE) != flavor_id:
-                return
-            setup.apply_flavor(flavor, selected, source=source, version=version, keep_backup=True)
+        progress = xbmcgui.DialogProgressBG()
+        progress.create(TITLE, 'Downloading and checking the flavor update')
+        try:
+            files = download_flavor(release)
+        finally:
+            progress.close()
+        if monitor.abortRequested() or _skin_string(ACTIVE) != flavor_id:
+            return
+        selected = setup.choose_update_menus(flavor, files)
+        if selected is None or monitor.abortRequested() or _skin_string(ACTIVE) != flavor_id:
+            return
+        setup.apply_flavor(flavor, selected, files=files, version=version)
     except Exception as exc:
-        xbmc.log('Xenon Flavor Update apply failed (%s).' % type(exc).__name__, xbmc.LOGWARNING)
+        xbmc.log('Xenon Flavor Update apply failed: %s' % exc, xbmc.LOGWARNING)
         dialog.ok(TITLE, 'The flavor update could not finish. See kodi.log.')

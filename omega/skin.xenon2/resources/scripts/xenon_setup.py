@@ -8,10 +8,7 @@ import os
 import re
 import time
 import sys
-import shutil
-import tempfile
 import traceback
-import hashlib
 import uuid
 import errno
 import xml.etree.ElementTree as ET
@@ -202,7 +199,9 @@ SERVICES = [
 ]
 # Each flavor is a complete read-only script.skinshortcuts folder.
 # Labels within that flavor identify checklist entries; duplicate labels are grouped.
-MENU_FILE = 'special://profile/addon_data/script.skinshortcuts/skin.xenon2-mainmenu.DATA.xml'
+SHORTCUTS_DIR = 'special://profile/addon_data/script.skinshortcuts/'
+MAIN_MENU = 'skin.xenon2-mainmenu.DATA.xml'
+MENU_FILE = SHORTCUTS_DIR + MAIN_MENU
 # Setup launcher entries are hidden after applying a flavor.
 DISABLED_SETUP_LABELS = ['Xenon Setup', 'Xenon 2 Setup', 'Xenon2 Setup']
 
@@ -894,24 +893,6 @@ def plan_home_menus(original, flavor, selected_labels):
     return ET.tostring(root, encoding='utf-8', xml_declaration=True)
 
 
-def directory_manifest(path):
-    """Validate source files and detect concurrent live-profile edits."""
-    if not os.path.exists(path):
-        return None
-    if not os.path.isdir(path) or os.path.islink(path):
-        raise ValueError('Expected a real Skin Shortcuts directory.')
-    files = {}
-    for parent, directories, names in os.walk(path):
-        for name in directories + names:
-            if os.path.islink(os.path.join(parent, name)):
-                raise ValueError('Flavor/profile folders must not contain symlinks.')
-        for name in names:
-            full = os.path.join(parent, name)
-            with open(full, 'rb') as stream:
-                files[os.path.relpath(full, path)] = hashlib.sha256(stream.read()).hexdigest()
-    return files
-
-
 def sync_file_if_available(stream):
     """Xbox UWP Python omits fsync; retain it on runtimes that provide it."""
     stream.flush()
@@ -920,71 +901,84 @@ def sync_file_if_available(stream):
         fsync(stream.fileno())
 
 
-def copy_flavor_contents(source, destination):
-    """Copy data without chmod/utime metadata operations on Android storage."""
-    os.makedirs(destination, exist_ok=True)
-    for parent, directories, names in os.walk(source):
-        target = os.path.join(destination, os.path.relpath(parent, source))
-        os.makedirs(target, exist_ok=True)
-        for name in directories:
-            os.makedirs(os.path.join(target, name), exist_ok=True)
-        for name in names:
-            shutil.copyfile(os.path.join(parent, name), os.path.join(target, name))
-
-
-def apply_flavor(flavor, menu_ids=None, refresh=True, *, source, version, keep_backup=False):
-    source_manifest = directory_manifest(source)
-    if source_manifest is None:
-        raise ValueError('Flavor folder not found: ' + source)
-    with open(os.path.join(source, 'skin.xenon2-mainmenu.DATA.xml'), 'rb') as stream:
-        original_menu = stream.read()
-    updated = plan_home_menus(original_menu, flavor, menu_ids or [])
-    # Validate every supplied menu/submenu file before touching the live folder.
-    for relative in source_manifest:
-        if relative.endswith('.DATA.xml'):
-            ET.parse(os.path.join(source, relative))
-    live = os.path.dirname(xbmcvfs.translatePath(MENU_FILE))
-    source_path, live_path = os.path.realpath(source), os.path.realpath(live)
+def read_shortcut_file(path):
+    stream = xbmcvfs.File(path)
     try:
-        common = os.path.commonpath([source_path, live_path])
-    except ValueError:
-        common = None  # Source and profile can be on different Windows drives.
-    if common in (source_path, live_path):
-        raise ValueError('Flavor source and live profile must be separate directories.')
-    os.makedirs(os.path.dirname(live), exist_ok=True)
-    live_manifest = directory_manifest(live)
-    stage = tempfile.mkdtemp(prefix='.xenon-shortcuts-stage-', dir=os.path.dirname(live))
-    rollback = live + '.wizard-rollback-' + str(time.time_ns()) if live_manifest is not None else None
-    moved_original = False
-    try:
-        copy_flavor_contents(source, stage)
-        if directory_manifest(stage) != source_manifest or directory_manifest(source) != source_manifest:
-            raise ValueError('The flavor source changed while copying. No live changes made.')
-        with open(os.path.join(stage, 'skin.xenon2-mainmenu.DATA.xml'), 'wb') as stream:
-            stream.write(updated)
-            stream.flush()
-            sync_file_if_available(stream)
-        if directory_manifest(live) != live_manifest:
-            raise ValueError('The current Skin Shortcuts profile changed while saving. Please try again.')
-        if rollback:
-            os.replace(live, rollback)
-            moved_original = True
-        try:
-            os.replace(stage, live)
-        except Exception:
-            if moved_original:
-                os.replace(rollback, live)
-                moved_original = False
-            raise
+        size = stream.size()
+        data = bytes(stream.readBytes())
     finally:
-        if os.path.isdir(stage):
-            shutil.rmtree(stage)
-    # Rollback exists only for the swap; successful installs retain no history.
-    if moved_original and rollback and not keep_backup and os.path.isdir(rollback):
-        try:
-            shutil.rmtree(rollback)
-        except OSError as exc:
-            xbmc.log('Xenon Setup: could not remove temporary rollback folder %s: %s' % (rollback, exc), xbmc.LOGWARNING)
+        stream.close()
+    if len(data) != size:
+        raise OSError('Could not read the complete shortcut file: ' + path)
+    return data
+
+
+def write_shortcut_file(path, data):
+    stream = xbmcvfs.File(path, 'w')
+    try:
+        if not stream.write(data):
+            raise OSError('Could not write shortcut file: ' + path)
+    finally:
+        stream.close()
+    if read_shortcut_file(path) != data:
+        raise OSError('Shortcut file verification failed: ' + path)
+
+
+def delete_shortcut_file(path):
+    if not xbmcvfs.delete(path) and xbmcvfs.exists(path):
+        raise OSError('Could not remove shortcut file: ' + path)
+
+
+def save_shortcut_files(files):
+    if not xbmcvfs.exists(SHORTCUTS_DIR):
+        if not xbmcvfs.mkdirs(SHORTCUTS_DIR) and not xbmcvfs.exists(SHORTCUTS_DIR):
+            raise OSError('Could not create the Skin Shortcuts profile folder.')
+    _, names = xbmcvfs.listdir(SHORTCUTS_DIR)
+    originals = {
+        name: read_shortcut_file(SHORTCUTS_DIR + name)
+        for name in names if xenon_flavor_updates.is_flavor_filename(name, re.IGNORECASE)
+    }
+    existing_names = {name.casefold(): name for name in originals}
+    if len(existing_names) != len(originals):
+        raise ValueError('The current profile has conflicting shortcut filenames.')
+    for name in files:
+        if existing_names.get(name.casefold(), name) != name:
+            raise ValueError('The current profile has a shortcut with conflicting capitalization: ' + name)
+    # Files outside the Xenon preset can belong to other skins.
+    touched = []
+    try:
+        for name, data in files.items():
+            if originals.get(name) != data:
+                touched.append(name)
+                write_shortcut_file(SHORTCUTS_DIR + name, data)
+        for name in originals:
+            if name not in files:
+                touched.append(name)
+                delete_shortcut_file(SHORTCUTS_DIR + name)
+    except Exception as exc:
+        failed = []
+        for name in reversed(touched):
+            path = SHORTCUTS_DIR + name
+            try:
+                if name in originals:
+                    write_shortcut_file(path, originals[name])
+                elif xbmcvfs.exists(path):
+                    delete_shortcut_file(path)
+            except Exception:
+                failed.append(name)
+                xbmc.log('Xenon Setup: shortcut restore failed\n' + traceback.format_exc(), xbmc.LOGERROR)
+        if failed:
+            raise OSError('%s. Could not restore: %s' % (exc, ', '.join(failed))) from exc
+        raise
+
+
+def apply_flavor(flavor, menu_ids=None, refresh=True, *, files, version):
+    updated = dict(files)
+    updated[MAIN_MENU] = plan_home_menus(files[MAIN_MENU], flavor, menu_ids or [])
+    for name, data in updated.items():
+        if name.lower().endswith('.xml'):
+            ET.fromstring(data)
+    save_shortcut_files(updated)
     xbmc.executebuiltin('Skin.SetString(Xenon2.Setup.Flavor,%s)' % flavor['id'])
     xbmc.executebuiltin('Skin.SetString(Xenon2.Setup.FlavorVersion,%s)' % version)
     if refresh:
@@ -1112,15 +1106,12 @@ def menu_enabled(entries):
     return all(entry.findtext('disabled', '').strip().lower() != 'true' for entry in entries)
 
 
-def choose_update_menus(flavor, source):
-    with open(os.path.join(source, 'skin.xenon2-mainmenu.DATA.xml'), 'rb') as stream:
-        menu = stream.read()
-    _, new_groups = profile_entries(menu, flavor)
+def choose_update_menus(flavor, files):
+    _, new_groups = profile_entries(files[MAIN_MENU], flavor)
+    old_groups = {}
     try:
-        with open(xbmcvfs.translatePath(MENU_FILE), 'rb') as stream:
-            _, old_groups = profile_entries(stream.read(), {'always_labels': []})
-    except FileNotFoundError:
-        old_groups = {}
+        if xbmcvfs.exists(MENU_FILE):
+            _, old_groups = profile_entries(read_shortcut_file(MENU_FILE), {'always_labels': []})
     except (OSError, ValueError, ET.ParseError):
         xbmc.log('Xenon Setup: could not read current menu selections; using flavor defaults.', xbmc.LOGWARNING)
         old_groups = {}
@@ -1322,7 +1313,7 @@ def run():
         return
     token = uuid.uuid4().hex
     resume = None
-    flavor_download = None
+    flavor_files = None
     downloaded_flavor = None
     try:
         if home.getProperty(lock):
@@ -1388,19 +1379,14 @@ def run():
             if stage == 'menus':
                 flavor = flavors[flavor_index]
                 if downloaded_flavor != flavor['id']:
-                    if flavor_download is not None:
-                        flavor_download.cleanup()
-                        flavor_download = None
                     downloaded_flavor = None
                     progress = xbmcgui.DialogProgressBG()
                     progress.create('Xenon Setup', 'Downloading %s' % flavor['name'])
                     error = None
                     try:
-                        flavor_download = tempfile.TemporaryDirectory(prefix='flavor-setup-', dir=PROFILE)
-                        version = xenon_flavor_updates.download_flavor(flavor, flavor_download.name)
-                        path = os.path.join(flavor_download.name, 'skin.xenon2-mainmenu.DATA.xml')
-                        with open(path, 'rb') as stream:
-                            flavor_menu = stream.read()
+                        flavor_files = xenon_flavor_updates.download_flavor(flavor)
+                        flavor_menu = flavor_files[MAIN_MENU]
+                        version = flavor['version']
                         profile_entries(flavor_menu, flavor)
                         downloaded_flavor = flavor['id']
                     except Exception as exc:
@@ -1482,7 +1468,7 @@ def run():
                 try:
                     flavor = flavors[flavor_index]
                     apply_flavor(flavor, menu_choices.get(flavor['id'], []), refresh=False,
-                                 source=flavor_download.name, version=version)
+                                 files=flavor_files, version=version)
                 except (OSError, ValueError, ET.ParseError) as exc:
                     xbmc.log('Xenon Setup: could not apply Home menus\n' + traceback.format_exc(), xbmc.LOGERROR)
                     xbmcgui.Dialog().ok('Could not apply Home menus', str(exc))
@@ -1554,8 +1540,6 @@ def run():
                 home.clearProperty('Xenon2.Setup.TrackingReady.' + resume['job'])
             if home.getProperty(lock) == token:
                 home.clearProperty(lock)
-            if flavor_download is not None:
-                flavor_download.cleanup()
         finally:
             session.release()
         xbmc.log('Xenon Setup: wizard session ended; session lock released.', xbmc.LOGINFO)
